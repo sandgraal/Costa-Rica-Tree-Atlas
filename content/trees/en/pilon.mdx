@@ -16,10 +16,6 @@ uses:
   - "Stairs and handrails"
   - "Outdoor furniture"
 featuredImage: "/images/trees/pilon.jpg"
-images:
-  - "/images/trees/pilon-bark.jpg"
-  - "/images/trees/pilon-leaves.jpg"
-  - "/images/trees/pilon-wood.jpg"
 publishedAt: "2024-12-19"
 updatedAt: "2024-12-19"
 ---
@@ -33,17 +29,65 @@ updatedAt: "2024-12-19"
   hardwoods.
 </Callout>
 
-<QuickRef
-  title="Quick Reference"
-  items={[
-    { label: "Scientific Name", value: "Hyeronima alchorneoides" },
-    { label: "Family", value: "Phyllanthaceae" },
-    { label: "Max Height", value: "25-40 m (80-130 ft)" },
-    { label: "Hardness", value: "Similar to Teak" },
-    { label: "Durability", value: "High" },
-    { label: "Status", value: "Managed Resource" },
-  ]}
-/>
+<TwoColumn>
+  <Column>
+    <QuickRef
+      title="Quick Reference"
+      items={[
+        { label: "Scientific Name", value: "Hyeronima alchorneoides" },
+        { label: "Family", value: "Phyllanthaceae" },
+        { label: "Max Height", value: "25-40 m (80-130 ft)" },
+        { label: "Hardness", value: "~1,500 lbf (Janka)" },
+        { label: "Durability", value: "High" },
+        { label: "Conservation", value: "Managed Resource" },
+      ]}
+    />
+  </Column>
+  <Column>
+    <INaturalistEmbed
+      taxonId="275140"
+      taxonName="Hieronyma alchorneoides"
+      observationCount={298}
+    />
+  </Column>
+</TwoColumn>
+
+---
+
+## 📸 Photo Gallery
+
+<ImageGallery>
+  <ImageCard
+    src="https://inaturalist-open-data.s3.amazonaws.com/photos/177142611/medium.jpeg"
+    alt="Pilón tree leaves"
+    title="Pilón Foliage"
+    credit="João Gava Just"
+    license="CC BY-NC"
+    sourceUrl="https://www.inaturalist.org/observations/108372073"
+  />
+  <ImageCard
+    src="https://inaturalist-open-data.s3.amazonaws.com/photos/178214958/medium.jpeg"
+    alt="Pilón tree in habitat"
+    title="Tree in Natural Habitat"
+    credit="iNaturalist Community"
+    license="CC BY-NC"
+    sourceUrl="https://www.inaturalist.org/taxa/275140-Hieronyma-alchorneoides/browse_photos"
+  />
+  <ImageCard
+    src="https://inaturalist-open-data.s3.amazonaws.com/photos/61330371/medium.jpeg"
+    alt="Pilón botanical details"
+    title="Botanical Details"
+    credit="iNaturalist Community"
+    license="CC BY-NC"
+    sourceUrl="https://www.inaturalist.org/taxa/275140-Hieronyma-alchorneoides/browse_photos"
+  />
+</ImageGallery>
+
+<Callout type="info">
+  Photos sourced from iNaturalist's community science database. [Browse all 298+
+  observations
+  →](https://www.inaturalist.org/taxa/275140-Hieronyma-alchorneoides/browse_photos)
+</Callout>
 
 ---
 
@@ -58,15 +102,21 @@ updatedAt: "2024-12-19"
   <PropertyCard icon="🔬" label="Species" value="H. alchorneoides" />
 </PropertiesGrid>
 
-### Common Names Around the Region
-
-| Country       | Common Name    | Notes                  |
-| ------------- | -------------- | ---------------------- |
-| 🇨🇷 Costa Rica | Pilón          | Primary name           |
-| 🇵🇦 Panama     | Pilón          | Same as Costa Rica     |
-| 🇳🇮 Nicaragua  | Pilón          | Same as Costa Rica     |
-| 🇨🇴 Colombia   | Pilón rojo     | "Red Pilón" - regional |
-| 🇬🇧 English    | Pilón hardwood | Informal trade name    |
+<Accordion>
+  <AccordionItem title="📍 Common Names by Region">
+    | Country | Common Name | Notes | |---------|-------------|-------| | 🇨🇷
+    Costa Rica | Pilón | Primary name | | 🇵🇦 Panama | Pilón | Same as Costa Rica
+    | | 🇳🇮 Nicaragua | Pilón | Same as Costa Rica | | 🇨🇴 Colombia | Pilón rojo |
+    "Red Pilón" - regional | | 🇬🇧 English | Pilón hardwood | Informal trade name
+    |
+  </AccordionItem>
+  <AccordionItem title="🔬 Taxonomic Notes">
+    The genus name *Hyeronima* (sometimes spelled *Hieronyma*) honors the German
+    botanist Georg Hieronymus (1846–1921). The species epithet *alchorneoides*
+    refers to its resemblance to plants in the genus *Alchornea*. **Synonyms**:
+    *Hieronyma alchorneoides* (alternate spelling commonly seen in databases)
+  </AccordionItem>
+</Accordion>
 
 ---
 
@@ -83,12 +133,16 @@ updatedAt: "2024-12-19"
   ]}
 />
 
-Pilón is native to Central America and northern South America. In Costa Rica, it is commonly found in **lowland and premontane zones**, particularly in humid and very humid forests.
-
-<Callout type="info" title="Habitat in Costa Rica">
-  Look for Pilón in the Atlantic lowlands, the Osa Peninsula, and the Northern
-  Zone. It thrives in areas with high rainfall and well-drained soils.
-</Callout>
+<FeatureBox
+  icon="🇨🇷"
+  title="Where to Find Pilón in Costa Rica"
+  variant="highlight"
+>
+  **Primary Habitats:** - **Atlantic Lowlands** — Abundant in Limón Province -
+  **Osa Peninsula** — Old-growth specimens in protected areas - **Northern
+  Zone** — San Carlos, Sarapiquí regions - **Central Valley foothills** —
+  Premontane forests **Elevation:** Sea level to ~1,000 m
+</FeatureBox>
 
 ---
 
@@ -105,7 +159,7 @@ Pilón is native to Central America and northern South America. In Costa Rica, i
     icon="🌧️"
     label="Climate"
     value="Humid Tropical"
-    description="High rainfall preferred"
+    description="2,500-5,000+ mm/year"
   />
   <PropertyCard
     icon="🪨"
@@ -121,58 +175,82 @@ Pilón is native to Central America and northern South America. In Costa Rica, i
   />
 </PropertiesGrid>
 
-Pilón is a medium- to large-sized forest tree, contributing to forest structure and long-term biomass. **It is not a pioneer species**; it thrives in established forest systems, growing slowly but persistently toward the canopy.
+<TwoColumn>
+  <Column>
+    <FeatureBox icon="🌳" title="Ecological Role">
+      Pilón is a **canopy to sub-canopy species** that contributes significantly
+      to: - Forest structure and vertical stratification - Long-term carbon
+      storage (slow-growing = dense wood) - Habitat for epiphytes and canopy
+      wildlife - Seed dispersal networks
+    </FeatureBox>
+  </Column>
+  <Column>
+    <FeatureBox icon="⚡" title="Growth Characteristics" variant="warning">
+      **Not a pioneer species** — Pilón requires established forest conditions:
+      - Shade-tolerant as juvenile - Slow to moderate growth rate - Long-lived
+      (100+ years) - Requires patience for plantation forestry
+    </FeatureBox>
+  </Column>
+</TwoColumn>
 
 ---
 
 ## Botanical Description
 
-### Tree Form
+<Accordion>
+  <AccordionItem title="🌳 Tree Form" defaultOpen={true}>
+    <PropertiesGrid>
+      <PropertyCard
+        icon="📏"
+        label="Height"
+        value="25-40 m"
+        description="Up to 130 feet"
+      />
+      <PropertyCard
+        icon="🪵"
+        label="Trunk"
+        value="Straight"
+        description="Cylindrical, branch-free"
+      />
+      <PropertyCard
+        icon="🌳"
+        label="Crown"
+        value="Rounded"
+        description="To irregular shape"
+      />
+      <PropertyCard
+        icon="🦶"
+        label="Buttressing"
+        value="Minimal"
+        description="Moderate in old trees"
+      />
+    </PropertiesGrid>
+  </AccordionItem>
 
-<PropertiesGrid>
-  <PropertyCard
-    icon="📏"
-    label="Height"
-    value="25-40 m"
-    description="Up to 130 feet"
-  />
-  <PropertyCard
-    icon="🪵"
-    label="Trunk"
-    value="Straight"
-    description="Cylindrical, branch-free"
-  />
-  <PropertyCard
-    icon="🌳"
-    label="Crown"
-    value="Rounded"
-    description="To irregular shape"
-  />
-  <PropertyCard
-    icon="🦶"
-    label="Buttressing"
-    value="Minimal"
-    description="Moderate in old trees"
-  />
-</PropertiesGrid>
+  <AccordionItem title="🪵 Bark Characteristics">
+    - **Color:** Gray to dark brown - **Texture:** Rough, becoming fissured with
+    age - **Thickness:** Moderate - **Inner bark:** Pale, sometimes with reddish
+    tinge
+  </AccordionItem>
 
-### Bark, Leaves & Reproductive Parts
+  <AccordionItem title="🍃 Leaves">
+    - **Type:** Simple, alternate - **Shape:** Elliptic to oblong - **Size:**
+    8-20 cm long, 4-8 cm wide - **Surface:** Smooth, leathery (coriaceous) -
+    **Color:** Medium to dark green above, paler below - **Margin:** Entire
+    (smooth edges)
+  </AccordionItem>
 
-| Part        | Description                                                                   |
-| ----------- | ----------------------------------------------------------------------------- |
-| **Bark**    | Gray to dark brown; rough and fissured with age                               |
-| **Leaves**  | Simple, alternate; elliptic to oblong; smooth, leathery; medium to dark green |
-| **Flowers** | Small, inconspicuous, greenish or pale; insect-pollinated                     |
-| **Fruit**   | Small capsules; naturally dispersed within forest                             |
-
-<Callout type="info">
-  Pilón leaves have a distinctive leathery texture that helps the tree conserve
-  water during drier periods, though it primarily grows in humid environments.
-</Callout>
+  <AccordionItem title="🌸 Flowers & Fruit">
+    **Flowers:** - Small, inconspicuous - Greenish or pale colored - Arranged in
+    axillary clusters - Pollinated primarily by insects **Fruit:** - Small
+    capsules (3-5 mm) - Dispersed naturally within forest - Important food
+    source for some wildlife
+  </AccordionItem>
+</Accordion>
 
 ---
 
-## Wood Anatomy & Appearance
+## Wood Properties
 
 ### Color Transformation
 
@@ -191,19 +269,7 @@ Pilón is a medium- to large-sized forest tree, contributing to forest structure
   character rather than deteriorating.
 </Callout>
 
-### Grain & Texture
-
-| Characteristic | Description                                |
-| -------------- | ------------------------------------------ |
-| **Grain**      | Straight to slightly interlocked           |
-| **Texture**    | Medium to fine, even and uniform           |
-| **Figure**     | Subtle; understated rather than decorative |
-
-> Pilón is valued for its **quiet visual consistency** rather than dramatic figure. This makes it ideal for applications where reliability and uniformity matter more than visual drama.
-
----
-
-## Physical & Mechanical Properties
+### Physical Properties
 
 <StatsGroup>
   <StatBar label="Durability" value={90} color="primary" />
@@ -213,123 +279,150 @@ Pilón is a medium- to large-sized forest tree, contributing to forest structure
   <StatBar label="Current Availability" value={60} color="secondary" />
 </StatsGroup>
 
-### Detailed Properties
+<Accordion>
+  <AccordionItem title="📊 Detailed Specifications">
+    | Property | Value | Notes | |----------|-------|-------| | **Density** |
+    0.60-0.75 g/cm³ | Medium-high | | **Janka Hardness** | ~1,500 lbf |
+    Comparable to Teak+ | | **Modulus of Rupture** | High | Excellent bending
+    strength | | **Modulus of Elasticity** | High | Good stiffness | |
+    **Shrinkage (Radial)** | ~4% | Moderate | | **Shrinkage (Tangential)** | ~8%
+    | Moderate |
+  </AccordionItem>
 
-| Property                | Rating      | Notes                                |
-| ----------------------- | ----------- | ------------------------------------ |
-| **Density**             | Medium-High | Substantial weight indicates quality |
-| **Hardness**            | ≈ Teak      | Or slightly harder                   |
-| **Strength**            | High        | Excellent for structural use         |
-| **Stability**           | Good        | For a tropical hardwood              |
-| **Natural Durability**  | High        | Resists decay naturally              |
-| **Insect Resistance**   | Good        | Naturally resistant                  |
-| **Outdoor Performance** | Excellent   | When properly sealed                 |
-
-### Comparison with Other Woods
-
-<ComparisonTable
-  rows={[
-    {
-      property: "Hardness (Janka)",
-      pilon: "~1,500 lbf",
-      teak: "1,070 lbf",
-      cedar: "350 lbf",
-    },
-    { property: "Density", pilon: "High", teak: "Medium", cedar: "Low" },
-    {
-      property: "Durability",
-      pilon: "Excellent",
-      teak: "Excellent",
-      cedar: "Good",
-    },
-    {
-      property: "Workability",
-      pilon: "Good",
-      teak: "Excellent",
-      cedar: "Excellent",
-    },
-    { property: "Stability", pilon: "Good", teak: "Excellent", cedar: "Good" },
-    {
-      property: "Price Point",
-      pilon: "Moderate",
-      teak: "High",
-      cedar: "Low-Moderate",
-    },
-  ]}
-/>
-
----
-
-## Behavior in Humidity
-
-<Callout type="warning" title="Critical for Costa Rica">
-  Understanding wood movement is essential in Costa Rica's tropical climate.
-  Pilón responds to humidity like all solid wood, but its movement is **moderate
-  and predictable**.
-</Callout>
-
-### Performance Characteristics
-
-- ✅ Movement is moderate and predictable
-- ✅ Performs well under air-drying conditions
-- ✅ Less prone to catastrophic warping than many tropical species
-
-### Common Mistakes to Avoid
-
-| ❌ Error                    | 💡 Solution                          |
-| --------------------------- | ------------------------------------ |
-| Rapid drying (sun exposure) | Dry in shade with good airflow       |
-| Rigid fixing of wide boards | Allow for wood movement              |
-| Premature sealing           | Ensure proper moisture content first |
-| Skipping acclimatization    | Let wood adjust to site conditions   |
+  <AccordionItem title="🆚 Comparison with Other Woods">
+    <ComparisonTable
+      rows={[
+        {
+          property: "Hardness (Janka)",
+          pilon: "~1,500 lbf",
+          teak: "1,070 lbf",
+          cedar: "350 lbf",
+        },
+        { property: "Density", pilon: "High", teak: "Medium", cedar: "Low" },
+        {
+          property: "Durability",
+          pilon: "Excellent",
+          teak: "Excellent",
+          cedar: "Good",
+        },
+        {
+          property: "Workability",
+          pilon: "Good",
+          teak: "Excellent",
+          cedar: "Excellent",
+        },
+        {
+          property: "Stability",
+          pilon: "Good",
+          teak: "Excellent",
+          cedar: "Good",
+        },
+        {
+          property: "Price Point",
+          pilon: "Moderate",
+          teak: "High",
+          cedar: "Low-Moderate",
+        },
+      ]}
+    />
+  </AccordionItem>
+</Accordion>
 
 ---
 
-## Traditional & Modern Uses
+## Working with Pilón
 
-### Traditional Applications
+<TwoColumn>
+  <Column>
+    ### ✅ Strengths - High natural durability - Excellent insect resistance -
+    Good fungal decay resistance - Predictable wood movement - Beautiful aging
+    patina - Excellent outdoor performance - Strong screw-holding capacity
+  </Column>
+  <Column>
+    ### ⚠️ Considerations - Heavier than many alternatives - Can dull tools
+    faster - Requires proper drying time - Not visually dramatic - Needs
+    sustainable sourcing - Punishes rushed processing
+  </Column>
+</TwoColumn>
+
+<Accordion>
+  <AccordionItem title="🔧 Machining & Workability">
+    | Operation | Performance | Tips | |-----------|-------------|------| |
+    Sawing | Good | Keep blades sharp | | Planing | Good | Watch for interlocked
+    grain | | Routing | Good | Reduce feed rates | | Sanding | Excellent |
+    Finishes smoothly | | Drilling | Good | Pre-drill for screws | | Turning |
+    Good | Sharp tools essential |
+  </AccordionItem>
+
+  <AccordionItem title="⏱️ Drying Process">
+    <Timeline
+      items={[
+        {
+          time: "Day 1",
+          title: "Mill & Seal",
+          description: "Cut to size, seal end grain immediately",
+        },
+        {
+          time: "Week 1-4",
+          title: "Initial Drying",
+          description: "Stack with stickers in shade, good airflow",
+        },
+        {
+          time: "Month 2-3",
+          title: "Structural Ready",
+          description: "Suitable for framing, rough construction",
+        },
+        {
+          time: "Month 3-6",
+          title: "Furniture Grade",
+          description: "Moisture stabilized for fine work",
+        },
+        {
+          time: "Month 6-12",
+          title: "Full Equilibrium",
+          description: "Complete stabilization achieved",
+        },
+      ]}
+    />
+  </AccordionItem>
+
+  <AccordionItem title="🎨 Finishing Recommendations">
+    **Best Finishes:** - Hardwax oils (Rubio Monocoat, Osmo) - Tung oil - Oil +
+    wax systems **Acceptable:** - Satin polyurethane (with care) **Avoid:** -
+    Thick film-forming finishes - Heavy epoxy (unless functionally required)
+    *The wood darkens attractively over time—choose breathable finishes that
+    allow this natural patina to develop.*
+  </AccordionItem>
+</Accordion>
+
+---
+
+## Applications
 
 <PropertiesGrid>
   <PropertyCard
     icon="🏗️"
-    label="Structural Beams"
-    value="Primary Use"
-    description="Building framework"
+    label="Structural"
+    value="Beams & Posts"
+    description="Traditional primary use"
   />
   <PropertyCard
     icon="🚪"
-    label="Door Frames"
-    value="Traditional"
-    description="And window frames"
+    label="Millwork"
+    value="Doors & Windows"
+    description="Frames, jambs, trim"
   />
   <PropertyCard
     icon="🪵"
     label="Flooring"
     value="High Traffic"
-    description="Durable surfaces"
+    description="Residential & commercial"
   />
   <PropertyCard
     icon="🪑"
-    label="Rural Furniture"
-    value="Heavy Duty"
-    description="Built to last"
-  />
-</PropertiesGrid>
-
-### Modern Applications
-
-<PropertiesGrid>
-  <PropertyCard
-    icon="🛋️"
-    label="Fine Furniture"
+    label="Furniture"
     value="Tables & Chairs"
-    description="Contemporary design"
-  />
-  <PropertyCard
-    icon="🏠"
-    label="Architectural"
-    value="Interior Elements"
-    description="Trim, paneling"
+    description="Contemporary & traditional"
   />
   <PropertyCard
     icon="🚶"
@@ -339,211 +432,120 @@ Pilón is a medium- to large-sized forest tree, contributing to forest structure
   />
   <PropertyCard
     icon="🌿"
-    label="Outdoor"
+    label="Exterior"
     value="Covered Areas"
-    description="Protected exteriors"
+    description="Protected outdoor use"
   />
 </PropertiesGrid>
 
-<Callout type="tip">
-  Pilón is often selected when **reliability matters more than visual
-  extravagance**. It's the choice of experienced woodworkers who value long-term
-  performance.
+<Callout type="success" title="Best Use Case">
+  Pilón is ideal when **reliability matters more than visual extravagance**.
+  Choose it for projects where longevity, structural integrity, and quiet
+  elegance are priorities.
 </Callout>
 
 ---
 
-## Workability
+## Sustainability & Conservation
 
-### Machining
-
-| Operation | Performance | Notes                       |
-| --------- | ----------- | --------------------------- |
-| Sawing    | Good        | Use sharp blades            |
-| Planing   | Good        | Watch for interlocked grain |
-| Routing   | Good        | Reduced feed rates help     |
-| Sanding   | Excellent   | Finishes smoothly           |
-
-<Callout type="warning" title="Tool Wear">
-  Pilón can dull blades faster than softwoods due to its density. Keep your
-  tools sharp and expect more frequent sharpening cycles.
+<Callout type="warning" title="Conservation Status">
+  Pilón was historically overharvested due to its excellent properties. Today it
+  is considered a **managed resource** in Costa Rica—responsible sourcing is
+  essential.
 </Callout>
 
-### Hand Tools & Fasteners
-
-- ✅ Responds well to planes and chisels
-- ✅ Excellent screw-holding capacity
-- ✅ Bonds well with standard wood adhesives
-- ⚠️ Tear-out possible if rushed—take your time
-
----
-
-## Drying Characteristics
-
-### The Drying Process
-
-<Timeline
-  items={[
-    {
-      time: "Day 1",
-      title: "Mill & Seal",
-      description:
-        "Cut boards to size and immediately seal end grain to prevent checking.",
-    },
-    {
-      time: "Week 1-4",
-      title: "Initial Drying",
-      description:
-        "Stack with stickers in shaded area with good airflow. Monitor for warping.",
-    },
-    {
-      time: "Month 2-3",
-      title: "Structural Ready",
-      description:
-        "Suitable for structural applications where some movement is acceptable.",
-    },
-    {
-      time: "Month 3-6",
-      title: "Furniture Grade",
-      description: "Moisture content stabilizes for furniture-quality work.",
-    },
-    {
-      time: "Month 6-12",
-      title: "Full Equilibrium",
-      description:
-        "Complete stabilization for the most demanding applications.",
-    },
-  ]}
-/>
-
-### Best Practices
-
-| Do ✅                       | Don't ❌                 |
-| --------------------------- | ------------------------ |
-| Dry in shade                | Expose to direct sun     |
-| Use stickers between boards | Stack boards directly    |
-| Seal end grain              | Leave ends exposed       |
-| Ensure good airflow         | Restrict air circulation |
-| Be patient                  | Rush the process         |
-
----
-
-## Finishing Characteristics
-
-Pilón accepts finishes very well when properly prepared.
-
-### Finish Recommendations
-
-| Category         | Options                                   | Notes                        |
-| ---------------- | ----------------------------------------- | ---------------------------- |
-| **Best** 🌟      | Hardwax oils, Tung oil, Oil + wax systems | Allows wood to breathe       |
-| **Acceptable** ✓ | Satin polyurethane                        | Apply with care              |
-| **Avoid** ⚠️     | Thick film finishes, Heavy epoxy          | Unless functionally required |
-
-<Callout type="tip" title="Finishing Secret">
-  The wood **darkens attractively over time** and benefits from breathable
-  finishes that allow this natural patina to develop. Avoid thick film finishes
-  that lock the wood in its current color.
-</Callout>
-
----
-
-## Maintenance & Aging
-
-<PropertiesGrid>
-  <PropertyCard
-    icon="🧹"
-    label="Maintenance"
-    value="Low"
-    description="Minimal upkeep needed"
-  />
-  <PropertyCard
-    icon="🫒"
-    label="Re-oiling"
-    value="Periodic"
-    description="As needed for oiled finishes"
-  />
-  <PropertyCard
-    icon="🔧"
-    label="Repairs"
-    value="Straightforward"
-    description="Takes well to refinishing"
-  />
-  <PropertyCard
-    icon="⏳"
-    label="Aging"
-    value="Beautiful"
-    description="Develops rich patina"
-  />
-</PropertiesGrid>
-
-> Pilón **develops a rich patina with age** rather than deteriorating visually. This is one of its most valued characteristics—it gets better with time.
-
----
-
-## Sustainability & Availability
-
-<Callout type="warning" title="Conservation Note">
-  Pilón was historically overharvested due to its excellent properties. Today,
-  responsible sourcing is essential.
-</Callout>
-
-### Current Sources
+### Current Availability
 
 | Source                 | Status        | Notes                   |
 | ---------------------- | ------------- | ----------------------- |
 | **Plantations**        | ✅ Available  | Best sustainable option |
-| **Regulated Forestry** | ✅ Available  | With proper permits     |
+| **Regulated Forestry** | ✅ Available  | Requires permits        |
 | **Reclaimed Lumber**   | ✅ Available  | Excellent choice        |
-| **Wild Harvest**       | ⚠️ Restricted | Requires permits        |
+| **Wild Harvest**       | ⚠️ Restricted | Heavily regulated       |
 
-In Costa Rica, Pilón is now considered a **managed resource**. Always verify the source and ensure wood comes from legal, sustainable operations.
-
----
-
-## Summary
-
-### Strengths 💪
-
-- ✅ High natural durability
-- ✅ Reliable structural performance
-- ✅ Good stability in tropical climates
-- ✅ Long service life (generations)
-- ✅ Honest, understated aesthetics
-- ✅ Develops beautiful patina
-
-### Limitations ⚠️
-
-- ⚠️ Not lightweight—plan for weight
-- ⚠️ Not visually dramatic—subtle beauty
-- ⚠️ Requires respect for wood movement
-- ⚠️ Punishes rushed processing
-- ⚠️ Requires sustainable sourcing
+<FeatureBox icon="🌱" title="Reforestation Potential" variant="highlight">
+  Pilón is included in many Costa Rican reforestation programs through
+  organizations like CATIE and SINAC. Its slow growth is offset by: - High wood
+  value per tree - Carbon sequestration benefits - Native ecosystem restoration
+  value
+</FeatureBox>
 
 ---
 
-## Cultural & Practical Significance
+## Cultural Significance
 
 <Callout type="success" title="The Costa Rican Philosophy">
 Pilón represents a traditional Costa Rican approach to wood:
 
-- **Build once**
-- **Build strong**
-- **Expect longevity**
+- **Build once** — Invest in quality materials
+- **Build strong** — Prioritize structural integrity
+- **Expect longevity** — Plan for generations
 
 It is a species chosen by **experience rather than fashion**.
 
 </Callout>
 
-For generations, Costa Rican builders have turned to Pilón when they needed wood that would stand the test of time. It's not chosen for its flash—it's chosen for its integrity.
+---
+
+## External Resources
+
+<ExternalLinksGrid>
+  <ExternalLink
+    href="https://www.inaturalist.org/taxa/275140-Hieronyma-alchorneoides"
+    title="iNaturalist Species Page"
+    description="Community observations, photos, and distribution data"
+    icon="🌿"
+    source="298+ observations worldwide"
+  />
+  <ExternalLink
+    href="https://www.gbif.org/species/search?q=Hieronyma%20alchorneoides"
+    title="GBIF Occurrence Data"
+    description="Global biodiversity records and specimen data"
+    icon="🗺️"
+    source="Global Biodiversity Information Facility"
+  />
+  <ExternalLink
+    href="https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:817340-1"
+    title="Plants of the World Online"
+    description="Authoritative taxonomic information from Kew"
+    icon="🏛️"
+    source="Royal Botanic Gardens, Kew"
+  />
+  <ExternalLink
+    href="https://www.catie.ac.cr/"
+    title="CATIE"
+    description="Tropical agricultural research and education (forestry programs)"
+    icon="🎓"
+    source="Centro Agronómico Tropical"
+  />
+</ExternalLinksGrid>
 
 ---
 
-## See Also
+## References
 
-- **Related Species**: Other Phyllanthaceae family trees
-- **Similar Properties**: Teak, Ipe, Cocobolo
-- **Applications**: Structural hardwoods of Costa Rica
+<ReferencesSection>
+  <Reference
+    authors="Flores, E.M."
+    year="2002"
+    title="Hyeronima alchorneoides Allemão"
+    journal="Tropical Tree Seed Manual, USDA Forest Service"
+    url="https://rfrp.fs.usda.gov/pubs/seeds/"
+  />
+  <Reference
+    authors="Montagnini, F., & Jordan, C.F."
+    year="2005"
+    title="Tropical Forest Ecology: The Basis for Conservation and Management"
+    journal="Springer"
+  />
+  <Reference
+    authors="CATIE"
+    year="Various"
+    title="Silvicultura de Especies Promisorias para Producción de Leña en América Central"
+    journal="Technical Reports"
+    url="https://www.catie.ac.cr/"
+  />
+</ReferencesSection>
 
 ---
 
