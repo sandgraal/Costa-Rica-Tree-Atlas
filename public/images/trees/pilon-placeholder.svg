@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F4FF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="groundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a7c43;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d5a27;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="trunkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#5D3328;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B4D3B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5D3328;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="canopyGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#2d5a27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a7c43;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#skyGradient)"/>
+  
+  <!-- Distant mountains -->
+  <path d="M0 350 Q200 280 400 320 Q600 280 800 350 L800 450 L0 450 Z" fill="#6b9e63" opacity="0.5"/>
+  
+  <!-- Ground -->
+  <ellipse cx="400" cy="420" rx="350" ry="40" fill="url(#groundGradient)"/>
+  
+  <!-- Tree shadow -->
+  <ellipse cx="420" cy="415" rx="120" ry="25" fill="#1e3d1b" opacity="0.3"/>
+  
+  <!-- Trunk -->
+  <path d="M380 420 Q375 350 385 280 Q390 250 395 220 L405 220 Q410 250 415 280 Q425 350 420 420 Z" fill="url(#trunkGradient)"/>
+  
+  <!-- Trunk texture lines -->
+  <path d="M385 400 Q390 350 388 300" stroke="#4a3025" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M395 410 Q398 340 395 270" stroke="#4a3025" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M408 405 Q405 350 410 290" stroke="#4a3025" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <!-- Main canopy -->
+  <ellipse cx="400" cy="150" rx="150" ry="120" fill="url(#canopyGradient)"/>
+  
+  <!-- Canopy highlights -->
+  <ellipse cx="360" cy="120" rx="60" ry="50" fill="#6b9e63" opacity="0.7"/>
+  <ellipse cx="440" cy="100" rx="50" ry="40" fill="#6b9e63" opacity="0.6"/>
+  <ellipse cx="380" cy="180" rx="70" ry="45" fill="#4a7c43" opacity="0.5"/>
+  <ellipse cx="420" cy="160" rx="55" ry="35" fill="#6b9e63" opacity="0.4"/>
+  
+  <!-- Small canopy details -->
+  <circle cx="320" cy="140" r="25" fill="#6b9e63" opacity="0.6"/>
+  <circle cx="480" cy="130" r="30" fill="#4a7c43" opacity="0.5"/>
+  <circle cx="350" cy="200" r="20" fill="#2d5a27" opacity="0.4"/>
+  <circle cx="450" cy="190" r="22" fill="#2d5a27" opacity="0.4"/>
+  
+  <!-- Title text -->
+  <text x="400" y="380" font-family="Georgia, serif" font-size="28" fill="#1e3d1b" text-anchor="middle" font-style="italic">Hyeronima alchorneoides</text>
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="36" fill="#2d5a27" text-anchor="middle" font-weight="bold">PILÓN</text>
+  
+  <!-- Decorative leaves -->
+  <g opacity="0.8">
+    <ellipse cx="280" cy="160" rx="15" ry="8" fill="#4a7c43" transform="rotate(-20 280 160)"/>
+    <ellipse cx="520" cy="140" rx="15" ry="8" fill="#4a7c43" transform="rotate(25 520 140)"/>
+    <ellipse cx="300" cy="200" rx="12" ry="6" fill="#6b9e63" transform="rotate(-35 300 200)"/>
+    <ellipse cx="500" cy="180" rx="12" ry="6" fill="#6b9e63" transform="rotate(30 500 180)"/>
+  </g>
+</svg>

@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer2/hooks";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
+import { MDXContent } from "@/components/MDXContent";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -211,11 +211,6 @@ export default async function TreePage({ params }: Props) {
       </div>
     </article>
   );
-}
-
-function MDXContent({ code }: { code: string }) {
-  const Component = useMDXComponent(code);
-  return <Component />;
 }
 
 function ArrowLeftIcon({ className }: { className?: string }) {
