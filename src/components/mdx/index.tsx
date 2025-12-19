@@ -718,6 +718,77 @@ export function Column({ children }: { children: React.ReactNode }) {
   return <div>{children}</div>;
 }
 
+// Data Table Component for use inside JSX components
+interface DataTableProps {
+  headers: string[];
+  rows: string[][];
+}
+
+export function DataTable({ headers, rows }: DataTableProps) {
+  return (
+    <div className="overflow-x-auto my-4">
+      <table className="w-full border-collapse text-sm">
+        <thead>
+          <tr className="bg-primary/10">
+            {headers.map((header, index) => (
+              <th
+                key={index}
+                className="p-3 text-left font-semibold text-foreground border-b border-border"
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, rowIndex) => (
+            <tr
+              key={rowIndex}
+              className={rowIndex % 2 === 0 ? "bg-muted/30" : "bg-muted/10"}
+            >
+              {row.map((cell, cellIndex) => (
+                <td
+                  key={cellIndex}
+                  className="p-3 border-b border-border/50 text-foreground/90"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Simple List for use inside JSX components
+interface SimpleListProps {
+  items: (string | { label: string; value: string })[];
+  ordered?: boolean;
+}
+
+export function SimpleList({ items, ordered = false }: SimpleListProps) {
+  const ListTag = ordered ? "ol" : "ul";
+  return (
+    <ListTag
+      className={`my-3 space-y-2 ${ordered ? "list-decimal" : "list-disc"} list-inside`}
+    >
+      {items.map((item, index) => (
+        <li key={index} className="text-foreground/90">
+          {typeof item === "string" ? (
+            item
+          ) : (
+            <>
+              <span className="font-medium">{item.label}:</span> {item.value}
+            </>
+          )}
+        </li>
+      ))}
+    </ListTag>
+  );
+}
+
 // Export all components for MDX
 export const mdxComponents = {
   Callout,
@@ -745,4 +816,6 @@ export const mdxComponents = {
   FeatureBox,
   TwoColumn,
   Column,
+  DataTable,
+  SimpleList,
 };

@@ -109,13 +109,16 @@ updatedAt: "2024-12-19"
 <Accordion>
 <AccordionItem title="📍 Nombres Comunes por Región">
 
-| País          | Nombre Común   | Notas                     |
-| ------------- | -------------- | ------------------------- |
-| 🇨🇷 Costa Rica | Pilón          | Nombre principal          |
-| 🇵🇦 Panamá     | Pilón          | Igual que Costa Rica      |
-| 🇳🇮 Nicaragua  | Pilón          | Igual que Costa Rica      |
-| 🇨🇴 Colombia   | Pilón rojo     | Regional                  |
-| 🇬🇧 Inglés     | Pilón hardwood | Nombre comercial informal |
+<DataTable
+  headers={["País", "Nombre Común", "Notas"]}
+  rows={[
+    ["🇨🇷 Costa Rica", "Pilón", "Nombre principal"],
+    ["🇵🇦 Panamá", "Pilón", "Igual que Costa Rica"],
+    ["🇳🇮 Nicaragua", "Pilón", "Igual que Costa Rica"],
+    ["🇨🇴 Colombia", "Pilón rojo", "Regional"],
+    ["🇬🇧 Inglés", "Pilón hardwood", "Nombre comercial informal"],
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🔬 Notas Taxonómicas">
@@ -146,10 +149,14 @@ El nombre del género _Hyeronima_ (a veces escrito _Hieronyma_) honra al botáni
 
 **Hábitats Principales:**
 
-- **Tierras Bajas del Atlántico** — Abundante en la Provincia de Limón
-- **Península de Osa** — Especímenes en áreas protegidas
-- **Zona Norte** — Regiones de San Carlos, Sarapiquí
-- **Estribaciones del Valle Central** — Bosques premontanos
+<SimpleList
+  items={[
+    "Tierras Bajas del Atlántico — Abundante en la Provincia de Limón",
+    "Península de Osa — Especímenes en áreas protegidas",
+    "Zona Norte — Regiones de San Carlos, Sarapiquí",
+    "Estribaciones del Valle Central — Bosques premontanos",
+  ]}
+/>
 
 **Elevación:** Nivel del mar hasta ~1,000 m
 
@@ -193,10 +200,14 @@ El nombre del género _Hyeronima_ (a veces escrito _Hieronyma_) honra al botáni
 
 El Pilón es una **especie de dosel a subdosel** que contribuye significativamente a:
 
-- Estructura del bosque y estratificación vertical
-- Almacenamiento de carbono a largo plazo
-- Hábitat para epífitas y fauna del dosel
-- Redes de dispersión de semillas
+<SimpleList
+  items={[
+    "Estructura del bosque y estratificación vertical",
+    "Almacenamiento de carbono a largo plazo",
+    "Hábitat para epífitas y fauna del dosel",
+    "Redes de dispersión de semillas",
+  ]}
+/>
 
 </FeatureBox>
 
@@ -207,10 +218,14 @@ El Pilón es una **especie de dosel a subdosel** que contribuye significativamen
 
 **No es una especie pionera** — El Pilón requiere condiciones de bosque establecido:
 
-- Tolerante a la sombra cuando joven
-- Tasa de crecimiento lenta a moderada
-- Longevo (100+ años)
-- Requiere paciencia en plantaciones forestales
+<SimpleList
+  items={[
+    "Tolerante a la sombra cuando joven",
+    "Tasa de crecimiento lenta a moderada",
+    "Longevo (100+ años)",
+    "Requiere paciencia en plantaciones forestales",
+  ]}
+/>
 
 </FeatureBox>
 
@@ -254,36 +269,52 @@ El Pilón es una **especie de dosel a subdosel** que contribuye significativamen
 </AccordionItem>
 <AccordionItem title="🪵 Características de la Corteza">
 
-- **Color:** Gris a marrón oscuro
-- **Textura:** Áspera, se vuelve fisurada con la edad
-- **Grosor:** Moderado
-- **Corteza interna:** Pálida, a veces con tinte rojizo
+<SimpleList
+  items={[
+    { label: "Color", value: "Gris a marrón oscuro" },
+    { label: "Textura", value: "Áspera, se vuelve fisurada con la edad" },
+    { label: "Grosor", value: "Moderado" },
+    { label: "Corteza interna", value: "Pálida, a veces con tinte rojizo" },
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🍃 Hojas">
 
-- **Tipo:** Simples, alternas
-- **Forma:** Elípticas a oblongas
-- **Tamaño:** 8-20 cm de largo, 4-8 cm de ancho
-- **Superficie:** Lisa, coriácea
-- **Color:** Verde medio a oscuro arriba, más pálido abajo
-- **Margen:** Entero (bordes lisos)
+<SimpleList
+  items={[
+    { label: "Tipo", value: "Simples, alternas" },
+    { label: "Forma", value: "Elípticas a oblongas" },
+    { label: "Tamaño", value: "8-20 cm de largo, 4-8 cm de ancho" },
+    { label: "Superficie", value: "Lisa, coriácea" },
+    { label: "Color", value: "Verde medio a oscuro arriba, más pálido abajo" },
+    { label: "Margen", value: "Entero (bordes lisos)" },
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🌸 Flores y Frutos">
 
 **Flores:**
 
-- Pequeñas, poco llamativas
-- Color verdoso o pálido
-- Dispuestas en racimos axilares
-- Polinizadas principalmente por insectos
+<SimpleList
+  items={[
+    "Pequeñas, poco llamativas",
+    "Color verdoso o pálido",
+    "Dispuestas en racimos axilares",
+    "Polinizadas principalmente por insectos",
+  ]}
+/>
 
 **Frutos:**
 
-- Pequeñas cápsulas (3-5 mm)
-- Dispersión natural dentro del bosque
-- Fuente de alimento importante para fauna silvestre
+<SimpleList
+  items={[
+    "Pequeñas cápsulas (3-5 mm)",
+    "Dispersión natural dentro del bosque",
+    "Fuente de alimento importante para fauna silvestre",
+  ]}
+/>
 
 </AccordionItem>
 </Accordion>
@@ -326,14 +357,17 @@ El Pilón es una **especie de dosel a subdosel** que contribuye significativamen
 <Accordion>
 <AccordionItem title="📊 Especificaciones Detalladas">
 
-| Propiedad                    | Valor           | Notas                           |
-| ---------------------------- | --------------- | ------------------------------- |
-| **Densidad**                 | 0.60-0.75 g/cm³ | Media-alta                      |
-| **Dureza Janka**             | ~1,500 lbf      | Comparable a Teca+              |
-| **Módulo de Ruptura**        | Alto            | Excelente resistencia a flexión |
-| **Módulo de Elasticidad**    | Alto            | Buena rigidez                   |
-| **Contracción (Radial)**     | ~4%             | Moderada                        |
-| **Contracción (Tangencial)** | ~8%             | Moderada                        |
+<DataTable
+  headers={["Propiedad", "Valor", "Notas"]}
+  rows={[
+    ["Densidad", "0.60-0.75 g/cm³", "Media-alta"],
+    ["Dureza Janka", "~1,500 lbf", "Comparable a Teca+"],
+    ["Módulo de Ruptura", "Alto", "Excelente resistencia a flexión"],
+    ["Módulo de Elasticidad", "Alto", "Buena rigidez"],
+    ["Contracción (Radial)", "~4%", "Moderada"],
+    ["Contracción (Tangencial)", "~8%", "Moderada"],
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🆚 Comparación con Otras Maderas">
@@ -386,25 +420,33 @@ El Pilón es una **especie de dosel a subdosel** que contribuye significativamen
 
 ### ✅ Fortalezas
 
-- Alta durabilidad natural
-- Excelente resistencia a insectos
-- Buena resistencia a hongos
-- Movimiento predecible de la madera
-- Hermosa pátina con el envejecimiento
-- Excelente rendimiento exterior
-- Fuerte capacidad de sujeción de tornillos
+<SimpleList
+  items={[
+    "Alta durabilidad natural",
+    "Excelente resistencia a insectos",
+    "Buena resistencia a hongos",
+    "Movimiento predecible de la madera",
+    "Hermosa pátina con el envejecimiento",
+    "Excelente rendimiento exterior",
+    "Fuerte capacidad de sujeción de tornillos",
+  ]}
+/>
 
 </Column>
 <Column>
 
 ### ⚠️ Consideraciones
 
-- Más pesada que muchas alternativas
-- Puede desafilar herramientas más rápido
-- Requiere tiempo adecuado de secado
-- No es visualmente dramática
-- Necesita aprovisionamiento sostenible
-- Castiga el procesamiento apresurado
+<SimpleList
+  items={[
+    "Más pesada que muchas alternativas",
+    "Puede desafilar herramientas más rápido",
+    "Requiere tiempo adecuado de secado",
+    "No es visualmente dramática",
+    "Necesita aprovisionamiento sostenible",
+    "Castiga el procesamiento apresurado",
+  ]}
+/>
 
 </Column>
 </TwoColumn>
@@ -412,14 +454,17 @@ El Pilón es una **especie de dosel a subdosel** que contribuye significativamen
 <Accordion>
 <AccordionItem title="🔧 Maquinado y Trabajabilidad">
 
-| Operación | Rendimiento | Consejos                         |
-| --------- | ----------- | -------------------------------- |
-| Aserrado  | Bueno       | Mantener hojas afiladas          |
-| Cepillado | Bueno       | Cuidado con grano entrelazado    |
-| Fresado   | Bueno       | Reducir velocidad de avance      |
-| Lijado    | Excelente   | Acaba suavemente                 |
-| Taladrado | Bueno       | Pre-perforar para tornillos      |
-| Torneado  | Bueno       | Herramientas afiladas esenciales |
+<DataTable
+  headers={["Operación", "Rendimiento", "Consejos"]}
+  rows={[
+    ["Aserrado", "Bueno", "Mantener hojas afiladas"],
+    ["Cepillado", "Bueno", "Cuidado con grano entrelazado"],
+    ["Fresado", "Bueno", "Reducir velocidad de avance"],
+    ["Lijado", "Excelente", "Acaba suavemente"],
+    ["Taladrado", "Bueno", "Pre-perforar para tornillos"],
+    ["Torneado", "Bueno", "Herramientas afiladas esenciales"],
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="⏱️ Proceso de Secado">
@@ -459,18 +504,26 @@ El Pilón es una **especie de dosel a subdosel** que contribuye significativamen
 
 **Mejores Acabados:**
 
-- Aceites de cera dura (Rubio Monocoat, Osmo)
-- Aceite de tung
-- Sistemas de aceite + cera
+<SimpleList
+  items={[
+    "Aceites de cera dura (Rubio Monocoat, Osmo)",
+    "Aceite de tung",
+    "Sistemas de aceite + cera",
+  ]}
+/>
 
 **Aceptables:**
 
-- Poliuretano satinado (con cuidado)
+<SimpleList items={["Poliuretano satinado (con cuidado)"]} />
 
 **Evitar:**
 
-- Acabados de película gruesa
-- Epoxy pesado (a menos que sea funcionalmente necesario)
+<SimpleList
+  items={[
+    "Acabados de película gruesa",
+    "Epoxy pesado (a menos que sea funcionalmente necesario)",
+  ]}
+/>
 
 _La madera oscurece atractivamente con el tiempo—elija acabados transpirables que permitan el desarrollo de esta pátina natural._
 
@@ -538,20 +591,27 @@ _La madera oscurece atractivamente con el tiempo—elija acabados transpirables 
 
 ### Disponibilidad Actual
 
-| Fuente                    | Estado         | Notas                   |
-| ------------------------- | -------------- | ----------------------- |
-| **Plantaciones**          | ✅ Disponible  | Mejor opción sostenible |
-| **Silvicultura Regulada** | ✅ Disponible  | Requiere permisos       |
-| **Madera Recuperada**     | ✅ Disponible  | Excelente opción        |
-| **Cosecha Silvestre**     | ⚠️ Restringido | Fuertemente regulado    |
+<DataTable
+  headers={["Fuente", "Estado", "Notas"]}
+  rows={[
+    ["Plantaciones", "✅ Disponible", "Mejor opción sostenible"],
+    ["Silvicultura Regulada", "✅ Disponible", "Requiere permisos"],
+    ["Madera Recuperada", "✅ Disponible", "Excelente opción"],
+    ["Cosecha Silvestre", "⚠️ Restringido", "Fuertemente regulado"],
+  ]}
+/>
 
 <FeatureBox icon="🌱" title="Potencial de Reforestación" variant="highlight">
 
 El Pilón está incluido en muchos programas de reforestación costarricenses a través de organizaciones como CATIE y SINAC. Su crecimiento lento se compensa con:
 
-- Alto valor de madera por árbol
-- Beneficios de secuestro de carbono
-- Valor de restauración del ecosistema nativo
+<SimpleList
+  items={[
+    "Alto valor de madera por árbol",
+    "Beneficios de secuestro de carbono",
+    "Valor de restauración del ecosistema nativo",
+  ]}
+/>
 
 </FeatureBox>
 
@@ -563,9 +623,13 @@ El Pilón está incluido en muchos programas de reforestación costarricenses a 
 
 El Pilón representa un enfoque tradicional costarricense hacia la madera:
 
-- **Construir una vez** — Invertir en materiales de calidad
-- **Construir fuerte** — Priorizar la integridad estructural
-- **Esperar longevidad** — Planificar para generaciones
+<SimpleList
+  items={[
+    "Construir una vez — Invertir en materiales de calidad",
+    "Construir fuerte — Priorizar la integridad estructural",
+    "Esperar longevidad — Planificar para generaciones",
+  ]}
+/>
 
 Es una especie elegida por **experiencia más que por moda**.
 

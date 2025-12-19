@@ -109,13 +109,16 @@ updatedAt: "2024-12-19"
 <Accordion>
 <AccordionItem title="📍 Common Names by Region">
 
-| Country       | Common Name    | Notes                  |
-| ------------- | -------------- | ---------------------- |
-| 🇨🇷 Costa Rica | Pilón          | Primary name           |
-| 🇵🇦 Panama     | Pilón          | Same as Costa Rica     |
-| 🇳🇮 Nicaragua  | Pilón          | Same as Costa Rica     |
-| 🇨🇴 Colombia   | Pilón rojo     | "Red Pilón" - regional |
-| 🇬🇧 English    | Pilón hardwood | Informal trade name    |
+<DataTable
+  headers={["Country", "Common Name", "Notes"]}
+  rows={[
+    ["🇨🇷 Costa Rica", "Pilón", "Primary name"],
+    ["🇵🇦 Panama", "Pilón", "Same as Costa Rica"],
+    ["🇳🇮 Nicaragua", "Pilón", "Same as Costa Rica"],
+    ["🇨🇴 Colombia", "Pilón rojo", "Red Pilón - regional"],
+    ["🇬🇧 English", "Pilón hardwood", "Informal trade name"],
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🔬 Taxonomic Notes">
@@ -146,10 +149,14 @@ The genus name _Hyeronima_ (sometimes spelled _Hieronyma_) honors the German bot
 
 **Primary Habitats:**
 
-- **Atlantic Lowlands** — Abundant in Limón Province
-- **Osa Peninsula** — Old-growth specimens in protected areas
-- **Northern Zone** — San Carlos, Sarapiquí regions
-- **Central Valley foothills** — Premontane forests
+<SimpleList
+  items={[
+    "Atlantic Lowlands — Abundant in Limón Province",
+    "Osa Peninsula — Old-growth specimens in protected areas",
+    "Northern Zone — San Carlos, Sarapiquí regions",
+    "Central Valley foothills — Premontane forests",
+  ]}
+/>
 
 **Elevation:** Sea level to ~1,000 m
 
@@ -193,10 +200,14 @@ The genus name _Hyeronima_ (sometimes spelled _Hieronyma_) honors the German bot
 
 Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 
-- Forest structure and vertical stratification
-- Long-term carbon storage (slow-growing = dense wood)
-- Habitat for epiphytes and canopy wildlife
-- Seed dispersal networks
+<SimpleList
+  items={[
+    "Forest structure and vertical stratification",
+    "Long-term carbon storage (slow-growing = dense wood)",
+    "Habitat for epiphytes and canopy wildlife",
+    "Seed dispersal networks",
+  ]}
+/>
 
 </FeatureBox>
 
@@ -207,10 +218,14 @@ Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 
 **Not a pioneer species** — Pilón requires established forest conditions:
 
-- Shade-tolerant as juvenile
-- Slow to moderate growth rate
-- Long-lived (100+ years)
-- Requires patience for plantation forestry
+<SimpleList
+  items={[
+    "Shade-tolerant as juvenile",
+    "Slow to moderate growth rate",
+    "Long-lived (100+ years)",
+    "Requires patience for plantation forestry",
+  ]}
+/>
 
 </FeatureBox>
 
@@ -254,36 +269,52 @@ Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 </AccordionItem>
 <AccordionItem title="🪵 Bark Characteristics">
 
-- **Color:** Gray to dark brown
-- **Texture:** Rough, becoming fissured with age
-- **Thickness:** Moderate
-- **Inner bark:** Pale, sometimes with reddish tinge
+<SimpleList
+  items={[
+    { label: "Color", value: "Gray to dark brown" },
+    { label: "Texture", value: "Rough, becoming fissured with age" },
+    { label: "Thickness", value: "Moderate" },
+    { label: "Inner bark", value: "Pale, sometimes with reddish tinge" },
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🍃 Leaves">
 
-- **Type:** Simple, alternate
-- **Shape:** Elliptic to oblong
-- **Size:** 8-20 cm long, 4-8 cm wide
-- **Surface:** Smooth, leathery (coriaceous)
-- **Color:** Medium to dark green above, paler below
-- **Margin:** Entire (smooth edges)
+<SimpleList
+  items={[
+    { label: "Type", value: "Simple, alternate" },
+    { label: "Shape", value: "Elliptic to oblong" },
+    { label: "Size", value: "8-20 cm long, 4-8 cm wide" },
+    { label: "Surface", value: "Smooth, leathery (coriaceous)" },
+    { label: "Color", value: "Medium to dark green above, paler below" },
+    { label: "Margin", value: "Entire (smooth edges)" },
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🌸 Flowers & Fruit">
 
 **Flowers:**
 
-- Small, inconspicuous
-- Greenish or pale colored
-- Arranged in axillary clusters
-- Pollinated primarily by insects
+<SimpleList
+  items={[
+    "Small, inconspicuous",
+    "Greenish or pale colored",
+    "Arranged in axillary clusters",
+    "Pollinated primarily by insects",
+  ]}
+/>
 
 **Fruit:**
 
-- Small capsules (3-5 mm)
-- Dispersed naturally within forest
-- Important food source for some wildlife
+<SimpleList
+  items={[
+    "Small capsules (3-5 mm)",
+    "Dispersed naturally within forest",
+    "Important food source for some wildlife",
+  ]}
+/>
 
 </AccordionItem>
 </Accordion>
@@ -322,14 +353,17 @@ Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 <Accordion>
 <AccordionItem title="📊 Detailed Specifications">
 
-| Property                   | Value           | Notes                      |
-| -------------------------- | --------------- | -------------------------- |
-| **Density**                | 0.60-0.75 g/cm³ | Medium-high                |
-| **Janka Hardness**         | ~1,500 lbf      | Comparable to Teak+        |
-| **Modulus of Rupture**     | High            | Excellent bending strength |
-| **Modulus of Elasticity**  | High            | Good stiffness             |
-| **Shrinkage (Radial)**     | ~4%             | Moderate                   |
-| **Shrinkage (Tangential)** | ~8%             | Moderate                   |
+<DataTable
+  headers={["Property", "Value", "Notes"]}
+  rows={[
+    ["Density", "0.60-0.75 g/cm³", "Medium-high"],
+    ["Janka Hardness", "~1,500 lbf", "Comparable to Teak+"],
+    ["Modulus of Rupture", "High", "Excellent bending strength"],
+    ["Modulus of Elasticity", "High", "Good stiffness"],
+    ["Shrinkage (Radial)", "~4%", "Moderate"],
+    ["Shrinkage (Tangential)", "~8%", "Moderate"],
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="🆚 Comparison with Other Woods">
@@ -377,25 +411,33 @@ Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 
 ### ✅ Strengths
 
-- High natural durability
-- Excellent insect resistance
-- Good fungal decay resistance
-- Predictable wood movement
-- Beautiful aging patina
-- Excellent outdoor performance
-- Strong screw-holding capacity
+<SimpleList
+  items={[
+    "High natural durability",
+    "Excellent insect resistance",
+    "Good fungal decay resistance",
+    "Predictable wood movement",
+    "Beautiful aging patina",
+    "Excellent outdoor performance",
+    "Strong screw-holding capacity",
+  ]}
+/>
 
 </Column>
 <Column>
 
 ### ⚠️ Considerations
 
-- Heavier than many alternatives
-- Can dull tools faster
-- Requires proper drying time
-- Not visually dramatic
-- Needs sustainable sourcing
-- Punishes rushed processing
+<SimpleList
+  items={[
+    "Heavier than many alternatives",
+    "Can dull tools faster",
+    "Requires proper drying time",
+    "Not visually dramatic",
+    "Needs sustainable sourcing",
+    "Punishes rushed processing",
+  ]}
+/>
 
 </Column>
 </TwoColumn>
@@ -403,14 +445,17 @@ Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 <Accordion>
 <AccordionItem title="🔧 Machining & Workability">
 
-| Operation | Performance | Tips                        |
-| --------- | ----------- | --------------------------- |
-| Sawing    | Good        | Keep blades sharp           |
-| Planing   | Good        | Watch for interlocked grain |
-| Routing   | Good        | Reduce feed rates           |
-| Sanding   | Excellent   | Finishes smoothly           |
-| Drilling  | Good        | Pre-drill for screws        |
-| Turning   | Good        | Sharp tools essential       |
+<DataTable
+  headers={["Operation", "Performance", "Tips"]}
+  rows={[
+    ["Sawing", "Good", "Keep blades sharp"],
+    ["Planing", "Good", "Watch for interlocked grain"],
+    ["Routing", "Good", "Reduce feed rates"],
+    ["Sanding", "Excellent", "Finishes smoothly"],
+    ["Drilling", "Good", "Pre-drill for screws"],
+    ["Turning", "Good", "Sharp tools essential"],
+  ]}
+/>
 
 </AccordionItem>
 <AccordionItem title="⏱️ Drying Process">
@@ -450,18 +495,26 @@ Pilón is a **canopy to sub-canopy species** that contributes significantly to:
 
 **Best Finishes:**
 
-- Hardwax oils (Rubio Monocoat, Osmo)
-- Tung oil
-- Oil + wax systems
+<SimpleList
+  items={[
+    "Hardwax oils (Rubio Monocoat, Osmo)",
+    "Tung oil",
+    "Oil + wax systems",
+  ]}
+/>
 
 **Acceptable:**
 
-- Satin polyurethane (with care)
+<SimpleList items={["Satin polyurethane (with care)"]} />
 
 **Avoid:**
 
-- Thick film-forming finishes
-- Heavy epoxy (unless functionally required)
+<SimpleList
+  items={[
+    "Thick film-forming finishes",
+    "Heavy epoxy (unless functionally required)",
+  ]}
+/>
 
 _The wood darkens attractively over time—choose breathable finishes that allow this natural patina to develop._
 
@@ -529,20 +582,27 @@ _The wood darkens attractively over time—choose breathable finishes that allow
 
 ### Current Availability
 
-| Source                 | Status        | Notes                   |
-| ---------------------- | ------------- | ----------------------- |
-| **Plantations**        | ✅ Available  | Best sustainable option |
-| **Regulated Forestry** | ✅ Available  | Requires permits        |
-| **Reclaimed Lumber**   | ✅ Available  | Excellent choice        |
-| **Wild Harvest**       | ⚠️ Restricted | Heavily regulated       |
+<DataTable
+  headers={["Source", "Status", "Notes"]}
+  rows={[
+    ["Plantations", "✅ Available", "Best sustainable option"],
+    ["Regulated Forestry", "✅ Available", "Requires permits"],
+    ["Reclaimed Lumber", "✅ Available", "Excellent choice"],
+    ["Wild Harvest", "⚠️ Restricted", "Heavily regulated"],
+  ]}
+/>
 
 <FeatureBox icon="🌱" title="Reforestation Potential" variant="highlight">
 
 Pilón is included in many Costa Rican reforestation programs through organizations like CATIE and SINAC. Its slow growth is offset by:
 
-- High wood value per tree
-- Carbon sequestration benefits
-- Native ecosystem restoration value
+<SimpleList
+  items={[
+    "High wood value per tree",
+    "Carbon sequestration benefits",
+    "Native ecosystem restoration value",
+  ]}
+/>
 
 </FeatureBox>
 
@@ -554,9 +614,13 @@ Pilón is included in many Costa Rican reforestation programs through organizati
 
 Pilón represents a traditional Costa Rican approach to wood:
 
-- **Build once** — Invest in quality materials
-- **Build strong** — Prioritize structural integrity
-- **Expect longevity** — Plan for generations
+<SimpleList
+  items={[
+    "Build once — Invest in quality materials",
+    "Build strong — Prioritize structural integrity",
+    "Expect longevity — Plan for generations",
+  ]}
+/>
 
 It is a species chosen by **experience rather than fashion**.
 
