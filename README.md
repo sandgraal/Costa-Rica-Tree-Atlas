@@ -1,36 +1,174 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌳 Costa Rica Tree Atlas
 
-## Getting Started
+A bilingual (English/Spanish) open-source web application showcasing the magnificent trees of Costa Rica. Built with Next.js 15, TypeScript, and modern web technologies.
 
-First, run the development server:
+![License](https://img.shields.io/badge/license-MIT-green)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Features
+
+- 🌐 **Bilingual Support**: Full English and Spanish translations with locale-based routing
+- 📝 **MDX Content**: Write tree profiles in Markdown with React component support
+- 🎨 **Nature-Inspired Design**: Custom Tailwind theme with forest greens and earth tones
+- 🌙 **Dark Mode**: Automatic and manual dark mode support
+- 📱 **Responsive**: Mobile-first design that works on all devices
+- 🔍 **SEO Optimized**: Proper meta tags, alternate language links, and structured data
+- ⚡ **Static Generation**: Fast page loads with Next.js static site generation
+- ♿ **Accessible**: Semantic HTML, keyboard navigation, and screen reader support
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18.17 or later
+- npm, yarn, or pnpm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/sandgraal/Costa-Rica-Tree-Atlas.git
+   cd Costa-Rica-Tree-Atlas
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📁 Project Structure
+
+```
+Costa-Rica-Tree-Atlas/
+├── content/
+│   └── trees/
+│       ├── en/           # English tree profiles
+│       │   └── guanacaste.mdx
+│       └── es/           # Spanish tree profiles
+│           └── guanacaste.mdx
+├── i18n/                 # Internationalization config
+│   ├── navigation.ts
+│   ├── request.ts
+│   └── routing.ts
+├── messages/             # Translation strings
+│   ├── en.json
+│   └── es.json
+├── public/
+│   └── images/           # Static images
+├── src/
+│   ├── app/
+│   │   └── [locale]/     # Locale-based routing
+│   │       ├── page.tsx
+│   │       ├── layout.tsx
+│   │       └── trees/
+│   │           ├── page.tsx
+│   │           └── [slug]/
+│   │               └── page.tsx
+│   ├── components/       # React components
+│   └── lib/              # Utility functions
+├── contentlayer.config.ts
+├── middleware.ts
+├── next.config.ts
+└── tailwind.config.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📝 Adding New Trees
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a new MDX file in both `content/trees/en/` and `content/trees/es/`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   # English version
+   content/trees/en/your-tree.mdx
 
-## Learn More
+   # Spanish version
+   content/trees/es/your-tree.mdx
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Add the required frontmatter:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```yaml
+   ---
+   title: "Tree Name"
+   scientificName: "Genus species"
+   family: "Family Name"
+   locale: "en" # or "es" for Spanish
+   slug: "your-tree"
+   description: "A brief description for SEO"
+   nativeRegion: "Native region"
+   conservationStatus: "IUCN Status"
+   maxHeight: "Height in meters"
+   uses:
+     - "Use 1"
+     - "Use 2"
+   featuredImage: "/images/trees/your-tree.jpg"
+   publishedAt: "2024-01-01"
+   ---
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Write your content in Markdown below the frontmatter.
 
-## Deploy on Vercel
+## 🛠️ Available Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Command                | Description               |
+| ---------------------- | ------------------------- |
+| `npm run dev`          | Start development server  |
+| `npm run build`        | Build for production      |
+| `npm run start`        | Start production server   |
+| `npm run lint`         | Run ESLint                |
+| `npm run format`       | Format code with Prettier |
+| `npm run format:check` | Check code formatting     |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Customization
+
+### Theme Colors
+
+The nature-inspired color palette is defined in `src/app/globals.css`:
+
+- **Primary**: Forest greens (#2d5a27)
+- **Secondary**: Earth browns (#8b5a2b)
+- **Accent**: Tropical gold (#c9a227)
+
+### Adding Languages
+
+1. Add the locale to `i18n/routing.ts`
+2. Create a new message file in `messages/`
+3. Add content directories for the new locale
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Ways to Contribute
+
+- 🌱 Add new tree profiles
+- 🌍 Improve translations
+- 🐛 Fix bugs
+- ✨ Add new features
+- 📚 Improve documentation
+- 🖼️ Contribute tree photographs
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- The trees of Costa Rica for their beauty and ecological importance
+- The conservation organizations working to protect Costa Rica's forests
+- The open-source community for the amazing tools that made this project possible
+
+---
+
+Made with ❤️ for Costa Rica's forests 🇨🇷

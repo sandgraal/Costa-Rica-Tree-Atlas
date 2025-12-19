@@ -1,26 +1,176 @@
 @import "tailwindcss";
 
+/* Nature-inspired color palette for Costa Rica Tree Atlas */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme colors */
+  --background: #fafdf7;
+  --foreground: #1a2e1a;
+
+  /* Primary - Forest Green */
+  --primary: #2d5a27;
+  --primary-light: #4a7c43;
+  --primary-dark: #1e3d1b;
+
+  /* Secondary - Earth Brown */
+  --secondary: #8b5a2b;
+  --secondary-light: #a67c52;
+  --secondary-dark: #5c3d1d;
+
+  /* Accent - Tropical Gold */
+  --accent: #c9a227;
+  --accent-light: #e4c654;
+  --accent-dark: #9a7b1c;
+
+  /* Neutral tones */
+  --muted: #f0f4ed;
+  --muted-foreground: #4a5d4a;
+  --border: #d4e4d1;
+  --card: #ffffff;
+  --card-foreground: #1a2e1a;
+
+  /* Semantic colors */
+  --success: #22c55e;
+  --warning: #eab308;
+  --error: #ef4444;
+  --info: #3b82f6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f1a0f;
+    --foreground: #e8f0e6;
+
+    --primary: #4a7c43;
+    --primary-light: #6b9e63;
+    --primary-dark: #2d5a27;
+
+    --secondary: #a67c52;
+    --secondary-light: #c49a70;
+    --secondary-dark: #8b5a2b;
+
+    --accent: #e4c654;
+    --accent-light: #f0d87a;
+    --accent-dark: #c9a227;
+
+    --muted: #1a2e1a;
+    --muted-foreground: #a8b8a6;
+    --border: #2d4a2d;
+    --card: #162016;
+    --card-foreground: #e8f0e6;
   }
+}
+
+/* Manual dark mode support */
+.dark {
+  --background: #0f1a0f;
+  --foreground: #e8f0e6;
+
+  --primary: #4a7c43;
+  --primary-light: #6b9e63;
+  --primary-dark: #2d5a27;
+
+  --secondary: #a67c52;
+  --secondary-light: #c49a70;
+  --secondary-dark: #8b5a2b;
+
+  --accent: #e4c654;
+  --accent-light: #f0d87a;
+  --accent-dark: #c9a227;
+
+  --muted: #1a2e1a;
+  --muted-foreground: #a8b8a6;
+  --border: #2d4a2d;
+  --card: #162016;
+  --card-foreground: #e8f0e6;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    var(--font-sans),
+    system-ui,
+    -apple-system,
+    sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Typography for MDX content */
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--primary-dark);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-quotes: var(--muted-foreground);
+  --tw-prose-code: var(--secondary);
+}
+
+.dark .prose {
+  --tw-prose-headings: var(--primary-light);
+  --tw-prose-links: var(--accent);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
 }

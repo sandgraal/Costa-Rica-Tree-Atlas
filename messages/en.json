@@ -1,0 +1,61 @@
+{
+  "siteTitle": "Costa Rica Tree Atlas",
+  "siteDescription": "Discover the magnificent trees of Costa Rica. An open-source bilingual guide to Costa Rican flora.",
+  "nav": {
+    "title": "CR Trees",
+    "home": "Home",
+    "trees": "Trees",
+    "about": "About"
+  },
+  "home": {
+    "title": "Welcome to the Costa Rica Tree Atlas",
+    "subtitle": "Discover the magnificent trees of Costa Rica",
+    "description": "An open-source bilingual guide to the diverse and beautiful trees found throughout Costa Rica. From the iconic Guanacaste to the towering Ceiba, explore the rich botanical heritage of this tropical paradise.",
+    "exploreButton": "Explore Trees",
+    "featuredTrees": "Featured Trees",
+    "viewAll": "View All Trees"
+  },
+  "trees": {
+    "title": "Tree Directory",
+    "subtitle": "Browse our collection of Costa Rican trees",
+    "searchPlaceholder": "Search trees...",
+    "noResults": "No trees found matching your search.",
+    "scientificName": "Scientific Name",
+    "family": "Family",
+    "nativeRegion": "Native Region",
+    "maxHeight": "Maximum Height",
+    "conservationStatus": "Conservation Status",
+    "uses": "Uses",
+    "learnMore": "Learn More",
+    "backToList": "← Back to Tree Directory"
+  },
+  "footer": {
+    "description": "An open-source project dedicated to documenting the trees of Costa Rica.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "allTrees": "All Trees",
+    "aboutUs": "About Us",
+    "openSource": "Open Source",
+    "contribute": "This project is open source. Contribute on GitHub!",
+    "copyright": "© {year} Costa Rica Tree Atlas. Open source under MIT License.",
+    "license": "Made with ❤️ for Costa Rica's forests",
+    "madeWith": "Made with ❤️ for Costa Rica's forests"
+  },
+  "language": {
+    "en": "English",
+    "es": "Spanish",
+    "switch": "Español",
+    "switchTo": "Switch to {language}",
+    "current": "English"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "system": "System",
+    "toggle": "Toggle Theme"
+  },
+  "meta": {
+    "treeTitle": "{treeName} - Costa Rica Tree Atlas",
+    "treeDescription": "Learn about {treeName} ({scientificName}), a beautiful tree native to Costa Rica."
+  }
+}

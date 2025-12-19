@@ -1,0 +1,61 @@
+{
+  "siteTitle": "Atlas de Árboles de Costa Rica",
+  "siteDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe de código abierto de la flora costarricense.",
+  "nav": {
+    "title": "Árboles CR",
+    "home": "Inicio",
+    "trees": "Árboles",
+    "about": "Acerca de"
+  },
+  "home": {
+    "title": "Bienvenido al Atlas de Árboles de Costa Rica",
+    "subtitle": "Descubre los magníficos árboles de Costa Rica",
+    "description": "Una guía bilingüe de código abierto de los diversos y hermosos árboles que se encuentran en todo Costa Rica. Desde el icónico Guanacaste hasta la imponente Ceiba, explora la rica herencia botánica de este paraíso tropical.",
+    "exploreButton": "Explorar Árboles",
+    "featuredTrees": "Árboles Destacados",
+    "viewAll": "Ver Todos los Árboles"
+  },
+  "trees": {
+    "title": "Directorio de Árboles",
+    "subtitle": "Explora nuestra colección de árboles costarricenses",
+    "searchPlaceholder": "Buscar árboles...",
+    "noResults": "No se encontraron árboles que coincidan con tu búsqueda.",
+    "scientificName": "Nombre Científico",
+    "family": "Familia",
+    "nativeRegion": "Región Nativa",
+    "maxHeight": "Altura Máxima",
+    "conservationStatus": "Estado de Conservación",
+    "uses": "Usos",
+    "learnMore": "Más Información",
+    "backToList": "← Volver al Directorio"
+  },
+  "footer": {
+    "description": "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica.",
+    "quickLinks": "Enlaces Rápidos",
+    "home": "Inicio",
+    "allTrees": "Todos los Árboles",
+    "aboutUs": "Sobre Nosotros",
+    "openSource": "Código Abierto",
+    "contribute": "Este proyecto es de código abierto. ¡Contribuye en GitHub!",
+    "copyright": "© {year} Atlas de Árboles de Costa Rica. Código abierto bajo licencia MIT.",
+    "license": "Hecho con ❤️ para los bosques de Costa Rica",
+    "madeWith": "Hecho con ❤️ para los bosques de Costa Rica"
+  },
+  "language": {
+    "en": "Inglés",
+    "es": "Español",
+    "switch": "English",
+    "switchTo": "Cambiar a {language}",
+    "current": "Español"
+  },
+  "theme": {
+    "light": "Modo Claro",
+    "dark": "Modo Oscuro",
+    "system": "Sistema",
+    "toggle": "Cambiar Tema"
+  },
+  "meta": {
+    "treeTitle": "{treeName} - Atlas de Árboles de Costa Rica",
+    "treeDescription": "Aprende sobre {treeName} ({scientificName}), un hermoso árbol nativo de Costa Rica."
+  }
+}
