@@ -20,6 +20,7 @@
     "subtitle": "Browse our collection of Costa Rican trees",
     "searchPlaceholder": "Search trees...",
     "noResults": "No trees found matching your search.",
+    "resultsCount": "Showing {count} of {total} trees",
     "scientificName": "Scientific Name",
     "family": "Family",
     "nativeRegion": "Native Region",

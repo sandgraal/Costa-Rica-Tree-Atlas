@@ -20,6 +20,7 @@
     "subtitle": "Explora nuestra colección de árboles costarricenses",
     "searchPlaceholder": "Buscar árboles...",
     "noResults": "No se encontraron árboles que coincidan con tu búsqueda.",
+    "resultsCount": "Mostrando {count} de {total} árboles",
     "scientificName": "Nombre Científico",
     "family": "Familia",
     "nativeRegion": "Región Nativa",

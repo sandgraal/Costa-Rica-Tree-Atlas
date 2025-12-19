@@ -4,5 +4,7 @@ export { LanguageSwitcher } from "./LanguageSwitcher";
 export { Header } from "./Header";
 export { Footer } from "./Footer";
 export { TreeCard } from "./TreeCard";
+export { TreeSearch } from "./TreeSearch";
+export { TreeList } from "./TreeList";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
