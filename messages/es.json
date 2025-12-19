@@ -58,5 +58,59 @@
   "meta": {
     "treeTitle": "{treeName} - Atlas de Árboles de Costa Rica",
     "treeDescription": "Aprende sobre {treeName} ({scientificName}), un hermoso árbol nativo de Costa Rica."
+  },
+  "about": {
+    "title": "Acerca del Atlas de Árboles de Costa Rica",
+    "subtitle": "Un proyecto de código abierto documentando los magníficos árboles de Costa Rica",
+    "mission": {
+      "title": "Nuestra Misión",
+      "description": "El Atlas de Árboles de Costa Rica está dedicado a crear un recurso integral, accesible y bilingüe que documenta los notables árboles encontrados en toda Costa Rica. Creemos que el conocimiento sobre la flora nativa es esencial para la conservación, la educación y fomentar una apreciación más profunda del mundo natural."
+    },
+    "features": {
+      "title": "Qué Ofrecemos",
+      "bilingual": {
+        "title": "Contenido Bilingüe",
+        "description": "Todo el contenido está disponible tanto en inglés como en español, haciendo este recurso accesible a una audiencia más amplia."
+      },
+      "comprehensive": {
+        "title": "Perfiles Integrales",
+        "description": "Cada especie de árbol incluye información detallada sobre botánica, ecología, usos, significado cultural y estado de conservación."
+      },
+      "scientific": {
+        "title": "Precisión Científica",
+        "description": "El contenido se investiga de fuentes autorizadas incluyendo literatura científica, instituciones botánicas y observaciones de campo."
+      },
+      "openSource": {
+        "title": "Código Abierto",
+        "description": "Este proyecto es completamente de código abierto. Cualquiera puede contribuir nuevos perfiles de árboles, correcciones, traducciones o mejoras de código."
+      }
+    },
+    "whyCostaRica": {
+      "title": "¿Por Qué Costa Rica?",
+      "description": "A pesar de ser solo el 0.03% de la superficie terrestre, Costa Rica contiene casi el 5% de la biodiversidad mundial. Esta notable concentración de vida la convierte en uno de los lugares más importantes de la Tierra para la conservación y la investigación biológica.",
+      "stats": {
+        "biodiversity": "de la Biodiversidad Mundial",
+        "treeSpecies": "Especies de Árboles",
+        "lifeZones": "Zonas de Vida",
+        "protected": "Territorio Protegido"
+      }
+    },
+    "contributing": {
+      "title": "Cómo Contribuir",
+      "description": "Damos la bienvenida a contribuciones de botánicos, naturalistas, fotógrafos, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica. Ya sea que quieras agregar un nuevo perfil de árbol, mejorar el contenido existente, traducir material o mejorar el sitio web, tu ayuda es valorada.",
+      "github": "Ver en GitHub",
+      "explore": "Explorar Árboles"
+    },
+    "acknowledgments": {
+      "title": "Agradecimientos",
+      "description": "Este proyecto no sería posible sin la riqueza de conocimiento compartido por investigadores, instituciones y científicos comunitarios:",
+      "inaturalist": "Comunidad de iNaturalist por datos de observación y fotografía",
+      "sinac": "SINAC (Sistema Nacional de Áreas de Conservación de Costa Rica) por información de conservación",
+      "community": "La comunidad global de botánicos y ecólogos investigando árboles tropicales"
+    },
+    "license": {
+      "title": "Licencia de Código Abierto",
+      "description": "El Atlas de Árboles de Costa Rica se publica bajo la Licencia MIT. El contenido es libre de usar, compartir y adaptar con atribución."
+    }
   }
 }

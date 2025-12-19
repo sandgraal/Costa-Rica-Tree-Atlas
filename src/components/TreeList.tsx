@@ -32,7 +32,10 @@ export function TreeList({ trees }: TreeListProps) {
       {/* Results Count */}
       {filteredTrees.length !== trees.length && (
         <p className="text-center text-muted-foreground mb-6">
-          {t("resultsCount", { count: filteredTrees.length, total: trees.length })}
+          {t("resultsCount", {
+            count: filteredTrees.length,
+            total: trees.length,
+          })}
         </p>
       )}
 
