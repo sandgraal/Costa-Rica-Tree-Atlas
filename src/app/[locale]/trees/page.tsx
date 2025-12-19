@@ -36,19 +36,13 @@ export default async function TreesPage({ params }: Props) {
   return (
     <div className="py-12 px-4">
       <div className="container mx-auto max-w-6xl">
-        <TreesContent trees={trees} locale={locale} />
+        <TreesContent trees={trees} />
       </div>
     </div>
   );
 }
 
-function TreesContent({
-  trees,
-  locale,
-}: {
-  trees: typeof allTrees;
-  locale: string;
-}) {
+function TreesContent({ trees }: { trees: typeof allTrees }) {
   const t = useTranslations("trees");
 
   return (
@@ -67,7 +61,7 @@ function TreesContent({
       {trees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trees.map((tree) => (
-            <TreeCard key={tree._id} tree={tree} locale={locale} />
+            <TreeCard key={tree._id} tree={tree} />
           ))}
         </div>
       ) : (

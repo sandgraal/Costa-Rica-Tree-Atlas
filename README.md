@@ -146,29 +146,145 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 2. Create a new message file in `messages/`
 3. Add content directories for the new locale
 
+## 🗺️ Roadmap
+
+### ✅ Completed Features
+
+- [x] **Bilingual Architecture**: Full English/Spanish support with locale-based routing
+- [x] **MDX Content System**: Contentlayer integration for type-safe tree profiles
+- [x] **Nature-Inspired Design**: Custom color palette with forest greens and earth tones
+- [x] **Dark Mode**: System preference detection with manual toggle
+- [x] **Responsive Layout**: Mobile-first design approach
+- [x] **SEO Foundation**: Meta tags, alternate language links, structured URLs
+- [x] **Sample Content**: Guanacaste tree profile as a template
+- [x] **Code Quality**: ESLint + Prettier configuration
+- [x] **Static Generation**: Pre-rendered pages for optimal performance
+
+### 🚧 In Progress
+
+- [ ] **Content Expansion**: Adding more tree profiles (aiming for 50+ species)
+- [ ] **Image Optimization**: Next.js Image component integration with proper sizing
+
+### 📋 Planned Features
+
+#### Phase 1: Core Content & Discovery
+
+- [ ] **Search Functionality**: Full-text search across tree names, descriptions, and scientific names
+- [ ] **Category Filtering**: Filter trees by botanical family, native region, or conservation status
+- [ ] **Alphabetical Index**: Browse trees A-Z in both languages
+- [ ] **Tag System**: Add tags for characteristics (deciduous, evergreen, flowering, etc.)
+
+#### Phase 2: Enhanced User Experience
+
+- [ ] **Interactive Maps**: Geographic distribution maps showing where species are found
+- [ ] **Image Gallery**: Multiple images per tree with lightbox viewing
+- [ ] **Comparison Tool**: Side-by-side comparison of tree characteristics
+- [ ] **Identification Guide**: Interactive key for identifying trees by features
+- [ ] **Print-Friendly Views**: Optimized layouts for field guides
+
+#### Phase 3: Community & Data
+
+- [ ] **Community Contributions**: User-submitted sightings and photographs
+- [ ] **External API Integration**: Connect with biodiversity databases (GBIF, iNaturalist)
+- [ ] **Conservation Data**: Real-time IUCN status updates and population trends
+- [ ] **Educational Resources**: Lesson plans and classroom materials
+
+#### Phase 4: Performance & Accessibility
+
+- [ ] **Performance Audit**: Core Web Vitals optimization
+- [ ] **Accessibility Audit**: WCAG 2.1 AA compliance verification
+- [ ] **PWA Support**: Offline access for field use
+- [ ] **Analytics Integration**: Privacy-respecting usage analytics
+
+### 💡 Future Ideas
+
+- Audio pronunciations for scientific names
+- AR tree identification using device camera
+- Seasonal calendar showing flowering/fruiting times
+- Partnership with Costa Rican conservation organizations
+- Multi-language expansion (German, French for tourists)
+
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+Contributions are welcome! We're building this as an open-source resource for education and conservation.
+
+Please read our **[Contributing Guidelines](CONTRIBUTING.md)** for details on:
+
+- How to fork the repository and submit pull requests
+- Code style and formatting requirements
+- Content contribution guidelines for new tree profiles
+- Translation standards for bilingual content
 
 ### Ways to Contribute
 
-- 🌱 Add new tree profiles
-- 🌍 Improve translations
-- 🐛 Fix bugs
-- ✨ Add new features
-- 📚 Improve documentation
-- 🖼️ Contribute tree photographs
+- 🌱 **Add Tree Profiles**: Document new species with descriptions and images
+- 🌍 **Improve Translations**: Enhance Spanish content or add new languages
+- 🐛 **Fix Bugs**: Report issues or submit fixes
+- ✨ **Add Features**: Implement items from the roadmap
+- 📚 **Improve Documentation**: Clarify instructions or add examples
+- 🖼️ **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
+- 🧪 **Testing**: Help test on different devices and browsers
+
+### Quick Start for Contributors
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR-USERNAME/Costa-Rica-Tree-Atlas.git
+
+# Create a feature branch
+git checkout -b feature/add-ceiba-tree
+
+# Make your changes, then commit
+git commit -m "feat: add Ceiba pentandra tree profile"
+
+# Push and create a pull request
+git push origin feature/add-ceiba-tree
+```
+
+## 🔧 Environment Variables
+
+Currently, no environment variables are required for basic development. Future integrations may require:
+
+| Variable                   | Description                          | Required |
+| -------------------------- | ------------------------------------ | -------- |
+| `NEXT_PUBLIC_ANALYTICS_ID` | Analytics tracking ID                | No       |
+| `NEXT_PUBLIC_MAPS_API_KEY` | Maps API key for geographic features | No       |
+
+Create a `.env.local` file for local development when needed:
+
+```bash
+cp .env.example .env.local
+```
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the **[MIT License](LICENSE)**.
+
+### Content Licensing
+
+- **Code**: MIT License
+- **Tree Descriptions**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (unless otherwise noted)
+- **Images**: Individual licensing noted per image (see attribution in content files)
 
 ## 🙏 Acknowledgments
 
-- The trees of Costa Rica for their beauty and ecological importance
-- The conservation organizations working to protect Costa Rica's forests
-- The open-source community for the amazing tools that made this project possible
+- 🌳 The magnificent trees of Costa Rica for their beauty and ecological importance
+- 🏛️ [SINAC](https://www.sinac.go.cr/) - Costa Rica's National System of Conservation Areas
+- 🔬 [INBio](https://inbio.ac.cr/) - Costa Rica's National Biodiversity Institute
+- 🌎 The conservation organizations working to protect Costa Rica's forests
+- 💻 The open-source community for the amazing tools that made this project possible
+
+## 📞 Contact & Support
+
+- **Issues**: [GitHub Issues](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/discussions)
 
 ---
 
-Made with ❤️ for Costa Rica's forests 🇨🇷
+<p align="center">
+  Made with 💚 for Costa Rica's forests 🇨🇷
+  <br>
+  <em>"The nation that destroys its soil destroys itself. Forests are the lungs of our land."</em>
+  <br>
+  — Franklin D. Roosevelt
+</p>

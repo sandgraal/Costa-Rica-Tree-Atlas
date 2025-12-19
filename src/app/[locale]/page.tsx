@@ -28,7 +28,7 @@ export default async function HomePage({ params }: Props) {
       {/* Featured Trees Section */}
       <section className="py-16 px-4 bg-muted">
         <div className="container mx-auto max-w-6xl">
-          <FeaturedTreesSection trees={trees} locale={locale} />
+          <FeaturedTreesSection trees={trees} />
         </div>
       </section>
 
@@ -75,13 +75,7 @@ function HeroContent() {
   );
 }
 
-function FeaturedTreesSection({
-  trees,
-  locale,
-}: {
-  trees: typeof allTrees;
-  locale: string;
-}) {
+function FeaturedTreesSection({ trees }: { trees: typeof allTrees }) {
   const t = useTranslations("home");
 
   return (
@@ -101,7 +95,7 @@ function FeaturedTreesSection({
       {trees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trees.slice(0, 6).map((tree) => (
-            <TreeCard key={tree._id} tree={tree} locale={locale} />
+            <TreeCard key={tree._id} tree={tree} />
           ))}
         </div>
       ) : (
