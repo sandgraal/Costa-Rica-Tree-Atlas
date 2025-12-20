@@ -1,6 +1,12 @@
 {
   "siteTitle": "Atlas de Árboles de Costa Rica",
   "siteDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe de código abierto de la flora costarricense.",
+  "notFound": {
+    "title": "Página No Encontrada",
+    "description": "La página que buscas puede haber sido eliminada, cambiado de nombre o estar temporalmente no disponible.",
+    "goHome": "Ir al Inicio",
+    "exploreTrees": "Explorar Árboles"
+  },
   "nav": {
     "title": "CR Arboles",
     "home": "Inicio",

@@ -1,6 +1,12 @@
 {
   "siteTitle": "Costa Rica Tree Atlas",
   "siteDescription": "Discover the magnificent trees of Costa Rica. An open-source bilingual guide to Costa Rican flora.",
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "goHome": "Go Home",
+    "exploreTrees": "Explore Trees"
+  },
   "nav": {
     "title": "CR Trees",
     "home": "Home",
