@@ -353,19 +353,24 @@ async function processFile(filePath) {
       !featuredIsValid ||
       (!featuredIsLocal && !featuredIsInat);
     const shouldReplaceFeatured = forceRefresh || featuredIssueDetected;
+    const canReplaceFeatured = !featuredIsLocal;
 
     if (featuredIssueDetected) {
       issuesFound += 1;
     }
 
-    if (shouldReplaceFeatured) {
+    if (featuredIssueDetected && !canReplaceFeatured) {
+      issuesRemaining += 1;
+    }
+
+    if (shouldReplaceFeatured && canReplaceFeatured) {
       updatedFrontmatter = updateFrontmatterValue(
         updatedFrontmatter,
         "featuredImage",
         featuredUrl
       );
       changed = true;
-    } else if (featuredIssueDetected) {
+    } else if (featuredIssueDetected && canReplaceFeatured) {
       issuesRemaining += 1;
     }
   } else {
@@ -423,12 +428,16 @@ async function processFile(filePath) {
       !currentIsValid ||
       (!currentIsLocal && !currentIsInat);
     const shouldReplaceGallery = forceRefresh || galleryIssueDetected;
+    const canReplaceGallery = !currentIsLocal;
 
     let updatedBlock = block;
     if (galleryIssueDetected) {
       issuesFound += 1;
     }
-    if (shouldReplaceGallery) {
+    if (galleryIssueDetected && !canReplaceGallery) {
+      issuesRemaining += 1;
+    }
+    if (shouldReplaceGallery && canReplaceGallery) {
       const replacement = replacementPhotos[replacementIndex];
       replacementIndex += 1;
       if (replacement) {
@@ -446,7 +455,7 @@ async function processFile(filePath) {
           issuesRemaining += 1;
         }
       }
-    } else if (galleryIssueDetected) {
+    } else if (galleryIssueDetected && canReplaceGallery) {
       issuesRemaining += 1;
     }
 
