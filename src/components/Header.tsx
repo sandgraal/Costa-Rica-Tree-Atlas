@@ -7,6 +7,7 @@ import Image from "next/image";
 export function Header() {
   const t = useTranslations("nav");
   const tCompare = useTranslations("comparison");
+  const tIdentify = useTranslations("identification");
   const title = t("title");
   const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
   const brandMain = brandRest.join(" ");
@@ -47,6 +48,12 @@ export function Header() {
               className="text-foreground/80 hover:text-primary transition-colors"
             >
               {t("trees")}
+            </Link>
+            <Link
+              href="/identify"
+              className="text-foreground/80 hover:text-primary transition-colors"
+            >
+              {tIdentify("navLink")}
             </Link>
             <Link
               href="/compare"

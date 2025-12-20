@@ -151,5 +151,77 @@
       "uses": "Usos",
       "tags": "Características"
     }
+  },
+  "identification": {
+    "title": "Guía de Identificación",
+    "subtitle": "Responda preguntas sobre el árbol que observó para encontrar coincidencias",
+    "restart": "Comenzar de Nuevo",
+    "resultsTitle": "Posibles Coincidencias",
+    "noResults": "Ningún árbol coincide con sus criterios. Intente cambiar algunas respuestas.",
+    "matchingTrees": "árboles encontrados",
+    "confidence": "Confianza de coincidencia",
+    "navLink": "Identificar",
+    "questions": {
+      "foliage": {
+        "question": "¿El árbol pierde sus hojas estacionalmente?",
+        "options": {
+          "deciduous": "Sí, pierde hojas en época seca",
+          "evergreen": "No, se mantiene verde todo el año",
+          "unknown": "No estoy seguro"
+        }
+      },
+      "flowering": {
+        "question": "¿El árbol tiene flores vistosas?",
+        "options": {
+          "showy": "Sí, flores coloridas/grandes",
+          "inconspicuous": "No, flores pequeñas u ocultas",
+          "unknown": "No estoy seguro"
+        }
+      },
+      "fruit": {
+        "question": "¿El árbol produce fruta comestible?",
+        "options": {
+          "edible": "Sí, fruta comestible",
+          "nonEdible": "Sin fruta comestible",
+          "unknown": "No estoy seguro"
+        }
+      },
+      "origin": {
+        "question": "¿Este árbol es nativo de Costa Rica?",
+        "options": {
+          "native": "Sí, especie nativa",
+          "introduced": "No, introducido de otro lugar",
+          "unknown": "No estoy seguro"
+        }
+      },
+      "size": {
+        "question": "¿Qué tan alto es el árbol?",
+        "options": {
+          "tall": "Muy alto (más de 25m)",
+          "medium": "Altura media (menos de 25m)",
+          "unknown": "No estoy seguro"
+        }
+      },
+      "habitat": {
+        "question": "¿Dónde observó el árbol?",
+        "options": {
+          "dryForest": "Bosque seco / Región de Guanacaste",
+          "rainforest": "Bosque lluvioso / Tierras bajas húmedas",
+          "coastal": "Costero / Áreas de playa",
+          "highland": "Tierras altas / Bosque de montaña",
+          "unknown": "No estoy seguro"
+        }
+      },
+      "uses": {
+        "question": "¿Para qué se usa principalmente el árbol?",
+        "options": {
+          "timber": "Madera / Productos de madera",
+          "medicinal": "Propósitos medicinales",
+          "ornamental": "Sombra u ornamental",
+          "ecological": "Valor ecológico (fauna, suelo)",
+          "unknown": "No estoy seguro"
+        }
+      }
+    }
   }
 }

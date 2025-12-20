@@ -151,5 +151,77 @@
       "uses": "Uses",
       "tags": "Characteristics"
     }
+  },
+  "identification": {
+    "title": "Tree Identification Guide",
+    "subtitle": "Answer questions about the tree you observed to find possible matches",
+    "restart": "Start Over",
+    "resultsTitle": "Possible Matches",
+    "noResults": "No trees match your criteria. Try changing some answers.",
+    "matchingTrees": "trees found",
+    "confidence": "Match confidence",
+    "navLink": "Identify",
+    "questions": {
+      "foliage": {
+        "question": "Does the tree lose its leaves seasonally?",
+        "options": {
+          "deciduous": "Yes, drops leaves in dry season",
+          "evergreen": "No, stays green year-round",
+          "unknown": "I'm not sure"
+        }
+      },
+      "flowering": {
+        "question": "Does the tree have showy flowers?",
+        "options": {
+          "showy": "Yes, colorful/large flowers",
+          "inconspicuous": "No, small or hidden flowers",
+          "unknown": "I'm not sure"
+        }
+      },
+      "fruit": {
+        "question": "Does the tree produce edible fruit?",
+        "options": {
+          "edible": "Yes, edible fruit",
+          "nonEdible": "No edible fruit",
+          "unknown": "I'm not sure"
+        }
+      },
+      "origin": {
+        "question": "Is this tree native to Costa Rica?",
+        "options": {
+          "native": "Yes, native species",
+          "introduced": "No, introduced from elsewhere",
+          "unknown": "I'm not sure"
+        }
+      },
+      "size": {
+        "question": "How tall is the tree?",
+        "options": {
+          "tall": "Very tall (over 25m)",
+          "medium": "Medium height (under 25m)",
+          "unknown": "I'm not sure"
+        }
+      },
+      "habitat": {
+        "question": "Where did you observe the tree?",
+        "options": {
+          "dryForest": "Dry forest / Guanacaste region",
+          "rainforest": "Rainforest / Humid lowlands",
+          "coastal": "Coastal / Beach areas",
+          "highland": "Highland / Mountain forest",
+          "unknown": "I'm not sure"
+        }
+      },
+      "uses": {
+        "question": "What is the tree primarily used for?",
+        "options": {
+          "timber": "Timber / Wood products",
+          "medicinal": "Medicinal purposes",
+          "ornamental": "Shade or ornamental",
+          "ecological": "Ecological value (wildlife, soil)",
+          "unknown": "I'm not sure"
+        }
+      }
+    }
   }
 }
