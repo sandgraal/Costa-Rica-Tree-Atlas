@@ -39,6 +39,7 @@ export {
 export { TrackView } from "./TrackView";
 export { RecentlyViewedList } from "./RecentlyViewedList";
 export { ExportFavoritesButton } from "./ExportFavoritesButton";
+export { KeyboardShortcuts } from "./KeyboardShortcuts";
 export {
   AnnouncerProvider,
   useAnnounce,

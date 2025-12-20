@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FavoritesProvider } from "@/components/FavoritesProvider";
 import { RecentlyViewedProvider } from "@/components/RecentlyViewedProvider";
+import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -192,6 +193,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 </main>
                 <Footer />
                 <ScrollToTop />
+                <KeyboardShortcuts />
                 <PWARegister />
                 {/* Privacy-respecting analytics - configure via env vars */}
                 <Analytics
