@@ -1,7 +1,5 @@
-export {
-  StoreProvider,
-  useTrackView,
-  useStore,
-  useFavorite,
-} from "./StoreProvider";
+export { StoreProvider, useTrackView } from "./StoreProvider";
 export { QueryProvider } from "./QueryProvider";
+
+// Re-export store hooks for convenience
+export { useStore, useFavorite, useThemeSync } from "@/lib/store";

@@ -9,7 +9,6 @@ interface StoreProviderProps {
 
 /**
  * Unified store provider that handles theme synchronization
- * Replaces: ThemeProvider, FavoritesProvider, RecentlyViewedProvider
  */
 export function StoreProvider({ children }: StoreProviderProps) {
   const { syncTheme } = useThemeSync();
@@ -40,16 +39,3 @@ export function useTrackView(slug: string) {
     addToRecentlyViewed(slug);
   }, [slug, addToRecentlyViewed]);
 }
-
-/**
- * Re-export store hooks for convenience
- */
-export {
-  useStore,
-  useFavorite,
-  useThemeSync,
-  selectTheme,
-  selectResolvedTheme,
-  selectFavorites,
-  selectRecentlyViewed,
-} from "@/lib/store";
