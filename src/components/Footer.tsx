@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export function Footer() {
   const t = useTranslations("footer");
-  const nav = useTranslations("nav");
   const locale = useLocale();
   const currentYear = new Date().getFullYear();
 
@@ -66,7 +65,7 @@ export function Footer() {
                   href="/seasonal"
                   className="text-sm text-foreground/60 hover:text-primary transition-colors"
                 >
-                  {nav("seasonal")}
+                  {t("seasonal")}
                 </Link>
               </li>
               <li>
@@ -104,9 +103,7 @@ export function Footer() {
             <kbd className="px-2 py-1 text-xs font-mono bg-foreground/5 rounded border border-foreground/10">
               ?
             </kbd>{" "}
-            <span>
-              {locale === "es" ? "Atajos de teclado" : "Keyboard shortcuts"}
-            </span>
+            <span>{t("keyboardShortcuts")}</span>
           </p>
         </div>
       </div>

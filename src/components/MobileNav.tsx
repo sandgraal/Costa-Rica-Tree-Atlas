@@ -115,6 +115,23 @@ export function MobileNav() {
                 {locale === "es" ? "Acciones rápidas" : "Quick actions"}
               </p>
               <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    // Trigger the global search modal
+                    window.dispatchEvent(
+                      new KeyboardEvent("keydown", {
+                        key: "k",
+                        metaKey: true,
+                        bubbles: true,
+                      })
+                    );
+                  }}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground w-full text-left"
+                >
+                  <span className="text-xl">🔍</span>
+                  {locale === "es" ? "Buscar árboles" : "Search trees"}
+                </button>
                 <Link
                   href="/trees"
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white font-medium"

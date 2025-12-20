@@ -69,12 +69,14 @@
     "home": "Home",
     "allTrees": "All Trees",
     "education": "Education",
+    "seasonal": "Calendar",
     "aboutUs": "About Us",
     "openSource": "Open Source",
     "contribute": "This project is open source. Contribute on GitHub!",
     "copyright": "© {year} Costa Rica Tree Atlas. Open source under MIT License.",
     "license": "Made with ❤️ for Costa Rica's forests",
-    "madeWith": "Made with ❤️ for Costa Rica's forests"
+    "madeWith": "Made with ❤️ for Costa Rica's forests",
+    "keyboardShortcuts": "Keyboard shortcuts"
   },
   "language": {
     "en": "English",

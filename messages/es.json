@@ -69,12 +69,14 @@
     "home": "Inicio",
     "allTrees": "Todos los Árboles",
     "education": "Educación",
+    "seasonal": "Calendario",
     "aboutUs": "Sobre Nosotros",
     "openSource": "Código Abierto",
     "contribute": "Este proyecto es de código abierto. ¡Contribuye en GitHub!",
     "copyright": "© {year} Atlas de Árboles de Costa Rica. Código abierto bajo licencia MIT.",
     "license": "Hecho con ❤️ para los bosques de Costa Rica",
-    "madeWith": "Hecho con ❤️ para los bosques de Costa Rica"
+    "madeWith": "Hecho con ❤️ para los bosques de Costa Rica",
+    "keyboardShortcuts": "Atajos de teclado"
   },
   "language": {
     "en": "Inglés",

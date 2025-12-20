@@ -510,7 +510,7 @@ function AboutSection() {
         </svg>
       </div>
       <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4">
-        Open Source Project
+        {t("openSource")}
       </h2>
       <p className="text-muted-foreground text-lg">{t("description")}</p>
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useTheme } from "./ThemeProvider";
 import { useTranslations } from "next-intl";
 
@@ -8,7 +8,7 @@ export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const t = useTranslations("theme");
 
-  const cycleTheme = () => {
+  const cycleTheme = useCallback(() => {
     const themes: Array<"light" | "dark" | "system"> = [
       "light",
       "dark",
@@ -17,7 +17,7 @@ export function ThemeToggle() {
     const currentIndex = themes.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themes.length;
     setTheme(themes[nextIndex]);
-  };
+  }, [theme, setTheme]);
 
   // Listen for keyboard shortcut toggle event
   useEffect(() => {
@@ -26,7 +26,7 @@ export function ThemeToggle() {
     };
     window.addEventListener("toggleTheme", handleToggleTheme);
     return () => window.removeEventListener("toggleTheme", handleToggleTheme);
-  });
+  }, [cycleTheme]);
 
   return (
     <button

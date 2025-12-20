@@ -246,8 +246,8 @@ export default async function TreePage({ params }: Props) {
                 <GlobeIcon className="h-4 w-4" />
                 <span>
                   {locale === "es"
-                    ? "Also available in"
-                    : "También disponible en"}
+                    ? "También disponible en"
+                    : "Also available in"}
                   :
                 </span>
                 <Link
