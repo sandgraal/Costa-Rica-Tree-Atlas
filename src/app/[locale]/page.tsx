@@ -55,6 +55,13 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* What's Blooming Now */}
+      <section className="py-12 px-4 bg-gradient-to-r from-pink-50 to-orange-50 dark:from-pink-950/20 dark:to-orange-950/20">
+        <div className="container mx-auto max-w-6xl">
+          <NowBloomingSection trees={trees} locale={locale} />
+        </div>
+      </section>
+
       {/* Featured Trees Section */}
       <section className="py-16 px-4 bg-muted">
         <div className="container mx-auto max-w-6xl">
@@ -133,6 +140,101 @@ function FeaturedTreesSection({ trees }: { trees: typeof allTrees }) {
           No trees found. Add some content to get started!
         </p>
       )}
+    </>
+  );
+}
+
+function NowBloomingSection({
+  trees,
+  locale,
+}: {
+  trees: typeof allTrees;
+  locale: string;
+}) {
+  const t = useTranslations("home");
+  const currentMonth = new Date().toLocaleString("en-US", { month: "long" });
+
+  // Filter trees that are flowering or fruiting this month
+  const floweringNow = trees.filter((tree) =>
+    tree.floweringSeason?.includes(currentMonth)
+  );
+  const fruitingNow = trees.filter((tree) =>
+    tree.fruitingSeason?.includes(currentMonth)
+  );
+
+  const activeNow = [
+    ...floweringNow.map((t) => ({ ...t, activity: "flowering" as const })),
+    ...fruitingNow
+      .filter((t) => !floweringNow.some((f) => f._id === t._id))
+      .map((t) => ({ ...t, activity: "fruiting" as const })),
+  ].slice(0, 8);
+
+  if (activeNow.length === 0) return null;
+
+  return (
+    <>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light flex items-center gap-2">
+            <span className="text-3xl">🌸</span>
+            {t("nowBlooming")}
+          </h2>
+          <p className="text-muted-foreground mt-1">
+            {locale === "es"
+              ? `${floweringNow.length} floreciendo, ${fruitingNow.length} fructificando este mes`
+              : `${floweringNow.length} flowering, ${fruitingNow.length} fruiting this month`}
+          </p>
+        </div>
+        <Link
+          href="/seasonal"
+          className="text-primary hover:text-primary-light transition-colors font-medium"
+        >
+          {locale === "es" ? "Ver calendario" : "View calendar"} →
+        </Link>
+      </div>
+
+      <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory">
+        {activeNow.map((tree) => (
+          <Link
+            key={tree._id}
+            href={`/trees/${tree.slug}`}
+            className="flex-none w-48 bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg snap-start"
+          >
+            <div className="relative h-32 bg-gradient-to-br from-primary/20 to-secondary/20">
+              {tree.featuredImage && (
+                <img
+                  src={tree.featuredImage}
+                  alt={tree.title}
+                  className="w-full h-full object-cover"
+                />
+              )}
+              <div
+                className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium ${
+                  tree.activity === "flowering"
+                    ? "bg-pink-500 text-white"
+                    : "bg-orange-500 text-white"
+                }`}
+              >
+                {tree.activity === "flowering"
+                  ? locale === "es"
+                    ? "🌸 Floreciendo"
+                    : "🌸 Flowering"
+                  : locale === "es"
+                    ? "🍊 Fructificando"
+                    : "🍊 Fruiting"}
+              </div>
+            </div>
+            <div className="p-3">
+              <h3 className="font-semibold text-foreground truncate">
+                {tree.title}
+              </h3>
+              <p className="text-xs text-muted-foreground italic truncate">
+                {tree.scientificName}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </>
   );
 }
