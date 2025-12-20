@@ -4,6 +4,11 @@ import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import { MDXContent } from "@/components/MDXContent";
+import Image from "next/image";
+
+// Default blur placeholder for image loading
+const BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDVhMjciIG9wYWNpdHk9IjAuMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhiNWEyYiIgb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -138,11 +143,16 @@ export default async function TreePage({ params }: Props) {
 
         {/* Featured Image Placeholder */}
         {tree.featuredImage ? (
-          <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted">
-            <img
+          <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
+            <Image
               src={tree.featuredImage}
               alt={tree.title}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"
+              className="object-cover"
+              priority
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
             />
           </div>
         ) : (

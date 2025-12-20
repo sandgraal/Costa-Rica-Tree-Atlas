@@ -10,3 +10,4 @@ export { AlphabeticalIndex } from "./AlphabeticalIndex";
 export { TreeList } from "./TreeList";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
+export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";

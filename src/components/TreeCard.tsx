@@ -1,9 +1,14 @@
+import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import type { Tree } from "contentlayer/generated";
 
 interface TreeCardProps {
   tree: Tree;
 }
+
+// Default blur placeholder for image loading
+const BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDVhMjciIG9wYWNpdHk9IjAuMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhiNWEyYiIgb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==";
 
 export function TreeCard({ tree }: TreeCardProps) {
   return (
@@ -13,10 +18,14 @@ export function TreeCard({ tree }: TreeCardProps) {
     >
       <div className="aspect-video bg-primary/10 relative overflow-hidden">
         {tree.featuredImage ? (
-          <img
+          <Image
             src={tree.featuredImage}
             alt={tree.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

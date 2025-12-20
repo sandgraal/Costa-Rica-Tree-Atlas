@@ -1,6 +1,11 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+
+// Default blur placeholder for image loading
+const BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDVhMjciIG9wYWNpdHk9IjAuMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhiNWEyYiIgb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==";
 
 // Callout Box Component
 interface CalloutProps {
@@ -152,12 +157,15 @@ interface FigureProps {
 export function Figure({ src, alt, caption, credit }: FigureProps) {
   return (
     <figure className="my-8 not-prose">
-      <div className="rounded-xl overflow-hidden bg-muted">
-        <img
+      <div className="rounded-xl overflow-hidden bg-muted relative aspect-video">
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-auto object-cover"
-          loading="lazy"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"
+          className="object-cover"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
         />
       </div>
       {(caption || credit) && (
@@ -184,12 +192,15 @@ export function Gallery({ images }: GalleryProps) {
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8 not-prose">
       {images.map((image, index) => (
         <div key={index} className="group relative">
-          <div className="aspect-square rounded-lg overflow-hidden bg-muted">
-            <img
+          <div className="aspect-square rounded-lg overflow-hidden bg-muted relative">
+            <Image
               src={image.src}
               alt={image.alt}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
             />
           </div>
           {image.caption && (
@@ -474,12 +485,15 @@ export function ImageCard({
 }: ImageCardProps) {
   return (
     <figure className="bg-card rounded-xl overflow-hidden border border-border not-prose">
-      <div className="aspect-[4/3] bg-muted">
-        <img
+      <div className="aspect-[4/3] bg-muted relative">
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-full object-cover"
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
         />
       </div>
       <figcaption className="p-3 text-sm">
