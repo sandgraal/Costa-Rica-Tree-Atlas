@@ -7,9 +7,6 @@ export function Footer() {
   const nav = useTranslations("nav");
   const locale = useLocale();
   const currentYear = new Date().getFullYear();
-  const title = nav("title");
-  const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
-  const brandMain = brandRest.join(" ");
 
   return (
     <footer className="bg-primary/5 border-t border-primary/10 mt-auto">
@@ -26,11 +23,11 @@ export function Footer() {
                 aria-hidden="true"
               />
               <span className="flex flex-col leading-none">
-                <span className="text-[0.55rem] uppercase tracking-[0.3em] text-secondary/70">
-                  {brandPrefix}
+                <span className="text-[0.5rem] uppercase tracking-[0.2em] text-secondary/70">
+                  {locale === "es" ? "Atlas de Árboles" : "Tree Atlas"}
                 </span>
                 <span className="text-base font-semibold text-primary">
-                  {brandMain || title}
+                  Costa Rica
                 </span>
               </span>
             </div>
@@ -103,14 +100,14 @@ export function Footer() {
         <div className="border-t border-primary/10 mt-8 pt-8 text-center text-sm text-foreground/60">
           <p>{t("copyright", { year: currentYear })}</p>
           <p className="mt-1">{t("license")}</p>
-          <p className="mt-3 text-xs text-foreground/40">
-            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-foreground/5 rounded border border-foreground/10">
+          <p className="mt-4 text-xs text-foreground/50">
+            <kbd className="px-2 py-1 text-xs font-mono bg-foreground/5 rounded border border-foreground/10">
               ?
             </kbd>{" "}
-            <span className="hidden sm:inline">
+            <span>
               {locale === "es"
-                ? "para atajos de teclado"
-                : "for keyboard shortcuts"}
+                ? "Atajos de teclado"
+                : "Keyboard shortcuts"}
             </span>
           </p>
         </div>

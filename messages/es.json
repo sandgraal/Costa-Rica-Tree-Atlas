@@ -8,7 +8,7 @@
     "exploreTrees": "Explorar Árboles"
   },
   "nav": {
-    "title": "CR Arboles",
+    "title": "Atlas de Árboles de Costa Rica",
     "home": "Inicio",
     "trees": "Árboles",
     "identify": "Identificar",
@@ -17,9 +17,9 @@
     "about": "Acerca de"
   },
   "home": {
-    "title": "Bienvenido al Atlas de Árboles de Costa Rica",
+    "title": "Descubre los Árboles de Costa Rica",
     "subtitle": "Descubre los magníficos árboles de Costa Rica",
-    "description": "Una guía bilingüe de código abierto de los diversos y hermosos árboles que se encuentran en todo Costa Rica. Desde el icónico Guanacaste hasta la imponente Ceiba, explora la rica herencia botánica de este paraíso tropical.",
+    "description": "Explora la rica herencia botánica de este paraíso tropical—desde el icónico Guanacaste hasta la imponente Ceiba. Una guía gratuita y de código abierto en español e inglés.",
     "exploreButton": "Explorar Árboles",
     "featuredTrees": "Árboles Destacados",
     "viewAll": "Ver Todos los Árboles",

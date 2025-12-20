@@ -8,7 +8,7 @@
     "exploreTrees": "Explore Trees"
   },
   "nav": {
-    "title": "CR Trees",
+    "title": "Costa Rica Tree Atlas",
     "home": "Home",
     "trees": "Trees",
     "identify": "Identify",
@@ -17,9 +17,9 @@
     "about": "About"
   },
   "home": {
-    "title": "Welcome to the Costa Rica Tree Atlas",
+    "title": "Discover Costa Rica's Trees",
     "subtitle": "Discover the magnificent trees of Costa Rica",
-    "description": "An open-source bilingual guide to the diverse and beautiful trees found throughout Costa Rica. From the iconic Guanacaste to the towering Ceiba, explore the rich botanical heritage of this tropical paradise.",
+    "description": "Explore the rich botanical heritage of this tropical paradise—from the iconic Guanacaste to the towering Ceiba. A free, open-source guide in English and Spanish.",
     "exploreButton": "Explore Trees",
     "featuredTrees": "Featured Trees",
     "viewAll": "View All Trees",

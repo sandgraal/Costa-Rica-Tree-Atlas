@@ -46,6 +46,13 @@
   --warning: #eab308;
   --error: #ef4444;
   --info: #3b82f6;
+  
+  /* Foreground colors for buttons/badges */
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #ffffff;
+  --accent-foreground: #1f2f25;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
 }
 
 @theme inline {
@@ -54,17 +61,22 @@
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-primary-dark: var(--primary-dark);
+  --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-light: var(--secondary-light);
   --color-secondary-dark: var(--secondary-dark);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
+  --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -93,6 +105,13 @@
     --card: #162016;
     --card-foreground: #e8f0e6;
     --background-pattern: none;
+    
+    /* Foreground colors for dark mode */
+    --primary-foreground: #ffffff;
+    --secondary-foreground: #ffffff;
+    --accent-foreground: #1f2f25;
+    --destructive: #f87171;
+    --destructive-foreground: #ffffff;
   }
 }
 
@@ -119,6 +138,13 @@
   --card: #162016;
   --card-foreground: #e8f0e6;
   --background-pattern: none;
+  
+  /* Foreground colors for dark mode */
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #ffffff;
+  --accent-foreground: #1f2f25;
+  --destructive: #f87171;
+  --destructive-foreground: #ffffff;
 }
 
 body {

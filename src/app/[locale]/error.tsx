@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Link } from "@i18n/navigation";
+import { useLocale } from "next-intl";
 
 export default function Error({
   error,
@@ -10,6 +11,19 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const locale = useLocale();
+  
+  const t = {
+    title: locale === "es" ? "Algo salió mal" : "Something went wrong",
+    description:
+      locale === "es"
+        ? "Encontramos un error inesperado. Por favor intenta de nuevo o regresa a la página principal."
+        : "We encountered an unexpected error. Please try again or return to the homepage.",
+    tryAgain: locale === "es" ? "Intentar de nuevo" : "Try Again",
+    goHome: locale === "es" ? "Ir al Inicio" : "Go Home",
+    errorId: locale === "es" ? "ID del error" : "Error ID",
+  };
+
   useEffect(() => {
     // Log the error to console in development
     console.error("Application error:", error);
@@ -26,6 +40,7 @@ export default function Error({
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -35,11 +50,10 @@ export default function Error({
           </svg>
         </div>
         <h1 className="text-3xl font-bold text-primary-dark dark:text-primary-light mb-4">
-          Something went wrong
+          {t.title}
         </h1>
         <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-          We encountered an unexpected error. Please try again or return to the
-          homepage.
+          {t.description}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <button
@@ -52,6 +66,7 @@ export default function Error({
               className="h-5 w-5"
               viewBox="0 0 20 20"
               fill="currentColor"
+              aria-hidden="true"
             >
               <path
                 fillRule="evenodd"
@@ -59,18 +74,18 @@ export default function Error({
                 clipRule="evenodd"
               />
             </svg>
-            Try Again
+            {t.tryAgain}
           </button>
           <Link
             href="/"
             className="inline-flex items-center gap-2 bg-card hover:bg-muted text-foreground border border-border font-semibold py-3 px-6 rounded-lg transition-colors"
           >
-            Go Home
+            {t.goHome}
           </Link>
         </div>
         {error.digest && (
           <p className="text-xs text-muted-foreground mt-8">
-            Error ID: {error.digest}
+            {t.errorId}: {error.digest}
           </p>
         )}
       </div>

@@ -1,4 +1,11 @@
+"use client";
+
+import { useLocale } from "next-intl";
+
 export default function Loading() {
+  const locale = useLocale();
+  const loadingText = locale === "es" ? "Cargando..." : "Loading...";
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
       <div className="relative">
@@ -11,6 +18,7 @@ export default function Loading() {
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -25,6 +33,7 @@ export default function Loading() {
           <svg
             className="animate-spin h-28 w-28 text-primary/20"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <circle
               className="opacity-25"
@@ -44,7 +53,9 @@ export default function Loading() {
         </div>
       </div>
 
-      <p className="mt-8 text-muted-foreground animate-pulse">Loading...</p>
+      <p className="mt-8 text-muted-foreground animate-pulse" role="status">
+        {loadingText}
+      </p>
     </div>
   );
 }

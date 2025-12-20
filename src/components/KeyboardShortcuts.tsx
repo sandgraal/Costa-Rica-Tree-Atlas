@@ -70,8 +70,18 @@ export function KeyboardShortcuts() {
             break;
           case "r":
             e.preventDefault();
-            // Trigger random tree (need to dispatch custom event)
-            window.dispatchEvent(new CustomEvent("showRandomTree"));
+            // Navigate to a random tree using API
+            fetch(`/api/species/random?locale=${locale}`)
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.slug) {
+                  window.location.href = `/${locale}/trees/${data.slug}`;
+                }
+              })
+              .catch(() => {
+                // Fallback to trees page if API fails
+                window.location.href = `/${locale}/trees`;
+              });
             break;
           case "d":
             e.preventDefault();

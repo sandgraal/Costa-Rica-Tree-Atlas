@@ -19,7 +19,6 @@ export { TreeGallery, ImageLightbox } from "./TreeGallery";
 export { PrintButton } from "./PrintButton";
 export { TreeComparison } from "./TreeComparison";
 export { IdentificationGuide } from "./IdentificationGuide";
-export { RandomTree } from "./RandomTree";
 export { PWARegister } from "./PWARegister";
 export { DistributionMap } from "./DistributionMap";
 export { Analytics, trackEvent, trackPageView } from "./Analytics";

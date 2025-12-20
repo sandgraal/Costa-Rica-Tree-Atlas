@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
@@ -9,9 +9,7 @@ import Image from "next/image";
 
 export function Header() {
   const t = useTranslations("nav");
-  const title = t("title");
-  const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
-  const brandMain = brandRest.join(" ");
+  const locale = useLocale();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-primary/10">
@@ -28,11 +26,11 @@ export function Header() {
               aria-hidden="true"
             />
             <span className="flex flex-col leading-none">
-              <span className="text-[0.6rem] sm:text-[0.7rem] uppercase tracking-[0.35em] text-secondary/80">
-                {brandPrefix}
+              <span className="text-[0.55rem] sm:text-[0.65rem] uppercase tracking-[0.25em] text-secondary/80">
+                {locale === "es" ? "Atlas de Árboles" : "Tree Atlas"}
               </span>
               <span className="text-lg sm:text-xl font-semibold text-primary group-hover:text-primary-dark transition-colors">
-                {brandMain || title}
+                Costa Rica
               </span>
             </span>
           </Link>
