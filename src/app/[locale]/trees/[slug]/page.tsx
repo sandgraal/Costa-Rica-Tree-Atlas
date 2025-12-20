@@ -7,6 +7,7 @@ import { MDXContent } from "@/components/MDXContent";
 import { PrintButton } from "@/components/PrintButton";
 import { DistributionMap } from "@/components/DistributionMap";
 import { BiodiversityInfo } from "@/components/BiodiversityInfo";
+import { SeasonalInfo } from "@/components/SeasonalInfo";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -297,6 +298,13 @@ export default async function TreePage({ params }: Props) {
           <DistributionMap
             distribution={tree.distribution}
             elevation={tree.elevation}
+            locale={locale}
+          />
+
+          {/* Seasonal Information */}
+          <SeasonalInfo
+            floweringSeason={tree.floweringSeason}
+            fruitingSeason={tree.fruitingSeason}
             locale={locale}
           />
 

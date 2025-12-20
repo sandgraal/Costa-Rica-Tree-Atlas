@@ -26,6 +26,7 @@ export { Analytics, trackEvent, trackPageView } from "./Analytics";
 export { BiodiversityInfo } from "./BiodiversityInfo";
 export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
+export { SeasonalInfo } from "./SeasonalInfo";
 export {
   AnnouncerProvider,
   useAnnounce,
