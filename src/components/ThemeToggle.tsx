@@ -16,9 +16,11 @@ export function ThemeToggle() {
 
   return (
     <button
+      type="button"
       onClick={cycleTheme}
       className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
-      aria-label={t("toggle")}
+      aria-label={`${t("toggle")} - ${t(theme)}`}
+      aria-pressed={resolvedTheme === "dark"}
       title={t(theme)}
     >
       {resolvedTheme === "dark" ? (
@@ -29,6 +31,7 @@ export function ThemeToggle() {
           strokeWidth={1.5}
           stroke="currentColor"
           className="w-5 h-5"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
@@ -44,6 +47,7 @@ export function ThemeToggle() {
           strokeWidth={1.5}
           stroke="currentColor"
           className="w-5 h-5"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"

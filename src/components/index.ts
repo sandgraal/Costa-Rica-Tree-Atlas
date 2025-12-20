@@ -20,6 +20,7 @@ export { PrintButton } from "./PrintButton";
 export { TreeComparison } from "./TreeComparison";
 export { IdentificationGuide } from "./IdentificationGuide";
 export { PWARegister } from "./PWARegister";
+export { AnnouncerProvider, useAnnounce, VisuallyHidden } from "./Accessibility";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";

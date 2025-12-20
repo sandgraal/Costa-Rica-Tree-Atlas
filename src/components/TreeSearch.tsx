@@ -40,18 +40,25 @@ export function TreeSearch({ trees, onFilteredTrees }: TreeSearchProps) {
   return (
     <div className="relative max-w-md mx-auto mb-8">
       <div className="relative">
+        <label htmlFor="tree-search" className="sr-only">
+          {t("searchPlaceholder")}
+        </label>
         <input
-          type="text"
+          id="tree-search"
+          type="search"
+          role="searchbox"
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
           placeholder={t("searchPlaceholder")}
+          aria-label={t("searchPlaceholder")}
           className="w-full px-4 py-3 pl-12 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
         />
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" aria-hidden="true">
           <SearchIcon className="h-5 w-5" />
         </div>
         {searchQuery && (
           <button
+            type="button"
             onClick={() => handleSearch("")}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Clear search"
