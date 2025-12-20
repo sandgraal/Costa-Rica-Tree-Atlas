@@ -24,6 +24,7 @@ export { PWARegister } from "./PWARegister";
 export { DistributionMap } from "./DistributionMap";
 export { Analytics, trackEvent, trackPageView } from "./Analytics";
 export { BiodiversityInfo } from "./BiodiversityInfo";
+export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export {
   AnnouncerProvider,
   useAnnounce,

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSpeciesProfile } from "@/lib/gbif";
+import { getSpeciesProfile, matchSpecies } from "@/lib/gbif";
 import { getSpeciesData } from "@/lib/inaturalist";
+import { getIUCNFromGBIF, type IUCNSpeciesData } from "@/lib/iucn";
 
 export interface BiodiversityData {
   gbif: {
@@ -19,11 +20,12 @@ export interface BiodiversityData {
     photoUrl?: string;
     inatUrl: string;
   } | null;
+  iucn: IUCNSpeciesData | null;
   lastUpdated: string;
 }
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
+  const { searchParams } = request.nextUrl;
   const scientificName = searchParams.get("species");
 
   if (!scientificName) {
@@ -34,10 +36,15 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Fetch data from both sources in parallel
-    const [gbifData, inatData] = await Promise.all([
+    // First, get GBIF match to get taxon key for IUCN lookup
+    const gbifMatch = await matchSpecies(scientificName);
+    const taxonKey = gbifMatch?.usageKey;
+
+    // Fetch data from all sources in parallel
+    const [gbifData, inatData, iucnData] = await Promise.all([
       getSpeciesProfile(scientificName),
       getSpeciesData(scientificName),
+      taxonKey ? getIUCNFromGBIF(taxonKey) : Promise.resolve(null),
     ]);
 
     const response: BiodiversityData = {
@@ -61,6 +68,7 @@ export async function GET(request: NextRequest) {
             inatUrl: inatData.inatUrl,
           }
         : null,
+      iucn: iucnData,
       lastUpdated: new Date().toISOString(),
     };
 
