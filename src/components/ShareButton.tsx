@@ -87,7 +87,9 @@ export function ShareButton({ title, scientificName, slug }: ShareButtonProps) {
     <div className="relative">
       <button
         onClick={() =>
-          hasNativeShare ? handleShare("native") : setShowDropdown(!showDropdown)
+          hasNativeShare
+            ? handleShare("native")
+            : setShowDropdown(!showDropdown)
         }
         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-sm"
         aria-label={locale === "es" ? "Compartir" : "Share"}

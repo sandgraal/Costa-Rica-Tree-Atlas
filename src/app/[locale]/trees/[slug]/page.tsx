@@ -204,9 +204,24 @@ export default async function TreePage({ params }: Props) {
             <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-2">
               {tree.title}
             </h1>
-            <p className="text-2xl text-secondary italic mb-6">
+            <p className="text-2xl text-secondary italic mb-4">
               {tree.scientificName}
             </p>
+
+            {/* Reading Time */}
+            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+              <span className="flex items-center gap-1.5">
+                <ClockIcon className="h-4 w-4" />
+                {(() => {
+                  // Estimate reading time from raw MDX content
+                  const wordCount = tree.body.raw.split(/\s+/).length;
+                  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+                  return locale === "es"
+                    ? `${readingTime} min de lectura`
+                    : `${readingTime} min read`;
+                })()}
+              </span>
+            </div>
 
             {/* Alternate Language Link */}
             {altTree && (
@@ -387,6 +402,24 @@ function TreeIcon({ className }: { className?: string }) {
       <path d="M12 22V8" />
       <path d="M5 12l7-10 7 10" />
       <path d="M5 12a7 7 0 0 0 14 0" />
+    </svg>
+  );
+}
+
+function ClockIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
     </svg>
   );
 }
