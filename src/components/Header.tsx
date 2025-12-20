@@ -2,24 +2,36 @@ import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
+import Image from "next/image";
 
 export function Header() {
   const t = useTranslations("nav");
+  const title = t("title");
+  const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
+  const brandMain = brandRest.join(" ");
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-primary/10">
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-8 h-8 text-primary group-hover:scale-110 transition-transform"
-            >
-              <path d="M12 2C9.5 2 7 4 7 7c0 1.5.5 2.5 1 3.5-1.5.5-3 1.5-3 4 0 2 1 3.5 2.5 4.5-.5 1-1 2-1 3.5v.5h11v-.5c0-1.5-.5-2.5-1-3.5 1.5-1 2.5-2.5 2.5-4.5 0-2.5-1.5-3.5-3-4C16.5 9.5 17 8.5 17 7c0-3-2.5-5-5-5z" />
-            </svg>
-            <span className="text-xl font-bold text-primary">{t("title")}</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <Image
+              src="/images/cr-tree-atlas-logo.png"
+              alt=""
+              width={64}
+              height={64}
+              className="h-10 w-10 sm:h-12 sm:w-12 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
+              priority
+              aria-hidden="true"
+            />
+            <span className="flex flex-col leading-none">
+              <span className="text-[0.6rem] sm:text-[0.7rem] uppercase tracking-[0.35em] text-secondary/80">
+                {brandPrefix}
+              </span>
+              <span className="text-lg sm:text-xl font-semibold text-primary group-hover:text-primary-dark transition-colors">
+                {brandMain || title}
+              </span>
+            </span>
           </Link>
 
           <div className="flex items-center gap-6">

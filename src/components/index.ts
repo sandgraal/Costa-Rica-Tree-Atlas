@@ -5,6 +5,8 @@ export { Header } from "./Header";
 export { Footer } from "./Footer";
 export { TreeCard } from "./TreeCard";
 export { TreeSearch } from "./TreeSearch";
+export { TreeFilters } from "./TreeFilters";
+export { AlphabeticalIndex } from "./AlphabeticalIndex";
 export { TreeList } from "./TreeList";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
