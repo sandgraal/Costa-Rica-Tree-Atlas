@@ -5,9 +5,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { FavoritesProvider } from "@/components/FavoritesProvider";
-import { RecentlyViewedProvider } from "@/components/RecentlyViewedProvider";
+import { StoreProvider, QueryProvider } from "@/components/providers";
 import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
@@ -181,33 +179,31 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <ThemeProvider>
-          <FavoritesProvider>
-            <RecentlyViewedProvider>
-              <NextIntlClientProvider messages={messages}>
-                <a href="#main-content" className="skip-link">
-                  Skip to main content
-                </a>
-                <Header />
-                <main id="main-content" className="flex-grow">
-                  {children}
-                </main>
-                <Footer />
-                <ScrollToTop />
-                <KeyboardShortcuts />
-                <PWARegister />
-                {/* Privacy-respecting analytics - configure via env vars */}
-                <Analytics
-                  plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-                  enableSimpleAnalytics={
-                    process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
-                  }
-                  googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
-                />
-              </NextIntlClientProvider>
-            </RecentlyViewedProvider>
-          </FavoritesProvider>
-        </ThemeProvider>
+        <QueryProvider>
+          <StoreProvider>
+            <NextIntlClientProvider messages={messages}>
+              <a href="#main-content" className="skip-link">
+                Skip to main content
+              </a>
+              <Header />
+              <main id="main-content" className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+              <ScrollToTop />
+              <KeyboardShortcuts />
+              <PWARegister />
+              {/* Privacy-respecting analytics - configure via env vars */}
+              <Analytics
+                plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+                enableSimpleAnalytics={
+                  process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
+                }
+                googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+              />
+            </NextIntlClientProvider>
+          </StoreProvider>
+        </QueryProvider>
       </body>
     </html>
   );
