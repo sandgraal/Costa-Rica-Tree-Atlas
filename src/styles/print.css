@@ -303,3 +303,36 @@
     display: none;
   }
 }
+
+/* =================================
+   PRINTABLE EDUCATION RESOURCES
+   ================================= */
+
+/* Checklist print styles */
+.print-checklist {
+  color: black;
+}
+
+/* Flashcard print styles */
+.flashcard-page {
+  page-break-after: always;
+  page-break-inside: avoid;
+}
+
+.flashcard-page:last-child {
+  page-break-after: auto;
+}
+
+.flashcard {
+  break-inside: avoid;
+}
+
+/* Family guide print styles */
+.print-families .break-inside-avoid {
+  break-inside: avoid;
+}
+
+/* Identification key print styles */
+.print-key .break-inside-avoid {
+  break-inside: avoid;
+}

@@ -325,25 +325,31 @@ function EducationContent({ treeCount }: { treeCount: number }) {
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {printables.map((item) => (
-              <div
+              <Link
                 key={item.id}
-                className="bg-card rounded-lg p-4 border border-border flex items-center gap-3"
+                href={`/education/printables/${item.id === "tree-cards" ? "flashcards" : item.id === "species-checklist" ? "checklist" : item.id === "identification-key" ? "identification-key" : "families"}`}
+                className="bg-card rounded-lg p-4 border border-border flex items-center gap-3 hover:border-primary/50 hover:bg-primary/5 transition-colors group"
               >
                 <span className="text-2xl">{item.icon}</span>
                 <div className="flex-1">
-                  <div className="font-medium text-foreground text-sm">
+                  <div className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">
                     {t(`printables.${item.id}.title`)}
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {item.format}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground mt-4 italic">
-            {t("printables.comingSoon")}
-          </p>
+          <div className="mt-4">
+            <Link
+              href="/education/printables"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium"
+            >
+              {t("printables.viewAll") || "View all printable resources"} →
+            </Link>
+          </div>
         </div>
       </section>
 
