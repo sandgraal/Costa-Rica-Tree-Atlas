@@ -162,6 +162,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Search Functionality**: Full-text search across tree names, descriptions, and scientific names
 - [x] **Quick Search**: Global ⌘K keyboard shortcut for instant tree lookup
 - [x] **Category Filtering**: Filter trees by botanical family and conservation status
+- [x] **Seasonal Filtering**: Filter trees by "flowering now" or "fruiting now" based on current month
 - [x] **Alphabetical Index**: Browse trees A-Z with sticky alphabet navigation
 - [x] **Sorting Options**: Sort by common name, scientific name, or family
 
