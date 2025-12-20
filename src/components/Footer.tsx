@@ -65,6 +65,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/seasonal"
+                  className="text-sm text-foreground/60 hover:text-primary transition-colors"
+                >
+                  {nav("seasonal")}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="text-sm text-foreground/60 hover:text-primary transition-colors"
                 >
