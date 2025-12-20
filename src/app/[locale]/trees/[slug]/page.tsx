@@ -4,6 +4,7 @@ import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import { MDXContent } from "@/components/MDXContent";
+import { PrintButton } from "@/components/PrintButton";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -87,10 +88,10 @@ export default async function TreePage({ params }: Props) {
   );
 
   return (
-    <article className="py-12 px-4">
+    <article className="py-12 px-4 tree-detail">
       <div className="container mx-auto max-w-4xl">
-        {/* Breadcrumb */}
-        <nav className="mb-8">
+        {/* Breadcrumb and Print Button */}
+        <nav className="mb-8 flex justify-between items-center no-print">
           <Link
             href="/trees"
             className="text-primary hover:text-primary-light transition-colors inline-flex items-center gap-2"
@@ -98,6 +99,7 @@ export default async function TreePage({ params }: Props) {
             <ArrowLeftIcon className="h-4 w-4" />
             {locale === "es" ? "Volver al Directorio" : "Back to Directory"}
           </Link>
+          <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
         </nav>
 
         {/* Header */}

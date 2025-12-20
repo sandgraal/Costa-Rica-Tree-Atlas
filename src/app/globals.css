@@ -28,7 +28,8 @@
   --card: #fffdf7;
   --card-foreground: #1f2f25;
 
-  --background-pattern: radial-gradient(
+  --background-pattern:
+    radial-gradient(
       1200px 700px at 10% -10%,
       rgba(79, 139, 102, 0.18),
       transparent 60%
@@ -191,3 +192,6 @@ body {
 .skip-link:focus {
   top: 0;
 }
+
+/* Print styles - import from separate file */
+@import "../styles/print.css";

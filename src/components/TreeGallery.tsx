@@ -21,7 +21,11 @@ interface ImageLightboxProps {
   onClose: () => void;
 }
 
-export function ImageLightbox({ images, initialIndex = 0, onClose }: ImageLightboxProps) {
+export function ImageLightbox({
+  images,
+  initialIndex = 0,
+  onClose,
+}: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -139,7 +143,9 @@ export function ImageLightbox({ images, initialIndex = 0, onClose }: ImageLightb
             <p className="text-sm text-white/70">
               📷 {currentImage.credit}
               {currentImage.license && (
-                <span className="ml-2 text-white/50">({currentImage.license})</span>
+                <span className="ml-2 text-white/50">
+                  ({currentImage.license})
+                </span>
               )}
             </p>
           )}
@@ -227,7 +233,7 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
             />
-            
+
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
               <ExpandIcon className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />

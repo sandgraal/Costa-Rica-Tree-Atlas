@@ -572,7 +572,13 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
   });
 
   // Extract image data from children
-  const images: Array<{ src: string; alt: string; title?: string; credit?: string; license?: string }> = [];
+  const images: Array<{
+    src: string;
+    alt: string;
+    title?: string;
+    credit?: string;
+    license?: string;
+  }> = [];
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child) && child.props) {
       const props = child.props as ImageCardProps;
@@ -599,14 +605,16 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
   const goToPrevious = () => {
     setLightbox((prev) => ({
       ...prev,
-      currentIndex: prev.currentIndex === 0 ? images.length - 1 : prev.currentIndex - 1,
+      currentIndex:
+        prev.currentIndex === 0 ? images.length - 1 : prev.currentIndex - 1,
     }));
   };
 
   const goToNext = () => {
     setLightbox((prev) => ({
       ...prev,
-      currentIndex: prev.currentIndex === images.length - 1 ? 0 : prev.currentIndex + 1,
+      currentIndex:
+        prev.currentIndex === images.length - 1 ? 0 : prev.currentIndex + 1,
     }));
   };
 
@@ -667,7 +675,13 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
             className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
             aria-label="Close"
           >
-            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="w-8 h-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
@@ -676,20 +690,38 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
           {images.length > 1 && (
             <>
               <button
-                onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToPrevious();
+                }}
                 className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20"
                 aria-label="Previous"
               >
-                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); goToNext(); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToNext();
+                }}
                 className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20"
                 aria-label="Next"
               >
-                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
@@ -715,13 +747,17 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
             {/* Caption */}
             <div className="mt-4 text-center text-white max-w-2xl px-4">
               {currentImage.title && (
-                <h3 className="text-lg font-semibold mb-1">{currentImage.title}</h3>
+                <h3 className="text-lg font-semibold mb-1">
+                  {currentImage.title}
+                </h3>
               )}
               {currentImage.credit && (
                 <p className="text-sm text-white/70">
                   📷 {currentImage.credit}
                   {currentImage.license && (
-                    <span className="ml-2 text-white/50">({currentImage.license})</span>
+                    <span className="ml-2 text-white/50">
+                      ({currentImage.license})
+                    </span>
                   )}
                 </p>
               )}
