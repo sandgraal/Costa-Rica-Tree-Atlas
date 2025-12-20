@@ -172,11 +172,9 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Tag System**: Add tags for characteristics (deciduous, evergreen, flowering, etc.)
 - [x] **Image Gallery**: Multiple images per tree with lightbox viewing
 - [x] **Print-Friendly Views**: Optimized layouts for field guides
+- [x] **Comparison Tool**: Side-by-side comparison of tree characteristics
+- [x] **Identification Guide**: Interactive key for identifying trees by features
 - [ ] **Interactive Maps**: Geographic distribution maps showing where species are found
-- [ ] **Image Gallery**: Multiple images per tree with lightbox viewing
-- [ ] **Comparison Tool**: Side-by-side comparison of tree characteristics
-- [ ] **Identification Guide**: Interactive key for identifying trees by features
-- [ ] **Print-Friendly Views**: Optimized layouts for field guides
 
 #### Phase 3: Community & Data
 
