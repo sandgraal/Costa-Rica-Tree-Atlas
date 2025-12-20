@@ -50,6 +50,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/education" className="text-sm text-foreground/60 hover:text-primary transition-colors">
+                  {t("education")}
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-sm text-foreground/60 hover:text-primary transition-colors">
                   {t("aboutUs")}
                 </Link>
