@@ -3,6 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
+import {
+  EducationProgressProvider,
+  useEducationProgress,
+} from "@/components/EducationProgress";
 
 interface TreeData {
   title: string;
@@ -83,12 +87,23 @@ const addStyles = () => {
   document.head.appendChild(style);
 };
 
-export default function TreeIdentificationClient({
+export default function TreeIdentificationClient(
+  props: TreeIdentificationClientProps
+) {
+  return (
+    <EducationProgressProvider>
+      <TreeIdentificationContent {...props} />
+    </EducationProgressProvider>
+  );
+}
+
+function TreeIdentificationContent({
   trees,
   locale,
   totalSpecies,
   totalFamilies,
 }: TreeIdentificationClientProps) {
+  const { markLessonComplete } = useEducationProgress();
   const [currentStep, setCurrentStep] = useState(0);
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "match">("learn");
   const [currentQuizTree, setCurrentQuizTree] = useState<TreeData | null>(null);
@@ -250,8 +265,16 @@ export default function TreeIdentificationClient({
         setQuizRound((prev) => prev + 1);
         generateQuizQuestion();
       } else {
+        const finalScore = isCorrect ? quizScore + 1 : quizScore;
+        const percentage = Math.round((finalScore / 10) * 100);
+        // Note: totalPoints is already updated by now through setTotalPoints
+        markLessonComplete(
+          "tree-identification",
+          percentage,
+          totalPoints + (isCorrect ? 10 * (quizStreak + 1) : 0)
+        );
         setShowResults(true);
-        if (quizScore >= 7) triggerConfetti();
+        if (finalScore >= 7) triggerConfetti();
       }
     }, 1500);
   };

@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
+import {
+  EducationProgressProvider,
+  useEducationProgress,
+} from "@/components/EducationProgress";
 
 interface TreeData {
   title: string;
@@ -75,10 +79,21 @@ const addStyles = () => {
   document.head.appendChild(style);
 };
 
-export default function EcosystemServicesClient({
+export default function EcosystemServicesClient(
+  props: EcosystemServicesClientProps
+) {
+  return (
+    <EducationProgressProvider>
+      <EcosystemServicesContent {...props} />
+    </EducationProgressProvider>
+  );
+}
+
+function EcosystemServicesContent({
   trees,
   locale,
 }: EcosystemServicesClientProps) {
+  const { markLessonComplete } = useEducationProgress();
   const [currentStep, setCurrentStep] = useState(0);
   const [discoveredServices, setDiscoveredServices] = useState<Set<string>>(
     new Set()
@@ -479,6 +494,16 @@ export default function EcosystemServicesClient({
   };
 
   const handleFinish = () => {
+    const correctQuizAnswers = Object.entries(quizFeedback).filter(
+      ([, correct]) => correct
+    ).length;
+    const percentage =
+      quizFeedback && Object.keys(quizFeedback).length > 0
+        ? Math.round(
+            (correctQuizAnswers / Object.keys(quizFeedback).length) * 100
+          )
+        : 100; // Give full credit if no quiz
+    markLessonComplete("ecosystem-services", percentage, totalPoints);
     setShowResults(true);
     triggerConfetti();
   };

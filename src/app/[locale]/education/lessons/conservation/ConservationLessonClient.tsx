@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
+import {
+  EducationProgressProvider,
+  useEducationProgress,
+} from "@/components/EducationProgress";
 
 interface TreeData {
   title: string;
@@ -73,12 +77,23 @@ const addStyles = () => {
   document.head.appendChild(style);
 };
 
-export default function ConservationLessonClient({
+export default function ConservationLessonClient(
+  props: ConservationLessonClientProps
+) {
+  return (
+    <EducationProgressProvider>
+      <ConservationLessonContent {...props} />
+    </EducationProgressProvider>
+  );
+}
+
+function ConservationLessonContent({
   trees,
   locale,
   statusCounts,
   endangeredTrees,
 }: ConservationLessonClientProps) {
+  const { markLessonComplete } = useEducationProgress();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedThreats, setSelectedThreats] = useState<string[]>([]);
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
@@ -528,6 +543,16 @@ export default function ConservationLessonClient({
   };
 
   const handleFinish = () => {
+    const correctQuizAnswers = Object.entries(quizFeedback).filter(
+      ([, correct]) => correct
+    ).length;
+    const percentage =
+      quizFeedback && Object.keys(quizFeedback).length > 0
+        ? Math.round(
+            (correctQuizAnswers / Object.keys(quizFeedback).length) * 100
+          )
+        : 100; // Give full credit if no quiz
+    markLessonComplete("conservation", percentage, totalPoints);
     setShowResults(true);
     if (totalPoints >= 100) triggerConfetti();
   };

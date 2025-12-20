@@ -9,7 +9,7 @@ const BLUR_DATA_URL =
 
 // Callout Box Component
 interface CalloutProps {
-  type?: "info" | "warning" | "success" | "tip";
+  type?: "info" | "warning" | "success" | "tip" | "error";
   title?: string;
   children: React.ReactNode;
 }
@@ -39,6 +39,12 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
       border: "border-accent",
       icon: "💡",
       titleColor: "text-accent-dark dark:text-accent",
+    },
+    error: {
+      bg: "bg-destructive/10 dark:bg-destructive/20",
+      border: "border-destructive",
+      icon: "🚨",
+      titleColor: "text-destructive",
     },
   };
 
