@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
+import { QuickSearch } from "./QuickSearch";
 import Image from "next/image";
 
 export function Header() {
@@ -76,6 +77,7 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-4">
+            <QuickSearch />
             <LanguageSwitcher />
             <ThemeToggle />
           </div>

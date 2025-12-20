@@ -320,10 +320,7 @@ export default async function TreePage({ params }: Props) {
           </div>
 
           {/* Related Trees */}
-          <RelatedTrees
-            currentTree={tree}
-            locale={locale}
-          />
+          <RelatedTrees currentTree={tree} locale={locale} />
         </div>
       </article>
     </>

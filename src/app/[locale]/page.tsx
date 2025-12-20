@@ -270,17 +270,24 @@ function TreeOfTheDay({
   if (tree.maxHeight)
     facts.push({
       icon: "📏",
-      text: locale === "es" ? `Altura: ${tree.maxHeight}` : `Height: ${tree.maxHeight}`,
+      text:
+        locale === "es"
+          ? `Altura: ${tree.maxHeight}`
+          : `Height: ${tree.maxHeight}`,
     });
   if (tree.nativeRegion)
     facts.push({
       icon: "🌎",
-      text: locale === "es" ? `Región: ${tree.nativeRegion}` : `Region: ${tree.nativeRegion}`,
+      text:
+        locale === "es"
+          ? `Región: ${tree.nativeRegion}`
+          : `Region: ${tree.nativeRegion}`,
     });
   if (tree.family)
     facts.push({
       icon: "🌿",
-      text: locale === "es" ? `Familia: ${tree.family}` : `Family: ${tree.family}`,
+      text:
+        locale === "es" ? `Familia: ${tree.family}` : `Family: ${tree.family}`,
     });
   if (tree.uses && tree.uses.length > 0)
     facts.push({
