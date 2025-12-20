@@ -144,7 +144,7 @@ public/images/trees/
 When adding a new tree species:
 
 1. Create the MDX file with `featuredImage: "/images/trees/[slug].jpg"`
-2. Run `node scripts/download-tree-images.mjs --tree=[slug]`
+2. Run `node scripts/manage-tree-images.mjs download --tree=[slug]`
 3. Verify the image quality and update if needed
 
 ### Manual Image Addition

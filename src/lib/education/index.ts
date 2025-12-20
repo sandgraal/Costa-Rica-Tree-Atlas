@@ -83,7 +83,6 @@ export function injectEducationStyles(): void {
 
 /**
  * Shared tree data type for education lesson components
- * Superset of all fields needed across different lessons
  */
 export interface LessonTreeData {
   title: string;
@@ -99,17 +98,4 @@ export interface LessonTreeData {
   maxHeight?: string;
   floweringSeason?: string[];
   fruitingSeason?: string[];
-}
-
-// ============================================================================
-// Progress Utilities
-// ============================================================================
-
-export function calculateProgress(completed: number, total: number): number {
-  if (total === 0) return 0;
-  return Math.round((completed / total) * 100);
-}
-
-export function formatPoints(points: number): string {
-  return points.toLocaleString();
 }

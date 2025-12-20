@@ -1,4 +1,4 @@
-export { StoreProvider, useTrackView } from "./StoreProvider";
+export { StoreProvider } from "./StoreProvider";
 export { QueryProvider } from "./QueryProvider";
 
 // Re-export store hooks for convenience

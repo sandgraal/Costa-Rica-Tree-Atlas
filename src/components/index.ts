@@ -18,7 +18,6 @@ export { ThemeToggle } from "./ThemeToggle";
 export { LanguageSwitcher } from "./LanguageSwitcher";
 
 // Tree display components
-export { AlphabeticalIndex } from "./AlphabeticalIndex";
 export {
   TreeTags,
   TreeTag,
@@ -31,7 +30,6 @@ export { TreeComparison } from "./TreeComparison";
 export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
-export { IdentificationGuide } from "./IdentificationGuide";
 
 // Interactive components
 export { FavoriteButton } from "./FavoriteButton";
@@ -51,7 +49,7 @@ export {
   useAnnounce,
   VisuallyHidden,
 } from "./Accessibility";
-export { Analytics, trackEvent, trackPageView } from "./Analytics";
+export { Analytics } from "./Analytics";
 export { PWARegister } from "./PWARegister";
 export { QuickSearch } from "./QuickSearch";
 export { MobileNav } from "./MobileNav";
@@ -59,4 +57,4 @@ export { MobileNav } from "./MobileNav";
 // Content components
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
-export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
+export { OptimizedImage } from "./OptimizedImage";

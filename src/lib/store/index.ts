@@ -141,16 +141,6 @@ export const useStore = create<StoreState>()(
 );
 
 // ============================================================================
-// Selectors (for performance optimization)
-// ============================================================================
-
-export const selectTheme = (state: StoreState) => state.theme;
-export const selectResolvedTheme = (state: StoreState) => state.resolvedTheme;
-export const selectFavorites = (state: StoreState) => state.favorites;
-export const selectRecentlyViewed = (state: StoreState) => state.recentlyViewed;
-export const selectUI = (state: StoreState) => state.ui;
-
-// ============================================================================
 // Hooks for common patterns
 // ============================================================================
 
@@ -161,7 +151,7 @@ export function useFavorite(slug: string) {
 }
 
 export function useThemeSync() {
-  const theme = useStore(selectTheme);
+  const theme = useStore((state) => state.theme);
   const setResolvedTheme = useStore((state) => state.setResolvedTheme);
 
   // This should be called in a useEffect in the root layout

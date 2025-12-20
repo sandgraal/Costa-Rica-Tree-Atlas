@@ -28,11 +28,11 @@
 
 - Tree content: `content/trees/**`, `contentlayer.config.ts`.
 - Locale routing: `src/app/[locale]`, `i18n/*`.
-- Tree UI: `src/components/TreeCard.tsx`, `src/components/TreeList.tsx`, `src/components/TreeSearch.tsx`.
+- Tree UI: `src/components/tree/TreeCard.tsx`, `src/components/tree/TreeExplorer.tsx`.
 - Identify feature: `src/app/[locale]/identify/*`, `src/app/api/identify/route.ts`.
 - Compare feature: `src/app/[locale]/compare/*`, `src/components/TreeComparison.tsx`.
 - Seasonal calendar: `src/app/[locale]/seasonal/*`, `src/components/SeasonalCalendar.tsx`.
-- Favorites system: `src/app/[locale]/favorites/*`, `src/components/FavoritesProvider.tsx`.
+- Favorites system: `src/app/[locale]/favorites/*`, `src/lib/store/index.ts`.
 - Education resources: `src/app/[locale]/education/*`.
 
 ## Known Constraints and Feature Flags

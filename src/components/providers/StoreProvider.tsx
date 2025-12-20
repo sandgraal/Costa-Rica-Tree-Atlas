@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import { useStore, useThemeSync } from "@/lib/store";
+import { useThemeSync } from "@/lib/store";
 
 interface StoreProviderProps {
   children: ReactNode;
@@ -27,15 +27,4 @@ export function StoreProvider({ children }: StoreProviderProps) {
   }, [syncTheme]);
 
   return <>{children}</>;
-}
-
-/**
- * Hook for tracking tree views
- */
-export function useTrackView(slug: string) {
-  const addToRecentlyViewed = useStore((state) => state.addToRecentlyViewed);
-
-  useEffect(() => {
-    addToRecentlyViewed(slug);
-  }, [slug, addToRecentlyViewed]);
 }
