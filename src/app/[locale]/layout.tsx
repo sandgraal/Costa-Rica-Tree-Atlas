@@ -107,11 +107,17 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale} suppressHydrationWarning>
       <head>
         {/* Preconnect to external image hosts for faster loading */}
-        <link rel="preconnect" href="https://inaturalist-open-data.s3.amazonaws.com" />
+        <link
+          rel="preconnect"
+          href="https://inaturalist-open-data.s3.amazonaws.com"
+        />
         <link rel="preconnect" href="https://static.inaturalist.org" />
-        <link rel="dns-prefetch" href="https://inaturalist-open-data.s3.amazonaws.com" />
+        <link
+          rel="dns-prefetch"
+          href="https://inaturalist-open-data.s3.amazonaws.com"
+        />
         <link rel="dns-prefetch" href="https://static.inaturalist.org" />
-        
+
         {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
@@ -138,7 +144,9 @@ export default async function LocaleLayout({ children, params }: Props) {
             {/* Privacy-respecting analytics - configure via env vars */}
             <Analytics
               plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-              enableSimpleAnalytics={process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"}
+              enableSimpleAnalytics={
+                process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
+              }
               googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
             />
           </NextIntlClientProvider>

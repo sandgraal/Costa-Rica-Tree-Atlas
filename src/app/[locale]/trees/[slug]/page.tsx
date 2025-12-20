@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { MDXContent } from "@/components/MDXContent";
 import { PrintButton } from "@/components/PrintButton";
 import { DistributionMap } from "@/components/DistributionMap";
+import { BiodiversityInfo } from "@/components/BiodiversityInfo";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -221,6 +222,12 @@ export default async function TreePage({ params }: Props) {
         <DistributionMap
           distribution={tree.distribution}
           elevation={tree.elevation}
+          locale={locale}
+        />
+
+        {/* Biodiversity Data from GBIF and iNaturalist */}
+        <BiodiversityInfo
+          scientificName={tree.scientificName}
           locale={locale}
         />
 

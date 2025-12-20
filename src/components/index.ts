@@ -23,6 +23,7 @@ export { RandomTree } from "./RandomTree";
 export { PWARegister } from "./PWARegister";
 export { DistributionMap } from "./DistributionMap";
 export { Analytics, trackEvent, trackPageView } from "./Analytics";
+export { BiodiversityInfo } from "./BiodiversityInfo";
 export {
   AnnouncerProvider,
   useAnnounce,

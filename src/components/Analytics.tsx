@@ -99,8 +99,19 @@ export function Analytics({
 // Simple page view tracker for custom solutions
 export function trackPageView(url: string) {
   // Plausible
-  if (typeof window !== "undefined" && (window as unknown as { plausible?: (event: string, options?: object) => void }).plausible) {
-    (window as unknown as { plausible: (event: string, options?: object) => void }).plausible("pageview", { u: url });
+  if (
+    typeof window !== "undefined" &&
+    (
+      window as unknown as {
+        plausible?: (event: string, options?: object) => void;
+      }
+    ).plausible
+  ) {
+    (
+      window as unknown as {
+        plausible: (event: string, options?: object) => void;
+      }
+    ).plausible("pageview", { u: url });
   }
 }
 
@@ -110,12 +121,46 @@ export function trackEvent(
   props?: Record<string, string | number | boolean>
 ) {
   // Plausible
-  if (typeof window !== "undefined" && (window as unknown as { plausible?: (event: string, options?: { props?: Record<string, string | number | boolean> }) => void }).plausible) {
-    (window as unknown as { plausible: (event: string, options?: { props?: Record<string, string | number | boolean> }) => void }).plausible(eventName, { props });
+  if (
+    typeof window !== "undefined" &&
+    (
+      window as unknown as {
+        plausible?: (
+          event: string,
+          options?: { props?: Record<string, string | number | boolean> }
+        ) => void;
+      }
+    ).plausible
+  ) {
+    (
+      window as unknown as {
+        plausible: (
+          event: string,
+          options?: { props?: Record<string, string | number | boolean> }
+        ) => void;
+      }
+    ).plausible(eventName, { props });
   }
 
   // Simple Analytics
-  if (typeof window !== "undefined" && (window as unknown as { sa_event?: (event: string, metadata?: Record<string, string | number | boolean>) => void }).sa_event) {
-    (window as unknown as { sa_event: (event: string, metadata?: Record<string, string | number | boolean>) => void }).sa_event(eventName, props);
+  if (
+    typeof window !== "undefined" &&
+    (
+      window as unknown as {
+        sa_event?: (
+          event: string,
+          metadata?: Record<string, string | number | boolean>
+        ) => void;
+      }
+    ).sa_event
+  ) {
+    (
+      window as unknown as {
+        sa_event: (
+          event: string,
+          metadata?: Record<string, string | number | boolean>
+        ) => void;
+      }
+    ).sa_event(eventName, props);
   }
 }

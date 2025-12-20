@@ -179,7 +179,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 #### Phase 3: Community & Data
 
 - [ ] **Community Contributions**: User-submitted sightings and photographs
-- [ ] **External API Integration**: Connect with biodiversity databases (GBIF, iNaturalist)
+- [x] **External API Integration**: Connect with biodiversity databases (GBIF, iNaturalist)
 - [ ] **Conservation Data**: Real-time IUCN status updates and population trends
 - [ ] **Educational Resources**: Lesson plans and classroom materials
 
@@ -239,13 +239,13 @@ git push origin feature/add-ceiba-tree
 
 The vision-based tree identification feature requires a Google Cloud Vision API key. Analytics can be configured with privacy-respecting options:
 
-| Variable                            | Description                                          | Required               |
-| ----------------------------------- | ---------------------------------------------------- | ---------------------- |
-| `GOOGLE_CLOUD_VISION_API_KEY`       | Google Cloud Vision API key for image identification | Yes (identify feature) |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`      | Plausible Analytics domain (privacy-first, no cookies) | No                   |
-| `NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS` | Enable Simple Analytics (set to "true")            | No                     |
-| `NEXT_PUBLIC_GA_ID`                 | Google Analytics 4 measurement ID                    | No                     |
-| `NEXT_PUBLIC_MAPS_API_KEY`          | Maps API key for geographic features                 | No                     |
+| Variable                              | Description                                            | Required               |
+| ------------------------------------- | ------------------------------------------------------ | ---------------------- |
+| `GOOGLE_CLOUD_VISION_API_KEY`         | Google Cloud Vision API key for image identification   | Yes (identify feature) |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`        | Plausible Analytics domain (privacy-first, no cookies) | No                     |
+| `NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS` | Enable Simple Analytics (set to "true")                | No                     |
+| `NEXT_PUBLIC_GA_ID`                   | Google Analytics 4 measurement ID                      | No                     |
+| `NEXT_PUBLIC_MAPS_API_KEY`            | Maps API key for geographic features                   | No                     |
 
 Create a `.env.local` file for local development when needed:
 
