@@ -16,7 +16,7 @@ export function AlphabeticalIndex({ trees, locale }: AlphabeticalIndexProps) {
   // Group trees by first letter
   const groupedTrees = useMemo(() => {
     const groups: Record<string, Tree[]> = {};
-    
+
     trees.forEach((tree) => {
       const firstLetter = tree.title.charAt(0).toUpperCase();
       if (!groups[firstLetter]) {
@@ -75,7 +75,11 @@ export function AlphabeticalIndex({ trees, locale }: AlphabeticalIndexProps) {
       {/* Grouped Tree List */}
       <div className="space-y-12">
         {letters.map((letter) => (
-          <section key={letter} id={`letter-${letter}`} className="scroll-mt-32">
+          <section
+            key={letter}
+            id={`letter-${letter}`}
+            className="scroll-mt-32"
+          >
             <div className="flex items-center gap-4 mb-4">
               <h2 className="text-3xl font-bold text-primary-dark dark:text-primary-light">
                 {letter}
@@ -83,10 +87,12 @@ export function AlphabeticalIndex({ trees, locale }: AlphabeticalIndexProps) {
               <div className="flex-1 h-px bg-border" />
               <span className="text-sm text-muted-foreground">
                 {groupedTrees[letter].length}{" "}
-                {groupedTrees[letter].length === 1 ? t("species") : t("speciesPlural")}
+                {groupedTrees[letter].length === 1
+                  ? t("species")
+                  : t("speciesPlural")}
               </span>
             </div>
-            
+
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-2">
               {groupedTrees[letter].map((tree) => (
                 <li key={tree._id}>
