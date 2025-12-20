@@ -13,7 +13,9 @@ export function ExportFavoritesButton({ locale }: ExportFavoritesButtonProps) {
   const t = {
     export: locale === "es" ? "Exportar guía" : "Export field guide",
     title:
-      locale === "es" ? "Mi Guía de Árboles de Costa Rica" : "My Costa Rica Tree Field Guide",
+      locale === "es"
+        ? "Mi Guía de Árboles de Costa Rica"
+        : "My Costa Rica Tree Field Guide",
     family: locale === "es" ? "Familia" : "Family",
     height: locale === "es" ? "Altura" : "Height",
     region: locale === "es" ? "Región" : "Region",

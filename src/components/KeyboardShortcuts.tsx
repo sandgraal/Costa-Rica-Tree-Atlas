@@ -21,7 +21,8 @@ export function KeyboardShortcuts() {
       search: locale === "es" ? "Abrir búsqueda rápida" : "Open quick search",
       escape: locale === "es" ? "Cerrar modal/búsqueda" : "Close modal/search",
       home: locale === "es" ? "Ir a inicio" : "Go to home",
-      trees: locale === "es" ? "Ir a directorio de árboles" : "Go to tree directory",
+      trees:
+        locale === "es" ? "Ir a directorio de árboles" : "Go to tree directory",
       favorites: locale === "es" ? "Ir a favoritos" : "Go to favorites",
       random: locale === "es" ? "Árbol aleatorio" : "Random tree",
       help: locale === "es" ? "Mostrar/ocultar ayuda" : "Show/hide help",

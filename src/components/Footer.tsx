@@ -108,7 +108,9 @@ export function Footer() {
               ?
             </kbd>{" "}
             <span className="hidden sm:inline">
-              {locale === "es" ? "para atajos de teclado" : "for keyboard shortcuts"}
+              {locale === "es"
+                ? "para atajos de teclado"
+                : "for keyboard shortcuts"}
             </span>
           </p>
         </div>
