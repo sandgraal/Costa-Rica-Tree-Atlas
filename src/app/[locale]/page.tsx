@@ -3,7 +3,6 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { TreeCard } from "@/components/TreeCard";
-import { RandomTree } from "@/components/RandomTree";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -19,17 +18,22 @@ export default async function HomePage({ params }: Props) {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-dark to-secondary py-24 px-4">
-        <div className="absolute inset-0 bg-[url('/images/leaf-pattern.svg')] opacity-10"></div>
+      <section className="relative overflow-hidden bg-gradient-to-b from-primary-dark via-primary to-secondary/80 pt-12 pb-20 px-4 md:pt-16 md:pb-24">
+        <div className="absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_-10%,rgba(255,255,255,0.25),transparent_60%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(50%_60%_at_15%_20%,rgba(225,180,71,0.15),transparent_65%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_85%_25%,rgba(79,139,102,0.25),transparent_70%)]"></div>
+        <div className="absolute inset-0 bg-[url('/images/leaf-pattern.svg')] opacity-15 mix-blend-soft-light"></div>
+        <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(15,26,15,0.35),transparent)]"></div>
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-background"></div>
+        <div className="absolute -left-10 top-14 h-28 w-28 rounded-full bg-accent/30 blur-3xl"></div>
+        <div className="absolute right-8 top-8 h-32 w-32 rounded-full bg-white/20 blur-3xl"></div>
+        <div className="absolute left-1/4 top-10 h-2 w-2 rounded-full bg-amber-200/80 shadow-[0_0_18px_rgba(255,226,141,0.8)] animate-pulse"></div>
+        <div className="absolute right-1/3 top-20 h-1.5 w-1.5 rounded-full bg-amber-100/80 shadow-[0_0_14px_rgba(255,236,170,0.7)] animate-pulse [animation-delay:1.2s]"></div>
+        <div className="absolute left-1/2 top-28 h-1 w-1 rounded-full bg-amber-100/70 shadow-[0_0_12px_rgba(255,236,170,0.65)] animate-pulse [animation-delay:2s]"></div>
         <div className="container mx-auto max-w-6xl relative z-10 text-center">
-          <HeroContent />
-        </div>
-      </section>
-
-      {/* Random Tree Discovery Section */}
-      <section className="py-12 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <RandomTreeSection trees={trees} />
+          <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 px-6 py-8 md:px-10 md:py-10 backdrop-blur-sm shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+            <HeroContent />
+          </div>
         </div>
       </section>
 
@@ -137,20 +141,5 @@ function AboutSection() {
       </h2>
       <p className="text-muted-foreground text-lg">{t("description")}</p>
     </>
-  );
-}
-
-function RandomTreeSection({ trees }: { trees: typeof allTrees }) {
-  const t = useTranslations("home");
-
-  return (
-    <RandomTree
-      trees={trees}
-      translations={{
-        discover: t("randomTree.discover"),
-        newTree: t("randomTree.newTree"),
-        learnMore: t("randomTree.learnMore"),
-      }}
-    />
   );
 }

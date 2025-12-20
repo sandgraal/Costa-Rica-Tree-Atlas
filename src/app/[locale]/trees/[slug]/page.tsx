@@ -89,8 +89,53 @@ export default async function TreePage({ params }: Props) {
     (t) => t.locale === otherLocale && t.slug === slug
   );
 
+  // Generate structured data (JSON-LD) for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    name: tree.title,
+    headline: tree.title,
+    description: tree.description,
+    about: {
+      "@type": "Thing",
+      name: tree.scientificName,
+      description: `${tree.title} (${tree.scientificName}) - ${tree.family}`,
+    },
+    author: {
+      "@type": "Organization",
+      name: "Costa Rica Tree Atlas",
+      url: "https://costaricatreeatlas.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Costa Rica Tree Atlas",
+    },
+    inLanguage: locale === "es" ? "es-CR" : "en-US",
+    ...(tree.featuredImage && { image: tree.featuredImage }),
+    ...(tree.publishedAt && { datePublished: tree.publishedAt }),
+    ...(tree.updatedAt && { dateModified: tree.updatedAt }),
+    keywords: [
+      tree.title,
+      tree.scientificName,
+      tree.family,
+      "Costa Rica",
+      "tree",
+      "botany",
+      ...(tree.tags || []),
+    ].join(", "),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://costaricatreeatlas.com/${locale}/trees/${slug}`,
+    },
+  };
+
   return (
-    <article className="py-12 px-4 tree-detail">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <article className="py-12 px-4 tree-detail">
       <div className="container mx-auto max-w-4xl">
         {/* Breadcrumb and Print Button */}
         <nav className="mb-8 flex justify-between items-center no-print">
@@ -237,6 +282,7 @@ export default async function TreePage({ params }: Props) {
         </div>
       </div>
     </article>
+    </>
   );
 }
 
