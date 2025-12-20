@@ -3,6 +3,7 @@ import { Link } from "@i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { QuickSearch } from "./QuickSearch";
+import { MobileNav } from "./MobileNav";
 import Image from "next/image";
 
 export function Header() {
@@ -37,7 +38,8 @@ export function Header() {
             </span>
           </Link>
 
-          <div className="flex items-center gap-6">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
             <Link
               href="/"
               className="text-foreground/80 hover:text-primary transition-colors"
@@ -76,10 +78,14 @@ export function Header() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-4">
-            <QuickSearch />
+          {/* Right side controls */}
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="hidden sm:block">
+              <QuickSearch />
+            </div>
             <LanguageSwitcher />
             <ThemeToggle />
+            <MobileNav />
           </div>
         </nav>
       </div>
