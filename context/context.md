@@ -28,7 +28,7 @@
 ## Known Constraints and Feature Flags
 - Identify feature requires `GOOGLE_CLOUD_VISION_API_KEY`.
 - Supported locales: `en`, `es` (see `contentlayer.config.ts`).
-- Contentlayer build required for tree data (`contentlayer2 build`).
+- Contentlayer build required for tree data (`contentlayer build`).
 
 ## Code Search (Impacted Targets)
 - `src/app/[locale]/identify/page.tsx` (lines 1-13): identify entry page wiring locale.
