@@ -243,9 +243,10 @@ function EducationContent({ treeCount }: { treeCount: number }) {
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {lessonPlans.map((lesson) => (
-            <div
+            <Link
               key={lesson.id}
-              className="bg-card rounded-xl p-6 border border-border hover:border-primary/50 transition-colors"
+              href={`/education/lessons/${lesson.id}`}
+              className="bg-card rounded-xl p-6 border border-border hover:border-primary/50 hover:shadow-md transition-all group"
             >
               <div className="flex items-start gap-4">
                 <div className="text-4xl">{lesson.icon}</div>
@@ -280,8 +281,11 @@ function EducationContent({ treeCount }: { treeCount: number }) {
                     {t(`lessons.${lesson.id}.objective2`)}
                   </li>
                 </ul>
+                <div className="mt-4 flex items-center justify-end text-primary text-sm font-medium group-hover:translate-x-1 transition-transform">
+                  {t("lessons.startLesson")} →
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
