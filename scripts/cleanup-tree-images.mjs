@@ -10,7 +10,10 @@ const forceRefresh = args.has("--force");
 const ROOT_DIR = process.cwd();
 const CONTENT_DIR = path.join(ROOT_DIR, "content", "trees");
 const PUBLIC_DIR = path.join(ROOT_DIR, "public");
-const INAT_HOST = "inaturalist-open-data.s3.amazonaws.com";
+const INAT_HOSTS = [
+  "inaturalist-open-data.s3.amazonaws.com",
+  "static.inaturalist.org",
+];
 
 const taxonCache = new Map();
 const photoCache = new Map();
@@ -212,7 +215,10 @@ function isLocalPath(url) {
 }
 
 function isInatPhotoUrl(url) {
-  return url.includes(INAT_HOST) && url.includes("/photos/");
+  return (
+    INAT_HOSTS.some((host) => url.includes(host)) &&
+    url.includes("/photos/")
+  );
 }
 
 async function validateRemoteImage(url) {
