@@ -41,9 +41,12 @@ export function BiodiversityInfo({
   const labels = {
     title: locale === "es" ? "Datos de Biodiversidad" : "Biodiversity Data",
     observations:
-      locale === "es" ? "Observaciones en Costa Rica" : "Observations in Costa Rica",
+      locale === "es"
+        ? "Observaciones en Costa Rica"
+        : "Observations in Costa Rica",
     globalRecords: locale === "es" ? "Registros globales" : "Global records",
-    researchGrade: locale === "es" ? "Grado de investigación" : "Research grade",
+    researchGrade:
+      locale === "es" ? "Grado de investigación" : "Research grade",
     viewOn: locale === "es" ? "Ver en" : "View on",
     loading: locale === "es" ? "Cargando datos..." : "Loading data...",
     noData:
@@ -118,7 +121,9 @@ export function BiodiversityInfo({
             <p className="text-3xl font-bold text-secondary">
               {gbifObs.toLocaleString()}
             </p>
-            <p className="text-xs text-muted-foreground mt-1">GBIF Costa Rica</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              GBIF Costa Rica
+            </p>
           </div>
         )}
 
@@ -218,7 +223,14 @@ function INaturalistIcon({ className }: { className?: string }) {
 function GBIFIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <circle cx="12" cy="12" r="4" />
     </svg>
   );
