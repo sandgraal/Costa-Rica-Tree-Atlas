@@ -30,7 +30,11 @@ export function PronunciationButton({
   }, []);
 
   const handleSpeak = useCallback(() => {
-    if (!isSupported || typeof window === "undefined" || !window.speechSynthesis) {
+    if (
+      !isSupported ||
+      typeof window === "undefined" ||
+      !window.speechSynthesis
+    ) {
       return;
     }
 
@@ -38,19 +42,20 @@ export function PronunciationButton({
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-    
+
     // Scientific names are in Latin - use a neutral voice
     // Try to use a voice that sounds good with Latin pronunciation
     const voices = window.speechSynthesis.getVoices();
-    
+
     // Prefer voices that handle Latin/scientific terms well
     // English voices typically handle Latin scientific names better
-    const preferredVoice = voices.find(
-      (v) => v.lang.startsWith("en") && v.name.includes("Google")
-    ) || voices.find(
-      (v) => v.lang.startsWith("en")
-    ) || voices[0];
-    
+    const preferredVoice =
+      voices.find(
+        (v) => v.lang.startsWith("en") && v.name.includes("Google")
+      ) ||
+      voices.find((v) => v.lang.startsWith("en")) ||
+      voices[0];
+
     if (preferredVoice) {
       utterance.voice = preferredVoice;
     }
@@ -72,9 +77,10 @@ export function PronunciationButton({
   }
 
   const buttonLabel = label || (locale === "es" ? "Pronunciar" : "Pronounce");
-  const ariaLabel = locale === "es" 
-    ? `Escuchar pronunciación de ${text}` 
-    : `Listen to pronunciation of ${text}`;
+  const ariaLabel =
+    locale === "es"
+      ? `Escuchar pronunciación de ${text}`
+      : `Listen to pronunciation of ${text}`;
 
   return (
     <button

@@ -31,6 +31,7 @@ export function MobileNav() {
   const navLinks = [
     { href: "/", label: t("home") },
     { href: "/trees", label: t("trees") },
+    { href: "/favorites", label: locale === "es" ? "Favoritos" : "Favorites" },
     { href: "/identify", label: t("identify") },
     { href: "/seasonal", label: t("seasonal") },
     { href: "/education", label: t("education") },
@@ -120,6 +121,13 @@ export function MobileNav() {
                 >
                   <span className="text-xl">🌳</span>
                   {locale === "es" ? "Explorar árboles" : "Explore trees"}
+                </Link>
+                <Link
+                  href="/favorites"
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground"
+                >
+                  <span className="text-xl">❤️</span>
+                  {locale === "es" ? "Mis favoritos" : "My favorites"}
                 </Link>
                 <Link
                   href="/identify"

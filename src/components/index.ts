@@ -28,6 +28,10 @@ export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
 export { PronunciationButton } from "./PronunciationButton";
+export { FavoritesProvider, useFavorites } from "./FavoritesProvider";
+export { FavoriteButton } from "./FavoriteButton";
+export { FavoritesLink } from "./FavoritesLink";
+export { TreeCardWithFavorite } from "./TreeCardWithFavorite";
 export {
   AnnouncerProvider,
   useAnnounce,

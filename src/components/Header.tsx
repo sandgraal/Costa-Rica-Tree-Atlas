@@ -4,6 +4,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { QuickSearch } from "./QuickSearch";
 import { MobileNav } from "./MobileNav";
+import { FavoritesLink } from "./FavoritesLink";
 import Image from "next/image";
 
 export function Header() {
@@ -83,6 +84,7 @@ export function Header() {
             <div className="hidden sm:block">
               <QuickSearch />
             </div>
+            <FavoritesLink />
             <LanguageSwitcher />
             <ThemeToggle />
             <MobileNav />

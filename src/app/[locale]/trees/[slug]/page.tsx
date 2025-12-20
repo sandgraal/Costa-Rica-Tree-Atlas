@@ -10,6 +10,7 @@ import { DistributionMap } from "@/components/DistributionMap";
 import { BiodiversityInfo } from "@/components/BiodiversityInfo";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
 import { PronunciationButton } from "@/components/PronunciationButton";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -180,6 +181,12 @@ export default async function TreePage({ params }: Props) {
               {locale === "es" ? "Volver al Directorio" : "Back to Directory"}
             </Link>
             <div className="flex items-center gap-2">
+              <FavoriteButton
+                slug={tree.slug}
+                title={tree.title}
+                locale={locale}
+                showLabel
+              />
               <ShareButton
                 title={tree.title}
                 scientificName={tree.scientificName}
