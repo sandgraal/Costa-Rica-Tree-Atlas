@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useFavorites } from "@/components/FavoritesProvider";
 import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
+import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { allTrees } from "contentlayer/generated";
@@ -167,6 +168,9 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
                 {t.treesCount}
               </span>
               <div className="flex flex-wrap items-center gap-3">
+                {/* Export Button */}
+                <ExportFavoritesButton locale={locale} />
+
                 {/* Share Button */}
                 <button
                   onClick={handleShare}

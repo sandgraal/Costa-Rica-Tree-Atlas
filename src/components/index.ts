@@ -38,6 +38,7 @@ export {
 } from "./RecentlyViewedProvider";
 export { TrackView } from "./TrackView";
 export { RecentlyViewedList } from "./RecentlyViewedList";
+export { ExportFavoritesButton } from "./ExportFavoritesButton";
 export {
   AnnouncerProvider,
   useAnnounce,
