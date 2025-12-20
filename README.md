@@ -194,9 +194,9 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 
 - Audio pronunciations for scientific names
 - AR tree identification using device camera
-- Seasonal calendar showing flowering/fruiting times
 - Partnership with Costa Rican conservation organizations
 - Multi-language expansion (German, French for tourists)
+- Seasonal calendar showing flowering/fruiting times ✓ (Added!)
 
 ## 🤝 Contributing
 

@@ -56,6 +56,12 @@ export function Header() {
               {t("identify")}
             </Link>
             <Link
+              href="/seasonal"
+              className="text-foreground/80 hover:text-primary transition-colors"
+            >
+              {t("seasonal")}
+            </Link>
+            <Link
               href="/education"
               className="text-foreground/80 hover:text-primary transition-colors"
             >

@@ -76,6 +76,20 @@ export const Tree = defineDocumentType(() => ({
       description: "Elevation range where the tree is found (e.g., '0-1500m')",
       required: false,
     },
+    floweringSeason: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Months when the tree flowers (e.g., ['january', 'february', 'march'])",
+      required: false,
+    },
+    fruitingSeason: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Months when the tree bears fruit (e.g., ['april', 'may', 'june'])",
+      required: false,
+    },
     featuredImage: {
       type: "string",
       description: "Path to the featured image",

@@ -12,6 +12,7 @@
     "home": "Inicio",
     "trees": "Árboles",
     "identify": "Identificar",
+    "seasonal": "Calendario",
     "education": "Educación",
     "about": "Acerca de"
   },
@@ -361,5 +362,19 @@
       "exploreTrees": "Explorar Árboles",
       "tryIdentify": "Probar Identificación"
     }
+  },
+  "seasonal": {
+    "title": "Calendario Estacional - Atlas de Árboles de Costa Rica",
+    "description": "Descubre cuándo florecen y fructifican los árboles de Costa Rica durante el año. Planifica tus visitas a la naturaleza con nuestro calendario fenológico.",
+    "pageTitle": "Calendario Estacional",
+    "pageDescription": "Descubre cuándo están floreciendo y fructificando los árboles de Costa Rica durante el año.",
+    "climateTitle": "Clima Tropical de Costa Rica",
+    "climateDescription": "Costa Rica tiene dos estaciones principales que influyen en los patrones de floración y fructificación. La estación seca estimula la floración de muchas especies, mientras que la estación lluviosa apoya el desarrollo de frutos.",
+    "drySeason": "Estación Seca (Verano)",
+    "drySeasonMonths": "Diciembre a Abril",
+    "drySeasonNote": "Temporada alta de floración. Muchos árboles de hoja caduca pierden sus hojas y producen flores espectaculares.",
+    "wetSeason": "Estación Lluviosa (Invierno)",
+    "wetSeasonMonths": "Mayo a Noviembre",
+    "wetSeasonNote": "Temporada principal de fructificación. Las abundantes lluvias apoyan el desarrollo y dispersión de frutos por animales."
   }
 }
