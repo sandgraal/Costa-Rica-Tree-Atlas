@@ -5,6 +5,7 @@
     "title": "CR Trees",
     "home": "Home",
     "trees": "Trees",
+    "identify": "Identify",
     "about": "About"
   },
   "home": {
@@ -128,5 +129,19 @@
       "title": "Open Source License",
       "description": "Costa Rica Tree Atlas is released under the MIT License. The content is free to use, share, and adapt with attribution."
     }
+  },
+  "identify": {
+    "title": "Identify a Tree",
+    "subtitle": "Upload a clear photo of a tree or leaf to find the closest matches in the atlas.",
+    "uploadLabel": "Tree photo",
+    "uploadHelp": "JPG or PNG, up to 10MB.",
+    "submit": "Identify tree",
+    "loading": "Analyzing image...",
+    "resultsTitle": "Best matches",
+    "noResults": "No matching trees found. Try another photo.",
+    "labelsTitle": "Detected labels",
+    "matchScore": "Match score: {score}%",
+    "errorMissingFile": "Please select an image to upload.",
+    "errorFailed": "We couldn't identify that image. Please try another."
   }
 }

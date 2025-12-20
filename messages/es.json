@@ -5,6 +5,7 @@
     "title": "CR Arboles",
     "home": "Inicio",
     "trees": "Árboles",
+    "identify": "Identificar",
     "about": "Acerca de"
   },
   "home": {
@@ -128,5 +129,19 @@
       "title": "Licencia de Código Abierto",
       "description": "El Atlas de Árboles de Costa Rica se publica bajo la Licencia MIT. El contenido es libre de usar, compartir y adaptar con atribución."
     }
+  },
+  "identify": {
+    "title": "Identificar un árbol",
+    "subtitle": "Sube una foto clara de un árbol u hoja para encontrar coincidencias en el atlas.",
+    "uploadLabel": "Foto del árbol",
+    "uploadHelp": "JPG o PNG, hasta 10MB.",
+    "submit": "Identificar árbol",
+    "loading": "Analizando imagen...",
+    "resultsTitle": "Mejores coincidencias",
+    "noResults": "No se encontraron árboles coincidentes. Prueba otra foto.",
+    "labelsTitle": "Etiquetas detectadas",
+    "matchScore": "Puntuación de coincidencia: {score}%",
+    "errorMissingFile": "Selecciona una imagen para subir.",
+    "errorFailed": "No pudimos identificar esa imagen. Intenta con otra."
   }
 }
