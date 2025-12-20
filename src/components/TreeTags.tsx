@@ -1,7 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-
 // Predefined tag categories with icons and colors
 export const TAG_DEFINITIONS = {
   // Foliage Type

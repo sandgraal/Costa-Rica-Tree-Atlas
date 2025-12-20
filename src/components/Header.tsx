@@ -9,8 +9,6 @@ import Image from "next/image";
 
 export function Header() {
   const t = useTranslations("nav");
-  const tCompare = useTranslations("comparison");
-  const tIdentify = useTranslations("identification");
   const title = t("title");
   const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
   const brandMain = brandRest.join(" ");

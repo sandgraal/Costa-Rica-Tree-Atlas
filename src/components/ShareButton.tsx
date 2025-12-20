@@ -70,7 +70,7 @@ export function ShareButton({ title, scientificName, slug }: ShareButtonProps) {
               text: shareText,
               url: shareUrl,
             });
-          } catch (err) {
+          } catch {
             // User cancelled or error
           }
         }

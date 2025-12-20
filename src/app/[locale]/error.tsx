@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Link } from "@i18n/navigation";
 
 export default function Error({
   error,
@@ -60,12 +61,12 @@ export default function Error({
             </svg>
             Try Again
           </button>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center gap-2 bg-card hover:bg-muted text-foreground border border-border font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             Go Home
-          </a>
+          </Link>
         </div>
         {error.digest && (
           <p className="text-xs text-muted-foreground mt-8">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useFavorites } from "@/components/FavoritesProvider";
 import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
 import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
@@ -19,11 +19,13 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
   const [isSharedList, setIsSharedList] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const hasProcessedSharedList = useRef(false);
 
-  // Handle shared list from URL
+  // Handle shared list from URL - only process once
   useEffect(() => {
     const sharedTrees = searchParams.get("trees");
-    if (sharedTrees) {
+    if (sharedTrees && !hasProcessedSharedList.current) {
+      hasProcessedSharedList.current = true;
       setIsSharedList(true);
       const treeSlugs = sharedTrees.split(",");
       // Add shared trees to favorites if not already there

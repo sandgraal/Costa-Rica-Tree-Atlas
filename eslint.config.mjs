@@ -12,7 +12,22 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated files
+    ".contentlayer/**",
+    // Service worker (vanilla JS)
+    "public/sw.js",
+    // Scripts
+    "scripts/**",
   ]),
+  // Custom rule overrides
+  {
+    rules: {
+      // Allow setState in useEffect for localStorage hydration patterns
+      "react-hooks/set-state-in-effect": "off",
+      // Allow dynamic component creation from useMDXComponent
+      "react-hooks/static-components": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

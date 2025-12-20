@@ -2,7 +2,8 @@
 // Provides conservation status and population trend data
 // Note: IUCN API requires a token for full access. This uses the public assessment data.
 
-const IUCN_API_BASE = "https://apiv3.iucnredlist.org/api/v3";
+// Reserved for future IUCN API integration
+// const IUCN_API_BASE = "https://apiv3.iucnredlist.org/api/v3";
 
 // IUCN Red List categories with display properties
 export const IUCN_CATEGORIES: Record<
@@ -113,14 +114,6 @@ export interface IUCNSpeciesData {
   assessmentDate?: string;
   criteria?: string;
   iucnUrl: string;
-}
-
-// Normalize scientific name for comparison
-function normalizeScientificName(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, "")
-    .trim();
 }
 
 // Parse the IUCN category code from various formats

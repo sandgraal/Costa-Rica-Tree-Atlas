@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "contentlayer2 build && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "contentlayer": "contentlayer2 build",

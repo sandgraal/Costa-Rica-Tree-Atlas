@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import type { Tree } from "contentlayer/generated";
-import { TAG_DEFINITIONS } from "./TreeTags";
 
 // Blur placeholder
 const BLUR_DATA_URL =
@@ -116,9 +115,8 @@ interface IdentificationGuideProps {
 
 export function IdentificationGuide({
   trees,
-  locale,
   translations,
-}: IdentificationGuideProps) {
+}: Omit<IdentificationGuideProps, "locale">) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [currentStep, setCurrentStep] = useState(0);
 
