@@ -214,10 +214,10 @@ If you have tree photographs to contribute:
 
 ### Technology Stack
 
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Next.js 16 with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
-- **Content**: MDX with Contentlayer
+- **Content**: MDX with Contentlayer2
 - **i18n**: next-intl
 
 ### Code Quality Requirements
