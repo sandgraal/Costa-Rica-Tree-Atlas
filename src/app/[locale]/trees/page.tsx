@@ -32,11 +32,42 @@ export default async function TreesPage({ params }: Props) {
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
 
+  // Generate ItemList structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name:
+      locale === "es"
+        ? "Directorio de Árboles de Costa Rica"
+        : "Costa Rica Tree Directory",
+    description:
+      locale === "es"
+        ? "Una colección completa de árboles nativos de Costa Rica"
+        : "A comprehensive collection of native Costa Rican trees",
+    numberOfItems: trees.length,
+    itemListElement: trees.slice(0, 50).map((tree, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Thing",
+        name: tree.title,
+        description: tree.description,
+        url: `https://costaricatreeatlas.com/${locale}/trees/${tree.slug}`,
+      },
+    })),
+  };
+
   return (
-    <div className="py-12 px-4">
-      <div className="container mx-auto max-w-6xl">
-        <TreeList trees={trees} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="py-12 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <TreeList trees={trees} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
