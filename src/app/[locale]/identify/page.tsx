@@ -112,7 +112,11 @@ function IdentifyPageClient({
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <IdentificationGuide trees={trees} locale={locale} translations={translations} />
+      <IdentificationGuide
+        trees={trees}
+        locale={locale}
+        translations={translations}
+      />
     </main>
   );
 }
