@@ -367,6 +367,10 @@ export const UI_LABELS: Record<string, Record<Locale, string>> = {
   observations: { en: "Observations", es: "Observaciones" },
   researchGrade: { en: "Research grade", es: "Grado de investigación" },
   globalRecords: { en: "Global records", es: "Registros globales" },
+
+  // Conservation status
+  lowerRisk: { en: "Lower risk", es: "Menor riesgo" },
+  higherRisk: { en: "Higher risk", es: "Mayor riesgo" },
 };
 
 // ============================================================================

@@ -1,6 +1,7 @@
 "use client";
 
 import { IUCN_CATEGORIES, POPULATION_TRENDS, getIUCNLabels } from "@/lib/iucn";
+import { getUILabel } from "@/lib/i18n";
 
 interface ConservationStatusProps {
   category: string;
@@ -179,8 +180,8 @@ export function ConservationScale({
         })}
       </div>
       <div className="flex justify-between mt-1 text-[10px] text-muted-foreground">
-        <span>{locale === "es" ? "Menor riesgo" : "Lower risk"}</span>
-        <span>{locale === "es" ? "Mayor riesgo" : "Higher risk"}</span>
+        <span>{getUILabel("lowerRisk", locale as "en" | "es")}</span>
+        <span>{getUILabel("higherRisk", locale as "en" | "es")}</span>
       </div>
     </div>
   );

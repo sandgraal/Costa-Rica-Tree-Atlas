@@ -2,10 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { BiodiversityData } from "@/app/api/species/route";
-import {
-  ConservationStatus,
-  ConservationScale,
-} from "../ConservationStatus";
+import { ConservationStatus, ConservationScale } from "../ConservationStatus";
 
 interface BiodiversityInfoProps {
   scientificName: string;
