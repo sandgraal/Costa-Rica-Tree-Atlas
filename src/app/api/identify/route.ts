@@ -105,7 +105,8 @@ export async function POST(request: Request) {
     }
 
     data = await visionResponse.json();
-  } catch {
+  } catch (error) {
+    console.error("Vision API network error:", error);
     return NextResponse.json(
       { error: "Network error communicating with Vision API" },
       { status: 502 }
