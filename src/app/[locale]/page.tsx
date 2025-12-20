@@ -15,6 +15,14 @@ export default async function HomePage({ params }: Props) {
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
 
+  // Calculate stats
+  const families = new Set(trees.map((t) => t.family)).size;
+  const conservationTags = new Set(
+    trees
+      .filter((t) => t.conservationStatus)
+      .map((t) => t.conservationStatus)
+  ).size;
+
   return (
     <div className="relative">
       {/* Hero Section */}
@@ -34,6 +42,18 @@ export default async function HomePage({ params }: Props) {
           <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 px-6 py-8 md:px-10 md:py-10 backdrop-blur-sm shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
             <HeroContent />
           </div>
+        </div>
+      </section>
+
+      {/* Stats Banner */}
+      <section className="py-12 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <StatsSection
+            speciesCount={trees.length}
+            familiesCount={families}
+            statusCount={conservationTags}
+            locale={locale}
+          />
         </div>
       </section>
 
@@ -116,6 +136,56 @@ function FeaturedTreesSection({ trees }: { trees: typeof allTrees }) {
         </p>
       )}
     </>
+  );
+}
+
+function StatsSection({
+  speciesCount,
+  familiesCount,
+  statusCount,
+  locale,
+}: {
+  speciesCount: number;
+  familiesCount: number;
+  statusCount: number;
+  locale: string;
+}) {
+  const stats = [
+    {
+      value: speciesCount,
+      label: locale === "es" ? "Especies Documentadas" : "Documented Species",
+      icon: "🌳",
+    },
+    {
+      value: familiesCount,
+      label: locale === "es" ? "Familias Botánicas" : "Botanical Families",
+      icon: "🌿",
+    },
+    {
+      value: statusCount,
+      label: locale === "es" ? "Estados de Conservación" : "Conservation Statuses",
+      icon: "🛡️",
+    },
+    {
+      value: 2,
+      label: locale === "es" ? "Idiomas" : "Languages",
+      icon: "🌐",
+    },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {stats.map((stat, index) => (
+        <div
+          key={index}
+          className="bg-card rounded-xl p-6 border border-border text-center hover:border-primary/50 transition-colors"
+        >
+          <div className="text-3xl mb-2">{stat.icon}</div>
+          <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
+          <div className="text-sm text-muted-foreground">{stat.label}</div>
+        </div>
+      ))}
+    </div>
   );
 }
 
