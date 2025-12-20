@@ -53,8 +53,14 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
       if (resolved === "dark") {
         root.classList.add("dark");
+        root.classList.remove("light");
       } else {
         root.classList.remove("dark");
+        if (theme === "light") {
+          root.classList.add("light");
+        } else {
+          root.classList.remove("light");
+        }
       }
     };
 

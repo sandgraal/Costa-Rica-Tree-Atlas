@@ -3,30 +3,42 @@
 /* Nature-inspired color palette for Costa Rica Tree Atlas */
 :root {
   /* Light theme colors */
-  --background: #fafdf7;
-  --foreground: #1a2e1a;
+  --background: #f7f4ec;
+  --foreground: #1f2f25;
 
   /* Primary - Forest Green */
-  --primary: #2d5a27;
-  --primary-light: #4a7c43;
-  --primary-dark: #1e3d1b;
+  --primary: #2f6d4f;
+  --primary-light: #4f8b66;
+  --primary-dark: #1f4a35;
 
   /* Secondary - Earth Brown */
-  --secondary: #8b5a2b;
-  --secondary-light: #a67c52;
-  --secondary-dark: #5c3d1d;
+  --secondary: #9b6a3c;
+  --secondary-light: #c18758;
+  --secondary-dark: #6f4524;
 
   /* Accent - Tropical Gold */
-  --accent: #c9a227;
-  --accent-light: #e4c654;
-  --accent-dark: #9a7b1c;
+  --accent: #e1b447;
+  --accent-light: #f2d07b;
+  --accent-dark: #b7831e;
 
   /* Neutral tones */
-  --muted: #f0f4ed;
-  --muted-foreground: #4a5d4a;
-  --border: #d4e4d1;
-  --card: #ffffff;
-  --card-foreground: #1a2e1a;
+  --muted: #eef1e6;
+  --muted-foreground: #516455;
+  --border: #d7dfd1;
+  --card: #fffdf7;
+  --card-foreground: #1f2f25;
+
+  --background-pattern: radial-gradient(
+      1200px 700px at 10% -10%,
+      rgba(79, 139, 102, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 520px at 100% 0%,
+      rgba(225, 180, 71, 0.2),
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 244, 236, 0.95));
 
   /* Semantic colors */
   --success: #22c55e;
@@ -58,7 +70,7 @@
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --background: #0f1a0f;
     --foreground: #e8f0e6;
 
@@ -79,6 +91,7 @@
     --border: #2d4a2d;
     --card: #162016;
     --card-foreground: #e8f0e6;
+    --background-pattern: none;
   }
 }
 
@@ -104,10 +117,14 @@
   --border: #2d4a2d;
   --card: #162016;
   --card-foreground: #e8f0e6;
+  --background-pattern: none;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: var(--background-pattern);
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--foreground);
   font-family:
     var(--font-sans),
