@@ -318,6 +318,12 @@ export default async function TreePage({ params }: Props) {
           <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-primary-dark dark:prose-headings:text-primary-light prose-a:text-primary hover:prose-a:text-primary-light">
             <MDXContent code={tree.body.code} />
           </div>
+
+          {/* Related Trees */}
+          <RelatedTrees
+            currentTree={tree}
+            locale={locale}
+          />
         </div>
       </article>
     </>
@@ -377,5 +383,101 @@ function TreeIcon({ className }: { className?: string }) {
       <path d="M5 12l7-10 7 10" />
       <path d="M5 12a7 7 0 0 0 14 0" />
     </svg>
+  );
+}
+
+function RelatedTrees({
+  currentTree,
+  locale,
+}: {
+  currentTree: (typeof allTrees)[0];
+  locale: string;
+}) {
+  // Find related trees from same family or with similar tags
+  const localeTrees = allTrees.filter(
+    (t) => t.locale === locale && t.slug !== currentTree.slug
+  );
+
+  // Score trees by relatedness
+  const scoredTrees = localeTrees.map((tree) => {
+    let score = 0;
+
+    // Same family = high score
+    if (tree.family === currentTree.family) score += 5;
+
+    // Overlapping tags
+    const currentTags = currentTree.tags || [];
+    const treeTags = tree.tags || [];
+    const sharedTags = currentTags.filter((tag) => treeTags.includes(tag));
+    score += sharedTags.length * 2;
+
+    // Similar conservation status
+    if (
+      tree.conservationStatus &&
+      tree.conservationStatus === currentTree.conservationStatus
+    ) {
+      score += 1;
+    }
+
+    // Overlapping seasons
+    const currentFlowering = currentTree.floweringSeason || [];
+    const treeFlowering = tree.floweringSeason || [];
+    const sharedFlowering = currentFlowering.filter((m) =>
+      treeFlowering.includes(m)
+    );
+    if (sharedFlowering.length > 0) score += 1;
+
+    return { tree, score };
+  });
+
+  // Get top 4 related trees with score > 0
+  const relatedTrees = scoredTrees
+    .filter((t) => t.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4)
+    .map((t) => t.tree);
+
+  if (relatedTrees.length === 0) return null;
+
+  return (
+    <div className="mt-12 pt-8 border-t border-border no-print">
+      <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
+        {locale === "es" ? "Árboles Relacionados" : "Related Trees"}
+      </h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {relatedTrees.map((tree) => (
+          <Link
+            key={tree._id}
+            href={`/trees/${tree.slug}`}
+            className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg"
+          >
+            <div className="relative h-24 bg-gradient-to-br from-primary/20 to-secondary/20">
+              {tree.featuredImage && (
+                <Image
+                  src={tree.featuredImage}
+                  alt={tree.title}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              )}
+              {tree.family === currentTree.family && (
+                <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-primary/80 text-white text-xs rounded">
+                  {locale === "es" ? "Misma familia" : "Same family"}
+                </div>
+              )}
+            </div>
+            <div className="p-3">
+              <h3 className="font-medium text-foreground text-sm truncate group-hover:text-primary transition-colors">
+                {tree.title}
+              </h3>
+              <p className="text-xs text-muted-foreground italic truncate">
+                {tree.scientificName}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }
