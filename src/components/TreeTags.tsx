@@ -277,28 +277,3 @@ export function TreeTags({
     </div>
   );
 }
-
-// Get all unique tags from a list of trees
-export function getAllTags(trees: { tags?: string[] }[]): string[] {
-  const tagSet = new Set<string>();
-  trees.forEach((tree) => {
-    tree.tags?.forEach((tag) => tagSet.add(tag));
-  });
-  return Array.from(tagSet).sort();
-}
-
-// Get tags grouped by category
-export function getTagsByCategory(): Record<string, TagName[]> {
-  const categories: Record<string, TagName[]> = {};
-
-  Object.entries(TAG_DEFINITIONS).forEach(([tag, def]) => {
-    if (!categories[def.category]) {
-      categories[def.category] = [];
-    }
-    categories[def.category].push(tag as TagName);
-  });
-
-  return categories;
-}
-
-export default TreeTags;

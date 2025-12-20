@@ -1,37 +1,31 @@
 /**
- * Component exports - clean, flat, no legacy
+ * Component exports barrel
+ * Only exports actually used elsewhere in the codebase
  */
 
-// Store & state management
-export { useStore, useFavorite, useThemeSync } from "@/lib/store";
+// Providers (used in layout.tsx)
 export { StoreProvider, QueryProvider } from "./providers";
 
-// Core tree components
+// Core tree components (used in pages)
 export { TreeCard, TreeExplorer, TreeGrid } from "./tree";
 export { DistributionMap } from "./geo";
 export { BiodiversityInfo } from "./data";
 
-// Layout components
+// Layout components (used in layout.tsx and pages)
 export { Header } from "./Header";
 export { Footer } from "./Footer";
 export { ThemeToggle } from "./ThemeToggle";
 export { LanguageSwitcher } from "./LanguageSwitcher";
 
-// Tree display components
-export {
-  TreeTags,
-  TreeTag,
-  TAG_DEFINITIONS,
-  getAllTags,
-  getTagsByCategory,
-} from "./TreeTags";
-export { TreeGallery, ImageLightbox } from "./TreeGallery";
+// Tree display (used in tree pages and comparison)
+export { TreeTags } from "./TreeTags";
+export { TreeGallery } from "./TreeGallery";
 export { TreeComparison } from "./TreeComparison";
-export { ConservationStatus, ConservationScale } from "./ConservationStatus";
+export { ConservationStatus } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
 
-// Interactive components
+// Interactive components (used in tree pages and favorites)
 export { FavoriteButton } from "./FavoriteButton";
 export { FavoritesLink } from "./FavoritesLink";
 export { PrintButton } from "./PrintButton";
@@ -42,19 +36,14 @@ export { RecentlyViewedList } from "./RecentlyViewedList";
 export { ExportFavoritesButton } from "./ExportFavoritesButton";
 export { ScrollToTop } from "./ScrollToTop";
 
-// Accessibility & utilities
+// Utilities (used in layout.tsx)
 export { KeyboardShortcuts } from "./KeyboardShortcuts";
-export {
-  AnnouncerProvider,
-  useAnnounce,
-  VisuallyHidden,
-} from "./Accessibility";
 export { Analytics } from "./Analytics";
 export { PWARegister } from "./PWARegister";
 export { QuickSearch } from "./QuickSearch";
 export { MobileNav } from "./MobileNav";
 
-// Content components
+// Content (used in MDXContent and tree pages)
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage } from "./OptimizedImage";
