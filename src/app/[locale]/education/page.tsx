@@ -124,21 +124,25 @@ function EducationContent({ treeCount }: { treeCount: number }) {
       id: "tree-journal",
       icon: "📓",
       type: "individual",
+      href: "/trees",
     },
     {
       id: "scavenger-hunt",
       icon: "🗺️",
       type: "group",
+      href: "/trees",
     },
     {
       id: "leaf-collection",
       icon: "🍃",
       type: "field",
+      href: "/identify",
     },
     {
       id: "compare-contrast",
       icon: "⚖️",
       type: "classroom",
+      href: "/compare",
     },
   ];
 
@@ -298,12 +302,13 @@ function EducationContent({ treeCount }: { treeCount: number }) {
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {activities.map((activity) => (
-            <div
+            <Link
               key={activity.id}
-              className="bg-card rounded-xl p-5 border border-border hover:border-primary/50 transition-colors text-center"
+              href={activity.href}
+              className="bg-card rounded-xl p-5 border border-border hover:border-primary/50 hover:shadow-md transition-all text-center group"
             >
               <div className="text-4xl mb-3">{activity.icon}</div>
-              <h3 className="font-semibold text-foreground mb-2">
+              <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                 {t(`activities.${activity.id}.title`)}
               </h3>
               <p className="text-sm text-muted-foreground mb-3">
@@ -312,7 +317,7 @@ function EducationContent({ treeCount }: { treeCount: number }) {
               <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs">
                 {t(`activities.types.${activity.type}`)}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -364,33 +369,51 @@ function EducationContent({ treeCount }: { treeCount: number }) {
           {t("tips.title")}
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <Link
+            href="/trees"
+            className="bg-card rounded-xl p-6 border border-border hover:border-primary/50 hover:shadow-md transition-all group"
+          >
             <div className="text-3xl mb-3">🔍</div>
-            <h3 className="font-semibold text-foreground mb-2">
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
               {t("tips.explore.title")}
             </h3>
             <p className="text-sm text-muted-foreground">
               {t("tips.explore.description")}
             </p>
-          </div>
-          <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="mt-3 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+              Browse Trees →
+            </div>
+          </Link>
+          <Link
+            href="/identify"
+            className="bg-card rounded-xl p-6 border border-border hover:border-primary/50 hover:shadow-md transition-all group"
+          >
             <div className="text-3xl mb-3">📷</div>
-            <h3 className="font-semibold text-foreground mb-2">
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
               {t("tips.identify.title")}
             </h3>
             <p className="text-sm text-muted-foreground">
               {t("tips.identify.description")}
             </p>
-          </div>
-          <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="mt-3 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+              Try Identify →
+            </div>
+          </Link>
+          <Link
+            href="/compare"
+            className="bg-card rounded-xl p-6 border border-border hover:border-primary/50 hover:shadow-md transition-all group"
+          >
             <div className="text-3xl mb-3">⚖️</div>
-            <h3 className="font-semibold text-foreground mb-2">
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
               {t("tips.compare.title")}
             </h3>
             <p className="text-sm text-muted-foreground">
               {t("tips.compare.description")}
             </p>
-          </div>
+            <div className="mt-3 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+              Compare Trees →
+            </div>
+          </Link>
         </div>
       </section>
 
