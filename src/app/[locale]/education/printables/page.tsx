@@ -42,7 +42,9 @@ export default async function PrintablesPage({ params }: Props) {
         ? "Materiales educativos gratuitos para descargar e imprimir"
         : "Free educational materials to download and print",
     backToEducation:
-      locale === "es" ? "← Volver a Recursos Educativos" : "← Back to Education",
+      locale === "es"
+        ? "← Volver a Recursos Educativos"
+        : "← Back to Education",
     speciesChecklist:
       locale === "es" ? "Lista de Especies" : "Species Checklist",
     speciesChecklistDesc:
@@ -100,7 +102,9 @@ export default async function PrintablesPage({ params }: Props) {
         {/* Stats */}
         <div className="flex justify-center gap-8 mb-12">
           <div className="text-center">
-            <div className="text-3xl font-bold text-primary">{trees.length}</div>
+            <div className="text-3xl font-bold text-primary">
+              {trees.length}
+            </div>
             <div className="text-sm text-muted-foreground">{t.species}</div>
           </div>
           <div className="text-center">
