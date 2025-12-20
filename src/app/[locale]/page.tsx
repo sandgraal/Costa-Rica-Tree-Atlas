@@ -18,9 +18,7 @@ export default async function HomePage({ params }: Props) {
   // Calculate stats
   const families = new Set(trees.map((t) => t.family)).size;
   const conservationTags = new Set(
-    trees
-      .filter((t) => t.conservationStatus)
-      .map((t) => t.conservationStatus)
+    trees.filter((t) => t.conservationStatus).map((t) => t.conservationStatus)
   ).size;
 
   return (
@@ -163,7 +161,8 @@ function StatsSection({
     },
     {
       value: statusCount,
-      label: locale === "es" ? "Estados de Conservación" : "Conservation Statuses",
+      label:
+        locale === "es" ? "Estados de Conservación" : "Conservation Statuses",
       icon: "🛡️",
     },
     {
@@ -181,7 +180,9 @@ function StatsSection({
           className="bg-card rounded-xl p-6 border border-border text-center hover:border-primary/50 transition-colors"
         >
           <div className="text-3xl mb-2">{stat.icon}</div>
-          <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
+          <div className="text-3xl font-bold text-primary mb-1">
+            {stat.value}
+          </div>
           <div className="text-sm text-muted-foreground">{stat.label}</div>
         </div>
       ))}
