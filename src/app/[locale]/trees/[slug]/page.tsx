@@ -5,6 +5,7 @@ import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import { MDXContent } from "@/components/MDXContent";
 import { PrintButton } from "@/components/PrintButton";
+import { ShareButton } from "@/components/ShareButton";
 import { DistributionMap } from "@/components/DistributionMap";
 import { BiodiversityInfo } from "@/components/BiodiversityInfo";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
@@ -168,7 +169,7 @@ export default async function TreePage({ params }: Props) {
       />
       <article className="py-12 px-4 tree-detail">
         <div className="container mx-auto max-w-4xl">
-          {/* Breadcrumb and Print Button */}
+          {/* Breadcrumb and Actions */}
           <nav className="mb-8 flex justify-between items-center no-print">
             <Link
               href="/trees"
@@ -177,7 +178,14 @@ export default async function TreePage({ params }: Props) {
               <ArrowLeftIcon className="h-4 w-4" />
               {locale === "es" ? "Volver al Directorio" : "Back to Directory"}
             </Link>
-            <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
+            <div className="flex items-center gap-2">
+              <ShareButton
+                title={tree.title}
+                scientificName={tree.scientificName}
+                slug={tree.slug}
+              />
+              <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
+            </div>
           </nav>
 
           {/* Header */}
