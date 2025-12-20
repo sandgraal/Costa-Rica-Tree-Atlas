@@ -7,15 +7,12 @@ export { TreeCard, TreeExplorer } from "./tree";
 export { DistributionMap } from "./geo";
 export { BiodiversityInfo } from "./data";
 
-// Legacy components (gradually migrating to new architecture)
+// Active components (gradually migrating to new architecture)
 export { ThemeToggle } from "./ThemeToggle";
 export { LanguageSwitcher } from "./LanguageSwitcher";
 export { Header } from "./Header";
 export { Footer } from "./Footer";
-export { TreeSearch } from "./TreeSearch";
-export { TreeFilters } from "./TreeFilters";
 export { AlphabeticalIndex } from "./AlphabeticalIndex";
-export { TreeList } from "./TreeList";
 export {
   TreeTags,
   TreeTag,
@@ -49,8 +46,11 @@ export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
 
-// Deprecated components - retained for backwards compatibility
-// TODO: Remove after full migration
-export { TreeCard as LegacyTreeCard } from "./TreeCard";
-export { DistributionMap as LegacyDistributionMap } from "./DistributionMap";
-export { BiodiversityInfo as LegacyBiodiversityInfo } from "./BiodiversityInfo";
+// Deprecated components - moved to ./deprecated/ folder
+// TODO: Remove completely once all references are updated
+export { TreeSearch } from "./deprecated/TreeSearch";
+export { TreeFilters } from "./deprecated/TreeFilters";
+export { TreeList } from "./deprecated/TreeList";
+export { TreeCard as LegacyTreeCard } from "./deprecated/TreeCard";
+export { DistributionMap as LegacyDistributionMap } from "./deprecated/DistributionMap";
+export { BiodiversityInfo as LegacyBiodiversityInfo } from "./deprecated/BiodiversityInfo";

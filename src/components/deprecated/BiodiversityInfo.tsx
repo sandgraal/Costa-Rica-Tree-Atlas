@@ -5,7 +5,7 @@ import type { BiodiversityData } from "@/app/api/species/route";
 import {
   ConservationStatus,
   ConservationScale,
-} from "@/components/ConservationStatus";
+} from "../ConservationStatus";
 
 interface BiodiversityInfoProps {
   scientificName: string;

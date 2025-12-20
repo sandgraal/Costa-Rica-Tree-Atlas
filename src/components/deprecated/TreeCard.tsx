@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import type { Tree } from "contentlayer/generated";
-import { TreeTags } from "./TreeTags";
+import { TreeTags } from "../TreeTags";
 
 interface TreeCardProps {
   tree: Tree;

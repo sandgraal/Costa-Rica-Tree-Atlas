@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Tree } from "contentlayer/generated";
-import { TreeTag } from "./TreeTags";
+import { TreeTag } from "../TreeTags";
 
 interface TreeFiltersProps {
   trees: Tree[];

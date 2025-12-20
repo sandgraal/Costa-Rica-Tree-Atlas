@@ -3,10 +3,10 @@
 import { useState, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Tree } from "contentlayer/generated";
-import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
-import { TreeSearch } from "@/components/TreeSearch";
-import { TreeFilters, type FilterState } from "@/components/TreeFilters";
-import { AlphabeticalIndex } from "@/components/AlphabeticalIndex";
+import { TreeCardWithFavorite } from "../TreeCardWithFavorite";
+import { TreeSearch } from "./TreeSearch";
+import { TreeFilters, type FilterState } from "./TreeFilters";
+import { AlphabeticalIndex } from "../AlphabeticalIndex";
 
 type ViewMode = "grid" | "alphabetical";
 
