@@ -7,77 +7,16 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-
-interface TreeData {
-  title: string;
-  scientificName: string;
-  family: string;
-  slug: string;
-  description: string;
-  featuredImage?: string;
-  uses?: string[];
-  tags?: string[];
-}
+import {
+  triggerConfetti,
+  injectEducationStyles,
+  type LessonTreeData,
+} from "@/lib/education";
 
 interface EcosystemServicesClientProps {
-  trees: TreeData[];
+  trees: LessonTreeData[];
   locale: string;
 }
-
-const triggerConfetti = () => {
-  const colors = ["#22c55e", "#3b82f6", "#eab308", "#ef4444", "#a855f7"];
-  for (let i = 0; i < 60; i++) {
-    const confetti = document.createElement("div");
-    confetti.style.cssText = `
-      position: fixed;
-      width: ${6 + Math.random() * 8}px;
-      height: ${6 + Math.random() * 8}px;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      left: ${Math.random() * 100}%;
-      top: -20px;
-      border-radius: ${Math.random() > 0.5 ? "50%" : "2px"};
-      pointer-events: none;
-      z-index: 9999;
-      animation: confetti-fall ${2 + Math.random() * 2}s linear forwards;
-    `;
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 4500);
-  }
-};
-
-const addStyles = () => {
-  if (document.getElementById("ecosystem-styles")) return;
-  const style = document.createElement("style");
-  style.id = "ecosystem-styles";
-  style.textContent = `
-    @keyframes confetti-fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-    @keyframes bounce-in {
-      0% { transform: scale(0.5); opacity: 0; }
-      60% { transform: scale(1.1); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes slide-up {
-      0% { transform: translateY(20px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes grow {
-      0% { transform: scale(0); }
-      100% { transform: scale(1); }
-    }
-    .animate-bounce-in { animation: bounce-in 0.5s ease-out forwards; }
-    .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
-    .animate-float { animation: float 3s ease-in-out infinite; }
-    .animate-grow { animation: grow 0.5s ease-out forwards; }
-  `;
-  document.head.appendChild(style);
-};
 
 export default function EcosystemServicesClient(
   props: EcosystemServicesClientProps
@@ -108,7 +47,7 @@ function EcosystemServicesContent({
   const [createdPoster, setCreatedPoster] = useState<string[]>([]);
 
   useEffect(() => {
-    addStyles();
+    injectEducationStyles();
   }, []);
 
   const t = {

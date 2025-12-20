@@ -7,6 +7,7 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
+import { triggerConfetti, injectEducationStyles } from "@/lib/education";
 
 interface TreeData {
   title: string;
@@ -25,58 +26,6 @@ interface BiodiversityLessonClientProps {
   totalSpecies: number;
   totalFamilies: number;
 }
-
-// Simple confetti effect
-const triggerConfetti = () => {
-  const colors = ["#22c55e", "#3b82f6", "#eab308", "#ef4444", "#a855f7"];
-  for (let i = 0; i < 100; i++) {
-    const confetti = document.createElement("div");
-    confetti.style.cssText = `
-      position: fixed;
-      width: ${6 + Math.random() * 8}px;
-      height: ${6 + Math.random() * 8}px;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      left: ${Math.random() * 100}%;
-      top: -20px;
-      border-radius: ${Math.random() > 0.5 ? "50%" : "2px"};
-      pointer-events: none;
-      z-index: 9999;
-      animation: confetti-fall ${2 + Math.random() * 2}s linear forwards;
-      animation-delay: ${Math.random() * 0.3}s;
-    `;
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 4500);
-  }
-};
-
-const addStyles = () => {
-  if (document.getElementById("lesson-styles")) return;
-  const style = document.createElement("style");
-  style.id = "lesson-styles";
-  style.textContent = `
-    @keyframes confetti-fall {
-      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
-    }
-    @keyframes bounce-in {
-      0% { transform: scale(0.5); opacity: 0; }
-      60% { transform: scale(1.1); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes slide-up {
-      0% { transform: translateY(20px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.5); }
-      50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.8); }
-    }
-    .animate-bounce-in { animation: bounce-in 0.5s ease-out forwards; }
-    .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
-    .animate-glow { animation: glow 2s ease-in-out infinite; }
-  `;
-  document.head.appendChild(style);
-};
 
 export default function BiodiversityLessonClient(
   props: BiodiversityLessonClientProps
@@ -115,7 +64,7 @@ function BiodiversityLessonContent({
   const [quizFeedback, setQuizFeedback] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
-    addStyles();
+    injectEducationStyles();
   }, []);
 
   useEffect(() => {
