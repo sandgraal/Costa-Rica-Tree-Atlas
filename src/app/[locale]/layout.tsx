@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
@@ -186,6 +187,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               {children}
             </main>
             <Footer />
+            <ScrollToTop />
             <PWARegister />
             {/* Privacy-respecting analytics - configure via env vars */}
             <Analytics
