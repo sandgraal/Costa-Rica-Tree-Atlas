@@ -106,6 +106,52 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* Site-wide structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://costaricatreeatlas.com/#website",
+                  url: "https://costaricatreeatlas.com",
+                  name:
+                    locale === "es"
+                      ? "Atlas de Árboles de Costa Rica"
+                      : "Costa Rica Tree Atlas",
+                  description:
+                    locale === "es"
+                      ? "Guía bilingüe de código abierto de los árboles de Costa Rica"
+                      : "Open-source bilingual guide to Costa Rican trees",
+                  inLanguage: locale === "es" ? "es-CR" : "en-US",
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: {
+                      "@type": "EntryPoint",
+                      urlTemplate: `https://costaricatreeatlas.com/${locale}/trees?search={search_term_string}`,
+                    },
+                    "query-input": "required name=search_term_string",
+                  },
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://costaricatreeatlas.com/#organization",
+                  name: "Costa Rica Tree Atlas",
+                  url: "https://costaricatreeatlas.com",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+                  },
+                  sameAs: [
+                    "https://github.com/sandgraal/Costa-Rica-Tree-Atlas",
+                  ],
+                },
+              ],
+            }),
+          }}
+        />
         {/* Preconnect to external image hosts for faster loading */}
         <link
           rel="preconnect"
