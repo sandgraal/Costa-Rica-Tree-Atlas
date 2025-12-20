@@ -78,7 +78,7 @@ export function Footer() {
             <h3 className="font-semibold mb-4">{t("openSource")}</h3>
             <p className="text-sm text-foreground/60 mb-2">{t("contribute")}</p>
             <a
-              href="https://github.com"
+              href="https://github.com/sandgraal/Costa-Rica-Tree-Atlas"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
