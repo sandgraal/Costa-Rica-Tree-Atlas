@@ -123,6 +123,7 @@ export const Tree = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "content",
   documentTypes: [Tree],
+  disableImportAliasWarning: true,
   mdx: {
     remarkPlugins: [],
     rehypePlugins: [],
