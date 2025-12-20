@@ -2,7 +2,7 @@
 
 ## Current Image Status
 
-All 73 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
+All 74 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
 
 ### Attribution File
 

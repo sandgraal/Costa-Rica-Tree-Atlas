@@ -1,367 +1,375 @@
 {
-  "carao": {
-    "attribution": "(c) lucapassalacqua, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/26455302",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "cipres": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/99520583",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "coyol": {
-    "attribution": "(c) gmatting, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/201205445",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "gavilan": {
-    "attribution": "(c) Hayley Reth, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/150585361",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guacimo": {
-    "attribution": "(c) sea-kangaroo, some rights reserved (CC BY-NC-ND)",
-    "source": "https://www.inaturalist.org/observations/198106637",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guayabo": {
-    "attribution": "(c) karenawiz, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/102623844",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "jaboncillo": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/126438927",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "jicaro": {
-    "attribution": "(c) Eduardo Quintero 🌵, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/36522669",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "jocote": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/126438956",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "madrono": {
-    "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
-    "source": "https://www.inaturalist.org/observations/67799710",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "manzana-de-agua": {
-    "attribution": "(c) Luis Mario Calderón Soto, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/150069273",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "matapalo": {
-    "attribution": "(c) Eva Hedström, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/6285846",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "mora": {
-    "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/55967719",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "nance": {
-    "attribution": "(c) Curt P Finfrock, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/27226297",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "nazareno": {
-    "attribution": "(c) Gerrit Öhm, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/48557616",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "papaturro": {
-    "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/20557735",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "sura": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/324168267",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "tamarindo": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/106586122",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "tempisque": {
-    "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/20523425",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "yos": {
-    "attribution": "(c) Juan Carlos Ordoñez Jimenez, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/15590206",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "zapote": {
-    "attribution": "(c) livenletlive, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/133028059",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
+  "aguacate": {
+    "attribution": "(c) Makena, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:05.461Z",
+    "source": "https://www.inaturalist.org/observations/200099062"
   },
   "aguacatillo": {
     "attribution": "(c) Isabel Vargas Valverde, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/103889296",
-    "downloadedAt": "2025-12-20T18:40:54.629Z"
+    "downloadedAt": "2025-12-20T18:40:54.629Z",
+    "source": "https://www.inaturalist.org/observations/103889296"
   },
   "almendro": {
-    "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/37042330",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "balsa": {
-    "attribution": "(c) pkondrashov, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/260759561",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "caimito": {
-    "attribution": "(c) Daniel Garita, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/261146451",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "cana-fistula": {
-    "attribution": "(c) Johan Montero, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/21739928",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "caoba": {
-    "attribution": "(c) Yvonne Roza, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/136266971",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "cedro-amargo": {
-    "attribution": "(c) León V., all rights reserved",
-    "source": "https://www.inaturalist.org/observations/305405845",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "ceiba": {
-    "attribution": "(c) John Brew, some rights reserved (CC BY)",
-    "source": "https://www.inaturalist.org/observations/9250928",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "cenizaro": {
-    "attribution": "(c) Ryan Black, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/266130136",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "cocobolo": {
-    "attribution": "(c) Gared Rodríguez, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/177574199",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "corteza-amarilla": {
-    "attribution": "(c) David Garrigues, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/265858742",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "espavel": {
-    "attribution": "(c) Alli, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/271542644",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guaba": {
-    "attribution": "(c) Alvaro Alvarado Montealto, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/103052993",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guanacaste": {
-    "attribution": "no rights reserved",
-    "source": "https://www.inaturalist.org/observations/305325316",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guapinol": {
-    "attribution": "(c) lizzard13732, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/259654220",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guarumo": {
-    "attribution": "(c) Carlos Venegas-Elizondo, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/108074516",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "guayacan-real": {
-    "attribution": "(c) Jairo Moya Vargas, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/152328162",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "higueron": {
-    "attribution": "(c) Jo Jiménez, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/271255749",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "indio-desnudo": {
-    "attribution": "(c) Héctor Perdomo Velázquez, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/66824445",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "jacaranda": {
-    "attribution": "(c) Lucía Vargas, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/105315308",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "javillo": {
-    "attribution": "(c) lukas_pirkner, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/150743957",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "jobo": {
-    "attribution": "(c) Marvin López M., some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/113130120",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "laurel": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/324790387",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "madero-negro": {
-    "attribution": "(c) Yarenis CV, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/152847851",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "mango": {
-    "attribution": "(c) phleve, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/215632543",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "maranon": {
-    "attribution": "(c) James Steamer, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/513927",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "nispero": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/254931778",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "ojoche": {
-    "attribution": "(c) León V., all rights reserved",
-    "source": "https://www.inaturalist.org/observations/309570912",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "pilon": {
-    "attribution": "(c) Gared Rodríguez, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/96328435",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "pochote": {
-    "attribution": "(c) NINA WENÓLI, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/82201367",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "poro": {
-    "attribution": "(c) Mark Richman, some rights reserved (CC BY)",
-    "source": "https://www.inaturalist.org/observations/148094956",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "roble-de-sabana": {
-    "attribution": "(c) Daniel Patterson, some rights reserved (CC BY)",
-    "source": "https://www.inaturalist.org/observations/151179511",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "ron-ron": {
-    "attribution": "(c) German Vargas, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/20840539",
-    "downloadedAt": "2025-12-20T18:40:54.631Z"
-  },
-  "cortez-negro": {
-    "attribution": "(c) Anita Gould, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/447475",
-    "downloadedAt": "2025-12-20T18:46:51.113Z"
-  },
-  "aguacate": {
-    "attribution": "(c) Makena, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/200099062",
-    "downloadedAt": "2025-12-20T22:14:05.461Z"
-  },
-  "cacao": {
-    "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/254872286",
-    "downloadedAt": "2025-12-20T22:14:09.462Z"
-  },
-  "cana-agria": {
-    "attribution": "(c) Peter Mudde, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/217145544",
-    "downloadedAt": "2025-12-20T22:14:12.334Z"
-  },
-  "cana-india": {
-    "attribution": "(c) heidys, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/112973998",
-    "downloadedAt": "2025-12-20T22:14:15.859Z"
-  },
-  "carboncillo": {
-    "attribution": "(c) María Eugenia Mendiola González, some rights reserved (CC BY-NC-SA)",
-    "source": "https://www.inaturalist.org/observations/81658988",
-    "downloadedAt": "2025-12-20T22:14:18.695Z"
-  },
-  "chilamate": {
-    "attribution": "(c) Jo Jiménez, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/271255749",
-    "downloadedAt": "2025-12-20T22:14:21.092Z"
-  },
-  "coco": {
-    "attribution": "(c) Andrew &amp; Elizabeth Nicosia/Gargiulo, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/329294010",
-    "downloadedAt": "2025-12-20T22:14:23.802Z"
-  },
-  "copey": {
-    "attribution": "(c) Ethan Beaver, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/286732465",
-    "downloadedAt": "2025-12-20T22:14:26.486Z"
-  },
-  "cristobal": {
-    "attribution": "(c) Gared Rodríguez, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/202925608",
-    "downloadedAt": "2025-12-20T22:14:28.677Z"
-  },
-  "fruta-de-pan": {
-    "attribution": "(c) LostInCR, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/223676461",
-    "downloadedAt": "2025-12-20T22:14:31.389Z"
-  },
-  "guachipelin": {
-    "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/322401712",
-    "downloadedAt": "2025-12-20T22:14:34.566Z"
-  },
-  "manu": {
-    "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/194780390",
-    "downloadedAt": "2025-12-20T22:14:37.699Z"
-  },
-  "palmera-real": {
-    "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/321606808",
-    "downloadedAt": "2025-12-20T22:14:40.801Z"
-  },
-  "papaya": {
-    "attribution": "(c) Asa Spade, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/18569100",
-    "downloadedAt": "2025-12-20T22:14:43.984Z"
-  },
-  "pejibaye": {
-    "attribution": "(c) Lucía Angulo, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/211889890",
-    "downloadedAt": "2025-12-20T22:14:47.282Z"
-  },
-  "sotacaballo": {
-    "attribution": "(c) Roberto Quirós, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/159881979",
-    "downloadedAt": "2025-12-20T22:14:50.053Z"
-  },
-  "targua": {
-    "attribution": "(c) Daniel Garrigues, all rights reserved",
-    "source": "https://www.inaturalist.org/observations/128545646",
-    "downloadedAt": "2025-12-20T22:14:52.909Z"
+    "attribution": "(c) Leonardo \u00c1lvarez-Alc\u00e1zar, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/37042330"
   },
   "amarillon": {
     "attribution": "(c) capepolly, some rights reserved (CC BY-NC)",
-    "source": "https://www.inaturalist.org/observations/172669461",
-    "downloadedAt": "2025-12-20T22:15:09.115Z"
+    "downloadedAt": "2025-12-20T22:15:09.115Z",
+    "source": "https://www.inaturalist.org/observations/172669461"
+  },
+  "balsa": {
+    "attribution": "(c) pkondrashov, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/260759561"
+  },
+  "cacao": {
+    "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:09.462Z",
+    "source": "https://www.inaturalist.org/observations/254872286"
+  },
+  "caimito": {
+    "attribution": "(c) Daniel Garita, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/261146451"
+  },
+  "cana-agria": {
+    "attribution": "(c) Peter Mudde, all rights reserved",
+    "downloadedAt": "2025-12-20T22:14:12.334Z",
+    "source": "https://www.inaturalist.org/observations/217145544"
+  },
+  "cana-fistula": {
+    "attribution": "(c) Johan Montero, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/21739928"
+  },
+  "cana-india": {
+    "attribution": "(c) heidys, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:15.859Z",
+    "source": "https://www.inaturalist.org/observations/112973998"
+  },
+  "caoba": {
+    "attribution": "(c) Yvonne Roza, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/136266971"
+  },
+  "carao": {
+    "attribution": "(c) lucapassalacqua, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/26455302"
+  },
+  "carboncillo": {
+    "attribution": "(c) Mar\u00eda Eugenia Mendiola Gonz\u00e1lez, some rights reserved (CC BY-NC-SA)",
+    "downloadedAt": "2025-12-20T22:14:18.695Z",
+    "source": "https://www.inaturalist.org/observations/81658988"
+  },
+  "cedro-amargo": {
+    "attribution": "(c) Le\u00f3n V., all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/305405845"
+  },
+  "ceiba": {
+    "attribution": "(c) John Brew, some rights reserved (CC BY)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/9250928"
+  },
+  "cenizaro": {
+    "attribution": "(c) Ryan Black, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/266130136"
+  },
+  "chilamate": {
+    "attribution": "(c) Jo Jim\u00e9nez, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:21.092Z",
+    "source": "https://www.inaturalist.org/observations/271255749"
+  },
+  "cipres": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/99520583"
+  },
+  "coco": {
+    "attribution": "(c) Andrew &amp; Elizabeth Nicosia/Gargiulo, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:23.802Z",
+    "source": "https://www.inaturalist.org/observations/329294010"
+  },
+  "cocobolo": {
+    "attribution": "(c) Gared Rodr\u00edguez, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/177574199"
+  },
+  "copey": {
+    "attribution": "(c) Ethan Beaver, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:26.486Z",
+    "source": "https://www.inaturalist.org/observations/286732465"
+  },
+  "cortez-negro": {
+    "attribution": "(c) Anita Gould, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:46:51.113Z",
+    "source": "https://www.inaturalist.org/observations/447475"
+  },
+  "corteza-amarilla": {
+    "attribution": "(c) David Garrigues, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/265858742"
+  },
+  "coyol": {
+    "attribution": "(c) gmatting, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/201205445"
+  },
+  "cristobal": {
+    "attribution": "(c) Gared Rodr\u00edguez, all rights reserved",
+    "downloadedAt": "2025-12-20T22:14:28.677Z",
+    "source": "https://www.inaturalist.org/observations/202925608"
+  },
+  "espavel": {
+    "attribution": "(c) Alli, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/271542644"
+  },
+  "fruta-de-pan": {
+    "attribution": "(c) LostInCR, all rights reserved",
+    "downloadedAt": "2025-12-20T22:14:31.389Z",
+    "source": "https://www.inaturalist.org/observations/223676461"
+  },
+  "gavilan": {
+    "attribution": "(c) Hayley Reth, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/150585361"
+  },
+  "guaba": {
+    "attribution": "(c) Alvaro Alvarado Montealto, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/103052993"
+  },
+  "guachipelin": {
+    "attribution": "(c) Miguel David Artavia Sol\u00eds, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:34.566Z",
+    "source": "https://www.inaturalist.org/observations/322401712"
+  },
+  "guacimo": {
+    "attribution": "(c) sea-kangaroo, some rights reserved (CC BY-NC-ND)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/198106637"
+  },
+  "guanacaste": {
+    "attribution": "no rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/305325316"
+  },
+  "guapinol": {
+    "attribution": "(c) lizzard13732, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/259654220"
+  },
+  "guarumo": {
+    "attribution": "(c) Carlos Venegas-Elizondo, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/108074516"
+  },
+  "guayabo": {
+    "attribution": "(c) karenawiz, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/102623844"
+  },
+  "guayacan-real": {
+    "attribution": "(c) Jairo Moya Vargas, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/152328162"
+  },
+  "higueron": {
+    "attribution": "(c) Jo Jim\u00e9nez, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/271255749"
+  },
+  "indio-desnudo": {
+    "attribution": "(c) H\u00e9ctor Perdomo Vel\u00e1zquez, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/66824445"
+  },
+  "jaboncillo": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/126438927"
+  },
+  "jacaranda": {
+    "attribution": "(c) Luc\u00eda Vargas, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/105315308"
+  },
+  "javillo": {
+    "attribution": "(c) lukas_pirkner, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/150743957"
+  },
+  "jicaro": {
+    "attribution": "(c) Eduardo Quintero \ud83c\udf35, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/36522669"
+  },
+  "jobo": {
+    "attribution": "(c) Marvin L\u00f3pez M., some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/113130120"
+  },
+  "jocote": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/126438956"
+  },
+  "laurel": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/324790387"
+  },
+  "madero-negro": {
+    "attribution": "(c) Yarenis CV, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/152847851"
+  },
+  "madrono": {
+    "attribution": "(c) Eduardo Chac\u00f3n Madrigal, some rights reserved (CC BY)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/67799710"
+  },
+  "mango": {
+    "attribution": "(c) phleve, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/215632543"
+  },
+  "manu": {
+    "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:37.699Z",
+    "source": "https://www.inaturalist.org/observations/194780390"
+  },
+  "manzana-de-agua": {
+    "attribution": "(c) Luis Mario Calder\u00f3n Soto, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/150069273"
+  },
+  "maranon": {
+    "attribution": "(c) James Steamer, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/513927"
+  },
+  "matapalo": {
+    "attribution": "(c) Eva Hedstr\u00f6m, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/6285846"
+  },
+  "mora": {
+    "attribution": "(c) Leonardo \u00c1lvarez-Alc\u00e1zar, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/55967719"
+  },
+  "nance": {
+    "attribution": "(c) Curt P Finfrock, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/27226297"
+  },
+  "nazareno": {
+    "attribution": "(c) Gerrit \u00d6hm, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/48557616"
+  },
+  "nispero": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/254931778"
+  },
+  "ojoche": {
+    "attribution": "(c) Le\u00f3n V., all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/309570912"
+  },
+  "palmera-real": {
+    "attribution": "(c) Miguel David Artavia Sol\u00eds, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:40.801Z",
+    "source": "https://www.inaturalist.org/observations/321606808"
+  },
+  "papaturro": {
+    "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/20557735"
+  },
+  "papaya": {
+    "attribution": "(c) Asa Spade, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:43.984Z",
+    "source": "https://www.inaturalist.org/observations/18569100"
+  },
+  "pejibaye": {
+    "attribution": "(c) Luc\u00eda Angulo, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T22:14:47.282Z",
+    "source": "https://www.inaturalist.org/observations/211889890"
+  },
+  "pilon": {
+    "attribution": "(c) Gared Rodr\u00edguez, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/96328435"
+  },
+  "pochote": {
+    "attribution": "(c) NINA WEN\u00d3LI, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/82201367"
+  },
+  "poro": {
+    "attribution": "(c) Mark Richman, some rights reserved (CC BY)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/148094956"
+  },
+  "roble-de-sabana": {
+    "attribution": "(c) Daniel Patterson, some rights reserved (CC BY)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/151179511"
+  },
+  "roble-encino": {
+    "downloaded": "2025-12-20",
+    "license": "CC BY",
+    "photoId": 108352659,
+    "photographer": "Eduardo Chac\u00f3n Madrigal",
+    "source": "iNaturalist",
+    "taxonId": 442874
+  },
+  "ron-ron": {
+    "attribution": "(c) German Vargas, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/20840539"
+  },
+  "sotacaballo": {
+    "attribution": "(c) Roberto Quir\u00f3s, all rights reserved",
+    "downloadedAt": "2025-12-20T22:14:50.053Z",
+    "source": "https://www.inaturalist.org/observations/159881979"
+  },
+  "sura": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/324168267"
+  },
+  "tamarindo": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/106586122"
+  },
+  "targua": {
+    "attribution": "(c) Daniel Garrigues, all rights reserved",
+    "downloadedAt": "2025-12-20T22:14:52.909Z",
+    "source": "https://www.inaturalist.org/observations/128545646"
+  },
+  "tempisque": {
+    "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/20523425"
+  },
+  "yos": {
+    "attribution": "(c) Juan Carlos Ordo\u00f1ez Jimenez, all rights reserved",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/15590206"
+  },
+  "zapote": {
+    "attribution": "(c) livenletlive, some rights reserved (CC BY-NC)",
+    "downloadedAt": "2025-12-20T18:40:54.631Z",
+    "source": "https://www.inaturalist.org/observations/133028059"
   }
 }
