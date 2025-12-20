@@ -15,6 +15,7 @@ export {
   getAllTags,
   getTagsByCategory,
 } from "./TreeTags";
+export { TreeGallery, ImageLightbox } from "./TreeGallery";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";

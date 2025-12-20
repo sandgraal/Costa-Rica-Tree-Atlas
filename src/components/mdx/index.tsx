@@ -473,6 +473,7 @@ interface ImageCardProps {
   credit?: string;
   license?: string;
   sourceUrl?: string;
+  onClick?: () => void;
 }
 
 export function ImageCard({
@@ -482,19 +483,39 @@ export function ImageCard({
   credit,
   license,
   sourceUrl,
+  onClick,
 }: ImageCardProps) {
-  return (
-    <figure className="bg-card rounded-xl overflow-hidden border border-border not-prose">
+  const content = (
+    <figure className="bg-card rounded-xl overflow-hidden border border-border not-prose group">
       <div className="aspect-[4/3] bg-muted relative">
         <Image
           src={src}
           alt={alt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover"
+          className={`object-cover ${onClick ? "group-hover:scale-105 transition-transform duration-300" : ""}`}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
         />
+        {onClick && (
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <path d="M15 3h6v6" />
+              <path d="M9 21H3v-6" />
+              <path d="M21 3l-7 7" />
+              <path d="M3 21l7-7" />
+            </svg>
+          </div>
+        )}
       </div>
       <figcaption className="p-3 text-sm">
         {title && <p className="font-medium mb-1">{title}</p>}
@@ -510,6 +531,7 @@ export function ImageCard({
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-primary hover:underline mt-1 inline-block"
+            onClick={(e) => e.stopPropagation()}
           >
             View source ↗
           </a>
@@ -517,14 +539,204 @@ export function ImageCard({
       </figcaption>
     </figure>
   );
+
+  if (onClick) {
+    return (
+      <button
+        onClick={onClick}
+        className="text-left w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary rounded-xl"
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return content;
 }
 
-// Image Gallery with multiple cards
-export function ImageGallery({ children }: { children: React.ReactNode }) {
+// Lightbox component for MDX galleries
+interface LightboxState {
+  isOpen: boolean;
+  currentIndex: number;
+}
+
+// Image Gallery with lightbox functionality
+interface ImageGalleryWithLightboxProps {
+  children: React.ReactNode;
+}
+
+export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
+  const [lightbox, setLightbox] = React.useState<LightboxState>({
+    isOpen: false,
+    currentIndex: 0,
+  });
+
+  // Extract image data from children
+  const images: Array<{ src: string; alt: string; title?: string; credit?: string; license?: string }> = [];
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && child.props) {
+      const props = child.props as ImageCardProps;
+      if (props.src) {
+        images.push({
+          src: props.src,
+          alt: props.alt || "",
+          title: props.title,
+          credit: props.credit,
+          license: props.license,
+        });
+      }
+    }
+  });
+
+  const openLightbox = (index: number) => {
+    setLightbox({ isOpen: true, currentIndex: index });
+  };
+
+  const closeLightbox = () => {
+    setLightbox({ isOpen: false, currentIndex: 0 });
+  };
+
+  const goToPrevious = () => {
+    setLightbox((prev) => ({
+      ...prev,
+      currentIndex: prev.currentIndex === 0 ? images.length - 1 : prev.currentIndex - 1,
+    }));
+  };
+
+  const goToNext = () => {
+    setLightbox((prev) => ({
+      ...prev,
+      currentIndex: prev.currentIndex === images.length - 1 ? 0 : prev.currentIndex + 1,
+    }));
+  };
+
+  // Handle keyboard navigation
+  React.useEffect(() => {
+    if (!lightbox.isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "Escape":
+          closeLightbox();
+          break;
+        case "ArrowLeft":
+          goToPrevious();
+          break;
+        case "ArrowRight":
+          goToNext();
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox.isOpen]);
+
+  // Clone children with onClick handlers
+  const childrenWithHandlers = React.Children.map(children, (child, index) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child as React.ReactElement<ImageCardProps>, {
+        onClick: () => openLightbox(index),
+      });
+    }
+    return child;
+  });
+
+  const currentImage = images[lightbox.currentIndex];
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6 not-prose">
-      {children}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6 not-prose">
+        {childrenWithHandlers}
+      </div>
+
+      {/* Lightbox Modal */}
+      {lightbox.isOpen && currentImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          onClick={closeLightbox}
+        >
+          {/* Close button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
+            aria-label="Close"
+          >
+            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Navigation */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20"
+                aria-label="Previous"
+              >
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); goToNext(); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20"
+                aria-label="Next"
+              >
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </>
+          )}
+
+          {/* Image */}
+          <div
+            className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative max-w-full max-h-[75vh]">
+              <Image
+                src={currentImage.src}
+                alt={currentImage.alt}
+                width={1200}
+                height={800}
+                className="max-h-[75vh] w-auto object-contain"
+                priority
+              />
+            </div>
+
+            {/* Caption */}
+            <div className="mt-4 text-center text-white max-w-2xl px-4">
+              {currentImage.title && (
+                <h3 className="text-lg font-semibold mb-1">{currentImage.title}</h3>
+              )}
+              {currentImage.credit && (
+                <p className="text-sm text-white/70">
+                  📷 {currentImage.credit}
+                  {currentImage.license && (
+                    <span className="ml-2 text-white/50">({currentImage.license})</span>
+                  )}
+                </p>
+              )}
+            </div>
+
+            {/* Counter */}
+            {images.length > 1 && (
+              <div className="mt-4 text-white/60 text-sm">
+                {lightbox.currentIndex + 1} / {images.length}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

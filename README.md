@@ -164,16 +164,13 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Alphabetical Index**: Browse trees A-Z with sticky alphabet navigation
 - [x] **Sorting Options**: Sort by common name, scientific name, or family
 
-### 🚧 In Progress
-
-- [ ] **Image Gallery**: Multiple images per tree with lightbox viewing
-
-### 📋 Planned Features
+### � Planned Features
 
 #### Phase 2: Enhanced User Experience
 
 - [x] **Image Optimization**: Next.js Image component integration with proper sizing
 - [x] **Tag System**: Add tags for characteristics (deciduous, evergreen, flowering, etc.)
+- [x] **Image Gallery**: Multiple images per tree with lightbox viewing
 - [ ] **Interactive Maps**: Geographic distribution maps showing where species are found
 - [ ] **Image Gallery**: Multiple images per tree with lightbox viewing
 - [ ] **Comparison Tool**: Side-by-side comparison of tree characteristics
