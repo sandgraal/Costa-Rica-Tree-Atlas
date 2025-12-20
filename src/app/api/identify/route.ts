@@ -77,32 +77,40 @@ export async function POST(request: Request) {
   const buffer = Buffer.from(await file.arrayBuffer());
   const encodedImage = buffer.toString("base64");
 
-  const visionResponse = await fetch(
-    `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        requests: [
-          {
-            image: { content: encodedImage },
-            features: [{ type: "LABEL_DETECTION", maxResults: MAX_LABELS }],
-          },
-        ],
-      }),
-    }
-  );
+  let data;
+  try {
+    const visionResponse = await fetch(
+      `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          requests: [
+            {
+              image: { content: encodedImage },
+              features: [{ type: "LABEL_DETECTION", maxResults: MAX_LABELS }],
+            },
+          ],
+        }),
+      }
+    );
 
-  if (!visionResponse.ok) {
+    if (!visionResponse.ok) {
+      return NextResponse.json(
+        { error: "Vision API request failed" },
+        { status: 502 }
+      );
+    }
+
+    data = await visionResponse.json();
+  } catch {
     return NextResponse.json(
-      { error: "Vision API request failed" },
+      { error: "Network error communicating with Vision API" },
       { status: 502 }
     );
   }
-
-  const data = await visionResponse.json();
   const labels: VisionLabel[] =
     data?.responses?.[0]?.labelAnnotations?.map((label: VisionLabel) => ({
       description: label.description,
