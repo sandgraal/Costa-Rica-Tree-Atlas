@@ -1,0 +1,1 @@
+export { BiodiversityInfo } from "./BiodiversityInfo";
