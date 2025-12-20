@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import type { Tree } from "contentlayer/generated";
 import { TreeCard } from "@/components/TreeCard";
 import { TreeSearch } from "@/components/TreeSearch";
+import { TreeFilters, type FilterState } from "@/components/TreeFilters";
 
 interface TreeListProps {
   trees: Tree[];
@@ -12,7 +13,61 @@ interface TreeListProps {
 
 export function TreeList({ trees }: TreeListProps) {
   const t = useTranslations("trees");
-  const [filteredTrees, setFilteredTrees] = useState<Tree[]>(trees);
+  const [searchFilteredTrees, setSearchFilteredTrees] = useState<Tree[]>(trees);
+  const [filters, setFilters] = useState<FilterState>({
+    family: "",
+    conservationStatus: "",
+    sortBy: "name",
+  });
+
+  // Apply filters and sorting to search-filtered trees
+  const displayTrees = useMemo(() => {
+    let result = searchFilteredTrees;
+
+    // Apply family filter
+    if (filters.family) {
+      result = result.filter((tree) => tree.family === filters.family);
+    }
+
+    // Apply conservation status filter
+    if (filters.conservationStatus) {
+      result = result.filter(
+        (tree) => tree.conservationStatus === filters.conservationStatus
+      );
+    }
+
+    // Apply sorting
+    result = [...result].sort((a, b) => {
+      switch (filters.sortBy) {
+        case "scientific":
+          return a.scientificName.localeCompare(b.scientificName);
+        case "family":
+          return (a.family || "").localeCompare(b.family || "");
+        case "name":
+        default:
+          return a.title.localeCompare(b.title);
+      }
+    });
+
+    return result;
+  }, [searchFilteredTrees, filters]);
+
+  const handleSearchFilter = (filtered: Tree[]) => {
+    setSearchFilteredTrees(filtered);
+  };
+
+  const handleFilterChange = (newFilters: FilterState) => {
+    setFilters(newFilters);
+  };
+
+  // Calculate stats for display
+  const stats = useMemo(() => {
+    const familyCount = new Set(trees.map((t) => t.family)).size;
+    return {
+      total: trees.length,
+      familyCount,
+    };
+  }, [trees]);
 
   return (
     <>
@@ -21,28 +76,34 @@ export function TreeList({ trees }: TreeListProps) {
         <h1 className="text-4xl font-bold text-primary-dark dark:text-primary-light mb-4">
           {t("title")}
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
           {t("subtitle")}
+        </p>
+        <p className="text-sm text-muted-foreground">
+          {t("stats", { species: stats.total, families: stats.familyCount })}
         </p>
       </div>
 
       {/* Search */}
-      <TreeSearch trees={trees} onFilteredTrees={setFilteredTrees} />
+      <TreeSearch trees={trees} onFilteredTrees={handleSearchFilter} />
+
+      {/* Filters */}
+      <TreeFilters trees={trees} onFilterChange={handleFilterChange} />
 
       {/* Results Count */}
-      {filteredTrees.length !== trees.length && (
+      {displayTrees.length !== trees.length && (
         <p className="text-center text-muted-foreground mb-6">
           {t("resultsCount", {
-            count: filteredTrees.length,
+            count: displayTrees.length,
             total: trees.length,
           })}
         </p>
       )}
 
       {/* Tree Grid */}
-      {filteredTrees.length > 0 ? (
+      {displayTrees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTrees.map((tree) => (
+          {displayTrees.map((tree) => (
             <TreeCard key={tree._id} tree={tree} />
           ))}
         </div>
