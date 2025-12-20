@@ -27,6 +27,8 @@ export default function Error({
   useEffect(() => {
     // Log the error to console in development
     console.error("Application error:", error);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
   }, [error]);
 
   return (
@@ -87,6 +89,17 @@ export default function Error({
           <p className="text-xs text-muted-foreground mt-8">
             {t.errorId}: {error.digest}
           </p>
+        )}
+        {/* Debug info - remove in production */}
+        {process.env.NODE_ENV === "development" && (
+          <div className="mt-8 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg text-left max-w-2xl mx-auto">
+            <p className="text-sm font-mono text-red-800 dark:text-red-200 break-all">
+              <strong>Error:</strong> {error.message}
+            </p>
+            <pre className="mt-2 text-xs font-mono text-red-600 dark:text-red-300 overflow-x-auto whitespace-pre-wrap">
+              {error.stack}
+            </pre>
+          </div>
         )}
       </div>
     </div>
