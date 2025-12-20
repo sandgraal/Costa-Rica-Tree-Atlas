@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
-import { TreeCard } from "@/components/TreeCard";
+import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -139,7 +139,7 @@ function FeaturedTreesSection({ trees }: { trees: typeof allTrees }) {
       {trees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trees.slice(0, 6).map((tree) => (
-            <TreeCard key={tree._id} tree={tree} />
+            <TreeCardWithFavorite key={tree._id} tree={tree} />
           ))}
         </div>
       ) : (

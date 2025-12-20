@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Tree } from "contentlayer/generated";
-import { TreeCard } from "@/components/TreeCard";
+import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
 import { TreeSearch } from "@/components/TreeSearch";
 import { TreeFilters, type FilterState } from "@/components/TreeFilters";
 import { AlphabeticalIndex } from "@/components/AlphabeticalIndex";
@@ -156,7 +156,7 @@ export function TreeList({ trees }: TreeListProps) {
       ) : displayTrees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayTrees.map((tree) => (
-            <TreeCard key={tree._id} tree={tree} />
+            <TreeCardWithFavorite key={tree._id} tree={tree} />
           ))}
         </div>
       ) : (
