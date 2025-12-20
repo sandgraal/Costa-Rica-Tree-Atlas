@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import type { Tree } from "contentlayer/generated";
+import { TreeTag, TAG_DEFINITIONS, type TagName } from "./TreeTags";
 
 interface TreeFiltersProps {
   trees: Tree[];
@@ -12,6 +13,7 @@ interface TreeFiltersProps {
 export interface FilterState {
   family: string;
   conservationStatus: string;
+  tags: string[];
   sortBy: "name" | "scientific" | "family";
 }
 
@@ -20,8 +22,10 @@ export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
   const [filters, setFilters] = useState<FilterState>({
     family: "",
     conservationStatus: "",
+    tags: [],
     sortBy: "name",
   });
+  const [showTagFilter, setShowTagFilter] = useState(false);
 
   // Extract unique families from trees
   const families = useMemo(() => {
@@ -55,13 +59,35 @@ export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
     const resetFilters: FilterState = {
       family: "",
       conservationStatus: "",
+      tags: [],
       sortBy: "name",
     };
     setFilters(resetFilters);
     onFilterChange(resetFilters);
   };
 
-  const hasActiveFilters = filters.family || filters.conservationStatus;
+  const hasActiveFilters =
+    filters.family || filters.conservationStatus || filters.tags.length > 0;
+
+  // Extract unique tags from trees
+  const availableTags = useMemo(() => {
+    const tagSet = new Set<string>();
+    trees.forEach((tree) => {
+      (tree as Tree & { tags?: string[] }).tags?.forEach((tag: string) =>
+        tagSet.add(tag)
+      );
+    });
+    return Array.from(tagSet).sort();
+  }, [trees]);
+
+  const handleTagToggle = (tag: string) => {
+    const newTags = filters.tags.includes(tag)
+      ? filters.tags.filter((t) => t !== tag)
+      : [...filters.tags, tag];
+    const newFilters = { ...filters, tags: newTags };
+    setFilters(newFilters);
+    onFilterChange(newFilters);
+  };
 
   return (
     <div className="mb-8 p-4 bg-card rounded-xl border border-border">
@@ -150,6 +176,40 @@ export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
         )}
       </div>
 
+      {/* Tags Filter */}
+      {availableTags.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-border">
+          <button
+            onClick={() => setShowTagFilter(!showTagFilter)}
+            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <TagIcon className="h-4 w-4" />
+            {t("filterByTags")}
+            <ChevronIcon
+              className={`h-4 w-4 transition-transform ${showTagFilter ? "rotate-180" : ""}`}
+            />
+            {filters.tags.length > 0 && (
+              <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary text-white rounded-full">
+                {filters.tags.length}
+              </span>
+            )}
+          </button>
+
+          {showTagFilter && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {availableTags.map((tag) => (
+                <TreeTag
+                  key={tag}
+                  tag={tag}
+                  onClick={() => handleTagToggle(tag)}
+                  selected={filters.tags.includes(tag)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Active Filters Display */}
       {hasActiveFilters && (
         <div className="mt-4 flex flex-wrap gap-2">
@@ -177,6 +237,14 @@ export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
               </button>
             </span>
           )}
+          {filters.tags.map((tag) => (
+            <TreeTag
+              key={tag}
+              tag={tag}
+              onClick={() => handleTagToggle(tag)}
+              selected
+            />
+          ))}
         </div>
       )}
     </div>
@@ -197,6 +265,41 @@ function XIcon({ className }: { className?: string }) {
     >
       <path d="M18 6L6 18" />
       <path d="M6 6l12 12" />
+    </svg>
+  );
+}
+
+function TagIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+      <path d="M7 7h.01" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }

@@ -166,13 +166,14 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 
 ### 🚧 In Progress
 
-- [ ] **Image Optimization**: Next.js Image component integration with proper sizing
-- [ ] **Tag System**: Add tags for characteristics (deciduous, evergreen, flowering, etc.)
+- [ ] **Image Gallery**: Multiple images per tree with lightbox viewing
 
 ### 📋 Planned Features
 
 #### Phase 2: Enhanced User Experience
 
+- [x] **Image Optimization**: Next.js Image component integration with proper sizing
+- [x] **Tag System**: Add tags for characteristics (deciduous, evergreen, flowering, etc.)
 - [ ] **Interactive Maps**: Geographic distribution maps showing where species are found
 - [ ] **Image Gallery**: Multiple images per tree with lightbox viewing
 - [ ] **Comparison Tool**: Side-by-side comparison of tree characteristics

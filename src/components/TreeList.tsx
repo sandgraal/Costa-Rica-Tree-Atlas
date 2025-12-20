@@ -22,6 +22,7 @@ export function TreeList({ trees }: TreeListProps) {
   const [filters, setFilters] = useState<FilterState>({
     family: "",
     conservationStatus: "",
+    tags: [],
     sortBy: "name",
   });
 
@@ -39,6 +40,14 @@ export function TreeList({ trees }: TreeListProps) {
       result = result.filter(
         (tree) => tree.conservationStatus === filters.conservationStatus
       );
+    }
+
+    // Apply tag filters (AND logic - tree must have ALL selected tags)
+    if (filters.tags.length > 0) {
+      result = result.filter((tree) => {
+        const treeTags = (tree as Tree & { tags?: string[] }).tags || [];
+        return filters.tags.every((tag) => treeTags.includes(tag));
+      });
     }
 
     // Apply sorting

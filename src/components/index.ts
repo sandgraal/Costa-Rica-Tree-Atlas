@@ -8,6 +8,13 @@ export { TreeSearch } from "./TreeSearch";
 export { TreeFilters } from "./TreeFilters";
 export { AlphabeticalIndex } from "./AlphabeticalIndex";
 export { TreeList } from "./TreeList";
+export {
+  TreeTags,
+  TreeTag,
+  TAG_DEFINITIONS,
+  getAllTags,
+  getTagsByCategory,
+} from "./TreeTags";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";

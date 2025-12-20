@@ -57,6 +57,13 @@ export const Tree = defineDocumentType(() => ({
       description: "Common uses of the tree",
       required: false,
     },
+    tags: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Characteristic tags (deciduous, evergreen, flowering, fruit-bearing, native, endangered, etc.)",
+      required: false,
+    },
     featuredImage: {
       type: "string",
       description: "Path to the featured image",

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import type { Tree } from "contentlayer/generated";
+import { TreeTags } from "./TreeTags";
 
 interface TreeCardProps {
   tree: Tree;
@@ -59,20 +60,41 @@ export function TreeCard({ tree }: TreeCardProps) {
 
         <div className="mt-3 flex items-center gap-4 text-xs text-foreground/60">
           <span className="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-4 h-4"
+            >
               <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
             </svg>
             {tree.family}
           </span>
           {tree.maxHeight && (
             <span className="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.59L7.3 9.24a.75.75 0 00-1.1 1.02l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75z" clipRule="evenodd" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.59L7.3 9.24a.75.75 0 00-1.1 1.02l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75z"
+                  clipRule="evenodd"
+                />
               </svg>
               {tree.maxHeight}
             </span>
           )}
         </div>
+
+        {/* Tags */}
+        {tree.tags && tree.tags.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-primary/10">
+            <TreeTags tags={tree.tags} size="sm" limit={3} />
+          </div>
+        )}
       </div>
     </Link>
   );
