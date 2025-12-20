@@ -105,9 +105,7 @@ export function Footer() {
               ?
             </kbd>{" "}
             <span>
-              {locale === "es"
-                ? "Atajos de teclado"
-                : "Keyboard shortcuts"}
+              {locale === "es" ? "Atajos de teclado" : "Keyboard shortcuts"}
             </span>
           </p>
         </div>

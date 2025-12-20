@@ -46,7 +46,7 @@
   --warning: #eab308;
   --error: #ef4444;
   --info: #3b82f6;
-  
+
   /* Foreground colors for buttons/badges */
   --primary-foreground: #ffffff;
   --secondary-foreground: #ffffff;
@@ -105,7 +105,7 @@
     --card: #162016;
     --card-foreground: #e8f0e6;
     --background-pattern: none;
-    
+
     /* Foreground colors for dark mode */
     --primary-foreground: #ffffff;
     --secondary-foreground: #ffffff;
@@ -138,7 +138,7 @@
   --card: #162016;
   --card-foreground: #e8f0e6;
   --background-pattern: none;
-  
+
   /* Foreground colors for dark mode */
   --primary-foreground: #ffffff;
   --secondary-foreground: #ffffff;

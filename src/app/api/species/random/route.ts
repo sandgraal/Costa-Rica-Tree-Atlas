@@ -9,10 +9,7 @@ export async function GET(request: NextRequest) {
   const trees = allTrees.filter((tree) => tree.locale === locale);
 
   if (trees.length === 0) {
-    return NextResponse.json(
-      { error: "No trees found" },
-      { status: 404 }
-    );
+    return NextResponse.json({ error: "No trees found" }, { status: 404 });
   }
 
   // Select a random tree

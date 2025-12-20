@@ -12,7 +12,7 @@ export default function Error({
   reset: () => void;
 }) {
   const locale = useLocale();
-  
+
   const t = {
     title: locale === "es" ? "Algo salió mal" : "Something went wrong",
     description:
