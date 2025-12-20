@@ -62,10 +62,10 @@ export function Header() {
               {t("seasonal")}
             </Link>
             <Link
-              href="/education"
+              href="/compare"
               className="text-foreground/80 hover:text-primary transition-colors"
             >
-              {t("education")}
+              {locale === "es" ? "Comparar" : "Compare"}
             </Link>
             <Link
               href="/about"
@@ -80,7 +80,7 @@ export function Header() {
             <div className="hidden sm:block">
               <QuickSearch />
             </div>
-            <FavoritesLink />
+            <FavoritesLink locale={locale} />
             <LanguageSwitcher />
             <ThemeToggle />
             <MobileNav />

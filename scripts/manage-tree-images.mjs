@@ -651,7 +651,7 @@ async function downloadImages() {
     const mdx = await readMdxFrontmatter(path.join(TREES_EN_DIR, file));
     if (!mdx) continue;
 
-    const scientificName = mdx.frontmatter.scientificName;
+    const { scientificName } = mdx.frontmatter;
     if (!scientificName) {
       results.failed.push({ name: treeName, reason: "No scientificName" });
       continue;
@@ -763,7 +763,7 @@ async function refreshImages() {
     const mdx = await readMdxFrontmatter(path.join(TREES_EN_DIR, file));
     if (!mdx) continue;
 
-    const scientificName = mdx.frontmatter.scientificName;
+    const { scientificName } = mdx.frontmatter;
     if (!scientificName) continue;
 
     // Check current status

@@ -15,7 +15,7 @@ export function TreeCard({ tree }: TreeCardProps) {
   return (
     <Link
       href={`/trees/${tree.slug}`}
-      className="group block bg-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-primary/10 hover:border-primary/30"
+      className="group block bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-border hover:border-primary/30"
     >
       <div className="aspect-video bg-primary/10 relative overflow-hidden">
         {tree.featuredImage ? (

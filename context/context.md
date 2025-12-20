@@ -20,6 +20,8 @@
 - Lint: `npm run lint`
 - Format: `npm run format` / `npm run format:check`
 - Contentlayer: `npm run contentlayer`
+- Images audit: `npm run images:audit`
+- Images download: `npm run images:download`
 - Images cleanup: `npm run images:cleanup`
 
 ## Key Paths by Feature
@@ -28,7 +30,10 @@
 - Locale routing: `src/app/[locale]`, `i18n/*`.
 - Tree UI: `src/components/TreeCard.tsx`, `src/components/TreeList.tsx`, `src/components/TreeSearch.tsx`.
 - Identify feature: `src/app/[locale]/identify/*`, `src/app/api/identify/route.ts`.
-- Random tree API: `src/app/api/species/random/route.ts`.
+- Compare feature: `src/app/[locale]/compare/*`, `src/components/TreeComparison.tsx`.
+- Seasonal calendar: `src/app/[locale]/seasonal/*`, `src/components/SeasonalCalendar.tsx`.
+- Favorites system: `src/app/[locale]/favorites/*`, `src/components/FavoritesProvider.tsx`.
+- Education resources: `src/app/[locale]/education/*`.
 
 ## Known Constraints and Feature Flags
 
@@ -38,10 +43,11 @@
 
 ## Code Search (Impacted Targets)
 
-- `src/app/[locale]/identify/page.tsx` (lines 1-13): identify entry page wiring locale.
-- `src/app/[locale]/identify/IdentifyClient.tsx` (lines 1-178): upload form, API call, results.
-- `src/app/api/identify/route.ts` (lines 1-142): vision API request + label matching.
+- `src/app/[locale]/identify/page.tsx`: identify entry page wiring locale.
+- `src/app/[locale]/identify/IdentifyClient.tsx`: upload form, API call, results.
+- `src/app/api/identify/route.ts`: vision API request + label matching.
 - `src/components/Header.tsx`: site header with navigation and quick search.
+- `src/components/MobileNav.tsx`: mobile navigation menu.
 - `messages/en.json`: English translations.
 - `messages/es.json`: Spanish translations.
 - `README.md`: project documentation and roadmap.

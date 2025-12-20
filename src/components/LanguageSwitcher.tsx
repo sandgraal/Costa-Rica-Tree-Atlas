@@ -14,21 +14,37 @@ export function LanguageSwitcher() {
     router.replace(pathname, { locale: newLocale });
   };
 
+  const localeLabels: Record<string, string> = {
+    en: "EN",
+    es: "ES",
+  };
+
   return (
-    <div className="flex items-center gap-1">
-      {routing.locales.map((loc) => (
-        <button
-          key={loc}
-          onClick={() => switchLocale(loc)}
-          className={`px-2 py-1 text-sm rounded transition-colors ${
-            locale === loc
-              ? "bg-primary text-white font-medium"
-              : "hover:bg-primary/10"
-          }`}
-          aria-label={t("switchTo", { language: t(loc) })}
-        >
-          {loc.toUpperCase()}
-        </button>
+    <div
+      className="flex items-center"
+      role="group"
+      aria-label="Language selector"
+    >
+      {routing.locales.map((loc, index) => (
+        <span key={loc} className="flex items-center">
+          {index > 0 && (
+            <span className="text-foreground/30 mx-0.5" aria-hidden="true">
+              /
+            </span>
+          )}
+          <button
+            onClick={() => switchLocale(loc)}
+            className={`px-1.5 py-1 text-sm font-medium rounded transition-colors ${
+              locale === loc
+                ? "text-primary"
+                : "text-foreground/60 hover:text-foreground"
+            }`}
+            aria-label={t("switchTo", { language: t(loc) })}
+            aria-current={locale === loc ? "true" : undefined}
+          >
+            {localeLabels[loc]}
+          </button>
+        </span>
       ))}
     </div>
   );

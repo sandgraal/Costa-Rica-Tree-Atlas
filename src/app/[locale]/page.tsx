@@ -86,22 +86,13 @@ export default async function HomePage({ params }: Props) {
       />
       <div className="relative">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-primary-dark via-primary to-secondary/80 pt-12 pb-20 px-4 md:pt-16 md:pb-24">
-          <div className="absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_-10%,rgba(255,255,255,0.25),transparent_60%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(50%_60%_at_15%_20%,rgba(225,180,71,0.15),transparent_65%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_85%_25%,rgba(79,139,102,0.25),transparent_70%)]"></div>
-          <div className="absolute inset-0 bg-[url('/images/leaf-pattern.svg')] opacity-15 mix-blend-soft-light"></div>
-          <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(15,26,15,0.35),transparent)]"></div>
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-background"></div>
-          <div className="absolute -left-10 top-14 h-28 w-28 rounded-full bg-accent/30 blur-3xl"></div>
-          <div className="absolute right-8 top-8 h-32 w-32 rounded-full bg-white/20 blur-3xl"></div>
-          <div className="absolute left-1/4 top-10 h-2 w-2 rounded-full bg-amber-200/80 shadow-[0_0_18px_rgba(255,226,141,0.8)] animate-pulse"></div>
-          <div className="absolute right-1/3 top-20 h-1.5 w-1.5 rounded-full bg-amber-100/80 shadow-[0_0_14px_rgba(255,236,170,0.7)] animate-pulse [animation-delay:1.2s]"></div>
-          <div className="absolute left-1/2 top-28 h-1 w-1 rounded-full bg-amber-100/70 shadow-[0_0_12px_rgba(255,236,170,0.65)] animate-pulse [animation-delay:2s]"></div>
-          <div className="container mx-auto max-w-6xl relative z-10 text-center">
-            <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 px-6 py-8 md:px-10 md:py-10 backdrop-blur-sm shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-              <HeroContent />
-            </div>
+        <section className="relative overflow-hidden bg-gradient-to-b from-primary-dark via-primary to-primary/90 pt-16 pb-24 px-4 md:pt-20 md:pb-28">
+          {/* Simplified decorative background */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.15),transparent_70%)]"></div>
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
+
+          <div className="container mx-auto max-w-5xl relative z-10 text-center">
+            <HeroContent />
           </div>
         </section>
 
@@ -161,15 +152,15 @@ function HeroContent() {
 
   return (
     <>
-      <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
         {t("title")}
       </h1>
-      <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+      <p className="text-lg md:text-xl text-white/85 mb-10 max-w-2xl mx-auto leading-relaxed">
         {t("description")}
       </p>
       <Link
         href="/trees"
-        className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+        className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]"
       >
         {t("exploreButton")}
         <svg

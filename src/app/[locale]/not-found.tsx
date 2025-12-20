@@ -20,13 +20,13 @@ export default function NotFound() {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             {t("goHome")}
           </Link>
           <Link
             href="/trees"
-            className="inline-flex items-center gap-2 bg-card hover:bg-muted text-foreground border border-border font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-muted hover:bg-muted/80 text-foreground border border-border font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             {t("exploreTrees")}
           </Link>
