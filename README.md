@@ -205,6 +205,17 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Audio Pronunciation**: Text-to-speech for scientific names using Web Speech API
 - [x] **Favorites System**: Save and bookmark trees with localStorage persistence
 - [x] **Recently Viewed**: Track and display browsing history on homepage
+- [x] **Share Favorites**: Generate shareable URLs to share favorite lists with friends
+- [x] **Export Field Guide**: Print favorites as a styled field guide PDF
+- [x] **Quick Compare**: Select favorites for side-by-side comparison
+- [x] **Keyboard Shortcuts**: Power user navigation with ? help modal
+  - `?` - Show keyboard shortcuts help
+  - `H` - Go to home
+  - `T` - Go to trees directory
+  - `F` - Go to favorites
+  - `R` - Show random tree
+  - `D` - Toggle dark/light theme
+  - `⌘K` / `Ctrl+K` - Quick search
 
 ### 💡 Future Ideas
 
