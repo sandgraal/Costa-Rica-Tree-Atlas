@@ -9,6 +9,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { DistributionMap } from "@/components/DistributionMap";
 import { BiodiversityInfo } from "@/components/BiodiversityInfo";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
+import { PronunciationButton } from "@/components/PronunciationButton";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -204,9 +205,16 @@ export default async function TreePage({ params }: Props) {
             <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-2">
               {tree.title}
             </h1>
-            <p className="text-2xl text-secondary italic mb-4">
-              {tree.scientificName}
-            </p>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <p className="text-2xl text-secondary italic">
+                {tree.scientificName}
+              </p>
+              <PronunciationButton
+                text={tree.scientificName}
+                label={locale === "es" ? "Pronunciar" : "Pronounce"}
+                locale={locale}
+              />
+            </div>
 
             {/* Reading Time */}
             <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">

@@ -27,6 +27,7 @@ export { BiodiversityInfo } from "./BiodiversityInfo";
 export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
+export { PronunciationButton } from "./PronunciationButton";
 export {
   AnnouncerProvider,
   useAnnounce,
