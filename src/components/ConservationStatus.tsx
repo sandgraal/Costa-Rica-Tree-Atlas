@@ -1,7 +1,12 @@
 "use client";
 
-import { IUCN_CATEGORIES, POPULATION_TRENDS, getIUCNLabels } from "@/lib/iucn";
-import { getUILabel } from "@/lib/i18n";
+import {
+  IUCN_CATEGORIES,
+  POPULATION_TRENDS,
+  getIUCNLabels,
+  getUILabel,
+} from "@/lib/i18n";
+import type { PopulationTrend } from "@/types/tree";
 
 interface ConservationStatusProps {
   category: string;
@@ -22,7 +27,8 @@ export function ConservationStatus({
 }: ConservationStatusProps) {
   const labels = getIUCNLabels(locale);
   const categoryData = IUCN_CATEGORIES[category] || IUCN_CATEGORIES["NE"];
-  const trendData = POPULATION_TRENDS[populationTrend || "unknown"];
+  const trend = (populationTrend || "unknown") as PopulationTrend;
+  const trendData = POPULATION_TRENDS[trend] || POPULATION_TRENDS.unknown;
   const localizedCategory = labels.categories[category] || categoryData.name;
 
   // Get localized trend label

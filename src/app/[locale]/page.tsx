@@ -2,9 +2,10 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
-import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
+import { TreeCard } from "@/components/tree";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import Image from "next/image";
+import type { Locale } from "@/types/tree";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -132,7 +133,7 @@ export default async function HomePage({ params }: Props) {
         {/* Featured Trees Section */}
         <section className="py-16 px-4 bg-muted">
           <div className="container mx-auto max-w-6xl">
-            <FeaturedTreesSection trees={trees} />
+            <FeaturedTreesSection trees={trees} locale={locale as Locale} />
           </div>
         </section>
 
@@ -180,7 +181,13 @@ function HeroContent() {
   );
 }
 
-function FeaturedTreesSection({ trees }: { trees: typeof allTrees }) {
+function FeaturedTreesSection({
+  trees,
+  locale,
+}: {
+  trees: typeof allTrees;
+  locale: Locale;
+}) {
   const t = useTranslations("home");
 
   return (
@@ -200,7 +207,7 @@ function FeaturedTreesSection({ trees }: { trees: typeof allTrees }) {
       {trees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trees.slice(0, 6).map((tree) => (
-            <TreeCardWithFavorite key={tree._id} tree={tree} />
+            <TreeCard key={tree._id} tree={tree} locale={locale} />
           ))}
         </div>
       ) : (

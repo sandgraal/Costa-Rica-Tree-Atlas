@@ -9,74 +9,73 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 
 ## ✨ Features
 
-- 🌐 **Bilingual Support**: Full English and Spanish translations with locale-based routing
-- 📝 **MDX Content**: Write tree profiles in Markdown with React component support
-- 🎨 **Nature-Inspired Design**: Custom Tailwind theme with forest greens and earth tones
-- 🌙 **Dark Mode**: Automatic and manual dark mode support
-- 📱 **Responsive**: Mobile-first design that works on all devices
-- 🔍 **SEO Optimized**: Proper meta tags, alternate language links, and structured data
-- ⚡ **Static Generation**: Fast page loads with Next.js static site generation
-- ♿ **Accessible**: Semantic HTML, keyboard navigation, and screen reader support
+### 🌐 Bilingual Content
+
+- Full English and Spanish support with locale-based routing
+- 53 species with comprehensive bilingual profiles (106 documents)
+- MDX content system for rich tree profiles with React components
+
+### 📚 Education Tools
+
+- **Interactive Lessons**: Structured learning modules about Costa Rican trees and ecosystems
+- **Progress Tracking**: Track completed lessons and earn points
+- **Printable Resources**: Downloadable worksheets and field guides for classrooms
+- **Tree Identification Guide**: Interactive key for identifying trees by leaf shape, bark, flowers, and more
+
+### 🔍 Discovery & Search
+
+- **Quick Search**: Global ⌘K keyboard shortcut for instant tree lookup
+- **Full-Text Search**: Search across tree names, descriptions, and scientific names
+- **Category Filtering**: Filter by botanical family, conservation status, or tags
+- **Seasonal Filtering**: Find trees "flowering now" or "fruiting now" based on current month
+- **Alphabetical Index**: Browse trees A-Z with sticky navigation
+
+### 🗺️ Maps & Conservation
+
+- **Interactive Distribution Maps**: Geographic maps showing where species are found
+- **External API Integration**: Live data from GBIF and iNaturalist biodiversity databases
+- **Conservation Status**: IUCN Red List display with visual scale and population trends
+
+### 📅 Seasonal Features
+
+- **Seasonal Calendar**: Monthly flowering and fruiting calendar with tree activity view
+- **Now Blooming**: Homepage section highlighting currently active trees
+- **Tree of the Day**: Daily rotating featured tree
+
+### ❤️ Personal Collections
+
+- **Favorites System**: Save and bookmark trees with localStorage persistence
+- **Recently Viewed**: Track and display browsing history on homepage
+- **Share Favorites**: Generate shareable URLs to share collections with friends
+- **Export Field Guide**: Print favorites as a styled field guide PDF
+- **Quick Compare**: Side-by-side comparison of tree characteristics
+
+### 🎨 Design & Accessibility
+
+- **Nature-Inspired Theme**: Custom color palette with forest greens and earth tones
+- **Dark Mode**: System preference detection with manual toggle
+- **Mobile-First Design**: Responsive layout with full-screen mobile navigation
+- **WCAG 2.1 AA Compliant**: Accessible to all users
+- **PWA Support**: Offline access for field use
+- **Audio Pronunciation**: Text-to-speech for scientific names
+
+### ⌨️ Keyboard Shortcuts
+
+| Shortcut        | Action                       |
+| --------------- | ---------------------------- |
+| `?`             | Show keyboard shortcuts help |
+| `H`             | Go to home                   |
+| `T`             | Go to trees directory        |
+| `F`             | Go to favorites              |
+| `R`             | Show random tree             |
+| `D`             | Toggle dark/light theme      |
+| `⌘K` / `Ctrl+K` | Quick search                 |
 
 ## 🗺️ Roadmap
 
-### ✅ Completed Features
-
-- [x] **Bilingual Architecture**: Full English/Spanish support with locale-based routing
-- [x] **MDX Content System**: Contentlayer integration for type-safe tree profiles
-- [x] **Nature-Inspired Design**: Custom color palette with forest greens and earth tones
-- [x] **Dark Mode**: System preference detection with manual toggle
-- [x] **Responsive Layout**: Mobile-first design with hamburger menu navigation
-- [x] **SEO Foundation**: Meta tags, alternate language links, structured URLs
-- [x] **Content Library**: 53 species with comprehensive bilingual profiles (106 documents)
-- [x] **Code Quality**: ESLint + Prettier configuration
-- [x] **Static Generation**: Pre-rendered pages for optimal performance
-- [x] **Search Functionality**: Full-text search across tree names, descriptions, and scientific names
-- [x] **Quick Search**: Global ⌘K keyboard shortcut for instant tree lookup
-- [x] **Category Filtering**: Filter trees by botanical family and conservation status
-- [x] **Seasonal Filtering**: Filter trees by "flowering now" or "fruiting now" based on current month
-- [x] **Alphabetical Index**: Browse trees A-Z with sticky alphabet navigation
-- [x] **Sorting Options**: Sort by common name, scientific name, or family
-- [x] **Image Optimization**: Next.js Image component integration with proper sizing
-- [x] **Tag System**: Add tags for characteristics (deciduous, evergreen, flowering, etc.)
-- [x] **Image Gallery**: Multiple images per tree with lightbox viewing
-- [x] **Print-Friendly Views**: Optimized layouts for field guides
-- [x] **Comparison Tool**: Side-by-side comparison of tree characteristics
-- [x] **Identification Guide**: Interactive key for identifying trees by features
-- [x] **Interactive Maps**: Geographic distribution maps showing where species are found
-- [x] **Related Trees**: Intelligent suggestions based on family, tags, and seasonality
-- [x] **Social Sharing**: Share tree profiles on Twitter, Facebook, WhatsApp, LinkedIn
-- [x] **Reading Time**: Estimated reading time displayed on tree detail pages
-- [x] **Scroll Progress**: Back-to-top button with scroll progress indicator
-- [ ] **Community Contributions**: User-submitted sightings and photographs
-- [x] **External API Integration**: Connect with biodiversity databases (GBIF, iNaturalist)
-- [x] **Conservation Data**: IUCN Red List status display with visual scale and population trends
-- [x] **Educational Resources**: Lesson plans and classroom materials
-- [x] **Seasonal Calendar**: Monthly flowering and fruiting calendar with tree activity view
-- [x] **Now Blooming**: Homepage section showing currently active trees
-- [x] **Performance Audit**: Core Web Vitals optimization
-- [x] **Accessibility Audit**: WCAG 2.1 AA compliance verification
-- [x] **PWA Support**: Offline access for field use
-- [x] **Analytics Integration**: Privacy-respecting usage analytics
-- [x] **Tree of the Day**: Daily rotating featured tree on homepage
-- [x] **Mobile Navigation**: Full-screen responsive menu with quick actions
-- [x] **Audio Pronunciation**: Text-to-speech for scientific names using Web Speech API
-- [x] **Favorites System**: Save and bookmark trees with localStorage persistence
-- [x] **Recently Viewed**: Track and display browsing history on homepage
-- [x] **Share Favorites**: Generate shareable URLs to share favorite lists with friends
-- [x] **Export Field Guide**: Print favorites as a styled field guide PDF
-- [x] **Quick Compare**: Select favorites for side-by-side comparison
-- [x] **Keyboard Shortcuts**: Power user navigation with ? help modal
-  - `?` - Show keyboard shortcuts help
-  - `H` - Go to home
-  - `T` - Go to trees directory
-  - `F` - Go to favorites
-  - `R` - Show random tree
-  - `D` - Toggle dark/light theme
-  - `⌘K` / `Ctrl+K` - Quick search
-
 ### 💡 Future Ideas
 
+- Community contributions: User-submitted sightings and photographs
 - AR tree identification using device camera
 - Partnership with Costa Rican conservation organizations
 - Multi-language expansion (German, French for tourists)
@@ -85,12 +84,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 
 Contributions are welcome! We're building this as an open-source resource for education and conservation.
 
-Please read our **[Contributing Guidelines](CONTRIBUTING.md)** for details on:
-
-- How to fork the repository and submit pull requests
-- Code style and formatting requirements
-- Content contribution guidelines for new tree profiles
-- Translation standards for bilingual content
+See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions and how to get started.
 
 ### Ways to Contribute
 
@@ -98,27 +92,7 @@ Please read our **[Contributing Guidelines](CONTRIBUTING.md)** for details on:
 - 🌍 **Improve Translations**: Enhance Spanish content or add new languages
 - 🐛 **Fix Bugs**: Report issues or submit fixes
 - ✨ **Add Features**: Implement items from the roadmap
-- 📚 **Improve Documentation**: Clarify instructions or add examples
 - 🖼️ **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
-- 🧪 **Testing**: Help test on different devices and browsers
-
-## 🔧 Environment Variables
-
-The vision-based tree identification feature requires a Google Cloud Vision API key. Analytics can be configured with privacy-respecting options:
-
-| Variable                              | Description                                            | Required               |
-| ------------------------------------- | ------------------------------------------------------ | ---------------------- |
-| `GOOGLE_CLOUD_VISION_API_KEY`         | Google Cloud Vision API key for image identification   | Yes (identify feature) |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`        | Plausible Analytics domain (privacy-first, no cookies) | No                     |
-| `NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS` | Enable Simple Analytics (set to "true")                | No                     |
-| `NEXT_PUBLIC_GA_ID`                   | Google Analytics 4 measurement ID                      | No                     |
-| `NEXT_PUBLIC_MAPS_API_KEY`            | Maps API key for geographic features                   | No                     |
-
-Create a `.env.local` file for local development when needed:
-
-```bash
-cp .env.example .env.local
-```
 
 ## 📄 License
 

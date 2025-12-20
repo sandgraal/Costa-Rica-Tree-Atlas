@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "@/lib/store";
-import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
+import { TreeCard } from "@/components/tree";
 import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { allTrees } from "contentlayer/generated";
+import type { Locale } from "@/types/tree";
 
 interface FavoritesContentProps {
   locale: string;
@@ -251,7 +252,7 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
                       )}
                     </button>
                   ) : null}
-                  <TreeCardWithFavorite tree={tree} />
+                  <TreeCard tree={tree} locale={locale as Locale} />
                 </div>
               ))}
             </div>

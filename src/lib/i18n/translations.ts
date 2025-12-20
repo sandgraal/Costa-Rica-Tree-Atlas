@@ -401,6 +401,47 @@ export function getUILabel(key: string, locale: Locale): string {
   return UI_LABELS[key]?.[locale] ?? key;
 }
 
+// Legacy IUCN_CATEGORIES format for backwards compatibility
+export const IUCN_CATEGORIES: Record<
+  string,
+  { code: string; name: string; color: string; priority: number }
+> = Object.fromEntries(
+  Object.entries(CONSERVATION_CATEGORIES).map(([key, val]) => [
+    key,
+    {
+      code: val.code,
+      name: val.label.en,
+      color: val.color,
+      priority: val.priority,
+    },
+  ])
+);
+
+// Legacy IUCN labels function
+export function getIUCNLabels(locale: string) {
+  const isSpanish = locale === "es";
+
+  return {
+    conservationStatus: isSpanish
+      ? "Estado de Conservación"
+      : "Conservation Status",
+    populationTrend: isSpanish ? "Tendencia Poblacional" : "Population Trend",
+    assessedBy: isSpanish ? "Evaluado por" : "Assessed by",
+    viewOn: isSpanish ? "Ver en" : "View on",
+    iucnRedList: "IUCN Red List",
+    decreasing: isSpanish ? "En disminución" : "Decreasing",
+    stable: isSpanish ? "Estable" : "Stable",
+    increasing: isSpanish ? "En aumento" : "Increasing",
+    unknown: isSpanish ? "Desconocida" : "Unknown",
+    categories: Object.fromEntries(
+      Object.entries(CONSERVATION_CATEGORIES).map(([key, val]) => [
+        key,
+        val.label[isSpanish ? "es" : "en"],
+      ])
+    ) as Record<string, string>,
+  };
+}
+
 // Ordered months for calendar display
 export const ORDERED_MONTHS: Month[] = [
   "january",
