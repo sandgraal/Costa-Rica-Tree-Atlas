@@ -68,8 +68,7 @@ export default async function PrintablesPage({ params }: Props) {
       locale === "es"
         ? "Guía paso a paso para identificar árboles por sus características."
         : "Step-by-step guide to identify trees by their characteristics.",
-    coloringPages:
-      locale === "es" ? "Páginas para Colorear" : "Coloring Pages",
+    coloringPages: locale === "es" ? "Páginas para Colorear" : "Coloring Pages",
     coloringPagesDesc:
       locale === "es"
         ? "Páginas para colorear de árboles nativos. Perfectas para actividades creativas."

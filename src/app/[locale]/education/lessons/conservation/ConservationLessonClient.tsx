@@ -7,7 +7,11 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-import { triggerConfetti, injectEducationStyles, type LessonTreeData } from "@/lib/education";
+import {
+  triggerConfetti,
+  injectEducationStyles,
+  type LessonTreeData,
+} from "@/lib/education";
 
 interface ConservationLessonClientProps {
   trees: LessonTreeData[];

@@ -7,7 +7,11 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-import { triggerConfetti, injectEducationStyles, type LessonTreeData } from "@/lib/education";
+import {
+  triggerConfetti,
+  injectEducationStyles,
+  type LessonTreeData,
+} from "@/lib/education";
 
 interface TreeIdentificationClientProps {
   trees: LessonTreeData[];
@@ -33,7 +37,9 @@ function TreeIdentificationContent({
   const { markLessonComplete } = useEducationProgress();
   const [_currentStep, _setCurrentStep] = useState(0);
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "match">("learn");
-  const [currentQuizTree, setCurrentQuizTree] = useState<LessonTreeData | null>(null);
+  const [currentQuizTree, setCurrentQuizTree] = useState<LessonTreeData | null>(
+    null
+  );
   const [quizOptions, setQuizOptions] = useState<LessonTreeData[]>([]);
   const [quizScore, setQuizScore] = useState(0);
   const [quizStreak, setQuizStreak] = useState(0);
@@ -57,9 +63,8 @@ function TreeIdentificationContent({
   const [_matchComplete, setMatchComplete] = useState(false);
   const [learnedTrees, setLearnedTrees] = useState<Set<string>>(new Set());
   const [showResults, setShowResults] = useState(false);
-  const [selectedLearnTree, setSelectedLearnTree] = useState<LessonTreeData | null>(
-    null
-  );
+  const [selectedLearnTree, setSelectedLearnTree] =
+    useState<LessonTreeData | null>(null);
 
   useEffect(() => {
     injectEducationStyles();
