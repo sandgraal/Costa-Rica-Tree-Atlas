@@ -1,9 +1,14 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
+import Image from "next/image";
 
 export function Footer() {
   const t = useTranslations("footer");
+  const nav = useTranslations("nav");
   const currentYear = new Date().getFullYear();
+  const title = nav("title");
+  const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
+  const brandMain = brandRest.join(" ");
 
   return (
     <footer className="bg-primary/5 border-t border-primary/10 mt-auto">
@@ -11,15 +16,22 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6 text-primary"
-              >
-                <path d="M12 2C9.5 2 7 4 7 7c0 1.5.5 2.5 1 3.5-1.5.5-3 1.5-3 4 0 2 1 3.5 2.5 4.5-.5 1-1 2-1 3.5v.5h11v-.5c0-1.5-.5-2.5-1-3.5 1.5-1 2.5-2.5 2.5-4.5 0-2.5-1.5-3.5-3-4C16.5 9.5 17 8.5 17 7c0-3-2.5-5-5-5z" />
-              </svg>
-              <span className="font-bold text-primary">Costa Rica Tree Atlas</span>
+              <Image
+                src="/images/cr-tree-atlas-logo.png"
+                alt=""
+                width={48}
+                height={48}
+                className="h-8 w-8 object-contain shrink-0"
+                aria-hidden="true"
+              />
+              <span className="flex flex-col leading-none">
+                <span className="text-[0.55rem] uppercase tracking-[0.3em] text-secondary/70">
+                  {brandPrefix}
+                </span>
+                <span className="text-base font-semibold text-primary">
+                  {brandMain || title}
+                </span>
+              </span>
             </div>
             <p className="text-sm text-foreground/60">{t("description")}</p>
           </div>
