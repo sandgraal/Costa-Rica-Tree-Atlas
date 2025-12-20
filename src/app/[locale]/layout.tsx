@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWARegister } from "@/components/PWARegister";
+import { Analytics } from "@/components/Analytics";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
@@ -134,6 +135,12 @@ export default async function LocaleLayout({ children, params }: Props) {
             </main>
             <Footer />
             <PWARegister />
+            {/* Privacy-respecting analytics - configure via env vars */}
+            <Analytics
+              plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+              enableSimpleAnalytics={process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"}
+              googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+            />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

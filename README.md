@@ -188,7 +188,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Performance Audit**: Core Web Vitals optimization
 - [x] **Accessibility Audit**: WCAG 2.1 AA compliance verification
 - [x] **PWA Support**: Offline access for field use
-- [ ] **Analytics Integration**: Privacy-respecting usage analytics
+- [x] **Analytics Integration**: Privacy-respecting usage analytics
 
 ### 💡 Future Ideas
 
@@ -237,13 +237,15 @@ git push origin feature/add-ceiba-tree
 
 ## 🔧 Environment Variables
 
-The vision-based tree identification feature requires a Google Cloud Vision API key. Future integrations may require additional keys:
+The vision-based tree identification feature requires a Google Cloud Vision API key. Analytics can be configured with privacy-respecting options:
 
-| Variable                      | Description                                          | Required               |
-| ----------------------------- | ---------------------------------------------------- | ---------------------- |
-| `GOOGLE_CLOUD_VISION_API_KEY` | Google Cloud Vision API key for image identification | Yes (identify feature) |
-| `NEXT_PUBLIC_ANALYTICS_ID`    | Analytics tracking ID                                | No                     |
-| `NEXT_PUBLIC_MAPS_API_KEY`    | Maps API key for geographic features                 | No                     |
+| Variable                            | Description                                          | Required               |
+| ----------------------------------- | ---------------------------------------------------- | ---------------------- |
+| `GOOGLE_CLOUD_VISION_API_KEY`       | Google Cloud Vision API key for image identification | Yes (identify feature) |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`      | Plausible Analytics domain (privacy-first, no cookies) | No                   |
+| `NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS` | Enable Simple Analytics (set to "true")            | No                     |
+| `NEXT_PUBLIC_GA_ID`                 | Google Analytics 4 measurement ID                    | No                     |
+| `NEXT_PUBLIC_MAPS_API_KEY`          | Maps API key for geographic features                 | No                     |
 
 Create a `.env.local` file for local development when needed:
 

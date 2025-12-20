@@ -22,6 +22,7 @@ export { IdentificationGuide } from "./IdentificationGuide";
 export { RandomTree } from "./RandomTree";
 export { PWARegister } from "./PWARegister";
 export { DistributionMap } from "./DistributionMap";
+export { Analytics, trackEvent, trackPageView } from "./Analytics";
 export {
   AnnouncerProvider,
   useAnnounce,
