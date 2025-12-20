@@ -129,5 +129,27 @@
       "title": "Open Source License",
       "description": "Costa Rica Tree Atlas is released under the MIT License. The content is free to use, share, and adapt with attribution."
     }
+  },
+  "comparison": {
+    "title": "Tree Comparison Tool",
+    "subtitle": "Compare characteristics of different tree species side by side",
+    "selectTree": "Select a tree",
+    "selectPlaceholder": "Add a tree to compare...",
+    "addTree": "Add tree",
+    "removeTree": "Remove",
+    "noTreesSelected": "Select up to 4 trees to compare their characteristics",
+    "clearAll": "Clear all",
+    "navLink": "Compare",
+    "properties": {
+      "image": "Image",
+      "commonName": "Common Name",
+      "scientificName": "Scientific Name",
+      "family": "Family",
+      "maxHeight": "Max Height",
+      "nativeRegion": "Native Region",
+      "conservationStatus": "Conservation",
+      "uses": "Uses",
+      "tags": "Characteristics"
+    }
   }
 }

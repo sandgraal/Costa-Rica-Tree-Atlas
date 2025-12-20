@@ -17,6 +17,7 @@ export {
 } from "./TreeTags";
 export { TreeGallery, ImageLightbox } from "./TreeGallery";
 export { PrintButton } from "./PrintButton";
+export { TreeComparison } from "./TreeComparison";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";

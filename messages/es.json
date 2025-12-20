@@ -129,5 +129,27 @@
       "title": "Licencia de Código Abierto",
       "description": "El Atlas de Árboles de Costa Rica se publica bajo la Licencia MIT. El contenido es libre de usar, compartir y adaptar con atribución."
     }
+  },
+  "comparison": {
+    "title": "Herramienta de Comparación",
+    "subtitle": "Compare características de diferentes especies de árboles lado a lado",
+    "selectTree": "Seleccionar un árbol",
+    "selectPlaceholder": "Añadir un árbol para comparar...",
+    "addTree": "Añadir árbol",
+    "removeTree": "Eliminar",
+    "noTreesSelected": "Seleccione hasta 4 árboles para comparar sus características",
+    "clearAll": "Limpiar todo",
+    "navLink": "Comparar",
+    "properties": {
+      "image": "Imagen",
+      "commonName": "Nombre Común",
+      "scientificName": "Nombre Científico",
+      "family": "Familia",
+      "maxHeight": "Altura Máxima",
+      "nativeRegion": "Región Nativa",
+      "conservationStatus": "Conservación",
+      "uses": "Usos",
+      "tags": "Características"
+    }
   }
 }
