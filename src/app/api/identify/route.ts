@@ -11,6 +11,12 @@ interface VisionLabel {
   score: number;
 }
 
+interface VisionApiResponse {
+  responses?: Array<{
+    labelAnnotations?: VisionLabel[];
+  }>;
+}
+
 const normalizeText = (value: string) =>
   value
     .toLowerCase()
@@ -77,32 +83,45 @@ export async function POST(request: Request) {
   const buffer = Buffer.from(await file.arrayBuffer());
   const encodedImage = buffer.toString("base64");
 
-  const visionResponse = await fetch(
-    `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        requests: [
-          {
-            image: { content: encodedImage },
-            features: [{ type: "LABEL_DETECTION", maxResults: MAX_LABELS }],
-          },
-        ],
-      }),
-    }
-  );
+  let data: VisionApiResponse;
+  try {
+    const visionResponse = await fetch(
+      `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          requests: [
+            {
+              image: { content: encodedImage },
+              features: [{ type: "LABEL_DETECTION", maxResults: MAX_LABELS }],
+            },
+          ],
+        }),
+      }
+    );
 
-  if (!visionResponse.ok) {
+    if (!visionResponse.ok) {
+      const errorText = await visionResponse.text().catch(() => "Unknown error");
+      console.error("Vision API HTTP error:", visionResponse.status, errorText);
+      return NextResponse.json(
+        { error: "Vision API request failed", code: "VISION_API_HTTP_ERROR" },
+        { status: 502 }
+      );
+    }
+
+    data = await visionResponse.json();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown network error";
+    console.error("Vision API network error:", message);
     return NextResponse.json(
-      { error: "Vision API request failed" },
+      { error: "Failed to connect to Vision API", code: "VISION_API_NETWORK_ERROR", details: message },
       { status: 502 }
     );
   }
 
-  const data = await visionResponse.json();
   const labels: VisionLabel[] =
     data?.responses?.[0]?.labelAnnotations?.map((label: VisionLabel) => ({
       description: label.description,
