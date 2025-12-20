@@ -602,21 +602,21 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
     setLightbox({ isOpen: false, currentIndex: 0 });
   };
 
-  const goToPrevious = () => {
+  const goToPrevious = React.useCallback(() => {
     setLightbox((prev) => ({
       ...prev,
       currentIndex:
         prev.currentIndex === 0 ? images.length - 1 : prev.currentIndex - 1,
     }));
-  };
+  }, [images.length]);
 
-  const goToNext = () => {
+  const goToNext = React.useCallback(() => {
     setLightbox((prev) => ({
       ...prev,
       currentIndex:
         prev.currentIndex === images.length - 1 ? 0 : prev.currentIndex + 1,
     }));
-  };
+  }, [images.length]);
 
   // Handle keyboard navigation
   React.useEffect(() => {
@@ -643,7 +643,7 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [lightbox.isOpen]);
+  }, [lightbox.isOpen, goToPrevious, goToNext]);
 
   // Clone children with onClick handlers
   const childrenWithHandlers = React.Children.map(children, (child, index) => {
@@ -785,7 +785,6 @@ interface INaturalistEmbedProps {
 
 export function INaturalistEmbed({
   taxonId,
-  taxonName,
   observationCount,
 }: INaturalistEmbedProps) {
   return (

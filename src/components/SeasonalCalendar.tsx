@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface TreeSeasonData {
   title: string;
@@ -467,11 +468,15 @@ function TreeListItem({
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
     >
       {tree.featuredImage && (
-        <img
-          src={tree.featuredImage}
-          alt={tree.title}
-          className="w-10 h-10 rounded-lg object-cover"
-        />
+        <div className="w-10 h-10 relative rounded-lg overflow-hidden flex-shrink-0">
+          <Image
+            src={tree.featuredImage}
+            alt={tree.title}
+            fill
+            sizes="40px"
+            className="object-cover"
+          />
+        </div>
       )}
       <div className="flex-1 min-w-0">
         <p className="font-medium text-foreground truncate">{tree.title}</p>

@@ -4,6 +4,7 @@ import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -217,10 +218,12 @@ function NowBloomingSection({
           >
             <div className="relative h-32 bg-gradient-to-br from-primary/20 to-secondary/20">
               {tree.featuredImage && (
-                <img
+                <Image
                   src={tree.featuredImage}
                   alt={tree.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="192px"
+                  className="object-cover"
                 />
               )}
               <div
@@ -308,12 +311,14 @@ function TreeOfTheDay({
       <div className="md:flex">
         {/* Image */}
         <div className="md:w-2/5 relative">
-          <div className="aspect-[4/3] md:aspect-auto md:h-full bg-gradient-to-br from-primary/20 to-secondary/20">
+          <div className="aspect-[4/3] md:aspect-auto md:h-full bg-gradient-to-br from-primary/20 to-secondary/20 relative">
             {tree.featuredImage && (
-              <img
+              <Image
                 src={tree.featuredImage}
                 alt={tree.title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover"
               />
             )}
           </div>
