@@ -154,12 +154,13 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **MDX Content System**: Contentlayer integration for type-safe tree profiles
 - [x] **Nature-Inspired Design**: Custom color palette with forest greens and earth tones
 - [x] **Dark Mode**: System preference detection with manual toggle
-- [x] **Responsive Layout**: Mobile-first design approach
+- [x] **Responsive Layout**: Mobile-first design with hamburger menu navigation
 - [x] **SEO Foundation**: Meta tags, alternate language links, structured URLs
 - [x] **Content Library**: 53 species with comprehensive bilingual profiles (106 documents)
 - [x] **Code Quality**: ESLint + Prettier configuration
 - [x] **Static Generation**: Pre-rendered pages for optimal performance
 - [x] **Search Functionality**: Full-text search across tree names, descriptions, and scientific names
+- [x] **Quick Search**: Global ⌘K keyboard shortcut for instant tree lookup
 - [x] **Category Filtering**: Filter trees by botanical family and conservation status
 - [x] **Alphabetical Index**: Browse trees A-Z with sticky alphabet navigation
 - [x] **Sorting Options**: Sort by common name, scientific name, or family
@@ -175,6 +176,10 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Comparison Tool**: Side-by-side comparison of tree characteristics
 - [x] **Identification Guide**: Interactive key for identifying trees by features
 - [x] **Interactive Maps**: Geographic distribution maps showing where species are found
+- [x] **Related Trees**: Intelligent suggestions based on family, tags, and seasonality
+- [x] **Social Sharing**: Share tree profiles on Twitter, Facebook, WhatsApp, LinkedIn
+- [x] **Reading Time**: Estimated reading time displayed on tree detail pages
+- [x] **Scroll Progress**: Back-to-top button with scroll progress indicator
 
 #### Phase 3: Community & Data
 
@@ -182,6 +187,8 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **External API Integration**: Connect with biodiversity databases (GBIF, iNaturalist)
 - [x] **Conservation Data**: IUCN Red List status display with visual scale and population trends
 - [x] **Educational Resources**: Lesson plans and classroom materials
+- [x] **Seasonal Calendar**: Monthly flowering and fruiting calendar with tree activity view
+- [x] **Now Blooming**: Homepage section showing currently active trees
 
 #### Phase 4: Performance & Accessibility
 
@@ -190,13 +197,17 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **PWA Support**: Offline access for field use
 - [x] **Analytics Integration**: Privacy-respecting usage analytics
 
+#### Phase 5: Engagement Features
+
+- [x] **Tree of the Day**: Daily rotating featured tree on homepage
+- [x] **Mobile Navigation**: Full-screen responsive menu with quick actions
+
 ### 💡 Future Ideas
 
 - Audio pronunciations for scientific names
 - AR tree identification using device camera
 - Partnership with Costa Rican conservation organizations
 - Multi-language expansion (German, French for tourists)
-- Seasonal calendar showing flowering/fruiting times ✓ (Added!)
 
 ## 🤝 Contributing
 
