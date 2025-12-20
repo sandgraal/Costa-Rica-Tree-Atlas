@@ -23,8 +23,68 @@ export default async function HomePage({ params }: Props) {
     trees.filter((t) => t.conservationStatus).map((t) => t.conservationStatus)
   ).size;
 
+  // Structured data for homepage
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Costa Rica Tree Atlas",
+    alternateName: "Atlas de Árboles de Costa Rica",
+    url: "https://costaricatreeatlas.com",
+    description:
+      locale === "es"
+        ? "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe de código abierto de la flora arbórea costarricense."
+        : "Discover the magnificent trees of Costa Rica. An open-source bilingual guide to Costa Rican tree flora.",
+    inLanguage: [locale === "es" ? "es-CR" : "en-US"],
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `https://costaricatreeatlas.com/${locale}/trees?search={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Costa Rica Tree Atlas",
+      url: "https://costaricatreeatlas.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+      },
+    },
+  };
+
+  // Organization structured data
+  const organizationData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Costa Rica Tree Atlas",
+    url: "https://costaricatreeatlas.com",
+    logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+    description:
+      locale === "es"
+        ? "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica."
+        : "An open-source project dedicated to documenting Costa Rica's trees.",
+    sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
+    knowsAbout: [
+      "Costa Rica trees",
+      "Tropical botany",
+      "Conservation",
+      "Biodiversity",
+    ],
+  };
+
   return (
-    <div className="relative">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
+      />
+      <div className="relative">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-primary-dark via-primary to-secondary/80 pt-12 pb-20 px-4 md:pt-16 md:pb-24">
         <div className="absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_-10%,rgba(255,255,255,0.25),transparent_60%)]"></div>
@@ -92,6 +152,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
     </div>
+    </>
   );
 }
 
