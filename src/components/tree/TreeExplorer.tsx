@@ -5,14 +5,15 @@ import { useLocale } from "next-intl";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { getUILabel, TAG_DEFINITIONS, getTagLabel } from "@/lib/i18n";
 import { TreeCard, TreeGrid } from "./TreeCard";
-import type { Tree, TreeFilter, TreeSort, Locale, TreeTag } from "@/types/tree";
+import type { Tree as ContentlayerTree } from "contentlayer/generated";
+import type { TreeFilter, TreeSort, Locale, TreeTag } from "@/types/tree";
 
 // ============================================================================
 // Types
 // ============================================================================
 
 interface TreeExplorerProps {
-  trees: Tree[];
+  trees: ContentlayerTree[];
 }
 
 type ViewMode = "grid" | "alphabetical";
@@ -35,17 +36,17 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   const [showFilters, setShowFilters] = useState(false);
 
   // Facets from all trees
-  const allFacets = useMemo(() => extractFacets(trees), [trees]);
+  const allFacets = useMemo(() => extractFacets(trees as any), [trees]);
 
   // Search and filter pipeline
   const displayTrees = useMemo(() => {
     // Step 1: Search
     let results = searchQuery
-      ? search(searchQuery, trees).map((r) => r.tree)
+      ? search(searchQuery, trees as any).map((r) => r.tree)
       : trees;
 
     // Step 2: Filter
-    results = filterTrees(results, filter);
+    results = filterTrees(results as any, filter);
 
     // Step 3: Sort
     results = sortTrees(results, sort);
@@ -332,9 +333,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
         {/* Tree display */}
         {viewMode === "alphabetical" ? (
-          <AlphabeticalIndex trees={displayTrees} locale={locale} />
+          <AlphabeticalIndex trees={displayTrees as any} locale={locale} />
         ) : (
-          <TreeGrid trees={displayTrees} locale={locale} />
+          <TreeGrid trees={displayTrees as any} locale={locale} />
         )}
       </div>
     </div>
@@ -349,11 +350,11 @@ function AlphabeticalIndex({
   trees,
   locale,
 }: {
-  trees: Tree[];
+  trees: ContentlayerTree[];
   locale: Locale;
 }) {
   const grouped = useMemo(() => {
-    const groups: Record<string, Tree[]> = {};
+    const groups: Record<string, ContentlayerTree[]> = {};
     for (const tree of trees) {
       const letter = tree.title.charAt(0).toUpperCase();
       if (!groups[letter]) groups[letter] = [];

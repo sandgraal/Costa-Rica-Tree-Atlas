@@ -18,7 +18,7 @@ import type { Distribution, Locale, Province } from "@/types/tree";
 // ============================================================================
 
 interface DistributionMapProps {
-  distribution?: Distribution[];
+  distribution?: string[] | Distribution[];
   elevation?: string;
   locale: Locale;
   interactive?: boolean;
@@ -37,7 +37,7 @@ export function DistributionMap({
   const [hoveredProvince, setHoveredProvince] = useState<Province | null>(null);
 
   const expandedDistribution = useMemo(
-    () => expandDistribution(distribution),
+    () => expandDistribution((distribution || []) as Distribution[]),
     [distribution]
   );
 
@@ -210,7 +210,7 @@ export function DistributionMap({
                 {distribution.map((dist) => (
                   <li key={dist} className="flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-primary" />
-                    {getDistributionName(dist, locale)}
+                    {getDistributionName(dist as Distribution, locale)}
                   </li>
                 ))}
               </ul>

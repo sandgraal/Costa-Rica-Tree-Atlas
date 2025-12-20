@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
-import { useFavorite } from "@/components/providers";
+import { useFavorite } from "@/lib/store";
 import { TAG_DEFINITIONS, getTagLabel } from "@/lib/i18n";
-import type { Tree, Locale, TreeTag } from "@/types/tree";
+import type { Tree as ContentlayerTree } from "contentlayer/generated";
+import type { Locale, TreeTag } from "@/types/tree";
 
 // ============================================================================
 // Types
 // ============================================================================
 
 interface TreeCardProps {
-  tree: Tree;
+  tree: ContentlayerTree; // Use contentlayer's Tree type for compatibility
   locale: Locale;
   showFavorite?: boolean;
   priority?: boolean;
@@ -213,7 +214,7 @@ function HeightIcon() {
 // ============================================================================
 
 interface TreeGridProps {
-  trees: Tree[];
+  trees: ContentlayerTree[];
   locale: Locale;
   showFavorites?: boolean;
 }

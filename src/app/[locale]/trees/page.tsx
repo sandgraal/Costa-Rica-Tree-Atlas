@@ -2,7 +2,6 @@ import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { TreeExplorer } from "@/components/tree";
 import type { Metadata } from "next";
-import type { Tree } from "@/types/tree";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -31,7 +30,7 @@ export default async function TreesPage({ params }: Props) {
   setRequestLocale(locale);
 
   // Get trees for current locale
-  const trees = allTrees.filter((tree) => tree.locale === locale) as Tree[];
+  const trees = allTrees.filter((tree) => tree.locale === locale);
 
   // Generate ItemList structured data for SEO
   const structuredData = {

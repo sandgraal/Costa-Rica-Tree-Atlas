@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 import { MDXContent } from "@/components/MDXContent";
 import { PrintButton } from "@/components/PrintButton";
 import { ShareButton } from "@/components/ShareButton";
-import { DistributionMap } from "@/components/DistributionMap";
-import { BiodiversityInfo } from "@/components/BiodiversityInfo";
+import { DistributionMap } from "@/components/geo";
+import { BiodiversityInfo } from "@/components/data";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
 import { PronunciationButton } from "@/components/PronunciationButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
@@ -338,7 +338,7 @@ export default async function TreePage({ params }: Props) {
           <DistributionMap
             distribution={tree.distribution}
             elevation={tree.elevation}
-            locale={locale}
+            locale={locale as "en" | "es"}
           />
 
           {/* Seasonal Information */}
@@ -351,7 +351,7 @@ export default async function TreePage({ params }: Props) {
           {/* Biodiversity Data from GBIF and iNaturalist */}
           <BiodiversityInfo
             scientificName={tree.scientificName}
-            locale={locale}
+            locale={locale as "en" | "es"}
           />
 
           {/* MDX Content */}

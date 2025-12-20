@@ -1,12 +1,17 @@
-// Re-export from new unified store
+// Re-export from new unified store and providers
 export { useStore, useFavorite, useThemeSync } from "@/lib/store";
 export { StoreProvider, QueryProvider } from "./providers";
 
+// Re-export new component architecture
+export { TreeCard, TreeExplorer } from "./tree";
+export { DistributionMap } from "./geo";
+export { BiodiversityInfo } from "./data";
+
+// Legacy components (gradually migrating to new architecture)
 export { ThemeToggle } from "./ThemeToggle";
 export { LanguageSwitcher } from "./LanguageSwitcher";
 export { Header } from "./Header";
 export { Footer } from "./Footer";
-export { TreeCard } from "./TreeCard";
 export { TreeSearch } from "./TreeSearch";
 export { TreeFilters } from "./TreeFilters";
 export { AlphabeticalIndex } from "./AlphabeticalIndex";
@@ -23,9 +28,7 @@ export { PrintButton } from "./PrintButton";
 export { TreeComparison } from "./TreeComparison";
 export { IdentificationGuide } from "./IdentificationGuide";
 export { PWARegister } from "./PWARegister";
-export { DistributionMap } from "./DistributionMap";
 export { Analytics, trackEvent, trackPageView } from "./Analytics";
-export { BiodiversityInfo } from "./BiodiversityInfo";
 export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
@@ -46,11 +49,8 @@ export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
 
-// Deprecation re-exports for backwards compatibility during migration
-// TODO: Remove these after full migration
-export { ThemeProvider, useTheme } from "./ThemeProvider";
-export { FavoritesProvider, useFavorites } from "./FavoritesProvider";
-export {
-  RecentlyViewedProvider,
-  useRecentlyViewed,
-} from "./RecentlyViewedProvider";
+// Deprecated components - retained for backwards compatibility
+// TODO: Remove after full migration
+export { TreeCard as LegacyTreeCard } from "./TreeCard";
+export { DistributionMap as LegacyDistributionMap } from "./DistributionMap";
+export { BiodiversityInfo as LegacyBiodiversityInfo } from "./BiodiversityInfo";
