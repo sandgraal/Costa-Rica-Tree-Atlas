@@ -166,152 +166,152 @@ export default async function TreePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       <article className="py-12 px-4 tree-detail">
-      <div className="container mx-auto max-w-4xl">
-        {/* Breadcrumb and Print Button */}
-        <nav className="mb-8 flex justify-between items-center no-print">
-          <Link
-            href="/trees"
-            className="text-primary hover:text-primary-light transition-colors inline-flex items-center gap-2"
-          >
-            <ArrowLeftIcon className="h-4 w-4" />
-            {locale === "es" ? "Volver al Directorio" : "Back to Directory"}
-          </Link>
-          <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
-        </nav>
+        <div className="container mx-auto max-w-4xl">
+          {/* Breadcrumb and Print Button */}
+          <nav className="mb-8 flex justify-between items-center no-print">
+            <Link
+              href="/trees"
+              className="text-primary hover:text-primary-light transition-colors inline-flex items-center gap-2"
+            >
+              <ArrowLeftIcon className="h-4 w-4" />
+              {locale === "es" ? "Volver al Directorio" : "Back to Directory"}
+            </Link>
+            <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
+          </nav>
 
-        {/* Header */}
-        <header className="mb-12">
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-              {tree.family}
-            </span>
-            {tree.conservationStatus && (
-              <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
-                {tree.conservationStatus}
+          {/* Header */}
+          <header className="mb-12">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                {tree.family}
               </span>
+              {tree.conservationStatus && (
+                <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
+                  {tree.conservationStatus}
+                </span>
+              )}
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-2">
+              {tree.title}
+            </h1>
+            <p className="text-2xl text-secondary italic mb-6">
+              {tree.scientificName}
+            </p>
+
+            {/* Alternate Language Link */}
+            {altTree && (
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <GlobeIcon className="h-4 w-4" />
+                <span>
+                  {locale === "es"
+                    ? "Also available in"
+                    : "También disponible en"}
+                  :
+                </span>
+                <Link
+                  href={`/trees/${slug}`}
+                  locale={otherLocale}
+                  className="text-primary hover:underline"
+                >
+                  {locale === "es" ? "English" : "Español"}
+                </Link>
+              </div>
+            )}
+          </header>
+
+          {/* Featured Image Placeholder */}
+          {tree.featuredImage ? (
+            <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
+              <Image
+                src={tree.featuredImage}
+                alt={tree.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"
+                className="object-cover"
+                priority
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
+              />
+            </div>
+          ) : (
+            <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <TreeIcon className="h-24 w-24 text-primary/20" />
+            </div>
+          )}
+
+          {/* Quick Facts */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {tree.nativeRegion && (
+              <div className="bg-muted rounded-lg p-4">
+                <p className="text-sm text-muted-foreground mb-1">
+                  {locale === "es" ? "Región Nativa" : "Native Region"}
+                </p>
+                <p className="font-medium">{tree.nativeRegion}</p>
+              </div>
+            )}
+            {tree.maxHeight && (
+              <div className="bg-muted rounded-lg p-4">
+                <p className="text-sm text-muted-foreground mb-1">
+                  {locale === "es" ? "Altura Máxima" : "Max Height"}
+                </p>
+                <p className="font-medium">{tree.maxHeight}</p>
+              </div>
+            )}
+            <div className="bg-muted rounded-lg p-4">
+              <p className="text-sm text-muted-foreground mb-1">
+                {locale === "es" ? "Familia" : "Family"}
+              </p>
+              <p className="font-medium">{tree.family}</p>
+            </div>
+            {tree.conservationStatus && (
+              <div className="bg-muted rounded-lg p-4">
+                <p className="text-sm text-muted-foreground mb-1">
+                  {locale === "es" ? "Conservación" : "Conservation"}
+                </p>
+                <p className="font-medium">{tree.conservationStatus}</p>
+              </div>
             )}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-2">
-            {tree.title}
-          </h1>
-          <p className="text-2xl text-secondary italic mb-6">
-            {tree.scientificName}
-          </p>
+          {/* Uses */}
+          {tree.uses && tree.uses.length > 0 && (
+            <div className="mb-12">
+              <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
+                {locale === "es" ? "Usos" : "Uses"}
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {tree.uses.map((use, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-accent/10 text-accent-dark dark:text-accent rounded-full text-sm"
+                  >
+                    {use}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
-          {/* Alternate Language Link */}
-          {altTree && (
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <GlobeIcon className="h-4 w-4" />
-              <span>
-                {locale === "es"
-                  ? "Also available in"
-                  : "También disponible en"}
-                :
-              </span>
-              <Link
-                href={`/trees/${slug}`}
-                locale={otherLocale}
-                className="text-primary hover:underline"
-              >
-                {locale === "es" ? "English" : "Español"}
-              </Link>
-            </div>
-          )}
-        </header>
+          {/* Distribution Map */}
+          <DistributionMap
+            distribution={tree.distribution}
+            elevation={tree.elevation}
+            locale={locale}
+          />
 
-        {/* Featured Image Placeholder */}
-        {tree.featuredImage ? (
-          <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
-            <Image
-              src={tree.featuredImage}
-              alt={tree.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"
-              className="object-cover"
-              priority
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-            />
-          </div>
-        ) : (
-          <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-            <TreeIcon className="h-24 w-24 text-primary/20" />
-          </div>
-        )}
+          {/* Biodiversity Data from GBIF and iNaturalist */}
+          <BiodiversityInfo
+            scientificName={tree.scientificName}
+            locale={locale}
+          />
 
-        {/* Quick Facts */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {tree.nativeRegion && (
-            <div className="bg-muted rounded-lg p-4">
-              <p className="text-sm text-muted-foreground mb-1">
-                {locale === "es" ? "Región Nativa" : "Native Region"}
-              </p>
-              <p className="font-medium">{tree.nativeRegion}</p>
-            </div>
-          )}
-          {tree.maxHeight && (
-            <div className="bg-muted rounded-lg p-4">
-              <p className="text-sm text-muted-foreground mb-1">
-                {locale === "es" ? "Altura Máxima" : "Max Height"}
-              </p>
-              <p className="font-medium">{tree.maxHeight}</p>
-            </div>
-          )}
-          <div className="bg-muted rounded-lg p-4">
-            <p className="text-sm text-muted-foreground mb-1">
-              {locale === "es" ? "Familia" : "Family"}
-            </p>
-            <p className="font-medium">{tree.family}</p>
+          {/* MDX Content */}
+          <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-primary-dark dark:prose-headings:text-primary-light prose-a:text-primary hover:prose-a:text-primary-light">
+            <MDXContent code={tree.body.code} />
           </div>
-          {tree.conservationStatus && (
-            <div className="bg-muted rounded-lg p-4">
-              <p className="text-sm text-muted-foreground mb-1">
-                {locale === "es" ? "Conservación" : "Conservation"}
-              </p>
-              <p className="font-medium">{tree.conservationStatus}</p>
-            </div>
-          )}
         </div>
-
-        {/* Uses */}
-        {tree.uses && tree.uses.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
-              {locale === "es" ? "Usos" : "Uses"}
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {tree.uses.map((use, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-accent/10 text-accent-dark dark:text-accent rounded-full text-sm"
-                >
-                  {use}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Distribution Map */}
-        <DistributionMap
-          distribution={tree.distribution}
-          elevation={tree.elevation}
-          locale={locale}
-        />
-
-        {/* Biodiversity Data from GBIF and iNaturalist */}
-        <BiodiversityInfo
-          scientificName={tree.scientificName}
-          locale={locale}
-        />
-
-        {/* MDX Content */}
-        <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-primary-dark dark:prose-headings:text-primary-light prose-a:text-primary hover:prose-a:text-primary-light">
-          <MDXContent code={tree.body.code} />
-        </div>
-      </div>
-    </article>
+      </article>
     </>
   );
 }

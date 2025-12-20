@@ -143,19 +143,27 @@ function EducationContent({ treeCount }: { treeCount: number }) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
             <div className="text-3xl font-bold text-primary">{treeCount}</div>
-            <div className="text-sm text-muted-foreground">{t("stats.species")}</div>
+            <div className="text-sm text-muted-foreground">
+              {t("stats.species")}
+            </div>
           </div>
           <div>
             <div className="text-3xl font-bold text-primary">4</div>
-            <div className="text-sm text-muted-foreground">{t("stats.lessonPlans")}</div>
+            <div className="text-sm text-muted-foreground">
+              {t("stats.lessonPlans")}
+            </div>
           </div>
           <div>
             <div className="text-3xl font-bold text-primary">4</div>
-            <div className="text-sm text-muted-foreground">{t("stats.activities")}</div>
+            <div className="text-sm text-muted-foreground">
+              {t("stats.activities")}
+            </div>
           </div>
           <div>
             <div className="text-3xl font-bold text-primary">2</div>
-            <div className="text-sm text-muted-foreground">{t("stats.languages")}</div>
+            <div className="text-sm text-muted-foreground">
+              {t("stats.languages")}
+            </div>
           </div>
         </div>
       </div>
@@ -268,7 +276,9 @@ function EducationContent({ treeCount }: { treeCount: number }) {
           {t("printables.title")}
         </h2>
         <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-6">
-          <p className="text-muted-foreground mb-6">{t("printables.description")}</p>
+          <p className="text-muted-foreground mb-6">
+            {t("printables.description")}
+          </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {printables.map((item) => (
               <div
@@ -280,7 +290,9 @@ function EducationContent({ treeCount }: { treeCount: number }) {
                   <div className="font-medium text-foreground text-sm">
                     {t(`printables.${item.id}.title`)}
                   </div>
-                  <div className="text-xs text-muted-foreground">{item.format}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {item.format}
+                  </div>
                 </div>
               </div>
             ))}
@@ -300,18 +312,30 @@ function EducationContent({ treeCount }: { treeCount: number }) {
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-card rounded-xl p-6 border border-border">
             <div className="text-3xl mb-3">🔍</div>
-            <h3 className="font-semibold text-foreground mb-2">{t("tips.explore.title")}</h3>
-            <p className="text-sm text-muted-foreground">{t("tips.explore.description")}</p>
+            <h3 className="font-semibold text-foreground mb-2">
+              {t("tips.explore.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("tips.explore.description")}
+            </p>
           </div>
           <div className="bg-card rounded-xl p-6 border border-border">
             <div className="text-3xl mb-3">📷</div>
-            <h3 className="font-semibold text-foreground mb-2">{t("tips.identify.title")}</h3>
-            <p className="text-sm text-muted-foreground">{t("tips.identify.description")}</p>
+            <h3 className="font-semibold text-foreground mb-2">
+              {t("tips.identify.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("tips.identify.description")}
+            </p>
           </div>
           <div className="bg-card rounded-xl p-6 border border-border">
             <div className="text-3xl mb-3">⚖️</div>
-            <h3 className="font-semibold text-foreground mb-2">{t("tips.compare.title")}</h3>
-            <p className="text-sm text-muted-foreground">{t("tips.compare.description")}</p>
+            <h3 className="font-semibold text-foreground mb-2">
+              {t("tips.compare.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("tips.compare.description")}
+            </p>
           </div>
         </div>
       </section>

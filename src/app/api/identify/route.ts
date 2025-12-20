@@ -49,7 +49,9 @@ const scoreLabelAgainstTree = (
     return label.score * 1.1;
   }
 
-  const overlapCount = labelTokens.filter((token) => treeTokens.has(token)).length;
+  const overlapCount = labelTokens.filter((token) =>
+    treeTokens.has(token)
+  ).length;
   if (overlapCount === 0) {
     return 0;
   }
@@ -74,10 +76,7 @@ export async function POST(request: Request) {
   const locale = requestedLocale === "es" ? "es" : "en";
 
   if (!file || !(file instanceof File)) {
-    return NextResponse.json(
-      { error: "Missing image file" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Missing image file" }, { status: 400 });
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -104,7 +103,9 @@ export async function POST(request: Request) {
     );
 
     if (!visionResponse.ok) {
-      const errorText = await visionResponse.text().catch(() => "Unknown error");
+      const errorText = await visionResponse
+        .text()
+        .catch(() => "Unknown error");
       console.error("Vision API HTTP error:", visionResponse.status, errorText);
       return NextResponse.json(
         { error: "Vision API request failed", code: "VISION_API_HTTP_ERROR" },
@@ -114,10 +115,15 @@ export async function POST(request: Request) {
 
     data = await visionResponse.json();
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown network error";
+    const message =
+      error instanceof Error ? error.message : "Unknown network error";
     console.error("Vision API network error:", message);
     return NextResponse.json(
-      { error: "Failed to connect to Vision API", code: "VISION_API_NETWORK_ERROR", details: message },
+      {
+        error: "Failed to connect to Vision API",
+        code: "VISION_API_NETWORK_ERROR",
+        details: message,
+      },
       { status: 502 }
     );
   }
@@ -153,9 +159,7 @@ export async function POST(request: Request) {
     .slice(0, 5);
 
   return NextResponse.json({
-    labels: labels
-      .sort((a, b) => b.score - a.score)
-      .slice(0, MAX_LABELS),
+    labels: labels.sort((a, b) => b.score - a.score).slice(0, MAX_LABELS),
     matches,
   });
 }
