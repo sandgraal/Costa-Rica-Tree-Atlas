@@ -81,6 +81,10 @@ export function injectEducationStyles(): void {
 // Types
 // ============================================================================
 
+/**
+ * Shared tree data type for education lesson components
+ * Superset of all fields needed across different lessons
+ */
 export interface LessonTreeData {
   title: string;
   scientificName: string;
@@ -90,6 +94,11 @@ export interface LessonTreeData {
   featuredImage?: string;
   uses?: string[];
   tags?: string[];
+  conservationStatus?: string;
+  nativeRegion?: string;
+  maxHeight?: string;
+  floweringSeason?: string[];
+  fruitingSeason?: string[];
 }
 
 // ============================================================================

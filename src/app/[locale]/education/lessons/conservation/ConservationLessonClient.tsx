@@ -7,25 +7,13 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-import { triggerConfetti, injectEducationStyles } from "@/lib/education";
-
-interface TreeData {
-  title: string;
-  scientificName: string;
-  family: string;
-  slug: string;
-  description: string;
-  featuredImage?: string;
-  conservationStatus?: string;
-  tags?: string[];
-  nativeRegion?: string;
-}
+import { triggerConfetti, injectEducationStyles, type LessonTreeData } from "@/lib/education";
 
 interface ConservationLessonClientProps {
-  trees: TreeData[];
+  trees: LessonTreeData[];
   locale: string;
   statusCounts: Record<string, number>;
-  endangeredTrees: TreeData[];
+  endangeredTrees: LessonTreeData[];
 }
 
 export default function ConservationLessonClient(
@@ -53,7 +41,7 @@ function ConservationLessonContent({
   const [quizFeedback, setQuizFeedback] = useState<Record<number, boolean>>({});
   const [totalPoints, setTotalPoints] = useState(0);
   const [showResults, setShowResults] = useState(false);
-  const [adoptedTree, setAdoptedTree] = useState<TreeData | null>(null);
+  const [adoptedTree, setAdoptedTree] = useState<LessonTreeData | null>(null);
 
   useEffect(() => {
     injectEducationStyles();

@@ -7,21 +7,10 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-import { triggerConfetti, injectEducationStyles } from "@/lib/education";
-
-interface TreeData {
-  title: string;
-  scientificName: string;
-  family: string;
-  slug: string;
-  description: string;
-  featuredImage?: string;
-  conservationStatus?: string;
-  nativeRegion?: string;
-}
+import { triggerConfetti, injectEducationStyles, type LessonTreeData } from "@/lib/education";
 
 interface BiodiversityLessonClientProps {
-  trees: TreeData[];
+  trees: LessonTreeData[];
   locale: string;
   totalSpecies: number;
   totalFamilies: number;
@@ -278,7 +267,7 @@ function BiodiversityLessonContent({
     { title: t.step5Title, icon: "🎨" },
   ];
 
-  const handleTreeSelect = (tree: TreeData) => {
+  const handleTreeSelect = (tree: LessonTreeData) => {
     if (selectedTrees.includes(tree.slug)) {
       setSelectedTrees((prev) => prev.filter((s) => s !== tree.slug));
     } else if (selectedTrees.length < 5) {

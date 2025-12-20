@@ -7,24 +7,10 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-import { triggerConfetti, injectEducationStyles } from "@/lib/education";
-
-interface TreeData {
-  title: string;
-  scientificName: string;
-  family: string;
-  slug: string;
-  description: string;
-  featuredImage?: string;
-  conservationStatus?: string;
-  tags?: string[];
-  maxHeight?: string;
-  floweringSeason?: string[];
-  fruitingSeason?: string[];
-}
+import { triggerConfetti, injectEducationStyles, type LessonTreeData } from "@/lib/education";
 
 interface TreeIdentificationClientProps {
-  trees: TreeData[];
+  trees: LessonTreeData[];
   locale: string;
   totalSpecies: number;
   totalFamilies: number;
@@ -47,8 +33,8 @@ function TreeIdentificationContent({
   const { markLessonComplete } = useEducationProgress();
   const [_currentStep, _setCurrentStep] = useState(0);
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "match">("learn");
-  const [currentQuizTree, setCurrentQuizTree] = useState<TreeData | null>(null);
-  const [quizOptions, setQuizOptions] = useState<TreeData[]>([]);
+  const [currentQuizTree, setCurrentQuizTree] = useState<LessonTreeData | null>(null);
+  const [quizOptions, setQuizOptions] = useState<LessonTreeData[]>([]);
   const [quizScore, setQuizScore] = useState(0);
   const [quizStreak, setQuizStreak] = useState(0);
   const [quizRound, setQuizRound] = useState(0);
@@ -60,7 +46,7 @@ function TreeIdentificationContent({
   const [matchCards, setMatchCards] = useState<
     {
       id: string;
-      tree: TreeData;
+      tree: LessonTreeData;
       type: "image" | "name";
       matched: boolean;
       flipped: boolean;
@@ -71,7 +57,7 @@ function TreeIdentificationContent({
   const [_matchComplete, setMatchComplete] = useState(false);
   const [learnedTrees, setLearnedTrees] = useState<Set<string>>(new Set());
   const [showResults, setShowResults] = useState(false);
-  const [selectedLearnTree, setSelectedLearnTree] = useState<TreeData | null>(
+  const [selectedLearnTree, setSelectedLearnTree] = useState<LessonTreeData | null>(
     null
   );
 
@@ -184,7 +170,7 @@ function TreeIdentificationContent({
     setShowFeedback(null);
   }, [trees]);
 
-  const handleQuizAnswer = (tree: TreeData) => {
+  const handleQuizAnswer = (tree: LessonTreeData) => {
     if (showFeedback) return;
 
     const isCorrect = tree.slug === currentQuizTree?.slug;
@@ -336,7 +322,7 @@ function TreeIdentificationContent({
       acc[tree.family].push(tree);
       return acc;
     },
-    {} as Record<string, TreeData[]>
+    {} as Record<string, LessonTreeData[]>
   );
 
   if (showResults) {
