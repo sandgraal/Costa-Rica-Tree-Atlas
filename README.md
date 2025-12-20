@@ -203,6 +203,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Mobile Navigation**: Full-screen responsive menu with quick actions
 - [x] **Audio Pronunciation**: Text-to-speech for scientific names using Web Speech API
 - [x] **Favorites System**: Save and bookmark trees with localStorage persistence
+- [x] **Recently Viewed**: Track and display browsing history on homepage
 
 ### 💡 Future Ideas
 
