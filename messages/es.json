@@ -6,6 +6,7 @@
     "home": "Inicio",
     "trees": "Árboles",
     "identify": "Identificar",
+    "education": "Educación",
     "about": "Acerca de"
   },
   "home": {
@@ -243,5 +244,115 @@
     "matchScore": "Puntuación de coincidencia: {score}%",
     "errorMissingFile": "Selecciona una imagen para subir.",
     "errorFailed": "No pudimos identificar esa imagen. Intenta con otra."
+  },
+  "education": {
+    "title": "Recursos Educativos",
+    "subtitle": "Planes de lecciones, actividades y materiales gratuitos para enseñar sobre los árboles y ecosistemas forestales de Costa Rica",
+    "stats": {
+      "species": "Especies de Árboles",
+      "lessonPlans": "Planes de Lección",
+      "activities": "Actividades",
+      "languages": "Idiomas"
+    },
+    "intro": {
+      "title": "Para Maestros y Educadores",
+      "description": "Estos recursos educativos están diseñados para ayudar a los maestros a integrar la rica biodiversidad de Costa Rica en su currículo. Todos los materiales son gratuitos para usar y adaptar con fines educativos, disponibles en inglés y español.",
+      "alignedCurriculum": "Alineado al Currículo",
+      "bilingualMaterials": "Materiales Bilingües",
+      "digitalReady": "Listo para Digital"
+    },
+    "lessons": {
+      "title": "Planes de Lección",
+      "grades": "Grados",
+      "minutes": "min",
+      "objectives": "Objetivos de Aprendizaje",
+      "biodiversity-intro": {
+        "title": "Introducción a la Biodiversidad",
+        "description": "Los estudiantes exploran qué significa biodiversidad y por qué Costa Rica es uno de los lugares más biodiversos de la Tierra.",
+        "objective1": "Definir biodiversidad y explicar su importancia",
+        "objective2": "Identificar al menos 5 especies de árboles nativos de Costa Rica"
+      },
+      "tree-identification": {
+        "title": "Habilidades de Identificación de Árboles",
+        "description": "Aprende a identificar árboles usando hojas, corteza, flores y frutos mediante observación práctica.",
+        "objective1": "Usar una clave dicotómica para identificar especies de árboles",
+        "objective2": "Describir características clave que distinguen diferentes árboles"
+      },
+      "conservation": {
+        "title": "Conservación y Amenazas",
+        "description": "Comprende las amenazas que enfrentan los bosques tropicales y los esfuerzos de conservación que los protegen.",
+        "objective1": "Analizar los impactos humanos en los ecosistemas forestales tropicales",
+        "objective2": "Evaluar estrategias de conservación y su efectividad"
+      },
+      "ecosystem-services": {
+        "title": "Servicios Ecosistémicos",
+        "description": "Descubre cómo los árboles proporcionan servicios esenciales como aire limpio, filtración de agua y hábitat.",
+        "objective1": "Listar servicios ecosistémicos proporcionados por árboles tropicales",
+        "objective2": "Calcular el valor de los servicios ecosistémicos en un área determinada"
+      }
+    },
+    "activities": {
+      "title": "Actividades de Aula",
+      "types": {
+        "individual": "Individual",
+        "group": "Trabajo en Grupo",
+        "field": "Actividad de Campo",
+        "classroom": "En el Aula"
+      },
+      "tree-journal": {
+        "title": "Diario de Árbol",
+        "description": "Los estudiantes adoptan un árbol local y documentan sus cambios durante el año escolar."
+      },
+      "scavenger-hunt": {
+        "title": "Búsqueda del Tesoro de Árboles",
+        "description": "Los equipos buscan árboles que coincidan con características específicas del atlas."
+      },
+      "leaf-collection": {
+        "title": "Colección de Hojas",
+        "description": "Crea una colección de hojas prensadas e identifica especies usando el atlas."
+      },
+      "compare-contrast": {
+        "title": "Comparar y Contrastar",
+        "description": "Usa la herramienta de comparación para analizar similitudes y diferencias entre especies."
+      }
+    },
+    "printables": {
+      "title": "Recursos Imprimibles",
+      "description": "Descarga e imprime estos recursos para uso en el aula. Todos los materiales son gratuitos para fines educativos.",
+      "comingSoon": "¡PDFs descargables próximamente! Vuelve pronto para actualizaciones.",
+      "tree-cards": {
+        "title": "Tarjetas de Árboles"
+      },
+      "identification-key": {
+        "title": "Clave de Identificación"
+      },
+      "coloring-pages": {
+        "title": "Páginas para Colorear"
+      },
+      "species-checklist": {
+        "title": "Lista de Especies"
+      }
+    },
+    "tips": {
+      "title": "Usando el Atlas en tu Aula",
+      "explore": {
+        "title": "Explora el Directorio",
+        "description": "Navega por árboles por familia, estado de conservación o características. Usa el índice A-Z para exploración alfabética."
+      },
+      "identify": {
+        "title": "Prueba la Identificación",
+        "description": "Toma fotos durante excursiones y usa la función de identificación para encontrar especies coincidentes en el atlas."
+      },
+      "compare": {
+        "title": "Compara Especies",
+        "description": "Usa la herramienta de comparación para mostrar múltiples árboles lado a lado y analizar sus diferencias."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar?",
+      "description": "Explora nuestra colección de árboles costarricenses o prueba nuestra función de identificación con tus estudiantes.",
+      "exploreTrees": "Explorar Árboles",
+      "tryIdentify": "Probar Identificación"
+    }
   }
 }

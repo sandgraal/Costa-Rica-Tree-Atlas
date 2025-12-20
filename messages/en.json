@@ -6,6 +6,7 @@
     "home": "Home",
     "trees": "Trees",
     "identify": "Identify",
+    "education": "Education",
     "about": "About"
   },
   "home": {
@@ -149,5 +150,115 @@
     "matchScore": "Match score: {score}%",
     "errorMissingFile": "Please select an image to upload.",
     "errorFailed": "We couldn't identify that image. Please try another."
+  },
+  "education": {
+    "title": "Educational Resources",
+    "subtitle": "Free lesson plans, activities, and materials for teaching about Costa Rica's trees and forest ecosystems",
+    "stats": {
+      "species": "Tree Species",
+      "lessonPlans": "Lesson Plans",
+      "activities": "Activities",
+      "languages": "Languages"
+    },
+    "intro": {
+      "title": "For Teachers and Educators",
+      "description": "These educational resources are designed to help teachers integrate Costa Rica's rich biodiversity into their curriculum. All materials are free to use and adapt for educational purposes, available in both English and Spanish.",
+      "alignedCurriculum": "Standards-Aligned",
+      "bilingualMaterials": "Bilingual Materials",
+      "digitalReady": "Digital-Ready"
+    },
+    "lessons": {
+      "title": "Lesson Plans",
+      "grades": "Grades",
+      "minutes": "min",
+      "objectives": "Learning Objectives",
+      "biodiversity-intro": {
+        "title": "Introduction to Biodiversity",
+        "description": "Students explore what biodiversity means and why Costa Rica is one of the most biodiverse places on Earth.",
+        "objective1": "Define biodiversity and explain its importance",
+        "objective2": "Identify at least 5 native Costa Rican tree species"
+      },
+      "tree-identification": {
+        "title": "Tree Identification Skills",
+        "description": "Learn to identify trees using leaves, bark, flowers, and fruits through hands-on observation.",
+        "objective1": "Use a dichotomous key to identify tree species",
+        "objective2": "Describe key features that distinguish different trees"
+      },
+      "conservation": {
+        "title": "Conservation and Threats",
+        "description": "Understand the threats facing tropical forests and the conservation efforts protecting them.",
+        "objective1": "Analyze human impacts on tropical forest ecosystems",
+        "objective2": "Evaluate conservation strategies and their effectiveness"
+      },
+      "ecosystem-services": {
+        "title": "Ecosystem Services",
+        "description": "Discover how trees provide essential services like clean air, water filtration, and habitat.",
+        "objective1": "List ecosystem services provided by tropical trees",
+        "objective2": "Calculate the value of ecosystem services in a given area"
+      }
+    },
+    "activities": {
+      "title": "Classroom Activities",
+      "types": {
+        "individual": "Individual",
+        "group": "Group Work",
+        "field": "Field Activity",
+        "classroom": "Classroom"
+      },
+      "tree-journal": {
+        "title": "Tree Journal",
+        "description": "Students adopt a local tree and document its changes throughout the school year."
+      },
+      "scavenger-hunt": {
+        "title": "Tree Scavenger Hunt",
+        "description": "Teams search for trees matching specific characteristics from the atlas."
+      },
+      "leaf-collection": {
+        "title": "Leaf Collection",
+        "description": "Create a pressed leaf collection and identify species using the atlas."
+      },
+      "compare-contrast": {
+        "title": "Compare & Contrast",
+        "description": "Use the comparison tool to analyze similarities and differences between species."
+      }
+    },
+    "printables": {
+      "title": "Printable Resources",
+      "description": "Download and print these resources for classroom use. All materials are free for educational purposes.",
+      "comingSoon": "Downloadable PDFs coming soon! Check back for updates.",
+      "tree-cards": {
+        "title": "Tree Flashcards"
+      },
+      "identification-key": {
+        "title": "Identification Key"
+      },
+      "coloring-pages": {
+        "title": "Coloring Pages"
+      },
+      "species-checklist": {
+        "title": "Species Checklist"
+      }
+    },
+    "tips": {
+      "title": "Using the Atlas in Your Classroom",
+      "explore": {
+        "title": "Explore the Directory",
+        "description": "Browse trees by family, conservation status, or characteristics. Use the A-Z index for alphabetical exploration."
+      },
+      "identify": {
+        "title": "Try Tree Identification",
+        "description": "Take photos during field trips and use the identification feature to find matching species in the atlas."
+      },
+      "compare": {
+        "title": "Compare Species",
+        "description": "Use the comparison tool to display multiple trees side-by-side and analyze their differences."
+      }
+    },
+    "cta": {
+      "title": "Ready to Start?",
+      "description": "Explore our collection of Costa Rican trees or try our tree identification feature with your students.",
+      "exploreTrees": "Explore Trees",
+      "tryIdentify": "Try Identification"
+    }
   }
 }

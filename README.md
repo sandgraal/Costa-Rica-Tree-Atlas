@@ -181,7 +181,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [ ] **Community Contributions**: User-submitted sightings and photographs
 - [x] **External API Integration**: Connect with biodiversity databases (GBIF, iNaturalist)
 - [ ] **Conservation Data**: Real-time IUCN status updates and population trends
-- [ ] **Educational Resources**: Lesson plans and classroom materials
+- [x] **Educational Resources**: Lesson plans and classroom materials
 
 #### Phase 4: Performance & Accessibility
 
