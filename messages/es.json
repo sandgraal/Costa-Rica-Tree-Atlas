@@ -13,7 +13,12 @@
     "description": "Una guía bilingüe de código abierto de los diversos y hermosos árboles que se encuentran en todo Costa Rica. Desde el icónico Guanacaste hasta la imponente Ceiba, explora la rica herencia botánica de este paraíso tropical.",
     "exploreButton": "Explorar Árboles",
     "featuredTrees": "Árboles Destacados",
-    "viewAll": "Ver Todos los Árboles"
+    "viewAll": "Ver Todos los Árboles",
+    "randomTree": {
+      "discover": "Descubre un Árbol al Azar",
+      "newTree": "Mostrar un Árbol",
+      "learnMore": "Más Información"
+    }
   },
   "trees": {
     "title": "Directorio de Árboles",

@@ -13,7 +13,12 @@
     "description": "An open-source bilingual guide to the diverse and beautiful trees found throughout Costa Rica. From the iconic Guanacaste to the towering Ceiba, explore the rich botanical heritage of this tropical paradise.",
     "exploreButton": "Explore Trees",
     "featuredTrees": "Featured Trees",
-    "viewAll": "View All Trees"
+    "viewAll": "View All Trees",
+    "randomTree": {
+      "discover": "Discover a Random Tree",
+      "newTree": "Show Me a Tree",
+      "learnMore": "Learn More"
+    }
   },
   "trees": {
     "title": "Tree Directory",

@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { TreeCard } from "@/components/TreeCard";
+import { RandomTree } from "@/components/RandomTree";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -22,6 +23,13 @@ export default async function HomePage({ params }: Props) {
         <div className="absolute inset-0 bg-[url('/images/leaf-pattern.svg')] opacity-10"></div>
         <div className="container mx-auto max-w-6xl relative z-10 text-center">
           <HeroContent />
+        </div>
+      </section>
+
+      {/* Random Tree Discovery Section */}
+      <section className="py-12 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <RandomTreeSection trees={trees} />
         </div>
       </section>
 
@@ -129,5 +137,20 @@ function AboutSection() {
       </h2>
       <p className="text-muted-foreground text-lg">{t("description")}</p>
     </>
+  );
+}
+
+function RandomTreeSection({ trees }: { trees: typeof allTrees }) {
+  const t = useTranslations("home");
+
+  return (
+    <RandomTree
+      trees={trees}
+      translations={{
+        discover: t("randomTree.discover"),
+        newTree: t("randomTree.newTree"),
+        learnMore: t("randomTree.learnMore"),
+      }}
+    />
   );
 }

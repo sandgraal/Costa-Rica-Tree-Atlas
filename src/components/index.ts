@@ -19,6 +19,7 @@ export { TreeGallery, ImageLightbox } from "./TreeGallery";
 export { PrintButton } from "./PrintButton";
 export { TreeComparison } from "./TreeComparison";
 export { IdentificationGuide } from "./IdentificationGuide";
+export { RandomTree } from "./RandomTree";
 export { PWARegister } from "./PWARegister";
 export { AnnouncerProvider, useAnnounce, VisuallyHidden } from "./Accessibility";
 export { mdxComponents } from "./mdx";
