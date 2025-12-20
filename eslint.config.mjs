@@ -26,6 +26,15 @@ const eslintConfig = defineConfig([
       "react-hooks/set-state-in-effect": "off",
       // Allow dynamic component creation from useMDXComponent
       "react-hooks/static-components": "off",
+      // Allow unused vars prefixed with underscore
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 ]);

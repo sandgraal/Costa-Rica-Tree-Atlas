@@ -1,4 +1,4 @@
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import EcosystemServicesClient from "./EcosystemServicesClient";
 

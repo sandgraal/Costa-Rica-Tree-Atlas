@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import {
   PROVINCES,
-  REGIONS,
   MAP_VIEWBOX,
   COUNTRY_OUTLINE,
   NEIGHBORS,

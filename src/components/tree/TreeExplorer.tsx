@@ -3,10 +3,10 @@
 import { useState, useMemo, useCallback } from "react";
 import { useLocale } from "next-intl";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
-import { getUILabel, TAG_DEFINITIONS, getTagLabel } from "@/lib/i18n";
-import { TreeCard, TreeGrid } from "./TreeCard";
+import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
+import { TreeGrid } from "./TreeCard";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
-import type { TreeFilter, TreeSort, Locale, TreeTag } from "@/types/tree";
+import type { Tree, TreeFilter, TreeSort, Locale, TreeTag } from "@/types/tree";
 
 // ============================================================================
 // Types
@@ -25,6 +25,9 @@ type ViewMode = "grid" | "alphabetical";
 export function TreeExplorer({ trees }: TreeExplorerProps) {
   const locale = useLocale() as Locale;
 
+  // Cast trees to Tree type for search functions
+  const typedTrees = trees as unknown as Tree[];
+
   // State
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
@@ -36,23 +39,23 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   const [showFilters, setShowFilters] = useState(false);
 
   // Facets from all trees
-  const allFacets = useMemo(() => extractFacets(trees as any), [trees]);
+  const allFacets = useMemo(() => extractFacets(typedTrees), [typedTrees]);
 
   // Search and filter pipeline
   const displayTrees = useMemo(() => {
     // Step 1: Search
     let results = searchQuery
-      ? search(searchQuery, trees as any).map((r) => r.tree)
-      : trees;
+      ? search(searchQuery, typedTrees).map((r) => r.tree)
+      : typedTrees;
 
     // Step 2: Filter
-    results = filterTrees(results as any, filter);
+    results = filterTrees(results, filter);
 
     // Step 3: Sort
     results = sortTrees(results, sort);
 
     return results;
-  }, [trees, searchQuery, filter, sort]);
+  }, [typedTrees, searchQuery, filter, sort]);
 
   // Handlers
   const handleSearchChange = useCallback(
@@ -333,9 +336,15 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
         {/* Tree display */}
         {viewMode === "alphabetical" ? (
-          <AlphabeticalIndex trees={displayTrees as any} locale={locale} />
+          <AlphabeticalIndex
+            trees={displayTrees as unknown as ContentlayerTree[]}
+            locale={locale}
+          />
         ) : (
-          <TreeGrid trees={displayTrees as any} locale={locale} />
+          <TreeGrid
+            trees={displayTrees as unknown as ContentlayerTree[]}
+            locale={locale}
+          />
         )}
       </div>
     </div>

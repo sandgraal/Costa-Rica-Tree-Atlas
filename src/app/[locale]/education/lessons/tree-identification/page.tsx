@@ -1,4 +1,4 @@
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import TreeIdentificationClient from "./TreeIdentificationClient";
 
@@ -8,7 +8,6 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Education" });
 
   return {
     title:

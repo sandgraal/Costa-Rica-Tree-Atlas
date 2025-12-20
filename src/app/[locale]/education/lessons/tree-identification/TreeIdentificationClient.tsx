@@ -100,11 +100,9 @@ export default function TreeIdentificationClient(
 function TreeIdentificationContent({
   trees,
   locale,
-  totalSpecies,
-  totalFamilies,
 }: TreeIdentificationClientProps) {
   const { markLessonComplete } = useEducationProgress();
-  const [currentStep, setCurrentStep] = useState(0);
+  const [_currentStep, _setCurrentStep] = useState(0);
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "match">("learn");
   const [currentQuizTree, setCurrentQuizTree] = useState<TreeData | null>(null);
   const [quizOptions, setQuizOptions] = useState<TreeData[]>([]);
@@ -127,7 +125,7 @@ function TreeIdentificationContent({
   >([]);
   const [matchFirst, setMatchFirst] = useState<string | null>(null);
   const [matchMoves, setMatchMoves] = useState(0);
-  const [matchComplete, setMatchComplete] = useState(false);
+  const [_matchComplete, setMatchComplete] = useState(false);
   const [learnedTrees, setLearnedTrees] = useState<Set<string>>(new Set());
   const [showResults, setShowResults] = useState(false);
   const [selectedLearnTree, setSelectedLearnTree] = useState<TreeData | null>(

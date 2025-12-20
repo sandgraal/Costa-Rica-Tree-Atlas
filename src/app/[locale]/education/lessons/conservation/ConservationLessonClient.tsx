@@ -88,7 +88,6 @@ export default function ConservationLessonClient(
 }
 
 function ConservationLessonContent({
-  trees,
   locale,
   statusCounts,
   endangeredTrees,
