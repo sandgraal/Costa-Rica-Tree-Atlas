@@ -1,10 +1,11 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 
 export function Footer() {
   const t = useTranslations("footer");
   const nav = useTranslations("nav");
+  const locale = useLocale();
   const currentYear = new Date().getFullYear();
   const title = nav("title");
   const [brandPrefix, ...brandRest] = title.trim().split(/\s+/);
@@ -102,6 +103,14 @@ export function Footer() {
         <div className="border-t border-primary/10 mt-8 pt-8 text-center text-sm text-foreground/60">
           <p>{t("copyright", { year: currentYear })}</p>
           <p className="mt-1">{t("license")}</p>
+          <p className="mt-3 text-xs text-foreground/40">
+            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-foreground/5 rounded border border-foreground/10">
+              ?
+            </kbd>{" "}
+            <span className="hidden sm:inline">
+              {locale === "es" ? "para atajos de teclado" : "for keyboard shortcuts"}
+            </span>
+          </p>
         </div>
       </div>
     </footer>
