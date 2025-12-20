@@ -33,7 +33,10 @@ export default async function AboutPage({ params }: Props) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: locale === "es" ? "Sobre el Atlas de Árboles de Costa Rica" : "About Costa Rica Tree Atlas",
+    name:
+      locale === "es"
+        ? "Sobre el Atlas de Árboles de Costa Rica"
+        : "About Costa Rica Tree Atlas",
     description:
       locale === "es"
         ? "Un proyecto de código abierto dedicado a documentar la flora arbórea costarricense."
@@ -48,9 +51,7 @@ export default async function AboutPage({ params }: Props) {
         locale === "es"
           ? "Una guía bilingüe de código abierto para los árboles de Costa Rica."
           : "An open-source bilingual guide to Costa Rica's trees.",
-      sameAs: [
-        "https://github.com/sandgraal/Costa-Rica-Tree-Atlas"
-      ],
+      sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
     },
   };
 
