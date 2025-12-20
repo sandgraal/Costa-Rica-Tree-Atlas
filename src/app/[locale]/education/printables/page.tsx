@@ -68,6 +68,12 @@ export default async function PrintablesPage({ params }: Props) {
       locale === "es"
         ? "Guía paso a paso para identificar árboles por sus características."
         : "Step-by-step guide to identify trees by their characteristics.",
+    coloringPages:
+      locale === "es" ? "Páginas para Colorear" : "Coloring Pages",
+    coloringPagesDesc:
+      locale === "es"
+        ? "Páginas para colorear de árboles nativos. Perfectas para actividades creativas."
+        : "Coloring pages of native trees. Perfect for creative activities.",
     viewPrint: locale === "es" ? "Ver e Imprimir" : "View & Print",
     species: locale === "es" ? "especies" : "species",
     families: locale === "es" ? "familias" : "families",
@@ -194,6 +200,28 @@ export default async function PrintablesPage({ params }: Props) {
                 </p>
                 <Link
                   href="/education/printables/identification-key"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+                >
+                  <span>📄</span>
+                  {t.viewPrint}
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Coloring Pages */}
+          <div className="bg-card rounded-2xl border border-border p-6 hover:border-primary/30 transition-colors">
+            <div className="flex items-start gap-4">
+              <div className="text-4xl shrink-0">🎨</div>
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold text-foreground mb-2">
+                  {t.coloringPages}
+                </h2>
+                <p className="text-muted-foreground mb-4">
+                  {t.coloringPagesDesc}
+                </p>
+                <Link
+                  href="/education/printables/coloring-pages"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
                 >
                   <span>📄</span>

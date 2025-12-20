@@ -333,23 +333,40 @@ function EducationContent({ treeCount }: { treeCount: number }) {
             {t("printables.description")}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {printables.map((item) => (
-              <Link
-                key={item.id}
-                href={`/education/printables/${item.id === "tree-cards" ? "flashcards" : item.id === "species-checklist" ? "checklist" : item.id === "identification-key" ? "identification-key" : "families"}`}
-                className="bg-card rounded-lg p-4 border border-border flex items-center gap-3 hover:border-primary/50 hover:bg-primary/5 transition-colors group"
-              >
-                <span className="text-2xl">{item.icon}</span>
-                <div className="flex-1">
-                  <div className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">
-                    {t(`printables.${item.id}.title`)}
+            {printables.map((item) => {
+              const getHref = (id: string) => {
+                switch (id) {
+                  case "tree-cards":
+                    return "/education/printables/flashcards";
+                  case "species-checklist":
+                    return "/education/printables/checklist";
+                  case "identification-key":
+                    return "/education/printables/identification-key";
+                  case "coloring-pages":
+                    return "/education/printables/coloring-pages";
+                  default:
+                    return "/education/printables/families";
+                }
+              };
+
+              return (
+                <Link
+                  key={item.id}
+                  href={getHref(item.id)}
+                  className="bg-card rounded-lg p-4 border border-border flex items-center gap-3 hover:border-primary/50 hover:bg-primary/5 transition-colors group"
+                >
+                  <span className="text-2xl">{item.icon}</span>
+                  <div className="flex-1">
+                    <div className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">
+                      {t(`printables.${item.id}.title`)}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {item.format}
+                    </div>
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    {item.format}
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
           <div className="mt-4">
             <Link
