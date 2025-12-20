@@ -24,7 +24,27 @@ export function TreeList({ trees }: TreeListProps) {
     conservationStatus: "",
     tags: [],
     sortBy: "name",
+    seasonalFilter: "all",
   });
+
+  // Get current month for seasonal filtering
+  const currentMonth = useMemo(() => {
+    const months = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+    return months[new Date().getMonth()];
+  }, []);
 
   // Apply filters and sorting to search-filtered trees
   const displayTrees = useMemo(() => {
@@ -50,6 +70,29 @@ export function TreeList({ trees }: TreeListProps) {
       });
     }
 
+    // Apply seasonal filter
+    if (filters.seasonalFilter !== "all") {
+      result = result.filter((tree) => {
+        const treeWithSeasons = tree as Tree & {
+          floweringSeason?: string[];
+          fruitingSeason?: string[];
+        };
+
+        if (filters.seasonalFilter === "flowering") {
+          const flowering = treeWithSeasons.floweringSeason || [];
+          return (
+            flowering.includes(currentMonth) || flowering.includes("all-year")
+          );
+        } else if (filters.seasonalFilter === "fruiting") {
+          const fruiting = treeWithSeasons.fruitingSeason || [];
+          return (
+            fruiting.includes(currentMonth) || fruiting.includes("all-year")
+          );
+        }
+        return true;
+      });
+    }
+
     // Apply sorting
     result = [...result].sort((a, b) => {
       switch (filters.sortBy) {
@@ -64,7 +107,7 @@ export function TreeList({ trees }: TreeListProps) {
     });
 
     return result;
-  }, [searchFilteredTrees, filters]);
+  }, [searchFilteredTrees, filters, currentMonth]);
 
   const handleSearchFilter = (filtered: Tree[]) => {
     setSearchFilteredTrees(filtered);

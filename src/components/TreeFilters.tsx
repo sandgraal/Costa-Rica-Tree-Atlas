@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import type { Tree } from "contentlayer/generated";
 import { TreeTag, TAG_DEFINITIONS, type TagName } from "./TreeTags";
 
@@ -15,15 +15,18 @@ export interface FilterState {
   conservationStatus: string;
   tags: string[];
   sortBy: "name" | "scientific" | "family";
+  seasonalFilter: "all" | "flowering" | "fruiting";
 }
 
 export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
   const t = useTranslations("trees");
+  const locale = useLocale();
   const [filters, setFilters] = useState<FilterState>({
     family: "",
     conservationStatus: "",
     tags: [],
     sortBy: "name",
+    seasonalFilter: "all",
   });
   const [showTagFilter, setShowTagFilter] = useState(false);
 
@@ -61,13 +64,17 @@ export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
       conservationStatus: "",
       tags: [],
       sortBy: "name",
+      seasonalFilter: "all",
     };
     setFilters(resetFilters);
     onFilterChange(resetFilters);
   };
 
   const hasActiveFilters =
-    filters.family || filters.conservationStatus || filters.tags.length > 0;
+    filters.family ||
+    filters.conservationStatus ||
+    filters.tags.length > 0 ||
+    filters.seasonalFilter !== "all";
 
   // Extract unique tags from trees
   const availableTags = useMemo(() => {
@@ -209,6 +216,47 @@ export function TreeFilters({ trees, onFilterChange }: TreeFiltersProps) {
           )}
         </div>
       )}
+
+      {/* Seasonal Filter - Active Now */}
+      <div className="mt-4 pt-4 border-t border-border">
+        <p className="text-sm font-medium text-muted-foreground mb-2">
+          {locale === "es" ? "Actividad Actual" : "Current Activity"}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => handleFilterChange("seasonalFilter", "all")}
+            className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+              filters.seasonalFilter === "all"
+                ? "bg-muted text-foreground font-medium"
+                : "text-muted-foreground hover:bg-muted/50"
+            }`}
+          >
+            {locale === "es" ? "Todos" : "All"}
+          </button>
+          <button
+            onClick={() => handleFilterChange("seasonalFilter", "flowering")}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full transition-colors ${
+              filters.seasonalFilter === "flowering"
+                ? "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 font-medium"
+                : "text-muted-foreground hover:bg-muted/50"
+            }`}
+          >
+            <span>🌸</span>
+            {locale === "es" ? "Floreciendo ahora" : "Flowering now"}
+          </button>
+          <button
+            onClick={() => handleFilterChange("seasonalFilter", "fruiting")}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full transition-colors ${
+              filters.seasonalFilter === "fruiting"
+                ? "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 font-medium"
+                : "text-muted-foreground hover:bg-muted/50"
+            }`}
+          >
+            <span>🍇</span>
+            {locale === "es" ? "Fructificando ahora" : "Fruiting now"}
+          </button>
+        </div>
+      </div>
 
       {/* Active Filters Display */}
       {hasActiveFilters && (
