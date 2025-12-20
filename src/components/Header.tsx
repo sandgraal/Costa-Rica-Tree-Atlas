@@ -53,13 +53,7 @@ export function Header() {
               href="/identify"
               className="text-foreground/80 hover:text-primary transition-colors"
             >
-              {tIdentify("navLink")}
-            </Link>
-            <Link
-              href="/compare"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {tCompare("navLink")}
+              {t("identify")}
             </Link>
             <Link
               href="/about"

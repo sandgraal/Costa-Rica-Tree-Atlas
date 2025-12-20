@@ -5,6 +5,7 @@
     "title": "CR Trees",
     "home": "Home",
     "trees": "Trees",
+    "identify": "Identify",
     "about": "About"
   },
   "home": {
@@ -135,98 +136,18 @@
       "description": "Costa Rica Tree Atlas is released under the MIT License. The content is free to use, share, and adapt with attribution."
     }
   },
-  "comparison": {
-    "title": "Tree Comparison Tool",
-    "subtitle": "Compare characteristics of different tree species side by side",
-    "selectTree": "Select a tree",
-    "selectPlaceholder": "Add a tree to compare...",
-    "addTree": "Add tree",
-    "removeTree": "Remove",
-    "noTreesSelected": "Select up to 4 trees to compare their characteristics",
-    "clearAll": "Clear all",
-    "navLink": "Compare",
-    "properties": {
-      "image": "Image",
-      "commonName": "Common Name",
-      "scientificName": "Scientific Name",
-      "family": "Family",
-      "maxHeight": "Max Height",
-      "nativeRegion": "Native Region",
-      "conservationStatus": "Conservation",
-      "uses": "Uses",
-      "tags": "Characteristics"
-    }
-  },
-  "identification": {
-    "title": "Tree Identification Guide",
-    "subtitle": "Answer questions about the tree you observed to find possible matches",
-    "restart": "Start Over",
-    "resultsTitle": "Possible Matches",
-    "noResults": "No trees match your criteria. Try changing some answers.",
-    "matchingTrees": "trees found",
-    "confidence": "Match confidence",
-    "navLink": "Identify",
-    "questions": {
-      "foliage": {
-        "question": "Does the tree lose its leaves seasonally?",
-        "options": {
-          "deciduous": "Yes, drops leaves in dry season",
-          "evergreen": "No, stays green year-round",
-          "unknown": "I'm not sure"
-        }
-      },
-      "flowering": {
-        "question": "Does the tree have showy flowers?",
-        "options": {
-          "showy": "Yes, colorful/large flowers",
-          "inconspicuous": "No, small or hidden flowers",
-          "unknown": "I'm not sure"
-        }
-      },
-      "fruit": {
-        "question": "Does the tree produce edible fruit?",
-        "options": {
-          "edible": "Yes, edible fruit",
-          "nonEdible": "No edible fruit",
-          "unknown": "I'm not sure"
-        }
-      },
-      "origin": {
-        "question": "Is this tree native to Costa Rica?",
-        "options": {
-          "native": "Yes, native species",
-          "introduced": "No, introduced from elsewhere",
-          "unknown": "I'm not sure"
-        }
-      },
-      "size": {
-        "question": "How tall is the tree?",
-        "options": {
-          "tall": "Very tall (over 25m)",
-          "medium": "Medium height (under 25m)",
-          "unknown": "I'm not sure"
-        }
-      },
-      "habitat": {
-        "question": "Where did you observe the tree?",
-        "options": {
-          "dryForest": "Dry forest / Guanacaste region",
-          "rainforest": "Rainforest / Humid lowlands",
-          "coastal": "Coastal / Beach areas",
-          "highland": "Highland / Mountain forest",
-          "unknown": "I'm not sure"
-        }
-      },
-      "uses": {
-        "question": "What is the tree primarily used for?",
-        "options": {
-          "timber": "Timber / Wood products",
-          "medicinal": "Medicinal purposes",
-          "ornamental": "Shade or ornamental",
-          "ecological": "Ecological value (wildlife, soil)",
-          "unknown": "I'm not sure"
-        }
-      }
-    }
+  "identify": {
+    "title": "Identify a Tree",
+    "subtitle": "Upload a clear photo of a tree or leaf to find the closest matches in the atlas.",
+    "uploadLabel": "Tree photo",
+    "uploadHelp": "JPG or PNG, up to 10MB.",
+    "submit": "Identify tree",
+    "loading": "Analyzing image...",
+    "resultsTitle": "Best matches",
+    "noResults": "No matching trees found. Try another photo.",
+    "labelsTitle": "Detected labels",
+    "matchScore": "Match score: {score}%",
+    "errorMissingFile": "Please select an image to upload.",
+    "errorFailed": "We couldn't identify that image. Please try another."
   }
 }
