@@ -9,7 +9,9 @@
     "lint": "next lint",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
-    "contentlayer": "contentlayer2 build"
+    "contentlayer": "contentlayer2 build",
+    "images:check": "node scripts/cleanup-tree-images.mjs",
+    "images:cleanup": "node scripts/cleanup-tree-images.mjs --write"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

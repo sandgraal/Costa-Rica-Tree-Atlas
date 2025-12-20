@@ -1,0 +1,40 @@
+name: Nightly Image Cleanup
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh tree images
+        run: node scripts/cleanup-tree-images.mjs --write
+
+      - name: Create Pull Request
+        if: ${{ always() }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: nightly tree image cleanup"
+          title: "chore: nightly tree image cleanup"
+          body: "Automated cleanup for tree images and iNaturalist links."
+          branch: "automation/nightly-image-cleanup"
+          labels: "automation"
+          delete-branch: true
