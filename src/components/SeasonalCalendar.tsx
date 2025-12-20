@@ -127,6 +127,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         locale === "es"
           ? "Selecciona un mes para ver qué árboles están activos"
           : "Select a month to see which trees are active",
+      previousMonth: locale === "es" ? "Mes anterior" : "Previous month",
+      nextMonth: locale === "es" ? "Mes siguiente" : "Next month",
       noTrees:
         locale === "es"
           ? "No hay árboles con datos de temporada disponibles"
@@ -362,6 +364,47 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         </div>
       )}
 
+      {/* List View Month Navigation */}
+      {viewMode === "list" && selectedMonth && (
+        <div className="flex items-center justify-center gap-4">
+          <button
+            onClick={() => {
+              const currentIndex = MONTHS.indexOf(selectedMonth);
+              const prevIndex = currentIndex === 0 ? 11 : currentIndex - 1;
+              setSelectedMonth(MONTHS[prevIndex]);
+            }}
+            className="p-2 rounded-lg border border-border hover:bg-muted transition-colors"
+            aria-label={labels.previousMonth}
+          >
+            <ChevronLeftIcon className="h-5 w-5" />
+          </button>
+
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className="px-4 py-2 rounded-lg border border-border bg-background text-foreground font-medium min-w-[150px] text-center appearance-none cursor-pointer hover:bg-muted transition-colors"
+          >
+            {MONTHS.map((month) => (
+              <option key={month} value={month}>
+                {fullMonthLabels[month]}
+              </option>
+            ))}
+          </select>
+
+          <button
+            onClick={() => {
+              const currentIndex = MONTHS.indexOf(selectedMonth);
+              const nextIndex = currentIndex === 11 ? 0 : currentIndex + 1;
+              setSelectedMonth(MONTHS[nextIndex]);
+            }}
+            className="p-2 rounded-lg border border-border hover:bg-muted transition-colors"
+            aria-label={labels.nextMonth}
+          >
+            <ChevronRightIcon className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+
       {/* Selected Month Details */}
       {selectedMonth && (
         <div className="mt-8">
@@ -526,6 +569,40 @@ function FruitIcon({ className }: { className?: string }) {
       <path d="M17.5 6.5c0 2.5-2.5 5-5 5s-5-2.5-5-5" />
       <path d="M12 2v4" />
       <path d="M12 11.5c-4.5 0-7.5 3-7.5 8.5h15c0-5.5-3-8.5-7.5-8.5z" />
+    </svg>
+  );
+}
+
+function ChevronLeftIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  );
+}
+
+function ChevronRightIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M9 18l6-6-6-6" />
     </svg>
   );
 }

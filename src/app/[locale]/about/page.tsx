@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -77,15 +78,15 @@ function AboutContent() {
     <article className="prose prose-lg dark:prose-invert mx-auto">
       {/* Header */}
       <div className="text-center mb-12 not-prose">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-10 h-10 text-primary"
-          >
-            <path d="M12 2C9.5 2 7 4 7 7c0 1.5.5 2.5 1 3.5-1.5.5-3 1.5-3 4 0 2 1 3.5 2.5 4.5-.5 1-1 2-1 3.5v.5h11v-.5c0-1.5-.5-2.5-1-3.5 1.5-1 2.5-2.5 2.5-4.5 0-2.5-1.5-3.5-3-4C16.5 9.5 17 8.5 17 7c0-3-2.5-5-5-5z" />
-          </svg>
+        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 overflow-hidden shadow-lg ring-4 ring-primary/20">
+          <Image
+            src="/images/cr-tree-atlas-logo.png"
+            alt="Costa Rica Tree Atlas Logo"
+            width={96}
+            height={96}
+            className="object-cover"
+            priority
+          />
         </div>
         <h1 className="text-4xl font-bold text-primary-dark dark:text-primary-light mb-4">
           {t("title")}
