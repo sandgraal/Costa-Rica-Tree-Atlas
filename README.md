@@ -201,10 +201,11 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 
 - [x] **Tree of the Day**: Daily rotating featured tree on homepage
 - [x] **Mobile Navigation**: Full-screen responsive menu with quick actions
+- [x] **Audio Pronunciation**: Text-to-speech for scientific names using Web Speech API
+- [x] **Favorites System**: Save and bookmark trees with localStorage persistence
 
 ### 💡 Future Ideas
 
-- Audio pronunciations for scientific names
 - AR tree identification using device camera
 - Partnership with Costa Rican conservation organizations
 - Multi-language expansion (German, French for tourists)
