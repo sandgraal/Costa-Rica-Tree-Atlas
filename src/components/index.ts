@@ -1,4 +1,7 @@
-export { ThemeProvider, useTheme } from "./ThemeProvider";
+// Re-export from new unified store
+export { useStore, useFavorite, useThemeSync } from "@/lib/store";
+export { StoreProvider, QueryProvider } from "./providers";
+
 export { ThemeToggle } from "./ThemeToggle";
 export { LanguageSwitcher } from "./LanguageSwitcher";
 export { Header } from "./Header";
@@ -27,14 +30,9 @@ export { ConservationStatus, ConservationScale } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
 export { PronunciationButton } from "./PronunciationButton";
-export { FavoritesProvider, useFavorites } from "./FavoritesProvider";
 export { FavoriteButton } from "./FavoriteButton";
 export { FavoritesLink } from "./FavoritesLink";
 export { TreeCardWithFavorite } from "./TreeCardWithFavorite";
-export {
-  RecentlyViewedProvider,
-  useRecentlyViewed,
-} from "./RecentlyViewedProvider";
 export { TrackView } from "./TrackView";
 export { RecentlyViewedList } from "./RecentlyViewedList";
 export { ExportFavoritesButton } from "./ExportFavoritesButton";
@@ -47,3 +45,12 @@ export {
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
+
+// Deprecation re-exports for backwards compatibility during migration
+// TODO: Remove these after full migration
+export { ThemeProvider, useTheme } from "./ThemeProvider";
+export { FavoritesProvider, useFavorites } from "./FavoritesProvider";
+export {
+  RecentlyViewedProvider,
+  useRecentlyViewed,
+} from "./RecentlyViewedProvider";

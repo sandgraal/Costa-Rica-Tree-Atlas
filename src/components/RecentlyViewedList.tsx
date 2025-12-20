@@ -2,7 +2,7 @@
 
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
-import { useRecentlyViewed } from "./RecentlyViewedProvider";
+import { useStore } from "@/lib/store";
 import { allTrees } from "contentlayer/generated";
 
 interface RecentlyViewedListProps {
@@ -21,7 +21,8 @@ export function RecentlyViewedList({
   locale,
   limit = 6,
 }: RecentlyViewedListProps) {
-  const { recentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
+  const recentlyViewed = useStore((state) => state.recentlyViewed);
+  const clearRecentlyViewed = useStore((state) => state.clearRecentlyViewed);
 
   const t = {
     title: locale === "es" ? "Vistos Recientemente" : "Recently Viewed",

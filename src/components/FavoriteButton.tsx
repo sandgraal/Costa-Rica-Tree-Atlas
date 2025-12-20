@@ -1,6 +1,6 @@
 "use client";
 
-import { useFavorites } from "./FavoritesProvider";
+import { useStore } from "@/lib/store";
 
 interface FavoriteButtonProps {
   slug: string;
@@ -23,8 +23,9 @@ export function FavoriteButton({
   showLabel = false,
   className = "",
 }: FavoriteButtonProps) {
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const favorited = isFavorite(slug);
+  const favorites = useStore((state) => state.favorites);
+  const toggleFavorite = useStore((state) => state.toggleFavorite);
+  const favorited = favorites.includes(slug);
 
   const labels = {
     add: locale === "es" ? "Añadir a favoritos" : "Add to favorites",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useFavorites } from "@/components/FavoritesProvider";
+import { useStore } from "@/lib/store";
 import { allTrees } from "contentlayer/generated";
 
 interface ExportFavoritesButtonProps {
@@ -8,7 +8,7 @@ interface ExportFavoritesButtonProps {
 }
 
 export function ExportFavoritesButton({ locale }: ExportFavoritesButtonProps) {
-  const { favorites } = useFavorites();
+  const favorites = useStore((state) => state.favorites);
 
   const t = {
     export: locale === "es" ? "Exportar guía" : "Export field guide",

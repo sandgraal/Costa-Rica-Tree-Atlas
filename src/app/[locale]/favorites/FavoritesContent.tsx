@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useFavorites } from "@/components/FavoritesProvider";
+import { useStore } from "@/lib/store";
 import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
 import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
@@ -13,7 +13,9 @@ interface FavoritesContentProps {
 }
 
 export function FavoritesContent({ locale }: FavoritesContentProps) {
-  const { favorites, clearFavorites, addFavorite } = useFavorites();
+  const favorites = useStore((state) => state.favorites);
+  const clearFavorites = useStore((state) => state.clearFavorites);
+  const addFavorite = useStore((state) => state.addFavorite);
   const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
   const [shareStatus, setShareStatus] = useState<"idle" | "copied">("idle");
   const [isSharedList, setIsSharedList] = useState(false);

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { useTheme } from "./ThemeProvider";
+import { useStore } from "@/lib/store";
 import { useTranslations } from "next-intl";
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const theme = useStore((state) => state.theme);
+  const resolvedTheme = useStore((state) => state.resolvedTheme);
+  const setTheme = useStore((state) => state.setTheme);
   const t = useTranslations("theme");
 
   const cycleTheme = useCallback(() => {
