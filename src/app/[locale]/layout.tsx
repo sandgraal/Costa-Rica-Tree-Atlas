@@ -56,6 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   return {
+    metadataBase: new URL("https://costa-rica-tree-atlas.vercel.app"),
     title: {
       default: t.siteTitle,
       template: `%s | ${t.siteTitle}`,
