@@ -13,10 +13,7 @@ import { PronunciationButton } from "@/components/PronunciationButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { TrackView } from "@/components/TrackView";
 import Image from "next/image";
-
-// Default blur placeholder for image loading
-const BLUR_DATA_URL =
-  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDVhMjciIG9wYWNpdHk9IjAuMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhiNWEyYiIgb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==";
+import { BLUR_DATA_URL } from "@/lib/image";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
