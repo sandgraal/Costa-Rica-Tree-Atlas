@@ -149,7 +149,7 @@ export function QuickSearch() {
 
       {/* Search Modal */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] bg-black/50 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
@@ -158,7 +158,10 @@ export function QuickSearch() {
           <div className="w-full max-w-lg mx-4 bg-card rounded-xl shadow-2xl border border-border overflow-hidden">
             {/* Search Input */}
             <div className="flex items-center border-b border-border px-4">
-              <SearchIcon className="h-5 w-5 text-muted-foreground shrink-0" aria-hidden="true" />
+              <SearchIcon
+                className="h-5 w-5 text-muted-foreground shrink-0"
+                aria-hidden="true"
+              />
               <input
                 ref={inputRef}
                 type="search"
@@ -180,7 +183,9 @@ export function QuickSearch() {
                   setQuery("");
                 }}
                 className="p-1 text-muted-foreground hover:text-foreground"
-                aria-label={locale === "es" ? "Cerrar búsqueda" : "Close search"}
+                aria-label={
+                  locale === "es" ? "Cerrar búsqueda" : "Close search"
+                }
               >
                 <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs border border-border">
                   ESC
