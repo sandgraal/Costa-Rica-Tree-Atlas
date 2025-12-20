@@ -185,7 +185,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 
 #### Phase 4: Performance & Accessibility
 
-- [ ] **Performance Audit**: Core Web Vitals optimization
+- [x] **Performance Audit**: Core Web Vitals optimization
 - [x] **Accessibility Audit**: WCAG 2.1 AA compliance verification
 - [x] **PWA Support**: Offline access for field use
 - [ ] **Analytics Integration**: Privacy-respecting usage analytics
@@ -239,11 +239,11 @@ git push origin feature/add-ceiba-tree
 
 The vision-based tree identification feature requires a Google Cloud Vision API key. Future integrations may require additional keys:
 
-| Variable                   | Description                          | Required |
-| -------------------------- | ------------------------------------ | -------- |
+| Variable                      | Description                                          | Required               |
+| ----------------------------- | ---------------------------------------------------- | ---------------------- |
 | `GOOGLE_CLOUD_VISION_API_KEY` | Google Cloud Vision API key for image identification | Yes (identify feature) |
-| `NEXT_PUBLIC_ANALYTICS_ID` | Analytics tracking ID                | No       |
-| `NEXT_PUBLIC_MAPS_API_KEY` | Maps API key for geographic features | No       |
+| `NEXT_PUBLIC_ANALYTICS_ID`    | Analytics tracking ID                                | No                     |
+| `NEXT_PUBLIC_MAPS_API_KEY`    | Maps API key for geographic features                 | No                     |
 
 Create a `.env.local` file for local development when needed:
 

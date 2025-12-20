@@ -12,11 +12,15 @@ import type { Metadata, Viewport } from "next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false, // Only preload primary font
 });
 
 export function generateStaticParams() {
@@ -101,6 +105,13 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* Preconnect to external image hosts for faster loading */}
+        <link rel="preconnect" href="https://inaturalist-open-data.s3.amazonaws.com" />
+        <link rel="preconnect" href="https://static.inaturalist.org" />
+        <link rel="dns-prefetch" href="https://inaturalist-open-data.s3.amazonaws.com" />
+        <link rel="dns-prefetch" href="https://static.inaturalist.org" />
+        
+        {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

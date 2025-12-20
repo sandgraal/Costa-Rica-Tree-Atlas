@@ -132,9 +132,19 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
+  /* Use hardware acceleration for smoother animations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Smooth transitions for theme changes only - not blocking initial paint */
+body.theme-transition,
+body.theme-transition * {
   transition:
     background-color 0.3s ease,
-    color 0.3s ease;
+    color 0.3s ease,
+    border-color 0.3s ease !important;
 }
 
 /* Typography for MDX content */

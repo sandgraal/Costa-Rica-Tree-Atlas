@@ -94,11 +94,17 @@ export function DistributionMap({
   const hasDistribution = expandedDistribution.length > 0;
 
   const labels = {
-    title: locale === "es" ? "Distribución en Costa Rica" : "Distribution in Costa Rica",
+    title:
+      locale === "es"
+        ? "Distribución en Costa Rica"
+        : "Distribution in Costa Rica",
     elevation: locale === "es" ? "Elevación" : "Elevation",
     present: locale === "es" ? "Presente" : "Present",
     notRecorded: locale === "es" ? "No registrado" : "Not recorded",
-    clickForInfo: locale === "es" ? "Pasa el cursor para más información" : "Hover for details",
+    clickForInfo:
+      locale === "es"
+        ? "Pasa el cursor para más información"
+        : "Hover for details",
   };
 
   if (!hasDistribution && !elevation) {
@@ -122,7 +128,14 @@ export function DistributionMap({
             aria-label={labels.title}
           >
             {/* Water background */}
-            <rect x="0" y="0" width="360" height="280" fill="currentColor" className="text-blue-100 dark:text-blue-900/30" />
+            <rect
+              x="0"
+              y="0"
+              width="360"
+              height="280"
+              fill="currentColor"
+              className="text-blue-100 dark:text-blue-900/30"
+            />
 
             {/* Costa Rica outline background */}
             <path
@@ -232,7 +245,11 @@ export function DistributionMap({
             {hoveredProvince ? (
               <span>
                 <strong>
-                  {provinces[hoveredProvince as keyof typeof provinces]?.name[locale as "en" | "es"]}
+                  {
+                    provinces[hoveredProvince as keyof typeof provinces]?.name[
+                      locale as "en" | "es"
+                    ]
+                  }
                 </strong>
                 :{" "}
                 {expandedDistribution.includes(hoveredProvince)
@@ -265,7 +282,9 @@ export function DistributionMap({
           {/* Elevation */}
           {elevation && (
             <div className="pt-4 border-t border-border">
-              <p className="text-sm text-muted-foreground mb-1">{labels.elevation}</p>
+              <p className="text-sm text-muted-foreground mb-1">
+                {labels.elevation}
+              </p>
               <p className="font-medium flex items-center gap-2">
                 <MountainIcon className="h-4 w-4 text-primary" />
                 {elevation}
@@ -285,7 +304,11 @@ export function DistributionMap({
                     key={region}
                     className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full"
                   >
-                    {provinces[region as keyof typeof provinces]?.name[locale as "en" | "es"]}
+                    {
+                      provinces[region as keyof typeof provinces]?.name[
+                        locale as "en" | "es"
+                      ]
+                    }
                   </span>
                 ))}
               </div>
