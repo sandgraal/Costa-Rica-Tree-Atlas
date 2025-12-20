@@ -2,7 +2,7 @@
 
 ## Current Image Status
 
-All 54 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
+All 55 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
 
 ### Attribution File
 
@@ -12,33 +12,88 @@ All image attributions are tracked in `/public/images/trees/attributions.json`. 
 - Source observation URL on iNaturalist
 - Download timestamp
 
-### Automated Image Download Script
+---
 
-Use `scripts/download-tree-images.mjs` to download or update tree images:
+## Image Management Commands
+
+### Quick Reference
+
+| Command                         | Description                     |
+| ------------------------------- | ------------------------------- |
+| `npm run images:audit`          | Check status of all tree images |
+| `npm run images:download`       | Download missing/broken images  |
+| `npm run images:download:force` | Re-download all images          |
+| `npm run images:refresh`        | Check for better quality images |
+
+### Detailed Usage
 
 ```bash
-# Dry run - preview what will be downloaded
-node scripts/download-tree-images.mjs --dry-run
+# Audit - Check all images and report issues
+npm run images:audit
 
-# Download images for trees with placeholder URLs
-node scripts/download-tree-images.mjs
+# Download - Fix missing/broken images only
+npm run images:download
 
-# Force re-download all images
-node scripts/download-tree-images.mjs --force
+# Download with force - Re-download ALL images
+npm run images:download:force
 
-# Download for a specific tree
-node scripts/download-tree-images.mjs --tree=guanacaste
+# Refresh - Check iNaturalist for potentially better images
+npm run images:refresh
+
+# Process a single tree
+node scripts/manage-tree-images.mjs download --tree=guanacaste
+
+# Dry run (preview changes without modifying files)
+node scripts/manage-tree-images.mjs download --dry-run
 ```
 
-The script:
+### How It Works
 
-1. Searches iNaturalist API for each tree's taxon
-2. Finds research-grade photos (prioritizing Costa Rica observations)
-3. Downloads the highest-voted photos
-4. Resizes to 1200px width
-5. Saves as optimized JPEG
-6. Updates MDX frontmatter to use local paths
-7. Records attribution data
+The image management script (`scripts/manage-tree-images.mjs`):
+
+1. **Audit Mode**: Scans all tree MDX files and checks:
+   - Local images exist and are valid (>20KB)
+   - Remote URLs are accessible
+   - Identifies placeholders, broken links, and missing images
+
+2. **Download Mode**: For each tree needing an image:
+   - Searches iNaturalist API for the tree's taxon
+   - Fetches research-grade photos (Costa Rica first, then global)
+   - Downloads highest-voted photos
+   - Resizes to 1200px width (using Sharp, ImageMagick, or sips)
+   - Saves as optimized JPEG (85% quality)
+   - Updates both EN and ES MDX frontmatter
+   - Records attribution in `attributions.json`
+
+3. **Refresh Mode**: Compares current images against iNaturalist to find potentially better photos (higher vote counts).
+
+### Cross-Platform Support
+
+The script works in multiple environments:
+
+- **macOS**: Uses `sips` (built-in) or Sharp
+- **Linux/CI**: Uses ImageMagick or Sharp
+- **All platforms**: Falls back to Sharp (Node.js)
+
+---
+
+## Nightly Image Maintenance
+
+A GitHub Actions workflow runs nightly at 3 AM UTC:
+
+1. **Audits** all tree images for issues
+2. **Downloads** missing or broken images automatically
+3. **Updates** iNaturalist links in MDX files
+4. **Creates a PR** if any changes were made
+
+### Manual Trigger
+
+You can manually run the workflow from GitHub Actions with these modes:
+
+- `audit` - Check images only
+- `download` - Download missing images
+- `download-force` - Re-download all images
+- `refresh` - Check for better images
 
 ---
 
