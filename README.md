@@ -243,10 +243,11 @@ git push origin feature/add-ceiba-tree
 
 ## 🔧 Environment Variables
 
-Currently, no environment variables are required for basic development. Future integrations may require:
+The vision-based tree identification feature requires a Google Cloud Vision API key. Future integrations may require additional keys:
 
 | Variable                   | Description                          | Required |
 | -------------------------- | ------------------------------------ | -------- |
+| `GOOGLE_CLOUD_VISION_API_KEY` | Google Cloud Vision API key for image identification | Yes (identify feature) |
 | `NEXT_PUBLIC_ANALYTICS_ID` | Analytics tracking ID                | No       |
 | `NEXT_PUBLIC_MAPS_API_KEY` | Maps API key for geographic features | No       |
 
