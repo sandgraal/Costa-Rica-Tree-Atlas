@@ -36,12 +36,56 @@ export default async function EducationPage({ params }: Props) {
   // Get tree count for stats
   const treeCount = allTrees.filter((t) => t.locale === locale).length;
 
+  // Structured data for Education page
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name:
+      locale === "es"
+        ? "Recursos Educativos - Atlas de Árboles de Costa Rica"
+        : "Educational Resources - Costa Rica Tree Atlas",
+    description:
+      locale === "es"
+        ? "Planes de lecciones, actividades de aula y materiales educativos sobre los árboles de Costa Rica."
+        : "Lesson plans, classroom activities, and educational materials about Costa Rica trees.",
+    url: `https://costaricatreeatlas.com/${locale}/education`,
+    mainEntity: {
+      "@type": "Course",
+      name:
+        locale === "es"
+          ? "Aprendiendo sobre Árboles de Costa Rica"
+          : "Learning About Costa Rica Trees",
+      description:
+        locale === "es"
+          ? "Recursos educativos gratuitos para aprender sobre la flora arbórea costarricense."
+          : "Free educational resources to learn about Costa Rican tree flora.",
+      provider: {
+        "@type": "Organization",
+        name: "Costa Rica Tree Atlas",
+        url: "https://costaricatreeatlas.com",
+      },
+      isAccessibleForFree: true,
+      audience: {
+        "@type": "EducationalAudience",
+        educationalRole: "teacher",
+      },
+      educationalLevel: "K-12",
+      inLanguage: locale === "es" ? "es" : "en",
+    },
+  };
+
   return (
-    <div className="py-12 px-4">
-      <div className="container mx-auto max-w-6xl">
-        <EducationContent treeCount={treeCount} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="py-12 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <EducationContent treeCount={treeCount} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

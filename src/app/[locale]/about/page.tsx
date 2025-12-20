@@ -29,12 +29,43 @@ export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  // Structured data for About page
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: locale === "es" ? "Sobre el Atlas de Árboles de Costa Rica" : "About Costa Rica Tree Atlas",
+    description:
+      locale === "es"
+        ? "Un proyecto de código abierto dedicado a documentar la flora arbórea costarricense."
+        : "An open-source project dedicated to documenting Costa Rican trees.",
+    url: `https://costaricatreeatlas.com/${locale}/about`,
+    mainEntity: {
+      "@type": "Organization",
+      name: "Costa Rica Tree Atlas",
+      url: "https://costaricatreeatlas.com",
+      logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+      description:
+        locale === "es"
+          ? "Una guía bilingüe de código abierto para los árboles de Costa Rica."
+          : "An open-source bilingual guide to Costa Rica's trees.",
+      sameAs: [
+        "https://github.com/sandgraal/Costa-Rica-Tree-Atlas"
+      ],
+    },
+  };
+
   return (
-    <div className="py-12 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <AboutContent />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="py-12 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <AboutContent />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
