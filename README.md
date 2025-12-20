@@ -174,7 +174,7 @@ The nature-inspired color palette is defined in `src/app/globals.css`:
 - [x] **Print-Friendly Views**: Optimized layouts for field guides
 - [x] **Comparison Tool**: Side-by-side comparison of tree characteristics
 - [x] **Identification Guide**: Interactive key for identifying trees by features
-- [ ] **Interactive Maps**: Geographic distribution maps showing where species are found
+- [x] **Interactive Maps**: Geographic distribution maps showing where species are found
 
 #### Phase 3: Community & Data
 

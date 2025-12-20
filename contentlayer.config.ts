@@ -64,6 +64,18 @@ export const Tree = defineDocumentType(() => ({
         "Characteristic tags (deciduous, evergreen, flowering, fruit-bearing, native, endangered, etc.)",
       required: false,
     },
+    distribution: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Geographic distribution regions in Costa Rica (e.g., guanacaste, puntarenas, limon, san-jose, alajuela, cartago, heredia, pacific-coast, caribbean-coast, central-valley, northern-zone)",
+      required: false,
+    },
+    elevation: {
+      type: "string",
+      description: "Elevation range where the tree is found (e.g., '0-1500m')",
+      required: false,
+    },
     featuredImage: {
       type: "string",
       description: "Path to the featured image",

@@ -5,6 +5,7 @@ import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import { MDXContent } from "@/components/MDXContent";
 import { PrintButton } from "@/components/PrintButton";
+import { DistributionMap } from "@/components/DistributionMap";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -215,6 +216,13 @@ export default async function TreePage({ params }: Props) {
             </div>
           </div>
         )}
+
+        {/* Distribution Map */}
+        <DistributionMap
+          distribution={tree.distribution}
+          elevation={tree.elevation}
+          locale={locale}
+        />
 
         {/* MDX Content */}
         <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-primary-dark dark:prose-headings:text-primary-light prose-a:text-primary hover:prose-a:text-primary-light">
