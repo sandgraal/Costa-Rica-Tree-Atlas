@@ -1,0 +1,134 @@
+"use client";
+
+import { Link } from "@i18n/navigation";
+import Image from "next/image";
+import { useRecentlyViewed } from "./RecentlyViewedProvider";
+import { allTrees } from "contentlayer/generated";
+
+interface RecentlyViewedListProps {
+  locale: string;
+  limit?: number;
+}
+
+const BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDVhMjciIG9wYWNpdHk9IjAuMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhiNWEyYiIgb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==";
+
+/**
+ * RecentlyViewedList - Displays user's recently viewed trees
+ * Shows a horizontal scrollable list of recently viewed tree thumbnails.
+ */
+export function RecentlyViewedList({
+  locale,
+  limit = 6,
+}: RecentlyViewedListProps) {
+  const { recentlyViewed, clearRecentlyViewed } = useRecentlyViewed();
+
+  const t = {
+    title: locale === "es" ? "Vistos Recientemente" : "Recently Viewed",
+    clear: locale === "es" ? "Limpiar" : "Clear",
+    empty:
+      locale === "es"
+        ? "No has visto árboles recientemente"
+        : "No recently viewed trees",
+  };
+
+  // Get full tree data for viewed slugs
+  const viewedTrees = recentlyViewed
+    .slice(0, limit)
+    .map((slug) => allTrees.find((t) => t.slug === slug && t.locale === locale))
+    .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined);
+
+  if (viewedTrees.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="py-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+          <ClockIcon className="h-5 w-5 text-muted-foreground" />
+          {t.title}
+        </h3>
+        <button
+          onClick={clearRecentlyViewed}
+          className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+        >
+          {t.clear}
+        </button>
+      </div>
+
+      <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+        {viewedTrees.map((tree) => (
+          <Link
+            key={tree._id}
+            href={`/trees/${tree.slug}`}
+            className="flex-shrink-0 group"
+          >
+            <div className="w-28 md:w-32">
+              <div className="relative aspect-square rounded-lg overflow-hidden bg-muted mb-2">
+                {tree.featuredImage ? (
+                  <Image
+                    src={tree.featuredImage}
+                    alt={tree.title}
+                    fill
+                    sizes="128px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <TreeIcon className="w-8 h-8 text-primary/30" />
+                  </div>
+                )}
+              </div>
+              <p className="text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
+                {tree.title}
+              </p>
+              <p className="text-xs text-muted-foreground italic truncate">
+                {tree.scientificName}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ClockIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+
+function TreeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M12 22V8" />
+      <path d="M5 12l7-10 7 10" />
+      <path d="M5 12a7 7 0 0 0 14 0" />
+    </svg>
+  );
+}

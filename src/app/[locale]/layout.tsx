@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FavoritesProvider } from "@/components/FavoritesProvider";
+import { RecentlyViewedProvider } from "@/components/RecentlyViewedProvider";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -180,26 +181,28 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <ThemeProvider>
           <FavoritesProvider>
-            <NextIntlClientProvider messages={messages}>
-              <a href="#main-content" className="skip-link">
-                Skip to main content
-              </a>
-              <Header />
-              <main id="main-content" className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-              <ScrollToTop />
-              <PWARegister />
-              {/* Privacy-respecting analytics - configure via env vars */}
-              <Analytics
-                plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-                enableSimpleAnalytics={
-                  process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
-                }
-                googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
-              />
-            </NextIntlClientProvider>
+            <RecentlyViewedProvider>
+              <NextIntlClientProvider messages={messages}>
+                <a href="#main-content" className="skip-link">
+                  Skip to main content
+                </a>
+                <Header />
+                <main id="main-content" className="flex-grow">
+                  {children}
+                </main>
+                <Footer />
+                <ScrollToTop />
+                <PWARegister />
+                {/* Privacy-respecting analytics - configure via env vars */}
+                <Analytics
+                  plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+                  enableSimpleAnalytics={
+                    process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
+                  }
+                  googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+                />
+              </NextIntlClientProvider>
+            </RecentlyViewedProvider>
           </FavoritesProvider>
         </ThemeProvider>
       </body>

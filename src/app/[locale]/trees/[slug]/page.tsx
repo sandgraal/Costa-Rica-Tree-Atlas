@@ -11,6 +11,7 @@ import { BiodiversityInfo } from "@/components/BiodiversityInfo";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
 import { PronunciationButton } from "@/components/PronunciationButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { TrackView } from "@/components/TrackView";
 import Image from "next/image";
 
 // Default blur placeholder for image loading
@@ -161,6 +162,7 @@ export default async function TreePage({ params }: Props) {
 
   return (
     <>
+      <TrackView slug={tree.slug} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { TreeCardWithFavorite } from "@/components/TreeCardWithFavorite";
+import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -66,6 +67,13 @@ export default async function HomePage({ params }: Props) {
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <TreeOfTheDay trees={trees} locale={locale} />
+        </div>
+      </section>
+
+      {/* Recently Viewed (client-side, only shows if user has history) */}
+      <section className="px-4">
+        <div className="container mx-auto max-w-6xl">
+          <RecentlyViewedList locale={locale} />
         </div>
       </section>
 

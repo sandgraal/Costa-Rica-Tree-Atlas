@@ -33,6 +33,12 @@ export { FavoriteButton } from "./FavoriteButton";
 export { FavoritesLink } from "./FavoritesLink";
 export { TreeCardWithFavorite } from "./TreeCardWithFavorite";
 export {
+  RecentlyViewedProvider,
+  useRecentlyViewed,
+} from "./RecentlyViewedProvider";
+export { TrackView } from "./TrackView";
+export { RecentlyViewedList } from "./RecentlyViewedList";
+export {
   AnnouncerProvider,
   useAnnounce,
   VisuallyHidden,
