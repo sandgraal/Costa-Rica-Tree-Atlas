@@ -24,14 +24,14 @@ export function RandomTree({ trees, translations }: RandomTreeProps) {
 
   const selectRandomTree = useCallback(() => {
     setIsAnimating(true);
-    
+
     // Get a different tree than the current one
-    const availableTrees = currentTree 
+    const availableTrees = currentTree
       ? trees.filter((t) => t.slug !== currentTree.slug)
       : trees;
-    
+
     const randomIndex = Math.floor(Math.random() * availableTrees.length);
-    
+
     // Delay setting the new tree for animation effect
     setTimeout(() => {
       setCurrentTree(availableTrees[randomIndex]);
@@ -88,7 +88,9 @@ export function RandomTree({ trees, translations }: RandomTreeProps) {
                 <h3 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-1">
                   {currentTree.title}
                 </h3>
-                <p className="text-secondary italic mb-2">{currentTree.scientificName}</p>
+                <p className="text-secondary italic mb-2">
+                  {currentTree.scientificName}
+                </p>
                 <p className="text-sm text-muted-foreground mb-4">
                   {currentTree.family}
                 </p>

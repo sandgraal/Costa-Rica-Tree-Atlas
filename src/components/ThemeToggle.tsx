@@ -8,7 +8,11 @@ export function ThemeToggle() {
   const t = useTranslations("theme");
 
   const cycleTheme = () => {
-    const themes: Array<"light" | "dark" | "system"> = ["light", "dark", "system"];
+    const themes: Array<"light" | "dark" | "system"> = [
+      "light",
+      "dark",
+      "system",
+    ];
     const currentIndex = themes.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themes.length;
     setTheme(themes[nextIndex]);

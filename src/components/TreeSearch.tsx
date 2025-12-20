@@ -53,7 +53,10 @@ export function TreeSearch({ trees, onFilteredTrees }: TreeSearchProps) {
           aria-label={t("searchPlaceholder")}
           className="w-full px-4 py-3 pl-12 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
         />
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" aria-hidden="true">
+        <div
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+          aria-hidden="true"
+        >
           <SearchIcon className="h-5 w-5" />
         </div>
         {searchQuery && (

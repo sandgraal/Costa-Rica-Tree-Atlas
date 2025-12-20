@@ -21,7 +21,11 @@ export { TreeComparison } from "./TreeComparison";
 export { IdentificationGuide } from "./IdentificationGuide";
 export { RandomTree } from "./RandomTree";
 export { PWARegister } from "./PWARegister";
-export { AnnouncerProvider, useAnnounce, VisuallyHidden } from "./Accessibility";
+export {
+  AnnouncerProvider,
+  useAnnounce,
+  VisuallyHidden,
+} from "./Accessibility";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
