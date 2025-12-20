@@ -31,11 +31,11 @@ export function MobileNav() {
   const navLinks = [
     { href: "/", label: t("home") },
     { href: "/trees", label: t("trees") },
-    { href: "/favorites", label: locale === "es" ? "Favoritos" : "Favorites" },
-    { href: "/compare", label: locale === "es" ? "Comparar" : "Compare" },
+    { href: "/favorites", label: t("favorites") },
+    { href: "/compare", label: t("compare") },
     { href: "/identify", label: t("identify") },
     { href: "/seasonal", label: t("seasonal") },
-    { href: "/education", label: locale === "es" ? "Educación" : "Education" },
+    { href: "/education", label: t("education") },
     { href: "/about", label: t("about") },
   ];
 

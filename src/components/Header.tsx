@@ -65,7 +65,13 @@ export function Header() {
               href="/compare"
               className="text-foreground/80 hover:text-primary transition-colors"
             >
-              {locale === "es" ? "Comparar" : "Compare"}
+              {t("compare")}
+            </Link>
+            <Link
+              href="/education"
+              className="text-foreground/80 hover:text-primary transition-colors"
+            >
+              {t("education")}
             </Link>
             <Link
               href="/about"
