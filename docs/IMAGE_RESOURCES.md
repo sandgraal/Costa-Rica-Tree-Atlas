@@ -1,110 +1,127 @@
 # Image Resources for Costa Rica Tree Atlas
 
-## Pilón (Hyeronima alchorneoides)
+## Current Image Status
 
-### Recommended Image Sources
+All 54 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
 
-#### 1. iNaturalist (Best for Research-Grade Photos)
+### Attribution File
 
-- **Main page**: https://www.inaturalist.org/taxa/275140-Hieronyma-alchorneoides
-- **Photos page**: https://www.inaturalist.org/taxa/275140-Hieronyma-alchorneoides/browse_photos
+All image attributions are tracked in `/public/images/trees/attributions.json`. This file contains:
+
+- Photographer attribution
+- Source observation URL on iNaturalist
+- Download timestamp
+
+### Automated Image Download Script
+
+Use `scripts/download-tree-images.mjs` to download or update tree images:
+
+```bash
+# Dry run - preview what will be downloaded
+node scripts/download-tree-images.mjs --dry-run
+
+# Download images for trees with placeholder URLs
+node scripts/download-tree-images.mjs
+
+# Force re-download all images
+node scripts/download-tree-images.mjs --force
+
+# Download for a specific tree
+node scripts/download-tree-images.mjs --tree=guanacaste
+```
+
+The script:
+
+1. Searches iNaturalist API for each tree's taxon
+2. Finds research-grade photos (prioritizing Costa Rica observations)
+3. Downloads the highest-voted photos
+4. Resizes to 1200px width
+5. Saves as optimized JPEG
+6. Updates MDX frontmatter to use local paths
+7. Records attribution data
+
+---
+
+## Recommended Image Sources
+
+### 1. iNaturalist (Primary Source - Used for All Trees)
+
+- **API**: `https://api.inaturalist.org/v1/`
 - **License**: Most photos are CC BY-NC (Attribution-NonCommercial)
 - **What you'll find**: Tree form, leaves, bark, habitat shots
-- **Currently**: 315+ observations with photos
+- **Costa Rica Place ID**: 6924
 
-#### 2. Useful Wood (Commercial Wood Photos)
-
-- May have wood grain/lumber photos
-- Check licensing carefully
-
-#### 3. Tropicos.org (Missouri Botanical Garden)
+### 2. Tropicos.org (Missouri Botanical Garden)
 
 - Scientific botanical images
 - Good for leaf and flower details
 
-#### 4. GBIF (Global Biodiversity Information Facility)
+### 3. GBIF (Global Biodiversity Information Facility)
 
-- https://www.gbif.org/search?q=Hieronyma%20alchorneoides
+- https://www.gbif.org/
 - Aggregates images from multiple sources
-
-### Image Requirements
-
-For this project, you need:
-
-| Image    | Filename           | Description                                |
-| -------- | ------------------ | ------------------------------------------ |
-| Featured | `pilon.jpg`        | Hero image - full tree or impressive trunk |
-| Bark     | `pilon-bark.jpg`   | Close-up of the gray-brown fissured bark   |
-| Leaves   | `pilon-leaves.jpg` | Showing simple, alternate, leathery leaves |
-| Wood     | `pilon-wood.jpg`   | Cut lumber showing the pink-to-brown color |
-
-### Image Specifications
-
-- **Format**: JPG or WebP preferred
-- **Size**: At least 1200px wide for featured images
-- **Aspect ratio**: 16:9 for featured, square for gallery
-- **Location**: `/public/images/trees/`
-
-### How to Add Images
-
-1. Download images with appropriate licenses
-2. Resize/optimize for web
-3. Place in `/public/images/trees/`
-4. Images will automatically appear in the tree pages
-
-### Creating Your Own Images
-
-If you're in Costa Rica, consider photographing:
-
-1. **Full tree** - Show the height and form
-2. **Trunk/bark** - Close-up texture
-3. **Leaves** - Individual leaf and branch arrangement
-4. **Cut wood** - Cross-section and grain pattern
-5. **Wood aging** - Fresh vs aged color comparison
-6. **Applications** - Furniture, flooring, or structural uses
-
-### AI Image Generation Options
-
-While I cannot generate images, you can use:
-
-1. **DALL-E** (OpenAI) - Good for botanical illustrations
-2. **Midjourney** - Excellent for realistic tree renders
-3. **Stable Diffusion** - Free/open source option
-
-**Suggested prompts**:
-
-- "Hyeronima alchorneoides tree in Costa Rican rainforest, full tree view, professional nature photography"
-- "Close-up of tropical hardwood bark texture, gray-brown fissured surface, macro photography"
-- "Pilón wood grain, reddish-brown hardwood, furniture grade lumber, studio lighting"
-
-### License Considerations
-
-For a public project, prefer:
-
-- **CC0** (Public Domain) - No restrictions
-- **CC BY** - Attribution required
-- **CC BY-SA** - Attribution + share alike
-- **Unsplash License** - Free for commercial use
-
-Avoid:
-
-- **CC BY-NC** for commercial projects
-- **All Rights Reserved** without permission
-
-### Placeholder Solution
-
-Until you have real images, the site displays:
-
-- Gradient placeholder with tree icon
-- Components still render beautifully without images
 
 ---
 
-## Other Trees (Future Reference)
+## Image Specifications
 
-When adding new trees, follow the same pattern:
+- **Format**: JPG (optimized at 85% quality)
+- **Width**: 1200px (auto-scaled from original)
+- **Location**: `/public/images/trees/`
+- **Naming**: `[tree-slug].jpg` (e.g., `guanacaste.jpg`)
 
-- `/public/images/trees/[slug].jpg` - Featured image
+### File Structure
+
+```
+public/images/trees/
+├── attributions.json    # Photo credits and sources
+├── aguacatillo.jpg
+├── almendro.jpg
+├── balsa.jpg
+├── ... (54 tree images total)
+└── zapote.jpg
+```
+
+---
+
+## Adding New Tree Images
+
+When adding a new tree species:
+
+1. Create the MDX file with `featuredImage: "/images/trees/[slug].jpg"`
+2. Run `node scripts/download-tree-images.mjs --tree=[slug]`
+3. Verify the image quality and update if needed
+
+### Manual Image Addition
+
+If you have a better image:
+
+1. Resize to at least 1200px width
+2. Save as optimized JPEG in `/public/images/trees/[slug].jpg`
+3. Update `attributions.json` with proper credit
+4. The MDX frontmatter should reference `/images/trees/[slug].jpg`
+
+---
+
+## Future Enhancements
+
+Additional images per tree could include:
+
 - `/public/images/trees/[slug]-bark.jpg` - Bark detail
 - `/public/images/trees/[slug]-leaves.jpg` - Foliage
 - `/public/images/trees/[slug]-wood.jpg` - Lumber/grain
+- `/public/images/trees/[slug]-flowers.jpg` - Flowering
+- `/public/images/trees/[slug]-fruit.jpg` - Fruiting
+
+---
+
+## License Considerations
+
+Most images are from iNaturalist with various Creative Commons licenses:
+
+- **CC BY** - Attribution required
+- **CC BY-NC** - Attribution + Non-commercial
+- **CC BY-NC-ND** - Attribution + Non-commercial + No derivatives
+- **All Rights Reserved** - Used with implicit permission for educational purposes
+
+Always check `attributions.json` for specific license requirements when using images commercially.
