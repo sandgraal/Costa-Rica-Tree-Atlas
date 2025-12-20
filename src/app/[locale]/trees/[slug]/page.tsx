@@ -129,11 +129,41 @@ export default async function TreePage({ params }: Props) {
     },
   };
 
+  // Breadcrumb structured data for navigation
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: locale === "es" ? "Inicio" : "Home",
+        item: `https://costaricatreeatlas.com/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: locale === "es" ? "Árboles" : "Trees",
+        item: `https://costaricatreeatlas.com/${locale}/trees`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: tree.title,
+        item: `https://costaricatreeatlas.com/${locale}/trees/${slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       <article className="py-12 px-4 tree-detail">
       <div className="container mx-auto max-w-4xl">
