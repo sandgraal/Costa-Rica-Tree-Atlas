@@ -52,6 +52,12 @@ export function Header() {
               {t("trees")}
             </Link>
             <Link
+              href="/map"
+              className="text-foreground/80 hover:text-primary transition-colors"
+            >
+              {t("map")}
+            </Link>
+            <Link
               href="/identify"
               className="text-foreground/80 hover:text-primary transition-colors"
             >

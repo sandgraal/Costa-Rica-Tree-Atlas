@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
+import { FieldTripMap } from "@/components/maps";
+import type { Locale } from "@/types/tree";
 
 interface Tree {
   title: string;
@@ -348,6 +350,25 @@ export default function FieldTripClient({
 
       {/* Main Content */}
       <div className="container mx-auto max-w-4xl px-4 py-6">
+        {/* Field Trip Map */}
+        {spottedTrees.length > 0 && (
+          <div className="mb-6">
+            <FieldTripMap
+              spottedTrees={spottedTrees}
+              trees={trees}
+              locale={locale as Locale}
+              onMarkerClick={(slug) => {
+                const tree = trees.find((t) => t.slug === slug);
+                if (tree) {
+                  setSelectedTree(tree);
+                  const spotted = spottedTrees.find((s) => s.slug === slug);
+                  setNoteInput(spotted?.notes || "");
+                }
+              }}
+            />
+          </div>
+        )}
+
         {/* Quick Tips */}
         <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 mb-6 border border-yellow-200 dark:border-yellow-800">
           <h3 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2 flex items-center gap-2">

@@ -31,6 +31,7 @@ export function MobileNav() {
   const navLinks = [
     { href: "/", label: t("home") },
     { href: "/trees", label: t("trees") },
+    { href: "/map", label: t("map") },
     { href: "/favorites", label: t("favorites") },
     { href: "/compare", label: t("compare") },
     { href: "/identify", label: t("identify") },
