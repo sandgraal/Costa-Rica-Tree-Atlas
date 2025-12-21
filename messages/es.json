@@ -363,6 +363,34 @@
         "description": "Usa la herramienta de comparación para mostrar múltiples árboles lado a lado y analizar sus diferencias."
       }
     },
+    "interactive": {
+      "title": "Herramientas de Aprendizaje Interactivas",
+      "description": "Involucra a los estudiantes con estas funciones interactivas diseñadas para hacer el aprendizaje sobre los árboles de Costa Rica divertido y memorable.",
+      "mapGame": {
+        "title": "Juego del Mapa de Costa Rica",
+        "description": "Aprende las regiones de Costa Rica y descubre qué árboles crecen en cada una en este quiz interactivo."
+      },
+      "fieldTrip": {
+        "title": "Modo Excursión",
+        "description": "¡Lleva tu aprendizaje al aire libre! Registra avistamientos de árboles, añade notas y desarrolla tus habilidades de observación."
+      },
+      "classroom": {
+        "title": "Tabla de Posiciones del Aula",
+        "description": "Crea un aula virtual, sigue el progreso de los estudiantes y mira quién está aprendiendo más."
+      },
+      "certificate": {
+        "title": "Certificados de Logros",
+        "description": "Celebra los hitos de aprendizaje con certificados imprimibles que muestran tu conocimiento sobre árboles."
+      },
+      "teacher": {
+        "title": "Portal del Profesor",
+        "description": "Accede a planes de lección, claves de respuesta, guías de alineación curricular y actividades de extensión."
+      },
+      "progress": {
+        "title": "Mi Progreso",
+        "description": "Sigue tu viaje de aprendizaje, gana insignias y mira tus logros."
+      }
+    },
     "cta": {
       "title": "¿Listo para Comenzar?",
       "description": "Explora nuestra colección de árboles costarricenses o prueba nuestra función de identificación con tus estudiantes.",

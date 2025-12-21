@@ -322,6 +322,91 @@ function EducationContent({ treeCount }: { treeCount: number }) {
         </div>
       </section>
 
+      {/* Interactive Tools - NEW FEATURES */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-foreground mb-6 flex items-center gap-3">
+          <span className="text-3xl">🎮</span>
+          {t("interactive.title")}
+        </h2>
+        <p className="text-muted-foreground mb-6">
+          {t("interactive.description")}
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Link
+            href="/education/map-game"
+            className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-6 border border-blue-500/20 hover:border-blue-500/50 transition-all group"
+          >
+            <div className="text-4xl mb-3">🗺️</div>
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {t("interactive.mapGame.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("interactive.mapGame.description")}
+            </p>
+          </Link>
+          <Link
+            href="/education/field-trip"
+            className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 hover:border-green-500/50 transition-all group"
+          >
+            <div className="text-4xl mb-3">🥾</div>
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {t("interactive.fieldTrip.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("interactive.fieldTrip.description")}
+            </p>
+          </Link>
+          <Link
+            href="/education/classroom"
+            className="bg-gradient-to-br from-amber-500/10 to-yellow-500/10 rounded-xl p-6 border border-amber-500/20 hover:border-amber-500/50 transition-all group"
+          >
+            <div className="text-4xl mb-3">🏆</div>
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {t("interactive.classroom.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("interactive.classroom.description")}
+            </p>
+          </Link>
+          <Link
+            href="/education/certificate"
+            className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all group"
+          >
+            <div className="text-4xl mb-3">📜</div>
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {t("interactive.certificate.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("interactive.certificate.description")}
+            </p>
+          </Link>
+          <Link
+            href="/education/teacher"
+            className="bg-gradient-to-br from-indigo-500/10 to-violet-500/10 rounded-xl p-6 border border-indigo-500/20 hover:border-indigo-500/50 transition-all group"
+          >
+            <div className="text-4xl mb-3">👩‍🏫</div>
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {t("interactive.teacher.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("interactive.teacher.description")}
+            </p>
+          </Link>
+          <Link
+            href="/education/progress"
+            className="bg-gradient-to-br from-rose-500/10 to-orange-500/10 rounded-xl p-6 border border-rose-500/20 hover:border-rose-500/50 transition-all group"
+          >
+            <div className="text-4xl mb-3">📊</div>
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {t("interactive.progress.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {t("interactive.progress.description")}
+            </p>
+          </Link>
+        </div>
+      </section>
+
       {/* Printable Resources */}
       <section className="mb-12">
         <h2 className="text-2xl font-semibold text-foreground mb-6 flex items-center gap-3">

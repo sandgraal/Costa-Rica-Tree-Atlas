@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
-import CertificateClient from "./CertificateClient";
+import ClassroomClient from "./ClassroomClient";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -13,26 +13,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title:
       locale === "es"
-        ? "Certificado de Logros - Atlas de Árboles de Costa Rica"
-        : "Achievement Certificate - Costa Rica Tree Atlas",
+        ? "Aula Virtual - Atlas de Árboles de Costa Rica"
+        : "Classroom - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Genera tu certificado personalizado de logros en el Atlas de Árboles de Costa Rica."
-        : "Generate your personalized achievement certificate from Costa Rica Tree Atlas.",
+        ? "Crea o únete a un aula virtual para seguir el progreso de tu clase."
+        : "Create or join a virtual classroom to track your class progress.",
   };
 }
 
-export default async function CertificatePage({ params }: Props) {
+export default async function ClassroomPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const t = {
-    title:
-      locale === "es" ? "Certificado de Logros" : "Achievement Certificate",
+    title: locale === "es" ? "Aula Virtual" : "Virtual Classroom",
     subtitle:
       locale === "es"
-        ? "Genera tu certificado personalizado al completar lecciones"
-        : "Generate your personalized certificate upon completing lessons",
+        ? "Crea o únete a un aula para competir con tus compañeros"
+        : "Create or join a classroom to compete with classmates",
     backToEducation:
       locale === "es"
         ? "← Volver a Recursos Educativos"
@@ -50,9 +49,9 @@ export default async function CertificatePage({ params }: Props) {
         </Link>
 
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-yellow-500/10 rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500/10 rounded-full mb-6">
             <span className="text-4xl" role="img" aria-hidden="true">
-              📜
+              🏆
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -63,7 +62,7 @@ export default async function CertificatePage({ params }: Props) {
           </p>
         </div>
 
-        <CertificateClient locale={locale} />
+        <ClassroomClient locale={locale} />
       </div>
     </div>
   );

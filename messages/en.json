@@ -291,6 +291,34 @@
         "description": "Use the comparison tool to display multiple trees side-by-side and analyze their differences."
       }
     },
+    "interactive": {
+      "title": "Interactive Learning Tools",
+      "description": "Engage students with these interactive features designed to make learning about Costa Rica's trees fun and memorable.",
+      "mapGame": {
+        "title": "Costa Rica Map Game",
+        "description": "Learn Costa Rica's regions and discover which trees grow where in this interactive quiz."
+      },
+      "fieldTrip": {
+        "title": "Field Trip Mode",
+        "description": "Take your learning outdoors! Track tree sightings, add notes, and build your observation skills."
+      },
+      "classroom": {
+        "title": "Classroom Leaderboard",
+        "description": "Create a virtual classroom, track student progress, and see who's learning the most."
+      },
+      "certificate": {
+        "title": "Achievement Certificates",
+        "description": "Celebrate learning milestones with printable certificates that showcase your tree knowledge."
+      },
+      "teacher": {
+        "title": "Teacher Dashboard",
+        "description": "Access lesson plans, answer keys, curriculum alignment guides, and extension activities."
+      },
+      "progress": {
+        "title": "My Progress",
+        "description": "Track your learning journey, earn badges, and see your accomplishments."
+      }
+    },
     "cta": {
       "title": "Ready to Start?",
       "description": "Explore our collection of Costa Rican trees or try our tree identification feature with your students.",

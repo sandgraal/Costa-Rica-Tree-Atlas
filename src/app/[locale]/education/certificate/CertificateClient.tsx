@@ -60,20 +60,20 @@ function CertificateContent({ locale }: CertificateClientProps) {
         : "Complete at least one lesson to get your certificate!",
     startLearning: locale === "es" ? "Comenzar a Aprender" : "Start Learning",
     requirements: locale === "es" ? "Requisitos" : "Requirements",
-    currentProgress: locale === "es" ? "Tu Progreso Actual" : "Your Current Progress",
+    currentProgress:
+      locale === "es" ? "Tu Progreso Actual" : "Your Current Progress",
     lessonsReq:
       locale === "es"
         ? "Completar al menos 1 lección"
         : "Complete at least 1 lesson",
-    nameReq:
-      locale === "es"
-        ? "Ingresar tu nombre"
-        : "Enter your name",
+    nameReq: locale === "es" ? "Ingresar tu nombre" : "Enter your name",
   };
 
   const lessonNames = {
     "biodiversity-intro":
-      locale === "es" ? "Introducción a la Biodiversidad" : "Introduction to Biodiversity",
+      locale === "es"
+        ? "Introducción a la Biodiversidad"
+        : "Introduction to Biodiversity",
     "tree-identification":
       locale === "es" ? "Identificación de Árboles" : "Tree Identification",
     conservation: locale === "es" ? "Conservación" : "Conservation",
@@ -87,14 +87,14 @@ function CertificateContent({ locale }: CertificateClientProps) {
 
   const handleDownload = async () => {
     if (!certificateRef.current) return;
-    
+
     // Use html2canvas dynamically
     const html2canvas = (await import("html2canvas")).default;
     const canvas = await html2canvas(certificateRef.current, {
       scale: 2,
       backgroundColor: "#ffffff",
     });
-    
+
     const link = document.createElement("a");
     link.download = `certificate-${studentName.replace(/\s+/g, "-").toLowerCase()}.png`;
     link.href = canvas.toDataURL("image/png");
@@ -115,7 +115,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
         <div className="bg-card border border-border rounded-2xl p-8 max-w-md mx-auto">
           <div className="text-6xl mb-4">🎓</div>
           <p className="text-lg text-muted-foreground mb-6">{t.noProgress}</p>
-          
+
           <div className="bg-muted/50 rounded-xl p-4 mb-6 text-left">
             <h3 className="font-semibold mb-3">{t.requirements}:</h3>
             <ul className="space-y-2 text-sm">
@@ -133,7 +133,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
               </li>
             </ul>
           </div>
-          
+
           <a
             href={`/${locale}/education/lessons`}
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
@@ -170,14 +170,16 @@ function CertificateContent({ locale }: CertificateClientProps) {
                 <div className="text-sm text-muted-foreground">{t.points}</div>
               </div>
             </div>
-            
+
             {earnedBadges.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {earnedBadges.map((badge) => (
                   <span
                     key={badge.id}
                     className="px-3 py-1 bg-yellow-500/20 rounded-full text-sm flex items-center gap-1"
-                    title={locale === "es" ? badge.descriptionEs : badge.description}
+                    title={
+                      locale === "es" ? badge.descriptionEs : badge.description
+                    }
                   >
                     {badge.icon} {locale === "es" ? badge.nameEs : badge.name}
                   </span>
@@ -281,7 +283,9 @@ function CertificateContent({ locale }: CertificateClientProps) {
                 <div className="text-3xl font-bold text-green-700">
                   {completedLessons}/4
                 </div>
-                <div className="text-sm text-gray-500">{t.lessonsCompleted}</div>
+                <div className="text-sm text-gray-500">
+                  {t.lessonsCompleted}
+                </div>
               </div>
               <div className="text-4xl">🏆</div>
               <div className="text-center">
