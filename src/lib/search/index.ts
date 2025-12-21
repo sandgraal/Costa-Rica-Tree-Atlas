@@ -215,7 +215,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
       .sort((a, b) => b.count - a.count),
     tags: Array.from(tagMap.entries())
       .map(([value, count]) => ({ value, count }))
-      .sort((a, b) => b.count - a.count),
+      .sort((a, b) => a.value.localeCompare(b.value)),
     distributions: Array.from(distMap.entries())
       .map(([value, count]) => ({ value, count }))
       .sort((a, b) => b.count - a.count),
