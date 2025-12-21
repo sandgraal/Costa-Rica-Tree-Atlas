@@ -145,24 +145,37 @@ Gallery images are selected based on:
 
 ---
 
-## Recommended Image Sources
+## Image Sources (Priority Order)
 
-### 1. iNaturalist (Primary Source - Used for All Trees)
+### 1. iNaturalist (Primary Source)
 
 - **API**: `https://api.inaturalist.org/v1/`
 - **License**: Most photos are CC BY-NC (Attribution-NonCommercial)
 - **What you'll find**: Tree form, leaves, bark, habitat shots
 - **Costa Rica Place ID**: 6924
+- **Priority**: Research-grade observations first, then needs-ID, then any quality
+- **Used for**: All trees with documented observations
 
-### 2. Tropicos.org (Missouri Botanical Garden)
+### 2. GBIF (Global Biodiversity Information Facility) - Fallback
+
+- **API**: `https://api.gbif.org/v1/`
+- **License**: Various (check individual records)
+- **What you'll find**: Herbarium specimens, field photos
+- **Used for**: Rare species without iNaturalist coverage (e.g., Orey - Campnosperma panamense)
+- **Note**: Filters out herbarium specimen images for better visual appeal
+
+### 3. Wikimedia Commons - Secondary Fallback
+
+- **API**: `https://commons.wikimedia.org/w/api.php`
+- **License**: CC BY-SA typically
+- **What you'll find**: General botanical images
+- **Used for**: Species with no other available sources
+
+### 4. Tropicos.org (Missouri Botanical Garden)
 
 - Scientific botanical images
 - Good for leaf and flower details
-
-### 3. GBIF (Global Biodiversity Information Facility)
-
-- https://www.gbif.org/
-- Aggregates images from multiple sources
+- Manual reference only (no API integration)
 
 ---
 

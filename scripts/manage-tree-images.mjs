@@ -63,10 +63,12 @@ const dryRun = flags.has("--dry-run");
 const verbose = flags.has("--verbose");
 const specificTree = args.find((a) => a.startsWith("--tree="))?.split("=")[1];
 
-// Scientific name fixes for problematic species
+// Scientific name fixes for problematic species (genus-level or incorrect names)
 const SCIENTIFIC_NAME_FIXES = {
   matapalo: "Ficus aurea",
   pochote: "Ceiba aesculifolia", // Better match than Pachira quinata
+  "roble-encino": "Quercus costaricensis", // Genus-level "Quercus spp." doesn't work
+  orey: "Campnosperma panamense", // Very rare, but correct name
 };
 
 // Logging utilities
@@ -186,6 +188,96 @@ async function checkRemoteImage(url) {
   }
 }
 
+// GBIF API - Fallback for rare species
+async function getGBIFPhotos(scientificName, limit = 5) {
+  const photos = [];
+
+  try {
+    // First find the species key
+    const matchUrl = `https://api.gbif.org/v1/species/match?name=${encodeURIComponent(scientificName)}`;
+    const matchData = await fetchJson(matchUrl);
+
+    if (!matchData.usageKey) {
+      log.verbose(`GBIF: No match for ${scientificName}`);
+      return photos;
+    }
+
+    // Search for occurrences with images
+    const occUrl = `https://api.gbif.org/v1/occurrence/search?taxonKey=${matchData.usageKey}&mediaType=StillImage&limit=${limit * 2}`;
+    const occData = await fetchJson(occUrl);
+
+    for (const result of occData.results || []) {
+      if (!result.media || result.media.length === 0) continue;
+
+      for (const media of result.media) {
+        if (!media.identifier) continue;
+        // Skip herbarium specimens URLs (usually have "herbarium" in publisher or specific patterns)
+        const url = media.identifier;
+        if (
+          url.includes("herbarium") ||
+          url.includes("collections.nmnh") ||
+          url.includes("sweetgum.nybg")
+        ) {
+          continue;
+        }
+
+        photos.push({
+          id: `gbif-${result.key}`,
+          url: media.identifier,
+          attribution: media.creator || media.rightsHolder || "GBIF",
+          source: "GBIF",
+          license: media.license || "Unknown",
+        });
+
+        if (photos.length >= limit) break;
+      }
+      if (photos.length >= limit) break;
+    }
+  } catch (err) {
+    log.verbose(`GBIF search failed: ${err.message}`);
+  }
+
+  return photos;
+}
+
+// Wikimedia Commons API - Another fallback
+async function getWikimediaPhotos(scientificName, limit = 5) {
+  const photos = [];
+
+  try {
+    const searchUrl = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(scientificName)}&srnamespace=6&format=json&srlimit=${limit}`;
+    const searchData = await fetchJson(searchUrl);
+
+    for (const result of searchData.query?.search || []) {
+      // Get image info
+      const title = result.title;
+      const infoUrl = `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=imageinfo&iiprop=url|user&format=json`;
+
+      try {
+        const infoData = await fetchJson(infoUrl);
+        const pages = infoData.query?.pages || {};
+        const page = Object.values(pages)[0];
+
+        if (page?.imageinfo?.[0]?.url) {
+          photos.push({
+            id: `wikimedia-${page.pageid}`,
+            url: page.imageinfo[0].url,
+            attribution: page.imageinfo[0].user || "Wikimedia Commons",
+            source: "Wikimedia Commons",
+            license: "CC BY-SA",
+          });
+        }
+      } catch {
+        // Skip this image
+      }
+    }
+  } catch (err) {
+    log.verbose(`Wikimedia search failed: ${err.message}`);
+  }
+
+  return photos;
+}
+
 // iNaturalist API
 async function searchTaxon(scientificName) {
   const url = `https://api.inaturalist.org/v1/taxa?q=${encodeURIComponent(scientificName)}&rank=species&is_active=true&per_page=5`;
@@ -212,7 +304,7 @@ async function getTopPhotos(taxonId, limit = 15) {
   const photos = [];
   const seen = new Set();
 
-  // First try Costa Rica observations
+  // First try Costa Rica observations (research-grade)
   const crUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&place_id=${COSTA_RICA_PLACE_ID}&photos=true&quality_grade=research&order_by=votes&per_page=${limit}`;
 
   try {
@@ -222,7 +314,7 @@ async function getTopPhotos(taxonId, limit = 15) {
     log.verbose(`Costa Rica search failed: ${err.message}`);
   }
 
-  // If not enough, expand globally
+  // If not enough, expand globally (research-grade)
   if (photos.length < 5) {
     const globalUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&quality_grade=research&order_by=votes&per_page=${limit}`;
 
@@ -231,6 +323,38 @@ async function getTopPhotos(taxonId, limit = 15) {
       extractPhotos(globalData.results || [], photos, seen);
     } catch (err) {
       log.verbose(`Global search failed: ${err.message}`);
+    }
+  }
+
+  // FALLBACK: If still no photos, try needs_id quality (less strict)
+  if (photos.length === 0) {
+    log.verbose(`No research-grade photos, trying needs_id quality...`);
+    const needsIdUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&quality_grade=needs_id&order_by=votes&per_page=${limit}`;
+
+    try {
+      const needsIdData = await fetchJson(needsIdUrl);
+      extractPhotos(needsIdData.results || [], photos, seen);
+    } catch (err) {
+      log.verbose(`Needs-ID search failed: ${err.message}`);
+    }
+  }
+
+  // FALLBACK 2: Try any quality grade as last resort
+  if (photos.length === 0) {
+    log.verbose(`No needs_id photos, trying any quality...`);
+    const anyUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&order_by=votes&per_page=${limit}`;
+
+    try {
+      const anyData = await fetchJson(anyUrl);
+      // Filter out copyright-blocked images
+      const filtered = (anyData.results || []).filter((obs) =>
+        obs.photos?.some(
+          (p) => p.url && !p.url.includes("copyright-infringement")
+        )
+      );
+      extractPhotos(filtered, photos, seen);
+    } catch (err) {
+      log.verbose(`Any quality search failed: ${err.message}`);
     }
   }
 
@@ -773,12 +897,36 @@ async function processTree(treeName, scientificName, options = {}) {
     return { success: false, reason: "Taxon not found on iNaturalist" };
   }
 
-  // Get photos
+  // Get photos from iNaturalist (primary source)
   await sleep(300); // Rate limiting
-  const photos = await getTopPhotos(taxon.id);
+  let photos = await getTopPhotos(taxon.id);
+  let photoSource = "iNaturalist";
+
+  // FALLBACK: Try GBIF if no iNaturalist photos
+  if (photos.length === 0) {
+    log.verbose(`No iNaturalist photos, trying GBIF...`);
+    await sleep(200);
+    photos = await getGBIFPhotos(searchName);
+    if (photos.length > 0) {
+      photoSource = "GBIF";
+    }
+  }
+
+  // FALLBACK: Try Wikimedia Commons if still no photos
+  if (photos.length === 0) {
+    log.verbose(`No GBIF photos, trying Wikimedia Commons...`);
+    await sleep(200);
+    photos = await getWikimediaPhotos(searchName);
+    if (photos.length > 0) {
+      photoSource = "Wikimedia";
+    }
+  }
 
   if (photos.length === 0) {
-    return { success: false, reason: "No research-grade photos found" };
+    return {
+      success: false,
+      reason: "No photos found in any source (iNaturalist, GBIF, Wikimedia)",
+    };
   }
 
   if (!download) {
@@ -787,6 +935,7 @@ async function processTree(treeName, scientificName, options = {}) {
       taxon,
       photosAvailable: photos.length,
       topPhoto: photos[0],
+      source: photoSource,
     };
   }
 
@@ -802,11 +951,14 @@ async function processTree(treeName, scientificName, options = {}) {
         success: true,
         dryRun: true,
         photo,
+        source: photoSource,
       };
     }
 
     try {
-      log.verbose(`Trying photo ${i + 1}: ${photo.url.substring(0, 60)}...`);
+      log.verbose(
+        `Trying photo ${i + 1} from ${photoSource}: ${photo.url.substring(0, 60)}...`
+      );
 
       await downloadFile(photo.url, tempPath);
 
@@ -828,6 +980,7 @@ async function processTree(treeName, scientificName, options = {}) {
         localPath: finalPath,
         fileSize: finalStats.size,
         photo,
+        source: photoSource,
       };
     } catch (err) {
       log.verbose(`Download failed: ${err.message}`);
