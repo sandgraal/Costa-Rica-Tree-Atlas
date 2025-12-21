@@ -347,13 +347,13 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
                 <div className="flex justify-center gap-1 mt-2">
                   {(filterType === "all" || filterType === "flowering") &&
                     counts.flowering > 0 && (
-                      <span className="text-[10px] px-1 rounded bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300">
+                      <span className="text-[10px] px-1 rounded bg-pink-100 dark:bg-pink-900/50 text-foreground">
                         {counts.flowering}
                       </span>
                     )}
                   {(filterType === "all" || filterType === "fruiting") &&
                     counts.fruiting > 0 && (
-                      <span className="text-[10px] px-1 rounded bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300">
+                      <span className="text-[10px] px-1 rounded bg-orange-100 dark:bg-orange-900/50 text-foreground">
                         {counts.fruiting}
                       </span>
                     )}

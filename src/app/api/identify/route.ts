@@ -32,6 +32,71 @@ const tokenize = (value: string) =>
     .map((token) => token.trim())
     .filter(Boolean);
 
+// Map common Vision API labels to tree characteristics for better matching
+const labelToCharacteristics: Record<string, string[]> = {
+  // Tree structure labels
+  tree: ["tree", "native"],
+  plant: ["tree", "native"],
+  vegetation: ["tree", "native"],
+  trunk: ["tree", "timber"],
+  bark: ["tree", "timber"],
+  branch: ["tree"],
+  wood: ["timber"],
+  lumber: ["timber"],
+  // Leaf characteristics
+  leaf: ["evergreen", "deciduous"],
+  leaves: ["evergreen", "deciduous"],
+  foliage: ["evergreen", "deciduous"],
+  green: ["evergreen"],
+  // Flower labels
+  flower: ["flowering", "ornamental"],
+  flowers: ["flowering", "ornamental"],
+  blossom: ["flowering", "ornamental"],
+  bloom: ["flowering", "ornamental"],
+  petal: ["flowering"],
+  pink: ["flowering"],
+  yellow: ["flowering"],
+  white: ["flowering"],
+  purple: ["flowering"],
+  // Fruit labels
+  fruit: ["fruit-bearing", "wildlife-food"],
+  fruits: ["fruit-bearing", "wildlife-food"],
+  seed: ["fruit-bearing"],
+  seeds: ["fruit-bearing"],
+  pod: ["fruit-bearing", "fabaceae"],
+  nut: ["fruit-bearing"],
+  berry: ["fruit-bearing", "wildlife-food"],
+  // Environment labels
+  forest: ["rainforest", "cloud-forest", "dry-forest"],
+  jungle: ["rainforest"],
+  rainforest: ["rainforest"],
+  woodland: ["native"],
+  nature: ["native"],
+  tropical: ["rainforest", "native"],
+  // Tree families and types
+  palm: ["palm", "arecaceae"],
+  conifer: ["evergreen", "cupressaceae"],
+  deciduous: ["deciduous"],
+  evergreen: ["evergreen"],
+  broadleaf: ["deciduous"],
+  // Common tree names that might appear
+  oak: ["fagaceae"],
+  fig: ["moraceae", "ficus"],
+  cedar: ["timber", "cedro"],
+  mahogany: ["timber", "meliaceae", "caoba"],
+  kapok: ["ceiba", "malvaceae"],
+  // Other useful labels
+  shade: ["shade-tree"],
+  canopy: ["shade-tree", "rainforest"],
+  buttress: ["rainforest", "ceiba"],
+  roots: ["native"],
+  wildlife: ["wildlife-food"],
+  bird: ["wildlife-food"],
+  animal: ["wildlife-food"],
+  medicine: ["medicinal"],
+  medicinal: ["medicinal"],
+};
+
 const scoreLabelAgainstTree = (
   label: VisionLabel,
   treeText: string,
@@ -45,19 +110,32 @@ const scoreLabelAgainstTree = (
   const labelTokens = tokenize(label.description);
   const labelText = normalizedLabel;
 
+  let score = 0;
+
+  // Direct match in tree text (highest weight)
   if (treeText.includes(labelText)) {
-    return label.score * 1.1;
+    score += label.score * 1.5;
   }
 
+  // Token overlap match
   const overlapCount = labelTokens.filter((token) =>
     treeTokens.has(token)
   ).length;
-  if (overlapCount === 0) {
-    return 0;
+  if (overlapCount > 0) {
+    const overlapRatio = overlapCount / labelTokens.length;
+    score += label.score * overlapRatio * 0.9;
   }
 
-  const overlapRatio = overlapCount / labelTokens.length;
-  return label.score * overlapRatio * 0.75;
+  // Check mapped characteristics
+  const lowerLabel = label.description.toLowerCase();
+  const mappedChars = labelToCharacteristics[lowerLabel] || [];
+  for (const char of mappedChars) {
+    if (treeTokens.has(char)) {
+      score += label.score * 0.3;
+    }
+  }
+
+  return score;
 };
 
 export async function POST(request: Request) {
@@ -164,9 +242,18 @@ export async function POST(request: Request) {
   const matchingTrees = allTrees.filter((tree) => tree.locale === locale);
   const matches = matchingTrees
     .map((tree) => {
-      const treeText = normalizeText(
-        `${tree.title} ${tree.scientificName} ${tree.slug}`
-      );
+      // Build comprehensive searchable text from all relevant tree fields
+      const searchableFields = [
+        tree.title,
+        tree.scientificName,
+        tree.slug,
+        tree.family,
+        tree.description,
+        ...(tree.tags || []),
+        ...(tree.uses || []),
+        tree.nativeRegion || "",
+      ];
+      const treeText = normalizeText(searchableFields.join(" "));
       const treeTokens = new Set(tokenize(treeText));
 
       const score = labels.reduce((total, label) => {

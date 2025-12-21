@@ -11,8 +11,9 @@ export function Footer() {
   return (
     <footer className="bg-primary/5 border-t border-primary/10 mt-auto">
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col items-center justify-center">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4">
+          {/* Logo and branding */}
+          <div className="flex items-center gap-2">
             <Image
               src="/images/cr-tree-atlas-logo.png"
               alt=""
@@ -30,17 +31,18 @@ export function Footer() {
               </span>
             </span>
           </div>
-        </div>
 
-        <div className="border-t border-primary/10 mt-4 pt-4 text-center text-sm text-foreground/60">
-          <p>{t("copyright", { year: currentYear })}</p>
-          <p className="mt-1">{t("license")}</p>
-          <p className="mt-4 text-xs text-foreground/50">
-            <kbd className="px-2 py-1 text-xs font-mono bg-foreground/5 rounded border border-foreground/10">
-              ?
-            </kbd>{" "}
-            <span>{t("keyboardShortcuts")}</span>
-          </p>
+          {/* Copyright and info */}
+          <div className="text-center sm:text-right text-sm text-foreground/60">
+            <p>{t("copyright", { year: currentYear })}</p>
+            <p className="mt-1">{t("license")}</p>
+            <p className="mt-2 text-xs text-foreground/50">
+              <kbd className="px-2 py-1 text-xs font-mono bg-foreground/5 rounded border border-foreground/10">
+                ?
+              </kbd>{" "}
+              <span>{t("keyboardShortcuts")}</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
