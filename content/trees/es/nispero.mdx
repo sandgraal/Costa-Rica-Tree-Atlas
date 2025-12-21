@@ -477,11 +477,17 @@ El Níspero es un árbol apuesto siempreverde con follaje denso verde oscuro y c
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Pouteria
-    sapota_ (Mamey) | Hojas más grandes, fruta más grande | | _Chrysophyllum
-    cainito_ (Caimito) | Envés de hojas pubescente | | Especies de _Sideroxylon_
-    | Características de fruta diferentes | La combinación de corteza oscura
-    fisurada, hojas agrupadas y látex blanco es diagnóstica para Níspero.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Pouteria sapota_ (Mamey)", "Hojas más grandes, fruta más grande"],
+        ["_Chrysophyllum cainito_ (Caimito)", "Envés de hojas pubescente"],
+        ["Especies de _Sideroxylon_", "Características de fruta diferentes"],
+      ]}
+    />
+
+    La combinación de corteza oscura fisurada, hojas agrupadas y látex blanco es diagnóstica para Níspero.
+
   </AccordionItem>
 </Accordion>
 

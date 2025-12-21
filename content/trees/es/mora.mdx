@@ -480,12 +480,18 @@ La Mora es un árbol mediano a grande deciduo a semi-perenne con copa extendida.
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Mora (M. tinctoria) | Otras Moraceae |
-    |----------------|---------------------|----------------| | Duramen |
-    Amarillo brillante | No amarillo | | Espinas | Presentes | Variable | |
-    Látex | Blanco, lechoso | Blanco, lechoso | | Fruto | Redondo, abultado |
-    Varios | El duramen amarillo brillante es único y diagnóstico - ninguna
-    especie similar tiene este rasgo.
+    <DataTable
+      headers={["Característica", "Mora (M. tinctoria)", "Otras Moraceae"]}
+      rows={[
+        ["Duramen", "Amarillo brillante", "No amarillo"],
+        ["Espinas", "Presentes", "Variable"],
+        ["Látex", "Blanco, lechoso", "Blanco, lechoso"],
+        ["Fruto", "Redondo, abultado", "Varios"],
+      ]}
+    />
+
+    El duramen amarillo brillante es único y diagnóstico - ninguna especie similar tiene este rasgo.
+
   </AccordionItem>
 </Accordion>
 

@@ -489,22 +489,40 @@ Los higos estranguladores maduros son árboles masivos con arquitectura distinti
   </AccordionItem>
 
 <AccordionItem title="Identificación de Especies">
-  Distinguir entre especies de Ficus requiere: | Característica | Uso |
-  |----------------|-----| | Forma y tamaño de hoja | Diagnóstico clave | |
-  Tamaño y color del higo | Específico de especie | | Textura de hoja
-  (pubescencia) | Importante | | Características de estípulas | Técnico | |
-  Preferencia de hábitat | Contexto útil | **Recomendación**: - Aprender 3-4
-  especies comunes primero - Recoger muestras para ID experta - Usar guías de
-  campo con claves - IA de iNaturalist puede ayudar
-</AccordionItem>
+    Distinguir entre especies de Ficus requiere:
+
+    <DataTable
+      headers={["Característica", "Uso"]}
+      rows={[
+        ["Forma y tamaño de hoja", "Diagnóstico clave"],
+        ["Tamaño y color del higo", "Específico de especie"],
+        ["Textura de hoja (pubescencia)", "Importante"],
+        ["Características de estípulas", "Técnico"],
+        ["Preferencia de hábitat", "Contexto útil"],
+      ]}
+    />
+
+    **Recomendación**:
+    - Aprender 3-4 especies comunes primero
+    - Recoger muestras para ID experta
+    - Usar guías de campo con claves
+    - IA de iNaturalist puede ayudar
+
+  </AccordionItem>
 
   <AccordionItem title="Estrangulador vs. Crecimiento Libre">
-    | Característica | Estrangulador | Crecimiento Libre |
-    |----------------|---------------|-------------------| | Origen | Inicio
-    epifítico | Semilla en suelo | | Tronco | Enrejado/hueco | Sólido | | Base |
-    Puede mostrar restos de hospedero | Gambas normales | | Raíces aéreas | A
-    menudo extensas | Menos | Muchas especies estranguladoras PUEDEN crecer
-    desde el suelo si las condiciones favorecen—entonces lucen más "normales."
+    <DataTable
+      headers={["Característica", "Estrangulador", "Crecimiento Libre"]}
+      rows={[
+        ["Origen", "Inicio epifítico", "Semilla en suelo"],
+        ["Tronco", "Enrejado/hueco", "Sólido"],
+        ["Base", "Puede mostrar restos de hospedero", "Gambas normales"],
+        ["Raíces aéreas", "A menudo extensas", "Menos"],
+      ]}
+    />
+
+    Muchas especies estranguladoras PUEDEN crecer desde el suelo si las condiciones favorecen—entonces lucen más "normales."
+
   </AccordionItem>
 </Accordion>
 

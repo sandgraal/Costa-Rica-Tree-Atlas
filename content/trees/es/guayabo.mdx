@@ -501,12 +501,18 @@ El guayabo es un árbol pequeño o arbusto grande con distintiva corteza lisa qu
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Guayaba (P. guajava) | Cas (P. friedrichsthalianum) |
-    |----------------|---------------------|------------------------------| |
-    Sabor de fruta | Dulce | Ácido | | Tamaño de fruta | Mayor (4-10 cm) | Menor
-    (2-4 cm) | | Cultivo | Muy común | Menos común | | Origen | Pan-tropical |
-    Nativo de Costa Rica | El sabor dulce vs. ácido de la fruta distingue
-    fácilmente la guayaba común de su pariente costarricense.
+    <DataTable
+      headers={["Característica", "Guayaba (P. guajava)", "Cas (P. friedrichsthalianum)"]}
+      rows={[
+        ["Sabor de fruta", "Dulce", "Ácido"],
+        ["Tamaño de fruta", "Mayor (4-10 cm)", "Menor (2-4 cm)"],
+        ["Cultivo", "Muy común", "Menos común"],
+        ["Origen", "Pan-tropical", "Nativo de Costa Rica"],
+      ]}
+    />
+
+    El sabor dulce vs. ácido de la fruta distingue fácilmente la guayaba común de su pariente costarricense.
+
   </AccordionItem>
 </Accordion>
 

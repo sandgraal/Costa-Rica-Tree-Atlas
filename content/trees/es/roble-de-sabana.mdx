@@ -515,13 +515,20 @@ El Roble de Sabana se encuentra en toda Costa Rica desde el nivel del mar hasta 
   </AccordionItem>
 
 <AccordionItem title="Especies Similares">
-  Otros árboles de flores rosadas en Costa Rica: | Especie | Diferencia con
-  Roble de Sabana | |---------|--------------------------------| | _Handroanthus
-  impetiginosus_ | Rosa/púrpura más intenso, bosque seco | | _Cassia grandis_ |
-  Hojas pinnadas, forma de flor diferente | | _Ceiba pentandra_ | Mucho más
-  grande, tronco espinoso cuando joven | Las hojas palmaticompuestas de cinco
-  folíolos combinadas con flores rosadas en forma de trompeta son diagnósticas.
-</AccordionItem>
+    Otros árboles de flores rosadas en Costa Rica:
+
+    <DataTable
+      headers={["Especie", "Diferencia con Roble de Sabana"]}
+      rows={[
+        ["_Handroanthus impetiginosus_", "Rosa/púrpura más intenso, bosque seco"],
+        ["_Cassia grandis_", "Hojas pinnadas, forma de flor diferente"],
+        ["_Ceiba pentandra_", "Mucho más grande, tronco espinoso cuando joven"],
+      ]}
+    />
+
+    Las hojas palmaticompuestas de cinco folíolos combinadas con flores rosadas en forma de trompeta son diagnósticas.
+
+  </AccordionItem>
 
   <AccordionItem title="Reconocimiento Estacional">
     **Estación Seca (Enero-Abril):** Inconfundible — copa sin hojas cubierta de

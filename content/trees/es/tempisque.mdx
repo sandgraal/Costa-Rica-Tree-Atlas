@@ -478,21 +478,33 @@ El Tempisque es un árbol caducifolio grande con tronco grueso, a menudo acanala
   </AccordionItem>
 
 <AccordionItem title="Reconocimiento Estacional">
-  | Estación | Apariencia | |----------|------------| | Seca (dic-abr) | Sin
-  hojas, ramificación dramática visible | | Inicio lluvias (may) | Hojas verde
-  brillante emergiendo | | Lluviosa (jun-nov) | Dosel completo denso, verde
-  oscuro | | Fructificación (ene-abr) | Frutos negro-púrpura visibles | La
-  pérdida completa de hojas en estación seca es distintiva entre los árboles
-  grandes del bosque seco.
-</AccordionItem>
+    <DataTable
+      headers={["Estación", "Apariencia"]}
+      rows={[
+        ["Seca (dic-abr)", "Sin hojas, ramificación dramática visible"],
+        ["Inicio lluvias (may)", "Hojas verde brillante emergiendo"],
+        ["Lluviosa (jun-nov)", "Dosel completo denso, verde oscuro"],
+        ["Fructificación (ene-abr)", "Frutos negro-púrpura visibles"],
+      ]}
+    />
+
+    La pérdida completa de hojas en estación seca es distintiva entre los árboles grandes del bosque seco.
+
+  </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Tempisque | Níspero |
-    |----------------|-----------|---------| | Hojas | Caducas | Perennes | |
-    Corteza | Profundamente surcada | Rugosa pero menos surcada | | Fruto |
-    Pequeño, 2-3 cm | Grande, 5-10 cm | | Hábitat | Bosque seco | Bosque húmedo
-    y seco | El carácter completamente caducifolio del Tempisque lo distingue de
-    especies relacionadas de Sapotaceae.
+    <DataTable
+      headers={["Característica", "Tempisque", "Níspero"]}
+      rows={[
+        ["Hojas", "Caducas", "Perennes"],
+        ["Corteza", "Profundamente surcada", "Rugosa pero menos surcada"],
+        ["Fruto", "Pequeño, 2-3 cm", "Grande, 5-10 cm"],
+        ["Hábitat", "Bosque seco", "Bosque húmedo y seco"],
+      ]}
+    />
+
+    El carácter completamente caducifolio del Tempisque lo distingue de especies relacionadas de Sapotaceae.
+
   </AccordionItem>
 </Accordion>
 

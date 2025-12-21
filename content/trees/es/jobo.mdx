@@ -478,10 +478,16 @@ Se encuentra en todo el país, especialmente en tierras bajas:
   </AccordionItem>
 
   <AccordionItem title="Por Qué se Prefieren las Estacas">
-    | Método | Ventajas | Desventajas | |--------|----------|-------------| |
-    Estacas | Rápido, confiable, misma genética | Necesita fuente de árbol
-    maduro | | Semilla | Diversidad genética | Lento, impredecible | ¡Para la
-    mayoría de propósitos, las estacas grandes son muy superiores!
+    <DataTable
+      headers={["Método", "Ventajas", "Desventajas"]}
+      rows={[
+        ["Estacas", "Rápido, confiable, misma genética", "Necesita fuente de árbol maduro"],
+        ["Semilla", "Diversidad genética", "Lento, impredecible"],
+      ]}
+    />
+
+    ¡Para la mayoría de propósitos, las estacas grandes son muy superiores!
+
   </AccordionItem>
 </Accordion>
 
@@ -502,11 +508,17 @@ Se encuentra en todo el país, especialmente en tierras bajas:
   </AccordionItem>
 
   <AccordionItem title="Distinguiendo de Parientes">
-    | Especie | Diferencia Clave | |---------|------------------| | _S.
-    purpurea_ (Jocote) | Fruta roja/morada, hojas más pequeñas | | _Anacardium_
-    (Marañón) | Forma de hoja diferente, no compuesta | | _Mangifera_ (Mango) |
-    Hojas simples, fruta diferente | Frutas amarillas del Jobo + corteza
-    profundamente surcada = diagnóstico
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_S. purpurea_ (Jocote)", "Fruta roja/morada, hojas más pequeñas"],
+        ["_Anacardium_ (Marañón)", "Forma de hoja diferente, no compuesta"],
+        ["_Mangifera_ (Mango)", "Hojas simples, fruta diferente"],
+      ]}
+    />
+
+    Frutas amarillas del Jobo + corteza profundamente surcada = diagnóstico
+
   </AccordionItem>
 </Accordion>
 

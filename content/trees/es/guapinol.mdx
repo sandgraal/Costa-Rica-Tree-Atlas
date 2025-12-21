@@ -489,12 +489,20 @@ Se encuentra en todo el país tanto en bosques húmedos como secos:
 </AccordionItem>
 
   <AccordionItem title="Crecimiento y Cronología">
-    | Edad | Tamaño Esperado | Notas | |------|-----------------|-------| | 1
-    año | 50-100 cm | Etapa de plántula | | 5 años | 3-5 m | Árbol joven | | 15
-    años | 10-15 m | Sub-adulto | | 30 años | 20-25 m | Primera floración
-    posible | | 50+ años | 30+ m | Espécimen maduro | | 100+ años | Tamaño
-    completo | Árboles antiguos | **Nota**: ¡Crecimiento muy lento pero
-    extremadamente longevo!
+    <DataTable
+      headers={["Edad", "Tamaño Esperado", "Notas"]}
+      rows={[
+        ["1 año", "50-100 cm", "Etapa de plántula"],
+        ["5 años", "3-5 m", "Árbol joven"],
+        ["15 años", "10-15 m", "Sub-adulto"],
+        ["30 años", "20-25 m", "Primera floración posible"],
+        ["50+ años", "30+ m", "Espécimen maduro"],
+        ["100+ años", "Tamaño completo", "Árboles antiguos"],
+      ]}
+    />
+
+    **Nota**: ¡Crecimiento muy lento pero extremadamente longevo!
+
   </AccordionItem>
 </Accordion>
 
@@ -514,12 +522,18 @@ Se encuentra en todo el país tanto en bosques húmedos como secos:
   </AccordionItem>
 
 <AccordionItem title="Especies Similares">
-  | Especie | Diferencia Clave | |---------|------------------| | _Prioria
-  copaifera_ (Cativo) | Estructura de hoja diferente | | _Copaifera_ spp. |
-  Folíolos más pequeños, vainas diferentes | | Otras leguminosas | Verifique el
-  número de folíolos y forma de vaina | ¡La hoja compuesta de 2 folíolos es muy
-  distintiva!
-</AccordionItem>
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Prioria copaifera_ (Cativo)", "Estructura de hoja diferente"],
+        ["_Copaifera_ spp.", "Folíolos más pequeños, vainas diferentes"],
+        ["Otras leguminosas", "Verifique el número de folíolos y forma de vaina"],
+      ]}
+    />
+
+    ¡La hoja compuesta de 2 folíolos es muy distintiva!
+
+  </AccordionItem>
 
   <AccordionItem title="Encontrándolo en el Bosque">
     **Busque**: - Copas emergentes sobre el dosel - Vainas leñosas grandes en el

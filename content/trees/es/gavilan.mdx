@@ -467,13 +467,18 @@ El Gavilán es un árbol de dosel mediano a grande con tronco recto, que a menud
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Gavilán | Guaba (Inga) |
-    |----------------|---------|--------------| | Hojas | Bipinnadas (doblemente
-    divididas) | Pinnadas una vez | | Vainas | Planas, leñosas, explosivas |
-    Cilíndricas, no explosivas | | Tamaño | Gran árbol de dosel | Usualmente más
-    pequeño | | Semillas | Planas, aceitosas | Envueltas en pulpa blanca | Las
-    hojas doblemente divididas (bipinnadas) y las enormes vainas planas
-    distinguen al Gavilán de las guabas comunes.
+    <DataTable
+      headers={["Característica", "Gavilán", "Guaba (Inga)"]}
+      rows={[
+        ["Hojas", "Bipinnadas (doblemente divididas)", "Pinnadas una vez"],
+        ["Vainas", "Planas, leñosas, explosivas", "Cilíndricas, no explosivas"],
+        ["Tamaño", "Gran árbol de dosel", "Usualmente más pequeño"],
+        ["Semillas", "Planas, aceitosas", "Envueltas en pulpa blanca"],
+      ]}
+    />
+
+    Las hojas doblemente divididas (bipinnadas) y las enormes vainas planas distinguen al Gavilán de las guabas comunes.
+
   </AccordionItem>
 </Accordion>
 

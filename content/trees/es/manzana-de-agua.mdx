@@ -479,12 +479,17 @@ La Manzana de Agua es apreciada como:
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia | |---------|------------| | _Syzygium jambos_
-    (Pomarrosa) | Fruta amarilla, flor diferente | | _Syzygium aqueum_ (Manzana
-    de Agua) | Fruta más pequeña, pálida | | _Syzygium samarangense_ (Manzana de
-    Java) | Fruta más pálida, forma diferente | Las brillantes flores ROJAS
-    caulifloras y frutas acorazonadas rosado-rojo distinguen a la Manzana de
-    Agua de otras especies de Syzygium.
+    <DataTable
+      headers={["Especie", "Diferencia"]}
+      rows={[
+        ["_Syzygium jambos_ (Pomarrosa)", "Fruta amarilla, flor diferente"],
+        ["_Syzygium aqueum_ (Manzana de Agua)", "Fruta más pequeña, pálida"],
+        ["_Syzygium samarangense_ (Manzana de Java)", "Fruta más pálida, forma diferente"],
+      ]}
+    />
+
+    Las brillantes flores ROJAS caulifloras y frutas acorazonadas rosado-rojo distinguen a la Manzana de Agua de otras especies de Syzygium.
+
   </AccordionItem>
 </Accordion>
 

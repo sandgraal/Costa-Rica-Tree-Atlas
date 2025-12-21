@@ -496,12 +496,18 @@ El Coyol es una palma de tamaño mediano con un tronco recto y columnar densamen
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Coyol | Pejibaye (cultivado) |
-    |----------------|-------|----------------------| | Espinas del tronco |
-    Negras, densas | Marrones, dispersas | | Hábitat | Bosques secos, silvestre
-    | Cultivado, áreas húmedas | | Fruto | Redondo, duro | Alargado, más suave |
-    | Agrupamiento | Solitario | Frecuentemente en macollas | En el bosque seco,
-    el tronco densamente cubierto de espinas hace al Coyol inconfundible.
+    <DataTable
+      headers={["Característica", "Coyol", "Pejibaye (cultivado)"]}
+      rows={[
+        ["Espinas del tronco", "Negras, densas", "Marrones, dispersas"],
+        ["Hábitat", "Bosques secos, silvestre", "Cultivado, áreas húmedas"],
+        ["Fruto", "Redondo, duro", "Alargado, más suave"],
+        ["Agrupamiento", "Solitario", "Frecuentemente en macollas"],
+      ]}
+    />
+
+    En el bosque seco, el tronco densamente cubierto de espinas hace al Coyol inconfundible.
+
   </AccordionItem>
 </Accordion>
 

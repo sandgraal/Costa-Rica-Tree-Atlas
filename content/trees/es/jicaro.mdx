@@ -490,12 +490,18 @@ El Jícaro es un árbol pequeño y distintivo con un tronco corto y ramas extend
   </AccordionItem>
 
   <AccordionItem title="Distinguiendo de C. cujete">
-    | Característica | C. alata (Esta especie) | C. cujete |
-    |----------------|------------------------|-----------| | Pecíolos | ALADOS
-    | No alados | | Hojas | Trifoliadas (3 folíolos) | Simples, agrupadas | |
-    Hábitat | Bosque seco | Más tolerante a humedad | | Distribución | Lado seco
-    del Pacífico | Más amplia | Los pecíolos alados son el identificador
-    definitivo para C. alata vs. C. cujete.
+    <DataTable
+      headers={["Característica", "C. alata (Esta especie)", "C. cujete"]}
+      rows={[
+        ["Pecíolos", "ALADOS", "No alados"],
+        ["Hojas", "Trifoliadas (3 folíolos)", "Simples, agrupadas"],
+        ["Hábitat", "Bosque seco", "Más tolerante a humedad"],
+        ["Distribución", "Lado seco del Pacífico", "Más amplia"],
+      ]}
+    />
+
+    Los pecíolos alados son el identificador definitivo para C. alata vs. C. cujete.
+
   </AccordionItem>
 </Accordion>
 

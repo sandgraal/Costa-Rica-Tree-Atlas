@@ -446,13 +446,19 @@ El Yos es un árbol de tamaño mediano con un tronco típicamente recto y una co
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Yos | Javillo (Hura) |
-    |----------------|-----|----------------| | Glándulas en pecíolo | Presentes
-    (diagnóstico) | Ausentes | | Látex | Abundante, blanco | Abundante, blanco |
-    | Espinas en tronco | Ninguna | Espinas densas | | Fruto | Cápsula pequeña
-    trilobulada | Grande forma de calabaza | | Tamaño | Árbol mediano | Árbol
-    muy grande | Las glándulas del pecíolo son únicas de las especies de
-    _Sapium_ y hacen la identificación directa.
+    <DataTable
+      headers={["Característica", "Yos", "Javillo (Hura)"]}
+      rows={[
+        ["Glándulas en pecíolo", "Presentes (diagnóstico)", "Ausentes"],
+        ["Látex", "Abundante, blanco", "Abundante, blanco"],
+        ["Espinas en tronco", "Ninguna", "Espinas densas"],
+        ["Fruto", "Cápsula pequeña trilobulada", "Grande forma de calabaza"],
+        ["Tamaño", "Árbol mediano", "Árbol muy grande"],
+      ]}
+    />
+
+    Las glándulas del pecíolo son únicas de las especies de _Sapium_ y hacen la identificación directa.
+
   </AccordionItem>
 </Accordion>
 

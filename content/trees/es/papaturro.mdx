@@ -420,13 +420,19 @@ El Papaturro es un árbol pequeño a mediano (a veces arbustivo) con una copa re
   </AccordionItem>
 
   <AccordionItem title="Distinguir del Uvo de Playa">
-    | Característica | Papaturro | Uvo de Playa |
-    |----------------|-----------|--------------| | Hábitat | Interior, bosques
-    | Costero, playas | | Base de hoja | Acorazonada | Redondeada | | Tamaño de
-    hoja | Muy grande (40cm) | Grande (20cm) | | Fruta | Racimos más pequeños |
-    Uvas más grandes | | Tolerancia a sal | Baja | Alta | El hábitat solo
-    usualmente los distingue—el Uvo de Playa es estrictamente costero, mientras
-    el Papaturro se encuentra tierra adentro.
+    <DataTable
+      headers={["Característica", "Papaturro", "Uvo de Playa"]}
+      rows={[
+        ["Hábitat", "Interior, bosques", "Costero, playas"],
+        ["Base de hoja", "Acorazonada", "Redondeada"],
+        ["Tamaño de hoja", "Muy grande (40cm)", "Grande (20cm)"],
+        ["Fruta", "Racimos más pequeños", "Uvas más grandes"],
+        ["Tolerancia a sal", "Baja", "Alta"],
+      ]}
+    />
+
+    El hábitat solo usualmente los distingue—el Uvo de Playa es estrictamente costero, mientras el Papaturro se encuentra tierra adentro.
+
   </AccordionItem>
 </Accordion>
 

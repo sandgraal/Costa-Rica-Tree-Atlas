@@ -458,12 +458,18 @@ El Guácimo es un árbol de tamaño mediano con un tronco corto y una copa ampli
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Guácimo | Luehea (Guácimo Molenillo) |
-    |----------------|---------|---------------------------| | Frutos |
-    Redondos, verrugosos | Cápsula leñosa | | Hojas | Aserradas, tipo olmo |
-    Similares pero más grandes | | Corteza | Fibrosa | Muy fibrosa | | Hábitat |
-    Potreros, áreas secas | Más boscoso | Los frutos verrugosos son únicos y
-    hacen al Guácimo fácil de distinguir de especies relacionadas.
+    <DataTable
+      headers={["Característica", "Guácimo", "Luehea (Guácimo Molenillo)"]}
+      rows={[
+        ["Frutos", "Redondos, verrugosos", "Cápsula leñosa"],
+        ["Hojas", "Aserradas, tipo olmo", "Similares pero más grandes"],
+        ["Corteza", "Fibrosa", "Muy fibrosa"],
+        ["Hábitat", "Potreros, áreas secas", "Más boscoso"],
+      ]}
+    />
+
+    Los frutos verrugosos son únicos y hacen al Guácimo fácil de distinguir de especies relacionadas.
+
   </AccordionItem>
 </Accordion>
 

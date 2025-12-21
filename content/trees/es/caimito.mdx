@@ -454,12 +454,17 @@ El Caimito es un árbol apuesto siempreverde con copa densa y extendida. Su cara
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Manilkara
-    zapota_ (Níspero) | Sin envés de hojas dorado | | Especies de _Pouteria_ |
-    Diferente textura/color de hojas | | Otras Sapotaceae | Carecen de
-    pubescencia dorada distintiva | El envés de hojas dorado-bronce es
-    completamente diagnóstico— ningún otro árbol común tiene esta
-    característica.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Manilkara zapota_ (Níspero)", "Sin envés de hojas dorado"],
+        ["Especies de _Pouteria_", "Diferente textura/color de hojas"],
+        ["Otras Sapotaceae", "Carecen de pubescencia dorada distintiva"],
+      ]}
+    />
+
+    El envés de hojas dorado-bronce es completamente diagnóstico— ninguna otro árbol común tiene esta característica.
+
   </AccordionItem>
 </Accordion>
 

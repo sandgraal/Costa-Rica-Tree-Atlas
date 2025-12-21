@@ -467,12 +467,17 @@ La Guaba es un árbol siempreverde de tamaño mediano y rápido crecimiento con 
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | Otras
-    especies de _Inga_ | Tamaño de vaina, alas del raquis, número de folíolos |
-    | _Pithecellobium_ | Estructura de vaina diferente | | _Albizia_ | Hojas
-    plumosas, vainas diferentes | El raquis alado (tallo de hoja aplanado entre
-    folíolos) es la característica clave que distingue _Inga edulis_ de árboles
-    similares.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["Otras especies de _Inga_", "Tamaño de vaina, alas del raquis, número de folíolos"],
+        ["_Pithecellobium_", "Estructura de vaina diferente"],
+        ["_Albizia_", "Hojas plumosas, vainas diferentes"],
+      ]}
+    />
+
+    El raquis alado (tallo de hoja aplanado entre folíolos) es la característica clave que distingue _Inga edulis_ de árboles similares.
+
   </AccordionItem>
 </Accordion>
 

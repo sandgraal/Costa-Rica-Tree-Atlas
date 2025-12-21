@@ -596,14 +596,21 @@ Las flores atraen diversos polinizadores:
   </AccordionItem>
 
 <AccordionItem title="Especies Similares">
-  Otros árboles de flores amarillas en Costa Rica: | Especie | Diferencia con
-  Corteza Amarilla | |---------|---------------------------------| | _H.
-  guayacan_ | Árbol más grande, flores más grandes | | _H. chrysanthus_ | Más
-  pequeño en general, corteza lisa | | _Tecoma stans_ | Arbustivo, flores todo
-  el año | | _Senna spectabilis_ | Hojas pinnadas, diferente forma de flor | La
-  combinación de hojas palmadamente compuestas y flores en forma de trompeta es
-  diagnóstica.
-</AccordionItem>
+    Otros árboles de flores amarillas en Costa Rica:
+
+    <DataTable
+      headers={["Especie", "Diferencia con Corteza Amarilla"]}
+      rows={[
+        ["_H. guayacan_", "Árbol más grande, flores más grandes"],
+        ["_H. chrysanthus_", "Más pequeño en general, corteza lisa"],
+        ["_Tecoma stans_", "Arbustivo, flores todo el año"],
+        ["_Senna spectabilis_", "Hojas pinnadas, diferente forma de flor"],
+      ]}
+    />
+
+    La combinación de hojas palmadamente compuestas y flores en forma de trompeta es diagnóstica.
+
+  </AccordionItem>
 
   <AccordionItem title="Reconocimiento Estacional">
     **Estación Seca (Enero-Abril):** Más distintivo — copa sin hojas cubierta de

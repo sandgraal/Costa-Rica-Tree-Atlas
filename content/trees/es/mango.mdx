@@ -511,11 +511,17 @@ El Mango es un árbol grande, longevo y siempreverde con una copa densa y redond
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Anacardium
-    excelsum_ (Espavel) | Forma de hoja diferente, tipo de fruto | | _Spondias
-    mombin_ (Jobo) | Hojas compuestas | | Especies de _Garcinia_ | Estructura de
-    fruto diferente | La combinación de hojas simples grandes, crecimiento nuevo
-    bronce, y la fruta distintiva es inconfundible.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Anacardium excelsum_ (Espavel)", "Forma de hoja diferente, tipo de fruto"],
+        ["_Spondias mombin_ (Jobo)", "Hojas compuestas"],
+        ["Especies de _Garcinia_", "Estructura de fruto diferente"],
+      ]}
+    />
+
+    La combinación de hojas simples grandes, crecimiento nuevo bronce, y la fruta distintiva es inconfundible.
+
   </AccordionItem>
 </Accordion>
 

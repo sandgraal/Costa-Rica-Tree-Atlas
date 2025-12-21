@@ -503,11 +503,17 @@ El Tamarindo es un árbol grande, longevo y siempreverde con una copa densa y ex
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | Especies de
-    _Cassia_ | Forma de vaina diferente, no comestible | | _Delonix regia_
-    (Flamboyán) | Flores rojas llamativas, vainas planas | | _Pithecellobium_ |
-    Estructura de hoja diferente | La combinación de follaje plumoso, tronco
-    masivo, y distintivas vainas curvas es inconfundible.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["Especies de _Cassia_", "Forma de vaina diferente, no comestible"],
+        ["_Delonix regia_ (Flamboyán)", "Flores rojas llamativas, vainas planas"],
+        ["_Pithecellobium_", "Estructura de hoja diferente"],
+      ]}
+    />
+
+    La combinación de follaje plumoso, tronco masivo, y distintivas vainas curvas es inconfundible.
+
   </AccordionItem>
 </Accordion>
 

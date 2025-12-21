@@ -462,12 +462,21 @@ El Madroño es un árbol mediano con copa redondeada a irregular. Su corteza lis
   </AccordionItem>
 
   <AccordionItem title="Cuando NO está en Floración">
-    Sin flores, busque: | Característica | Rasgo | |----------------|-------| |
-    Corteza | Lisa, grisácea, puede pelarse | | Hojas | Opuestas, elípticas,
-    coriáceas | | Ubicación | Hábitat de bosque seco | | Tamaño | Árbol mediano
-    (15-25 m) | | Corteza interna | Amarilla cuando se rasca | La corteza lisa y
-    las hojas opuestas coriáceas en hábitat de bosque seco son buenos
-    indicadores incluso cuando no está floreciendo.
+    Sin flores, busque:
+
+    <DataTable
+      headers={["Característica", "Rasgo"]}
+      rows={[
+        ["Corteza", "Lisa, grisácea, puede pelarse"],
+        ["Hojas", "Opuestas, elípticas, coriáceas"],
+        ["Ubicación", "Hábitat de bosque seco"],
+        ["Tamaño", "Árbol mediano (15-25 m)"],
+        ["Corteza interna", "Amarilla cuando se rasca"],
+      ]}
+    />
+
+    La corteza lisa y las hojas opuestas coriáceas en hábitat de bosque seco son buenos indicadores incluso cuando no está floreciendo.
+
   </AccordionItem>
 </Accordion>
 

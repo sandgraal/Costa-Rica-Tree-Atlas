@@ -220,12 +220,20 @@ La Balsa es un espectáculo verdaderamente notable—una pionera de rápido crec
 </TwoColumn>
 
 <Callout type="tip" title="Comparación de Tasa de Crecimiento">
-  ¿Qué tan rápido crece la Balsa comparada con otros árboles? | Árbol | Tiempo a
-  10m de Altura | Tasa de Crecimiento |
-  |------|------------------------|---------------------| | **Balsa** | **2-3
-  años** | **5m/año posible** | | Teca | 10-15 años | 0.7-1m/año | | Roble |
-  25-40 años | 0.3-0.5m/año | | Caoba | 15-25 años | 0.5-0.8m/año | ¡La Balsa es
-  el Usain Bolt de los árboles!
+  ¿Qué tan rápido crece la Balsa comparada con otros árboles?
+
+<DataTable
+  headers={["Árbol", "Tiempo a 10m de Altura", "Tasa de Crecimiento"]}
+  rows={[
+    ["**Balsa**", "**2-3 años**", "**5m/año posible**"],
+    ["Teca", "10-15 años", "0.7-1m/año"],
+    ["Roble", "25-40 años", "0.3-0.5m/año"],
+    ["Caoba", "15-25 años", "0.5-0.8m/año"],
+  ]}
+/>
+
+¡La Balsa es el Usain Bolt de los árboles!
+
 </Callout>
 
 ---
@@ -531,11 +539,17 @@ La Balsa es un espectáculo verdaderamente notable—una pionera de rápido crec
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Ceiba
-    pentandra_ | Árbol mucho más grande, tronco espinoso cuando joven | |
-    _Pseudobombax_ | Forma de hoja diferente, textura de corteza | | _Cecropia_
-    spp. | Hojas lobuladas pero forma diferente, tallos huecos | Las hojas
-    masivas con envés afelpado en pecíolos muy largos son diagnósticas.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Ceiba pentandra_", "Árbol mucho más grande, tronco espinoso cuando joven"],
+        ["_Pseudobombax_", "Forma de hoja diferente, textura de corteza"],
+        ["_Cecropia_ spp.", "Hojas lobuladas pero forma diferente, tallos huecos"],
+      ]}
+    />
+
+    Las hojas masivas con envés afelpado en pecíolos muy largos son diagnósticas.
+
   </AccordionItem>
 </Accordion>
 

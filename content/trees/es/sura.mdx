@@ -523,12 +523,19 @@ El Surá es un árbol emergente masivo que se eleva sobre el dosel circundante. 
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Surá | Amarillón (T. amazonia) |
-    |----------------|------|-------------------------| | Gambas | Muy grandes |
-    Más pequeñas | | Altura | Hasta 50 m | Hasta 40 m | | Corteza | Fisurada |
-    Más escamosa | | Hábitat | Tierras bajas húmedas | Varios bosques húmedos |
-    | Fruto | Similar | Similar | Ambos son excelentes especies maderables; el
-    Surá tiende a ser más grande y tener gambas más desarrolladas.
+    <DataTable
+      headers={["Característica", "Surá", "Amarillón (T. amazonia)"]}
+      rows={[
+        ["Gambas", "Muy grandes", "Más pequeñas"],
+        ["Altura", "Hasta 50 m", "Hasta 40 m"],
+        ["Corteza", "Fisurada", "Más escamosa"],
+        ["Hábitat", "Tierras bajas húmedas", "Varios bosques húmedos"],
+        ["Fruto", "Similar", "Similar"],
+      ]}
+    />
+
+    Ambos son excelentes especies maderables; el Surá tiende a ser más grande y tener gambas más desarrolladas.
+
   </AccordionItem>
 </Accordion>
 

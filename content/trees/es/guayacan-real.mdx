@@ -480,12 +480,17 @@ El Guayacán Real es un árbol pequeño a mediano siempreverde con tronco corto,
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Guaiacum
-    officinale_ | Más pares de folíolos (8-14), flores más grandes | | Especies
-    de _Lonchocarpus_ | Diferente arreglo de hojas, flores diferentes | | Otros
-    árboles de bosque seco | Carecen de hojas compuestas con arreglo específico
-    | La combinación de hojas compuestas pequeñas + flores azules + hábitat seco
-    es esencialmente diagnóstica en Costa Rica.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Guaiacum officinale_", "Más pares de folíolos (8-14), flores más grandes"],
+        ["Especies de _Lonchocarpus_", "Diferente arreglo de hojas, flores diferentes"],
+        ["Otros árboles de bosque seco", "Carecen de hojas compuestas con arreglo específico"],
+      ]}
+    />
+
+    La combinación de hojas compuestas pequeñas + flores azules + hábitat seco es esencialmente diagnóstica en Costa Rica.
+
   </AccordionItem>
 </Accordion>
 

@@ -508,13 +508,19 @@ El Zapote es un árbol perenne mediano a grande con copa densa y redondeada. Tie
   </AccordionItem>
 
   <AccordionItem title="Distinguiendo de Especies Relacionadas">
-    | Característica | Zapote (P. sapota) | Níspero (M. zapota) |
-    |----------------|-------------------|---------------------| | Color de
-    pulpa | Salmón-rosada a roja | Café | | Forma de fruto | Balón/oval |
-    Redonda | | Tamaño de fruto | 10-25 cm | 4-8 cm | | Látex | Moderado |
-    Abundante (chicle) | | Semillas | 1 grande negra | Varias cafés | El color
-    de la pulpa es el identificador instantáneo - salmón-rosada para zapote,
-    café para níspero/chicozapote.
+    <DataTable
+      headers={["Característica", "Zapote (P. sapota)", "Níspero (M. zapota)"]}
+      rows={[
+        ["Color de pulpa", "Salmón-rosada a roja", "Café"],
+        ["Forma de fruto", "Balón/oval", "Redonda"],
+        ["Tamaño de fruto", "10-25 cm", "4-8 cm"],
+        ["Látex", "Moderado", "Abundante (chicle)"],
+        ["Semillas", "1 grande negra", "Varias cafés"],
+      ]}
+    />
+
+    El color de la pulpa es el identificador instantáneo - salmón-rosada para zapote, café para níspero/chicozapote.
+
   </AccordionItem>
 </Accordion>
 

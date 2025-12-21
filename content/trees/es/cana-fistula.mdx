@@ -479,10 +479,16 @@ principalmente como laxante suave.
 </AccordionItem>
 
   <AccordionItem title="Cronología de Crecimiento">
-    | Edad | Tamaño | Notas | |------|--------|-------| | 1 año | 0.5-1 m |
-    Plántula | | 3 años | 2-4 m | Árbol joven | | 5 años | 4-6 m | Puede empezar
-    a florecer | | 10 años | 8-12 m | Floración completa | | 15+ años | 12-15 m
-    | Espécimen maduro |
+    <DataTable
+      headers={["Edad", "Tamaño", "Notas"]}
+      rows={[
+        ["1 año", "0.5-1 m", "Plántula"],
+        ["3 años", "2-4 m", "Árbol joven"],
+        ["5 años", "4-6 m", "Puede empezar a florecer"],
+        ["10 años", "8-12 m", "Floración completa"],
+        ["15+ años", "12-15 m", "Espécimen maduro"],
+      ]}
+    />
   </AccordionItem>
 </Accordion>
 
@@ -493,20 +499,34 @@ principalmente como laxante suave.
 ### Cómo Identificar la Caña Fístula
 
 <Accordion>
-  <AccordionItem title="Características Clave Todo el Año">
-    **Siempre Identificable Por**: 1. Vainas cilíndricas oscuras largas (30-60
-    cm) 2. Hojas compuestas con 4-8 pares de folíolos 3. Copa abierta y
-    extendida 4. Corteza lisa gris-verdosa (árboles jóvenes) **Durante la
-    Floración (¡Inconfundible!)**: - Árbol entero cubierto de amarillo dorado -
-    Racimos largos de flores colgantes - A menudo sin hojas cuando florece
+  <AccordionItem title="Características Clave Todo el Año" defaultOpen={true}>
+    **Siempre Identificable Por**:
+
+    1. Vainas cilíndricas oscuras largas (30-60 cm)
+    2. Hojas compuestas con 4-8 pares de folíolos
+    3. Copa abierta y extendida
+    4. Corteza lisa gris-verdosa (árboles jóvenes)
+
+    **Durante la Floración (¡Inconfundible!)**:
+    - Árbol entero cubierto de amarillo dorado
+    - Racimos largos de flores colgantes
+    - A menudo sin hojas cuando florece
+
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Senna
-    spectabilis_ | Flores más pequeñas, vainas más cortas | | _Delonix regia_
-    (Flamboyán) | Flores rojas/naranjas, vainas planas | | _Peltophorum_ |
-    Flores amarillas más pequeñas, vainas planas | | _Tipuana tipu_ | Estructura
-    de flor diferente | ¡Las vainas cilíndricas muy largas son diagnósticas!
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Senna spectabilis_", "Flores más pequeñas, vainas más cortas"],
+        ["_Delonix regia_ (Flamboyán)", "Flores rojas/naranjas, vainas planas"],
+        ["_Peltophorum_", "Flores amarillas más pequeñas, vainas planas"],
+        ["_Tipuana tipu_", "Estructura de flor diferente"],
+      ]}
+    />
+
+    ¡Las vainas cilíndricas muy largas son diagnósticas!
+
   </AccordionItem>
 </Accordion>
 

@@ -463,11 +463,17 @@ El Marañón es un árbol siempreverde de tamaño pequeño a mediano con una cop
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | _Anacardium
-    excelsum_ (Espavel) | Mucho más grande (hasta 60m), diferente tamaño de hoja
-    | | _Mangifera indica_ (Mango) | Árbol más grande, fruto diferente | | Otras
-    especies de Anacardium | Diferencias de distribución, tamaño | La estructura
-    única del fruto del marañón es inconfundible cuando está presente.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Anacardium excelsum_ (Espavel)", "Mucho más grande (hasta 60m), diferente tamaño de hoja"],
+        ["_Mangifera indica_ (Mango)", "Árbol más grande, fruto diferente"],
+        ["Otras especies de Anacardium", "Diferencias de distribución, tamaño"],
+      ]}
+    />
+
+    La estructura única del fruto del marañón es inconfundible cuando está presente.
+
   </AccordionItem>
 </Accordion>
 

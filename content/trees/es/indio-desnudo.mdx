@@ -475,12 +475,20 @@ Común en todos los bosques secos y húmedos de tierras bajas, especialmente en 
   </AccordionItem>
 
 <AccordionItem title="Especies Similares">
-  Pocos árboles son similares, pero: | Especie | Diferencia con Indio Desnudo |
-  |---------|-------------------------------| | Otras spp. de _Bursera_ |
-  Algunas se pelan pero diferente color, rango | | _Spondias mombin_ (Jobo) |
-  Corteza fisurada, frutos diferentes | | Manzanillo | No se pela, ¡tóxico! | La
-  corteza rojo-cobriza que se pela con verde debajo es esencialmente única.
-</AccordionItem>
+    Pocos árboles son similares, pero:
+
+    <DataTable
+      headers={["Especie", "Diferencia con Indio Desnudo"]}
+      rows={[
+        ["Otras spp. de _Bursera_", "Algunas se pelan pero diferente color, rango"],
+        ["_Spondias mombin_ (Jobo)", "Corteza fisurada, frutos diferentes"],
+        ["Manzanillo", "No se pela, ¡tóxico!"],
+      ]}
+    />
+
+    La corteza rojo-cobriza que se pela con verde debajo es esencialmente única.
+
+  </AccordionItem>
 
   <AccordionItem title="Reconocimiento Estacional">
     **Época Seca**: - Sin hojas, corteza muy visible - Frutos maduran -

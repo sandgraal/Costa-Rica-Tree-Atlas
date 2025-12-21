@@ -493,12 +493,18 @@ Se encuentra en tierras bajas y elevaciones medias:
   </AccordionItem>
 
 <AccordionItem title="Especies Similares">
-  | Especie | Diferencia Clave | |---------|------------------| | _Pourouma_
-  spp. | Hojas no tan profundamente lobuladas, envés más oscuro | | _Sterculia_
-  spp. | Diferente forma de hoja, sin hormigas | | Palmas | No son hojas
-  compuestas palmadas | ¡Envés plateado de hojas + tallos huecos con hormigas =
-  inconfundible!
-</AccordionItem>
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["_Pourouma_ spp.", "Hojas no tan profundamente lobuladas, envés más oscuro"],
+        ["_Sterculia_ spp.", "Diferente forma de hoja, sin hormigas"],
+        ["Palmas", "No son hojas compuestas palmadas"],
+      ]}
+    />
+
+    ¡Envés plateado de hojas + tallos huecos con hormigas = inconfundible!
+
+  </AccordionItem>
 
   <AccordionItem title="Encontrándolo en el Campo">
     **Dónde Buscar**: - Bordes de bosque y claros - Carreteras y riberas -

@@ -481,20 +481,33 @@ El Carao es un árbol caducifolio grande con copa amplia y extendida y tronco gr
   </AccordionItem>
 
 <AccordionItem title="Reconocimiento Estacional">
-  | Estación | Apariencia | |----------|------------| | Seca tardía (feb-abr) |
-  FLORES ROSADAS - inconfundible | | Inicio lluvias (may-jun) | Hojas verdes
-  frescas emergiendo | | Lluviosa (jul-nov) | Dosel frondoso completo | | Seca
-  temprana (dic-ene) | Vainas madurando, hojas amarilleando | El período de
-  floración hace la identificación más fácil— no hay nada como él en flor.
-</AccordionItem>
+    <DataTable
+      headers={["Estación", "Apariencia"]}
+      rows={[
+        ["Seca tardía (feb-abr)", "FLORES ROSADAS - inconfundible"],
+        ["Inicio lluvias (may-jun)", "Hojas verdes frescas emergiendo"],
+        ["Lluviosa (jul-nov)", "Dosel frondoso completo"],
+        ["Seca temprana (dic-ene)", "Vainas madurando, hojas amarilleando"],
+      ]}
+    />
+
+    El período de floración hace la identificación más fácil— no hay nada como él en flor.
+
+  </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Carao | Lluvia Dorada (Cassia fistula) |
-    |----------------|-------|-------------------------------| | Color de flor |
-    ROSA | AMARILLA | | Origen | Nativa | Introducida (Asia) | | Vainas |
-    Cilíndricas | Cilíndricas | | Uso | Tónico para sangre | Laxante | El color
-    rosa vs. amarillo de las flores distingue instantáneamente al Carao nativo
-    de la Lluvia Dorada introducida.
+    <DataTable
+      headers={["Característica", "Carao", "Lluvia Dorada (Cassia fistula)"]}
+      rows={[
+        ["Color de flor", "ROSA", "AMARILLA"],
+        ["Origen", "Nativa", "Introducida (Asia)"],
+        ["Vainas", "Cilíndricas", "Cilíndricas"],
+        ["Uso", "Tónico para sangre", "Laxante"],
+      ]}
+    />
+
+    El color rosa vs. amarillo de las flores distingue instantáneamente al Carao nativo de la Lluvia Dorada introducida.
+
   </AccordionItem>
 </Accordion>
 

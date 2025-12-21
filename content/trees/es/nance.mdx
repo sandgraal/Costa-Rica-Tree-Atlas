@@ -486,12 +486,17 @@ El Nance es típicamente un árbol pequeño o arbusto grande, aunque puede alcan
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia Clave | |---------|------------------| | Otras
-    especies de _Byrsonima_ | Detalles de hojas, distribución | | Especies de
-    _Malpighia_ | Forma de hoja, diferencias en fruta | | _Psidium_ (Guayaba) |
-    Familia diferente, disposición de hojas | La combinación de hojas opuestas
-    coriáceas con pelos rojizos y la distintiva fruta amarilla es
-    característica.
+    <DataTable
+      headers={["Especie", "Diferencia Clave"]}
+      rows={[
+        ["Otras especies de _Byrsonima_", "Detalles de hojas, distribución"],
+        ["Especies de _Malpighia_", "Forma de hoja, diferencias en fruta"],
+        ["_Psidium_ (Guayaba)", "Familia diferente, disposición de hojas"],
+      ]}
+    />
+
+    La combinación de hojas opuestas coriáceas con pelos rojizos y la distintiva fruta amarilla es característica.
+
   </AccordionItem>
 </Accordion>
 

@@ -250,14 +250,21 @@ El Ciprés es una conífera mediana a alta con una copa distintivamente estrecha
 </TwoColumn>
 
 <Callout type="tip" title="Identificación Ciprés vs. Pino">
-  Distinguiendo Ciprés de pinos (que también crecen en tierras altas de Costa
-  Rica): | Característica | Ciprés (Cypress) | Pino (Pine) |
-  |----------------|------------------|-------------| | Hojas | Escamosas,
-  superpuestas | Agujas en fascículos | | Conos | Pequeños, redondos, leñosos |
-  Grandes, alargados | | Corteza | Fibrosa, tiras | En placas o escamosa | |
-  Aroma | Dulce, aromático | Resinoso, a pino | | Copa | Columnar, densa |
-  Abierta, extendida | Una vez que sabe qué buscar, ¡estas dos coníferas comunes
-  de tierras altas son fáciles de distinguir!
+  Distinguiendo Ciprés de pinos (que también crecen en tierras altas de Costa Rica):
+
+<DataTable
+  headers={["Característica", "Ciprés (Cypress)", "Pino (Pine)"]}
+  rows={[
+    ["Hojas", "Escamosas, superpuestas", "Agujas en fascículos"],
+    ["Conos", "Pequeños, redondos, leñosos", "Grandes, alargados"],
+    ["Corteza", "Fibrosa, tiras", "En placas o escamosa"],
+    ["Aroma", "Dulce, aromático", "Resinoso, a pino"],
+    ["Copa", "Columnar, densa", "Abierta, extendida"],
+  ]}
+/>
+
+Una vez que sabe qué buscar, ¡estas dos coníferas comunes de tierras altas son fáciles de distinguir!
+
 </Callout>
 
 ---
@@ -469,11 +476,18 @@ El Ciprés es una conífera mediana a alta con una copa distintivamente estrecha
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Característica | Ciprés | Pino | |----------------|--------|------| |
-    Hojas | Escamosas | Agujas en fascículos | | Tacto | Suave | Puede ser
-    espinoso | | Conos | Pequeños, redondos | Grandes, alargados | | Forma |
-    Columnar | Copa más abierta | Las hojas escamosas vs. agujas son la pista
-    instantánea para distinguir ciprés de pino.
+    <DataTable
+      headers={["Característica", "Ciprés", "Pino"]}
+      rows={[
+        ["Hojas", "Escamosas", "Agujas en fascículos"],
+        ["Tacto", "Suave", "Puede ser espinoso"],
+        ["Conos", "Pequeños, redondos", "Grandes, alargados"],
+        ["Forma", "Columnar", "Copa más abierta"],
+      ]}
+    />
+
+    Las hojas escamosas vs. agujas son la pista instantánea para distinguir ciprés de pino.
+
   </AccordionItem>
 </Accordion>
 

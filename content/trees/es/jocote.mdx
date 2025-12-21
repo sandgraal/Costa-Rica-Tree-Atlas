@@ -515,12 +515,17 @@ El Jocote es un árbol pequeño a mediano deciduo con una copa extendida y ramas
   </AccordionItem>
 
   <AccordionItem title="Comparado con Jobo (S. mombin)">
-    | Característica | Jocote | Jobo | |----------------|--------|------| |
-    Tamaño | Más pequeño (7-15 m) | Más grande (20-30 m) | | Color de fruta |
-    Rojo/morado | Amarillo | | Tamaño de fruta | Más pequeña | Más grande | |
-    Hábitat | Áreas más secas | Áreas más húmedas | | Propagación | Estacas
-    fácilmente | Usualmente semilla | | Cultivo | Altamente domesticado |
-    Semi-silvestre |
+    <DataTable
+      headers={["Característica", "Jocote", "Jobo"]}
+      rows={[
+        ["Tamaño", "Más pequeño (7-15 m)", "Más grande (20-30 m)"],
+        ["Color de fruta", "Rojo/morado", "Amarillo"],
+        ["Tamaño de fruta", "Más pequeña", "Más grande"],
+        ["Hábitat", "Áreas más secas", "Áreas más húmedas"],
+        ["Propagación", "Estacas fácilmente", "Usualmente semilla"],
+        ["Cultivo", "Altamente domesticado", "Semi-silvestre"],
+      ]}
+    />
   </AccordionItem>
 </Accordion>
 

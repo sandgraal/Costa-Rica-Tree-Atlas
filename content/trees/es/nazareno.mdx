@@ -441,11 +441,16 @@ El Nazareno es un gran árbol emergente del dosel con un tronco alto y recto y u
   </AccordionItem>
 
   <AccordionItem title="Especies Similares">
-    | Especie | Diferencia | |---------|------------| | _Hymenaea courbaril_
-    (Guapinol) | Folíolos similares pero corteza, fruto diferentes | | Otras
-    especies de _Peltogyne_ | Rango geográfico, diferencias menores | La hoja
-    compuesta de dos folíolos combinada con el hábitat y forma del árbol hacen
-    al Nazareno relativamente distintivo.
+    <DataTable
+      headers={["Especie", "Diferencia"]}
+      rows={[
+        ["_Hymenaea courbaril_ (Guapinol)", "Folíolos similares pero corteza, fruto diferentes"],
+        ["Otras especies de _Peltogyne_", "Rango geográfico, diferencias menores"],
+      ]}
+    />
+
+    La hoja compuesta de dos folíolos combinada con el hábitat y forma del árbol hacen al Nazareno relativamente distintivo.
+
   </AccordionItem>
 </Accordion>
 
