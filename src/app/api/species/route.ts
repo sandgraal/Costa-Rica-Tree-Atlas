@@ -12,6 +12,11 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // Validate input length to prevent abuse
+  if (scientificName.length > 200) {
+    return NextResponse.json({ error: "Parameter too long" }, { status: 400 });
+  }
+
   try {
     const data = await fetchBiodiversityData(scientificName);
 

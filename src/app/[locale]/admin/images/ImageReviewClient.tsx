@@ -45,9 +45,15 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
 
   // Load votes from localStorage
   useEffect(() => {
-    const savedVotes = localStorage.getItem("tree-image-votes");
-    if (savedVotes) {
-      setVotes(JSON.parse(savedVotes));
+    if (typeof window === "undefined") return;
+
+    try {
+      const savedVotes = localStorage.getItem("tree-image-votes");
+      if (savedVotes) {
+        setVotes(JSON.parse(savedVotes));
+      }
+    } catch (e) {
+      console.error("Failed to parse image votes:", e);
     }
   }, []);
 

@@ -123,11 +123,17 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
 
   // Load high score
   useEffect(() => {
-    const saved = localStorage.getItem(MAP_GAME_STORAGE_KEY);
-    if (saved) {
-      const data = JSON.parse(saved);
-      setHighScore(data.highScore || 0);
-      setTotalGames(data.totalGames || 0);
+    if (typeof window === "undefined") return;
+
+    try {
+      const saved = localStorage.getItem(MAP_GAME_STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        setHighScore(data.highScore || 0);
+        setTotalGames(data.totalGames || 0);
+      }
+    } catch (e) {
+      console.error("Failed to parse map game data:", e);
     }
   }, []);
 

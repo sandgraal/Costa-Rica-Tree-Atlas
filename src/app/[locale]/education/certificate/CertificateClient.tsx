@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
   EducationProgressProvider,
   useEducationProgress,
@@ -69,7 +69,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
     nameReq: locale === "es" ? "Ingresar tu nombre" : "Enter your name",
   };
 
-  const lessonNames = {
+  const _lessonNames = {
     "biodiversity-intro":
       locale === "es"
         ? "Introducción a la Biodiversidad"

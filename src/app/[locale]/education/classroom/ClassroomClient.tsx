@@ -63,15 +63,21 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
   // Load saved data on mount
   useEffect(() => {
-    const savedClassroom = localStorage.getItem(CLASSROOM_STORAGE_KEY);
-    const savedStudent = localStorage.getItem(STUDENT_STORAGE_KEY);
+    if (typeof window === "undefined") return;
 
-    if (savedClassroom) {
-      setClassroom(JSON.parse(savedClassroom));
-      setMode("classroom");
-    }
-    if (savedStudent) {
-      setStudentInfo(JSON.parse(savedStudent));
+    try {
+      const savedClassroom = localStorage.getItem(CLASSROOM_STORAGE_KEY);
+      const savedStudent = localStorage.getItem(STUDENT_STORAGE_KEY);
+
+      if (savedClassroom) {
+        setClassroom(JSON.parse(savedClassroom));
+        setMode("classroom");
+      }
+      if (savedStudent) {
+        setStudentInfo(JSON.parse(savedStudent));
+      }
+    } catch (e) {
+      console.error("Failed to parse classroom data:", e);
     }
   }, []);
 
@@ -96,6 +102,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
         JSON.stringify(updatedClassroom)
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalPoints, completedLessons, earnedBadgeIcons.length]);
 
   const t = {

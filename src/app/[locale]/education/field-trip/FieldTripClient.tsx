@@ -48,11 +48,17 @@ export default function FieldTripClient({
 
   // Load saved data
   useEffect(() => {
-    const saved = localStorage.getItem(FIELD_TRIP_STORAGE_KEY);
-    if (saved) {
-      const data = JSON.parse(saved);
-      setSpottedTrees(data.spottedTrees || []);
-      setCurrentTrip(data.currentTrip || null);
+    if (typeof window === "undefined") return;
+
+    try {
+      const saved = localStorage.getItem(FIELD_TRIP_STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        setSpottedTrees(data.spottedTrees || []);
+        setCurrentTrip(data.currentTrip || null);
+      }
+    } catch (e) {
+      console.error("Failed to parse field trip data:", e);
     }
 
     // Check online status

@@ -70,13 +70,40 @@ export async function POST(request: Request) {
     );
   }
 
-  const formData = await request.formData();
+  let formData: FormData;
+  try {
+    formData = await request.formData();
+  } catch {
+    return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
+  }
+
   const file = formData.get("image");
   const requestedLocale = formData.get("locale")?.toString();
   const locale = requestedLocale === "es" ? "es" : "en";
 
   if (!file || !(file instanceof File)) {
     return NextResponse.json({ error: "Missing image file" }, { status: 400 });
+  }
+
+  // Validate file size (max 10MB)
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  if (file.size > MAX_FILE_SIZE) {
+    return NextResponse.json(
+      { error: "File too large. Maximum size is 10MB." },
+      { status: 400 }
+    );
+  }
+
+  // Validate file type
+  const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+  if (!validTypes.includes(file.type)) {
+    return NextResponse.json(
+      {
+        error:
+          "Invalid file type. Please upload an image (JPEG, PNG, WebP, or GIF).",
+      },
+      { status: 400 }
+    );
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());

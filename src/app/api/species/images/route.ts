@@ -28,6 +28,11 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // Validate input length to prevent abuse
+  if (scientificName.length > 200) {
+    return NextResponse.json({ error: "Parameter too long" }, { status: 400 });
+  }
+
   try {
     // First, get the taxon ID for the scientific name
     const taxonResponse = await fetch(
