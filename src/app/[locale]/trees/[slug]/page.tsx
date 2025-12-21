@@ -352,7 +352,7 @@ export default async function TreePage({ params }: Props) {
           />
 
           {/* MDX Content */}
-          <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-primary-dark dark:prose-headings:text-primary-light prose-a:text-primary hover:prose-a:text-primary-light">
+          <div className="tree-content max-w-none">
             <MDXContent code={tree.body.code} />
           </div>
 

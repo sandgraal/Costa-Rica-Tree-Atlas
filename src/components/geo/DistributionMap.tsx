@@ -72,23 +72,111 @@ export function DistributionMap({
             role="img"
             aria-label={labels.title}
           >
+            {/* Gradient definitions */}
+            <defs>
+              {/* Water gradient */}
+              <linearGradient
+                id="waterGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#93c5fd" />
+                <stop offset="50%" stopColor="#60a5fa" />
+                <stop offset="100%" stopColor="#3b82f6" />
+              </linearGradient>
+              <linearGradient
+                id="waterGradientDark"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#1e3a5f" />
+                <stop offset="50%" stopColor="#1e40af" />
+                <stop offset="100%" stopColor="#1e3a8a" />
+              </linearGradient>
+
+              {/* Present province gradient */}
+              <linearGradient
+                id="presentGradient"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#4ade80" />
+                <stop offset="50%" stopColor="#22c55e" />
+                <stop offset="100%" stopColor="#16a34a" />
+              </linearGradient>
+              <linearGradient
+                id="presentHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#22c55e" />
+                <stop offset="50%" stopColor="#16a34a" />
+                <stop offset="100%" stopColor="#15803d" />
+              </linearGradient>
+
+              {/* Land texture gradient */}
+              <linearGradient
+                id="landGradient"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#f5f5f4" />
+                <stop offset="100%" stopColor="#e7e5e4" />
+              </linearGradient>
+              <linearGradient
+                id="landGradientDark"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#44403c" />
+                <stop offset="100%" stopColor="#292524" />
+              </linearGradient>
+
+              {/* Drop shadow filter */}
+              <filter
+                id="dropShadow"
+                x="-20%"
+                y="-20%"
+                width="140%"
+                height="140%"
+              >
+                <feDropShadow
+                  dx="2"
+                  dy="2"
+                  stdDeviation="3"
+                  floodOpacity="0.2"
+                />
+              </filter>
+            </defs>
+
             {/* Water background */}
             <rect
               x="0"
               y="0"
               width="360"
               height="280"
-              fill="currentColor"
-              className="text-blue-100 dark:text-blue-900/30"
+              className="fill-[url(#waterGradient)] dark:fill-[url(#waterGradientDark)]"
             />
 
-            {/* Country outline */}
+            {/* Country outline with shadow */}
             <path
               d={COUNTRY_OUTLINE}
-              className="text-gray-200 dark:text-gray-700 stroke-gray-300 dark:stroke-gray-600"
-              fill="currentColor"
-              stroke="currentColor"
-              strokeWidth="2"
+              className="fill-[url(#landGradient)] dark:fill-[url(#landGradientDark)]"
+              stroke="#78716c"
+              strokeWidth="2.5"
+              filter="url(#dropShadow)"
             />
 
             {/* Province shapes */}
@@ -98,22 +186,27 @@ export function DistributionMap({
               );
               const isHovered = hoveredProvince === key;
 
+              // Determine fill based on state
+              let fillValue: string;
+              if (isHighlighted) {
+                fillValue = isHovered
+                  ? "url(#presentHoverGradient)"
+                  : "url(#presentGradient)";
+              } else {
+                fillValue = isHovered ? "#d1d5db" : "transparent";
+              }
+
               return (
                 <g key={key}>
                   <path
                     d={province.path}
-                    className="stroke-gray-400 dark:stroke-gray-500 cursor-pointer"
-                    stroke="currentColor"
+                    stroke="#57534e"
                     strokeWidth="1.5"
+                    className="cursor-pointer dark:stroke-stone-400"
                     style={{
-                      fill: isHighlighted
-                        ? isHovered
-                          ? "rgb(45, 90, 39)"
-                          : "rgba(45, 90, 39, 0.4)"
-                        : isHovered
-                          ? "rgba(156, 163, 175, 0.3)"
-                          : "transparent",
-                      transition: "fill 0.2s ease-in-out",
+                      fill: fillValue,
+                      opacity: isHighlighted ? 0.9 : isHovered ? 0.5 : 1,
+                      transition: "all 0.2s ease-in-out",
                     }}
                     onMouseEnter={() =>
                       interactive && setHoveredProvince(key as Province)
@@ -129,9 +222,11 @@ export function DistributionMap({
                     y={province.center.y}
                     textAnchor="middle"
                     fontSize="8"
-                    fontWeight="500"
-                    fill="currentColor"
-                    className="text-gray-600 dark:text-gray-300 pointer-events-none select-none"
+                    fontWeight="600"
+                    className="pointer-events-none select-none fill-stone-700 dark:fill-stone-200"
+                    style={{
+                      textShadow: "0 0 3px rgba(255,255,255,0.8)",
+                    }}
                   >
                     {province.name[locale]}
                   </text>
@@ -147,8 +242,8 @@ export function DistributionMap({
                 y={neighbor.label.y}
                 textAnchor="middle"
                 fontSize="9"
-                fill="currentColor"
-                className="text-gray-400 dark:text-gray-500 pointer-events-none select-none italic"
+                className="pointer-events-none select-none italic fill-blue-300 dark:fill-blue-400"
+                style={{ fontStyle: "italic" }}
               >
                 {neighbor.name[locale]}
               </text>
@@ -165,11 +260,22 @@ export function DistributionMap({
             </h4>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-[rgba(45,90,39,0.4)] border border-gray-400" />
+                <div
+                  className="w-4 h-4 rounded border border-green-600"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, #4ade80, #22c55e, #16a34a)",
+                  }}
+                />
                 <span className="text-sm">{labels.present}</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-transparent border border-gray-400" />
+                <div
+                  className="w-4 h-4 rounded border border-stone-400"
+                  style={{
+                    background: "linear-gradient(to bottom, #f5f5f4, #e7e5e4)",
+                  }}
+                />
                 <span className="text-sm">{labels.notRecorded}</span>
               </div>
             </div>

@@ -49,17 +49,17 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
 
   return (
     <div
-      className={`${style.bg} border-l-4 ${style.border} rounded-r-lg p-4 my-6`}
+      className={`${style.bg} border-l-4 ${style.border} rounded-r-lg p-5 my-6`}
     >
       {title && (
         <div
-          className={`font-semibold ${style.titleColor} mb-2 flex items-center gap-2`}
+          className={`font-semibold ${style.titleColor} mb-3 flex items-center gap-2 text-lg`}
         >
           <span>{style.icon}</span>
           <span>{title}</span>
         </div>
       )}
-      <div className="text-foreground/90">{children}</div>
+      <div className="text-foreground/90 mdx-accordion-content">{children}</div>
     </div>
   );
 }
@@ -444,18 +444,20 @@ export function AccordionItem({
   const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden my-2 not-prose">
+    <div className="border border-border rounded-lg overflow-hidden my-2">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 bg-muted hover:bg-muted/80 flex items-center justify-between text-left transition-colors"
+        className="w-full px-4 py-3 bg-primary/5 hover:bg-primary/10 flex items-center justify-between text-left transition-colors"
       >
-        <span className="font-medium">{title}</span>
-        <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>
+        <span className="font-semibold text-foreground">{title}</span>
+        <span
+          className={`transition-transform text-primary ${isOpen ? "rotate-180" : ""}`}
+        >
           ▼
         </span>
       </button>
       {isOpen && (
-        <div className="px-4 py-3 bg-card border-t border-border">
+        <div className="px-4 py-4 bg-card border-t border-border mdx-accordion-content">
           {children}
         </div>
       )}
@@ -465,7 +467,7 @@ export function AccordionItem({
 
 // Accordion Container
 export function Accordion({ children }: { children: React.ReactNode }) {
-  return <div className="my-6 not-prose">{children}</div>;
+  return <div className="my-6">{children}</div>;
 }
 
 // Image Card with Source Attribution
@@ -956,14 +958,12 @@ export function FeatureBox({
   };
 
   return (
-    <div
-      className={`rounded-xl border p-5 my-4 not-prose ${variants[variant]}`}
-    >
+    <div className={`rounded-xl border p-5 my-6 ${variants[variant]}`}>
       <div className="flex items-center gap-3 mb-3">
         <span className="text-2xl">{icon}</span>
-        <h4 className="font-semibold text-foreground">{title}</h4>
+        <h4 className="font-semibold text-lg text-foreground">{title}</h4>
       </div>
-      <div className="text-foreground/80 text-sm">{children}</div>
+      <div className="text-foreground/90 mdx-accordion-content">{children}</div>
     </div>
   );
 }
@@ -971,15 +971,13 @@ export function FeatureBox({
 // Two Column Layout
 export function TwoColumn({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-6 not-prose">
-      {children}
-    </div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-6">{children}</div>
   );
 }
 
 // Column
 export function Column({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
+  return <div className="mdx-accordion-content">{children}</div>;
 }
 
 // Data Table Component for use inside JSX components
@@ -1053,8 +1051,271 @@ export function SimpleList({ items, ordered = false }: SimpleListProps) {
   );
 }
 
+// Native HTML Element Components for beautiful typography
+
+// Styled h1-h6 components for MDX
+function H1({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h1
+      className="text-3xl md:text-4xl font-bold text-primary-dark dark:text-primary-light mt-10 mb-6 pb-3 border-b-2 border-primary/20"
+      {...props}
+    >
+      {children}
+    </h1>
+  );
+}
+
+function H2({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h2
+      className="text-2xl md:text-3xl font-bold text-primary-dark dark:text-primary-light mt-10 mb-5 pb-2 border-b border-border"
+      {...props}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function H3({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h3
+      className="text-xl md:text-2xl font-semibold text-primary-dark dark:text-primary-light mt-8 mb-4"
+      {...props}
+    >
+      {children}
+    </h3>
+  );
+}
+
+function H4({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h4
+      className="text-lg md:text-xl font-semibold text-foreground mt-6 mb-3"
+      {...props}
+    >
+      {children}
+    </h4>
+  );
+}
+
+function H5({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h5
+      className="text-base md:text-lg font-semibold text-foreground mt-5 mb-2"
+      {...props}
+    >
+      {children}
+    </h5>
+  );
+}
+
+function H6({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h6
+      className="text-sm md:text-base font-semibold text-muted-foreground mt-4 mb-2 uppercase tracking-wide"
+      {...props}
+    >
+      {children}
+    </h6>
+  );
+}
+
+// Styled paragraph
+function P({ children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p className="text-foreground/90 leading-relaxed mb-4" {...props}>
+      {children}
+    </p>
+  );
+}
+
+// Styled anchor
+function A({
+  children,
+  href,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const isExternal = href?.startsWith("http");
+  return (
+    <a
+      href={href}
+      className="text-primary hover:text-primary-light underline underline-offset-2 transition-colors"
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      {...props}
+    >
+      {children}
+      {isExternal && <span className="ml-1 text-xs">↗</span>}
+    </a>
+  );
+}
+
+// Styled blockquote
+function Blockquote({
+  children,
+  ...props
+}: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) {
+  return (
+    <blockquote
+      className="border-l-4 border-primary/40 pl-4 py-2 my-6 bg-primary/5 rounded-r-lg italic text-foreground/80"
+      {...props}
+    >
+      {children}
+    </blockquote>
+  );
+}
+
+// Styled unordered list
+function Ul({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) {
+  return (
+    <ul
+      className="list-disc list-outside ml-6 mb-4 space-y-2 text-foreground/90"
+      {...props}
+    >
+      {children}
+    </ul>
+  );
+}
+
+// Styled ordered list
+function Ol({ children, ...props }: React.OlHTMLAttributes<HTMLOListElement>) {
+  return (
+    <ol
+      className="list-decimal list-outside ml-6 mb-4 space-y-2 text-foreground/90"
+      {...props}
+    >
+      {children}
+    </ol>
+  );
+}
+
+// Styled list item
+function Li({ children, ...props }: React.LiHTMLAttributes<HTMLLIElement>) {
+  return (
+    <li className="leading-relaxed pl-1" {...props}>
+      {children}
+    </li>
+  );
+}
+
+// Styled table elements
+function Table({
+  children,
+  ...props
+}: React.TableHTMLAttributes<HTMLTableElement>) {
+  return (
+    <div className="overflow-x-auto my-6 rounded-lg border border-border">
+      <table className="w-full border-collapse text-sm" {...props}>
+        {children}
+      </table>
+    </div>
+  );
+}
+
+function Thead({
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return (
+    <thead className="bg-primary/10" {...props}>
+      {children}
+    </thead>
+  );
+}
+
+function Tbody({
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return <tbody {...props}>{children}</tbody>;
+}
+
+function Tr({ children, ...props }: React.HTMLAttributes<HTMLTableRowElement>) {
+  return (
+    <tr className="border-b border-border/50 even:bg-muted/30" {...props}>
+      {children}
+    </tr>
+  );
+}
+
+function Th({
+  children,
+  ...props
+}: React.ThHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <th
+      className="p-3 text-left font-semibold text-foreground border-b border-border"
+      {...props}
+    >
+      {children}
+    </th>
+  );
+}
+
+function Td({
+  children,
+  ...props
+}: React.TdHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <td className="p-3 text-foreground/90" {...props}>
+      {children}
+    </td>
+  );
+}
+
+// Styled code elements
+function Code({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
+  return (
+    <code
+      className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-secondary-dark dark:text-secondary-light"
+      {...props}
+    >
+      {children}
+    </code>
+  );
+}
+
+function Pre({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) {
+  return (
+    <pre
+      className="bg-muted p-4 rounded-lg overflow-x-auto my-6 text-sm font-mono border border-border"
+      {...props}
+    >
+      {children}
+    </pre>
+  );
+}
+
+// Styled hr
+function Hr(props: React.HTMLAttributes<HTMLHRElement>) {
+  return (
+    <hr
+      className="my-10 border-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"
+      {...props}
+    />
+  );
+}
+
+// Styled strong and em
+function Strong({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
+  return (
+    <strong className="font-semibold text-foreground" {...props}>
+      {children}
+    </strong>
+  );
+}
+
+function Em({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
+  return (
+    <em className="italic text-foreground/90" {...props}>
+      {children}
+    </em>
+  );
+}
+
 // Export all components for MDX
 export const mdxComponents = {
+  // Custom MDX components
   Callout,
   PropertyCard,
   PropertiesGrid,
@@ -1082,4 +1343,28 @@ export const mdxComponents = {
   Column,
   DataTable,
   SimpleList,
+  // Native HTML element overrides for consistent styling
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
+  p: P,
+  a: A,
+  blockquote: Blockquote,
+  ul: Ul,
+  ol: Ol,
+  li: Li,
+  table: Table,
+  thead: Thead,
+  tbody: Tbody,
+  tr: Tr,
+  th: Th,
+  td: Td,
+  code: Code,
+  pre: Pre,
+  hr: Hr,
+  strong: Strong,
+  em: Em,
 };
