@@ -8,6 +8,46 @@ import {
 } from "@/lib/i18n";
 import type { PopulationTrend } from "@/types/tree";
 
+// Category descriptions for tooltips (bilingual)
+const CATEGORY_DESCRIPTIONS: Record<string, { en: string; es: string }> = {
+  NE: {
+    en: "Not Evaluated - Has not yet been evaluated against the criteria",
+    es: "No Evaluado - Aún no ha sido evaluado según los criterios",
+  },
+  DD: {
+    en: "Data Deficient - Not enough data to assess extinction risk",
+    es: "Datos Insuficientes - No hay suficientes datos para evaluar el riesgo",
+  },
+  LC: {
+    en: "Least Concern - Low risk of extinction in the wild",
+    es: "Preocupación Menor - Bajo riesgo de extinción en estado silvestre",
+  },
+  NT: {
+    en: "Near Threatened - Close to qualifying for a threatened category",
+    es: "Casi Amenazado - Próximo a calificar para una categoría amenazada",
+  },
+  VU: {
+    en: "Vulnerable - High risk of endangerment in the wild",
+    es: "Vulnerable - Alto riesgo de peligro en estado silvestre",
+  },
+  EN: {
+    en: "Endangered - High risk of extinction in the wild",
+    es: "En Peligro - Alto riesgo de extinción en estado silvestre",
+  },
+  CR: {
+    en: "Critically Endangered - Extremely high risk of extinction",
+    es: "En Peligro Crítico - Riesgo extremadamente alto de extinción",
+  },
+  EW: {
+    en: "Extinct in the Wild - Only survives in captivity or cultivation",
+    es: "Extinto en Estado Silvestre - Solo sobrevive en cautiverio o cultivo",
+  },
+  EX: {
+    en: "Extinct - No known living individuals remaining",
+    es: "Extinto - No quedan individuos vivos conocidos",
+  },
+};
+
 interface ConservationStatusProps {
   category: string;
   populationTrend?: string;
@@ -56,15 +96,21 @@ export function ConservationStatus({
     return "#1a1a1a";
   };
 
+  // Get tooltip description for category
+  const getCategoryTooltip = (cat: string): string => {
+    const desc = CATEGORY_DESCRIPTIONS[cat];
+    return desc ? desc[locale as "en" | "es"] || desc.en : localizedCategory;
+  };
+
   if (compact) {
     return (
       <span
-        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium"
+        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium cursor-help"
         style={{
           backgroundColor: categoryData.color,
           color: getTextColor(categoryData.color),
         }}
-        title={`${labels.conservationStatus}: ${localizedCategory}`}
+        title={getCategoryTooltip(category)}
       >
         {category}
         {populationTrend && populationTrend !== "unknown" && (
@@ -85,11 +131,12 @@ export function ConservationStatus({
         {/* IUCN Category Badge */}
         <div className="flex items-center gap-3">
           <span
-            className="inline-flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold shadow-sm"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold shadow-sm cursor-help"
             style={{
               backgroundColor: categoryData.color,
               color: getTextColor(categoryData.color),
             }}
+            title={getCategoryTooltip(category)}
           >
             {category}
           </span>
@@ -161,31 +208,49 @@ export function ConservationScale({
   locale: string;
 }) {
   const labels = getIUCNLabels(locale);
-  const categories = ["NE", "DD", "LC", "NT", "VU", "EN", "CR", "EW", "EX"];
+  // Show only the main threat categories for visual scale (LC to EX)
+  const scaleCategories = ["LC", "NT", "VU", "EN", "CR", "EW", "EX"];
+
+  const getTooltip = (cat: string): string => {
+    const desc = CATEGORY_DESCRIPTIONS[cat];
+    return desc
+      ? desc[locale as "en" | "es"] || desc.en
+      : labels.categories[cat];
+  };
 
   return (
     <div className="mt-4">
-      <div className="flex items-stretch h-3 rounded-full overflow-hidden">
-        {categories.map((cat) => {
+      {/* Scale bar with segments */}
+      <div className="flex items-stretch h-8 rounded-lg overflow-hidden">
+        {scaleCategories.map((cat) => {
           const catData = IUCN_CATEGORIES[cat];
           const isCurrent = cat === currentCategory;
+          const textColor = ["EX", "EW", "CR"].includes(cat)
+            ? "#FFFFFF"
+            : "#1a1a1a";
           return (
             <div
               key={cat}
-              className={`flex-1 relative ${isCurrent ? "ring-2 ring-foreground ring-offset-1" : ""}`}
+              className={`flex-1 relative flex items-center justify-center cursor-help transition-all ${
+                isCurrent
+                  ? "ring-2 ring-foreground ring-offset-2 z-10 scale-105"
+                  : "hover:opacity-90"
+              }`}
               style={{ backgroundColor: catData.color }}
-              title={labels.categories[cat] || catData.name}
+              title={getTooltip(cat)}
             >
-              {isCurrent && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 bg-white rounded-full shadow" />
-                </div>
-              )}
+              <span
+                className="text-[10px] font-bold"
+                style={{ color: textColor }}
+              >
+                {cat}
+              </span>
             </div>
           );
         })}
       </div>
-      <div className="flex justify-between mt-1 text-[10px] text-muted-foreground">
+      {/* Labels below scale */}
+      <div className="flex justify-between mt-1.5 text-[10px] text-muted-foreground">
         <span>{getUILabel("lowerRisk", locale as "en" | "es")}</span>
         <span>{getUILabel("higherRisk", locale as "en" | "es")}</span>
       </div>

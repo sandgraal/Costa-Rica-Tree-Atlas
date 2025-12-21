@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import { useFavorite } from "@/lib/store";
-import { TAG_DEFINITIONS, getTagLabel } from "@/lib/i18n";
+import {
+  TAG_DEFINITIONS,
+  getTagLabel,
+  CONSERVATION_CATEGORIES,
+} from "@/lib/i18n";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import type { Locale, TreeTag } from "@/types/tree";
 
@@ -77,7 +81,9 @@ export function TreeCard({
           {/* Conservation status badge */}
           {tree.conservationStatus && (
             <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-secondary/90 text-white rounded">
-              {tree.conservationStatus}
+              {CONSERVATION_CATEGORIES[
+                tree.conservationStatus as keyof typeof CONSERVATION_CATEGORIES
+              ]?.label[locale] || tree.conservationStatus}
             </span>
           )}
         </div>
