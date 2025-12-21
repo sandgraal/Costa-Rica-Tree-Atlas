@@ -186,7 +186,11 @@
     "labelsTitle": "Detected labels",
     "matchScore": "Match score: {score}%",
     "errorMissingFile": "Please select an image to upload.",
-    "errorFailed": "We couldn't identify that image. Please try another."
+    "errorFailed": "We couldn't identify that image. Please try another.",
+    "maintenanceTitle": "Feature Temporarily Unavailable",
+    "maintenanceMessage": "We're working on making this feature both usable and secure. The tree identification tool will be available again soon.",
+    "maintenanceNote": "In the meantime, you can browse our tree directory or use the search feature to find trees manually.",
+    "browseTrees": "Browse Tree Directory"
   },
   "education": {
     "title": "Educational Resources",

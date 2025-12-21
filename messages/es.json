@@ -186,7 +186,11 @@
     "labelsTitle": "Etiquetas detectadas",
     "matchScore": "Puntuación de coincidencia: {score}%",
     "errorMissingFile": "Selecciona una imagen para subir.",
-    "errorFailed": "No pudimos identificar esa imagen. Intenta con otra."
+    "errorFailed": "No pudimos identificar esa imagen. Intenta con otra.",
+    "maintenanceTitle": "Función Temporalmente No Disponible",
+    "maintenanceMessage": "Estamos trabajando para hacer esta función más usable y segura. La herramienta de identificación de árboles estará disponible de nuevo pronto.",
+    "maintenanceNote": "Mientras tanto, puedes explorar nuestro directorio de árboles o usar la función de búsqueda para encontrar árboles manualmente.",
+    "browseTrees": "Explorar Directorio de Árboles"
   },
   "education": {
     "title": "Recursos Educativos",

@@ -1520,7 +1520,42 @@
     "photoId": 108352659,
     "photographer": "Eduardo Chacón Madrigal",
     "source": "iNaturalist",
-    "taxonId": 442874
+    "taxonId": 442874,
+    "gallery": {
+      "photos": [
+        {
+          "id": 30306871,
+          "attribution": "(c) Steven Daniel, all rights reserved",
+          "observationId": 19677115,
+          "category": "whole_tree"
+        },
+        {
+          "id": 182196436,
+          "attribution": "(c) Chloe and Trevor Van Loon, some rights reserved (CC BY)",
+          "observationId": 108238025,
+          "category": "leaves"
+        },
+        {
+          "id": 43681901,
+          "attribution": "(c) Sam Kieschnick, some rights reserved (CC BY)",
+          "observationId": 28039269,
+          "category": "habitat"
+        },
+        {
+          "id": 182196441,
+          "attribution": "(c) Chloe and Trevor Van Loon, some rights reserved (CC BY)",
+          "observationId": 108238025,
+          "category": "whole_tree"
+        },
+        {
+          "id": 182196426,
+          "attribution": "(c) Chloe and Trevor Van Loon, some rights reserved (CC BY)",
+          "observationId": 108238025,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T22:35:00.585Z"
+    }
   },
   "ron-ron": {
     "attribution": "(c) German Vargas, all rights reserved",
@@ -2526,5 +2561,85 @@
       ],
       "updatedAt": "2025-12-21T17:39:06.042Z"
     }
+  },
+  "ajo": {
+    "attribution": "(c) Esteban Brenes-Mora, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/54999930",
+    "downloadedAt": "2025-12-21T22:25:58.202Z"
+  },
+  "anona": {
+    "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
+    "source": "https://www.inaturalist.org/observations/68722858",
+    "downloadedAt": "2025-12-21T22:26:00.850Z"
+  },
+  "capulin": {
+    "attribution": "(c) Stephen Wojcik, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/82365334",
+    "downloadedAt": "2025-12-21T22:26:03.163Z"
+  },
+  "carambola": {
+    "attribution": "(c) Amelia Betz, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/247374999",
+    "downloadedAt": "2025-12-21T22:26:05.294Z"
+  },
+  "cas": {
+    "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/10591173",
+    "downloadedAt": "2025-12-21T22:26:07.792Z"
+  },
+  "cativo": {
+    "attribution": "(c) John C., some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/167763231",
+    "downloadedAt": "2025-12-21T22:26:09.823Z"
+  },
+  "ciprecillo": {
+    "attribution": "(c) Caminos Amigables con Felinos-Panthera, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/44791302",
+    "downloadedAt": "2025-12-21T22:26:11.771Z"
+  },
+  "guanabana": {
+    "attribution": "(c) Jonathan Eisen, some rights reserved (CC BY)",
+    "source": "https://www.inaturalist.org/observations/24640780",
+    "downloadedAt": "2025-12-21T22:26:13.899Z"
+  },
+  "icaco": {
+    "attribution": "(c) Connor Burns, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/105672492",
+    "downloadedAt": "2025-12-21T22:26:16.150Z"
+  },
+  "magnolia": {
+    "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/193037208",
+    "downloadedAt": "2025-12-21T22:26:18.177Z"
+  },
+  "mamon-chino": {
+    "attribution": "(c) Fabrício Mil Homens Riella, some rights reserved (CC BY)",
+    "source": "https://www.inaturalist.org/observations/252460365",
+    "downloadedAt": "2025-12-21T22:26:20.723Z"
+  },
+  "mamon": {
+    "attribution": "(c) Jorge, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/72310099",
+    "downloadedAt": "2025-12-21T22:26:22.412Z"
+  },
+  "olla-de-mono": {
+    "attribution": "(c) Fondo de Biodiversidad Sostenible, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/247483101",
+    "downloadedAt": "2025-12-21T22:26:24.441Z"
+  },
+  "pitahaya": {
+    "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/195337609",
+    "downloadedAt": "2025-12-21T22:26:28.217Z"
+  },
+  "pomarrosa": {
+    "attribution": "(c) ernestors, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/76734993",
+    "downloadedAt": "2025-12-21T22:26:30.196Z"
+  },
+  "orey": {
+    "attribution": "Royal Botanic Gardens, Kew",
+    "source": "https://www.inaturalist.org/observations/undefined",
+    "downloadedAt": "2025-12-21T22:29:16.739Z"
   }
 }
