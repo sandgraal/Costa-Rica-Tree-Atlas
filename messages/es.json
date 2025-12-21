@@ -245,11 +245,11 @@
       },
       "tree-journal": {
         "title": "Diario de Árbol",
-        "description": "Los estudiantes adoptan un árbol local y documentan sus cambios durante el año escolar."
+        "description": "¡Adopta un árbol y registra observaciones con clima, fauna y gana insignias!"
       },
       "scavenger-hunt": {
-        "title": "Búsqueda del Tesoro de Árboles",
-        "description": "Los equipos buscan árboles que coincidan con características específicas del atlas."
+        "title": "Búsqueda del Tesoro",
+        "description": "¡Misiones en equipo para encontrar árboles con características específicas. Compite por puntos!"
       },
       "leaf-collection": {
         "title": "Colección de Hojas",

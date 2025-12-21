@@ -4,18 +4,21 @@
  * Unified Tree Image Manager for Costa Rica Tree Atlas
  *
  * This script handles all image-related tasks:
- * - Audit: Check all tree images for validity
+ * - Audit: Check all tree images for validity (featured + gallery)
  * - Download: Fetch missing or broken images from iNaturalist
  * - Refresh: Update images with better quality versions
  * - Validate: Ensure all images meet quality standards
+ * - Gallery: Audit and update photo gallery images in MDX content
  *
  * Works in both local (macOS) and CI (Ubuntu) environments.
  *
  * Usage:
  *   node scripts/manage-tree-images.mjs audit              # Check image status
+ *   node scripts/manage-tree-images.mjs audit-gallery      # Check gallery images only
  *   node scripts/manage-tree-images.mjs download           # Download missing images
  *   node scripts/manage-tree-images.mjs download --force   # Re-download all images
  *   node scripts/manage-tree-images.mjs refresh            # Update with better images
+ *   node scripts/manage-tree-images.mjs refresh-gallery    # Update gallery images
  *   node scripts/manage-tree-images.mjs --tree=guanacaste  # Process single tree
  */
 
@@ -37,8 +40,19 @@ const ATTRIBUTIONS_FILE = path.join(IMAGES_DIR, "attributions.json");
 
 const COSTA_RICA_PLACE_ID = 6924;
 const TARGET_WIDTH = 1200;
+const GALLERY_TARGET_WIDTH = 800; // Smaller for gallery images
 const MIN_IMAGE_SIZE = 20000; // 20KB minimum
+const MIN_GALLERY_IMAGE_SIZE = 10000; // 10KB minimum for gallery
 const PLACEHOLDER_PATTERN = /12345678/;
+const GALLERY_IMAGES_DIR = path.join(IMAGES_DIR, "gallery");
+
+// Gallery image quality criteria
+const GALLERY_QUALITY_CRITERIA = {
+  minVotes: 3, // Minimum faves/votes on iNaturalist
+  preferCR: true, // Prefer Costa Rica observations
+  maxAge: 365 * 5, // Prefer photos from last 5 years
+  aspectRatioRange: [0.5, 2.0], // Acceptable aspect ratios
+};
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -386,6 +400,305 @@ async function saveAttributions(attributions) {
     JSON.stringify(attributions, null, 2),
     "utf8"
   );
+}
+
+// Gallery image extraction from MDX content
+function extractGalleryImages(content) {
+  const images = [];
+
+  // Match ImageCard components within ImageGallery blocks
+  const galleryMatch = content.match(
+    /<ImageGallery>([\s\S]*?)<\/ImageGallery>/g
+  );
+
+  if (!galleryMatch) return images;
+
+  for (const gallery of galleryMatch) {
+    // Extract all ImageCard components
+    const cardMatches = gallery.matchAll(/<ImageCard\s+([\s\S]*?)\/>/g);
+
+    for (const match of cardMatches) {
+      const attrs = match[1];
+      const image = {};
+
+      // Extract src attribute
+      const srcMatch = attrs.match(/src=["']([^"']+)["']/);
+      if (srcMatch) image.src = srcMatch[1];
+
+      // Extract alt attribute
+      const altMatch = attrs.match(/alt=["']([^"']+)["']/);
+      if (altMatch) image.alt = altMatch[1];
+
+      // Extract title attribute
+      const titleMatch = attrs.match(/title=["']([^"']+)["']/);
+      if (titleMatch) image.title = titleMatch[1];
+
+      // Extract credit attribute
+      const creditMatch = attrs.match(/credit=["']([^"']+)["']/);
+      if (creditMatch) image.credit = creditMatch[1];
+
+      // Extract license attribute
+      const licenseMatch = attrs.match(/license=["']([^"']+)["']/);
+      if (licenseMatch) image.license = licenseMatch[1];
+
+      // Extract sourceUrl attribute
+      const sourceUrlMatch = attrs.match(/sourceUrl=["']([^"']+)["']/);
+      if (sourceUrlMatch) image.sourceUrl = sourceUrlMatch[1];
+
+      if (image.src) {
+        images.push(image);
+      }
+    }
+  }
+
+  return images;
+}
+
+// Check if a gallery image URL is valid and high-quality
+async function validateGalleryImage(imageUrl) {
+  const result = {
+    isValid: false,
+    isAccessible: false,
+    isHighQuality: false,
+    isRepresentative: true, // Will be assessed during manual review
+    reason: null,
+  };
+
+  if (!imageUrl) {
+    result.reason = "missing_url";
+    return result;
+  }
+
+  // Check if it's a placeholder
+  if (PLACEHOLDER_PATTERN.test(imageUrl)) {
+    result.reason = "placeholder";
+    return result;
+  }
+
+  // Check if URL is accessible
+  try {
+    const isAccessible = await checkRemoteImage(imageUrl);
+    result.isAccessible = isAccessible;
+
+    if (!isAccessible) {
+      result.reason = "url_broken";
+      return result;
+    }
+
+    // Check if using optimal size (medium/large vs square/small)
+    if (imageUrl.includes("/square.") || imageUrl.includes("/small.")) {
+      result.isHighQuality = false;
+      result.reason = "low_resolution";
+    } else {
+      result.isHighQuality = true;
+    }
+
+    result.isValid = result.isAccessible && result.isHighQuality;
+    return result;
+  } catch (err) {
+    result.reason = `error: ${err.message}`;
+    return result;
+  }
+}
+
+// Get diverse, high-quality photos for gallery (leaves, bark, flowers, fruit, habitat)
+async function getGalleryPhotos(taxonId, limit = 5) {
+  const photos = [];
+  const seen = new Set();
+  const categories = {
+    whole_tree: [],
+    leaves: [],
+    bark: [],
+    flowers: [],
+    fruit: [],
+    habitat: [],
+  };
+
+  // Fetch more photos to filter for diversity
+  const searchLimit = limit * 5;
+
+  // First try Costa Rica observations
+  const crUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&place_id=${COSTA_RICA_PLACE_ID}&photos=true&quality_grade=research&order_by=votes&per_page=${searchLimit}`;
+
+  try {
+    const crData = await fetchJson(crUrl);
+    categorizePhotos(crData.results || [], categories, seen);
+  } catch (err) {
+    log.verbose(`Costa Rica gallery search failed: ${err.message}`);
+  }
+
+  // If not enough diversity, expand globally
+  const totalPhotos = Object.values(categories).reduce(
+    (sum, arr) => sum + arr.length,
+    0
+  );
+  if (totalPhotos < limit) {
+    const globalUrl = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&quality_grade=research&order_by=votes&per_page=${searchLimit}`;
+
+    try {
+      const globalData = await fetchJson(globalUrl);
+      categorizePhotos(globalData.results || [], categories, seen);
+    } catch (err) {
+      log.verbose(`Global gallery search failed: ${err.message}`);
+    }
+  }
+
+  // Select best photos from each category for diversity
+  const selected = selectDiversePhotos(categories, limit);
+
+  return selected;
+}
+
+// Categorize photos by likely content based on observation fields and tags
+function categorizePhotos(observations, categories, seen) {
+  for (const obs of observations) {
+    if (!obs.photos) continue;
+
+    for (const photo of obs.photos) {
+      if (!photo?.id || !photo?.url || seen.has(photo.id)) continue;
+
+      seen.add(photo.id);
+
+      // Convert to large URL
+      let url = photo.url
+        .replace("/square.", "/medium.")
+        .replace("/small.", "/medium.");
+
+      const photoData = {
+        id: photo.id,
+        url,
+        attribution: photo.attribution || "iNaturalist user",
+        observationId: obs.id,
+        votes: obs.faves_count || 0,
+        place: obs.place_guess || "",
+        dimensions: photo.original_dimensions,
+        description: obs.description || "",
+      };
+
+      // Try to categorize based on photo position and description
+      const desc = (obs.description || "").toLowerCase();
+      const isFirst = obs.photos.indexOf(photo) === 0;
+
+      if (
+        desc.includes("leaf") ||
+        desc.includes("foliage") ||
+        desc.includes("hoja")
+      ) {
+        categories.leaves.push(photoData);
+      } else if (
+        desc.includes("bark") ||
+        desc.includes("trunk") ||
+        desc.includes("corteza")
+      ) {
+        categories.bark.push(photoData);
+      } else if (
+        desc.includes("flower") ||
+        desc.includes("bloom") ||
+        desc.includes("flor")
+      ) {
+        categories.flowers.push(photoData);
+      } else if (
+        desc.includes("fruit") ||
+        desc.includes("seed") ||
+        desc.includes("fruto")
+      ) {
+        categories.fruit.push(photoData);
+      } else if (
+        desc.includes("habitat") ||
+        desc.includes("forest") ||
+        desc.includes("bosque")
+      ) {
+        categories.habitat.push(photoData);
+      } else if (isFirst) {
+        // First photo typically shows whole tree
+        categories.whole_tree.push(photoData);
+      } else {
+        // Subsequent photos often show details
+        categories.leaves.push(photoData);
+      }
+    }
+  }
+}
+
+// Select diverse, high-quality photos across categories
+function selectDiversePhotos(categories, limit) {
+  const selected = [];
+  const order = ["whole_tree", "leaves", "flowers", "fruit", "bark", "habitat"];
+
+  // Sort each category by votes
+  for (const key of order) {
+    categories[key].sort((a, b) => b.votes - a.votes);
+  }
+
+  // Round-robin selection for diversity
+  let round = 0;
+  while (selected.length < limit) {
+    let addedThisRound = false;
+
+    for (const category of order) {
+      if (selected.length >= limit) break;
+
+      const arr = categories[category];
+      if (arr.length > round) {
+        selected.push({
+          ...arr[round],
+          category,
+        });
+        addedThisRound = true;
+      }
+    }
+
+    if (!addedThisRound) break;
+    round++;
+  }
+
+  return selected;
+}
+
+// Update gallery images in MDX content
+async function updateMdxGallery(filePath, treeName, newImages, scientificName) {
+  try {
+    const content = await fs.readFile(filePath, "utf8");
+
+    // Check if gallery section exists
+    const hasGallery = content.includes("<ImageGallery>");
+
+    if (!hasGallery) {
+      log.verbose(`No gallery section found in ${treeName}`);
+      return { updated: false, reason: "no_gallery_section" };
+    }
+
+    // Generate new ImageCard components
+    const imageCards = newImages
+      .map((img, idx) => {
+        const title = img.category
+          ? `${img.category.replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase())}`
+          : `${scientificName} Photo ${idx + 1}`;
+
+        return `  <ImageCard
+    src="${img.url}"
+    alt="${scientificName} - ${title}"
+    title="${title}"
+    credit="${img.attribution}"
+    license="CC BY-NC"
+    sourceUrl="https://www.inaturalist.org/observations/${img.observationId}"
+  />`;
+      })
+      .join("\n");
+
+    // Replace existing gallery content
+    const newGalleryContent = `<ImageGallery>\n${imageCards}\n</ImageGallery>`;
+
+    const updatedContent = content.replace(
+      /<ImageGallery>[\s\S]*?<\/ImageGallery>/,
+      newGalleryContent
+    );
+
+    await fs.writeFile(filePath, updatedContent, "utf8");
+    return { updated: true, imagesCount: newImages.length };
+  } catch (err) {
+    return { updated: false, reason: err.message };
+  }
 }
 
 // Image status checking
@@ -814,6 +1127,281 @@ async function refreshImages() {
   return candidates;
 }
 
+// Audit gallery images across all tree pages
+async function auditGalleryImages() {
+  log.info("🖼️  Auditing photo gallery images...\n");
+
+  const files = (await fs.readdir(TREES_EN_DIR)).filter((f) =>
+    f.endsWith(".mdx")
+  );
+
+  const results = {
+    valid: [],
+    broken: [],
+    lowQuality: [],
+    noGallery: [],
+    checked: 0,
+  };
+
+  for (const file of files) {
+    const treeName = file.replace(".mdx", "");
+
+    if (specificTree && treeName !== specificTree) continue;
+
+    const filePath = path.join(TREES_EN_DIR, file);
+    const mdxData = await readMdxFrontmatter(filePath);
+
+    if (!mdxData) continue;
+
+    const content = await fs.readFile(filePath, "utf8");
+    const galleryImages = extractGalleryImages(content);
+
+    if (galleryImages.length === 0) {
+      results.noGallery.push({ treeName });
+      log.tree(treeName, "📭", "no gallery section");
+      continue;
+    }
+
+    results.checked++;
+    let treeValid = true;
+    let brokenCount = 0;
+    let lowQualityCount = 0;
+
+    for (const img of galleryImages) {
+      const validation = await validateGalleryImage(img.src);
+
+      if (!validation.isAccessible) {
+        brokenCount++;
+        treeValid = false;
+      } else if (!validation.isHighQuality) {
+        lowQualityCount++;
+      }
+
+      await sleep(100); // Rate limiting
+    }
+
+    if (brokenCount > 0) {
+      results.broken.push({
+        treeName,
+        count: brokenCount,
+        total: galleryImages.length,
+      });
+      log.tree(treeName, "❌", `${brokenCount}/${galleryImages.length} broken`);
+    } else if (lowQualityCount > 0) {
+      results.lowQuality.push({
+        treeName,
+        count: lowQualityCount,
+        total: galleryImages.length,
+      });
+      log.tree(
+        treeName,
+        "⚠️ ",
+        `${lowQualityCount}/${galleryImages.length} low quality`
+      );
+    } else {
+      results.valid.push({ treeName, count: galleryImages.length });
+      log.tree(treeName, "✅", `${galleryImages.length} images OK`);
+    }
+  }
+
+  // Summary
+  log.info("\n" + "=".repeat(50));
+  log.info("📊 GALLERY AUDIT SUMMARY");
+  log.info("=".repeat(50));
+  log.info(`✅ Valid galleries: ${results.valid.length}`);
+  log.info(`⚠️  Low quality: ${results.lowQuality.length}`);
+  log.info(`❌ Broken images: ${results.broken.length}`);
+  log.info(`📭 No gallery: ${results.noGallery.length}`);
+
+  const issues = results.broken.length + results.lowQuality.length;
+
+  if (issues > 0) {
+    log.info(
+      `\n💡 Run 'npm run images:refresh-gallery' to fix ${issues} galleries`
+    );
+    process.exit(1);
+  }
+
+  return results;
+}
+
+// Refresh gallery images with better quality photos
+async function refreshGalleryImages() {
+  log.info("🔄 Refreshing photo gallery images...\n");
+
+  if (dryRun) {
+    log.info("🔍 DRY RUN MODE - No files will be modified\n");
+  }
+
+  const files = (await fs.readdir(TREES_EN_DIR)).filter((f) =>
+    f.endsWith(".mdx")
+  );
+
+  const results = {
+    updated: [],
+    skipped: [],
+    failed: [],
+  };
+
+  const attributions = await loadAttributions();
+
+  for (const file of files) {
+    const treeName = file.replace(".mdx", "");
+
+    if (specificTree && treeName !== specificTree) continue;
+
+    const enPath = path.join(TREES_EN_DIR, file);
+    const mdxData = await readMdxFrontmatter(enPath);
+
+    if (!mdxData) continue;
+
+    const { scientificName } = mdxData.frontmatter;
+    if (!scientificName) {
+      results.failed.push({ name: treeName, reason: "No scientificName" });
+      continue;
+    }
+
+    const content = await fs.readFile(enPath, "utf8");
+    const existingGallery = extractGalleryImages(content);
+
+    if (existingGallery.length === 0 && !forceRefresh) {
+      results.skipped.push({ name: treeName, reason: "No gallery section" });
+      log.tree(treeName, "⏭️ ", "no gallery section");
+      continue;
+    }
+
+    // Check if gallery needs refresh
+    let needsRefresh = forceRefresh;
+
+    if (!needsRefresh) {
+      for (const img of existingGallery) {
+        const validation = await validateGalleryImage(img.src);
+        if (!validation.isValid) {
+          needsRefresh = true;
+          break;
+        }
+      }
+    }
+
+    if (!needsRefresh) {
+      results.skipped.push({ name: treeName, reason: "Gallery is valid" });
+      log.tree(treeName, "⏭️ ", "gallery already valid");
+      continue;
+    }
+
+    log.tree(treeName, "📗", `refreshing gallery (${scientificName})`);
+
+    // Fix scientific name if needed
+    const searchName = SCIENTIFIC_NAME_FIXES[treeName] || scientificName;
+
+    // Search for taxon
+    const taxon = await searchTaxon(searchName);
+
+    if (!taxon) {
+      results.failed.push({ name: treeName, reason: "Taxon not found" });
+      log.tree(treeName, "   ❌", "taxon not found on iNaturalist");
+      continue;
+    }
+
+    await sleep(300); // Rate limiting
+
+    // Get diverse gallery photos
+    const newPhotos = await getGalleryPhotos(taxon.id, 5);
+
+    if (newPhotos.length === 0) {
+      results.failed.push({
+        name: treeName,
+        reason: "No quality photos found",
+      });
+      log.tree(treeName, "   ❌", "no quality photos found");
+      continue;
+    }
+
+    if (dryRun) {
+      results.updated.push({
+        name: treeName,
+        dryRun: true,
+        photoCount: newPhotos.length,
+      });
+      log.tree(
+        treeName,
+        "   🔍",
+        `[DRY RUN] would update with ${newPhotos.length} photos`
+      );
+      continue;
+    }
+
+    // Update gallery in MDX
+    const updateResult = await updateMdxGallery(
+      enPath,
+      treeName,
+      newPhotos,
+      scientificName
+    );
+
+    // Also update Spanish version if exists
+    const esPath = path.join(TREES_ES_DIR, file);
+    if (
+      await fs
+        .stat(esPath)
+        .then(() => true)
+        .catch(() => false)
+    ) {
+      await updateMdxGallery(esPath, treeName, newPhotos, scientificName);
+    }
+
+    if (updateResult.updated) {
+      // Update attributions for gallery
+      if (!attributions[treeName]) {
+        attributions[treeName] = {};
+      }
+      attributions[treeName].gallery = {
+        photos: newPhotos.map((p) => ({
+          id: p.id,
+          attribution: p.attribution,
+          observationId: p.observationId,
+          category: p.category,
+        })),
+        updatedAt: new Date().toISOString(),
+      };
+
+      results.updated.push({ name: treeName, photoCount: newPhotos.length });
+      log.tree(
+        treeName,
+        "   ✅",
+        `updated with ${newPhotos.length} high-quality photos`
+      );
+    } else {
+      results.failed.push({ name: treeName, reason: updateResult.reason });
+      log.tree(treeName, "   ❌", updateResult.reason);
+    }
+
+    await sleep(500); // Rate limiting
+  }
+
+  // Save updated attributions
+  if (!dryRun && results.updated.length > 0) {
+    await saveAttributions(attributions);
+  }
+
+  // Summary
+  log.info("\n" + "=".repeat(50));
+  log.info("📊 GALLERY REFRESH SUMMARY");
+  log.info("=".repeat(50));
+  log.info(`✅ Updated: ${results.updated.length}`);
+  log.info(`⏭️  Skipped: ${results.skipped.length}`);
+  log.info(`❌ Failed: ${results.failed.length}`);
+
+  if (results.failed.length > 0) {
+    log.info("\nFailed trees:");
+    for (const item of results.failed) {
+      log.info(`  - ${item.name}: ${item.reason}`);
+    }
+  }
+
+  return results;
+}
+
 // Main entry point
 async function main() {
   log.info("🌳 Costa Rica Tree Atlas - Image Manager");
@@ -830,20 +1418,36 @@ async function main() {
     case "audit":
       await auditImages();
       break;
+    case "audit-gallery":
+      await auditGalleryImages();
+      break;
     case "download":
       await downloadImages();
       break;
     case "refresh":
       await refreshImages();
       break;
+    case "refresh-gallery":
+      await refreshGalleryImages();
+      break;
     default:
       log.error(`Unknown command: ${command}`);
       log.info("\nUsage:");
-      log.info("  node scripts/manage-tree-images.mjs audit");
+      log.info(
+        "  node scripts/manage-tree-images.mjs audit              # Check featured images"
+      );
+      log.info(
+        "  node scripts/manage-tree-images.mjs audit-gallery      # Check gallery images"
+      );
       log.info(
         "  node scripts/manage-tree-images.mjs download [--force] [--dry-run]"
       );
-      log.info("  node scripts/manage-tree-images.mjs refresh");
+      log.info(
+        "  node scripts/manage-tree-images.mjs refresh            # Check for better featured images"
+      );
+      log.info(
+        "  node scripts/manage-tree-images.mjs refresh-gallery    # Update gallery images"
+      );
       log.info("  node scripts/manage-tree-images.mjs --tree=<name> <command>");
       process.exit(1);
   }

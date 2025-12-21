@@ -11,9 +11,12 @@
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "contentlayer": "contentlayer2 build",
     "images:audit": "node scripts/manage-tree-images.mjs audit",
+    "images:audit:gallery": "node scripts/manage-tree-images.mjs audit-gallery",
     "images:download": "node scripts/manage-tree-images.mjs download",
     "images:download:force": "node scripts/manage-tree-images.mjs download --force",
     "images:refresh": "node scripts/manage-tree-images.mjs refresh",
+    "images:refresh:gallery": "node scripts/manage-tree-images.mjs refresh-gallery",
+    "images:refresh:gallery:force": "node scripts/manage-tree-images.mjs refresh-gallery --force",
     "images:check": "node scripts/cleanup-tree-images.mjs",
     "images:cleanup": "node scripts/cleanup-tree-images.mjs --write",
     "images:cleanup:force": "node scripts/cleanup-tree-images.mjs --write --force"

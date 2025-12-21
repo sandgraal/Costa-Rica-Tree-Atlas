@@ -124,13 +124,13 @@ function EducationContent({ treeCount }: { treeCount: number }) {
       id: "tree-journal",
       icon: "📓",
       type: "individual",
-      href: "/trees",
+      href: "/education/tree-journal",
     },
     {
       id: "scavenger-hunt",
       icon: "🗺️",
       type: "group",
-      href: "/trees",
+      href: "/education/scavenger-hunt",
     },
     {
       id: "leaf-collection",
