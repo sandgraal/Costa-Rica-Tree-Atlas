@@ -6,7 +6,15 @@ import { BLUR_DATA_URL } from "@/lib/image";
 
 // Callout Box Component
 interface CalloutProps {
-  type?: "info" | "warning" | "success" | "tip" | "error";
+  type?:
+    | "info"
+    | "warning"
+    | "success"
+    | "tip"
+    | "error"
+    | "leaf"
+    | "star"
+    | "danger";
   title?: string;
   children: React.ReactNode;
 }
@@ -42,6 +50,24 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
       border: "border-destructive",
       icon: "🚨",
       titleColor: "text-destructive",
+    },
+    leaf: {
+      bg: "bg-green-50 dark:bg-green-900/20",
+      border: "border-green-500",
+      icon: "🌿",
+      titleColor: "text-green-700 dark:text-green-400",
+    },
+    star: {
+      bg: "bg-yellow-50 dark:bg-yellow-900/20",
+      border: "border-yellow-500",
+      icon: "⭐",
+      titleColor: "text-yellow-700 dark:text-yellow-400",
+    },
+    danger: {
+      bg: "bg-red-50 dark:bg-red-900/20",
+      border: "border-red-600",
+      icon: "⛔",
+      titleColor: "text-red-700 dark:text-red-400",
     },
   };
 
@@ -968,6 +994,120 @@ export function FeatureBox({
   );
 }
 
+// Conservation Status Box - for displaying IUCN conservation status
+interface ConservationStatusBoxProps {
+  status: string;
+  criteria?: string;
+  assessmentYear?: number;
+}
+
+const IUCN_STATUS_CONFIG: Record<
+  string,
+  { name: string; color: string; textColor: string; icon: string }
+> = {
+  NE: {
+    name: "Not Evaluated",
+    color: "#d1d5db",
+    textColor: "#1f2937",
+    icon: "❓",
+  },
+  DD: {
+    name: "Data Deficient",
+    color: "#d1d5db",
+    textColor: "#1f2937",
+    icon: "📊",
+  },
+  LC: {
+    name: "Least Concern",
+    color: "#059669",
+    textColor: "#ffffff",
+    icon: "✅",
+  },
+  NT: {
+    name: "Near Threatened",
+    color: "#84cc16",
+    textColor: "#1f2937",
+    icon: "⚠️",
+  },
+  VU: {
+    name: "Vulnerable",
+    color: "#eab308",
+    textColor: "#1f2937",
+    icon: "🔶",
+  },
+  EN: {
+    name: "Endangered",
+    color: "#f97316",
+    textColor: "#ffffff",
+    icon: "🔴",
+  },
+  CR: {
+    name: "Critically Endangered",
+    color: "#dc2626",
+    textColor: "#ffffff",
+    icon: "🚨",
+  },
+  EW: {
+    name: "Extinct in Wild",
+    color: "#7c3aed",
+    textColor: "#ffffff",
+    icon: "💀",
+  },
+  EX: { name: "Extinct", color: "#1f2937", textColor: "#ffffff", icon: "⚫" },
+};
+
+export function ConservationStatusBox({
+  status,
+  criteria,
+  assessmentYear,
+}: ConservationStatusBoxProps) {
+  const config = IUCN_STATUS_CONFIG[status] || IUCN_STATUS_CONFIG.NE;
+
+  return (
+    <div className="rounded-xl border border-border p-5 my-6 bg-muted/50">
+      <div className="flex items-center gap-4">
+        <div
+          className="flex items-center justify-center w-14 h-14 rounded-full text-lg font-bold shadow-md"
+          style={{
+            backgroundColor: config.color,
+            color: config.textColor,
+          }}
+        >
+          {status}
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">{config.icon}</span>
+            <h4 className="font-semibold text-lg text-foreground">
+              {config.name}
+            </h4>
+          </div>
+          <p className="text-sm text-muted-foreground">IUCN Red List Status</p>
+        </div>
+      </div>
+
+      {(criteria || assessmentYear) && (
+        <div className="mt-4 pt-4 border-t border-border flex flex-wrap gap-4 text-sm">
+          {criteria && (
+            <div>
+              <span className="text-muted-foreground">Criteria: </span>
+              <span className="font-medium text-foreground">{criteria}</span>
+            </div>
+          )}
+          {assessmentYear && (
+            <div>
+              <span className="text-muted-foreground">Assessed: </span>
+              <span className="font-medium text-foreground">
+                {assessmentYear}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Two Column Layout
 export function TwoColumn({ children }: { children: React.ReactNode }) {
   return (
@@ -1339,6 +1479,7 @@ export const mdxComponents = {
   ReferencesSection,
   Tabs,
   FeatureBox,
+  ConservationStatusBox,
   TwoColumn,
   Column,
   DataTable,
