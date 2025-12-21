@@ -2,7 +2,7 @@
 
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
-import { useStore } from "@/lib/store";
+import { useStore, useStoreHydration } from "@/lib/store";
 import { allTrees } from "contentlayer/generated";
 import { BLUR_DATA_URL } from "@/lib/image";
 
@@ -19,6 +19,7 @@ export function RecentlyViewedList({
   locale,
   limit = 6,
 }: RecentlyViewedListProps) {
+  const hydrated = useStoreHydration();
   const recentlyViewed = useStore((state) => state.recentlyViewed);
   const clearRecentlyViewed = useStore((state) => state.clearRecentlyViewed);
 
@@ -31,11 +32,15 @@ export function RecentlyViewedList({
         : "No recently viewed trees",
   };
 
-  // Get full tree data for viewed slugs
-  const viewedTrees = recentlyViewed
-    .slice(0, limit)
-    .map((slug) => allTrees.find((t) => t.slug === slug && t.locale === locale))
-    .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined);
+  // Get full tree data for viewed slugs (only after hydration)
+  const viewedTrees = hydrated
+    ? recentlyViewed
+        .slice(0, limit)
+        .map((slug) =>
+          allTrees.find((t) => t.slug === slug && t.locale === locale)
+        )
+        .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined)
+    : [];
 
   if (viewedTrees.length === 0) {
     return null;

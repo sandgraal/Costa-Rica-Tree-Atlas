@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useStore } from "@/lib/store";
+import { useStore, useStoreHydration } from "@/lib/store";
 
 interface TrackViewProps {
   slug: string;
@@ -12,11 +12,15 @@ interface TrackViewProps {
  * Add this component to tree detail pages to record viewing history.
  */
 export function TrackView({ slug }: TrackViewProps) {
+  const hydrated = useStoreHydration();
   const addToRecentlyViewed = useStore((state) => state.addToRecentlyViewed);
 
   useEffect(() => {
-    addToRecentlyViewed(slug);
-  }, [slug, addToRecentlyViewed]);
+    // Only track after hydration to ensure store is ready
+    if (hydrated) {
+      addToRecentlyViewed(slug);
+    }
+  }, [slug, addToRecentlyViewed, hydrated]);
 
   return null;
 }

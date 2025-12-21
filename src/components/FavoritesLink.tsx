@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@i18n/navigation";
-import { useStore } from "@/lib/store";
+import { useStore, useStoreHydration } from "@/lib/store";
 
 interface FavoritesLinkProps {
   locale?: string;
@@ -12,8 +12,10 @@ interface FavoritesLinkProps {
  * Shows a heart icon with the number of saved favorites.
  */
 export function FavoritesLink({ locale = "en" }: FavoritesLinkProps) {
+  const hydrated = useStoreHydration();
   const favorites = useStore((state) => state.favorites);
-  const count = favorites.length;
+  // Only show count after hydration to prevent mismatch
+  const count = hydrated ? favorites.length : 0;
 
   const label = locale === "es" ? "Favoritos" : "Favorites";
 

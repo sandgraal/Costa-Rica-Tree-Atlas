@@ -5,6 +5,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { useEffect, useState } from "react";
 
 // ============================================================================
 // Types
@@ -130,7 +131,18 @@ export const useStore = create<StoreState>()(
     }),
     {
       name: "cr-tree-atlas",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => {
+        // Safely access localStorage only on the client
+        if (typeof window !== "undefined") {
+          return localStorage;
+        }
+        // Return a no-op storage for SSR
+        return {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        };
+      }),
       partialize: (state) => ({
         theme: state.theme,
         favorites: state.favorites,
@@ -143,6 +155,40 @@ export const useStore = create<StoreState>()(
 // ============================================================================
 // Hooks for common patterns
 // ============================================================================
+
+/**
+ * Hook to check if the store has been hydrated from localStorage.
+ * Use this to prevent hydration mismatches with persisted state.
+ */
+export function useStoreHydration() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    // Safety check for SSR
+    if (typeof window === "undefined") return;
+
+    try {
+      // Zustand persist middleware sets _hasHydrated when done
+      const unsubFinishHydration = useStore.persist.onFinishHydration(() => {
+        setHydrated(true);
+      });
+
+      // Check if already hydrated (e.g., on fast refresh)
+      if (useStore.persist.hasHydrated()) {
+        setHydrated(true);
+      }
+
+      return () => {
+        unsubFinishHydration();
+      };
+    } catch {
+      // If persist middleware isn't available, consider it hydrated
+      setHydrated(true);
+    }
+  }, []);
+
+  return hydrated;
+}
 
 export function useFavorite(slug: string) {
   const isFavorite = useStore((state) => state.favorites.includes(slug));

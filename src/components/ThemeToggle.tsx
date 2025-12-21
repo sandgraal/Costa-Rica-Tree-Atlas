@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { useStore } from "@/lib/store";
+import { useStore, useStoreHydration } from "@/lib/store";
 import { useTranslations } from "next-intl";
 
 export function ThemeToggle() {
+  const hydrated = useStoreHydration();
   const theme = useStore((state) => state.theme);
   const resolvedTheme = useStore((state) => state.resolvedTheme);
   const setTheme = useStore((state) => state.setTheme);
@@ -30,16 +31,19 @@ export function ThemeToggle() {
     return () => window.removeEventListener("toggleTheme", handleToggleTheme);
   }, [cycleTheme]);
 
+  // Use a safe default for server-side render to prevent hydration mismatch
+  const displayTheme = hydrated ? resolvedTheme : "light";
+
   return (
     <button
       type="button"
       onClick={cycleTheme}
       className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
       aria-label={`${t("toggle")} - ${t(theme)}`}
-      aria-pressed={resolvedTheme === "dark"}
+      aria-pressed={displayTheme === "dark"}
       title={t(theme)}
     >
-      {resolvedTheme === "dark" ? (
+      {displayTheme === "dark" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

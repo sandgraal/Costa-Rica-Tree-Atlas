@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/lib/store";
+import { useStore, useStoreHydration } from "@/lib/store";
 
 interface FavoriteButtonProps {
   slug: string;
@@ -23,9 +23,12 @@ export function FavoriteButton({
   showLabel = false,
   className = "",
 }: FavoriteButtonProps) {
+  const hydrated = useStoreHydration();
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
-  const favorited = favorites.includes(slug);
+
+  // Only check favorites after hydration to prevent mismatch
+  const favorited = hydrated ? favorites.includes(slug) : false;
 
   const labels = {
     add: locale === "es" ? "Añadir a favoritos" : "Add to favorites",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useStore } from "@/lib/store";
+import { useStore, useStoreHydration } from "@/lib/store";
 import { TreeCard } from "@/components/tree";
 import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
@@ -14,6 +14,7 @@ interface FavoritesContentProps {
 }
 
 export function FavoritesContent({ locale }: FavoritesContentProps) {
+  const hydrated = useStoreHydration();
   const favorites = useStore((state) => state.favorites);
   const clearFavorites = useStore((state) => state.clearFavorites);
   const addFavorite = useStore((state) => state.addFavorite);
@@ -24,8 +25,10 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
   const router = useRouter();
   const hasProcessedSharedList = useRef(false);
 
-  // Handle shared list from URL - only process once
+  // Handle shared list from URL - only process once after hydration
   useEffect(() => {
+    if (!hydrated) return;
+
     const sharedTrees = searchParams.get("trees");
     if (sharedTrees && !hasProcessedSharedList.current) {
       hasProcessedSharedList.current = true;
@@ -38,7 +41,7 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
         }
       });
     }
-  }, [searchParams, addFavorite, favorites]);
+  }, [searchParams, addFavorite, favorites, hydrated]);
 
   const t = {
     title: locale === "es" ? "Mis Favoritos" : "My Favorites",
@@ -60,8 +63,8 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
     clearAll: locale === "es" ? "Limpiar todo" : "Clear all",
     treesCount:
       locale === "es"
-        ? `${favorites.length} árbol${favorites.length !== 1 ? "es" : ""} guardado${favorites.length !== 1 ? "s" : ""}`
-        : `${favorites.length} tree${favorites.length !== 1 ? "s" : ""} saved`,
+        ? `${hydrated ? favorites.length : 0} árbol${(hydrated ? favorites.length : 0) !== 1 ? "es" : ""} guardado${(hydrated ? favorites.length : 0) !== 1 ? "s" : ""}`
+        : `${hydrated ? favorites.length : 0} tree${(hydrated ? favorites.length : 0) !== 1 ? "s" : ""} saved`,
     shareList: locale === "es" ? "Compartir lista" : "Share list",
     copied: locale === "es" ? "¡Enlace copiado!" : "Link copied!",
     compare: locale === "es" ? "Comparar" : "Compare",
@@ -82,10 +85,14 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
         : "Trees added to your favorites!",
   };
 
-  // Get full tree data for favorited slugs
-  const favoriteTrees = favorites
-    .map((slug) => allTrees.find((t) => t.slug === slug && t.locale === locale))
-    .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined);
+  // Get full tree data for favorited slugs (only after hydration)
+  const favoriteTrees = hydrated
+    ? favorites
+        .map((slug) =>
+          allTrees.find((t) => t.slug === slug && t.locale === locale)
+        )
+        .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined)
+    : [];
 
   const handleShare = async () => {
     const url = new URL(window.location.href);
