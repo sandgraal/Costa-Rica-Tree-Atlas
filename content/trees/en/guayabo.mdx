@@ -6,7 +6,7 @@ locale: "en"
 slug: "guayabo"
 description: "The Guayabo, or Guava Tree, is one of the most widespread and beloved fruit trees in the American tropics. Though its origins are debated between Mexico and South America, this small tree has spread throughout tropical regions worldwide. Its fragrant fruit—with distinctive pink or white flesh and abundant seeds—is eaten fresh, made into juices, pastes, and jellies, and provides essential nutrition to both humans and wildlife. The Guayabo exemplifies how a native tropical species can become a global fruit."
 nativeRegion: "Tropical Americas (Mexico to South America)"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "8-12 meters"
 uses:
   - "Fruit (fresh, juice, paste)"
@@ -478,21 +478,35 @@ Guava is a small, spreading tree or large shrub with distinctive smooth bark tha
 ### How to Identify Guava
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Smooth, peeling bark** (mottled, patches) 2.
-    **Opposite leaves** with prominent veins 3. **White flowers** with many
-    stamens 4. **Distinctive fragrant fruit** **Supporting Features**: - Small
-    tree/large shrub form - Often multi-stemmed - Aromatic crushed leaves -
-    Year-round fruiting
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Smooth, peeling bark** (mottled, patches)
+    2. **Opposite leaves** with prominent veins
+    3. **White flowers** with many stamens
+    4. **Distinctive fragrant fruit**
+
+    **Supporting Features:**
+    - Small tree/large shrub form
+    - Often multi-stemmed
+    - Aromatic crushed leaves
+    - Year-round fruiting
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Guava (P. guajava) | Cas (P. friedrichsthalianum) |
-    |---------|-------------------|------------------------------| | Fruit taste
-    | Sweet | Sour/acidic | | Fruit size | Larger (4-10 cm) | Smaller (2-4 cm) |
-    | Cultivation | Very common | Less common | | Origin | Pan-tropical | Costa
-    Rica native | The sweet vs. sour fruit taste easily distinguishes common
-    guava from its Costa Rican relative.
+    <DataTable
+      headers={["Feature", "Guava (P. guajava)", "Cas (P. friedrichsthalianum)"]}
+      rows={[
+        ["Fruit taste", "Sweet", "Sour/acidic"],
+        ["Fruit size", "Larger (4-10 cm)", "Smaller (2-4 cm)"],
+        ["Cultivation", "Very common", "Less common"],
+        ["Origin", "Pan-tropical", "Costa Rica native"],
+      ]}
+    />
+
+    The sweet vs. sour fruit taste easily distinguishes common guava from its Costa Rican relative.
+
   </AccordionItem>
 </Accordion>
 

@@ -6,7 +6,7 @@ locale: "en"
 slug: "guapinol"
 description: "The Guapinol, or Jatobá, is a magnificent legume tree producing amber-like resin, hard durable wood, and stinky but nutritious seed pods that have sustained humans for millennia. Its resin preserves ancient insects as prehistoric amber."
 nativeRegion: "Tropical Americas"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "25-40 meters"
 uses:
   - "Premium hardwood timber"
@@ -476,11 +476,20 @@ Found throughout the country in both wet and dry forests:
 </AccordionItem>
 
   <AccordionItem title="Growth and Timeline">
-    | Age | Expected Size | Notes | |-----|---------------|-------| | 1 year |
-    50-100 cm | Seedling stage | | 5 years | 3-5 m | Young tree | | 15 years |
-    10-15 m | Sub-adult | | 30 years | 20-25 m | First flowering possible | |
-    50+ years | 30+ m | Mature specimen | | 100+ years | Full size | Ancient
-    trees | **Note**: Very slow-growing but extremely long-lived!
+    <DataTable
+      headers={["Age", "Expected Size", "Notes"]}
+      rows={[
+        ["1 year", "50-100 cm", "Seedling stage"],
+        ["5 years", "3-5 m", "Young tree"],
+        ["15 years", "10-15 m", "Sub-adult"],
+        ["30 years", "20-25 m", "First flowering possible"],
+        ["50+ years", "30+ m", "Mature specimen"],
+        ["100+ years", "Full size", "Ancient trees"],
+      ]}
+    />
+
+    **Note**: Very slow-growing but extremely long-lived!
+
   </AccordionItem>
 </Accordion>
 
@@ -491,25 +500,42 @@ Found throughout the country in both wet and dry forests:
 ### How to Identify Guapinol
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Definitive Features:** 1. **Compound leaves with exactly 2 leaflets** 2.
-    **Leaflets asymmetrical and sickle-shaped** 3. **Oil glands visible as
-    dots** (hold leaf to light) 4. **Large woody "toe-shaped" pods** 5.
-    **Amber-colored resin** on trunk 6. **Large spreading crown** in mature
-    trees
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Definitive Features:**
+
+    1. **Compound leaves with exactly 2 leaflets**
+    2. **Leaflets asymmetrical and sickle-shaped**
+    3. **Oil glands visible as dots** (hold leaf to light)
+    4. **Large woody "toe-shaped" pods**
+    5. **Amber-colored resin** on trunk
+    6. **Large spreading crown** in mature trees
+
   </AccordionItem>
 
-<AccordionItem title="Similar Species">
-  | Species | Key Difference | |---------|----------------| | _Prioria
-  copaifera_ (Cativo) | Different leaf structure | | _Copaifera_ spp. | Smaller
-  leaflets, different pods | | Other legumes | Check leaflet count and pod shape
-  | The 2-leaflet compound leaf is very distinctive!
-</AccordionItem>
+  <AccordionItem title="Similar Species">
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["_Prioria copaifera_ (Cativo)", "Different leaf structure"],
+        ["_Copaifera_ spp.", "Smaller leaflets, different pods"],
+        ["Other legumes", "Check leaflet count and pod shape"],
+      ]}
+    />
+
+    The 2-leaflet compound leaf is very distinctive!
+
+  </AccordionItem>
 
   <AccordionItem title="Finding in the Forest">
-    **Look For**: - Emergent crowns above canopy - Large woody pods on ground -
-    Distinctive smell near fallen pods - Resin tears on bark - Agoutis caching
-    or eating seeds **Best Time**: Late dry season when pods fall
+    **Look For:**
+    - Emergent crowns above canopy
+    - Large woody pods on ground
+    - Distinctive smell near fallen pods
+    - Resin tears on bark
+    - Agoutis caching or eating seeds
+
+    **Best Time:** Late dry season when pods fall
+
   </AccordionItem>
 </Accordion>
 

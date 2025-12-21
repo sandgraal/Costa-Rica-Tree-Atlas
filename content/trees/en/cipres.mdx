@@ -6,7 +6,7 @@ locale: "en"
 slug: "cipres"
 description: "The Ciprés (Mexican Cypress or Cedar of Goa) is a tall, elegant conifer from the highlands of Mexico and Central America that has become one of Costa Rica's most important plantation trees. Its aromatic, rot-resistant wood and rapid growth have made it the tree of choice for timber plantations, windbreaks, and living fences throughout the Central Valley and mountain regions. Whether you see it as rows of dark green columns sheltering coffee farms or as the timber framing homes across the country, the Ciprés has become inseparable from Costa Rica's highland landscape."
 nativeRegion: "Mexico to Guatemala (introduced to Costa Rica highlands)"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "25-35 meters"
 uses:
   - "Timber construction"
@@ -252,14 +252,21 @@ The Ciprés is a medium to tall conifer with a distinctively narrow, columnar to
 </TwoColumn>
 
 <Callout type="tip" title="Cypress vs. Pine Identification">
-  Distinguishing Ciprés from pines (which also grow in Costa Rica highlands): |
-  Feature | Ciprés (Cypress) | Pino (Pine) |
-  |---------|------------------|-------------| | Leaves | Scale-like,
-  overlapping | Needles in bundles | | Cones | Small, round, woody | Large,
-  elongated | | Bark | Fibrous, strips | Platy or scaly | | Scent | Sweet,
-  aromatic | Resinous, piney | | Crown | Columnar, dense | Open, spreading |
-  Once you know what to look for, these two common highland conifers are easy to
-  tell apart!
+  Distinguishing Ciprés from pines (which also grow in Costa Rica highlands):
+
+<DataTable
+  headers={["Feature", "Ciprés (Cypress)", "Pino (Pine)"]}
+  rows={[
+    ["Leaves", "Scale-like, overlapping", "Needles in bundles"],
+    ["Cones", "Small, round, woody", "Large, elongated"],
+    ["Bark", "Fibrous, strips", "Platy or scaly"],
+    ["Scent", "Sweet, aromatic", "Resinous, piney"],
+    ["Crown", "Columnar, dense", "Open, spreading"],
+  ]}
+/>
+
+Once you know what to look for, these two common highland conifers are easy to tell apart!
+
 </Callout>
 
 ---
@@ -457,20 +464,36 @@ The Ciprés is a medium to tall conifer with a distinctively narrow, columnar to
 ### How to Identify Ciprés
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Scale-like foliage** (not needles) 2.
-    **Columnar/pyramidal shape** 3. **Dark green dense crown** 4. **Small round
-    woody cones** 5. **Aromatic when crushed** **Supporting Features**: -
-    Gray-brown fibrous bark - Highland location (1,200+ m) - Often in
-    rows/plantations - Straight trunk
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Scale-like foliage** (not needles)
+    2. **Columnar/pyramidal shape**
+    3. **Dark green dense crown**
+    4. **Small round woody cones**
+    5. **Aromatic when crushed**
+
+    **Supporting Features:**
+    - Gray-brown fibrous bark
+    - Highland location (1,200+ m)
+    - Often in rows/plantations
+    - Straight trunk
+
   </AccordionItem>
 
   <AccordionItem title="Look-alike Species">
-    | Feature | Ciprés | Pino (Pine) | |---------|--------|-------------| |
-    Leaves | Scale-like | Needles in bundles | | Touch | Soft | Can be prickly |
-    | Cones | Small, round | Large, elongated | | Shape | Columnar | More open
-    crown | The scale-like leaves vs. needles are the instant giveaway for
-    telling cypress from pine.
+    <DataTable
+      headers={["Feature", "Ciprés", "Pino (Pine)"]}
+      rows={[
+        ["Leaves", "Scale-like", "Needles in bundles"],
+        ["Touch", "Soft", "Can be prickly"],
+        ["Cones", "Small, round", "Large, elongated"],
+        ["Shape", "Columnar", "More open crown"],
+      ]}
+    />
+
+    The scale-like leaves vs. needles are the instant giveaway for telling cypress from pine.
+
   </AccordionItem>
 </Accordion>
 

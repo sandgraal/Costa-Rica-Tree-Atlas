@@ -6,7 +6,7 @@ locale: "en"
 slug: "matapalo"
 description: "The Matapalos, or Strangler Figs, are among the most fascinating and ecologically important trees in Costa Rica's forests. Beginning life as epiphytes high in the canopy, these remarkable Ficus species send roots earthward that eventually envelope and kill their host tree, leaving a hollow lattice trunk. Their figs feed more wildlife species than perhaps any other tree group in the tropics, making them true keystones of forest ecosystems."
 nativeRegion: "Pantropical (multiple species)"
-conservationStatus: "Generally Least Concern"
+conservationStatus: "LC"
 maxHeight: "25-45 meters"
 uses:
   - "Keystone wildlife food"
@@ -433,30 +433,57 @@ Mature strangler figs are massive trees with distinctive architecture—their tr
 ### How to Identify Strangler Figs
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers (All Species):** 1. **Lattice trunk** of fused aerial
-    roots 2. **Milky white latex** when any part cut 3. **Figs on branches or
-    trunk** 4. **Aerial roots** hanging from branches **Supporting Features**: -
-    Often massive, emergent - Dense, dark canopy - May still show host tree
-    inside - Large buttresses common
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers (All Species):**
+
+    1. **Lattice trunk** of fused aerial roots
+    2. **Milky white latex** when any part cut
+    3. **Figs on branches or trunk**
+    4. **Aerial roots** hanging from branches
+
+    **Supporting Features:**
+    - Often massive, emergent
+    - Dense, dark canopy
+    - May still show host tree inside
+    - Large buttresses common
+
   </AccordionItem>
 
-<AccordionItem title="Species Identification">
-  Distinguishing between Ficus species requires: | Feature | Use |
-  |---------|-----| | Leaf shape and size | Key diagnostic | | Fig size and
-  color | Species-specific | | Leaf texture (pubescence) | Important | | Stipule
-  characteristics | Technical | | Habitat preference | Helpful context |
-  **Recommendation**: - Learn 3-4 common species first - Collect samples for
-  expert ID - Use field guides with keys - iNaturalist AI can help
-</AccordionItem>
+  <AccordionItem title="Species Identification">
+    Distinguishing between Ficus species requires:
+
+    <DataTable
+      headers={["Feature", "Use"]}
+      rows={[
+        ["Leaf shape and size", "Key diagnostic"],
+        ["Fig size and color", "Species-specific"],
+        ["Leaf texture (pubescence)", "Important"],
+        ["Stipule characteristics", "Technical"],
+        ["Habitat preference", "Helpful context"],
+      ]}
+    />
+
+    **Recommendation:**
+    - Learn 3-4 common species first
+    - Collect samples for expert ID
+    - Use field guides with keys
+    - iNaturalist AI can help
+
+  </AccordionItem>
 
   <AccordionItem title="Strangler vs. Free-Standing">
-    | Feature | Strangler | Free-Standing |
-    |---------|-----------|---------------| | Origin | Epiphytic start | Ground
-    seed | | Trunk | Lattice/hollow | Solid | | Base | May show host remnants |
-    Normal buttresses | | Aerial roots | Often extensive | Fewer | Many
-    strangler species CAN grow from ground if conditions favor—then they look
-    more "normal."
+    <DataTable
+      headers={["Feature", "Strangler", "Free-Standing"]}
+      rows={[
+        ["Origin", "Epiphytic start", "Ground seed"],
+        ["Trunk", "Lattice/hollow", "Solid"],
+        ["Base", "May show host remnants", "Normal buttresses"],
+        ["Aerial roots", "Often extensive", "Fewer"],
+      ]}
+    />
+
+    Many strangler species CAN grow from ground if conditions favor—then they look more "normal."
+
   </AccordionItem>
 </Accordion>
 

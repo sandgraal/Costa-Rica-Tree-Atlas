@@ -6,7 +6,7 @@ locale: "en"
 slug: "jocote"
 description: "The Jocote, or Spanish Plum, is one of Costa Rica's most beloved fruit trees—a small to medium tree that produces abundant crops of tangy-sweet fruits ranging from green to deep purple. An integral part of the country's culture, jocotes mark the seasons and appear in everything from fresh snacks to traditional drinks."
 nativeRegion: "Mesoamerica (Mexico to Costa Rica)"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "7-15 meters"
 uses:
   - "Fresh fruit consumption"
@@ -489,20 +489,33 @@ The Jocote is a small to medium deciduous tree with a spreading crown and charac
 ### How to Identify Jocote
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Year-Round Identifiers:** 1. **Small/medium tree** with spreading crown 2.
-    **Thick, corky branches** (feel soft/spongy) 3. **Compound leaves** with
-    serrated leaflets 4. **Gray, smooth bark** (young trees) **Seasonal
-    Identifiers:** - Red/purple flowers on bare branches (dry season) - Oval
-    fruits green → yellow → red/purple - Deciduous (loses leaves in dry season)
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Year-Round Identifiers:**
+
+    1. **Small/medium tree** with spreading crown
+    2. **Thick, corky branches** (feel soft/spongy)
+    3. **Compound leaves** with serrated leaflets
+    4. **Gray, smooth bark** (young trees)
+
+    **Seasonal Identifiers:**
+    - Red/purple flowers on bare branches (dry season)
+    - Oval fruits green → yellow → red/purple
+    - Deciduous (loses leaves in dry season)
+
   </AccordionItem>
 
   <AccordionItem title="Compared to Jobo (S. mombin)">
-    | Feature | Jocote | Jobo | |---------|--------|------| | Size | Smaller
-    (7-15 m) | Larger (20-30 m) | | Fruit color | Red/purple | Yellow | | Fruit
-    size | Smaller | Larger | | Habitat | Drier areas | Wetter areas | |
-    Propagation | Cuttings easily | Usually seed | | Cultivation | Highly
-    domesticated | Semi-wild |
+    <DataTable
+      headers={["Feature", "Jocote", "Jobo"]}
+      rows={[
+        ["Size", "Smaller (7-15 m)", "Larger (20-30 m)"],
+        ["Fruit color", "Red/purple", "Yellow"],
+        ["Fruit size", "Smaller", "Larger"],
+        ["Habitat", "Drier areas", "Wetter areas"],
+        ["Propagation", "Cuttings easily", "Usually seed"],
+        ["Cultivation", "Highly domesticated", "Semi-wild"],
+      ]}
+    />
   </AccordionItem>
 </Accordion>
 

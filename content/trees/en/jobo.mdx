@@ -6,7 +6,7 @@ locale: "en"
 slug: "jobo"
 description: "The Jobo, or Yellow Mombin, is a beloved tropical fruit tree producing tart, aromatic yellow plums that have been cultivated since pre-Columbian times. Its easy propagation from large cuttings makes it a cornerstone of living fence systems."
 nativeRegion: "Tropical Americas"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "15-30 meters"
 uses:
   - "Edible fruit (fresh, beverages, preserves)"
@@ -462,10 +462,16 @@ Found throughout the country, especially in lowland areas:
   </AccordionItem>
 
   <AccordionItem title="Why Cuttings Are Preferred">
-    | Method | Advantages | Disadvantages |
-    |--------|------------|---------------| | Cuttings | Fast, reliable, same
-    genetics | Needs mature tree source | | Seed | Genetic diversity | Slow,
-    unpredictable | For most purposes, large cuttings are far superior!
+    <DataTable
+      headers={["Method", "Advantages", "Disadvantages"]}
+      rows={[
+        ["Cuttings", "Fast, reliable, same genetics", "Needs mature tree source"],
+        ["Seed", "Genetic diversity", "Slow, unpredictable"],
+      ]}
+    />
+
+    For most purposes, large cuttings are far superior!
+
   </AccordionItem>
 </Accordion>
 
@@ -476,19 +482,34 @@ Found throughout the country, especially in lowland areas:
 ### How to Identify Jobo
 
 <Accordion>
-  <AccordionItem title="Key Features">
-    **Year-Round Identifiers:** 1. **Deeply furrowed bark** (thick, corky) 2.
-    **Compound leaves with 9-19 leaflets** 3. **Aromatic crushed leaves** 4.
-    **Resinous inner bark** 5. **Often in living fences** **Seasonal
-    Identifiers:** - Yellow plum-like fruits (dry season) - Deciduous (bare in
-    dry season) - Cream flower clusters (before leaves)
+  <AccordionItem title="Key Features" defaultOpen={true}>
+    **Year-Round Identifiers:**
+
+    1. **Deeply furrowed bark** (thick, corky)
+    2. **Compound leaves with 9-19 leaflets**
+    3. **Aromatic crushed leaves**
+    4. **Resinous inner bark**
+    5. **Often in living fences**
+
+    **Seasonal Identifiers:**
+    - Yellow plum-like fruits (dry season)
+    - Deciduous (bare in dry season)
+    - Cream flower clusters (before leaves)
+
   </AccordionItem>
 
   <AccordionItem title="Distinguishing from Relatives">
-    | Species | Key Difference | |---------|----------------| | _S. purpurea_
-    (Jocote) | Red/purple fruit, smaller leaves | | _Anacardium_ (Cashew) |
-    Different leaf shape, no compound | | _Mangifera_ (Mango) | Simple leaves,
-    different fruit | Jobo's yellow fruits + deeply furrowed bark = diagnostic
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["_S. purpurea_ (Jocote)", "Red/purple fruit, smaller leaves"],
+        ["_Anacardium_ (Cashew)", "Different leaf shape, no compound"],
+        ["_Mangifera_ (Mango)", "Simple leaves, different fruit"],
+      ]}
+    />
+
+    Jobo's yellow fruits + deeply furrowed bark = diagnostic
+
   </AccordionItem>
 </Accordion>
 

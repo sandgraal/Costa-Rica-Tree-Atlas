@@ -6,7 +6,7 @@ locale: "en"
 slug: "guaba"
 description: "The Guaba or Ice Cream Bean is a beloved leguminous tree native to the American tropics, famous for its sweet, cotton-like edible seed pods. Beyond its delicious fruit, this remarkable tree is one of the most important species for agroforestry and shade-grown coffee systems, enriching soils through nitrogen fixation while providing food for people and wildlife."
 nativeRegion: "Tropical Americas"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "15-30 meters"
 uses:
   - "Edible fruit (sweet pod pulp)"
@@ -442,20 +442,34 @@ The Guaba is a medium-sized, fast-growing evergreen tree with a broad, spreading
 ### How to Identify Guaba
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Year-Round Identifiers:** 1. **Pinnate leaves with winged rachis** (key
-    feature!) 2. **Broad, spreading crown** 3. **Smooth grayish bark** 4.
-    **Medium size** (rarely over 25m) 5. **Legume family characteristics**
-    **Seasonal Identifiers:** - Long, twisted green pods (spectacular!) - White
-    brush-like flowers - Pods can be up to 1 meter long
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Year-Round Identifiers:**
+
+    1. **Pinnate leaves with winged rachis** (key feature!)
+    2. **Broad, spreading crown**
+    3. **Smooth grayish bark**
+    4. **Medium size** (rarely over 25m)
+    5. **Legume family characteristics**
+
+    **Seasonal Identifiers:**
+    - Long, twisted green pods (spectacular!)
+    - White brush-like flowers
+    - Pods can be up to 1 meter long
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Species | Key Difference | |---------|----------------| | Other _Inga_
-    species | Pod size, rachis wings, leaflet number | | _Pithecellobium_ |
-    Different pod structure | | _Albizia_ | Feathery leaves, different pods |
-    The winged rachis (flattened leaf stalk between leaflets) is the key feature
-    distinguishing _Inga edulis_ from similar trees.
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["Other _Inga_ species", "Pod size, rachis wings, leaflet number"],
+        ["_Pithecellobium_", "Different pod structure"],
+        ["_Albizia_", "Feathery leaves, different pods"],
+      ]}
+    />
+
+    The winged rachis (flattened leaf stalk between leaflets) is the key feature distinguishing _Inga edulis_ from similar trees.
+
   </AccordionItem>
 </Accordion>
 

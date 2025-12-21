@@ -6,7 +6,7 @@ locale: "en"
 slug: "gavilan"
 description: "The Gavilán is a keystone species of Costa Rica's Caribbean lowland rainforests, dominant in many areas and critically important for nitrogen fixation and ecosystem function. Its twisted seed pods explode dramatically, and its presence shapes the structure of wet forest communities throughout the Atlantic slope."
 nativeRegion: "Central and South America"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "25-35 meters"
 uses:
   - "Nitrogen fixation"
@@ -444,21 +444,35 @@ Gavilán is a medium to large canopy tree with a straight trunk, often developin
 ### How to Identify Gavilán
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Large flat woody pods** (25-50 cm!) 2.
-    **Bipinnate leaves** with many tiny leaflets 3. **Buttressed trunk base** 4.
-    **Red sap when bark cut** ("blood wood") **Supporting Features**: -
-    Caribbean wet forest habitat - Often the most common large tree - Cream
-    bottle-brush flowers - Explosive pod opening sounds
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Large flat woody pods** (25-50 cm!)
+    2. **Bipinnate leaves** with many tiny leaflets
+    3. **Buttressed trunk base**
+    4. **Red sap when bark cut** ("blood wood")
+
+    **Supporting Features:**
+    - Caribbean wet forest habitat
+    - Often the most common large tree
+    - Cream bottle-brush flowers
+    - Explosive pod opening sounds
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Gavilán | Guaba (Inga) | |---------|---------|--------------| |
-    Leaves | Bipinnate (twice divided) | Once pinnate | | Pods | Flat, woody,
-    explosive | Cylindrical, not explosive | | Size | Large canopy tree |
-    Usually smaller | | Seeds | Flat, oily | Embedded in white pulp | The
-    twice-divided (bipinnate) leaves and huge flat pods distinguish Gavilán from
-    the common Guabas.
+    <DataTable
+      headers={["Feature", "Gavilán", "Guaba (Inga)"]}
+      rows={[
+        ["Leaves", "Bipinnate (twice divided)", "Once pinnate"],
+        ["Pods", "Flat, woody, explosive", "Cylindrical, not explosive"],
+        ["Size", "Large canopy tree", "Usually smaller"],
+        ["Seeds", "Flat, oily", "Embedded in white pulp"],
+      ]}
+    />
+
+    The twice-divided (bipinnate) leaves and huge flat pods distinguish Gavilán from the common Guabas.
+
   </AccordionItem>
 </Accordion>
 

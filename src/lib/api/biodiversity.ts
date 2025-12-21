@@ -220,20 +220,41 @@ export async function fetchIUCNData(
     if (!response.ok) return null;
 
     const data = await response.json();
-    if (!data.category) return null;
+    // GBIF returns category as full text (e.g., "LEAST_CONCERN") and code as short (e.g., "LC")
+    // We need the short code for our IUCN_CATEGORIES mapping
+    if (!data.code && !data.category) return null;
+
+    // Use the short code if available, otherwise map the full category name
+    const categoryCode = data.code || mapCategoryToCode(data.category);
 
     return {
-      category: data.category,
+      category: categoryCode,
       populationTrend: data.populationTrend ?? "unknown",
       assessmentDate: data.assessmentDate,
-      iucnUrl: data.source
-        ? `https://www.iucnredlist.org/species/${data.taxonKey}`
+      iucnUrl: data.iucnTaxonID
+        ? `https://www.iucnredlist.org/species/${data.iucnTaxonID}`
         : undefined,
     };
   } catch (error) {
     console.error("[IUCN] Data fetch error:", error);
     return null;
   }
+}
+
+// Map GBIF's full category names to short codes
+function mapCategoryToCode(category: string): string {
+  const mapping: Record<string, string> = {
+    EXTINCT: "EX",
+    EXTINCT_IN_THE_WILD: "EW",
+    CRITICALLY_ENDANGERED: "CR",
+    ENDANGERED: "EN",
+    VULNERABLE: "VU",
+    NEAR_THREATENED: "NT",
+    LEAST_CONCERN: "LC",
+    DATA_DEFICIENT: "DD",
+    NOT_EVALUATED: "NE",
+  };
+  return mapping[category] || "NE";
 }
 
 // ============================================================================

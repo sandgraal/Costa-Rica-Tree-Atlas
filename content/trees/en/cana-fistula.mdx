@@ -6,7 +6,7 @@ locale: "en"
 slug: "cana-fistula"
 description: "The Caña Fístula, or Golden Shower Tree, produces cascading sprays of brilliant yellow flowers that transform it into living gold during the dry season—one of the most spectacular flowering displays in the tropical world."
 nativeRegion: "South Asia"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "10-20 meters"
 uses:
   - "Ornamental planting"
@@ -473,10 +473,16 @@ primarily as a gentle laxative.
 </AccordionItem>
 
   <AccordionItem title="Growth Timeline">
-    | Age | Size | Notes | |-----|------|-------| | 1 year | 0.5-1 m | Seedling
-    | | 3 years | 2-4 m | Young tree | | 5 years | 4-6 m | May start flowering |
-    | 10 years | 8-12 m | Full flowering | | 15+ years | 12-15 m | Mature
-    specimen |
+    <DataTable
+      headers={["Age", "Size", "Notes"]}
+      rows={[
+        ["1 year", "0.5-1 m", "Seedling"],
+        ["3 years", "2-4 m", "Young tree"],
+        ["5 years", "4-6 m", "May start flowering"],
+        ["10 years", "8-12 m", "Full flowering"],
+        ["15+ years", "12-15 m", "Mature specimen"]
+      ]}
+    />
   </AccordionItem>
 </Accordion>
 
@@ -487,20 +493,34 @@ primarily as a gentle laxative.
 ### How to Identify Caña Fístula
 
 <Accordion>
-  <AccordionItem title="Key Features Year-Round">
-    **Always Identifiable By**: 1. Long cylindrical dark pods (30-60 cm) 2.
-    Compound leaves with 4-8 pairs of leaflets 3. Open, spreading crown 4.
-    Smooth gray-green bark (young trees) **During Flowering (Unmistakable!)**: -
-    Entire tree covered in golden yellow - Long pendant flower clusters - Often
-    leafless when flowering
+  <AccordionItem title="Key Features Year-Round" defaultOpen={true}>
+    **Always Identifiable By:**
+
+    1. Long cylindrical dark pods (30-60 cm)
+    2. Compound leaves with 4-8 pairs of leaflets
+    3. Open, spreading crown
+    4. Smooth gray-green bark (young trees)
+
+    **During Flowering (Unmistakable!):**
+    - Entire tree covered in golden yellow
+    - Long pendant flower clusters
+    - Often leafless when flowering
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Species | Key Difference | |---------|----------------| | _Senna
-    spectabilis_ | Smaller flowers, shorter pods | | _Delonix regia_ (Flamboyán)
-    | Red/orange flowers, flat pods | | _Peltophorum_ | Smaller yellow flowers,
-    flat pods | | _Tipuana tipu_ | Different flower structure | The very long
-    cylindrical pods are diagnostic!
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["Senna spectabilis", "Smaller flowers, shorter pods"],
+        ["Delonix regia (Flamboyán)", "Red/orange flowers, flat pods"],
+        ["Peltophorum", "Smaller yellow flowers, flat pods"],
+        ["Tipuana tipu", "Different flower structure"]
+      ]}
+    />
+
+    The very long cylindrical pods are diagnostic!
+
   </AccordionItem>
 </Accordion>
 

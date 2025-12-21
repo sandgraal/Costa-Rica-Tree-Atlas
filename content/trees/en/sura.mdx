@@ -6,7 +6,7 @@ locale: "en"
 slug: "sura"
 description: "Surá is a majestic emergent tree of Costa Rica's rainforests, renowned for its superb construction timber and distinctive buttressed trunk. This canopy giant plays a vital ecological role while providing one of the country's most valued hardwoods."
 nativeRegion: "Central and South America"
-conservationStatus: "Vulnerable"
+conservationStatus: "VU"
 maxHeight: "40-50 meters"
 uses:
   - "Premium construction timber"
@@ -503,21 +503,36 @@ Surá is a massive emergent tree that towers above the surrounding canopy. It's 
 ### How to Identify Surá
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Massive plank buttresses** (most diagnostic)
-    2. **Emergent crown** rising above canopy 3. **Terminal leaf clusters**
-    (Terminalia pattern) 4. **Large size** (often 40+ m tall) **Supporting
-    Features**: - Gray-brown fissured bark - Oblong leathery leaves - Winged
-    fruits (when present) - Wet forest habitat
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Massive plank buttresses** (most diagnostic)
+    2. **Emergent crown** rising above canopy
+    3. **Terminal leaf clusters** (Terminalia pattern)
+    4. **Large size** (often 40+ m tall)
+
+    **Supporting Features**:
+    - Gray-brown fissured bark
+    - Oblong leathery leaves
+    - Winged fruits (when present)
+    - Wet forest habitat
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Surá | Amarillón (T. amazonia) |
-    |---------|------|-------------------------| | Buttresses | Very large |
-    Smaller | | Height | To 50 m | To 40 m | | Bark | Fissured | More scaly | |
-    Habitat | Wet lowlands | Various wet forests | | Fruit | Similar | Similar |
-    Both are excellent timber species; Surá tends to be larger and have more
-    developed buttresses.
+    <DataTable
+      headers={["Feature", "Surá", "Amarillón (T. amazonia)"]}
+      rows={[
+        ["Buttresses", "Very large", "Smaller"],
+        ["Height", "To 50 m", "To 40 m"],
+        ["Bark", "Fissured", "More scaly"],
+        ["Habitat", "Wet lowlands", "Various wet forests"],
+        ["Fruit", "Similar", "Similar"],
+      ]}
+    />
+
+    Both are excellent timber species; Surá tends to be larger and have more developed buttresses.
+
   </AccordionItem>
 </Accordion>
 

@@ -6,7 +6,7 @@ locale: "en"
 slug: "papaturro"
 description: "The Papaturro is a distinctive Neotropical tree with large, nearly round leaves and clusters of grape-like fruits. A relative of the famous sea grape, this species thrives in Costa Rica's dry forests and disturbed areas, providing food for wildlife and a unique presence in the landscape."
 nativeRegion: "Central and South America"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "8-20 meters"
 uses:
   - "Edible fruit"
@@ -406,20 +406,36 @@ The Papaturro is a small to medium-sized tree (sometimes shrubby) with a rounded
 ### How to Identify Papaturro
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **VERY large, round leaves** (up to 40 cm!) 2.
-    **Cordate (heart-shaped) leaf base** 3. **Ocrea** at stem nodes (family
-    trait) 4. **Grape-like fruit clusters** **Supporting Features:** - Small to
-    medium tree - Irregular, spreading crown - Gray bark - Forest edge habitat
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **VERY large, round leaves** (up to 40 cm!)
+    2. **Cordate (heart-shaped) leaf base**
+    3. **Ocrea** at stem nodes (family trait)
+    4. **Grape-like fruit clusters**
+
+    **Supporting Features:**
+    - Small to medium tree
+    - Irregular, spreading crown
+    - Gray bark
+    - Forest edge habitat
+
   </AccordionItem>
 
   <AccordionItem title="Distinguishing from Sea Grape">
-    | Feature | Papaturro | Sea Grape | |---------|-----------|-----------| |
-    Habitat | Inland, forests | Coastal, beaches | | Leaf base | Heart-shaped |
-    Rounded | | Leaf size | Very large (40cm) | Large (20cm) | | Fruit | Smaller
-    clusters | Larger grapes | | Salt tolerance | Low | High | Habitat alone
-    usually distinguishes them—Sea Grape is strictly coastal, while Papaturro is
-    found inland.
+    <DataTable
+      headers={["Feature", "Papaturro", "Sea Grape"]}
+      rows={[
+        ["Habitat", "Inland, forests", "Coastal, beaches"],
+        ["Leaf base", "Heart-shaped", "Rounded"],
+        ["Leaf size", "Very large (40cm)", "Large (20cm)"],
+        ["Fruit", "Smaller clusters", "Larger grapes"],
+        ["Salt tolerance", "Low", "High"],
+      ]}
+    />
+
+    Habitat alone usually distinguishes them—Sea Grape is strictly coastal, while Papaturro is found inland.
+
   </AccordionItem>
 </Accordion>
 

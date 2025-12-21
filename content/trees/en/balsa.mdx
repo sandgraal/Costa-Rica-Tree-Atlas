@@ -6,7 +6,7 @@ locale: "en"
 slug: "balsa"
 description: "Balsa is the world's lightest commercial wood and one of the fastest-growing trees on Earth. This pioneer species rockets to maturity in just 5-7 years, producing the buoyant timber used in model aircraft, surfboards, and wind turbine blades."
 nativeRegion: "Tropical Americas"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "25-35 meters"
 uses:
   - "Model aircraft construction"
@@ -218,11 +218,20 @@ The Balsa is a truly remarkable sight—a fast-growing pioneer with a straight, 
 </TwoColumn>
 
 <Callout type="tip" title="Growth Rate Comparison">
-  How fast does Balsa grow compared to other trees? | Tree | Time to 10m Height
-  | Growth Rate | |------|-------------------|-------------| | **Balsa** | **2-3
-  years** | **5m/year possible** | | Teak | 10-15 years | 0.7-1m/year | | Oak |
-  25-40 years | 0.3-0.5m/year | | Mahogany | 15-25 years | 0.5-0.8m/year | Balsa
-  is the Usain Bolt of trees!
+  How fast does Balsa grow compared to other trees?
+
+<DataTable
+  headers={["Tree", "Time to 10m Height", "Growth Rate"]}
+  rows={[
+    ["**Balsa**", "**2-3 years**", "**5m/year possible**"],
+    ["Teak", "10-15 years", "0.7-1m/year"],
+    ["Oak", "25-40 years", "0.3-0.5m/year"],
+    ["Mahogany", "15-25 years", "0.5-0.8m/year"],
+  ]}
+/>
+
+Balsa is the Usain Bolt of trees!
+
 </Callout>
 
 ---
@@ -500,21 +509,34 @@ The Balsa is a truly remarkable sight—a fast-growing pioneer with a straight, 
 ### How to Identify Balsa
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Year-Round Identifiers:** 1. **Massive palmate leaves** (30-50 cm across)
-    2. **Very long leaf petioles** (up to 40 cm) 3. **Straight, clean trunk**
-    with smooth bark 4. **Pioneer habitat** (gaps, clearings) 5. **Very light
-    wood** (if you can test a piece) **Seasonal Identifiers:** - Large cream
-    flowers (dry season) - Long cucumber-shaped fruit capsules - Kapok-like
-    cotton with seeds
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Year-Round Identifiers:**
+
+    1. **Massive palmate leaves** (30-50 cm across)
+    2. **Very long leaf petioles** (up to 40 cm)
+    3. **Straight, clean trunk** with smooth bark
+    4. **Pioneer habitat** (gaps, clearings)
+    5. **Very light wood** (if you can test a piece)
+
+    **Seasonal Identifiers:**
+    - Large cream flowers (dry season)
+    - Long cucumber-shaped fruit capsules
+    - Kapok-like cotton with seeds
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Species | Key Difference | |---------|----------------| | _Ceiba
-    pentandra_ | Much larger tree, spiny trunk when young | | _Pseudobombax_ |
-    Different leaf shape, bark texture | | _Cecropia_ spp. | Lobed leaves but
-    different shape, hollow stems | The massive, fuzzy-bottomed leaves on very
-    long petioles are diagnostic.
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["Ceiba pentandra", "Much larger tree, spiny trunk when young"],
+        ["Pseudobombax", "Different leaf shape, bark texture"],
+        ["Cecropia spp.", "Lobed leaves but different shape, hollow stems"]
+      ]}
+    />
+
+    The massive, fuzzy-bottomed leaves on very long petioles are diagnostic.
+
   </AccordionItem>
 </Accordion>
 

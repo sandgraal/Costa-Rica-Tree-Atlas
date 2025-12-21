@@ -6,7 +6,7 @@ locale: "en"
 slug: "yos"
 description: "Yos is a fast-growing pioneer tree of Costa Rica's forests, recognizable by its milky latex and distinctive gland-bearing leaf stalks. This widespread species plays a vital role in forest succession and provides food for countless bird species through its abundant seeds."
 nativeRegion: "Central and South America"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "15-30 meters"
 uses:
   - "Wildlife food source"
@@ -421,21 +421,36 @@ Yos is a medium-sized tree with a typically straight trunk and a rounded, somewh
 ### How to Identify Yos
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Paired glands at petiole top** (most
-    diagnostic!) 2. **Abundant white latex** when any part cut 3. **Serrated
-    leaf margins** 4. **3-lobed seed capsules** **Supporting Features**: -
-    Medium-sized pioneer tree - Forest edges and secondary growth - Elliptic,
-    pointed leaves - Fast-growing habit
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Paired glands at petiole top** (most diagnostic!)
+    2. **Abundant white latex** when any part cut
+    3. **Serrated leaf margins**
+    4. **3-lobed seed capsules**
+
+    **Supporting Features**:
+    - Medium-sized pioneer tree
+    - Forest edges and secondary growth
+    - Elliptic, pointed leaves
+    - Fast-growing habit
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Yos | Javillo (Hura) | |---------|-----|----------------| |
-    Petiole glands | Present (diagnostic) | Absent | | Latex | Abundant, white |
-    Abundant, white | | Trunk spines | None | Dense spines | | Fruit | Small
-    3-lobed capsule | Large pumpkin-shaped | | Size | Medium tree | Very large
-    tree | The petiole glands are unique to _Sapium_ species and make
-    identification straightforward.
+    <DataTable
+      headers={["Feature", "Yos", "Javillo (Hura)"]}
+      rows={[
+        ["Petiole glands", "Present (diagnostic)", "Absent"],
+        ["Latex", "Abundant, white", "Abundant, white"],
+        ["Trunk spines", "None", "Dense spines"],
+        ["Fruit", "Small 3-lobed capsule", "Large pumpkin-shaped"],
+        ["Size", "Medium tree", "Very large tree"],
+      ]}
+    />
+
+    The petiole glands are unique to _Sapium_ species and make identification straightforward.
+
   </AccordionItem>
 </Accordion>
 

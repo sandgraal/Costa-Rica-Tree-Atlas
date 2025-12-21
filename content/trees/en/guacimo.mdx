@@ -6,7 +6,7 @@ locale: "en"
 slug: "guacimo"
 description: "Guácimo is a fast-growing, highly adaptable tree found throughout Costa Rica's lowlands and middle elevations. Valued for its sweet, warty fruits eaten by livestock and wildlife, its fibrous bark, and its ability to thrive in degraded areas, this tree is an ecological workhorse and important component of traditional agroforestry systems."
 nativeRegion: "Mexico to South America, Caribbean"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "15-25 meters"
 uses:
   - "Livestock fodder"
@@ -436,20 +436,35 @@ Guácimo is a medium-sized tree with a short trunk and a broad, spreading crown.
 ### How to Identify Guácimo
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Warty, bumpy fruits** (most diagnostic!) 2.
-    **Elm-like serrated leaves** 3. **Spreading, umbrella-shaped crown** 4.
-    **Pasture/roadside habitat** **Supporting Features**: - Medium-sized tree -
-    Fibrous, fissured bark - Yellow flowers in clusters - Asymmetric leaf bases
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Warty, bumpy fruits** (most diagnostic!)
+    2. **Elm-like serrated leaves**
+    3. **Spreading, umbrella-shaped crown**
+    4. **Pasture/roadside habitat**
+
+    **Supporting Features:**
+    - Medium-sized tree
+    - Fibrous, fissured bark
+    - Yellow flowers in clusters
+    - Asymmetric leaf bases
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Guácimo | Luehea (Guácimo Molenillo) |
-    |---------|---------|---------------------------| | Fruits | Round, warty |
-    Woody capsule | | Leaves | Serrated, elm-like | Similar but larger | | Bark
-    | Fibrous | Very fibrous | | Habitat | Pastures, dry areas | More forested |
-    The warty fruits are unique and make Guácimo easy to distinguish from
-    related species.
+    <DataTable
+      headers={["Feature", "Guácimo", "Luehea (Guácimo Molenillo)"]}
+      rows={[
+        ["Fruits", "Round, warty", "Woody capsule"],
+        ["Leaves", "Serrated, elm-like", "Similar but larger"],
+        ["Bark", "Fibrous", "Very fibrous"],
+        ["Habitat", "Pastures, dry areas", "More forested"],
+      ]}
+    />
+
+    The warty fruits are unique and make Guácimo easy to distinguish from related species.
+
   </AccordionItem>
 </Accordion>
 

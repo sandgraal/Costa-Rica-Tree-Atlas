@@ -6,7 +6,7 @@ locale: "en"
 slug: "maranon"
 description: "The Cashew or Marañón is one of the world's most valuable nut-producing trees, native to northeastern Brazil but widely cultivated across the tropics. This fascinating tree produces its famous kidney-shaped nuts attached to a colorful false fruit (cashew apple), making it botanically unique and economically essential."
 nativeRegion: "Northeastern Brazil"
-conservationStatus: "Not Evaluated (cultivated)"
+conservationStatus: "NE"
 maxHeight: "6-14 meters"
 uses:
   - "Cashew nut production"
@@ -441,20 +441,33 @@ The Cashew is a small to medium evergreen tree with a spreading, often irregular
 ### How to Identify Marañón
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Year-Round Identifiers:** 1. **Leathery, obovate leaves** clustered at
-    branch tips 2. **Spreading, irregular crown** 3. **Rough, grayish bark** 4.
-    **Short stature** (rarely over 12m) **Seasonal Identifiers:** - Pinkish
-    flower panicles (dry season) - Unmistakable fruit: nut hanging from apple -
-    Colorful apples (yellow, orange, red)
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Year-Round Identifiers:**
+
+    1. **Leathery, obovate leaves** clustered at branch tips
+    2. **Spreading, irregular crown**
+    3. **Rough, grayish bark**
+    4. **Short stature** (rarely over 12m)
+
+    **Seasonal Identifiers:**
+    - Pinkish flower panicles (dry season)
+    - Unmistakable fruit: nut hanging from apple
+    - Colorful apples (yellow, orange, red)
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Species | Key Difference | |---------|----------------| | _Anacardium
-    excelsum_ (Espavel) | Much larger (to 60m), different leaf size | |
-    _Mangifera indica_ (Mango) | Larger tree, different fruit | | Other
-    Anacardium species | Distribution, size differences | The cashew's unique
-    fruit structure is unmistakable when present.
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["_Anacardium excelsum_ (Espavel)", "Much larger (to 60m), different leaf size"],
+        ["_Mangifera indica_ (Mango)", "Larger tree, different fruit"],
+        ["Other Anacardium species", "Distribution, size differences"],
+      ]}
+    />
+
+    The cashew's unique fruit structure is unmistakable when present.
+
   </AccordionItem>
 </Accordion>
 

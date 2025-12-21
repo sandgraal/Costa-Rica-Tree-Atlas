@@ -182,10 +182,11 @@ function ConservationStatus({
   // Fallback to NE (Not Evaluated) if category is not recognized
   const catDef =
     CONSERVATION_CATEGORIES[category] ?? CONSERVATION_CATEGORIES.NE;
-  // Fallback to unknown if populationTrend is not recognized
-  const trendDef = populationTrend
-    ? (POPULATION_TRENDS[populationTrend] ?? POPULATION_TRENDS.unknown)
-    : null;
+  // Only show population trend if it's a known value (not "unknown" or undefined)
+  const trendDef =
+    populationTrend && populationTrend !== "unknown"
+      ? (POPULATION_TRENDS[populationTrend] ?? null)
+      : null;
 
   const labels = {
     title:

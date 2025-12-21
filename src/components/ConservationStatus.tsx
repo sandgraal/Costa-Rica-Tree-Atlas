@@ -99,8 +99,8 @@ export function ConservationStatus({
           </div>
         </div>
 
-        {/* Population Trend */}
-        {populationTrend && (
+        {/* Population Trend - only show if known */}
+        {populationTrend && populationTrend !== "unknown" && (
           <div className="flex items-center gap-2 px-3 py-2 bg-background rounded-lg">
             <span
               className={`text-lg ${

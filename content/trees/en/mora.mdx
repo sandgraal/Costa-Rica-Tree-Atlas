@@ -6,7 +6,7 @@ locale: "en"
 slug: "mora"
 description: "The Mora (Dyer's Mulberry or Fustic) is a historically important tree whose bright yellow heartwood was once one of the most valuable natural dyes in the world. Native from Mexico through South America, this medium-sized tree in the mulberry family produces wood that yields a brilliant golden-yellow dye that was traded across the Atlantic for centuries. In Costa Rica, the Mora grows throughout lowland forests and disturbed areas, its thorny branches and milky sap marking it as a member of the Moraceae family while its golden heartwood reveals its special nature."
 nativeRegion: "Mexico to South America"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "20-30 meters"
 uses:
   - "Natural dye (fustic)"
@@ -458,19 +458,35 @@ The Mora is a medium to large deciduous to semi-evergreen tree with a spreading 
 ### How to Identify Mora
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Bright yellow heartwood** (cut branch) 2.
-    **Thorns on branches** 3. **White milky latex** 4. **Rough-textured serrated
-    leaves** 5. **Lumpy round multiple fruit** **Supporting Features**: - Medium
-    tree, spreading crown - Often in disturbed areas - Lowland tropical habitat
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Bright yellow heartwood** (cut branch)
+    2. **Thorns on branches**
+    3. **White milky latex**
+    4. **Rough-textured serrated leaves**
+    5. **Lumpy round multiple fruit**
+
+    **Supporting Features:**
+    - Medium tree, spreading crown
+    - Often in disturbed areas
+    - Lowland tropical habitat
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Mora (M. tinctoria) | Other Moraceae |
-    |---------|---------------------|----------------| | Heartwood | Bright
-    yellow | Not yellow | | Thorns | Present | Variable | | Latex | White, milky
-    | White, milky | | Fruit | Round, lumpy | Various | The brilliant yellow
-    heartwood is unique and diagnostic - no similar species has this trait.
+    <DataTable
+      headers={["Feature", "Mora (M. tinctoria)", "Other Moraceae"]}
+      rows={[
+        ["Heartwood", "Bright yellow", "Not yellow"],
+        ["Thorns", "Present", "Variable"],
+        ["Latex", "White, milky", "White, milky"],
+        ["Fruit", "Round, lumpy", "Various"],
+      ]}
+    />
+
+    The brilliant yellow heartwood is unique and diagnostic - no similar species has this trait.
+
   </AccordionItem>
 </Accordion>
 

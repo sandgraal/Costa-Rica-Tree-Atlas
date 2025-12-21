@@ -6,7 +6,7 @@ locale: "en"
 slug: "coyol"
 description: "The Coyol is a distinctively spiny palm native to Costa Rica's dry and seasonal forests, famous for its hard-shelled edible fruits and the traditional fermented wine made from its sap. This resilient palm is deeply woven into Costa Rican rural culture and provides food for both wildlife and humans."
 nativeRegion: "Mexico to South America, Caribbean"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "10-20 meters"
 uses:
   - "Coyol wine (vino de coyol)"
@@ -472,21 +472,35 @@ The Coyol is a medium-sized palm with a straight, columnar trunk densely armed w
 ### How to Identify Coyol
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Black spines covering trunk** (most
-    diagnostic) 2. **Round, hard-shelled fruits** in clusters 3. **Pinnate
-    (feathery) fronds** 4. **Dry/savanna habitat** in Pacific lowlands
-    **Supporting Features**: - Medium-sized palm (10-20 m) - Columnar trunk -
-    Standing alone in pastures - Guanacaste/dry Pacific region
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Black spines covering trunk** (most diagnostic)
+    2. **Round, hard-shelled fruits** in clusters
+    3. **Pinnate (feathery) fronds**
+    4. **Dry/savanna habitat** in Pacific lowlands
+
+    **Supporting Features:**
+    - Medium-sized palm (10-20 m)
+    - Columnar trunk
+    - Standing alone in pastures
+    - Guanacaste/dry Pacific region
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Coyol | Pejibaye (cultivated) |
-    |---------|-------|----------------------| | Trunk spines | Black, dense |
-    Brown, scattered | | Habitat | Dry forests, wild | Cultivated, wet areas | |
-    Fruit | Round, hard | Elongated, softer | | Clustering | Solitary | Often
-    clumping | In the dry forest, the heavily spine-covered trunk makes Coyol
-    unmistakable.
+    <DataTable
+      headers={["Feature", "Coyol", "Pejibaye (cultivated)"]}
+      rows={[
+        ["Trunk spines", "Black, dense", "Brown, scattered"],
+        ["Habitat", "Dry forests, wild", "Cultivated, wet areas"],
+        ["Fruit", "Round, hard", "Elongated, softer"],
+        ["Clustering", "Solitary", "Often clumping"],
+      ]}
+    />
+
+    In the dry forest, the heavily spine-covered trunk makes Coyol unmistakable.
+
   </AccordionItem>
 </Accordion>
 

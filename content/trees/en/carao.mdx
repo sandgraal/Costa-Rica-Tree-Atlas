@@ -6,7 +6,7 @@ locale: "en"
 slug: "carao"
 description: "The Carao is one of Central America's most spectacular flowering trees, producing massive cascades of pink blossoms that earn it the name Pink Shower Tree. Native to dry and semi-deciduous forests from Mexico to South America, this legume has long been treasured for its ornamental beauty and its fruit's traditional medicinal use as an iron-rich blood tonic. Its presence signals the transition between dry and wet seasons."
 nativeRegion: "Mexico to South America"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "20-30 meters"
 uses:
   - "Ornamental"
@@ -457,28 +457,49 @@ Carao is a large deciduous tree with a broad, spreading crown and thick trunk. I
 
 <Accordion>
   <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Massive pink flower cascades** (in season) 2.
-    **Long cylindrical pods** (40-70 cm!) 3. **Pinnate leaves** with 10-20
-    leaflet pairs 4. **Deciduous** just before flowering **Supporting
-    Features**: - Spreading crown - Gray-brown bark - Dry forest habitat - Seeds
-    with sticky dark pulp
+    **Primary Identifiers:**
+
+    1. **Massive pink flower cascades** (in season)
+    2. **Long cylindrical pods** (40-70 cm!)
+    3. **Pinnate leaves** with 10-20 leaflet pairs
+    4. **Deciduous** just before flowering
+
+    **Supporting Features:**
+    - Spreading crown
+    - Gray-brown bark
+    - Dry forest habitat
+    - Seeds with sticky dark pulp
+
   </AccordionItem>
 
-<AccordionItem title="Seasonal Recognition">
-  | Season | Appearance | |--------|------------| | Late dry (Feb-Apr) | PINK
-  FLOWERS - unmistakable | | Early wet (May-Jun) | Fresh green leaves emerging |
-  | Wet (Jul-Nov) | Full leafy canopy | | Early dry (Dec-Jan) | Pods maturing,
-  leaves yellowing | The flowering period makes identification easiest— there's
-  nothing else quite like it in bloom.
-</AccordionItem>
+  <AccordionItem title="Seasonal Recognition">
+    <DataTable
+      headers={["Season", "Appearance"]}
+      rows={[
+        ["Late dry (Feb-Apr)", "PINK FLOWERS - unmistakable"],
+        ["Early wet (May-Jun)", "Fresh green leaves emerging"],
+        ["Wet (Jul-Nov)", "Full leafy canopy"],
+        ["Early dry (Dec-Jan)", "Pods maturing, leaves yellowing"],
+      ]}
+    />
+
+    The flowering period makes identification easiest—there's nothing else quite like it in bloom.
+
+  </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Feature | Carao | Golden Shower (Cassia fistula) |
-    |---------|-------|-------------------------------| | Flower color | PINK |
-    YELLOW | | Origin | Native | Introduced (Asia) | | Pods | Cylindrical |
-    Cylindrical | | Use | Blood tonic | Laxative | The pink vs. yellow flower
-    color instantly distinguishes the native Carao from the introduced Golden
-    Shower.
+    <DataTable
+      headers={["Feature", "Carao", "Golden Shower (Cassia fistula)"]}
+      rows={[
+        ["Flower color", "PINK", "YELLOW"],
+        ["Origin", "Native", "Introduced (Asia)"],
+        ["Pods", "Cylindrical", "Cylindrical"],
+        ["Use", "Blood tonic", "Laxative"],
+      ]}
+    />
+
+    The pink vs. yellow flower color instantly distinguishes the native Carao from the introduced Golden Shower.
+
   </AccordionItem>
 </Accordion>
 

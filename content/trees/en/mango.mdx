@@ -6,7 +6,7 @@ locale: "en"
 slug: "mango"
 description: "The Mango is the 'King of Fruits' and one of the most economically important tropical fruit trees worldwide. Though originally from South Asia, this magnificent tree has become an integral part of Costa Rican culture and landscape, providing delicious fruit, welcome shade, and essential wildlife food."
 nativeRegion: "South Asia"
-conservationStatus: "Not Evaluated (cultivated)"
+conservationStatus: "NE"
 maxHeight: "20-45 meters"
 uses:
   - "Fruit production (fresh, processed)"
@@ -486,20 +486,34 @@ The Mango is a large, long-lived evergreen tree with a dense, rounded crown. Mat
 ### How to Identify Mango Trees
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Year-Round Identifiers:** 1. **Large, lanceolate, leathery leaves** 2.
-    **Dense, rounded, spreading crown** 3. **Bronze-colored new growth** 4.
-    **Rough, fissured bark** 5. **Aromatic crushed leaves** (turpentine-like)
-    **Seasonal Identifiers:** - Large pink-white flower panicles (Dec-Feb) -
-    Developing and ripe fruits (Mar-Jul) - Distinctive fruit shape and seed
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Year-Round Identifiers:**
+
+    1. **Large, lanceolate, leathery leaves**
+    2. **Dense, rounded, spreading crown**
+    3. **Bronze-colored new growth**
+    4. **Rough, fissured bark**
+    5. **Aromatic crushed leaves** (turpentine-like)
+
+    **Seasonal Identifiers:**
+    - Large pink-white flower panicles (Dec-Feb)
+    - Developing and ripe fruits (Mar-Jul)
+    - Distinctive fruit shape and seed
+
   </AccordionItem>
 
   <AccordionItem title="Similar Species">
-    | Species | Key Difference | |---------|----------------| | _Anacardium
-    excelsum_ (Espavel) | Different leaf shape, fruit type | | _Spondias mombin_
-    (Jobo) | Compound leaves | | _Garcinia_ species | Different fruit structure
-    | The combination of large simple leaves, bronze new growth, and the
-    distinctive fruit is unmistakable.
+    <DataTable
+      headers={["Species", "Key Difference"]}
+      rows={[
+        ["_Anacardium excelsum_ (Espavel)", "Different leaf shape, fruit type"],
+        ["_Spondias mombin_ (Jobo)", "Compound leaves"],
+        ["_Garcinia_ species", "Different fruit structure"],
+      ]}
+    />
+
+    The combination of large simple leaves, bronze new growth, and the distinctive fruit is unmistakable.
+
   </AccordionItem>
 </Accordion>
 

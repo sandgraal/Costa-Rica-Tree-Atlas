@@ -6,7 +6,7 @@ locale: "en"
 slug: "jicaro"
 description: "The Jícaro (Mexican Calabash or Gourd Tree) is one of the most distinctive trees of Central America's dry forests. Its hard-shelled, spherical fruits have been used for millennia to make bowls, cups, and containers—the original biodegradable dishware of Mesoamerica. Native to the region from Mexico through Costa Rica, this small, spreading tree with its peculiar cauliflorous flowers and functional fruits represents a perfect example of how indigenous peoples integrated trees into their daily lives. In rural Costa Rica, the tradition continues as jícaras are still carved into drinking vessels and decorative crafts."
 nativeRegion: "Mexico to Costa Rica"
-conservationStatus: "Least Concern"
+conservationStatus: "LC"
 maxHeight: "6-12 meters"
 uses:
   - "Gourd containers (jícaras)"
@@ -462,21 +462,36 @@ The Jícaro is a small, distinctive tree with a short trunk and spreading, often
 ### How to Identify Jícaro
 
 <Accordion>
-  <AccordionItem title="Key Identification Features">
-    **Primary Identifiers:** 1. **Spherical gourd fruits** on trunk/branches 2.
-    **Winged leaf stalks** (C. alata) 3. **Trifoliate leaves** (3 leaflets) 4.
-    **Open, spreading crown** 5. **Flowers directly on trunk** (cauliflory)
-    **Supporting Features**: - Small tree (under 12 m) - Dry forest/savanna
-    habitat - Deciduous in dry season - Guanacaste region primarily
+  <AccordionItem title="Key Identification Features" defaultOpen={true}>
+    **Primary Identifiers:**
+
+    1. **Spherical gourd fruits** on trunk/branches
+    2. **Winged leaf stalks** (C. alata)
+    3. **Trifoliate leaves** (3 leaflets)
+    4. **Open, spreading crown**
+    5. **Flowers directly on trunk** (cauliflory)
+
+    **Supporting Features:**
+    - Small tree (under 12 m)
+    - Dry forest/savanna habitat
+    - Deciduous in dry season
+    - Guanacaste region primarily
+
   </AccordionItem>
 
   <AccordionItem title="Distinguishing from C. cujete">
-    | Feature | C. alata (This species) | C. cujete |
-    |---------|------------------------|-----------| | Leaf stalks | WINGED |
-    Not winged | | Leaves | Trifoliate (3 leaflets) | Simple, clustered | |
-    Habitat | Dry forest | More humid tolerant | | Distribution | Pacific dry
-    side | Wider | The winged leaf stalks are the definitive identifier for C.
-    alata vs. C. cujete.
+    <DataTable
+      headers={["Feature", "C. alata (This species)", "C. cujete"]}
+      rows={[
+        ["Leaf stalks", "WINGED", "Not winged"],
+        ["Leaves", "Trifoliate (3 leaflets)", "Simple, clustered"],
+        ["Habitat", "Dry forest", "More humid tolerant"],
+        ["Distribution", "Pacific dry side", "Wider"],
+      ]}
+    />
+
+    The winged leaf stalks are the definitive identifier for C. alata vs. C. cujete.
+
   </AccordionItem>
 </Accordion>
 
