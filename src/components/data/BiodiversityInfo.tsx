@@ -179,8 +179,13 @@ function ConservationStatus({
   iucnUrl,
   locale,
 }: ConservationStatusProps) {
-  const catDef = CONSERVATION_CATEGORIES[category];
-  const trendDef = populationTrend ? POPULATION_TRENDS[populationTrend] : null;
+  // Fallback to NE (Not Evaluated) if category is not recognized
+  const catDef =
+    CONSERVATION_CATEGORIES[category] ?? CONSERVATION_CATEGORIES.NE;
+  // Fallback to unknown if populationTrend is not recognized
+  const trendDef = populationTrend
+    ? (POPULATION_TRENDS[populationTrend] ?? POPULATION_TRENDS.unknown)
+    : null;
 
   const labels = {
     title:
@@ -279,7 +284,7 @@ function ConservationScale({
   return (
     <div className="flex items-center gap-1">
       {categories.map((cat) => {
-        const def = CONSERVATION_CATEGORIES[cat];
+        const def = CONSERVATION_CATEGORIES[cat] ?? CONSERVATION_CATEGORIES.NE;
         const isActive = cat === currentCategory;
 
         return (
