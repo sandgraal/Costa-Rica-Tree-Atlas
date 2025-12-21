@@ -2,12 +2,82 @@
   "aguacate": {
     "attribution": "(c) Makena, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:05.461Z",
-    "source": "https://www.inaturalist.org/observations/200099062"
+    "source": "https://www.inaturalist.org/observations/200099062",
+    "gallery": {
+      "photos": [
+        {
+          "id": 352974422,
+          "attribution": "(c) Makena, some rights reserved (CC BY-NC)",
+          "observationId": 200099062,
+          "category": "whole_tree"
+        },
+        {
+          "id": 352974466,
+          "attribution": "(c) Makena, some rights reserved (CC BY-NC)",
+          "observationId": 200099062,
+          "category": "leaves"
+        },
+        {
+          "id": 309114844,
+          "attribution": "(c) kjemde, some rights reserved (CC BY-NC)",
+          "observationId": 177709108,
+          "category": "whole_tree"
+        },
+        {
+          "id": 309191191,
+          "attribution": "(c) kjemde, some rights reserved (CC BY-NC)",
+          "observationId": 177709108,
+          "category": "leaves"
+        },
+        {
+          "id": 390404734,
+          "attribution": "(c) Richard Wilt, all rights reserved",
+          "observationId": 220503184,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:30.343Z"
+    }
   },
   "aguacatillo": {
     "attribution": "(c) Isabel Vargas Valverde, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.629Z",
-    "source": "https://www.inaturalist.org/observations/103889296"
+    "source": "https://www.inaturalist.org/observations/103889296",
+    "gallery": {
+      "photos": [
+        {
+          "id": 221822829,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 130435490,
+          "category": "whole_tree"
+        },
+        {
+          "id": 173990532,
+          "attribution": "(c) Isabel Vargas Valverde, all rights reserved",
+          "observationId": 103889296,
+          "category": "leaves"
+        },
+        {
+          "id": 582899241,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 322237863,
+          "category": "whole_tree"
+        },
+        {
+          "id": 173990542,
+          "attribution": "(c) Isabel Vargas Valverde, all rights reserved",
+          "observationId": 103889296,
+          "category": "leaves"
+        },
+        {
+          "id": 69011566,
+          "attribution": "(c) Irene Artinano, all rights reserved",
+          "observationId": 43497017,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:31.787Z"
+    }
   },
   "almendro": {
     "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
@@ -17,7 +87,42 @@
   "amarillon": {
     "attribution": "(c) capepolly, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:15:09.115Z",
-    "source": "https://www.inaturalist.org/observations/172669461"
+    "source": "https://www.inaturalist.org/observations/172669461",
+    "gallery": {
+      "photos": [
+        {
+          "id": 299778352,
+          "attribution": "(c) capepolly, some rights reserved (CC BY-NC)",
+          "observationId": 172669461,
+          "category": "whole_tree"
+        },
+        {
+          "id": 299778370,
+          "attribution": "(c) capepolly, some rights reserved (CC BY-NC)",
+          "observationId": 172669461,
+          "category": "leaves"
+        },
+        {
+          "id": 468036559,
+          "attribution": "(c) Fabrício Mil Homens Riella, some rights reserved (CC BY)",
+          "observationId": 260605998,
+          "category": "habitat"
+        },
+        {
+          "id": 464009303,
+          "attribution": "(c) Lushi Valverde Mñx, all rights reserved",
+          "observationId": 258598845,
+          "category": "whole_tree"
+        },
+        {
+          "id": 299778387,
+          "attribution": "(c) capepolly, some rights reserved (CC BY-NC)",
+          "observationId": 172669461,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:35.124Z"
+    }
   },
   "balsa": {
     "attribution": "(c) pkondrashov, some rights reserved (CC BY-NC)",
@@ -27,7 +132,42 @@
   "cacao": {
     "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:09.462Z",
-    "source": "https://www.inaturalist.org/observations/254872286"
+    "source": "https://www.inaturalist.org/observations/254872286",
+    "gallery": {
+      "photos": [
+        {
+          "id": 456623441,
+          "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
+          "observationId": 254872286,
+          "category": "whole_tree"
+        },
+        {
+          "id": 456623547,
+          "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
+          "observationId": 254872286,
+          "category": "leaves"
+        },
+        {
+          "id": 168135585,
+          "attribution": "(c) meldoy, some rights reserved (CC BY-NC)",
+          "observationId": 100722907,
+          "category": "whole_tree"
+        },
+        {
+          "id": 456623577,
+          "attribution": "(c) grinnin, some rights reserved (CC BY-NC)",
+          "observationId": 254872286,
+          "category": "leaves"
+        },
+        {
+          "id": 483580547,
+          "attribution": "(c) Steven Wang, all rights reserved",
+          "observationId": 268993566,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:38.928Z"
+    }
   },
   "caimito": {
     "attribution": "(c) Daniel Garita, all rights reserved",
@@ -37,7 +177,42 @@
   "cana-agria": {
     "attribution": "(c) Peter Mudde, all rights reserved",
     "downloadedAt": "2025-12-20T22:14:12.334Z",
-    "source": "https://www.inaturalist.org/observations/217145544"
+    "source": "https://www.inaturalist.org/observations/217145544",
+    "gallery": {
+      "photos": [
+        {
+          "id": 384105252,
+          "attribution": "(c) Peter Mudde, all rights reserved",
+          "observationId": 217145544,
+          "category": "whole_tree"
+        },
+        {
+          "id": 481384401,
+          "attribution": "(c) Florian Guilhabert, some rights reserved (CC BY-NC)",
+          "observationId": 267842597,
+          "category": "leaves"
+        },
+        {
+          "id": 481384399,
+          "attribution": "(c) Florian Guilhabert, some rights reserved (CC BY-NC)",
+          "observationId": 267842597,
+          "category": "whole_tree"
+        },
+        {
+          "id": 539593005,
+          "attribution": "(c) Achille Lenglin, some rights reserved (CC BY-NC)",
+          "observationId": 299513168,
+          "category": "leaves"
+        },
+        {
+          "id": 539593006,
+          "attribution": "(c) Achille Lenglin, some rights reserved (CC BY-NC)",
+          "observationId": 299513168,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:41.167Z"
+    }
   },
   "cana-fistula": {
     "attribution": "(c) Johan Montero, all rights reserved",
@@ -47,7 +222,42 @@
   "cana-india": {
     "attribution": "(c) heidys, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:15.859Z",
-    "source": "https://www.inaturalist.org/observations/112973998"
+    "source": "https://www.inaturalist.org/observations/112973998",
+    "gallery": {
+      "photos": [
+        {
+          "id": 190870465,
+          "attribution": "(c) heidys, some rights reserved (CC BY-NC)",
+          "observationId": 112973998,
+          "category": "whole_tree"
+        },
+        {
+          "id": 348546643,
+          "attribution": "(c) Ian Venegas mora, all rights reserved",
+          "observationId": 197838182,
+          "category": "leaves"
+        },
+        {
+          "id": 465437908,
+          "attribution": "(c) Woochan Seo, some rights reserved (CC BY-NC-SA)",
+          "observationId": 259302691,
+          "category": "whole_tree"
+        },
+        {
+          "id": 458013078,
+          "attribution": "no rights reserved",
+          "observationId": 255565334,
+          "category": "leaves"
+        },
+        {
+          "id": 105941504,
+          "attribution": "(c) carolina02, some rights reserved (CC BY-NC)",
+          "observationId": 65785432,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:43.285Z"
+    }
   },
   "caoba": {
     "attribution": "(c) Yvonne Roza, all rights reserved",
@@ -57,12 +267,82 @@
   "carao": {
     "attribution": "(c) lucapassalacqua, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/26455302"
+    "source": "https://www.inaturalist.org/observations/26455302",
+    "gallery": {
+      "photos": [
+        {
+          "id": 41081938,
+          "attribution": "(c) lucapassalacqua, some rights reserved (CC BY-NC)",
+          "observationId": 26455302,
+          "category": "whole_tree"
+        },
+        {
+          "id": 568002979,
+          "attribution": "no rights reserved",
+          "observationId": 314481929,
+          "category": "leaves"
+        },
+        {
+          "id": 209951626,
+          "attribution": "(c) rmetry, some rights reserved (CC BY-NC)",
+          "observationId": 123901974,
+          "category": "whole_tree"
+        },
+        {
+          "id": 568002955,
+          "attribution": "no rights reserved",
+          "observationId": 314481929,
+          "category": "leaves"
+        },
+        {
+          "id": 153725879,
+          "attribution": "(c) perles, some rights reserved (CC BY-NC)",
+          "observationId": 92809992,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:46.079Z"
+    }
   },
   "carboncillo": {
     "attribution": "(c) María Eugenia Mendiola González, some rights reserved (CC BY-NC-SA)",
     "downloadedAt": "2025-12-20T22:14:18.695Z",
-    "source": "https://www.inaturalist.org/observations/81658988"
+    "source": "https://www.inaturalist.org/observations/81658988",
+    "gallery": {
+      "photos": [
+        {
+          "id": 153983177,
+          "attribution": "(c) Sune Holt, some rights reserved (CC BY-NC)",
+          "observationId": 92952462,
+          "category": "whole_tree"
+        },
+        {
+          "id": 153983676,
+          "attribution": "(c) Sune Holt, some rights reserved (CC BY-NC)",
+          "observationId": 92952462,
+          "category": "leaves"
+        },
+        {
+          "id": 400325560,
+          "attribution": "no rights reserved",
+          "observationId": 225773100,
+          "category": "habitat"
+        },
+        {
+          "id": 133896032,
+          "attribution": "(c) María Eugenia Mendiola González, some rights reserved (CC BY-NC-SA)",
+          "observationId": 81658988,
+          "category": "whole_tree"
+        },
+        {
+          "id": 153983682,
+          "attribution": "(c) Sune Holt, some rights reserved (CC BY-NC)",
+          "observationId": 92952462,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:47.874Z"
+    }
   },
   "cedro-amargo": {
     "attribution": "(c) León V., all rights reserved",
@@ -87,27 +367,202 @@
   "cipres": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/99520583"
+    "source": "https://www.inaturalist.org/observations/99520583",
+    "gallery": {
+      "photos": [
+        {
+          "id": 165920310,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 99520583,
+          "category": "whole_tree"
+        },
+        {
+          "id": 64826593,
+          "attribution": "(c) Steven Daniel, all rights reserved",
+          "observationId": 40889962,
+          "category": "leaves"
+        },
+        {
+          "id": 64826581,
+          "attribution": "(c) Steven Daniel, all rights reserved",
+          "observationId": 40889962,
+          "category": "whole_tree"
+        },
+        {
+          "id": 114422650,
+          "attribution": "(c) Rea Orthner, some rights reserved (CC BY-NC)",
+          "observationId": 70390058,
+          "category": "leaves"
+        },
+        {
+          "id": 14616164,
+          "attribution": "(c) Nick Libasci, all rights reserved",
+          "observationId": 10506030,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:54.356Z"
+    }
   },
   "coco": {
     "attribution": "(c) Andrew &amp; Elizabeth Nicosia/Gargiulo, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:23.802Z",
-    "source": "https://www.inaturalist.org/observations/329294010"
+    "source": "https://www.inaturalist.org/observations/329294010",
+    "gallery": {
+      "photos": [
+        {
+          "id": 500548887,
+          "attribution": "(c) rudymaex, some rights reserved (CC BY-NC)",
+          "observationId": 278762650,
+          "category": "whole_tree"
+        },
+        {
+          "id": 338397945,
+          "attribution": "(c) Akiva, some rights reserved (CC BY-SA)",
+          "observationId": 192692956,
+          "category": "leaves"
+        },
+        {
+          "id": 67938729,
+          "attribution": "(c) Maya, some rights reserved (CC BY-NC)",
+          "observationId": 42780720,
+          "category": "whole_tree"
+        },
+        {
+          "id": 518923556,
+          "attribution": "(c) Thomas Shahan, some rights reserved (CC BY-NC)",
+          "observationId": 288551127,
+          "category": "leaves"
+        },
+        {
+          "id": 338329475,
+          "attribution": "(c) Akiva, some rights reserved (CC BY-SA)",
+          "observationId": 192692956,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:55.895Z"
+    }
   },
   "cocobolo": {
     "attribution": "(c) Gared Rodríguez, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/177574199"
+    "source": "https://www.inaturalist.org/observations/177574199",
+    "gallery": {
+      "photos": [
+        {
+          "id": 308859364,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 177574199,
+          "category": "whole_tree"
+        },
+        {
+          "id": 308859387,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 177574199,
+          "category": "leaves"
+        },
+        {
+          "id": 456699893,
+          "attribution": "(c) Javier Rodriguez, all rights reserved",
+          "observationId": 254908775,
+          "category": "whole_tree"
+        },
+        {
+          "id": 456699904,
+          "attribution": "(c) Javier Rodriguez, all rights reserved",
+          "observationId": 254908775,
+          "category": "leaves"
+        },
+        {
+          "id": 57175732,
+          "attribution": "(c) Ruth Ripley, all rights reserved",
+          "observationId": 36189651,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:57.309Z"
+    }
   },
   "copey": {
     "attribution": "(c) Ethan Beaver, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:26.486Z",
-    "source": "https://www.inaturalist.org/observations/286732465"
+    "source": "https://www.inaturalist.org/observations/286732465",
+    "gallery": {
+      "photos": [
+        {
+          "id": 515503478,
+          "attribution": "(c) Ethan Beaver, some rights reserved (CC BY-NC)",
+          "observationId": 286732465,
+          "category": "whole_tree"
+        },
+        {
+          "id": 251883251,
+          "attribution": "(c) The Leach, some rights reserved (CC BY-NC)",
+          "observationId": 146500378,
+          "category": "leaves"
+        },
+        {
+          "id": 330647533,
+          "attribution": "(c) M. Whitson, some rights reserved (CC BY)",
+          "observationId": 188847029,
+          "category": "flowers"
+        },
+        {
+          "id": 453601116,
+          "attribution": "(c) samantha_calderon, some rights reserved (CC BY-NC)",
+          "observationId": 253343052,
+          "category": "whole_tree"
+        },
+        {
+          "id": 257633075,
+          "attribution": "(c) Verena Haring, some rights reserved (CC BY-NC)",
+          "observationId": 149504634,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:58.623Z"
+    }
   },
   "cortez-negro": {
     "attribution": "(c) Anita Gould, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:46:51.113Z",
-    "source": "https://www.inaturalist.org/observations/447475"
+    "source": "https://www.inaturalist.org/observations/447475",
+    "gallery": {
+      "photos": [
+        {
+          "id": 147944450,
+          "attribution": "(c) Carlos Venegas-Elizondo, some rights reserved (CC BY-NC)",
+          "observationId": 89584552,
+          "category": "whole_tree"
+        },
+        {
+          "id": 94692878,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 59270555,
+          "category": "leaves"
+        },
+        {
+          "id": 564216,
+          "attribution": "(c) Anita Gould, some rights reserved (CC BY-NC)",
+          "observationId": 447475,
+          "category": "flowers"
+        },
+        {
+          "id": 445432857,
+          "attribution": "(c) Hubert Lagrange, some rights reserved (CC BY-NC)",
+          "observationId": 249209314,
+          "category": "whole_tree"
+        },
+        {
+          "id": 94692887,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 59270555,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:00.213Z"
+    }
   },
   "corteza-amarilla": {
     "attribution": "(c) David Garrigues, some rights reserved (CC BY-NC)",
@@ -117,12 +572,82 @@
   "coyol": {
     "attribution": "(c) gmatting, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/201205445"
+    "source": "https://www.inaturalist.org/observations/201205445",
+    "gallery": {
+      "photos": [
+        {
+          "id": 355135751,
+          "attribution": "(c) gmatting, some rights reserved (CC BY-NC)",
+          "observationId": 201205445,
+          "category": "whole_tree"
+        },
+        {
+          "id": 344700550,
+          "attribution": "(c) Phoebe Barnes, some rights reserved (CC BY-NC)",
+          "observationId": 195870932,
+          "category": "leaves"
+        },
+        {
+          "id": 303866650,
+          "attribution": "(c) Matthew Caruana Galizia, some rights reserved (CC BY)",
+          "observationId": 174881438,
+          "category": "habitat"
+        },
+        {
+          "id": 482544586,
+          "attribution": "(c) Laurent Barrette, all rights reserved",
+          "observationId": 268452733,
+          "category": "whole_tree"
+        },
+        {
+          "id": 344700569,
+          "attribution": "(c) Phoebe Barnes, some rights reserved (CC BY-NC)",
+          "observationId": 195870932,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:02.023Z"
+    }
   },
   "cristobal": {
     "attribution": "(c) Gared Rodríguez, all rights reserved",
     "downloadedAt": "2025-12-20T22:14:28.677Z",
-    "source": "https://www.inaturalist.org/observations/202925608"
+    "source": "https://www.inaturalist.org/observations/202925608",
+    "gallery": {
+      "photos": [
+        {
+          "id": 185653045,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 110087157,
+          "category": "whole_tree"
+        },
+        {
+          "id": 185653064,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 110087157,
+          "category": "leaves"
+        },
+        {
+          "id": 358458389,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 202925608,
+          "category": "whole_tree"
+        },
+        {
+          "id": 185653085,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 110087157,
+          "category": "leaves"
+        },
+        {
+          "id": 358458413,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 202925608,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:03.071Z"
+    }
   },
   "espavel": {
     "attribution": "(c) Alli, some rights reserved (CC BY-NC)",
@@ -132,12 +657,82 @@
   "fruta-de-pan": {
     "attribution": "(c) LostInCR, all rights reserved",
     "downloadedAt": "2025-12-20T22:14:31.389Z",
-    "source": "https://www.inaturalist.org/observations/223676461"
+    "source": "https://www.inaturalist.org/observations/223676461",
+    "gallery": {
+      "photos": [
+        {
+          "id": 166366335,
+          "attribution": "(c) Merav Vonshak, some rights reserved (CC BY-NC)",
+          "observationId": 99757902,
+          "category": "whole_tree"
+        },
+        {
+          "id": 166366345,
+          "attribution": "(c) Merav Vonshak, some rights reserved (CC BY-NC)",
+          "observationId": 99757902,
+          "category": "leaves"
+        },
+        {
+          "id": 33050378,
+          "attribution": "(c) mrselenium, all rights reserved",
+          "observationId": 21367365,
+          "category": "whole_tree"
+        },
+        {
+          "id": 415346348,
+          "attribution": "(c) Christopher Rustay, some rights reserved (CC BY-NC)",
+          "observationId": 233692652,
+          "category": "leaves"
+        },
+        {
+          "id": 52886651,
+          "attribution": "(c) bridgitte1234, some rights reserved (CC BY-NC)",
+          "observationId": 33658082,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:04.928Z"
+    }
   },
   "gavilan": {
     "attribution": "(c) Hayley Reth, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/150585361"
+    "source": "https://www.inaturalist.org/observations/150585361",
+    "gallery": {
+      "photos": [
+        {
+          "id": 259692965,
+          "attribution": "(c) Hayley Reth, all rights reserved",
+          "observationId": 150585361,
+          "category": "whole_tree"
+        },
+        {
+          "id": 463344783,
+          "attribution": "(c) Florencia Grattarola, some rights reserved (CC BY)",
+          "observationId": 258279601,
+          "category": "leaves"
+        },
+        {
+          "id": 21379017,
+          "attribution": "(c) bogmyrtle, some rights reserved (CC BY-NC)",
+          "observationId": 14378708,
+          "category": "whole_tree"
+        },
+        {
+          "id": 467410021,
+          "attribution": "(c) salzgurke, some rights reserved (CC BY-NC)",
+          "observationId": 260288460,
+          "category": "leaves"
+        },
+        {
+          "id": 463344773,
+          "attribution": "(c) Florencia Grattarola, some rights reserved (CC BY)",
+          "observationId": 258279601,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:09.365Z"
+    }
   },
   "guaba": {
     "attribution": "(c) Alvaro Alvarado Montealto, all rights reserved",
@@ -147,12 +742,82 @@
   "guachipelin": {
     "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:34.566Z",
-    "source": "https://www.inaturalist.org/observations/322401712"
+    "source": "https://www.inaturalist.org/observations/322401712",
+    "gallery": {
+      "photos": [
+        {
+          "id": 583228461,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 322401712,
+          "category": "whole_tree"
+        },
+        {
+          "id": 583228493,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 322401712,
+          "category": "leaves"
+        },
+        {
+          "id": 109055399,
+          "attribution": "(c) Roza Ramirez, all rights reserved",
+          "observationId": 67491552,
+          "category": "whole_tree"
+        },
+        {
+          "id": 583228520,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 322401712,
+          "category": "leaves"
+        },
+        {
+          "id": 77626937,
+          "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
+          "observationId": 48910005,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:11.243Z"
+    }
   },
   "guacimo": {
     "attribution": "(c) sea-kangaroo, some rights reserved (CC BY-NC-ND)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/198106637"
+    "source": "https://www.inaturalist.org/observations/198106637",
+    "gallery": {
+      "photos": [
+        {
+          "id": 33893254,
+          "attribution": "(c) gsburke, all rights reserved",
+          "observationId": 21876429,
+          "category": "whole_tree"
+        },
+        {
+          "id": 349090902,
+          "attribution": "(c) sea-kangaroo, some rights reserved (CC BY-NC-ND)",
+          "observationId": 198106637,
+          "category": "leaves"
+        },
+        {
+          "id": 88561003,
+          "attribution": "(c) Jose Ignacio Brenes, all rights reserved",
+          "observationId": 55609315,
+          "category": "whole_tree"
+        },
+        {
+          "id": 162093123,
+          "attribution": "(c) Jake Rehage, some rights reserved (CC BY)",
+          "observationId": 97461785,
+          "category": "leaves"
+        },
+        {
+          "id": 349090908,
+          "attribution": "(c) sea-kangaroo, some rights reserved (CC BY-NC-ND)",
+          "observationId": 198106637,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:12.493Z"
+    }
   },
   "guanacaste": {
     "attribution": "no rights reserved",
@@ -172,7 +837,42 @@
   "guayabo": {
     "attribution": "(c) karenawiz, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/102623844"
+    "source": "https://www.inaturalist.org/observations/102623844",
+    "gallery": {
+      "photos": [
+        {
+          "id": 171592083,
+          "attribution": "(c) karenawiz, all rights reserved",
+          "observationId": 102623844,
+          "category": "whole_tree"
+        },
+        {
+          "id": 178935880,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 106510667,
+          "category": "leaves"
+        },
+        {
+          "id": 546701529,
+          "attribution": "(c) brooklettuce1, all rights reserved",
+          "observationId": 303324257,
+          "category": "whole_tree"
+        },
+        {
+          "id": 178935906,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 106510667,
+          "category": "leaves"
+        },
+        {
+          "id": 546059962,
+          "attribution": "(c) emilyerice, some rights reserved (CC BY-NC)",
+          "observationId": 302980081,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:15.761Z"
+    }
   },
   "guayacan-real": {
     "attribution": "(c) Jairo Moya Vargas, some rights reserved (CC BY-NC)",
@@ -192,7 +892,42 @@
   "jaboncillo": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/126438927"
+    "source": "https://www.inaturalist.org/observations/126438927",
+    "gallery": {
+      "photos": [
+        {
+          "id": 214534295,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 126438927,
+          "category": "whole_tree"
+        },
+        {
+          "id": 214534303,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 126438927,
+          "category": "leaves"
+        },
+        {
+          "id": 187211412,
+          "attribution": "(c) Kevin Quirós, all rights reserved",
+          "observationId": 110931625,
+          "category": "fruit"
+        },
+        {
+          "id": 176698506,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 105326167,
+          "category": "whole_tree"
+        },
+        {
+          "id": 176698515,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 105326167,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:19.861Z"
+    }
   },
   "jacaranda": {
     "attribution": "(c) Lucía Vargas, some rights reserved (CC BY-NC)",
@@ -207,7 +942,42 @@
   "jicaro": {
     "attribution": "(c) Eduardo Quintero 🌵, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/36522669"
+    "source": "https://www.inaturalist.org/observations/36522669",
+    "gallery": {
+      "photos": [
+        {
+          "id": 57743484,
+          "attribution": "(c) Eduardo Quintero 🌵, some rights reserved (CC BY-NC)",
+          "observationId": 36522669,
+          "category": "whole_tree"
+        },
+        {
+          "id": 57743492,
+          "attribution": "(c) Eduardo Quintero 🌵, some rights reserved (CC BY-NC)",
+          "observationId": 36522669,
+          "category": "leaves"
+        },
+        {
+          "id": 265767715,
+          "attribution": "(c) Sarah Helfand, some rights reserved (CC BY-NC)",
+          "observationId": 153846664,
+          "category": "whole_tree"
+        },
+        {
+          "id": 265767910,
+          "attribution": "(c) Sarah Helfand, some rights reserved (CC BY-NC)",
+          "observationId": 153846664,
+          "category": "leaves"
+        },
+        {
+          "id": 547738559,
+          "attribution": "(c) dinosaurman97, some rights reserved (CC BY-NC)",
+          "observationId": 303871085,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:22.061Z"
+    }
   },
   "jobo": {
     "attribution": "(c) Marvin López M., some rights reserved (CC BY-NC)",
@@ -217,7 +987,42 @@
   "jocote": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/126438956"
+    "source": "https://www.inaturalist.org/observations/126438956",
+    "gallery": {
+      "photos": [
+        {
+          "id": 214534334,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 126438956,
+          "category": "whole_tree"
+        },
+        {
+          "id": 214534345,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 126438956,
+          "category": "leaves"
+        },
+        {
+          "id": 579331293,
+          "attribution": "(c) Rosibel Víquez, some rights reserved (CC BY-NC)",
+          "observationId": 320422040,
+          "category": "whole_tree"
+        },
+        {
+          "id": 579331338,
+          "attribution": "(c) Rosibel Víquez, some rights reserved (CC BY-NC)",
+          "observationId": 320422040,
+          "category": "leaves"
+        },
+        {
+          "id": 1924401,
+          "attribution": "(c) Lena Struwe, some rights reserved (CC BY-SA)",
+          "observationId": 1549130,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:24.058Z"
+    }
   },
   "laurel": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
@@ -232,7 +1037,42 @@
   "madrono": {
     "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/67799710"
+    "source": "https://www.inaturalist.org/observations/67799710",
+    "gallery": {
+      "photos": [
+        {
+          "id": 18383272,
+          "attribution": "(c) Juan Carlos Ordoñez Jimenez, all rights reserved",
+          "observationId": 12697325,
+          "category": "whole_tree"
+        },
+        {
+          "id": 109637012,
+          "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
+          "observationId": 67799710,
+          "category": "leaves"
+        },
+        {
+          "id": 109636970,
+          "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
+          "observationId": 67799710,
+          "category": "whole_tree"
+        },
+        {
+          "id": 109655672,
+          "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
+          "observationId": 67799710,
+          "category": "leaves"
+        },
+        {
+          "id": 419371308,
+          "attribution": "(c) Roberto Quirós, all rights reserved",
+          "observationId": 235782861,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:29.172Z"
+    }
   },
   "mango": {
     "attribution": "(c) phleve, some rights reserved (CC BY-NC)",
@@ -242,12 +1082,82 @@
   "manu": {
     "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:37.699Z",
-    "source": "https://www.inaturalist.org/observations/194780390"
+    "source": "https://www.inaturalist.org/observations/194780390",
+    "gallery": {
+      "photos": [
+        {
+          "id": 344185461,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 195615585,
+          "category": "whole_tree"
+        },
+        {
+          "id": 344185501,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 195615585,
+          "category": "leaves"
+        },
+        {
+          "id": 341490235,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 194294949,
+          "category": "whole_tree"
+        },
+        {
+          "id": 344185525,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 195615585,
+          "category": "leaves"
+        },
+        {
+          "id": 454006924,
+          "attribution": "(c) Fondo de Biodiversidad Sostenible, some rights reserved (CC BY-NC)",
+          "observationId": 253546862,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:31.107Z"
+    }
   },
   "manzana-de-agua": {
     "attribution": "(c) Luis Mario Calderón Soto, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/150069273"
+    "source": "https://www.inaturalist.org/observations/150069273",
+    "gallery": {
+      "photos": [
+        {
+          "id": 258694949,
+          "attribution": "(c) Luis Mario Calderón Soto, some rights reserved (CC BY-NC)",
+          "observationId": 150069273,
+          "category": "whole_tree"
+        },
+        {
+          "id": 103969259,
+          "attribution": "(c) amydk, all rights reserved",
+          "observationId": 64651569,
+          "category": "leaves"
+        },
+        {
+          "id": 385008467,
+          "attribution": "(c) Joseph Marlin, all rights reserved",
+          "observationId": 217621002,
+          "category": "whole_tree"
+        },
+        {
+          "id": 353872386,
+          "attribution": "(c) mkkennedy, some rights reserved (CC BY-NC)",
+          "observationId": 200560094,
+          "category": "leaves"
+        },
+        {
+          "id": 103969266,
+          "attribution": "(c) amydk, all rights reserved",
+          "observationId": 64651569,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:32.415Z"
+    }
   },
   "maranon": {
     "attribution": "(c) James Steamer, some rights reserved (CC BY-NC)",
@@ -257,22 +1167,162 @@
   "matapalo": {
     "attribution": "(c) Eva Hedström, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/6285846"
+    "source": "https://www.inaturalist.org/observations/6285846",
+    "gallery": {
+      "photos": [
+        {
+          "id": 7910402,
+          "attribution": "(c) Eva Hedström, some rights reserved (CC BY-NC)",
+          "observationId": 6285846,
+          "category": "whole_tree"
+        },
+        {
+          "id": 580752458,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 321145974,
+          "category": "leaves"
+        },
+        {
+          "id": 562361,
+          "attribution": "(c) Anita Gould, some rights reserved (CC BY-NC)",
+          "observationId": 446701,
+          "category": "habitat"
+        },
+        {
+          "id": 580752434,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 321145974,
+          "category": "whole_tree"
+        },
+        {
+          "id": 580752488,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 321145974,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:34.007Z"
+    }
   },
   "mora": {
     "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/55967719"
+    "source": "https://www.inaturalist.org/observations/55967719",
+    "gallery": {
+      "photos": [
+        {
+          "id": 89152447,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 55967719,
+          "category": "whole_tree"
+        },
+        {
+          "id": 89152485,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 55967719,
+          "category": "leaves"
+        },
+        {
+          "id": 531102520,
+          "attribution": "(c) Chloe Evans, some rights reserved (CC BY)",
+          "observationId": 295037133,
+          "category": "whole_tree"
+        },
+        {
+          "id": 531102519,
+          "attribution": "(c) Chloe Evans, some rights reserved (CC BY)",
+          "observationId": 295037133,
+          "category": "leaves"
+        },
+        {
+          "id": 546047538,
+          "attribution": "(c) TJ Hastings, all rights reserved",
+          "observationId": 302975021,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:36.868Z"
+    }
   },
   "nance": {
     "attribution": "(c) Curt P Finfrock, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/27226297"
+    "source": "https://www.inaturalist.org/observations/27226297",
+    "gallery": {
+      "photos": [
+        {
+          "id": 107763451,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 66797037,
+          "category": "whole_tree"
+        },
+        {
+          "id": 107763462,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 66797037,
+          "category": "leaves"
+        },
+        {
+          "id": 6795885,
+          "attribution": "(c) Juan Carlos Ordoñez Jimenez, all rights reserved",
+          "observationId": 5511311,
+          "category": "flowers"
+        },
+        {
+          "id": 42338257,
+          "attribution": "(c) Curt P Finfrock, all rights reserved",
+          "observationId": 27226297,
+          "category": "fruit"
+        },
+        {
+          "id": 54002941,
+          "attribution": "(c) Ruth Ripley, all rights reserved",
+          "observationId": 34324133,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:39.569Z"
+    }
   },
   "nazareno": {
     "attribution": "(c) Gerrit Öhm, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/48557616"
+    "source": "https://www.inaturalist.org/observations/48557616",
+    "gallery": {
+      "photos": [
+        {
+          "id": 77047909,
+          "attribution": "(c) Gerrit Öhm, some rights reserved (CC BY-NC)",
+          "observationId": 48557616,
+          "category": "whole_tree"
+        },
+        {
+          "id": 77047930,
+          "attribution": "(c) Gerrit Öhm, some rights reserved (CC BY-NC)",
+          "observationId": 48557616,
+          "category": "leaves"
+        },
+        {
+          "id": 424170852,
+          "attribution": "(c) Agustín Herrera, all rights reserved",
+          "observationId": 238268219,
+          "category": "whole_tree"
+        },
+        {
+          "id": 260269728,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 150893004,
+          "category": "leaves"
+        },
+        {
+          "id": 433871667,
+          "attribution": "(c) Jackson Frost, some rights reserved (CC BY-NC)",
+          "observationId": 243324913,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:40.880Z"
+    }
   },
   "nispero": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
@@ -287,22 +1337,162 @@
   "palmera-real": {
     "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:40.801Z",
-    "source": "https://www.inaturalist.org/observations/321606808"
+    "source": "https://www.inaturalist.org/observations/321606808",
+    "gallery": {
+      "photos": [
+        {
+          "id": 581652249,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 321606808,
+          "category": "whole_tree"
+        },
+        {
+          "id": 581652285,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 321606808,
+          "category": "leaves"
+        },
+        {
+          "id": 223586936,
+          "attribution": "(c) michelcournoyer, some rights reserved (CC BY-NC)",
+          "observationId": 131389296,
+          "category": "flowers"
+        },
+        {
+          "id": 598376071,
+          "attribution": "(c) figshack, some rights reserved (CC BY-NC)",
+          "observationId": 330037176,
+          "category": "whole_tree"
+        },
+        {
+          "id": 581652311,
+          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
+          "observationId": 321606808,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:44.613Z"
+    }
   },
   "papaturro": {
     "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/20557735"
+    "source": "https://www.inaturalist.org/observations/20557735",
+    "gallery": {
+      "photos": [
+        {
+          "id": 31736456,
+          "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+          "observationId": 20557735,
+          "category": "whole_tree"
+        },
+        {
+          "id": 103491915,
+          "attribution": "(c) jonathan_chama_corrales, some rights reserved (CC BY-NC)",
+          "observationId": 64379094,
+          "category": "leaves"
+        },
+        {
+          "id": 100896835,
+          "attribution": "(c) Roberto Quirós, all rights reserved",
+          "observationId": 62920126,
+          "category": "whole_tree"
+        },
+        {
+          "id": 103491945,
+          "attribution": "(c) jonathan_chama_corrales, some rights reserved (CC BY-NC)",
+          "observationId": 64379094,
+          "category": "leaves"
+        },
+        {
+          "id": 103491878,
+          "attribution": "(c) jonathan_chama_corrales, some rights reserved (CC BY-NC)",
+          "observationId": 64379094,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:47.470Z"
+    }
   },
   "papaya": {
     "attribution": "(c) Asa Spade, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:43.984Z",
-    "source": "https://www.inaturalist.org/observations/18569100"
+    "source": "https://www.inaturalist.org/observations/18569100",
+    "gallery": {
+      "photos": [
+        {
+          "id": 28411296,
+          "attribution": "(c) Asa Spade, some rights reserved (CC BY-NC)",
+          "observationId": 18569100,
+          "category": "whole_tree"
+        },
+        {
+          "id": 237378494,
+          "attribution": "(c) Halie Fox, all rights reserved",
+          "observationId": 138851752,
+          "category": "leaves"
+        },
+        {
+          "id": 30709058,
+          "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+          "observationId": 19912086,
+          "category": "whole_tree"
+        },
+        {
+          "id": 194946738,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 115509072,
+          "category": "leaves"
+        },
+        {
+          "id": 246766,
+          "attribution": "(c) mdrearick, all rights reserved",
+          "observationId": 191918,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:49.017Z"
+    }
   },
   "pejibaye": {
     "attribution": "(c) Lucía Angulo, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T22:14:47.282Z",
-    "source": "https://www.inaturalist.org/observations/211889890"
+    "source": "https://www.inaturalist.org/observations/211889890",
+    "gallery": {
+      "photos": [
+        {
+          "id": 374512283,
+          "attribution": "(c) Lucía Angulo, some rights reserved (CC BY-NC)",
+          "observationId": 211889890,
+          "category": "whole_tree"
+        },
+        {
+          "id": 375511479,
+          "attribution": "(c) Elizabeth Loucks, all rights reserved",
+          "observationId": 212490441,
+          "category": "leaves"
+        },
+        {
+          "id": 375511271,
+          "attribution": "(c) Elizabeth Loucks, all rights reserved",
+          "observationId": 212490441,
+          "category": "whole_tree"
+        },
+        {
+          "id": 375511584,
+          "attribution": "(c) Elizabeth Loucks, all rights reserved",
+          "observationId": 212490441,
+          "category": "leaves"
+        },
+        {
+          "id": 588512735,
+          "attribution": "(c) Josue Jimenez, some rights reserved (CC BY-NC)",
+          "observationId": 325079473,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:50.855Z"
+    }
   },
   "pilon": {
     "attribution": "(c) Gared Rodríguez, all rights reserved",
@@ -340,126 +1530,1001 @@
   "sotacaballo": {
     "attribution": "(c) Roberto Quirós, all rights reserved",
     "downloadedAt": "2025-12-20T22:14:50.053Z",
-    "source": "https://www.inaturalist.org/observations/159881979"
+    "source": "https://www.inaturalist.org/observations/159881979",
+    "gallery": {
+      "photos": [
+        {
+          "id": 277473219,
+          "attribution": "(c) Roberto Quirós, all rights reserved",
+          "observationId": 159881979,
+          "category": "whole_tree"
+        },
+        {
+          "id": 178162961,
+          "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
+          "observationId": 106095441,
+          "category": "leaves"
+        },
+        {
+          "id": 164214190,
+          "attribution": "(c) tanhar, some rights reserved (CC BY-NC)",
+          "observationId": 98576641,
+          "category": "flowers"
+        },
+        {
+          "id": 178162926,
+          "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
+          "observationId": 106095441,
+          "category": "whole_tree"
+        },
+        {
+          "id": 295808604,
+          "attribution": "(c) Ericka Aguilar, all rights reserved",
+          "observationId": 170543426,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:56.263Z"
+    }
   },
   "sura": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/324168267"
+    "source": "https://www.inaturalist.org/observations/324168267",
+    "gallery": {
+      "photos": [
+        {
+          "id": 586683417,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 324168267,
+          "category": "whole_tree"
+        },
+        {
+          "id": 586683528,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 324168267,
+          "category": "leaves"
+        },
+        {
+          "id": 279166964,
+          "attribution": "(c) Clayton Barnes, all rights reserved",
+          "observationId": 161507013,
+          "category": "bark"
+        },
+        {
+          "id": 466142409,
+          "attribution": "(c) Roberto Quirós, all rights reserved",
+          "observationId": 259649800,
+          "category": "whole_tree"
+        },
+        {
+          "id": 586683556,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 324168267,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:57.585Z"
+    }
   },
   "tamarindo": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/106586122"
+    "source": "https://www.inaturalist.org/observations/106586122",
+    "gallery": {
+      "photos": [
+        {
+          "id": 179081011,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 106586122,
+          "category": "whole_tree"
+        },
+        {
+          "id": 179081023,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 106586122,
+          "category": "leaves"
+        },
+        {
+          "id": 343020843,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 195042723,
+          "category": "whole_tree"
+        },
+        {
+          "id": 179081030,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 106586122,
+          "category": "leaves"
+        },
+        {
+          "id": 327500474,
+          "attribution": "(c) Nahuel Flores Bianchi, all rights reserved",
+          "observationId": 187291823,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:59.249Z"
+    }
   },
   "targua": {
     "attribution": "(c) Daniel Garrigues, all rights reserved",
     "downloadedAt": "2025-12-20T22:14:52.909Z",
-    "source": "https://www.inaturalist.org/observations/128545646"
+    "source": "https://www.inaturalist.org/observations/128545646",
+    "gallery": {
+      "photos": [
+        {
+          "id": 513797494,
+          "attribution": "(c) Alejandro Juarez, some rights reserved (CC BY-NC)",
+          "observationId": 285835641,
+          "category": "whole_tree"
+        },
+        {
+          "id": 471087443,
+          "attribution": "(c) León V., all rights reserved",
+          "observationId": 262204777,
+          "category": "leaves"
+        },
+        {
+          "id": 471087378,
+          "attribution": "(c) León V., all rights reserved",
+          "observationId": 262204777,
+          "category": "whole_tree"
+        },
+        {
+          "id": 471087451,
+          "attribution": "(c) León V., all rights reserved",
+          "observationId": 262204777,
+          "category": "leaves"
+        },
+        {
+          "id": 218357053,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 128545646,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:39:00.749Z"
+    }
   },
   "tempisque": {
     "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/20523425"
+    "source": "https://www.inaturalist.org/observations/20523425",
+    "gallery": {
+      "photos": [
+        {
+          "id": 71929591,
+          "attribution": "(c) Roberto Quirós, all rights reserved",
+          "observationId": 45362336,
+          "category": "whole_tree"
+        },
+        {
+          "id": 31674385,
+          "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+          "observationId": 20523425,
+          "category": "leaves"
+        },
+        {
+          "id": 6784071,
+          "attribution": "(c) Juan Carlos Ordoñez Jimenez, all rights reserved",
+          "observationId": 5503412,
+          "category": "flowers"
+        },
+        {
+          "id": 31674382,
+          "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+          "observationId": 20523425,
+          "category": "whole_tree"
+        },
+        {
+          "id": 31674388,
+          "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+          "observationId": 20523425,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:39:03.435Z"
+    }
   },
   "yos": {
     "attribution": "(c) Juan Carlos Ordoñez Jimenez, all rights reserved",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/15590206"
+    "source": "https://www.inaturalist.org/observations/15590206",
+    "gallery": {
+      "photos": [
+        {
+          "id": 488034237,
+          "attribution": "(c) costa_abeja, some rights reserved (CC BY-NC)",
+          "observationId": 271319003,
+          "category": "whole_tree"
+        },
+        {
+          "id": 488034541,
+          "attribution": "(c) costa_abeja, some rights reserved (CC BY-NC)",
+          "observationId": 271319003,
+          "category": "leaves"
+        },
+        {
+          "id": 23311537,
+          "attribution": "(c) Juan Carlos Ordoñez Jimenez, all rights reserved",
+          "observationId": 15590206,
+          "category": "whole_tree"
+        },
+        {
+          "id": 488034583,
+          "attribution": "(c) costa_abeja, some rights reserved (CC BY-NC)",
+          "observationId": 271319003,
+          "category": "leaves"
+        },
+        {
+          "id": 454935787,
+          "attribution": "(c) sergio_m, some rights reserved (CC BY-NC)",
+          "observationId": 254031483,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:39:04.734Z"
+    }
   },
   "zapote": {
     "attribution": "(c) livenletlive, some rights reserved (CC BY-NC)",
     "downloadedAt": "2025-12-20T18:40:54.631Z",
-    "source": "https://www.inaturalist.org/observations/133028059"
+    "source": "https://www.inaturalist.org/observations/133028059",
+    "gallery": {
+      "photos": [
+        {
+          "id": 226531333,
+          "attribution": "(c) livenletlive, some rights reserved (CC BY-NC)",
+          "observationId": 133028059,
+          "category": "whole_tree"
+        },
+        {
+          "id": 108701519,
+          "attribution": "(c) Katia Cordero Obregón, all rights reserved",
+          "observationId": 67300423,
+          "category": "leaves"
+        },
+        {
+          "id": 108701513,
+          "attribution": "(c) Katia Cordero Obregón, all rights reserved",
+          "observationId": 67300423,
+          "category": "whole_tree"
+        },
+        {
+          "id": 301966779,
+          "attribution": "(c) sarafc, all rights reserved",
+          "observationId": 173855327,
+          "category": "leaves"
+        },
+        {
+          "id": 301966749,
+          "attribution": "(c) sarafc, all rights reserved",
+          "observationId": 173855327,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:39:07.201Z"
+    }
   },
   "aceituno": {
     "attribution": "(c) Howard Friedman, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/161031305",
-    "downloadedAt": "2025-12-21T15:24:53.685Z"
+    "downloadedAt": "2025-12-21T15:24:53.685Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 278312811,
+          "attribution": "(c) Howard Friedman, some rights reserved (CC BY-NC)",
+          "observationId": 161031305,
+          "category": "whole_tree"
+        },
+        {
+          "id": 278313160,
+          "attribution": "(c) Howard Friedman, some rights reserved (CC BY-NC)",
+          "observationId": 161031305,
+          "category": "leaves"
+        },
+        {
+          "id": 155683539,
+          "attribution": "(c) Jeff Stauffer, all rights reserved",
+          "observationId": 93898122,
+          "category": "whole_tree"
+        },
+        {
+          "id": 278313252,
+          "attribution": "(c) Howard Friedman, some rights reserved (CC BY-NC)",
+          "observationId": 161031305,
+          "category": "leaves"
+        },
+        {
+          "id": 265784388,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 153855784,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:28.684Z"
+    }
   },
   "alcornoque": {
     "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
     "source": "https://www.inaturalist.org/observations/48134112",
-    "downloadedAt": "2025-12-21T15:24:56.441Z"
+    "downloadedAt": "2025-12-21T15:24:56.441Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 76358457,
+          "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
+          "observationId": 48134112,
+          "category": "whole_tree"
+        },
+        {
+          "id": 76358480,
+          "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
+          "observationId": 48134112,
+          "category": "leaves"
+        },
+        {
+          "id": 125948985,
+          "attribution": "(c) Kevin Quirós, all rights reserved",
+          "observationId": 77015704,
+          "category": "fruit"
+        },
+        {
+          "id": 27849316,
+          "attribution": "(c) Emmanuel Betancourt, all rights reserved",
+          "observationId": 18224405,
+          "category": "whole_tree"
+        },
+        {
+          "id": 76358509,
+          "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
+          "observationId": 48134112,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:33.111Z"
+    }
   },
   "botarrama": {
     "attribution": "(c) Jerry Kosanovich, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/107126366",
-    "downloadedAt": "2025-12-21T15:24:57.991Z"
+    "downloadedAt": "2025-12-21T15:24:57.991Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 180111730,
+          "attribution": "(c) Jerry Kosanovich, some rights reserved (CC BY-NC)",
+          "observationId": 107126366,
+          "category": "whole_tree"
+        },
+        {
+          "id": 89196711,
+          "attribution": "(c) Eric Koberle, some rights reserved (CC BY-NC)",
+          "observationId": 55999580,
+          "category": "leaves"
+        },
+        {
+          "id": 510464580,
+          "attribution": "(c) My-Lan Le, some rights reserved (CC BY)",
+          "observationId": 284061932,
+          "category": "flowers"
+        },
+        {
+          "id": 182514097,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 108406130,
+          "category": "whole_tree"
+        },
+        {
+          "id": 89196740,
+          "attribution": "(c) Eric Koberle, some rights reserved (CC BY-NC)",
+          "observationId": 55999580,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:37.216Z"
+    }
   },
   "caobilla": {
     "attribution": "(c) Joshua Lincoln, all rights reserved",
     "source": "https://www.inaturalist.org/observations/42140601",
-    "downloadedAt": "2025-12-21T15:24:59.451Z"
+    "downloadedAt": "2025-12-21T15:24:59.451Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 66885815,
+          "attribution": "(c) Joshua Lincoln, all rights reserved",
+          "observationId": 42140601,
+          "category": "whole_tree"
+        },
+        {
+          "id": 444872958,
+          "attribution": "(c) Fondo de Biodiversidad Sostenible, some rights reserved (CC BY-NC)",
+          "observationId": 248923433,
+          "category": "leaves"
+        },
+        {
+          "id": 181561139,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 107899144,
+          "category": "whole_tree"
+        },
+        {
+          "id": 469783900,
+          "attribution": "(c) Finca Dinámica, some rights reserved (CC BY-NC-ND)",
+          "observationId": 261487651,
+          "category": "leaves"
+        },
+        {
+          "id": 575035731,
+          "attribution": "(c) danielschaber, some rights reserved (CC BY-NC)",
+          "observationId": 318184968,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:44.766Z"
+    }
   },
   "cedro-maria": {
     "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/196702644",
-    "downloadedAt": "2025-12-21T15:25:00.768Z"
+    "downloadedAt": "2025-12-21T15:25:00.768Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 250604711,
+          "attribution": "(c) Jeffry Torres, some rights reserved (CC BY-NC)",
+          "observationId": 145845510,
+          "category": "whole_tree"
+        },
+        {
+          "id": 346253105,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 196702644,
+          "category": "leaves"
+        },
+        {
+          "id": 346253081,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 196702644,
+          "category": "whole_tree"
+        },
+        {
+          "id": 346253130,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 196702644,
+          "category": "leaves"
+        },
+        {
+          "id": 179898780,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 107013284,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:49.544Z"
+    }
   },
   "cerillo": {
     "attribution": "(c) Paul Foster, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/329267909",
-    "downloadedAt": "2025-12-21T15:25:02.303Z"
+    "downloadedAt": "2025-12-21T15:25:02.303Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 596819482,
+          "attribution": "(c) Paul Foster, some rights reserved (CC BY-NC)",
+          "observationId": 329267909,
+          "category": "whole_tree"
+        },
+        {
+          "id": 596819555,
+          "attribution": "(c) Paul Foster, some rights reserved (CC BY-NC)",
+          "observationId": 329267909,
+          "category": "leaves"
+        },
+        {
+          "id": 189345331,
+          "attribution": "(c) Andreas Berger, some rights reserved (CC BY-NC)",
+          "observationId": 112111845,
+          "category": "habitat"
+        },
+        {
+          "id": 147250016,
+          "attribution": "(c) Maria y Sebas, some rights reserved (CC BY-NC)",
+          "observationId": 89184451,
+          "category": "whole_tree"
+        },
+        {
+          "id": 337507248,
+          "attribution": "(c) Saul MR, all rights reserved",
+          "observationId": 192278163,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:51.889Z"
+    }
   },
   "chancho-blanco": {
     "attribution": "(c) wherenextnyc, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/36655332",
-    "downloadedAt": "2025-12-21T15:25:03.718Z"
+    "downloadedAt": "2025-12-21T15:25:03.718Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 57971247,
+          "attribution": "(c) wherenextnyc, some rights reserved (CC BY-NC)",
+          "observationId": 36655332,
+          "category": "whole_tree"
+        },
+        {
+          "id": 57971268,
+          "attribution": "(c) wherenextnyc, some rights reserved (CC BY-NC)",
+          "observationId": 36655332,
+          "category": "leaves"
+        },
+        {
+          "id": 312612629,
+          "attribution": "(c) Mark Horton-Sacha, all rights reserved",
+          "observationId": 179552188,
+          "category": "bark"
+        },
+        {
+          "id": 40465053,
+          "attribution": "(c) Rigo Salas, all rights reserved",
+          "observationId": 26080851,
+          "category": "whole_tree"
+        },
+        {
+          "id": 57971282,
+          "attribution": "(c) wherenextnyc, some rights reserved (CC BY-NC)",
+          "observationId": 36655332,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:37:53.170Z"
+    }
   },
   "fruta-dorada": {
     "attribution": "(c) Manuel Víquez Carazo, all rights reserved",
     "source": "https://www.inaturalist.org/observations/256317562",
-    "downloadedAt": "2025-12-21T15:25:05.353Z"
+    "downloadedAt": "2025-12-21T15:25:05.353Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 459531987,
+          "attribution": "(c) Manuel Víquez Carazo, all rights reserved",
+          "observationId": 256317562,
+          "category": "whole_tree"
+        },
+        {
+          "id": 54238002,
+          "attribution": "(c) Giovanni Carraro, some rights reserved (CC BY-NC)",
+          "observationId": 34460206,
+          "category": "leaves"
+        },
+        {
+          "id": 14431805,
+          "attribution": "(c) Lena Struwe, some rights reserved (CC BY-SA)",
+          "observationId": 10395587,
+          "category": "habitat"
+        },
+        {
+          "id": 54237998,
+          "attribution": "(c) Giovanni Carraro, some rights reserved (CC BY-NC)",
+          "observationId": 34460206,
+          "category": "whole_tree"
+        },
+        {
+          "id": 417751329,
+          "attribution": "(c) Marcel Esquivel, all rights reserved",
+          "observationId": 234943180,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:06.455Z"
+    }
   },
   "gallinazo": {
     "attribution": "(c) rogerrodriguezb, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/71813072",
-    "downloadedAt": "2025-12-21T15:25:07.049Z"
+    "downloadedAt": "2025-12-21T15:25:07.049Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 103045812,
+          "attribution": "(c) Emily Franzen, some rights reserved (CC BY)",
+          "observationId": 64127771,
+          "category": "whole_tree"
+        },
+        {
+          "id": 109706493,
+          "attribution": "(c) Frank Chaves, all rights reserved",
+          "observationId": 67838381,
+          "category": "leaves"
+        },
+        {
+          "id": 65047569,
+          "attribution": "(c) Eric Koberle, some rights reserved (CC BY-NC)",
+          "observationId": 41021903,
+          "category": "fruit"
+        },
+        {
+          "id": 162793801,
+          "attribution": "(c) Jeff Stauffer, all rights reserved",
+          "observationId": 97846389,
+          "category": "habitat"
+        },
+        {
+          "id": 109706404,
+          "attribution": "(c) Frank Chaves, all rights reserved",
+          "observationId": 67838381,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:08.056Z"
+    }
   },
   "hoja-santa": {
     "attribution": "(c) Nadia Grishina, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/324523444",
-    "downloadedAt": "2025-12-21T15:25:09.221Z"
+    "downloadedAt": "2025-12-21T15:25:09.221Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 436805210,
+          "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
+          "observationId": 244841260,
+          "category": "whole_tree"
+        },
+        {
+          "id": 60147923,
+          "attribution": "(c) plantdruid, all rights reserved",
+          "observationId": 37897423,
+          "category": "leaves"
+        },
+        {
+          "id": 60148097,
+          "attribution": "(c) plantdruid, all rights reserved",
+          "observationId": 37897423,
+          "category": "whole_tree"
+        },
+        {
+          "id": 322813046,
+          "attribution": "(c) Heiner Ziegler, some rights reserved (CC BY-NC)",
+          "observationId": 184898341,
+          "category": "leaves"
+        },
+        {
+          "id": 322813133,
+          "attribution": "(c) Heiner Ziegler, some rights reserved (CC BY-NC)",
+          "observationId": 184898341,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:18.236Z"
+    }
   },
   "laurel-negro": {
     "attribution": "(c) Gared Rodríguez, all rights reserved",
     "source": "https://www.inaturalist.org/observations/96434245",
-    "downloadedAt": "2025-12-21T15:25:11.392Z"
+    "downloadedAt": "2025-12-21T15:25:11.392Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 160208327,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 96434245,
+          "category": "whole_tree"
+        },
+        {
+          "id": 160208359,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 96434245,
+          "category": "leaves"
+        },
+        {
+          "id": 175905497,
+          "attribution": "(c) delmer jonathan, some rights reserved (CC BY-NC)",
+          "observationId": 104913450,
+          "category": "whole_tree"
+        },
+        {
+          "id": 160208414,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 96434245,
+          "category": "leaves"
+        },
+        {
+          "id": 188434204,
+          "attribution": "(c) José Rodrigo Carral Domínguez, all rights reserved",
+          "observationId": 111613183,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:25.456Z"
+    }
   },
   "lechoso": {
     "attribution": "(c) Ashley M Bradford, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/12492575",
-    "downloadedAt": "2025-12-21T15:25:12.850Z"
+    "downloadedAt": "2025-12-21T15:25:12.850Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 18032327,
+          "attribution": "(c) Ashley M Bradford, some rights reserved (CC BY-NC)",
+          "observationId": 12492575,
+          "category": "whole_tree"
+        },
+        {
+          "id": 18032314,
+          "attribution": "(c) Ashley M Bradford, some rights reserved (CC BY-NC)",
+          "observationId": 12492575,
+          "category": "leaves"
+        },
+        {
+          "id": 178936669,
+          "attribution": "(c) LostInCR, all rights reserved",
+          "observationId": 106511120,
+          "category": "habitat"
+        },
+        {
+          "id": 265858030,
+          "attribution": "(c) Manuel Víquez Carazo, all rights reserved",
+          "observationId": 153894725,
+          "category": "whole_tree"
+        },
+        {
+          "id": 18032304,
+          "attribution": "(c) Ashley M Bradford, some rights reserved (CC BY-NC)",
+          "observationId": 12492575,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:27.355Z"
+    }
   },
   "melina": {
     "attribution": "(c) Leiner Garcia Morales, all rights reserved",
     "source": "https://www.inaturalist.org/observations/66973189",
-    "downloadedAt": "2025-12-21T15:25:14.457Z"
+    "downloadedAt": "2025-12-21T15:25:14.457Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 108092024,
+          "attribution": "(c) Leiner Garcia Morales, all rights reserved",
+          "observationId": 66973189,
+          "category": "whole_tree"
+        },
+        {
+          "id": 457610426,
+          "attribution": "(c) Bill, some rights reserved (CC BY-NC)",
+          "observationId": 255359336,
+          "category": "leaves"
+        },
+        {
+          "id": 148124519,
+          "attribution": "(c) Erika Baltodano, all rights reserved",
+          "observationId": 89682212,
+          "category": "fruit"
+        },
+        {
+          "id": 341850260,
+          "attribution": "(c) Rachel Floyd, all rights reserved",
+          "observationId": 194472778,
+          "category": "whole_tree"
+        },
+        {
+          "id": 457610438,
+          "attribution": "(c) Bill, some rights reserved (CC BY-NC)",
+          "observationId": 255359336,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:35.596Z"
+    }
   },
   "muneco": {
     "attribution": "(c) Diego Lobo Montoya, some rights reserved (CC BY-NC)",
     "source": "https://www.inaturalist.org/observations/193886082",
-    "downloadedAt": "2025-12-21T15:25:16.338Z"
+    "downloadedAt": "2025-12-21T15:25:16.338Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 340665877,
+          "attribution": "(c) Diego Lobo Montoya, some rights reserved (CC BY-NC)",
+          "observationId": 193886082,
+          "category": "whole_tree"
+        },
+        {
+          "id": 340665889,
+          "attribution": "(c) Diego Lobo Montoya, some rights reserved (CC BY-NC)",
+          "observationId": 193886082,
+          "category": "leaves"
+        },
+        {
+          "id": 574039200,
+          "attribution": "(c) brandonbest, some rights reserved (CC BY-NC)",
+          "observationId": 317665973,
+          "category": "whole_tree"
+        },
+        {
+          "id": 340665903,
+          "attribution": "(c) Diego Lobo Montoya, some rights reserved (CC BY-NC)",
+          "observationId": 193886082,
+          "category": "leaves"
+        },
+        {
+          "id": 71017835,
+          "attribution": "(c) Nicolas Morales, all rights reserved",
+          "observationId": 44797733,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:38.189Z"
+    }
   },
   "panama": {
     "attribution": "(c) przese, some rights reserved (CC BY)",
     "source": "https://www.inaturalist.org/observations/103538348",
-    "downloadedAt": "2025-12-21T15:25:18.569Z"
+    "downloadedAt": "2025-12-21T15:25:18.569Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 173313333,
+          "attribution": "(c) przese, some rights reserved (CC BY)",
+          "observationId": 103538348,
+          "category": "whole_tree"
+        },
+        {
+          "id": 461087712,
+          "attribution": "(c) Doug Gilbert, some rights reserved (CC BY-NC)",
+          "observationId": 257077017,
+          "category": "leaves"
+        },
+        {
+          "id": 53241836,
+          "attribution": "(c) leithallb, some rights reserved (CC BY-NC)",
+          "observationId": 33869310,
+          "category": "fruit"
+        },
+        {
+          "id": 175003317,
+          "attribution": "(c) Ashwin Srinivasan, some rights reserved (CC BY)",
+          "observationId": 104441577,
+          "category": "bark"
+        },
+        {
+          "id": 461087691,
+          "attribution": "(c) Doug Gilbert, some rights reserved (CC BY-NC)",
+          "observationId": 257077017,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:46.295Z"
+    }
   },
   "sangrillo": {
     "attribution": "(c) Gared Rodríguez, all rights reserved",
     "source": "https://www.inaturalist.org/observations/193071580",
-    "downloadedAt": "2025-12-21T15:25:20.191Z"
+    "downloadedAt": "2025-12-21T15:25:20.191Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 339091373,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 193071580,
+          "category": "whole_tree"
+        },
+        {
+          "id": 339091390,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 193071580,
+          "category": "leaves"
+        },
+        {
+          "id": 448317188,
+          "attribution": "(c) Gerardo Cerdas, all rights reserved",
+          "observationId": 250645722,
+          "category": "whole_tree"
+        },
+        {
+          "id": 339091421,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 193071580,
+          "category": "leaves"
+        },
+        {
+          "id": 652168,
+          "attribution": "(c) James Steamer, some rights reserved (CC BY-NC)",
+          "observationId": 512315,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:38:54.708Z"
+    }
   },
   "teca": {
     "attribution": "(c) Jannis Werner, all rights reserved",
     "source": "https://www.inaturalist.org/observations/288521379",
-    "downloadedAt": "2025-12-21T15:25:21.870Z"
+    "downloadedAt": "2025-12-21T15:25:21.870Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 518872948,
+          "attribution": "(c) Jannis Werner, all rights reserved",
+          "observationId": 288521379,
+          "category": "whole_tree"
+        },
+        {
+          "id": 398358561,
+          "attribution": "(c) oceansunfish77, some rights reserved (CC BY-NC)",
+          "observationId": 224739818,
+          "category": "leaves"
+        },
+        {
+          "id": 398358512,
+          "attribution": "(c) oceansunfish77, some rights reserved (CC BY-NC)",
+          "observationId": 224739818,
+          "category": "whole_tree"
+        },
+        {
+          "id": 408225597,
+          "attribution": "(c) Sofie B, all rights reserved",
+          "observationId": 229944386,
+          "category": "leaves"
+        },
+        {
+          "id": 408225556,
+          "attribution": "(c) Sofie B, all rights reserved",
+          "observationId": 229944386,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:39:02.174Z"
+    }
   },
   "zapatero": {
     "attribution": "(c) Gared Rodríguez, all rights reserved",
     "source": "https://www.inaturalist.org/observations/118720543",
-    "downloadedAt": "2025-12-21T15:25:23.345Z"
+    "downloadedAt": "2025-12-21T15:25:23.345Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 200618966,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 118720543,
+          "category": "whole_tree"
+        },
+        {
+          "id": 200619002,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 118720543,
+          "category": "leaves"
+        },
+        {
+          "id": 248666313,
+          "attribution": "(c) Leo R Quirós, some rights reserved (CC BY-NC)",
+          "observationId": 144831783,
+          "category": "whole_tree"
+        },
+        {
+          "id": 200619020,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 118720543,
+          "category": "leaves"
+        },
+        {
+          "id": 263222623,
+          "attribution": "(c) Saul MR, all rights reserved",
+          "observationId": 152474752,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-21T17:39:06.042Z"
+    }
   }
 }
