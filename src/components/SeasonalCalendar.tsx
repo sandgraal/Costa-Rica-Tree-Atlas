@@ -1,8 +1,14 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  getEventsForMonth,
+  getEventTranslation,
+  EVENT_TYPE_COLORS,
+  type CostaRicaEvent,
+} from "@/lib/costaRicaEvents";
 
 interface TreeSeasonData {
   title: string;
@@ -104,6 +110,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
   );
   const [viewMode, setViewMode] = useState<ViewMode>("calendar");
   const [filterType, setFilterType] = useState<FilterType>("all");
+  const [showEvents, setShowEvents] = useState(true);
+  const [shareTooltip, setShareTooltip] = useState<string | null>(null);
 
   const labels = useMemo(
     () => ({
@@ -133,6 +141,24 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         locale === "es"
           ? "No hay árboles con datos de temporada disponibles"
           : "No trees with seasonal data available",
+      showEvents:
+        locale === "es" ? "Mostrar eventos" : "Show events",
+      hideEvents:
+        locale === "es" ? "Ocultar eventos" : "Hide events",
+      eventsAndHolidays:
+        locale === "es" ? "Eventos y Festividades" : "Events & Holidays",
+      share: locale === "es" ? "Compartir" : "Share",
+      shareMonth:
+        locale === "es" ? "Compartir este mes" : "Share this month",
+      shareEvent:
+        locale === "es" ? "Compartir evento" : "Share event",
+      copied: locale === "es" ? "¡Enlace copiado!" : "Link copied!",
+      tip: locale === "es" ? "Consejo" : "Tip",
+      holiday: locale === "es" ? "Feriado" : "Holiday",
+      environmental: locale === "es" ? "Ambiental" : "Environmental",
+      cultural: locale === "es" ? "Cultural" : "Cultural",
+      festival: locale === "es" ? "Festival" : "Festival",
+      agricultural: locale === "es" ? "Agrícola" : "Agricultural",
     }),
     [locale]
   );
@@ -174,12 +200,18 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
     return { flowering, fruiting };
   }, [selectedMonth, treesWithSeasonData]);
 
+  // Get events for selected month
+  const eventsInMonth = useMemo(() => {
+    if (!selectedMonth) return [];
+    return getEventsForMonth(selectedMonth);
+  }, [selectedMonth]);
+
   // Count trees per month for calendar heatmap
   const monthCounts = useMemo(() => {
-    const counts: Record<string, { flowering: number; fruiting: number }> = {};
+    const counts: Record<string, { flowering: number; fruiting: number; events: number }> = {};
 
     for (const month of MONTHS) {
-      counts[month] = { flowering: 0, fruiting: 0 };
+      counts[month] = { flowering: 0, fruiting: 0, events: 0 };
 
       for (const tree of treesWithSeasonData) {
         if (
@@ -195,6 +227,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
           counts[month].fruiting++;
         }
       }
+
+      // Count events
+      counts[month].events = getEventsForMonth(month).length;
     }
 
     return counts;
@@ -212,6 +247,65 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
     }
     return max || 1;
   }, [monthCounts]);
+
+  // Share functionality
+  const handleShareMonth = useCallback(
+    async (month: string) => {
+      const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+      const shareUrl = `${baseUrl}/${locale}/seasonal?month=${month}`;
+      const monthName = fullMonthLabels[month];
+      const shareText =
+        locale === "es"
+          ? `Descubre qué árboles de Costa Rica están floreciendo en ${monthName} 🌳🌸`
+          : `Discover which Costa Rican trees are flowering in ${monthName} 🌳🌸`;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: `${monthName} - Costa Rica Tree Atlas`,
+            text: shareText,
+            url: shareUrl,
+          });
+        } catch {
+          // User cancelled
+        }
+      } else {
+        await copyToClipboard(shareUrl);
+        setShareTooltip(month);
+        setTimeout(() => setShareTooltip(null), 2000);
+      }
+    },
+    [locale, fullMonthLabels]
+  );
+
+  const handleShareEvent = useCallback(
+    async (event: CostaRicaEvent) => {
+      const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+      const shareUrl = `${baseUrl}/${locale}/seasonal?month=${event.month}&event=${event.id}`;
+      const eventInfo = getEventTranslation(event.id, locale);
+      const shareText =
+        locale === "es"
+          ? `${event.icon} ${eventInfo?.name || event.id} - Calendario de Árboles de Costa Rica`
+          : `${event.icon} ${eventInfo?.name || event.id} - Costa Rica Tree Atlas`;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: eventInfo?.name || event.id,
+            text: shareText,
+            url: shareUrl,
+          });
+        } catch {
+          // User cancelled
+        }
+      } else {
+        await copyToClipboard(shareUrl);
+        setShareTooltip(event.id);
+        setTimeout(() => setShareTooltip(null), 2000);
+      }
+    },
+    [locale]
+  );
 
   if (treesWithSeasonData.length === 0) {
     return (
@@ -292,6 +386,19 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
             {labels.fruiting}
           </button>
         </div>
+
+        {/* Events Toggle */}
+        <button
+          onClick={() => setShowEvents(!showEvents)}
+          className={`px-3 py-1.5 text-sm rounded-lg border transition-colors flex items-center gap-1.5 ${
+            showEvents
+              ? "bg-green-500 text-white border-green-500"
+              : "border-border hover:bg-muted"
+          }`}
+        >
+          <CalendarIcon className="h-4 w-4" />
+          {showEvents ? labels.hideEvents : labels.showEvents}
+        </button>
       </div>
 
       {/* Calendar View */}
@@ -302,6 +409,7 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
             const counts = monthCounts[month];
             const floweringIntensity = counts.flowering / maxCount;
             const fruitingIntensity = counts.fruiting / maxCount;
+            const hasEvents = counts.events > 0;
 
             return (
               <button
@@ -313,8 +421,11 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
                     : "border-border hover:border-primary/50"
                 }`}
               >
-                <div className="text-xs font-medium mb-2">
+                <div className="text-xs font-medium mb-2 flex items-center justify-center gap-1">
                   {monthLabels[month]}
+                  {showEvents && hasEvents && (
+                    <span className="text-green-500">•</span>
+                  )}
                 </div>
 
                 {/* Intensity bars */}
@@ -408,9 +519,51 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
       {/* Selected Month Details */}
       {selectedMonth && (
         <div className="mt-8">
-          <h3 className="text-xl font-semibold text-center mb-6">
-            {fullMonthLabels[selectedMonth]}
-          </h3>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <h3 className="text-xl font-semibold">
+              {fullMonthLabels[selectedMonth]}
+            </h3>
+            <div className="relative">
+              <button
+                onClick={() => handleShareMonth(selectedMonth)}
+                className="p-2 rounded-lg border border-border hover:bg-muted transition-colors"
+                aria-label={labels.shareMonth}
+                title={labels.shareMonth}
+              >
+                <ShareIcon className="h-4 w-4" />
+              </button>
+              {shareTooltip === selectedMonth && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-foreground text-background text-xs rounded whitespace-nowrap">
+                  {labels.copied}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Events Section */}
+          {showEvents && eventsInMonth.length > 0 && (
+            <div className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-5">
+              <h4 className="flex items-center gap-2 text-lg font-medium text-green-700 dark:text-green-300 mb-4">
+                <CalendarIcon className="h-5 w-5" />
+                {labels.eventsAndHolidays}
+                <span className="ml-auto text-sm font-normal">
+                  {eventsInMonth.length}
+                </span>
+              </h4>
+              <div className="grid gap-3">
+                {eventsInMonth.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    locale={locale}
+                    labels={labels}
+                    shareTooltip={shareTooltip}
+                    onShare={handleShareEvent}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Flowering Trees */}
@@ -477,7 +630,7 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
       )}
 
       {/* Legend */}
-      <div className="flex justify-center gap-6 text-sm text-muted-foreground pt-4 border-t border-border">
+      <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground pt-4 border-t border-border">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-pink-500" />
           <span>{labels.flowering}</span>
@@ -485,6 +638,96 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-orange-500" />
           <span>{labels.fruiting}</span>
+        </div>
+        {showEvents && (
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <span>{labels.eventsAndHolidays}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Event Card Component
+function EventCard({
+  event,
+  locale,
+  labels,
+  shareTooltip,
+  onShare,
+}: {
+  event: CostaRicaEvent;
+  locale: string;
+  labels: Record<string, string>;
+  shareTooltip: string | null;
+  onShare: (event: CostaRicaEvent) => void;
+}) {
+  const eventInfo = getEventTranslation(event.id, locale);
+  const typeColors = EVENT_TYPE_COLORS[event.type];
+  const typeLabel = labels[event.type] || event.type;
+
+  if (!eventInfo) return null;
+
+  return (
+    <div
+      className={`relative p-4 rounded-lg border ${typeColors.bg} ${typeColors.border}`}
+    >
+      <div className="flex items-start gap-3">
+        <span className="text-2xl">{event.icon}</span>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <h5 className={`font-medium ${typeColors.text}`}>
+              {eventInfo.name}
+            </h5>
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full ${typeColors.bg} ${typeColors.text}`}
+            >
+              {typeLabel}
+            </span>
+            {event.day && (
+              <span className="text-xs text-muted-foreground ml-auto">
+                {event.endDay
+                  ? `${event.day} - ${event.endDay}`
+                  : event.day}
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-muted-foreground">{eventInfo.description}</p>
+          {eventInfo.tip && (
+            <p className="mt-2 text-xs text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/30 rounded px-2 py-1">
+              <span className="font-medium">💡 {labels.tip}:</span> {eventInfo.tip}
+            </p>
+          )}
+          {event.relatedTrees && event.relatedTrees.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {event.relatedTrees.map((treeSlug) => (
+                <Link
+                  key={treeSlug}
+                  href={`/${locale}/trees/${treeSlug}`}
+                  className="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800/50 transition-colors"
+                >
+                  🌳 {treeSlug}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="relative flex-shrink-0">
+          <button
+            onClick={() => onShare(event)}
+            className="p-1.5 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
+            aria-label={labels.shareEvent}
+            title={labels.shareEvent}
+          >
+            <ShareIcon className="h-4 w-4 text-muted-foreground" />
+          </button>
+          {shareTooltip === event.id && (
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-foreground text-background text-xs rounded whitespace-nowrap z-10">
+              {labels.copied}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -536,6 +779,31 @@ function TreeListItem({
   );
 }
 
+// Utility function for clipboard
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      return true;
+    }
+  } catch {
+    return false;
+  }
+}
+
+// Icons
 function FlowerIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -603,6 +871,47 @@ function ChevronRightIcon({ className }: { className?: string }) {
       className={className}
     >
       <path d="M9 18l6-6-6-6" />
+    </svg>
+  );
+}
+
+function CalendarIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </svg>
+  );
+}
+
+function ShareIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
     </svg>
   );
 }

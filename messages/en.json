@@ -335,7 +335,7 @@
     "title": "Seasonal Calendar - Costa Rica Tree Atlas",
     "description": "Discover when Costa Rica's trees flower and fruit throughout the year. Plan your nature visits with our phenological calendar.",
     "pageTitle": "Seasonal Calendar",
-    "pageDescription": "Discover when Costa Rica's trees are flowering and fruiting throughout the year.",
+    "pageDescription": "Discover when Costa Rica's trees are flowering and fruiting throughout the year. Includes local holidays and environmental events.",
     "climateTitle": "Costa Rica's Tropical Climate",
     "climateDescription": "Costa Rica has two main seasons that influence tree flowering and fruiting patterns. The dry season triggers many species to flower, while the wet season supports fruit development.",
     "drySeason": "Dry Season (Verano)",
@@ -343,6 +343,12 @@
     "drySeasonNote": "Peak flowering season for many species. Many deciduous trees lose their leaves and produce spectacular blooms.",
     "wetSeason": "Wet Season (Invierno)",
     "wetSeasonMonths": "May to November",
-    "wetSeasonNote": "Primary fruiting season. Abundant rainfall supports fruit development and dispersal by animals."
+    "wetSeasonNote": "Primary fruiting season. Abundant rainfall supports fruit development and dispersal by animals.",
+    "eventsTitle": "Events & Holidays",
+    "eventsDescription": "Costa Rica's holidays and environmental events throughout the year, many connected to the country's rich tree heritage.",
+    "shareMonth": "Share this month",
+    "shareEvent": "Share event",
+    "showEvents": "Show events",
+    "hideEvents": "Hide events"
   }
 }

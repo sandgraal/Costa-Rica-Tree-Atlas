@@ -2,16 +2,97 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SeasonalCalendar } from "@/components/SeasonalCalendar";
 import { allTrees } from "contentlayer/generated";
+import {
+  getEventsForMonth,
+  getEventTranslation,
+  COSTA_RICA_EVENTS,
+} from "@/lib/costaRicaEvents";
 
 interface SeasonalPageProps {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ month?: string; event?: string }>;
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: SeasonalPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const { month, event } = await searchParams;
   const t = await getTranslations({ locale, namespace: "seasonal" });
+
+  // If there's a specific event, customize the metadata
+  if (event) {
+    const eventData = COSTA_RICA_EVENTS.find((e) => e.id === event);
+    const eventInfo = eventData ? getEventTranslation(event, locale) : null;
+    if (eventInfo) {
+      return {
+        title: `${eventInfo.name} - ${t("pageTitle")}`,
+        description: eventInfo.description,
+        alternates: {
+          canonical: `/${locale}/seasonal?event=${event}`,
+          languages: {
+            en: `/en/seasonal?event=${event}`,
+            es: `/es/seasonal?event=${event}`,
+          },
+        },
+        openGraph: {
+          title: `${eventInfo.name} - Costa Rica Tree Atlas`,
+          description: eventInfo.description,
+        },
+      };
+    }
+  }
+
+  // If there's a specific month, customize the metadata
+  if (month) {
+    const monthNames: Record<string, Record<string, string>> = {
+      en: {
+        january: "January",
+        february: "February",
+        march: "March",
+        april: "April",
+        may: "May",
+        june: "June",
+        july: "July",
+        august: "August",
+        september: "September",
+        october: "October",
+        november: "November",
+        december: "December",
+      },
+      es: {
+        january: "Enero",
+        february: "Febrero",
+        march: "Marzo",
+        april: "Abril",
+        may: "Mayo",
+        june: "Junio",
+        july: "Julio",
+        august: "Agosto",
+        september: "Septiembre",
+        october: "Octubre",
+        november: "Noviembre",
+        december: "Diciembre",
+      },
+    };
+    const monthName = monthNames[locale]?.[month] || month;
+
+    return {
+      title: `${monthName} - ${t("title")}`,
+      description:
+        locale === "es"
+          ? `Descubre qué árboles de Costa Rica están floreciendo y fructificando en ${monthName}.`
+          : `Discover which Costa Rican trees are flowering and fruiting in ${monthName}.`,
+      alternates: {
+        canonical: `/${locale}/seasonal?month=${month}`,
+        languages: {
+          en: `/en/seasonal?month=${month}`,
+          es: `/es/seasonal?month=${month}`,
+        },
+      },
+    };
+  }
 
   return {
     title: t("title"),
@@ -26,8 +107,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function SeasonalPage({ params }: SeasonalPageProps) {
+export default async function SeasonalPage({
+  params,
+  searchParams,
+}: SeasonalPageProps) {
   const { locale } = await params;
+  const { month: initialMonth, event: initialEvent } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "seasonal" });
@@ -56,6 +141,19 @@ export default async function SeasonalPage({ params }: SeasonalPageProps) {
     tree.fruitingSeason?.includes(currentMonth)
   );
 
+  // Get events for the current month
+  const currentMonthEvents = getEventsForMonth(currentMonth);
+  const eventItems = currentMonthEvents.slice(0, 5).map((event, index) => {
+    const eventInfo = getEventTranslation(event.id, locale);
+    return {
+      "@type": "Event",
+      name: eventInfo?.name || event.id,
+      description: eventInfo?.description || "",
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    };
+  });
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -73,7 +171,8 @@ export default async function SeasonalPage({ params }: SeasonalPageProps) {
         locale === "es"
           ? "Árboles activos este mes"
           : "Trees active this month",
-      numberOfItems: treesFloweringNow.length + treesFruitingNow.length,
+      numberOfItems:
+        treesFloweringNow.length + treesFruitingNow.length + eventItems.length,
       itemListElement: [
         ...treesFloweringNow.slice(0, 10).map((tree, index) => ({
           "@type": "ListItem",
@@ -87,6 +186,11 @@ export default async function SeasonalPage({ params }: SeasonalPageProps) {
                 : `${tree.title} is flowering`,
             url: `https://costaricatreeatlas.com/${locale}/trees/${tree.slug}`,
           },
+        })),
+        ...eventItems.map((event, index) => ({
+          "@type": "ListItem",
+          position: treesFloweringNow.slice(0, 10).length + index + 1,
+          item: event,
         })),
       ],
     },
