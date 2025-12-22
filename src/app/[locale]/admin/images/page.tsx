@@ -15,6 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+/**
+ * Admin page for reviewing tree images.
+ * Note: This page has no authentication - it's a local voting tool only.
+ * Votes are stored in localStorage and must be processed manually.
+ */
 export default async function ImageReviewPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);

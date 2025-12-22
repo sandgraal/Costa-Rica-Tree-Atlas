@@ -4,6 +4,9 @@ import { allTrees } from "contentlayer/generated";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// Feature flag - set to false to disable the API entirely
+const FEATURE_ENABLED = false;
+
 const MAX_LABELS = 12;
 
 // Simple in-memory rate limiting (resets on server restart)
@@ -191,6 +194,18 @@ const scoreLabelAgainstTree = (
 };
 
 export async function POST(request: Request) {
+  // Check if feature is enabled
+  if (!FEATURE_ENABLED) {
+    return NextResponse.json(
+      {
+        error:
+          "Tree identification is temporarily unavailable while we improve the feature.",
+        code: "FEATURE_DISABLED",
+      },
+      { status: 503 }
+    );
+  }
+
   // Rate limiting check
   const rateLimitKey = getRateLimitKey(request);
   const { allowed, remaining } = checkRateLimit(rateLimitKey);

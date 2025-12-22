@@ -1,7 +1,6 @@
 // Service Worker for Costa Rica Tree Atlas
 // Provides offline support for field use
 
-const CACHE_NAME = "cr-tree-atlas-v2";
 const STATIC_CACHE = "cr-tree-atlas-static-v2";
 const DYNAMIC_CACHE = "cr-tree-atlas-dynamic-v2";
 
