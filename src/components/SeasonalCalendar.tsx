@@ -547,8 +547,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
           {/* Events Section */}
           {showEvents && eventsInMonth.length > 0 && (
-            <div className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-5">
-              <h4 className="flex items-center gap-2 text-lg font-medium text-green-700 dark:text-green-300 mb-4">
+            <div className="mb-6 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-5 border border-green-200 dark:border-green-800">
+              <h4 className="flex items-center gap-2 text-lg font-medium text-green-800 dark:text-green-300 mb-4">
                 <CalendarIcon className="h-5 w-5" />
                 {labels.eventsAndHolidays}
                 <span className="ml-auto text-sm font-normal">
@@ -573,8 +573,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Flowering Trees */}
             {(filterType === "all" || filterType === "flowering") && (
-              <div className="bg-pink-50 dark:bg-pink-900/20 rounded-xl p-5">
-                <h4 className="flex items-center gap-2 text-lg font-medium text-pink-700 dark:text-pink-300 mb-4">
+              <div className="bg-pink-100 dark:bg-pink-900/20 rounded-xl p-5 border border-pink-200 dark:border-pink-800">
+                <h4 className="flex items-center gap-2 text-lg font-medium text-pink-800 dark:text-pink-300 mb-4">
                   <FlowerIcon className="h-5 w-5" />
                   {labels.flowering}
                   <span className="ml-auto text-sm font-normal">
@@ -603,8 +603,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
             {/* Fruiting Trees */}
             {(filterType === "all" || filterType === "fruiting") && (
-              <div className="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-5">
-                <h4 className="flex items-center gap-2 text-lg font-medium text-orange-700 dark:text-orange-300 mb-4">
+              <div className="bg-orange-100 dark:bg-orange-900/20 rounded-xl p-5 border border-orange-200 dark:border-orange-800">
+                <h4 className="flex items-center gap-2 text-lg font-medium text-orange-800 dark:text-orange-300 mb-4">
                   <FruitIcon className="h-5 w-5" />
                   {labels.fruiting}
                   <span className="ml-auto text-sm font-normal">
@@ -702,11 +702,11 @@ function EventCard({
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             {eventInfo.description}
           </p>
           {eventInfo.tip && (
-            <p className="mt-2 text-xs text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/30 rounded px-2 py-1">
+            <p className="mt-2 text-xs text-green-800 dark:text-green-400 bg-green-200/70 dark:bg-green-900/30 rounded px-2 py-1">
               <span className="font-medium">💡 {labels.tip}:</span>{" "}
               {eventInfo.tip}
             </p>
@@ -717,7 +717,7 @@ function EventCard({
                 <Link
                   key={treeSlug}
                   href={`/${locale}/trees/${treeSlug}`}
-                  className="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800/50 transition-colors"
+                  className="text-xs px-2 py-0.5 rounded-full bg-green-200 dark:bg-green-900/50 text-green-800 dark:text-green-300 hover:bg-green-300 dark:hover:bg-green-800/50 transition-colors"
                 >
                   🌳 {treeSlug}
                 </Link>
@@ -782,7 +782,7 @@ function TreeListItem({
         </p>
       </div>
       {isYearRound && (
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-200 dark:bg-green-900/50 text-green-800 dark:text-green-300">
           {locale === "es" ? "Todo el año" : "Year-round"}
         </span>
       )}

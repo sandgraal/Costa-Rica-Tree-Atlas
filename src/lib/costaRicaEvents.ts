@@ -1720,42 +1720,42 @@ export const EVENT_TYPE_COLORS: Record<
 > = {
   holiday: {
     bg: "bg-blue-100 dark:bg-blue-900/30",
-    text: "text-blue-700 dark:text-blue-300",
+    text: "text-blue-800 dark:text-blue-300",
     border: "border-blue-300 dark:border-blue-700",
   },
   environmental: {
     bg: "bg-green-100 dark:bg-green-900/30",
-    text: "text-green-700 dark:text-green-300",
+    text: "text-green-800 dark:text-green-300",
     border: "border-green-300 dark:border-green-700",
   },
   cultural: {
     bg: "bg-purple-100 dark:bg-purple-900/30",
-    text: "text-purple-700 dark:text-purple-300",
+    text: "text-purple-800 dark:text-purple-300",
     border: "border-purple-300 dark:border-purple-700",
   },
   festival: {
     bg: "bg-amber-100 dark:bg-amber-900/30",
-    text: "text-amber-700 dark:text-amber-300",
+    text: "text-amber-800 dark:text-amber-300",
     border: "border-amber-300 dark:border-amber-700",
   },
   agricultural: {
     bg: "bg-yellow-100 dark:bg-yellow-900/30",
-    text: "text-yellow-700 dark:text-yellow-300",
+    text: "text-yellow-800 dark:text-yellow-300",
     border: "border-yellow-300 dark:border-yellow-700",
   },
   tourism: {
     bg: "bg-cyan-100 dark:bg-cyan-900/30",
-    text: "text-cyan-700 dark:text-cyan-300",
+    text: "text-cyan-800 dark:text-cyan-300",
     border: "border-cyan-300 dark:border-cyan-700",
   },
   school: {
     bg: "bg-indigo-100 dark:bg-indigo-900/30",
-    text: "text-indigo-700 dark:text-indigo-300",
+    text: "text-indigo-800 dark:text-indigo-300",
     border: "border-indigo-300 dark:border-indigo-700",
   },
   weather: {
-    bg: "bg-slate-100 dark:bg-slate-900/30",
-    text: "text-slate-700 dark:text-slate-300",
+    bg: "bg-slate-200 dark:bg-slate-900/30",
+    text: "text-slate-800 dark:text-slate-300",
     border: "border-slate-300 dark:border-slate-700",
   },
 };
