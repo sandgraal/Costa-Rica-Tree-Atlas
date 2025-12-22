@@ -1056,6 +1056,629 @@ export const EVENT_TRANSLATIONS: Record<
       tip: "Observe los primeros en florecer preparando sus espectaculares exhibiciones",
     },
   },
+  // New events translations
+  "high-season-peak": {
+    en: {
+      name: "Peak Tourism Season",
+      description:
+        "High season for tourism - beaches and parks are busy but weather is perfect",
+      tip: "Book accommodations and tours well in advance",
+    },
+    es: {
+      name: "Temporada Alta de Turismo",
+      description:
+        "Temporada alta - playas y parques concurridos pero clima perfecto",
+      tip: "Reserve alojamiento y tours con anticipación",
+    },
+  },
+  "school-vacation-jan": {
+    en: {
+      name: "School Vacation",
+      description: "Costa Rican schools are on summer vacation",
+      tip: "Expect more local families at beaches and parks",
+    },
+    es: {
+      name: "Vacaciones Escolares",
+      description: "Las escuelas costarricenses están en vacaciones de verano",
+      tip: "Espere más familias locales en playas y parques",
+    },
+  },
+  "whale-watching-south": {
+    en: {
+      name: "Whale Watching (South)",
+      description:
+        "Humpback whales from Antarctica visible on southern Pacific coast",
+      tip: "Visit Osa Peninsula or Uvita for best whale sightings",
+    },
+    es: {
+      name: "Avistamiento de Ballenas (Sur)",
+      description:
+        "Ballenas jorobadas de la Antártida visibles en la costa pacífica sur",
+      tip: "Visita la Península de Osa o Uvita para mejores avistamientos",
+    },
+  },
+  "palmares-festival": {
+    en: {
+      name: "Fiestas de Palmares",
+      description:
+        "Costa Rica's largest folk festival with concerts, bulls, and carnival rides",
+      tip: "Experience authentic Tico culture - one of Central America's biggest fests",
+    },
+    es: {
+      name: "Fiestas de Palmares",
+      description:
+        "El festival popular más grande de Costa Rica con conciertos, toros y feria",
+      tip: "Vive la cultura tica auténtica - una de las fiestas más grandes de Centroamérica",
+    },
+  },
+  "school-year-start": {
+    en: {
+      name: "School Year Begins",
+      description: "Costa Rican public schools start the new academic year",
+      tip: "Traffic increases in mornings and afternoons near schools",
+    },
+    es: {
+      name: "Inicio del Año Escolar",
+      description:
+        "Las escuelas públicas costarricenses inician el nuevo año académico",
+      tip: "El tráfico aumenta en las mañanas y tardes cerca de escuelas",
+    },
+  },
+  "valentines-day": {
+    en: {
+      name: "Valentine's Day",
+      description:
+        "Day of Love and Friendship - widely celebrated in Costa Rica",
+      tip: "Restaurants are busy - make reservations!",
+    },
+    es: {
+      name: "Día del Amor y la Amistad",
+      description: "Día de San Valentín - muy celebrado en Costa Rica",
+      tip: "Los restaurantes están llenos - ¡haz reservaciones!",
+    },
+  },
+  "envision-festival": {
+    en: {
+      name: "Envision Festival",
+      description:
+        "International transformational arts and music festival in Uvita",
+      tip: "Tickets sell out months in advance - plan early",
+    },
+    es: {
+      name: "Festival Envision",
+      description:
+        "Festival internacional de artes transformativas y música en Uvita",
+      tip: "Las entradas se agotan meses antes - planifica con tiempo",
+    },
+  },
+  "best-beach-weather": {
+    en: {
+      name: "Best Beach Weather",
+      description:
+        "Perfect sunny days with minimal rain - ideal for Pacific coast beaches",
+      tip: "Both coasts have excellent conditions this month",
+    },
+    es: {
+      name: "Mejor Clima de Playa",
+      description:
+        "Días soleados perfectos con mínima lluvia - ideal para playas del Pacífico",
+      tip: "Ambas costas tienen excelentes condiciones este mes",
+    },
+  },
+  "international-womens-day": {
+    en: {
+      name: "International Women's Day",
+      description: "Celebrating women's achievements and rights",
+      tip: "Various cultural events and activities nationwide",
+    },
+    es: {
+      name: "Día Internacional de la Mujer",
+      description: "Celebrando los logros y derechos de las mujeres",
+      tip: "Varios eventos culturales y actividades en todo el país",
+    },
+  },
+  "sea-turtle-nesting-caribbean": {
+    en: {
+      name: "Sea Turtle Nesting Begins",
+      description:
+        "Green and hawksbill turtles begin nesting on Caribbean beaches",
+      tip: "Tortuguero is the best place to witness this amazing event",
+    },
+    es: {
+      name: "Comienza Anidación de Tortugas",
+      description:
+        "Tortugas verdes y carey comienzan a anidar en playas del Caribe",
+      tip: "Tortuguero es el mejor lugar para presenciar este increíble evento",
+    },
+  },
+  "leatherback-turtle-peak": {
+    en: {
+      name: "Leatherback Turtle Peak",
+      description: "Peak season for leatherback sea turtle nesting",
+      tip: "Visit Playa Grande or Las Baulas National Park for night tours",
+    },
+    es: {
+      name: "Pico de Tortuga Baula",
+      description: "Temporada alta de anidación de tortuga baula",
+      tip: "Visita Playa Grande o el Parque Nacional Las Baulas para tours nocturnos",
+    },
+  },
+  "easter-tourism": {
+    en: {
+      name: "Easter Tourism Week",
+      description: "High domestic tourism as Costa Ricans travel for Holy Week",
+      tip: "Beaches are very crowded - consider less popular destinations",
+    },
+    es: {
+      name: "Semana de Turismo de Pascua",
+      description:
+        "Alto turismo doméstico mientras los ticos viajan en Semana Santa",
+      tip: "Las playas están muy llenas - considera destinos menos populares",
+    },
+  },
+  "transition-to-green": {
+    en: {
+      name: "Transition to Green Season",
+      description: "First rains begin appearing, especially in afternoons",
+      tip: "Still mostly dry mornings - plan outdoor activities early",
+    },
+    es: {
+      name: "Transición a Estación Verde",
+      description:
+        "Las primeras lluvias comienzan a aparecer, especialmente en las tardes",
+      tip: "Aún mañanas secas - planifica actividades al aire libre temprano",
+    },
+  },
+  "oxcart-day": {
+    en: {
+      name: "National Oxcart Day",
+      description:
+        "Celebrating Costa Rica's traditional painted oxcarts (carretas)",
+      tip: "Visit Sarchí to see artisans making these UNESCO-recognized crafts",
+    },
+    es: {
+      name: "Día Nacional de la Carreta",
+      description:
+        "Celebrando las carretas pintadas tradicionales de Costa Rica",
+      tip: "Visita Sarchí para ver artesanos haciendo estas artesanías reconocidas por UNESCO",
+    },
+  },
+  "low-season-begins": {
+    en: {
+      name: "Low Season Begins",
+      description: "Tourism low season starts - fewer crowds and lower prices",
+      tip: "Great deals on hotels and tours - embrace the green season!",
+    },
+    es: {
+      name: "Comienza Temporada Baja",
+      description:
+        "Comienza la temporada baja de turismo - menos multitudes y precios bajos",
+      tip: "Grandes ofertas en hoteles y tours - ¡abraza la estación verde!",
+    },
+  },
+  "green-season-deals": {
+    en: {
+      name: "Green Season Deals",
+      description: "Best hotel and tour discounts of the year",
+      tip: "Many hotels offer 30-50% discounts during green season",
+    },
+    es: {
+      name: "Ofertas de Estación Verde",
+      description: "Los mejores descuentos del año en hoteles y tours",
+      tip: "Muchos hoteles ofrecen 30-50% de descuento en estación verde",
+    },
+  },
+  "mother-nature-month": {
+    en: {
+      name: "Month of Nature",
+      description: "Various environmental activities and tree planting events",
+      tip: "Join a reforestation project or environmental cleanup",
+    },
+    es: {
+      name: "Mes de la Naturaleza",
+      description:
+        "Varias actividades ambientales y eventos de siembra de árboles",
+      tip: "Únete a un proyecto de reforestación o limpieza ambiental",
+    },
+  },
+  "fathers-day-cr": {
+    en: {
+      name: "Father's Day (Costa Rica)",
+      description: "Third Sunday of June - celebrating fathers",
+      tip: "Restaurants and family attractions are busy",
+    },
+    es: {
+      name: "Día del Padre",
+      description: "Tercer domingo de junio - celebrando a los padres",
+      tip: "Restaurantes y atracciones familiares están llenos",
+    },
+  },
+  "ocean-day": {
+    en: {
+      name: "World Ocean Day",
+      description:
+        "Celebrating ocean conservation - important for Costa Rica's marine parks",
+      tip: "Beach cleanups and marine conservation events nationwide",
+    },
+    es: {
+      name: "Día Mundial del Océano",
+      description:
+        "Celebrando la conservación marina - importante para los parques marinos",
+      tip: "Limpiezas de playa y eventos de conservación marina en todo el país",
+    },
+  },
+  veranillo: {
+    en: {
+      name: "Veranillo de San Juan",
+      description:
+        "Brief dry spell in the middle of rainy season - 'little summer'",
+      tip: "Take advantage of this sunny break for outdoor activities",
+    },
+    es: {
+      name: "Veranillo de San Juan",
+      description: "Breve período seco en medio de la estación lluviosa",
+      tip: "Aprovecha este descanso soleado para actividades al aire libre",
+    },
+  },
+  "school-mid-year-break": {
+    en: {
+      name: "Mid-Year School Break",
+      description: "Short vacation between school semesters",
+      tip: "Local tourism increases briefly",
+    },
+    es: {
+      name: "Vacaciones de Medio Año",
+      description: "Vacaciones cortas entre semestres escolares",
+      tip: "El turismo local aumenta brevemente",
+    },
+  },
+  "school-vacation-july": {
+    en: {
+      name: "School Vacation",
+      description: "Two-week mid-year school vacation period",
+      tip: "Popular time for local family travel",
+    },
+    es: {
+      name: "Vacaciones Escolares",
+      description: "Período de vacaciones escolares de dos semanas",
+      tip: "Tiempo popular para viajes familiares locales",
+    },
+  },
+  "liberia-festival": {
+    en: {
+      name: "Guanacaste Day Festival",
+      description:
+        "Major celebrations in Liberia for Guanacaste annexation anniversary",
+      tip: "Experience traditional sabanero culture, folk dancing, and rodeos",
+    },
+    es: {
+      name: "Fiestas de Guanacaste",
+      description:
+        "Grandes celebraciones en Liberia por el aniversario de la anexión",
+      tip: "Vive la cultura sabanera tradicional, bailes folklóricos y topes",
+    },
+  },
+  "whale-watching-pacific": {
+    en: {
+      name: "Whale Watching Season (North)",
+      description: "Humpback whales from Alaska arrive on the Pacific coast",
+      tip: "Marino Ballena National Park offers excellent viewing",
+    },
+    es: {
+      name: "Temporada de Ballenas (Norte)",
+      description:
+        "Ballenas jorobadas de Alaska llegan a la costa del Pacífico",
+      tip: "El Parque Nacional Marino Ballena ofrece excelente observación",
+    },
+  },
+  "green-season-wildlife": {
+    en: {
+      name: "Peak Wildlife Activity",
+      description: "Many animals are more active during green season",
+      tip: "Excellent time for wildlife watching - animals are breeding and feeding",
+    },
+    es: {
+      name: "Actividad de Fauna Máxima",
+      description:
+        "Muchos animales están más activos durante la estación verde",
+      tip: "Excelente tiempo para observar fauna - animales reproduciendo y alimentándose",
+    },
+  },
+  "virgin-angels": {
+    en: {
+      name: "Virgen de los Ángeles",
+      description:
+        "Costa Rica's patron saint day - major pilgrimage to Cartago",
+      tip: "Thousands walk to Cartago's Basilica - witness this spiritual tradition",
+    },
+    es: {
+      name: "Día de la Virgen de los Ángeles",
+      description:
+        "Día de la santa patrona de Costa Rica - gran peregrinación a Cartago",
+      tip: "Miles caminan a la Basílica de Cartago - presencia esta tradición espiritual",
+    },
+  },
+  "whale-watching-peak": {
+    en: {
+      name: "Whale Watching Peak",
+      description: "Best month for whale watching as both populations overlap",
+      tip: "Book whale watching tours from Drake Bay, Uvita, or Dominical",
+    },
+    es: {
+      name: "Pico de Avistamiento de Ballenas",
+      description:
+        "Mejor mes para ver ballenas cuando ambas poblaciones se superponen",
+      tip: "Reserva tours desde Bahía Drake, Uvita o Dominical",
+    },
+  },
+  "international-youth-day": {
+    en: {
+      name: "International Youth Day",
+      description: "Celebrating young people and their contributions",
+      tip: "Youth-focused events and activities at cultural centers",
+    },
+    es: {
+      name: "Día Internacional de la Juventud",
+      description: "Celebrando a los jóvenes y sus contribuciones",
+      tip: "Eventos y actividades enfocadas en jóvenes en centros culturales",
+    },
+  },
+  "lantern-parade": {
+    en: {
+      name: "Independence Lantern Parade",
+      description: "Children parade with handmade lanterns on independence eve",
+      tip: "Join local communities for this beautiful tradition",
+    },
+    es: {
+      name: "Desfile de Faroles",
+      description:
+        "Niños desfilan con faroles hechos a mano en víspera de independencia",
+      tip: "Únete a las comunidades locales para esta hermosa tradición",
+    },
+  },
+  "international-peace-day": {
+    en: {
+      name: "International Day of Peace",
+      description: "Costa Rica, with no army, celebrates peace especially",
+      tip: "Special significance in a country that abolished its military",
+    },
+    es: {
+      name: "Día Internacional de la Paz",
+      description:
+        "Costa Rica, sin ejército, celebra la paz de manera especial",
+      tip: "Significado especial en un país que abolió su ejército",
+    },
+  },
+  "national-parks-day": {
+    en: {
+      name: "National Parks Day",
+      description: "Celebrating Costa Rica's incredible park system",
+      tip: "Many parks offer free entry or special programs",
+    },
+    es: {
+      name: "Día de Parques Nacionales",
+      description: "Celebrando el increíble sistema de parques de Costa Rica",
+      tip: "Muchos parques ofrecen entrada gratis o programas especiales",
+    },
+  },
+  "olive-ridley-arrival": {
+    en: {
+      name: "Olive Ridley Turtle Arrival",
+      description: "Massive olive ridley turtle arribadas begin at Ostional",
+      tip: "Witness thousands of turtles nesting simultaneously",
+    },
+    es: {
+      name: "Llegada de Tortuga Lora",
+      description:
+        "Comienzan las arribadas masivas de tortuga lora en Ostional",
+      tip: "Presencia miles de tortugas anidando simultáneamente",
+    },
+  },
+  "limon-carnival": {
+    en: {
+      name: "Limón Carnival",
+      description: "Caribbean carnival celebrating Afro-Costa Rican culture",
+      tip: "Experience Caribbean music, dance, and cuisine",
+    },
+    es: {
+      name: "Carnaval de Limón",
+      description: "Carnaval caribeño celebrando la cultura afro-costarricense",
+      tip: "Vive la música, baile y cocina caribeña",
+    },
+  },
+  "halloween-cr": {
+    en: {
+      name: "Halloween",
+      description:
+        "Increasingly popular celebration, especially in urban areas",
+      tip: "Shopping centers and neighborhoods have trick-or-treating events",
+    },
+    es: {
+      name: "Halloween",
+      description:
+        "Celebración cada vez más popular, especialmente en áreas urbanas",
+      tip: "Centros comerciales y vecindarios tienen eventos de dulce o truco",
+    },
+  },
+  "turtle-arribada": {
+    en: {
+      name: "Turtle Arribada Peak",
+      description: "Peak month for massive turtle nesting events at Ostional",
+      tip: "Join a guided night tour to witness this natural wonder",
+    },
+    es: {
+      name: "Pico de Arribadas",
+      description: "Mes pico para eventos masivos de anidación en Ostional",
+      tip: "Únete a un tour nocturno guiado para presenciar esta maravilla natural",
+    },
+  },
+  "wettest-month": {
+    en: {
+      name: "Wettest Month",
+      description: "Peak rainfall - expect daily afternoon showers",
+      tip: "Plan morning activities and enjoy the lush green landscapes",
+    },
+    es: {
+      name: "Mes Más Lluvioso",
+      description: "Máxima lluvia - espera lluvias vespertinas diarias",
+      tip: "Planifica actividades matutinas y disfruta los paisajes verdes exuberantes",
+    },
+  },
+  "coffee-flowering": {
+    en: {
+      name: "Coffee Flowering",
+      description: "Coffee plants bloom with fragrant white flowers",
+      tip: "Visit coffee regions for beautiful flowering displays",
+    },
+    es: {
+      name: "Floración del Café",
+      description: "Las plantas de café florecen con fragantes flores blancas",
+      tip: "Visita regiones cafetaleras para hermosas exhibiciones de flores",
+    },
+  },
+  "school-exams-final": {
+    en: {
+      name: "Final School Exams",
+      description: "End of year examinations for Costa Rican students",
+      tip: "Students are focused on studies - quiet time for families",
+    },
+    es: {
+      name: "Exámenes Finales",
+      description: "Exámenes de fin de año para estudiantes costarricenses",
+      tip: "Los estudiantes enfocados en estudios - tiempo tranquilo para familias",
+    },
+  },
+  "black-friday-cr": {
+    en: {
+      name: "Black Friday (Costa Rica)",
+      description: "Shopping event with major discounts at stores and malls",
+      tip: "Good deals available, though not as extreme as US sales",
+    },
+    es: {
+      name: "Viernes Negro",
+      description:
+        "Evento de compras con grandes descuentos en tiendas y centros comerciales",
+      tip: "Buenas ofertas disponibles, aunque no tan extremas como en EE.UU.",
+    },
+  },
+  "high-season-begins": {
+    en: {
+      name: "High Season Begins",
+      description: "Tourist high season kicks off with dry weather returning",
+      tip: "Book popular tours and hotels in advance",
+    },
+    es: {
+      name: "Comienza Temporada Alta",
+      description:
+        "La temporada alta de turismo comienza con el regreso del clima seco",
+      tip: "Reserva tours populares y hoteles con anticipación",
+    },
+  },
+  "thanksgiving-tourism": {
+    en: {
+      name: "US Thanksgiving Tourism",
+      description: "Influx of North American tourists for Thanksgiving holiday",
+      tip: "Popular tourist areas get busier - book ahead",
+    },
+    es: {
+      name: "Turismo de Thanksgiving",
+      description:
+        "Llegada de turistas norteamericanos por Día de Acción de Gracias",
+      tip: "Las áreas turísticas populares se llenan - reserva con tiempo",
+    },
+  },
+  "school-vacation-dec": {
+    en: {
+      name: "Summer Vacation Begins",
+      description: "Costa Rican schools close for summer vacation",
+      tip: "Beaches and family destinations become crowded",
+    },
+    es: {
+      name: "Comienzan Vacaciones de Verano",
+      description:
+        "Las escuelas costarricenses cierran por vacaciones de verano",
+      tip: "Las playas y destinos familiares se llenan",
+    },
+  },
+  "festival-luz": {
+    en: {
+      name: "Festival de la Luz",
+      description:
+        "Spectacular Christmas parade with illuminated floats in San José",
+      tip: "Arrive early to get a good viewing spot on Paseo Colón",
+    },
+    es: {
+      name: "Festival de la Luz",
+      description:
+        "Espectacular desfile navideño con carrozas iluminadas en San José",
+      tip: "Llega temprano para conseguir un buen lugar en Paseo Colón",
+    },
+  },
+  "tope-nacional": {
+    en: {
+      name: "Tope Nacional",
+      description:
+        "National horse parade with thousands of horses through San José",
+      tip: "See beautiful Costa Rican horses and traditional sabanero attire",
+    },
+    es: {
+      name: "Tope Nacional",
+      description:
+        "Desfile nacional de caballos con miles de caballos por San José",
+      tip: "Ve hermosos caballos costarricenses y vestimenta sabanera tradicional",
+    },
+  },
+  "carnival-san-jose": {
+    en: {
+      name: "San José Carnival",
+      description: "Street carnival with music, dance, and celebration",
+      tip: "Join the festive atmosphere in downtown San José",
+    },
+    es: {
+      name: "Carnaval de San José",
+      description: "Carnaval callejero con música, baile y celebración",
+      tip: "Únete al ambiente festivo en el centro de San José",
+    },
+  },
+  "new-years-eve": {
+    en: {
+      name: "New Year's Eve",
+      description: "Celebrate the end of the year Costa Rican style",
+      tip: "Enjoy fireworks, grapes at midnight, and running around the block with luggage!",
+    },
+    es: {
+      name: "Nochevieja",
+      description: "Celebra el fin de año al estilo costarricense",
+      tip: "¡Disfruta fuegos artificiales, uvas a medianoche y correr con maletas!",
+    },
+  },
+  "peak-tourism-season": {
+    en: {
+      name: "Peak Tourism Season",
+      description: "Busiest tourism period with perfect dry season weather",
+      tip: "Book everything well in advance - popular spots fill up quickly",
+    },
+    es: {
+      name: "Pico de Temporada Turística",
+      description:
+        "Período turístico más ocupado con clima perfecto de estación seca",
+      tip: "Reserva todo con anticipación - los lugares populares se llenan rápido",
+    },
+  },
+  "zapote-festival": {
+    en: {
+      name: "Fiestas de Zapote",
+      description:
+        "Year-end festival with bull riding, carnival, and traditional food",
+      tip: "Experience traditional Tico toros a la tica - bulls aren't harmed!",
+    },
+    es: {
+      name: "Fiestas de Zapote",
+      description:
+        "Festival de fin de año con toros, feria y comida tradicional",
+      tip: "Vive los tradicionales toros a la tica - ¡no se daña a los toros!",
+    },
+  },
 };
 
 // Helper function to get events for a specific month

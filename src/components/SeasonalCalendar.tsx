@@ -116,13 +116,11 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
   const labels = useMemo(
     () => ({
       title:
-        locale === "es"
-          ? "Calendario de Floración y Fructificación"
-          : "Flowering & Fruiting Calendar",
+        locale === "es" ? "Calendario de Costa Rica" : "Costa Rica Calendar",
       subtitle:
         locale === "es"
-          ? "Descubre qué árboles están floreciendo o dando frutos cada mes"
-          : "Discover which trees are flowering or fruiting each month",
+          ? "Floración, fructificación, eventos, festivales y más - tu guía completa para planificar"
+          : "Flowering, fruiting, events, festivals & more - your complete planning guide",
       flowering: locale === "es" ? "Floración" : "Flowering",
       fruiting: locale === "es" ? "Fructificación" : "Fruiting",
       all: locale === "es" ? "Todo" : "All",
@@ -141,17 +139,13 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         locale === "es"
           ? "No hay árboles con datos de temporada disponibles"
           : "No trees with seasonal data available",
-      showEvents:
-        locale === "es" ? "Mostrar eventos" : "Show events",
-      hideEvents:
-        locale === "es" ? "Ocultar eventos" : "Hide events",
+      showEvents: locale === "es" ? "Mostrar eventos" : "Show events",
+      hideEvents: locale === "es" ? "Ocultar eventos" : "Hide events",
       eventsAndHolidays:
         locale === "es" ? "Eventos y Festividades" : "Events & Holidays",
       share: locale === "es" ? "Compartir" : "Share",
-      shareMonth:
-        locale === "es" ? "Compartir este mes" : "Share this month",
-      shareEvent:
-        locale === "es" ? "Compartir evento" : "Share event",
+      shareMonth: locale === "es" ? "Compartir este mes" : "Share this month",
+      shareEvent: locale === "es" ? "Compartir evento" : "Share event",
       copied: locale === "es" ? "¡Enlace copiado!" : "Link copied!",
       tip: locale === "es" ? "Consejo" : "Tip",
       holiday: locale === "es" ? "Feriado" : "Holiday",
@@ -159,6 +153,12 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
       cultural: locale === "es" ? "Cultural" : "Cultural",
       festival: locale === "es" ? "Festival" : "Festival",
       agricultural: locale === "es" ? "Agrícola" : "Agricultural",
+      tourism: locale === "es" ? "Turismo" : "Tourism",
+      school: locale === "es" ? "Escolar" : "School",
+      weather: locale === "es" ? "Clima" : "Weather",
+      planYourVisit:
+        locale === "es" ? "Planifica tu Visita" : "Plan Your Visit",
+      officialHoliday: locale === "es" ? "Feriado Oficial" : "Official Holiday",
     }),
     [locale]
   );
@@ -208,7 +208,10 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
   // Count trees per month for calendar heatmap
   const monthCounts = useMemo(() => {
-    const counts: Record<string, { flowering: number; fruiting: number; events: number }> = {};
+    const counts: Record<
+      string,
+      { flowering: number; fruiting: number; events: number }
+    > = {};
 
     for (const month of MONTHS) {
       counts[month] = { flowering: 0, fruiting: 0, events: 0 };
@@ -251,7 +254,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
   // Share functionality
   const handleShareMonth = useCallback(
     async (month: string) => {
-      const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+      const baseUrl =
+        typeof window !== "undefined" ? window.location.origin : "";
       const shareUrl = `${baseUrl}/${locale}/seasonal?month=${month}`;
       const monthName = fullMonthLabels[month];
       const shareText =
@@ -280,7 +284,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
   const handleShareEvent = useCallback(
     async (event: CostaRicaEvent) => {
-      const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+      const baseUrl =
+        typeof window !== "undefined" ? window.location.origin : "";
       const shareUrl = `${baseUrl}/${locale}/seasonal?month=${event.month}&event=${event.id}`;
       const eventInfo = getEventTranslation(event.id, locale);
       const shareText =
@@ -686,18 +691,24 @@ function EventCard({
             >
               {typeLabel}
             </span>
+            {event.isOfficial && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
+                {labels.officialHoliday}
+              </span>
+            )}
             {event.day && (
               <span className="text-xs text-muted-foreground ml-auto">
-                {event.endDay
-                  ? `${event.day} - ${event.endDay}`
-                  : event.day}
+                {event.endDay ? `${event.day} - ${event.endDay}` : event.day}
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground">{eventInfo.description}</p>
+          <p className="text-sm text-muted-foreground">
+            {eventInfo.description}
+          </p>
           {eventInfo.tip && (
             <p className="mt-2 text-xs text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/30 rounded px-2 py-1">
-              <span className="font-medium">💡 {labels.tip}:</span> {eventInfo.tip}
+              <span className="font-medium">💡 {labels.tip}:</span>{" "}
+              {eventInfo.tip}
             </p>
           )}
           {event.relatedTrees && event.relatedTrees.length > 0 && (
