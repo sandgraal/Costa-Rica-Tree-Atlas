@@ -205,11 +205,11 @@ export default async function LocaleLayout({ children, params }: Props) {
               />
               {/* Vercel Web Analytics */}
               <VercelAnalytics />
-              {/* Vercel Speed Insights */}
-              <SpeedInsights />
             </NextIntlClientProvider>
           </StoreProvider>
         </QueryProvider>
+        {/* Vercel Speed Insights - placed outside providers for optimal performance monitoring */}
+        <SpeedInsights />
       </body>
     </html>
   );
