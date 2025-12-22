@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import type { Tree } from "contentlayer/generated";
 import { TreeTags } from "./TreeTags";
@@ -35,8 +36,24 @@ export function TreeComparison({
   locale,
   translations,
 }: TreeComparisonProps) {
+  const searchParams = useSearchParams();
   const [selectedSlugs, setSelectedSlugs] = useState<string[]>([]);
   const maxTrees = 4;
+
+  // Initialize from URL params on mount
+  useEffect(() => {
+    const treesParam = searchParams.get("trees");
+    if (treesParam) {
+      const slugsFromUrl = treesParam.split(",").filter(Boolean);
+      // Validate that slugs exist in the tree list
+      const validSlugs = slugsFromUrl
+        .filter((slug) => trees.some((tree) => tree.slug === slug))
+        .slice(0, maxTrees);
+      if (validSlugs.length > 0) {
+        setSelectedSlugs(validSlugs);
+      }
+    }
+  }, [searchParams, trees]);
 
   // Get available trees (not already selected)
   const availableTrees = useMemo(() => {
