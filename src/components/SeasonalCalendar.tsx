@@ -547,8 +547,8 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
           {/* Events Section */}
           {showEvents && eventsInMonth.length > 0 && (
-            <div className="mb-6 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-5 border border-green-200 dark:border-green-800">
-              <h4 className="flex items-center gap-2 text-lg font-medium text-green-800 dark:text-green-300 mb-4">
+            <div className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-5 border border-green-300 dark:border-green-800">
+              <h4 className="flex items-center gap-2 text-lg font-medium text-green-900 dark:text-green-300 mb-4">
                 <CalendarIcon className="h-5 w-5" />
                 {labels.eventsAndHolidays}
                 <span className="ml-auto text-sm font-normal">
@@ -677,7 +677,7 @@ function EventCard({
 
   return (
     <div
-      className={`relative p-4 rounded-lg border ${typeColors.bg} ${typeColors.border}`}
+      className={`relative p-4 rounded-lg border bg-white/80 dark:bg-transparent ${typeColors.border}`}
     >
       <div className="flex items-start gap-3">
         <span className="text-2xl">{event.icon}</span>
@@ -702,11 +702,11 @@ function EventCard({
               </span>
             )}
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="text-sm text-slate-700 dark:text-slate-400">
             {eventInfo.description}
           </p>
           {eventInfo.tip && (
-            <p className="mt-2 text-xs text-green-800 dark:text-green-400 bg-green-200/70 dark:bg-green-900/30 rounded px-2 py-1">
+            <p className="mt-2 text-xs text-green-900 dark:text-green-400 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded px-2 py-1">
               <span className="font-medium">💡 {labels.tip}:</span>{" "}
               {eventInfo.tip}
             </p>
