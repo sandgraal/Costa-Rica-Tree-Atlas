@@ -9,6 +9,7 @@ import { StoreProvider, QueryProvider } from "@/components/providers";
 import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import type { Metadata, Viewport } from "next";
 
@@ -201,6 +202,8 @@ export default async function LocaleLayout({ children, params }: Props) {
                 }
                 googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
               />
+              {/* Vercel Web Analytics */}
+              <VercelAnalytics />
             </NextIntlClientProvider>
           </StoreProvider>
         </QueryProvider>
