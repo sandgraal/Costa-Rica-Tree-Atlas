@@ -1,5 +1,3 @@
-"use client";
-
 import {
   IUCN_CATEGORIES,
   POPULATION_TRENDS,

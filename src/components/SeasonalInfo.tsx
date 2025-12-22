@@ -1,5 +1,3 @@
-"use client";
-
 interface SeasonalInfoProps {
   floweringSeason?: string[];
   fruitingSeason?: string[];

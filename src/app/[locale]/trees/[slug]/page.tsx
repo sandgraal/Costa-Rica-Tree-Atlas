@@ -3,17 +3,35 @@ import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { MDXContent } from "@/components/MDXContent";
 import { PrintButton } from "@/components/PrintButton";
 import { ShareButton } from "@/components/ShareButton";
-import { DistributionMap } from "@/components/geo";
-import { BiodiversityInfo } from "@/components/data";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
 import { PronunciationButton } from "@/components/PronunciationButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { TrackView } from "@/components/TrackView";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/lib/image";
+
+// Dynamic imports for heavy below-fold components
+const DistributionMap = dynamic(
+  () => import("@/components/geo").then((mod) => mod.DistributionMap),
+  {
+    loading: () => (
+      <div className="bg-muted rounded-xl p-6 mb-8 animate-pulse h-64" />
+    ),
+  }
+);
+
+const BiodiversityInfo = dynamic(
+  () => import("@/components/data").then((mod) => mod.BiodiversityInfo),
+  {
+    loading: () => (
+      <div className="bg-muted rounded-xl p-6 mb-8 animate-pulse h-48" />
+    ),
+  }
+);
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;

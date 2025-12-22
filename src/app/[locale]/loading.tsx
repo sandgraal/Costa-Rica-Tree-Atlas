@@ -1,10 +1,6 @@
-"use client";
-
-import { useLocale } from "next-intl";
-
 export default function Loading() {
-  const locale = useLocale();
-  const loadingText = locale === "es" ? "Cargando..." : "Loading...";
+  // Loading component shows a neutral loading spinner
+  // The locale-specific text is handled by the component hydrating later
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
@@ -54,7 +50,8 @@ export default function Loading() {
       </div>
 
       <p className="mt-8 text-muted-foreground animate-pulse" role="status">
-        {loadingText}
+        <span className="sr-only">Loading</span>
+        <span aria-hidden="true">•••</span>
       </p>
     </div>
   );
