@@ -633,10 +633,7 @@ export default async function TeacherDashboardPage({ params }: Props) {
 
           <div className="bg-muted/50 rounded-2xl p-6">
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-              <a
-                href="#"
-                className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
-              >
+              <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border opacity-60 cursor-not-allowed">
                 <span className="text-2xl">📄</span>
                 <div>
                   <div className="font-medium text-sm">
@@ -646,11 +643,8 @@ export default async function TeacherDashboardPage({ params }: Props) {
                     PDF • {t.comingSoon}
                   </div>
                 </div>
-              </a>
-              <a
-                href="#"
-                className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
-              >
+              </div>
+              <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border opacity-60 cursor-not-allowed">
                 <span className="text-2xl">🎯</span>
                 <div>
                   <div className="font-medium text-sm">
@@ -660,11 +654,8 @@ export default async function TeacherDashboardPage({ params }: Props) {
                     PDF • {t.comingSoon}
                   </div>
                 </div>
-              </a>
-              <a
-                href="#"
-                className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
-              >
+              </div>
+              <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border opacity-60 cursor-not-allowed">
                 <span className="text-2xl">🎬</span>
                 <div>
                   <div className="font-medium text-sm">
@@ -674,11 +665,8 @@ export default async function TeacherDashboardPage({ params }: Props) {
                     {t.comingSoon}
                   </div>
                 </div>
-              </a>
-              <a
-                href="#"
-                className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
-              >
+              </div>
+              <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border opacity-60 cursor-not-allowed">
                 <span className="text-2xl">📊</span>
                 <div>
                   <div className="font-medium text-sm">
@@ -688,7 +676,7 @@ export default async function TeacherDashboardPage({ params }: Props) {
                     {t.comingSoon}
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
         </section>
