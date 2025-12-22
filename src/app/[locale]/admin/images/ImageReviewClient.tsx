@@ -73,7 +73,11 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
           timestamp: performance.now(),
         },
       };
-      localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));
+      try {
+        localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));
+      } catch (e) {
+        console.error("Failed to save vote:", e);
+      }
       return newVotes;
     });
   };
@@ -82,7 +86,11 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
     const newVotes = { ...votes };
     delete newVotes[slug];
     setVotes(newVotes);
-    localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));
+    try {
+      localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));
+    } catch (e) {
+      console.error("Failed to save votes after removal:", e);
+    }
   };
 
   // Filter trees

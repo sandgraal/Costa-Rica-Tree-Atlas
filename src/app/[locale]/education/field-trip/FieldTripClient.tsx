@@ -77,10 +77,14 @@ export default function FieldTripClient({
 
   // Save data
   useEffect(() => {
-    localStorage.setItem(
-      FIELD_TRIP_STORAGE_KEY,
-      JSON.stringify({ spottedTrees, currentTrip })
-    );
+    try {
+      localStorage.setItem(
+        FIELD_TRIP_STORAGE_KEY,
+        JSON.stringify({ spottedTrees, currentTrip })
+      );
+    } catch (e) {
+      console.error("Failed to save field trip data:", e);
+    }
   }, [spottedTrees, currentTrip]);
 
   const t = {

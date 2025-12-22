@@ -515,7 +515,11 @@ export default function ScavengerHuntClient({
   // Save session
   useEffect(() => {
     if (session) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+      } catch (e) {
+        console.error("Failed to save session:", e);
+      }
     }
   }, [session]);
 
@@ -698,7 +702,11 @@ export default function ScavengerHuntClient({
   };
 
   const resetHunt = () => {
-    localStorage.removeItem(STORAGE_KEY);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (e) {
+      console.error("Failed to clear hunt data:", e);
+    }
     setSession(null);
     setSelectedMission(null);
     setTeamNames(["", ""]);

@@ -314,7 +314,11 @@ export default function TreeJournalClient({
   // Save data
   useEffect(() => {
     if (adoptedTree) {
-      localStorage.setItem(JOURNAL_STORAGE_KEY, JSON.stringify(adoptedTree));
+      try {
+        localStorage.setItem(JOURNAL_STORAGE_KEY, JSON.stringify(adoptedTree));
+      } catch (e) {
+        console.error("Failed to save journal data:", e);
+      }
     }
   }, [adoptedTree]);
 
@@ -445,7 +449,11 @@ export default function TreeJournalClient({
 
   const handleReset = () => {
     if (window.confirm(t.confirmReset)) {
-      localStorage.removeItem(JOURNAL_STORAGE_KEY);
+      try {
+        localStorage.removeItem(JOURNAL_STORAGE_KEY);
+      } catch (e) {
+        console.error("Failed to clear journal data:", e);
+      }
       setAdoptedTree(null);
       setView("adopt");
       setSelectedTreeSlug("");

@@ -91,7 +91,8 @@ export default function IdentifyClient({ locale }: IdentifyClientProps) {
     );
   }
 
-  // Original functionality preserved below - will be restored when FEATURE_ENABLED = true
-  // The code below is unreachable when FEATURE_ENABLED is false
-  // To re-enable: set FEATURE_ENABLED = true at the top of this file
+  // Feature is disabled - return null as fallback
+  // When re-enabling, remove the FEATURE_ENABLED check above
+  // and implement the full identification UI here
+  return null;
 }

@@ -182,7 +182,11 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     };
 
     setClassroom(newClassroom);
-    localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(newClassroom));
+    try {
+      localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(newClassroom));
+    } catch (e) {
+      console.error("Failed to save classroom:", e);
+    }
     setMode("classroom");
     setError("");
   };
@@ -195,44 +199,61 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
     // In a real app, this would validate against a server
     // For demo, we'll create/join a local classroom
-    const existingClassroom = localStorage.getItem(CLASSROOM_STORAGE_KEY);
+    let existingClassroom: string | null = null;
+    try {
+      existingClassroom = localStorage.getItem(CLASSROOM_STORAGE_KEY);
+    } catch (e) {
+      console.error("Failed to read classroom data:", e);
+    }
 
     if (existingClassroom) {
-      const parsed: Classroom = JSON.parse(existingClassroom);
-      if (parsed.code.toUpperCase() === formData.classroomCode.toUpperCase()) {
-        // Check if student already exists
-        const existingStudent = parsed.students.find(
-          (s) => s.name.toLowerCase() === formData.studentName.toLowerCase()
-        );
+      try {
+        const parsed: Classroom = JSON.parse(existingClassroom);
+        if (parsed.code.toUpperCase() === formData.classroomCode.toUpperCase()) {
+          // Check if student already exists
+          const existingStudent = parsed.students.find(
+            (s) => s.name.toLowerCase() === formData.studentName.toLowerCase()
+          );
 
-        if (!existingStudent) {
-          const newStudent: Student = {
-            id: Date.now().toString(),
-            name: formData.studentName,
-            points: totalPoints,
-            lessonsCompleted: completedLessons,
-            badges: earnedBadgeIcons,
-            lastActive: new Date().toISOString(),
-          };
-          parsed.students.push(newStudent);
-          localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(parsed));
-        }
+          if (!existingStudent) {
+            const newStudent: Student = {
+              id: Date.now().toString(),
+              name: formData.studentName,
+              points: totalPoints,
+              lessonsCompleted: completedLessons,
+              badges: earnedBadgeIcons,
+              lastActive: new Date().toISOString(),
+            };
+            parsed.students.push(newStudent);
+            try {
+              localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(parsed));
+            } catch (e) {
+              console.error("Failed to save classroom:", e);
+            }
+          }
 
-        setClassroom(parsed);
-        setStudentInfo({
-          name: formData.studentName,
-          classroomCode: parsed.code,
-        });
-        localStorage.setItem(
-          STUDENT_STORAGE_KEY,
-          JSON.stringify({
+          setClassroom(parsed);
+          setStudentInfo({
             name: formData.studentName,
             classroomCode: parsed.code,
-          })
-        );
-        setMode("classroom");
-        setError("");
-        return;
+          });
+          try {
+            localStorage.setItem(
+              STUDENT_STORAGE_KEY,
+              JSON.stringify({
+                name: formData.studentName,
+                classroomCode: parsed.code,
+              })
+            );
+          } catch (e) {
+            console.error("Failed to save student info:", e);
+          }
+          setMode("classroom");
+          setError("");
+          return;
+        }
+      } catch (e) {
+        console.error("Failed to parse classroom data:", e);
       }
     }
 
@@ -260,29 +281,39 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       name: formData.studentName,
       classroomCode: newClassroom.code,
     });
-    localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(newClassroom));
-    localStorage.setItem(
-      STUDENT_STORAGE_KEY,
-      JSON.stringify({
-        name: formData.studentName,
-        classroomCode: newClassroom.code,
-      })
-    );
+    try {
+      localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(newClassroom));
+      localStorage.setItem(
+        STUDENT_STORAGE_KEY,
+        JSON.stringify({
+          name: formData.studentName,
+          classroomCode: newClassroom.code,
+        })
+      );
+    } catch (e) {
+      console.error("Failed to save classroom data:", e);
+    }
     setMode("classroom");
     setError("");
   };
 
   const handleCopyCode = () => {
     if (classroom) {
-      navigator.clipboard.writeText(classroom.code);
+      navigator.clipboard.writeText(classroom.code).catch(() => {
+        // Fallback - user can manually copy from displayed code
+      });
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
   };
 
   const handleLeaveClassroom = () => {
-    localStorage.removeItem(CLASSROOM_STORAGE_KEY);
-    localStorage.removeItem(STUDENT_STORAGE_KEY);
+    try {
+      localStorage.removeItem(CLASSROOM_STORAGE_KEY);
+      localStorage.removeItem(STUDENT_STORAGE_KEY);
+    } catch (e) {
+      console.error("Failed to clear classroom data:", e);
+    }
     setClassroom(null);
     setStudentInfo(null);
     setMode("select");

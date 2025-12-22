@@ -111,11 +111,14 @@ export function InteractiveMap({
     markers.forEach((markerData) => {
       const pinElement = document.createElement("div");
       pinElement.className = "tree-marker";
-      pinElement.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform" style="background-color: ${markerData.color || "#2d5a27"}">
-          ${markerData.icon || "🌳"}
-        </div>
-      `;
+      
+      // Create inner div safely without innerHTML to prevent XSS
+      const innerDiv = document.createElement("div");
+      innerDiv.className = "w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform";
+      innerDiv.style.backgroundColor = markerData.color || "#2d5a27";
+      // Use textContent for safe emoji/text insertion
+      innerDiv.textContent = markerData.icon || "🌳";
+      pinElement.appendChild(innerDiv);
 
       const marker = new google.maps.marker.AdvancedMarkerElement({
         map: mapInstanceRef.current,
@@ -152,17 +155,18 @@ export function InteractiveMap({
         };
         setUserLocation(userPos);
 
-        // Add user marker
+        // Add user marker safely without innerHTML
         if (userMarkerRef.current) {
           userMarkerRef.current.map = null;
         }
 
         const userPin = document.createElement("div");
-        userPin.innerHTML = `
-          <div class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white shadow-lg flex items-center justify-center">
-            <div class="w-2 h-2 rounded-full bg-white animate-ping"></div>
-          </div>
-        `;
+        const outerCircle = document.createElement("div");
+        outerCircle.className = "w-6 h-6 rounded-full bg-blue-500 border-2 border-white shadow-lg flex items-center justify-center";
+        const innerCircle = document.createElement("div");
+        innerCircle.className = "w-2 h-2 rounded-full bg-white animate-ping";
+        outerCircle.appendChild(innerCircle);
+        userPin.appendChild(outerCircle);
 
         userMarkerRef.current = new google.maps.marker.AdvancedMarkerElement({
           map: mapInstanceRef.current,

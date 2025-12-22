@@ -72,17 +72,33 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          // Clone and cache the response
-          const clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then((cache) => {
-            cache.put(request, clone);
-          });
+          // Only cache successful responses
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(DYNAMIC_CACHE).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
           return response;
         })
         .catch(() => {
           // Return cached version on network failure
           return caches.match(request).then((cached) => {
-            return cached || caches.match("/");
+            if (cached) return cached;
+            // Try locale-specific fallbacks instead of "/"
+            const pathname = url.pathname;
+            const localeMatch = pathname.match(/^\/(en|es)/);
+            const locale = localeMatch ? localeMatch[1] : "en";
+            return caches.match(`/${locale}`).then(
+              (localeCached) =>
+                localeCached ||
+                new Response(
+                  "<!DOCTYPE html><html><body><h1>Offline</h1><p>Please check your internet connection.</p></body></html>",
+                  {
+                    headers: { "Content-Type": "text/html" },
+                  }
+                )
+            );
           });
         })
     );
@@ -99,13 +115,20 @@ self.addEventListener("fetch", (event) => {
         if (cached) {
           return cached;
         }
-        return fetch(request).then((response) => {
-          const clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then((cache) => {
-            cache.put(request, clone);
+        return fetch(request)
+          .then((response) => {
+            if (response.ok) {
+              const clone = response.clone();
+              caches.open(DYNAMIC_CACHE).then((cache) => {
+                cache.put(request, clone);
+              });
+            }
+            return response;
+          })
+          .catch(() => {
+            // Return placeholder for failed image loads
+            return new Response("", { status: 404 });
           });
-          return response;
-        });
       })
     );
     return;
@@ -114,13 +137,20 @@ self.addEventListener("fetch", (event) => {
   // For other assets (JS, CSS) - stale while revalidate
   event.respondWith(
     caches.match(request).then((cached) => {
-      const fetchPromise = fetch(request).then((response) => {
-        const clone = response.clone();
-        caches.open(DYNAMIC_CACHE).then((cache) => {
-          cache.put(request, clone);
+      const fetchPromise = fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(DYNAMIC_CACHE).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Return empty response for failed asset loads
+          return new Response("", { status: 404 });
         });
-        return response;
-      });
       return cached || fetchPromise;
     })
   );

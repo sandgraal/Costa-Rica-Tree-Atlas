@@ -304,13 +304,17 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
         setHighScore(finalScore);
       }
       setTotalGames((prev) => prev + 1);
-      localStorage.setItem(
-        MAP_GAME_STORAGE_KEY,
-        JSON.stringify({
-          highScore: Math.max(finalScore, highScore),
-          totalGames: totalGames + 1,
-        })
-      );
+      try {
+        localStorage.setItem(
+          MAP_GAME_STORAGE_KEY,
+          JSON.stringify({
+            highScore: Math.max(finalScore, highScore),
+            totalGames: totalGames + 1,
+          })
+        );
+      } catch (e) {
+        console.error("Failed to save game data:", e);
+      }
       setGameMode("results");
     }
   };
