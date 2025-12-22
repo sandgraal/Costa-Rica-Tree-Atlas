@@ -209,7 +209,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     if (existingClassroom) {
       try {
         const parsed: Classroom = JSON.parse(existingClassroom);
-        if (parsed.code.toUpperCase() === formData.classroomCode.toUpperCase()) {
+        if (
+          parsed.code.toUpperCase() === formData.classroomCode.toUpperCase()
+        ) {
           // Check if student already exists
           const existingStudent = parsed.students.find(
             (s) => s.name.toLowerCase() === formData.studentName.toLowerCase()
@@ -226,7 +228,10 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
             };
             parsed.students.push(newStudent);
             try {
-              localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(parsed));
+              localStorage.setItem(
+                CLASSROOM_STORAGE_KEY,
+                JSON.stringify(parsed)
+              );
             } catch (e) {
               console.error("Failed to save classroom:", e);
             }
