@@ -1,14 +1,23 @@
-// Costa Rica events and holidays relevant to trees and nature
-// These are cultural and environmental events that connect to the seasonal calendar
+// Costa Rica events and holidays - comprehensive calendar for planning
+// Includes national holidays, environmental events, festivals, tourism seasons, and more
 
 export interface CostaRicaEvent {
   id: string;
   month: string;
   day?: number; // Optional - some events span the whole month
   endDay?: number; // For multi-day events
-  type: "holiday" | "environmental" | "cultural" | "festival" | "agricultural";
+  type:
+    | "holiday"
+    | "environmental"
+    | "cultural"
+    | "festival"
+    | "agricultural"
+    | "tourism"
+    | "school"
+    | "weather";
   relatedTrees?: string[]; // Slugs of related trees
   icon?: string;
+  isOfficial?: boolean; // Official national holiday (banks/govt closed)
 }
 
 export interface LocalizedEventInfo {
@@ -19,13 +28,14 @@ export interface LocalizedEventInfo {
 
 // Event definitions with month keys matching MONTHS array
 export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
-  // January
+  // ============ JANUARY ============
   {
     id: "new-year",
     month: "january",
     day: 1,
     type: "holiday",
     icon: "🎆",
+    isOfficial: true,
   },
   {
     id: "dry-season-start",
@@ -34,8 +44,36 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     icon: "☀️",
     relatedTrees: ["guayacan", "cortez-amarillo", "roble-sabana"],
   },
+  {
+    id: "high-season-peak",
+    month: "january",
+    type: "tourism",
+    icon: "✈️",
+  },
+  {
+    id: "school-vacation-jan",
+    month: "january",
+    day: 1,
+    endDay: 31,
+    type: "school",
+    icon: "🏖️",
+  },
+  {
+    id: "whale-watching-south",
+    month: "january",
+    type: "environmental",
+    icon: "🐋",
+  },
+  {
+    id: "palmares-festival",
+    month: "january",
+    day: 10,
+    endDay: 22,
+    type: "festival",
+    icon: "🎪",
+  },
 
-  // February
+  // ============ FEBRUARY ============
   {
     id: "national-tree-day",
     month: "february",
@@ -51,21 +89,50 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     icon: "🌸",
     relatedTrees: ["cortez-amarillo", "roble-sabana", "poró"],
   },
+  {
+    id: "school-year-start",
+    month: "february",
+    day: 8,
+    type: "school",
+    icon: "📚",
+  },
+  {
+    id: "valentines-day",
+    month: "february",
+    day: 14,
+    type: "cultural",
+    icon: "❤️",
+  },
+  {
+    id: "envision-festival",
+    month: "february",
+    day: 20,
+    endDay: 25,
+    type: "festival",
+    icon: "🎶",
+  },
+  {
+    id: "best-beach-weather",
+    month: "february",
+    type: "weather",
+    icon: "🏝️",
+  },
 
-  // March
+  // ============ MARCH ============
   {
     id: "dry-season-peak",
     month: "march",
-    type: "environmental",
+    type: "weather",
     icon: "🔥",
   },
   {
     id: "semana-santa",
     month: "march",
-    day: 15,
+    day: 24,
     endDay: 31,
     type: "holiday",
     icon: "⛪",
+    isOfficial: true,
   },
   {
     id: "mango-season",
@@ -74,14 +141,36 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     icon: "🥭",
     relatedTrees: ["mango"],
   },
+  {
+    id: "international-womens-day",
+    month: "march",
+    day: 8,
+    type: "cultural",
+    icon: "👩",
+  },
+  {
+    id: "sea-turtle-nesting-caribbean",
+    month: "march",
+    type: "environmental",
+    icon: "🐢",
+  },
+  {
+    id: "leatherback-turtle-peak",
+    month: "march",
+    day: 1,
+    endDay: 31,
+    type: "environmental",
+    icon: "🐢",
+  },
 
-  // April
+  // ============ APRIL ============
   {
     id: "juan-santamaria",
     month: "april",
     day: 11,
     type: "holiday",
     icon: "🇨🇷",
+    isOfficial: true,
   },
   {
     id: "earth-day",
@@ -97,19 +186,41 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     icon: "💜",
     relatedTrees: ["jacaranda"],
   },
+  {
+    id: "easter-tourism",
+    month: "april",
+    day: 1,
+    endDay: 7,
+    type: "tourism",
+    icon: "🐰",
+  },
+  {
+    id: "transition-to-green",
+    month: "april",
+    type: "weather",
+    icon: "🌦️",
+  },
+  {
+    id: "oxcart-day",
+    month: "april",
+    day: 15,
+    type: "cultural",
+    icon: "🐂",
+  },
 
-  // May
+  // ============ MAY ============
   {
     id: "labor-day",
     month: "may",
     day: 1,
     type: "holiday",
     icon: "👷",
+    isOfficial: true,
   },
   {
     id: "green-season-start",
     month: "may",
-    type: "environmental",
+    type: "weather",
     icon: "🌧️",
   },
   {
@@ -118,8 +229,26 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     type: "environmental",
     icon: "🌱",
   },
+  {
+    id: "low-season-begins",
+    month: "may",
+    type: "tourism",
+    icon: "💰",
+  },
+  {
+    id: "green-season-deals",
+    month: "may",
+    type: "tourism",
+    icon: "🏨",
+  },
+  {
+    id: "mother-nature-month",
+    month: "may",
+    type: "environmental",
+    icon: "🌿",
+  },
 
-  // June
+  // ============ JUNE ============
   {
     id: "environment-day",
     month: "june",
@@ -133,13 +262,43 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     type: "environmental",
     icon: "🍇",
   },
+  {
+    id: "fathers-day-cr",
+    month: "june",
+    day: 15,
+    type: "cultural",
+    icon: "👨",
+  },
+  {
+    id: "ocean-day",
+    month: "june",
+    day: 8,
+    type: "environmental",
+    icon: "🌊",
+  },
+  {
+    id: "veranillo",
+    month: "june",
+    day: 24,
+    endDay: 30,
+    type: "weather",
+    icon: "☀️",
+  },
+  {
+    id: "school-mid-year-break",
+    month: "june",
+    day: 28,
+    endDay: 30,
+    type: "school",
+    icon: "🎒",
+  },
 
-  // July
+  // ============ JULY ============
   {
     id: "virgin-sea",
     month: "july",
     day: 16,
-    type: "cultural",
+    type: "festival",
     icon: "🌊",
   },
   {
@@ -148,6 +307,7 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     day: 25,
     type: "holiday",
     icon: "🇨🇷",
+    isOfficial: true,
   },
   {
     id: "cas-season",
@@ -156,14 +316,49 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     icon: "🍋",
     relatedTrees: ["cas"],
   },
+  {
+    id: "school-vacation-july",
+    month: "july",
+    day: 1,
+    endDay: 14,
+    type: "school",
+    icon: "📖",
+  },
+  {
+    id: "liberia-festival",
+    month: "july",
+    day: 25,
+    type: "festival",
+    icon: "🎉",
+  },
+  {
+    id: "whale-watching-pacific",
+    month: "july",
+    type: "environmental",
+    icon: "🐋",
+  },
+  {
+    id: "green-season-wildlife",
+    month: "july",
+    type: "tourism",
+    icon: "🦜",
+  },
 
-  // August
+  // ============ AUGUST ============
   {
     id: "mother-day",
     month: "august",
     day: 15,
     type: "holiday",
     icon: "👩",
+    isOfficial: true,
+  },
+  {
+    id: "virgin-angels",
+    month: "august",
+    day: 2,
+    type: "cultural",
+    icon: "⛪",
   },
   {
     id: "cacao-harvest",
@@ -175,17 +370,31 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
   {
     id: "peak-green-season",
     month: "august",
-    type: "environmental",
+    type: "weather",
     icon: "🌴",
   },
+  {
+    id: "whale-watching-peak",
+    month: "august",
+    type: "environmental",
+    icon: "🐋",
+  },
+  {
+    id: "international-youth-day",
+    month: "august",
+    day: 12,
+    type: "cultural",
+    icon: "👦",
+  },
 
-  // September
+  // ============ SEPTEMBER ============
   {
     id: "independence-day",
     month: "september",
     day: 15,
     type: "holiday",
     icon: "🇨🇷",
+    isOfficial: true,
   },
   {
     id: "children-day",
@@ -200,8 +409,35 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     type: "environmental",
     icon: "🦅",
   },
+  {
+    id: "lantern-parade",
+    month: "september",
+    day: 14,
+    type: "cultural",
+    icon: "🏮",
+  },
+  {
+    id: "international-peace-day",
+    month: "september",
+    day: 21,
+    type: "cultural",
+    icon: "☮️",
+  },
+  {
+    id: "national-parks-day",
+    month: "september",
+    day: 24,
+    type: "environmental",
+    icon: "🏞️",
+  },
+  {
+    id: "olive-ridley-arrival",
+    month: "september",
+    type: "environmental",
+    icon: "🐢",
+  },
 
-  // October
+  // ============ OCTOBER ============
   {
     id: "cultures-day",
     month: "october",
@@ -222,8 +458,35 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
     icon: "🔴",
     relatedTrees: ["jocote"],
   },
+  {
+    id: "limon-carnival",
+    month: "october",
+    day: 12,
+    endDay: 20,
+    type: "festival",
+    icon: "💃",
+  },
+  {
+    id: "halloween-cr",
+    month: "october",
+    day: 31,
+    type: "cultural",
+    icon: "🎃",
+  },
+  {
+    id: "turtle-arribada",
+    month: "october",
+    type: "environmental",
+    icon: "🐢",
+  },
+  {
+    id: "wettest-month",
+    month: "october",
+    type: "weather",
+    icon: "🌧️",
+  },
 
-  // November
+  // ============ NOVEMBER ============
   {
     id: "all-souls",
     month: "november",
@@ -234,17 +497,53 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
   {
     id: "transition-season",
     month: "november",
-    type: "environmental",
+    type: "weather",
     icon: "🍂",
   },
+  {
+    id: "coffee-flowering",
+    month: "november",
+    type: "agricultural",
+    icon: "🌸",
+    relatedTrees: ["cafe"],
+  },
+  {
+    id: "school-exams-final",
+    month: "november",
+    day: 15,
+    endDay: 30,
+    type: "school",
+    icon: "📝",
+  },
+  {
+    id: "black-friday-cr",
+    month: "november",
+    day: 29,
+    type: "cultural",
+    icon: "🛍️",
+  },
+  {
+    id: "high-season-begins",
+    month: "november",
+    type: "tourism",
+    icon: "📈",
+  },
+  {
+    id: "thanksgiving-tourism",
+    month: "november",
+    day: 28,
+    type: "tourism",
+    icon: "🦃",
+  },
 
-  // December
+  // ============ DECEMBER ============
   {
     id: "christmas",
     month: "december",
     day: 25,
     type: "holiday",
     icon: "🎄",
+    isOfficial: true,
   },
   {
     id: "malinche-bloom",
@@ -263,8 +562,60 @@ export const COSTA_RICA_EVENTS: CostaRicaEvent[] = [
   {
     id: "dry-season-begins",
     month: "december",
-    type: "environmental",
+    type: "weather",
     icon: "☀️",
+  },
+  {
+    id: "school-vacation-dec",
+    month: "december",
+    day: 14,
+    endDay: 31,
+    type: "school",
+    icon: "🎉",
+  },
+  {
+    id: "festival-luz",
+    month: "december",
+    day: 14,
+    type: "festival",
+    icon: "💡",
+  },
+  {
+    id: "tope-nacional",
+    month: "december",
+    day: 26,
+    type: "festival",
+    icon: "🐴",
+  },
+  {
+    id: "carnival-san-jose",
+    month: "december",
+    day: 27,
+    type: "festival",
+    icon: "🎭",
+  },
+  {
+    id: "new-years-eve",
+    month: "december",
+    day: 31,
+    type: "holiday",
+    icon: "🎇",
+  },
+  {
+    id: "peak-tourism-season",
+    month: "december",
+    day: 15,
+    endDay: 31,
+    type: "tourism",
+    icon: "✈️",
+  },
+  {
+    id: "zapote-festival",
+    month: "december",
+    day: 25,
+    endDay: 31,
+    type: "festival",
+    icon: "🎡",
   },
 ];
 
@@ -768,5 +1119,20 @@ export const EVENT_TYPE_COLORS: Record<
     bg: "bg-yellow-100 dark:bg-yellow-900/30",
     text: "text-yellow-700 dark:text-yellow-300",
     border: "border-yellow-300 dark:border-yellow-700",
+  },
+  tourism: {
+    bg: "bg-cyan-100 dark:bg-cyan-900/30",
+    text: "text-cyan-700 dark:text-cyan-300",
+    border: "border-cyan-300 dark:border-cyan-700",
+  },
+  school: {
+    bg: "bg-indigo-100 dark:bg-indigo-900/30",
+    text: "text-indigo-700 dark:text-indigo-300",
+    border: "border-indigo-300 dark:border-indigo-700",
+  },
+  weather: {
+    bg: "bg-slate-100 dark:bg-slate-900/30",
+    text: "text-slate-700 dark:text-slate-300",
+    border: "border-slate-300 dark:border-slate-700",
   },
 };
