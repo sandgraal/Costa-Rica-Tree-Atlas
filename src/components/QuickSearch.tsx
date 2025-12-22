@@ -9,6 +9,12 @@ interface TreeSearchResult {
   title: string;
   scientificName: string;
   family: string;
+  description?: string;
+  uses?: string[];
+  tags?: string[];
+  nativeRegion?: string;
+  distribution?: string[];
+  conservationStatus?: string;
 }
 
 export function QuickSearch() {
@@ -36,11 +42,23 @@ export function QuickSearch() {
               title: string;
               scientificName: string;
               family: string;
+              description?: string;
+              uses?: string[];
+              tags?: string[];
+              nativeRegion?: string;
+              distribution?: string[];
+              conservationStatus?: string;
             }) => ({
               slug: t.slug,
               title: t.title,
               scientificName: t.scientificName,
               family: t.family,
+              description: t.description,
+              uses: t.uses,
+              tags: t.tags,
+              nativeRegion: t.nativeRegion,
+              distribution: t.distribution,
+              conservationStatus: t.conservationStatus,
             })
           );
         setAllTrees(localeTrees);
@@ -51,6 +69,80 @@ export function QuickSearch() {
     loadTrees();
   }, [locale]);
 
+  // Comprehensive search function with fuzzy matching
+  const searchTrees = (
+    searchQuery: string,
+    trees: TreeSearchResult[]
+  ): TreeSearchResult[] => {
+    const lowerQuery = searchQuery.toLowerCase().trim();
+    const queryTerms = lowerQuery
+      .split(/\s+/)
+      .filter((term) => term.length > 0);
+
+    // Score each tree based on matches
+    const scoredTrees = trees.map((tree) => {
+      let score = 0;
+      const matchedFields: string[] = [];
+
+      // Helper to check if any term matches a field
+      const checkField = (
+        value: string | undefined,
+        weight: number,
+        fieldName: string
+      ) => {
+        if (!value) return;
+        const lowerValue = value.toLowerCase();
+        for (const term of queryTerms) {
+          if (lowerValue.includes(term)) {
+            score += weight;
+            matchedFields.push(fieldName);
+            // Bonus for exact match or starts with
+            if (lowerValue === term || lowerValue.startsWith(term + " ")) {
+              score += weight * 0.5;
+            }
+          }
+        }
+      };
+
+      // Helper to check array fields
+      const checkArrayField = (
+        values: string[] | undefined,
+        weight: number,
+        fieldName: string
+      ) => {
+        if (!values) return;
+        for (const value of values) {
+          const lowerValue = value.toLowerCase();
+          for (const term of queryTerms) {
+            if (lowerValue.includes(term)) {
+              score += weight;
+              matchedFields.push(fieldName);
+            }
+          }
+        }
+      };
+
+      // Check all searchable fields with appropriate weights
+      checkField(tree.title, 10, "title"); // Highest priority
+      checkField(tree.scientificName, 8, "scientificName"); // High priority
+      checkField(tree.family, 5, "family"); // Medium priority
+      checkField(tree.description, 3, "description"); // Lower priority
+      checkField(tree.nativeRegion, 3, "nativeRegion");
+      checkField(tree.conservationStatus, 2, "conservationStatus");
+      checkArrayField(tree.uses, 4, "uses");
+      checkArrayField(tree.tags, 4, "tags");
+      checkArrayField(tree.distribution, 3, "distribution");
+
+      return { tree, score, matchedFields };
+    });
+
+    // Filter trees with any matches and sort by score
+    return scoredTrees
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((item) => item.tree);
+  };
+
   // Filter results when query changes
   useEffect(() => {
     if (!query.trim()) {
@@ -58,16 +150,7 @@ export function QuickSearch() {
       return;
     }
 
-    const lowerQuery = query.toLowerCase();
-    const filtered = allTrees
-      .filter(
-        (tree) =>
-          tree.title.toLowerCase().includes(lowerQuery) ||
-          tree.scientificName.toLowerCase().includes(lowerQuery) ||
-          tree.family.toLowerCase().includes(lowerQuery)
-      )
-      .slice(0, 5);
-
+    const filtered = searchTrees(query, allTrees).slice(0, 8); // Increased to 8 results
     setResults(filtered);
     setSelectedIndex(0);
   }, [query, allTrees]);
@@ -170,8 +253,8 @@ export function QuickSearch() {
                 onKeyDown={handleKeyDown}
                 placeholder={
                   locale === "es"
-                    ? "Buscar árboles por nombre..."
-                    : "Search trees by name..."
+                    ? "Buscar por nombre, familia, uso, región..."
+                    : "Search by name, family, use, region..."
                 }
                 aria-label={locale === "es" ? "Buscar árboles" : "Search trees"}
                 className="flex-1 px-3 py-4 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none"
@@ -195,7 +278,7 @@ export function QuickSearch() {
 
             {/* Results */}
             {results.length > 0 ? (
-              <ul className="py-2 max-h-80 overflow-auto">
+              <ul className="py-2 max-h-96 overflow-auto">
                 {results.map((tree, index) => (
                   <li key={tree.slug}>
                     <button
@@ -207,14 +290,37 @@ export function QuickSearch() {
                       }`}
                     >
                       <span className="text-2xl shrink-0">🌳</span>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div className="font-medium truncate">{tree.title}</div>
                         <div className="text-sm text-muted-foreground truncate italic">
                           {tree.scientificName}
                         </div>
                         <div className="text-xs text-muted-foreground truncate">
                           {tree.family}
+                          {tree.conservationStatus && (
+                            <span className="ml-2 px-1.5 py-0.5 rounded bg-muted text-xs">
+                              {tree.conservationStatus}
+                            </span>
+                          )}
                         </div>
+                        {/* Show additional context based on matched fields */}
+                        {tree.tags && tree.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {tree.tags.slice(0, 3).map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-1.5 py-0.5 text-xs bg-primary/10 text-primary rounded"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                            {tree.tags.length > 3 && (
+                              <span className="text-xs text-muted-foreground">
+                                +{tree.tags.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </button>
                   </li>
@@ -222,15 +328,36 @@ export function QuickSearch() {
               </ul>
             ) : query ? (
               <div className="px-4 py-8 text-center text-muted-foreground">
-                {locale === "es"
-                  ? "No se encontraron árboles"
-                  : "No trees found"}
+                <p className="mb-2">
+                  {locale === "es"
+                    ? "No se encontraron árboles"
+                    : "No trees found"}
+                </p>
+                <p className="text-xs">
+                  {locale === "es"
+                    ? "Intenta buscar por nombre científico, familia, uso o región"
+                    : "Try searching by scientific name, family, use, or region"}
+                </p>
               </div>
             ) : (
-              <div className="px-4 py-8 text-center text-muted-foreground">
-                {locale === "es"
-                  ? "Escribe para buscar árboles..."
-                  : "Type to search trees..."}
+              <div className="px-4 py-6 text-center text-muted-foreground">
+                <p className="mb-3">
+                  {locale === "es"
+                    ? "Escribe para buscar árboles..."
+                    : "Type to search trees..."}
+                </p>
+                <div className="text-xs space-y-1">
+                  <p className="font-medium">
+                    {locale === "es"
+                      ? "Ejemplos de búsqueda:"
+                      : "Search examples:"}
+                  </p>
+                  <p className="text-muted-foreground/80">
+                    {locale === "es"
+                      ? '"Ceiba" · "Malvaceae" · "medicinal" · "guanacaste"'
+                      : '"Ceiba" · "Malvaceae" · "medicinal" · "guanacaste"'}
+                  </p>
+                </div>
               </div>
             )}
 

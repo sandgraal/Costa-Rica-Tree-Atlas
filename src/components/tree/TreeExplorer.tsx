@@ -103,7 +103,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         ? "Explora nuestra colección de árboles costarricenses"
         : "Browse our collection of Costa Rican trees",
     searchPlaceholder:
-      locale === "es" ? "Buscar árboles..." : "Search trees...",
+      locale === "es"
+        ? "Buscar por nombre, familia, uso, región..."
+        : "Search by name, family, use, region...",
     gridView: locale === "es" ? "Vista de cuadrícula" : "Grid View",
     alphabeticalView: locale === "es" ? "Vista A-Z" : "A-Z Index",
     filters: locale === "es" ? "Filtros" : "Filters",

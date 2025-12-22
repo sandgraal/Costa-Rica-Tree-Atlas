@@ -19,19 +19,32 @@ import type {
 
 const FUSE_OPTIONS: IFuseOptions<Tree> = {
   keys: [
-    { name: "title", weight: 0.4 },
-    { name: "scientificName", weight: 0.3 },
-    { name: "family", weight: 0.15 },
+    // Primary identifiers (highest weight)
+    { name: "title", weight: 0.25 },
+    { name: "scientificName", weight: 0.2 },
+    // Secondary identifiers
+    { name: "family", weight: 0.12 },
     { name: "description", weight: 0.1 },
-    { name: "uses", weight: 0.05 },
-    { name: "tags", weight: 0.05 },
+    // Characteristics and uses
+    { name: "uses", weight: 0.08 },
+    { name: "tags", weight: 0.08 },
+    // Geographic and environmental
+    { name: "nativeRegion", weight: 0.05 },
+    { name: "distribution", weight: 0.05 },
+    { name: "elevation", weight: 0.03 },
+    // Conservation
+    { name: "conservationStatus", weight: 0.02 },
+    // Seasonal
+    { name: "floweringSeason", weight: 0.01 },
+    { name: "fruitingSeason", weight: 0.01 },
   ],
-  threshold: 0.3,
+  threshold: 0.35, // Slightly higher threshold for more inclusive results
   ignoreLocation: true,
   includeScore: true,
   includeMatches: true,
   minMatchCharLength: 2,
   useExtendedSearch: true,
+  findAllMatches: true, // Find all matches, not just the first one
 };
 
 // ============================================================================
