@@ -19,7 +19,7 @@ let lastCleanup = Date.now();
 function cleanupStaleEntries() {
   const now = Date.now();
   if (now - lastCleanup < CLEANUP_INTERVAL) return;
-  
+
   lastCleanup = now;
   for (const [key, record] of rateLimitMap.entries()) {
     if (now > record.resetTime) {
@@ -36,12 +36,12 @@ function getRateLimitKey(request: Request): string {
 function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
   // Run cleanup periodically
   cleanupStaleEntries();
-  
+
   // Prevent unbounded map growth
   if (rateLimitMap.size > MAX_MAP_SIZE) {
     rateLimitMap.clear();
   }
-  
+
   const now = Date.now();
   const record = rateLimitMap.get(key);
 

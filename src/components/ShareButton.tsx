@@ -75,7 +75,11 @@ export function ShareButton({ title, scientificName, slug }: ShareButtonProps) {
         } catch (err) {
           console.error("Failed to copy:", err);
           // Show user-facing error
-          alert(locale === "es" ? "No se pudo copiar el enlace" : "Failed to copy link");
+          alert(
+            locale === "es"
+              ? "No se pudo copiar el enlace"
+              : "Failed to copy link"
+          );
         }
         break;
       case "native":

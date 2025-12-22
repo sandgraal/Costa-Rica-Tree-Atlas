@@ -30,7 +30,10 @@ export function PWARegister() {
             // Log registration failures for debugging but don't break the app
             // This can happen when running without HTTPS in dev mode
             if (process.env.NODE_ENV === "development") {
-              console.debug("Service worker registration skipped:", error.message);
+              console.debug(
+                "Service worker registration skipped:",
+                error.message
+              );
             }
           });
       });
