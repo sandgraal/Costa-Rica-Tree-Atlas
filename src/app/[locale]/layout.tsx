@@ -10,6 +10,7 @@ import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import type { Metadata, Viewport } from "next";
 
@@ -204,6 +205,8 @@ export default async function LocaleLayout({ children, params }: Props) {
               />
               {/* Vercel Web Analytics */}
               <VercelAnalytics />
+              {/* Vercel Speed Insights */}
+              <SpeedInsights />
             </NextIntlClientProvider>
           </StoreProvider>
         </QueryProvider>
