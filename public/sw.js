@@ -93,9 +93,11 @@ self.addEventListener("fetch", (event) => {
               (localeCached) =>
                 localeCached ||
                 new Response(
-                  "<!DOCTYPE html><html><body><h1>Offline</h1><p>Please check your internet connection.</p></body></html>",
+                  locale === "es"
+                    ? `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sin conexión</title><style>body{font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f5f5f5;color:#1a1a1a;text-align:center;padding:1rem}h1{color:#2d5a27}</style></head><body><div><span style="font-size:4rem">🌲</span><h1>Sin conexión</h1><p>Por favor, verifica tu conexión a internet.</p><p><a href="javascript:location.reload()" style="color:#2d5a27">Intentar de nuevo</a></p></div></body></html>`
+                    : `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Offline</title><style>body{font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f5f5f5;color:#1a1a1a;text-align:center;padding:1rem}h1{color:#2d5a27}</style></head><body><div><span style="font-size:4rem">🌲</span><h1>You're Offline</h1><p>Please check your internet connection.</p><p><a href="javascript:location.reload()" style="color:#2d5a27">Try again</a></p></div></body></html>`,
                   {
-                    headers: { "Content-Type": "text/html" },
+                    headers: { "Content-Type": "text/html; charset=utf-8" },
                   }
                 )
             );

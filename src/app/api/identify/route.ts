@@ -11,6 +11,22 @@ const MAX_LABELS = 12;
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 10; // 10 requests per minute per IP
+const CLEANUP_INTERVAL = 5 * 60 * 1000; // Clean up stale entries every 5 minutes
+const MAX_MAP_SIZE = 10000; // Prevent unbounded growth
+
+// Periodic cleanup to prevent memory leaks
+let lastCleanup = Date.now();
+function cleanupStaleEntries() {
+  const now = Date.now();
+  if (now - lastCleanup < CLEANUP_INTERVAL) return;
+  
+  lastCleanup = now;
+  for (const [key, record] of rateLimitMap.entries()) {
+    if (now > record.resetTime) {
+      rateLimitMap.delete(key);
+    }
+  }
+}
 
 function getRateLimitKey(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -18,6 +34,14 @@ function getRateLimitKey(request: Request): string {
 }
 
 function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
+  // Run cleanup periodically
+  cleanupStaleEntries();
+  
+  // Prevent unbounded map growth
+  if (rateLimitMap.size > MAX_MAP_SIZE) {
+    rateLimitMap.clear();
+  }
+  
   const now = Date.now();
   const record = rateLimitMap.get(key);
 
