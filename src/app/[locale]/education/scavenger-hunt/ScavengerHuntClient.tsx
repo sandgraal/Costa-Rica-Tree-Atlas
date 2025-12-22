@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
@@ -425,7 +425,7 @@ export default function ScavengerHuntClient({
   const [session, setSession] = useState<HuntSession | null>(null);
   const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [missionAnswer, setMissionAnswer] = useState<string>("");
+  const [_missionAnswer, setMissionAnswer] = useState<string>("");
   const [showHint, setShowHint] = useState(false);
   const [missionTimer, setMissionTimer] = useState<number | null>(null);
 

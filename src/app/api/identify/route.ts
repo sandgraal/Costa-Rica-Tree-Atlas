@@ -317,8 +317,15 @@ export async function POST(request: Request) {
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
 
-  return NextResponse.json({
-    labels: labels.sort((a, b) => b.score - a.score).slice(0, MAX_LABELS),
-    matches,
-  });
+  return NextResponse.json(
+    {
+      labels: labels.sort((a, b) => b.score - a.score).slice(0, MAX_LABELS),
+      matches,
+    },
+    {
+      headers: {
+        "X-RateLimit-Remaining": String(remaining),
+      },
+    }
+  );
 }

@@ -54,6 +54,19 @@ export function FieldTripMap({
 
   const treesWithLocation = spottedTrees.filter((s) => s.location).length;
 
+  // Calculate center from spotted trees
+  const center = useMemo(() => {
+    if (markers.length === 0) return { lat: 9.7489, lng: -83.7534 };
+
+    const sumLat = markers.reduce((sum, m) => sum + m.position.lat, 0);
+    const sumLng = markers.reduce((sum, m) => sum + m.position.lng, 0);
+
+    return {
+      lat: sumLat / markers.length,
+      lng: sumLng / markers.length,
+    };
+  }, [markers]);
+
   const labels = {
     title: locale === "es" ? "Mapa de Excursión" : "Field Trip Map",
     noLocations:
@@ -82,19 +95,6 @@ export function FieldTripMap({
       </div>
     );
   }
-
-  // Calculate center from spotted trees
-  const center = useMemo(() => {
-    if (markers.length === 0) return { lat: 9.7489, lng: -83.7534 };
-
-    const sumLat = markers.reduce((sum, m) => sum + m.position.lat, 0);
-    const sumLng = markers.reduce((sum, m) => sum + m.position.lng, 0);
-
-    return {
-      lat: sumLat / markers.length,
-      lng: sumLng / markers.length,
-    };
-  }, [markers]);
 
   return (
     <GoogleMapsProvider>

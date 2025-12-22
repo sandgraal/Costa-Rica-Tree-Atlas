@@ -6,29 +6,7 @@ import { Link } from "@i18n/navigation";
 // Feature temporarily disabled for security improvements
 const FEATURE_ENABLED = false;
 
-interface IdentifyClientProps {
-  locale: string;
-}
-
-interface IdentifyLabel {
-  description: string;
-  score: number;
-}
-
-interface IdentifyMatch {
-  title: string;
-  scientificName: string;
-  slug: string;
-  score: number;
-  url: string;
-}
-
-interface IdentifyResponse {
-  labels: IdentifyLabel[];
-  matches: IdentifyMatch[];
-}
-
-export default function IdentifyClient({ locale }: IdentifyClientProps) {
+export default function IdentifyClient() {
   const t = useTranslations("identify");
 
   // Show maintenance notice when feature is disabled

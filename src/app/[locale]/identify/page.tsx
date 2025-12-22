@@ -66,7 +66,7 @@ export default async function IdentifyPage({ params }: IdentifyPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <IdentifyClient locale={locale} />
+      <IdentifyClient />
     </>
   );
 }
