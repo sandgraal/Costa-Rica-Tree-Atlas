@@ -14,12 +14,12 @@ export async function generateMetadata({
   return {
     title:
       locale === "es"
-        ? "Mapa de Árboles - Atlas de Árboles de Costa Rica"
-        : "Tree Map - Costa Rica Tree Atlas",
+        ? "Explorar por Región - Atlas de Árboles de Costa Rica"
+        : "Explore by Region - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Explora el mapa interactivo de árboles nativos de Costa Rica. Descubre especies por provincia y encuentra árboles cerca de ti."
-        : "Explore the interactive map of Costa Rican native trees. Discover species by province and find trees near you.",
+        ? "Explora la distribución de árboles nativos de Costa Rica por provincia y región. Descubre la biodiversidad de cada zona del país."
+        : "Explore the distribution of Costa Rican native trees by province and region. Discover the biodiversity of each area of the country.",
     alternates: {
       languages: {
         en: "/en/map",
@@ -38,13 +38,15 @@ export default async function MapPage({ params }: MapPageProps) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name:
-      locale === "es" ? "Mapa de Árboles de Costa Rica" : "Costa Rica Tree Map",
+      locale === "es"
+        ? "Explorar Regiones de Costa Rica"
+        : "Explore Costa Rica Regions",
     description:
       locale === "es"
-        ? "Mapa interactivo para explorar árboles nativos de Costa Rica."
-        : "Interactive map for exploring Costa Rican native trees.",
+        ? "Mapa interactivo para explorar la distribución de árboles nativos por provincia y región en Costa Rica."
+        : "Interactive map for exploring native tree distribution by province and region in Costa Rica.",
     url: `https://costaricatreeatlas.com/${locale}/map`,
-    applicationCategory: "UtilitiesApplication",
+    applicationCategory: "EducationalApplication",
     operatingSystem: "All",
     offers: {
       "@type": "Offer",

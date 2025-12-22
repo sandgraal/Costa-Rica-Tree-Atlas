@@ -41,7 +41,7 @@ export default function IdentifyClient({ locale }: IdentifyClientProps) {
           </h1>
           <p className="text-lg text-muted-foreground mb-8">{t("subtitle")}</p>
 
-          <div className="rounded-2xl border border-amber-500/50 bg-amber-50 dark:bg-amber-950/20 p-8 shadow-sm text-center">
+          <div className="rounded-2xl border border-amber-500/30 bg-card p-8 shadow-sm text-center">
             <div className="mb-6">
               <svg
                 className="mx-auto h-16 w-16 text-amber-500"
@@ -57,13 +57,13 @@ export default function IdentifyClient({ locale }: IdentifyClientProps) {
                 />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-amber-800 dark:text-amber-200 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               {t("maintenanceTitle")}
             </h2>
-            <p className="text-amber-700 dark:text-amber-300 mb-4">
+            <p className="text-muted-foreground mb-4">
               {t("maintenanceMessage")}
             </p>
-            <p className="text-amber-600 dark:text-amber-400 text-sm mb-8">
+            <p className="text-muted-foreground/80 text-sm mb-8">
               {t("maintenanceNote")}
             </p>
             <Link

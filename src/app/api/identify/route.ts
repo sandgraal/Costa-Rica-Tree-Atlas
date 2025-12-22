@@ -6,6 +6,34 @@ export const dynamic = "force-dynamic";
 
 const MAX_LABELS = 12;
 
+// Simple in-memory rate limiting (resets on server restart)
+// For production, consider using Vercel KV, Upstash Redis, or similar
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 10; // 10 requests per minute per IP
+
+function getRateLimitKey(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  return forwarded ? forwarded.split(",")[0].trim() : "unknown";
+}
+
+function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const record = rateLimitMap.get(key);
+
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - 1 };
+  }
+
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  record.count++;
+  return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - record.count };
+}
+
 interface VisionLabel {
   description: string;
   score: number;
@@ -139,6 +167,23 @@ const scoreLabelAgainstTree = (
 };
 
 export async function POST(request: Request) {
+  // Rate limiting check
+  const rateLimitKey = getRateLimitKey(request);
+  const { allowed, remaining } = checkRateLimit(rateLimitKey);
+
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": "60",
+          "X-RateLimit-Remaining": "0",
+        },
+      }
+    );
+  }
+
   const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY;
 
   if (!apiKey) {
