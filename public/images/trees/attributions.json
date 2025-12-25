@@ -2641,5 +2641,45 @@
     "attribution": "Royal Botanic Gardens, Kew",
     "source": "https://www.inaturalist.org/observations/undefined",
     "downloadedAt": "2025-12-21T22:29:16.739Z"
+  },
+  "araza": {
+    "attribution": "(c) taxonomo, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/47134434",
+    "downloadedAt": "2025-12-25T03:33:33.197Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 74768595,
+          "attribution": "(c) taxonomo, all rights reserved",
+          "observationId": 47134434,
+          "category": "whole_tree"
+        },
+        {
+          "id": 174018017,
+          "attribution": "(c) Rickie White, all rights reserved",
+          "observationId": 103902283,
+          "category": "leaves"
+        },
+        {
+          "id": 415596808,
+          "attribution": "(c) Carmen Violeta Pacheco Guarda RÍos Centenario, all rights reserved",
+          "observationId": 233826293,
+          "category": "whole_tree"
+        },
+        {
+          "id": 420522358,
+          "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
+          "observationId": 236378842,
+          "category": "leaves"
+        },
+        {
+          "id": 545470457,
+          "attribution": "(c) grunionster, some rights reserved (CC BY-NC)",
+          "observationId": 302661712,
+          "category": "whole_tree"
+        }
+      ],
+      "updatedAt": "2025-12-25T03:33:38.980Z"
+    }
   }
 }
