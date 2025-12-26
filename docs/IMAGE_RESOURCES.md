@@ -115,11 +115,11 @@ The script works in multiple environments:
 A GitHub Actions workflow runs nightly at 3 AM UTC:
 
 1. **Audits** all featured tree images for issues
-2. **Audits** all photo gallery images for broken/low-quality photos
+2. **Audits** all photo gallery images for broken/low-quality photos and diversity
 3. **Downloads** missing or broken featured images automatically
-4. **Refreshes** gallery images that have issues
+4. **Refreshes** gallery images that have issues or lack diversity
 5. **Updates** iNaturalist links in MDX files
-6. **Creates a PR** if any changes were made
+6. **Commits and pushes** changes directly if any updates were made
 
 ### Manual Trigger
 

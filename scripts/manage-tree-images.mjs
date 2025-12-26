@@ -54,6 +54,15 @@ const GALLERY_QUALITY_CRITERIA = {
   aspectRatioRange: [0.5, 2.0], // Acceptable aspect ratios
 };
 
+const GALLERY_CATEGORY_PATTERNS = {
+  whole_tree: [/whole tree/, /full tree/, /canopy/, /tree form/],
+  leaves: [/leaf/, /leaves/, /foliage/, /hoja/, /hojas/],
+  bark: [/bark/, /trunk/, /corteza/],
+  flowers: [/flower/, /flowers/, /bloom/, /blossom/, /flor/, /flores/],
+  fruit: [/fruit/, /fruits/, /seed/, /pod/, /fruto/, /frutos/],
+  habitat: [/habitat/, /forest/, /bosque/],
+};
+
 // Parse arguments
 const args = process.argv.slice(2);
 const command = args.find((a) => !a.startsWith("--")) || "audit";
@@ -576,6 +585,35 @@ function extractGalleryImages(content) {
   }
 
   return images;
+}
+
+function inferGalleryCategory(image) {
+  const text = `${image.title ?? ""} ${image.alt ?? ""}`.toLowerCase();
+
+  for (const [category, patterns] of Object.entries(GALLERY_CATEGORY_PATTERNS)) {
+    if (patterns.some((pattern) => pattern.test(text))) {
+      return category;
+    }
+  }
+
+  return null;
+}
+
+function evaluateGalleryDiversity(images) {
+  const categories = new Set();
+
+  for (const image of images) {
+    const category = inferGalleryCategory(image);
+    if (category) {
+      categories.add(category);
+    }
+  }
+
+  return {
+    categories,
+    hasWholeTree: categories.has("whole_tree"),
+    isDiverse: categories.size >= 3 && categories.has("whole_tree"),
+  };
 }
 
 // Check if a gallery image URL is valid and high-quality
@@ -1292,6 +1330,7 @@ async function auditGalleryImages() {
     valid: [],
     broken: [],
     lowQuality: [],
+    lowDiversity: [],
     noGallery: [],
     checked: 0,
   };
@@ -1333,6 +1372,8 @@ async function auditGalleryImages() {
       await sleep(100); // Rate limiting
     }
 
+    const diversityCheck = evaluateGalleryDiversity(galleryImages);
+
     if (brokenCount > 0) {
       results.broken.push({
         treeName,
@@ -1351,6 +1392,16 @@ async function auditGalleryImages() {
         "⚠️ ",
         `${lowQualityCount}/${galleryImages.length} low quality`
       );
+    } else if (!diversityCheck.isDiverse) {
+      results.lowDiversity.push({
+        treeName,
+        categories: Array.from(diversityCheck.categories),
+      });
+      log.tree(
+        treeName,
+        "⚠️ ",
+        `limited diversity (${diversityCheck.categories.size} categories)`
+      );
     } else {
       results.valid.push({ treeName, count: galleryImages.length });
       log.tree(treeName, "✅", `${galleryImages.length} images OK`);
@@ -1363,10 +1414,14 @@ async function auditGalleryImages() {
   log.info("=".repeat(50));
   log.info(`✅ Valid galleries: ${results.valid.length}`);
   log.info(`⚠️  Low quality: ${results.lowQuality.length}`);
+  log.info(`⚠️  Low diversity: ${results.lowDiversity.length}`);
   log.info(`❌ Broken images: ${results.broken.length}`);
   log.info(`📭 No gallery: ${results.noGallery.length}`);
 
-  const issues = results.broken.length + results.lowQuality.length;
+  const issues =
+    results.broken.length +
+    results.lowQuality.length +
+    results.lowDiversity.length;
 
   if (issues > 0) {
     log.info(
@@ -1424,7 +1479,8 @@ async function refreshGalleryImages() {
     }
 
     // Check if gallery needs refresh
-    let needsRefresh = forceRefresh;
+    const diversityCheck = evaluateGalleryDiversity(existingGallery);
+    let needsRefresh = forceRefresh || !diversityCheck.isDiverse;
 
     if (!needsRefresh) {
       for (const img of existingGallery) {
