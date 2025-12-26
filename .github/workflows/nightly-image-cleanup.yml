@@ -73,7 +73,7 @@ jobs:
         run: npm run images:download:force
 
       - name: Check for better featured images
-        if: steps.mode.outputs.mode == 'refresh' || steps.mode.outputs.mode == 'full'
+        if: steps.mode.outputs.mode == 'refresh' || steps.mode.outputs.mode == 'full' || steps.mode.outputs.mode == 'auto'
         run: npm run images:refresh
 
       - name: Refresh gallery images with broken or low-quality photos

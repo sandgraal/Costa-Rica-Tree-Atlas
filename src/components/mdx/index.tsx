@@ -516,6 +516,7 @@ export function ImageCard({
   sourceUrl,
   onClick,
 }: ImageCardProps) {
+  const isRemote = src.startsWith("http");
   const content = (
     <figure className="bg-card rounded-xl overflow-hidden border border-border not-prose group">
       <div className="aspect-[4/3] bg-muted relative">
@@ -527,6 +528,7 @@ export function ImageCard({
           className={`object-cover ${onClick ? "group-hover:scale-105 transition-transform duration-300" : ""}`}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
+          unoptimized={isRemote}
         />
         {onClick && (
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
