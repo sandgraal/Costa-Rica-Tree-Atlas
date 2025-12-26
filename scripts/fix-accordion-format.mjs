@@ -93,7 +93,9 @@ function parseInlineTable(text) {
 
 function createDataTable(headers, rows) {
   const escapedRows = rows.map((row) => {
-    return row.map((cell) => cell.replace(/"/g, '\\"'));
+    return row.map(
+      (cell) => cell.replace(/\\/g, "\\\\").replace(/"/g, '\\"')
+    );
   });
 
   const rowsStr = escapedRows
