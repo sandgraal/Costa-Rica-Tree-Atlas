@@ -27,7 +27,7 @@ All image attributions are tracked in `/public/images/trees/attributions.json`. 
 | `npm run images:audit:gallery`         | Check status of all gallery images       |
 | `npm run images:download`              | Download missing/broken featured images  |
 | `npm run images:download:force`        | Re-download all featured images          |
-| `npm run images:refresh`               | Check for better quality featured images |
+| `npm run images:refresh`               | Refresh featured images when better photos exist |
 | `npm run images:refresh:gallery`       | Update gallery images with better photos |
 | `npm run images:refresh:gallery:force` | Force refresh all gallery images         |
 
@@ -46,7 +46,7 @@ npm run images:download
 # Download with force - Re-download ALL featured images
 npm run images:download:force
 
-# Refresh - Check iNaturalist for potentially better featured images
+# Refresh - Update featured images if better photos exist
 npm run images:refresh
 
 # Refresh Gallery - Update gallery images with high-quality, diverse photos
@@ -79,12 +79,13 @@ The image management script (`scripts/manage-tree-images.mjs`):
    - Searches iNaturalist API for the tree's taxon
    - Fetches research-grade photos (Costa Rica first, then global)
    - Downloads highest-voted photos
+   - Prefers full-tree/whole-canopy shots when available (based on observation text, photo position, and dimensions)
    - Resizes to 1200px width (using Sharp, ImageMagick, or sips)
    - Saves as optimized JPEG (85% quality)
    - Updates both EN and ES MDX frontmatter
    - Records attribution in `attributions.json`
 
-3. **Refresh Mode**: Compares current images against iNaturalist to find potentially better photos (higher vote counts).
+3. **Refresh Mode**: Compares current images against iNaturalist to find better photos (higher vote counts) and replaces featured images when a better photo is found.
 
 #### Gallery Images
 
@@ -129,7 +130,7 @@ You can manually run the workflow from GitHub Actions with these modes:
 - `audit-gallery` - Check gallery images only
 - `download` - Download missing featured images
 - `download-force` - Re-download all featured images
-- `refresh` - Check for better featured images
+- `refresh` - Update featured images when better photos are found
 - `refresh-gallery` - Update gallery images with better photos
 - `full` - Run all audits and fixes
 

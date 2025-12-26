@@ -18,7 +18,7 @@
 - Lint: `npm run lint`
 - Format: `npm run format`
 - Image audit: `npm run images:audit`, `npm run images:audit:gallery`
-- Image repair: `npm run images:download`, `npm run images:refresh`, `npm run images:refresh:gallery`
+- Image repair: `npm run images:download`, `npm run images:refresh`, `npm run images:refresh:gallery`, `npm run images:cleanup`
 
 ## Key Paths by Feature
 - Tree content (MDX): `content/trees/en/*.mdx`, `content/trees/es/*.mdx`
@@ -26,6 +26,12 @@
 - Image maintenance scripts: `scripts/manage-tree-images.mjs`, `scripts/cleanup-tree-images.mjs`
 - Nightly maintenance workflow: `.github/workflows/nightly-image-cleanup.yml`
 - MDX components: `src/components/mdx/`
+- Tree detail page: `src/app/[locale]/trees/[slug]/page.tsx`
+
+## Code Search Notes
+- Gallery rendering: `src/components/mdx/index.tsx` (`ImageCard`, `ImageGallery`).
+- Featured image maintenance: `scripts/manage-tree-images.mjs` (`downloadImages`, `refreshImages`, `scoreFeaturedCandidate`).
+- Nightly image workflow: `.github/workflows/nightly-image-cleanup.yml` (modes `auto`, `full`).
 
 ## Known Constraints & Feature Flags
 - Optional analytics and APIs are configured via `.env.example`.

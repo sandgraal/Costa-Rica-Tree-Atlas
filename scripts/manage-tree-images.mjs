@@ -65,6 +65,40 @@ const GALLERY_CATEGORY_PATTERNS = {
   habitat: [/habitat/, /forest/, /bosque/],
 };
 
+const FEATURED_WHOLE_TREE_PATTERNS = [
+  /whole tree/,
+  /full tree/,
+  /tree form/,
+  /canopy/,
+  /silhouette/,
+  /árbol completo/,
+  /copa/,
+];
+
+const FEATURED_DETAIL_PATTERNS = [
+  /\bleaf\b/,
+  /\bleaves\b/,
+  /leaflet/,
+  /\bbark\b/,
+  /trunk/,
+  /flower/,
+  /bloom/,
+  /blossom/,
+  /fruit/,
+  /seed/,
+  /cone/,
+  /branch/,
+  /bud/,
+  /corteza/,
+  /hoja/,
+  /hojas/,
+  /flor/,
+  /flores/,
+  /fruto/,
+  /frutos/,
+  /semilla/,
+];
+
 // Parse arguments
 const args = process.argv.slice(2);
 const command = args.find((a) => !a.startsWith("--")) || "audit";
@@ -186,6 +220,14 @@ async function downloadFile(url, destPath) {
       reject(err);
     });
   });
+}
+
+function buildInatPhotoUrl(url, size) {
+  if (!url) return url;
+  const extensionMatch = url.match(/\.(jpe?g|png)$/i);
+  const extension = extensionMatch ? extensionMatch[1] : "jpg";
+  const base = url.replace(/\/[^/]+\.(jpe?g|png)$/i, "");
+  return `${base}/${size}.${extension}`;
 }
 
 async function checkRemoteImage(url) {
@@ -369,8 +411,10 @@ async function getTopPhotos(taxonId, limit = 15) {
     }
   }
 
-  // Sort by votes
-  photos.sort((a, b) => b.votes - a.votes);
+  // Sort by featured quality score
+  photos.sort(
+    (a, b) => scoreFeaturedCandidate(b) - scoreFeaturedCandidate(a)
+  );
 
   return photos.slice(0, limit);
 }
@@ -384,20 +428,21 @@ function extractPhotos(observations, photos, seen) {
 
       seen.add(photo.id);
 
-      // Convert to large/original URL
-      let url = photo.url
-        .replace("/square.", "/original.")
-        .replace("/small.", "/original.")
-        .replace("/medium.", "/large.");
+      const largeUrl = buildInatPhotoUrl(photo.url, "large");
+      const originalUrl = buildInatPhotoUrl(photo.url, "original");
 
       photos.push({
         id: photo.id,
-        url,
+        url: originalUrl,
+        largeUrl,
+        downloadUrl: originalUrl,
         attribution: photo.attribution || "iNaturalist user",
         observationId: obs.id,
         votes: obs.faves_count || 0,
         place: obs.place_guess || "",
         dimensions: photo.original_dimensions,
+        description: obs.description || "",
+        isFirst: obs.photos.indexOf(photo) === 0,
       });
     }
   }
@@ -618,6 +663,36 @@ function evaluateGalleryDiversity(images) {
   };
 }
 
+function scoreFeaturedCandidate(photo) {
+  const votes = photo.votes ?? 0;
+  const dims = photo.dimensions;
+  const area = dims?.width && dims?.height ? dims.width * dims.height : 0;
+  const aspectRatio =
+    dims?.width && dims?.height ? dims.width / dims.height : 1;
+  const desc = (photo.description || "").toLowerCase();
+  const hasWholeTree = FEATURED_WHOLE_TREE_PATTERNS.some((pattern) =>
+    pattern.test(desc)
+  );
+  const hasDetail = FEATURED_DETAIL_PATTERNS.some((pattern) =>
+    pattern.test(desc)
+  );
+  const areaScore = area ? Math.min(area / 5_000_000, 2) : 0.5;
+  const ratioScore =
+    aspectRatio >= 0.7 && aspectRatio <= 1.8 ? 1 : 0.2;
+  const firstPhotoBonus = photo.isFirst ? 0.6 : 0;
+  const wholeTreeBonus = hasWholeTree ? 2 : 0;
+  const detailPenalty = hasDetail ? 1.5 : 0;
+
+  return (
+    votes * 2 +
+    areaScore +
+    ratioScore +
+    firstPhotoBonus +
+    wholeTreeBonus -
+    detailPenalty
+  );
+}
+
 // Check if a gallery image URL is valid and high-quality
 async function validateGalleryImage(imageUrl) {
   const result = {
@@ -723,20 +798,22 @@ function categorizePhotos(observations, categories, seen) {
 
       seen.add(photo.id);
 
-      // Convert to large URL
-      let url = photo.url
-        .replace("/square.", "/medium.")
-        .replace("/small.", "/medium.");
+      const mediumUrl = buildInatPhotoUrl(photo.url, "medium");
+      const largeUrl = buildInatPhotoUrl(photo.url, "large");
+      const originalUrl = buildInatPhotoUrl(photo.url, "original");
 
       const photoData = {
         id: photo.id,
-        url,
+        url: mediumUrl,
+        downloadUrl: originalUrl,
+        largeUrl,
         attribution: photo.attribution || "iNaturalist user",
         observationId: obs.id,
         votes: obs.faves_count || 0,
         place: obs.place_guess || "",
         dimensions: photo.original_dimensions,
         description: obs.description || "",
+        isFirst: obs.photos.indexOf(photo) === 0,
       };
 
       // Try to categorize based on photo position and description
@@ -817,6 +894,14 @@ function selectDiversePhotos(categories, limit) {
   }
 
   return selected;
+}
+
+function selectFeaturedFromGallery(photos) {
+  const candidates = photos.filter((photo) => photo.category === "whole_tree");
+  if (candidates.length === 0) return null;
+  return candidates.sort(
+    (a, b) => scoreFeaturedCandidate(b) - scoreFeaturedCandidate(a)
+  )[0];
 }
 
 // Update gallery images in MDX content
@@ -941,6 +1026,15 @@ async function processTree(treeName, scientificName, options = {}) {
   await sleep(300); // Rate limiting
   let photos = await getTopPhotos(taxon.id);
   let photoSource = "iNaturalist";
+  let galleryPhotos = [];
+  let preferredGalleryPhoto = null;
+
+  try {
+    galleryPhotos = await getGalleryPhotos(taxon.id, 8);
+    preferredGalleryPhoto = selectFeaturedFromGallery(galleryPhotos);
+  } catch (err) {
+    log.verbose(`Gallery photo search failed: ${err.message}`);
+  }
 
   // FALLBACK: Try GBIF if no iNaturalist photos
   if (photos.length === 0) {
@@ -969,12 +1063,14 @@ async function processTree(treeName, scientificName, options = {}) {
     };
   }
 
+  const topPhoto = preferredGalleryPhoto || photos[0];
+
   if (!download) {
     return {
       success: true,
       taxon,
       photosAvailable: photos.length,
-      topPhoto: photos[0],
+      topPhoto,
       source: photoSource,
     };
   }
@@ -983,8 +1079,17 @@ async function processTree(treeName, scientificName, options = {}) {
   const tempPath = path.join(IMAGES_DIR, `${treeName}-temp.jpg`);
   const finalPath = path.join(IMAGES_DIR, `${treeName}.jpg`);
 
-  for (let i = 0; i < Math.min(3, photos.length); i++) {
-    const photo = photos[i];
+  const candidatePhotos = [
+    ...(preferredGalleryPhoto ? [preferredGalleryPhoto] : []),
+    ...photos,
+  ].filter(
+    (photo, index, self) =>
+      self.findIndex((item) => item.id === photo.id) === index
+  );
+
+  for (let i = 0; i < Math.min(3, candidatePhotos.length); i++) {
+    const photo = candidatePhotos[i];
+    const downloadUrl = photo.downloadUrl || photo.url;
 
     if (dryRun) {
       return {
@@ -997,10 +1102,10 @@ async function processTree(treeName, scientificName, options = {}) {
 
     try {
       log.verbose(
-        `Trying photo ${i + 1} from ${photoSource}: ${photo.url.substring(0, 60)}...`
+        `Trying photo ${i + 1} from ${photoSource}: ${downloadUrl.substring(0, 60)}...`
       );
 
-      await downloadFile(photo.url, tempPath);
+      await downloadFile(downloadUrl, tempPath);
 
       const stats = await fs.stat(tempPath);
       if (stats.size < MIN_IMAGE_SIZE) {
@@ -1203,6 +1308,8 @@ async function downloadImages() {
         attribution: result.photo.attribution,
         source: `https://www.inaturalist.org/observations/${result.photo.observationId}`,
         downloadedAt: new Date().toISOString(),
+        votes: result.photo.votes ?? 0,
+        photoId: result.photo.id ?? null,
       };
 
       results.downloaded.push({
@@ -1254,12 +1361,20 @@ async function downloadImages() {
 async function refreshImages() {
   log.info("🔄 Checking for better quality images...\n");
 
+  if (dryRun) {
+    log.info("🔍 DRY RUN MODE - No files will be modified\n");
+  }
+
   const files = (await fs.readdir(TREES_EN_DIR)).filter((f) =>
     f.endsWith(".mdx")
   );
 
-  const candidates = [];
   const attributions = await loadAttributions();
+  const results = {
+    updated: [],
+    skipped: [],
+    failed: [],
+  };
 
   for (const file of files) {
     const treeName = file.replace(".mdx", "");
@@ -1283,41 +1398,105 @@ async function refreshImages() {
       download: false,
     });
 
-    if (result.success && result.topPhoto) {
-      const currentAttribution = attributions[treeName];
+    if (!result.success || !result.topPhoto) {
+      results.failed.push({
+        name: treeName,
+        reason: result.reason || "No photos found",
+      });
+      log.tree(treeName, "   ❌", result.reason || "no photos found");
+      continue;
+    }
 
-      // Compare: is there a better image?
-      const currentVotes = 0; // We don't track this currently
-      const newVotes = result.topPhoto.votes;
+    const currentVotes = attributions[treeName]?.votes ?? 0;
+    const newVotes = result.topPhoto.votes ?? 0;
+    const needsUpdate = status.issue !== null || newVotes > currentVotes + 5;
 
-      if (newVotes > currentVotes + 5 || status.issue !== null) {
-        candidates.push({
-          treeName,
-          currentStatus: status,
-          newPhoto: result.topPhoto,
-          photosAvailable: result.photosAvailable,
-        });
+    if (!needsUpdate) {
+      results.skipped.push({ name: treeName, reason: "No better photo found" });
+      log.tree(treeName, "⏭️ ", "no better photo found");
+      continue;
+    }
+
+    if (dryRun) {
+      results.updated.push({ name: treeName, dryRun: true });
+      log.tree(
+        treeName,
+        "   🔍",
+        `[DRY RUN] would refresh (${newVotes} votes vs ${currentVotes})`
+      );
+      continue;
+    }
+
+    log.tree(
+      treeName,
+      "📗",
+      `refreshing featured image (${newVotes} votes vs ${currentVotes})`
+    );
+
+    const downloadResult = await processTree(treeName, scientificName, {
+      download: true,
+    });
+
+    if (downloadResult.success && !downloadResult.dryRun) {
+      const enPath = path.join(TREES_EN_DIR, file);
+      const esPath = path.join(TREES_ES_DIR, file);
+
+      await updateMdxFeaturedImage(enPath, downloadResult.path);
+      if (
+        await fs
+          .stat(esPath)
+          .then(() => true)
+          .catch(() => false)
+      ) {
+        await updateMdxFeaturedImage(esPath, downloadResult.path);
       }
+
+      attributions[treeName] = {
+        attribution: downloadResult.photo.attribution,
+        source: `https://www.inaturalist.org/observations/${downloadResult.photo.observationId}`,
+        downloadedAt: new Date().toISOString(),
+        votes: downloadResult.photo.votes ?? 0,
+        photoId: downloadResult.photo.id ?? null,
+      };
+
+      results.updated.push({
+        name: treeName,
+        votes: downloadResult.photo.votes ?? 0,
+      });
+      log.tree(treeName, "   ✅", "featured image updated");
+    } else if (downloadResult.dryRun) {
+      results.updated.push({ name: treeName, dryRun: true });
+      log.tree(treeName, "   🔍", "[DRY RUN] would refresh");
+    } else {
+      results.failed.push({
+        name: treeName,
+        reason: downloadResult.reason,
+      });
+      log.tree(treeName, "   ❌", downloadResult.reason);
     }
 
     await sleep(300);
   }
 
-  log.info(
-    `\n📊 Found ${candidates.length} trees with potentially better images\n`
-  );
-
-  for (const candidate of candidates) {
-    log.info(
-      `  - ${candidate.treeName}: ${candidate.newPhoto.votes} votes (${candidate.photosAvailable} photos available)`
-    );
+  if (!dryRun && results.updated.length > 0) {
+    await saveAttributions(attributions);
   }
 
-  if (candidates.length > 0 && !dryRun) {
-    log.info(`\n💡 Run 'npm run images:download --force' to update all images`);
+  log.info("\n" + "=".repeat(50));
+  log.info("📊 REFRESH SUMMARY");
+  log.info("=".repeat(50));
+  log.info(`✅ Updated: ${results.updated.length}`);
+  log.info(`⏭️  Skipped: ${results.skipped.length}`);
+  log.info(`❌ Failed: ${results.failed.length}`);
+
+  if (results.failed.length > 0) {
+    log.info("\nFailed trees:");
+    for (const item of results.failed) {
+      log.info(`  - ${item.name}: ${item.reason}`);
+    }
   }
 
-  return candidates;
+  return results;
 }
 
 // Audit gallery images across all tree pages
