@@ -56,10 +56,12 @@ const GALLERY_QUALITY_CRITERIA = {
 
 const GALLERY_CATEGORY_PATTERNS = {
   whole_tree: [/whole tree/, /full tree/, /canopy/, /tree form/],
-  leaves: [/leaf/, /leaves/, /foliage/, /hoja/, /hojas/],
-  bark: [/bark/, /trunk/, /corteza/],
+  // Use word boundaries for short English terms to avoid matching substrings
+  // like "leaf" in "leaflet" or "bark" in "embark".
+  leaves: [/\bleaf\b/, /\bleaves\b/, /foliage/, /hoja/, /hojas/],
+  bark: [/\bbark\b/, /trunk/, /corteza/],
   flowers: [/flower/, /flowers/, /bloom/, /blossom/, /flor/, /flores/],
-  fruit: [/fruit/, /fruits/, /seed/, /pod/, /fruto/, /frutos/],
+  fruit: [/fruit/, /fruits/, /\bseed\b/, /pod/, /fruto/, /frutos/],
   habitat: [/habitat/, /forest/, /bosque/],
 };
 
