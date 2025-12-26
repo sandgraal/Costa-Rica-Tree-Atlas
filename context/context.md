@@ -28,5 +28,5 @@
 - MDX components: `src/components/mdx/`
 
 ## Known Constraints & Feature Flags
-- Optional analytics and APIs configured via `.env.example`.
+- Optional analytics and APIs are configured via `.env.example`.
 - Some integrations disabled by default (e.g., Google Cloud Vision API, Maps API).
