@@ -1,5 +1,7 @@
 # 🌳 Costa Rica Tree Atlas
 
+Costa Rica Tree Atlas will truly never have ads, donations, sales, or other revenue
+
 A bilingual (English/Spanish) open-source web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
