@@ -18,25 +18,25 @@
           "category": "leaves"
         },
         {
-          "id": 309114844,
-          "attribution": "(c) kjemde, some rights reserved (CC BY-NC)",
-          "observationId": 177709108,
+          "id": 456743776,
+          "attribution": "(c) NABS DEA, all rights reserved",
+          "observationId": 254930877,
           "category": "whole_tree"
         },
         {
-          "id": 309191191,
-          "attribution": "(c) kjemde, some rights reserved (CC BY-NC)",
-          "observationId": 177709108,
+          "id": 110112123,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 68058873,
           "category": "leaves"
         },
         {
-          "id": 583422052,
-          "attribution": "(c) Michael Prendas Soto, some rights reserved (CC BY-NC)",
-          "observationId": 322499806,
+          "id": 108093037,
+          "attribution": "(c) Leiner Garcia Morales, all rights reserved",
+          "observationId": 66973709,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:24.381Z"
+      "updatedAt": "2026-01-02T03:37:17.094Z"
     }
   },
   "aguacatillo": {
@@ -76,7 +76,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:25.507Z"
+      "updatedAt": "2026-01-02T03:37:18.291Z"
     }
   },
   "almendro": {
@@ -275,13 +275,13 @@
           "category": "leaves"
         },
         {
-          "id": 451455567,
-          "attribution": "(c) Karl Questel, all rights reserved",
-          "observationId": 252215804,
+          "id": 539593006,
+          "attribution": "(c) Achille Lenglin, some rights reserved (CC BY-NC)",
+          "observationId": 299513168,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:34.943Z"
+      "updatedAt": "2026-01-02T03:37:29.162Z"
     }
   },
   "cana-fistula": {
@@ -331,9 +331,21 @@
     "gallery": {
       "photos": [
         {
-          "id": 105941504,
-          "attribution": "(c) carolina02, some rights reserved (CC BY-NC)",
-          "observationId": 65785432,
+          "id": 465437908,
+          "attribution": "(c) Woochan Seo, some rights reserved (CC BY-NC-SA)",
+          "observationId": 259302691,
+          "category": "whole_tree"
+        },
+        {
+          "id": 580388030,
+          "attribution": "(c) Jenaro Campos Zamora, some rights reserved (CC BY-NC)",
+          "observationId": 320958182,
+          "category": "leaves"
+        },
+        {
+          "id": 190870465,
+          "attribution": "(c) heidys, some rights reserved (CC BY-NC)",
+          "observationId": 112973998,
           "category": "whole_tree"
         },
         {
@@ -343,25 +355,13 @@
           "category": "leaves"
         },
         {
-          "id": 108821886,
-          "attribution": "(c) Katia Cordero Obregón, all rights reserved",
-          "observationId": 67364681,
-          "category": "whole_tree"
-        },
-        {
-          "id": 348546643,
-          "attribution": "(c) Ian Venegas mora, all rights reserved",
-          "observationId": 197838182,
-          "category": "leaves"
-        },
-        {
-          "id": 458013070,
-          "attribution": "no rights reserved",
-          "observationId": 255565334,
+          "id": 580387988,
+          "attribution": "(c) Jenaro Campos Zamora, some rights reserved (CC BY-NC)",
+          "observationId": 320958182,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:36.737Z"
+      "updatedAt": "2026-01-02T03:37:31.246Z"
     }
   },
   "caoba": {
@@ -401,7 +401,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:37.827Z"
+      "updatedAt": "2026-01-02T03:37:32.327Z"
     }
   },
   "carao": {
@@ -441,7 +441,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:42.094Z"
+      "updatedAt": "2026-01-02T03:37:37.081Z"
     }
   },
   "carboncillo": {
@@ -521,7 +521,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:46.350Z"
+      "updatedAt": "2026-01-02T03:37:41.662Z"
     }
   },
   "ceiba": {
@@ -628,9 +628,9 @@
           "category": "leaves"
         },
         {
-          "id": 64826581,
-          "attribution": "(c) Steven Daniel, all rights reserved",
-          "observationId": 40889962,
+          "id": 14616164,
+          "attribution": "(c) Nick Libasci, all rights reserved",
+          "observationId": 10506030,
           "category": "whole_tree"
         },
         {
@@ -640,13 +640,13 @@
           "category": "leaves"
         },
         {
-          "id": 14616164,
-          "attribution": "(c) Nick Libasci, all rights reserved",
-          "observationId": 10506030,
+          "id": 64826581,
+          "attribution": "(c) Steven Daniel, all rights reserved",
+          "observationId": 40889962,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:52.572Z"
+      "updatedAt": "2026-01-02T03:37:48.804Z"
     }
   },
   "coco": {
@@ -656,9 +656,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 338329475,
-          "attribution": "(c) Akiva, some rights reserved (CC BY-SA)",
-          "observationId": 192692956,
+          "id": 67938729,
+          "attribution": "(c) Maya, some rights reserved (CC BY-NC)",
+          "observationId": 42780720,
           "category": "whole_tree"
         },
         {
@@ -668,9 +668,9 @@
           "category": "leaves"
         },
         {
-          "id": 67938729,
-          "attribution": "(c) Maya, some rights reserved (CC BY-NC)",
-          "observationId": 42780720,
+          "id": 500548887,
+          "attribution": "(c) rudymaex, some rights reserved (CC BY-NC)",
+          "observationId": 278762650,
           "category": "whole_tree"
         },
         {
@@ -680,13 +680,13 @@
           "category": "leaves"
         },
         {
-          "id": 353562056,
-          "attribution": "(c) nancyluna44, some rights reserved (CC BY-NC)",
-          "observationId": 200400028,
+          "id": 596873909,
+          "attribution": "(c) Andrew &amp; Elizabeth Nicosia/Gargiulo, some rights reserved (CC BY-NC)",
+          "observationId": 329294010,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:54.041Z"
+      "updatedAt": "2026-01-02T03:37:50.123Z"
     }
   },
   "cocobolo": {
@@ -720,13 +720,13 @@
           "category": "leaves"
         },
         {
-          "id": 57175732,
-          "attribution": "(c) Ruth Ripley, all rights reserved",
-          "observationId": 36189651,
+          "id": 198237547,
+          "attribution": "(c) Diego Lobo Montoya, some rights reserved (CC BY-NC)",
+          "observationId": 117383582,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:55.255Z"
+      "updatedAt": "2026-01-02T03:37:51.316Z"
     }
   },
   "copey": {
@@ -840,13 +840,13 @@
           "category": "leaves"
         },
         {
-          "id": 178816748,
-          "attribution": "(c) sadie2345, some rights reserved (CC BY-NC)",
-          "observationId": 106447231,
+          "id": 67116431,
+          "attribution": "(c) laurarefugeforwildlife, all rights reserved",
+          "observationId": 42275901,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:57.847Z"
+      "updatedAt": "2026-01-02T03:37:54.183Z"
     }
   },
   "coyol": {
@@ -926,7 +926,7 @@
           "category": "leaves"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:59.677Z"
+      "updatedAt": "2026-01-02T03:37:56.349Z"
     }
   },
   "espavel": {
@@ -971,7 +971,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:01.391Z"
+      "updatedAt": "2026-01-02T03:37:58.501Z"
     }
   },
   "gavilan": {
@@ -987,19 +987,19 @@
           "category": "whole_tree"
         },
         {
-          "id": 291360795,
-          "attribution": "(c) Hayley Jolan Kopp, some rights reserved (CC BY-NC)",
-          "observationId": 168143734,
+          "id": 215872648,
+          "attribution": "(c) R.E.Llanos, some rights reserved (CC BY-NC-SA)",
+          "observationId": 127173339,
           "category": "leaves"
         },
         {
-          "id": 185305413,
-          "attribution": "(c) John D Reynolds, some rights reserved (CC BY-NC)",
-          "observationId": 109900190,
+          "id": 215872618,
+          "attribution": "(c) R.E.Llanos, some rights reserved (CC BY-NC-SA)",
+          "observationId": 127173339,
           "category": "whole_tree"
         },
         {
-          "id": 291360858,
+          "id": 291360795,
           "attribution": "(c) Hayley Jolan Kopp, some rights reserved (CC BY-NC)",
           "observationId": 168143734,
           "category": "leaves"
@@ -1011,7 +1011,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:04.044Z"
+      "updatedAt": "2026-01-02T03:38:01.572Z"
     }
   },
   "guaba": {
@@ -1073,9 +1073,9 @@
           "category": "leaves"
         },
         {
-          "id": 77626937,
-          "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
-          "observationId": 48910005,
+          "id": 109055399,
+          "attribution": "(c) Roza Ramirez, all rights reserved",
+          "observationId": 67491552,
           "category": "whole_tree"
         },
         {
@@ -1085,13 +1085,13 @@
           "category": "leaves"
         },
         {
-          "id": 109055399,
-          "attribution": "(c) Roza Ramirez, all rights reserved",
-          "observationId": 67491552,
+          "id": 77626937,
+          "attribution": "(c) JOSUÉ PACHECO, all rights reserved",
+          "observationId": 48910005,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:05.944Z"
+      "updatedAt": "2026-01-02T03:38:03.657Z"
     }
   },
   "guacimo": {
@@ -1100,6 +1100,24 @@
     "source": "https://www.inaturalist.org/observations/198106637",
     "gallery": {
       "photos": [
+        {
+          "id": 33893254,
+          "attribution": "(c) gsburke, all rights reserved",
+          "observationId": 21876429,
+          "category": "whole_tree"
+        },
+        {
+          "id": 349090902,
+          "attribution": "(c) sea-kangaroo, some rights reserved (CC BY-NC-ND)",
+          "observationId": 198106637,
+          "category": "leaves"
+        },
+        {
+          "id": 2866311,
+          "attribution": "(c) Vilseskogen, some rights reserved (CC BY-SA)",
+          "observationId": 2570132,
+          "category": "fruit"
+        },
         {
           "id": 88561003,
           "attribution": "(c) Jose Ignacio Brenes, all rights reserved",
@@ -1111,27 +1129,9 @@
           "attribution": "(c) Jake Rehage, some rights reserved (CC BY)",
           "observationId": 97461785,
           "category": "leaves"
-        },
-        {
-          "id": 162093107,
-          "attribution": "(c) Jake Rehage, some rights reserved (CC BY)",
-          "observationId": 97461785,
-          "category": "whole_tree"
-        },
-        {
-          "id": 162093142,
-          "attribution": "(c) Jake Rehage, some rights reserved (CC BY)",
-          "observationId": 97461785,
-          "category": "leaves"
-        },
-        {
-          "id": 58046289,
-          "attribution": "(c) Carlos Venegas-Elizondo, some rights reserved (CC BY-NC)",
-          "observationId": 36696673,
-          "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:07.197Z"
+      "updatedAt": "2026-01-02T03:38:05.044Z"
     }
   },
   "guanacaste": {
@@ -1165,13 +1165,13 @@
           "category": "leaves"
         },
         {
-          "id": 471208549,
-          "attribution": "(c) Jannis Werner, all rights reserved",
-          "observationId": 262284298,
+          "id": 280527406,
+          "attribution": "(c) Lushi Valverde Mñx, all rights reserved",
+          "observationId": 162246596,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:09.830Z"
+      "updatedAt": "2026-01-02T03:38:07.624Z"
     }
   },
   "guapinol": {
@@ -1181,9 +1181,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 466151552,
-          "attribution": "(c) lizzard13732, all rights reserved",
-          "observationId": 259654220,
+          "id": 289322835,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 167042065,
           "category": "whole_tree"
         },
         {
@@ -1193,9 +1193,9 @@
           "category": "leaves"
         },
         {
-          "id": 289322835,
-          "attribution": "(c) Gared Rodríguez, all rights reserved",
-          "observationId": 167042065,
+          "id": 405493826,
+          "attribution": "(c) Noland Martin, some rights reserved (CC BY)",
+          "observationId": 228504385,
           "category": "whole_tree"
         },
         {
@@ -1205,13 +1205,13 @@
           "category": "leaves"
         },
         {
-          "id": 1580668,
-          "attribution": "(c) Erik Meike, all rights reserved",
-          "observationId": 1259016,
+          "id": 466151552,
+          "attribution": "(c) lizzard13732, all rights reserved",
+          "observationId": 259654220,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:11.261Z"
+      "updatedAt": "2026-01-02T03:38:09.274Z"
     }
   },
   "guarumo": {
@@ -1331,7 +1331,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:14.124Z"
+      "updatedAt": "2026-01-02T03:38:12.846Z"
     }
   },
   "higueron": {
@@ -1371,7 +1371,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:15.377Z"
+      "updatedAt": "2026-01-02T03:38:14.392Z"
     }
   },
   "indio-desnudo": {
@@ -1520,25 +1520,25 @@
           "category": "leaves"
         },
         {
-          "id": 547738559,
-          "attribution": "(c) dinosaurman97, some rights reserved (CC BY-NC)",
-          "observationId": 303871085,
-          "category": "whole_tree"
-        },
-        {
-          "id": 547738558,
-          "attribution": "(c) dinosaurman97, some rights reserved (CC BY-NC)",
-          "observationId": 303871085,
-          "category": "leaves"
-        },
-        {
           "id": 265767715,
           "attribution": "(c) Sarah Helfand, some rights reserved (CC BY-NC)",
           "observationId": 153846664,
           "category": "whole_tree"
+        },
+        {
+          "id": 265767910,
+          "attribution": "(c) Sarah Helfand, some rights reserved (CC BY-NC)",
+          "observationId": 153846664,
+          "category": "leaves"
+        },
+        {
+          "id": 547738559,
+          "attribution": "(c) dinosaurman97, some rights reserved (CC BY-NC)",
+          "observationId": 303871085,
+          "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:21.281Z"
+      "updatedAt": "2026-01-02T03:38:21.457Z"
     }
   },
   "jobo": {
@@ -1588,37 +1588,37 @@
     "gallery": {
       "photos": [
         {
-          "id": 1924401,
-          "attribution": "(c) Lena Struwe, some rights reserved (CC BY-SA)",
-          "observationId": 1549130,
+          "id": 74609657,
+          "attribution": "(c) Pedro Hernandez Gomez, all rights reserved",
+          "observationId": 47045400,
           "category": "whole_tree"
         },
         {
-          "id": 1924402,
-          "attribution": "(c) Lena Struwe, some rights reserved (CC BY-SA)",
-          "observationId": 1549130,
+          "id": 579331338,
+          "attribution": "(c) Rosibel Víquez, some rights reserved (CC BY-NC)",
+          "observationId": 320422040,
           "category": "leaves"
         },
         {
-          "id": 654101,
-          "attribution": "(c) James Steamer, some rights reserved (CC BY-NC)",
-          "observationId": 513616,
+          "id": 579331293,
+          "attribution": "(c) Rosibel Víquez, some rights reserved (CC BY-NC)",
+          "observationId": 320422040,
           "category": "whole_tree"
         },
         {
-          "id": 585763437,
-          "attribution": "(c) Miguel David Artavia Solís, some rights reserved (CC BY-NC)",
-          "observationId": 323703310,
+          "id": 579331380,
+          "attribution": "(c) Rosibel Víquez, some rights reserved (CC BY-NC)",
+          "observationId": 320422040,
           "category": "leaves"
         },
         {
-          "id": 583101108,
-          "attribution": "(c) jcabarcap, some rights reserved (CC BY-NC)",
-          "observationId": 322338974,
+          "id": 214534334,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 126438956,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:23.122Z"
+      "updatedAt": "2026-01-02T03:38:23.666Z"
     }
   },
   "laurel": {
@@ -1698,7 +1698,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:26.983Z"
+      "updatedAt": "2026-01-02T03:38:27.710Z"
     }
   },
   "madrono": {
@@ -1738,7 +1738,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:28.348Z"
+      "updatedAt": "2026-01-02T03:38:29.046Z"
     }
   },
   "mango": {
@@ -1748,21 +1748,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 461134239,
-          "attribution": "(c) Jaahljuu, all rights reserved",
-          "observationId": 257100177,
-          "category": "whole_tree"
-        },
-        {
-          "id": 461134253,
-          "attribution": "(c) Jaahljuu, all rights reserved",
-          "observationId": 257100177,
-          "category": "leaves"
-        },
-        {
-          "id": 110173421,
-          "attribution": "(c) Marina, some rights reserved (CC BY-NC)",
-          "observationId": 68093688,
+          "id": 66374340,
+          "attribution": "(c) Cody Chapman, some rights reserved (CC BY-NC)",
+          "observationId": 41829993,
           "category": "whole_tree"
         },
         {
@@ -1772,13 +1760,25 @@
           "category": "leaves"
         },
         {
-          "id": 110258558,
+          "id": 110072655,
+          "attribution": "(c) opilion, some rights reserved (CC BY-NC-ND)",
+          "observationId": 68036600,
+          "category": "whole_tree"
+        },
+        {
+          "id": 412628137,
+          "attribution": "(c) L Mason, all rights reserved",
+          "observationId": 232267516,
+          "category": "leaves"
+        },
+        {
+          "id": 110015656,
           "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
-          "observationId": 68141015,
+          "observationId": 68006553,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:32.729Z"
+      "updatedAt": "2026-01-02T03:38:33.541Z"
     }
   },
   "manu": {
@@ -1788,15 +1788,27 @@
     "gallery": {
       "photos": [
         {
-          "id": 342477986,
+          "id": 344185461,
           "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
-          "observationId": 194780390,
+          "observationId": 195615585,
           "category": "whole_tree"
         },
         {
-          "id": 342478008,
+          "id": 344185501,
           "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
-          "observationId": 194780390,
+          "observationId": 195615585,
+          "category": "leaves"
+        },
+        {
+          "id": 341490235,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 194294949,
+          "category": "whole_tree"
+        },
+        {
+          "id": 344185525,
+          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
+          "observationId": 195615585,
           "category": "leaves"
         },
         {
@@ -1804,21 +1816,9 @@
           "attribution": "(c) Fondo de Biodiversidad Sostenible, some rights reserved (CC BY-NC)",
           "observationId": 253546862,
           "category": "whole_tree"
-        },
-        {
-          "id": 342478025,
-          "attribution": "(c) Pedro Blanco, some rights reserved (CC BY-NC)",
-          "observationId": 194780390,
-          "category": "leaves"
-        },
-        {
-          "id": 417474943,
-          "attribution": "(c) capepolly, some rights reserved (CC BY-NC)",
-          "observationId": 234798011,
-          "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:34.028Z"
+      "updatedAt": "2026-01-02T03:38:34.708Z"
     }
   },
   "manzana-de-agua": {
@@ -1840,9 +1840,9 @@
           "category": "leaves"
         },
         {
-          "id": 385008467,
-          "attribution": "(c) Joseph Marlin, all rights reserved",
-          "observationId": 217621002,
+          "id": 103969266,
+          "attribution": "(c) amydk, all rights reserved",
+          "observationId": 64651569,
           "category": "whole_tree"
         },
         {
@@ -1852,13 +1852,13 @@
           "category": "leaves"
         },
         {
-          "id": 103969266,
-          "attribution": "(c) amydk, all rights reserved",
-          "observationId": 64651569,
+          "id": 30084797,
+          "attribution": "(c) jfto94, some rights reserved (CC BY-NC)",
+          "observationId": 19546641,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:35.411Z"
+      "updatedAt": "2026-01-02T03:38:35.911Z"
     }
   },
   "maranon": {
@@ -1978,7 +1978,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:38.460Z"
+      "updatedAt": "2026-01-02T03:38:39.681Z"
     }
   },
   "nance": {
@@ -2058,7 +2058,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:41.361Z"
+      "updatedAt": "2026-01-02T03:38:43.452Z"
     }
   },
   "nispero": {
@@ -2068,9 +2068,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 456746087,
-          "attribution": "(c) Daniel Garrigues, all rights reserved",
-          "observationId": 254931778,
+          "id": 160227349,
+          "attribution": "(c) Gared Rodríguez, all rights reserved",
+          "observationId": 96444018,
           "category": "whole_tree"
         },
         {
@@ -2080,9 +2080,9 @@
           "category": "leaves"
         },
         {
-          "id": 160227349,
-          "attribution": "(c) Gared Rodríguez, all rights reserved",
-          "observationId": 96444018,
+          "id": 456746087,
+          "attribution": "(c) Daniel Garrigues, all rights reserved",
+          "observationId": 254931778,
           "category": "whole_tree"
         },
         {
@@ -2098,7 +2098,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:42.413Z"
+      "updatedAt": "2026-01-02T03:38:44.497Z"
     }
   },
   "ojoche": {
@@ -2218,7 +2218,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:46.804Z"
+      "updatedAt": "2026-01-02T03:38:49.296Z"
     }
   },
   "papaya": {
@@ -2246,9 +2246,9 @@
           "category": "whole_tree"
         },
         {
-          "id": 69283268,
-          "attribution": "(c) Bernardita Mora, all rights reserved",
-          "observationId": 43677702,
+          "id": 117924039,
+          "attribution": "(c) Eyder Fonseca Sanchez, some rights reserved (CC BY)",
+          "observationId": 72337991,
           "category": "leaves"
         },
         {
@@ -2258,7 +2258,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:48.538Z"
+      "updatedAt": "2026-01-02T03:38:50.741Z"
     }
   },
   "pejibaye": {
@@ -2298,7 +2298,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:49.842Z"
+      "updatedAt": "2026-01-02T03:38:52.478Z"
     }
   },
   "pilon": {
@@ -2338,7 +2338,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:51.103Z"
+      "updatedAt": "2026-01-02T03:38:53.543Z"
     }
   },
   "pochote": {
@@ -2348,9 +2348,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 110101554,
-          "attribution": "(c) Frank Chaves, all rights reserved",
-          "observationId": 68052329,
+          "id": 351295996,
+          "attribution": "(c) Kathy McAleese, some rights reserved (CC BY-NC-ND)",
+          "observationId": 199221017,
           "category": "whole_tree"
         },
         {
@@ -2360,9 +2360,9 @@
           "category": "leaves"
         },
         {
-          "id": 351295996,
-          "attribution": "(c) Kathy McAleese, some rights reserved (CC BY-NC-ND)",
-          "observationId": 199221017,
+          "id": 110101554,
+          "attribution": "(c) Frank Chaves, all rights reserved",
+          "observationId": 68052329,
           "category": "whole_tree"
         },
         {
@@ -2378,7 +2378,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:53.445Z"
+      "updatedAt": "2026-01-02T03:38:55.944Z"
     }
   },
   "poro": {
@@ -2412,13 +2412,13 @@
           "category": "leaves"
         },
         {
-          "id": 479319965,
-          "attribution": "no rights reserved",
-          "observationId": 266766360,
+          "id": 113517896,
+          "attribution": "(c) Jorge Arturo Bogantes Montero, some rights reserved (CC BY-NC)",
+          "observationId": 69892341,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:56.158Z"
+      "updatedAt": "2026-01-02T03:38:58.549Z"
     }
   },
   "roble-de-sabana": {
@@ -2541,7 +2541,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:58.995Z"
+      "updatedAt": "2026-01-02T03:39:01.861Z"
     }
   },
   "sotacaballo": {
@@ -2661,7 +2661,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:03.112Z"
+      "updatedAt": "2026-01-02T03:39:06.351Z"
     }
   },
   "targua": {
@@ -2671,37 +2671,37 @@
     "gallery": {
       "photos": [
         {
-          "id": 124931253,
-          "attribution": "(c) olafo, some rights reserved (CC BY-NC)",
-          "observationId": 76372428,
+          "id": 471087378,
+          "attribution": "(c) León V., all rights reserved",
+          "observationId": 262204777,
           "category": "whole_tree"
         },
         {
-          "id": 124931731,
-          "attribution": "(c) olafo, some rights reserved (CC BY-NC)",
-          "observationId": 76372428,
+          "id": 471087443,
+          "attribution": "(c) León V., all rights reserved",
+          "observationId": 262204777,
           "category": "leaves"
         },
         {
-          "id": 414328370,
-          "attribution": "(c) joaquin_arrascaeta, some rights reserved (CC BY-NC)",
-          "observationId": 233158057,
-          "category": "whole_tree"
-        },
-        {
-          "id": 414328385,
-          "attribution": "(c) joaquin_arrascaeta, some rights reserved (CC BY-NC)",
-          "observationId": 233158057,
-          "category": "leaves"
-        },
-        {
-          "id": 218357053,
+          "id": 473954632,
           "attribution": "(c) Daniel Garrigues, all rights reserved",
-          "observationId": 128545646,
+          "observationId": 263790851,
+          "category": "whole_tree"
+        },
+        {
+          "id": 471087451,
+          "attribution": "(c) León V., all rights reserved",
+          "observationId": 262204777,
+          "category": "leaves"
+        },
+        {
+          "id": 272186916,
+          "attribution": "(c) Johan Gatgens García, all rights reserved",
+          "observationId": 157418134,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:04.381Z"
+      "updatedAt": "2026-01-02T03:39:07.699Z"
     }
   },
   "tempisque": {
@@ -2781,7 +2781,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:07.827Z"
+      "updatedAt": "2026-01-02T03:39:12.035Z"
     }
   },
   "zapote": {
@@ -2791,9 +2791,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 108701513,
-          "attribution": "(c) Katia Cordero Obregón, all rights reserved",
-          "observationId": 67300423,
+          "id": 226531333,
+          "attribution": "(c) livenletlive, some rights reserved (CC BY-NC)",
+          "observationId": 133028059,
           "category": "whole_tree"
         },
         {
@@ -2803,9 +2803,9 @@
           "category": "leaves"
         },
         {
-          "id": 226531333,
-          "attribution": "(c) livenletlive, some rights reserved (CC BY-NC)",
-          "observationId": 133028059,
+          "id": 108701513,
+          "attribution": "(c) Katia Cordero Obregón, all rights reserved",
+          "observationId": 67300423,
           "category": "whole_tree"
         },
         {
@@ -2821,7 +2821,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:10.007Z"
+      "updatedAt": "2026-01-02T03:39:14.165Z"
     }
   },
   "aceituno": {
@@ -2861,7 +2861,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:23.144Z"
+      "updatedAt": "2026-01-02T03:37:15.841Z"
     }
   },
   "alcornoque": {
@@ -2981,7 +2981,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:38.908Z"
+      "updatedAt": "2026-01-02T03:37:33.472Z"
     }
   },
   "cedro-maria": {
@@ -3021,7 +3021,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:47.541Z"
+      "updatedAt": "2026-01-02T03:37:42.663Z"
     }
   },
   "cerillo": {
@@ -3191,21 +3191,21 @@
     "gallery": {
       "photos": [
         {
-          "id": 168335512,
-          "attribution": "(c) avocat, some rights reserved (CC BY-NC)",
-          "observationId": 100834400,
+          "id": 436805210,
+          "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
+          "observationId": 244841260,
           "category": "whole_tree"
         },
         {
-          "id": 490408914,
-          "attribution": "(c) Daniel Garrigues, all rights reserved",
-          "observationId": 272587416,
+          "id": 60147923,
+          "attribution": "(c) plantdruid, all rights reserved",
+          "observationId": 37897423,
           "category": "leaves"
         },
         {
-          "id": 527278103,
-          "attribution": "no rights reserved",
-          "observationId": 292973448,
+          "id": 60148097,
+          "attribution": "(c) plantdruid, all rights reserved",
+          "observationId": 37897423,
           "category": "whole_tree"
         },
         {
@@ -3215,13 +3215,13 @@
           "category": "leaves"
         },
         {
-          "id": 57146239,
-          "attribution": "(c) Ruth Ripley, all rights reserved",
-          "observationId": 36172021,
+          "id": 322813133,
+          "attribution": "(c) Heiner Ziegler, some rights reserved (CC BY-NC)",
+          "observationId": 184898341,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:16.571Z"
+      "updatedAt": "2026-01-02T03:38:15.884Z"
     }
   },
   "laurel-negro": {
@@ -3261,7 +3261,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:24.410Z"
+      "updatedAt": "2026-01-02T03:38:24.730Z"
     }
   },
   "lechoso": {
@@ -3375,13 +3375,13 @@
           "category": "leaves"
         },
         {
-          "id": 71017835,
-          "attribution": "(c) Nicolas Morales, all rights reserved",
-          "observationId": 44797733,
+          "id": 167995998,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 100639103,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:39.489Z"
+      "updatedAt": "2026-01-02T03:38:41.190Z"
     }
   },
   "panama": {
@@ -3461,7 +3461,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:00.271Z"
+      "updatedAt": "2026-01-02T03:39:03.125Z"
     }
   },
   "teca": {
@@ -3471,37 +3471,37 @@
     "gallery": {
       "photos": [
         {
-          "id": 518872948,
-          "attribution": "(c) Jannis Werner, all rights reserved",
-          "observationId": 288521379,
+          "id": 109261366,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 67601912,
           "category": "whole_tree"
         },
         {
-          "id": 398358561,
-          "attribution": "(c) oceansunfish77, some rights reserved (CC BY-NC)",
-          "observationId": 224739818,
+          "id": 109261386,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 67601912,
           "category": "leaves"
         },
         {
-          "id": 398358512,
-          "attribution": "(c) oceansunfish77, some rights reserved (CC BY-NC)",
-          "observationId": 224739818,
+          "id": 107867742,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 66853497,
           "category": "whole_tree"
         },
         {
-          "id": 408225597,
-          "attribution": "(c) Sofie B, all rights reserved",
-          "observationId": 229944386,
+          "id": 107867754,
+          "attribution": "(c) veroalpizar, some rights reserved (CC BY-NC)",
+          "observationId": 66853497,
           "category": "leaves"
         },
         {
-          "id": 408225556,
-          "attribution": "(c) Sofie B, all rights reserved",
-          "observationId": 229944386,
+          "id": 108091920,
+          "attribution": "(c) Leiner Garcia Morales, all rights reserved",
+          "observationId": 66973109,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:05.711Z"
+      "updatedAt": "2026-01-02T03:39:09.289Z"
     }
   },
   "zapatero": {
@@ -3541,7 +3541,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:41:08.857Z"
+      "updatedAt": "2026-01-02T03:39:13.056Z"
     }
   },
   "ajo": {
@@ -3615,13 +3615,13 @@
           "category": "leaves"
         },
         {
-          "id": 600571903,
-          "attribution": "(c) sshe, some rights reserved (CC BY-NC)",
-          "observationId": 331103814,
+          "id": 414436160,
+          "attribution": "(c) Jo Jiménez, some rights reserved (CC BY-NC)",
+          "observationId": 233213221,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:29.430Z"
+      "updatedAt": "2026-01-02T03:37:22.986Z"
     }
   },
   "capulin": {
@@ -3643,25 +3643,25 @@
           "category": "leaves"
         },
         {
-          "id": 546629437,
-          "attribution": "(c) Daniel Legend, some rights reserved (CC BY-NC)",
-          "observationId": 303287252,
+          "id": 512613972,
+          "attribution": "(c) jmasis, some rights reserved (CC BY-NC)",
+          "observationId": 285198623,
           "category": "whole_tree"
         },
         {
-          "id": 551199448,
-          "attribution": "(c) Daniel Legend, some rights reserved (CC BY-NC)",
-          "observationId": 303287252,
+          "id": 485227652,
+          "attribution": "(c) Maynor Carranza, some rights reserved (CC BY-NC)",
+          "observationId": 269844126,
           "category": "leaves"
         },
         {
-          "id": 466291989,
-          "attribution": "(c) tina__w, some rights reserved (CC BY-NC)",
-          "observationId": 259724593,
+          "id": 485227620,
+          "attribution": "(c) Maynor Carranza, some rights reserved (CC BY-NC)",
+          "observationId": 269844126,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:40.191Z"
+      "updatedAt": "2026-01-02T03:37:34.810Z"
     }
   },
   "carambola": {
@@ -3723,9 +3723,9 @@
           "category": "leaves"
         },
         {
-          "id": 216789817,
-          "attribution": "(c) yenboga, some rights reserved (CC BY-NC)",
-          "observationId": 127680018,
+          "id": 193306900,
+          "attribution": "(c) Michelle Monge-Velazquez, some rights reserved (CC BY)",
+          "observationId": 114476156,
           "category": "whole_tree"
         },
         {
@@ -3735,13 +3735,13 @@
           "category": "leaves"
         },
         {
-          "id": 193306900,
-          "attribution": "(c) Michelle Monge-Velazquez, some rights reserved (CC BY)",
-          "observationId": 114476156,
+          "id": 26573355,
+          "attribution": "(c) ldgc, some rights reserved (CC BY-SA)",
+          "observationId": 17474476,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:44.172Z"
+      "updatedAt": "2026-01-02T03:37:39.329Z"
     }
   },
   "cativo": {
@@ -3821,7 +3821,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:51.337Z"
+      "updatedAt": "2026-01-02T03:37:47.579Z"
     }
   },
   "guanabana": {
@@ -3861,7 +3861,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:08.460Z"
+      "updatedAt": "2026-01-02T03:38:06.306Z"
     }
   },
   "icaco": {
@@ -3911,9 +3911,9 @@
     "gallery": {
       "photos": [
         {
-          "id": 185905058,
-          "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
-          "observationId": 110224954,
+          "id": 339021133,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 193037208,
           "category": "whole_tree"
         },
         {
@@ -3923,9 +3923,9 @@
           "category": "leaves"
         },
         {
-          "id": 339021133,
-          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
-          "observationId": 193037208,
+          "id": 185905058,
+          "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
+          "observationId": 110224954,
           "category": "whole_tree"
         },
         {
@@ -3941,7 +3941,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:29.416Z"
+      "updatedAt": "2026-01-02T03:38:30.283Z"
     }
   },
   "mamon-chino": {
@@ -4021,7 +4021,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:31.313Z"
+      "updatedAt": "2026-01-02T03:38:32.112Z"
     }
   },
   "olla-de-mono": {
@@ -4101,7 +4101,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:52.461Z"
+      "updatedAt": "2026-01-02T03:38:54.890Z"
     }
   },
   "pomarrosa": {
@@ -4129,9 +4129,9 @@
           "category": "whole_tree"
         },
         {
-          "id": 332537398,
-          "attribution": "(c) judirich, some rights reserved (CC BY-NC)",
-          "observationId": 189770951,
+          "id": 117030307,
+          "attribution": "(c) Jean Carlo Barrantes Rodríguez, some rights reserved (CC BY-NC)",
+          "observationId": 71841386,
           "category": "leaves"
         },
         {
@@ -4141,7 +4141,7 @@
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:40:54.845Z"
+      "updatedAt": "2026-01-02T03:38:57.292Z"
     }
   },
   "orey": {
@@ -4162,6 +4162,18 @@
           "category": "whole_tree"
         },
         {
+          "id": 174018017,
+          "attribution": "(c) Rickie White, all rights reserved",
+          "observationId": 103902283,
+          "category": "leaves"
+        },
+        {
+          "id": 415596808,
+          "attribution": "(c) Carmen Violeta Pacheco Guarda RÍos Centenario, all rights reserved",
+          "observationId": 233826293,
+          "category": "whole_tree"
+        },
+        {
           "id": 420522358,
           "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
           "observationId": 236378842,
@@ -4172,21 +4184,9 @@
           "attribution": "(c) grunionster, some rights reserved (CC BY-NC)",
           "observationId": 302661712,
           "category": "whole_tree"
-        },
-        {
-          "id": 420522435,
-          "attribution": "(c) Randall Jiménez, some rights reserved (CC BY-NC)",
-          "observationId": 236378842,
-          "category": "leaves"
-        },
-        {
-          "id": 415596808,
-          "attribution": "(c) Carmen Violeta Pacheco Guarda RÍos Centenario, all rights reserved",
-          "observationId": 233826293,
-          "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-01-01T03:39:30.691Z"
+      "updatedAt": "2026-01-02T03:37:24.150Z"
     }
   }
 }
