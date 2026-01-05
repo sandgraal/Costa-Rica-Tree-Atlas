@@ -38,7 +38,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6">
             <Link
               href="/"
               className="text-foreground/80 hover:text-primary transition-colors"
@@ -90,7 +90,7 @@ export function Header() {
           </div>
 
           {/* Right side controls */}
-          <div className="flex items-center gap-2 md:gap-4">
+          <div className="flex items-center gap-2 lg:gap-4">
             <div className="hidden sm:block">
               <QuickSearch />
             </div>
