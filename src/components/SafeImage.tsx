@@ -18,11 +18,11 @@ interface SafeImageProps extends Omit<ImageProps, "onError"> {
 
 /**
  * SafeImage - Error-resilient image component
- * 
- * Wraps Next.js Image with error handling and loading state tracking to gracefully 
+ *
+ * Wraps Next.js Image with error handling and loading state tracking to gracefully
  * handle broken images and ensure proper rendering on initial page load.
  * Shows a placeholder icon or hides entirely when image fails to load or src is empty.
- * 
+ *
  * @param fallback - "placeholder" (default) shows tree icon, "hide" hides entirely
  * @param onErrorCallback - Optional callback when image fails to load
  */
@@ -44,7 +44,7 @@ export function SafeImage({
   };
 
   // Better empty check - trim whitespace and handle StaticImport
-  const isEmpty = !src || (typeof src === 'string' && src.trim() === '');
+  const isEmpty = !src || (typeof src === "string" && src.trim() === "");
 
   // Check BEFORE attempting to render
   if (isEmpty || error) {

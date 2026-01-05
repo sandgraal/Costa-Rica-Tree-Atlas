@@ -13,6 +13,7 @@ The Costa Rica Tree Atlas implements automated weekly image quality monitoring t
 ## What Gets Checked
 
 ### 1. Featured Images
+
 - ✅ Image accessibility (local files and remote URLs)
 - ✅ File size validation (minimum 20KB)
 - ✅ Placeholder detection
@@ -20,12 +21,14 @@ The Costa Rica Tree Atlas implements automated weekly image quality monitoring t
 - ✅ Usage tracking (main page, calendar, detail pages)
 
 ### 2. Gallery Images
+
 - ✅ Image quality assessment
 - ✅ Resolution validation
 - ✅ URL accessibility
 - ✅ Representative category distribution
 
 ### 3. Quality Metrics
+
 - **Image Health Score:** Percentage of valid images
 - **Average File Size:** Ensures adequate resolution
 - **Impact Analysis:** Identifies which pages are affected by issues
@@ -40,6 +43,7 @@ Schedule: "0 3 * * 0" (Every Sunday at 3 AM UTC)
 ```
 
 **Steps:**
+
 1. **Comprehensive Audit**
    - Scans all featured images
    - Validates gallery images
@@ -77,6 +81,7 @@ You can manually trigger the workflow with different modes:
 ```
 
 **Available Modes:**
+
 - `audit` - Check images without making changes
 - `audit-gallery` - Check gallery images only
 - `download` - Download missing/broken images
@@ -88,15 +93,17 @@ You can manually trigger the workflow with different modes:
 ## Quality Standards
 
 ### Featured Images
+
 - **Minimum Size:** 20KB
 - **Target Width:** 1200px
 - **Format:** JPEG
-- **Source Priority:** 
+- **Source Priority:**
   1. iNaturalist (Costa Rica observations preferred)
   2. GBIF
   3. Wikimedia Commons
 
 ### Gallery Images
+
 - **Minimum Size:** 10KB
 - **Target Width:** 800px
 - **Categories:** Whole tree, leaves, bark, flowers, fruit, habitat
@@ -109,11 +116,13 @@ You can manually trigger the workflow with different modes:
 ## Error Handling
 
 ### Transient Failures
+
 - **Retry Logic:** 3 attempts with exponential backoff
 - **Timeout:** 30 seconds per attempt
 - **Delays:** 1s, 2s, 4s between retries
 
 ### Browser-Side Resilience
+
 - `SafeImage` component handles image load failures
 - Graceful fallback to placeholder icons
 - No broken image icons shown to users
@@ -121,6 +130,7 @@ You can manually trigger the workflow with different modes:
 ## Monitoring Dashboard
 
 ### Key Metrics Tracked
+
 - ✅ Total trees: `108`
 - ✅ Image health: `100%` (target: >98%)
 - ✅ Average image size: `488KB`
@@ -129,7 +139,9 @@ You can manually trigger the workflow with different modes:
 - ✅ Undersized: `0` (target: 0)
 
 ### Impact Analysis
+
 When issues are detected, the system identifies affected pages:
+
 - Main page (featured trees, what's blooming)
 - Calendar page (seasonal visualization)
 - Individual tree detail pages
@@ -168,21 +180,27 @@ When issues are detected, the system identifies affected pages:
 ## Troubleshooting
 
 ### Issue: Audit finds broken images
+
 **Solution:** Run `npm run images:download` to fetch from sources
 
 ### Issue: Images too small
+
 **Solution:** Run `npm run images:refresh` for better quality versions
 
 ### Issue: External URL broken
+
 **Solution:** Script will automatically download and localize the image
 
 ### Issue: No images found for tree
+
 **Causes:**
+
 - Taxon not in iNaturalist
 - Scientific name mismatch
 - No photos in any source
 
 **Solution:**
+
 - Add to `SCIENTIFIC_NAME_FIXES` in script
 - Manually provide image URL
 - Contact iNaturalist to add taxon

@@ -101,14 +101,19 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({
-      taxonId: taxon.id,
-      taxonName: taxon.name,
-      commonName: taxon.preferred_common_name,
-      images: images.slice(0, 12), // Limit to 12 images
-    }, {
-      headers: rateLimitResult.headers,
-    });
+    return NextResponse.json(
+      {
+        taxonId: taxon.id,
+        taxonName: taxon.name,
+        commonName: taxon.preferred_common_name,
+        images: images.slice(0, 12), // Limit to 12 images
+      },
+      {
+        headers: {
+          "X-RateLimit-Remaining": String(remaining),
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching species images:", error);
     return NextResponse.json(

@@ -8,6 +8,7 @@ applyTo: src/app/api/**
 ## Structure
 
 API routes use Next.js App Router conventions:
+
 - `src/app/api/{endpoint}/route.ts`
 - Export named functions: `GET`, `POST`, `PUT`, `DELETE`, etc.
 
@@ -48,7 +49,10 @@ export async function GET(request: NextRequest) {
 
 ```typescript
 // 400 - Bad Request
-return NextResponse.json({ error: "Missing required parameter" }, { status: 400 });
+return NextResponse.json(
+  { error: "Missing required parameter" },
+  { status: 400 }
+);
 
 // 404 - Not Found
 return NextResponse.json({ error: "Resource not found" }, { status: 404 });

@@ -27,6 +27,7 @@ Components in this project follow these conventions:
 ## Pattern Examples
 
 ### Standard Component
+
 ```tsx
 import { useTranslations } from "next-intl";
 
@@ -37,7 +38,12 @@ interface TreeCardProps {
   description?: string;
 }
 
-export function TreeCard({ slug, title, scientificName, description }: TreeCardProps) {
+export function TreeCard({
+  slug,
+  title,
+  scientificName,
+  description,
+}: TreeCardProps) {
   const t = useTranslations("trees");
   return (
     <article className="rounded-lg border p-4">
@@ -50,6 +56,7 @@ export function TreeCard({ slug, title, scientificName, description }: TreeCardP
 ```
 
 ### Client Component with Store
+
 ```tsx
 "use client";
 
@@ -58,7 +65,7 @@ import { useStore } from "@/lib/store";
 export function FavoriteButton({ slug }: { slug: string }) {
   const { isFavorite, toggleFavorite } = useStore();
   const favorited = isFavorite(slug);
-  
+
   return (
     <button
       onClick={() => toggleFavorite(slug)}

@@ -8,6 +8,7 @@ applyTo: scripts/**
 ## Script Conventions
 
 All scripts in this directory:
+
 - Use ES modules (`.mjs` extension)
 - Are Node.js scripts (not browser code)
 - Are excluded from ESLint
@@ -15,10 +16,12 @@ All scripts in this directory:
 ## Available Scripts
 
 ### Image Management
+
 - `manage-tree-images.mjs` - Download, audit, and refresh tree images
 - `cleanup-tree-images.mjs` - Remove orphaned images
 
 ### Content Processing
+
 - `add-gallery-sections.mjs` - Add gallery sections to MDX files
 - `add-seasonal-data.mjs` - Add flowering/fruiting data
 - `add-tree-tags.mjs` - Add tag metadata
@@ -28,12 +31,14 @@ All scripts in this directory:
 ## Running Scripts
 
 Via npm:
+
 ```bash
 npm run images:audit
 npm run images:cleanup
 ```
 
 Directly:
+
 ```bash
 node scripts/script-name.mjs [options]
 ```

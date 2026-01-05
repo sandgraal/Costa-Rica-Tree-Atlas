@@ -40,7 +40,7 @@ assignees: ""
 - [ ] Language switching
 - [ ] Dark/Light mode
 - [ ] Mobile experience
-- [ ] Other: ****\_\_\_****
+- [ ] Other: \***\*\_\_\_\*\***
 
 ## 🌐 Localization Impact
 
