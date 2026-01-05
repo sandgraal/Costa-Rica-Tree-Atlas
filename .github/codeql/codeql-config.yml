@@ -1,0 +1,23 @@
+name: "CodeQL Config"
+
+queries:
+  - uses: security-extended
+  - uses: security-and-quality
+
+paths-ignore:
+  - node_modules
+  - .next
+  - .contentlayer
+  - public
+
+paths:
+  - src
+  - middleware.ts
+  - next.config.ts
+
+# Custom queries for Next.js security
+query-filters:
+  - exclude:
+      id: js/unused-local-variable
+  - exclude:
+      id: js/useless-expression
