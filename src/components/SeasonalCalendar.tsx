@@ -754,6 +754,8 @@ function TreeListItem({
   locale: string;
   type: "flowering" | "fruiting";
 }) {
+  const [imageError, setImageError] = useState(false);
+  
   const isYearRound =
     type === "flowering"
       ? tree.floweringSeason?.includes("all-year")
@@ -764,7 +766,7 @@ function TreeListItem({
       href={`/${locale}/trees/${tree.slug}`}
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
     >
-      {tree.featuredImage && (
+      {tree.featuredImage && !imageError && (
         <div className="w-10 h-10 relative rounded-lg overflow-hidden flex-shrink-0">
           <Image
             src={tree.featuredImage}
@@ -772,7 +774,13 @@ function TreeListItem({
             fill
             sizes="40px"
             className="object-cover"
+            onError={() => setImageError(true)}
           />
+        </div>
+      )}
+      {tree.featuredImage && imageError && (
+        <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+          <span className="text-xs text-muted-foreground">🌳</span>
         </div>
       )}
       <div className="flex-1 min-w-0">
