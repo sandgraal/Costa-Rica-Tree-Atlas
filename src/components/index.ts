@@ -47,3 +47,4 @@ export { MobileNav } from "./MobileNav";
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
 export { OptimizedImage } from "./OptimizedImage";
+export { SafeImage } from "./SafeImage";

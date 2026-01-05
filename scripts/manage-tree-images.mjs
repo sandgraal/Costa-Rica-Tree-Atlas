@@ -230,15 +230,36 @@ function buildInatPhotoUrl(url, size) {
   return `${base}/${size}.${extension}`;
 }
 
-async function checkRemoteImage(url) {
-  try {
-    const res = await fetchWithTimeout(url, {}, 10000);
-    const contentType = res.headers["content-type"] || "";
-    res.destroy(); // Don't download the body
-    return res.statusCode === 200 && contentType.startsWith("image/");
-  } catch {
-    return false;
+async function checkRemoteImage(url, retries = 3) {
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const res = await fetchWithTimeout(url, {}, 30000); // Increased to 30 seconds
+      const contentType = res.headers["content-type"] || "";
+      res.destroy(); // Don't download the body
+      const isValid = res.statusCode === 200 && contentType.startsWith("image/");
+      
+      if (isValid) {
+        return true;
+      }
+      
+      // If not valid and this isn't the last attempt, wait before retrying
+      if (attempt < retries - 1) {
+        const delay = 1000 * Math.pow(2, attempt); // Exponential backoff: 1s, 2s, 4s
+        await sleep(delay);
+      }
+    } catch (err) {
+      // On error, wait before retrying (unless last attempt)
+      if (attempt < retries - 1) {
+        const delay = 1000 * Math.pow(2, attempt);
+        log.verbose(`Retry ${attempt + 1}/${retries} for ${url} after error: ${err.message}`);
+        await sleep(delay);
+      } else {
+        log.verbose(`All ${retries} attempts failed for ${url}: ${err.message}`);
+      }
+    }
   }
+  
+  return false;
 }
 
 // GBIF API - Fallback for rare species
@@ -1004,6 +1025,53 @@ async function checkImageStatus(treeName, featuredImage) {
   }
 
   return { ...status, issue: "unknown" };
+}
+
+// Comprehensive validation of all tree images (featured + gallery)
+async function validateAllTreeImages(treeName, featuredImage, galleryImages = []) {
+  const result = {
+    treeName,
+    featuredImage: {
+      path: featuredImage,
+      valid: false,
+      accessible: false,
+      issue: null,
+      usedOn: ["main page", "calendar page", "tree detail page"],
+    },
+    galleryImages: [],
+    overallValid: false,
+  };
+
+  // Validate featured image
+  const featuredStatus = await checkImageStatus(treeName, featuredImage);
+  result.featuredImage.valid = !featuredStatus.issue;
+  result.featuredImage.issue = featuredStatus.issue;
+  
+  if (featuredStatus.isExternal) {
+    result.featuredImage.accessible = featuredStatus.isValid;
+  } else if (featuredStatus.isLocal) {
+    result.featuredImage.accessible = featuredStatus.isValid;
+  }
+
+  // Validate gallery images
+  for (const galleryImage of galleryImages) {
+    const validation = await validateGalleryImage(galleryImage);
+    result.galleryImages.push({
+      path: galleryImage,
+      valid: validation.isValid,
+      accessible: validation.isAccessible,
+      highQuality: validation.isHighQuality,
+      reason: validation.reason,
+      usedOn: ["tree detail page gallery"],
+    });
+  }
+
+  // Overall validation
+  result.overallValid =
+    result.featuredImage.valid &&
+    result.galleryImages.every((img) => img.valid);
+
+  return result;
 }
 
 // Main processing function

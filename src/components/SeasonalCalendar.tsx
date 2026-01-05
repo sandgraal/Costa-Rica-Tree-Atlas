@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { SafeImage } from "@/components/SafeImage";
 import {
   getEventsForMonth,
   getEventTranslation,
@@ -764,17 +764,16 @@ function TreeListItem({
       href={`/${locale}/trees/${tree.slug}`}
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
     >
-      {tree.featuredImage && (
-        <div className="w-10 h-10 relative rounded-lg overflow-hidden flex-shrink-0">
-          <Image
-            src={tree.featuredImage}
-            alt={tree.title}
-            fill
-            sizes="40px"
-            className="object-cover"
-          />
-        </div>
-      )}
+      <div className="w-10 h-10 relative rounded-lg overflow-hidden flex-shrink-0">
+        <SafeImage
+          src={tree.featuredImage || ""}
+          alt={tree.title}
+          fill
+          sizes="40px"
+          className="object-cover"
+          fallback="hide"
+        />
+      </div>
       <div className="flex-1 min-w-0">
         <p className="font-medium text-foreground truncate">{tree.title}</p>
         <p className="text-xs text-muted-foreground italic truncate">

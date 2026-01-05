@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import { useFavorite } from "@/lib/store";
 import {
@@ -8,6 +7,7 @@ import {
   getTagLabel,
   CONSERVATION_CATEGORIES,
 } from "@/lib/i18n";
+import { SafeImage } from "@/components/SafeImage";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import type { Locale, TreeTag } from "@/types/tree";
 
@@ -61,22 +61,17 @@ export function TreeCard({
       <Link href={`/trees/${tree.slug}`} className="block">
         {/* Image */}
         <div className="aspect-video bg-primary/10 relative overflow-hidden">
-          {tree.featuredImage ? (
-            <Image
-              src={tree.featuredImage}
-              alt={tree.title}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              placeholder="blur"
-              blurDataURL={BLUR_PLACEHOLDER}
-              priority={priority}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <TreePlaceholder />
-            </div>
-          )}
+          <SafeImage
+            src={tree.featuredImage || ""}
+            alt={tree.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            placeholder="blur"
+            blurDataURL={BLUR_PLACEHOLDER}
+            priority={priority}
+            fallback="placeholder"
+          />
 
           {/* Conservation status badge */}
           {tree.conservationStatus && (
