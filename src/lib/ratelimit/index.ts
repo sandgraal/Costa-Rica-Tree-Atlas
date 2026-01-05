@@ -80,14 +80,15 @@ function getClientIdentifier(request: NextRequest): string {
 
 /**
  * Apply rate limiting to an API route
+ * Returns either a NextResponse with 429 error, or an object with headers to add to successful response
  */
 export async function rateLimit(
   request: NextRequest,
   type: keyof typeof RATE_LIMITS = "default"
-): Promise<NextResponse | null> {
+): Promise<{ response: NextResponse } | { headers: Record<string, string> }> {
   // Skip rate limiting in development
   if (process.env.NODE_ENV === "development" && !redis) {
-    return null; // Allow request
+    return { headers: {} }; // Allow request with no headers
   }
 
   // If Redis is not configured in production, log warning and allow
@@ -95,7 +96,7 @@ export async function rateLimit(
     console.warn(
       "⚠️  Rate limiting disabled: UPSTASH_REDIS_REST_URL not configured"
     );
-    return null;
+    return { headers: {} };
   }
 
   const identifier = getClientIdentifier(request);
@@ -104,64 +105,41 @@ export async function rateLimit(
   try {
     const result = await limiter.limit(identifier);
 
-    // Add rate limit headers to response
-    const headers = new Headers({
-      "X-RateLimit-Limit": result.limit.toString(),
-      "X-RateLimit-Remaining": result.remaining.toString(),
-      "X-RateLimit-Reset": result.reset.toString(),
-    });
-
-    if (!result.success) {
-      // Rate limit exceeded
-      const retryAfter = Math.ceil((result.reset - Date.now()) / 1000);
-      headers.set("Retry-After", retryAfter.toString());
-
-      return new NextResponse(
-        JSON.stringify({
-          error: "Too many requests. Please try again later.",
-          retryAfter,
-          limit: result.limit,
-        }),
-        {
-          status: 429,
-          headers: {
-            ...Object.fromEntries(headers),
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    }
-
-    // Rate limit passed - return null to continue with request
-    // Caller should add these headers to their response
-    return null;
-  } catch (error) {
-    // If rate limiting fails, log error but allow request
-    console.error("Rate limiting error:", error);
-    return null;
-  }
-}
-
-/**
- * Helper to add rate limit headers to a successful response
- */
-export async function getRateLimitHeaders(
-  request: NextRequest,
-  type: keyof typeof RATE_LIMITS = "default"
-): Promise<Record<string, string>> {
-  if (!redis) return {};
-
-  const identifier = getClientIdentifier(request);
-  const limiter = rateLimiters![type] || rateLimiters!.default;
-
-  try {
-    const result = await limiter.limit(identifier);
-    return {
+    // Prepare rate limit headers
+    const headers: Record<string, string> = {
       "X-RateLimit-Limit": result.limit.toString(),
       "X-RateLimit-Remaining": result.remaining.toString(),
       "X-RateLimit-Reset": result.reset.toString(),
     };
-  } catch {
-    return {};
+
+    if (!result.success) {
+      // Rate limit exceeded
+      const retryAfter = Math.ceil((result.reset - Date.now()) / 1000);
+      headers["Retry-After"] = retryAfter.toString();
+
+      return {
+        response: new NextResponse(
+          JSON.stringify({
+            error: "Too many requests. Please try again later.",
+            retryAfter,
+            limit: result.limit,
+          }),
+          {
+            status: 429,
+            headers: {
+              ...headers,
+              "Content-Type": "application/json",
+            },
+          }
+        ),
+      };
+    }
+
+    // Rate limit passed - return headers to add to successful response
+    return { headers };
+  } catch (error) {
+    // If rate limiting fails, log error but allow request
+    console.error("Rate limiting error:", error);
+    return { headers: {} };
   }
 }

@@ -156,9 +156,9 @@ export async function POST(request: NextRequest) {
   }
 
   // Apply rate limiting
-  const rateLimitResponse = await rateLimit(request, "identify");
-  if (rateLimitResponse) {
-    return rateLimitResponse; // Rate limit exceeded
+  const rateLimitResult = await rateLimit(request, "identify");
+  if ("response" in rateLimitResult) {
+    return rateLimitResult.response; // Rate limit exceeded
   }
 
   const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY;

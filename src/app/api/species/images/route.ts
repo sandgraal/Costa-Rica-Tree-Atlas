@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateScientificName } from "@/lib/validation";
-import { rateLimit, getRateLimitHeaders } from "@/lib/ratelimit";
+import { rateLimit } from "@/lib/ratelimit";
 
 const INATURALIST_API = "https://api.inaturalist.org/v1";
 
@@ -21,8 +21,8 @@ interface INaturalistObservation {
 
 export async function GET(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResponse = await rateLimit(request, "images");
-  if (rateLimitResponse) return rateLimitResponse;
+  const rateLimitResult = await rateLimit(request, "images");
+  if ("response" in rateLimitResult) return rateLimitResult.response;
 
   const searchParams = request.nextUrl.searchParams;
   const scientificName = searchParams.get("name");
@@ -101,15 +101,13 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    const rateLimitHeaders = await getRateLimitHeaders(request, "images");
-
     return NextResponse.json({
       taxonId: taxon.id,
       taxonName: taxon.name,
       commonName: taxon.preferred_common_name,
       images: images.slice(0, 12), // Limit to 12 images
     }, {
-      headers: rateLimitHeaders,
+      headers: rateLimitResult.headers,
     });
   } catch (error) {
     console.error("Error fetching species images:", error);

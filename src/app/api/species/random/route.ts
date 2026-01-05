@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
 import { validateLocale } from "@/lib/validation";
-import { rateLimit, getRateLimitHeaders } from "@/lib/ratelimit";
+import { rateLimit } from "@/lib/ratelimit";
 
 export async function GET(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResponse = await rateLimit(request, "random");
-  if (rateLimitResponse) return rateLimitResponse;
+  const rateLimitResult = await rateLimit(request, "random");
+  if ("response" in rateLimitResult) return rateLimitResult.response;
 
   const { searchParams } = request.nextUrl;
   const localeParam = searchParams.get("locale");
@@ -30,8 +30,6 @@ export async function GET(request: NextRequest) {
   const randomIndex = Math.floor(Math.random() * trees.length);
   const randomTree = trees[randomIndex];
 
-  const rateLimitHeaders = await getRateLimitHeaders(request, "random");
-
   return NextResponse.json(
     {
       slug: randomTree.slug,
@@ -39,7 +37,7 @@ export async function GET(request: NextRequest) {
       scientificName: randomTree.scientificName,
     },
     {
-      headers: rateLimitHeaders,
+      headers: rateLimitResult.headers,
     }
   );
 }
