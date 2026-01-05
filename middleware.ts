@@ -9,6 +9,7 @@ export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
   // Check if this is an admin route
+  // Note: Locale pattern matches routing.locales from i18n/routing.ts
   if (pathname.match(/^\/(en|es)\/admin\//)) {
     const basicAuth = request.headers.get("authorization");
     const adminPassword = process.env.ADMIN_PASSWORD;
@@ -28,11 +29,18 @@ export default function middleware(request: NextRequest) {
       const authValue = basicAuth.split(" ")[1];
       if (authValue) {
         try {
-          const [user, pwd] = atob(authValue).split(":");
+          const decoded = atob(authValue);
+          const parts = decoded.split(":");
+          
+          // Ensure we have both username and password
+          if (parts.length >= 2) {
+            const user = parts[0];
+            const pwd = parts.slice(1).join(":"); // Handle passwords with colons
 
-          if (user === "admin" && pwd === adminPassword) {
-            // Authentication successful, continue with i18n middleware
-            return intlMiddleware(request);
+            if (user === "admin" && pwd === adminPassword) {
+              // Authentication successful, continue with i18n middleware
+              return intlMiddleware(request);
+            }
           }
         } catch (error) {
           // Invalid base64 or malformed auth header
