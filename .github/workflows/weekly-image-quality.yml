@@ -66,14 +66,22 @@ jobs:
           
           # Featured images audit
           echo "### Featured Images" >> audit-report.md
-          npm run images:audit > audit-output.txt 2>&1 || echo "audit_failed=true" >> $GITHUB_OUTPUT
-          cat audit-output.txt >> audit-report.md
+          if npm run images:audit >> audit-report.md 2>&1; then
+            echo "audit_failed=false" >> $GITHUB_OUTPUT
+          else
+            echo "audit_failed=true" >> $GITHUB_OUTPUT
+          fi
           echo "" >> audit-report.md
           
-          # Count issues
-          BROKEN=$(grep -c "❌" audit-output.txt || echo "0")
-          PLACEHOLDERS=$(grep -c "⚠️.*placeholder" audit-output.txt || echo "0")
-          TOO_SMALL=$(grep -c "⚠️.*too small" audit-output.txt || echo "0")
+          # Count issues from audit report
+          BROKEN=$(grep -c "❌" audit-report.md || true)
+          PLACEHOLDERS=$(grep -c "⚠️.*placeholder" audit-report.md || true)
+          TOO_SMALL=$(grep -c "⚠️.*too small" audit-report.md || true)
+          
+          # Default to 0 if grep found nothing
+          BROKEN=${BROKEN:-0}
+          PLACEHOLDERS=${PLACEHOLDERS:-0}
+          TOO_SMALL=${TOO_SMALL:-0}
           
           echo "broken_count=$BROKEN" >> $GITHUB_OUTPUT
           echo "placeholder_count=$PLACEHOLDERS" >> $GITHUB_OUTPUT
@@ -85,7 +93,11 @@ jobs:
         continue-on-error: true
         run: |
           echo "### Gallery Images" >> audit-report.md
-          npm run images:audit:gallery >> audit-report.md 2>&1 || echo "gallery_audit_failed=true" >> $GITHUB_OUTPUT
+          if npm run images:audit:gallery >> audit-report.md 2>&1; then
+            echo "gallery_audit_failed=false" >> $GITHUB_OUTPUT
+          else
+            echo "gallery_audit_failed=true" >> $GITHUB_OUTPUT
+          fi
           echo "" >> audit-report.md
 
       # Generate quality metrics
