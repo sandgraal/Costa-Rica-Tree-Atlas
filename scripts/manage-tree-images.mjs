@@ -46,6 +46,16 @@ const MIN_GALLERY_IMAGE_SIZE = 10000; // 10KB minimum for gallery
 const PLACEHOLDER_PATTERN = /12345678/;
 const GALLERY_IMAGES_DIR = path.join(IMAGES_DIR, "gallery");
 
+// Remote image checking configuration
+const REMOTE_IMAGE_MAX_RETRIES = 3;
+const REMOTE_IMAGE_TIMEOUT_MS = 15000; // 15 seconds
+const RETRY_BACKOFF_BASE_MS = 1000; // 1 second
+const RETRY_BACKOFF_MULTIPLIER = 2;
+const RETRY_BACKOFF_MAX_MS = 5000; // 5 seconds max
+
+// Image quality patterns
+const LOW_RES_IMAGE_PATTERNS = ["/square.", "/small."];
+
 // Gallery image quality criteria
 const GALLERY_QUALITY_CRITERIA = {
   minVotes: 3, // Minimum faves/votes on iNaturalist
@@ -230,15 +240,51 @@ function buildInatPhotoUrl(url, size) {
   return `${base}/${size}.${extension}`;
 }
 
-async function checkRemoteImage(url) {
-  try {
-    const res = await fetchWithTimeout(url, {}, 10000);
-    const contentType = res.headers["content-type"] || "";
-    res.destroy(); // Don't download the body
-    return res.statusCode === 200 && contentType.startsWith("image/");
-  } catch {
-    return false;
+async function checkRemoteImage(
+  url,
+  maxRetries = REMOTE_IMAGE_MAX_RETRIES,
+  timeoutMs = REMOTE_IMAGE_TIMEOUT_MS
+) {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetchWithTimeout(url, {}, timeoutMs);
+      const contentType = res.headers["content-type"] || "";
+      res.destroy(); // Don't download the body
+
+      if (res.statusCode === 200 && contentType.startsWith("image/")) {
+        return true;
+      }
+
+      // Log non-200 responses for debugging
+      if (attempt === maxRetries) {
+        log.verbose(`Image check failed: HTTP ${res.statusCode} for ${url}`);
+      }
+      return false;
+    } catch (err) {
+      lastError = err;
+
+      // If this isn't the last attempt, wait before retrying
+      if (attempt < maxRetries) {
+        const backoffMs = Math.min(
+          RETRY_BACKOFF_BASE_MS *
+            Math.pow(RETRY_BACKOFF_MULTIPLIER, attempt - 1),
+          RETRY_BACKOFF_MAX_MS
+        );
+        log.verbose(
+          `Retry ${attempt}/${maxRetries} for ${url} after ${backoffMs}ms`
+        );
+        await sleep(backoffMs);
+      }
+    }
   }
+
+  // All retries failed
+  log.verbose(
+    `Image check failed after ${maxRetries} attempts: ${lastError?.message || "unknown error"}`
+  );
+  return false;
 }
 
 // GBIF API - Fallback for rare species
@@ -412,9 +458,7 @@ async function getTopPhotos(taxonId, limit = 15) {
   }
 
   // Sort by featured quality score
-  photos.sort(
-    (a, b) => scoreFeaturedCandidate(b) - scoreFeaturedCandidate(a)
-  );
+  photos.sort((a, b) => scoreFeaturedCandidate(b) - scoreFeaturedCandidate(a));
 
   return photos.slice(0, limit);
 }
@@ -637,7 +681,9 @@ function extractGalleryImages(content) {
 function inferGalleryCategory(image) {
   const text = `${image.title ?? ""} ${image.alt ?? ""}`.toLowerCase();
 
-  for (const [category, patterns] of Object.entries(GALLERY_CATEGORY_PATTERNS)) {
+  for (const [category, patterns] of Object.entries(
+    GALLERY_CATEGORY_PATTERNS
+  )) {
     if (patterns.some((pattern) => pattern.test(text))) {
       return category;
     }
@@ -677,8 +723,7 @@ function scoreFeaturedCandidate(photo) {
     pattern.test(desc)
   );
   const areaScore = area ? Math.min(area / 5_000_000, 2) : 0.5;
-  const ratioScore =
-    aspectRatio >= 0.7 && aspectRatio <= 1.8 ? 1 : 0.2;
+  const ratioScore = aspectRatio >= 0.7 && aspectRatio <= 1.8 ? 1 : 0.2;
   const firstPhotoBonus = photo.isFirst ? 0.6 : 0;
   const wholeTreeBonus = hasWholeTree ? 2 : 0;
   const detailPenalty = hasDetail ? 1.5 : 0;
@@ -950,7 +995,7 @@ async function updateMdxGallery(filePath, treeName, newImages, scientificName) {
   }
 }
 
-// Image status checking
+// Image status checking with enhanced validation
 async function checkImageStatus(treeName, featuredImage) {
   const status = {
     treeName,
@@ -959,6 +1004,7 @@ async function checkImageStatus(treeName, featuredImage) {
     isExternal: false,
     isPlaceholder: false,
     isValid: false,
+    isHighQuality: true,
     localPath: null,
     fileSize: 0,
   };
@@ -988,19 +1034,45 @@ async function checkImageStatus(treeName, featuredImage) {
       }
 
       return { ...status, issue: null };
-    } catch {
+    } catch (err) {
+      log.verbose(`Local image check failed for ${treeName}: ${err.message}`);
       return { ...status, issue: "local_missing" };
     }
   }
 
   if (status.isExternal) {
-    status.isValid = await checkRemoteImage(featuredImage);
+    // Enhanced validation similar to gallery images
+    try {
+      // Check if URL is accessible with retry logic
+      status.isValid = await checkRemoteImage(featuredImage);
 
-    if (!status.isValid) {
+      if (!status.isValid) {
+        log.verbose(`Remote image broken for ${treeName}: ${featuredImage}`);
+        return { ...status, issue: "remote_broken" };
+      }
+
+      // Check if using optimal size (medium/large vs square/small)
+      // Similar to gallery image validation
+      if (
+        LOW_RES_IMAGE_PATTERNS.some((pattern) =>
+          featuredImage.includes(pattern)
+        )
+      ) {
+        status.isHighQuality = false;
+        log.verbose(
+          `Featured image is low resolution for ${treeName}: ${featuredImage}`
+        );
+        return { ...status, issue: "low_resolution", isValid: true };
+      }
+
+      status.isHighQuality = true;
+      return { ...status, issue: "external", isValid: true };
+    } catch (err) {
+      log.verbose(
+        `External image validation failed for ${treeName}: ${err.message}`
+      );
       return { ...status, issue: "remote_broken" };
     }
-
-    return { ...status, issue: "external" };
   }
 
   return { ...status, issue: "unknown" };
@@ -1155,6 +1227,7 @@ async function auditImages() {
     broken: [],
     external: [],
     tooSmall: [],
+    lowResolution: [],
   };
 
   for (const file of files) {
@@ -1199,6 +1272,10 @@ async function auditImages() {
         results.external.push(status);
         log.tree(treeName, "📡", "external URL (not local)");
         break;
+      case "low_resolution":
+        results.lowResolution.push(status);
+        log.tree(treeName, "⚠️ ", "low resolution (square/small)");
+        break;
       case "too_small":
         results.tooSmall.push(status);
         log.tree(treeName, "⚠️ ", `too small (${status.fileSize} bytes)`);
@@ -1213,6 +1290,7 @@ async function auditImages() {
   log.info(`✅ Valid local images: ${results.valid.length}`);
   log.info(`📡 External URLs: ${results.external.length}`);
   log.info(`⚠️  Placeholders: ${results.placeholder.length}`);
+  log.info(`⚠️  Low resolution: ${results.lowResolution.length}`);
   log.info(`⚠️  Too small: ${results.tooSmall.length}`);
   log.info(
     `❌ Broken/missing: ${results.broken.length + results.missing.length}`
@@ -1222,7 +1300,8 @@ async function auditImages() {
     results.missing.length +
     results.placeholder.length +
     results.broken.length +
-    results.tooSmall.length;
+    results.tooSmall.length +
+    results.lowResolution.length;
 
   if (issues > 0) {
     log.info(`\n💡 Run 'npm run images:download' to fix ${issues} issues`);
