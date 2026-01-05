@@ -96,6 +96,16 @@ See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions an
 - ✨ **Add Features**: Implement items from the roadmap
 - 🖼️ **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
 
+### Automated Quality Assurance
+
+The project includes automated weekly image quality monitoring that:
+- ✅ Validates all tree images (featured + gallery)
+- 🔄 Automatically fixes broken or missing images
+- 📊 Generates quality metrics and health reports
+- 🔍 Creates PRs for manual review before merging
+
+See **[Image Quality Monitoring](docs/IMAGE_QUALITY_MONITORING.md)** for details on our automated maintenance system.
+
 ## 📄 License
 
 This project is open source and available under the **[MIT License](LICENSE)**.

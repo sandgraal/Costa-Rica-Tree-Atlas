@@ -1274,7 +1274,7 @@ async function auditImages() {
     }
   }
 
-  // Summary
+  // Summary with enhanced metrics
   log.info("\n" + "=".repeat(50));
   log.info("📊 AUDIT SUMMARY");
   log.info("=".repeat(50));
@@ -1285,6 +1285,34 @@ async function auditImages() {
   log.info(
     `❌ Broken/missing: ${results.broken.length + results.missing.length}`
   );
+
+  // Quality metrics
+  const totalTrees = files.length;
+  const healthPercentage = Math.round((results.valid.length / totalTrees) * 100);
+  log.info("\n" + "=".repeat(50));
+  log.info("📈 QUALITY METRICS");
+  log.info("=".repeat(50));
+  log.info(`Total trees: ${totalTrees}`);
+  log.info(`Image health: ${healthPercentage}% (${results.valid.length}/${totalTrees})`);
+  
+  // Calculate average image size
+  if (results.valid.length > 0) {
+    const avgSize = Math.round(
+      results.valid.reduce((sum, s) => sum + s.fileSize, 0) / results.valid.length / 1024
+    );
+    log.info(`Average image size: ${avgSize}KB`);
+  }
+
+  // Pages affected by issues
+  if (results.broken.length > 0 || results.missing.length > 0 || results.placeholder.length > 0) {
+    log.info("\n" + "=".repeat(50));
+    log.info("🚨 IMPACT ANALYSIS");
+    log.info("=".repeat(50));
+    log.info("Pages affected by broken/missing images:");
+    log.info("  • Main page (featured trees, what's blooming)");
+    log.info("  • Calendar page (seasonal visualization)");
+    log.info("  • Individual tree detail pages");
+  }
 
   const issues =
     results.missing.length +
