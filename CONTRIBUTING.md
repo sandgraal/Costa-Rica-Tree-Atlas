@@ -220,6 +220,26 @@ If you have tree photographs to contribute:
 - **Content**: MDX with Contentlayer2
 - **i18n**: next-intl
 
+### Using GitHub Copilot
+
+This repository is configured with AI agent instructions to help GitHub Copilot understand our codebase and conventions. When using Copilot:
+
+- **Project-wide guidance**: See `AGENTS.md` at the repository root
+- **Scoped instructions**: Pattern-specific guidelines in `.github/instructions/`
+  - `i18n.instructions.md` - Internationalization guidelines
+  - `content.instructions.md` - MDX tree content standards
+  - `components.instructions.md` - React component development
+  - `api.instructions.md` - API route patterns
+  - `scripts.instructions.md` - Utility script conventions
+
+These instructions help Copilot:
+- Follow project conventions and patterns
+- Understand the bilingual architecture
+- Apply consistent code style
+- Make appropriate technical decisions
+
+GitHub Copilot coding agent can be assigned to issues to help with tasks like bug fixes, feature additions, and content updates.
+
 ### Code Quality Requirements
 
 Before submitting code:

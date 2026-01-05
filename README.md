@@ -105,6 +105,9 @@ The project includes automated weekly image quality monitoring that:
 - 🔍 Creates PRs for manual review before merging
 
 See **[Image Quality Monitoring](docs/IMAGE_QUALITY_MONITORING.md)** for details on our automated maintenance system.
+### AI-Assisted Development
+
+This repository is configured with GitHub Copilot instructions (`AGENTS.md` and `.github/instructions/`) to help AI coding agents understand our architecture, conventions, and best practices. Feel free to use GitHub Copilot when contributing!
 
 ## 📄 License
 

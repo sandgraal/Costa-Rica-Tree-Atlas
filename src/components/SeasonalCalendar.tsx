@@ -754,10 +754,16 @@ function TreeListItem({
   locale: string;
   type: "flowering" | "fruiting";
 }) {
+  const [imageError, setImageError] = useState(false);
+
   const isYearRound =
     type === "flowering"
       ? tree.floweringSeason?.includes("all-year")
       : tree.fruitingSeason?.includes("all-year");
+
+  // Shared container styles for image and fallback
+  const imageContainerClass =
+    "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0";
 
   return (
     <Link
