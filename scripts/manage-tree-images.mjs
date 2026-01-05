@@ -232,17 +232,17 @@ function buildInatPhotoUrl(url, size) {
 
 async function checkRemoteImage(url, maxRetries = 3, timeoutMs = 15000) {
   let lastError = null;
-  
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const res = await fetchWithTimeout(url, {}, timeoutMs);
       const contentType = res.headers["content-type"] || "";
       res.destroy(); // Don't download the body
-      
+
       if (res.statusCode === 200 && contentType.startsWith("image/")) {
         return true;
       }
-      
+
       // Log non-200 responses for debugging
       if (attempt === maxRetries) {
         log.verbose(`Image check failed: HTTP ${res.statusCode} for ${url}`);
@@ -250,18 +250,22 @@ async function checkRemoteImage(url, maxRetries = 3, timeoutMs = 15000) {
       return false;
     } catch (err) {
       lastError = err;
-      
+
       // If this isn't the last attempt, wait before retrying
       if (attempt < maxRetries) {
         const backoffMs = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
-        log.verbose(`Retry ${attempt}/${maxRetries} for ${url} after ${backoffMs}ms`);
+        log.verbose(
+          `Retry ${attempt}/${maxRetries} for ${url} after ${backoffMs}ms`
+        );
         await sleep(backoffMs);
       }
     }
   }
-  
+
   // All retries failed
-  log.verbose(`Image check failed after ${maxRetries} attempts: ${lastError?.message || 'unknown error'}`);
+  log.verbose(
+    `Image check failed after ${maxRetries} attempts: ${lastError?.message || "unknown error"}`
+  );
   return false;
 }
 
@@ -436,9 +440,7 @@ async function getTopPhotos(taxonId, limit = 15) {
   }
 
   // Sort by featured quality score
-  photos.sort(
-    (a, b) => scoreFeaturedCandidate(b) - scoreFeaturedCandidate(a)
-  );
+  photos.sort((a, b) => scoreFeaturedCandidate(b) - scoreFeaturedCandidate(a));
 
   return photos.slice(0, limit);
 }
@@ -661,7 +663,9 @@ function extractGalleryImages(content) {
 function inferGalleryCategory(image) {
   const text = `${image.title ?? ""} ${image.alt ?? ""}`.toLowerCase();
 
-  for (const [category, patterns] of Object.entries(GALLERY_CATEGORY_PATTERNS)) {
+  for (const [category, patterns] of Object.entries(
+    GALLERY_CATEGORY_PATTERNS
+  )) {
     if (patterns.some((pattern) => pattern.test(text))) {
       return category;
     }
@@ -701,8 +705,7 @@ function scoreFeaturedCandidate(photo) {
     pattern.test(desc)
   );
   const areaScore = area ? Math.min(area / 5_000_000, 2) : 0.5;
-  const ratioScore =
-    aspectRatio >= 0.7 && aspectRatio <= 1.8 ? 1 : 0.2;
+  const ratioScore = aspectRatio >= 0.7 && aspectRatio <= 1.8 ? 1 : 0.2;
   const firstPhotoBonus = photo.isFirst ? 0.6 : 0;
   const wholeTreeBonus = hasWholeTree ? 2 : 0;
   const detailPenalty = hasDetail ? 1.5 : 0;
@@ -1032,16 +1035,23 @@ async function checkImageStatus(treeName, featuredImage) {
 
       // Check if using optimal size (medium/large vs square/small)
       // Similar to gallery image validation
-      if (featuredImage.includes("/square.") || featuredImage.includes("/small.")) {
+      if (
+        featuredImage.includes("/square.") ||
+        featuredImage.includes("/small.")
+      ) {
         status.isHighQuality = false;
-        log.verbose(`Featured image is low resolution for ${treeName}: ${featuredImage}`);
+        log.verbose(
+          `Featured image is low resolution for ${treeName}: ${featuredImage}`
+        );
         return { ...status, issue: "low_resolution", isValid: true };
       }
 
       status.isHighQuality = true;
       return { ...status, issue: "external", isValid: true };
     } catch (err) {
-      log.verbose(`External image validation failed for ${treeName}: ${err.message}`);
+      log.verbose(
+        `External image validation failed for ${treeName}: ${err.message}`
+      );
       return { ...status, issue: "remote_broken" };
     }
   }

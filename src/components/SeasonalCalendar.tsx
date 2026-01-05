@@ -755,7 +755,7 @@ function TreeListItem({
   type: "flowering" | "fruiting";
 }) {
   const [imageError, setImageError] = useState(false);
-  
+
   const isYearRound =
     type === "flowering"
       ? tree.floweringSeason?.includes("all-year")
