@@ -110,6 +110,8 @@ export function validateSlug(input: string | null): ValidationResult {
 
 /**
  * Sanitize string for logging (prevent log injection)
+ * Note: This removes non-ASCII characters to prevent log injection attacks.
+ * This is intentional for security purposes when logging user input.
  */
 export function sanitizeForLog(input: string): string {
   return (
