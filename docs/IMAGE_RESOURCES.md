@@ -21,15 +21,15 @@ All image attributions are tracked in `/public/images/trees/attributions.json`. 
 
 ### Quick Reference
 
-| Command                                | Description                              |
-| -------------------------------------- | ---------------------------------------- |
-| `npm run images:audit`                 | Check status of all featured images      |
-| `npm run images:audit:gallery`         | Check status of all gallery images       |
-| `npm run images:download`              | Download missing/broken featured images  |
-| `npm run images:download:force`        | Re-download all featured images          |
+| Command                                | Description                                      |
+| -------------------------------------- | ------------------------------------------------ |
+| `npm run images:audit`                 | Check status of all featured images              |
+| `npm run images:audit:gallery`         | Check status of all gallery images               |
+| `npm run images:download`              | Download missing/broken featured images          |
+| `npm run images:download:force`        | Re-download all featured images                  |
 | `npm run images:refresh`               | Refresh featured images when better photos exist |
-| `npm run images:refresh:gallery`       | Update gallery images with better photos |
-| `npm run images:refresh:gallery:force` | Force refresh all gallery images         |
+| `npm run images:refresh:gallery`       | Update gallery images with better photos         |
+| `npm run images:refresh:gallery:force` | Force refresh all gallery images                 |
 
 ### Detailed Usage
 

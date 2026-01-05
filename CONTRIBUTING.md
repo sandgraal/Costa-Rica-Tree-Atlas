@@ -260,6 +260,7 @@ This repository is configured with AI agent instructions to help GitHub Copilot 
   - `scripts.instructions.md` - Utility script conventions
 
 These instructions help Copilot:
+
 - Follow project conventions and patterns
 - Understand the bilingual architecture
 - Apply consistent code style

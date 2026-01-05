@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateScientificName } from "@/lib/validation";
-import { rateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
+import { rateLimit } from "@/lib/ratelimit";
 
 const INATURALIST_API = "https://api.inaturalist.org/v1";
 
@@ -20,25 +20,9 @@ interface INaturalistObservation {
 }
 
 export async function GET(request: NextRequest) {
-  // Rate limiting
-  const identifier = getRateLimitIdentifier(request);
-  const { allowed, remaining, resetTime } = rateLimit(identifier, {
-    interval: 60000, // 1 minute
-    maxRequests: 20, // 20 requests per minute (lower due to external API calls)
-  });
-
-  if (!allowed) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(Math.ceil((resetTime - Date.now()) / 1000)),
-          "X-RateLimit-Remaining": "0",
-        },
-      }
-    );
-  }
+  // Apply rate limiting
+  const rateLimitResult = await rateLimit(request, "images");
+  if ("response" in rateLimitResult) return rateLimitResult.response;
 
   const searchParams = request.nextUrl.searchParams;
   const scientificName = searchParams.get("name");
@@ -117,16 +101,19 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({
-      taxonId: taxon.id,
-      taxonName: taxon.name,
-      commonName: taxon.preferred_common_name,
-      images: images.slice(0, 12), // Limit to 12 images
-    }, {
-      headers: {
-        "X-RateLimit-Remaining": String(remaining),
+    return NextResponse.json(
+      {
+        taxonId: taxon.id,
+        taxonName: taxon.name,
+        commonName: taxon.preferred_common_name,
+        images: images.slice(0, 12), // Limit to 12 images
       },
-    });
+      {
+        headers: {
+          "X-RateLimit-Remaining": String(remaining),
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching species images:", error);
     return NextResponse.json(

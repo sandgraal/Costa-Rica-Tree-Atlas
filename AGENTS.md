@@ -28,22 +28,26 @@ A bilingual (English/Spanish) Next.js 16 application documenting Costa Rican tre
 ## File Patterns & Conventions
 
 ### Components (`src/components/`)
+
 - Use `"use client"` directive only when necessary (hooks, event handlers)
 - Export named functions, not default exports
 - Props interfaces defined inline or in same file
 - Use `useTranslations` from next-intl for all user-facing text
 
 ### Content (`content/trees/{en,es}/*.mdx`)
+
 - Always provide both English AND Spanish versions
 - Follow frontmatter schema in `contentlayer.config.ts`
 - Required fields: title, scientificName, family, locale, slug, description
 - Use MDX components from `src/components/mdx/`
 
 ### API Routes (`src/app/api/`)
+
 - Return proper JSON responses with appropriate status codes
 - Handle errors gracefully with try/catch
 
 ### Types (`src/types/`)
+
 - Single source of truth for type definitions
 - Prefer union types over enums
 - Document complex types with JSDoc comments
@@ -53,7 +57,7 @@ A bilingual (English/Spanish) Next.js 16 application documenting Costa Rican tre
 - **Formatting**: Prettier handles all formatting (run `npm run format`)
 - **Linting**: ESLint with Next.js config (run `npm run lint`)
 - **Imports**: Use path aliases (`@/*` for src, `@i18n/*` for i18n)
-- **Naming**: 
+- **Naming**:
   - Components: PascalCase
   - Files: kebab-case for routes, PascalCase for components
   - Variables/functions: camelCase
@@ -62,27 +66,31 @@ A bilingual (English/Spanish) Next.js 16 application documenting Costa Rican tre
 ## Common Patterns
 
 ### Client-side State (Zustand)
+
 ```typescript
 import { useStore } from "@/lib/store";
 const { favorites, toggleFavorite } = useStore();
 ```
 
 ### Translations
+
 ```typescript
 import { useTranslations } from "next-intl";
 const t = useTranslations("namespace");
 ```
 
 ### Navigation Links
+
 ```typescript
 import { Link } from "@i18n/navigation";
 <Link href="/trees">Trees</Link>
 ```
 
 ### Tree Data Access
+
 ```typescript
 import { allTrees } from "contentlayer/generated";
-const trees = allTrees.filter(t => t.locale === locale);
+const trees = allTrees.filter((t) => t.locale === locale);
 ```
 
 ## Testing Changes

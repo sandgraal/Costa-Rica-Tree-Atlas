@@ -114,10 +114,8 @@ export function validateSlug(input: string | null): ValidationResult {
  * This is intentional for security purposes when logging user input.
  */
 export function sanitizeForLog(input: string): string {
-  return (
-    input
-      .replace(/[\r\n]/g, " ") // Remove newlines
-      .replace(/[^\x20-\x7E]/g, "") // Remove non-printable chars
-      .slice(0, 200)
-  ); // Limit length
+  return input
+    .replace(/[\r\n]/g, " ") // Remove newlines
+    .replace(/[^\x20-\x7E]/g, "") // Remove non-printable chars
+    .slice(0, 200); // Limit length
 }

@@ -75,6 +75,35 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 | `D`             | Toggle dark/light theme      |
 | `⌘K` / `Ctrl+K` | Quick search                 |
 
+## 🔒 Rate Limiting
+
+API endpoints are protected with persistent rate limiting using Upstash Redis:
+
+| Endpoint | Limit | Window |
+|----------|-------|--------|
+| `/api/identify` | 10 requests | 1 minute |
+| `/api/species` | 60 requests | 1 minute |
+| `/api/species/images` | 30 requests | 1 minute |
+| `/api/species/random` | 100 requests | 1 minute |
+
+Rate limit information is included in response headers:
+- `X-RateLimit-Limit`: Maximum requests allowed
+- `X-RateLimit-Remaining`: Requests remaining in current window
+- `X-RateLimit-Reset`: Timestamp when limit resets
+- `Retry-After`: Seconds to wait (only when rate limited)
+
+### Setup for Development
+
+Rate limiting is disabled in development mode if Redis is not configured. To test rate limiting locally:
+
+1. Sign up for free Upstash Redis: https://upstash.com
+2. Create a database
+3. Add credentials to `.env.local`:
+   ```env
+   UPSTASH_REDIS_REST_URL=https://your-database.upstash.io
+   UPSTASH_REDIS_REST_TOKEN=your_token_here
+   ```
+
 ## 🗺️ Roadmap
 
 ### 💡 Future Ideas

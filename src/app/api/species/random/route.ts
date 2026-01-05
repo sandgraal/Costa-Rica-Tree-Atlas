@@ -1,28 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
 import { validateLocale } from "@/lib/validation";
-import { rateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
+import { rateLimit } from "@/lib/ratelimit";
 
 export async function GET(request: NextRequest) {
-  // Rate limiting
-  const identifier = getRateLimitIdentifier(request);
-  const { allowed, remaining, resetTime } = rateLimit(identifier, {
-    interval: 60000, // 1 minute
-    maxRequests: 60, // 60 requests per minute
-  });
-
-  if (!allowed) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(Math.ceil((resetTime - Date.now()) / 1000)),
-          "X-RateLimit-Remaining": "0",
-        },
-      }
-    );
-  }
+  // Apply rate limiting
+  const rateLimitResult = await rateLimit(request, "random");
+  if ("response" in rateLimitResult) return rateLimitResult.response;
 
   const { searchParams } = request.nextUrl;
   const localeParam = searchParams.get("locale");
@@ -53,9 +37,7 @@ export async function GET(request: NextRequest) {
       scientificName: randomTree.scientificName,
     },
     {
-      headers: {
-        "X-RateLimit-Remaining": String(remaining),
-      },
+      headers: rateLimitResult.headers,
     }
   );
 }

@@ -2,59 +2,96 @@ import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { checkAuthRateLimit } from "@/lib/auth/rate-limit";
+import { secureCompare } from "@/lib/auth/secure-compare";
 
 const intlMiddleware = createMiddleware(routing);
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
   if (pathname.match(/^\/(en|es)\/admin\//)) {
-    const basicAuth = request.headers.get("authorization");
-    const adminPassword = process.env.ADMIN_PASSWORD;
-
-    // If no password is configured, deny access
-    if (!adminPassword) {
-      return new NextResponse("Admin access disabled - ADMIN_PASSWORD not configured", {
-        status: 503,
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
+    // 1. HTTPS enforcement in production
+    if (
+      process.env.NODE_ENV === "production" &&
+      request.headers.get("x-forwarded-proto") !== "https"
+    ) {
+      return new NextResponse("HTTPS required", { status: 403 });
     }
 
-    // Check for authentication
+    // 2. Check if admin is configured
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    const adminUsername = process.env.ADMIN_USERNAME || "admin";
+
+    if (!adminPassword) {
+      return new NextResponse(
+        "Admin access disabled - ADMIN_PASSWORD not configured",
+        { status: 503 }
+      );
+    }
+
+    // 3. Rate limiting check
+    const clientIP =
+      request.headers.get("x-forwarded-for")?.split(",")[0] ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
+    const rateLimitResult = await checkAuthRateLimit(`admin:${clientIP}`);
+
+    if (!rateLimitResult.success) {
+      const retryAfter = Math.ceil((rateLimitResult.reset - Date.now()) / 1000);
+      return new NextResponse(
+        "Too many login attempts. Please try again later.",
+        {
+          status: 429,
+          headers: {
+            "Retry-After": retryAfter.toString(),
+            "X-RateLimit-Remaining": "0",
+            "Content-Type": "text/plain",
+          },
+        }
+      );
+    }
+
+    // 4. Check authentication
+    const basicAuth = request.headers.get("authorization");
+
     if (basicAuth) {
       const authValue = basicAuth.split(" ")[1];
       if (authValue) {
         try {
           const decoded = atob(authValue);
-          const parts = decoded.split(":");
-          
-          // Ensure we have both username and password
-          if (parts.length >= 2) {
-            const user = parts[0];
-            const pwd = parts.slice(1).join(":"); // Handle passwords with colons
+          const colonIndex = decoded.indexOf(":");
 
-            if (user === "admin" && pwd === adminPassword) {
-              // Authentication successful, continue with i18n middleware
+          if (colonIndex !== -1) {
+            const user = decoded.substring(0, colonIndex);
+            const pwd = decoded.substring(colonIndex + 1);
+
+            // Use constant-time comparison to prevent timing attacks
+            const userValid = secureCompare(user, adminUsername);
+            const pwdValid = secureCompare(pwd, adminPassword);
+
+            if (userValid && pwdValid) {
+              // Authentication successful
               return intlMiddleware(request);
             }
           }
-        } catch (_error) {
+        } catch (error) {
           // Invalid base64 or malformed auth header
-          // Silently fail and return 401 below
+          console.error("Auth parsing error:", error);
         }
       }
     }
 
-    // Authentication failed or missing
+    // 5. Authentication failed - generic error message
     return new NextResponse("Authentication required", {
       status: 401,
       headers: {
         "WWW-Authenticate": 'Basic realm="Admin Area"',
         "Content-Type": "text/plain",
+        "X-RateLimit-Remaining": rateLimitResult.remaining.toString(),
       },
     });
   }
