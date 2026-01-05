@@ -96,6 +96,10 @@ See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions an
 - ✨ **Add Features**: Implement items from the roadmap
 - 🖼️ **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
 
+### AI-Assisted Development
+
+This repository is configured with GitHub Copilot instructions (`AGENTS.md` and `.github/instructions/`) to help AI coding agents understand our architecture, conventions, and best practices. Feel free to use GitHub Copilot when contributing!
+
 ## 📄 License
 
 This project is open source and available under the **[MIT License](LICENSE)**.
