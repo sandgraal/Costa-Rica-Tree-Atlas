@@ -6,8 +6,10 @@ import type { NextRequest } from "next/server";
 const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  
   // Check if this is an admin route
-  if (request.nextUrl.pathname.match(/^\/(en|es)\/admin\//)) {
+  if (pathname.match(/^\/(en|es)\/admin\//)) {
     const basicAuth = request.headers.get("authorization");
     const adminPassword = process.env.ADMIN_PASSWORD;
 
@@ -34,7 +36,7 @@ export default function middleware(request: NextRequest) {
           }
         } catch (error) {
           // Invalid base64 or malformed auth header
-          console.error("Invalid authorization header:", error);
+          // Silently fail and return 401 below
         }
       }
     }
