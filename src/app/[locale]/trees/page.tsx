@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { TreeExplorer } from "@/components/tree";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 
 type Props = {
@@ -59,10 +60,7 @@ export default async function TreesPage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <SafeJsonLd data={structuredData} />
       <TreeExplorer trees={trees} />
     </>
   );

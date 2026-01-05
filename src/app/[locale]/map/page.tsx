@@ -1,4 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 import TreeMapClient from "./TreeMapClient";
 
@@ -62,10 +63,7 @@ export default async function MapPage({ params }: MapPageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <SafeJsonLd data={structuredData} />
       <TreeMapClient locale={locale} />
     </>
   );

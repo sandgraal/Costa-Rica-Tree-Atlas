@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SeasonalCalendar } from "@/components/SeasonalCalendar";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { allTrees } from "contentlayer/generated";
 import {
   getEventsForMonth,
@@ -198,10 +199,7 @@ export default async function SeasonalPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <SafeJsonLd data={structuredData} />
       <main className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
