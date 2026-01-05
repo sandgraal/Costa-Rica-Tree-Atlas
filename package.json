@@ -7,8 +7,13 @@
     "build": "contentlayer2 build && next build",
     "start": "next start",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
+    "type-check": "tsc --noEmit",
+    "security:audit": "npm audit --audit-level=high",
+    "security:check": "npm run lint && npm run type-check && npm run security:audit",
+    "prepare": "husky",
     "contentlayer": "contentlayer2 build",
     "images:audit": "node scripts/manage-tree-images.mjs audit",
     "images:audit:all": "node scripts/manage-tree-images.mjs audit && node scripts/manage-tree-images.mjs audit-gallery",
@@ -21,6 +26,15 @@
     "images:check": "node scripts/cleanup-tree-images.mjs",
     "images:cleanup": "node scripts/cleanup-tree-images.mjs --write",
     "images:cleanup:force": "node scripts/cleanup-tree-images.mjs --write --force"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,mdx,css}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -44,6 +58,8 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.3.0",
+    "@commitlint/config-conventional": "^20.3.0",
     "@tailwindcss/postcss": "^4",
     "@types/google.maps": "^3.58.1",
     "@types/mdx": "^2.0.13",
@@ -53,7 +69,11 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-no-secrets": "^2.2.1",
     "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-security": "^3.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "tailwindcss": "^4",
     "typescript": "^5"

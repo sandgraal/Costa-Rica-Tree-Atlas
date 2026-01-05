@@ -4,10 +4,12 @@ Costa Rica Tree Atlas will truly never have ads, donations, sales, or other reve
 
 A bilingual (English/Spanish) open-source web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
-![License](https://img.shields.io/badge/license-MIT-green)
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
+[![Security Checks](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/workflows/Security%20Checks/badge.svg)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/actions)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-success)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/security/dependabot)
 
 ## ✨ Features
 
@@ -99,12 +101,26 @@ See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions an
 ### Automated Quality Assurance
 
 The project includes automated weekly image quality monitoring that:
+
 - ✅ Validates all tree images (featured + gallery)
 - 🔄 Automatically fixes broken or missing images
 - 📊 Generates quality metrics and health reports
 - 🔍 Creates PRs for manual review before merging
 
 See **[Image Quality Monitoring](docs/IMAGE_QUALITY_MONITORING.md)** for details on our automated maintenance system.
+
+### Security & Code Quality
+
+This project takes security seriously. We use automated security scanning including:
+
+- **Dependabot** for dependency vulnerabilities
+- **CodeQL** for static code analysis
+- **TruffleHog** for secret scanning
+- **ESLint Security** for code patterns
+- **License compliance** checking
+
+See **[Security Setup Guide](docs/SECURITY_SETUP.md)** for details on our security infrastructure.
+
 ### AI-Assisted Development
 
 This repository is configured with GitHub Copilot instructions (`AGENTS.md` and `.github/instructions/`) to help AI coding agents understand our architecture, conventions, and best practices. Feel free to use GitHub Copilot when contributing!

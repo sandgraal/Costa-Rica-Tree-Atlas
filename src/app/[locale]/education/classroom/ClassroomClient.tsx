@@ -158,6 +158,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
   };
 
   const generateCode = () => {
+    // eslint-disable-next-line no-secrets/no-secrets -- Character set for code generation, not a secret
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     let code = "";
     for (let i = 0; i < 6; i++) {
