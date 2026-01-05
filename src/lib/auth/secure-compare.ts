@@ -4,7 +4,7 @@
 export function secureCompare(a: string, b: string): boolean {
   // If lengths differ, the strings cannot be equal
   // However, we still need to perform a comparison to maintain constant time
-  let mismatch = a.length !== b.length ? 1 : 0;
+  const mismatch = a.length !== b.length ? 1 : 0;
 
   // Use the longer length to ensure we check all characters
   const maxLength = Math.max(a.length, b.length);
