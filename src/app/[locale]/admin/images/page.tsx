@@ -17,7 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /**
  * Admin page for reviewing tree images.
- * Note: This page has no authentication - it's a local voting tool only.
+ * Protected by HTTP Basic Authentication (see middleware.ts).
+ * Requires ADMIN_PASSWORD environment variable to be set.
  * Votes are stored in localStorage and must be processed manually.
  */
 export default async function ImageReviewPage({ params }: Props) {
