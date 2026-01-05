@@ -63,7 +63,7 @@ jobs:
           echo "" >> audit-report.md
           echo "**Run Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> audit-report.md
           echo "" >> audit-report.md
-          
+
           # Featured images audit
           echo "### Featured Images" >> audit-report.md
           if npm run images:audit >> audit-report.md 2>&1; then
@@ -72,17 +72,17 @@ jobs:
             echo "audit_failed=true" >> $GITHUB_OUTPUT
           fi
           echo "" >> audit-report.md
-          
+
           # Count issues from audit report
           BROKEN=$(grep -c "❌" audit-report.md || true)
           PLACEHOLDERS=$(grep -c "⚠️.*placeholder" audit-report.md || true)
           TOO_SMALL=$(grep -c "⚠️.*too small" audit-report.md || true)
-          
+
           # Default to 0 if grep found nothing
           BROKEN=${BROKEN:-0}
           PLACEHOLDERS=${PLACEHOLDERS:-0}
           TOO_SMALL=${TOO_SMALL:-0}
-          
+
           echo "broken_count=$BROKEN" >> $GITHUB_OUTPUT
           echo "placeholder_count=$PLACEHOLDERS" >> $GITHUB_OUTPUT
           echo "too_small_count=$TOO_SMALL" >> $GITHUB_OUTPUT
@@ -110,7 +110,7 @@ jobs:
           echo "- **Placeholder Images:** ${{ steps.audit.outputs.placeholder_count || 0 }}" >> audit-report.md
           echo "- **Undersized Images:** ${{ steps.audit.outputs.too_small_count || 0 }}" >> audit-report.md
           echo "" >> audit-report.md
-          
+
           TOTAL_ISSUES=$((${{ steps.audit.outputs.broken_count || 0 }} + ${{ steps.audit.outputs.placeholder_count || 0 }} + ${{ steps.audit.outputs.too_small_count || 0 }}))
           if [ $TOTAL_ISSUES -gt 0 ]; then
             echo "**Status:** ⚠️ Issues detected - automated fixes will be applied" >> audit-report.md
@@ -157,11 +157,11 @@ jobs:
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            
+
             # Count changed files
             CHANGED_COUNT=$(git status --porcelain | wc -l)
             echo "changed_count=$CHANGED_COUNT" >> $GITHUB_OUTPUT
-            
+
             # List changed files
             echo "" >> audit-report.md
             echo "### Files Modified" >> audit-report.md
