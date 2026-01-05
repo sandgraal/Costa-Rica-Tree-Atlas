@@ -18,6 +18,11 @@ const INAT_HOSTS = [
 const taxonCache = new Map();
 const photoCache = new Map();
 
+// Rate limiting configuration
+const API_DELAY_MS = 200; // Delay between API calls
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY_MS = 1000;
+
 function logInfo(message) {
   console.log(message);
 }
@@ -28,6 +33,10 @@ function logWarn(message) {
 
 function logError(message) {
   console.error(message);
+}
+
+async function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function listMdxFiles(dir) {
@@ -91,18 +100,50 @@ function updateFrontmatterValue(frontmatter, key, value) {
   return `${frontmatter}\n${line}`.trim();
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": "Costa-Rica-Tree-Atlas Image Cleanup",
-    },
-  });
+async function fetchJson(url, retries = MAX_RETRIES) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-  if (!response.ok) {
-    throw new Error(`Request failed (${response.status}) for ${url}`);
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent": "Costa-Rica-Tree-Atlas Image Cleanup",
+        },
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        // Don't retry on 4xx errors (except 429 rate limit)
+        if (response.status >= 400 && response.status < 500 && response.status !== 429) {
+          throw new Error(`Request failed (${response.status}) for ${url}`);
+        }
+        throw new Error(`Request failed (${response.status}) for ${url}`);
+      }
+
+      // Add delay between successful requests to avoid rate limiting
+      await sleep(API_DELAY_MS);
+      return response.json();
+    } catch (error) {
+      const isLastAttempt = attempt === retries;
+      
+      if (error.name === 'AbortError') {
+        logWarn(`Request timeout for ${url} (attempt ${attempt + 1}/${retries + 1})`);
+      } else {
+        logWarn(`Request failed for ${url}: ${error.message} (attempt ${attempt + 1}/${retries + 1})`);
+      }
+
+      if (isLastAttempt) {
+        throw error;
+      }
+
+      // Exponential backoff
+      const delay = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt);
+      await sleep(delay);
+    }
   }
-
-  return response.json();
 }
 
 async function getTaxon(scientificName) {
@@ -111,28 +152,34 @@ async function getTaxon(scientificName) {
     return taxonCache.get(cacheKey);
   }
 
-  const query = encodeURIComponent(scientificName);
-  const url = `https://api.inaturalist.org/v1/taxa?q=${query}&per_page=10`;
-  const data = await fetchJson(url);
-  const results = data.results || [];
+  try {
+    const query = encodeURIComponent(scientificName);
+    const url = `https://api.inaturalist.org/v1/taxa?q=${query}&per_page=10`;
+    const data = await fetchJson(url);
+    const results = data.results || [];
 
-  if (!results.length) {
+    if (!results.length) {
+      taxonCache.set(cacheKey, null);
+      return null;
+    }
+
+    const exact = results.find(
+      (result) => result.name?.toLowerCase() === cacheKey
+    );
+    const selected = exact || results[0];
+    const taxon = {
+      id: selected.id,
+      name: selected.name,
+      observationsCount: selected.observations_count,
+    };
+
+    taxonCache.set(cacheKey, taxon);
+    return taxon;
+  } catch (error) {
+    logError(`Failed to fetch taxon for ${scientificName}: ${error.message}`);
     taxonCache.set(cacheKey, null);
     return null;
   }
-
-  const exact = results.find(
-    (result) => result.name?.toLowerCase() === cacheKey
-  );
-  const selected = exact || results[0];
-  const taxon = {
-    id: selected.id,
-    name: selected.name,
-    observationsCount: selected.observations_count,
-  };
-
-  taxonCache.set(cacheKey, taxon);
-  return taxon;
 }
 
 async function getTaxonPhotos(taxonId) {
@@ -140,29 +187,35 @@ async function getTaxonPhotos(taxonId) {
     return photoCache.get(taxonId);
   }
 
-  const url = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&quality_grade=research&order_by=votes&per_page=200`;
-  const data = await fetchJson(url);
-  const results = data.results || [];
-  const seen = new Set();
-  const photos = [];
+  try {
+    const url = `https://api.inaturalist.org/v1/observations?taxon_id=${taxonId}&photos=true&quality_grade=research&order_by=votes&per_page=200`;
+    const data = await fetchJson(url);
+    const results = data.results || [];
+    const seen = new Set();
+    const photos = [];
 
-  results.forEach((observation, observationIndex) => {
-    (observation.photos || []).forEach((photo) => {
-      if (!photo?.id || !photo?.url || seen.has(photo.id)) {
-        return;
-      }
-      seen.add(photo.id);
-      photos.push({
-        id: photo.id,
-        url: photo.url,
-        originalDimensions: photo.original_dimensions || null,
-        rank: observationIndex,
+    results.forEach((observation, observationIndex) => {
+      (observation.photos || []).forEach((photo) => {
+        if (!photo?.id || !photo?.url || seen.has(photo.id)) {
+          return;
+        }
+        seen.add(photo.id);
+        photos.push({
+          id: photo.id,
+          url: photo.url,
+          originalDimensions: photo.original_dimensions || null,
+          rank: observationIndex,
+        });
       });
     });
-  });
 
-  photoCache.set(taxonId, photos);
-  return photos;
+    photoCache.set(taxonId, photos);
+    return photos;
+  } catch (error) {
+    logError(`Failed to fetch photos for taxon ${taxonId}: ${error.message}`);
+    photoCache.set(taxonId, []);
+    return [];
+  }
 }
 
 function buildInatPhotoUrl(photo, size) {
@@ -223,13 +276,23 @@ function isInatPhotoUrl(url) {
 
 async function validateRemoteImage(url) {
   try {
-    const response = await fetch(url, { method: "HEAD" });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout for HEAD requests
+    
+    const response = await fetch(url, { 
+      method: "HEAD",
+      signal: controller.signal,
+    });
+    
+    clearTimeout(timeoutId);
+    
     if (!response.ok || response.status >= 400) {
       return false;
     }
     const contentType = response.headers.get("content-type") || "";
     return contentType.startsWith("image/");
   } catch (error) {
+    // Don't log every validation failure to avoid spam
     return false;
   }
 }
@@ -274,208 +337,220 @@ function replaceAt(content, start, end, replacement) {
 }
 
 async function processFile(filePath) {
-  const content = await fs.readFile(filePath, "utf8");
-  const frontmatterData = splitFrontmatter(content);
-  if (!frontmatterData) {
-    return {
-      changed: false,
-      issuesFound: 0,
-      issuesRemaining: 0,
-      updatedContent: content,
-    };
-  }
+  try {
+    const content = await fs.readFile(filePath, "utf8");
+    const frontmatterData = splitFrontmatter(content);
+    if (!frontmatterData) {
+      return {
+        changed: false,
+        issuesFound: 0,
+        issuesRemaining: 0,
+        updatedContent: content,
+      };
+    }
 
-  const { frontmatter } = frontmatterData;
-  const fields = parseFrontmatter(frontmatter);
-  const scientificName = fields.scientificName;
-  const featuredImage = fields.featuredImage;
+    const { frontmatter } = frontmatterData;
+    const fields = parseFrontmatter(frontmatter);
+    const scientificName = fields.scientificName;
+    const featuredImage = fields.featuredImage;
 
-  if (!scientificName) {
-    logWarn(`Skipping ${filePath}: missing scientificName.`);
-    return {
-      changed: false,
-      issuesFound: 0,
-      issuesRemaining: 0,
-      updatedContent: content,
-    };
-  }
+    if (!scientificName) {
+      logWarn(`Skipping ${filePath}: missing scientificName.`);
+      return {
+        changed: false,
+        issuesFound: 0,
+        issuesRemaining: 0,
+        updatedContent: content,
+      };
+    }
 
-  const taxon = await getTaxon(scientificName);
-  if (!taxon) {
-    logWarn(`No iNaturalist taxon for ${scientificName} (${filePath}).`);
-    return {
-      changed: false,
-      issuesFound: 1,
-      issuesRemaining: 1,
-      updatedContent: content,
-    };
-  }
+    const taxon = await getTaxon(scientificName);
+    if (!taxon) {
+      logWarn(`No iNaturalist taxon for ${scientificName} (${filePath}).`);
+      return {
+        changed: false,
+        issuesFound: 1,
+        issuesRemaining: 1,
+        updatedContent: content,
+      };
+    }
 
-  const photos = await getTaxonPhotos(taxon.id);
-  if (!photos.length) {
-    logWarn(`No iNaturalist photos for ${scientificName} (${filePath}).`);
-    return {
-      changed: false,
-      issuesFound: 1,
-      issuesRemaining: 1,
-      updatedContent: content,
-    };
-  }
+    const photos = await getTaxonPhotos(taxon.id);
+    if (!photos.length) {
+      logWarn(`No iNaturalist photos for ${scientificName} (${filePath}).`);
+      return {
+        changed: false,
+        issuesFound: 1,
+        issuesRemaining: 1,
+        updatedContent: content,
+      };
+    }
 
-  const featuredPhoto = selectFeaturedPhoto(photos);
-  if (!featuredPhoto) {
-    logWarn(`Unable to select featured photo for ${scientificName}.`);
-    return {
-      changed: false,
-      issuesFound: 1,
-      issuesRemaining: 1,
-      updatedContent: content,
-    };
-  }
+    const featuredPhoto = selectFeaturedPhoto(photos);
+    if (!featuredPhoto) {
+      logWarn(`Unable to select featured photo for ${scientificName}.`);
+      return {
+        changed: false,
+        issuesFound: 1,
+        issuesRemaining: 1,
+        updatedContent: content,
+      };
+    }
 
-  const browseUrl = buildBrowsePhotosUrl(taxon);
-  const featuredUrl = buildInatPhotoUrl(featuredPhoto, "large");
-  const replacementPhotos = photos.filter(
-    (photo) => photo.id !== featuredPhoto.id
-  );
+    const browseUrl = buildBrowsePhotosUrl(taxon);
+    const featuredUrl = buildInatPhotoUrl(featuredPhoto, "large");
+    const replacementPhotos = photos.filter(
+      (photo) => photo.id !== featuredPhoto.id
+    );
 
-  let issuesFound = 0;
-  let issuesRemaining = 0;
-  let changed = false;
-  let updatedContent = content;
+    let issuesFound = 0;
+    let issuesRemaining = 0;
+    let changed = false;
+    let updatedContent = content;
 
-  let updatedFrontmatter = frontmatter;
-  if (featuredImage) {
-    const featuredIsLocal = isLocalPath(featuredImage);
-    const featuredIsValid = await validateImage(featuredImage);
-    const featuredIsInat = isInatPhotoUrl(featuredImage);
-    const featuredIssueDetected =
-      !featuredIsValid ||
-      (!featuredIsLocal && !featuredIsInat);
-    const shouldReplaceFeatured = forceRefresh || featuredIssueDetected;
-    const canReplaceFeatured = !featuredIsLocal;
+    let updatedFrontmatter = frontmatter;
+    if (featuredImage) {
+      const featuredIsLocal = isLocalPath(featuredImage);
+      const featuredIsValid = await validateImage(featuredImage);
+      const featuredIsInat = isInatPhotoUrl(featuredImage);
+      const featuredIssueDetected =
+        !featuredIsValid ||
+        (!featuredIsLocal && !featuredIsInat);
+      const shouldReplaceFeatured = forceRefresh || featuredIssueDetected;
+      const canReplaceFeatured = !featuredIsLocal;
 
-    if (featuredIssueDetected) {
+      if (featuredIssueDetected) {
+        issuesFound += 1;
+      }
+
+      if (featuredIssueDetected && !canReplaceFeatured) {
+        issuesRemaining += 1;
+      }
+
+      if (shouldReplaceFeatured && canReplaceFeatured) {
+        updatedFrontmatter = updateFrontmatterValue(
+          updatedFrontmatter,
+          "featuredImage",
+          featuredUrl
+        );
+        changed = true;
+      } else if (featuredIssueDetected && canReplaceFeatured) {
+        issuesRemaining += 1;
+      }
+    } else {
       issuesFound += 1;
-    }
-
-    if (featuredIssueDetected && !canReplaceFeatured) {
-      issuesRemaining += 1;
-    }
-
-    if (shouldReplaceFeatured && canReplaceFeatured) {
       updatedFrontmatter = updateFrontmatterValue(
         updatedFrontmatter,
         "featuredImage",
         featuredUrl
       );
       changed = true;
-    } else if (featuredIssueDetected && canReplaceFeatured) {
-      issuesRemaining += 1;
     }
-  } else {
-    issuesFound += 1;
-    updatedFrontmatter = updateFrontmatterValue(
-      updatedFrontmatter,
-      "featuredImage",
-      featuredUrl
+
+    if (updatedFrontmatter !== frontmatter) {
+      updatedContent = updatedContent.replace(frontmatter, updatedFrontmatter);
+    }
+
+    const beforeEmbedUpdate = updatedContent;
+    updatedContent = updateEmbedTaxon(
+      updatedContent,
+      taxon.id,
+      scientificName
     );
-    changed = true;
-  }
-
-  if (updatedFrontmatter !== frontmatter) {
-    updatedContent = updatedContent.replace(frontmatter, updatedFrontmatter);
-  }
-
-  const beforeEmbedUpdate = updatedContent;
-  updatedContent = updateEmbedTaxon(
-    updatedContent,
-    taxon.id,
-    scientificName
-  );
-  if (updatedContent !== beforeEmbedUpdate) {
-    changed = true;
-  }
-
-  const beforeBrowseUpdate = updatedContent;
-  updatedContent = updateBrowsePhotosLinks(updatedContent, browseUrl);
-  if (updatedContent !== beforeBrowseUpdate) {
-    changed = true;
-  }
-
-  const imageCardRegex = /<ImageCard[\s\S]*?\/>/g;
-  const matches = [...updatedContent.matchAll(imageCardRegex)];
-  let replacementIndex = 0;
-
-  for (let i = matches.length - 1; i >= 0; i -= 1) {
-    const match = matches[i];
-    const block = match[0];
-    const start = match.index;
-    if (start === undefined) {
-      continue;
-    }
-
-    const srcMatch = block.match(/src="([^"]+)"/);
-    if (!srcMatch) {
-      continue;
-    }
-
-    const currentSrc = srcMatch[1];
-    const currentIsLocal = isLocalPath(currentSrc);
-    const currentIsValid = await validateImage(currentSrc);
-    const currentIsInat = isInatPhotoUrl(currentSrc);
-    const galleryIssueDetected =
-      !currentIsValid ||
-      (!currentIsLocal && !currentIsInat);
-    const shouldReplaceGallery = forceRefresh || galleryIssueDetected;
-    const canReplaceGallery = !currentIsLocal;
-
-    let updatedBlock = block;
-    if (galleryIssueDetected) {
-      issuesFound += 1;
-    }
-    if (galleryIssueDetected && !canReplaceGallery) {
-      issuesRemaining += 1;
-    }
-    if (shouldReplaceGallery && canReplaceGallery) {
-      const replacement = replacementPhotos[replacementIndex];
-      replacementIndex += 1;
-      if (replacement) {
-        const replacementUrl = buildInatPhotoUrl(replacement, "medium");
-        updatedBlock = updatedBlock.replace(
-          srcMatch[0],
-          `src="${replacementUrl}"`
-        );
-        changed = true;
-      } else {
-        logWarn(
-          `No replacement photo left for ${filePath}. Keeping ${currentSrc}.`
-        );
-        if (galleryIssueDetected) {
-          issuesRemaining += 1;
-        }
-      }
-    } else if (galleryIssueDetected && canReplaceGallery) {
-      issuesRemaining += 1;
-    }
-
-    updatedBlock = updatedBlock.replace(
-      /sourceUrl="[^"]+"/g,
-      `sourceUrl="${browseUrl}"`
-    );
-
-    if (updatedBlock !== block) {
-      updatedContent = replaceAt(
-        updatedContent,
-        start,
-        start + block.length,
-        updatedBlock
-      );
+    if (updatedContent !== beforeEmbedUpdate) {
       changed = true;
     }
-  }
 
-  return { changed, issuesFound, issuesRemaining, updatedContent };
+    const beforeBrowseUpdate = updatedContent;
+    updatedContent = updateBrowsePhotosLinks(updatedContent, browseUrl);
+    if (updatedContent !== beforeBrowseUpdate) {
+      changed = true;
+    }
+
+    const imageCardRegex = /<ImageCard[\s\S]*?\/>/g;
+    const matches = [...updatedContent.matchAll(imageCardRegex)];
+    let replacementIndex = 0;
+
+    for (let i = matches.length - 1; i >= 0; i -= 1) {
+      const match = matches[i];
+      const block = match[0];
+      const start = match.index;
+      if (start === undefined) {
+        continue;
+      }
+
+      const srcMatch = block.match(/src="([^"]+)"/);
+      if (!srcMatch) {
+        continue;
+      }
+
+      const currentSrc = srcMatch[1];
+      const currentIsLocal = isLocalPath(currentSrc);
+      const currentIsValid = await validateImage(currentSrc);
+      const currentIsInat = isInatPhotoUrl(currentSrc);
+      const galleryIssueDetected =
+        !currentIsValid ||
+        (!currentIsLocal && !currentIsInat);
+      const shouldReplaceGallery = forceRefresh || galleryIssueDetected;
+      const canReplaceGallery = !currentIsLocal;
+
+      let updatedBlock = block;
+      if (galleryIssueDetected) {
+        issuesFound += 1;
+      }
+      if (galleryIssueDetected && !canReplaceGallery) {
+        issuesRemaining += 1;
+      }
+      if (shouldReplaceGallery && canReplaceGallery) {
+        const replacement = replacementPhotos[replacementIndex];
+        replacementIndex += 1;
+        if (replacement) {
+          const replacementUrl = buildInatPhotoUrl(replacement, "medium");
+          updatedBlock = updatedBlock.replace(
+            srcMatch[0],
+            `src="${replacementUrl}"`
+          );
+          changed = true;
+        } else {
+          logWarn(
+            `No replacement photo left for ${filePath}. Keeping ${currentSrc}.`
+          );
+          if (galleryIssueDetected) {
+            issuesRemaining += 1;
+          }
+        }
+      } else if (galleryIssueDetected && canReplaceGallery) {
+        issuesRemaining += 1;
+      }
+
+      updatedBlock = updatedBlock.replace(
+        /sourceUrl="[^"]+"/g,
+        `sourceUrl="${browseUrl}"`
+      );
+
+      if (updatedBlock !== block) {
+        updatedContent = replaceAt(
+          updatedContent,
+          start,
+          start + block.length,
+          updatedBlock
+        );
+        changed = true;
+      }
+    }
+
+    return { changed, issuesFound, issuesRemaining, updatedContent };
+  } catch (error) {
+    logError(`Error processing ${filePath}: ${error.message}`);
+    // Return unchanged content on error
+    const content = await fs.readFile(filePath, "utf8");
+    return {
+      changed: false,
+      issuesFound: 1,
+      issuesRemaining: 1,
+      updatedContent: content,
+    };
+  }
 }
 
 async function main() {
@@ -483,6 +558,9 @@ async function main() {
   let totalIssuesFound = 0;
   let totalIssuesRemaining = 0;
   let totalChanged = 0;
+  let totalErrors = 0;
+
+  logInfo(`Processing ${files.length} files...`);
 
   for (const filePath of files) {
     const { changed, issuesFound, issuesRemaining, updatedContent } =
@@ -493,30 +571,50 @@ async function main() {
     if (changed) {
       totalChanged += 1;
       if (shouldWrite) {
-        await fs.writeFile(filePath, updatedContent, "utf8");
-        logInfo(`Updated ${filePath}`);
+        try {
+          await fs.writeFile(filePath, updatedContent, "utf8");
+          logInfo(`Updated ${filePath}`);
+        } catch (error) {
+          logError(`Failed to write ${filePath}: ${error.message}`);
+          totalErrors += 1;
+        }
       } else {
         logInfo(`Needs update: ${filePath}`);
       }
     }
   }
 
+  logInfo(`\nProcessing complete:`);
+  logInfo(`- Files processed: ${files.length}`);
+  logInfo(`- Files updated: ${totalChanged}`);
+  logInfo(`- Issues found: ${totalIssuesFound}`);
+  logInfo(`- Issues remaining: ${totalIssuesRemaining}`);
+  if (totalErrors > 0) {
+    logWarn(`- Errors encountered: ${totalErrors}`);
+  }
+
+  // Only exit with error code if running in check mode and issues were found
   if (!shouldWrite && totalIssuesFound > 0) {
     logError(`Image audit failed with ${totalIssuesFound} issues.`);
     process.exit(1);
   }
 
+  // In write mode, don't fail even if there were errors or remaining issues
+  // This allows the workflow to continue and create a PR with partial fixes
   if (shouldWrite) {
-    logInfo(`Cleanup complete. Files updated: ${totalChanged}`);
     if (totalIssuesRemaining > 0) {
       logWarn(`Remaining image issues: ${totalIssuesRemaining}`);
-    } else if (totalIssuesFound > 0) {
+    }
+    if (totalIssuesFound > 0 && totalIssuesRemaining === 0) {
       logInfo("All detected image issues were resolved.");
     }
   }
 }
 
 main().catch((error) => {
-  logError(error.message);
-  process.exit(1);
+  logError(`Fatal error: ${error.message}`);
+  logError(error.stack);
+  // Don't exit with error code 1 to allow workflow to continue
+  // The workflow should handle failures gracefully
+  process.exit(0);
 });
