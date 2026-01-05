@@ -5,6 +5,7 @@ import { allTrees } from "contentlayer/generated";
 import { TreeCard } from "@/components/tree";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import { SafeImage } from "@/components/SafeImage";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Locale } from "@/types/tree";
 
 type Props = {
@@ -77,14 +78,8 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
-      />
+      <SafeJsonLd data={structuredData} />
+      <SafeJsonLd data={organizationData} />
       <div className="relative">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-b from-primary-dark via-primary to-primary/90 pt-16 pb-24 px-4 md:pt-20 md:pb-28">

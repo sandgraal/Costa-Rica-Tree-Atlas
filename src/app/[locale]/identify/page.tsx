@@ -1,4 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 import IdentifyClient from "./IdentifyClient";
 
@@ -62,10 +63,7 @@ export default async function IdentifyPage({ params }: IdentifyPageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <SafeJsonLd data={structuredData} />
       <IdentifyClient />
     </>
   );
