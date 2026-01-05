@@ -761,13 +761,17 @@ function TreeListItem({
       ? tree.floweringSeason?.includes("all-year")
       : tree.fruitingSeason?.includes("all-year");
 
+  // Shared container styles for image and fallback
+  const imageContainerClass =
+    "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0";
+
   return (
     <Link
       href={`/${locale}/trees/${tree.slug}`}
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
     >
       {tree.featuredImage && !imageError && (
-        <div className="w-10 h-10 relative rounded-lg overflow-hidden flex-shrink-0">
+        <div className={`${imageContainerClass} relative overflow-hidden`}>
           <Image
             src={tree.featuredImage}
             alt={tree.title}
@@ -779,7 +783,7 @@ function TreeListItem({
         </div>
       )}
       {tree.featuredImage && imageError && (
-        <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+        <div className={`${imageContainerClass} bg-muted`}>
           <span className="text-xs text-muted-foreground">🌳</span>
         </div>
       )}

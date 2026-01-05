@@ -46,6 +46,16 @@ const MIN_GALLERY_IMAGE_SIZE = 10000; // 10KB minimum for gallery
 const PLACEHOLDER_PATTERN = /12345678/;
 const GALLERY_IMAGES_DIR = path.join(IMAGES_DIR, "gallery");
 
+// Remote image checking configuration
+const REMOTE_IMAGE_MAX_RETRIES = 3;
+const REMOTE_IMAGE_TIMEOUT_MS = 15000; // 15 seconds
+const RETRY_BACKOFF_BASE_MS = 1000; // 1 second
+const RETRY_BACKOFF_MULTIPLIER = 2;
+const RETRY_BACKOFF_MAX_MS = 5000; // 5 seconds max
+
+// Image quality patterns
+const LOW_RES_IMAGE_PATTERNS = ["/square.", "/small."];
+
 // Gallery image quality criteria
 const GALLERY_QUALITY_CRITERIA = {
   minVotes: 3, // Minimum faves/votes on iNaturalist
@@ -230,7 +240,11 @@ function buildInatPhotoUrl(url, size) {
   return `${base}/${size}.${extension}`;
 }
 
-async function checkRemoteImage(url, maxRetries = 3, timeoutMs = 15000) {
+async function checkRemoteImage(
+  url,
+  maxRetries = REMOTE_IMAGE_MAX_RETRIES,
+  timeoutMs = REMOTE_IMAGE_TIMEOUT_MS
+) {
   let lastError = null;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -253,7 +267,11 @@ async function checkRemoteImage(url, maxRetries = 3, timeoutMs = 15000) {
 
       // If this isn't the last attempt, wait before retrying
       if (attempt < maxRetries) {
-        const backoffMs = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
+        const backoffMs = Math.min(
+          RETRY_BACKOFF_BASE_MS *
+            Math.pow(RETRY_BACKOFF_MULTIPLIER, attempt - 1),
+          RETRY_BACKOFF_MAX_MS
+        );
         log.verbose(
           `Retry ${attempt}/${maxRetries} for ${url} after ${backoffMs}ms`
         );
@@ -1036,8 +1054,9 @@ async function checkImageStatus(treeName, featuredImage) {
       // Check if using optimal size (medium/large vs square/small)
       // Similar to gallery image validation
       if (
-        featuredImage.includes("/square.") ||
-        featuredImage.includes("/small.")
+        LOW_RES_IMAGE_PATTERNS.some((pattern) =>
+          featuredImage.includes(pattern)
+        )
       ) {
         status.isHighQuality = false;
         log.verbose(
