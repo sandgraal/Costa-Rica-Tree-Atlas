@@ -42,7 +42,7 @@ export default function middleware(request: NextRequest) {
               return intlMiddleware(request);
             }
           }
-        } catch (error) {
+        } catch (_error) {
           // Invalid base64 or malformed auth header
           // Silently fail and return 401 below
         }
