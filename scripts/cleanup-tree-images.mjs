@@ -116,10 +116,6 @@ async function fetchJson(url, retries = MAX_RETRIES) {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        // Don't retry on 4xx errors (except 429 rate limit)
-        if (response.status >= 400 && response.status < 500 && response.status !== 429) {
-          throw new Error(`Request failed (${response.status}) for ${url}`);
-        }
         throw new Error(`Request failed (${response.status}) for ${url}`);
       }
 
@@ -337,8 +333,9 @@ function replaceAt(content, start, end, replacement) {
 }
 
 async function processFile(filePath) {
+  let content;
   try {
-    const content = await fs.readFile(filePath, "utf8");
+    content = await fs.readFile(filePath, "utf8");
     const frontmatterData = splitFrontmatter(content);
     if (!frontmatterData) {
       return {
@@ -542,13 +539,12 @@ async function processFile(filePath) {
     return { changed, issuesFound, issuesRemaining, updatedContent };
   } catch (error) {
     logError(`Error processing ${filePath}: ${error.message}`);
-    // Return unchanged content on error
-    const content = await fs.readFile(filePath, "utf8");
+    // Return unchanged content on error (content is already loaded)
     return {
       changed: false,
       issuesFound: 1,
       issuesRemaining: 1,
-      updatedContent: content,
+      updatedContent: content || "",
     };
   }
 }
@@ -614,7 +610,8 @@ async function main() {
 main().catch((error) => {
   logError(`Fatal error: ${error.message}`);
   logError(error.stack);
-  // Don't exit with error code 1 to allow workflow to continue
-  // The workflow should handle failures gracefully
+  // Exit with code 0 to allow workflow to continue
+  // The workflow step redirects output to audit-report.md, so errors are captured there
+  // This allows the workflow to create a PR with partial fixes even if the script fails
   process.exit(0);
 });
