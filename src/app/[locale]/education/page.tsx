@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 
@@ -32,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EducationPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Get nonce for CSP
+  const nonce = await getNonce();
 
   // Get tree count for stats
   const treeCount = allTrees.filter((t) => t.locale === locale).length;
@@ -77,6 +81,7 @@ export default async function EducationPage({ params }: Props) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

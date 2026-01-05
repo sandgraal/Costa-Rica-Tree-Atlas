@@ -12,6 +12,7 @@ import { Analytics } from "@/components/Analytics";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
@@ -107,12 +108,16 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   // Providing all messages to the client side
   const messages = await getMessages();
+  
+  // Get nonce for CSP
+  const nonce = await getNonce();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
         {/* Site-wide structured data */}
         <script
+          nonce={nonce}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -197,6 +202,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               <PWARegister />
               {/* Privacy-respecting analytics - configure via env vars */}
               <Analytics
+                nonce={nonce}
                 plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
                 enableSimpleAnalytics={
                   process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"

@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { TreeExplorer } from "@/components/tree";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Metadata } from "next";
 
 type Props = {
@@ -28,6 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TreesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Get nonce for CSP
+  const nonce = await getNonce();
 
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
@@ -60,6 +64,7 @@ export default async function TreesPage({ params }: Props) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

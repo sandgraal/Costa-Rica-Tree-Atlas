@@ -5,6 +5,7 @@ import { allTrees } from "contentlayer/generated";
 import { TreeCard } from "@/components/tree";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import { SafeImage } from "@/components/SafeImage";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Locale } from "@/types/tree";
 
 type Props = {
@@ -14,6 +15,9 @@ type Props = {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Get nonce for CSP
+  const nonce = await getNonce();
 
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
@@ -78,10 +82,12 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
       />

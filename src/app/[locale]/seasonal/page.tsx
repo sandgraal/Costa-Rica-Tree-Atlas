@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getNonce } from "@/lib/csp/nonce";
 import { SeasonalCalendar } from "@/components/SeasonalCalendar";
 import { allTrees } from "contentlayer/generated";
 import {
@@ -115,6 +116,9 @@ export default async function SeasonalPage({
   const { month: initialMonth, event: initialEvent } = await searchParams;
   setRequestLocale(locale);
 
+  // Get nonce for CSP
+  const nonce = await getNonce();
+
   const t = await getTranslations({ locale, namespace: "seasonal" });
 
   // Get trees for this locale with seasonal data
@@ -199,6 +203,7 @@ export default async function SeasonalPage({
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 // Does NOT use cookies by default - respects user privacy
 
 interface AnalyticsProps {
+  // CSP nonce for inline scripts
+  nonce: string;
   // Plausible domain (e.g., "costa-rica-tree-atlas.com")
   plausibleDomain?: string;
   // Simple Analytics custom domain (optional)
@@ -19,6 +21,7 @@ interface AnalyticsProps {
 }
 
 export function Analytics({
+  nonce,
   plausibleDomain,
   simpleAnalyticsDomain,
   enableSimpleAnalytics,
@@ -52,6 +55,7 @@ export function Analytics({
       {/* Plausible Analytics - Privacy-friendly, no cookies */}
       {plausibleDomain && (
         <Script
+          nonce={nonce}
           defer
           data-domain={plausibleDomain}
           src="https://plausible.io/js/script.js"
@@ -62,6 +66,7 @@ export function Analytics({
       {/* Simple Analytics - Privacy-first, GDPR compliant */}
       {enableSimpleAnalytics && (
         <Script
+          nonce={nonce}
           src={
             simpleAnalyticsDomain
               ? `https://${simpleAnalyticsDomain}/latest.js`
@@ -75,10 +80,11 @@ export function Analytics({
       {googleAnalyticsId && hasConsent && (
         <>
           <Script
+            nonce={nonce}
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
             strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="afterInteractive">
+          <Script nonce={nonce} id="google-analytics" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}

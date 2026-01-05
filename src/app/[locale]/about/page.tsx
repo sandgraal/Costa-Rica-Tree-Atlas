@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -29,6 +30,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Get nonce for CSP
+  const nonce = await getNonce();
 
   // Structured data for About page
   const structuredData = {
@@ -59,6 +63,7 @@ export default async function AboutPage({ params }: Props) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

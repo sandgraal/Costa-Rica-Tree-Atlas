@@ -1,4 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Metadata } from "next";
 import TreeMapClient from "./TreeMapClient";
 
@@ -33,6 +34,9 @@ export default async function MapPage({ params }: MapPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  // Get nonce for CSP
+  const nonce = await getNonce();
+
   // Structured data for Map page
   const structuredData = {
     "@context": "https://schema.org",
@@ -63,6 +67,7 @@ export default async function MapPage({ params }: MapPageProps) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

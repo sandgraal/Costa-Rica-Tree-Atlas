@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
+import { getNonce } from "@/lib/csp/nonce";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { MDXContent } from "@/components/MDXContent";
@@ -97,6 +98,9 @@ export default async function TreePage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
+  // Get nonce for CSP
+  const nonce = await getNonce();
+
   const tree = allTrees.find((t) => t.locale === locale && t.slug === slug);
 
   if (!tree) {
@@ -179,10 +183,12 @@ export default async function TreePage({ params }: Props) {
     <>
       <TrackView slug={tree.slug} />
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />

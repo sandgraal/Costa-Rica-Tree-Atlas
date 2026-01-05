@@ -41,13 +41,54 @@ This project implements the following security measures:
 ### HTTP Security Headers
 
 - Strict-Transport-Security (HSTS)
-- Content-Security-Policy (CSP) with strict directives
+- Content-Security-Policy (CSP) with nonce-based strict directives
 - X-Content-Type-Options: nosniff
 - X-Frame-Options: SAMEORIGIN
 - X-XSS-Protection
 - Referrer-Policy
 - Permissions-Policy (camera, microphone, geolocation disabled)
 - upgrade-insecure-requests directive
+
+## Content Security Policy
+
+This application uses a strict nonce-based Content Security Policy to prevent XSS attacks:
+
+- **No `unsafe-inline`** - Inline scripts must use nonces
+- **No `unsafe-eval`** - eval() and similar functions are blocked
+- **Strict sources** - Only whitelisted domains allowed
+- **CSP reporting** - Violations logged to `/api/csp-report`
+
+### CSP Directives
+
+- `script-src`: Self + nonce + trusted analytics (Plausible, Google Analytics, Vercel)
+- `style-src`: Self + nonce + Google Fonts
+- `img-src`: Self + specific image CDNs (iNaturalist, GBIF, Unsplash, Google Maps)
+- `connect-src`: Self + trusted APIs only (GBIF, iNaturalist, analytics, Google services)
+- `font-src`: Self + Google Fonts
+- `frame-src`: Self only
+- `object-src`: None (blocks plugins)
+- `base-uri`: Self only
+- `form-action`: Self only
+- `frame-ancestors`: Self only
+
+### Testing CSP
+
+Check browser console for violations:
+
+```javascript
+// This will be blocked:
+eval('alert("blocked")');
+
+// Inline scripts without nonce will be blocked:
+<script>alert("blocked")</script>
+
+// Scripts with nonce will work:
+<script nonce="ABC123">console.log("allowed")</script>
+```
+
+### CSP Reporting
+
+Violations are logged to `/api/csp-report`. In production, configure Sentry or similar service to receive reports.
 
 ### Environment Variables
 
