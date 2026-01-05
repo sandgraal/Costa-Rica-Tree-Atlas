@@ -81,7 +81,7 @@ jobs:
 
       - name: Audit gallery images
         if: steps.mode.outputs.mode == 'audit-gallery' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
-        id: audit-gallery
+        id: audit_gallery
         continue-on-error: true
         run: |
           echo "### Gallery Images" >> audit-report.md
@@ -99,7 +99,7 @@ jobs:
           echo "- **Undersized Images:** ${{ steps.audit.outputs.too_small_count || 0 }}" >> audit-report.md
           echo "" >> audit-report.md
           
-          TOTAL_ISSUES=$((${broken_count:-0} + ${placeholder_count:-0} + ${too_small_count:-0}))
+          TOTAL_ISSUES=$((${{ steps.audit.outputs.broken_count || 0 }} + ${{ steps.audit.outputs.placeholder_count || 0 }} + ${{ steps.audit.outputs.too_small_count || 0 }}))
           if [ $TOTAL_ISSUES -gt 0 ]; then
             echo "**Status:** ⚠️ Issues detected - automated fixes will be applied" >> audit-report.md
           else
@@ -127,7 +127,7 @@ jobs:
           npm run images:refresh >> audit-report.md 2>&1
 
       - name: Refresh gallery images
-        if: steps.mode.outputs.mode == 'refresh-gallery' || (steps.mode.outputs.mode == 'auto' && steps.audit-gallery.outputs.gallery_audit_failed == 'true') || steps.mode.outputs.mode == 'full'
+        if: steps.mode.outputs.mode == 'refresh-gallery' || (steps.mode.outputs.mode == 'auto' && steps.audit_gallery.outputs.gallery_audit_failed == 'true') || steps.mode.outputs.mode == 'full'
         run: |
           echo "" >> audit-report.md
           echo "#### Refreshed Gallery Images" >> audit-report.md
