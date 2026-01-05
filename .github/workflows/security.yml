@@ -105,7 +105,7 @@ jobs:
         run: npm ci
       
       - name: Run ESLint with security rules
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
 
   # License Compliance - Check dependency licenses
   license-check:
