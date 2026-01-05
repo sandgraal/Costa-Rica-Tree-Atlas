@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchBiodiversityData } from "@/lib/api/biodiversity";
+import { validateScientificName } from "@/lib/validation";
 import { rateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
@@ -26,20 +27,15 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const scientificName = searchParams.get("species");
 
-  if (!scientificName) {
-    return NextResponse.json(
-      { error: "Missing species parameter" },
-      { status: 400 }
-    );
-  }
-
-  // Validate input length to prevent abuse
-  if (scientificName.length > 200) {
-    return NextResponse.json({ error: "Parameter too long" }, { status: 400 });
+  // Validate input
+  const validation = validateScientificName(scientificName);
+  if (!validation.valid) {
+    return NextResponse.json({ error: validation.error }, { status: 400 });
   }
 
   try {
-    const data = await fetchBiodiversityData(scientificName);
+    // Use sanitized value
+    const data = await fetchBiodiversityData(validation.sanitized!);
 
     return NextResponse.json(data, {
       headers: {
