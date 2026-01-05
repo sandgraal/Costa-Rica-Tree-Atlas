@@ -1,0 +1,195 @@
+name: Weekly Image Quality Check
+
+on:
+  schedule:
+    # Run every Sunday at 3 AM UTC (weekly instead of nightly)
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Operation mode"
+        required: true
+        default: "audit"
+        type: choice
+        options:
+          - audit
+          - audit-gallery
+          - download
+          - download-force
+          - refresh
+          - refresh-gallery
+          - full
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  image-quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Determine operation mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "mode=${{ inputs.mode }}" >> $GITHUB_OUTPUT
+          else
+            # Weekly schedule: comprehensive audit and fix
+            echo "mode=auto" >> $GITHUB_OUTPUT
+          fi
+
+      # Enhanced monitoring: Run comprehensive audit
+      - name: Comprehensive image audit
+        if: steps.mode.outputs.mode == 'audit' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
+        id: audit
+        continue-on-error: true
+        run: |
+          echo "## Image Quality Audit Report" > audit-report.md
+          echo "" >> audit-report.md
+          echo "**Run Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> audit-report.md
+          echo "" >> audit-report.md
+          
+          # Featured images audit
+          echo "### Featured Images" >> audit-report.md
+          npm run images:audit > audit-output.txt 2>&1 || echo "audit_failed=true" >> $GITHUB_OUTPUT
+          cat audit-output.txt >> audit-report.md
+          echo "" >> audit-report.md
+          
+          # Count issues
+          BROKEN=$(grep -c "❌" audit-output.txt || echo "0")
+          PLACEHOLDERS=$(grep -c "⚠️.*placeholder" audit-output.txt || echo "0")
+          TOO_SMALL=$(grep -c "⚠️.*too small" audit-output.txt || echo "0")
+          
+          echo "broken_count=$BROKEN" >> $GITHUB_OUTPUT
+          echo "placeholder_count=$PLACEHOLDERS" >> $GITHUB_OUTPUT
+          echo "too_small_count=$TOO_SMALL" >> $GITHUB_OUTPUT
+
+      - name: Audit gallery images
+        if: steps.mode.outputs.mode == 'audit-gallery' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
+        id: audit_gallery
+        continue-on-error: true
+        run: |
+          echo "### Gallery Images" >> audit-report.md
+          npm run images:audit:gallery >> audit-report.md 2>&1 || echo "gallery_audit_failed=true" >> $GITHUB_OUTPUT
+          echo "" >> audit-report.md
+
+      # Generate quality metrics
+      - name: Generate quality metrics
+        if: steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
+        run: |
+          echo "### Quality Metrics" >> audit-report.md
+          echo "" >> audit-report.md
+          echo "- **Broken/Missing Images:** ${{ steps.audit.outputs.broken_count || 0 }}" >> audit-report.md
+          echo "- **Placeholder Images:** ${{ steps.audit.outputs.placeholder_count || 0 }}" >> audit-report.md
+          echo "- **Undersized Images:** ${{ steps.audit.outputs.too_small_count || 0 }}" >> audit-report.md
+          echo "" >> audit-report.md
+          
+          TOTAL_ISSUES=$((${{ steps.audit.outputs.broken_count || 0 }} + ${{ steps.audit.outputs.placeholder_count || 0 }} + ${{ steps.audit.outputs.too_small_count || 0 }}))
+          if [ $TOTAL_ISSUES -gt 0 ]; then
+            echo "**Status:** ⚠️ Issues detected - automated fixes will be applied" >> audit-report.md
+          else
+            echo "**Status:** ✅ All images are valid" >> audit-report.md
+          fi
+
+      - name: Download missing/broken images
+        if: steps.mode.outputs.mode == 'download' || steps.mode.outputs.mode == 'full' || (steps.mode.outputs.mode == 'auto' && steps.audit.outputs.audit_failed == 'true')
+        run: |
+          echo "" >> audit-report.md
+          echo "### Automated Fixes Applied" >> audit-report.md
+          echo "" >> audit-report.md
+          echo "#### Downloaded Missing/Broken Images" >> audit-report.md
+          npm run images:download >> audit-report.md 2>&1
+
+      - name: Force download all images
+        if: steps.mode.outputs.mode == 'download-force'
+        run: npm run images:download:force
+
+      - name: Check for better featured images
+        if: steps.mode.outputs.mode == 'refresh' || steps.mode.outputs.mode == 'full' || steps.mode.outputs.mode == 'auto'
+        run: |
+          echo "" >> audit-report.md
+          echo "#### Refreshed Featured Images" >> audit-report.md
+          npm run images:refresh >> audit-report.md 2>&1
+
+      - name: Refresh gallery images
+        if: steps.mode.outputs.mode == 'refresh-gallery' || (steps.mode.outputs.mode == 'auto' && steps.audit_gallery.outputs.gallery_audit_failed == 'true') || steps.mode.outputs.mode == 'full'
+        run: |
+          echo "" >> audit-report.md
+          echo "#### Refreshed Gallery Images" >> audit-report.md
+          npm run images:refresh:gallery >> audit-report.md 2>&1
+
+      - name: Run legacy cleanup
+        if: steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
+        run: |
+          echo "" >> audit-report.md
+          echo "#### Updated iNaturalist Links" >> audit-report.md
+          npm run images:cleanup:force >> audit-report.md 2>&1
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            
+            # Count changed files
+            CHANGED_COUNT=$(git status --porcelain | wc -l)
+            echo "changed_count=$CHANGED_COUNT" >> $GITHUB_OUTPUT
+            
+            # List changed files
+            echo "" >> audit-report.md
+            echo "### Files Modified" >> audit-report.md
+            echo "" >> audit-report.md
+            echo '```' >> audit-report.md
+            git status --porcelain >> audit-report.md
+            echo '```' >> audit-report.md
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "" >> audit-report.md
+            echo "### Result" >> audit-report.md
+            echo "" >> audit-report.md
+            echo "No changes needed - all images are in good condition! ✅" >> audit-report.md
+          fi
+
+      # Create a pull request instead of auto-pushing
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: weekly image quality maintenance"
+          branch: automated/image-quality-${{ github.run_number }}
+          delete-branch: true
+          title: "🖼️ Weekly Image Quality Maintenance"
+          body-path: audit-report.md
+          labels: |
+            maintenance
+            images
+            automated
+          assignees: sandgraal
+          reviewers: sandgraal
+
+      # Post summary even if no changes
+      - name: Post workflow summary
+        if: always()
+        run: |
+          if [ -f audit-report.md ]; then
+            cat audit-report.md >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## Image Quality Check" >> $GITHUB_STEP_SUMMARY
+            echo "Workflow completed successfully." >> $GITHUB_STEP_SUMMARY
+          fi

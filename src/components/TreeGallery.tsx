@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import { SafeImage } from "@/components/SafeImage";
 import { BLUR_DATA_URL } from "@/lib/image";
 
 export interface GalleryImage {
@@ -118,7 +118,7 @@ export function ImageLightbox({
 
         {/* Image */}
         <div className="relative max-w-full max-h-[75vh]">
-          <Image
+          <SafeImage
             src={currentImage.src}
             alt={currentImage.alt}
             width={1200}
@@ -128,6 +128,7 @@ export function ImageLightbox({
             }`}
             onLoad={() => setIsLoading(false)}
             priority
+            fallback="placeholder"
           />
         </div>
 
@@ -171,12 +172,13 @@ export function ImageLightbox({
                     : "border-transparent opacity-60 hover:opacity-100"
                 }`}
               >
-                <Image
+                <SafeImage
                   src={image.src}
                   alt={image.alt}
                   width={64}
                   height={64}
                   className="w-full h-full object-cover"
+                  fallback="placeholder"
                 />
               </button>
             ))}
@@ -221,7 +223,7 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
             onClick={() => openLightbox(index)}
             className="group relative aspect-square rounded-lg overflow-hidden bg-muted border border-border hover:border-primary/50 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
-            <Image
+            <SafeImage
               src={image.src}
               alt={image.alt}
               fill
@@ -229,6 +231,7 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
+              fallback="placeholder"
             />
 
             {/* Hover overlay */}

@@ -240,50 +240,35 @@ function buildInatPhotoUrl(url, size) {
   return `${base}/${size}.${extension}`;
 }
 
-async function checkRemoteImage(
-  url,
-  maxRetries = REMOTE_IMAGE_MAX_RETRIES,
-  timeoutMs = REMOTE_IMAGE_TIMEOUT_MS
-) {
-  let lastError = null;
-
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+async function checkRemoteImage(url, retries = 3) {
+  for (let attempt = 0; attempt < retries; attempt++) {
     try {
-      const res = await fetchWithTimeout(url, {}, timeoutMs);
+      const res = await fetchWithTimeout(url, {}, 30000); // Increased to 30 seconds
       const contentType = res.headers["content-type"] || "";
       res.destroy(); // Don't download the body
-
-      if (res.statusCode === 200 && contentType.startsWith("image/")) {
+      const isValid = res.statusCode === 200 && contentType.startsWith("image/");
+      
+      if (isValid) {
         return true;
       }
-
-      // Log non-200 responses for debugging
-      if (attempt === maxRetries) {
-        log.verbose(`Image check failed: HTTP ${res.statusCode} for ${url}`);
+      
+      // If not valid and this isn't the last attempt, wait before retrying
+      if (attempt < retries - 1) {
+        const delay = 1000 * Math.pow(2, attempt); // Exponential backoff: 1s, 2s, 4s
+        await sleep(delay);
       }
-      return false;
     } catch (err) {
-      lastError = err;
-
-      // If this isn't the last attempt, wait before retrying
-      if (attempt < maxRetries) {
-        const backoffMs = Math.min(
-          RETRY_BACKOFF_BASE_MS *
-            Math.pow(RETRY_BACKOFF_MULTIPLIER, attempt - 1),
-          RETRY_BACKOFF_MAX_MS
-        );
-        log.verbose(
-          `Retry ${attempt}/${maxRetries} for ${url} after ${backoffMs}ms`
-        );
-        await sleep(backoffMs);
+      // On error, wait before retrying (unless last attempt)
+      if (attempt < retries - 1) {
+        const delay = 1000 * Math.pow(2, attempt);
+        log.verbose(`Retry ${attempt + 1}/${retries} for ${url} after error: ${err.message}`);
+        await sleep(delay);
+      } else {
+        log.verbose(`All ${retries} attempts failed for ${url}: ${err.message}`);
       }
     }
   }
-
-  // All retries failed
-  log.verbose(
-    `Image check failed after ${maxRetries} attempts: ${lastError?.message || "unknown error"}`
-  );
+  
   return false;
 }
 
@@ -1078,6 +1063,53 @@ async function checkImageStatus(treeName, featuredImage) {
   return { ...status, issue: "unknown" };
 }
 
+// Comprehensive validation of all tree images (featured + gallery)
+async function validateAllTreeImages(treeName, featuredImage, galleryImages = []) {
+  const result = {
+    treeName,
+    featuredImage: {
+      path: featuredImage,
+      valid: false,
+      accessible: false,
+      issue: null,
+      usedOn: ["main page", "calendar page", "tree detail page"],
+    },
+    galleryImages: [],
+    overallValid: false,
+  };
+
+  // Validate featured image
+  const featuredStatus = await checkImageStatus(treeName, featuredImage);
+  result.featuredImage.valid = !featuredStatus.issue;
+  result.featuredImage.issue = featuredStatus.issue;
+  
+  if (featuredStatus.isExternal) {
+    result.featuredImage.accessible = featuredStatus.isValid;
+  } else if (featuredStatus.isLocal) {
+    result.featuredImage.accessible = featuredStatus.isValid;
+  }
+
+  // Validate gallery images
+  for (const galleryImage of galleryImages) {
+    const validation = await validateGalleryImage(galleryImage);
+    result.galleryImages.push({
+      path: galleryImage,
+      valid: validation.isValid,
+      accessible: validation.isAccessible,
+      highQuality: validation.isHighQuality,
+      reason: validation.reason,
+      usedOn: ["tree detail page gallery"],
+    });
+  }
+
+  // Overall validation
+  result.overallValid =
+    result.featuredImage.valid &&
+    result.galleryImages.every((img) => img.valid);
+
+  return result;
+}
+
 // Main processing function
 async function processTree(treeName, scientificName, options = {}) {
   const { download = false, force = false } = options;
@@ -1283,7 +1315,7 @@ async function auditImages() {
     }
   }
 
-  // Summary
+  // Summary with enhanced metrics
   log.info("\n" + "=".repeat(50));
   log.info("📊 AUDIT SUMMARY");
   log.info("=".repeat(50));
@@ -1295,6 +1327,34 @@ async function auditImages() {
   log.info(
     `❌ Broken/missing: ${results.broken.length + results.missing.length}`
   );
+
+  // Quality metrics
+  const totalTrees = files.length;
+  const healthPercentage = Math.round((results.valid.length / totalTrees) * 100);
+  log.info("\n" + "=".repeat(50));
+  log.info("📈 QUALITY METRICS");
+  log.info("=".repeat(50));
+  log.info(`Total trees: ${totalTrees}`);
+  log.info(`Image health: ${healthPercentage}% (${results.valid.length}/${totalTrees})`);
+  
+  // Calculate average image size
+  if (results.valid.length > 0) {
+    const avgSize = Math.round(
+      results.valid.reduce((sum, s) => sum + s.fileSize, 0) / results.valid.length / 1024
+    );
+    log.info(`Average image size: ${avgSize}KB`);
+  }
+
+  // Pages affected by issues
+  if (results.broken.length > 0 || results.missing.length > 0 || results.placeholder.length > 0) {
+    log.info("\n" + "=".repeat(50));
+    log.info("🚨 IMPACT ANALYSIS");
+    log.info("=".repeat(50));
+    log.info("Pages affected by broken/missing images:");
+    log.info("  • Main page (featured trees, what's blooming)");
+    log.info("  • Calendar page (seasonal visualization)");
+    log.info("  • Individual tree detail pages");
+  }
 
   const issues =
     results.missing.length +

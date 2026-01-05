@@ -4,7 +4,7 @@ import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { TreeCard } from "@/components/tree";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
-import Image from "next/image";
+import { SafeImage } from "@/components/SafeImage";
 import type { Locale } from "@/types/tree";
 
 type Props = {
@@ -276,15 +276,14 @@ function NowBloomingSection({
             className="flex-none w-48 bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg snap-start"
           >
             <div className="relative h-32 bg-gradient-to-br from-primary/20 to-secondary/20">
-              {tree.featuredImage && (
-                <Image
-                  src={tree.featuredImage}
-                  alt={tree.title}
-                  fill
-                  sizes="192px"
-                  className="object-cover"
-                />
-              )}
+              <SafeImage
+                src={tree.featuredImage || ""}
+                alt={tree.title}
+                fill
+                sizes="192px"
+                className="object-cover"
+                fallback="placeholder"
+              />
               <div
                 className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium ${
                   tree.activity === "flowering"
@@ -371,15 +370,14 @@ function TreeOfTheDay({
         {/* Image */}
         <div className="md:w-2/5 relative">
           <div className="aspect-[4/3] md:aspect-auto md:h-full bg-gradient-to-br from-primary/20 to-secondary/20 relative">
-            {tree.featuredImage && (
-              <Image
-                src={tree.featuredImage}
-                alt={tree.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover"
-              />
-            )}
+            <SafeImage
+              src={tree.featuredImage || ""}
+              alt={tree.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover"
+              fallback="placeholder"
+            />
           </div>
           <div className="absolute top-4 left-4 px-3 py-1.5 bg-accent text-primary-dark rounded-full text-sm font-semibold shadow-lg">
             🌟 {t("treeOfTheDay")}
