@@ -689,6 +689,7 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
   });
 
   const currentImage = images[lightbox.currentIndex];
+  const isRemote = currentImage?.src?.startsWith("http");
 
   return (
     <>
@@ -774,6 +775,7 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
                 height={800}
                 className="max-h-[75vh] w-auto object-contain"
                 priority
+                unoptimized={isRemote}
               />
             </div>
 
