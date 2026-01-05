@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
+import { rateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,58 +9,6 @@ export const dynamic = "force-dynamic";
 const FEATURE_ENABLED = false;
 
 const MAX_LABELS = 12;
-
-// Simple in-memory rate limiting (resets on server restart)
-// For production, consider using Vercel KV, Upstash Redis, or similar
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS_PER_WINDOW = 10; // 10 requests per minute per IP
-const CLEANUP_INTERVAL = 5 * 60 * 1000; // Clean up stale entries every 5 minutes
-const MAX_MAP_SIZE = 10000; // Prevent unbounded growth
-
-// Periodic cleanup to prevent memory leaks
-let lastCleanup = Date.now();
-function cleanupStaleEntries() {
-  const now = Date.now();
-  if (now - lastCleanup < CLEANUP_INTERVAL) return;
-
-  lastCleanup = now;
-  for (const [key, record] of rateLimitMap.entries()) {
-    if (now > record.resetTime) {
-      rateLimitMap.delete(key);
-    }
-  }
-}
-
-function getRateLimitKey(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  return forwarded ? forwarded.split(",")[0].trim() : "unknown";
-}
-
-function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
-  // Run cleanup periodically
-  cleanupStaleEntries();
-
-  // Prevent unbounded map growth
-  if (rateLimitMap.size > MAX_MAP_SIZE) {
-    rateLimitMap.clear();
-  }
-
-  const now = Date.now();
-  const record = rateLimitMap.get(key);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - 1 };
-  }
-
-  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
-    return { allowed: false, remaining: 0 };
-  }
-
-  record.count++;
-  return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - record.count };
-}
 
 interface VisionLabel {
   description: string;
@@ -207,8 +156,11 @@ export async function POST(request: Request) {
   }
 
   // Rate limiting check
-  const rateLimitKey = getRateLimitKey(request);
-  const { allowed, remaining } = checkRateLimit(rateLimitKey);
+  const identifier = getRateLimitIdentifier(request);
+  const { allowed, remaining, resetTime } = rateLimit(identifier, {
+    interval: 60000, // 1 minute
+    maxRequests: 10, // 10 requests per minute
+  });
 
   if (!allowed) {
     return NextResponse.json(
@@ -216,7 +168,7 @@ export async function POST(request: Request) {
       {
         status: 429,
         headers: {
-          "Retry-After": "60",
+          "Retry-After": String(Math.ceil((resetTime - Date.now()) / 1000)),
           "X-RateLimit-Remaining": "0",
         },
       }
