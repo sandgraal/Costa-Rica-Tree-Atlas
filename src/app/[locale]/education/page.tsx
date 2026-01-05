@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 
@@ -76,10 +77,7 @@ export default async function EducationPage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <SafeJsonLd data={structuredData} />
       <div className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <EducationContent treeCount={treeCount} />
