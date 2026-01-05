@@ -14,7 +14,19 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "static.inaturalist.org",
+      },
+      {
+        protocol: "https",
+        hostname: "inaturalist-open-data.s3.amazonaws.com",
+      },
+      {
+        protocol: "https",
+        hostname: "api.gbif.org",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
     // Optimize image loading

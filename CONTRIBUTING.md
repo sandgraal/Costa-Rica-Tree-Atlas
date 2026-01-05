@@ -67,6 +67,33 @@ This project and everyone participating in it is governed by our commitment to c
 
 6. **Open [http://localhost:3000](http://localhost:3000)** to see the site.
 
+### Admin Access
+
+The project includes admin routes (e.g., `/en/admin/images` for reviewing tree images) that require authentication.
+
+To enable admin access during development:
+
+1. **Copy `.env.example` to `.env.local`**
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. **Set the `ADMIN_PASSWORD` environment variable**
+
+   ```bash
+   # In .env.local
+   ADMIN_PASSWORD=your-secure-password
+   ```
+
+3. **Access admin routes**
+
+   When you visit an admin route (e.g., `http://localhost:3000/en/admin/images`), your browser will prompt for credentials:
+   - **Username**: `admin`
+   - **Password**: The value you set in `ADMIN_PASSWORD`
+
+**Security Note**: Without `ADMIN_PASSWORD` configured, admin routes will return a 503 error. Never commit `.env.local` or share your admin password publicly.
+
 ## Development Workflow
 
 ### Keeping Your Fork Updated
