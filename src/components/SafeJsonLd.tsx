@@ -1,29 +1,30 @@
 "use client";
 
-import DOMPurify from "isomorphic-dompurify";
+import { useEffect, useRef } from "react";
 
 interface SafeJsonLdProps {
   data: object;
 }
 
 /**
- * Safely renders JSON-LD structured data with XSS protection
+ * Safely renders JSON-LD structured data without using dangerouslySetInnerHTML
  * 
- * This component uses DOMPurify to sanitize JSON-LD structured data before
- * injecting it into the DOM via dangerouslySetInnerHTML. This prevents
- * potential XSS vulnerabilities if user input ever flows into the structured data.
+ * This component creates a script tag and sets its textContent property directly,
+ * which is safer than using dangerouslySetInnerHTML. JSON.stringify() already
+ * escapes potentially dangerous characters like < and >, making the output safe.
  * 
  * @param data - The JSON-LD structured data object to render
- * @returns A script tag with sanitized JSON-LD data
+ * @returns A script tag with JSON-LD data
  */
 export function SafeJsonLd({ data }: SafeJsonLdProps) {
-  const jsonString = JSON.stringify(data);
-  const sanitized = DOMPurify.sanitize(jsonString);
+  const ref = useRef<HTMLScriptElement>(null);
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: sanitized }}
-    />
-  );
+  useEffect(() => {
+    if (ref.current) {
+      const jsonString = JSON.stringify(data);
+      ref.current.textContent = jsonString;
+    }
+  }, [data]);
+
+  return <script ref={ref} type="application/ld+json" />;
 }
