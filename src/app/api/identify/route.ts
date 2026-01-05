@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
-import { rateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
+import { rateLimit } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -142,7 +142,7 @@ const scoreLabelAgainstTree = (
   return score;
 };
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   // Check if feature is enabled
   if (!FEATURE_ENABLED) {
     return NextResponse.json(
@@ -155,24 +155,10 @@ export async function POST(request: Request) {
     );
   }
 
-  // Rate limiting check
-  const identifier = getRateLimitIdentifier(request);
-  const { allowed, remaining, resetTime } = rateLimit(identifier, {
-    interval: 60000, // 1 minute
-    maxRequests: 10, // 10 requests per minute
-  });
-
-  if (!allowed) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(Math.ceil((resetTime - Date.now()) / 1000)),
-          "X-RateLimit-Remaining": "0",
-        },
-      }
-    );
+  // Apply rate limiting
+  const rateLimitResponse = await rateLimit(request, "identify");
+  if (rateLimitResponse) {
+    return rateLimitResponse; // Rate limit exceeded
   }
 
   const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY;
@@ -308,15 +294,8 @@ export async function POST(request: Request) {
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
 
-  return NextResponse.json(
-    {
-      labels: labels.sort((a, b) => b.score - a.score).slice(0, MAX_LABELS),
-      matches,
-    },
-    {
-      headers: {
-        "X-RateLimit-Remaining": String(remaining),
-      },
-    }
-  );
+  return NextResponse.json({
+    labels: labels.sort((a, b) => b.score - a.score).slice(0, MAX_LABELS),
+    matches,
+  });
 }
