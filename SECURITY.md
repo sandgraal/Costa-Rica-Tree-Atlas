@@ -30,6 +30,59 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### Admin Authentication
+
+Admin routes (`/admin/*`) require Basic Authentication with the following security measures:
+
+- **HTTPS enforcement** - Admin routes require HTTPS in production environments
+- **Rate limiting** - 5 attempts per 15 minutes per IP address to prevent brute force attacks
+- **Constant-time comparison** - Prevents timing attacks on password verification
+- **Configurable username** - Set via `ADMIN_USERNAME` environment variable (defaults to "admin")
+- **Strong password required** - Set via `ADMIN_PASSWORD` environment variable
+- **Persistent rate limiting** - Uses Upstash Redis in production for rate limits that persist across server restarts
+
+#### Setting Admin Password
+
+Generate a strong password:
+
+```bash
+# Generate a 32-character password
+openssl rand -base64 32
+```
+
+Set in environment variables:
+
+```bash
+# For Vercel deployment
+vercel env add ADMIN_PASSWORD
+
+# For local development (.env.local)
+echo "ADMIN_PASSWORD=your_generated_password" > .env.local
+echo "ADMIN_USERNAME=your_custom_username" >> .env.local
+```
+
+#### Security Best Practices
+
+1. **Use strong passwords** - At least 32 characters, generated randomly
+2. **Rotate passwords regularly** - Every 90 days recommended
+3. **Never commit credentials** - Keep `.env` and `.env.local` files gitignored
+4. **Monitor failed attempts** - Review logs for suspicious activity
+5. **Use Upstash Redis** - For production rate limiting that persists across deployments
+6. **Use non-obvious usernames** - Don't use "admin" in production
+
+#### Rate Limiting Configuration
+
+For local development, rate limiting is stored in-memory (resets on restart).
+
+For production, configure Upstash Redis:
+
+```bash
+# Sign up at https://upstash.com and create a Redis database
+# Then add these environment variables:
+UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your-token
+```
+
 ### API Security
 
 - Rate limiting on API endpoints that call external paid services

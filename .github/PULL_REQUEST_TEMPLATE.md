@@ -69,7 +69,7 @@ Fixes #
 - [ ] Chrome (Desktop)
 - [ ] Firefox (Desktop)
 - [ ] Safari (Desktop)
-- [ ] Mobile browser: ****\_\_\_****
+- [ ] Mobile browser: \***\*\_\_\_\*\***
 
 ## 📝 Additional Notes
 
