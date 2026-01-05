@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
+import { validateLocale } from "@/lib/validation";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const locale = searchParams.get("locale") || "en";
+  const localeParam = searchParams.get("locale");
+
+  // Validate locale
+  const validation = validateLocale(localeParam);
+  if (!validation.valid) {
+    return NextResponse.json({ error: validation.error }, { status: 400 });
+  }
+
+  const locale = validation.sanitized!;
 
   // Filter trees by locale
   const trees = allTrees.filter((tree) => tree.locale === locale);

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useLocale } from "next-intl";
+import { validateSlug } from "@/lib/validation";
 
 export function KeyboardShortcuts() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +76,11 @@ export function KeyboardShortcuts() {
               .then((res) => res.json())
               .then((data) => {
                 if (data.slug) {
-                  window.location.href = `/${locale}/trees/${data.slug}`;
+                  // Validate slug before redirecting
+                  const validation = validateSlug(data.slug);
+                  if (validation.valid) {
+                    window.location.href = `/${locale}/trees/${validation.sanitized}`;
+                  }
                 }
               })
               .catch(() => {
