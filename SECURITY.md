@@ -30,6 +30,59 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### Rate Limiting
+
+Rate limiting is enforced on all API endpoints to prevent abuse, protect external service costs, and maintain system availability. All limits are applied **per IP address** using a sliding window algorithm.
+
+#### Production vs Development
+
+- **Production**: Rate limits are persisted in Upstash Redis, surviving server restarts and scaling across multiple instances
+- **Development**: Rate limiting is disabled by default for easier local testing. To enable rate limiting in development, configure Upstash Redis environment variables.
+
+#### Rate Limit Configuration
+
+| Endpoint              | Limit        | Window     | Rationale                                                              |
+| --------------------- | ------------ | ---------- | ---------------------------------------------------------------------- |
+| `/api/identify`       | 10 requests  | 1 hour     | AI image identification uses Plant.id paid API - expensive per request |
+| `/api/species`        | 60 requests  | 1 minute   | Species biodiversity data from iNaturalist - moderate usage allowed    |
+| `/api/species/images` | 30 requests  | 1 minute   | Image fetching from iNaturalist - bandwidth-intensive                  |
+| `/api/species/random` | 100 requests | 1 minute   | Random tree selection - lightweight operation                          |
+| Other API endpoints   | 100 requests | 1 minute   | Default limit for general API endpoints                                |
+| Admin authentication  | 5 attempts   | 15 minutes | Strict limit to prevent brute-force attacks                            |
+
+#### Rate Limit Headers
+
+All API responses include standard rate limit headers:
+
+- `X-RateLimit-Limit`: Maximum number of requests allowed in the window
+- `X-RateLimit-Remaining`: Number of requests remaining in current window
+- `X-RateLimit-Reset`: Unix timestamp when the rate limit resets
+
+When rate limit is exceeded (429 response):
+
+- `Retry-After`: Number of seconds until the client can retry
+
+#### Configuring Upstash Redis
+
+For production rate limiting that persists across deployments:
+
+```bash
+# Sign up at https://upstash.com and create a Redis database
+# Add these environment variables:
+UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your-token
+```
+
+#### IP Address Detection
+
+Rate limits use the most reliable IP address available:
+
+1. `x-real-ip` header (set by Vercel in production)
+2. First IP in `x-forwarded-for` header
+3. Fallback to "anonymous" if neither available
+
+This prioritization prevents IP spoofing while maintaining functionality.
+
 ### Admin Authentication
 
 Admin routes (`/admin/*`) require Basic Authentication with the following security measures:
@@ -69,19 +122,6 @@ echo "ADMIN_USERNAME=your_custom_username" >> .env.local
 4. **Monitor failed attempts** - Review logs for suspicious activity
 5. **Use Upstash Redis** - For production rate limiting that persists across deployments
 6. **Use non-obvious usernames** - Don't use "admin" in production
-
-#### Rate Limiting Configuration
-
-For local development, rate limiting is stored in-memory (resets on restart).
-
-For production, configure Upstash Redis:
-
-```bash
-# Sign up at https://upstash.com and create a Redis database
-# Then add these environment variables:
-UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
-UPSTASH_REDIS_REST_TOKEN=your-token
-```
 
 ### API Security
 
