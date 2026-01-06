@@ -7,7 +7,7 @@ The Costa Rica Tree Atlas implements automated weekly image quality monitoring t
 ## Monitoring Schedule
 
 - **Frequency:** Weekly (every Sunday at 3 AM UTC)
-- **Automation:** Automated via GitHub Actions
+- **Automation:** Automated via GitHub Actions workflow `weekly-image-quality.yml`
 - **Review Process:** Creates a Pull Request for manual review before merging
 
 ## What Gets Checked

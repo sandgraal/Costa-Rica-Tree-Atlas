@@ -28,7 +28,7 @@
 - Tree content (MDX): `content/trees/en/*.mdx`, `content/trees/es/*.mdx`
 - Image storage & attributions: `public/images/trees/`, `public/images/trees/attributions.json`
 - Image maintenance scripts: `scripts/manage-tree-images.mjs`, `scripts/cleanup-tree-images.mjs`
-- Nightly maintenance workflow: `.github/workflows/nightly-image-cleanup.yml`
+- Weekly maintenance workflow: `.github/workflows/weekly-image-quality.yml`
 - MDX components: `src/components/mdx/`
 - Tree detail page: `src/app/[locale]/trees/[slug]/page.tsx`
 
@@ -36,7 +36,7 @@
 
 - Gallery rendering: `src/components/mdx/index.tsx` (`ImageCard`, `ImageGallery`).
 - Featured image maintenance: `scripts/manage-tree-images.mjs` (`downloadImages`, `refreshImages`, `scoreFeaturedCandidate`).
-- Nightly image workflow: `.github/workflows/nightly-image-cleanup.yml` (modes `auto`, `full`).
+- Weekly image workflow: `.github/workflows/weekly-image-quality.yml` (modes `audit`, `audit-gallery`, `download`, `download-force`, `refresh`, `refresh-gallery`, `full`).
 
 ## Known Constraints & Feature Flags
 

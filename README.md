@@ -16,7 +16,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 ### 🌐 Bilingual Content
 
 - Full English and Spanish support with locale-based routing
-- 74 species with comprehensive bilingual profiles (148 documents)
+- 108 species with comprehensive bilingual profiles (216 documents)
 - MDX content system for rich tree profiles with React components
 
 ### 📚 Education Tools
@@ -79,14 +79,15 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 
 API endpoints are protected with persistent rate limiting using Upstash Redis:
 
-| Endpoint | Limit | Window |
-|----------|-------|--------|
-| `/api/identify` | 10 requests | 1 minute |
-| `/api/species` | 60 requests | 1 minute |
-| `/api/species/images` | 30 requests | 1 minute |
+| Endpoint              | Limit        | Window   |
+| --------------------- | ------------ | -------- |
+| `/api/identify`       | 10 requests  | 1 hour   |
+| `/api/species`        | 60 requests  | 1 minute |
+| `/api/species/images` | 30 requests  | 1 minute |
 | `/api/species/random` | 100 requests | 1 minute |
 
 Rate limit information is included in response headers:
+
 - `X-RateLimit-Limit`: Maximum requests allowed
 - `X-RateLimit-Remaining`: Requests remaining in current window
 - `X-RateLimit-Reset`: Timestamp when limit resets

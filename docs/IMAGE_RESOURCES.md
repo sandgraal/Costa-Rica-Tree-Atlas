@@ -111,9 +111,9 @@ The script works in multiple environments:
 
 ---
 
-## Nightly Image Maintenance
+## Weekly Image Maintenance
 
-A GitHub Actions workflow runs nightly at 3 AM UTC:
+A GitHub Actions workflow runs weekly (every Sunday) at 3 AM UTC:
 
 1. **Audits** all featured tree images for issues
 2. **Audits** all photo gallery images for broken/low-quality photos and diversity
