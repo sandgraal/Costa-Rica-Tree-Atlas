@@ -89,7 +89,7 @@ UPSTASH_REDIS_REST_TOKEN=your-token
   - Validates `Origin` and `Referer` headers against allowed origins
   - Default allowed origins: `https://costaricatreeatlas.com`, `https://www.costaricatreeatlas.com`
   - Additional origins configurable via `ALLOWED_ORIGINS` environment variable
-  - Automatically allows all origins in development mode (`NODE_ENV=development`)
+  - Development mode automatically allows localhost origins (`http://localhost:3000`, `http://127.0.0.1:3000`)
   - Returns 403 Forbidden for requests from unauthorized origins
 - Rate limiting on API endpoints that call external paid services
 - Input validation and sanitization

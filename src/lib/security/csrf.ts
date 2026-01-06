@@ -18,9 +18,10 @@ export function validateOrigin(request: NextRequest): {
   const origin = request.headers.get("origin");
   const referer = request.headers.get("referer");
 
-  // For same-origin requests, origin may be null
+  // Some browsers/requests may not include origin header
   if (!origin && !referer) {
-    // Allow requests without origin/referer in development
+    // Allow requests without origin/referer in development only
+    // Production should always have these headers for POST requests
     if (process.env.NODE_ENV === "development") {
       return { valid: true };
     }
@@ -28,6 +29,15 @@ export function validateOrigin(request: NextRequest): {
   }
 
   const allowedOrigins = getAllowedOrigins();
+
+  // In development, also allow localhost origins
+  if (process.env.NODE_ENV === "development") {
+    allowedOrigins.push(
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "http://localhost:3001"
+    );
+  }
 
   // Check origin
   if (origin && allowedOrigins.includes(origin)) {
