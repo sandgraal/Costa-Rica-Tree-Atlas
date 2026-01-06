@@ -40,6 +40,9 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
   const { progress, totalPoints, completedLessons } = useEducationProgress();
 
   const getStatusBadge = (lessonId: string) => {
+    if (!Object.hasOwn(progress, lessonId)) return null;
+    // Safe access after Object.hasOwn check
+    // eslint-disable-next-line security/detect-object-injection
     const lessonProgress = progress[lessonId];
     if (!lessonProgress) return null;
 
