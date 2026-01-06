@@ -17,14 +17,18 @@ export function getAllowedOrigins(): readonly string[] {
   }
 
   const envOrigins =
-    process.env.ALLOWED_ORIGINS?.split(",").map((o) => o.trim()) || [];
+    process.env.ALLOWED_ORIGINS?.split(",")
+      .map((o) => o.trim())
+      .filter((o) => o.length > 0) || [];
 
   const origins = [...DEFAULT_ALLOWED_ORIGINS, ...envOrigins];
 
   // In development, also allow localhost origins
   if (process.env.NODE_ENV === "development") {
     const devOrigins = process.env.DEV_ALLOWED_ORIGINS
-      ? process.env.DEV_ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+      ? process.env.DEV_ALLOWED_ORIGINS.split(",")
+          .map((o) => o.trim())
+          .filter((o) => o.length > 0)
       : [
           "http://localhost:3000",
           "http://127.0.0.1:3000",
@@ -34,7 +38,8 @@ export function getAllowedOrigins(): readonly string[] {
     origins.push(...devOrigins);
   }
 
-  // Freeze the array to prevent modifications and cache it
+  // Shallow freeze the array to prevent modifications and cache it
+  // This is sufficient since the array only contains primitive string values
   cachedAllowedOrigins = Object.freeze(origins);
   return cachedAllowedOrigins;
 }
