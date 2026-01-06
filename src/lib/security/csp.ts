@@ -32,10 +32,10 @@ export function buildCSP(nonce?: string): string {
     ],
     "style-src": [
       "'self'",
-      "'unsafe-inline'", // Required for CSS-in-JS and Tailwind
+      "'unsafe-inline'", // Required for inline styles from Next.js and React components
       "https://fonts.googleapis.com",
     ],
-    "img-src": ["'self'", "data:", "blob:", "https:", "http:"],
+    "img-src": ["'self'", "data:", "blob:", "https:"],
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
       "'self'",
@@ -61,7 +61,6 @@ export function buildCSP(nonce?: string): string {
   if (process.env.CSP_REPORT_URI) {
     Object.assign(directives, {
       "report-uri": [process.env.CSP_REPORT_URI],
-      "report-to": ["csp-endpoint"],
     });
   }
 
