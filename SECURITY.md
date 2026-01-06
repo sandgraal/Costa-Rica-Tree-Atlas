@@ -89,8 +89,9 @@ UPSTASH_REDIS_REST_TOKEN=your-token
   - Validates `Origin` and `Referer` headers against allowed origins
   - Default allowed origins: `https://costaricatreeatlas.com`, `https://www.costaricatreeatlas.com`
   - Additional origins configurable via `ALLOWED_ORIGINS` environment variable
-  - Development mode automatically allows localhost origins (`http://localhost:3000`, `http://127.0.0.1:3000`)
+  - Development mode allows configurable localhost origins via `DEV_ALLOWED_ORIGINS` (defaults to `localhost:3000`, `127.0.0.1:3000`, `localhost:3001`)
   - Returns 403 Forbidden for requests from unauthorized origins
+  - No bypass: All requests must have valid origin or referer header, even in development
 - Rate limiting on API endpoints that call external paid services
 - Input validation and sanitization
 - File upload size and type restrictions
@@ -102,11 +103,15 @@ UPSTASH_REDIS_REST_TOKEN=your-token
 To add additional allowed origins for CSRF protection:
 
 ```bash
-# In .env.local or deployment environment
+# Production origins (in .env.local or deployment environment)
 ALLOWED_ORIGINS=https://costaricatreeatlas.org,https://app.costaricatreeatlas.com
+
+# Development origins (optional, in .env.local)
+# Defaults: http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001
+DEV_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080
 ```
 
-Multiple origins should be comma-separated. These will be combined with the default allowed origins.
+Multiple origins should be comma-separated. Production origins will be combined with the default allowed origins. Development origins are only used when `NODE_ENV=development`.
 
 ### HTTP Security Headers
 

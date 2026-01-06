@@ -18,33 +18,30 @@ export function validateOrigin(request: NextRequest): {
   const origin = request.headers.get("origin");
   const referer = request.headers.get("referer");
 
-  // Some browsers/requests may not include origin header
-  if (!origin && !referer) {
-    // Allow requests without origin/referer in development only
-    // Production should always have these headers for POST requests
-    if (process.env.NODE_ENV === "development") {
-      return { valid: true };
-    }
-    return { valid: false, error: "Missing origin header" };
-  }
-
   const allowedOrigins = getAllowedOrigins();
 
   // In development, also allow localhost origins
   if (process.env.NODE_ENV === "development") {
-    allowedOrigins.push(
-      "http://localhost:3000",
-      "http://127.0.0.1:3000",
-      "http://localhost:3001"
-    );
+    // Use configurable dev origins if provided, otherwise use defaults
+    const devOrigins = process.env.DEV_ALLOWED_ORIGINS
+      ? process.env.DEV_ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+      : [
+          "http://localhost:3000",
+          "http://127.0.0.1:3000",
+          "http://localhost:3001",
+        ];
+
+    allowedOrigins.push(...devOrigins);
   }
 
-  // Check origin
-  if (origin && allowedOrigins.includes(origin)) {
-    return { valid: true };
+  // Check origin header
+  if (origin) {
+    if (allowedOrigins.includes(origin)) {
+      return { valid: true };
+    }
   }
 
-  // Check referer as fallback
+  // Check referer as fallback (some browsers may not send origin)
   if (referer) {
     try {
       const refererUrl = new URL(referer);
@@ -55,6 +52,11 @@ export function validateOrigin(request: NextRequest): {
     } catch {
       return { valid: false, error: "Invalid referer header" };
     }
+  }
+
+  // If neither origin nor referer is present or valid
+  if (!origin && !referer) {
+    return { valid: false, error: "Missing origin and referer headers" };
   }
 
   return { valid: false, error: "Origin not allowed" };
