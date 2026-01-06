@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
   if (!originValidation.valid) {
     return NextResponse.json(
       {
-        error: originValidation.error || "Origin validation failed",
+        error: `CSRF validation failed: ${originValidation.error}`,
         code: "INVALID_ORIGIN",
       },
       { status: 403 }

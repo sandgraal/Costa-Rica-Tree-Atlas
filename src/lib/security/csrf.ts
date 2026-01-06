@@ -8,7 +8,23 @@ const DEFAULT_ALLOWED_ORIGINS = [
 export function getAllowedOrigins(): string[] {
   const envOrigins =
     process.env.ALLOWED_ORIGINS?.split(",").map((o) => o.trim()) || [];
-  return [...DEFAULT_ALLOWED_ORIGINS, ...envOrigins];
+
+  const origins = [...DEFAULT_ALLOWED_ORIGINS, ...envOrigins];
+
+  // In development, also allow localhost origins
+  if (process.env.NODE_ENV === "development") {
+    const devOrigins = process.env.DEV_ALLOWED_ORIGINS
+      ? process.env.DEV_ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+      : [
+          "http://localhost:3000",
+          "http://127.0.0.1:3000",
+          "http://localhost:3001",
+        ];
+
+    origins.push(...devOrigins);
+  }
+
+  return origins;
 }
 
 export function validateOrigin(request: NextRequest): {
@@ -19,20 +35,6 @@ export function validateOrigin(request: NextRequest): {
   const referer = request.headers.get("referer");
 
   const allowedOrigins = getAllowedOrigins();
-
-  // In development, also allow localhost origins
-  if (process.env.NODE_ENV === "development") {
-    // Use configurable dev origins if provided, otherwise use defaults
-    const devOrigins = process.env.DEV_ALLOWED_ORIGINS
-      ? process.env.DEV_ALLOWED_ORIGINS.split(",").map((o) => o.trim())
-      : [
-          "http://localhost:3000",
-          "http://127.0.0.1:3000",
-          "http://localhost:3001",
-        ];
-
-    allowedOrigins.push(...devOrigins);
-  }
 
   // Check origin header
   if (origin) {
