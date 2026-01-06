@@ -3,10 +3,11 @@ import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 import { RATE_LIMITS } from "./config";
 
+// Type for API rate limits (excludes 'admin' which is handled separately)
+type ApiRateLimitType = Exclude<keyof typeof RATE_LIMITS, "admin">;
+
 // Initialize Redis client
-const redis = process.env.UPSTASH_REDIS_REST_URL
-  ? Redis.fromEnv()
-  : null;
+const redis = process.env.UPSTASH_REDIS_REST_URL ? Redis.fromEnv() : null;
 
 // Create rate limiters for each endpoint type
 const rateLimiters = redis
@@ -80,11 +81,39 @@ function getClientIdentifier(request: NextRequest): string {
 
 /**
  * Apply rate limiting to an API route
- * Returns either a NextResponse with 429 error, or an object with headers to add to successful response
+ *
+ * This function enforces per-IP rate limits on API endpoints to prevent abuse
+ * and protect external service costs. Rate limits are configured in ./config.ts
+ *
+ * @param request - The incoming Next.js request
+ * @param type - The type of endpoint being rate limited (default: "default")
+ *               - "identify": AI image identification (10 req/hour) - expensive paid API
+ *               - "species": Species data fetching (60 req/minute)
+ *               - "images": iNaturalist images (30 req/minute)
+ *               - "random": Random tree selection (100 req/minute)
+ *               - "default": General endpoints (100 req/minute)
+ *
+ * @returns Either a 429 response if rate limit exceeded, or headers to add to successful response
+ *
+ * Rate limiting behavior:
+ * - Production: Uses Upstash Redis for persistent rate limits across deployments
+ * - Development: Disabled by default (unless UPSTASH_REDIS_REST_URL is set)
+ * - All limits are per IP address using sliding window algorithm
+ * - Returns standard rate limit headers: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+ *
+ * @example
+ * ```typescript
+ * const rateLimitResult = await rateLimit(request, "identify");
+ * if ("response" in rateLimitResult) {
+ *   return rateLimitResult.response; // Rate limit exceeded
+ * }
+ * // Continue with normal response, adding rate limit headers
+ * return NextResponse.json(data, { headers: rateLimitResult.headers });
+ * ```
  */
 export async function rateLimit(
   request: NextRequest,
-  type: keyof typeof RATE_LIMITS = "default"
+  type: ApiRateLimitType = "default"
 ): Promise<{ response: NextResponse } | { headers: Record<string, string> }> {
   // Skip rate limiting in development
   if (process.env.NODE_ENV === "development" && !redis) {

@@ -30,6 +30,59 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### Rate Limiting
+
+Rate limiting is enforced on all API endpoints to prevent abuse, protect external service costs, and maintain system availability. All limits are applied **per IP address** using a sliding window algorithm.
+
+#### Production vs Development
+
+- **Production**: Rate limits are persisted in Upstash Redis, surviving server restarts and scaling across multiple instances
+- **Development**: Rate limiting is disabled by default for easier local testing. To enable rate limiting in development, configure Upstash Redis environment variables.
+
+#### Rate Limit Configuration
+
+| Endpoint              | Limit        | Window     | Rationale                                                              |
+| --------------------- | ------------ | ---------- | ---------------------------------------------------------------------- |
+| `/api/identify`       | 10 requests  | 1 hour     | AI image identification uses Plant.id paid API - expensive per request |
+| `/api/species`        | 60 requests  | 1 minute   | Species biodiversity data from iNaturalist - moderate usage allowed    |
+| `/api/species/images` | 30 requests  | 1 minute   | Image fetching from iNaturalist - bandwidth-intensive                  |
+| `/api/species/random` | 100 requests | 1 minute   | Random tree selection - lightweight operation                          |
+| Other API endpoints   | 100 requests | 1 minute   | Default limit for general API endpoints                                |
+| Admin authentication  | 5 attempts   | 15 minutes | Strict limit to prevent brute-force attacks                            |
+
+#### Rate Limit Headers
+
+All API responses include standard rate limit headers:
+
+- `X-RateLimit-Limit`: Maximum number of requests allowed in the window
+- `X-RateLimit-Remaining`: Number of requests remaining in current window
+- `X-RateLimit-Reset`: Unix timestamp when the rate limit resets
+
+When rate limit is exceeded (429 response):
+
+- `Retry-After`: Number of seconds until the client can retry
+
+#### Configuring Upstash Redis
+
+For production rate limiting that persists across deployments:
+
+```bash
+# Sign up at https://upstash.com and create a Redis database
+# Add these environment variables:
+UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your-token
+```
+
+#### IP Address Detection
+
+Rate limits use the most reliable IP address available:
+
+1. `x-real-ip` header (set by Vercel in production)
+2. First IP in `x-forwarded-for` header
+3. Fallback to "anonymous" if neither available
+
+This prioritization prevents IP spoofing while maintaining functionality.
+
 ### Admin Authentication
 
 Admin routes (`/admin/*`) require Basic Authentication with the following security measures:
@@ -70,26 +123,35 @@ echo "ADMIN_USERNAME=your_custom_username" >> .env.local
 5. **Use Upstash Redis** - For production rate limiting that persists across deployments
 6. **Use non-obvious usernames** - Don't use "admin" in production
 
-#### Rate Limiting Configuration
-
-For local development, rate limiting is stored in-memory (resets on restart).
-
-For production, configure Upstash Redis:
-
-```bash
-# Sign up at https://upstash.com and create a Redis database
-# Then add these environment variables:
-UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
-UPSTASH_REDIS_REST_TOKEN=your-token
-```
-
 ### API Security
 
+- **CSRF Protection** - Origin validation for state-changing operations (POST, PUT, DELETE requests)
+  - Validates `Origin` and `Referer` headers against allowed origins
+  - Default allowed origins: `https://costaricatreeatlas.com`, `https://www.costaricatreeatlas.com`
+  - Additional origins configurable via `ALLOWED_ORIGINS` environment variable
+  - Development mode allows configurable localhost origins via `DEV_ALLOWED_ORIGINS` (defaults to `localhost:3000`, `127.0.0.1:3000`, `localhost:3001`)
+  - Returns 403 Forbidden for requests from unauthorized origins
+  - No bypass: All requests must have valid origin or referer header, even in development
 - Rate limiting on API endpoints that call external paid services
 - Input validation and sanitization
 - File upload size and type restrictions
 - No sensitive data in API responses
 - AI identification feature disabled by default (requires explicit opt-in)
+
+#### Configuring Allowed Origins
+
+To add additional allowed origins for CSRF protection:
+
+```bash
+# Production origins (in .env.local or deployment environment)
+ALLOWED_ORIGINS=https://costaricatreeatlas.org,https://app.costaricatreeatlas.com
+
+# Development origins (optional, in .env.local)
+# Defaults: http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001
+DEV_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080
+```
+
+Multiple origins should be comma-separated. Production origins will be combined with the default allowed origins. Development origins are only used when `NODE_ENV=development`.
 
 ### HTTP Security Headers
 
