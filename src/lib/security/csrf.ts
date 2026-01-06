@@ -5,7 +5,15 @@ const DEFAULT_ALLOWED_ORIGINS = [
   "https://www.costaricatreeatlas.com",
 ];
 
+// Cache allowed origins to avoid recomputing on every request
+let cachedAllowedOrigins: string[] | null = null;
+
 export function getAllowedOrigins(): string[] {
+  // Return cached value if available
+  if (cachedAllowedOrigins !== null) {
+    return cachedAllowedOrigins;
+  }
+
   const envOrigins =
     process.env.ALLOWED_ORIGINS?.split(",").map((o) => o.trim()) || [];
 
@@ -24,6 +32,8 @@ export function getAllowedOrigins(): string[] {
     origins.push(...devOrigins);
   }
 
+  // Cache the result
+  cachedAllowedOrigins = origins;
   return origins;
 }
 
@@ -36,14 +46,16 @@ export function validateOrigin(request: NextRequest): {
 
   const allowedOrigins = getAllowedOrigins();
 
-  // Check origin header
+  // If origin header is present, validate it strictly (don't fall back to referer)
   if (origin) {
     if (allowedOrigins.includes(origin)) {
       return { valid: true };
     }
+    // Origin present but not allowed - reject immediately
+    return { valid: false, error: "Origin not allowed" };
   }
 
-  // Check referer as fallback (some browsers may not send origin)
+  // Only check referer if origin header is not present
   if (referer) {
     try {
       const refererUrl = new URL(referer);
@@ -51,15 +63,12 @@ export function validateOrigin(request: NextRequest): {
       if (allowedOrigins.includes(refererOrigin)) {
         return { valid: true };
       }
+      return { valid: false, error: "Referer not allowed" };
     } catch {
       return { valid: false, error: "Invalid referer header" };
     }
   }
 
-  // If neither origin nor referer is present or valid
-  if (!origin && !referer) {
-    return { valid: false, error: "Missing origin and referer headers" };
-  }
-
-  return { valid: false, error: "Origin not allowed" };
+  // Neither origin nor referer is present
+  return { valid: false, error: "Missing origin and referer headers" };
 }
