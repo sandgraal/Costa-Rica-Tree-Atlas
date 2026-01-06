@@ -121,7 +121,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-xs">
-                  {completedLessons >= 1 ? "✓" : "1"}
+                  1
                 </span>
                 {t.lessonsReq}
               </li>
