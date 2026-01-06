@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
 import { rateLimit } from "@/lib/ratelimit";
+import { validateOrigin } from "@/lib/security/csrf";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -143,6 +144,18 @@ const scoreLabelAgainstTree = (
 };
 
 export async function POST(request: NextRequest) {
+  // Validate origin for CSRF protection
+  const originValidation = validateOrigin(request);
+  if (!originValidation.valid) {
+    return NextResponse.json(
+      {
+        error: `CSRF validation failed: ${originValidation.error}`,
+        code: "INVALID_ORIGIN",
+      },
+      { status: 403 }
+    );
+  }
+
   // Check if feature is enabled
   if (!FEATURE_ENABLED) {
     return NextResponse.json(
