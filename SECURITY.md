@@ -102,6 +102,89 @@ UPSTASH_REDIS_REST_TOKEN=your-token
 - Permissions-Policy (camera, microphone, geolocation disabled)
 - upgrade-insecure-requests directive
 
+### Content Security Policy (CSP)
+
+This application implements a strict Content Security Policy to prevent XSS attacks and other code injection vulnerabilities.
+
+#### CSP Directives
+
+The following sources are allowed by directive:
+
+- **default-src**: `'self'` - Only load resources from the same origin
+- **script-src**:
+  - `'self'` - Scripts from same origin
+  - `'unsafe-eval'` - Only in development mode for Next.js
+  - Analytics: Plausible, Simple Analytics, Google Tag Manager
+  - Maps: Google Maps API
+- **style-src**:
+  - `'self'` - Stylesheets from same origin
+  - `'unsafe-inline'` - Required for CSS-in-JS and Tailwind CSS
+  - Google Fonts
+- **img-src**: `'self'`, `data:`, `blob:`, `https:`, `http:` - Images from any source
+- **font-src**: `'self'`, Google Fonts
+- **connect-src**:
+  - `'self'` - Same origin connections
+  - Biodiversity APIs: GBIF, iNaturalist
+  - Analytics: Plausible, Simple Analytics, Google Analytics
+  - Maps: Google Maps API
+- **frame-src**: `'self'` - Only embed frames from same origin
+- **object-src**: `'none'` - No plugins (Flash, Java, etc.)
+- **base-uri**: `'self'` - Restrict base tag URLs
+- **form-action**: `'self'` - Forms can only submit to same origin
+- **frame-ancestors**: `'self'` - Can only be embedded by same origin
+- **upgrade-insecure-requests** - Automatically upgrade HTTP to HTTPS
+
+#### Nonce-Based CSP
+
+The application supports nonce-based CSP for inline scripts, providing stronger XSS protection. Nonces are cryptographically random values generated per request.
+
+To enable nonce-based CSP:
+
+```typescript
+import { generateNonce, buildCSP } from "@/lib/security/csp";
+
+const nonce = generateNonce();
+const csp = buildCSP(nonce);
+// Include nonce in script tags: <script nonce={nonce}>
+```
+
+#### CSP Violation Reporting
+
+CSP violations are logged and can be monitored to detect potential attacks or misconfigurations.
+
+To enable CSP violation reporting, set the `CSP_REPORT_URI` environment variable:
+
+```bash
+CSP_REPORT_URI=/api/csp-report
+```
+
+Violations will be sent to the configured endpoint and logged with the following information:
+
+- Document URI where the violation occurred
+- Violated directive
+- Blocked URI
+- Source file and line number
+- Timestamp
+
+The CSP report endpoint is rate-limited to prevent abuse.
+
+#### Development vs Production
+
+- **Development**: Includes `'unsafe-eval'` in `script-src` to support Next.js Fast Refresh
+- **Production**: Removes all `unsafe-*` directives except `'unsafe-inline'` for styles (required by CSS-in-JS)
+
+#### Testing CSP Compatibility
+
+The CSP configuration has been tested with:
+
+- ✅ Next.js 16 (App Router)
+- ✅ Plausible Analytics
+- ✅ Simple Analytics
+- ✅ Google Analytics
+- ✅ Google Maps API
+- ✅ Tailwind CSS 4
+- ✅ Image optimization (next/image)
+
 ### Environment Variables
 
 - All API keys and secrets are stored in environment variables
