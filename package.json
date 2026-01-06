@@ -27,6 +27,10 @@
     "images:cleanup": "node scripts/cleanup-tree-images.mjs --write",
     "images:cleanup:force": "node scripts/cleanup-tree-images.mjs --write --force"
   },
+  "browserslist": [
+    "defaults and supports es6-module",
+    "maintained node versions"
+  ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",

@@ -15,6 +15,7 @@ interface OptimizedImageProps {
   sizes?: string;
   placeholder?: "blur" | "empty";
   blurDataURL?: string;
+  quality?: number;
 }
 
 export function OptimizedImage({
@@ -28,6 +29,7 @@ export function OptimizedImage({
   sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
   placeholder = "blur",
   blurDataURL = BLUR_DATA_URL,
+  quality = 75,
 }: OptimizedImageProps) {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -59,6 +61,7 @@ export function OptimizedImage({
     sizes,
     placeholder: placeholder as "blur" | "empty",
     blurDataURL,
+    quality,
     onError: () => setError(true),
     onLoad: () => setIsLoading(false),
   };
@@ -82,12 +85,12 @@ export function OptimizedImage({
 
 // Tree-specific image sizes for common use cases
 export const IMAGE_SIZES = {
-  // Card thumbnail in grid view
-  card: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  // Card thumbnail in grid view - optimized for actual card width
+  card: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px",
   // Featured image on tree detail page
   featured: "(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px",
   // Gallery images
-  gallery: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  gallery: "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw",
   // Full-width hero
   hero: "100vw",
 };
