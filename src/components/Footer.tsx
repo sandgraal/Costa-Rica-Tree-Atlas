@@ -21,6 +21,7 @@ export function Footer() {
               width={48}
               height={48}
               className="h-8 w-8 object-contain shrink-0"
+              quality={90}
               aria-hidden="true"
             />
             <span className="flex flex-col leading-none">
