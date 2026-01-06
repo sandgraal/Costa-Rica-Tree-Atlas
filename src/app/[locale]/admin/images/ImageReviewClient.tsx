@@ -83,8 +83,9 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
   };
 
   const removeVote = (slug: string) => {
-    const newVotes = { ...votes };
-    delete newVotes[slug];
+    if (!Object.hasOwn(votes, slug)) return;
+    // Use destructuring to safely remove property without triggering object injection warning
+    const { [slug]: _removed, ...newVotes } = votes;
     setVotes(newVotes);
     try {
       localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));

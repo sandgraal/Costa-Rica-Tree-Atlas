@@ -284,14 +284,18 @@ function BiodiversityLessonContent({
   };
 
   const handleQuizAnswer = (questionIndex: number, answerIndex: number) => {
-    if (quizFeedback[questionIndex] !== undefined) return;
+    // Validate array bounds
+    if (questionIndex < 0 || questionIndex >= quizQuestions.length) return;
+    if (Object.hasOwn(quizFeedback, questionIndex)) return;
+
+    // Safe array access after bounds check
+    // eslint-disable-next-line security/detect-object-injection
+    const question = quizQuestions[questionIndex];
     setQuizAnswers((prev) => ({ ...prev, [questionIndex]: answerIndex }));
-    const isCorrect = answerIndex === quizQuestions[questionIndex].correct;
+    const isCorrect = answerIndex === question.correct;
     setQuizFeedback((prev) => ({ ...prev, [questionIndex]: isCorrect }));
     if (isCorrect) {
-      setTotalPoints(
-        (prev) => prev + quizQuestions[questionIndex].points * (streakCount + 1)
-      );
+      setTotalPoints((prev) => prev + question.points * (streakCount + 1));
       setStreakCount((prev) => prev + 1);
     } else {
       setStreakCount(0);
@@ -299,7 +303,11 @@ function BiodiversityLessonContent({
   };
 
   const calculateScore = () =>
-    quizQuestions.filter((q, i) => quizAnswers[i] === q.correct).length;
+    quizQuestions.filter((q, i) => {
+      // Safe access after Object.hasOwn check
+      // eslint-disable-next-line security/detect-object-injection
+      return Object.hasOwn(quizAnswers, i) && quizAnswers[i] === q.correct;
+    }).length;
 
   const handleFinish = () => {
     const score = calculateScore();
@@ -597,7 +605,11 @@ function BiodiversityLessonContent({
                     {t.didYouKnow}
                   </div>
                   <p className="text-foreground transition-all duration-300">
-                    {funFacts[currentFact]}
+                    {currentFact >= 0 && currentFact < funFacts.length
+                      ? // Safe array access after bounds check
+                        // eslint-disable-next-line security/detect-object-injection
+                        funFacts[currentFact]
+                      : ""}
                   </p>
                   <div className="flex gap-1 mt-3">
                     {funFacts.map((_, i) => (
@@ -798,8 +810,12 @@ function BiodiversityLessonContent({
 
             <div className="space-y-6">
               {quizQuestions.map((q, qIndex) => {
-                const isAnswered = quizFeedback[qIndex] !== undefined;
-                const isCorrect = quizFeedback[qIndex];
+                const isAnswered = Object.hasOwn(quizFeedback, qIndex);
+                const isCorrect = Object.hasOwn(quizFeedback, qIndex)
+                  ? // Safe access after Object.hasOwn check
+                    // eslint-disable-next-line security/detect-object-injection
+                    quizFeedback[qIndex]
+                  : false;
 
                 return (
                   <div
@@ -826,7 +842,11 @@ function BiodiversityLessonContent({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {q.options.map((option, oIndex) => {
-                        const isSelected = quizAnswers[qIndex] === oIndex;
+                        const isSelected =
+                          Object.hasOwn(quizAnswers, qIndex) &&
+                          // Safe access after Object.hasOwn check
+                          // eslint-disable-next-line security/detect-object-injection
+                          quizAnswers[qIndex] === oIndex;
                         const isCorrectAnswer = oIndex === q.correct;
 
                         return (
