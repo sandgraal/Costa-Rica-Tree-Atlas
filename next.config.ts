@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { withContentlayer } from "next-contentlayer2";
 import createNextIntlPlugin from "next-intl/plugin";
+import { buildCSP } from "./src/lib/security/csp";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -78,20 +79,7 @@ const nextConfig: NextConfig = {
         },
         {
           key: "Content-Security-Policy",
-          value: [
-            "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.plausible.io https://scripts.simpleanalyticscdn.com https://www.googletagmanager.com",
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            "img-src 'self' data: blob: https: http:",
-            "font-src 'self' https://fonts.gstatic.com",
-            "connect-src 'self' https://api.gbif.org https://api.inaturalist.org https://*.plausible.io https://queue.simpleanalyticscdn.com https://www.google-analytics.com",
-            "frame-src 'self'",
-            "object-src 'none'",
-            "base-uri 'self'",
-            "form-action 'self'",
-            "frame-ancestors 'self'",
-            "upgrade-insecure-requests",
-          ].join("; "),
+          value: buildCSP(),
         },
       ],
     },

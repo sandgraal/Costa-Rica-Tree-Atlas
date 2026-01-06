@@ -10,3 +10,4 @@ public
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+.well-known/security.txt

@@ -1,0 +1,5 @@
+Contact: mailto:your-security-email@example.com
+Expires: 2027-01-06T23:59:59.000Z
+Preferred-Languages: en, es
+Canonical: https://costaricatreeatlas.com/.well-known/security.txt
+Policy: https://github.com/sandgraal/Costa-Rica-Tree-Atlas/blob/main/SECURITY.md
