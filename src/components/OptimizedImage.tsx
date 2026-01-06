@@ -85,11 +85,13 @@ export function OptimizedImage({
 
 // Tree-specific image sizes for common use cases
 export const IMAGE_SIZES = {
-  // Card thumbnail in grid view - optimized for actual card width
+  // Card thumbnail in grid view - optimized for ~400px card width in 3-column desktop grid
+  // Mobile: full viewport, Tablet: 2 columns (~50vw), Desktop: 3 columns but container-constrained
   card: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px",
   // Featured image on tree detail page
   featured: "(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px",
-  // Gallery images
+  // Gallery images in 2-4 column responsive grid
+  // Mobile: 2 columns (50vw), Tablet: 3 columns (33vw), Desktop: 4 columns (25vw)
   gallery: "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw",
   // Full-width hero
   hero: "100vw",
