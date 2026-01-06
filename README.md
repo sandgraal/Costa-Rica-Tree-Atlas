@@ -1,4 +1,4 @@
-# 🌳 Costa Rica Tree Atlas
+# Costa Rica Tree Atlas
 
 Costa Rica Tree Atlas will truly never have ads, donations, sales, or other revenue
 
@@ -11,22 +11,22 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 [![Security Checks](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/workflows/Security%20Checks/badge.svg)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/actions)
 [![Dependabot](https://img.shields.io/badge/Dependabot-enabled-success)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/security/dependabot)
 
-## ✨ Features
+## Features
 
-### 🌐 Bilingual Content
+### Bilingual Content
 
 - Full English and Spanish support with locale-based routing
 - 108 species with comprehensive bilingual profiles (216 documents)
 - MDX content system for rich tree profiles with React components
 
-### 📚 Education Tools
+### Education Tools
 
 - **Interactive Lessons**: Structured learning modules about Costa Rican trees and ecosystems
 - **Progress Tracking**: Track completed lessons and earn points
 - **Printable Resources**: Downloadable worksheets and field guides for classrooms
 - **Tree Identification Guide**: Interactive key for identifying trees by leaf shape, bark, flowers, and more
 
-### 🔍 Discovery & Search
+### Discovery & Search
 
 - **Quick Search**: Global ⌘K keyboard shortcut for instant tree lookup
 - **Full-Text Search**: Search across tree names, descriptions, and scientific names
@@ -34,19 +34,19 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 - **Seasonal Filtering**: Find trees "flowering now" or "fruiting now" based on current month
 - **Alphabetical Index**: Browse trees A-Z with sticky navigation
 
-### 🗺️ Maps & Conservation
+### Maps & Conservation
 
 - **Interactive Distribution Maps**: Geographic maps showing where species are found
 - **External API Integration**: Live data from GBIF and iNaturalist biodiversity databases
 - **Conservation Status**: IUCN Red List display with visual scale and population trends
 
-### 📅 Seasonal Features
+### Seasonal Features
 
 - **Seasonal Calendar**: Monthly flowering and fruiting calendar with tree activity view
 - **Now Blooming**: Homepage section highlighting currently active trees
 - **Tree of the Day**: Daily rotating featured tree
 
-### ❤️ Personal Collections
+### Personal Collections
 
 - **Favorites System**: Save and bookmark trees with localStorage persistence
 - **Recently Viewed**: Track and display browsing history on homepage
@@ -54,7 +54,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 - **Export Field Guide**: Print favorites as a styled field guide PDF
 - **Quick Compare**: Side-by-side comparison of tree characteristics
 
-### 🎨 Design & Accessibility
+### Design & Accessibility
 
 - **Nature-Inspired Theme**: Custom color palette with forest greens and earth tones
 - **Dark Mode**: System preference detection with manual toggle
@@ -63,7 +63,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 - **PWA Support**: Offline access for field use
 - **Audio Pronunciation**: Text-to-speech for scientific names
 
-### ⌨️ Keyboard Shortcuts
+### Keyboard Shortcuts
 
 | Shortcut        | Action                       |
 | --------------- | ---------------------------- |
@@ -75,7 +75,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 | `D`             | Toggle dark/light theme      |
 | `⌘K` / `Ctrl+K` | Quick search                 |
 
-## 🔒 Rate Limiting
+## Rate Limiting
 
 API endpoints are protected with persistent rate limiting using Upstash Redis:
 
@@ -105,16 +105,16 @@ Rate limiting is disabled in development mode if Redis is not configured. To tes
    UPSTASH_REDIS_REST_TOKEN=your_token_here
    ```
 
-## 🗺️ Roadmap
+## Roadmap
 
-### 💡 Future Ideas
+### Future Ideas
 
 - Community contributions: User-submitted sightings and photographs
 - AR tree identification using device camera
 - Partnership with Costa Rican conservation organizations
 - Multi-language expansion (German, French for tourists)
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! We're building this as an open-source resource for education and conservation.
 
@@ -122,20 +122,20 @@ See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions an
 
 ### Ways to Contribute
 
-- 🌱 **Add Tree Profiles**: Document new species with descriptions and images
-- 🌍 **Improve Translations**: Enhance Spanish content or add new languages
-- 🐛 **Fix Bugs**: Report issues or submit fixes
-- ✨ **Add Features**: Implement items from the roadmap
-- 🖼️ **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
+- **Add Tree Profiles**: Document new species with descriptions and images
+- **Improve Translations**: Enhance Spanish content or add new languages
+- **Fix Bugs**: Report issues or submit fixes
+- **Add Features**: Implement items from the roadmap
+- **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
 
 ### Automated Quality Assurance
 
 The project includes automated weekly image quality monitoring that:
 
-- ✅ Validates all tree images (featured + gallery)
-- 🔄 Automatically fixes broken or missing images
-- 📊 Generates quality metrics and health reports
-- 🔍 Creates PRs for manual review before merging
+- Validates all tree images (featured + gallery)
+- Automatically fixes broken or missing images
+- Generates quality metrics and health reports
+- Creates PRs for manual review before merging
 
 See **[Image Quality Monitoring](docs/IMAGE_QUALITY_MONITORING.md)** for details on our automated maintenance system.
 
@@ -155,7 +155,7 @@ See **[Security Setup Guide](docs/SECURITY_SETUP.md)** for details on our securi
 
 This repository is configured with GitHub Copilot instructions (`AGENTS.md` and `.github/instructions/`) to help AI coding agents understand our architecture, conventions, and best practices. Feel free to use GitHub Copilot when contributing!
 
-## 📄 License
+## License
 
 This project is open source and available under the **[MIT License](LICENSE)**.
 
@@ -165,15 +165,15 @@ This project is open source and available under the **[MIT License](LICENSE)**.
 - **Tree Descriptions**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (unless otherwise noted)
 - **Images**: Individual licensing noted per image (see attribution in content files)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- 🌳 The magnificent trees of Costa Rica for their beauty and ecological importance
-- 🏛️ [SINAC](https://www.sinac.go.cr/) - Costa Rica's National System of Conservation Areas
-- 🔬 [INBio](https://inbio.ac.cr/) - Costa Rica's National Biodiversity Institute
-- 🌎 The conservation organizations working to protect Costa Rica's forests
-- 💻 The open-source community for the amazing tools that made this project possible
+- The magnificent trees of Costa Rica for their beauty and ecological importance
+- [SINAC](https://www.sinac.go.cr/) - Costa Rica's National System of Conservation Areas
+- [INBio](https://inbio.ac.cr/) - Costa Rica's National Biodiversity Institute
+- The conservation organizations working to protect Costa Rica's forests
+- The open-source community for the amazing tools that made this project possible
 
-## 📞 Contact & Support
+## Contact & Support
 
 - **Issues**: [GitHub Issues](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/discussions)
