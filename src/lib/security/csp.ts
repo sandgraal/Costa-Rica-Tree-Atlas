@@ -21,6 +21,9 @@ export function buildCSP(nonce?: string): string {
     "script-src": [
       "'self'",
       ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // FIXME: Temporary fix for Next.js 16 inline scripts
+      // Next.js 16 uses inline scripts for RSC hydration. Should use nonces instead.
+      "'unsafe-inline'",
       // Analytics providers
       "https://*.plausible.io",
       "https://scripts.simpleanalyticscdn.com",

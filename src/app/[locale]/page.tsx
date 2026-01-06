@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { TreeCard } from "@/components/tree";
@@ -15,6 +14,10 @@ type Props = {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Get translations for the page
+  const t = await getTranslations({ locale, namespace: "home" });
+  const footerT = await getTranslations({ locale, namespace: "footer" });
 
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
@@ -88,7 +91,11 @@ export default async function HomePage({ params }: Props) {
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
 
           <div className="container mx-auto max-w-5xl relative z-10 text-center">
-            <HeroContent />
+            <HeroContent
+              title={t("title")}
+              description={t("description")}
+              exploreButton={t("exploreButton")}
+            />
           </div>
         </section>
 
@@ -107,14 +114,22 @@ export default async function HomePage({ params }: Props) {
         {/* What's Blooming Now */}
         <section className="py-12 px-4 bg-gradient-to-r from-pink-50 to-orange-50 dark:from-pink-950/20 dark:to-orange-950/20">
           <div className="container mx-auto max-w-6xl">
-            <NowBloomingSection trees={trees} locale={locale} />
+            <NowBloomingSection
+              trees={trees}
+              locale={locale}
+              nowBlooming={t("nowBlooming")}
+            />
           </div>
         </section>
 
         {/* Tree of the Day */}
         <section className="py-12 px-4">
           <div className="container mx-auto max-w-6xl">
-            <TreeOfTheDay trees={trees} locale={locale} />
+            <TreeOfTheDay
+              trees={trees}
+              locale={locale}
+              treeOfTheDay={t("treeOfTheDay")}
+            />
           </div>
         </section>
 
@@ -128,14 +143,22 @@ export default async function HomePage({ params }: Props) {
         {/* Featured Trees Section */}
         <section className="py-16 px-4 bg-muted">
           <div className="container mx-auto max-w-6xl">
-            <FeaturedTreesSection trees={trees} locale={locale as Locale} />
+            <FeaturedTreesSection
+              trees={trees}
+              locale={locale as Locale}
+              featuredTrees={t("featuredTrees")}
+              viewAll={t("viewAll")}
+            />
           </div>
         </section>
 
         {/* About Section */}
         <section className="py-16 px-4">
           <div className="container mx-auto max-w-4xl text-center">
-            <AboutSection />
+            <AboutSection
+              openSource={footerT("openSource")}
+              description={footerT("description")}
+            />
           </div>
         </section>
       </div>
@@ -143,22 +166,28 @@ export default async function HomePage({ params }: Props) {
   );
 }
 
-function HeroContent() {
-  const t = useTranslations("home");
-
+function HeroContent({
+  title,
+  description,
+  exploreButton,
+}: {
+  title: string;
+  description: string;
+  exploreButton: string;
+}) {
   return (
     <>
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-        {t("title")}
+        {title}
       </h1>
       <p className="text-lg md:text-xl text-white/85 mb-10 max-w-2xl mx-auto leading-relaxed">
-        {t("description")}
+        {description}
       </p>
       <Link
         href="/trees"
         className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]"
       >
-        {t("exploreButton")}
+        {exploreButton}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -179,23 +208,25 @@ function HeroContent() {
 function FeaturedTreesSection({
   trees,
   locale,
+  featuredTrees,
+  viewAll,
 }: {
   trees: typeof allTrees;
   locale: Locale;
+  featuredTrees: string;
+  viewAll: string;
 }) {
-  const t = useTranslations("home");
-
   return (
     <>
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-primary-dark dark:text-primary-light">
-          {t("featuredTrees")}
+          {featuredTrees}
         </h2>
         <Link
           href="/trees"
           className="text-primary hover:text-primary-light transition-colors font-medium"
         >
-          {t("viewAll")} →
+          {viewAll} →
         </Link>
       </div>
 
@@ -217,11 +248,12 @@ function FeaturedTreesSection({
 function NowBloomingSection({
   trees,
   locale,
+  nowBlooming,
 }: {
   trees: typeof allTrees;
   locale: string;
+  nowBlooming: string;
 }) {
-  const t = useTranslations("home");
   const currentMonth = new Date().toLocaleString("en-US", { month: "long" });
 
   // Filter trees that are flowering or fruiting this month
@@ -247,7 +279,7 @@ function NowBloomingSection({
         <div>
           <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light flex items-center gap-2">
             <span className="text-3xl">🌸</span>
-            {t("nowBlooming")}
+            {nowBlooming}
           </h2>
           <p className="text-muted-foreground mt-1">
             {locale === "es"
@@ -313,12 +345,12 @@ function NowBloomingSection({
 function TreeOfTheDay({
   trees,
   locale,
+  treeOfTheDay,
 }: {
   trees: typeof allTrees;
   locale: string;
+  treeOfTheDay: string;
 }) {
-  const t = useTranslations("home");
-
   // Get a deterministic tree based on day of year
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 0);
@@ -375,7 +407,7 @@ function TreeOfTheDay({
             />
           </div>
           <div className="absolute top-4 left-4 px-3 py-1.5 bg-accent text-primary-dark rounded-full text-sm font-semibold shadow-lg">
-            🌟 {t("treeOfTheDay")}
+            🌟 {treeOfTheDay}
           </div>
         </div>
 
@@ -483,9 +515,13 @@ function StatsSection({
   );
 }
 
-function AboutSection() {
-  const t = useTranslations("footer");
-
+function AboutSection({
+  openSource,
+  description,
+}: {
+  openSource: string;
+  description: string;
+}) {
   return (
     <>
       <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
@@ -501,9 +537,9 @@ function AboutSection() {
         </svg>
       </div>
       <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4">
-        {t("openSource")}
+        {openSource}
       </h2>
-      <p className="text-muted-foreground text-lg">{t("description")}</p>
+      <p className="text-muted-foreground text-lg">{description}</p>
     </>
   );
 }
