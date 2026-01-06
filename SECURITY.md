@@ -85,11 +85,28 @@ UPSTASH_REDIS_REST_TOKEN=your-token
 
 ### API Security
 
+- **CSRF Protection** - Origin validation for state-changing operations (POST, PUT, DELETE requests)
+  - Validates `Origin` and `Referer` headers against allowed origins
+  - Default allowed origins: `https://costaricatreeatlas.com`, `https://www.costaricatreeatlas.com`
+  - Additional origins configurable via `ALLOWED_ORIGINS` environment variable
+  - Automatically allows all origins in development mode (`NODE_ENV=development`)
+  - Returns 403 Forbidden for requests from unauthorized origins
 - Rate limiting on API endpoints that call external paid services
 - Input validation and sanitization
 - File upload size and type restrictions
 - No sensitive data in API responses
 - AI identification feature disabled by default (requires explicit opt-in)
+
+#### Configuring Allowed Origins
+
+To add additional allowed origins for CSRF protection:
+
+```bash
+# In .env.local or deployment environment
+ALLOWED_ORIGINS=https://costaricatreeatlas.org,https://app.costaricatreeatlas.com
+```
+
+Multiple origins should be comma-separated. These will be combined with the default allowed origins.
 
 ### HTTP Security Headers
 

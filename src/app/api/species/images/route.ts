@@ -109,9 +109,7 @@ export async function GET(request: NextRequest) {
         images: images.slice(0, 12), // Limit to 12 images
       },
       {
-        headers: {
-          "X-RateLimit-Remaining": String(remaining),
-        },
+        headers: rateLimitResult.headers,
       }
     );
   } catch (error) {
