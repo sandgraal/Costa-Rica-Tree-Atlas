@@ -6,9 +6,11 @@ const DEFAULT_ALLOWED_ORIGINS = [
 ];
 
 // Cache allowed origins to avoid recomputing on every request
-let cachedAllowedOrigins: string[] | null = null;
+// In serverless environments, this may be computed multiple times during cold starts
+// which is acceptable as the computation is idempotent
+let cachedAllowedOrigins: readonly string[] | null = null;
 
-export function getAllowedOrigins(): string[] {
+export function getAllowedOrigins(): readonly string[] {
   // Return cached value if available
   if (cachedAllowedOrigins !== null) {
     return cachedAllowedOrigins;
@@ -32,9 +34,9 @@ export function getAllowedOrigins(): string[] {
     origins.push(...devOrigins);
   }
 
-  // Cache the result
-  cachedAllowedOrigins = origins;
-  return origins;
+  // Freeze the array to prevent modifications and cache it
+  cachedAllowedOrigins = Object.freeze(origins);
+  return cachedAllowedOrigins;
 }
 
 export function validateOrigin(request: NextRequest): {
