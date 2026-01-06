@@ -33,6 +33,8 @@ const nextConfig: NextConfig = {
     // Optimize image loading
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Cache optimized images for 1 year (31536000 seconds)
+    minimumCacheTTL: 31536000,
   },
 
   // Enable typed routes

@@ -194,6 +194,7 @@ export function TreeComparison({
                           className="object-cover"
                           placeholder="blur"
                           blurDataURL={BLUR_DATA_URL}
+                          quality={75}
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">

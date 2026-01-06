@@ -65,11 +65,12 @@ export function TreeCard({
             src={tree.featuredImage || ""}
             alt={tree.title}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             placeholder="blur"
             blurDataURL={BLUR_PLACEHOLDER}
             priority={priority}
+            quality={75}
             fallback="placeholder"
           />
 

@@ -25,6 +25,7 @@ export function Header() {
               height={64}
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
               priority
+              quality={90}
               aria-hidden="true"
             />
             <span className="flex flex-col leading-none">

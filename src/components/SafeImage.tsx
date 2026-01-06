@@ -10,6 +10,7 @@ import Image, { ImageProps } from "next/image";
 interface SafeImageProps extends Omit<ImageProps, "onError"> {
   fallback?: "placeholder" | "hide";
   onErrorCallback?: () => void;
+  quality?: number;
 }
 
 // ============================================================================
@@ -32,6 +33,7 @@ export function SafeImage({
   fallback = "placeholder",
   onErrorCallback,
   className = "",
+  quality,
   ...props
 }: SafeImageProps) {
   const [error, setError] = useState(false);
@@ -70,6 +72,7 @@ export function SafeImage({
       alt={alt}
       className={className}
       onError={handleError}
+      quality={quality}
       {...props}
     />
   );

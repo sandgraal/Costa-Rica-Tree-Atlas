@@ -285,6 +285,7 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
                       alt={selectedTree.title}
                       fill
                       className="object-cover"
+                      quality={75}
                       unoptimized={selectedTree.featuredImage.startsWith(
                         "http"
                       )}
@@ -316,6 +317,7 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
                             alt={`${selectedTree.title} photo ${idx + 1}`}
                             fill
                             className="object-cover"
+                            quality={75}
                             unoptimized
                           />
                         </div>
@@ -401,6 +403,7 @@ function TreeImageCard({
             fill
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            quality={75}
             unoptimized={tree.featuredImage.startsWith("http")}
             onError={() => setImageError(true)}
           />

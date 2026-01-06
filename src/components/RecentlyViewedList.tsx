@@ -79,6 +79,7 @@ export function RecentlyViewedList({
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     placeholder="blur"
                     blurDataURL={BLUR_DATA_URL}
+                    quality={75}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">

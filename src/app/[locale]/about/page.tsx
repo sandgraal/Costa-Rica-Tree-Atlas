@@ -84,6 +84,7 @@ function AboutContent() {
             height={96}
             className="object-cover"
             priority
+            quality={90}
           />
         </div>
         <h1 className="text-4xl font-bold text-primary-dark dark:text-primary-light mb-4">

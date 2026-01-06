@@ -195,6 +195,7 @@ export function Figure({ src, alt, caption, credit }: FigureProps) {
           className="object-cover"
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
+          quality={80}
         />
       </div>
       {(caption || credit) && (
@@ -230,6 +231,7 @@ export function Gallery({ images }: GalleryProps) {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
+              quality={75}
             />
           </div>
           {image.caption && (
@@ -528,6 +530,7 @@ export function ImageCard({
           className={`object-cover ${onClick ? "group-hover:scale-105 transition-transform duration-300" : ""}`}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
+          quality={75}
           unoptimized={isRemote}
         />
         {onClick && (
@@ -775,6 +778,7 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
                 height={800}
                 className="max-h-[75vh] w-auto object-contain"
                 priority
+                quality={85}
                 unoptimized={isRemote}
               />
             </div>

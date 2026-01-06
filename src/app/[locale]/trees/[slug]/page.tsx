@@ -283,6 +283,7 @@ export default async function TreePage({ params }: Props) {
                 priority
                 placeholder="blur"
                 blurDataURL={BLUR_DATA_URL}
+                quality={80}
               />
             </div>
           ) : (
@@ -524,6 +525,7 @@ function RelatedTrees({
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  quality={75}
                 />
               )}
               {tree.family === currentTree.family && (

@@ -127,6 +127,7 @@ export function ImageLightbox({
               isLoading ? "opacity-0" : "opacity-100"
             }`}
             onLoad={() => setIsLoading(false)}
+            quality={85}
             priority
             fallback="placeholder"
           />
@@ -178,6 +179,7 @@ export function ImageLightbox({
                   width={64}
                   height={64}
                   className="w-full h-full object-cover"
+                  quality={60}
                   fallback="placeholder"
                 />
               </button>
@@ -231,6 +233,7 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
+              quality={75}
               fallback="placeholder"
             />
 
