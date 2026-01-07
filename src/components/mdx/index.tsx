@@ -523,8 +523,12 @@ export function ImageCard({
   index,
   onClick,
 }: ImageCardProps) {
-  // Derive slug from src if not provided
-  const imageSlug = slug || src.match(/\/images\/trees\/([^/]+)/)?.[1];
+  // Derive slug from src if not provided (only for local paths)
+  const imageSlug =
+    slug ||
+    (src.startsWith("/images/trees/")
+      ? src.match(/\/images\/trees\/([^/]+)/)?.[1]
+      : undefined);
   const isRemote = src.startsWith("http");
 
   const content = (

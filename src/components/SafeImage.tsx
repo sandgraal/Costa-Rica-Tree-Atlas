@@ -4,6 +4,12 @@ import { useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
 
 // ============================================================================
+// Cache for image resolution to avoid redundant API calls
+// ============================================================================
+
+const imageResolutionCache = new Map<string, string>();
+
+// ============================================================================
 // Types
 // ============================================================================
 
@@ -50,25 +56,32 @@ export function SafeImage({
 }: SafeImageProps) {
   const [error, setError] = useState(false);
   const [resolvedSrc, setResolvedSrc] = useState(src);
-  const [srcSet, setSrcSet] = useState<string | undefined>();
 
-  // Resolve optimized image source
+  // Resolve optimized image source (cached per slug+type to avoid redundant API calls)
   useEffect(() => {
-    if (slug) {
-      // Check for optimized images via API route
-      fetch(`/api/images/resolve?slug=${slug}&type=${imageType}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.src) {
-            setResolvedSrc(data.src);
-            setSrcSet(data.srcSet);
-          }
-        })
-        .catch(() => {
-          // Fallback to original src
-          setResolvedSrc(src);
-        });
+    if (!slug) return;
+
+    const cacheKey = `${slug}-${imageType}`;
+    const cached = imageResolutionCache.get(cacheKey);
+
+    if (cached) {
+      setResolvedSrc(cached);
+      return;
     }
+
+    // Check for optimized images via API route
+    fetch(`/api/images/resolve?slug=${slug}&type=${imageType}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.src) {
+          imageResolutionCache.set(cacheKey, data.src);
+          setResolvedSrc(data.src);
+        }
+      })
+      .catch(() => {
+        // Fallback to original src
+        setResolvedSrc(src);
+      });
   }, [slug, imageType, src]);
 
   const handleError = () => {
@@ -109,7 +122,6 @@ export function SafeImage({
   return (
     <Image
       src={resolvedSrc}
-      srcSet={srcSet}
       alt={alt}
       className={className}
       onError={handleError}
