@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
+import { BLUR_DATA_URL } from "@/lib/image";
 
 // ============================================================================
 // Cache for image resolution to avoid redundant API calls
@@ -137,7 +138,7 @@ export function SafeImage({
     );
   }
 
-  // Render image with error handler
+  // Render image with error handler and blur placeholder
   return (
     <Image
       src={resolvedSrc}
@@ -145,6 +146,8 @@ export function SafeImage({
       className={className}
       onError={handleError}
       quality={quality}
+      placeholder="blur"
+      blurDataURL={BLUR_DATA_URL}
       {...props}
     />
   );
