@@ -12,8 +12,7 @@ import { PronunciationButton } from "@/components/PronunciationButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { TrackView } from "@/components/TrackView";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
-import Image from "next/image";
-import { BLUR_DATA_URL } from "@/lib/image";
+import { SafeImage } from "@/components/SafeImage";
 
 // Dynamic imports for heavy below-fold components
 const DistributionMap = dynamic(
@@ -271,19 +270,20 @@ export default async function TreePage({ params }: Props) {
             )}
           </header>
 
-          {/* Featured Image Placeholder */}
+          {/* Featured Image */}
           {tree.featuredImage ? (
             <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
-              <Image
+              <SafeImage
                 src={tree.featuredImage}
+                slug={slug}
+                imageType="featured"
                 alt={tree.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"
                 className="object-cover"
                 priority
-                placeholder="blur"
-                blurDataURL={BLUR_DATA_URL}
                 quality={80}
+                fallback="placeholder"
               />
             </div>
           ) : (
@@ -519,13 +519,16 @@ function RelatedTrees({
           >
             <div className="relative h-24 bg-gradient-to-br from-primary/20 to-secondary/20">
               {tree.featuredImage && (
-                <Image
+                <SafeImage
                   src={tree.featuredImage}
+                  slug={tree.slug}
+                  imageType="featured"
                   alt={tree.title}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   quality={75}
+                  fallback="hide"
                 />
               )}
               {tree.family === currentTree.family && (
