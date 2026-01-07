@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
 
 // ============================================================================
 // Types
 // ============================================================================
 
-interface SafeImageProps extends Omit<ImageProps, "onError"> {
+interface SafeImageProps extends Omit<ImageProps, "onError" | "src"> {
+  src: string;
+  slug?: string; // NEW: Tree slug for optimized image lookup
+  imageType?: "featured" | "gallery"; // NEW: Type of image
   fallback?: "placeholder" | "hide";
   onErrorCallback?: () => void;
   quality?: number;
@@ -18,17 +21,26 @@ interface SafeImageProps extends Omit<ImageProps, "onError"> {
 // ============================================================================
 
 /**
- * SafeImage - Error-resilient image component
+ * SafeImage - Error-resilient image component with optimization support
  *
  * Wraps Next.js Image with error handling and loading state tracking to gracefully
  * handle broken images and ensure proper rendering on initial page load.
  * Shows a placeholder icon or hides entirely when image fails to load or src is empty.
  *
+ * NEW: Supports optimized image resolution when slug is provided
+ * - Automatically resolves to AVIF → WebP → JPEG variants
+ * - Falls back to local original or external URL
+ * - Generates responsive srcSet for better performance
+ *
+ * @param slug - Tree slug for optimized image lookup
+ * @param imageType - Type of image (featured or gallery)
  * @param fallback - "placeholder" (default) shows tree icon, "hide" hides entirely
  * @param onErrorCallback - Optional callback when image fails to load
  */
 export function SafeImage({
   src,
+  slug,
+  imageType = "featured",
   alt,
   fallback = "placeholder",
   onErrorCallback,
@@ -37,16 +49,44 @@ export function SafeImage({
   ...props
 }: SafeImageProps) {
   const [error, setError] = useState(false);
+  const [resolvedSrc, setResolvedSrc] = useState(src);
+  const [srcSet, setSrcSet] = useState<string | undefined>();
+
+  // Resolve optimized image source
+  useEffect(() => {
+    if (slug) {
+      // Check for optimized images via API route
+      fetch(`/api/images/resolve?slug=${slug}&type=${imageType}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.src) {
+            setResolvedSrc(data.src);
+            setSrcSet(data.srcSet);
+          }
+        })
+        .catch(() => {
+          // Fallback to original src
+          setResolvedSrc(src);
+        });
+    }
+  }, [slug, imageType, src]);
 
   const handleError = () => {
-    setError(true);
-    if (onErrorCallback) {
-      onErrorCallback();
+    // Try fallback to external URL if optimized image fails
+    if (resolvedSrc !== src && src) {
+      setResolvedSrc(src);
+    } else {
+      setError(true);
+      if (onErrorCallback) {
+        onErrorCallback();
+      }
     }
   };
 
   // Better empty check - trim whitespace and handle StaticImport
-  const isEmpty = !src || (typeof src === "string" && src.trim() === "");
+  const isEmpty =
+    !resolvedSrc ||
+    (typeof resolvedSrc === "string" && resolvedSrc.trim() === "");
 
   // Check BEFORE attempting to render
   if (isEmpty || error) {
@@ -68,7 +108,8 @@ export function SafeImage({
   // Render image with error handler
   return (
     <Image
-      src={src}
+      src={resolvedSrc}
+      srcSet={srcSet}
       alt={alt}
       className={className}
       onError={handleError}
