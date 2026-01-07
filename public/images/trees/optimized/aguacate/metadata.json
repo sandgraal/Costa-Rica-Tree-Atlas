@@ -1,0 +1,62 @@
+{
+  "slug": "aguacate",
+  "originalSize": 375381,
+  "variants": {
+    "400w_webp": {
+      "width": 400,
+      "height": 533,
+      "size": 40226,
+      "path": "/images/trees/optimized/aguacate/400w.webp"
+    },
+    "400w_avif": {
+      "width": 400,
+      "height": 533,
+      "size": 53827,
+      "path": "/images/trees/optimized/aguacate/400w.avif"
+    },
+    "400w_jpg": {
+      "width": 400,
+      "height": 533,
+      "size": 48486,
+      "path": "/images/trees/optimized/aguacate/400w.jpg"
+    },
+    "800w_webp": {
+      "width": 800,
+      "height": 1067,
+      "size": 92788,
+      "path": "/images/trees/optimized/aguacate/800w.webp"
+    },
+    "800w_avif": {
+      "width": 800,
+      "height": 1067,
+      "size": 126377,
+      "path": "/images/trees/optimized/aguacate/800w.avif"
+    },
+    "800w_jpg": {
+      "width": 800,
+      "height": 1067,
+      "size": 132810,
+      "path": "/images/trees/optimized/aguacate/800w.jpg"
+    },
+    "original_webp": {
+      "width": 1200,
+      "height": 1600,
+      "size": 157778,
+      "path": "/images/trees/optimized/aguacate/original.webp"
+    },
+    "original_avif": {
+      "width": 1200,
+      "height": 1600,
+      "size": 225712,
+      "path": "/images/trees/optimized/aguacate/original.avif"
+    },
+    "original_jpg": {
+      "width": 1200,
+      "height": 1600,
+      "size": 249854,
+      "path": "/images/trees/optimized/aguacate/original.jpg"
+    }
+  },
+  "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoIAAoABUB8JYwAAjv6iYAA7pc1PyHF6VHzyxAA",
+  "generatedAt": "2026-01-07T04:06:01.311Z"
+}

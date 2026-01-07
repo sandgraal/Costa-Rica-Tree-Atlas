@@ -1,0 +1,62 @@
+{
+  "slug": "ajo",
+  "originalSize": 649514,
+  "variants": {
+    "400w_webp": {
+      "width": 400,
+      "height": 533,
+      "size": 55230,
+      "path": "/images/trees/optimized/ajo/400w.webp"
+    },
+    "400w_avif": {
+      "width": 400,
+      "height": 533,
+      "size": 90058,
+      "path": "/images/trees/optimized/ajo/400w.avif"
+    },
+    "400w_jpg": {
+      "width": 400,
+      "height": 533,
+      "size": 56755,
+      "path": "/images/trees/optimized/ajo/400w.jpg"
+    },
+    "800w_webp": {
+      "width": 800,
+      "height": 1067,
+      "size": 203162,
+      "path": "/images/trees/optimized/ajo/800w.webp"
+    },
+    "800w_avif": {
+      "width": 800,
+      "height": 1067,
+      "size": 308633,
+      "path": "/images/trees/optimized/ajo/800w.avif"
+    },
+    "800w_jpg": {
+      "width": 800,
+      "height": 1067,
+      "size": 215515,
+      "path": "/images/trees/optimized/ajo/800w.jpg"
+    },
+    "original_webp": {
+      "width": 1200,
+      "height": 1600,
+      "size": 416832,
+      "path": "/images/trees/optimized/ajo/original.webp"
+    },
+    "original_avif": {
+      "width": 1200,
+      "height": 1600,
+      "size": 512236,
+      "path": "/images/trees/optimized/ajo/original.avif"
+    },
+    "original_jpg": {
+      "width": 1200,
+      "height": 1600,
+      "size": 467283,
+      "path": "/images/trees/optimized/ajo/original.jpg"
+    }
+  },
+  "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoIAAoABUB8JQAASOGiAAD1gRsLHij2f1Mw/kPqJ/uOAAAA",
+  "generatedAt": "2026-01-07T04:03:07.747Z"
+}

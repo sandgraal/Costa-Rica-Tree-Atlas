@@ -1,0 +1,26 @@
+{
+  "slug": "aguacatillo",
+  "originalSize": 73913,
+  "variants": {
+    "original_webp": {
+      "width": 339,
+      "height": 455,
+      "size": 23054,
+      "path": "/images/trees/optimized/aguacatillo/original.webp"
+    },
+    "original_avif": {
+      "width": 339,
+      "height": 455,
+      "size": 32261,
+      "path": "/images/trees/optimized/aguacatillo/original.avif"
+    },
+    "original_jpg": {
+      "width": 339,
+      "height": 455,
+      "size": 31806,
+      "path": "/images/trees/optimized/aguacatillo/original.jpg"
+    }
+  },
+  "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAoABUB8JYgC7AD5Yz+AAP3YWp69+/9eDvJq2u+4AAAA",
+  "generatedAt": "2026-01-07T04:02:31.268Z"
+}
