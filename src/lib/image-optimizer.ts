@@ -117,6 +117,7 @@ export function formatBytes(bytes: number): string {
   const k = 1024;
   const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
+  // Safe: i is calculated from Math.floor and bounded by sizes array length
   // eslint-disable-next-line security/detect-object-injection
   return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
 }
@@ -160,8 +161,8 @@ export async function optimizeImage(
     const targetWidth =
       sizeKey === "original" ? originalWidth : IMAGE_SIZES[sizeKey as ImageSize];
 
-    // Skip if target is larger than original
-    if (targetWidth && targetWidth >= originalWidth) {
+    // Skip if target is larger than original (but allow equal for original size)
+    if (sizeKey !== "original" && targetWidth && targetWidth >= originalWidth) {
       continue;
     }
 
@@ -218,6 +219,7 @@ export async function optimizeImage(
         totalSizeAfter += fileSize;
 
         const variantKey = `${sizeKey === "original" ? "original" : `${targetWidth}w`}_${format}`;
+        // Safe: variantKey is constructed from controlled string concatenation
         // eslint-disable-next-line security/detect-object-injection
         variants[variantKey] = {
           width: outputMetadata.width || 0,
