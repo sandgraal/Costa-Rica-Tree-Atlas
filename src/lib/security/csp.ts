@@ -22,8 +22,8 @@ export function buildCSP(nonce?: string): string {
       // Required for Next.js 16 RSC hydration and third-party script execution
       // Note: 'unsafe-inline' and 'unsafe-eval' required for:
       // - Next.js React Server Components
-      // - Analytics providers (GTM, Simple Analytics, Plausible)
-      // - Google Maps API
+      // - Analytics providers (GTM, Simple Analytics, Plausible) use eval for tracking
+      // Additional flexibility for third-party integrations
       "'unsafe-inline'",
       "'unsafe-eval'",
       // Analytics providers
