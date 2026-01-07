@@ -1,0 +1,62 @@
+{
+  "slug": "alcornoque",
+  "originalSize": 275419,
+  "variants": {
+    "400w_webp": {
+      "width": 400,
+      "height": 533,
+      "size": 21970,
+      "path": "/images/trees/optimized/alcornoque/400w.webp"
+    },
+    "400w_avif": {
+      "width": 400,
+      "height": 533,
+      "size": 34537,
+      "path": "/images/trees/optimized/alcornoque/400w.avif"
+    },
+    "400w_jpg": {
+      "width": 400,
+      "height": 533,
+      "size": 33511,
+      "path": "/images/trees/optimized/alcornoque/400w.jpg"
+    },
+    "800w_webp": {
+      "width": 800,
+      "height": 1067,
+      "size": 60338,
+      "path": "/images/trees/optimized/alcornoque/800w.webp"
+    },
+    "800w_avif": {
+      "width": 800,
+      "height": 1067,
+      "size": 88296,
+      "path": "/images/trees/optimized/alcornoque/800w.avif"
+    },
+    "800w_jpg": {
+      "width": 800,
+      "height": 1067,
+      "size": 100464,
+      "path": "/images/trees/optimized/alcornoque/800w.jpg"
+    },
+    "original_webp": {
+      "width": 1200,
+      "height": 1600,
+      "size": 103726,
+      "path": "/images/trees/optimized/alcornoque/original.webp"
+    },
+    "original_avif": {
+      "width": 1200,
+      "height": 1600,
+      "size": 145785,
+      "path": "/images/trees/optimized/alcornoque/original.avif"
+    },
+    "original_jpg": {
+      "width": 1200,
+      "height": 1600,
+      "size": 189236,
+      "path": "/images/trees/optimized/alcornoque/original.jpg"
+    }
+  },
+  "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAoABUB8JZgC7ADbABAAAOsYuJexkwkqnoomO44mIAAA",
+  "generatedAt": "2026-01-07T04:11:34.593Z"
+}

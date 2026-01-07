@@ -1,0 +1,62 @@
+{
+  "slug": "almendro",
+  "originalSize": 868303,
+  "variants": {
+    "400w_webp": {
+      "width": 400,
+      "height": 533,
+      "size": 43320,
+      "path": "/images/trees/optimized/almendro/400w.webp"
+    },
+    "400w_avif": {
+      "width": 400,
+      "height": 533,
+      "size": 61092,
+      "path": "/images/trees/optimized/almendro/400w.avif"
+    },
+    "400w_jpg": {
+      "width": 400,
+      "height": 533,
+      "size": 48003,
+      "path": "/images/trees/optimized/almendro/400w.jpg"
+    },
+    "800w_webp": {
+      "width": 800,
+      "height": 1067,
+      "size": 162606,
+      "path": "/images/trees/optimized/almendro/800w.webp"
+    },
+    "800w_avif": {
+      "width": 800,
+      "height": 1067,
+      "size": 223861,
+      "path": "/images/trees/optimized/almendro/800w.avif"
+    },
+    "800w_jpg": {
+      "width": 800,
+      "height": 1067,
+      "size": 181386,
+      "path": "/images/trees/optimized/almendro/800w.jpg"
+    },
+    "original_webp": {
+      "width": 1200,
+      "height": 1600,
+      "size": 334380,
+      "path": "/images/trees/optimized/almendro/original.webp"
+    },
+    "original_avif": {
+      "width": 1200,
+      "height": 1600,
+      "size": 456654,
+      "path": "/images/trees/optimized/almendro/original.avif"
+    },
+    "original_jpg": {
+      "width": 1200,
+      "height": 1600,
+      "size": 383913,
+      "path": "/images/trees/optimized/almendro/original.jpg"
+    }
+  },
+  "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoIAAoABUB8JQBOgBuMUoFgAAD85JIEzl0QsU4vHHnvGsHn6fjoAA==",
+  "generatedAt": "2026-01-07T04:12:06.661Z"
+}

@@ -139,6 +139,26 @@ The project includes automated weekly image quality monitoring that:
 
 See **[Image Quality Monitoring](docs/IMAGE_QUALITY_MONITORING.md)** for details on our automated maintenance system.
 
+### Image Optimization
+
+The project uses Sharp for high-performance image optimization:
+
+- **Multiple Formats**: WebP, AVIF, and JPEG for maximum compatibility
+- **Responsive Sizes**: 400w, 800w, 1200w, 1600w variants for different devices
+- **Smart Compression**: Quality optimized per format (80% JPEG, 75% WebP, 70% AVIF)
+- **Blur Placeholders**: Tiny base64 data URLs for progressive loading
+- **Metadata Generation**: Complete image information in JSON format
+
+**Optimize images:**
+
+```bash
+npm run images:optimize         # Optimize new/changed images
+npm run images:optimize:force   # Re-optimize all images
+```
+
+See **[Image Optimization Guide](docs/IMAGE_OPTIMIZATION.md)** for complete documentation.
+
+
 ### Security & Code Quality
 
 This project takes security seriously. We use automated security scanning including:
