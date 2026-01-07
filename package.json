@@ -27,7 +27,9 @@
     "images:cleanup": "node scripts/cleanup-tree-images.mjs --write",
     "images:cleanup:force": "node scripts/cleanup-tree-images.mjs --write --force",
     "images:optimize": "node scripts/optimize-images.mjs",
-    "images:optimize:force": "node scripts/optimize-images.mjs --force"
+    "images:optimize:force": "node scripts/optimize-images.mjs --force",
+    "images:migrate": "node scripts/migrate-mdx-to-local-images.mjs",
+    "images:setup-all": "npm run images:download && npm run images:optimize && npm run images:migrate"
   },
   "browserslist": [
     "defaults and supports es6-module"

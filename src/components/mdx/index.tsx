@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { SafeImage } from "@/components/SafeImage";
 import { BLUR_DATA_URL } from "@/lib/image";
 
 // Callout Box Component
@@ -506,6 +507,8 @@ interface ImageCardProps {
   credit?: string;
   license?: string;
   sourceUrl?: string;
+  slug?: string; // NEW: Add slug prop for optimized image lookup
+  index?: number; // NEW: Gallery image index
   onClick?: () => void;
 }
 
@@ -516,20 +519,29 @@ export function ImageCard({
   credit,
   license,
   sourceUrl,
+  slug,
+  index,
   onClick,
 }: ImageCardProps) {
+  // Derive slug from src if not provided (only for local paths)
+  const imageSlug =
+    slug ||
+    (src.startsWith("/images/trees/")
+      ? src.match(/\/images\/trees\/([^/]+)/)?.[1]
+      : undefined);
   const isRemote = src.startsWith("http");
+
   const content = (
     <figure className="bg-card rounded-xl overflow-hidden border border-border not-prose group">
       <div className="aspect-[4/3] bg-muted relative">
-        <Image
+        <SafeImage
           src={src}
+          slug={imageSlug}
+          imageType={index !== undefined ? "gallery" : "featured"}
           alt={alt}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className={`object-cover ${onClick ? "group-hover:scale-105 transition-transform duration-300" : ""}`}
-          placeholder="blur"
-          blurDataURL={BLUR_DATA_URL}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           quality={75}
           unoptimized={isRemote}
         />
