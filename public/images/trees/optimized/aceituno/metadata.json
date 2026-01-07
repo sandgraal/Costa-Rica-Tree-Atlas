@@ -11,7 +11,7 @@
     "400w_avif": {
       "width": 400,
       "height": 300,
-      "size": 19382,
+      "size": 19767,
       "path": "/images/trees/optimized/aceituno/400w.avif"
     },
     "400w_jpg": {
@@ -29,7 +29,7 @@
     "800w_avif": {
       "width": 800,
       "height": 600,
-      "size": 42370,
+      "size": 43253,
       "path": "/images/trees/optimized/aceituno/800w.avif"
     },
     "800w_jpg": {
@@ -47,7 +47,7 @@
     "original_avif": {
       "width": 1200,
       "height": 900,
-      "size": 74704,
+      "size": 75321,
       "path": "/images/trees/optimized/aceituno/original.avif"
     },
     "original_jpg": {
@@ -58,5 +58,5 @@
     }
   },
   "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoKAAcABUB8JQAAXOy1QmSlAAD+yUCkxzmi7F0zpumJx+AA",
-  "generatedAt": "2026-01-07T04:09:51.678Z"
+  "generatedAt": "2026-01-07T05:55:59.224Z"
 }

@@ -11,13 +11,13 @@
     "400w_avif": {
       "width": 400,
       "height": 533,
-      "size": 61092,
+      "size": 61748,
       "path": "/images/trees/optimized/almendro/400w.avif"
     },
     "400w_jpg": {
       "width": 400,
       "height": 533,
-      "size": 48003,
+      "size": 48017,
       "path": "/images/trees/optimized/almendro/400w.jpg"
     },
     "800w_webp": {
@@ -29,7 +29,7 @@
     "800w_avif": {
       "width": 800,
       "height": 1067,
-      "size": 223861,
+      "size": 224764,
       "path": "/images/trees/optimized/almendro/800w.avif"
     },
     "800w_jpg": {
@@ -47,16 +47,16 @@
     "original_avif": {
       "width": 1200,
       "height": 1600,
-      "size": 456654,
+      "size": 458523,
       "path": "/images/trees/optimized/almendro/original.avif"
     },
     "original_jpg": {
       "width": 1200,
       "height": 1600,
-      "size": 383913,
+      "size": 383929,
       "path": "/images/trees/optimized/almendro/original.jpg"
     }
   },
   "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoIAAoABUB8JQBOgBuMUoFgAAD85JIEzl0QsU4vHHnvGsHn6fjoAA==",
-  "generatedAt": "2026-01-07T04:12:06.661Z"
+  "generatedAt": "2026-01-07T05:56:16.584Z"
 }

@@ -11,7 +11,7 @@
     "400w_avif": {
       "width": 400,
       "height": 533,
-      "size": 90058,
+      "size": 90444,
       "path": "/images/trees/optimized/ajo/400w.avif"
     },
     "400w_jpg": {
@@ -29,13 +29,13 @@
     "800w_avif": {
       "width": 800,
       "height": 1067,
-      "size": 308633,
+      "size": 309017,
       "path": "/images/trees/optimized/ajo/800w.avif"
     },
     "800w_jpg": {
       "width": 800,
       "height": 1067,
-      "size": 215515,
+      "size": 215514,
       "path": "/images/trees/optimized/ajo/800w.jpg"
     },
     "original_webp": {
@@ -47,16 +47,16 @@
     "original_avif": {
       "width": 1200,
       "height": 1600,
-      "size": 512236,
+      "size": 513868,
       "path": "/images/trees/optimized/ajo/original.avif"
     },
     "original_jpg": {
       "width": 1200,
       "height": 1600,
-      "size": 467283,
+      "size": 467275,
       "path": "/images/trees/optimized/ajo/original.jpg"
     }
   },
   "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoIAAoABUB8JQAASOGiAAD1gRsLHij2f1Mw/kPqJ/uOAAAA",
-  "generatedAt": "2026-01-07T04:11:04.841Z"
+  "generatedAt": "2026-01-07T05:56:08.585Z"
 }

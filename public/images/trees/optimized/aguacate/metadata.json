@@ -11,7 +11,7 @@
     "400w_avif": {
       "width": 400,
       "height": 533,
-      "size": 53827,
+      "size": 54363,
       "path": "/images/trees/optimized/aguacate/400w.avif"
     },
     "400w_jpg": {
@@ -29,7 +29,7 @@
     "800w_avif": {
       "width": 800,
       "height": 1067,
-      "size": 126377,
+      "size": 127142,
       "path": "/images/trees/optimized/aguacate/800w.avif"
     },
     "800w_jpg": {
@@ -47,7 +47,7 @@
     "original_avif": {
       "width": 1200,
       "height": 1600,
-      "size": 225712,
+      "size": 226759,
       "path": "/images/trees/optimized/aguacate/original.avif"
     },
     "original_jpg": {
@@ -58,5 +58,5 @@
     }
   },
   "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoIAAoABUB8JYwAAjv6iYAA7pc1PyHF6VHzyxAA",
-  "generatedAt": "2026-01-07T04:10:25.974Z"
+  "generatedAt": "2026-01-07T05:56:03.391Z"
 }
