@@ -117,7 +117,8 @@ export function formatBytes(bytes: number): string {
   const k = 1024;
   const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + " " + sizes[i];
+  // eslint-disable-next-line security/detect-object-injection
+  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
 }
 
 /**
@@ -143,7 +144,7 @@ export async function optimizeImage(
   // Load and get image metadata
   const image = sharp(inputPath);
   const metadata = await image.metadata();
-  const { width: originalWidth = 0, height: originalHeight = 0 } = metadata;
+  const { width: originalWidth = 0 } = metadata;
 
   // Generate blur placeholder if requested
   const blurDataURL = shouldGenerateBlur
@@ -217,6 +218,7 @@ export async function optimizeImage(
         totalSizeAfter += fileSize;
 
         const variantKey = `${sizeKey === "original" ? "original" : `${targetWidth}w`}_${format}`;
+        // eslint-disable-next-line security/detect-object-injection
         variants[variantKey] = {
           width: outputMetadata.width || 0,
           height: outputMetadata.height || 0,
