@@ -47,33 +47,28 @@ const csp = buildCSP(nonce);
 
 The generated CSP includes the following directives:
 
-| Directive                   | Values                                                            | Purpose                                                     |
-| --------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------- |
-| `default-src`               | `'self'`                                                          | Default policy for all resource types                       |
-| `script-src`                | `'self'`, analytics domains, maps API, `'unsafe-eval'` (dev only) | Control script sources                                      |
-| `style-src`                 | `'self'`, `'unsafe-inline'`, Google Fonts                         | Control stylesheet sources (unsafe-inline required by Next) |
-| `img-src`                   | `'self'`, `data:`, `blob:`, `https:`                              | Control image sources (HTTPS only enforced)                 |
-| `font-src`                  | `'self'`, Google Fonts                                            | Control font sources                                        |
-| `connect-src`               | `'self'`, biodiversity APIs, analytics                            | Control AJAX/WebSocket sources                              |
-| `frame-src`                 | `'self'`                                                          | Control iframe sources                                      |
-| `object-src`                | `'none'`                                                          | Disable plugins (Flash, Java, etc.)                         |
-| `base-uri`                  | `'self'`                                                          | Restrict base tag URLs                                      |
-| `form-action`               | `'self'`                                                          | Restrict form submission targets                            |
-| `frame-ancestors`           | `'self'`                                                          | Control who can embed this site                             |
-| `upgrade-insecure-requests` | (no value)                                                        | Automatically upgrade HTTP to HTTPS                         |
+| Directive                   | Values                                                                    | Purpose                                                     |
+| --------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `default-src`               | `'self'`                                                                  | Default policy for all resource types                       |
+| `script-src`                | `'self'`, `'unsafe-inline'`, `'unsafe-eval'`, analytics domains, maps API | Control script sources                                      |
+| `style-src`                 | `'self'`, `'unsafe-inline'`, Google Fonts                                 | Control stylesheet sources (unsafe-inline required by Next) |
+| `img-src`                   | `'self'`, `data:`, `blob:`, `https:`                                      | Control image sources (HTTPS only enforced)                 |
+| `font-src`                  | `'self'`, Google Fonts                                                    | Control font sources                                        |
+| `connect-src`               | `'self'`, biodiversity APIs, analytics                                    | Control AJAX/WebSocket sources                              |
+| `frame-src`                 | `'self'`                                                                  | Control iframe sources                                      |
+| `object-src`                | `'none'`                                                                  | Disable plugins (Flash, Java, etc.)                         |
+| `base-uri`                  | `'self'`                                                                  | Restrict base tag URLs                                      |
+| `form-action`               | `'self'`                                                                  | Restrict form submission targets                            |
+| `frame-ancestors`           | `'self'`                                                                  | Control who can embed this site                             |
+| `upgrade-insecure-requests` | (no value)                                                                | Automatically upgrade HTTP to HTTPS                         |
 
 ### Development vs Production
 
-**Development Mode** (NODE_ENV=development):
+**Development and Production Modes**:
 
-- Includes `'unsafe-eval'` in `script-src` for Next.js Fast Refresh
-- Suitable for local development
-
-**Production Mode**:
-
-- Removes `'unsafe-eval'` from `script-src`
-- Maintains `'unsafe-inline'` in `style-src` (required for CSS-in-JS)
-- Stronger security posture
+- Includes `'unsafe-inline'` and `'unsafe-eval'` in `script-src` for Next.js RSC and third-party analytics
+- Suitable for both local development and production deployment
+- Maintains consistent behavior across environments
 
 ### Allowed Third-Party Services
 
@@ -141,11 +136,11 @@ The CSP implementation has been tested with:
 
 ### Security Considerations
 
-1. **No unsafe-inline for scripts**: Scripts must be loaded from allowed sources or use nonces
-2. **Nonce-based inline scripts**: Use `generateNonce()` for any inline script needs
+1. **Inline scripts allowed**: `'unsafe-inline'` and `'unsafe-eval'` required for Next.js and third-party analytics
+2. **Nonce-based inline scripts**: Use `generateNonce()` for additional security on first-party inline scripts
 3. **Style exceptions**: `'unsafe-inline'` is required for inline styles from Next.js and React components
 4. **Image sources**: HTTPS-only policy enforced via `upgrade-insecure-requests` directive
-5. **Development exceptions**: `'unsafe-eval'` only in development for Fast Refresh
+5. **Domain allowlist**: Specific third-party domains are explicitly allowed (analytics, maps, APIs)
 6. **CSP reporting**: Uses `report-uri` directive (modern `report-to` requires additional Report-To header)
 
 ### Migration from Inline CSP
