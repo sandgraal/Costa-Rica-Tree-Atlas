@@ -14,24 +14,25 @@ export function generateNonce(): string {
  * @returns CSP header value string
  */
 export function buildCSP(nonce?: string): string {
-  const isDev = process.env.NODE_ENV === "development";
-
   const directives = {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
       ...(nonce ? [`'nonce-${nonce}'`] : []),
-      // FIXME: Temporary fix for Next.js 16 inline scripts
-      // Next.js 16 uses inline scripts for RSC hydration. Should use nonces instead.
+      // Required for Next.js 16 RSC hydration and third-party script execution
+      // Note: 'unsafe-inline' and 'unsafe-eval' required for:
+      // - Next.js React Server Components
+      // - Analytics providers (GTM, Simple Analytics, Plausible)
+      // - Google Maps API
       "'unsafe-inline'",
+      "'unsafe-eval'",
       // Analytics providers
       "https://*.plausible.io",
       "https://scripts.simpleanalyticscdn.com",
       "https://www.googletagmanager.com",
+      "https://www.google-analytics.com",
       // Maps
       "https://maps.googleapis.com",
-      // Only in development
-      ...(isDev ? ["'unsafe-eval'"] : []),
     ],
     "style-src": [
       "'self'",

@@ -175,8 +175,8 @@ The following sources are allowed by directive:
 - **default-src**: `'self'` - Only load resources from the same origin
 - **script-src**:
   - `'self'` - Scripts from same origin
-  - `'unsafe-eval'` - Only in development mode for Next.js
-  - Analytics: Plausible, Simple Analytics, Google Tag Manager
+  - `'unsafe-inline'` and `'unsafe-eval'` - Required for Next.js RSC and third-party analytics compatibility
+  - Analytics: Plausible, Simple Analytics, Google Tag Manager, Google Analytics
   - Maps: Google Maps API
 - **style-src**:
   - `'self'` - Stylesheets from same origin
@@ -232,8 +232,8 @@ The CSP report endpoint is rate-limited to prevent abuse.
 
 #### Development vs Production
 
-- **Development**: Includes `'unsafe-eval'` in `script-src` to support Next.js Fast Refresh
-- **Production**: Removes all `unsafe-*` directives except `'unsafe-inline'` for styles (required by CSS-in-JS)
+- **Development and Production**: Includes `'unsafe-inline'` and `'unsafe-eval'` in `script-src` for Next.js RSC and third-party analytics compatibility
+- Both modes maintain the same CSP directives for consistent behavior across environments
 
 #### Testing CSP Compatibility
 
