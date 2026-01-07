@@ -5,9 +5,26 @@ import Image, { ImageProps } from "next/image";
 
 // ============================================================================
 // Cache for image resolution to avoid redundant API calls
+// Limited size to prevent memory leaks in long-running applications
 // ============================================================================
 
+const MAX_CACHE_SIZE = 200; // Reasonable limit for typical usage
 const imageResolutionCache = new Map<string, string>();
+
+function getCachedImageResolution(key: string): string | undefined {
+  return imageResolutionCache.get(key);
+}
+
+function setCachedImageResolution(key: string, value: string): void {
+  // Implement simple LRU by removing oldest entry when cache is full
+  if (imageResolutionCache.size >= MAX_CACHE_SIZE) {
+    const firstKey = imageResolutionCache.keys().next().value;
+    if (firstKey) {
+      imageResolutionCache.delete(firstKey);
+    }
+  }
+  imageResolutionCache.set(key, value);
+}
 
 // ============================================================================
 // Types
@@ -56,13 +73,14 @@ export function SafeImage({
 }: SafeImageProps) {
   const [error, setError] = useState(false);
   const [resolvedSrc, setResolvedSrc] = useState(src);
+  const [fallbackAttempted, setFallbackAttempted] = useState(false);
 
   // Resolve optimized image source (cached per slug+type to avoid redundant API calls)
   useEffect(() => {
     if (!slug) return;
 
     const cacheKey = `${slug}-${imageType}`;
-    const cached = imageResolutionCache.get(cacheKey);
+    const cached = getCachedImageResolution(cacheKey);
 
     if (cached) {
       setResolvedSrc(cached);
@@ -74,7 +92,7 @@ export function SafeImage({
       .then((res) => res.json())
       .then((data) => {
         if (data.src) {
-          imageResolutionCache.set(cacheKey, data.src);
+          setCachedImageResolution(cacheKey, data.src);
           setResolvedSrc(data.src);
         }
       })
@@ -85,8 +103,9 @@ export function SafeImage({
   }, [slug, imageType, src]);
 
   const handleError = () => {
-    // Try fallback to external URL if optimized image fails
-    if (resolvedSrc !== src && src) {
+    // Try fallback to external URL if optimized image fails (only once)
+    if (!fallbackAttempted && resolvedSrc !== src && src) {
+      setFallbackAttempted(true);
       setResolvedSrc(src);
     } else {
       setError(true);

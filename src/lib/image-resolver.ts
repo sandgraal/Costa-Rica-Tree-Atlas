@@ -92,11 +92,9 @@ export function resolveImageSource(
 
   if (variants) {
     // Prefer AVIF, fallback to WebP, then JPEG
-    const src = variants.avif || variants.webp || variants.jpeg || "";
+    const src = variants.avif || variants.webp || variants.jpeg;
 
-    if (!src) {
-      // No valid variants found, continue to next fallback
-    } else {
+    if (src) {
       return {
         src,
         type: "optimized",
