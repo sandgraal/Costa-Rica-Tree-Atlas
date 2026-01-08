@@ -10,7 +10,8 @@ export class CircuitBreaker {
   constructor(
     private failureThreshold = 5,
     private timeout = 60000, // 1 minute
-    private halfOpenAttempts = 3
+    private halfOpenAttempts = 3,
+    private redisTimeout = 5000 // Redis operation timeout in ms
   ) {}
 
   async execute<T>(fn: () => Promise<T>, fallback: () => T): Promise<T> {
@@ -27,7 +28,10 @@ export class CircuitBreaker {
       const result = await Promise.race([
         fn(),
         new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error("Redis timeout")), 5000)
+          setTimeout(
+            () => reject(new Error("Redis timeout")),
+            this.redisTimeout
+          )
         ),
       ]);
 

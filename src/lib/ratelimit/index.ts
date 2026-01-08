@@ -108,7 +108,6 @@ function isMobileIPv6(ip: string): boolean {
     "2001:4888:", // Sprint/T-Mobile
     "2a00:23c5:", // Telefonica/O2
     "2a00:23c6:", // Telefonica/O2
-    "2a01:4f8:", // Hetzner (mobile VPN provider)
     // Add more known mobile carrier prefixes as needed
   ];
 
@@ -185,7 +184,12 @@ function getTrustedClientIP(request: NextRequest): string {
  */
 function parseWindow(window: string): number {
   const match = window.match(/^(\d+)\s*([hms])$/);
-  if (!match) return 60;
+  if (!match) {
+    console.warn(
+      `Invalid rate limit window format: "${window}". Using default 60 seconds.`
+    );
+    return 60;
+  }
 
   const value = parseInt(match[1], 10);
   const unit = match[2];
@@ -198,6 +202,9 @@ function parseWindow(window: string): number {
     case "s":
       return value;
     default:
+      console.warn(
+        `Unknown time unit in window: "${window}". Using default 60 seconds.`
+      );
       return 60;
   }
 }
@@ -265,8 +272,13 @@ export async function rateLimit(
 
   // Use circuit breaker with fallback
   const result = await circuitBreaker.execute(
-    async () =>
-      atomicRateLimit(redis!, identifier, config.requests, windowSeconds),
+    async () => {
+      // Double-check redis is available before using
+      if (!redis) {
+        throw new Error("Redis not configured");
+      }
+      return atomicRateLimit(redis, identifier, config.requests, windowSeconds);
+    },
     () => {
       // Fallback to in-memory rate limiting
       const fallback = memoryLimiter.check(

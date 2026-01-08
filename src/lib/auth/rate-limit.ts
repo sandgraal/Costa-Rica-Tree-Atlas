@@ -54,7 +54,6 @@ function isMobileIPv6(ip: string): boolean {
     "2001:4888:", // Sprint/T-Mobile
     "2a00:23c5:", // Telefonica/O2
     "2a00:23c6:", // Telefonica/O2
-    "2a01:4f8:", // Hetzner (mobile VPN provider)
     // Add more known mobile carrier prefixes as needed
   ];
 
