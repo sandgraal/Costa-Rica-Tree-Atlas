@@ -1,11 +1,13 @@
-import { randomBytes } from "crypto";
-
 /**
- * Generate a cryptographic nonce for CSP
+ * Generate a cryptographic nonce for CSP using Web Crypto API
+ * Compatible with Edge Runtime
  * @returns Base64-encoded random nonce
  */
 export function generateNonce(): string {
-  return randomBytes(16).toString("base64");
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  // Convert to base64
+  return btoa(String.fromCharCode(...bytes));
 }
 
 /**
