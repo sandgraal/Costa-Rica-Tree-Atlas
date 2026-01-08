@@ -80,15 +80,26 @@ export function validateEnv() {
 export type ServerEnv = z.infer<typeof serverSchema>;
 export type ClientEnv = z.infer<typeof clientSchema>;
 
-// Validate at module load
-let env: ReturnType<typeof validateEnv>;
+// Cache for validated environment
+let env: ReturnType<typeof validateEnv> | null = null;
 
-try {
-  env = validateEnv();
-} catch (error) {
-  console.error("Failed to validate environment:", error);
-  process.exit(1);
+// Get validated environment (lazy initialization)
+function getEnv() {
+  if (!env) {
+    env = validateEnv();
+  }
+  return env;
 }
 
-export const serverEnv = env.server;
-export const clientEnv = env.client;
+// Export with lazy evaluation using Proxy for compatibility with Edge runtime
+export const serverEnv = new Proxy({} as ServerEnv, {
+  get(_target, prop) {
+    return getEnv().server[prop as keyof ServerEnv];
+  },
+});
+
+export const clientEnv = new Proxy({} as ClientEnv, {
+  get(_target, prop) {
+    return getEnv().client[prop as keyof ClientEnv];
+  },
+});
