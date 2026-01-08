@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import {
@@ -12,6 +12,7 @@ import {
   injectEducationStyles,
   type LessonTreeData,
 } from "@/lib/education";
+import { useConservationReducer } from "./useConservationReducer";
 
 interface ConservationLessonClientProps {
   trees: LessonTreeData[];
@@ -36,16 +37,7 @@ function ConservationLessonContent({
   endangeredTrees,
 }: ConservationLessonClientProps) {
   const { markLessonComplete } = useEducationProgress();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [selectedThreats, setSelectedThreats] = useState<string[]>([]);
-  const [selectedActions, setSelectedActions] = useState<string[]>([]);
-  const [pledgeSigned, setPledgeSigned] = useState(false);
-  const [pledgeName, setPledgeName] = useState("");
-  const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
-  const [quizFeedback, setQuizFeedback] = useState<Record<number, boolean>>({});
-  const [totalPoints, setTotalPoints] = useState(0);
-  const [showResults, setShowResults] = useState(false);
-  const [adoptedTree, setAdoptedTree] = useState<LessonTreeData | null>(null);
+  const [state, dispatch] = useConservationReducer();
 
   useEffect(() => {
     injectEducationStyles();
@@ -444,82 +436,70 @@ function ConservationLessonContent({
   ];
 
   const handleThreatSelect = (threatId: string) => {
-    if (selectedThreats.includes(threatId)) {
-      setSelectedThreats((prev) => prev.filter((t) => t !== threatId));
-    } else if (selectedThreats.length < 3) {
-      setSelectedThreats((prev) => [...prev, threatId]);
-      if (selectedThreats.length === 2) {
-        setTotalPoints((prev) => prev + 15);
-      }
-    }
+    dispatch({ type: "TOGGLE_THREAT", payload: threatId });
   };
 
   const handleActionSelect = (actionId: string) => {
-    if (selectedActions.includes(actionId)) {
-      setSelectedActions((prev) => prev.filter((a) => a !== actionId));
-    } else if (selectedActions.length < 3) {
-      setSelectedActions((prev) => [...prev, actionId]);
-      if (selectedActions.length === 2) {
-        setTotalPoints((prev) => prev + 20);
-        triggerConfetti();
-      }
+    dispatch({ type: "TOGGLE_ACTION", payload: actionId });
+    // Trigger confetti when selecting 3rd action
+    if (
+      !state.state.selectedActions.includes(actionId) &&
+      state.state.selectedActions.length === 2
+    ) {
+      triggerConfetti();
     }
   };
 
   const handleQuizAnswer = (qIndex: number, aIndex: number) => {
-    if (quizFeedback[qIndex] !== undefined) return;
-    setQuizAnswers((prev) => ({ ...prev, [qIndex]: aIndex }));
+    if (state.quiz.feedback[qIndex] !== undefined) return;
     const isCorrect = aIndex === quizQuestions[qIndex].correct;
-    setQuizFeedback((prev) => ({ ...prev, [qIndex]: isCorrect }));
-    if (isCorrect) {
-      setTotalPoints((prev) => prev + quizQuestions[qIndex].points);
-    }
+    dispatch({
+      type: "ANSWER_QUIZ",
+      payload: {
+        question: qIndex,
+        answer: aIndex,
+        isCorrect,
+        points: quizQuestions[qIndex].points,
+      },
+    });
   };
 
   const handleSignPledge = () => {
-    if (pledgeName.trim()) {
-      setPledgeSigned(true);
-      setTotalPoints((prev) => prev + 50);
+    dispatch({ type: "SIGN_PLEDGE" });
+    if (state.pledge.name.trim()) {
       triggerConfetti();
     }
   };
 
   const handleFinish = () => {
-    const correctQuizAnswers = Object.entries(quizFeedback).filter(
+    const correctQuizAnswers = Object.entries(state.quiz.feedback).filter(
       ([, correct]) => correct
     ).length;
     const percentage =
-      quizFeedback && Object.keys(quizFeedback).length > 0
+      state.quiz.feedback && Object.keys(state.quiz.feedback).length > 0
         ? Math.round(
-            (correctQuizAnswers / Object.keys(quizFeedback).length) * 100
+            (correctQuizAnswers / Object.keys(state.quiz.feedback).length) * 100
           )
         : 100; // Give full credit if no quiz
-    markLessonComplete("conservation", percentage, totalPoints);
-    setShowResults(true);
-    if (totalPoints >= 100) triggerConfetti();
+    markLessonComplete("conservation", percentage, state.totalPoints);
+    dispatch({ type: "FINISH_LESSON" });
+    if (state.totalPoints >= 100) triggerConfetti();
   };
 
   const canProceed = () => {
-    if (currentStep === 1) return selectedThreats.length >= 3;
-    if (currentStep === 3) return selectedActions.length >= 3;
-    if (currentStep === 4) return pledgeSigned;
+    if (state.state.currentStep === 1)
+      return state.state.selectedThreats.length >= 3;
+    if (state.state.currentStep === 3)
+      return state.state.selectedActions.length >= 3;
+    if (state.state.currentStep === 4) return state.pledge.signed;
     return true;
   };
 
   const resetLesson = () => {
-    setCurrentStep(0);
-    setSelectedThreats([]);
-    setSelectedActions([]);
-    setPledgeSigned(false);
-    setPledgeName("");
-    setQuizAnswers({});
-    setQuizFeedback({});
-    setTotalPoints(0);
-    setShowResults(false);
-    setAdoptedTree(null);
+    dispatch({ type: "RESET" });
   };
 
-  if (showResults) {
+  if (state.showResults) {
     return (
       <div className="container mx-auto max-w-4xl px-4 py-12">
         <div className="text-center animate-bounce-in">
@@ -536,13 +516,13 @@ function ConservationLessonContent({
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl p-6 border border-green-500/20">
               <div className="text-5xl font-bold text-green-600 mb-2">
-                {totalPoints}
+                {state.totalPoints}
               </div>
               <div className="text-muted-foreground">{t.points}</div>
             </div>
             <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/20">
               <div className="text-5xl font-bold text-blue-600 mb-2">
-                {selectedActions.length}
+                {state.state.selectedActions.length}
               </div>
               <div className="text-muted-foreground">
                 {locale === "es" ? "Acciones Prometidas" : "Actions Pledged"}
@@ -556,15 +536,17 @@ function ConservationLessonContent({
             </div>
           </div>
 
-          {pledgeSigned && (
+          {state.pledge.signed && (
             <div className="bg-card rounded-2xl p-6 border border-border mb-8 max-w-md mx-auto">
               <div className="text-4xl mb-2">📜</div>
               <p className="text-lg font-medium mb-2">{t.pledgeText}</p>
-              <p className="text-primary font-bold text-xl">{pledgeName}</p>
+              <p className="text-primary font-bold text-xl">
+                {state.pledge.name}
+              </p>
             </div>
           )}
 
-          {adoptedTree && (
+          {state.adoptedTree && (
             <div className="bg-card rounded-2xl p-6 border border-border mb-8 max-w-md mx-auto">
               <h3 className="font-semibold mb-4 flex items-center justify-center gap-2">
                 <span>🌳</span> {t.yourAdoptedTree}
@@ -633,9 +615,9 @@ function ConservationLessonContent({
               <span className="px-3 py-1 bg-muted text-muted-foreground rounded-full">
                 ⏱️ 40 min
               </span>
-              {totalPoints > 0 && (
+              {state.totalPoints > 0 && (
                 <span className="px-3 py-1 bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 rounded-full font-medium">
-                  ⭐ {totalPoints} {t.points}
+                  ⭐ {state.totalPoints} {t.points}
                 </span>
               )}
             </div>
@@ -649,23 +631,26 @@ function ConservationLessonContent({
           {steps.map((step, i) => (
             <button
               key={i}
-              onClick={() => i <= currentStep && setCurrentStep(i)}
-              disabled={i > currentStep}
-              className={`relative flex flex-col items-center gap-1 transition-all ${i <= currentStep ? "cursor-pointer" : "cursor-not-allowed"}`}
+              onClick={() =>
+                i <= state.currentStep &&
+                dispatch({ type: "SET_STEP", payload: i })
+              }
+              disabled={i > state.currentStep}
+              className={`relative flex flex-col items-center gap-1 transition-all ${i <= state.currentStep ? "cursor-pointer" : "cursor-not-allowed"}`}
             >
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-xl transition-all ${
-                  i === currentStep
+                  i === state.currentStep
                     ? "bg-primary text-white scale-110 shadow-lg"
-                    : i < currentStep
+                    : i < state.currentStep
                       ? "bg-green-500 text-white"
                       : "bg-muted text-muted-foreground"
                 }`}
               >
-                {i < currentStep ? "✓" : step.icon}
+                {i < state.currentStep ? "✓" : step.icon}
               </div>
               <span
-                className={`text-xs hidden sm:block ${i === currentStep ? "text-primary font-medium" : "text-muted-foreground"}`}
+                className={`text-xs hidden sm:block ${i === state.currentStep ? "text-primary font-medium" : "text-muted-foreground"}`}
               >
                 {i + 1}
               </span>
@@ -675,7 +660,9 @@ function ConservationLessonContent({
         <div className="h-2 bg-muted rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-500"
-            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+            style={{
+              width: `${((state.currentStep + 1) / steps.length) * 100}%`,
+            }}
           />
         </div>
       </div>
@@ -683,7 +670,7 @@ function ConservationLessonContent({
       {/* Content */}
       <div className="bg-card border border-border rounded-2xl p-8 mb-8 min-h-[400px]">
         {/* Step 0: Why Conserve */}
-        {currentStep === 0 && (
+        {state.currentStep === 0 && (
           <div className="animate-slide-up">
             <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
               <span className="text-3xl">🌍</span>
@@ -715,7 +702,7 @@ function ConservationLessonContent({
         )}
 
         {/* Step 1: Threats */}
-        {currentStep === 1 && (
+        {state.currentStep === 1 && (
           <div className="animate-slide-up">
             <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-3">
               <span className="text-3xl">⚠️</span>
@@ -729,23 +716,23 @@ function ConservationLessonContent({
             <div className="bg-muted rounded-xl p-4 mb-6">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-primary">
-                  {selectedThreats.length}
+                  {state.selectedThreats.length}
                 </span>
                 <span className="text-muted-foreground">/ 3 {t.selected}</span>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {threats.map((threat) => {
-                const isSelected = selectedThreats.includes(threat.id);
+                const isSelected = state.selectedThreats.includes(threat.id);
                 return (
                   <button
                     key={threat.id}
                     onClick={() => handleThreatSelect(threat.id)}
-                    disabled={!isSelected && selectedThreats.length >= 3}
+                    disabled={!isSelected && state.selectedThreats.length >= 3}
                     className={`p-4 rounded-xl border-2 text-left transition-all ${
                       isSelected
                         ? "border-red-500 bg-red-500/10 scale-105"
-                        : selectedThreats.length >= 3
+                        : state.selectedThreats.length >= 3
                           ? "border-border opacity-50 cursor-not-allowed"
                           : "border-border hover:border-red-500/50 hover:bg-muted/50"
                     }`}
@@ -768,7 +755,7 @@ function ConservationLessonContent({
         )}
 
         {/* Step 2: Conservation Status */}
-        {currentStep === 2 && (
+        {state.currentStep === 2 && (
           <div className="animate-slide-up">
             <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
               <span className="text-3xl">📊</span>
@@ -798,8 +785,8 @@ function ConservationLessonContent({
             {/* Quiz */}
             <div className="space-y-4">
               {quizQuestions.map((q, qIndex) => {
-                const isAnswered = quizFeedback[qIndex] !== undefined;
-                const isCorrect = quizFeedback[qIndex];
+                const isAnswered = state.quiz.feedback[qIndex] !== undefined;
+                const isCorrect = state.quiz.feedback[qIndex];
                 return (
                   <div
                     key={qIndex}
@@ -814,7 +801,8 @@ function ConservationLessonContent({
                     <p className="font-medium mb-3">{q.question}</p>
                     <div className="grid grid-cols-2 gap-2">
                       {q.options.map((opt, oIndex) => {
-                        const isSelected = quizAnswers[qIndex] === oIndex;
+                        const isSelected =
+                          state.quiz.answers[qIndex] === oIndex;
                         const isCorrectAnswer = oIndex === q.correct;
                         return (
                           <button
@@ -880,7 +868,7 @@ function ConservationLessonContent({
         )}
 
         {/* Step 3: Take Action */}
-        {currentStep === 3 && (
+        {state.currentStep === 3 && (
           <div className="animate-slide-up">
             <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-3">
               {steps[3].title}
@@ -890,11 +878,11 @@ function ConservationLessonContent({
             <div className="bg-muted rounded-xl p-4 mb-6">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-primary">
-                  {selectedActions.length}
+                  {state.selectedActions.length}
                 </span>
                 <span className="text-muted-foreground">/ 3 {t.selected}</span>
               </div>
-              {selectedActions.length >= 3 && (
+              {state.selectedActions.length >= 3 && (
                 <div className="mt-2 text-center text-green-600 font-medium animate-bounce-in">
                   🎉{" "}
                   {locale === "es"
@@ -906,16 +894,16 @@ function ConservationLessonContent({
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {conservationActions.map((action) => {
-                const isSelected = selectedActions.includes(action.id);
+                const isSelected = state.selectedActions.includes(action.id);
                 return (
                   <button
                     key={action.id}
                     onClick={() => handleActionSelect(action.id)}
-                    disabled={!isSelected && selectedActions.length >= 3}
+                    disabled={!isSelected && state.selectedActions.length >= 3}
                     className={`relative p-4 rounded-xl border-2 text-center transition-all ${
                       isSelected
                         ? "border-green-500 bg-green-500/10 scale-105"
-                        : selectedActions.length >= 3
+                        : state.selectedActions.length >= 3
                           ? "border-border opacity-50 cursor-not-allowed"
                           : "border-border hover:border-green-500/50 hover:bg-muted/50"
                     }`}
@@ -938,7 +926,7 @@ function ConservationLessonContent({
         )}
 
         {/* Step 4: Pledge */}
-        {currentStep === 4 && (
+        {state.currentStep === 4 && (
           <div className="animate-slide-up">
             <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
               {steps[4].title}
@@ -953,14 +941,19 @@ function ConservationLessonContent({
                   <div className="space-y-4">
                     <input
                       type="text"
-                      value={pledgeName}
-                      onChange={(e) => setPledgeName(e.target.value)}
+                      value={state.pledge.name}
+                      onChange={(e) =>
+                        dispatch({
+                          type: "SET_PLEDGE_NAME",
+                          payload: e.target.value,
+                        })
+                      }
                       placeholder={t.yourName}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background text-center text-lg font-medium focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                     <button
                       onClick={handleSignPledge}
-                      disabled={!pledgeName.trim()}
+                      disabled={!state.pledge.name.trim()}
                       className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       ✍️ {t.signPledge}
@@ -970,7 +963,7 @@ function ConservationLessonContent({
                   <div className="animate-bounce-in">
                     <div className="text-4xl mb-2">✅</div>
                     <p className="text-green-600 font-bold text-xl">
-                      {pledgeName}
+                      {state.pledge.name}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
                       {locale === "es"
@@ -1032,17 +1025,15 @@ function ConservationLessonContent({
       {/* Navigation */}
       <div className="flex justify-between">
         <button
-          onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
-          disabled={currentStep === 0}
+          onClick={() => dispatch({ type: "PREVIOUS_STEP" })}
+          disabled={state.currentStep === 0}
           className="px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {t.previous}
         </button>
-        {currentStep < steps.length - 1 ? (
+        {state.currentStep < steps.length - 1 ? (
           <button
-            onClick={() =>
-              setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))
-            }
+            onClick={() => dispatch({ type: "NEXT_STEP" })}
             disabled={!canProceed()}
             className={`px-6 py-3 rounded-xl transition-all ${
               canProceed()
