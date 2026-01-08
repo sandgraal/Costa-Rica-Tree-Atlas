@@ -71,7 +71,7 @@ export class SafeStorage<T> {
         return false;
       }
 
-      localStorage.setItem(this.options.key, JSON.stringify(result.data));
+      localStorage.setItem(this.options.key, JSON.stringify(data));
       return true;
     } catch (error) {
       const err = error instanceof Error ? error : new Error(String(error));

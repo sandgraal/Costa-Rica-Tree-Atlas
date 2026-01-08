@@ -245,11 +245,17 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
             badges: earnedBadgeIcons,
             lastActive: new Date().toISOString(),
           };
-          existingClassroom.students.push(newStudent);
-          classroomStorage.set(existingClassroom);
+          // Create a new object reference to avoid mutation issues
+          const updatedClassroom = {
+            ...existingClassroom,
+            students: [...existingClassroom.students, newStudent],
+          };
+          classroomStorage.set(updatedClassroom);
+          setClassroom(updatedClassroom);
+        } else {
+          setClassroom(existingClassroom);
         }
 
-        setClassroom(existingClassroom);
         const studentData = {
           name: formData.studentName,
           classroomCode: existingClassroom.code,
