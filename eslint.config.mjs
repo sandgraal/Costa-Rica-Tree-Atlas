@@ -31,6 +31,9 @@ const eslintConfig = defineConfig([
   // Custom rule overrides
   {
     rules: {
+      // React Hooks rules - enforce correct dependencies
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "error",
       // Allow setState in useEffect for localStorage hydration patterns
       "react-hooks/set-state-in-effect": "off",
       // Allow dynamic component creation from useMDXComponent
