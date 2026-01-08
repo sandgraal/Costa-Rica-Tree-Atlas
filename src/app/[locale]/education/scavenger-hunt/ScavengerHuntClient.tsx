@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
-import { useScavengerHuntReducer } from "./useScavengerHuntReducer";
+import { createStorage, huntSessionSchema } from "@/lib/storage";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface Tree {
   title: string;
@@ -420,7 +421,30 @@ export default function ScavengerHuntClient({
   trees,
   locale,
 }: ScavengerHuntClientProps) {
-  const [state, dispatch] = useScavengerHuntReducer();
+  const [view, setView] = useState<"setup" | "hunt" | "mission" | "results">(
+    "setup"
+  );
+  const [session, setSession] = useState<HuntSession | null>(null);
+  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [_missionAnswer, setMissionAnswer] = useState<string>("");
+  const [showHint, setShowHint] = useState(false);
+  const [missionTimer, setMissionTimer] = useState<number | null>(null);
+  const [storageError, setStorageError] = useState<string | null>(null);
+
+  // Debounce search query
+  const debouncedSearch = useDebounce(searchQuery, 300);
+
+  // Setup state
+  const [teamCount, setTeamCount] = useState(2);
+  const [teamNames, setTeamNames] = useState<string[]>(["", ""]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[][]>([[], []]);
+  const [difficulty, setDifficulty] = useState<
+    "easy" | "medium" | "hard" | "mixed"
+  >("mixed");
+  const [missionCount, setMissionCount] = useState(5);
+  const [newMemberName, setNewMemberName] = useState("");
+  const [editingTeam, setEditingTeam] = useState<number | null>(null);
 
   // Create storage instance with error handling
   const huntStorage = useMemo(
@@ -1011,10 +1035,10 @@ export default function ScavengerHuntClient({
     const validTrees = mission.validator(trees);
     const filteredTrees = trees.filter(
       (tree) =>
-        tree.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+        tree.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
         tree.scientificName
           .toLowerCase()
-          .includes(state.searchQuery.toLowerCase())
+          .includes(debouncedSearch.toLowerCase())
     );
 
     return (

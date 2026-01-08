@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { SafeImage } from "@/components/SafeImage";
 import { BLUR_DATA_URL } from "@/lib/image";
 import { ResponsiveVirtualizedGrid } from "./ResponsiveVirtualizedGrid";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 export interface GalleryImage {
   src: string;
@@ -39,6 +40,9 @@ export function ImageLightbox({
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   }, [images.length]);
 
+  // Lock scroll while lightbox is open
+  useScrollLock(true);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,12 +60,8 @@ export function ImageLightbox({
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    // Prevent body scroll when lightbox is open
-    document.body.style.overflow = "hidden";
-
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
     };
   }, [onClose, goToPrevious, goToNext]);
 
