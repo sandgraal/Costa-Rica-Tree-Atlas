@@ -150,6 +150,33 @@ echo "ADMIN_USERNAME=your_custom_username" >> .env.local
 5. **Use Upstash Redis** - For production rate limiting that persists across deployments
 6. **Use non-obvious usernames** - Don't use "admin" in production
 
+#### Timing Attack Protection
+
+All authentication comparisons use `crypto.timingSafeEqual` to prevent timing attacks:
+
+- **Constant-time comparison**: Takes the same time regardless of input, preventing attackers from measuring response times to guess credentials character-by-character
+- **No early exit**: Always compares full strings even on mismatch, eliminating timing side-channels
+- **No username enumeration**: Both username and password are always checked before returning any error, preventing attackers from determining valid usernames by timing differences
+- **Native crypto module**: Uses Node.js's built-in `timingSafeEqual` which is implemented in C++ and provides constant-time guarantees at the native level
+
+**Why This Matters**
+
+Without constant-time comparison, attackers can:
+
+1. Measure response times to guess passwords character-by-character
+2. Determine valid usernames by timing differences
+3. Reduce brute-force time from O(n^m) to O(n\*m) where n is the character set size and m is the password length
+4. Bypass rate limiting by detecting invalid credentials early
+
+**Implementation Details**
+
+The `secureCompare` function in `src/lib/auth/secure-compare.ts`:
+
+- Converts strings to buffers for use with `crypto.timingSafeEqual`
+- For different-length strings, performs a dummy comparison to maintain constant time
+- Never short-circuits or returns early based on input characteristics
+- Provides additional helper functions for hashing and comparing hashed values
+
 ### API Security
 
 - **CSRF Protection** - Origin validation for state-changing operations (POST, PUT, DELETE requests)
