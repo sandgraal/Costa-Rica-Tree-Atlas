@@ -43,8 +43,6 @@ export default function FieldTripClient({
   // Debounce search query
   const debouncedSearch = useDebounce(searchQuery, 300);
 
-  const families = [...new Set(trees.map((t) => t.family))].sort();
-
   // Load saved data
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -270,7 +268,7 @@ export default function FieldTripClient({
   // Filter trees using debounced search
   const filteredTrees = trees.filter((tree) => {
     const matchesSearch =
-’      tree.title.toLowerCase().includes(state.ui.searchQuery.toLowerCase()) ||
+      tree.title.toLowerCase().includes(state.ui.searchQuery.toLowerCase()) ||
       tree.scientificName
         .toLowerCase()
         .includes(state.ui.searchQuery.toLowerCase());
@@ -455,7 +453,7 @@ export default function FieldTripClient({
               <input
                 type="checkbox"
                 checked={state.ui.showOnlySpotted}
-                onChange={(e) => dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" })}
+                onChange={() => dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" })}
                 className="w-5 h-5 rounded"
               />
               <span className="text-sm">{t.showSpotted}</span>
@@ -644,10 +642,11 @@ export default function FieldTripClient({
             </label>
             <div className="flex gap-3">
               <button
-                onClick={() =>
-                  state.modal.selectedTree &&
-                  handleRemoveSpotted(state.modal.selectedTree.slug)
-                }
+                onClick={() => {
+                  if (state.modal.selectedTree) {
+                    handleRemoveSpotted(state.modal.selectedTree.slug);
+                  }
+                }}
                 className="px-4 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20"
               >
                 {t.removeSpotted}

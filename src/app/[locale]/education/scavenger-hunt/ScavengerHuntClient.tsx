@@ -446,23 +446,6 @@ export default function ScavengerHuntClient({
   const [newMemberName, setNewMemberName] = useState("");
   const [editingTeam, setEditingTeam] = useState<number | null>(null);
 
-  // Create storage instance with error handling
-  const huntStorage = useMemo(
-    () =>
-      createStorage({
-        key: STORAGE_KEY,
-        schema: huntSessionSchema,
-        onError: (error) => {
-          setStorageError(
-            locale === "es"
-              ? "Se detectaron datos corruptos y fueron eliminados"
-              : "Corrupted data was detected and cleared"
-          );
-        },
-      }),
-    [locale]
-  );
-
   const t = {
     title: locale === "es" ? "Búsqueda del Tesoro 🗺️" : "Scavenger Hunt 🗺️",
     subtitle:
@@ -532,7 +515,7 @@ export default function ScavengerHuntClient({
     } catch (e) {
       console.error("Failed to load session:", e);
     }
-  }, [huntStorage]);
+  }, [dispatch]);
 
   // Save session
   useEffect(() => {
@@ -557,7 +540,7 @@ export default function ScavengerHuntClient({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [state.missionTimer]);
+  }, [state.missionTimer, dispatch]);
 
   const handleTeamCountChange = (count: number) => {
     dispatch({ type: "SET_TEAM_COUNT", payload: count });
@@ -668,21 +651,6 @@ export default function ScavengerHuntClient({
   if (state.view === "setup") {
     return (
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-amber-50/50 to-background dark:from-amber-950/20">
-        {/* Storage Error Alert */}
-        {storageError && (
-          <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-700 dark:text-yellow-400 px-4 py-3 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-lg shadow-lg max-w-md">
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-sm">{storageError}</p>
-              <button
-                onClick={() => setStorageError(null)}
-                className="text-sm underline hover:no-underline"
-              >
-                {locale === "es" ? "Cerrar" : "Dismiss"}
-              </button>
-            </div>
-          </div>
-        )}
-
         <div className="container mx-auto max-w-4xl">
           <Link
             href="/education"

@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
+import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
 import FieldTripClient from "./FieldTripClient";
 import { ComponentErrorBoundary } from "@/components/ComponentErrorBoundary";
 
@@ -24,6 +26,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function FieldTripPage({ params }: Props) {
+  return (
+    <Suspense fallback={<FieldTripLoading />}>
+      <FieldTripContent params={params} />
+    </Suspense>
+  );
+}
+
+async function FieldTripContent({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -45,5 +55,14 @@ export default async function FieldTripPage({ params }: Props) {
     <ComponentErrorBoundary componentName="Field Trip">
       <FieldTripClient trees={trees} locale={locale} />
     </ComponentErrorBoundary>
+  );
+}
+
+function FieldTripLoading() {
+  return (
+    <div className="container py-8">
+      <div className="h-12 bg-muted rounded w-64 mb-8 animate-pulse" />
+      <SkeletonGrid count={12} columns={4} />
+    </div>
   );
 }
