@@ -1,5 +1,3 @@
-import { timingSafeEqual, createHash } from "crypto";
-
 /**
  * Maximum input length for secure comparison to prevent HashDoS attacks
  * Admin credentials should be well under this limit (typical max ~256 chars)
@@ -9,6 +7,8 @@ const MAX_INPUT_LENGTH = 10000;
 /**
  * TRULY constant-time string comparison using hash normalization
  * Prevents timing attacks, length oracle, and cache timing attacks
+ *
+ * Uses Web Crypto API (available in Edge Runtime)
  *
  * @param a - First string to compare
  * @param b - Second string to compare
@@ -22,7 +22,7 @@ const MAX_INPUT_LENGTH = 10000;
  * - Resistant to cache timing attacks
  * - Protected against HashDoS attacks via input length validation
  */
-export function secureCompare(a: string, b: string): boolean {
+export async function secureCompare(a: string, b: string): Promise<boolean> {
   // Prevent HashDoS attacks by rejecting excessively long inputs
   // This check is done BEFORE any expensive operations
   if (a.length > MAX_INPUT_LENGTH || b.length > MAX_INPUT_LENGTH) {
@@ -31,21 +31,30 @@ export function secureCompare(a: string, b: string): boolean {
     );
   }
 
-  // Hash both strings to fixed 32-byte length FIRST
+  // Hash both strings to fixed 32-byte length FIRST using Web Crypto API
   // This eliminates:
   // - Variable encoding time (UTF-8 complexity)
   // - Length oracle (both hashes are always 32 bytes)
   // - Cache timing (hash operation time is constant)
-  const hashA = createHash("sha256").update(a, "utf8").digest();
-  const hashB = createHash("sha256").update(b, "utf8").digest();
+  const encoder = new TextEncoder();
+  const hashA = await crypto.subtle.digest("SHA-256", encoder.encode(a));
+  const hashB = await crypto.subtle.digest("SHA-256", encoder.encode(b));
 
-  // Now both buffers are ALWAYS 32 bytes - no length check needed!
-  // timingSafeEqual will never throw, never branch on length
-  return timingSafeEqual(hashA, hashB);
+  // Convert to Uint8Array for comparison
+  const arrayA = new Uint8Array(hashA);
+  const arrayB = new Uint8Array(hashB);
+
+  // Constant-time comparison
+  let result = 0;
+  for (let i = 0; i < arrayA.length; i++) {
+    result |= arrayA[i] ^ arrayB[i];
+  }
+
+  return result === 0;
 }
 
 /**
- * Hash a string using SHA-256
+ * Hash a string using SHA-256 (Web Crypto API)
  *
  * ⚠️ WARNING: NOT suitable for password storage!
  * SHA-256 is too fast and vulnerable to brute-force attacks.
@@ -53,8 +62,12 @@ export function secureCompare(a: string, b: string): boolean {
  *
  * This is provided for legacy compatibility only.
  */
-export function hashString(input: string): string {
-  return createHash("sha256").update(input, "utf8").digest("hex");
+export async function hashString(input: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**
@@ -63,7 +76,10 @@ export function hashString(input: string): string {
  * ⚠️ WARNING: This uses SHA-256 which is NOT suitable for password verification!
  * Use only for non-sensitive data comparison.
  */
-export function compareHashed(plaintext: string, hash: string): boolean {
-  const plaintextHash = hashString(plaintext);
+export async function compareHashed(
+  plaintext: string,
+  hash: string
+): Promise<boolean> {
+  const plaintextHash = await hashString(plaintext);
   return secureCompare(plaintextHash, hash);
 }
