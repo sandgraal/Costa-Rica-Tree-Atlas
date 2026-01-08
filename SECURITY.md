@@ -273,9 +273,71 @@ The CSP configuration has been tested with:
 
 ### Environment Variables
 
+#### Environment Variable Security
+
+All environment variables are validated at build time using Zod schemas to ensure security and prevent misconfigurations.
+
+#### Required Variables
+
+**Production deployments MUST set:**
+
+- `ADMIN_PASSWORD` - Min 12 chars with uppercase, lowercase, number, and special character
+- `UPSTASH_REDIS_REST_URL` - For persistent rate limiting
+- `UPSTASH_REDIS_REST_TOKEN` - Redis authentication
+
+#### Generating Secure Secrets
+
+```bash
+npm run generate:secrets
+```
+
+This generates cryptographically secure passwords. Copy the output to `.env.local`.
+
+#### Validation
+
+The app validates all environment variables at startup. If validation fails:
+
+- Build will fail in CI/CD
+- App won't start locally
+- Clear error messages indicate which variables are invalid
+
+You can manually validate your environment variables:
+
+```bash
+npm run validate:env
+```
+
+#### Client vs Server Variables
+
+- `NEXT_PUBLIC_*` - Exposed to browser (use sparingly)
+- All others - Server-only (never in client bundle)
+
+#### Security Requirements
+
+**ADMIN_PASSWORD must:**
+
+- Be at least 12 characters long
+- Contain at least one uppercase letter
+- Contain at least one lowercase letter
+- Contain at least one number
+- Contain at least one special character (@$!%\*?&)
+
+Example of generating a secure password:
+
+```bash
+# Using the provided script (recommended)
+npm run generate:secrets
+
+# Using openssl (alternative)
+openssl rand -base64 32
+```
+
+#### Storage and Management
+
 - All API keys and secrets are stored in environment variables
 - `.env` files are gitignored
 - Only `.env.example` with empty values is committed
+- Never commit actual secrets to version control
 
 ### Dependencies
 

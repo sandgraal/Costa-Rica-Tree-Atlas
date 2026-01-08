@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { checkAuthRateLimit } from "@/lib/auth/rate-limit";
 import { secureCompare } from "@/lib/auth/secure-compare";
+import { serverEnv } from "@/lib/env/schema";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -22,15 +23,10 @@ export default async function middleware(request: NextRequest) {
     }
 
     // 2. Check if admin is configured
-    const adminPassword = process.env.ADMIN_PASSWORD;
-    const adminUsername = process.env.ADMIN_USERNAME || "admin";
+    const adminPassword = serverEnv.ADMIN_PASSWORD;
+    const adminUsername = serverEnv.ADMIN_USERNAME;
 
-    if (!adminPassword) {
-      return new NextResponse(
-        "Admin access disabled - ADMIN_PASSWORD not configured",
-        { status: 503 }
-      );
-    }
+    // With validation, these can never be undefined
 
     // 3. Rate limiting check
     const rateLimitResult = await checkAuthRateLimit(request);
