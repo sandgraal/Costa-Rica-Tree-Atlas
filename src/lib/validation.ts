@@ -24,8 +24,8 @@ const SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 // Email validation regex (RFC 5322 simplified)
 // Safe from ReDoS: Uses bounded quantifiers {0,61} and simple character classes
-// eslint-disable-next-line security/detect-unsafe-regex
 const EMAIL_REGEX =
+  // eslint-disable-next-line security/detect-unsafe-regex
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 export interface ValidationResult {
