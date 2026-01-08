@@ -44,7 +44,10 @@ export const TRUSTED_PROXY_RANGES = {
   ],
   vercel_ipv4: [
     "76.76.21.0/24",
-    // Add more Vercel IPs as needed
+    // Vercel Edge Network IPs are dynamic and region-specific
+    // Full list should be maintained from: https://vercel.com/docs/edge-network/regions
+    // For most deployments, x-real-ip header set by Vercel is sufficient
+    // Add specific ranges here only if needed for additional validation
   ],
 } as const;
 
@@ -72,8 +75,15 @@ function ipv4InRange(ip: string, cidr: string): boolean {
 /**
  * Check if an IPv6 address is within a CIDR range
  *
- * This is a simplified implementation suitable for the trusted proxy ranges we use.
- * For production use with arbitrary IPv6 ranges, consider using a library like 'ipaddr.js'.
+ * This implementation is sufficient for the trusted proxy ranges we use,
+ * which are well-defined /32 or /29 networks from Cloudflare.
+ *
+ * The simplified approach works because:
+ * - All Cloudflare IPv6 ranges use /32 or /29 prefixes
+ * - We only need to compare the network prefix, not handle arbitrary ranges
+ * - The ranges are stable and well-documented
+ *
+ * For arbitrary IPv6 range validation, consider using a library like 'ipaddr.js'.
  *
  * @param ip - IPv6 address to check
  * @param cidr - CIDR range (e.g., "2400:cb00::/32")

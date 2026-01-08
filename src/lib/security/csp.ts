@@ -40,6 +40,7 @@ export function generateNonce(): string {
 
     if (attempts > 3) {
       // Extremely unlikely - log for monitoring
+      // In production, this should be sent to a monitoring service
       console.error(
         "⚠️ Multiple nonce collisions detected - possible PRNG issue"
       );

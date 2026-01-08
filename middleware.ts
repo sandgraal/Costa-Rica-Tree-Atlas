@@ -9,6 +9,9 @@ import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
+// Build regex pattern from routing.locales for consistent locale matching
+const localePattern = routing.locales.join("|");
+
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
@@ -17,7 +20,7 @@ export default async function middleware(request: NextRequest) {
 
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
-  if (pathname.match(/^\/(en|es)\/admin\//)) {
+  if (pathname.match(new RegExp(`^/(${localePattern})/admin/`))) {
     // 1. HTTPS enforcement in production
     if (
       process.env.NODE_ENV === "production" &&
@@ -106,7 +109,7 @@ export default async function middleware(request: NextRequest) {
   // Add security headers with appropriate CSP
   // Use relaxed CSP (with unsafe-eval) only for marketing pages that require GTM
   // All other pages use strict CSP (no unsafe-eval)
-  const csp = pathname.match(/^\/(en|es)\/marketing\//)
+  const csp = pathname.match(new RegExp(`^/(${localePattern})/marketing/`))
     ? buildRelaxedCSP(nonce) // Marketing pages: allows GTM with unsafe-eval
     : buildCSP(nonce); // Default: strict CSP, no unsafe-eval
 
