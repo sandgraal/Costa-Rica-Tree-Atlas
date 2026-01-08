@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { FieldTripMap } from "@/components/maps";
 import type { Locale } from "@/types/tree";
-import { createStorage, fieldTripDataSchema } from "@/lib/storage";
+import { useFieldTripReducer } from "./useFieldTripReducer";
 
 interface Tree {
   title: string;
@@ -36,17 +36,7 @@ export default function FieldTripClient({
   trees,
   locale,
 }: FieldTripClientProps) {
-  const [spottedTrees, setSpottedTrees] = useState<SpottedTree[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFamily, setSelectedFamily] = useState<string>("all");
-  const [showOnlySpotted, setShowOnlySpotted] = useState(false);
-  const [currentTrip, setCurrentTrip] = useState<string | null>(null);
-  const [tripName, setTripName] = useState("");
-  const [showStartModal, setShowStartModal] = useState(false);
-  const [selectedTree, setSelectedTree] = useState<Tree | null>(null);
-  const [noteInput, setNoteInput] = useState("");
-  const [isOffline, setIsOffline] = useState(false);
-  const [storageError, setStorageError] = useState<string | null>(null);
+  const [state, dispatch] = useFieldTripReducer();
 
   const families = [...new Set(trees.map((t) => t.family))].sort();
 
@@ -71,16 +61,28 @@ export default function FieldTripClient({
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const data = fieldTripStorage.get();
-    if (data) {
-      setSpottedTrees(data.spottedTrees || []);
-      setCurrentTrip(data.currentTrip || null);
+    try {
+      const saved = localStorage.getItem(FIELD_TRIP_STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        dispatch({
+          type: "LOAD_SAVED_DATA",
+          payload: {
+            spottedTrees: data.spottedTrees || [],
+            currentTrip: data.currentTrip || null,
+          },
+        });
+      }
+    } catch (e) {
+      console.error("Failed to parse field trip data:", e);
     }
 
     // Check online status
-    setIsOffline(!navigator.onLine);
-    const handleOnline = () => setIsOffline(false);
-    const handleOffline = () => setIsOffline(true);
+    dispatch({ type: "SET_OFFLINE", payload: !navigator.onLine });
+    const handleOnline = () =>
+      dispatch({ type: "SET_OFFLINE", payload: false });
+    const handleOffline = () =>
+      dispatch({ type: "SET_OFFLINE", payload: true });
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
     return () => {
@@ -91,8 +93,18 @@ export default function FieldTripClient({
 
   // Save data
   useEffect(() => {
-    fieldTripStorage.set({ spottedTrees, currentTrip });
-  }, [spottedTrees, currentTrip, fieldTripStorage]);
+    try {
+      localStorage.setItem(
+        FIELD_TRIP_STORAGE_KEY,
+        JSON.stringify({
+          spottedTrees: state.spottedTrees,
+          currentTrip: state.currentTrip,
+        })
+      );
+    } catch (e) {
+      console.error("Failed to save field trip data:", e);
+    }
+  }, [state.spottedTrees, state.currentTrip]);
 
   const t = {
     title: locale === "es" ? "Modo Excursión" : "Field Trip Mode",
@@ -162,23 +174,33 @@ export default function FieldTripClient({
   };
 
   const handleStartTrip = () => {
-    if (tripName.trim()) {
-      setCurrentTrip(tripName);
-      setShowStartModal(false);
-      setTripName("");
+    if (state.setup.state.setup.tripName.trim()) {
+      dispatch({
+        type: "START_TRIP",
+        payload: state.setup.state.setup.tripName,
+      });
     }
   };
 
   const handleEndTrip = () => {
-    setCurrentTrip(null);
+    dispatch({ type: "END_TRIP" });
   };
 
   const handleSpotTree = (tree: Tree) => {
-    const existing = spottedTrees.find((s) => s.slug === tree.slug);
+    const existing = state.spottedTrees.find((s) => s.slug === tree.slug);
     if (existing) {
       // Open note modal
-      setSelectedTree(tree);
-      setNoteInput(existing.notes);
+      dispatch({
+        type: "OPEN_NOTE_MODAL",
+        payload: {
+          tree: {
+            slug: tree.slug,
+            title: tree.title,
+            scientificName: tree.scientificName,
+          },
+          currentNote: existing.notes,
+        },
+      });
     } else {
       // Mark as spotted
       const newSpotted: SpottedTree = {
@@ -195,39 +217,39 @@ export default function FieldTripClient({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             };
-            setSpottedTrees((prev) => [...prev, newSpotted]);
+            dispatch({ type: "SPOT_TREE", payload: newSpotted });
           },
           () => {
-            setSpottedTrees((prev) => [...prev, newSpotted]);
+            dispatch({ type: "SPOT_TREE", payload: newSpotted });
           }
         );
       } else {
-        setSpottedTrees((prev) => [...prev, newSpotted]);
+        dispatch({ type: "SPOT_TREE", payload: newSpotted });
       }
     }
   };
 
   const handleSaveNote = () => {
-    if (selectedTree) {
-      setSpottedTrees((prev) =>
-        prev.map((s) =>
-          s.slug === selectedTree.slug ? { ...s, notes: noteInput } : s
-        )
-      );
-      setSelectedTree(null);
-      setNoteInput("");
+    if (state.modal.state.modal.selectedTree) {
+      dispatch({
+        type: "UPDATE_NOTE",
+        payload: {
+          slug: state.modal.state.modal.selectedTree.slug,
+          note: state.modal.state.modal.noteInput,
+        },
+      });
     }
   };
 
   const handleRemoveSpotted = (slug: string) => {
-    setSpottedTrees((prev) => prev.filter((s) => s.slug !== slug));
+    dispatch({ type: "REMOVE_SPOTTED", payload: slug });
   };
 
   const handleExportData = () => {
     const data = {
-      tripName: currentTrip,
+      tripName: state.currentTrip,
       date: new Date().toISOString(),
-      treesSpotted: spottedTrees.map((s) => {
+      treesSpotted: state.spottedTrees.map((s) => {
         const tree = trees.find((t) => t.slug === s.slug);
         return {
           ...s,
@@ -244,7 +266,7 @@ export default function FieldTripClient({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `field-trip-${currentTrip?.replace(/\s+/g, "-") || "data"}.json`;
+    a.download = `field-trip-${state.currentTrip?.replace(/\s+/g, "-") || "data"}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -253,25 +275,30 @@ export default function FieldTripClient({
     if (
       confirm(locale === "es" ? "¿Borrar todos los datos?" : "Clear all data?")
     ) {
-      setSpottedTrees([]);
-      setCurrentTrip(null);
+      dispatch({ type: "CLEAR_ALL" });
     }
   };
 
   // Filter trees
   const filteredTrees = trees.filter((tree) => {
     const matchesSearch =
-      tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tree.scientificName.toLowerCase().includes(searchQuery.toLowerCase());
+      tree.title
+        .toLowerCase()
+        .includes(state.ui.state.ui.searchQuery.toLowerCase()) ||
+      tree.scientificName
+        .toLowerCase()
+        .includes(state.ui.state.ui.searchQuery.toLowerCase());
     const matchesFamily =
-      selectedFamily === "all" || tree.family === selectedFamily;
+      state.ui.state.ui.selectedFamily === "all" ||
+      tree.family === state.ui.state.ui.selectedFamily;
     const matchesSpotted =
-      !showOnlySpotted || spottedTrees.some((s) => s.slug === tree.slug);
+      !state.ui.state.ui.showOnlySpotted ||
+      state.spottedTrees.some((s) => s.slug === tree.slug);
     return matchesSearch && matchesFamily && matchesSpotted;
   });
 
   const spottedFamilies = new Set(
-    spottedTrees
+    state.spottedTrees
       .map((s) => trees.find((t) => t.slug === s.slug)?.family)
       .filter(Boolean)
   );
@@ -311,7 +338,7 @@ export default function FieldTripClient({
               <p className="text-green-100 mt-1">{t.subtitle}</p>
             </div>
 
-            {isOffline && (
+            {state.ui.isOffline && (
               <div className="bg-yellow-500/20 border border-yellow-400/50 rounded-lg px-4 py-2 text-sm">
                 <div className="font-medium">📴 {t.offlineMode}</div>
                 <div className="text-yellow-100 text-xs">{t.offlineNote}</div>
@@ -321,13 +348,13 @@ export default function FieldTripClient({
 
           {/* Trip Status */}
           <div className="mt-6">
-            {currentTrip ? (
+            {state.currentTrip ? (
               <div className="bg-white/10 rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <div className="text-sm text-green-200">
                     {t.tripInProgress}
                   </div>
-                  <div className="text-xl font-bold">{currentTrip}</div>
+                  <div className="text-xl font-bold">{state.currentTrip}</div>
                 </div>
                 <div className="flex items-center gap-3">
                   <button
@@ -346,7 +373,7 @@ export default function FieldTripClient({
               </div>
             ) : (
               <button
-                onClick={() => setShowStartModal(true)}
+                onClick={() => dispatch({ type: "TOGGLE_START_MODAL" })}
                 className="w-full py-4 bg-white/20 rounded-xl hover:bg-white/30 transition-colors font-semibold text-lg"
               >
                 {t.startTrip}
@@ -357,7 +384,9 @@ export default function FieldTripClient({
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="bg-white/10 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold">{spottedTrees.length}</div>
+              <div className="text-3xl font-bold">
+                {state.spottedTrees.length}
+              </div>
               <div className="text-sm text-green-200">{t.treesSpotted}</div>
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
@@ -366,7 +395,7 @@ export default function FieldTripClient({
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-3xl font-bold">
-                {Math.round((spottedTrees.length / trees.length) * 100)}%
+                {Math.round((state.spottedTrees.length / trees.length) * 100)}%
               </div>
               <div className="text-sm text-green-200">{t.progress}</div>
             </div>
@@ -377,18 +406,29 @@ export default function FieldTripClient({
       {/* Main Content */}
       <div className="container mx-auto max-w-4xl px-4 py-6">
         {/* Field Trip Map */}
-        {spottedTrees.length > 0 && (
+        {state.spottedTrees.length > 0 && (
           <div className="mb-6">
             <FieldTripMap
-              spottedTrees={spottedTrees}
+              spottedTrees={state.spottedTrees}
               trees={trees}
               locale={locale as Locale}
               onMarkerClick={(slug) => {
                 const tree = trees.find((t) => t.slug === slug);
                 if (tree) {
-                  setSelectedTree(tree);
-                  const spotted = spottedTrees.find((s) => s.slug === slug);
-                  setNoteInput(spotted?.notes || "");
+                  const spotted = state.spottedTrees.find(
+                    (s) => s.slug === slug
+                  );
+                  dispatch({
+                    type: "OPEN_NOTE_MODAL",
+                    payload: {
+                      tree: {
+                        slug: tree.slug,
+                        title: tree.title,
+                        scientificName: tree.scientificName,
+                      },
+                      currentNote: spotted?.notes || "",
+                    },
+                  });
                 }
               }}
             />
@@ -413,16 +453,23 @@ export default function FieldTripClient({
         <div className="bg-card rounded-xl border border-border p-4 mb-6 space-y-4">
           <input
             type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={state.ui.searchQuery}
+            onChange={(e) =>
+              dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value })
+            }
             placeholder={t.searchPlaceholder}
             className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground"
           />
 
           <div className="flex flex-wrap gap-4">
             <select
-              value={selectedFamily}
-              onChange={(e) => setSelectedFamily(e.target.value)}
+              value={state.ui.selectedFamily}
+              onChange={(e) =>
+                dispatch({
+                  type: "SET_SELECTED_FAMILY",
+                  payload: e.target.value,
+                })
+              }
               className="px-4 py-2 rounded-lg border border-border bg-background"
             >
               <option value="all">{t.allFamilies}</option>
@@ -436,14 +483,14 @@ export default function FieldTripClient({
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                checked={showOnlySpotted}
-                onChange={(e) => setShowOnlySpotted(e.target.checked)}
+                checked={state.ui.showOnlySpotted}
+                onChange={(e) => dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" })}
                 className="w-5 h-5 rounded"
               />
               <span className="text-sm">{t.showSpotted}</span>
             </label>
 
-            {spottedTrees.length > 0 && (
+            {state.spottedTrees.length > 0 && (
               <button
                 onClick={handleClearAll}
                 className="text-sm text-red-500 hover:text-red-600 ml-auto"
@@ -457,7 +504,9 @@ export default function FieldTripClient({
         {/* Tree List */}
         <div className="grid gap-3">
           {filteredTrees.map((tree) => {
-            const spotted = spottedTrees.find((s) => s.slug === tree.slug);
+            const spotted = state.spottedTrees.find(
+              (s) => s.slug === tree.slug
+            );
             const isSpotted = !!spotted;
 
             return (
@@ -525,8 +574,14 @@ export default function FieldTripClient({
                     {isSpotted && (
                       <button
                         onClick={() => {
-                          setSelectedTree(tree);
-                          setNoteInput(spotted?.notes || "");
+                          dispatch({
+                            type: "OPEN_NOTE_MODAL",
+                            payload: { tree: tree, currentNote: "" },
+                          });
+                          dispatch({
+                            type: "SET_NOTE_INPUT",
+                            payload: spotted?.notes || "",
+                          });
                         }}
                         className="px-3 py-1.5 text-sm bg-muted rounded-lg hover:bg-muted/80"
                       >
@@ -557,7 +612,7 @@ export default function FieldTripClient({
       </div>
 
       {/* Start Trip Modal */}
-      {showStartModal && (
+      {state.ui.showStartModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-card rounded-2xl p-6 max-w-md w-full">
             <h2 className="text-xl font-bold mb-4">{t.startTrip}</h2>
@@ -565,8 +620,10 @@ export default function FieldTripClient({
               <span className="text-sm font-medium">{t.tripNameLabel}</span>
               <input
                 type="text"
-                value={tripName}
-                onChange={(e) => setTripName(e.target.value)}
+                value={state.setup.tripName}
+                onChange={(e) =>
+                  dispatch({ type: "SET_TRIP_NAME", payload: e.target.value })
+                }
                 placeholder={t.tripNamePlaceholder}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
                 autoFocus
@@ -574,14 +631,14 @@ export default function FieldTripClient({
             </label>
             <div className="flex gap-3">
               <button
-                onClick={() => setShowStartModal(false)}
+                onClick={() => dispatch({ type: "TOGGLE_START_MODAL" })}
                 className="flex-1 py-2 bg-muted rounded-xl hover:bg-muted/80"
               >
                 {t.cancel}
               </button>
               <button
                 onClick={handleStartTrip}
-                disabled={!tripName.trim()}
+                disabled={!state.setup.tripName.trim()}
                 className="flex-1 py-2 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 disabled:opacity-50"
               >
                 {t.startTrip}
@@ -592,18 +649,22 @@ export default function FieldTripClient({
       )}
 
       {/* Note Modal */}
-      {selectedTree && (
+      {state.modal.selectedTree && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-card rounded-2xl p-6 max-w-md w-full">
-            <h2 className="text-xl font-bold mb-2">{selectedTree.title}</h2>
+            <h2 className="text-xl font-bold mb-2">
+              {state.modal.selectedTree.title}
+            </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              {selectedTree.scientificName}
+              {state.modal.selectedTree.scientificName}
             </p>
             <label className="block mb-4">
               <span className="text-sm font-medium">{t.notes}</span>
               <textarea
-                value={noteInput}
-                onChange={(e) => setNoteInput(e.target.value)}
+                value={state.modal.noteInput}
+                onChange={(e) =>
+                  dispatch({ type: "SET_NOTE_INPUT", payload: e.target.value })
+                }
                 placeholder={t.notePlaceholder}
                 rows={4}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background resize-none"
@@ -612,7 +673,9 @@ export default function FieldTripClient({
             </label>
             <div className="flex gap-3">
               <button
-                onClick={() => handleRemoveSpotted(selectedTree.slug)}
+                onClick={() =>
+                  handleRemoveSpotted(state.modal.selectedTree.slug)
+                }
                 className="px-4 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20"
               >
                 {t.removeSpotted}
@@ -620,8 +683,11 @@ export default function FieldTripClient({
               <div className="flex-1" />
               <button
                 onClick={() => {
-                  setSelectedTree(null);
-                  setNoteInput("");
+                  dispatch({
+                    type: "OPEN_NOTE_MODAL",
+                    payload: { tree: null, currentNote: "" },
+                  });
+                  dispatch({ type: "SET_NOTE_INPUT", payload: "" });
                 }}
                 className="px-4 py-2 bg-muted rounded-xl hover:bg-muted/80"
               >

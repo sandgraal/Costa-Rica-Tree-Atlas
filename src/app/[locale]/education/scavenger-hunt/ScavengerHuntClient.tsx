@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
-import { createStorage, huntSessionSchema } from "@/lib/storage";
+import { useScavengerHuntReducer } from "./useScavengerHuntReducer";
 
 interface Tree {
   title: string;
@@ -420,27 +420,7 @@ export default function ScavengerHuntClient({
   trees,
   locale,
 }: ScavengerHuntClientProps) {
-  const [view, setView] = useState<"setup" | "hunt" | "mission" | "results">(
-    "setup"
-  );
-  const [session, setSession] = useState<HuntSession | null>(null);
-  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [_missionAnswer, setMissionAnswer] = useState<string>("");
-  const [showHint, setShowHint] = useState(false);
-  const [missionTimer, setMissionTimer] = useState<number | null>(null);
-  const [storageError, setStorageError] = useState<string | null>(null);
-
-  // Setup state
-  const [teamCount, setTeamCount] = useState(2);
-  const [teamNames, setTeamNames] = useState<string[]>(["", ""]);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[][]>([[], []]);
-  const [difficulty, setDifficulty] = useState<
-    "easy" | "medium" | "hard" | "mixed"
-  >("mixed");
-  const [missionCount, setMissionCount] = useState(5);
-  const [newMemberName, setNewMemberName] = useState("");
-  const [editingTeam, setEditingTeam] = useState<number | null>(null);
+  const [state, dispatch] = useScavengerHuntReducer();
 
   // Create storage instance with error handling
   const huntStorage = useMemo(
@@ -519,205 +499,139 @@ export default function ScavengerHuntClient({
     injectEducationStyles();
     if (typeof window === "undefined") return;
 
-    const data = huntStorage.get();
-    if (data) {
-      setSession(data);
-      setView("hunt");
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        dispatch({ type: "LOAD_SESSION", payload: data });
+      }
+    } catch (e) {
+      console.error("Failed to load session:", e);
     }
   }, [huntStorage]);
 
   // Save session
   useEffect(() => {
-    if (session) {
-      huntStorage.set(session);
+    if (state.session) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.session));
+      } catch (e) {
+        console.error("Failed to save session:", e);
+      }
     }
-  }, [session, huntStorage]);
+  }, [state.session]);
 
   // Mission timer
   useEffect(() => {
-    if (missionTimer === null || missionTimer <= 0) return;
+    if (state.missionTimer === null || state.missionTimer <= 0) return;
 
     const interval = setInterval(() => {
-      setMissionTimer((prev) => (prev !== null ? prev - 1 : null));
+      dispatch({
+        type: "SET_TIMER",
+        payload: state.missionTimer !== null ? state.missionTimer - 1 : null,
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [missionTimer]);
+  }, [state.missionTimer]);
 
   const handleTeamCountChange = (count: number) => {
-    setTeamCount(count);
-    setTeamNames((prev) => {
-      const newNames = [...prev];
-      while (newNames.length < count) newNames.push("");
-      return newNames.slice(0, count);
-    });
-    setTeamMembers((prev) => {
-      const newMembers = [...prev];
-      while (newMembers.length < count) newMembers.push([]);
-      return newMembers.slice(0, count);
-    });
+    dispatch({ type: "SET_TEAM_COUNT", payload: count });
   };
 
   const addTeamMember = (teamIndex: number) => {
-    if (!newMemberName.trim()) return;
+    if (!state.setup.newMemberName.trim()) return;
 
-    const member: TeamMember = {
+    const member = {
       id: Date.now().toString(),
-      name: newMemberName.trim(),
+      name: state.setup.newMemberName.trim(),
       avatar: AVATARS[Math.floor(Math.random() * AVATARS.length)],
     };
 
-    setTeamMembers((prev) => {
-      const newMembers = [...prev];
-      newMembers[teamIndex] = [...newMembers[teamIndex], member];
-      return newMembers;
-    });
-    setNewMemberName("");
+    dispatch({ type: "ADD_TEAM_MEMBER", payload: { teamIndex, member } });
   };
 
   const removeTeamMember = (teamIndex: number, memberId: string) => {
-    setTeamMembers((prev) => {
-      const newMembers = [...prev];
-      newMembers[teamIndex] = newMembers[teamIndex].filter(
-        (m) => m.id !== memberId
-      );
-      return newMembers;
-    });
+    dispatch({ type: "REMOVE_TEAM_MEMBER", payload: { teamIndex, memberId } });
   };
 
   const startHunt = () => {
     // Filter missions by difficulty
     const availableMissions = MISSIONS.filter(
-      (m) => difficulty === "mixed" || m.difficulty === difficulty
+      (m) =>
+        state.setup.difficulty === "mixed" ||
+        m.difficulty === state.setup.difficulty
     );
 
     // Randomly select missions
     const shuffled = [...availableMissions].sort(() => Math.random() - 0.5);
-    const selectedMissions = shuffled.slice(0, missionCount);
+    const selectedMissions = shuffled.slice(0, state.setup.missionCount);
 
     const newSession: HuntSession = {
-      teams: teamNames.map((name, i) => ({
+      teams: state.setup.teamNames.map((name, i) => ({
         id: `team-${i}`,
         name: name || `${locale === "es" ? "Equipo" : "Team"} ${i + 1}`,
         color: TEAM_COLORS[i % TEAM_COLORS.length].name,
-        members: teamMembers[i],
+        members: state.setup.teamMembers[i],
         completedMissions: [],
         totalPoints: 0,
         streak: 0,
       })),
       currentTeamIndex: 0,
       startTime: new Date().toISOString(),
-      difficulty,
+      difficulty: state.setup.difficulty,
       activeMissions: selectedMissions.map((m) => m.id),
       completedMissions: [],
     };
 
-    setSession(newSession);
-    setView("hunt");
+    dispatch({ type: "START_SESSION", payload: newSession });
   };
 
   const selectMissionHandler = (mission: Mission) => {
-    setSelectedMission(mission);
-    setSearchQuery("");
-    setMissionAnswer("");
-    setShowHint(false);
-    setMissionTimer(mission.timeLimit ? mission.timeLimit * 60 : null);
-    setView("mission");
+    dispatch({ type: "SELECT_MISSION", payload: mission.id });
+    dispatch({
+      type: "SET_TIMER",
+      payload: mission.timeLimit ? mission.timeLimit * 60 : null,
+    });
   };
 
   const submitMissionAnswer = (treeSlug: string) => {
-    if (!session || !selectedMission) return;
+    if (!state.session || !state.selectedMission) return;
 
-    const validTrees = selectedMission.validator(trees);
+    const mission = MISSIONS.find((m) => m.id === state.selectedMission);
+    if (!mission) return;
+
+    const validTrees = mission.validator(trees);
     const isCorrect = validTrees.some((t) => t.slug === treeSlug);
 
     if (isCorrect) {
-      const currentTeam = session.teams[session.currentTeamIndex];
-      const bonusPoints =
-        currentTeam.streak > 0 ? Math.min(currentTeam.streak * 10, 50) : 0;
-      const hintPenalty = showHint ? 20 : 0;
-      const pointsEarned = selectedMission.points - hintPenalty + bonusPoints;
-
-      const completedMission: CompletedMission = {
-        missionId: selectedMission.id,
-        treeSlug,
-        timestamp: new Date().toISOString(),
-        pointsEarned,
-        bonusPoints,
-      };
-
-      const updatedTeams = session.teams.map((team, i) => {
-        if (i === session.currentTeamIndex) {
-          return {
-            ...team,
-            completedMissions: [...team.completedMissions, completedMission],
-            totalPoints: team.totalPoints + pointsEarned,
-            streak: team.streak + 1,
-          };
-        }
-        return team;
+      dispatch({
+        type: "COMPLETE_MISSION",
+        payload: {
+          missionId: mission.id,
+          treeSlug,
+          points: mission.points,
+        },
       });
-
-      const updatedSession = {
-        ...session,
-        teams: updatedTeams,
-        completedMissions: [...session.completedMissions, selectedMission.id],
-        activeMissions: session.activeMissions.filter(
-          (id) => id !== selectedMission.id
-        ),
-      };
-
-      setSession(updatedSession);
       triggerConfetti();
-
-      // Check if hunt is complete
-      if (updatedSession.activeMissions.length === 0) {
-        setView("results");
-      } else {
-        // Move to next team
-        const nextTeamIndex =
-          (session.currentTeamIndex + 1) % session.teams.length;
-        setSession({ ...updatedSession, currentTeamIndex: nextTeamIndex });
-        setView("hunt");
-      }
     }
-
-    setSelectedMission(null);
   };
 
   const skipMission = () => {
-    if (!session) return;
-
-    // Reset streak for current team
-    const updatedTeams = session.teams.map((team, i) => {
-      if (i === session.currentTeamIndex) {
-        return { ...team, streak: 0 };
-      }
-      return team;
-    });
-
-    // Move to next team
-    const nextTeamIndex = (session.currentTeamIndex + 1) % session.teams.length;
-    setSession({
-      ...session,
-      teams: updatedTeams,
-      currentTeamIndex: nextTeamIndex,
-    });
-    setSelectedMission(null);
-    setView("hunt");
+    dispatch({ type: "SKIP_MISSION" });
   };
 
   const endHunt = () => {
-    setView("results");
+    dispatch({ type: "END_SESSION" });
   };
 
   const resetHunt = () => {
-    huntStorage.clear();
-    setSession(null);
-    setSelectedMission(null);
-    setTeamNames(["", ""]);
-    setTeamMembers([[], []]);
-    setView("setup");
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (e) {
+      console.error("Failed to clear hunt data:", e);
+    }
+    dispatch({ type: "RESET" });
   };
 
   const formatTime = (seconds: number) => {
@@ -727,7 +641,7 @@ export default function ScavengerHuntClient({
   };
 
   // Setup view
-  if (view === "setup") {
+  if (state.view === "setup") {
     return (
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-amber-50/50 to-background dark:from-amber-950/20">
         {/* Storage Error Alert */}
@@ -772,7 +686,7 @@ export default function ScavengerHuntClient({
                     key={count}
                     onClick={() => handleTeamCountChange(count)}
                     className={`flex-1 py-3 rounded-lg border transition-all font-medium ${
-                      teamCount === count
+                      state.setup.teamCount === count
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border hover:border-primary/50"
                     }`}
@@ -785,7 +699,7 @@ export default function ScavengerHuntClient({
 
             {/* Teams */}
             <div className="space-y-4">
-              {Array.from({ length: teamCount }).map((_, i) => (
+              {Array.from({ length: state.setup.teamCount }).map((_, i) => (
                 <div
                   key={i}
                   className={`p-4 rounded-xl border ${TEAM_COLORS[i % TEAM_COLORS.length].light} border-${TEAM_COLORS[i % TEAM_COLORS.length].name}-200`}
@@ -797,11 +711,12 @@ export default function ScavengerHuntClient({
                     <input
                       type="text"
                       placeholder={`${t.teamNamePlaceholder} ${i + 1}`}
-                      value={teamNames[i]}
+                      value={state.setup.teamNames[i]}
                       onChange={(e) => {
-                        const newNames = [...teamNames];
-                        newNames[i] = e.target.value;
-                        setTeamNames(newNames);
+                        dispatch({
+                          type: "UPDATE_TEAM_NAME",
+                          payload: { index: i, name: e.target.value },
+                        });
                       }}
                       className="flex-1 px-3 py-2 rounded-lg border border-border bg-background"
                     />
@@ -809,7 +724,7 @@ export default function ScavengerHuntClient({
 
                   {/* Members */}
                   <div className="flex flex-wrap gap-2 mb-3">
-                    {teamMembers[i].map((member) => (
+                    {state.setup.teamMembers[i].map((member) => (
                       <div
                         key={member.id}
                         className="flex items-center gap-1 px-3 py-1 bg-background rounded-full border border-border"
@@ -826,13 +741,18 @@ export default function ScavengerHuntClient({
                     ))}
                   </div>
 
-                  {editingTeam === i ? (
+                  {state.setup.editingTeam === i ? (
                     <div className="flex gap-2">
                       <input
                         type="text"
                         placeholder={t.memberPlaceholder}
-                        value={newMemberName}
-                        onChange={(e) => setNewMemberName(e.target.value)}
+                        value={state.setup.newMemberName}
+                        onChange={(e) =>
+                          dispatch({
+                            type: "SET_NEW_MEMBER_NAME",
+                            payload: e.target.value,
+                          })
+                        }
                         onKeyDown={(e) => e.key === "Enter" && addTeamMember(i)}
                         className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm"
                         autoFocus
@@ -844,7 +764,9 @@ export default function ScavengerHuntClient({
                         +
                       </button>
                       <button
-                        onClick={() => setEditingTeam(null)}
+                        onClick={() =>
+                          dispatch({ type: "SET_EDITING_TEAM", payload: null })
+                        }
                         className="px-3 py-2 border border-border rounded-lg text-sm"
                       >
                         ✓
@@ -852,7 +774,9 @@ export default function ScavengerHuntClient({
                     </div>
                   ) : (
                     <button
-                      onClick={() => setEditingTeam(i)}
+                      onClick={() =>
+                        dispatch({ type: "SET_EDITING_TEAM", payload: i })
+                      }
                       className="text-sm text-primary hover:underline"
                     >
                       + {t.addMember}
@@ -860,7 +784,7 @@ export default function ScavengerHuntClient({
                   )}
 
                   <div className="text-xs text-muted-foreground mt-2">
-                    {teamMembers[i].length} {t.members}
+                    {state.setup.teamMembers[i].length} {t.members}
                   </div>
                 </div>
               ))}
@@ -875,9 +799,14 @@ export default function ScavengerHuntClient({
                 {(["easy", "medium", "hard", "mixed"] as const).map((d) => (
                   <button
                     key={d}
-                    onClick={() => setDifficulty(d)}
+                    onClick={() =>
+                      dispatch({
+                        type: "UPDATE_SETUP",
+                        payload: { difficulty: d },
+                      })
+                    }
                     className={`py-3 rounded-lg border transition-all text-sm font-medium ${
-                      difficulty === d
+                      state.setup.difficulty === d
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border hover:border-primary/50"
                     }`}
@@ -900,9 +829,14 @@ export default function ScavengerHuntClient({
                 {[3, 5, 7, 10].map((count) => (
                   <button
                     key={count}
-                    onClick={() => setMissionCount(count)}
+                    onClick={() =>
+                      dispatch({
+                        type: "UPDATE_SETUP",
+                        payload: { missionCount: count },
+                      })
+                    }
                     className={`flex-1 py-3 rounded-lg border transition-all font-medium ${
-                      missionCount === count
+                      state.setup.missionCount === count
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border hover:border-primary/50"
                     }`}
@@ -926,12 +860,12 @@ export default function ScavengerHuntClient({
   }
 
   // Hunt view (mission selection)
-  if (view === "hunt" && session) {
-    const currentTeam = session.teams[session.currentTeamIndex];
+  if (state.view === "hunt" && state.session) {
+    const currentTeam = state.session.teams[state.session.currentTeamIndex];
     const teamColor =
       TEAM_COLORS.find((c) => c.name === currentTeam.color) || TEAM_COLORS[0];
     const availableMissions = MISSIONS.filter((m) =>
-      session.activeMissions.includes(m.id)
+      state.session!.activeMissions.includes(m.id)
     );
 
     return (
@@ -979,7 +913,7 @@ export default function ScavengerHuntClient({
           <div className="bg-card rounded-xl p-4 mb-6 border border-border">
             <h3 className="text-sm font-medium mb-3">{t.leaderboard}</h3>
             <div className="flex gap-4">
-              {[...session.teams]
+              {[...state.session.teams]
                 .sort((a, b) => b.totalPoints - a.totalPoints)
                 .map((team, i) => {
                   const color = TEAM_COLORS.find((c) => c.name === team.color);
@@ -1044,9 +978,9 @@ export default function ScavengerHuntClient({
           <div className="mt-8 bg-card rounded-xl p-4 border border-border">
             <div className="flex items-center justify-between text-sm">
               <span>
-                {t.missionsCompleted}: {session.completedMissions.length}/
-                {session.activeMissions.length +
-                  session.completedMissions.length}
+                {t.missionsCompleted}: {state.session.completedMissions.length}/
+                {state.session.activeMissions.length +
+                  state.session.completedMissions.length}
               </span>
               <button
                 onClick={endHunt}
@@ -1059,7 +993,7 @@ export default function ScavengerHuntClient({
               <div
                 className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all"
                 style={{
-                  width: `${(session.completedMissions.length / (session.activeMissions.length + session.completedMissions.length)) * 100}%`,
+                  width: `${(state.session.completedMissions.length / (state.session.activeMissions.length + state.session.completedMissions.length)) * 100}%`,
                 }}
               />
             </div>
@@ -1070,19 +1004,24 @@ export default function ScavengerHuntClient({
   }
 
   // Mission view
-  if (view === "mission" && session && selectedMission) {
-    const validTrees = selectedMission.validator(trees);
+  if (state.view === "mission" && state.session && state.selectedMission) {
+    const mission = MISSIONS.find((m) => m.id === state.selectedMission);
+    if (!mission) return null;
+
+    const validTrees = mission.validator(trees);
     const filteredTrees = trees.filter(
       (tree) =>
-        tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tree.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
+        tree.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+        tree.scientificName
+          .toLowerCase()
+          .includes(state.searchQuery.toLowerCase())
     );
 
     return (
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-amber-50/50 to-background dark:from-amber-950/20">
         <div className="container mx-auto max-w-4xl">
           <button
-            onClick={() => setView("hunt")}
+            onClick={() => dispatch({ type: "SET_VIEW", payload: "hunt" })}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6"
           >
             ← {locale === "es" ? "Volver a Misiones" : "Back to Missions"}
@@ -1091,27 +1030,27 @@ export default function ScavengerHuntClient({
           {/* Mission Header */}
           <div className="bg-card rounded-2xl p-6 mb-6 border border-border">
             <div className="flex items-start gap-4">
-              <span className="text-5xl">{selectedMission.icon}</span>
+              <span className="text-5xl">{mission.icon}</span>
               <div className="flex-1">
                 <h1 className="text-2xl font-bold mb-1">
-                  {selectedMission.title[locale as "en" | "es"]}
+                  {mission.title[locale as "en" | "es"]}
                 </h1>
                 <p className="text-muted-foreground mb-3">
-                  {selectedMission.description[locale as "en" | "es"]}
+                  {mission.description[locale as "en" | "es"]}
                 </p>
                 <div className="flex items-center gap-4">
                   <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">
-                    +{selectedMission.points} {t.points}
+                    +{mission.points} {t.points}
                   </span>
-                  {missionTimer !== null && (
+                  {state.missionTimer !== null && (
                     <span
                       className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                        missionTimer < 60
+                        state.missionTimer < 60
                           ? "bg-red-100 text-red-700"
                           : "bg-muted"
                       }`}
                     >
-                      ⏱️ {t.timeLeft}: {formatTime(missionTimer)}
+                      ⏱️ {t.timeLeft}: {formatTime(state.missionTimer)}
                     </span>
                   )}
                 </div>
@@ -1119,9 +1058,9 @@ export default function ScavengerHuntClient({
             </div>
 
             {/* Hint */}
-            {!showHint ? (
+            {!state.showHint ? (
               <button
-                onClick={() => setShowHint(true)}
+                onClick={() => dispatch({ type: "TOGGLE_HINT" })}
                 className="mt-4 text-sm text-muted-foreground hover:text-primary"
               >
                 💡 {t.showHint}
@@ -1129,7 +1068,7 @@ export default function ScavengerHuntClient({
             ) : (
               <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
                 <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                  💡 {selectedMission.hint[locale as "en" | "es"]}
+                  💡 {mission.hint[locale as "en" | "es"]}
                 </p>
               </div>
             )}
@@ -1141,8 +1080,13 @@ export default function ScavengerHuntClient({
               <input
                 type="text"
                 placeholder={t.searchTrees}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={state.searchQuery}
+                onChange={(e) =>
+                  dispatch({
+                    type: "SET_SEARCH_QUERY",
+                    payload: e.target.value,
+                  })
+                }
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50"
               />
               <p className="text-sm text-muted-foreground mt-2">
@@ -1210,8 +1154,8 @@ export default function ScavengerHuntClient({
   }
 
   // Results view
-  if (view === "results" && session) {
-    const sortedTeams = [...session.teams].sort(
+  if (state.view === "results" && state.session) {
+    const sortedTeams = [...state.session.teams].sort(
       (a, b) => b.totalPoints - a.totalPoints
     );
     const winner = sortedTeams[0];
