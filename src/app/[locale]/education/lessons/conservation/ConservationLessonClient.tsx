@@ -443,8 +443,8 @@ function ConservationLessonContent({
     dispatch({ type: "TOGGLE_ACTION", payload: actionId });
     // Trigger confetti when selecting 3rd action
     if (
-      !state.state.selectedActions.includes(actionId) &&
-      state.state.selectedActions.length === 2
+      !state.selectedActions.includes(actionId) &&
+      state.selectedActions.length === 2
     ) {
       triggerConfetti();
     }
@@ -487,11 +487,9 @@ function ConservationLessonContent({
   };
 
   const canProceed = () => {
-    if (state.state.currentStep === 1)
-      return state.state.selectedThreats.length >= 3;
-    if (state.state.currentStep === 3)
-      return state.state.selectedActions.length >= 3;
-    if (state.state.currentStep === 4) return state.pledge.signed;
+    if (state.currentStep === 1) return state.selectedThreats.length >= 3;
+    if (state.currentStep === 3) return state.selectedActions.length >= 3;
+    if (state.currentStep === 4) return state.pledge.signed;
     return true;
   };
 
@@ -522,7 +520,7 @@ function ConservationLessonContent({
             </div>
             <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/20">
               <div className="text-5xl font-bold text-blue-600 mb-2">
-                {state.state.selectedActions.length}
+                {state.selectedActions.length}
               </div>
               <div className="text-muted-foreground">
                 {locale === "es" ? "Acciones Prometidas" : "Actions Pledged"}

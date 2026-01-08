@@ -25,6 +25,11 @@ export { ConservationStatus } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
 
+// Virtualization components (used for performance optimization)
+export { VirtualizedGrid } from "./VirtualizedGrid";
+export { ResponsiveVirtualizedGrid } from "./ResponsiveVirtualizedGrid";
+export { VirtualizedTreeList } from "./VirtualizedTreeList";
+
 // Interactive components (used in tree pages and favorites)
 export { FavoriteButton } from "./FavoriteButton";
 export { FavoritesLink } from "./FavoritesLink";
