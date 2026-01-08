@@ -30,6 +30,158 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### JSON-LD Sanitization
+
+All JSON-LD structured data undergoes comprehensive XSS sanitization before being rendered to prevent code injection attacks.
+
+#### Multi-Layer Defense Strategy
+
+The application implements defense-in-depth with multiple sanitization layers:
+
+1. **Pre-render validation** - Scans for dangerous patterns before rendering
+2. **Content sanitization** - Removes/escapes malicious content if validation fails
+3. **Character escaping** - Converts dangerous characters to Unicode escape sequences
+4. **Pattern matching** - Detects and blocks known attack vectors
+5. **Final validation** - Verifies sanitized output is safe
+
+#### Blocked Attack Vectors
+
+The following XSS attack vectors are detected and neutralized:
+
+| Attack Vector | Example | Protection Method |
+|---------------|---------|-------------------|
+| Script tag injection | `</script><script>alert(1)</script>` | Case-insensitive pattern matching + Unicode escaping |
+| Case variation | `</ScRiPt>`, `<SCRIPT>` | Case-insensitive regex patterns |
+| Extra whitespace | `</script >`, `< script>` | Pattern matching with `[^>]*` |
+| Unicode homoglyphs | `＜/script＞` (fullwidth) | Fullwidth character detection + Unicode escaping |
+| HTML entities | `&lt;/script&gt;` | Entity pattern detection |
+| Style tag escape | `</style><style>...</style>` | Style tag pattern matching |
+| HTML comment escape | `-->` | Direct string detection |
+| CDATA escape | `]]>` | Direct string detection |
+| Event handlers | `onerror="alert(1)"` | Event handler pattern matching |
+| JavaScript protocol | `javascript:alert(1)` | Protocol pattern matching |
+| Data URI HTML | `data:text/html,...` | Data URI pattern matching |
+| Zero-width chars | U+200B, U+200C, U+200D, U+FEFF | Zero-width character detection |
+
+#### Implementation Details
+
+**Component: `SafeJsonLd.tsx`**
+
+- Client-side rendering only (no hydration mismatches)
+- CSP nonce support for inline scripts
+- Uses `textContent` instead of `innerHTML` for safety
+- Comprehensive Unicode character escaping
+- Pattern-based dangerous content removal
+- Final validation before DOM injection
+- Fallback to empty object if sanitization fails
+
+**Library: `json-ld.ts`**
+
+- Recursive scanning of nested objects and arrays
+- Validation of `@context` URLs (only schema.org allowed)
+- Comprehensive pattern detection for XSS vectors
+- Sanitization function that cleans malicious content
+- Detailed issue reporting for debugging
+
+#### Unicode Handling
+
+The sanitizer handles various Unicode-based attacks:
+
+```typescript
+// ASCII dangerous chars → Unicode escapes
+< → \u003c
+> → \u003e
+& → \u0026
+
+// Fullwidth variants → Unicode escapes
+＜ → \uff1c
+＞ → \uff1e
+＆ → \uff06
+
+// Zero-width chars → Removed
+U+200B (zero-width space) → ""
+U+200C (zero-width non-joiner) → ""
+U+200D (zero-width joiner) → ""
+U+FEFF (zero-width no-break space) → ""
+
+// Line separators → Unicode escapes
+U+2028 (line separator) → \u2028
+U+2029 (paragraph separator) → \u2029
+```
+
+#### Validation Before Rendering
+
+All JSON-LD data is validated before rendering:
+
+```typescript
+// 1. Validate the data
+const validation = validateJsonLd(jsonLdData);
+
+// 2. If invalid, sanitize it
+if (!validation.valid) {
+  console.error("Validation failed:", validation.issues);
+  jsonLdData = sanitizeJsonLd(jsonLdData);
+}
+
+// 3. Render with comprehensive escaping
+<SafeJsonLd data={jsonLdData} nonce={cspNonce} />
+```
+
+#### Example: Prevented Attacks
+
+**Attack 1: Script Tag with Case Variation**
+```json
+{"name": "</ScRiPt><ScRiPt>alert('XSS')</ScRiPt>"}
+```
+✅ **Blocked:** Case-insensitive pattern matching detects all variations
+
+**Attack 2: Unicode Homoglyph**
+```json
+{"name": "＜script＞alert(1)＜/script＞"}
+```
+✅ **Blocked:** Fullwidth characters detected and escaped to Unicode
+
+**Attack 3: Zero-Width Character Obfuscation**
+```json
+{"name": "test\u200B<script\u200C>alert(1)</script\u200D>"}
+```
+✅ **Blocked:** Zero-width characters removed, script tags detected
+
+**Attack 4: Event Handler Injection**
+```json
+{"url": "https://example.com\" onerror=\"alert(1)"}
+```
+✅ **Blocked:** Event handler pattern matching removes `onerror=`
+
+**Attack 5: Nested Object Attack**
+```json
+{
+  "author": {
+    "name": "<script>alert(1)</script>"
+  }
+}
+```
+✅ **Blocked:** Recursive scanning detects malicious content in nested objects
+
+#### Testing
+
+Comprehensive test suite covers:
+
+- ✅ Case variation attacks (`</ScRiPt>`, `<SCRIPT>`)
+- ✅ Unicode homoglyph attacks (fullwidth characters)
+- ✅ Event handler injection (`onerror=`, `onclick=`)
+- ✅ Style tag escapes
+- ✅ HTML comment and CDATA escapes
+- ✅ Zero-width character attacks
+- ✅ Nested object/array attacks
+- ✅ JavaScript protocol attacks
+- ✅ Data URI attacks
+- ✅ Sanitization effectiveness
+
+Tests located in:
+- `src/components/__tests__/SafeJsonLd.test.tsx`
+- `src/lib/validation/__tests__/json-ld.test.ts`
+
 ### Rate Limiting
 
 Rate limiting is enforced on all API endpoints to prevent abuse, protect external service costs, and maintain system availability. All limits are applied **per IP address** using a sliding window algorithm.
