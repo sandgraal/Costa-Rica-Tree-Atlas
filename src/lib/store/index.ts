@@ -77,8 +77,40 @@ export const useStore = create<StoreState>()(
       theme: "system" as Theme,
       resolvedTheme: "light" as ResolvedTheme,
 
-      setTheme: (theme) => set({ theme }),
-      setResolvedTheme: (resolved) => set({ resolvedTheme: resolved }),
+      setTheme: (theme) => {
+        set({ theme });
+
+        // Update DOM immediately
+        if (typeof document === "undefined") return;
+
+        let resolved: ResolvedTheme;
+        if (theme === "system") {
+          resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        } else {
+          resolved = theme;
+        }
+
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(resolved);
+        document.documentElement.setAttribute("data-theme", resolved);
+        document.documentElement.style.colorScheme = resolved;
+
+        set({ resolvedTheme: resolved });
+      },
+
+      setResolvedTheme: (resolved) => {
+        set({ resolvedTheme: resolved });
+
+        // Update DOM
+        if (typeof document !== "undefined") {
+          document.documentElement.classList.remove("light", "dark");
+          document.documentElement.classList.add(resolved);
+          document.documentElement.setAttribute("data-theme", resolved);
+          document.documentElement.style.colorScheme = resolved;
+        }
+      },
 
       // Favorites
       favorites: [],
@@ -182,6 +214,25 @@ export const useStore = create<StoreState>()(
           // Validate theme
           if (!["light", "dark", "system"].includes(state.theme)) {
             state.theme = "system";
+          }
+
+          // Sync with DOM theme set by blocking script
+          if (typeof document !== "undefined") {
+            const dataTheme = document.documentElement.getAttribute(
+              "data-theme"
+            ) as ResolvedTheme | null;
+            const hasClass =
+              document.documentElement.classList.contains("dark") ||
+              document.documentElement.classList.contains("light");
+
+            if (dataTheme && (dataTheme === "dark" || dataTheme === "light")) {
+              state.resolvedTheme = dataTheme;
+
+              // Ensure class is in sync
+              if (!hasClass) {
+                document.documentElement.classList.add(dataTheme);
+              }
+            }
           }
 
           // Mark as hydrated - this must be the last operation
