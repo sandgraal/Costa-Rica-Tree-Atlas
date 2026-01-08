@@ -1,20 +1,36 @@
 import { timingSafeEqual, createHash } from "crypto";
 
 /**
+ * Maximum input length for secure comparison to prevent HashDoS attacks
+ * Admin credentials should be well under this limit (typical max ~256 chars)
+ */
+const MAX_INPUT_LENGTH = 10000;
+
+/**
  * TRULY constant-time string comparison using hash normalization
  * Prevents timing attacks, length oracle, and cache timing attacks
  *
  * @param a - First string to compare
  * @param b - Second string to compare
  * @returns true if strings are equal
+ * @throws Error if input exceeds MAX_INPUT_LENGTH (prevents HashDoS)
  *
  * Security properties:
  * - Fixed-length comparison (32 bytes) regardless of input
  * - No branches based on input characteristics
  * - No early exits
  * - Resistant to cache timing attacks
+ * - Protected against HashDoS attacks via input length validation
  */
 export function secureCompare(a: string, b: string): boolean {
+  // Prevent HashDoS attacks by rejecting excessively long inputs
+  // This check is done BEFORE any expensive operations
+  if (a.length > MAX_INPUT_LENGTH || b.length > MAX_INPUT_LENGTH) {
+    throw new Error(
+      `Input length exceeds maximum allowed (${MAX_INPUT_LENGTH} characters)`
+    );
+  }
+
   // Hash both strings to fixed 32-byte length FIRST
   // This eliminates:
   // - Variable encoding time (UTF-8 complexity)

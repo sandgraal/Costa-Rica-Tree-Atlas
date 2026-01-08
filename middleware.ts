@@ -66,8 +66,8 @@ export default async function middleware(request: NextRequest) {
             const userValid = secureCompare(user, adminUsername);
             const pwdValid = secureCompare(pwd, adminPassword);
 
-            // IMPORTANT: Use && to ensure both are checked
-            // Do NOT short-circuit or return early based on either check
+            // IMPORTANT: Both comparisons above are evaluated before this check
+            // This ensures consistent timing regardless of which credential is wrong
             const isAuthenticated = userValid && pwdValid;
 
             if (isAuthenticated) {
