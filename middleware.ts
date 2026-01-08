@@ -1,96 +1,142 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
+import { secureCompare } from "@/lib/auth/secure-compare";
+import { serverEnv } from "@/lib/env/schema";
+import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
-// Constant-time comparison to prevent timing attacks
-async function secureCompare(a: string, b: string): Promise<boolean> {
-  const encoder = new TextEncoder();
-  const aBytes = encoder.encode(a);
-  const bBytes = encoder.encode(b);
+const intlMiddleware = createMiddleware(routing);
 
-  // If lengths differ, still compare to maintain constant time
-  const maxLength = Math.max(aBytes.length, bBytes.length);
-  let result = aBytes.length === bBytes.length ? 0 : 1;
+// Build regex pattern from routing.locales for consistent locale matching
+const localePattern = routing.locales.join("|");
 
-  for (let i = 0; i < maxLength; i++) {
-    const aByte = i < aBytes.length ? aBytes[i] : 0;
-    const bByte = i < bBytes.length ? bBytes[i] : 0;
-    result |= aByte ^ bByte;
-  }
+export default async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
 
-  return result === 0;
-}
+  // Generate nonce for this request
+  const nonce = generateNonce();
 
-export async function middleware(request: NextRequest) {
-  // Only protect /admin routes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    const authHeader = request.headers.get('authorization');
+  // Check if this is an admin route
+  // Note: Locale pattern matches routing.locales from i18n/routing.ts
+  if (pathname.match(new RegExp(`^/(${localePattern})/admin/`))) {
+    // 1. HTTPS enforcement in production
+    if (
+      process.env.NODE_ENV === "production" &&
+      request.headers.get("x-forwarded-proto") !== "https"
+    ) {
+      return new NextResponse("HTTPS required", { status: 403 });
+    }
 
-    if (!authHeader || !authHeader.startsWith('Basic ')) {
-      return new NextResponse('Authentication required', {
-        status: 401,
+    // 2. Check if admin is configured
+    const adminPassword = serverEnv.ADMIN_PASSWORD;
+    const adminUsername = serverEnv.ADMIN_USERNAME;
+
+    // If admin password is not configured, return 404 to hide admin routes
+    if (!adminPassword) {
+      return new NextResponse("Not Found", { status: 404 });
+    }
+
+    // 3. Rate limiting check
+    const rateLimitResult = await constantTimeRateLimitCheck(request);
+
+    if (!rateLimitResult.allowed) {
+      // Rate limit exceeded - return generic error
+      return new NextResponse("Too many requests. Please try again later.", {
+        status: 429,
         headers: {
-          'WWW-Authenticate': 'Basic realm="Secure Area"',
+          "Retry-After": rateLimitResult.retryAfter.toString(),
+          "Content-Type": "text/plain",
+          // NO X-RateLimit-Remaining header!
         },
       });
     }
 
-    try {
-      // Decode credentials
-      const base64Credentials = authHeader.split(' ')[1];
-      const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
-      const [user, pwd] = credentials.split(':');
+    // 4. Check authentication
+    const basicAuth = request.headers.get("authorization");
 
-      // Get admin credentials from environment variables
-      const adminUsername = process.env.ADMIN_USERNAME;
-      const adminPassword = process.env.ADMIN_PASSWORD;
+    if (basicAuth) {
+      const authValue = basicAuth.split(" ")[1];
+      if (authValue) {
+        try {
+          const decoded = atob(authValue);
+          const colonIndex = decoded.indexOf(":");
 
-      if (!adminUsername || !adminPassword) {
-        console.error('Admin credentials not configured in environment variables');
-        return new NextResponse('Server configuration error', {
-          status: 500,
-        });
+          if (colonIndex !== -1) {
+            const user = decoded.substring(0, colonIndex);
+            const pwd = decoded.substring(colonIndex + 1);
+
+            // CRITICAL: Check BOTH credentials ALWAYS, regardless of individual results
+            // This prevents timing attacks and username enumeration
+            const userValid = secureCompare(user, adminUsername);
+            const pwdValid = secureCompare(pwd, adminPassword);
+
+            // IMPORTANT: Both comparisons above are evaluated before this check
+            // This ensures consistent timing regardless of which credential is wrong
+            const isAuthenticated = userValid && pwdValid;
+
+            if (isAuthenticated) {
+              // Authentication successful
+              const response = intlMiddleware(request);
+
+              // Add security headers
+              const csp = buildCSP(nonce);
+              response.headers.set("Content-Security-Policy", csp);
+              response.headers.set("X-Content-Type-Options", "nosniff");
+              response.headers.set("X-Frame-Options", "SAMEORIGIN");
+              response.headers.set("X-Nonce", nonce);
+
+              return response;
+            }
+          }
+        } catch (error) {
+          // Invalid base64 or malformed auth header
+          console.error("Auth parsing error:", error);
+        }
       }
-
-      // Validate credentials using constant-time comparison
-      if (!user || !pwd) {
-        return new NextResponse('Invalid credentials format', {
-          status: 401,
-          headers: {
-            'WWW-Authenticate': 'Basic realm="Secure Area"',
-          },
-        });
-      }
-
-      // Use async secure comparison
-      const userValid = await secureCompare(user, adminUsername);
-      const pwdValid = await secureCompare(pwd, adminPassword);
-
-      if (!userValid || !pwdValid) {
-        return new NextResponse('Invalid credentials', {
-          status: 401,
-          headers: {
-            'WWW-Authenticate': 'Basic realm="Secure Area"',
-          },
-        });
-      }
-
-      // Authentication successful, continue to the admin page
-      return NextResponse.next();
-    } catch (error) {
-      console.error('Authentication error:', error);
-      return new NextResponse('Authentication failed', {
-        status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Secure Area"',
-        },
-      });
     }
+
+    // 5. Authentication failed - return GENERIC error with NO details
+    // Do NOT include rate limit remaining in the response (prevents enumeration)
+    return new NextResponse("Authentication required", {
+      status: 401,
+      headers: {
+        "WWW-Authenticate": 'Basic realm="Admin Area"',
+        "Content-Type": "text/plain",
+        // DO NOT include X-RateLimit-Remaining here!
+      },
+    });
   }
 
-  // For all other routes, continue without authentication
-  return NextResponse.next();
+  // For non-admin routes, use i18n middleware with security headers
+  const response = intlMiddleware(request);
+
+  // Add security headers with appropriate CSP
+  // Use relaxed CSP (with unsafe-eval) only for marketing pages that require GTM
+  // All other pages use strict CSP (no unsafe-eval)
+  const csp = pathname.match(new RegExp(`^/(${localePattern})/marketing/`))
+    ? buildRelaxedCSP(nonce) // Marketing pages: allows GTM with unsafe-eval
+    : buildCSP(nonce); // Default: strict CSP, no unsafe-eval
+
+  response.headers.set("Content-Security-Policy", csp);
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+  response.headers.set("X-Nonce", nonce);
+
+  return response;
 }
 
 export const config = {
-  matcher: '/admin/:path*',
+  // Match only internationalized pathnames
+  matcher: [
+    // Enable a redirect to a matching locale at the root
+    "/",
+    // Set a cookie to remember the previous locale for
+    // all requests that have a locale prefix
+    "/(en|es)/:path*",
+    // Enable redirects that add missing locales
+    // (e.g. `/pathnames` -> `/en/pathnames`)
+    "/((?!api|_next|_vercel|.*\\..*).*)",
+  ],
 };
