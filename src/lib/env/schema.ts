@@ -12,7 +12,8 @@ const serverSchema = z.object({
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
       "Admin password must contain uppercase, lowercase, number, and special character"
-    ),
+    )
+    .optional(),
   ADMIN_USERNAME: z.string().min(3).default("admin"),
 
   // Redis (optional but recommended)
