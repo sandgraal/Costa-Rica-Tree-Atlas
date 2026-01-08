@@ -1,98 +1,66 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-// Basic admin authentication middleware
 export function middleware(request: NextRequest) {
-  // Only protect admin routes
+  // Only protect the admin route
   if (request.nextUrl.pathname.startsWith('/admin')) {
-    // Get credentials from request headers
-    const authHeader = request.headers.get('authorization')
-    
-    if (!authHeader || !authHeader.startsWith('Basic ')) {
-      return new NextResponse('Authentication required', {
-        status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Admin Area"',
-        },
-      })
+    const basicAuth = request.headers.get('authorization');
+
+    if (basicAuth) {
+      const authValue = basicAuth.split(' ')[1];
+      const [user, pwd] = atob(authValue).split(':');
+
+      const adminUsername = process.env.ADMIN_USERNAME;
+      const adminPassword = process.env.ADMIN_PASSWORD;
+
+      if (!adminUsername || !adminPassword) {
+        console.error('Admin credentials not configured');
+        return new NextResponse('Authentication required', {
+          status: 401,
+          headers: {
+            'WWW-Authenticate': 'Basic realm="Secure Area"',
+          },
+        });
+      }
+
+      // Timing-safe comparison to prevent timing attacks
+      async function secureCompare(a: string, b: string): Promise<boolean> {
+        if (a.length !== b.length) {
+          return false;
+        }
+
+        let result = 0;
+        for (let i = 0; i < a.length; i++) {
+          result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+        }
+
+        // Add a small random delay to further obscure timing
+        await new Promise(resolve => 
+          setTimeout(resolve, Math.random() * 10)
+        );
+
+        return result === 0;
+      }
+
+      const userValid = await secureCompare(user, adminUsername);
+      const pwdValid = await secureCompare(pwd, adminPassword);
+
+      if (userValid && pwdValid) {
+        return NextResponse.next();
+      }
     }
 
-    // Decode credentials
-    const base64Credentials = authHeader.split(' ')[1]
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8')
-    const [username, password] = credentials.split(':')
-
-    // Check credentials (in production, use environment variables)
-    const validUsername = process.env.ADMIN_USERNAME || 'admin'
-    const validPassword = process.env.ADMIN_PASSWORD || 'admin'
-
-    if (username !== validUsername || password !== validPassword) {
-      return new NextResponse('Invalid credentials', {
-        status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Admin Area"',
-        },
-      })
-    }
+    return new NextResponse('Authentication required', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Secure Area"',
+      },
+    });
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: '/admin/:path*',
-}
-
-// Timing-safe string comparison to prevent timing attacks
-async function secureCompare(a: string, b: string): Promise<boolean> {
-  // Convert strings to buffers for comparison
-  const bufferA = Buffer.from(a, 'utf-8')
-  const bufferB = Buffer.from(b, 'utf-8')
-  
-  // If lengths don't match, still compare to prevent timing leaks
-  if (bufferA.length !== bufferB.length) {
-    return false
-  }
-  
-  // Use crypto.timingSafeEqual for constant-time comparison
-  const crypto = require('crypto')
-  try {
-    return crypto.timingSafeEqual(bufferA, bufferB)
-  } catch {
-    return false
-  }
-}
-
-// Updated middleware with secure comparison
-export async function secureMiddleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    const authHeader = request.headers.get('authorization')
-    
-    if (!authHeader || !authHeader.startsWith('Basic ')) {
-      return new NextResponse('Authentication required', {
-        status: 401,
-        headers: { 'WWW-Authenticate': 'Basic realm="Admin Area"' },
-      })
-    }
-
-    const base64Credentials = authHeader.split(' ')[1]
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8')
-    const [username, password] = credentials.split(':')
-
-    const validUsername = process.env.ADMIN_USERNAME || 'admin'
-    const validPassword = process.env.ADMIN_PASSWORD || 'admin'
-
-    // Use timing-safe comparison
-    const usernameMatch = await secureCompare(username, validUsername)
-    const passwordMatch = await secureCompare(password, validPassword)
-
-    if (!usernameMatch || !passwordMatch) {
-      return new NextResponse('Invalid credentials', {
-        status: 401,
-        headers: { 'WWW-Authenticate': 'Basic realm="Admin Area"' },
-      })
-    }
-  }
-
-  return NextResponse.next()
-}
+};
