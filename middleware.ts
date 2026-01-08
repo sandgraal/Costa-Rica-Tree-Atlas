@@ -5,9 +5,12 @@ import type { NextRequest } from "next/server";
 import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
 import { secureCompare } from "@/lib/auth/secure-compare";
 import { serverEnv } from "@/lib/env/schema";
-import { generateNonce, buildCSP } from "@/lib/security/csp";
+import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
+
+// Build regex pattern from routing.locales for consistent locale matching
+const localePattern = routing.locales.join("|");
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -17,7 +20,7 @@ export default async function middleware(request: NextRequest) {
 
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
-  if (pathname.match(/^\/(en|es)\/admin\//)) {
+  if (pathname.match(new RegExp(`^/(${localePattern})/admin/`))) {
     // 1. HTTPS enforcement in production
     if (
       process.env.NODE_ENV === "production" &&
@@ -106,8 +109,13 @@ export default async function middleware(request: NextRequest) {
   // For non-admin routes, use i18n middleware with security headers
   const response = intlMiddleware(request);
 
-  // Add security headers
-  const csp = buildCSP(nonce);
+  // Add security headers with appropriate CSP
+  // Use relaxed CSP (with unsafe-eval) only for marketing pages that require GTM
+  // All other pages use strict CSP (no unsafe-eval)
+  const csp = pathname.match(new RegExp(`^/(${localePattern})/marketing/`))
+    ? buildRelaxedCSP(nonce) // Marketing pages: allows GTM with unsafe-eval
+    : buildCSP(nonce); // Default: strict CSP, no unsafe-eval
+
   response.headers.set("Content-Security-Policy", csp);
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "SAMEORIGIN");

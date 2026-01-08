@@ -1,6 +1,7 @@
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 import { RATE_LIMITS } from "./config";
+import { isTrustedProxy } from "./trusted-proxies";
 import { CircuitBreaker, InMemoryRateLimiter } from "./circuit-breaker";
 
 // Type for API rate limits (excludes 'admin' which is handled separately)
@@ -142,6 +143,15 @@ function normalizeIP(ip: string): string {
 }
 
 /**
+ * Get trusted client IP address with proper validation
+ * Priority: x-real-ip > validated x-forwarded-for chain > cf-connecting-ip (if from Cloudflare)
+ *
+ * Security notes:
+ * - x-real-ip is set by trusted reverse proxy (Vercel) and cannot be spoofed
+ * - cf-connecting-ip is only trusted if the request comes from Cloudflare
+ * - For x-forwarded-for, we validate the proxy chain from right to left,
+ *   skipping trusted proxy IPs to find the actual client IP
+ * - This prevents IP spoofing even if the proxy chain is misconfigured
  * Get trusted client IP with configurable proxy hop count
  * Handles multiple proxy layers (Cloudflare + Vercel)
  *
@@ -152,29 +162,43 @@ function normalizeIP(ip: string): string {
  * - IPv6 addresses are normalized to /48 or /64 subnets based on carrier type
  */
 function getTrustedClientIP(request: NextRequest): string {
-  // Vercel sets x-real-ip with the actual client IP (trusted)
+  // Priority 1: x-real-ip (set by Vercel)
   const realIP = request.headers.get("x-real-ip");
   if (realIP && isValidIP(realIP)) {
     return normalizeIP(realIP);
   }
 
+  // Priority 2: x-forwarded-for with trusted proxy validation
   // For x-forwarded-for, account for trusted proxy hops
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
     const ips = forwarded.split(",").map((ip) => ip.trim());
 
-    // In production behind Cloudflare + Vercel:
-    // Format: client-ip, cloudflare-proxy, vercel-proxy
-    // We want client-ip (3rd from end, or index 0 if only 3 IPs)
-    const trustedProxyCount = process.env.TRUSTED_PROXY_COUNT
-      ? parseInt(process.env.TRUSTED_PROXY_COUNT, 10)
-      : 2; // Default: Cloudflare + Vercel
+    // Validate from right to left (most recent proxy first)
+    for (let i = ips.length - 1; i >= 0; i--) {
+      const ip = ips[i];
 
-    const clientIndex = Math.max(0, ips.length - trustedProxyCount - 1);
-    const clientIP = ips[clientIndex];
+      if (!isValidIP(ip)) continue;
 
-    if (isValidIP(clientIP)) {
-      return normalizeIP(clientIP);
+      // If this is a trusted proxy, skip it and check the previous IP
+      if (isTrustedProxy(ip)) {
+        continue;
+      }
+
+      // First non-proxy IP is the client
+      return normalizeIP(ip);
+    }
+  }
+
+  // Priority 3: Cloudflare-specific header (only if request is from Cloudflare)
+  // We validate this by checking if the rightmost x-forwarded-for IP is from Cloudflare
+  const cfConnectingIP = request.headers.get("cf-connecting-ip");
+  if (cfConnectingIP && isValidIP(cfConnectingIP) && forwarded) {
+    const ips = forwarded.split(",").map((ip) => ip.trim());
+    const rightmostIP = ips[ips.length - 1];
+    // Only trust cf-connecting-ip if the request actually came from Cloudflare
+    if (rightmostIP && isValidIP(rightmostIP) && isTrustedProxy(rightmostIP)) {
+      return normalizeIP(cfConnectingIP);
     }
   }
 

@@ -293,18 +293,40 @@ The `x-forwarded-for` header format is: `client-ip, proxy1-ip, proxy2-ip, ...`
 
 #### IP Address Detection
 
-Rate limits use the most reliable IP address available, with strict validation to prevent injection attacks:
+Rate limits use the most reliable IP address available, with strict validation to prevent injection attacks and IP spoofing:
 
-1. **x-real-ip** header (set by Vercel/Cloudflare in production) - most trusted
-2. **Rightmost IP** in x-forwarded-for header (closest to our server, added by trusted proxy)
-3. Fallback to **"unknown"** if neither available or validation fails
+1. **x-real-ip** header (set by Vercel in production) - most trusted
+2. **x-forwarded-for** with **trusted proxy validation** - validates proxy chain
+3. **cf-connecting-ip** header (only if request is from Cloudflare) - validated fallback
+4. Fallback to **"unknown"** if no valid IP found
 
 **Security rationale:**
 
-- **x-real-ip** is set by our trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed by clients
-- For **x-forwarded-for**, we take the RIGHTMOST IP (closest to our server) which is added by our trusted proxy. The leftmost IPs can be easily spoofed by clients.
+- **x-real-ip** is set by our trusted reverse proxy (Vercel) and cannot be spoofed by clients
+- **cf-connecting-ip** is only trusted if the rightmost x-forwarded-for IP is from Cloudflare (prevents spoofing)
+- For **x-forwarded-for**, we validate the proxy chain from right to left:
+  - We check each IP against known trusted proxy ranges (Cloudflare, Vercel)
+  - We skip trusted proxy IPs to find the actual client IP
+  - This prevents IP spoofing even if the proxy chain includes attacker-controlled IPs
 - All IP addresses are validated against proper IPv4 and IPv6 formats to prevent injection attacks
 - Invalid or missing IPs are marked as **"unknown"** and receive the strictest rate limits
+
+**Trusted Proxy Ranges:**
+
+The application maintains a list of trusted proxy IP ranges in `src/lib/ratelimit/trusted-proxies.ts`:
+
+- **Cloudflare IPv4**: 173.245.48.0/20, 103.21.244.0/22, 104.16.0.0/13, etc.
+- **Cloudflare IPv6**: 2400:cb00::/32, 2606:4700::/32, 2803:f800::/32, etc.
+- **Vercel IPv4**: 76.76.21.0/24, etc.
+
+**Updating Trusted Proxy Ranges:**
+
+IP ranges should be updated periodically from official sources:
+
+- Cloudflare: https://www.cloudflare.com/ips/
+- Vercel: https://vercel.com/docs/edge-network/regions
+
+To update, edit `src/lib/ratelimit/trusted-proxies.ts` and modify the `TRUSTED_PROXY_RANGES` constant.
 
 **IPv6 Handling:**
 
@@ -474,30 +496,57 @@ Multiple origins should be comma-separated. Production origins will be combined 
 
 ### Content Security Policy (CSP)
 
-This application implements a **strict Content Security Policy** with nonce-based inline scripts to prevent XSS attacks and other code injection vulnerabilities.
+This application implements **two Content Security Policy configurations** with nonce-based inline scripts to prevent XSS attacks and other code injection vulnerabilities.
+
+#### Two-Policy Architecture
+
+1. **Strict CSP (Default)** - Used for all pages by default
+2. **Relaxed CSP** - Used only for specific marketing pages requiring Google Tag Manager
+
+This separation allows the application to maintain strong security on most pages while supporting GTM on specific marketing/analytics pages.
 
 #### Key Security Features
 
-✅ **NO `unsafe-eval` in production** - Prevents arbitrary code execution
-✅ **NO `unsafe-inline` for scripts** - All inline scripts require cryptographic nonces
-✅ **Per-request nonces** - Unique cryptographic nonces generated for each request
-✅ **`strict-dynamic`** - Nonce-approved scripts can dynamically load other scripts
-✅ **Specific domains** - No wildcard domains that could allow unauthorized CDNs
+✅ **NO `unsafe-eval` in production** (except on /marketing/\* pages) - Prevents arbitrary code execution  
+✅ **NO `unsafe-inline` for scripts** - All inline scripts require cryptographic nonces  
+✅ **Per-request nonces** - Unique cryptographic nonces generated for each request with collision detection  
+✅ **`strict-dynamic`** - Nonce-approved scripts can dynamically load other scripts  
+✅ **Specific domains** - No wildcard domains that could allow unauthorized CDNs  
+✅ **Automatic nonce cleanup** - In-memory nonce tracking prevents memory leaks
 
-#### CSP Directives
+#### Strict CSP (Default Policy)
 
-The following sources are allowed by directive:
+Used on all pages except `/en/marketing/*` and `/es/marketing/*`.
+
+**script-src**:
+
+- `'self'` - Scripts from same origin
+- `'nonce-{random}'` - Inline scripts with per-request nonces
+- `'strict-dynamic'` - Nonce-approved scripts can load other scripts
+- Privacy-friendly analytics: `https://plausible.io`, `https://scripts.simpleanalyticscdn.com`
+- `https:` - Fallback for browsers that don't support `strict-dynamic`
+- **Development only**: `'unsafe-eval'` (required for Next.js hot reloading)
+- **Production**: NO `unsafe-eval` or `unsafe-inline` ✅
+
+#### Relaxed CSP (Marketing Pages Only)
+
+Used only on `/en/marketing/*` and `/es/marketing/*` routes.
+
+**script-src**:
+
+- All sources from Strict CSP, plus:
+- `https://www.googletagmanager.com` - Google Tag Manager
+- `https://www.google-analytics.com` - Google Analytics
+- `'unsafe-eval'` - Required by GTM (security trade-off)
+
+**Additional sources**:
+
+- **img-src**: Adds `https://www.google-analytics.com`, `https://www.googletagmanager.com`
+- **connect-src**: Adds `https://www.google-analytics.com`, `https://www.googletagmanager.com`
+
+#### Common CSP Directives (Both Policies)
 
 - **default-src**: `'self'` - Only load resources from the same origin
-
-- **script-src**:
-  - `'self'` - Scripts from same origin
-  - `'nonce-{random}'` - Inline scripts with per-request nonces
-  - `'strict-dynamic'` - Nonce-approved scripts can load other scripts
-  - Analytics: `https://plausible.io`, `https://scripts.simpleanalyticscdn.com`
-  - `https:` - Fallback for browsers that don't support `strict-dynamic`
-  - **Development only**: `'unsafe-eval'` (required for Next.js hot reloading)
-  - **Production**: NO `unsafe-eval` or `unsafe-inline`
 
 - **style-src**:
   - `'self'` - Stylesheets from same origin
@@ -516,7 +565,7 @@ The following sources are allowed by directive:
 - **connect-src**:
   - `'self'` - Same origin connections
   - Biodiversity APIs: `https://api.gbif.org`, `https://api.inaturalist.org`
-  - Analytics: `https://plausible.io`
+  - Privacy-friendly analytics: `https://plausible.io`, `https://queue.simpleanalyticscdn.com`
 
 - **frame-src**: `'self'` - Only embed frames from same origin
 - **object-src**: `'none'` - No plugins (Flash, Java, etc.)
@@ -527,14 +576,19 @@ The following sources are allowed by directive:
 
 #### Nonce-Based CSP Implementation
 
-The application generates cryptographically secure nonces for every request:
+The application generates cryptographically secure nonces for every request with collision detection:
 
 ```typescript
 // In middleware (generates nonce per request)
-import { generateNonce, buildCSP } from "@/lib/security/csp";
+import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
-const nonce = generateNonce(); // Unique 16-byte base64 nonce
-const csp = buildCSP(nonce);
+const nonce = generateNonce(); // Unique 16-byte base64 nonce with collision detection
+
+// Use appropriate CSP based on route
+const csp = pathname.match(/^\/(en|es)\/marketing\//)
+  ? buildRelaxedCSP(nonce) // Marketing pages: allows GTM
+  : buildCSP(nonce); // Default: strict, no unsafe-eval
+
 response.headers.set("Content-Security-Policy", csp);
 response.headers.set("X-Nonce", nonce); // Pass to pages
 ```
@@ -570,10 +624,44 @@ Violations will be sent to the configured endpoint with:
 - Source file and line number
 - Timestamp
 
+#### Nonce Collision Detection
+
+The nonce generation system includes collision detection and automatic cleanup:
+
+**Collision Detection:**
+
+- Each nonce is checked against recently used nonces before being returned
+- If a collision is detected (extremely rare), up to 3 attempts are made to generate a unique nonce
+- Multiple collisions trigger a warning log (indicates possible PRNG issues)
+
+**Automatic Cleanup:**
+
+- Recent nonces are tracked in-memory with timestamps for collision detection
+- Nonces older than 1 minute are cleaned up on each generateNonce() call
+- Full cleanup of the nonce map occurs every 5 minutes to prevent memory leaks
+- No setTimeout in serverless environment - cleanup happens during next request
+- No persistent storage - all tracking is in-memory only
+
+**Monitoring:**
+
+Watch application logs for nonce collision warnings:
+
+```
+⚠️ Multiple nonce collisions detected - possible PRNG issue
+```
+
+If this warning appears:
+
+1. Check server entropy sources
+2. Verify Web Crypto API is functioning correctly
+3. Consider investigating potential PRNG compromise
+4. Monitor frequency - single occurrences can be ignored, repeated warnings require investigation
+
 #### Development vs Production
 
 - **Development**: Includes `'unsafe-eval'` for Next.js hot reloading and development features
-- **Production**: **NO `unsafe-eval`** or `unsafe-inline` for scripts - strict nonce-based CSP only
+- **Production Strict CSP**: **NO `unsafe-eval`** or `unsafe-inline` for scripts - used on all pages except marketing
+- **Production Relaxed CSP**: Includes `'unsafe-eval'` for GTM - used only on `/marketing/*` routes
 
 #### Testing CSP Compatibility
 
@@ -589,7 +677,9 @@ The CSP configuration has been tested with:
 
 #### Verifying CSP in Production
 
-Check CSP headers:
+Check CSP headers on different routes:
+
+**For regular pages (strict CSP):**
 
 ```bash
 curl -I https://costaricatreeatlas.com/en | grep -i content-security-policy
@@ -599,8 +689,28 @@ Should show:
 
 - ✅ `'nonce-{random}'` in script-src
 - ✅ `'strict-dynamic'` in script-src
-- ✅ NO `'unsafe-eval'` in script-src
+- ✅ NO `'unsafe-eval'` in script-src (strict policy)
 - ✅ Specific domain names (no wildcards like `*.plausible.io`)
+- ✅ Privacy-friendly analytics only (Plausible, Simple Analytics)
+
+**For marketing pages (relaxed CSP):**
+
+```bash
+curl -I https://costaricatreeatlas.com/en/marketing/landing | grep -i content-security-policy
+```
+
+Should show:
+
+- ✅ `'nonce-{random}'` in script-src
+- ✅ `'strict-dynamic'` in script-src
+- ✅ `'unsafe-eval'` in script-src (required for GTM)
+- ✅ GTM domains: `https://www.googletagmanager.com`, `https://www.google-analytics.com`
+
+**Testing CSP with different analytics providers:**
+
+1. **Plausible Analytics** (works with strict CSP) - No unsafe-eval needed
+2. **Simple Analytics** (works with strict CSP) - No unsafe-eval needed
+3. **Google Tag Manager** (requires relaxed CSP) - Needs unsafe-eval, use only on /marketing/\* routes
 
 ### Environment Variables
 
