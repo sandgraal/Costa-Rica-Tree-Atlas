@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface TreeSearchResult {
   slug: string;

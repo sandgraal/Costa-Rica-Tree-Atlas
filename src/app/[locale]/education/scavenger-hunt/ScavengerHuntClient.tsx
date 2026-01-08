@@ -456,6 +456,10 @@ type Action =
   | { type: "SELECT_MISSION"; payload: string }
   | { type: "SET_TIMER"; payload: number | null }
   | { type: "TOGGLE_HINT" }
+  | {
+      type: "COMPLETE_MISSION";
+      payload: { missionId: string; treeSlug: string; points: number };
+    }
   | { type: "SKIP_MISSION" }
   | { type: "END_SESSION" }
   | { type: "RESET" };
@@ -607,6 +611,46 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         showHint: !state.showHint,
       };
+
+    case "COMPLETE_MISSION": {
+      if (!state.session) return state;
+
+      const { missionId, treeSlug, points } = action.payload;
+
+      // Add completed mission to team
+      const completedMission: CompletedMission = {
+        missionId,
+        treeSlug,
+        timestamp: new Date().toISOString(),
+        pointsEarned: points,
+        bonusPoints: state.showHint ? 0 : 20, // Bonus if no hint used
+      };
+
+      const updatedTeams = state.session.teams.map((team, index) =>
+        index === state.session!.currentTeamIndex
+          ? {
+              ...team,
+              completedMissions: [...team.completedMissions, completedMission],
+              totalPoints:
+                team.totalPoints + points + completedMission.bonusPoints,
+              streak: team.streak + 1,
+            }
+          : team
+      );
+
+      return {
+        ...state,
+        session: {
+          ...state.session,
+          teams: updatedTeams,
+          completedMissions: [...state.session.completedMissions, missionId],
+        },
+        view: "hunt",
+        selectedMission: null,
+        missionTimer: null,
+        showHint: false,
+      };
+    }
 
     case "SKIP_MISSION":
       return {
@@ -1270,13 +1314,8 @@ export default function ScavengerHuntClient({
               <input
                 type="text"
                 placeholder={t.searchTrees}
-                value={state.searchQuery}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_SEARCH_QUERY",
-                    payload: e.target.value,
-                  })
-                }
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50"
               />
               <p className="text-sm text-muted-foreground mt-2">
