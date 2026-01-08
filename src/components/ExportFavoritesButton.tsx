@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore, useStoreHydration } from "@/lib/store";
+import { useStore } from "@/lib/store";
 import { allTrees } from "contentlayer/generated";
 
 interface ExportFavoritesButtonProps {
@@ -8,7 +8,7 @@ interface ExportFavoritesButtonProps {
 }
 
 export function ExportFavoritesButton({ locale }: ExportFavoritesButtonProps) {
-  const hydrated = useStoreHydration();
+  const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
 
   const t = {
