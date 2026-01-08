@@ -7,6 +7,16 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 // ============================================================================
+// Constants
+// ============================================================================
+
+/**
+ * Storage key for Zustand persist
+ * Used by both the store and the theme initialization script
+ */
+export const STORE_KEY = "cr-tree-atlas";
+
+// ============================================================================
 // Types
 // ============================================================================
 
@@ -77,8 +87,19 @@ export const useStore = create<StoreState>()(
       theme: "system" as Theme,
       resolvedTheme: "light" as ResolvedTheme,
 
-      setTheme: (theme) => set({ theme }),
-      setResolvedTheme: (resolved) => set({ resolvedTheme: resolved }),
+      setTheme: (theme) => {
+        set({ theme });
+
+        // Update DOM immediately
+        updateThemeDOM(theme, get, set);
+      },
+
+      setResolvedTheme: (resolved) => {
+        set({ resolvedTheme: resolved });
+
+        // Update DOM
+        applyThemeToDOM(resolved);
+      },
 
       // Favorites
       favorites: [],
@@ -143,7 +164,7 @@ export const useStore = create<StoreState>()(
         })),
     }),
     {
-      name: "cr-tree-atlas",
+      name: STORE_KEY,
       storage: createJSONStorage(() => {
         // Safely access localStorage only on the client
         if (typeof window !== "undefined") {
@@ -165,7 +186,7 @@ export const useStore = create<StoreState>()(
           console.error("Failed to hydrate store from localStorage:", error);
           // Clear corrupted data
           try {
-            localStorage.removeItem("cr-tree-atlas");
+            localStorage.removeItem(STORE_KEY);
           } catch {
             // Ignore if localStorage is not accessible
           }
@@ -184,6 +205,25 @@ export const useStore = create<StoreState>()(
             state.theme = "system";
           }
 
+          // Sync with DOM theme set by blocking script
+          if (typeof document !== "undefined") {
+            const dataTheme = document.documentElement.getAttribute(
+              "data-theme"
+            ) as ResolvedTheme | null;
+            const hasClass =
+              document.documentElement.classList.contains("dark") ||
+              document.documentElement.classList.contains("light");
+
+            if (dataTheme && (dataTheme === "dark" || dataTheme === "light")) {
+              state.resolvedTheme = dataTheme;
+
+              // Ensure class is in sync
+              if (!hasClass) {
+                document.documentElement.classList.add(dataTheme);
+              }
+            }
+          }
+
           // Mark as hydrated - this must be the last operation
           state._hydrated = true;
         }
@@ -199,6 +239,48 @@ export const useStore = create<StoreState>()(
 );
 
 // ============================================================================
+// DOM Helper Functions
+// ============================================================================
+
+/**
+ * Apply a resolved theme to the DOM
+ */
+function applyThemeToDOM(resolved: ResolvedTheme) {
+  if (typeof document === "undefined") return;
+
+  document.documentElement.classList.remove("light", "dark");
+  document.documentElement.classList.add(resolved);
+  document.documentElement.setAttribute("data-theme", resolved);
+  document.documentElement.style.colorScheme = resolved;
+}
+
+/**
+ * Update theme in DOM based on theme setting
+ * Resolves 'system' to actual theme and applies to DOM
+ */
+function updateThemeDOM(
+  theme: Theme,
+  get: () => StoreState,
+  set: (partial: Partial<StoreState>) => void
+) {
+  if (typeof document === "undefined") return;
+
+  let resolved: ResolvedTheme;
+  if (theme === "system") {
+    resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  } else {
+    resolved = theme;
+  }
+
+  applyThemeToDOM(resolved);
+
+  // Update resolved theme in store
+  set({ resolvedTheme: resolved });
+}
+
+// ============================================================================
 // Hooks for common patterns
 // ============================================================================
 
@@ -208,6 +290,10 @@ export function useFavorite(slug: string) {
   return { isFavorite, toggle: () => toggleFavorite(slug) };
 }
 
+/**
+ * @deprecated Use the ThemeSync component instead
+ * This hook is kept for backward compatibility but is no longer used internally
+ */
 export function useThemeSync() {
   const theme = useStore((state) => state.theme);
   const setResolvedTheme = useStore((state) => state.setResolvedTheme);

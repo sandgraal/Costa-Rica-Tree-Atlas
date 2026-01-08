@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 /* Nature-inspired color palette for Costa Rica Tree Atlas */
-:root {
+:root,
+[data-theme="light"] {
   /* Light theme colors */
   --background: #f7f4ec;
   --foreground: #1f2f25;
@@ -83,7 +84,7 @@
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
-  :root:not(.light) {
+  :root:not(.light):not([data-theme="light"]) {
     --background: #0f1a0f;
     --foreground: #e8f0e6;
 
@@ -116,7 +117,8 @@
 }
 
 /* Manual dark mode support */
-.dark {
+.dark,
+[data-theme="dark"] {
   --background: #0f1a0f;
   --foreground: #e8f0e6;
 

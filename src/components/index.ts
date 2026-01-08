@@ -25,6 +25,11 @@ export { ConservationStatus } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";
 export { SeasonalInfo } from "./SeasonalInfo";
 
+// Virtualization components (used for performance optimization)
+export { VirtualizedGrid } from "./VirtualizedGrid";
+export { ResponsiveVirtualizedGrid } from "./ResponsiveVirtualizedGrid";
+export { VirtualizedTreeList } from "./VirtualizedTreeList";
+
 // Interactive components (used in tree pages and favorites)
 export { FavoriteButton } from "./FavoriteButton";
 export { FavoritesLink } from "./FavoritesLink";
@@ -46,5 +51,11 @@ export { MobileNav } from "./MobileNav";
 // Content (used in MDXContent and tree pages)
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
-export { OptimizedImage } from "./OptimizedImage";
+export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
+export { ResponsiveImage } from "./ResponsiveImage";
 export { SafeImage } from "./SafeImage";
+export { SafeJsonLd } from "./SafeJsonLd";
+export { ImageErrorBoundary } from "./ImageErrorBoundary";
+export { ShareCollectionButton } from "./ShareCollectionButton";
+export { EducationProgress } from "./EducationProgress";
+

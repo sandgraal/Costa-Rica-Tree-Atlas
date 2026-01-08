@@ -5,6 +5,8 @@ import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { FieldTripMap } from "@/components/maps";
 import type { Locale } from "@/types/tree";
+import { createStorage, fieldTripDataSchema } from "@/lib/storage";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useFieldTripReducer } from "./useFieldTripReducer";
 
 interface Tree {
@@ -38,7 +40,8 @@ export default function FieldTripClient({
 }: FieldTripClientProps) {
   const [state, dispatch] = useFieldTripReducer();
 
-  const families = [...new Set(trees.map((t) => t.family))].sort();
+  // Debounce search query
+  const debouncedSearch = useDebounce(searchQuery, 300);
 
   // Load saved data
   useEffect(() => {
@@ -262,7 +265,7 @@ export default function FieldTripClient({
     }
   };
 
-  // Filter trees
+  // Filter trees using debounced search
   const filteredTrees = trees.filter((tree) => {
     const matchesSearch =
       tree.title.toLowerCase().includes(state.ui.searchQuery.toLowerCase()) ||

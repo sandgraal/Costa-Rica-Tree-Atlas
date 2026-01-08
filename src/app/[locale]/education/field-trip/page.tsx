@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
 import FieldTripClient from "./FieldTripClient";
+import { ComponentErrorBoundary } from "@/components/ComponentErrorBoundary";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -50,7 +51,11 @@ async function FieldTripContent({ params }: { params: Promise<{ locale: string }
       tags: t.tags || undefined,
     }));
 
-  return <FieldTripClient trees={trees} locale={locale} />;
+  return (
+    <ComponentErrorBoundary componentName="Field Trip">
+      <FieldTripClient trees={trees} locale={locale} />
+    </ComponentErrorBoundary>
+  );
 }
 
 function FieldTripLoading() {
