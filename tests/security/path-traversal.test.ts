@@ -130,6 +130,14 @@ describe("Path Traversal Prevention", () => {
       expect(result.valid).toBe(true);
       expect(result.extension).toBe(".jpg");
     });
+
+    it("should reject files without extensions", () => {
+      expect(validateExtension("image").valid).toBe(false);
+    });
+
+    it("should reject files with trailing dot", () => {
+      expect(validateExtension("image.").valid).toBe(false);
+    });
   });
 
   describe("safePath", () => {

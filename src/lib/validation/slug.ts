@@ -82,6 +82,7 @@ export function validateSlug(slug: string): {
   // 8. Whitelist: only allow alphanumeric, hyphens, underscores, and dots
   // (dots only in the middle, not at start/end to prevent .htaccess, etc.)
   // Safe regex: Uses bounded repetition and simple character classes
+  // Note: The dash should be at the end or escaped in character class
   // eslint-disable-next-line security/detect-unsafe-regex
   if (!/^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$/i.test(slug)) {
     return {
@@ -122,7 +123,17 @@ export function validateExtension(
   extension?: string;
   error?: string;
 } {
-  const ext = filename.slice(filename.lastIndexOf(".")).toLowerCase();
+  const lastDotIndex = filename.lastIndexOf(".");
+
+  // No extension found
+  if (lastDotIndex === -1 || lastDotIndex === filename.length - 1) {
+    return {
+      valid: false,
+      error: "No valid file extension found",
+    };
+  }
+
+  const ext = filename.slice(lastDotIndex).toLowerCase();
 
   if (!allowedExtensions.includes(ext)) {
     return {

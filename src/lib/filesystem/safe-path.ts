@@ -21,7 +21,11 @@ export function safePath(baseDir: string, ...segments: string[]): string {
   }
 
   // 2. Resolve base directory to canonical path
-  const resolvedBase = path.resolve(baseDir);
+  // Ensure it doesn't end with path separator to prevent double separator issues
+  let resolvedBase = path.resolve(baseDir);
+  if (resolvedBase.endsWith(path.sep) && resolvedBase.length > 1) {
+    resolvedBase = resolvedBase.slice(0, -1);
+  }
 
   // 3. Validate each segment
   for (const segment of segments) {
@@ -55,7 +59,12 @@ export function safePath(baseDir: string, ...segments: string[]): string {
  * Uses real filesystem paths (resolves symlinks)
  */
 export function isPathWithinBase(filePath: string, baseDir: string): boolean {
-  const resolvedBase = path.resolve(baseDir);
+  let resolvedBase = path.resolve(baseDir);
+  // Ensure base doesn't end with separator to prevent double separator issues
+  if (resolvedBase.endsWith(path.sep) && resolvedBase.length > 1) {
+    resolvedBase = resolvedBase.slice(0, -1);
+  }
+
   const resolvedPath = path.resolve(filePath);
 
   return (
