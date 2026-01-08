@@ -148,9 +148,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                   "@type": "ImageObject",
                   url: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
                 },
-                sameAs: [
-                  "https://github.com/sandgraal/Costa-Rica-Tree-Atlas",
-                ],
+                sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
               },
             ],
           }}
