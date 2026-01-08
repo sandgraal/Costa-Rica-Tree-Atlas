@@ -55,6 +55,7 @@
     "@next/mdx": "^16.1.1",
     "@swc/helpers": "^0.5.18",
     "@tanstack/react-query": "^5.90.16",
+    "@tanstack/react-virtual": "^3.13.18",
     "@tanstack/react-query-persist-client": "^5.90.16",
     "@tanstack/query-sync-storage-persister": "^5.90.16",
     "@upstash/ratelimit": "^2.0.7",
