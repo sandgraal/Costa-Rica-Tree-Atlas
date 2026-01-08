@@ -33,7 +33,10 @@ export default async function middleware(request: NextRequest) {
     const adminPassword = serverEnv.ADMIN_PASSWORD;
     const adminUsername = serverEnv.ADMIN_USERNAME;
 
-    // With validation, these can never be undefined
+    // If admin password is not configured, return 404 to hide admin routes
+    if (!adminPassword) {
+      return new NextResponse("Not Found", { status: 404 });
+    }
 
     // 3. Rate limiting check
     const rateLimitResult = await constantTimeRateLimitCheck(request);
