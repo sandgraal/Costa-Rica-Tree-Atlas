@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import FieldTripClient from "./FieldTripClient";
+import { ComponentErrorBoundary } from "@/components/ComponentErrorBoundary";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -40,5 +41,9 @@ export default async function FieldTripPage({ params }: Props) {
       tags: t.tags || undefined,
     }));
 
-  return <FieldTripClient trees={trees} locale={locale} />;
+  return (
+    <ComponentErrorBoundary componentName="Field Trip">
+      <FieldTripClient trees={trees} locale={locale} />
+    </ComponentErrorBoundary>
+  );
 }

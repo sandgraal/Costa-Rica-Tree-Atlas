@@ -14,6 +14,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { PageErrorBoundary } from "@/components/PageErrorBoundary";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
@@ -185,30 +186,32 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <QueryProvider>
           <StoreProvider>
-            <NextIntlClientProvider messages={messages}>
-              <a href="#main-content" className="skip-link">
-                Skip to main content
-              </a>
-              <Header />
-              <main id="main-content" className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-              <ScrollToTop />
-              <KeyboardShortcuts />
-              <PWARegister />
-              {/* Privacy-respecting analytics - configure via env vars */}
-              <Analytics
-                nonce={nonce}
-                plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-                enableSimpleAnalytics={
-                  process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
-                }
-                googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
-              />
-              {/* Vercel Web Analytics */}
-              <VercelAnalytics />
-            </NextIntlClientProvider>
+            <PageErrorBoundary>
+              <NextIntlClientProvider messages={messages}>
+                <a href="#main-content" className="skip-link">
+                  Skip to main content
+                </a>
+                <Header />
+                <main id="main-content" className="flex-grow">
+                  {children}
+                </main>
+                <Footer />
+                <ScrollToTop />
+                <KeyboardShortcuts />
+                <PWARegister />
+                {/* Privacy-respecting analytics - configure via env vars */}
+                <Analytics
+                  nonce={nonce}
+                  plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+                  enableSimpleAnalytics={
+                    process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
+                  }
+                  googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+                />
+                {/* Vercel Web Analytics */}
+                <VercelAnalytics />
+              </NextIntlClientProvider>
+            </PageErrorBoundary>
           </StoreProvider>
         </QueryProvider>
         {/* Vercel Speed Insights - placed outside providers for optimal performance monitoring */}
