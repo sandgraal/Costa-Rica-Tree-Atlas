@@ -2,7 +2,7 @@
 
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
-import { useStore, useStoreHydration } from "@/lib/store";
+import { useStore } from "@/lib/store";
 import { allTrees } from "contentlayer/generated";
 import { BLUR_DATA_URL } from "@/lib/image";
 
@@ -19,7 +19,7 @@ export function RecentlyViewedList({
   locale,
   limit = 6,
 }: RecentlyViewedListProps) {
-  const hydrated = useStoreHydration();
+  const hydrated = useStore((state) => state._hydrated);
   const recentlyViewed = useStore((state) => state.recentlyViewed);
   const clearRecentlyViewed = useStore((state) => state.clearRecentlyViewed);
 

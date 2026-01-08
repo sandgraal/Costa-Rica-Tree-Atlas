@@ -40,6 +40,23 @@ export default function FieldTripClient({
 
   const families = [...new Set(trees.map((t) => t.family))].sort();
 
+  // Create storage instance with error handling
+  const fieldTripStorage = useMemo(
+    () =>
+      createStorage({
+        key: FIELD_TRIP_STORAGE_KEY,
+        schema: fieldTripDataSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos y fueron eliminados"
+              : "Corrupted data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
+
   // Load saved data
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -72,7 +89,7 @@ export default function FieldTripClient({
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
-  }, []);
+  }, [fieldTripStorage]);
 
   // Save data
   useEffect(() => {
@@ -288,6 +305,21 @@ export default function FieldTripClient({
 
   return (
     <div className="min-h-screen">
+      {/* Storage Error Alert */}
+      {storageError && (
+        <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-700 dark:text-yellow-400 px-4 py-3 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-lg shadow-lg max-w-md">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-sm">{storageError}</p>
+            <button
+              onClick={() => setStorageError(null)}
+              className="text-sm underline hover:no-underline"
+            >
+              {locale === "es" ? "Cerrar" : "Dismiss"}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="bg-gradient-to-b from-green-600 to-green-700 text-white py-8 px-4">
         <div className="container mx-auto max-w-4xl">
