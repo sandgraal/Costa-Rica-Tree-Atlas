@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
@@ -193,17 +193,21 @@ export default function TreeJournalClient({
   const [storageError, setStorageError] = useState<string | null>(null);
 
   // Create storage instance with error handling
-  const journalStorage = createStorage({
-    key: JOURNAL_STORAGE_KEY,
-    schema: adoptedTreeSchema,
-    onError: (error) => {
-      setStorageError(
-        locale === "es"
-          ? "Se detectaron datos corruptos y fueron eliminados"
-          : "Corrupted data was detected and cleared"
-      );
-    },
-  });
+  const journalStorage = useMemo(
+    () =>
+      createStorage({
+        key: JOURNAL_STORAGE_KEY,
+        schema: adoptedTreeSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos y fueron eliminados"
+              : "Corrupted data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   const t = {
     title: locale === "es" ? "Diario del Árbol 🌳" : "Tree Journal 🌳",
@@ -319,14 +323,14 @@ export default function TreeJournalClient({
     // Rotate prompt daily
     const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
     setPromptIndex(day % prompts.length);
-  }, [prompts.length]);
+  }, [journalStorage, prompts.length]);
 
   // Save data
   useEffect(() => {
     if (adoptedTree) {
       journalStorage.set(adoptedTree);
     }
-  }, [adoptedTree]);
+  }, [adoptedTree, journalStorage]);
 
   const selectedTree = trees.find((t) => t.slug === selectedTreeSlug);
   const adoptedTreeData = trees.find((t) => t.slug === adoptedTree?.slug);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   EducationProgressProvider,
   useEducationProgress,
@@ -64,29 +64,37 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
   const earnedBadgeIcons = badges.filter((b) => b.earned).map((b) => b.icon);
 
   // Create storage instances with error handling
-  const classroomStorage = createStorage({
-    key: CLASSROOM_STORAGE_KEY,
-    schema: classroomSchema,
-    onError: (error) => {
-      setStorageError(
-        locale === "es"
-          ? "Se detectaron datos corruptos del aula y fueron eliminados"
-          : "Corrupted classroom data was detected and cleared"
-      );
-    },
-  });
+  const classroomStorage = useMemo(
+    () =>
+      createStorage({
+        key: CLASSROOM_STORAGE_KEY,
+        schema: classroomSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos del aula y fueron eliminados"
+              : "Corrupted classroom data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
-  const studentInfoStorage = createStorage({
-    key: STUDENT_STORAGE_KEY,
-    schema: studentInfoSchema,
-    onError: (error) => {
-      setStorageError(
-        locale === "es"
-          ? "Se detectaron datos corruptos del estudiante y fueron eliminados"
-          : "Corrupted student data was detected and cleared"
-      );
-    },
-  });
+  const studentInfoStorage = useMemo(
+    () =>
+      createStorage({
+        key: STUDENT_STORAGE_KEY,
+        schema: studentInfoSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos del estudiante y fueron eliminados"
+              : "Corrupted student data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   // Load saved data on mount
   useEffect(() => {
@@ -102,7 +110,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     if (savedStudent) {
       setStudentInfo(savedStudent);
     }
-  }, []);
+  }, [classroomStorage, studentInfoStorage]);
 
   // Auto-update student progress in classroom
   useEffect(() => {
@@ -123,7 +131,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       classroomStorage.set(updatedClassroom);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPoints, completedLessons, earnedBadgeIcons.length]);
+  }, [totalPoints, completedLessons, earnedBadgeIcons.length, classroomStorage]);
 
   const t = {
     createClassroom: locale === "es" ? "Crear Aula" : "Create Classroom",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
@@ -443,17 +443,21 @@ export default function ScavengerHuntClient({
   const [editingTeam, setEditingTeam] = useState<number | null>(null);
 
   // Create storage instance with error handling
-  const huntStorage = createStorage({
-    key: STORAGE_KEY,
-    schema: huntSessionSchema,
-    onError: (error) => {
-      setStorageError(
-        locale === "es"
-          ? "Se detectaron datos corruptos y fueron eliminados"
-          : "Corrupted data was detected and cleared"
-      );
-    },
-  });
+  const huntStorage = useMemo(
+    () =>
+      createStorage({
+        key: STORAGE_KEY,
+        schema: huntSessionSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos y fueron eliminados"
+              : "Corrupted data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   const t = {
     title: locale === "es" ? "Búsqueda del Tesoro 🗺️" : "Scavenger Hunt 🗺️",
@@ -520,14 +524,14 @@ export default function ScavengerHuntClient({
       setSession(data);
       setView("hunt");
     }
-  }, []);
+  }, [huntStorage]);
 
   // Save session
   useEffect(() => {
     if (session) {
       huntStorage.set(session);
     }
-  }, [session]);
+  }, [session, huntStorage]);
 
   // Mission timer
   useEffect(() => {

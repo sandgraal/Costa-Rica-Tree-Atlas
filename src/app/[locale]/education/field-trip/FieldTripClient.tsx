@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { FieldTripMap } from "@/components/maps";
@@ -51,17 +51,21 @@ export default function FieldTripClient({
   const families = [...new Set(trees.map((t) => t.family))].sort();
 
   // Create storage instance with error handling
-  const fieldTripStorage = createStorage({
-    key: FIELD_TRIP_STORAGE_KEY,
-    schema: fieldTripDataSchema,
-    onError: (error) => {
-      setStorageError(
-        locale === "es"
-          ? "Se detectaron datos corruptos y fueron eliminados"
-          : "Corrupted data was detected and cleared"
-      );
-    },
-  });
+  const fieldTripStorage = useMemo(
+    () =>
+      createStorage({
+        key: FIELD_TRIP_STORAGE_KEY,
+        schema: fieldTripDataSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos y fueron eliminados"
+              : "Corrupted data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   // Load saved data
   useEffect(() => {
@@ -83,12 +87,12 @@ export default function FieldTripClient({
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
-  }, []);
+  }, [fieldTripStorage]);
 
   // Save data
   useEffect(() => {
     fieldTripStorage.set({ spottedTrees, currentTrip });
-  }, [spottedTrees, currentTrip]);
+  }, [spottedTrees, currentTrip, fieldTripStorage]);
 
   const t = {
     title: locale === "es" ? "Modo Excursión" : "Field Trip Mode",

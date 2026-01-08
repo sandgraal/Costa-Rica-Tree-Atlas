@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useEffect,
+  useMemo,
   ReactNode,
 } from "react";
 import { createStorage, educationProgressSchema } from "@/lib/storage";
@@ -120,13 +121,17 @@ export function EducationProgressProvider({
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Create storage instance
-  const progressStorage = createStorage({
-    key: STORAGE_KEY,
-    schema: educationProgressSchema,
-    onError: (error) => {
-      console.warn("Education progress data error:", error.message);
-    },
-  });
+  const progressStorage = useMemo(
+    () =>
+      createStorage({
+        key: STORAGE_KEY,
+        schema: educationProgressSchema,
+        onError: (error) => {
+          console.warn("Education progress data error:", error.message);
+        },
+      }),
+    []
+  );
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -137,14 +142,14 @@ export function EducationProgressProvider({
       }
       setIsLoaded(true);
     }
-  }, []);
+  }, [progressStorage]);
 
   // Save to localStorage on change
   useEffect(() => {
     if (isLoaded && typeof window !== "undefined") {
       progressStorage.set(progress);
     }
-  }, [progress, isLoaded]);
+  }, [progress, isLoaded, progressStorage]);
 
   const totalPoints = Object.values(progress).reduce(
     (sum, p) => sum + (p.totalPoints || 0),
