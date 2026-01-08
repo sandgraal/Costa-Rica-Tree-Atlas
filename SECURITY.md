@@ -30,6 +30,158 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### JSON-LD Sanitization
+
+All JSON-LD structured data undergoes comprehensive XSS sanitization before being rendered to prevent code injection attacks.
+
+#### Multi-Layer Defense Strategy
+
+The application implements defense-in-depth with multiple sanitization layers:
+
+1. **Pre-render validation** - Scans for dangerous patterns before rendering
+2. **Content sanitization** - Removes/escapes malicious content if validation fails
+3. **Character escaping** - Converts dangerous characters to Unicode escape sequences
+4. **Pattern matching** - Detects and blocks known attack vectors
+5. **Final validation** - Verifies sanitized output is safe
+
+#### Blocked Attack Vectors
+
+The following XSS attack vectors are detected and neutralized:
+
+| Attack Vector | Example | Protection Method |
+|---------------|---------|-------------------|
+| Script tag injection | `</script><script>alert(1)</script>` | Case-insensitive pattern matching + Unicode escaping |
+| Case variation | `</ScRiPt>`, `<SCRIPT>` | Case-insensitive regex patterns |
+| Extra whitespace | `</script >`, `< script>` | Pattern matching with `[^>]*` |
+| Unicode homoglyphs | `＜/script＞` (fullwidth) | Fullwidth character detection + Unicode escaping |
+| HTML entities | `&lt;/script&gt;` | Entity pattern detection |
+| Style tag escape | `</style><style>...</style>` | Style tag pattern matching |
+| HTML comment escape | `-->` | Direct string detection |
+| CDATA escape | `]]>` | Direct string detection |
+| Event handlers | `onerror="alert(1)"` | Event handler pattern matching |
+| JavaScript protocol | `javascript:alert(1)` | Protocol pattern matching |
+| Data URI HTML | `data:text/html,...` | Data URI pattern matching |
+| Zero-width chars | U+200B, U+200C, U+200D, U+FEFF | Zero-width character detection |
+
+#### Implementation Details
+
+**Component: `SafeJsonLd.tsx`**
+
+- Client-side rendering only (no hydration mismatches)
+- CSP nonce support for inline scripts
+- Uses `textContent` instead of `innerHTML` for safety
+- Comprehensive Unicode character escaping
+- Pattern-based dangerous content removal
+- Final validation before DOM injection
+- Fallback to empty object if sanitization fails
+
+**Library: `json-ld.ts`**
+
+- Recursive scanning of nested objects and arrays
+- Validation of `@context` URLs (only schema.org allowed)
+- Comprehensive pattern detection for XSS vectors
+- Sanitization function that cleans malicious content
+- Detailed issue reporting for debugging
+
+#### Unicode Handling
+
+The sanitizer handles various Unicode-based attacks:
+
+```typescript
+// ASCII dangerous chars → Unicode escapes
+< → \u003c
+> → \u003e
+& → \u0026
+
+// Fullwidth variants → Unicode escapes
+＜ → \uff1c
+＞ → \uff1e
+＆ → \uff06
+
+// Zero-width chars → Removed
+U+200B (zero-width space) → ""
+U+200C (zero-width non-joiner) → ""
+U+200D (zero-width joiner) → ""
+U+FEFF (zero-width no-break space) → ""
+
+// Line separators → Unicode escapes
+U+2028 (line separator) → \u2028
+U+2029 (paragraph separator) → \u2029
+```
+
+#### Validation Before Rendering
+
+All JSON-LD data is validated before rendering:
+
+```typescript
+// 1. Validate the data
+const validation = validateJsonLd(jsonLdData);
+
+// 2. If invalid, sanitize it
+if (!validation.valid) {
+  console.error("Validation failed:", validation.issues);
+  jsonLdData = sanitizeJsonLd(jsonLdData);
+}
+
+// 3. Render with comprehensive escaping
+<SafeJsonLd data={jsonLdData} nonce={cspNonce} />
+```
+
+#### Example: Prevented Attacks
+
+**Attack 1: Script Tag with Case Variation**
+```json
+{"name": "</ScRiPt><ScRiPt>alert('XSS')</ScRiPt>"}
+```
+✅ **Blocked:** Case-insensitive pattern matching detects all variations
+
+**Attack 2: Unicode Homoglyph**
+```json
+{"name": "＜script＞alert(1)＜/script＞"}
+```
+✅ **Blocked:** Fullwidth characters detected and escaped to Unicode
+
+**Attack 3: Zero-Width Character Obfuscation**
+```json
+{"name": "test\u200B<script\u200C>alert(1)</script\u200D>"}
+```
+✅ **Blocked:** Zero-width characters removed, script tags detected
+
+**Attack 4: Event Handler Injection**
+```json
+{"url": "https://example.com\" onerror=\"alert(1)"}
+```
+✅ **Blocked:** Event handler pattern matching removes `onerror=`
+
+**Attack 5: Nested Object Attack**
+```json
+{
+  "author": {
+    "name": "<script>alert(1)</script>"
+  }
+}
+```
+✅ **Blocked:** Recursive scanning detects malicious content in nested objects
+
+#### Testing
+
+Comprehensive test suite covers:
+
+- ✅ Case variation attacks (`</ScRiPt>`, `<SCRIPT>`)
+- ✅ Unicode homoglyph attacks (fullwidth characters)
+- ✅ Event handler injection (`onerror=`, `onclick=`)
+- ✅ Style tag escapes
+- ✅ HTML comment and CDATA escapes
+- ✅ Zero-width character attacks
+- ✅ Nested object/array attacks
+- ✅ JavaScript protocol attacks
+- ✅ Data URI attacks
+- ✅ Sanitization effectiveness
+
+Tests located in:
+- `src/components/__tests__/SafeJsonLd.test.tsx`
+- `src/lib/validation/__tests__/json-ld.test.ts`
+
 ### Rate Limiting
 
 Rate limiting is enforced on all API endpoints to prevent abuse, protect external service costs, and maintain system availability. All limits are applied **per IP address** using a sliding window algorithm.
@@ -52,18 +204,45 @@ Rate limiting is enforced on all API endpoints to prevent abuse, protect externa
 
 #### Atomic Operations
 
-Rate limiting uses atomic Redis operations via the `@upstash/ratelimit` library with sliding window algorithm:
+Rate limiting uses atomic Redis operations via Lua scripts with fixed window algorithm:
 
-- **Ephemeral cache disabled** - All rate limit checks go directly to Redis, ensuring consistency across serverless instances
-- **Sliding window algorithm** - More accurate than fixed windows, prevents burst traffic at window boundaries
-- **No race conditions** - Atomic INCR operations prevent concurrent requests from bypassing limits
-- **Analytics enabled** - Tracks rate limit hits for monitoring and optimization
+- **Lua-based atomicity** - All rate limit checks use Lua scripts executed atomically in Redis
+- **No race conditions** - Even with concurrent serverless instances, limits are enforced correctly
+- **Circuit breaker protection** - Gracefully degrades to in-memory limiting when Redis is unavailable
+- **In-memory fallback** - LRU-based memory cache prevents service disruption during Redis outages
+- **Fixed window algorithm** - Simple and efficient, preventing burst traffic with atomic INCR operations
 
-**Why ephemeral cache is disabled:**
+**Why Lua scripts:**
 
-- Ephemeral cache can cause race conditions in serverless environments where multiple instances run concurrently
-- Disabling it ensures every rate limit check is atomic and consistent across all instances
-- Slightly increases Redis load but eliminates security vulnerabilities from non-atomic operations
+- Lua scripts execute atomically in Redis - no possibility of race conditions
+- Multiple serverless instances cannot bypass limits by reading the same count
+- Simpler than sliding windows and more reliable in distributed environments
+- No clock skew issues unlike timestamp-based sliding windows
+
+**Circuit Breaker Behavior:**
+
+The circuit breaker protects against Redis failures with three states:
+
+1. **Closed** (normal): All requests go to Redis
+2. **Open** (failure): After 5 consecutive failures, falls back to in-memory limiting for 1 minute
+3. **Half-open** (testing): After timeout, tries Redis again to see if it's recovered
+
+When Redis is unavailable:
+
+- Requests continue to work using in-memory rate limiting
+- No 500 errors are returned to users
+- Circuit breaker automatically recovers when Redis is back online
+- Console warnings logged for monitoring
+
+**In-Memory Fallback:**
+
+The in-memory rate limiter:
+
+- Maintains up to 10,000 rate limit records
+- Uses LRU eviction to prevent memory exhaustion
+- Automatically expires old records
+- Provides same rate limit guarantees within a single instance
+- Note: Each serverless instance has its own memory cache (not shared)
 
 #### Rate Limit Headers
 
@@ -90,7 +269,27 @@ For production rate limiting that persists across deployments:
 # Add these environment variables:
 UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your-token
+
+# Optional: Configure trusted proxy count (default: 2 for Cloudflare + Vercel)
+TRUSTED_PROXY_COUNT=2
 ```
+
+**Trusted Proxy Configuration:**
+
+The `TRUSTED_PROXY_COUNT` environment variable configures how many proxy hops to skip when extracting the client IP from the `x-forwarded-for` header:
+
+- **Default: 2** - Assumes Cloudflare + Vercel (most common setup)
+- **Behind Cloudflare only: 1** - Set to 1 if not using Vercel
+- **Behind custom CDN + Cloudflare + Vercel: 3** - Set to 3 for three proxy layers
+- **Direct to Vercel: 1** - Set to 1 if no CDN in front
+
+**How it works:**
+
+The `x-forwarded-for` header format is: `client-ip, proxy1-ip, proxy2-ip, ...`
+
+- With `TRUSTED_PROXY_COUNT=2`, the system skips the rightmost 2 IPs (trusted proxies) and uses the 3rd from right as client IP
+- If header has fewer IPs than `TRUSTED_PROXY_COUNT + 1`, uses the leftmost IP
+- Example with Cloudflare + Vercel: `203.0.113.1, 1.2.3.4, 5.6.7.8` → extracts `203.0.113.1` as client IP
 
 #### IP Address Detection
 
@@ -109,10 +308,26 @@ Rate limits use the most reliable IP address available, with strict validation t
 
 **IPv6 Handling:**
 
-- IPv6 addresses are normalized to /64 subnets (e.g., `2001:0db8:85a3:0000::/64`)
-- This groups mobile users on the same network who frequently rotate IPv6 addresses
-- Prevents legitimate mobile users from appearing as different users with each IP rotation
-- Balances security (prevents abuse) with usability (doesn't over-restrict mobile users)
+IPv6 addresses are intelligently normalized based on network type:
+
+- **Mobile carriers** (e.g., T-Mobile, Sprint): Normalized to /64 subnets (first 4 groups)
+  - Example: `2600:1234:5678:9abc::1` → `2600:1234:5678:9abc::/64`
+  - Mobile carriers frequently rotate IPv6 addresses within /64 subnets
+  - Prevents legitimate mobile users from appearing as different users
+- **Corporate/Residential** (all others): Normalized to /48 subnets (first 3 groups)
+  - Example: `2001:0db8:85a3:0000::1` → `2001:0db8:85a3::/48`
+  - More restrictive to prevent entire office buildings from sharing same rate limit
+  - Balances security with usability for enterprise networks
+
+**Mobile Carrier Detection:**
+
+The system maintains a list of known mobile carrier IPv6 prefixes:
+
+- T-Mobile US: `2600:`, `2607:fb90:`
+- Sprint/T-Mobile: `2001:4888:`
+- Telefonica/O2: `2a00:23c5:`, `2a00:23c6:`
+
+This list can be expanded as needed to cover additional carriers worldwide.
 
 ### Admin Authentication
 
