@@ -536,8 +536,6 @@ export function ImageCard({
       <div className="aspect-[4/3] bg-muted relative">
         <SafeImage
           src={src}
-          slug={imageSlug}
-          imageType={index !== undefined ? "gallery" : "featured"}
           alt={alt}
           fill
           className={`object-cover ${onClick ? "group-hover:scale-105 transition-transform duration-300" : ""}`}

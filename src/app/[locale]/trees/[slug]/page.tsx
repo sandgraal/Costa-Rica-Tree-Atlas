@@ -13,6 +13,8 @@ import { FavoriteButton } from "@/components/FavoriteButton";
 import { TrackView } from "@/components/TrackView";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { SafeImage } from "@/components/SafeImage";
+import { ImageErrorBoundary } from "@/components/ImageErrorBoundary";
+import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd } from "@/lib/validation/json-ld";
 
 // Dynamic imports for heavy below-fold components
@@ -103,6 +105,9 @@ export default async function TreePage({ params }: Props) {
   if (!tree) {
     notFound();
   }
+
+  // Resolve image at build time
+  const imageSource = resolveImageSource(slug, tree.featuredImage);
 
   // Find alternate language version
   const otherLocale = locale === "en" ? "es" : "en";
@@ -291,20 +296,19 @@ export default async function TreePage({ params }: Props) {
 
           {/* Featured Image */}
           {tree.featuredImage ? (
-            <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
-              <SafeImage
-                src={tree.featuredImage}
-                slug={slug}
-                imageType="featured"
-                alt={tree.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"
-                className="object-cover"
-                priority
-                quality={80}
-                fallback="placeholder"
-              />
-            </div>
+            <ImageErrorBoundary>
+              <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
+                <SafeImage
+                  src={imageSource.src}
+                  alt={tree.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 896px"
+                  priority
+                  quality={80}
+                  fallback="placeholder"
+                />
+              </div>
+            </ImageErrorBoundary>
           ) : (
             <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
               <TreeIcon className="h-24 w-24 text-primary/20" />
@@ -530,42 +534,48 @@ function RelatedTrees({
         {locale === "es" ? "Árboles Relacionados" : "Related Trees"}
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {relatedTrees.map((tree) => (
-          <Link
-            key={tree._id}
-            href={`/trees/${tree.slug}`}
-            className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg"
-          >
-            <div className="relative h-24 bg-gradient-to-br from-primary/20 to-secondary/20">
-              {tree.featuredImage && (
-                <SafeImage
-                  src={tree.featuredImage}
-                  slug={tree.slug}
-                  imageType="featured"
-                  alt={tree.title}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  quality={75}
-                  fallback="hide"
-                />
-              )}
-              {tree.family === currentTree.family && (
-                <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-primary/80 text-white text-xs rounded">
-                  {locale === "es" ? "Misma familia" : "Same family"}
+        {relatedTrees.map((tree) => {
+          const relatedImageSource = resolveImageSource(
+            tree.slug,
+            tree.featuredImage
+          );
+          return (
+            <Link
+              key={tree._id}
+              href={`/trees/${tree.slug}`}
+              className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg"
+            >
+              <ImageErrorBoundary>
+                <div className="relative h-24 bg-gradient-to-br from-primary/20 to-secondary/20">
+                  {tree.featuredImage && (
+                    <SafeImage
+                      src={relatedImageSource.src}
+                      alt={tree.title}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      quality={75}
+                      fallback="hide"
+                    />
+                  )}
+                  {tree.family === currentTree.family && (
+                    <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-primary/80 text-white text-xs rounded">
+                      {locale === "es" ? "Misma familia" : "Same family"}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <div className="p-3">
-              <h3 className="font-medium text-foreground text-sm truncate group-hover:text-primary transition-colors">
-                {tree.title}
-              </h3>
-              <p className="text-xs text-muted-foreground italic truncate">
-                {tree.scientificName}
-              </p>
-            </div>
-          </Link>
-        ))}
+              </ImageErrorBoundary>
+              <div className="p-3">
+                <h3 className="font-medium text-foreground text-sm truncate group-hover:text-primary transition-colors">
+                  {tree.title}
+                </h3>
+                <p className="text-xs text-muted-foreground italic truncate">
+                  {tree.scientificName}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
