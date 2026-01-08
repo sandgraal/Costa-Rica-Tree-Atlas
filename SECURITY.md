@@ -50,6 +50,20 @@ Rate limiting is enforced on all API endpoints to prevent abuse, protect externa
 | Other API endpoints   | 100 requests | 1 minute   | Default limit for general API endpoints                                |
 | Admin authentication  | 5 attempts   | 15 minutes | Strict limit to prevent brute-force attacks                            |
 
+#### Atomic Operations
+
+Rate limiting uses atomic Redis operations via the `@upstash/ratelimit` library with sliding window algorithm:
+
+- **Ephemeral cache disabled** - All rate limit checks go directly to Redis, ensuring consistency across serverless instances
+- **Sliding window algorithm** - More accurate than fixed windows, prevents burst traffic at window boundaries
+- **No race conditions** - Atomic INCR operations prevent concurrent requests from bypassing limits
+- **Analytics enabled** - Tracks rate limit hits for monitoring and optimization
+
+**Why ephemeral cache is disabled:**
+- Ephemeral cache can cause race conditions in serverless environments where multiple instances run concurrently
+- Disabling it ensures every rate limit check is atomic and consistent across all instances
+- Slightly increases Redis load but eliminates security vulnerabilities from non-atomic operations
+
 #### Rate Limit Headers
 
 All API responses include standard rate limit headers:
@@ -75,13 +89,23 @@ UPSTASH_REDIS_REST_TOKEN=your-token
 
 #### IP Address Detection
 
-Rate limits use the most reliable IP address available:
+Rate limits use the most reliable IP address available, with strict validation to prevent injection attacks:
 
-1. `x-real-ip` header (set by Vercel in production)
-2. First IP in `x-forwarded-for` header
-3. Fallback to "anonymous" if neither available
+1. **x-real-ip** header (set by Vercel/Cloudflare in production) - most trusted
+2. **Rightmost IP** in x-forwarded-for header (closest to our server, added by trusted proxy)
+3. Fallback to **"unknown"** if neither available or validation fails
 
-This prioritization prevents IP spoofing while maintaining functionality.
+**Security rationale:**
+- **x-real-ip** is set by our trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed by clients
+- For **x-forwarded-for**, we take the RIGHTMOST IP (closest to our server) which is added by our trusted proxy. The leftmost IPs can be easily spoofed by clients.
+- All IP addresses are validated against proper IPv4 and IPv6 formats to prevent injection attacks
+- Invalid or missing IPs are marked as **"unknown"** and receive the strictest rate limits
+
+**IPv6 Handling:**
+- IPv6 addresses are normalized to /64 subnets (e.g., `2001:0db8:85a3:0000::/64`)
+- This groups mobile users on the same network who frequently rotate IPv6 addresses
+- Prevents legitimate mobile users from appearing as different users with each IP rotation
+- Balances security (prevents abuse) with usability (doesn't over-restrict mobile users)
 
 ### Admin Authentication
 

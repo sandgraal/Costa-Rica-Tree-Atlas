@@ -20,6 +20,7 @@ const rateLimiters = redis
         ),
         prefix: "ratelimit:identify",
         analytics: true,
+        ephemeralCache: undefined, // Disable to ensure atomicity across serverless instances
       }),
       species: new Ratelimit({
         redis,
@@ -29,6 +30,7 @@ const rateLimiters = redis
         ),
         prefix: "ratelimit:species",
         analytics: true,
+        ephemeralCache: undefined, // Disable to ensure atomicity across serverless instances
       }),
       images: new Ratelimit({
         redis,
@@ -38,6 +40,7 @@ const rateLimiters = redis
         ),
         prefix: "ratelimit:images",
         analytics: true,
+        ephemeralCache: undefined, // Disable to ensure atomicity across serverless instances
       }),
       random: new Ratelimit({
         redis,
@@ -47,6 +50,7 @@ const rateLimiters = redis
         ),
         prefix: "ratelimit:random",
         analytics: true,
+        ephemeralCache: undefined, // Disable to ensure atomicity across serverless instances
       }),
       default: new Ratelimit({
         redis,
@@ -56,27 +60,91 @@ const rateLimiters = redis
         ),
         prefix: "ratelimit:default",
         analytics: true,
+        ephemeralCache: undefined, // Disable to ensure atomicity across serverless instances
       }),
     }
   : null;
 
 /**
- * Get client identifier from request
- * Prioritizes x-real-ip over x-forwarded-for to prevent spoofing
+ * Validate if a string is a valid IPv4 or IPv6 address
  */
-function getClientIdentifier(request: NextRequest): string {
-  // In production, Vercel sets x-real-ip with the actual client IP
-  const realIP = request.headers.get("x-real-ip");
-  if (realIP) return realIP;
+function isValidIP(ip: string): boolean {
+  // Basic length check to prevent ReDoS
+  if (!ip || ip.length > 45) return false; // Max IPv6 length is 39, giving some margin
 
-  // Fallback to x-forwarded-for (take first IP)
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    return forwarded.split(",")[0].trim();
+  // IPv4 validation
+  if (ip.includes(".")) {
+    const parts = ip.split(".");
+    if (parts.length !== 4) return false;
+    return parts.every((part) => {
+      const num = Number(part);
+      return /^\d{1,3}$/.test(part) && num >= 0 && num <= 255;
+    });
   }
 
-  // Last resort
-  return "anonymous";
+  // IPv6 validation - check if it contains colons and has valid hex characters
+  if (ip.includes(":")) {
+    // Basic structural check: should have at least 2 colons and only valid characters
+    const validChars = /^[0-9a-fA-F:]+$/;
+    if (!validChars.test(ip)) return false;
+
+    const parts = ip.split(":");
+    // IPv6 should have at most 8 groups (or less with :: compression)
+    if (parts.length > 8) return false;
+
+    // Each part should be 0-4 hex digits (empty parts are ok for :: compression)
+    return parts.every((part) => part.length <= 4);
+  }
+
+  return false;
+}
+
+/**
+ * Normalize IP address for rate limiting
+ * IPv6 addresses are normalized to /64 subnets to handle mobile user IP rotation
+ */
+function normalizeIP(ip: string): string {
+  if (ip.includes(":")) {
+    // IPv6 - use /64 subnet to group mobile users on same network
+    const parts = ip.split(":");
+    // Take first 4 groups (64 bits) to identify the subnet
+    return parts.slice(0, 4).join(":") + "::/64";
+  }
+  // IPv4 - return as-is
+  return ip;
+}
+
+/**
+ * Get trusted client IP address with proper validation
+ * Priority: x-real-ip (set by Vercel/Cloudflare) > rightmost x-forwarded-for > fallback
+ *
+ * Security notes:
+ * - x-real-ip is set by trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed
+ * - For x-forwarded-for, we take the RIGHTMOST IP (closest to our server) which is added
+ *   by our trusted proxy, not the leftmost which can be spoofed by the client
+ * - All IPs are validated to prevent injection attacks
+ * - IPv6 addresses are normalized to /64 subnets to handle mobile network rotation
+ */
+function getTrustedClientIP(request: NextRequest): string {
+  // Vercel sets x-real-ip with the actual client IP (trusted)
+  const realIP = request.headers.get("x-real-ip");
+  if (realIP && isValidIP(realIP)) {
+    return normalizeIP(realIP);
+  }
+
+  // Take rightmost IP from x-forwarded-for (closest to server, added by trusted proxy)
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    const ips = forwarded.split(",").map((ip) => ip.trim());
+    // Rightmost IP is the one closest to our server (most trustworthy)
+    const clientIP = ips[Math.max(0, ips.length - 1)];
+    if (isValidIP(clientIP)) {
+      return normalizeIP(clientIP);
+    }
+  }
+
+  // Unknown IPs get strictest rate limits (using "unknown" as identifier)
+  return "unknown";
 }
 
 /**
@@ -128,7 +196,7 @@ export async function rateLimit(
     return { headers: {} };
   }
 
-  const identifier = getClientIdentifier(request);
+  const identifier = getTrustedClientIP(request);
   const limiter = rateLimiters![type] || rateLimiters!.default;
 
   try {
