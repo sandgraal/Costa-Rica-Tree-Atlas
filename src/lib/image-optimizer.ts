@@ -8,6 +8,7 @@
 import sharp from "sharp";
 import { promises as fs } from "fs";
 import path from "path";
+import { isPathWithinBase } from "@/lib/filesystem/safe-path";
 
 /**
  * Available image sizes for responsive images
@@ -135,6 +136,17 @@ export async function optimizeImage(
     formats = ["webp", "avif", "jpg"],
     generateBlurPlaceholder: shouldGenerateBlur = true,
   } = config;
+
+  // Security: Validate that paths are within expected directories
+  const publicDir = path.join(process.cwd(), "public");
+
+  if (!isPathWithinBase(inputPath, publicDir)) {
+    throw new Error(`Input path ${inputPath} is outside public directory`);
+  }
+
+  if (!isPathWithinBase(outputDir, publicDir)) {
+    throw new Error(`Output path ${outputDir} is outside public directory`);
+  }
 
   // Ensure output directory exists
   await fs.mkdir(outputDir, { recursive: true });

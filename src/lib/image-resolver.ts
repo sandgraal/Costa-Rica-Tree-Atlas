@@ -9,6 +9,8 @@
 
 import path from "path";
 import fs from "fs";
+import { validateSlug } from "@/lib/validation/slug";
+import { safePath } from "@/lib/filesystem/safe-path";
 
 export interface OptimizedImageVariants {
   avif?: string;
@@ -26,16 +28,23 @@ export interface ImageResolution {
 
 /**
  * Get path to optimized image directory for a given slug
+ * Validates slug to prevent path traversal attacks
  */
-function getOptimizedDir(slug: string): string {
-  return path.join(
-    process.cwd(),
-    "public",
-    "images",
-    "trees",
-    "optimized",
-    slug
-  );
+function getOptimizedDir(slug: string): string | null {
+  // Validate slug for security
+  const validation = validateSlug(slug);
+  if (!validation.valid) {
+    console.error(`Invalid slug in getOptimizedDir: ${validation.error}`);
+    return null;
+  }
+
+  try {
+    const baseDir = path.join(process.cwd(), "public", "images", "trees");
+    return safePath(baseDir, "optimized", validation.sanitized!);
+  } catch (error) {
+    console.error(`Path traversal attempt detected: ${error}`);
+    return null;
+  }
 }
 
 /**
@@ -47,7 +56,7 @@ export function getOptimizedVariants(
 ): OptimizedImageVariants | null {
   const optimizedDir = getOptimizedDir(slug);
 
-  if (!fs.existsSync(optimizedDir)) {
+  if (!optimizedDir || !fs.existsSync(optimizedDir)) {
     return null;
   }
 
@@ -87,6 +96,25 @@ export function resolveImageSource(
   externalUrl?: string,
   imageType: "featured" | string = "featured"
 ): ImageResolution {
+  // Validate slug first
+  const slugValidation = validateSlug(slug);
+  if (!slugValidation.valid) {
+    console.error(
+      `Invalid slug in resolveImageSource: ${slugValidation.error}`
+    );
+    // Fallback to external URL or empty
+    if (externalUrl) {
+      return {
+        src: externalUrl,
+        type: "external",
+      };
+    }
+    return {
+      src: "",
+      type: "external",
+    };
+  }
+
   // Try optimized variants first
   const variants = getOptimizedVariants(slug, imageType);
 
@@ -104,19 +132,19 @@ export function resolveImageSource(
   }
 
   // Try local original image
-  const localPath = path.join(
-    process.cwd(),
-    "public",
-    "images",
-    "trees",
-    `${slug}.jpg`
-  );
-  if (fs.existsSync(localPath)) {
-    return {
-      src: `/images/trees/${slug}.jpg`,
-      type: "local",
-      fallback: externalUrl,
-    };
+  try {
+    const baseDir = path.join(process.cwd(), "public", "images", "trees");
+    const localPath = safePath(baseDir, `${slugValidation.sanitized!}.jpg`);
+
+    if (fs.existsSync(localPath)) {
+      return {
+        src: `/images/trees/${slugValidation.sanitized!}.jpg`,
+        type: "local",
+        fallback: externalUrl,
+      };
+    }
+  } catch (error) {
+    console.error(`Error checking local image: ${error}`);
   }
 
   // Fallback to external URL
@@ -140,7 +168,7 @@ export function resolveImageSource(
 export function generateSrcSet(slug: string): string | undefined {
   const optimizedDir = getOptimizedDir(slug);
 
-  if (!fs.existsSync(optimizedDir)) {
+  if (!optimizedDir || !fs.existsSync(optimizedDir)) {
     return undefined;
   }
 
@@ -152,10 +180,18 @@ export function generateSrcSet(slug: string): string | undefined {
     { width: 1600, file: "1600w.webp" },
   ];
 
+  // Validate slug for URL construction
+  const slugValidation = validateSlug(slug);
+  if (!slugValidation.valid) {
+    return undefined;
+  }
+
   for (const { width, file } of sizes) {
     const filePath = path.join(optimizedDir, file);
     if (fs.existsSync(filePath)) {
-      srcSetEntries.push(`/images/trees/optimized/${slug}/${file} ${width}w`);
+      srcSetEntries.push(
+        `/images/trees/optimized/${slugValidation.sanitized!}/${file} ${width}w`
+      );
     }
   }
 
