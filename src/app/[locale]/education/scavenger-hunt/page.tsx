@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
+import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
 import ScavengerHuntClient from "./ScavengerHuntClient";
 
 type Props = {
@@ -23,6 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ScavengerHuntPage({ params }: Props) {
+  return (
+    <Suspense fallback={<ScavengerHuntLoading />}>
+      <ScavengerHuntContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ScavengerHuntContent({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -45,4 +55,13 @@ export default async function ScavengerHuntPage({ params }: Props) {
     }));
 
   return <ScavengerHuntClient trees={trees} locale={locale} />;
+}
+
+function ScavengerHuntLoading() {
+  return (
+    <div className="container py-8">
+      <div className="h-12 bg-muted rounded w-64 mb-8 animate-pulse" />
+      <SkeletonGrid count={12} columns={4} />
+    </div>
+  );
 }

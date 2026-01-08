@@ -23,6 +23,7 @@ export function QuickSearch() {
   const [results, setResults] = useState<TreeSearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [allTrees, setAllTrees] = useState<TreeSearchResult[]>([]);
+  const [isLoadingTrees, setIsLoadingTrees] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -31,6 +32,7 @@ export function QuickSearch() {
   // Load trees on mount
   useEffect(() => {
     const loadTrees = async () => {
+      setIsLoadingTrees(true);
       try {
         // Use dynamic import to load trees
         const { allTrees: trees } = await import("contentlayer/generated");
@@ -64,6 +66,8 @@ export function QuickSearch() {
         setAllTrees(localeTrees);
       } catch (error) {
         console.error("Failed to load trees:", error);
+      } finally {
+        setIsLoadingTrees(false);
       }
     };
     loadTrees();
@@ -277,7 +281,16 @@ export function QuickSearch() {
             </div>
 
             {/* Results */}
-            {results.length > 0 ? (
+            {isLoadingTrees ? (
+              <div className="p-4">
+                <div className="h-12 bg-muted rounded animate-pulse mb-4" />
+                <div className="space-y-2">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <div key={i} className="h-16 bg-muted rounded animate-pulse" />
+                  ))}
+                </div>
+              </div>
+            ) : results.length > 0 ? (
               <ul className="py-2 max-h-96 overflow-auto">
                 {results.map((tree, index) => (
                   <li key={tree.slug}>
