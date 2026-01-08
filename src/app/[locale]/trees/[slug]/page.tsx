@@ -15,7 +15,7 @@ import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { SafeImage } from "@/components/SafeImage";
 import { ImageErrorBoundary } from "@/components/ImageErrorBoundary";
 import { resolveImageSource } from "@/lib/image/image-resolver";
-import { validateJsonLd } from "@/lib/validation/json-ld";
+import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
 
 // Dynamic imports for heavy below-fold components
 const DistributionMap = dynamic(
@@ -182,28 +182,37 @@ export default async function TreePage({ params }: Props) {
   };
 
   // Validate structured data before rendering
+  let validatedStructuredData = structuredData;
+  let validatedBreadcrumbData = breadcrumbData;
+
   const structuredDataValidation = validateJsonLd(structuredData);
   const breadcrumbDataValidation = validateJsonLd(breadcrumbData);
 
-  // Log validation errors
+  // If validation fails, attempt to sanitize
   if (!structuredDataValidation.valid) {
     console.error(
       "Invalid structured data JSON-LD:",
-      structuredDataValidation.error
+      structuredDataValidation.error,
+      structuredDataValidation.issues
     );
+    validatedStructuredData = sanitizeJsonLd(structuredData);
+    console.log("Sanitized structured data applied");
   }
   if (!breadcrumbDataValidation.valid) {
     console.error(
       "Invalid breadcrumb data JSON-LD:",
-      breadcrumbDataValidation.error
+      breadcrumbDataValidation.error,
+      breadcrumbDataValidation.issues
     );
+    validatedBreadcrumbData = sanitizeJsonLd(breadcrumbData);
+    console.log("Sanitized breadcrumb data applied");
   }
 
   return (
     <>
       <TrackView slug={tree.slug} />
-      {structuredDataValidation.valid && <SafeJsonLd data={structuredData} />}
-      {breadcrumbDataValidation.valid && <SafeJsonLd data={breadcrumbData} />}
+      <SafeJsonLd data={validatedStructuredData} />
+      <SafeJsonLd data={validatedBreadcrumbData} />
       <article className="py-12 px-4 tree-detail">
         <div className="container mx-auto max-w-4xl">
           {/* Breadcrumb and Actions */}
