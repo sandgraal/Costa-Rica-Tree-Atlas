@@ -1,3 +1,5 @@
+import { STORE_KEY } from "@/lib/store";
+
 /**
  * Generates inline script to prevent theme flash
  * This MUST run before first paint (blocking in <head>)
@@ -11,7 +13,7 @@ export function getThemeScript(): string {
   return `
 (function() {
   try {
-    var stored = localStorage.getItem('cr-tree-atlas');
+    var stored = localStorage.getItem('${STORE_KEY}');
     var theme = 'light';
     
     if (stored) {
