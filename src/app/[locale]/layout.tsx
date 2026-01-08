@@ -6,7 +6,11 @@ import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { StoreProvider, QueryProvider } from "@/components/providers";
+import {
+  StoreProvider,
+  QueryProvider,
+  ThemeSync,
+} from "@/components/providers";
 import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";
@@ -14,6 +18,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { getThemeScript } from "@/lib/theme/theme-script";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
@@ -115,8 +120,14 @@ export default async function LocaleLayout({ children, params }: Props) {
   const nonce = headersList.get("x-nonce") || undefined;
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale}>
       <head>
+        {/* Theme script - MUST be first to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{ __html: getThemeScript() }}
+          nonce={nonce}
+        />
+
         {/* Site-wide structured data */}
         <SafeJsonLd
           nonce={nonce}
@@ -185,6 +196,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <QueryProvider>
           <StoreProvider>
+            <ThemeSync />
             <NextIntlClientProvider messages={messages}>
               <a href="#main-content" className="skip-link">
                 Skip to main content
