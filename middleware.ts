@@ -33,12 +33,7 @@ export default async function middleware(request: NextRequest) {
     }
 
     // 3. Rate limiting check
-    const clientIP =
-      request.headers.get("x-forwarded-for")?.split(",")[0] ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
-
-    const rateLimitResult = await checkAuthRateLimit(`admin:${clientIP}`);
+    const rateLimitResult = await checkAuthRateLimit(request);
 
     if (!rateLimitResult.success) {
       const retryAfter = Math.ceil((rateLimitResult.reset - Date.now()) / 1000);
