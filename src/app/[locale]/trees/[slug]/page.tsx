@@ -182,8 +182,8 @@ export default async function TreePage({ params }: Props) {
   };
 
   // Validate structured data before rendering
-  let validatedStructuredData = structuredData;
-  let validatedBreadcrumbData = breadcrumbData;
+  let validatedStructuredData: typeof structuredData = structuredData;
+  let validatedBreadcrumbData: typeof breadcrumbData = breadcrumbData;
 
   const structuredDataValidation = validateJsonLd(structuredData);
   const breadcrumbDataValidation = validateJsonLd(breadcrumbData);
@@ -195,7 +195,9 @@ export default async function TreePage({ params }: Props) {
       structuredDataValidation.error,
       structuredDataValidation.issues
     );
-    validatedStructuredData = sanitizeJsonLd(structuredData);
+    validatedStructuredData = sanitizeJsonLd(
+      structuredData
+    ) as typeof structuredData;
     console.log("Sanitized structured data applied");
   }
   if (!breadcrumbDataValidation.valid) {
@@ -204,7 +206,9 @@ export default async function TreePage({ params }: Props) {
       breadcrumbDataValidation.error,
       breadcrumbDataValidation.issues
     );
-    validatedBreadcrumbData = sanitizeJsonLd(breadcrumbData);
+    validatedBreadcrumbData = sanitizeJsonLd(
+      breadcrumbData
+    ) as typeof breadcrumbData;
     console.log("Sanitized breadcrumb data applied");
   }
 

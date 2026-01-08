@@ -443,8 +443,8 @@ function ConservationLessonContent({
     dispatch({ type: "TOGGLE_ACTION", payload: actionId });
     // Trigger confetti when selecting 3rd action
     if (
-      !state.state.selectedActions.includes(actionId) &&
-      state.state.selectedActions.length === 2
+      !state.selectedActions.includes(actionId) &&
+      state.selectedActions.length === 2
     ) {
       triggerConfetti();
     }
@@ -487,11 +487,9 @@ function ConservationLessonContent({
   };
 
   const canProceed = () => {
-    if (state.state.currentStep === 1)
-      return state.state.selectedThreats.length >= 3;
-    if (state.state.currentStep === 3)
-      return state.state.selectedActions.length >= 3;
-    if (state.state.currentStep === 4) return state.pledge.signed;
+    if (state.currentStep === 1) return state.selectedThreats.length >= 3;
+    if (state.currentStep === 3) return state.selectedActions.length >= 3;
+    if (state.currentStep === 4) return state.pledge.signed;
     return true;
   };
 
@@ -522,7 +520,7 @@ function ConservationLessonContent({
             </div>
             <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/20">
               <div className="text-5xl font-bold text-blue-600 mb-2">
-                {state.state.selectedActions.length}
+                {state.selectedActions.length}
               </div>
               <div className="text-muted-foreground">
                 {locale === "es" ? "Acciones Prometidas" : "Actions Pledged"}
@@ -551,22 +549,22 @@ function ConservationLessonContent({
               <h3 className="font-semibold mb-4 flex items-center justify-center gap-2">
                 <span>🌳</span> {t.yourAdoptedTree}
               </h3>
-              {adoptedTree.featuredImage && (
+              {state.adoptedTree.featuredImage && (
                 <div className="aspect-video relative rounded-xl overflow-hidden mb-4">
                   <Image
-                    src={adoptedTree.featuredImage}
-                    alt={adoptedTree.title}
+                    src={state.adoptedTree.featuredImage}
+                    alt={state.adoptedTree.title}
                     fill
                     className="object-cover"
                   />
                 </div>
               )}
-              <div className="font-medium">{adoptedTree.title}</div>
+              <div className="font-medium">{state.adoptedTree.title}</div>
               <div className="text-sm text-muted-foreground italic">
-                {adoptedTree.scientificName}
+                {state.adoptedTree.scientificName}
               </div>
               <Link
-                href={`/trees/${adoptedTree.slug}`}
+                href={`/trees/${state.adoptedTree.slug}`}
                 className="inline-block mt-3 text-primary hover:underline text-sm"
               >
                 {locale === "es" ? "Ver en el Atlas →" : "View in Atlas →"}
@@ -937,7 +935,7 @@ function ConservationLessonContent({
                 <div className="text-6xl mb-4">📜</div>
                 <p className="text-lg font-medium mb-4">{t.pledgeText}</p>
 
-                {!pledgeSigned ? (
+                {!state.pledge.signed ? (
                   <div className="space-y-4">
                     <input
                       type="text"
@@ -975,46 +973,50 @@ function ConservationLessonContent({
               </div>
 
               {/* Adopt a Tree */}
-              {pledgeSigned && !adoptedTree && endangeredTrees.length > 0 && (
-                <div className="bg-card rounded-xl p-4 border border-border">
-                  <h3 className="font-semibold mb-3 text-center">
-                    {t.adoptTree}
-                  </h3>
-                  <div className="grid grid-cols-3 gap-2">
-                    {endangeredTrees.slice(0, 6).map((tree) => (
-                      <button
-                        key={tree.slug}
-                        onClick={() => {
-                          setAdoptedTree(tree);
-                          setTotalPoints((prev) => prev + 25);
-                        }}
-                        className="p-2 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-all"
-                      >
-                        {tree.featuredImage && (
-                          <div className="aspect-square relative rounded-lg overflow-hidden mb-1">
-                            <Image
-                              src={tree.featuredImage}
-                              alt={tree.title}
-                              fill
-                              sizes="80px"
-                              className="object-cover"
-                            />
+              {state.pledge.signed &&
+                !state.adoptedTree &&
+                endangeredTrees.length > 0 && (
+                  <div className="bg-card rounded-xl p-4 border border-border">
+                    <h3 className="font-semibold mb-3 text-center">
+                      {t.adoptTree}
+                    </h3>
+                    <div className="grid grid-cols-3 gap-2">
+                      {endangeredTrees.slice(0, 6).map((tree) => (
+                        <button
+                          key={tree.slug}
+                          onClick={() => {
+                            dispatch({ type: "ADOPT_TREE", payload: tree });
+                            dispatch({ type: "ADD_POINTS", payload: 25 });
+                          }}
+                          className="p-2 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-all"
+                        >
+                          {tree.featuredImage && (
+                            <div className="aspect-square relative rounded-lg overflow-hidden mb-1">
+                              <Image
+                                src={tree.featuredImage}
+                                alt={tree.title}
+                                fill
+                                sizes="80px"
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="text-xs font-medium truncate">
+                            {tree.title}
                           </div>
-                        )}
-                        <div className="text-xs font-medium truncate">
-                          {tree.title}
-                        </div>
-                      </button>
-                    ))}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {adoptedTree && (
+              {state.adoptedTree && (
                 <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/20 text-center animate-bounce-in">
                   <div className="text-2xl mb-2">🌳</div>
                   <p className="font-medium">{t.yourAdoptedTree}:</p>
-                  <p className="text-primary font-bold">{adoptedTree.title}</p>
+                  <p className="text-primary font-bold">
+                    {state.adoptedTree.title}
+                  </p>
                 </div>
               )}
             </div>

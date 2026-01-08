@@ -40,23 +40,6 @@ export default function FieldTripClient({
 
   const families = [...new Set(trees.map((t) => t.family))].sort();
 
-  // Create storage instance with error handling
-  const fieldTripStorage = useMemo(
-    () =>
-      createStorage({
-        key: FIELD_TRIP_STORAGE_KEY,
-        schema: fieldTripDataSchema,
-        onError: (error) => {
-          setStorageError(
-            locale === "es"
-              ? "Se detectaron datos corruptos y fueron eliminados"
-              : "Corrupted data was detected and cleared"
-          );
-        },
-      }),
-    [locale]
-  );
-
   // Load saved data
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -89,7 +72,7 @@ export default function FieldTripClient({
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
-  }, [fieldTripStorage]);
+  }, [dispatch]);
 
   // Save data
   useEffect(() => {
@@ -174,10 +157,10 @@ export default function FieldTripClient({
   };
 
   const handleStartTrip = () => {
-    if (state.setup.state.setup.tripName.trim()) {
+    if (state.setup.tripName.trim()) {
       dispatch({
         type: "START_TRIP",
-        payload: state.setup.state.setup.tripName,
+        payload: state.setup.tripName,
       });
     }
   };
@@ -230,12 +213,12 @@ export default function FieldTripClient({
   };
 
   const handleSaveNote = () => {
-    if (state.modal.state.modal.selectedTree) {
+    if (state.modal.selectedTree) {
       dispatch({
         type: "UPDATE_NOTE",
         payload: {
-          slug: state.modal.state.modal.selectedTree.slug,
-          note: state.modal.state.modal.noteInput,
+          slug: state.modal.selectedTree.slug,
+          note: state.modal.noteInput,
         },
       });
     }
@@ -282,17 +265,15 @@ export default function FieldTripClient({
   // Filter trees
   const filteredTrees = trees.filter((tree) => {
     const matchesSearch =
-      tree.title
-        .toLowerCase()
-        .includes(state.ui.state.ui.searchQuery.toLowerCase()) ||
+      tree.title.toLowerCase().includes(state.ui.searchQuery.toLowerCase()) ||
       tree.scientificName
         .toLowerCase()
-        .includes(state.ui.state.ui.searchQuery.toLowerCase());
+        .includes(state.ui.searchQuery.toLowerCase());
     const matchesFamily =
-      state.ui.state.ui.selectedFamily === "all" ||
-      tree.family === state.ui.state.ui.selectedFamily;
+      state.ui.selectedFamily === "all" ||
+      tree.family === state.ui.selectedFamily;
     const matchesSpotted =
-      !state.ui.state.ui.showOnlySpotted ||
+      !state.ui.showOnlySpotted ||
       state.spottedTrees.some((s) => s.slug === tree.slug);
     return matchesSearch && matchesFamily && matchesSpotted;
   });
@@ -305,21 +286,6 @@ export default function FieldTripClient({
 
   return (
     <div className="min-h-screen">
-      {/* Storage Error Alert */}
-      {storageError && (
-        <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-700 dark:text-yellow-400 px-4 py-3 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-lg shadow-lg max-w-md">
-          <div className="flex items-center justify-between gap-4">
-            <p className="text-sm">{storageError}</p>
-            <button
-              onClick={() => setStorageError(null)}
-              className="text-sm underline hover:no-underline"
-            >
-              {locale === "es" ? "Cerrar" : "Dismiss"}
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Header */}
       <div className="bg-gradient-to-b from-green-600 to-green-700 text-white py-8 px-4">
         <div className="container mx-auto max-w-4xl">
@@ -484,7 +450,7 @@ export default function FieldTripClient({
               <input
                 type="checkbox"
                 checked={state.ui.showOnlySpotted}
-                onChange={(e) => dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" })}
+                onChange={() => dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" })}
                 className="w-5 h-5 rounded"
               />
               <span className="text-sm">{t.showSpotted}</span>
@@ -673,9 +639,11 @@ export default function FieldTripClient({
             </label>
             <div className="flex gap-3">
               <button
-                onClick={() =>
-                  handleRemoveSpotted(state.modal.selectedTree.slug)
-                }
+                onClick={() => {
+                  if (state.modal.selectedTree) {
+                    handleRemoveSpotted(state.modal.selectedTree.slug);
+                  }
+                }}
                 className="px-4 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20"
               >
                 {t.removeSpotted}
@@ -683,11 +651,7 @@ export default function FieldTripClient({
               <div className="flex-1" />
               <button
                 onClick={() => {
-                  dispatch({
-                    type: "OPEN_NOTE_MODAL",
-                    payload: { tree: null, currentNote: "" },
-                  });
-                  dispatch({ type: "SET_NOTE_INPUT", payload: "" });
+                  dispatch({ type: "CLOSE_NOTE_MODAL" });
                 }}
                 className="px-4 py-2 bg-muted rounded-xl hover:bg-muted/80"
               >
