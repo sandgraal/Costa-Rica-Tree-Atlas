@@ -5,6 +5,7 @@ import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
 import { createStorage, adoptedTreeSchema } from "@/lib/storage";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface Tree {
   title: string;
@@ -192,6 +193,9 @@ export default function TreeJournalClient({
   const [promptIndex, setPromptIndex] = useState(0);
   const [storageError, setStorageError] = useState<string | null>(null);
 
+  // Debounce search query
+  const debouncedSearch = useDebounce(searchQuery, 300);
+
   // Create storage instance with error handling
   const journalStorage = useMemo(
     () =>
@@ -335,10 +339,11 @@ export default function TreeJournalClient({
   const selectedTree = trees.find((t) => t.slug === selectedTreeSlug);
   const adoptedTreeData = trees.find((t) => t.slug === adoptedTree?.slug);
 
+  // Filter trees using debounced search
   const filteredTrees = trees.filter(
     (tree) =>
-      tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tree.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
+      tree.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+      tree.scientificName.toLowerCase().includes(debouncedSearch.toLowerCase())
   );
 
   const checkBadges = useCallback((tree: AdoptedTree): string[] => {

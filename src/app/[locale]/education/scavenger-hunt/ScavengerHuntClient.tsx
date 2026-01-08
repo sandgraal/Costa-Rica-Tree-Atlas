@@ -5,6 +5,7 @@ import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
 import { createStorage, huntSessionSchema } from "@/lib/storage";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface Tree {
   title: string;
@@ -430,6 +431,9 @@ export default function ScavengerHuntClient({
   const [showHint, setShowHint] = useState(false);
   const [missionTimer, setMissionTimer] = useState<number | null>(null);
   const [storageError, setStorageError] = useState<string | null>(null);
+
+  // Debounce search query
+  const debouncedSearch = useDebounce(searchQuery, 300);
 
   // Setup state
   const [teamCount, setTeamCount] = useState(2);
@@ -1074,8 +1078,10 @@ export default function ScavengerHuntClient({
     const validTrees = selectedMission.validator(trees);
     const filteredTrees = trees.filter(
       (tree) =>
-        tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tree.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
+        tree.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        tree.scientificName
+          .toLowerCase()
+          .includes(debouncedSearch.toLowerCase())
     );
 
     return (

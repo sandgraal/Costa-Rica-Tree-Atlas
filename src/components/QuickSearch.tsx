@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface TreeSearchResult {
   slug: string;
@@ -27,6 +28,9 @@ export function QuickSearch() {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const locale = useLocale();
+
+  // Debounce search query - only search after user stops typing
+  const debouncedQuery = useDebounce(query, 300);
 
   // Load trees on mount
   useEffect(() => {
@@ -143,17 +147,17 @@ export function QuickSearch() {
       .map((item) => item.tree);
   };
 
-  // Filter results when query changes
+  // Search trees only when debounced query changes
   useEffect(() => {
-    if (!query.trim()) {
+    if (!debouncedQuery.trim()) {
       setResults([]);
       return;
     }
 
-    const filtered = searchTrees(query, allTrees).slice(0, 8); // Increased to 8 results
+    const filtered = searchTrees(debouncedQuery, allTrees).slice(0, 8); // Increased to 8 results
     setResults(filtered);
     setSelectedIndex(0);
-  }, [query, allTrees]);
+  }, [debouncedQuery, allTrees]);
 
   // Handle keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {
