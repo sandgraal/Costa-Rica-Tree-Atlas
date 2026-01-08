@@ -114,8 +114,12 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
   // Auto-update student progress in classroom
   useEffect(() => {
-    if (classroom && studentInfo) {
-      const updatedStudents = classroom.students.map((s) =>
+    if (!studentInfo?.name) return;
+
+    setClassroom((prev) => {
+      if (!prev) return prev;
+
+      const updatedStudents = prev.students.map((s) =>
         s.name === studentInfo.name
           ? {
               ...s,
@@ -126,12 +130,15 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
             }
           : s
       );
-      const updatedClassroom = { ...classroom, students: updatedStudents };
-      setClassroom(updatedClassroom);
-      classroomStorage.set(updatedClassroom);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPoints, completedLessons, earnedBadgeIcons.length, classroomStorage]);
+
+      const updatedClassroom = { ...prev, students: updatedStudents };
+      localStorage.setItem(
+        CLASSROOM_STORAGE_KEY,
+        JSON.stringify(updatedClassroom)
+      );
+      return updatedClassroom;
+    });
+  }, [studentInfo?.name, totalPoints, completedLessons, earnedBadgeIcons]);
 
   const t = {
     createClassroom: locale === "es" ? "Crear Aula" : "Create Classroom",
