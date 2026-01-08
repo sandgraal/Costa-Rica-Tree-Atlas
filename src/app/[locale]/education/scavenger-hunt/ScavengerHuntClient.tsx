@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
+import { createStorage, huntSessionSchema } from "@/lib/storage";
 
 interface Tree {
   title: string;
@@ -428,6 +429,7 @@ export default function ScavengerHuntClient({
   const [_missionAnswer, setMissionAnswer] = useState<string>("");
   const [showHint, setShowHint] = useState(false);
   const [missionTimer, setMissionTimer] = useState<number | null>(null);
+  const [storageError, setStorageError] = useState<string | null>(null);
 
   // Setup state
   const [teamCount, setTeamCount] = useState(2);
@@ -439,6 +441,23 @@ export default function ScavengerHuntClient({
   const [missionCount, setMissionCount] = useState(5);
   const [newMemberName, setNewMemberName] = useState("");
   const [editingTeam, setEditingTeam] = useState<number | null>(null);
+
+  // Create storage instance with error handling
+  const huntStorage = useMemo(
+    () =>
+      createStorage({
+        key: STORAGE_KEY,
+        schema: huntSessionSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos y fueron eliminados"
+              : "Corrupted data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   const t = {
     title: locale === "es" ? "Búsqueda del Tesoro 🗺️" : "Scavenger Hunt 🗺️",
@@ -500,28 +519,19 @@ export default function ScavengerHuntClient({
     injectEducationStyles();
     if (typeof window === "undefined") return;
 
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const data = JSON.parse(saved);
-        setSession(data);
-        setView("hunt");
-      }
-    } catch (e) {
-      console.error("Failed to load session:", e);
+    const data = huntStorage.get();
+    if (data) {
+      setSession(data);
+      setView("hunt");
     }
-  }, []);
+  }, [huntStorage]);
 
   // Save session
   useEffect(() => {
     if (session) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
-      } catch (e) {
-        console.error("Failed to save session:", e);
-      }
+      huntStorage.set(session);
     }
-  }, [session]);
+  }, [session, huntStorage]);
 
   // Mission timer
   useEffect(() => {
@@ -702,11 +712,7 @@ export default function ScavengerHuntClient({
   };
 
   const resetHunt = () => {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {
-      console.error("Failed to clear hunt data:", e);
-    }
+    huntStorage.clear();
     setSession(null);
     setSelectedMission(null);
     setTeamNames(["", ""]);
@@ -724,6 +730,21 @@ export default function ScavengerHuntClient({
   if (view === "setup") {
     return (
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-amber-50/50 to-background dark:from-amber-950/20">
+        {/* Storage Error Alert */}
+        {storageError && (
+          <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-700 dark:text-yellow-400 px-4 py-3 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-lg shadow-lg max-w-md">
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-sm">{storageError}</p>
+              <button
+                onClick={() => setStorageError(null)}
+                className="text-sm underline hover:no-underline"
+              >
+                {locale === "es" ? "Cerrar" : "Dismiss"}
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="container mx-auto max-w-4xl">
           <Link
             href="/education"

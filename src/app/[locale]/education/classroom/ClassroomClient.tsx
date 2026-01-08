@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
+import { createStorage, classroomSchema, studentInfoSchema } from "@/lib/storage";
 
 interface ClassroomClientProps {
   locale: string;
@@ -57,29 +58,59 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
   });
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [storageError, setStorageError] = useState<string | null>(null);
 
   const badges = getBadges();
   const earnedBadgeIcons = badges.filter((b) => b.earned).map((b) => b.icon);
+
+  // Create storage instances with error handling
+  const classroomStorage = useMemo(
+    () =>
+      createStorage({
+        key: CLASSROOM_STORAGE_KEY,
+        schema: classroomSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos del aula y fueron eliminados"
+              : "Corrupted classroom data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
+
+  const studentInfoStorage = useMemo(
+    () =>
+      createStorage({
+        key: STUDENT_STORAGE_KEY,
+        schema: studentInfoSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos del estudiante y fueron eliminados"
+              : "Corrupted student data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   // Load saved data on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    try {
-      const savedClassroom = localStorage.getItem(CLASSROOM_STORAGE_KEY);
-      const savedStudent = localStorage.getItem(STUDENT_STORAGE_KEY);
+    const savedClassroom = classroomStorage.get();
+    const savedStudent = studentInfoStorage.get();
 
-      if (savedClassroom) {
-        setClassroom(JSON.parse(savedClassroom));
-        setMode("classroom");
-      }
-      if (savedStudent) {
-        setStudentInfo(JSON.parse(savedStudent));
-      }
-    } catch (e) {
-      console.error("Failed to parse classroom data:", e);
+    if (savedClassroom) {
+      setClassroom(savedClassroom);
+      setMode("classroom");
     }
-  }, []);
+    if (savedStudent) {
+      setStudentInfo(savedStudent);
+    }
+  }, [classroomStorage, studentInfoStorage]);
 
   // Auto-update student progress in classroom
   useEffect(() => {
@@ -97,13 +128,10 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       );
       const updatedClassroom = { ...classroom, students: updatedStudents };
       setClassroom(updatedClassroom);
-      localStorage.setItem(
-        CLASSROOM_STORAGE_KEY,
-        JSON.stringify(updatedClassroom)
-      );
+      classroomStorage.set(updatedClassroom);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPoints, completedLessons, earnedBadgeIcons.length]);
+  }, [totalPoints, completedLessons, earnedBadgeIcons.length, classroomStorage]);
 
   const t = {
     createClassroom: locale === "es" ? "Crear Aula" : "Create Classroom",
@@ -183,11 +211,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     };
 
     setClassroom(newClassroom);
-    try {
-      localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(newClassroom));
-    } catch (e) {
-      console.error("Failed to save classroom:", e);
-    }
+    classroomStorage.set(newClassroom);
     setMode("classroom");
     setError("");
   };
@@ -200,66 +224,47 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
     // In a real app, this would validate against a server
     // For demo, we'll create/join a local classroom
-    let existingClassroom: string | null = null;
-    try {
-      existingClassroom = localStorage.getItem(CLASSROOM_STORAGE_KEY);
-    } catch (e) {
-      console.error("Failed to read classroom data:", e);
-    }
+    const existingClassroom = classroomStorage.get();
 
     if (existingClassroom) {
-      try {
-        const parsed: Classroom = JSON.parse(existingClassroom);
-        if (
-          parsed.code.toUpperCase() === formData.classroomCode.toUpperCase()
-        ) {
-          // Check if student already exists
-          const existingStudent = parsed.students.find(
-            (s) => s.name.toLowerCase() === formData.studentName.toLowerCase()
-          );
+      if (
+        existingClassroom.code.toUpperCase() ===
+        formData.classroomCode.toUpperCase()
+      ) {
+        // Check if student already exists
+        const existingStudent = existingClassroom.students.find(
+          (s) => s.name.toLowerCase() === formData.studentName.toLowerCase()
+        );
 
-          if (!existingStudent) {
-            const newStudent: Student = {
-              id: Date.now().toString(),
-              name: formData.studentName,
-              points: totalPoints,
-              lessonsCompleted: completedLessons,
-              badges: earnedBadgeIcons,
-              lastActive: new Date().toISOString(),
-            };
-            parsed.students.push(newStudent);
-            try {
-              localStorage.setItem(
-                CLASSROOM_STORAGE_KEY,
-                JSON.stringify(parsed)
-              );
-            } catch (e) {
-              console.error("Failed to save classroom:", e);
-            }
-          }
-
-          setClassroom(parsed);
-          setStudentInfo({
+        if (!existingStudent) {
+          const newStudent: Student = {
+            id: Date.now().toString(),
             name: formData.studentName,
-            classroomCode: parsed.code,
-          });
-          try {
-            localStorage.setItem(
-              STUDENT_STORAGE_KEY,
-              JSON.stringify({
-                name: formData.studentName,
-                classroomCode: parsed.code,
-              })
-            );
-          } catch (e) {
-            console.error("Failed to save student info:", e);
-          }
-          setMode("classroom");
-          setError("");
-          return;
+            points: totalPoints,
+            lessonsCompleted: completedLessons,
+            badges: earnedBadgeIcons,
+            lastActive: new Date().toISOString(),
+          };
+          // Create a new object reference to avoid mutation issues
+          const updatedClassroom = {
+            ...existingClassroom,
+            students: [...existingClassroom.students, newStudent],
+          };
+          classroomStorage.set(updatedClassroom);
+          setClassroom(updatedClassroom);
+        } else {
+          setClassroom(existingClassroom);
         }
-      } catch (e) {
-        console.error("Failed to parse classroom data:", e);
+
+        const studentData = {
+          name: formData.studentName,
+          classroomCode: existingClassroom.code,
+        };
+        setStudentInfo(studentData);
+        studentInfoStorage.set(studentData);
+        setMode("classroom");
+        setError("");
+        return;
       }
     }
 
@@ -283,22 +288,13 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     };
 
     setClassroom(newClassroom);
-    setStudentInfo({
+    const studentData = {
       name: formData.studentName,
       classroomCode: newClassroom.code,
-    });
-    try {
-      localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(newClassroom));
-      localStorage.setItem(
-        STUDENT_STORAGE_KEY,
-        JSON.stringify({
-          name: formData.studentName,
-          classroomCode: newClassroom.code,
-        })
-      );
-    } catch (e) {
-      console.error("Failed to save classroom data:", e);
-    }
+    };
+    setStudentInfo(studentData);
+    classroomStorage.set(newClassroom);
+    studentInfoStorage.set(studentData);
     setMode("classroom");
     setError("");
   };
@@ -314,12 +310,8 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
   };
 
   const handleLeaveClassroom = () => {
-    try {
-      localStorage.removeItem(CLASSROOM_STORAGE_KEY);
-      localStorage.removeItem(STUDENT_STORAGE_KEY);
-    } catch (e) {
-      console.error("Failed to clear classroom data:", e);
-    }
+    classroomStorage.clear();
+    studentInfoStorage.clear();
     setClassroom(null);
     setStudentInfo(null);
     setMode("select");
