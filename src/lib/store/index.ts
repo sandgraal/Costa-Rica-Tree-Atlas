@@ -91,35 +91,14 @@ export const useStore = create<StoreState>()(
         set({ theme });
 
         // Update DOM immediately
-        if (typeof document === "undefined") return;
-
-        let resolved: ResolvedTheme;
-        if (theme === "system") {
-          resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
-        } else {
-          resolved = theme;
-        }
-
-        document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(resolved);
-        document.documentElement.setAttribute("data-theme", resolved);
-        document.documentElement.style.colorScheme = resolved;
-
-        set({ resolvedTheme: resolved });
+        updateThemeDOM(theme, get, set);
       },
 
       setResolvedTheme: (resolved) => {
         set({ resolvedTheme: resolved });
 
         // Update DOM
-        if (typeof document !== "undefined") {
-          document.documentElement.classList.remove("light", "dark");
-          document.documentElement.classList.add(resolved);
-          document.documentElement.setAttribute("data-theme", resolved);
-          document.documentElement.style.colorScheme = resolved;
-        }
+        applyThemeToDOM(resolved);
       },
 
       // Favorites
@@ -279,7 +258,11 @@ function applyThemeToDOM(resolved: ResolvedTheme) {
  * Update theme in DOM based on theme setting
  * Resolves 'system' to actual theme and applies to DOM
  */
-function updateThemeDOM(theme: Theme, get: () => StoreState) {
+function updateThemeDOM(
+  theme: Theme,
+  get: () => StoreState,
+  set: (partial: Partial<StoreState>) => void
+) {
   if (typeof document === "undefined") return;
 
   let resolved: ResolvedTheme;
@@ -294,10 +277,7 @@ function updateThemeDOM(theme: Theme, get: () => StoreState) {
   applyThemeToDOM(resolved);
 
   // Update resolved theme in store
-  const currentState = get();
-  if (currentState.resolvedTheme !== resolved) {
-    currentState.resolvedTheme = resolved;
-  }
+  set({ resolvedTheme: resolved });
 }
 
 // ============================================================================
@@ -310,6 +290,10 @@ export function useFavorite(slug: string) {
   return { isFavorite, toggle: () => toggleFavorite(slug) };
 }
 
+/**
+ * @deprecated Use the ThemeSync component instead
+ * This hook is kept for backward compatibility but is no longer used internally
+ */
 export function useThemeSync() {
   const theme = useStore((state) => state.theme);
   const setResolvedTheme = useStore((state) => state.setResolvedTheme);

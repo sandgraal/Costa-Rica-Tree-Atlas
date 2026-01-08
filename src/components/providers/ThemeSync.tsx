@@ -17,9 +17,7 @@ export function ThemeSync() {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      const resolved = ("matches" in e ? e.matches : mediaQuery.matches)
-        ? "dark"
-        : "light";
+      const resolved = e.matches ? "dark" : "light";
       setResolvedTheme(resolved);
     };
 
