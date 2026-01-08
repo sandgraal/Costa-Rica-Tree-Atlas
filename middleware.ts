@@ -2,7 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { checkAuthRateLimit } from "@/lib/auth/rate-limit";
+import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
 import { secureCompare } from "@/lib/auth/secure-compare";
 import { serverEnv } from "@/lib/env/schema";
 import { generateNonce, buildCSP } from "@/lib/security/csp";
@@ -33,21 +33,18 @@ export default async function middleware(request: NextRequest) {
     // With validation, these can never be undefined
 
     // 3. Rate limiting check
-    const rateLimitResult = await checkAuthRateLimit(request);
+    const rateLimitResult = await constantTimeRateLimitCheck(request);
 
-    if (!rateLimitResult.success) {
-      const retryAfter = Math.ceil((rateLimitResult.reset - Date.now()) / 1000);
-      return new NextResponse(
-        "Too many login attempts. Please try again later.",
-        {
-          status: 429,
-          headers: {
-            "Retry-After": retryAfter.toString(),
-            "X-RateLimit-Remaining": "0",
-            "Content-Type": "text/plain",
-          },
-        }
-      );
+    if (!rateLimitResult.allowed) {
+      // Rate limit exceeded - return generic error
+      return new NextResponse("Too many requests. Please try again later.", {
+        status: 429,
+        headers: {
+          "Retry-After": rateLimitResult.retryAfter.toString(),
+          "Content-Type": "text/plain",
+          // NO X-RateLimit-Remaining header!
+        },
+      });
     }
 
     // 4. Check authentication
@@ -64,11 +61,16 @@ export default async function middleware(request: NextRequest) {
             const user = decoded.substring(0, colonIndex);
             const pwd = decoded.substring(colonIndex + 1);
 
-            // Use constant-time comparison to prevent timing attacks
+            // CRITICAL: Check BOTH credentials ALWAYS, regardless of individual results
+            // This prevents timing attacks and username enumeration
             const userValid = secureCompare(user, adminUsername);
             const pwdValid = secureCompare(pwd, adminPassword);
 
-            if (userValid && pwdValid) {
+            // IMPORTANT: Both comparisons above are evaluated before this check
+            // This ensures consistent timing regardless of which credential is wrong
+            const isAuthenticated = userValid && pwdValid;
+
+            if (isAuthenticated) {
               // Authentication successful
               const response = intlMiddleware(request);
 
@@ -89,13 +91,14 @@ export default async function middleware(request: NextRequest) {
       }
     }
 
-    // 5. Authentication failed - generic error message
+    // 5. Authentication failed - return GENERIC error with NO details
+    // Do NOT include rate limit remaining in the response (prevents enumeration)
     return new NextResponse("Authentication required", {
       status: 401,
       headers: {
         "WWW-Authenticate": 'Basic realm="Admin Area"',
         "Content-Type": "text/plain",
-        "X-RateLimit-Remaining": rateLimitResult.remaining.toString(),
+        // DO NOT include X-RateLimit-Remaining here!
       },
     });
   }
