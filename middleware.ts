@@ -1,142 +1,70 @@
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
-import { secureCompare } from "@/lib/auth/secure-compare";
-import { serverEnv } from "@/lib/env/schema";
-import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-const intlMiddleware = createMiddleware(routing);
+const adminUsername = process.env.ADMIN_USERNAME || '';
+const adminPassword = process.env.ADMIN_PASSWORD || '';
 
-// Build regex pattern from routing.locales for consistent locale matching
-const localePattern = routing.locales.join("|");
+async function secureCompare(a: string, b: string): Promise<boolean> {
+  if (a.length !== b.length) {
+    return false;
+  }
+  
+  let mismatch = 0;
+  for (let i = 0; i < a.length; i++) {
+    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  
+  // Add a small delay to make timing attacks harder
+  await new Promise(resolve => setTimeout(resolve, 10));
+  
+  return mismatch === 0;
+}
 
-export default async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+export async function middleware(request: NextRequest) {
+  // Only protect /admin routes
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const authHeader = request.headers.get('authorization');
 
-  // Generate nonce for this request
-  const nonce = generateNonce();
-
-  // Check if this is an admin route
-  // Note: Locale pattern matches routing.locales from i18n/routing.ts
-  if (pathname.match(new RegExp(`^/(${localePattern})/admin/`))) {
-    // 1. HTTPS enforcement in production
-    if (
-      process.env.NODE_ENV === "production" &&
-      request.headers.get("x-forwarded-proto") !== "https"
-    ) {
-      return new NextResponse("HTTPS required", { status: 403 });
-    }
-
-    // 2. Check if admin is configured
-    const adminPassword = serverEnv.ADMIN_PASSWORD;
-    const adminUsername = serverEnv.ADMIN_USERNAME;
-
-    // If admin password is not configured, return 404 to hide admin routes
-    if (!adminPassword) {
-      return new NextResponse("Not Found", { status: 404 });
-    }
-
-    // 3. Rate limiting check
-    const rateLimitResult = await constantTimeRateLimitCheck(request);
-
-    if (!rateLimitResult.allowed) {
-      // Rate limit exceeded - return generic error
-      return new NextResponse("Too many requests. Please try again later.", {
-        status: 429,
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+      return new NextResponse('Authentication required', {
+        status: 401,
         headers: {
-          "Retry-After": rateLimitResult.retryAfter.toString(),
-          "Content-Type": "text/plain",
-          // NO X-RateLimit-Remaining header!
+          'WWW-Authenticate': 'Basic realm="Admin Area"',
         },
       });
     }
 
-    // 4. Check authentication
-    const basicAuth = request.headers.get("authorization");
+    try {
+      // Decode the base64 credentials
+      const base64Credentials = authHeader.split(' ')[1];
+      const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
+      const [user, pwd] = credentials.split(':');
 
-    if (basicAuth) {
-      const authValue = basicAuth.split(" ")[1];
-      if (authValue) {
-        try {
-          const decoded = atob(authValue);
-          const colonIndex = decoded.indexOf(":");
+      // Use timing-safe comparison
+      const userValid = await secureCompare(user, adminUsername);
+      const pwdValid = await secureCompare(pwd, adminPassword);
 
-          if (colonIndex !== -1) {
-            const user = decoded.substring(0, colonIndex);
-            const pwd = decoded.substring(colonIndex + 1);
-
-            // CRITICAL: Check BOTH credentials ALWAYS, regardless of individual results
-            // This prevents timing attacks and username enumeration
-            const userValid = secureCompare(user, adminUsername);
-            const pwdValid = secureCompare(pwd, adminPassword);
-
-            // IMPORTANT: Both comparisons above are evaluated before this check
-            // This ensures consistent timing regardless of which credential is wrong
-            const isAuthenticated = userValid && pwdValid;
-
-            if (isAuthenticated) {
-              // Authentication successful
-              const response = intlMiddleware(request);
-
-              // Add security headers
-              const csp = buildCSP(nonce);
-              response.headers.set("Content-Security-Policy", csp);
-              response.headers.set("X-Content-Type-Options", "nosniff");
-              response.headers.set("X-Frame-Options", "SAMEORIGIN");
-              response.headers.set("X-Nonce", nonce);
-
-              return response;
-            }
-          }
-        } catch (error) {
-          // Invalid base64 or malformed auth header
-          console.error("Auth parsing error:", error);
-        }
+      if (!userValid || !pwdValid) {
+        return new NextResponse('Invalid credentials', {
+          status: 401,
+          headers: {
+            'WWW-Authenticate': 'Basic realm="Admin Area"',
+          },
+        });
       }
+    } catch (error) {
+      return new NextResponse('Invalid credentials', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Admin Area"',
+        },
+      });
     }
-
-    // 5. Authentication failed - return GENERIC error with NO details
-    // Do NOT include rate limit remaining in the response (prevents enumeration)
-    return new NextResponse("Authentication required", {
-      status: 401,
-      headers: {
-        "WWW-Authenticate": 'Basic realm="Admin Area"',
-        "Content-Type": "text/plain",
-        // DO NOT include X-RateLimit-Remaining here!
-      },
-    });
   }
 
-  // For non-admin routes, use i18n middleware with security headers
-  const response = intlMiddleware(request);
-
-  // Add security headers with appropriate CSP
-  // Use relaxed CSP (with unsafe-eval) only for marketing pages that require GTM
-  // All other pages use strict CSP (no unsafe-eval)
-  const csp = pathname.match(new RegExp(`^/(${localePattern})/marketing/`))
-    ? buildRelaxedCSP(nonce) // Marketing pages: allows GTM with unsafe-eval
-    : buildCSP(nonce); // Default: strict CSP, no unsafe-eval
-
-  response.headers.set("Content-Security-Policy", csp);
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("X-Frame-Options", "SAMEORIGIN");
-  response.headers.set("X-Nonce", nonce);
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: [
-    // Enable a redirect to a matching locale at the root
-    "/",
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
-    "/(en|es)/:path*",
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`)
-    "/((?!api|_next|_vercel|.*\\..*).*)",
-  ],
+  matcher: '/admin/:path*',
 };
