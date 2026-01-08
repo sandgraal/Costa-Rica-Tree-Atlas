@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 import { withContentlayer } from "next-contentlayer2";
 import createNextIntlPlugin from "next-intl/plugin";
 import { buildCSP } from "./src/lib/security/csp";
+import { validateEnv } from "./src/lib/env/schema";
+
+// Validate environment variables at build time
+validateEnv();
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -46,7 +50,7 @@ const nextConfig: NextConfig = {
   // Compress responses
   compress: true,
 
-  // Security headers
+  // Security headers (CSP now set in middleware with per-request nonces)
   headers: async () => [
     {
       source: "/:path*",
@@ -60,28 +64,12 @@ const nextConfig: NextConfig = {
           value: "max-age=63072000; includeSubDomains; preload",
         },
         {
-          key: "X-Content-Type-Options",
-          value: "nosniff",
-        },
-        {
-          key: "X-Frame-Options",
-          value: "SAMEORIGIN",
-        },
-        {
-          key: "X-XSS-Protection",
-          value: "1; mode=block",
-        },
-        {
           key: "Referrer-Policy",
           value: "strict-origin-when-cross-origin",
         },
         {
           key: "Permissions-Policy",
           value: "camera=(), microphone=(), geolocation=()",
-        },
-        {
-          key: "Content-Security-Policy",
-          value: buildCSP(),
         },
       ],
     },

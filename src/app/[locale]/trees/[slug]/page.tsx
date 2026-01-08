@@ -15,6 +15,7 @@ import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { SafeImage } from "@/components/SafeImage";
 import { ImageErrorBoundary } from "@/components/ImageErrorBoundary";
 import { resolveImageSource } from "@/lib/image/image-resolver";
+import { validateJsonLd } from "@/lib/validation/json-ld";
 
 // Dynamic imports for heavy below-fold components
 const DistributionMap = dynamic(
@@ -180,11 +181,29 @@ export default async function TreePage({ params }: Props) {
     ],
   };
 
+  // Validate structured data before rendering
+  const structuredDataValidation = validateJsonLd(structuredData);
+  const breadcrumbDataValidation = validateJsonLd(breadcrumbData);
+
+  // Log validation errors
+  if (!structuredDataValidation.valid) {
+    console.error(
+      "Invalid structured data JSON-LD:",
+      structuredDataValidation.error
+    );
+  }
+  if (!breadcrumbDataValidation.valid) {
+    console.error(
+      "Invalid breadcrumb data JSON-LD:",
+      breadcrumbDataValidation.error
+    );
+  }
+
   return (
     <>
       <TrackView slug={tree.slug} />
-      <SafeJsonLd data={structuredData} />
-      <SafeJsonLd data={breadcrumbData} />
+      {structuredDataValidation.valid && <SafeJsonLd data={structuredData} />}
+      {breadcrumbDataValidation.valid && <SafeJsonLd data={breadcrumbData} />}
       <article className="py-12 px-4 tree-detail">
         <div className="container mx-auto max-w-4xl">
           {/* Breadcrumb and Actions */}

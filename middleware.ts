@@ -4,11 +4,16 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { checkAuthRateLimit } from "@/lib/auth/rate-limit";
 import { secureCompare } from "@/lib/auth/secure-compare";
+import { serverEnv } from "@/lib/env/schema";
+import { generateNonce, buildCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Generate nonce for this request
+  const nonce = generateNonce();
 
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
@@ -22,15 +27,10 @@ export default async function middleware(request: NextRequest) {
     }
 
     // 2. Check if admin is configured
-    const adminPassword = process.env.ADMIN_PASSWORD;
-    const adminUsername = process.env.ADMIN_USERNAME || "admin";
+    const adminPassword = serverEnv.ADMIN_PASSWORD;
+    const adminUsername = serverEnv.ADMIN_USERNAME;
 
-    if (!adminPassword) {
-      return new NextResponse(
-        "Admin access disabled - ADMIN_PASSWORD not configured",
-        { status: 503 }
-      );
-    }
+    // With validation, these can never be undefined
 
     // 3. Rate limiting check
     const rateLimitResult = await checkAuthRateLimit(request);
@@ -70,7 +70,16 @@ export default async function middleware(request: NextRequest) {
 
             if (userValid && pwdValid) {
               // Authentication successful
-              return intlMiddleware(request);
+              const response = intlMiddleware(request);
+
+              // Add security headers
+              const csp = buildCSP(nonce);
+              response.headers.set("Content-Security-Policy", csp);
+              response.headers.set("X-Content-Type-Options", "nosniff");
+              response.headers.set("X-Frame-Options", "SAMEORIGIN");
+              response.headers.set("X-Nonce", nonce);
+
+              return response;
             }
           }
         } catch (error) {
@@ -91,8 +100,17 @@ export default async function middleware(request: NextRequest) {
     });
   }
 
-  // For non-admin routes, just use i18n middleware
-  return intlMiddleware(request);
+  // For non-admin routes, use i18n middleware with security headers
+  const response = intlMiddleware(request);
+
+  // Add security headers
+  const csp = buildCSP(nonce);
+  response.headers.set("Content-Security-Policy", csp);
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+  response.headers.set("X-Nonce", nonce);
+
+  return response;
 }
 
 export const config = {

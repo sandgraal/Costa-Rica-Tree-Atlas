@@ -30,6 +30,7 @@ npm run images:optimize
 ```
 
 This will:
+
 - Scan `public/images/trees/` for all images
 - Skip images that haven't changed since last optimization
 - Generate all size and format variants
@@ -119,12 +120,12 @@ Each optimized image set includes a `metadata.json` file:
 
 The optimization script validates output against these size targets:
 
-| Size | Target | Typical Use Case |
-|------|--------|------------------|
-| 400w | < 50KB | Mobile thumbnails, list views |
-| 800w | < 150KB | Tablet views, small screens |
-| 1200w | < 300KB | Desktop views, main images |
-| 1600w | < 500KB | Large desktop displays |
+| Size  | Target  | Typical Use Case              |
+| ----- | ------- | ----------------------------- |
+| 400w  | < 50KB  | Mobile thumbnails, list views |
+| 800w  | < 150KB | Tablet views, small screens   |
+| 1200w | < 300KB | Desktop views, main images    |
+| 1600w | < 500KB | Large desktop displays        |
 
 ### Compression Ratios
 
@@ -134,6 +135,7 @@ Actual compression depends on image content, but typical results:
 - **AVIF**: 40-50% smaller than JPEG
 
 Example from `aguacate.jpg` (375 KB original):
+
 - 400w WebP: 39 KB (89% smaller)
 - 800w WebP: 91 KB (75% smaller)
 - Original WebP: 154 KB (58% smaller)
@@ -144,9 +146,9 @@ The system uses these quality settings for optimal balance between size and visu
 
 ```typescript
 const QUALITY_SETTINGS = {
-  jpg: 80,   // Progressive JPEG with MozJPEG
-  webp: 75,  // WebP with effort level 6
-  avif: 70,  // AVIF with effort level 6
+  jpg: 80, // Progressive JPEG with MozJPEG
+  webp: 75, // WebP with effort level 6
+  avif: 70, // AVIF with effort level 6
 };
 ```
 
@@ -164,13 +166,13 @@ const QUALITY_SETTINGS = {
 
 ```typescript
 sharp(inputPath)
-  .rotate()  // Auto-rotate based on EXIF
+  .rotate() // Auto-rotate based on EXIF
   .resize(targetWidth, undefined, {
-    fit: 'inside',
-    withoutEnlargement: true
+    fit: "inside",
+    withoutEnlargement: true,
   })
   .webp({ quality: 75, effort: 6 })
-  .toFile(outputPath)
+  .toFile(outputPath);
 ```
 
 ## Using the TypeScript API
@@ -178,20 +180,17 @@ sharp(inputPath)
 You can also use the image optimizer programmatically:
 
 ```typescript
-import { optimizeImage, saveMetadata } from '@/lib/image-optimizer';
+import { optimizeImage, saveMetadata } from "@/lib/image-optimizer";
 
 const result = await optimizeImage({
-  inputPath: '/path/to/image.jpg',
-  outputDir: '/path/to/output',
-  sizes: ['thumbnail', 'small', 'medium'],
-  formats: ['webp', 'avif', 'jpg'],
+  inputPath: "/path/to/image.jpg",
+  outputDir: "/path/to/output",
+  sizes: ["thumbnail", "small", "medium"],
+  formats: ["webp", "avif", "jpg"],
   generateBlurPlaceholder: true,
 });
 
-await saveMetadata(
-  result.metadata,
-  '/path/to/output/metadata.json'
-);
+await saveMetadata(result.metadata, "/path/to/output/metadata.json");
 
 console.log(`Optimized: ${result.metadata.slug}`);
 console.log(`Savings: ${result.savingsPercent.toFixed(1)}%`);
@@ -202,20 +201,17 @@ console.log(`Savings: ${result.savingsPercent.toFixed(1)}%`);
 To use optimized images in Next.js components:
 
 ```tsx
-import type { ImageMetadata } from '@/lib/image-optimizer';
-import metadata from '@/public/images/trees/optimized/guanacaste/metadata.json';
+import type { ImageMetadata } from "@/lib/image-optimizer";
+import metadata from "@/public/images/trees/optimized/guanacaste/metadata.json";
 
 function TreeImage({ slug }: { slug: string }) {
-  const webpVariant = metadata.variants['800w_webp'];
-  const jpgVariant = metadata.variants['800w_jpg'];
-  
+  const webpVariant = metadata.variants["800w_webp"];
+  const jpgVariant = metadata.variants["800w_jpg"];
+
   return (
     <picture>
-      <source 
-        srcSet={webpVariant.path} 
-        type="image/webp" 
-      />
-      <img 
+      <source srcSet={webpVariant.path} type="image/webp" />
+      <img
         src={jpgVariant.path}
         alt={slug}
         width={jpgVariant.width}
