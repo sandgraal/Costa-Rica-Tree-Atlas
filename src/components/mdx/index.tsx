@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { SafeImage } from "@/components/SafeImage";
 import { BLUR_DATA_URL } from "@/lib/image";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 // Callout Box Component
 interface CalloutProps {
@@ -664,6 +665,9 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
     }));
   }, [images.length]);
 
+  // Lock scroll when lightbox is open
+  useScrollLock(lightbox.isOpen);
+
   // Handle keyboard navigation
   React.useEffect(() => {
     if (!lightbox.isOpen) return;
@@ -683,11 +687,9 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
     };
   }, [lightbox.isOpen, goToPrevious, goToNext]);
 

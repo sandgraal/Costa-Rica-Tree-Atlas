@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Link } from "@i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,22 +12,13 @@ export function MobileNav() {
   const t = useTranslations("nav");
   const locale = useLocale();
 
+  // Lock scroll when menu is open
+  useScrollLock(isOpen);
+
   // Close menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
-
-  // Prevent scroll when menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
   const navLinks = [
     { href: "/", label: t("home") },
