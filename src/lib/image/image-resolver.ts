@@ -1,5 +1,7 @@
 import path from "path";
 import fs from "fs";
+import { validateSlug } from "@/lib/validation/slug";
+import { safePath } from "@/lib/filesystem/safe-path";
 
 export interface ImageSource {
   src: string;
@@ -17,52 +19,58 @@ export function resolveImageSource(
   slug: string,
   externalUrl?: string
 ): ImageSource {
-  // Tier 1: Check for optimized images
-  const optimizedDir = path.join(
-    process.cwd(),
-    "public",
-    "images",
-    "trees",
-    "optimized",
-    slug
-  );
-
-  if (fs.existsSync(optimizedDir)) {
-    // Prefer AVIF, fallback to WebP
-    const avifPath = path.join(optimizedDir, "800w.avif");
-    const webpPath = path.join(optimizedDir, "800w.webp");
-
-    if (fs.existsSync(avifPath)) {
-      return {
-        src: `/images/trees/optimized/${slug}/800w.avif`,
-        srcSet: generateSrcSet(slug, "avif"),
-        type: "optimized",
-      };
-    }
-
-    if (fs.existsSync(webpPath)) {
-      return {
-        src: `/images/trees/optimized/${slug}/800w.webp`,
-        srcSet: generateSrcSet(slug, "webp"),
-        type: "optimized",
-      };
-    }
+  // Validate slug for security
+  const slugValidation = validateSlug(slug);
+  if (!slugValidation.valid) {
+    console.error(
+      `Invalid slug in resolveImageSource: ${slugValidation.error}`
+    );
+    return {
+      src: externalUrl || "/images/placeholder-tree.svg",
+      type: "external",
+    };
   }
 
-  // Tier 2: Check for original local image
-  const originalPath = path.join(
-    process.cwd(),
-    "public",
-    "images",
-    "trees",
-    `${slug}.jpg`
-  );
+  const sanitizedSlug = slugValidation.sanitized!;
 
-  if (fs.existsSync(originalPath)) {
-    return {
-      src: `/images/trees/${slug}.jpg`,
-      type: "original",
-    };
+  // Tier 1: Check for optimized images
+  try {
+    const baseDir = path.join(process.cwd(), "public", "images", "trees");
+    const optimizedDir = safePath(baseDir, "optimized", sanitizedSlug);
+
+    if (fs.existsSync(optimizedDir)) {
+      // Prefer AVIF, fallback to WebP
+      const avifPath = path.join(optimizedDir, "800w.avif");
+      const webpPath = path.join(optimizedDir, "800w.webp");
+
+      if (fs.existsSync(avifPath)) {
+        return {
+          src: `/images/trees/optimized/${sanitizedSlug}/800w.avif`,
+          srcSet: generateSrcSet(sanitizedSlug, "avif"),
+          type: "optimized",
+        };
+      }
+
+      if (fs.existsSync(webpPath)) {
+        return {
+          src: `/images/trees/optimized/${sanitizedSlug}/800w.webp`,
+          srcSet: generateSrcSet(sanitizedSlug, "webp"),
+          type: "optimized",
+        };
+      }
+    }
+
+    // Tier 2: Check for original local image
+    const originalPath = safePath(baseDir, `${sanitizedSlug}.jpg`);
+
+    if (fs.existsSync(originalPath)) {
+      return {
+        src: `/images/trees/${sanitizedSlug}.jpg`,
+        type: "original",
+      };
+    }
+  } catch (error) {
+    console.error(`Error resolving image path: ${error}`);
   }
 
   // Tier 3: Use external URL or placeholder

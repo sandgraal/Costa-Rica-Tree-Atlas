@@ -11,6 +11,10 @@
     "format": "prettier --write \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json,md,mdx,css}\"",
     "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "security:audit": "npm audit --audit-level=high",
     "security:check": "npm run lint && npm run type-check && npm run security:audit",
     "prepare": "husky",
@@ -80,6 +84,7 @@
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/ui": "^4.0.16",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "^10.1.8",
@@ -90,6 +95,7 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.16"
   }
 }

@@ -30,6 +30,132 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### Filesystem Security and Path Traversal Prevention
+
+The application implements comprehensive protections against path traversal and filesystem access attacks.
+
+#### Slug Validation
+
+All user-provided slugs (tree identifiers, image names, etc.) undergo strict validation before use in filesystem operations:
+
+**Validation Rules:**
+
+- **Alphanumeric only**: Only `a-z`, `0-9`, hyphens (`-`), underscores (`_`), and single dots (`.`) allowed
+- **No path separators**: Rejects `/` and `\` to prevent directory navigation
+- **No parent references**: Blocks `..` to prevent directory traversal
+- **No null bytes**: Prevents null byte injection attacks (`\x00`)
+- **No control characters**: Blocks ASCII control characters (`\x00-\x1F`, `\x7F-\x9F`)
+- **No hidden files**: Rejects filenames starting or ending with `.` (e.g., `.htaccess`, `.env`)
+- **URL-decode validation**: Detects URL-encoded attacks like `%2F` (/) and `%2E%2E` (..)
+- **Length limits**: 1-100 characters to prevent DoS attacks
+
+**Rejected Patterns:**
+
+```
+../../../etc/passwd        ❌ Parent directory references
+..%2F..%2F..%2Fetc%2Fpasswd ❌ URL-encoded path traversal
+image\x00.jpg              ❌ Null byte injection
+test/../../etc             ❌ Path separators
+test\..\..\etc             ❌ Windows path separators
+.htaccess                  ❌ Hidden files
+test.                      ❌ Trailing dots
+test...file                ❌ Multiple consecutive dots
+test__file                 ❌ Double underscores
+```
+
+**Accepted Patterns:**
+
+```
+quercus-robur             ✅ Valid hyphenated slug
+tree-123                  ✅ With numbers
+scientific_name_2024      ✅ With underscores
+test.file                 ✅ Single dot in middle
+```
+
+#### Safe Path Construction
+
+The `safePath()` utility provides secure filesystem path construction:
+
+```typescript
+import { safePath } from "@/lib/filesystem/safe-path";
+
+// Safe: Validates and restricts to base directory
+const imagePath = safePath(baseDir, "trees", "quercus-robur.jpg");
+
+// Throws error: Path traversal detected
+const evilPath = safePath(baseDir, "..", "..", "etc", "passwd");
+```
+
+**Security Features:**
+
+1. **Validates all segments**: Each path component is validated before joining
+2. **Absolute paths only**: Requires absolute base directory to prevent relative path attacks
+3. **Resolution check**: Resolves symlinks and verifies final path is within base directory
+4. **Path traversal detection**: Throws error if resolved path escapes base directory
+
+#### Image Path Resolution
+
+Image optimization and resolution utilities use safe path construction:
+
+```typescript
+import { resolveImagePath } from "@/lib/filesystem/safe-path";
+
+// Returns validated path or error
+const result = resolveImagePath("quercus-robur", "optimized");
+if (result.success) {
+  // Safe to use result.path
+  const imagePath = result.path;
+}
+```
+
+**Protected Operations:**
+
+- Image optimization (`src/lib/image-optimizer.ts`)
+- Image resolution (`src/lib/image-resolver.ts`, `src/lib/image/image-resolver.ts`)
+- File serving and access
+
+#### Prevented Attack Vectors
+
+Based on OWASP path traversal guidelines, the following attacks are prevented:
+
+| Attack Type     | Example                  | Protection                   |
+| --------------- | ------------------------ | ---------------------------- |
+| Basic traversal | `../../../etc/passwd`    | Slug validation rejects `..` |
+| URL encoding    | `..%2F..%2Fetc%2Fpasswd` | URL-decode and re-validate   |
+| Double encoding | `%252e%252e%255c`        | Recursive decode detection   |
+| Null byte       | `image\x00.jpg`          | Null byte detection          |
+| Windows paths   | `..\..\etc\passwd`       | Backslash rejection          |
+| Hidden files    | `.htaccess`, `.env`      | Leading dot rejection        |
+| Symlink attacks | `/path/to/symlink`       | Path resolution check        |
+| Very long paths | `a` × 5000               | Length limits (100 chars)    |
+
+#### Testing
+
+Comprehensive security tests validate path traversal prevention:
+
+```bash
+npm run test:run
+```
+
+Test coverage includes:
+
+- ✅ 61 path traversal prevention tests
+- ✅ OWASP attack vector validation
+- ✅ Windows and Unix path separator handling
+- ✅ URL encoding and unicode attacks
+- ✅ Control character detection
+- ✅ Long path handling
+- ✅ Symlink and directory escape detection
+
+#### Best Practices
+
+When working with filesystem operations:
+
+1. **Always validate slugs**: Use `validateSlug()` from `@/lib/validation/slug`
+2. **Use safePath()**: Never use `path.join()` directly with user input
+3. **Check results**: Validate function return values before using paths
+4. **Log attempts**: Failed validation attempts are logged for monitoring
+5. **Whitelist approach**: Only allow known-safe characters, reject everything else
 ### JSON-LD Sanitization
 
 All JSON-LD structured data undergoes comprehensive XSS sanitization before being rendered to prevent code injection attacks.

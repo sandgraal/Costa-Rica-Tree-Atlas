@@ -22,11 +22,13 @@ const LOCALE_REGEX = /^(en|es)$/;
 // eslint-disable-next-line security/detect-unsafe-regex
 const SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
-// Email validation regex (RFC 5322 simplified)
-// Safe from ReDoS: Uses bounded quantifiers {0,61} and simple character classes
+// Detect suspicious Unicode (potential homograph attack)
+const CONTROL_CHAR_REGEX = /[\x00-\x1F\x7F-\x9F]/; // Control characters
+
+// Email validation regex (simplified and safe from ReDoS)
+// Using strict character limits on all parts
 const EMAIL_REGEX =
-  // eslint-disable-next-line security/detect-unsafe-regex
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\.[a-zA-Z]{2,}$/;
 
 export interface ValidationResult {
   valid: boolean;
@@ -68,7 +70,9 @@ export function validateLocale(input: string | null): ValidationResult {
 }
 
 /**
- * Validate slug with length limit
+ * Validate slug with enhanced security (prevents path traversal)
+ * This is a wrapper for backwards compatibility
+ * For filesystem operations, use @/lib/validation/slug directly
  */
 export function validateSlug(input: string | null): ValidationResult {
   if (!input) {
@@ -82,6 +86,26 @@ export function validateSlug(input: string | null): ValidationResult {
     return {
       valid: false,
       error: `Slug too long (max ${MAX_SLUG_LENGTH} characters)`,
+    };
+  }
+
+  // Enhanced security: Check for path traversal attempts
+  if (
+    trimmed.includes("..") ||
+    trimmed.includes("/") ||
+    trimmed.includes("\\")
+  ) {
+    return {
+      valid: false,
+      error: "Invalid slug format. Path traversal attempts not allowed.",
+    };
+  }
+
+  // Check for null bytes
+  if (trimmed.includes("\x00") || trimmed.includes("\u0000")) {
+    return {
+      valid: false,
+      error: "Invalid slug format. Null bytes not allowed.",
     };
   }
 

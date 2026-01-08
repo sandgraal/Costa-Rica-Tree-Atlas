@@ -1,5 +1,16 @@
-import { describe, it, expect } from "@jest/globals";
-import { validateJsonLd, sanitizeJsonLd } from "../json-ld";
+import { describe, it, expect } from "vitest";
+import { validateJsonLd } from "../json-ld";
+
+describe("validateJsonLd", () => {
+  it("should accept valid schema.org context", () => {
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      name: "Test",
+    };
+    const result = validateJsonLd(data);
+    expect(result.valid).toBe(true);
+  });
 
 describe("JSON-LD XSS Prevention", () => {
   describe("validateJsonLd", () => {
