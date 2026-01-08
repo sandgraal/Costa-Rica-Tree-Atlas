@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
-import { createStorage, huntSessionSchema } from "@/lib/storage";
 import { useDebounce } from "@/hooks/useDebounce";
 
 interface Tree {
@@ -417,34 +416,277 @@ const MISSIONS: Mission[] = [
   },
 ];
 
+// State and Action types for reducer
+interface SetupState {
+  teamCount: number;
+  teamNames: string[];
+  teamMembers: TeamMember[][];
+  difficulty: "easy" | "medium" | "hard" | "mixed";
+  missionCount: number;
+  newMemberName: string;
+  editingTeam: number | null;
+}
+
+interface AppState {
+  view: "setup" | "hunt" | "mission" | "results";
+  session: HuntSession | null;
+  selectedMission: string | null;
+  missionTimer: number | null;
+  showHint: boolean;
+  setup: SetupState;
+}
+
+type Action =
+  | { type: "LOAD_SESSION"; payload: HuntSession }
+  | { type: "SET_VIEW"; payload: "setup" | "hunt" | "mission" | "results" }
+  | { type: "SET_TEAM_COUNT"; payload: number }
+  | {
+      type: "ADD_TEAM_MEMBER";
+      payload: { teamIndex: number; member: TeamMember };
+    }
+  | {
+      type: "REMOVE_TEAM_MEMBER";
+      payload: { teamIndex: number; memberId: string };
+    }
+  | { type: "SET_EDITING_TEAM"; payload: number | null }
+  | { type: "SET_NEW_MEMBER_NAME"; payload: string }
+  | { type: "UPDATE_TEAM_NAME"; payload: { index: number; name: string } }
+  | { type: "UPDATE_SETUP"; payload: Partial<SetupState> }
+  | { type: "START_SESSION"; payload: HuntSession }
+  | { type: "SELECT_MISSION"; payload: string }
+  | { type: "SET_TIMER"; payload: number | null }
+  | { type: "TOGGLE_HINT" }
+  | {
+      type: "COMPLETE_MISSION";
+      payload: { missionId: string; treeSlug: string; points: number };
+    }
+  | { type: "SKIP_MISSION" }
+  | { type: "END_SESSION" }
+  | { type: "RESET" };
+
+const initialState: AppState = {
+  view: "setup",
+  session: null,
+  selectedMission: null,
+  missionTimer: null,
+  showHint: false,
+  setup: {
+    teamCount: 2,
+    teamNames: ["", ""],
+    teamMembers: [[], []],
+    difficulty: "mixed",
+    missionCount: 5,
+    newMemberName: "",
+    editingTeam: null,
+  },
+};
+
+function reducer(state: AppState, action: Action): AppState {
+  switch (action.type) {
+    case "LOAD_SESSION":
+      return {
+        ...state,
+        session: action.payload,
+        view: "hunt",
+      };
+
+    case "SET_VIEW":
+      return {
+        ...state,
+        view: action.payload,
+      };
+
+    case "SET_TEAM_COUNT": {
+      const count = Math.max(2, Math.min(4, action.payload));
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          teamCount: count,
+          teamNames: Array.from(
+            { length: count },
+            (_, i) => state.setup.teamNames[i] || ""
+          ),
+          teamMembers: Array.from(
+            { length: count },
+            (_, i) => state.setup.teamMembers[i] || []
+          ),
+        },
+      };
+    }
+
+    case "ADD_TEAM_MEMBER": {
+      const { teamIndex, member } = action.payload;
+      const newMembers = [...state.setup.teamMembers];
+      newMembers[teamIndex] = [...newMembers[teamIndex], member];
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          teamMembers: newMembers,
+          newMemberName: "",
+        },
+      };
+    }
+
+    case "REMOVE_TEAM_MEMBER": {
+      const { teamIndex, memberId } = action.payload;
+      const newMembers = [...state.setup.teamMembers];
+      newMembers[teamIndex] = newMembers[teamIndex].filter(
+        (m) => m.id !== memberId
+      );
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          teamMembers: newMembers,
+        },
+      };
+    }
+
+    case "SET_EDITING_TEAM":
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          editingTeam: action.payload,
+          newMemberName: "",
+        },
+      };
+
+    case "SET_NEW_MEMBER_NAME":
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          newMemberName: action.payload,
+        },
+      };
+
+    case "UPDATE_TEAM_NAME": {
+      const { index, name } = action.payload;
+      const newNames = [...state.setup.teamNames];
+      newNames[index] = name;
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          teamNames: newNames,
+        },
+      };
+    }
+
+    case "UPDATE_SETUP":
+      return {
+        ...state,
+        setup: {
+          ...state.setup,
+          ...action.payload,
+        },
+      };
+
+    case "START_SESSION":
+      return {
+        ...state,
+        session: action.payload,
+        view: "hunt",
+      };
+
+    case "SELECT_MISSION":
+      return {
+        ...state,
+        selectedMission: action.payload,
+        view: "mission",
+        showHint: false,
+      };
+
+    case "SET_TIMER":
+      return {
+        ...state,
+        missionTimer: action.payload,
+      };
+
+    case "TOGGLE_HINT":
+      return {
+        ...state,
+        showHint: !state.showHint,
+      };
+
+    case "COMPLETE_MISSION": {
+      if (!state.session) return state;
+
+      const { missionId, treeSlug, points } = action.payload;
+
+      // Add completed mission to team
+      const completedMission: CompletedMission = {
+        missionId,
+        treeSlug,
+        timestamp: new Date().toISOString(),
+        pointsEarned: points,
+        bonusPoints: state.showHint ? 0 : 20, // Bonus if no hint used
+      };
+
+      const updatedTeams = state.session.teams.map((team, index) =>
+        index === state.session!.currentTeamIndex
+          ? {
+              ...team,
+              completedMissions: [...team.completedMissions, completedMission],
+              totalPoints:
+                team.totalPoints + points + completedMission.bonusPoints,
+              streak: team.streak + 1,
+            }
+          : team
+      );
+
+      return {
+        ...state,
+        session: {
+          ...state.session,
+          teams: updatedTeams,
+          completedMissions: [...state.session.completedMissions, missionId],
+        },
+        view: "hunt",
+        selectedMission: null,
+        missionTimer: null,
+        showHint: false,
+      };
+    }
+
+    case "SKIP_MISSION":
+      return {
+        ...state,
+        view: "hunt",
+        selectedMission: null,
+        missionTimer: null,
+        showHint: false,
+      };
+
+    case "END_SESSION":
+      return {
+        ...state,
+        view: "results",
+      };
+
+    case "RESET":
+      return initialState;
+
+    default:
+      return state;
+  }
+}
+
 export default function ScavengerHuntClient({
   trees,
   locale,
 }: ScavengerHuntClientProps) {
-  const [view, setView] = useState<"setup" | "hunt" | "mission" | "results">(
-    "setup"
-  );
-  const [session, setSession] = useState<HuntSession | null>(null);
-  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
+  // Use reducer for complex state management
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Local state that doesn't need to be in reducer
   const [searchQuery, setSearchQuery] = useState("");
-  const [_missionAnswer, setMissionAnswer] = useState<string>("");
-  const [showHint, setShowHint] = useState(false);
-  const [missionTimer, setMissionTimer] = useState<number | null>(null);
-  const [storageError, setStorageError] = useState<string | null>(null);
 
   // Debounce search query
   const debouncedSearch = useDebounce(searchQuery, 300);
-
-  // Setup state
-  const [teamCount, setTeamCount] = useState(2);
-  const [teamNames, setTeamNames] = useState<string[]>(["", ""]);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[][]>([[], []]);
-  const [difficulty, setDifficulty] = useState<
-    "easy" | "medium" | "hard" | "mixed"
-  >("mixed");
-  const [missionCount, setMissionCount] = useState(5);
-  const [newMemberName, setNewMemberName] = useState("");
-  const [editingTeam, setEditingTeam] = useState<number | null>(null);
 
   const t = {
     title: locale === "es" ? "Búsqueda del Tesoro 🗺️" : "Scavenger Hunt 🗺️",
@@ -515,7 +757,7 @@ export default function ScavengerHuntClient({
     } catch (e) {
       console.error("Failed to load session:", e);
     }
-  }, [dispatch]);
+  }, []);
 
   // Save session
   useEffect(() => {
@@ -540,7 +782,7 @@ export default function ScavengerHuntClient({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [state.missionTimer, dispatch]);
+  }, [state.missionTimer]);
 
   const handleTeamCountChange = (count: number) => {
     dispatch({ type: "SET_TEAM_COUNT", payload: count });
@@ -1072,13 +1314,8 @@ export default function ScavengerHuntClient({
               <input
                 type="text"
                 placeholder={t.searchTrees}
-                value={state.searchQuery}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_SEARCH_QUERY",
-                    payload: e.target.value,
-                  })
-                }
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50"
               />
               <p className="text-sm text-muted-foreground mt-2">

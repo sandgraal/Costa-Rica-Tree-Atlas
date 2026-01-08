@@ -57,5 +57,7 @@ export { SafeImage } from "./SafeImage";
 export { SafeJsonLd } from "./SafeJsonLd";
 export { ImageErrorBoundary } from "./ImageErrorBoundary";
 export { ShareCollectionButton } from "./ShareCollectionButton";
-export { EducationProgress } from "./EducationProgress";
-
+export {
+  EducationProgressProvider,
+  useEducationProgress,
+} from "./EducationProgress";

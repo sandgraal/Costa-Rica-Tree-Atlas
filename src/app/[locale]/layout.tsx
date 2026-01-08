@@ -19,6 +19,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
+import { getThemeScript } from "@/lib/theme/theme-script";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
