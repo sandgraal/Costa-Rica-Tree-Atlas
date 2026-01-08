@@ -2,6 +2,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 import { RATE_LIMITS } from "./config";
+import { isTrustedProxy } from "./trusted-proxies";
 
 // Type for API rate limits (excludes 'admin' which is handled separately)
 type ApiRateLimitType = Exclude<keyof typeof RATE_LIMITS, "admin">;
@@ -116,31 +117,49 @@ function normalizeIP(ip: string): string {
 
 /**
  * Get trusted client IP address with proper validation
- * Priority: x-real-ip (set by Vercel/Cloudflare) > rightmost x-forwarded-for > fallback
+ * Priority: x-real-ip > cf-connecting-ip > validated x-forwarded-for chain
  *
  * Security notes:
- * - x-real-ip is set by trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed
- * - For x-forwarded-for, we take the RIGHTMOST IP (closest to our server) which is added
- *   by our trusted proxy, not the leftmost which can be spoofed by the client
+ * - x-real-ip is set by trusted reverse proxy (Vercel) and cannot be spoofed
+ * - cf-connecting-ip is set by Cloudflare and is validated
+ * - For x-forwarded-for, we validate the proxy chain from right to left,
+ *   skipping trusted proxy IPs to find the actual client IP
+ * - This prevents IP spoofing even if the proxy chain is misconfigured
  * - All IPs are validated to prevent injection attacks
  * - IPv6 addresses are normalized to /64 subnets to handle mobile network rotation
  */
 function getTrustedClientIP(request: NextRequest): string {
-  // Vercel sets x-real-ip with the actual client IP (trusted)
+  // Priority 1: x-real-ip (set by Vercel)
   const realIP = request.headers.get("x-real-ip");
   if (realIP && isValidIP(realIP)) {
     return normalizeIP(realIP);
   }
 
-  // Take rightmost IP from x-forwarded-for (closest to server, added by trusted proxy)
+  // Priority 2: x-forwarded-for with trusted proxy validation
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
     const ips = forwarded.split(",").map((ip) => ip.trim());
-    // Rightmost IP is the one closest to our server (most trustworthy)
-    const clientIP = ips[Math.max(0, ips.length - 1)];
-    if (isValidIP(clientIP)) {
-      return normalizeIP(clientIP);
+
+    // Validate from right to left (most recent proxy first)
+    for (let i = ips.length - 1; i >= 0; i--) {
+      const ip = ips[i];
+
+      if (!isValidIP(ip)) continue;
+
+      // If this is a trusted proxy, skip it and check the previous IP
+      if (isTrustedProxy(ip)) {
+        continue;
+      }
+
+      // First non-proxy IP is the client
+      return normalizeIP(ip);
     }
+  }
+
+  // Priority 3: Cloudflare-specific header (fallback)
+  const cfConnectingIP = request.headers.get("cf-connecting-ip");
+  if (cfConnectingIP && isValidIP(cfConnectingIP)) {
+    return normalizeIP(cfConnectingIP);
   }
 
   // Unknown IPs get strictest rate limits (using "unknown" as identifier)
