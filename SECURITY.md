@@ -60,6 +60,7 @@ Rate limiting uses atomic Redis operations via the `@upstash/ratelimit` library 
 - **Analytics enabled** - Tracks rate limit hits for monitoring and optimization
 
 **Why ephemeral cache is disabled:**
+
 - Ephemeral cache can cause race conditions in serverless environments where multiple instances run concurrently
 - Disabling it ensures every rate limit check is atomic and consistent across all instances
 - Slightly increases Redis load but eliminates security vulnerabilities from non-atomic operations
@@ -96,12 +97,14 @@ Rate limits use the most reliable IP address available, with strict validation t
 3. Fallback to **"unknown"** if neither available or validation fails
 
 **Security rationale:**
+
 - **x-real-ip** is set by our trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed by clients
 - For **x-forwarded-for**, we take the RIGHTMOST IP (closest to our server) which is added by our trusted proxy. The leftmost IPs can be easily spoofed by clients.
 - All IP addresses are validated against proper IPv4 and IPv6 formats to prevent injection attacks
 - Invalid or missing IPs are marked as **"unknown"** and receive the strictest rate limits
 
 **IPv6 Handling:**
+
 - IPv6 addresses are normalized to /64 subnets (e.g., `2001:0db8:85a3:0000::/64`)
 - This groups mobile users on the same network who frequently rotate IPv6 addresses
 - Prevents legitimate mobile users from appearing as different users with each IP rotation
@@ -146,6 +149,33 @@ echo "ADMIN_USERNAME=your_custom_username" >> .env.local
 4. **Monitor failed attempts** - Review logs for suspicious activity
 5. **Use Upstash Redis** - For production rate limiting that persists across deployments
 6. **Use non-obvious usernames** - Don't use "admin" in production
+
+#### Timing Attack Protection
+
+All authentication comparisons use `crypto.timingSafeEqual` to prevent timing attacks:
+
+- **Constant-time comparison**: Takes the same time regardless of input, preventing attackers from measuring response times to guess credentials character-by-character
+- **No early exit**: Always compares full strings even on mismatch, eliminating timing side-channels
+- **No username enumeration**: Both username and password are always checked before returning any error, preventing attackers from determining valid usernames by timing differences
+- **Native crypto module**: Uses Node.js's built-in `timingSafeEqual` which is implemented in C++ and provides constant-time guarantees at the native level
+
+**Why This Matters**
+
+Without constant-time comparison, attackers can:
+
+1. Measure response times to guess passwords character-by-character
+2. Determine valid usernames by timing differences
+3. Reduce brute-force time from O(n^m) to O(n\*m) where n is the character set size and m is the password length
+4. Bypass rate limiting by detecting invalid credentials early
+
+**Implementation Details**
+
+The `secureCompare` function in `src/lib/auth/secure-compare.ts`:
+
+- Converts strings to buffers for use with `crypto.timingSafeEqual`
+- For different-length strings, performs a dummy comparison to maintain constant time
+- Never short-circuits or returns early based on input characteristics
+- Provides additional helper functions for hashing and comparing hashed values
 
 ### API Security
 

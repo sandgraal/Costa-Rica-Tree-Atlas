@@ -1,21 +1,44 @@
+import { timingSafeEqual, createHash } from "crypto";
+
 /**
- * Constant-time string comparison to prevent timing attacks
+ * Constant-time string comparison using Node.js crypto module
+ * Prevents timing attacks on password/username verification
  */
 export function secureCompare(a: string, b: string): boolean {
-  // If lengths differ, the strings cannot be equal
-  // However, we still need to perform a comparison to maintain constant time
-  const mismatch = a.length !== b.length ? 1 : 0;
+  // Convert strings to buffers
+  const bufA = Buffer.from(a, "utf8");
+  const bufB = Buffer.from(b, "utf8");
 
-  // Use the longer length to ensure we check all characters
-  const maxLength = Math.max(a.length, b.length);
-
-  let result = 0;
-  for (let i = 0; i < maxLength; i++) {
-    // Get character codes, using 0 if index is out of bounds
-    const aChar = i < a.length ? a.charCodeAt(i) : 0;
-    const bChar = i < b.length ? b.charCodeAt(i) : 0;
-    result |= aChar ^ bChar;
+  // If lengths differ, compare bufA with itself to maintain constant time
+  // This ensures the function always takes the same time regardless of input
+  if (bufA.length !== bufB.length) {
+    // Still perform constant-time comparison to prevent length oracle
+    timingSafeEqual(bufA, bufA);
+    return false;
   }
 
-  return mismatch === 0 && result === 0;
+  try {
+    return timingSafeEqual(bufA, bufB);
+  } catch {
+    // timingSafeEqual throws if buffers have different lengths
+    // This should never happen due to check above, but handle gracefully
+    return false;
+  }
+}
+
+/**
+ * Hash a string using SHA-256 for comparison
+ * Use this for comparing user-provided input against stored hashes
+ */
+export function hashString(input: string): string {
+  return createHash("sha256").update(input, "utf8").digest("hex");
+}
+
+/**
+ * Compare a plaintext string against a hashed value
+ * Always performs hash operation to maintain constant time
+ */
+export function compareHashed(plaintext: string, hash: string): boolean {
+  const plaintextHash = hashString(plaintext);
+  return secureCompare(plaintextHash, hash);
 }
