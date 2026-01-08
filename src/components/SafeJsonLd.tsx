@@ -8,11 +8,11 @@ interface SafeJsonLdProps {
 
 /**
  * Safely renders JSON-LD structured data without using dangerouslySetInnerHTML
- * 
+ *
  * This component creates a script tag and sets its textContent property directly,
  * which is safer than using dangerouslySetInnerHTML. JSON.stringify() already
  * escapes potentially dangerous characters like < and >, making the output safe.
- * 
+ *
  * @param data - The JSON-LD structured data object to render
  * @returns A script tag with JSON-LD data
  */

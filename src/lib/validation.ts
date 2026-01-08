@@ -21,6 +21,12 @@ const SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 // Detect suspicious Unicode (potential homograph attack)
 const CONTROL_CHAR_REGEX = /[\x00-\x1F\x7F-\x9F]/; // Control characters
 
+// Email validation regex (RFC 5322 simplified)
+// Safe from ReDoS: Uses bounded quantifiers {0,61} and simple character classes
+// eslint-disable-next-line security/detect-unsafe-regex
+const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
 /**
  * Normalize Unicode string for consistent comparison
  * NFC (Canonical Composition) is standard for web
@@ -35,15 +41,17 @@ function normalizeUnicode(input: string): string {
 function detectHomographs(input: string): boolean {
   // Check for mixing Latin with Cyrillic/Greek (common homograph tactic)
   const hasLatin = /[a-zA-Z]/.test(input);
+
+  // Early return if no Latin characters
+  if (!hasLatin) {
+    return false;
+  }
+
   const hasCyrillic = /[\u0400-\u04FF]/.test(input);
   const hasGreek = /[\u0370-\u03FF]/.test(input);
 
   // If mixing scripts, it's suspicious
-  if (hasLatin && (hasCyrillic || hasGreek)) {
-    return true;
-  }
-
-  return false;
+  return hasCyrillic || hasGreek;
 }
 
 export interface ValidationResult {
@@ -111,8 +119,8 @@ export function validateScientificName(input: string | null): ValidationResult {
     };
   }
 
-  // Additional safety: remove leading/trailing hyphens
-  const cleaned = normalized.replace(/^[-\s]+|[-\s]+$/g, "");
+  // Additional safety: remove leading/trailing hyphens and spaces
+  const cleaned = normalized.trim().replace(/^-+|-+$/g, "");
 
   return {
     valid: true,
@@ -191,13 +199,7 @@ export function validateEmail(input: string | null): ValidationResult {
     return { valid: false, error: "Email too long" };
   }
 
-  // RFC 5322 simplified email regex (prevents ReDoS)
-  // Safe from ReDoS: Uses bounded quantifiers {0,61} and simple character classes
-  // eslint-disable-next-line security/detect-unsafe-regex
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-  if (!emailRegex.test(trimmed)) {
+  if (!EMAIL_REGEX.test(trimmed)) {
     return { valid: false, error: "Invalid email format" };
   }
 

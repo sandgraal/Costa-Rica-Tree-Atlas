@@ -158,7 +158,6 @@ npm run images:optimize:force   # Re-optimize all images
 
 See **[Image Optimization Guide](docs/IMAGE_OPTIMIZATION.md)** for complete documentation.
 
-
 ### Security & Code Quality
 
 This project takes security seriously. We use automated security scanning including:

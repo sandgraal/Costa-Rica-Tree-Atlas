@@ -60,6 +60,7 @@ Rate limiting uses atomic Redis operations via the `@upstash/ratelimit` library 
 - **Analytics enabled** - Tracks rate limit hits for monitoring and optimization
 
 **Why ephemeral cache is disabled:**
+
 - Ephemeral cache can cause race conditions in serverless environments where multiple instances run concurrently
 - Disabling it ensures every rate limit check is atomic and consistent across all instances
 - Slightly increases Redis load but eliminates security vulnerabilities from non-atomic operations
@@ -96,12 +97,14 @@ Rate limits use the most reliable IP address available, with strict validation t
 3. Fallback to **"unknown"** if neither available or validation fails
 
 **Security rationale:**
+
 - **x-real-ip** is set by our trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed by clients
 - For **x-forwarded-for**, we take the RIGHTMOST IP (closest to our server) which is added by our trusted proxy. The leftmost IPs can be easily spoofed by clients.
 - All IP addresses are validated against proper IPv4 and IPv6 formats to prevent injection attacks
 - Invalid or missing IPs are marked as **"unknown"** and receive the strictest rate limits
 
 **IPv6 Handling:**
+
 - IPv6 addresses are normalized to /64 subnets (e.g., `2001:0db8:85a3:0000::/64`)
 - This groups mobile users on the same network who frequently rotate IPv6 addresses
 - Prevents legitimate mobile users from appearing as different users with each IP rotation
