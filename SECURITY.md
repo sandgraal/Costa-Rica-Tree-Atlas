@@ -67,7 +67,7 @@ Rate limiting uses atomic Redis operations via the `@upstash/ratelimit` library 
 
 #### Rate Limit Headers
 
-All API responses include standard rate limit headers:
+Most API responses include standard rate limit headers:
 
 - `X-RateLimit-Limit`: Maximum number of requests allowed in the window
 - `X-RateLimit-Remaining`: Number of requests remaining in current window
@@ -76,6 +76,10 @@ All API responses include standard rate limit headers:
 When rate limit is exceeded (429 response):
 
 - `Retry-After`: Number of seconds until the client can retry
+
+**Security Note for Admin Authentication:**
+
+Admin authentication failures (HTTP 401) **do NOT include** `X-RateLimit-Remaining` header to prevent username enumeration attacks. Including rate limit information could allow attackers to detect valid usernames through different rate limit consumption patterns between "wrong username" and "correct username with wrong password" scenarios.
 
 #### Configuring Upstash Redis
 
@@ -152,30 +156,65 @@ echo "ADMIN_USERNAME=your_custom_username" >> .env.local
 
 #### Timing Attack Protection
 
-All authentication comparisons use `crypto.timingSafeEqual` to prevent timing attacks:
+All authentication comparisons use **hash-based constant-time comparison** to prevent timing attacks:
 
-- **Constant-time comparison**: Takes the same time regardless of input, preventing attackers from measuring response times to guess credentials character-by-character
-- **No early exit**: Always compares full strings even on mismatch, eliminating timing side-channels
-- **No username enumeration**: Both username and password are always checked before returning any error, preventing attackers from determining valid usernames by timing differences
-- **Native crypto module**: Uses Node.js's built-in `timingSafeEqual` which is implemented in C++ and provides constant-time guarantees at the native level
+**Security Properties:**
+
+- **Fixed-length comparison**: All comparisons operate on 32-byte SHA-256 hashes, regardless of input length
+- **No length oracle**: Hash normalization eliminates length-based timing differences
+- **No encoding time variation**: Hashing before comparison eliminates UTF-8 encoding complexity timing
+- **Cache-timing resistant**: Hash operations have constant-time behavior
+- **No early exit**: Always compares full hashes even on mismatch
+- **No username enumeration**: Both username AND password are always checked before returning any error
+- **Native crypto module**: Uses Node.js's built-in `crypto.timingSafeEqual` and `crypto.createHash`
 
 **Why This Matters**
 
-Without constant-time comparison, attackers can:
+Without proper constant-time comparison, attackers can:
 
-1. Measure response times to guess passwords character-by-character
-2. Determine valid usernames by timing differences
-3. Reduce brute-force time from O(n^m) to O(n\*m) where n is the character set size and m is the password length
-4. Bypass rate limiting by detecting invalid credentials early
+1. **Timing attacks**: Measure response times to guess passwords character-by-character
+2. **Length oracle attacks**: Determine password length from comparison timing
+3. **Cache timing attacks**: Exploit CPU cache behavior during string operations
+4. **Username enumeration**: Determine valid usernames by timing differences or rate limit patterns
+5. **Brute-force optimization**: Reduce attack complexity from O(n^m) to O(n\*m)
 
 **Implementation Details**
 
 The `secureCompare` function in `src/lib/auth/secure-compare.ts`:
 
-- Converts strings to buffers for use with `crypto.timingSafeEqual`
-- For different-length strings, performs a dummy comparison to maintain constant time
-- Never short-circuits or returns early based on input characteristics
-- Provides additional helper functions for hashing and comparing hashed values
+1. **Hash both inputs FIRST** using SHA-256 to fixed 32-byte length
+   - Eliminates variable encoding time (UTF-8 multibyte characters)
+   - Eliminates length oracle (both hashes always 32 bytes)
+   - Eliminates cache timing (hash operation time is constant)
+
+2. **Use timingSafeEqual** on fixed-length hashes
+   - No length checks needed (both always 32 bytes)
+   - No branches based on input characteristics
+   - True constant-time comparison at the native level
+
+3. **Never short-circuits** or returns early based on input
+
+**Username Enumeration Prevention**
+
+Additional measures prevent username enumeration attacks:
+
+1. **Always check both credentials**: The middleware ALWAYS checks both username and password using constant-time comparison, regardless of whether username matches
+   - Prevents timing differences between "wrong username" and "wrong password" scenarios
+   - Ensures consistent execution path for all authentication attempts
+
+2. **No rate limit hints in responses**: The `X-RateLimit-Remaining` header is NOT included in authentication failure responses (HTTP 401)
+   - Prevents attackers from detecting valid usernames through different rate limit consumption patterns
+   - Wrong username and correct username with wrong password have identical responses
+
+3. **Constant-time rate limiting**: Rate limit checks include artificial delays to ensure consistent timing
+   - All rate limit checks take minimum 50ms regardless of result
+   - Prevents timing-based detection of rate limit status
+
+**Note on SHA-256 for Password Storage**
+
+⚠️ **IMPORTANT**: While we use SHA-256 for constant-time comparison, this is NOT suitable for password storage! SHA-256 is too fast and vulnerable to brute-force attacks. For password hashing, always use bcrypt, scrypt, or argon2.
+
+The current implementation compares plaintext passwords directly (not storing hashed passwords), which is acceptable for Basic Authentication with strong passwords and rate limiting.
 
 ### API Security
 
