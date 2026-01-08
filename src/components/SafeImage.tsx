@@ -6,6 +6,7 @@ import Image, { ImageProps } from "next/image";
 interface SafeImageProps extends Omit<ImageProps, "onError" | "src"> {
   src: string;
   fallback?: "placeholder" | "hide";
+  priority?: boolean;
 }
 
 /**
@@ -16,6 +17,7 @@ export function SafeImage({
   src,
   alt,
   fallback = "placeholder",
+  priority = false,
   ...props
 }: SafeImageProps) {
   const [error, setError] = useState(false);
@@ -54,6 +56,8 @@ export function SafeImage({
       <Image
         src={src}
         alt={alt}
+        priority={priority}
+        loading={priority ? undefined : "lazy"}
         onError={() => {
           console.warn(`Failed to load image: ${src}`);
           setError(true);

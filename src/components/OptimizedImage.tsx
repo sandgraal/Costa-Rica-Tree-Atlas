@@ -56,7 +56,7 @@ export function OptimizedImage({
   const imageProps = {
     src,
     alt,
-    className: `${className} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`,
+    className: `${className} ${isLoading ? "scale-110 blur-sm opacity-0" : "scale-100 blur-0 opacity-100"} transition-all duration-300`,
     priority,
     sizes,
     placeholder: placeholder as "blur" | "empty",
