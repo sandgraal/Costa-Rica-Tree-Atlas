@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore, useStoreHydration } from "@/lib/store";
+import { useStore } from "@/lib/store";
 
 interface FavoriteButtonProps {
   slug: string;
@@ -23,7 +23,7 @@ export function FavoriteButton({
   showLabel = false,
   className = "",
 }: FavoriteButtonProps) {
-  const hydrated = useStoreHydration();
+  const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useStore, useStoreHydration } from "@/lib/store";
+import { useStore } from "@/lib/store";
 import { TreeCard } from "@/components/tree";
 import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
@@ -14,7 +14,7 @@ interface FavoritesContentProps {
 }
 
 export function FavoritesContent({ locale }: FavoritesContentProps) {
-  const hydrated = useStoreHydration();
+  const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
   const clearFavorites = useStore((state) => state.clearFavorites);
   const addFavorite = useStore((state) => state.addFavorite);
