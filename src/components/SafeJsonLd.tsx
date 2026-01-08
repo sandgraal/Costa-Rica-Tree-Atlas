@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 
 interface SafeJsonLdProps {
   data: object;
+  nonce?: string;
 }
 
 /**
@@ -12,7 +13,7 @@ interface SafeJsonLdProps {
  * This component creates a script tag and sets its textContent property directly,
  * which is safer than using dangerouslySetInnerHTML. JSON.stringify() already
  * escapes potentially dangerous characters like < and >, making the output safe.
- * Safely render JSON-LD structured data with XSS protection
+o * Safely render JSON-LD structured data with XSS protection
  *
  * Defense layers:
  * 1. JSON.stringify escapes quotes and backslashes
@@ -20,9 +21,10 @@ interface SafeJsonLdProps {
  * 3. Replace unicode line/paragraph separators (U+2028, U+2029)
  *
  * @param data - The JSON-LD structured data object to render
+ * @param nonce - Optional CSP nonce for the script tag
  * @returns A script tag with JSON-LD data
  */
-export function SafeJsonLd({ data }: SafeJsonLdProps) {
+export function SafeJsonLd({ data, nonce }: SafeJsonLdProps) {
   const ref = useRef<HTMLScriptElement>(null);
 
   useEffect(() => {
@@ -45,5 +47,5 @@ export function SafeJsonLd({ data }: SafeJsonLdProps) {
     }
   }, [data]);
 
-  return <script ref={ref} type="application/ld+json" />;
+  return <script ref={ref} type="application/ld+json" nonce={nonce} />;
 }

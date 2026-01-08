@@ -220,29 +220,50 @@ Multiple origins should be comma-separated. Production origins will be combined 
 
 ### Content Security Policy (CSP)
 
-This application implements a strict Content Security Policy to prevent XSS attacks and other code injection vulnerabilities.
+This application implements a **strict Content Security Policy** with nonce-based inline scripts to prevent XSS attacks and other code injection vulnerabilities.
+
+#### Key Security Features
+
+✅ **NO `unsafe-eval` in production** - Prevents arbitrary code execution
+✅ **NO `unsafe-inline` for scripts** - All inline scripts require cryptographic nonces
+✅ **Per-request nonces** - Unique cryptographic nonces generated for each request
+✅ **`strict-dynamic`** - Nonce-approved scripts can dynamically load other scripts
+✅ **Specific domains** - No wildcard domains that could allow unauthorized CDNs
 
 #### CSP Directives
 
 The following sources are allowed by directive:
 
 - **default-src**: `'self'` - Only load resources from the same origin
+
 - **script-src**:
   - `'self'` - Scripts from same origin
-  - `'unsafe-inline'` and `'unsafe-eval'` - Required for Next.js RSC and third-party analytics compatibility
-  - Analytics: Plausible, Simple Analytics, Google Tag Manager, Google Analytics
-  - Maps: Google Maps API
+  - `'nonce-{random}'` - Inline scripts with per-request nonces
+  - `'strict-dynamic'` - Nonce-approved scripts can load other scripts
+  - Analytics: `https://plausible.io`, `https://scripts.simpleanalyticscdn.com`
+  - `https:` - Fallback for browsers that don't support `strict-dynamic`
+  - **Development only**: `'unsafe-eval'` (required for Next.js hot reloading)
+  - **Production**: NO `unsafe-eval` or `unsafe-inline`
+
 - **style-src**:
   - `'self'` - Stylesheets from same origin
-  - `'unsafe-inline'` - Required for CSS-in-JS and Tailwind CSS
-  - Google Fonts
-- **img-src**: `'self'`, `data:`, `blob:`, `https:`, `http:` - Images from any source
-- **font-src**: `'self'`, Google Fonts
+  - `'nonce-{random}'` - Inline styles with per-request nonces
+  - `https://fonts.googleapis.com` - Google Fonts
+  - `'unsafe-inline'` - TODO: Remove after extracting critical CSS
+
+- **img-src**:
+  - `'self'`, `data:`, `blob:` - Local and data URLs
+  - `https://static.inaturalist.org` - iNaturalist images
+  - `https://inaturalist-open-data.s3.amazonaws.com` - iNaturalist S3 bucket
+  - `https://api.gbif.org` - GBIF biodiversity images
+
+- **font-src**: `'self'`, `https://fonts.gstatic.com` - Google Fonts
+
 - **connect-src**:
   - `'self'` - Same origin connections
-  - Biodiversity APIs: GBIF, iNaturalist
-  - Analytics: Plausible, Simple Analytics, Google Analytics
-  - Maps: Google Maps API
+  - Biodiversity APIs: `https://api.gbif.org`, `https://api.inaturalist.org`
+  - Analytics: `https://plausible.io`
+
 - **frame-src**: `'self'` - Only embed frames from same origin
 - **object-src**: `'none'` - No plugins (Flash, Java, etc.)
 - **base-uri**: `'self'` - Restrict base tag URLs
@@ -250,23 +271,36 @@ The following sources are allowed by directive:
 - **frame-ancestors**: `'self'` - Can only be embedded by same origin
 - **upgrade-insecure-requests** - Automatically upgrade HTTP to HTTPS
 
-#### Nonce-Based CSP
+#### Nonce-Based CSP Implementation
 
-The application supports nonce-based CSP for inline scripts, providing stronger XSS protection. Nonces are cryptographically random values generated per request.
-
-To enable nonce-based CSP:
+The application generates cryptographically secure nonces for every request:
 
 ```typescript
+// In middleware (generates nonce per request)
 import { generateNonce, buildCSP } from "@/lib/security/csp";
 
-const nonce = generateNonce();
+const nonce = generateNonce(); // Unique 16-byte base64 nonce
 const csp = buildCSP(nonce);
-// Include nonce in script tags: <script nonce={nonce}>
+response.headers.set("Content-Security-Policy", csp);
+response.headers.set("X-Nonce", nonce); // Pass to pages
+```
+
+Components receive nonces from the middleware via headers:
+
+```typescript
+// In server components
+import { headers } from "next/headers";
+
+const headersList = await headers();
+const nonce = headersList.get("x-nonce") || undefined;
+
+// Use nonce in inline scripts
+<script nonce={nonce}>...</script>
 ```
 
 #### CSP Violation Reporting
 
-CSP violations are logged and can be monitored to detect potential attacks or misconfigurations.
+CSP violations can be monitored to detect potential attacks or misconfigurations.
 
 To enable CSP violation reporting, set the `CSP_REPORT_URI` environment variable:
 
@@ -274,7 +308,7 @@ To enable CSP violation reporting, set the `CSP_REPORT_URI` environment variable
 CSP_REPORT_URI=/api/csp-report
 ```
 
-Violations will be sent to the configured endpoint and logged with the following information:
+Violations will be sent to the configured endpoint with:
 
 - Document URI where the violation occurred
 - Violated directive
@@ -282,24 +316,37 @@ Violations will be sent to the configured endpoint and logged with the following
 - Source file and line number
 - Timestamp
 
-The CSP report endpoint is rate-limited to prevent abuse.
-
 #### Development vs Production
 
-- **Development and Production**: Includes `'unsafe-inline'` and `'unsafe-eval'` in `script-src` for Next.js RSC and third-party analytics compatibility
-- Both modes maintain the same CSP directives for consistent behavior across environments
+- **Development**: Includes `'unsafe-eval'` for Next.js hot reloading and development features
+- **Production**: **NO `unsafe-eval`** or `unsafe-inline` for scripts - strict nonce-based CSP only
 
 #### Testing CSP Compatibility
 
 The CSP configuration has been tested with:
 
-- ✅ Next.js 16 (App Router)
-- ✅ Plausible Analytics
-- ✅ Simple Analytics
-- ✅ Google Analytics
-- ✅ Google Maps API
+- ✅ Next.js 16 (App Router with Edge Runtime)
+- ✅ Plausible Analytics (with nonces)
+- ✅ Simple Analytics (with nonces)
+- ✅ JSON-LD structured data (with nonces)
 - ✅ Tailwind CSS 4
 - ✅ Image optimization (next/image)
+- ✅ Web Crypto API (Edge Runtime compatible)
+
+#### Verifying CSP in Production
+
+Check CSP headers:
+
+```bash
+curl -I https://costaricatreeatlas.com/en | grep -i content-security-policy
+```
+
+Should show:
+
+- ✅ `'nonce-{random}'` in script-src
+- ✅ `'strict-dynamic'` in script-src
+- ✅ NO `'unsafe-eval'` in script-src
+- ✅ Specific domain names (no wildcards like `*.plausible.io`)
 
 ### Environment Variables
 

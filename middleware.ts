@@ -4,11 +4,15 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { checkAuthRateLimit } from "@/lib/auth/rate-limit";
 import { secureCompare } from "@/lib/auth/secure-compare";
+import { generateNonce, buildCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Generate nonce for this request
+  const nonce = generateNonce();
 
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
@@ -70,7 +74,16 @@ export default async function middleware(request: NextRequest) {
 
             if (userValid && pwdValid) {
               // Authentication successful
-              return intlMiddleware(request);
+              const response = intlMiddleware(request);
+
+              // Add security headers
+              const csp = buildCSP(nonce);
+              response.headers.set("Content-Security-Policy", csp);
+              response.headers.set("X-Content-Type-Options", "nosniff");
+              response.headers.set("X-Frame-Options", "SAMEORIGIN");
+              response.headers.set("X-Nonce", nonce);
+
+              return response;
             }
           }
         } catch (error) {
@@ -91,8 +104,17 @@ export default async function middleware(request: NextRequest) {
     });
   }
 
-  // For non-admin routes, just use i18n middleware
-  return intlMiddleware(request);
+  // For non-admin routes, use i18n middleware with security headers
+  const response = intlMiddleware(request);
+
+  // Add security headers
+  const csp = buildCSP(nonce);
+  response.headers.set("Content-Security-Policy", csp);
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+  response.headers.set("X-Nonce", nonce);
+
+  return response;
 }
 
 export const config = {
