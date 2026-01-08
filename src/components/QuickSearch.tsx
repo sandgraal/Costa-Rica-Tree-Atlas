@@ -29,6 +29,9 @@ export function QuickSearch() {
   const router = useRouter();
   const locale = useLocale();
 
+  // Debounce search query - only search after user stops typing
+  const debouncedQuery = useDebounce(query, 300);
+
   // Load trees on mount
   useEffect(() => {
     const loadTrees = async () => {
@@ -144,17 +147,17 @@ export function QuickSearch() {
       .map((item) => item.tree);
   };
 
-  // Filter results when query changes
+  // Search trees only when debounced query changes
   useEffect(() => {
-    if (!query.trim()) {
+    if (!debouncedQuery.trim()) {
       setResults([]);
       return;
     }
 
-    const filtered = searchTrees(query, allTrees).slice(0, 8); // Increased to 8 results
+    const filtered = searchTrees(debouncedQuery, allTrees).slice(0, 8); // Increased to 8 results
     setResults(filtered);
     setSelectedIndex(0);
-  }, [query, allTrees]);
+  }, [debouncedQuery, allTrees]);
 
   // Handle keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {

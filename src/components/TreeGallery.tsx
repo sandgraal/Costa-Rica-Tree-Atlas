@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { SafeImage } from "@/components/SafeImage";
 import { BLUR_DATA_URL } from "@/lib/image";
+import { ResponsiveVirtualizedGrid } from "./ResponsiveVirtualizedGrid";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
 
@@ -209,6 +210,41 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
+
+  // Use virtualization for large galleries (20+ images)
+  const useVirtualization = images.length >= 20;
+
+  const renderImageItem = (image: GalleryImage, index: number) => (
+    <button
+      key={index}
+      onClick={() => openLightbox(index)}
+      className="group relative aspect-square rounded-lg overflow-hidden bg-muted border border-border hover:border-primary/50 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+    >
+      <SafeImage
+        src={image.src}
+        alt={image.alt}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="object-cover group-hover:scale-105 transition-transform duration-300"
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
+        quality={75}
+        fallback="placeholder"
+      />
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+        <ExpandIcon className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+
+      {/* Title overlay */}
+      {image.title && (
+        <div className="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+          <p className="text-xs text-white truncate">{image.title}</p>
+        </div>
+      )}
+    </button>
+  );
 
   return (
     <ComponentErrorBoundary componentName="Tree Gallery">
