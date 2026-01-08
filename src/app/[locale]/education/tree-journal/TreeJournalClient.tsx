@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
+import { createStorage, adoptedTreeSchema } from "@/lib/storage";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface Tree {
   title: string;
@@ -189,6 +191,27 @@ export default function TreeJournalClient({
   });
   const [newBadge, setNewBadge] = useState<string | null>(null);
   const [promptIndex, setPromptIndex] = useState(0);
+  const [storageError, setStorageError] = useState<string | null>(null);
+
+  // Debounce search query
+  const debouncedSearch = useDebounce(searchQuery, 300);
+
+  // Create storage instance with error handling
+  const journalStorage = useMemo(
+    () =>
+      createStorage({
+        key: JOURNAL_STORAGE_KEY,
+        schema: adoptedTreeSchema,
+        onError: (error) => {
+          setStorageError(
+            locale === "es"
+              ? "Se detectaron datos corruptos y fueron eliminados"
+              : "Corrupted data was detected and cleared"
+          );
+        },
+      }),
+    [locale]
+  );
 
   const t = {
     title: locale === "es" ? "Diario del Árbol 🌳" : "Tree Journal 🌳",
@@ -295,40 +318,32 @@ export default function TreeJournalClient({
     injectEducationStyles();
     if (typeof window === "undefined") return;
 
-    try {
-      const saved = localStorage.getItem(JOURNAL_STORAGE_KEY);
-      if (saved) {
-        const data = JSON.parse(saved);
-        setAdoptedTree(data);
-        setView("journal");
-      }
-    } catch (e) {
-      console.error("Failed to parse journal data:", e);
+    const data = journalStorage.get();
+    if (data) {
+      setAdoptedTree(data);
+      setView("journal");
     }
 
     // Rotate prompt daily
     const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
     setPromptIndex(day % prompts.length);
-  }, [prompts.length]);
+  }, [journalStorage, prompts.length]);
 
   // Save data
   useEffect(() => {
     if (adoptedTree) {
-      try {
-        localStorage.setItem(JOURNAL_STORAGE_KEY, JSON.stringify(adoptedTree));
-      } catch (e) {
-        console.error("Failed to save journal data:", e);
-      }
+      journalStorage.set(adoptedTree);
     }
-  }, [adoptedTree]);
+  }, [adoptedTree, journalStorage]);
 
   const selectedTree = trees.find((t) => t.slug === selectedTreeSlug);
   const adoptedTreeData = trees.find((t) => t.slug === adoptedTree?.slug);
 
+  // Filter trees using debounced search
   const filteredTrees = trees.filter(
     (tree) =>
-      tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tree.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
+      tree.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+      tree.scientificName.toLowerCase().includes(debouncedSearch.toLowerCase())
   );
 
   const checkBadges = useCallback((tree: AdoptedTree): string[] => {
@@ -449,11 +464,7 @@ export default function TreeJournalClient({
 
   const handleReset = () => {
     if (window.confirm(t.confirmReset)) {
-      try {
-        localStorage.removeItem(JOURNAL_STORAGE_KEY);
-      } catch (e) {
-        console.error("Failed to clear journal data:", e);
-      }
+      journalStorage.clear();
       setAdoptedTree(null);
       setView("adopt");
       setSelectedTreeSlug("");
@@ -476,6 +487,21 @@ export default function TreeJournalClient({
   if (view === "adopt" && !adoptedTree) {
     return (
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-green-50/50 to-background dark:from-green-950/20">
+        {/* Storage Error Alert */}
+        {storageError && (
+          <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-700 dark:text-yellow-400 px-4 py-3 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-lg shadow-lg max-w-md">
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-sm">{storageError}</p>
+              <button
+                onClick={() => setStorageError(null)}
+                className="text-sm underline hover:no-underline"
+              >
+                {locale === "es" ? "Cerrar" : "Dismiss"}
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="container mx-auto max-w-4xl">
           <Link
             href="/education"
