@@ -39,7 +39,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
         {children}
         {/* Show DevTools in development */}
         {process.env.NODE_ENV === "development" && (
-          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+          <ReactQueryDevtools initialIsOpen={false} />
         )}
       </PersistQueryClientProvider>
     );
@@ -50,7 +50,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
     <QueryClientProvider client={queryClient}>
       {children}
       {process.env.NODE_ENV === "development" && (
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        <ReactQueryDevtools initialIsOpen={false} />
       )}
     </QueryClientProvider>
   );
