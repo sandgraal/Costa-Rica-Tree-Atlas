@@ -1,7 +1,4 @@
-"use client";
-
 import Script from "next/script";
-import { useEffect, useState } from "react";
 
 // Privacy-respecting analytics component
 // Supports: Plausible, Simple Analytics, or custom self-hosted solutions
@@ -16,6 +13,8 @@ interface AnalyticsProps {
   enableSimpleAnalytics?: boolean;
   // Google Analytics ID (GA4)
   googleAnalyticsId?: string;
+  // CSP nonce for inline scripts
+  nonce?: string;
 }
 
 export function Analytics({
@@ -23,35 +22,14 @@ export function Analytics({
   simpleAnalyticsDomain,
   enableSimpleAnalytics,
   googleAnalyticsId,
+  nonce,
 }: AnalyticsProps) {
-  const [hasConsent, setHasConsent] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    // Check for existing consent
-    const consent = localStorage.getItem("analytics-consent");
-    if (consent === "granted") {
-      setHasConsent(true);
-    } else if (consent === "denied") {
-      setHasConsent(false);
-    } else {
-      // For privacy-respecting analytics (Plausible/Simple), no consent needed
-      // They don't use cookies and respect DNT
-      if (plausibleDomain || enableSimpleAnalytics) {
-        setHasConsent(true);
-      }
-    }
-  }, [plausibleDomain, enableSimpleAnalytics]);
-
-  // Only load if consent given or using privacy-first analytics
-  if (hasConsent !== true) {
-    return null;
-  }
-
   return (
     <>
       {/* Plausible Analytics - Privacy-friendly, no cookies */}
       {plausibleDomain && (
         <Script
+          nonce={nonce}
           defer
           data-domain={plausibleDomain}
           src="https://plausible.io/js/script.js"
@@ -62,6 +40,7 @@ export function Analytics({
       {/* Simple Analytics - Privacy-first, GDPR compliant */}
       {enableSimpleAnalytics && (
         <Script
+          nonce={nonce}
           src={
             simpleAnalyticsDomain
               ? `https://${simpleAnalyticsDomain}/latest.js`
@@ -72,13 +51,18 @@ export function Analytics({
       )}
 
       {/* Google Analytics (GA4) - Only with explicit consent */}
-      {googleAnalyticsId && hasConsent && (
+      {googleAnalyticsId && (
         <>
           <Script
+            nonce={nonce}
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
             strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="afterInteractive">
+          <Script
+            nonce={nonce}
+            id="google-analytics"
+            strategy="afterInteractive"
+          >
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
