@@ -2,6 +2,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@i18n/routing";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -109,11 +110,16 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Providing all messages to the client side
   const messages = await getMessages();
 
+  // Get nonce from middleware
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") || undefined;
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
         {/* Site-wide structured data */}
         <SafeJsonLd
+          nonce={nonce}
           data={{
             "@context": "https://schema.org",
             "@graph": [
@@ -148,9 +154,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                   "@type": "ImageObject",
                   url: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
                 },
-                sameAs: [
-                  "https://github.com/sandgraal/Costa-Rica-Tree-Atlas",
-                ],
+                sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
               },
             ],
           }}
@@ -195,6 +199,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               <PWARegister />
               {/* Privacy-respecting analytics - configure via env vars */}
               <Analytics
+                nonce={nonce}
                 plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
                 enableSimpleAnalytics={
                   process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"

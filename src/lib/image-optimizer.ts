@@ -159,7 +159,9 @@ export async function optimizeImage(
   // Process each size
   for (const sizeKey of sizes) {
     const targetWidth =
-      sizeKey === "original" ? originalWidth : IMAGE_SIZES[sizeKey as ImageSize];
+      sizeKey === "original"
+        ? originalWidth
+        : IMAGE_SIZES[sizeKey as ImageSize];
 
     // Skip if target is larger than original (but allow equal for original size)
     if (sizeKey !== "original" && targetWidth && targetWidth >= originalWidth) {
@@ -225,26 +227,20 @@ export async function optimizeImage(
           width: outputMetadata.width || 0,
           height: outputMetadata.height || 0,
           size: fileSize,
-          path: path.relative(
-            path.join(process.cwd(), "public"),
-            outputPath
-          ),
+          path: path.relative(path.join(process.cwd(), "public"), outputPath),
         };
 
         console.log(
           `  ✓ ${outputFileName}: ${outputMetadata.width}x${outputMetadata.height} (${formatBytes(fileSize)})`
         );
       } catch (error) {
-        console.error(
-          `  ✗ Error processing ${sizeKey} in ${format}: ${error}`
-        );
+        console.error(`  ✗ Error processing ${sizeKey} in ${format}: ${error}`);
       }
     }
   }
 
   const savings = originalSize - totalSizeAfter;
-  const savingsPercent =
-    originalSize > 0 ? (savings / originalSize) * 100 : 0;
+  const savingsPercent = originalSize > 0 ? (savings / originalSize) * 100 : 0;
 
   const result: OptimizationResult = {
     success: Object.keys(variants).length > 0,

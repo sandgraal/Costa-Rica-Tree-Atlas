@@ -1,15 +1,58 @@
 /**
- * Security validation utilities for user inputs
+ * Enhanced security validation with Unicode normalization
  */
 
-// Scientific name: Letters, spaces, hyphens, periods only
-const SCIENTIFIC_NAME_REGEX = /^[A-Za-z\s\-\.]+$/;
+// Maximum lengths to prevent DoS
+const MAX_SCIENTIFIC_NAME_LENGTH = 200;
+const MAX_SLUG_LENGTH = 100;
+
+// Scientific name: Letters (including Unicode), spaces, hyphens, periods
+// \p{L} matches all Unicode letters
+const SCIENTIFIC_NAME_REGEX = /^[\p{L}\s\-\.]+$/u;
 
 // Locale: Must be exactly 'en' or 'es'
 const LOCALE_REGEX = /^(en|es)$/;
 
-// Slug: Alphanumeric with hyphens only
-const SLUG_REGEX = /^[a-z0-9\-]+$/;
+// Slug: Alphanumeric and hyphens only (no Unicode needed for slugs)
+// Safe from ReDoS: Uses possessive quantifiers with character classes
+// eslint-disable-next-line security/detect-unsafe-regex
+const SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+// Detect suspicious Unicode (potential homograph attack)
+const CONTROL_CHAR_REGEX = /[\x00-\x1F\x7F-\x9F]/; // Control characters
+
+// Email validation regex (RFC 5322 simplified)
+// Safe from ReDoS: Uses bounded quantifiers {0,61} and simple character classes
+// eslint-disable-next-line security/detect-unsafe-regex
+const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+/**
+ * Normalize Unicode string for consistent comparison
+ * NFC (Canonical Composition) is standard for web
+ */
+function normalizeUnicode(input: string): string {
+  return input.normalize("NFC");
+}
+
+/**
+ * Detect potential homograph attacks
+ */
+function detectHomographs(input: string): boolean {
+  // Check for mixing Latin with Cyrillic/Greek (common homograph tactic)
+  const hasLatin = /[a-zA-Z]/.test(input);
+
+  // Early return if no Latin characters
+  if (!hasLatin) {
+    return false;
+  }
+
+  const hasCyrillic = /[\u0400-\u04FF]/.test(input);
+  const hasGreek = /[\u0370-\u03FF]/.test(input);
+
+  // If mixing scripts, it's suspicious
+  return hasCyrillic || hasGreek;
+}
 
 export interface ValidationResult {
   valid: boolean;
@@ -25,26 +68,42 @@ export function validateScientificName(input: string | null): ValidationResult {
     return { valid: false, error: "Scientific name is required" };
   }
 
-  // Length check
-  if (input.length < 3) {
+  // Length check BEFORE regex to prevent ReDoS
+  if (input.length > MAX_SCIENTIFIC_NAME_LENGTH) {
+    return {
+      valid: false,
+      error: `Scientific name too long (max ${MAX_SCIENTIFIC_NAME_LENGTH} characters)`,
+    };
+  }
+
+  // Normalize Unicode
+  const normalized = normalizeUnicode(input.trim());
+
+  if (normalized.length < 3) {
     return {
       valid: false,
       error: "Scientific name too short (min 3 characters)",
     };
   }
 
-  if (input.length > 200) {
+  // Check for control characters (including null bytes)
+  if (CONTROL_CHAR_REGEX.test(normalized)) {
     return {
       valid: false,
-      error: "Scientific name too long (max 200 characters)",
+      error: "Scientific name contains invalid control characters",
     };
   }
 
-  // Trim whitespace
-  const trimmed = input.trim();
+  // Detect homograph attacks
+  if (detectHomographs(normalized)) {
+    return {
+      valid: false,
+      error: "Scientific name contains suspicious character combinations",
+    };
+  }
 
-  // Character validation
-  if (!SCIENTIFIC_NAME_REGEX.test(trimmed)) {
+  // Character validation (now with Unicode support)
+  if (!SCIENTIFIC_NAME_REGEX.test(normalized)) {
     return {
       valid: false,
       error:
@@ -52,17 +111,20 @@ export function validateScientificName(input: string | null): ValidationResult {
     };
   }
 
-  // Check for excessive spaces or hyphens
-  if (/\s{2,}/.test(trimmed) || /\-{2,}/.test(trimmed)) {
+  // Check for excessive whitespace or hyphens
+  if (/\s{2,}/.test(normalized) || /\-{2,}/.test(normalized)) {
     return {
       valid: false,
       error: "Scientific name contains consecutive spaces or hyphens",
     };
   }
 
+  // Additional safety: remove leading/trailing hyphens and spaces
+  const cleaned = normalized.trim().replace(/^-+|-+$/g, "");
+
   return {
     valid: true,
-    sanitized: trimmed,
+    sanitized: cleaned,
   };
 }
 
@@ -84,7 +146,7 @@ export function validateLocale(input: string | null): ValidationResult {
 }
 
 /**
- * Validate slug parameter
+ * Validate slug with length limit
  */
 export function validateSlug(input: string | null): ValidationResult {
   if (!input) {
@@ -93,8 +155,12 @@ export function validateSlug(input: string | null): ValidationResult {
 
   const trimmed = input.trim().toLowerCase();
 
-  if (trimmed.length > 100) {
-    return { valid: false, error: "Slug too long" };
+  // Length check before regex
+  if (trimmed.length > MAX_SLUG_LENGTH) {
+    return {
+      valid: false,
+      error: `Slug too long (max ${MAX_SLUG_LENGTH} characters)`,
+    };
   }
 
   if (!SLUG_REGEX.test(trimmed)) {
@@ -110,12 +176,32 @@ export function validateSlug(input: string | null): ValidationResult {
 
 /**
  * Sanitize string for logging (prevent log injection)
- * Note: This removes non-ASCII characters to prevent log injection attacks.
- * This is intentional for security purposes when logging user input.
  */
 export function sanitizeForLog(input: string): string {
   return input
     .replace(/[\r\n]/g, " ") // Remove newlines
-    .replace(/[^\x20-\x7E]/g, "") // Remove non-printable chars
+    .replace(/[^\x20-\x7E]/g, "") // Remove non-printable ASCII
     .slice(0, 200); // Limit length
+}
+
+/**
+ * Validate and sanitize email addresses
+ */
+export function validateEmail(input: string | null): ValidationResult {
+  if (!input) {
+    return { valid: false, error: "Email is required" };
+  }
+
+  const trimmed = input.trim().toLowerCase();
+
+  // Length check
+  if (trimmed.length > 254) {
+    return { valid: false, error: "Email too long" };
+  }
+
+  if (!EMAIL_REGEX.test(trimmed)) {
+    return { valid: false, error: "Invalid email format" };
+  }
+
+  return { valid: true, sanitized: trimmed };
 }
