@@ -81,6 +81,10 @@ jobs:
           config-file: ./.github/codeql/codeql-config.yml
           queries: security-extended,security-and-quality
       
+      - name: Set test environment variables for build
+        run: |
+          echo "ADMIN_PASSWORD=TestP@ssw0rd123!" >> $GITHUB_ENV
+      
       - name: Autobuild
         uses: github/codeql-action/autobuild@v4
       
