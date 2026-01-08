@@ -7,6 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { createStorage, educationProgressSchema } from "@/lib/storage";
 
 interface LessonProgress {
   lessonId: string;
@@ -118,16 +119,21 @@ export function EducationProgressProvider({
   const [progress, setProgress] = useState<Record<string, LessonProgress>>({});
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Create storage instance
+  const progressStorage = createStorage({
+    key: STORAGE_KEY,
+    schema: educationProgressSchema,
+    onError: (error) => {
+      console.warn("Education progress data error:", error.message);
+    },
+  });
+
   // Load from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try {
-          setProgress(JSON.parse(stored));
-        } catch (e) {
-          console.error("Failed to parse education progress:", e);
-        }
+      const data = progressStorage.get();
+      if (data) {
+        setProgress(data);
       }
       setIsLoaded(true);
     }
@@ -136,7 +142,7 @@ export function EducationProgressProvider({
   // Save to localStorage on change
   useEffect(() => {
     if (isLoaded && typeof window !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      progressStorage.set(progress);
     }
   }, [progress, isLoaded]);
 
@@ -180,7 +186,7 @@ export function EducationProgressProvider({
   const resetProgress = () => {
     setProgress({});
     if (typeof window !== "undefined") {
-      localStorage.removeItem(STORAGE_KEY);
+      progressStorage.clear();
     }
   };
 
