@@ -5,7 +5,6 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { useEffect, useState } from "react";
 
 // ============================================================================
 // Types
@@ -25,6 +24,17 @@ interface UIState {
 // ============================================================================
 
 interface StoreState {
+  /**
+   * Hydration state - DO NOT use this directly in components that need hydration checks
+   * Instead, use: const hydrated = useStore(state => state._hydrated)
+   *
+   * This flag is set to true when the persist middleware completes hydration from localStorage.
+   * Use this to prevent hydration mismatches when rendering persisted state (favorites, theme, etc).
+   *
+   * @important Never use `suppressHydrationWarning` without first checking _hydrated
+   */
+  _hydrated: boolean;
+
   // Theme (flattened for easy access)
   theme: Theme;
   resolvedTheme: ResolvedTheme;
@@ -60,6 +70,9 @@ const MAX_RECENT_ITEMS = 10;
 export const useStore = create<StoreState>()(
   persist(
     (set, get) => ({
+      // Hydration state - starts false, set to true when persist middleware completes
+      _hydrated: false,
+
       // Theme (flattened)
       theme: "system" as Theme,
       resolvedTheme: "light" as ResolvedTheme,
@@ -143,10 +156,43 @@ export const useStore = create<StoreState>()(
           removeItem: () => {},
         };
       }),
+      /**
+       * Called when the store is rehydrated from localStorage
+       * This is where we set _hydrated to true and validate persisted data
+       */
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.error("Failed to hydrate store from localStorage:", error);
+          // Clear corrupted data
+          try {
+            localStorage.removeItem("cr-tree-atlas");
+          } catch {
+            // Ignore if localStorage is not accessible
+          }
+        }
+
+        if (state) {
+          // Validate and sanitize persisted data
+          if (!Array.isArray(state.favorites)) {
+            state.favorites = [];
+          }
+          if (!Array.isArray(state.recentlyViewed)) {
+            state.recentlyViewed = [];
+          }
+          // Validate theme
+          if (!["light", "dark", "system"].includes(state.theme)) {
+            state.theme = "system";
+          }
+
+          // Mark as hydrated - this must be the last operation
+          state._hydrated = true;
+        }
+      },
       partialize: (state) => ({
         theme: state.theme,
         favorites: state.favorites,
         recentlyViewed: state.recentlyViewed,
+        // Explicitly exclude _hydrated from persistence
       }),
     }
   )
@@ -155,40 +201,6 @@ export const useStore = create<StoreState>()(
 // ============================================================================
 // Hooks for common patterns
 // ============================================================================
-
-/**
- * Hook to check if the store has been hydrated from localStorage.
- * Use this to prevent hydration mismatches with persisted state.
- */
-export function useStoreHydration() {
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    // Safety check for SSR
-    if (typeof window === "undefined") return;
-
-    try {
-      // Zustand persist middleware sets _hasHydrated when done
-      const unsubFinishHydration = useStore.persist.onFinishHydration(() => {
-        setHydrated(true);
-      });
-
-      // Check if already hydrated (e.g., on fast refresh)
-      if (useStore.persist.hasHydrated()) {
-        setHydrated(true);
-      }
-
-      return () => {
-        unsubFinishHydration();
-      };
-    } catch {
-      // If persist middleware isn't available, consider it hydrated
-      setHydrated(true);
-    }
-  }, []);
-
-  return hydrated;
-}
 
 export function useFavorite(slug: string) {
   const isFavorite = useStore((state) => state.favorites.includes(slug));

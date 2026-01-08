@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { useStore, useStoreHydration } from "@/lib/store";
+import { useStore } from "@/lib/store";
 import { useTranslations } from "next-intl";
 
 export function ThemeToggle() {
-  const hydrated = useStoreHydration();
+  const hydrated = useStore((state) => state._hydrated);
   const theme = useStore((state) => state.theme);
   const resolvedTheme = useStore((state) => state.resolvedTheme);
   const setTheme = useStore((state) => state.setTheme);
