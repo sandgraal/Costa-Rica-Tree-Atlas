@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import {
   PROVINCES,
   REGIONS,
@@ -405,10 +406,14 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                 >
                   <div className="aspect-[4/3] bg-muted relative overflow-hidden">
                     {tree.featuredImage ? (
-                      <img
+                      <OptimizedImage
                         src={tree.featuredImage}
                         alt={tree.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        priority={false}
+                        quality={75}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-6xl">

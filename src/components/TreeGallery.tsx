@@ -234,6 +234,7 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
               quality={75}
+              priority={index < 4}
               fallback="placeholder"
             />
 
