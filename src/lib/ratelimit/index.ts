@@ -97,6 +97,9 @@ function isValidIP(ip: string): boolean {
   return false;
 }
 
+// Default window in seconds if parsing fails
+const DEFAULT_WINDOW_SECONDS = 60;
+
 /**
  * Check if IPv6 address belongs to a known mobile carrier
  * Mobile carriers use /64 subnets, others use /48
@@ -186,9 +189,9 @@ function parseWindow(window: string): number {
   const match = window.match(/^(\d+)\s*([hms])$/);
   if (!match) {
     console.warn(
-      `Invalid rate limit window format: "${window}". Using default 60 seconds.`
+      `Invalid rate limit window format: "${window}". Using default ${DEFAULT_WINDOW_SECONDS} seconds.`
     );
-    return 60;
+    return DEFAULT_WINDOW_SECONDS;
   }
 
   const value = parseInt(match[1], 10);
@@ -203,9 +206,9 @@ function parseWindow(window: string): number {
       return value;
     default:
       console.warn(
-        `Unknown time unit in window: "${window}". Using default 60 seconds.`
+        `Unknown time unit in window: "${window}". Using default ${DEFAULT_WINDOW_SECONDS} seconds.`
       );
-      return 60;
+      return DEFAULT_WINDOW_SECONDS;
   }
 }
 
@@ -271,14 +274,10 @@ export async function rateLimit(
   const windowSeconds = parseWindow(config.window);
 
   // Use circuit breaker with fallback
+  // redis is guaranteed to be non-null here due to check at line 265
   const result = await circuitBreaker.execute(
-    async () => {
-      // Double-check redis is available before using
-      if (!redis) {
-        throw new Error("Redis not configured");
-      }
-      return atomicRateLimit(redis, identifier, config.requests, windowSeconds);
-    },
+    async () =>
+      atomicRateLimit(redis!, identifier, config.requests, windowSeconds),
     () => {
       // Fallback to in-memory rate limiting
       const fallback = memoryLimiter.check(

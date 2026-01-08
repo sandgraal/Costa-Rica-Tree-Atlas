@@ -170,7 +170,6 @@ The system maintains a list of known mobile carrier IPv6 prefixes:
 - T-Mobile US: `2600:`, `2607:fb90:`
 - Sprint/T-Mobile: `2001:4888:`
 - Telefonica/O2: `2a00:23c5:`, `2a00:23c6:`
-- Mobile VPN providers: `2a01:4f8:` (Hetzner)
 
 This list can be expanded as needed to cover additional carriers worldwide.
 

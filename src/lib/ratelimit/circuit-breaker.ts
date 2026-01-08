@@ -25,15 +25,18 @@ export class CircuitBreaker {
     }
 
     try {
-      const result = await Promise.race([
-        fn(),
-        new Promise<never>((_, reject) =>
-          setTimeout(
-            () => reject(new Error("Redis timeout")),
-            this.redisTimeout
-          )
-        ),
-      ]);
+      let timeoutId: NodeJS.Timeout;
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        timeoutId = setTimeout(
+          () => reject(new Error("Redis timeout")),
+          this.redisTimeout
+        );
+      });
+
+      const result = await Promise.race([fn(), timeoutPromise]);
+
+      // Clean up timeout
+      clearTimeout(timeoutId!);
 
       if (this.state === "half-open") {
         this.state = "closed";
