@@ -93,14 +93,14 @@ UPSTASH_REDIS_REST_TOKEN=your-token
 Rate limits use the most reliable IP address available, with strict validation to prevent injection attacks and IP spoofing:
 
 1. **x-real-ip** header (set by Vercel in production) - most trusted
-2. **cf-connecting-ip** header (set by Cloudflare) - trusted for Cloudflare deployments
-3. **x-forwarded-for** with **trusted proxy validation** - validates proxy chain
+2. **x-forwarded-for** with **trusted proxy validation** - validates proxy chain
+3. **cf-connecting-ip** header (only if request is from Cloudflare) - validated fallback
 4. Fallback to **"unknown"** if no valid IP found
 
 **Security rationale:**
 
 - **x-real-ip** is set by our trusted reverse proxy (Vercel) and cannot be spoofed by clients
-- **cf-connecting-ip** is set by Cloudflare and provides the actual client IP
+- **cf-connecting-ip** is only trusted if the rightmost x-forwarded-for IP is from Cloudflare (prevents spoofing)
 - For **x-forwarded-for**, we validate the proxy chain from right to left:
   - We check each IP against known trusted proxy ranges (Cloudflare, Vercel)
   - We skip trusted proxy IPs to find the actual client IP
@@ -382,9 +382,10 @@ The nonce generation system includes collision detection and automatic cleanup:
 
 **Automatic Cleanup:**
 
-- Recent nonces are tracked in-memory for collision detection
-- Nonces are automatically removed after 1 minute (single-use per request)
-- Full cleanup of the nonce set occurs every 5 minutes to prevent memory leaks
+- Recent nonces are tracked in-memory with timestamps for collision detection
+- Nonces older than 1 minute are cleaned up on each generateNonce() call
+- Full cleanup of the nonce map occurs every 5 minutes to prevent memory leaks
+- No setTimeout in serverless environment - cleanup happens during next request
 - No persistent storage - all tracking is in-memory only
 
 **Monitoring:**

@@ -1,5 +1,5 @@
-// In-memory nonce tracking (cleared every 5 minutes)
-const recentNonces = new Set<string>();
+// In-memory nonce tracking with timestamps (cleared every 5 minutes)
+const recentNonces = new Map<string, number>();
 let lastCleanup = Date.now();
 
 /**
@@ -7,15 +7,24 @@ let lastCleanup = Date.now();
  * Compatible with Edge Runtime
  *
  * Includes collision detection to ensure nonce uniqueness.
- * Nonces are tracked in-memory and automatically cleaned up.
+ * Nonces are tracked in-memory with timestamps and automatically cleaned up.
  *
  * @returns Base64-encoded random nonce
  */
 export function generateNonce(): string {
+  const now = Date.now();
+
   // Cleanup old nonces every 5 minutes
-  if (Date.now() - lastCleanup > 300000) {
+  if (now - lastCleanup > 300000) {
     recentNonces.clear();
-    lastCleanup = Date.now();
+    lastCleanup = now;
+  }
+
+  // Also cleanup nonces older than 1 minute
+  for (const [nonce, timestamp] of recentNonces.entries()) {
+    if (now - timestamp > 60000) {
+      recentNonces.delete(nonce);
+    }
   }
 
   let attempts = 0;
@@ -38,10 +47,7 @@ export function generateNonce(): string {
     }
   } while (recentNonces.has(nonce));
 
-  recentNonces.add(nonce);
-
-  // Auto-remove after 1 minute (nonces are single-use per request)
-  setTimeout(() => recentNonces.delete(nonce), 60000);
+  recentNonces.set(nonce, now);
 
   return nonce;
 }

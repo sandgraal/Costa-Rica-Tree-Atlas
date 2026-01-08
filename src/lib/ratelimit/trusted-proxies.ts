@@ -44,7 +44,6 @@ export const TRUSTED_PROXY_RANGES = {
   ],
   vercel_ipv4: [
     "76.76.21.0/24",
-    "76.76.21.21/32",
     // Add more Vercel IPs as needed
   ],
 } as const;

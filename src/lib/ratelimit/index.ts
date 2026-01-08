@@ -117,11 +117,11 @@ function normalizeIP(ip: string): string {
 
 /**
  * Get trusted client IP address with proper validation
- * Priority: x-real-ip > cf-connecting-ip > validated x-forwarded-for chain
+ * Priority: x-real-ip > validated x-forwarded-for chain > cf-connecting-ip (if from Cloudflare)
  *
  * Security notes:
  * - x-real-ip is set by trusted reverse proxy (Vercel) and cannot be spoofed
- * - cf-connecting-ip is set by Cloudflare and is validated
+ * - cf-connecting-ip is only trusted if the request comes from Cloudflare
  * - For x-forwarded-for, we validate the proxy chain from right to left,
  *   skipping trusted proxy IPs to find the actual client IP
  * - This prevents IP spoofing even if the proxy chain is misconfigured
@@ -156,10 +156,16 @@ function getTrustedClientIP(request: NextRequest): string {
     }
   }
 
-  // Priority 3: Cloudflare-specific header (fallback)
+  // Priority 3: Cloudflare-specific header (only if request is from Cloudflare)
+  // We validate this by checking if the rightmost x-forwarded-for IP is from Cloudflare
   const cfConnectingIP = request.headers.get("cf-connecting-ip");
-  if (cfConnectingIP && isValidIP(cfConnectingIP)) {
-    return normalizeIP(cfConnectingIP);
+  if (cfConnectingIP && isValidIP(cfConnectingIP) && forwarded) {
+    const ips = forwarded.split(",").map((ip) => ip.trim());
+    const rightmostIP = ips[ips.length - 1];
+    // Only trust cf-connecting-ip if the request actually came from Cloudflare
+    if (rightmostIP && isValidIP(rightmostIP) && isTrustedProxy(rightmostIP)) {
+      return normalizeIP(cfConnectingIP);
+    }
   }
 
   // Unknown IPs get strictest rate limits (using "unknown" as identifier)
