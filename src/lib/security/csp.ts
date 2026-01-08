@@ -6,8 +6,8 @@
 export function generateNonce(): string {
   const bytes = new Uint8Array(16);
   crypto.getRandomValues(bytes);
-  // Convert to base64
-  return btoa(String.fromCharCode(...bytes));
+  // Convert to base64 - use Array.from for safety with larger arrays
+  return btoa(Array.from(bytes, (byte) => String.fromCharCode(byte)).join(""));
 }
 
 /**
@@ -30,6 +30,7 @@ export function buildCSP(nonce?: string): string {
       // Analytics - specific domains only
       "https://plausible.io",
       "https://scripts.simpleanalyticscdn.com",
+      "https://www.googletagmanager.com",
       // Development only
       ...(isDev ? ["'unsafe-eval'"] : []),
       // Fallback for browsers that don't support strict-dynamic
@@ -56,6 +57,8 @@ export function buildCSP(nonce?: string): string {
       "https://api.gbif.org",
       "https://api.inaturalist.org",
       "https://plausible.io",
+      "https://queue.simpleanalyticscdn.com",
+      "https://www.google-analytics.com",
     ],
     "frame-src": ["'self'"],
     "object-src": ["'none'"],
