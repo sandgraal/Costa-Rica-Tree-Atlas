@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 import { withContentlayer } from "next-contentlayer2";
 import createNextIntlPlugin from "next-intl/plugin";
+import { buildCSP } from "./src/lib/security/csp";
+import { validateEnv } from "./src/lib/env/schema";
+
+// Validate environment variables at build time
+validateEnv();
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
