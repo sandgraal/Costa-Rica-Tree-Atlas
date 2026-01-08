@@ -44,23 +44,55 @@ function isValidIP(ip: string): boolean {
 }
 
 /**
- * Normalize IP address for rate limiting
- * IPv6 addresses are normalized to /64 subnets to handle mobile user IP rotation
+ * Check if IPv6 address belongs to a known mobile carrier
+ * Mobile carriers use /64 subnets, others use /48
+ */
+function isMobileIPv6(ip: string): boolean {
+  const mobileIPv6Prefixes = [
+    "2600:", // T-Mobile US
+    "2607:fb90:", // T-Mobile US
+    "2001:4888:", // Sprint/T-Mobile
+    "2a00:23c5:", // Telefonica/O2
+    "2a00:23c6:", // Telefonica/O2
+    // Add more known mobile carrier prefixes as needed
+  ];
+
+  return mobileIPv6Prefixes.some((prefix) => ip.startsWith(prefix));
+}
+
+/**
+ * Normalize IP address with smarter IPv6 handling
+ * - IPv4: return as-is
+ * - IPv6: use /64 for mobile carriers, /48 for others
  */
 function normalizeIP(ip: string): string {
   if (ip.includes(":")) {
-    // IPv6 - use /64 subnet to group mobile users on same network
+    // IPv6 - check if it's a mobile carrier
+    const isMobile = isMobileIPv6(ip);
     const parts = ip.split(":");
-    // Take first 4 groups (64 bits) to identify the subnet
-    return parts.slice(0, 4).join(":") + "::/64";
+
+    if (isMobile) {
+      // Mobile: use /64 subnet (first 4 groups)
+      return parts.slice(0, 4).join(":") + "::/64";
+    } else {
+      // Corporate/residential: use /48 subnet (first 3 groups)
+      return parts.slice(0, 3).join(":") + "::/48";
+    }
   }
+
   // IPv4 - return as-is
   return ip;
 }
 
 /**
- * Get trusted client IP address with proper validation
- * Priority: x-real-ip (set by Vercel/Cloudflare) > rightmost x-forwarded-for > fallback
+ * Get trusted client IP with configurable proxy hop count
+ * Handles multiple proxy layers (Cloudflare + Vercel)
+ *
+ * Security notes:
+ * - x-real-ip is set by trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed
+ * - For x-forwarded-for, we account for trusted proxy hops to get the real client IP
+ * - All IPs are validated to prevent injection attacks
+ * - IPv6 addresses are normalized to /48 or /64 subnets based on carrier type
  */
 function getTrustedClientIP(request: NextRequest): string {
   // Vercel sets x-real-ip with the actual client IP (trusted)
@@ -69,11 +101,21 @@ function getTrustedClientIP(request: NextRequest): string {
     return normalizeIP(realIP);
   }
 
-  // Take rightmost IP from x-forwarded-for (closest to server, added by trusted proxy)
+  // For x-forwarded-for, account for trusted proxy hops
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
     const ips = forwarded.split(",").map((ip) => ip.trim());
-    const clientIP = ips[Math.max(0, ips.length - 1)];
+
+    // In production behind Cloudflare + Vercel:
+    // Format: client-ip, cloudflare-proxy, vercel-proxy
+    // We want client-ip (3rd from end, or index 0 if only 3 IPs)
+    const trustedProxyCount = process.env.TRUSTED_PROXY_COUNT
+      ? parseInt(process.env.TRUSTED_PROXY_COUNT, 10)
+      : 2; // Default: Cloudflare + Vercel
+
+    const clientIndex = Math.max(0, ips.length - trustedProxyCount - 1);
+    const clientIP = ips[clientIndex];
+
     if (isValidIP(clientIP)) {
       return normalizeIP(clientIP);
     }
