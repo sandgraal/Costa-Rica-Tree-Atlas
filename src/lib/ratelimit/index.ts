@@ -69,18 +69,34 @@ const rateLimiters = redis
  * Validate if a string is a valid IPv4 or IPv6 address
  */
 function isValidIP(ip: string): boolean {
+  // Basic length check to prevent ReDoS
+  if (!ip || ip.length > 45) return false; // Max IPv6 length is 39, giving some margin
+
   // IPv4 validation
-  const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
-  if (ipv4Regex.test(ip)) {
-    const parts = ip.split(".").map(Number);
-    return parts.every((part) => part >= 0 && part <= 255);
+  if (ip.includes(".")) {
+    const parts = ip.split(".");
+    if (parts.length !== 4) return false;
+    return parts.every((part) => {
+      const num = Number(part);
+      return /^\d{1,3}$/.test(part) && num >= 0 && num <= 255;
+    });
   }
 
-  // IPv6 validation (simplified - matches standard and compressed formats)
-  const ipv6Regex = /^([0-9a-fA-F]{0,4}:){7}[0-9a-fA-F]{0,4}$/;
-  const ipv6CompressedRegex = /^([0-9a-fA-F]{0,4}:){0,7}:([0-9a-fA-F]{0,4}:){0,7}[0-9a-fA-F]{0,4}$/;
-  
-  return ipv6Regex.test(ip) || ipv6CompressedRegex.test(ip);
+  // IPv6 validation - check if it contains colons and has valid hex characters
+  if (ip.includes(":")) {
+    // Basic structural check: should have at least 2 colons and only valid characters
+    const validChars = /^[0-9a-fA-F:]+$/;
+    if (!validChars.test(ip)) return false;
+
+    const parts = ip.split(":");
+    // IPv6 should have at most 8 groups (or less with :: compression)
+    if (parts.length > 8) return false;
+
+    // Each part should be 0-4 hex digits (empty parts are ok for :: compression)
+    return parts.every((part) => part.length <= 4);
+  }
+
+  return false;
 }
 
 /**
@@ -101,7 +117,7 @@ function normalizeIP(ip: string): string {
 /**
  * Get trusted client IP address with proper validation
  * Priority: x-real-ip (set by Vercel/Cloudflare) > rightmost x-forwarded-for > fallback
- * 
+ *
  * Security notes:
  * - x-real-ip is set by trusted reverse proxy (Vercel/Cloudflare) and cannot be spoofed
  * - For x-forwarded-for, we take the RIGHTMOST IP (closest to our server) which is added
