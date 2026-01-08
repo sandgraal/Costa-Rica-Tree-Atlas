@@ -239,56 +239,69 @@ export function QuickSearch() {
           </kbd>
         </button>
 
-            {/* Results */}
-            {isLoadingTrees ? (
-              <div className="p-4">
-                <div className="h-12 bg-muted rounded animate-pulse mb-4" />
-                <div className="space-y-2">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <div key={i} className="h-16 bg-muted rounded animate-pulse" />
-                  ))}
-                </div>
+        {/* Dialog Overlay - Only show when open */}
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <div className="fixed inset-0 bg-black/50 z-40" />
+
+            {/* Dialog */}
+            <div className="fixed top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-background border border-border rounded-xl shadow-2xl overflow-hidden z-50">
+              {/* Search Input */}
+              <div className="p-4 border-b border-border">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={
+                    locale === "es"
+                      ? "Buscar por nombre, familia, característica..."
+                      : "Search by name, family, characteristic..."
+                  }
+                  className="w-full px-3 py-2 bg-transparent border-0 outline-none text-foreground placeholder:text-muted-foreground"
+                />
               </div>
-            ) : results.length > 0 ? (
-              <ul className="py-2 max-h-96 overflow-auto">
-                {results.map((tree, index) => (
-                  <li key={tree.slug}>
-                    <button
-                      onClick={() => handleSelect(tree.slug)}
-                      className={`w-full px-4 py-3 text-left flex items-start gap-3 transition-colors ${
-                        index === selectedIndex
-                          ? "bg-primary/10 text-foreground"
-                          : "text-foreground hover:bg-muted"
-                      }`}
-                    >
-                      <span className="text-2xl shrink-0">🌳</span>
-                      <div className="min-w-0 flex-1">
-                        <div className="font-medium truncate">{tree.title}</div>
-                        <div className="text-sm text-muted-foreground truncate italic">
-                          {tree.scientificName}
-                        </div>
-                        <div className="text-xs text-muted-foreground truncate">
-                          {tree.family}
-                          {tree.conservationStatus && (
-                            <span className="ml-2 px-1.5 py-0.5 rounded bg-muted text-xs">
-                              {tree.conservationStatus}
-                            </span>
-                          )}
-                        </div>
-                        {/* Show additional context based on matched fields */}
-                        {tree.tags && tree.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {tree.tags.slice(0, 3).map((tag) => (
-                              <span
-                                key={tag}
-                                className="px-1.5 py-0.5 text-xs bg-primary/10 text-primary rounded"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                            {tree.tags.length > 3 && (
-                              <span className="text-xs text-muted-foreground">
-                                +{tree.tags.length - 3}
+
+              {/* Results */}
+              {isLoadingTrees ? (
+                <div className="p-4">
+                  <div className="h-12 bg-muted rounded animate-pulse mb-4" />
+                  <div className="space-y-2">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <div
+                        key={i}
+                        className="h-16 bg-muted rounded animate-pulse"
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : results.length > 0 ? (
+                <ul className="py-2 max-h-96 overflow-auto">
+                  {results.map((tree, index) => (
+                    <li key={tree.slug}>
+                      <button
+                        onClick={() => handleSelect(tree.slug)}
+                        className={`w-full px-4 py-3 text-left flex items-start gap-3 transition-colors ${
+                          index === selectedIndex
+                            ? "bg-primary/10 text-foreground"
+                            : "text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        <span className="text-2xl shrink-0">🌳</span>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-medium truncate">
+                            {tree.title}
+                          </div>
+                          <div className="text-sm text-muted-foreground truncate italic">
+                            {tree.scientificName}
+                          </div>
+                          <div className="text-xs text-muted-foreground truncate">
+                            {tree.family}
+                            {tree.conservationStatus && (
+                              <span className="ml-2 px-1.5 py-0.5 rounded bg-muted text-xs">
+                                {tree.conservationStatus}
                               </span>
                             )}
                           </div>
@@ -369,7 +382,7 @@ export function QuickSearch() {
                 </span>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </ComponentErrorBoundary>

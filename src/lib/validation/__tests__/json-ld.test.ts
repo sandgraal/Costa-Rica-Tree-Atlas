@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { validateJsonLd } from "../json-ld";
+import { validateJsonLd, sanitizeJsonLd } from "../json-ld";
 
 describe("validateJsonLd", () => {
   it("should accept valid schema.org context", () => {
@@ -11,6 +11,7 @@ describe("validateJsonLd", () => {
     const result = validateJsonLd(data);
     expect(result.valid).toBe(true);
   });
+});
 
 describe("JSON-LD XSS Prevention", () => {
   describe("validateJsonLd", () => {
@@ -150,7 +151,7 @@ describe("JSON-LD XSS Prevention", () => {
     it("should handle nested objects", () => {
       const malicious = {
         author: {
-          name: 'Evil<script>alert(1)</script>',
+          name: "Evil<script>alert(1)</script>",
         },
       };
 
@@ -183,7 +184,7 @@ describe("JSON-LD XSS Prevention", () => {
     it("should handle nested objects", () => {
       const malicious = {
         author: {
-          name: 'Evil<script>alert(1)</script>',
+          name: "Evil<script>alert(1)</script>",
         },
       };
 
@@ -223,7 +224,7 @@ describe("JSON-LD XSS Prevention", () => {
 
     it("should handle arrays", () => {
       const malicious = {
-        items: ['Safe', '<script>alert(1)</script>'],
+        items: ["Safe", "<script>alert(1)</script>"],
       };
 
       const sanitized = sanitizeJsonLd(malicious);
