@@ -28,7 +28,14 @@ export function secureCompare(a: string, b: string): boolean {
 
 /**
  * Hash a string using SHA-256 for comparison
- * Use this for comparing user-provided input against stored hashes
+ *
+ * WARNING: This is NOT suitable for password storage!
+ * SHA-256 is too fast and vulnerable to brute-force attacks.
+ * For password hashing, use bcrypt, scrypt, or argon2 instead.
+ *
+ * This function is provided for comparing non-sensitive data or
+ * for use cases where the plaintext must be reconstructed later.
+ * Current authentication does NOT use this function.
  */
 export function hashString(input: string): string {
   return createHash("sha256").update(input, "utf8").digest("hex");
@@ -36,6 +43,11 @@ export function hashString(input: string): string {
 
 /**
  * Compare a plaintext string against a hashed value
+ *
+ * WARNING: This uses SHA-256 which is NOT suitable for password verification!
+ * Use this only for non-sensitive data comparison.
+ * Current authentication does NOT use this function.
+ *
  * Always performs hash operation to maintain constant time
  */
 export function compareHashed(plaintext: string, hash: string): boolean {
