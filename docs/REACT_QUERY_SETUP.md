@@ -181,4 +181,6 @@ npm test
 
 - [TanStack Query Documentation](https://tanstack.com/query/latest)
 - [Next.js App Router Guide](https://nextjs.org/docs/app)
-- `src/components/data/BiodiversityInfo.tsx` - Example implementation
+- Example implementations in the codebase:
+  - `src/components/data/BiodiversityInfo.tsx` - Standard useQuery hook usage
+  - Any component using useQuery will automatically benefit from the singleton pattern

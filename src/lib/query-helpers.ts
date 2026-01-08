@@ -13,6 +13,15 @@ export function invalidateTreeQueries() {
  * Prefetch tree data for faster navigation
  * @param slug - The tree slug to prefetch
  * @param locale - The locale (en or es)
+ * @throws {Error} If the fetch operation fails or returns a non-ok response
+ * @example
+ * ```ts
+ * try {
+ *   await prefetchTree('ceiba', 'en');
+ * } catch (error) {
+ *   console.error('Failed to prefetch tree:', error);
+ * }
+ * ```
  */
 export async function prefetchTree(slug: string, locale: string) {
   const queryClient = getQueryClient();
