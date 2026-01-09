@@ -16,8 +16,24 @@ const intlMiddleware = createMiddleware(routing);
 // Build regex pattern from routing.locales for consistent locale matching
 const localePattern = routing.locales.join("|");
 
+// Regex for matching static file extensions - compiled once at module level for performance
+const STATIC_FILE_REGEX =
+  /\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico|map)$/;
+
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Skip middleware for static assets, API routes, and Next.js internals
+  // These should not have CSP headers applied
+  if (
+    pathname.startsWith("/_next/") || // Next.js internal routes
+    pathname.startsWith("/api/") || // API routes
+    pathname.startsWith("/_vercel/") || // Vercel internals
+    STATIC_FILE_REGEX.test(pathname) // Static files
+  ) {
+    // Let the request pass through without modification
+    return NextResponse.next();
+  }
 
   // Generate nonce for this request
   const nonce = generateNonce();
@@ -132,15 +148,12 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames
+  // Match only internationalized pathnames and exclude static assets
+  // The early return in middleware handles additional filtering
   matcher: [
     // Enable a redirect to a matching locale at the root
     "/",
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
+    // Match all localized routes
     "/(en|es)/:path*",
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`)
-    "/((?!api|_next|_vercel|.*\\..*).*)",
   ],
 };
