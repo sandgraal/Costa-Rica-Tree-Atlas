@@ -197,8 +197,8 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <QueryProvider>
           <StoreProvider>
-            <PageErrorBoundary>
-              <NextIntlClientProvider messages={messages}>
+            <NextIntlClientProvider messages={messages}>
+              <PageErrorBoundary>
                 <a href="#main-content" className="skip-link">
                   Skip to main content
                 </a>
@@ -221,8 +221,8 @@ export default async function LocaleLayout({ children, params }: Props) {
                 />
                 {/* Vercel Web Analytics */}
                 <VercelAnalytics />
-              </NextIntlClientProvider>
-            </PageErrorBoundary>
+              </PageErrorBoundary>
+            </NextIntlClientProvider>
           </StoreProvider>
         </QueryProvider>
         {/* Vercel Speed Insights - placed outside providers for optimal performance monitoring */}
