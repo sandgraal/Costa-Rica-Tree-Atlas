@@ -144,7 +144,7 @@ export function buildCSP(nonce?: string): string {
  * - The code is NOT user-generated or coming from untrusted sources
  *
  * Security considerations:
- * - The MDX source files are part of our codebase (content/trees/*.mdx)
+ * - The MDX source files are part of our codebase (content/trees/{en,es}/*.mdx)
  * - Code is compiled during build, not at runtime from user input
  * - This is safer than inline scripts but requires unsafe-eval for the evaluation step
  *
