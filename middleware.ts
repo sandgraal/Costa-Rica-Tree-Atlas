@@ -16,6 +16,10 @@ const intlMiddleware = createMiddleware(routing);
 // Build regex pattern from routing.locales for consistent locale matching
 const localePattern = routing.locales.join("|");
 
+// Regex for matching static file extensions - compiled once at module level for performance
+const STATIC_FILE_REGEX =
+  /\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico|map)$/;
+
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
@@ -25,9 +29,7 @@ export default async function middleware(request: NextRequest) {
     pathname.startsWith("/_next/") || // Next.js internal routes
     pathname.startsWith("/api/") || // API routes
     pathname.startsWith("/_vercel/") || // Vercel internals
-    pathname.match(
-      /\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico|map)$/
-    ) // Static files
+    STATIC_FILE_REGEX.test(pathname) // Static files
   ) {
     // Let the request pass through without modification
     return NextResponse.next();
