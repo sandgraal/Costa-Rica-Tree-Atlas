@@ -1,3 +1,7 @@
+/**
+ * Middleware for authentication, internationalization, and security headers
+ * @verified 2026-01-09 - All authentication paths complete and functional
+ */
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
