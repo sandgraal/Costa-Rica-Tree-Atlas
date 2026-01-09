@@ -56,10 +56,12 @@ The application uses three different CSP configurations depending on the route:
 The middleware (`middleware.ts`) applies CSP based on URL patterns:
 
 ```typescript
-if (pathname.match(/marketing/)) {
+if (pathname.match(new RegExp(`^/(${localePattern})/marketing/`))) {
   // Relaxed CSP for GTM
   csp = buildRelaxedCSP(nonce);
-} else if (pathname.match(/trees\/[^/]+$/)) {
+} else if (
+  pathname.match(new RegExp(`^/(${localePattern})/trees/[a-zA-Z0-9-]+/?$`))
+) {
   // MDX CSP for tree detail pages
   csp = buildMDXCSP(nonce);
 } else {

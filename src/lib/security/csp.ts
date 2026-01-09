@@ -157,8 +157,6 @@ export function buildCSP(nonce?: string): string {
  * @returns CSP header value string with unsafe-eval for MDX
  */
 export function buildMDXCSP(nonce?: string): string {
-  const isDev = process.env.NODE_ENV === "development";
-
   const directives = {
     "default-src": ["'self'"],
     "script-src": [

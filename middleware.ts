@@ -144,10 +144,12 @@ export default async function middleware(request: NextRequest) {
   if (pathname.match(new RegExp(`^/(${localePattern})/marketing/`))) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
     csp = buildRelaxedCSP(nonce);
-  } else if (pathname.match(new RegExp(`^/(${localePattern})/trees/[^/]+$`))) {
+  } else if (
+    pathname.match(new RegExp(`^/(${localePattern})/trees/[a-zA-Z0-9-]+/?$`))
+  ) {
     // Tree detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
-    // Pattern matches: /en/trees/ceiba or /es/trees/guanacaste
-    // Does NOT match: /en/trees (directory) or /en/trees/compare/... (other routes)
+    // Pattern matches: /en/trees/ceiba or /es/trees/guanacaste (with optional trailing slash)
+    // Does NOT match: /en/trees (directory) or /en/trees/compare (other routes)
     csp = buildMDXCSP(nonce);
   } else {
     // All other pages: Strict CSP (no unsafe-eval)
