@@ -69,8 +69,8 @@ export default async function middleware(request: NextRequest) {
 
             // CRITICAL: Check BOTH credentials ALWAYS, regardless of individual results
             // This prevents timing attacks and username enumeration
-            const userValid = secureCompare(user, adminUsername);
-            const pwdValid = secureCompare(pwd, adminPassword);
+            const userValid = await secureCompare(user, adminUsername);
+            const pwdValid = await secureCompare(pwd, adminPassword);
 
             // IMPORTANT: Both comparisons above are evaluated before this check
             // This ensures consistent timing regardless of which credential is wrong
