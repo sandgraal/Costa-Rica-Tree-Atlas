@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-10  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-10 (Codebase vs. Roadmap accuracy verified)
+**Last Audited:** 2026-01-10 (Codebase vs. Roadmap accuracy verified - corrections applied)
 
 ---
 
@@ -61,46 +61,44 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 13/110 species (11.8%) have safety data in both languages** _(Corrected 2026-01-10)_
+**STATUS: 23/110 species (21%) have safety data in both languages** _(Corrected 2026-01-10 after codebase audit)_
 
-**Complete (13 species with EN+ES):**
+**Complete (23 species with EN+ES):**
 
-- [x] Javillo (Hura crepitans) - SEVERE - EN+ES ✓
-- [x] Manchineel (Hippomane mancinella) - SEVERE - EN+ES ✓
-- [x] Yellow Oleander/Chirca (Thevetia peruviana) - SEVERE - EN+ES ✓
-- [x] Jaboncillo (Sapindus saponaria) - MODERATE - EN+ES ✓
+- [x] Amarillón (Terminalia amazonia) - EN+ES ✓
 - [x] Anona (Annona reticulata) - MODERATE - EN+ES ✓
-- [x] Espavel (Anacardium excelsum) - LOW - EN+ES ✓
-- [x] Madero Negro (Gliricidia sepium) - MODERATE - EN+ES ✓
-- [x] Guanábana (Annona muricata) - EN+ES ✓
 - [x] Cacao (Theobroma cacao) - EN+ES ✓
 - [x] Carambola (Averrhoa carambola) - EN+ES ✓
 - [x] Cas (Psidium friedrichsthalianum) - EN+ES ✓
 - [x] Ceiba (Ceiba pentandra) - EN+ES ✓
+- [x] Chancho Blanco (Vochysia guatemalensis) - EN+ES ✓
 - [x] Cocobolo (Dalbergia retusa) - EN+ES ✓
+- [x] Espavel (Anacardium excelsum) - LOW - EN+ES ✓
+- [x] Guanábana (Annona muricata) - EN+ES ✓
+- [x] Jaboncillo (Sapindus saponaria) - MODERATE - EN+ES ✓
+- [x] Javillo (Hura crepitans) - SEVERE - EN+ES ✓
+- [x] Jícaro (Crescentia alata) - EN+ES ✓
+- [x] Laurel (Cordia alliodora) - EN+ES ✓
+- [x] Madero Negro (Gliricidia sepium) - MODERATE - EN+ES ✓
+- [x] Mamón Chino (Nephelium lappaceum) - EN+ES ✓
+- [x] Manchineel (Hippomane mancinella) - SEVERE - EN+ES ✓
+- [x] Melina (Gmelina arborea) - EN+ES ✓
+- [x] Orey (Campnosperma panamense) - EN+ES ✓
+- [x] Pilon (Hyeronima alchorneoides) - EN+ES ✓
+- [x] Sangrillo (Pterocarpus officinalis) - EN+ES ✓
+- [x] Yellow Oleander/Chirca (Thevetia peruviana) - SEVERE - EN+ES ✓
+- [x] Zapatero (Hieronyma oblonga) - EN+ES ✓
 
 **High Priority - Commonly Encountered (Remaining):**
 
-- [ ] Mamón Chino (Nephelium lappaceum) - Seed safety
-- [ ] Jícaro (Crescentia alata) - Fruit/seed assessment
-
-**Medium Priority - Native Forest (Remaining):**
-
-- [ ] Laurel (Cordia alliodora) - Document as safe
-- [ ] Pilon (Hyeronima alchorneoides)
-- [ ] Amarillón (Terminalia amazonia)
-- [ ] Zapatero (Hieronyma oblonga) - Red bark compounds
-- [ ] Chancho Blanco (Vochysia guatemalensis)
-- [ ] Orey (Campnosperma panamense) - Anacardiaceae check
-- [ ] Sangrillo (Pterocarpus officinalis) - Sap assessment
-- [ ] Madroño (Calycophyllum candidissimum)
-- [ ] Melina (Gmelina arborea)
+- [ ] Guanacaste (Enterolobium cyclocarpum) - Pod safety
+- [ ] Guayaba (Psidium guajava) - Generally safe, document
 
 **Lower Priority:**
 
 - [ ] Ciprecillo (Podocarpus costaricensis)
 - [ ] Caña India (Dracaena fragrans) - Pet toxicity
-- [ ] All remaining species (~85 trees)
+- [ ] All remaining species (~87 trees)
 
 ### Glossary Coverage
 
@@ -114,9 +112,9 @@ Track content coverage across all 110 species. Update as work progresses.
 - Schema exists in contentlayer.config.ts but no content yet
 - Target: Top 20 most-viewed species first
 
-- [ ] 0/10 priority confusion sets documented
-- Target: 10 comparison guides
-- `/compare` route exists but needs content
+- [x] 1/20 priority comparison guides documented (5% complete)
+- Target: 20 comparison guides
+- `/compare` route exists with at least 1 comparison
 
 ### Existing Features (Verified 2026-01-10)
 
@@ -156,11 +154,11 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 13/110 complete (11.8%)** _(Updated 2026-01-10)_
+**STATUS: 23/110 complete (21%)** _(Updated 2026-01-10 after codebase audit)_
 
 **MVP Requirements:**
 
-- [ ] Research and add safety data to remaining 97 species (both EN+ES)
+- [ ] Research and add safety data to remaining 87 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
 - [ ] Prioritize SEVERE/HIGH risk species first
 - [ ] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
@@ -194,12 +192,13 @@ safetyNotes: "General guidance"
 
 ### 1.2 Safety UI Enhancements
 
-**STATUS: Partially complete**
+**STATUS: Complete** _(Verified 2026-01-10)_
 
-- [ ] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk) - Types exist but UI not implemented
-- [x] Visual safety badges already display on tree cards via SafetyIcon component
+- [x] Safety filters fully implemented in tree directory UI (child-safe, pet-safe, non-toxic, low-risk)
+- [x] Visual safety badges display on tree cards via SafetyIcon component
 - [x] Safety components exist: SafetyIcon, SafetyBadge, SafetyCard, SafetyWarning, SafetyDisclaimer
 - [x] Safety section displays prominently on tree profile pages
+- [x] Safety filter checkboxes functional in TreeExplorer component
 
 ### 1.3 Dedicated Safety Page
 
@@ -387,11 +386,11 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.1 Advanced Filtering System
 
-**STATUS: Partially complete**
+**STATUS: Complete** _(Verified 2026-01-10)_
 
 **Filter Categories:**
 
-- **Safety**: Types defined (childSafe, petSafe, nonToxic, lowRisk) but UI not implemented
+- **Safety**: ✅ Fully implemented (childSafe, petSafe, nonToxic, lowRisk)
 - **Conservation**: ✅ Implemented
 - **Characteristics**: ✅ Tag filtering implemented
 - **Temporal**: ✅ Seasonal filtering exists
@@ -401,12 +400,12 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 **Requirements:**
 
 - [x] Multi-select filters for tags
-- [ ] Safety filters UI (types defined, need UI)
+- [x] Safety filters UI fully functional with checkboxes
 - [x] Filter persistence (localStorage)
 - [x] Show active filter count
 - [x] "Clear All Filters" button
 - [x] Mobile-friendly filter panel
-- [ ] Complete review and cleanup of current filters
+- [x] All filters working and integrated
 
 ### 3.2 Seasonal Guide
 
