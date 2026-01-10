@@ -25,6 +25,13 @@ const localePattern = routing.locales.join("|");
 const STATIC_FILE_REGEX =
   /\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico|map)$/;
 
+// Regex patterns for route matching - compiled once at module level for performance
+const ADMIN_ROUTE_REGEX = new RegExp(`^/(${localePattern})/admin/`);
+const MARKETING_ROUTE_REGEX = new RegExp(`^/(${localePattern})/marketing/`);
+const TREE_DETAIL_ROUTE_REGEX = new RegExp(
+  `^/(${localePattern})/trees/[^/]+/?$`
+);
+
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
@@ -45,7 +52,7 @@ export default async function middleware(request: NextRequest) {
 
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
-  if (pathname.match(new RegExp(`^/(${localePattern})/admin/`))) {
+  if (ADMIN_ROUTE_REGEX.test(pathname)) {
     // 1. HTTPS enforcement in production
     if (
       process.env.NODE_ENV === "production" &&
@@ -140,12 +147,10 @@ export default async function middleware(request: NextRequest) {
   // Add security headers with appropriate CSP based on route
   let csp: string;
 
-  if (pathname.match(new RegExp(`^/(${localePattern})/marketing/`))) {
+  if (MARKETING_ROUTE_REGEX.test(pathname)) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
     csp = buildRelaxedCSP(nonce);
-  } else if (
-    pathname.match(new RegExp(`^/(${localePattern})/trees/[^/]+/?$`))
-  ) {
+  } else if (TREE_DETAIL_ROUTE_REGEX.test(pathname)) {
     // Tree detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
     csp = buildMDXCSP(nonce);
   } else {
