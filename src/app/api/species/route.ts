@@ -18,8 +18,20 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Use sanitized value
-    const data = await fetchBiodiversityData(validation.sanitized!);
+    // Use sanitized value with a timeout wrapper
+    let timeoutId: NodeJS.Timeout;
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => reject(new Error("Request timeout")), 15000);
+    });
+
+    const dataPromise = fetchBiodiversityData(validation.sanitized!);
+
+    const data = await Promise.race([dataPromise, timeoutPromise]).finally(
+      () => {
+        // Clear timeout to prevent memory leak
+        clearTimeout(timeoutId);
+      }
+    );
 
     return NextResponse.json(data, {
       headers: {
@@ -30,9 +42,22 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Biodiversity API error:", error);
+
+    // Return partial/empty data instead of error to prevent page breaks
     return NextResponse.json(
-      { error: "Failed to fetch biodiversity data" },
-      { status: 500 }
+      {
+        gbif: null,
+        inaturalist: null,
+        iucn: null,
+        lastUpdated: new Date().toISOString(),
+      },
+      {
+        status: 200, // Return 200 with empty data instead of 500
+        headers: {
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+          ...rateLimitResult.headers,
+        },
+      }
     );
   }
 }

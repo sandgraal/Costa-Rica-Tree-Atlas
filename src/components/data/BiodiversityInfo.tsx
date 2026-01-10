@@ -1,10 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import {
-  fetchBiodiversityData,
-  biodiversityQueryKeys,
-} from "@/lib/api/biodiversity";
+import { biodiversityQueryKeys } from "@/lib/api/biodiversity";
 import {
   CONSERVATION_CATEGORIES,
   POPULATION_TRENDS,
@@ -15,6 +12,7 @@ import type {
   Locale,
   ConservationCategory,
   PopulationTrend,
+  BiodiversityData,
 } from "@/types/tree";
 
 // ============================================================================
@@ -34,10 +32,21 @@ export function BiodiversityInfo({
   scientificName,
   locale,
 }: BiodiversityInfoProps) {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<BiodiversityData>({
     queryKey: biodiversityQueryKeys.species(scientificName),
-    queryFn: () => fetchBiodiversityData(scientificName),
+    queryFn: async () => {
+      const response = await fetch(
+        `/api/species?species=${encodeURIComponent(scientificName)}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch biodiversity data");
+      }
+      return response.json();
+    },
     staleTime: 24 * 60 * 60 * 1000, // 24 hours
+    gcTime: 7 * 24 * 60 * 60 * 1000, // 7 days
+    retry: 2,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
   });
 
   const labels = {
