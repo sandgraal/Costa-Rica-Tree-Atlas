@@ -55,11 +55,12 @@ export function generateNonce(): string {
 
 /**
  * Build Content Security Policy header value
- * Strict policy: NO unsafe-inline, NO unsafe-eval in production
+ * Strict policy: NO unsafe-inline, NO unsafe-eval
  *
- * This is the default CSP used for most pages. It does NOT include
- * unsafe-eval, making it incompatible with Google Tag Manager.
- * For pages requiring GTM, use buildRelaxedCSP() instead.
+ * This is the most secure CSP used for pages without dynamic content rendering.
+ * It does NOT include unsafe-eval, making it incompatible with:
+ * - Google Tag Manager (use buildRelaxedCSP)
+ * - MDX content rendering (use buildMDXCSP)
  *
  * @param nonce - Optional nonce for script-src directive
  * @returns CSP header value string
@@ -81,6 +82,93 @@ export function buildCSP(nonce?: string): string {
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
       // Fallback for browsers that don't support strict-dynamic
+      "https:",
+    ],
+    "style-src": [
+      "'self'",
+      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      "https://fonts.googleapis.com",
+      // TODO: Extract critical CSS to remove unsafe-inline
+      "'unsafe-inline'",
+    ],
+    "img-src": [
+      "'self'",
+      "data:",
+      "blob:",
+      "https://static.inaturalist.org",
+      "https://inaturalist-open-data.s3.amazonaws.com",
+      "https://api.gbif.org",
+    ],
+    "font-src": ["'self'", "https://fonts.gstatic.com"],
+    "connect-src": [
+      "'self'",
+      "https://api.gbif.org",
+      "https://api.inaturalist.org",
+      "https://plausible.io",
+      "https://queue.simpleanalyticscdn.com",
+    ],
+    "frame-src": ["'self'"],
+    "object-src": ["'none'"],
+    "base-uri": ["'self'"],
+    "form-action": ["'self'"],
+    "frame-ancestors": ["'self'"],
+    "upgrade-insecure-requests": [],
+  };
+
+  // Add CSP reporting if configured
+  if (process.env.CSP_REPORT_URI) {
+    Object.assign(directives, {
+      "report-uri": [process.env.CSP_REPORT_URI],
+    });
+  }
+
+  return Object.entries(directives)
+    .map(([key, values]) => {
+      if (values.length === 0) {
+        return key;
+      }
+      return `${key} ${values.join(" ")}`;
+    })
+    .join("; ");
+}
+
+/**
+ * Build CSP for pages with MDX content rendering
+ *
+ * IMPORTANT: This policy includes 'unsafe-eval' which is REQUIRED for MDX.
+ *
+ * Why unsafe-eval is needed:
+ * - MDX content is compiled to JavaScript at build time
+ * - The mdx-bundler library uses `new Function()` to evaluate this compiled code
+ * - This is a controlled use case: we compile the MDX ourselves at build time
+ * - The code is NOT user-generated or coming from untrusted sources
+ *
+ * Security considerations:
+ * - The MDX source files are part of our codebase (content/trees/{en,es}/*.mdx)
+ * - Code is compiled during build, not at runtime from user input
+ * - This is safer than inline scripts but requires unsafe-eval for the evaluation step
+ *
+ * Alternative approaches (for future consideration):
+ * - Migrate to @next/mdx which may not require unsafe-eval
+ * - Pre-render all MDX to static HTML (loses dynamic features)
+ * - Use a different MDX runtime that doesn't use Function constructor
+ *
+ * @param nonce - Optional nonce for script-src directive
+ * @returns CSP header value string with unsafe-eval for MDX
+ */
+export function buildMDXCSP(nonce?: string): string {
+  const directives = {
+    "default-src": ["'self'"],
+    "script-src": [
+      "'self'",
+      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      "'strict-dynamic'",
+      // MDX rendering requires unsafe-eval (see function docs above)
+      "'unsafe-eval'",
+      // Privacy-friendly analytics
+      "https://plausible.io",
+      "https://scripts.simpleanalyticscdn.com",
+      // Fallback for browsers without strict-dynamic
       "https:",
     ],
     "style-src": [
