@@ -27,7 +27,39 @@ const API_CONFIG = {
     ttl: 24 * 60 * 60 * 1000, // 24 hours
     staleWhileRevalidate: 7 * 24 * 60 * 60 * 1000, // 7 days
   },
+  timeout: 8000, // 8 second timeout for external API calls
 };
+
+// ============================================================================
+// Fetch with Timeout Helper
+// ============================================================================
+
+/**
+ * Fetch with timeout to prevent hanging requests
+ */
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit = {},
+  timeout = API_CONFIG.timeout
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if ((error as Error).name === "AbortError") {
+      throw new Error(`Request timeout after ${timeout}ms`);
+    }
+    throw error;
+  }
+}
 
 // ============================================================================
 // GBIF API
@@ -56,7 +88,7 @@ export async function matchGBIFSpecies(
   const url = `${API_CONFIG.gbif.baseUrl}/species/match?name=${encodeURIComponent(scientificName)}&verbose=true`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       next: { revalidate: API_CONFIG.cache.ttl / 1000 },
     });
 
@@ -82,7 +114,7 @@ export async function getGBIFOccurrences(
   const url = `${API_CONFIG.gbif.baseUrl}/occurrence/count?${params}`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       next: { revalidate: API_CONFIG.cache.ttl / 1000 },
     });
 
@@ -140,7 +172,7 @@ export async function searchINaturalistTaxon(
   const url = `${API_CONFIG.inaturalist.baseUrl}/taxa?q=${encodeURIComponent(scientificName)}&rank=species&is_active=true&per_page=1`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       next: { revalidate: API_CONFIG.cache.ttl / 1000 },
     });
 
@@ -161,11 +193,11 @@ export async function getINaturalistObservationCount(
 
   try {
     const [totalResponse, rgResponse] = await Promise.all([
-      fetch(
+      fetchWithTimeout(
         `${API_CONFIG.inaturalist.baseUrl}/observations?${baseParams}&verifiable=true`,
         { next: { revalidate: API_CONFIG.cache.ttl / 1000 } }
       ),
-      fetch(
+      fetchWithTimeout(
         `${API_CONFIG.inaturalist.baseUrl}/observations?${baseParams}&quality_grade=research`,
         { next: { revalidate: API_CONFIG.cache.ttl / 1000 } }
       ),
@@ -213,7 +245,7 @@ export async function fetchIUCNData(
   const url = `${API_CONFIG.gbif.baseUrl}/species/${taxonKey}/iucnRedListCategory`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       next: { revalidate: API_CONFIG.cache.ttl / 1000 },
     });
 

@@ -10,23 +10,28 @@ export function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // Stale time: Data is fresh for 1 minute
-        staleTime: 60 * 1000,
+        // Stale time: Data is fresh for 5 minutes (increased from 1 minute)
+        staleTime: 5 * 60 * 1000,
 
         // Garbage collection time: Keep unused data for 24 hours
         gcTime: 24 * 60 * 60 * 1000,
 
-        // Retry failed requests twice
+        // Retry failed requests twice with exponential backoff
         retry: 2,
+        retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
 
         // Don't refetch on window focus (too aggressive for this app)
         refetchOnWindowFocus: false,
 
         // Refetch on reconnect (good for offline scenarios)
         refetchOnReconnect: "always",
+
+        // Network mode: online only (prevent offline retries that slow down page loads)
+        networkMode: "online",
       },
       mutations: {
         retry: 1,
+        networkMode: "online",
       },
     },
   });
