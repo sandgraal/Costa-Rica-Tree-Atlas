@@ -144,7 +144,7 @@ Track content coverage across all 110 species. Update as work progresses.
 - [ ] `/diagnose` - Tree health diagnostic tool
 - [ ] `/quiz` - Educational quiz system
 - [ ] `/wizard` or `/selection-wizard` - Tree selection guidance
-- [ ] `/conservation` - Conservation dashboard
+- [x] `/conservation` - Conservation dashboard _(Created 2026-01-10)_
 
 ---
 
@@ -468,12 +468,12 @@ Audit what currently exists before committing to new map infrastructure.
 
 ### 4.3 Conservation Dashboard
 
-**Current Status:** Does not exist
+**Current Status:** Complete _(Created 2026-01-10)_
 
-- [ ] Create `/conservation` route at `src/app/[locale]/conservation/page.tsx`
-- [ ] Statistics for endangered/vulnerable species
-- [ ] Endemic species visualization
-- [ ] Links to conservation organizations
+- [x] Create `/conservation` route at `src/app/[locale]/conservation/page.tsx`
+- [x] Statistics for endangered/vulnerable species
+- [x] Endemic species visualization
+- [x] Links to conservation organizations (IUCN Red List)
 
 ### Success Metrics
 
