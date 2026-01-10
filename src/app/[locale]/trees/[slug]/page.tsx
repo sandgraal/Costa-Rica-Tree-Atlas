@@ -310,7 +310,7 @@ export default async function TreePage({ params }: Props) {
           {/* Featured Image */}
           {tree.featuredImage ? (
             <ImageErrorBoundary>
-              <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-muted relative">
+              <div className="aspect-[4/3] rounded-xl overflow-hidden mb-12 bg-muted relative">
                 <SafeImage
                   src={imageSource.src}
                   alt={tree.title}
@@ -319,11 +319,12 @@ export default async function TreePage({ params }: Props) {
                   priority
                   quality={80}
                   fallback="placeholder"
+                  style={{ objectFit: "contain" }}
                 />
               </div>
             </ImageErrorBoundary>
           ) : (
-            <div className="aspect-video rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+            <div className="aspect-[4/3] rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
               <TreeIcon className="h-24 w-24 text-primary/20" />
             </div>
           )}
