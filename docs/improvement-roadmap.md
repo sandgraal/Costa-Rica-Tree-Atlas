@@ -35,7 +35,6 @@ Safety Data (Phase 1)
 
 Glossary System (Phase 2)
 ├── Inline Tooltips (Phase 2)
-├── Reading Level Toggle (Phase 2)
 └── Quiz Questions (Phase 2)
 
 Care Guidance (Phase 2)
