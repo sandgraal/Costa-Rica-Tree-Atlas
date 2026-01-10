@@ -3,3 +3,4 @@
  */
 
 export * from "./tree";
+export * from "./glossary";

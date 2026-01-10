@@ -192,6 +192,84 @@ export const Tree = defineDocumentType(() => ({
         "Specific risks to wildlife, birds, or domestic animals beyond pets",
       required: false,
     },
+    // Care & Cultivation Fields
+    growthRate: {
+      type: "enum",
+      options: ["slow", "moderate", "fast"],
+      description: "Tree growth rate",
+      required: false,
+    },
+    growthRateDetails: {
+      type: "string",
+      description: "Growth rate details (e.g., '2-3 ft/year')",
+      required: false,
+    },
+    matureSize: {
+      type: "string",
+      description:
+        "Mature height and spread (e.g., '40-60 ft tall, 30-40 ft spread')",
+      required: false,
+    },
+    hardiness: {
+      type: "string",
+      description: "Hardiness zones or Costa Rican climate regions",
+      required: false,
+    },
+    soilRequirements: {
+      type: "string",
+      description: "Soil type, drainage, pH tolerance",
+      required: false,
+    },
+    waterNeeds: {
+      type: "enum",
+      options: ["low", "moderate", "high"],
+      description: "Water requirements",
+      required: false,
+    },
+    waterDetails: {
+      type: "string",
+      description: "Detailed watering information",
+      required: false,
+    },
+    lightRequirements: {
+      type: "enum",
+      options: ["full-sun", "partial-shade", "shade-tolerant"],
+      description: "Light requirements",
+      required: false,
+    },
+    spacing: {
+      type: "string",
+      description: "Minimum spacing from buildings, other trees, utilities",
+      required: false,
+    },
+    propagationMethods: {
+      type: "list",
+      of: { type: "string" },
+      description: "Propagation methods (seeds, cuttings, grafting, etc.)",
+      required: false,
+    },
+    propagationDifficulty: {
+      type: "enum",
+      options: ["easy", "moderate", "difficult"],
+      description: "Difficulty level for propagation",
+      required: false,
+    },
+    plantingSeason: {
+      type: "string",
+      description: "Best planting season for Costa Rican climate",
+      required: false,
+    },
+    maintenanceNeeds: {
+      type: "string",
+      description: "Pruning, fertilization, pest monitoring requirements",
+      required: false,
+    },
+    commonProblems: {
+      type: "list",
+      of: { type: "string" },
+      description: "Common problems and issues",
+      required: false,
+    },
   },
   computedFields: {
     url: {
@@ -201,9 +279,146 @@ export const Tree = defineDocumentType(() => ({
   },
 }));
 
+export const GlossaryTerm = defineDocumentType(() => ({
+  name: "GlossaryTerm",
+  filePathPattern: `glossary/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    term: {
+      type: "string",
+      description: "The glossary term",
+      required: true,
+    },
+    locale: {
+      type: "enum",
+      options: ["en", "es"],
+      description: "The language of the content",
+      required: true,
+    },
+    slug: {
+      type: "string",
+      description: "URL-friendly identifier for the term",
+      required: true,
+    },
+    simpleDefinition: {
+      type: "string",
+      description: "Simple, beginner-friendly definition",
+      required: true,
+    },
+    technicalDefinition: {
+      type: "string",
+      description: "Technical, detailed definition",
+      required: false,
+    },
+    category: {
+      type: "enum",
+      options: [
+        "anatomy",
+        "ecology",
+        "taxonomy",
+        "morphology",
+        "reproduction",
+        "general",
+      ],
+      description: "Category of the term",
+      required: true,
+    },
+    pronunciation: {
+      type: "string",
+      description: "Pronunciation guide (for scientific terms)",
+      required: false,
+    },
+    etymology: {
+      type: "string",
+      description: "Etymology or word origin",
+      required: false,
+    },
+    exampleSpecies: {
+      type: "list",
+      of: { type: "string" },
+      description: "Tree slugs that demonstrate this term",
+      required: false,
+    },
+    relatedTerms: {
+      type: "list",
+      of: { type: "string" },
+      description: "Related glossary term slugs",
+      required: false,
+    },
+    image: {
+      type: "string",
+      description: "Illustration or diagram",
+      required: false,
+    },
+    publishedAt: {
+      type: "date",
+      description: "Publication date",
+      required: false,
+    },
+  },
+  computedFields: {
+    url: {
+      type: "string",
+      resolve: (term) => `/${term.locale}/glossary/${term.slug}`,
+    },
+  },
+}));
+
+export const SpeciesComparison = defineDocumentType(() => ({
+  name: "SpeciesComparison",
+  filePathPattern: `comparisons/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      description: "Comparison title",
+      required: true,
+    },
+    locale: {
+      type: "enum",
+      options: ["en", "es"],
+      description: "The language of the content",
+      required: true,
+    },
+    slug: {
+      type: "string",
+      description: "URL-friendly identifier",
+      required: true,
+    },
+    species: {
+      type: "list",
+      of: { type: "string" },
+      description: "Tree slugs being compared",
+      required: true,
+    },
+    keyDifference: {
+      type: "string",
+      description: "The main differentiating feature",
+      required: true,
+    },
+    description: {
+      type: "string",
+      description: "Brief description for SEO",
+      required: true,
+    },
+    publishedAt: {
+      type: "date",
+      description: "Publication date",
+      required: false,
+    },
+  },
+  computedFields: {
+    url: {
+      type: "string",
+      resolve: (comparison) =>
+        `/${comparison.locale}/compare/${comparison.slug}`,
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Tree],
+  documentTypes: [Tree, GlossaryTerm, SpeciesComparison],
   disableImportAliasWarning: true,
   mdx: {
     remarkPlugins: [],
