@@ -36,14 +36,20 @@ function scanForDangerousContent(
       issues.push(`${path}: Contains event handler`);
     }
 
-    // Check for javascript: protocol
+    // Check for dangerous URL schemes (comprehensive)
     if (/javascript:/i.test(obj)) {
       issues.push(`${path}: Contains javascript: protocol`);
     }
 
-    // Check for data: URI with HTML
-    if (/data:text\/html/i.test(obj)) {
-      issues.push(`${path}: Contains data:text/html URI`);
+    if (/vbscript:/i.test(obj)) {
+      issues.push(`${path}: Contains vbscript: protocol`);
+    }
+
+    // Check for data: URIs (can have many attack vectors)
+    // While some data: URIs are safe (like data:image/png), we're conservative here
+    // and flag all of them for JSON-LD content which shouldn't need them
+    if (/data:/i.test(obj)) {
+      issues.push(`${path}: Contains data: URI`);
     }
 
     // Check for Unicode homoglyphs
@@ -56,8 +62,8 @@ function scanForDangerousContent(
       issues.push(`${path}: Contains zero-width characters`);
     }
 
-    // Check for HTML comment escapes
-    if (/-->/.test(obj)) {
+    // Check for HTML comment escapes (all variants)
+    if (/-->/.test(obj) || /--!>/.test(obj)) {
       issues.push(`${path}: Contains HTML comment escape`);
     }
 
@@ -142,6 +148,55 @@ export function validateJsonLd(data: unknown): {
 }
 
 /**
+ * Sanitize a string value by removing dangerous content
+ * Addresses CodeQL security findings:
+ * - Comprehensive URL scheme filtering (data:, javascript:, vbscript:)
+ * - Robust tag filtering with all whitespace variants
+ * - Multiple passes to handle incomplete sanitization
+ * - HTML comment variants (-->, --!>)
+ *
+ * Note: This is a backup sanitization layer. The primary defense is validation
+ * at the input level which should reject malicious content entirely.
+ */
+function sanitizeString(value: string): string {
+  let clean = value;
+
+  // Multiple passes to handle overlapping patterns and incomplete sanitization
+  for (let i = 0; i < 3; i++) {
+    // Remove script tags (handle all whitespace including tabs, newlines, spaces)
+    // Use [\s\S] to match any character including newlines in tag content
+    // Use \s+ for whitespace before > to handle </script >, </script\t>, etc.
+    clean = clean.replace(/<script[\s\S]*?>[\s\S]*?<\/script[\s\S]*?>/gis, "");
+
+    // Remove style tags (handle all whitespace)
+    clean = clean.replace(/<style[\s\S]*?>[\s\S]*?<\/style[\s\S]*?>/gis, "");
+
+    // Remove event handlers (comprehensive - handles with/without quotes)
+    clean = clean.replace(/on\w+\s*=\s*["'][^"']*["']/gi, "");
+    clean = clean.replace(/on\w+\s*=\s*[^"'\s>]*/gi, "");
+
+    // Remove ALL dangerous URL schemes
+    // Remove data: entirely as it has many attack vectors (data:text/html, data:image/svg+xml with scripts, etc.)
+    clean = clean.replace(/javascript:/gi, "");
+    clean = clean.replace(/vbscript:/gi, "");
+    clean = clean.replace(/data:/gi, ""); // Comprehensive - removes all data: URIs
+  }
+
+  // Remove fullwidth variants (Unicode lookalikes)
+  clean = clean.replace(/[＜＞＆]/g, "");
+
+  // Remove zero-width characters
+  clean = clean.replace(/[\u200B-\u200F\uFEFF]/g, "");
+
+  // Remove HTML comment and CDATA escapes (all variants)
+  clean = clean.replace(/-->/g, "");
+  clean = clean.replace(/--!>/g, "");
+  clean = clean.replace(/]]>/g, "");
+
+  return clean;
+}
+
+/**
  * Sanitize JSON-LD data by removing dangerous fields
  */
 export function sanitizeJsonLd(
@@ -158,42 +213,11 @@ export function sanitizeJsonLd(
     }
 
     if (typeof value === "string") {
-      // Remove any script/style tags, event handlers, etc.
-      let clean = value
-        .replace(/<script[^>]*>.*?<\/script>/gis, "")
-        .replace(/<style[^>]*>.*?<\/style>/gis, "")
-        .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
-        .replace(/javascript:/gi, "")
-        .replace(/data:text\/html/gi, "");
-
-      // Remove fullwidth variants
-      clean = clean.replace(/[＜＞＆]/g, "");
-
-      // Remove zero-width characters
-      clean = clean.replace(/[\u200B-\u200F\uFEFF]/g, "");
-
-      // Remove HTML comment and CDATA escapes
-      clean = clean.replace(/-->/g, "");
-      clean = clean.replace(/]]>/g, "");
-
-      sanitized[key] = clean;
+      sanitized[key] = sanitizeString(value);
     } else if (Array.isArray(value)) {
       sanitized[key] = value.map((item) => {
         if (typeof item === "string") {
-          // Apply same sanitization to array string items
-          let clean = item
-            .replace(/<script[^>]*>.*?<\/script>/gis, "")
-            .replace(/<style[^>]*>.*?<\/style>/gis, "")
-            .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
-            .replace(/javascript:/gi, "")
-            .replace(/data:text\/html/gi, "");
-
-          clean = clean.replace(/[＜＞＆]/g, "");
-          clean = clean.replace(/[\u200B-\u200F\uFEFF]/g, "");
-          clean = clean.replace(/-->/g, "");
-          clean = clean.replace(/]]>/g, "");
-
-          return clean;
+          return sanitizeString(item);
         } else if (typeof item === "object" && item !== null) {
           return sanitizeJsonLd(item as Record<string, unknown>);
         }
