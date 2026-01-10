@@ -191,19 +191,19 @@ safetyNotes: "General guidance"
 
 ### 1.2 Safety UI Enhancements
 
-- [ ] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk)
-- [ ] Add visual safety badges to tree cards in listings
-- [ ] Ensure safety section displays prominently on all tree profile pages
+- [x] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk)
+- [x] Add visual safety badges to tree cards in listings (already implemented)
+- [x] Ensure safety section displays prominently on all tree profile pages (SafetyCard component exists)
 
 ### 1.3 Dedicated Safety Page
 
-**Current Status:** Route does not exist
+**Current Status:** ✅ COMPLETE (implemented 2026-01-10)
 
-- [ ] Create `/safety` route at `src/app/[locale]/safety/page.tsx`
-- [ ] List all trees by toxicity level (severe → moderate → low)
-- [ ] Include emergency contacts section
-- [ ] Add first aid procedures by exposure type
-- [ ] Make page printable (CSS print styles)
+- [x] Create `/safety` route at `src/app/[locale]/safety/page.tsx`
+- [x] List all trees by toxicity level (severe → moderate → low)
+- [x] Include emergency contacts section
+- [x] Add first aid procedures by exposure type
+- [x] Make page printable (CSS print styles)
 
 **Emergency Contacts to Include:**
 
@@ -219,10 +219,10 @@ safetyNotes: "General guidance"
 
 ### Success Metrics
 
-- [ ] 100% of species have safety data
-- [ ] Safety page live with emergency contacts
-- [ ] Safety filtering functional in directory
-- [ ] Zero tree profiles missing toxicity assessment
+- [ ] 100% of species have safety data (currently 13/110 = 12%)
+- [x] Safety page live with emergency contacts ✅
+- [x] Safety filtering functional in directory ✅
+- [ ] Zero tree profiles missing toxicity assessment (goal for future work)
 
 ---
 
