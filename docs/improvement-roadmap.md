@@ -3,7 +3,8 @@
 A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized by phase with clear dependencies, success metrics, and scope definitions.
 
 **Last Updated:** 2026-01-10  
-**Status:** Active Development - Autonomous Implementation in Progress
+**Status:** Active Development - Autonomous Implementation in Progress  
+**Last Audited:** 2026-01-10 (Codebase vs. Roadmap accuracy verified)
 
 ---
 
@@ -60,31 +61,31 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 7/110 species (6.4%) have safety data in both languages**
+**STATUS: 13/110 species (11.8%) have safety data in both languages** _(Corrected 2026-01-10)_
 
-**Complete (7 species with EN+ES):**
+**Complete (13 species with EN+ES):**
 
 - [x] Javillo (Hura crepitans) - SEVERE - EN+ES ✓
 - [x] Manchineel (Hippomane mancinella) - SEVERE - EN+ES ✓
 - [x] Yellow Oleander/Chirca (Thevetia peruviana) - SEVERE - EN+ES ✓
 - [x] Jaboncillo (Sapindus saponaria) - MODERATE - EN+ES ✓
-- [x] Anona (Annona reticulata) - MODERATE - EN only
+- [x] Anona (Annona reticulata) - MODERATE - EN+ES ✓
 - [x] Espavel (Anacardium excelsum) - LOW - EN+ES ✓
 - [x] Madero Negro (Gliricidia sepium) - MODERATE - EN+ES ✓
+- [x] Guanábana (Annona muricata) - EN+ES ✓
+- [x] Cacao (Theobroma cacao) - EN+ES ✓
+- [x] Carambola (Averrhoa carambola) - EN+ES ✓
+- [x] Cas (Psidium friedrichsthalianum) - EN+ES ✓
+- [x] Ceiba (Ceiba pentandra) - EN+ES ✓
+- [x] Cocobolo (Dalbergia retusa) - EN+ES ✓
 
-**High Priority - Commonly Encountered (6 species):**
+**High Priority - Commonly Encountered (Remaining):**
 
-- [ ] Guanábana (Annona muricata) - Annonaceae family toxicity
-- [ ] Cacao (Theobroma cacao) - Theobromine pet toxicity
-- [ ] Carambola (Averrhoa carambola) - Oxalic acid concerns
 - [ ] Mamón Chino (Nephelium lappaceum) - Seed safety
-- [ ] Cas (Psidium friedrichsthalianum) - Document as safe
 - [ ] Jícaro (Crescentia alata) - Fruit/seed assessment
 
-**Medium Priority - Native Forest (11 species):**
+**Medium Priority - Native Forest (Remaining):**
 
-- [ ] Ceiba (Ceiba pentandra) - Spines, kapok irritation
-- [ ] Cocobolo (Dalbergia retusa) - Wood dust allergenicity ⚠️
 - [ ] Laurel (Cordia alliodora) - Document as safe
 - [ ] Pilon (Hyeronima alchorneoides)
 - [ ] Amarillón (Terminalia amazonia)
@@ -99,11 +100,11 @@ Track content coverage across all 110 species. Update as work progresses.
 
 - [ ] Ciprecillo (Podocarpus costaricensis)
 - [ ] Caña India (Dracaena fragrans) - Pet toxicity
-- [ ] All remaining species (~83 trees)
+- [ ] All remaining species (~85 trees)
 
 ### Glossary Coverage
 
-- [x] 5/100+ terms documented (EN/ES with bilingual parity)
+- [x] 10/100+ terms documented (5 EN + 5 ES with bilingual parity)
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 
@@ -112,14 +113,6 @@ Track content coverage across all 110 species. Update as work progresses.
 - [ ] 0/110 species have complete care sections
 - Schema exists in contentlayer.config.ts but no content yet
 - Target: Top 20 most-viewed species first
-
-### Glossary Coverage
-
-- [x] 10 terms exist (5 EN + 5 ES)
-- [ ] Need 90+ more terms to reach 100+ target
-- Glossary page and infrastructure already functional
-
-### Similar Species Comparisons
 
 - [ ] 0/10 priority confusion sets documented
 - Target: 10 comparison guides
@@ -130,23 +123,24 @@ Track content coverage across all 110 species. Update as work progresses.
 **Routes Already Implemented:**
 
 - [x] `/trees` - Tree directory with filtering
-- [x] `/glossary` - Botanical terminology (5 terms)
-- [x] `/education` - Learning modules (4 lessons)
+- [x] `/glossary` - Botanical terminology (10 terms: 5 EN + 5 ES)
+- [x] `/education` - Learning modules with lessons, printables, games
 - [x] `/seasonal` - Seasonal flowering/fruiting guide
 - [x] `/identify` - Tree identification tool
 - [x] `/compare` - Side-by-side tree comparison
 - [x] `/favorites` - Personal collection management
 - [x] `/map` - Geographic distribution mapping
+- [x] `/safety` - Dedicated safety information page _(Verified 2026-01-10)_
 
 **Safety Components Already Built:**
 
 - [x] SafetyCard, SafetyBadge, SafetyIcon components
 - [x] Safety data display on tree detail pages
 - [x] Toxicity level types and enums defined
+- [x] SafetyPageClient with emergency contacts and first aid
 
 **Missing Routes:**
 
-- [ ] `/safety` - Dedicated safety information page
 - [ ] `/diagnose` - Tree health diagnostic tool
 - [ ] `/quiz` - Educational quiz system
 - [ ] `/wizard` or `/selection-wizard` - Tree selection guidance
@@ -162,11 +156,11 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 7/110 complete (6.4%)**
+**STATUS: 13/110 complete (11.8%)** _(Updated 2026-01-10)_
 
 **MVP Requirements:**
 
-- [ ] Research and add safety data to remaining 103 species (both EN+ES)
+- [ ] Research and add safety data to remaining 97 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
 - [ ] Prioritize SEVERE/HIGH risk species first
 - [ ] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
@@ -209,15 +203,16 @@ safetyNotes: "General guidance"
 
 ### 1.3 Dedicated Safety Page
 
-**STATUS: Does not exist**
+**STATUS: Exists and functional** _(Verified 2026-01-10)_
 
-- [ ] Create `/[locale]/safety` route
-- [ ] List all trees by toxicity level (severe → moderate → low)
-- [ ] Include emergency contacts section
-- [ ] Add first aid procedures by exposure type
-- [ ] Make page printable (CSS print styles)
+- [x] `/[locale]/safety` route exists
+- [x] Lists all trees by toxicity level (severe → moderate → low)
+- [x] Includes emergency contacts section
+- [x] First aid procedures by exposure type
+- [x] Page is printable (CSS print styles)
+- [ ] Verify completeness and enhance if needed
 
-**Emergency Contacts to Include:**
+**Emergency Contacts Included:**
 
 - Costa Rica Poison Control: 2223-1028 (24/7)
 - Emergency Services: 911
@@ -246,13 +241,13 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 10/100+ terms complete (10%)**
+**STATUS: 10/100+ terms complete (10%)** _(Updated 2026-01-10)_
 
 **MVP Requirements:**
 
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
-- [x] 10 terms currently defined (5 EN + 5 ES)
+- [x] 10 terms currently defined (5 EN + 5 ES with bilingual parity)
 - [ ] Add 50+ botanical terms (leaf types, flower parts, bark types, root types)
 - [ ] Add 20+ ecological terms (succession, nitrogen fixation, endemic, etc.)
 - [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
@@ -415,14 +410,12 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.2 Seasonal Guide
 
-**Current Status:** Already implemented
+**Current Status:** Already implemented _(Verified 2026-01-10)_
 
-- [x] Create `/seasonal` route
-- [x] Show trees flowering/fruiting by month
+- [x] `/seasonal` route exists and functional
+- [x] Shows trees flowering/fruiting by month
 - [x] Interactive month selector
-- [ ] Show trees flowering/fruiting by month
-- [ ] Interactive month selector
-- [ ] Include photos of flowers/fruits
+- [ ] Review and enhance: Include photos of flowers/fruits if missing
 
 ### 3.3 Use Case Search
 
