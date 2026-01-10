@@ -75,8 +75,9 @@ function scanForDangerousContent(
 
   if (typeof obj === "object") {
     for (const [key, value] of Object.entries(obj)) {
-      // Check key itself for dangerous content
-      if (/<|>|script|style/i.test(key)) {
+      // Check key itself for dangerous content - only exact matches or HTML brackets
+      // Don't flag legitimate keys like "description" that happen to contain "script" as substring
+      if (/^(script|style)$/i.test(key) || /<|>/.test(key)) {
         issues.push(`${path}: Dangerous key name "${key}"`);
       }
 
@@ -149,8 +150,9 @@ export function sanitizeJsonLd(
   const sanitized: Record<string, unknown> = {};
 
   for (const [key, value] of Object.entries(data)) {
-    // Skip keys with dangerous names
-    if (/<|>|script|style/i.test(key)) {
+    // Skip keys with dangerous names - only exact matches or obvious XSS vectors
+    // Don't flag legitimate keys like "description" that happen to contain "script" as substring
+    if (/^(script|style)$/i.test(key) || /<|>/.test(key)) {
       console.warn(`Skipping dangerous key: ${key}`);
       continue;
     }

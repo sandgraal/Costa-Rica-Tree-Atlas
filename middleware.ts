@@ -9,12 +9,7 @@ import type { NextRequest } from "next/server";
 import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
 import { secureCompare } from "@/lib/auth/secure-compare";
 import { serverEnv } from "@/lib/env/schema";
-import {
-  generateNonce,
-  buildCSP,
-  buildMDXCSP,
-  buildRelaxedCSP,
-} from "@/lib/security/csp";
+import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -138,21 +133,14 @@ export default async function middleware(request: NextRequest) {
   const response = intlMiddleware(request);
 
   // Add security headers with appropriate CSP based on route
-  // Different routes have different security requirements:
   let csp: string;
 
   if (pathname.match(new RegExp(`^/(${localePattern})/marketing/`))) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
     csp = buildRelaxedCSP(nonce);
-  } else if (
-    pathname.match(new RegExp(`^/(${localePattern})/trees/[a-zA-Z0-9-]+/?$`))
-  ) {
-    // Tree detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
-    // Pattern matches: /en/trees/ceiba or /es/trees/guanacaste (with optional trailing slash)
-    // Does NOT match: /en/trees (directory) or /en/trees/compare (other routes)
-    csp = buildMDXCSP(nonce);
   } else {
     // All other pages: Strict CSP (no unsafe-eval)
+    // MDX is now rendered server-side so no unsafe-eval needed
     csp = buildCSP(nonce);
   }
 
