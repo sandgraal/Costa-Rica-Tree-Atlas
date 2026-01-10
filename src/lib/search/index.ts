@@ -155,6 +155,31 @@ export function filterTrees(trees: Tree[], filter: TreeFilter): Tree[] {
       }
     }
 
+    // Safety filters
+    if (filter.childSafe !== undefined && tree.childSafe !== filter.childSafe) {
+      return false;
+    }
+
+    if (filter.petSafe !== undefined && tree.petSafe !== filter.petSafe) {
+      return false;
+    }
+
+    if (filter.nonToxic === true) {
+      // nonToxic means toxicityLevel is "none" or undefined
+      const toxicity = tree.toxicityLevel;
+      if (toxicity && toxicity !== "none") {
+        return false;
+      }
+    }
+
+    if (filter.lowRisk === true) {
+      // lowRisk means toxicityLevel is "none", "low", or undefined
+      const toxicity = tree.toxicityLevel;
+      if (toxicity && toxicity !== "none" && toxicity !== "low") {
+        return false;
+      }
+    }
+
     return true;
   });
 }
