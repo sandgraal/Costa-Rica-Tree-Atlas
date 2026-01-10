@@ -1504,6 +1504,13 @@ export const mdxComponents = {
   Column,
   DataTable,
   SimpleList,
+  // Care & Cultivation components
+  CareGuide,
+  PlantingInstructions,
+  MaintenanceTimeline,
+  CareRequirements,
+  CommonProblems,
+  GlossaryTooltip,
   // Native HTML element overrides for consistent styling
   h1: H1,
   h2: H2,
@@ -1529,3 +1536,227 @@ export const mdxComponents = {
   strong: Strong,
   em: Em,
 };
+
+// Care & Cultivation Components
+interface CareGuideProps {
+  children: React.ReactNode;
+}
+
+export function CareGuide({ children }: CareGuideProps) {
+  return (
+    <div className="my-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border-2 border-green-200 dark:border-green-800">
+      <div className="flex items-center gap-3 mb-4">
+        <span className="text-3xl">🌱</span>
+        <h2 className="text-2xl font-bold text-green-800 dark:text-green-200">
+          Care & Cultivation
+        </h2>
+      </div>
+      <div className="space-y-6">{children}</div>
+    </div>
+  );
+}
+
+interface PlantingInstructionsProps {
+  steps: Array<{
+    title: string;
+    description: string;
+    tip?: string;
+  }>;
+}
+
+export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
+  return (
+    <div className="my-6">
+      <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+        <span>🪴</span>
+        <span>Planting Instructions</span>
+      </h3>
+      <ol className="space-y-4">
+        {steps.map((step, index) => (
+          <li
+            key={index}
+            className="bg-card rounded-lg p-4 border-l-4 border-primary"
+          >
+            <div className="flex gap-3">
+              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                {index + 1}
+              </span>
+              <div className="flex-1">
+                <h4 className="font-semibold text-foreground mb-1">
+                  {step.title}
+                </h4>
+                <p className="text-foreground/80 text-sm">{step.description}</p>
+                {step.tip && (
+                  <p className="mt-2 text-xs text-primary italic">
+                    💡 Tip: {step.tip}
+                  </p>
+                )}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+interface MaintenanceTimelineProps {
+  stages: Array<{
+    period: string;
+    tasks: string[];
+    frequency?: string;
+  }>;
+}
+
+export function MaintenanceTimeline({ stages }: MaintenanceTimelineProps) {
+  return (
+    <div className="my-6">
+      <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+        <span>📅</span>
+        <span>Maintenance Schedule</span>
+      </h3>
+      <div className="space-y-3">
+        {stages.map((stage, index) => (
+          <div
+            key={index}
+            className="bg-muted rounded-lg p-4 border-l-4 border-secondary"
+          >
+            <div className="flex items-start justify-between mb-2">
+              <h4 className="font-semibold text-secondary-dark dark:text-secondary-light">
+                {stage.period}
+              </h4>
+              {stage.frequency && (
+                <span className="text-xs px-2 py-1 rounded-full bg-secondary/10 text-secondary">
+                  {stage.frequency}
+                </span>
+              )}
+            </div>
+            <ul className="space-y-1 text-sm">
+              {stage.tasks.map((task, taskIndex) => (
+                <li key={taskIndex} className="flex items-start gap-2">
+                  <span className="text-secondary mt-0.5">✓</span>
+                  <span className="text-foreground/80">{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface CareRequirementsProps {
+  requirements: Array<{
+    icon: string;
+    label: string;
+    value: string;
+    description?: string;
+  }>;
+}
+
+export function CareRequirements({ requirements }: CareRequirementsProps) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+      {requirements.map((req, index) => (
+        <div
+          key={index}
+          className="bg-card rounded-lg p-4 border border-border hover:border-primary/30 transition-colors"
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-2xl">{req.icon}</span>
+            <h4 className="font-semibold text-foreground">{req.label}</h4>
+          </div>
+          <p className="text-lg font-medium text-primary mb-1">{req.value}</p>
+          {req.description && (
+            <p className="text-sm text-muted-foreground">{req.description}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+interface CommonProblemsProps {
+  problems: Array<{
+    symptom: string;
+    cause: string;
+    solution: string;
+  }>;
+}
+
+export function CommonProblems({ problems }: CommonProblemsProps) {
+  return (
+    <div className="my-6">
+      <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+        <span>⚠️</span>
+        <span>Common Problems & Solutions</span>
+      </h3>
+      <div className="space-y-3">
+        {problems.map((problem, index) => (
+          <div
+            key={index}
+            className="bg-card rounded-lg p-4 border border-warning/20"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div>
+                <h5 className="text-xs font-semibold text-warning uppercase mb-1">
+                  Symptom
+                </h5>
+                <p className="text-sm text-foreground">{problem.symptom}</p>
+              </div>
+              <div>
+                <h5 className="text-xs font-semibold text-info uppercase mb-1">
+                  Cause
+                </h5>
+                <p className="text-sm text-foreground/80">{problem.cause}</p>
+              </div>
+              <div>
+                <h5 className="text-xs font-semibold text-success uppercase mb-1">
+                  Solution
+                </h5>
+                <p className="text-sm text-foreground/80">{problem.solution}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Glossary Tooltip Component
+interface GlossaryTooltipProps {
+  term: string;
+  definition: string;
+  children: React.ReactNode;
+}
+
+export function GlossaryTooltip({
+  term,
+  definition,
+  children,
+}: GlossaryTooltipProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <span className="relative inline-block">
+      <button
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+        onClick={() => setIsOpen(!isOpen)}
+        className="underline decoration-dotted decoration-primary hover:text-primary transition-colors cursor-help"
+        aria-label={`Definition of ${term}`}
+      >
+        {children}
+      </button>
+      {isOpen && (
+        <span className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg border border-border max-w-xs">
+          <span className="font-semibold block mb-1">{term}</span>
+          <span className="text-xs">{definition}</span>
+          <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+        </span>
+      )}
+    </span>
+  );
+}

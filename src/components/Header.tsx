@@ -83,6 +83,12 @@ export function Header() {
               {t("education")}
             </Link>
             <Link
+              href="/glossary"
+              className="text-foreground/80 hover:text-primary transition-colors"
+            >
+              {t("glossary")}
+            </Link>
+            <Link
               href="/about"
               className="text-foreground/80 hover:text-primary transition-colors"
             >

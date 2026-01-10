@@ -17,7 +17,8 @@
     "compare": "Comparar",
     "favorites": "Favoritos",
     "education": "Educación",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "glossary": "Glosario"
   },
   "home": {
     "title": "Descubre los Árboles de Costa Rica",
@@ -440,6 +441,27 @@
       "toxic": "Tóxico",
       "childSafe": "Seguro para Niños",
       "petSafe": "Seguro para Mascotas"
+    }
+  },
+  "glossary": {
+    "title": "Glosario Botánico",
+    "subtitle": "Aprende términos botánicos y ecológicos para entender las descripciones de árboles",
+    "description": "Un glosario bilingüe completo de términos botánicos, ecológicos y anatómicos utilizados en la identificación y descripción de árboles.",
+    "termCount": "{count} términos",
+    "searchLabel": "Buscar Términos",
+    "searchPlaceholder": "Buscar un término...",
+    "categoryLabel": "Filtrar por Categoría",
+    "alphabetNav": "Saltar a letra",
+    "noResults": "No se encontraron términos que coincidan con tus criterios",
+    "backToTop": "Volver Arriba",
+    "categories": {
+      "all": "Todas las Categorías",
+      "anatomy": "Anatomía del Árbol",
+      "ecology": "Ecología",
+      "taxonomy": "Taxonomía",
+      "morphology": "Morfología",
+      "reproduction": "Reproducción",
+      "general": "General"
     }
   }
 }

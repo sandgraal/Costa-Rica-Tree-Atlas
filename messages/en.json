@@ -17,7 +17,8 @@
     "compare": "Compare",
     "favorites": "Favorites",
     "education": "Education",
-    "about": "About"
+    "about": "About",
+    "glossary": "Glossary"
   },
   "home": {
     "title": "Discover Costa Rica's Trees",
@@ -440,6 +441,27 @@
       "toxic": "Toxic",
       "childSafe": "Child Safe",
       "petSafe": "Pet Safe"
+    }
+  },
+  "glossary": {
+    "title": "Botanical Glossary",
+    "subtitle": "Learn botanical and ecological terms to understand tree descriptions",
+    "description": "A comprehensive bilingual glossary of botanical, ecological, and anatomical terms used in tree identification and description.",
+    "termCount": "{count} terms",
+    "searchLabel": "Search Terms",
+    "searchPlaceholder": "Search for a term...",
+    "categoryLabel": "Filter by Category",
+    "alphabetNav": "Jump to letter",
+    "noResults": "No terms found matching your criteria",
+    "backToTop": "Back to Top",
+    "categories": {
+      "all": "All Categories",
+      "anatomy": "Tree Anatomy",
+      "ecology": "Ecology",
+      "taxonomy": "Taxonomy",
+      "morphology": "Morphology",
+      "reproduction": "Reproduction",
+      "general": "General"
     }
   }
 }
