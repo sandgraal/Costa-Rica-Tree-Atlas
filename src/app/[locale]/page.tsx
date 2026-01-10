@@ -85,9 +85,25 @@ export default async function HomePage({ params }: Props) {
       <SafeJsonLd data={organizationData} />
       <div className="relative">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-primary-dark via-primary to-primary/90 pt-16 pb-24 px-4 md:pt-20 md:pb-28">
-          {/* Simplified decorative background */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.15),transparent_70%)]"></div>
+        <section className="relative overflow-hidden pt-16 pb-24 px-4 md:pt-20 md:pb-28 min-h-[600px] md:min-h-[700px] flex items-center">
+          {/* Hero Background Image - Guanacaste Tree */}
+          <div className="absolute inset-0">
+            <SafeImage
+              src="/images/trees/guanacaste.jpg"
+              alt="Guanacaste Tree - National Tree of Costa Rica"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+              fallback="placeholder"
+            />
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
+            {/* Additional overlay for better contrast */}
+            <div className="absolute inset-0 bg-primary-dark/30"></div>
+          </div>
+
+          {/* Gradient fade to page content */}
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
 
           <div className="container mx-auto max-w-5xl relative z-10 text-center">
@@ -177,15 +193,15 @@ function HeroContent({
 }) {
   return (
     <>
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
         {title}
       </h1>
-      <p className="text-lg md:text-xl text-white/85 mb-10 max-w-2xl mx-auto leading-relaxed">
+      <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
         {description}
       </p>
       <Link
         href="/trees"
-        className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]"
+        className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-2xl hover:shadow-xl hover:scale-[1.02]"
       >
         {exploreButton}
         <svg
