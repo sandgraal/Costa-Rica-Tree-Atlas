@@ -326,6 +326,63 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </div>
               </div>
             )}
+
+            {/* Safety filters */}
+            <div className="mt-4 pt-4 border-t border-border">
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                {locale === "es" ? "Seguridad" : "Safety"}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() =>
+                    handleFilterChange("childSafe", !filter.childSafe)
+                  }
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
+                    filter.childSafe
+                      ? "bg-green-500 text-white"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {filter.childSafe ? "✓ " : ""}
+                  {locale === "es" ? "Seguro para niños" : "Child-safe"}
+                </button>
+                <button
+                  onClick={() => handleFilterChange("petSafe", !filter.petSafe)}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
+                    filter.petSafe
+                      ? "bg-green-500 text-white"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {filter.petSafe ? "✓ " : ""}
+                  {locale === "es" ? "Seguro para mascotas" : "Pet-safe"}
+                </button>
+                <button
+                  onClick={() =>
+                    handleFilterChange("nonToxic", !filter.nonToxic)
+                  }
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
+                    filter.nonToxic
+                      ? "bg-green-500 text-white"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {filter.nonToxic ? "✓ " : ""}
+                  {locale === "es" ? "No tóxico" : "Non-toxic"}
+                </button>
+                <button
+                  onClick={() => handleFilterChange("lowRisk", !filter.lowRisk)}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
+                    filter.lowRisk
+                      ? "bg-blue-500 text-white"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {filter.lowRisk ? "✓ " : ""}
+                  {locale === "es" ? "Bajo riesgo" : "Low risk"}
+                </button>
+              </div>
+            </div>
           </div>
         )}
 

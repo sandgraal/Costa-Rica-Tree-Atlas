@@ -155,6 +155,38 @@ export function filterTrees(trees: Tree[], filter: TreeFilter): Tree[] {
       }
     }
 
+    // Safety filters
+    if (filter.childSafe !== undefined) {
+      if (tree.childSafe !== filter.childSafe) {
+        return false;
+      }
+    }
+
+    if (filter.petSafe !== undefined) {
+      if (tree.petSafe !== filter.petSafe) {
+        return false;
+      }
+    }
+
+    if (filter.nonToxic !== undefined && filter.nonToxic) {
+      // nonToxic filter: only show trees with toxicityLevel "none" or no toxicity data
+      if (
+        tree.toxicityLevel &&
+        tree.toxicityLevel !== "none" &&
+        tree.toxicityLevel !== undefined
+      ) {
+        return false;
+      }
+    }
+
+    if (filter.lowRisk !== undefined && filter.lowRisk) {
+      // lowRisk filter: only show trees with toxicityLevel "none" or "low"
+      const riskLevel = tree.toxicityLevel;
+      if (riskLevel && riskLevel !== "none" && riskLevel !== "low") {
+        return false;
+      }
+    }
+
     return true;
   });
 }

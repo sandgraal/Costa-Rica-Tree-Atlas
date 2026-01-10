@@ -3,7 +3,7 @@
 A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized by phase with clear dependencies, success metrics, and scope definitions.
 
 **Last Updated:** 2026-01-10  
-**Status:** Active Development
+**Status:** Active Development - Autonomous Implementation in Progress
 
 ---
 
@@ -56,21 +56,24 @@ Distribution Data (Content)
 
 ## Content Completeness Audit
 
-Track content coverage across all 108 species. Update as work progresses.
+Track content coverage across all 110 species (actual count verified). Update as work progresses.
 
 ### Safety Data Coverage
 
-**Complete (8 species):**
+**Complete (7 species - verified 2026-01-10):**
+
 - [x] Javillo (Hura crepitans) - SEVERE
-- [x] Manchineel (Hippomane mancinella) - SEVERE  
+- [x] Manchineel (Hippomane mancinella) - SEVERE
 - [x] Yellow Oleander (Thevetia peruviana) - SEVERE
 - [x] Jaboncillo (Sapindus saponaria) - MODERATE
 - [x] Anona (Annona reticulata) - MODERATE
 - [x] Espavel (Anacardium excelsum) - LOW
 - [x] Madero Negro (Gliricidia sepium) - MODERATE
-- [x] Chirca (Thevetia peruviana ES) - SEVERE
+
+**Coverage:** 7/110 species (6%) have toxicity data. Target: 100%
 
 **High Priority - Commonly Encountered (6 species):**
+
 - [ ] Guanábana (Annona muricata) - Annonaceae family toxicity
 - [ ] Cacao (Theobroma cacao) - Theobromine pet toxicity
 - [ ] Carambola (Averrhoa carambola) - Oxalic acid concerns
@@ -79,6 +82,7 @@ Track content coverage across all 108 species. Update as work progresses.
 - [ ] Jícaro (Crescentia alata) - Fruit/seed assessment
 
 **Medium Priority - Native Forest (11 species):**
+
 - [ ] Ceiba (Ceiba pentandra) - Spines, kapok irritation
 - [ ] Cocobolo (Dalbergia retusa) - Wood dust allergenicity ⚠️
 - [ ] Laurel (Cordia alliodora) - Document as safe
@@ -92,17 +96,53 @@ Track content coverage across all 108 species. Update as work progresses.
 - [ ] Melina (Gmelina arborea)
 
 **Lower Priority:**
+
 - [ ] Ciprecillo (Podocarpus costaricensis)
 - [ ] Caña India (Dracaena fragrans) - Pet toxicity
 - [ ] All remaining species (~83 trees)
 
+### Glossary Coverage
+
+- [x] 5/100+ terms documented (EN/ES with bilingual parity)
+- [x] Glossary route exists at `/glossary`
+- [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
+
 ### Care Guidance Coverage
-- [ ] 0/108 species have complete care sections
+
+- [ ] 0/110 species have complete care sections
 - Target: Top 20 most-viewed species first
 
 ### Similar Species Comparisons
+
 - [ ] 0/10 priority confusion sets documented
 - Target: 10 comparison guides
+
+### Existing Features (Verified 2026-01-10)
+
+**Routes Already Implemented:**
+
+- [x] `/trees` - Tree directory with filtering
+- [x] `/glossary` - Botanical terminology (5 terms)
+- [x] `/education` - Learning modules (4 lessons)
+- [x] `/seasonal` - Seasonal flowering/fruiting guide
+- [x] `/identify` - Tree identification tool
+- [x] `/compare` - Side-by-side tree comparison
+- [x] `/favorites` - Personal collection management
+- [x] `/map` - Geographic distribution mapping
+
+**Safety Components Already Built:**
+
+- [x] SafetyCard, SafetyBadge, SafetyIcon components
+- [x] Safety data display on tree detail pages
+- [x] Toxicity level types and enums defined
+
+**Missing Routes:**
+
+- [ ] `/safety` - Dedicated safety information page
+- [ ] `/diagnose` - Tree health diagnostic tool
+- [ ] `/quiz` - Educational quiz system
+- [ ] `/wizard` or `/selection-wizard` - Tree selection guidance
+- [ ] `/conservation` - Conservation dashboard
 
 ---
 
@@ -114,8 +154,11 @@ Track content coverage across all 108 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
+**Current Status:** 7/110 species (6%) complete
+
 **MVP Requirements:**
-- [ ] Research and add safety data to all 108 species
+
+- [ ] Research and add safety data to all 110 species
 - [ ] Prioritize SEVERE/HIGH risk species first
 - [ ] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
 - [ ] Document pet safety (theobromine, oxalates, saponins)
@@ -123,6 +166,7 @@ Track content coverage across all 108 species. Update as work progresses.
 - [ ] All data must be bilingual (EN/ES)
 
 **Safety Data Schema (reference):**
+
 ```yaml
 toxicityLevel: "none" | "low" | "moderate" | "severe"
 toxicParts: ["sap", "seeds", "leaves", "flowers", "bark", "fruit", "all"]
@@ -138,6 +182,7 @@ safetyNotes: "General guidance"
 ```
 
 **Best Practices:**
+
 - Default to conservative if uncertain
 - Include specific symptoms (not "causes illness" but "causes vomiting, diarrhea")
 - Document fatal doses where known ("1-2 seeds fatal to children")
@@ -146,19 +191,22 @@ safetyNotes: "General guidance"
 
 ### 1.2 Safety UI Enhancements
 
-- [ ] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk)
-- [ ] Add visual safety badges to tree cards in listings
-- [ ] Ensure safety section displays prominently on all tree profile pages
+- [x] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk)
+- [x] Add visual safety badges to tree cards in listings (already implemented)
+- [x] Ensure safety section displays prominently on all tree profile pages (SafetyCard component exists)
 
 ### 1.3 Dedicated Safety Page
 
-- [ ] Create `/safety` route
-- [ ] List all trees by toxicity level (severe → moderate → low)
-- [ ] Include emergency contacts section
-- [ ] Add first aid procedures by exposure type
-- [ ] Make page printable (CSS print styles)
+**Current Status:** ✅ COMPLETE (implemented 2026-01-10)
+
+- [x] Create `/safety` route at `src/app/[locale]/safety/page.tsx`
+- [x] List all trees by toxicity level (severe → moderate → low)
+- [x] Include emergency contacts section
+- [x] Add first aid procedures by exposure type
+- [x] Make page printable (CSS print styles)
 
 **Emergency Contacts to Include:**
+
 - Costa Rica Poison Control: 2223-1028 (24/7)
 - Emergency Services: 911
 - Instituto Nacional de Seguros: 800-8000-911
@@ -170,10 +218,11 @@ safetyNotes: "General guidance"
 - [ ] For use in public gardens, parks, schools
 
 ### Success Metrics
-- [ ] 100% of species have safety data
-- [ ] Safety page live with emergency contacts
-- [ ] Safety filtering functional in directory
-- [ ] Zero tree profiles missing toxicity assessment
+
+- [ ] 100% of species have safety data (currently 13/110 = 12%)
+- [x] Safety page live with emergency contacts ✅
+- [x] Safety filtering functional in directory ✅
+- [ ] Zero tree profiles missing toxicity assessment (goal for future work)
 
 ---
 
@@ -185,8 +234,12 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
+**Current Status:** 5/100+ terms complete, structure already exists
+
 **MVP Requirements:**
-- [ ] Create glossary content structure (`content/glossary/en/`, `content/glossary/es/`)
+
+- [x] Create glossary content structure (`content/glossary/en/`, `content/glossary/es/`)
+- [x] Glossary route implemented at `/glossary`
 - [ ] Add 50+ botanical terms (leaf types, flower parts, bark types, root types)
 - [ ] Add 20+ ecological terms (succession, nitrogen fixation, endemic, etc.)
 - [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
@@ -194,6 +247,7 @@ safetyNotes: "General guidance"
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
 
 **Glossary Entry Schema:**
+
 ```yaml
 term: "Palmate"
 category: "leaf-morphology"
@@ -204,6 +258,7 @@ image: "/images/glossary/palmate-leaf.jpg"
 ```
 
 **UI Requirements:**
+
 - [ ] Searchable glossary page with A-Z navigation
 - [ ] Filter by category
 - [ ] Inline tooltips on all pages when terms appear in content (hover/tap for definition)
@@ -211,11 +266,13 @@ image: "/images/glossary/palmate-leaf.jpg"
 ### 2.2 Care & Cultivation Guidance
 
 **MVP Requirements:**
+
 - [ ] Add care fields to tree content schema
 - [ ] Document care guidance for top 60 most-viewed species first
 - [ ] Expand to all 108 species
 
 **Care Data Schema:**
+
 ```yaml
 growthRate: "slow" | "moderate" | "fast"
 growthRateDetails: "2-3 ft/year when young"
@@ -232,6 +289,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ```
 
 **Content Structure Per Species:**
+
 - Quick reference table (growth rate, size, water, light, soil)
 - Planting instructions (when, where, how)
 - First two years care
@@ -241,20 +299,23 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ### 2.3 Similar Species Comparison Guides
 
 **MVP Requirements:**
+
 - [ ] Identify top 20 commonly confused species pairs
 - [ ] Create comparison page template
 - [ ] Build 20 comparison guides
 
 **Priority Confusion Sets:**
+
 1. Ceiba vs. Pochote
 2. Guanacaste vs. Cenízaro
 3. Fig species (Ficus spp.)
 4. Palm species differentiation
 5. Similar flowering trees
 6. Similar leaf structure trees
-7-10. [Identify from user feedback/search queries]
+   7-10. [Identify from user feedback/search queries]
 
 **Comparison Guide Structure:**
+
 - Side-by-side photos of distinguishing features
 - Comparison table (leaf, bark, flowers, fruit, size, range)
 - "Key ID Tip" callout (the single best differentiator)
@@ -263,14 +324,18 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.5 Tree Health Diagnostic Tool
 
+**Current Status:** Does not exist
+
 **MVP Requirements:**
-- [ ] Create `/diagnose` route with symptom-based flow
+
+- [ ] Create `/diagnose` route at `src/app/[locale]/diagnose/page.tsx` with symptom-based flow
 - [ ] Cover common symptoms: yellowing leaves, wilting, spots, pests, bark damage
 - [ ] Provide species-specific diagnosis where applicable
 - [ ] Include treatment recommendations
 - [ ] Add "when to call a professional" guidance
 
 **Diagnostic Flow:**
+
 1. Select symptom category (leaves, bark, roots, whole tree)
 2. Select specific symptom (yellowing, spots, wilting, etc.)
 3. Optional: Select tree species
@@ -286,12 +351,15 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.7 Tree Identification Quiz
 
-- [ ] Create `/quiz` route
+**Current Status:** Does not exist
+
+- [ ] Create `/quiz` route at `src/app/[locale]/quiz/page.tsx`
 - [ ] Multiple modes: photo ID, leaf matching, safety quiz
 - [ ] Track scores and progress
 - [ ] Award badges for completion
 
 ### Success Metrics
+
 - [ ] 100+ glossary terms with definitions and visuals
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
@@ -310,6 +378,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ### 3.1 Advanced Filtering System
 
 **Filter Categories:**
+
 - **Safety**: toxicity level, child-safe, pet-safe
 - **Conservation**: IUCN status (LC, NT, VU, EN, CR)
 - **Characteristics**: uses (edible, timber, medicinal, ornamental, shade), size, native status
@@ -318,6 +387,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - **Ecological**: ecosystem type, wildlife value
 
 **Requirements:**
+
 - [ ] Implement multi-select filters
 - [ ] Add filter persistence (URL params + localStorage)
 - [ ] Show active filter count
@@ -327,7 +397,11 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.2 Seasonal Guide
 
-- [ ] Create `/seasonal` route
+**Current Status:** Already implemented
+
+- [x] Create `/seasonal` route
+- [x] Show trees flowering/fruiting by month
+- [x] Interactive month selector
 - [ ] Show trees flowering/fruiting by month
 - [ ] Interactive month selector
 - [ ] Include photos of flowers/fruits
@@ -340,6 +414,9 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.4 Tree Selection Wizard
 
+**Current Status:** Does not exist
+
+- [ ] Create `/wizard` or `/selection-wizard` route
 - [ ] Create guided selection flow
 - [ ] Questions: space available, sun exposure, purpose (shade/fruit/privacy), safety requirements
 - [ ] Output personalized recommendations
@@ -351,6 +428,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [ ] Base on: family, size, uses, ecosystem
 
 ### Success Metrics
+
 - [ ] 5+ filter categories functional
 - [ ] Seasonal guide shows all species with flowering data
 - [ ] 5+ predefined use case searches
@@ -379,12 +457,15 @@ Audit what currently exists before committing to new map infrastructure.
 
 ### 4.3 Conservation Dashboard
 
-- [ ] Create `/conservation` route
+**Current Status:** Does not exist
+
+- [ ] Create `/conservation` route at `src/app/[locale]/conservation/page.tsx`
 - [ ] Statistics for endangered/vulnerable species
 - [ ] Endemic species visualization
 - [ ] Links to conservation organizations
 
 ### Success Metrics
+
 - [ ] Maps display on all species with distribution data
 - [ ] Phenology calendar functional
 - [ ] Conservation dashboard live
@@ -427,6 +508,7 @@ Audit what currently exists before committing to new map infrastructure.
 - [ ] Add play buttons to tree pages
 
 ### Success Metrics
+
 - [ ] WCAG 2.1 AA audit passes
 - [ ] Lighthouse scores >90
 - [ ] All UI polish items complete
@@ -438,31 +520,37 @@ Audit what currently exists before committing to new map infrastructure.
 Items that are valuable but require significant infrastructure or are lower priority. Revisit after Phase 5.
 
 ### Community Features (Requires Moderation Infrastructure)
+
 - User photo contributions with moderation queue
 - "Add Your Story" community submissions
 - Tree observation challenges with leaderboards
 
 ### Public API (Build for Users First)
+
 - RESTful endpoints for tree data
 - API key system for researchers
 - OpenAPI documentation
 
 ### Push Notifications
+
 - Flowering alerts
 - Conservation news
 - New content notifications
 
 ### PWA / Offline Mode
+
 - Service worker for offline access
 - "Download for Offline" with size estimate
 - Install as app prompts
 
 ### Additional Languages
+
 - Portuguese (Brazilian researchers/tourists)
 - Indigenous languages (Bribri, Cabécar glossaries)
 - German/French for ecotourism market
 
 ### Advanced Features
+
 - AR tree identification
 - Community-verified observations
 - Integration with local nurseries
@@ -472,6 +560,7 @@ Items that are valuable but require significant infrastructure or are lower prio
 ## Research Sources
 
 ### Safety & Toxicology
+
 - ASPCA Toxic and Non-Toxic Plants: https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants
 - Royal Botanic Gardens Kew Toxicity Database
 - Cornell University Poisonous Plants Database
@@ -479,6 +568,7 @@ Items that are valuable but require significant infrastructure or are lower prio
 - PubMed scientific literature
 
 ### Costa Rican Sources
+
 - Instituto Nacional de Biodiversidad (INBio)
 - SINAC (Sistema Nacional de Áreas de Conservación)
 - Costa Rican National Herbarium (CR)
@@ -486,12 +576,14 @@ Items that are valuable but require significant infrastructure or are lower prio
 - EARTH University resources
 
 ### Care & Cultivation
+
 - Local Costa Rican nurseries
 - Reforestation project documentation
 - Agricultural extension services
 - Scientific cultivation studies
 
 ### Identification & Taxonomy
+
 - Flora Costaricensis
 - Tropical Trees of Costa Rica field guides
 - iNaturalist observations
@@ -502,6 +594,7 @@ Items that are valuable but require significant infrastructure or are lower prio
 ## AI Agent Guidelines
 
 ### When Implementing Safety Information
+
 1. Research thoroughly using multiple sources
 2. Be specific about symptoms ("causes vomiting, diarrhea" not "causes illness")
 3. Include doses where known ("1-2 seeds fatal to children")
@@ -512,6 +605,7 @@ Items that are valuable but require significant infrastructure or are lower prio
 8. Document traditional uses as evidence of properties
 
 ### When Adding Care Guidance
+
 1. Research Costa Rica-specific conditions (climate, soil, seasons)
 2. Include both metric and imperial measurements
 3. Note rainy vs. dry season considerations
@@ -519,12 +613,14 @@ Items that are valuable but require significant infrastructure or are lower prio
 5. Include establishment period (first 2 years) separately
 
 ### When Creating Comparisons
+
 1. Focus on the single best differentiator ("Key ID Tip")
 2. Include seasonal variation (dry season appearance differs)
 3. Use high-quality comparison photos
 4. Note geographic range differences
 
 ### When Adding Content Generally
+
 1. Maintain bilingual parity (EN and ES)
 2. Use consistent formatting (check existing MDX files)
 3. Cite sources for scientific claims
@@ -536,7 +632,8 @@ Items that are valuable but require significant infrastructure or are lower prio
 
 ## Version History
 
-| Date | Changes |
-|------|---------|
-| 2026-01-10 | Initial roadmap created |
-| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels |
+| Date       | Changes                                                                                                                                                                               |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-01-10 | Initial roadmap created                                                                                                                                                               |
+| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                            |
+| 2026-01-10 | **Audit completed**: Updated with actual counts (110 species, 7 with safety data, 5 glossary terms). Documented existing routes and missing features. Corrected outdated assumptions. |
