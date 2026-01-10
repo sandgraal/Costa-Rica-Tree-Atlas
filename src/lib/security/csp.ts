@@ -86,7 +86,9 @@ export function buildCSP(nonce?: string): string {
     ],
     "style-src": [
       "'self'",
-      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // NOTE: Nonce removed because it causes 'unsafe-inline' to be ignored per CSP spec
+      // This would break all inline styles in React components
+      // When nonce is present, only nonce-approved styles work
       "https://fonts.googleapis.com",
       // TODO: Extract critical CSS to remove unsafe-inline
       "'unsafe-inline'",
@@ -107,7 +109,13 @@ export function buildCSP(nonce?: string): string {
       "https://plausible.io",
       "https://queue.simpleanalyticscdn.com",
     ],
-    "frame-src": ["'self'"],
+    "frame-src": [
+      "'self'",
+      // Allow Vercel Toolbar in development/preview
+      ...(isDev || process.env.VERCEL_ENV === "preview"
+        ? ["https://vercel.live"]
+        : []),
+    ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
     "form-action": ["'self'"],
@@ -173,7 +181,9 @@ export function buildMDXCSP(nonce?: string): string {
     ],
     "style-src": [
       "'self'",
-      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // NOTE: Nonce removed because it causes 'unsafe-inline' to be ignored per CSP spec
+      // This would break all inline styles in React components
+      // When nonce is present, only nonce-approved styles work
       "https://fonts.googleapis.com",
       // TODO: Extract critical CSS to remove unsafe-inline
       "'unsafe-inline'",
@@ -194,7 +204,14 @@ export function buildMDXCSP(nonce?: string): string {
       "https://plausible.io",
       "https://queue.simpleanalyticscdn.com",
     ],
-    "frame-src": ["'self'"],
+    "frame-src": [
+      "'self'",
+      // Allow Vercel Toolbar in development/preview
+      ...(process.env.NODE_ENV === "development" ||
+      process.env.VERCEL_ENV === "preview"
+        ? ["https://vercel.live"]
+        : []),
+    ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
     "form-action": ["'self'"],
@@ -248,7 +265,9 @@ export function buildRelaxedCSP(nonce?: string): string {
     ],
     "style-src": [
       "'self'",
-      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // NOTE: Nonce removed because it causes 'unsafe-inline' to be ignored per CSP spec
+      // This would break all inline styles in React components
+      // When nonce is present, only nonce-approved styles work
       "https://fonts.googleapis.com",
       "'unsafe-inline'",
     ],
@@ -270,7 +289,13 @@ export function buildRelaxedCSP(nonce?: string): string {
       "https://www.google-analytics.com",
       "https://www.googletagmanager.com",
     ],
-    "frame-src": ["'self'"],
+    "frame-src": [
+      "'self'",
+      // Allow Vercel Toolbar in development/preview
+      ...(isDev || process.env.VERCEL_ENV === "preview"
+        ? ["https://vercel.live"]
+        : []),
+    ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
     "form-action": ["'self'"],
