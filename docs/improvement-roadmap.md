@@ -361,6 +361,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ## Phase 4: Interactive Visualizations (Weeks 15-18)
 
 **Goal:** Visual tools for understanding tree data.
+Audit what currently exists before committing to new map infrastructure.
 
 ### 4.1 Distribution Maps
 
