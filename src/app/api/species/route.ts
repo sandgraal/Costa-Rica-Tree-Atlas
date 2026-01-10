@@ -19,13 +19,19 @@ export async function GET(request: NextRequest) {
 
   try {
     // Use sanitized value with a timeout wrapper
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Request timeout")), 15000)
-    );
+    let timeoutId: NodeJS.Timeout;
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => reject(new Error("Request timeout")), 15000);
+    });
 
     const dataPromise = fetchBiodiversityData(validation.sanitized!);
 
-    const data = await Promise.race([dataPromise, timeoutPromise]);
+    const data = await Promise.race([dataPromise, timeoutPromise]).finally(
+      () => {
+        // Clear timeout to prevent memory leak
+        clearTimeout(timeoutId);
+      }
+    );
 
     return NextResponse.json(data, {
       headers: {
