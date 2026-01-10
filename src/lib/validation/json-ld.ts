@@ -178,11 +178,27 @@ export function sanitizeJsonLd(
 
       sanitized[key] = clean;
     } else if (Array.isArray(value)) {
-      sanitized[key] = value.map((item) =>
-        typeof item === "object" && item !== null
-          ? sanitizeJsonLd(item as Record<string, unknown>)
-          : item
-      );
+      sanitized[key] = value.map((item) => {
+        if (typeof item === "string") {
+          // Apply same sanitization to array string items
+          let clean = item
+            .replace(/<script[^>]*>.*?<\/script>/gis, "")
+            .replace(/<style[^>]*>.*?<\/style>/gis, "")
+            .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
+            .replace(/javascript:/gi, "")
+            .replace(/data:text\/html/gi, "");
+
+          clean = clean.replace(/[＜＞＆]/g, "");
+          clean = clean.replace(/[\u200B-\u200F\uFEFF]/g, "");
+          clean = clean.replace(/-->/g, "");
+          clean = clean.replace(/]]>/g, "");
+
+          return clean;
+        } else if (typeof item === "object" && item !== null) {
+          return sanitizeJsonLd(item as Record<string, unknown>);
+        }
+        return item;
+      });
     } else if (typeof value === "object" && value !== null) {
       sanitized[key] = sanitizeJsonLd(value as Record<string, unknown>);
     } else {

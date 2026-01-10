@@ -64,7 +64,7 @@ const UNICODE_ESCAPES: [RegExp, string][] = [
   [/\u200C/g, ""], // Zero-width non-joiner
   [/\u200D/g, ""], // Zero-width joiner
   [/\uFEFF/g, ""], // Zero-width no-break space
-  
+
   // Unicode line separators
   [/\u2028/g, "\\u2028"],
   [/\u2029/g, "\\u2029"],
@@ -96,16 +96,18 @@ function sanitizeJsonForHtml(json: string): string {
   // 3. Normalize Unicode to prevent homograph attacks
   sanitized = sanitized.normalize("NFC");
 
-  // 4. Final validation - should not contain any raw < or > or script
+  // 4. Final validation - should not contain any raw dangerous characters
+  // Note: We only check for actual HTML syntax characters, not substrings like "script" or "style"
+  // since those can legitimately appear in content (e.g., "description", "lifestyle")
   if (
     sanitized.includes("<") ||
     sanitized.includes(">") ||
-    /script/i.test(sanitized) ||
-    /style/i.test(sanitized) ||
     sanitized.includes("-->") ||
     sanitized.includes("]]>")
   ) {
-    console.error("⚠️ JSON-LD sanitization failed - dangerous content detected");
+    console.error(
+      "⚠️ JSON-LD sanitization failed - dangerous content detected"
+    );
     // Return safe empty object instead of potentially dangerous content
     return "{}";
   }

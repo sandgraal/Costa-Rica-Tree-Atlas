@@ -1,4 +1,4 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import { SafeJsonLd } from "../SafeJsonLd";
 
@@ -163,5 +163,24 @@ describe("SafeJsonLd Component", () => {
     const script = container.querySelector("script");
 
     expect(script?.textContent).not.toContain("<script>");
+  });
+
+  it("should allow legitimate content with 'script' or 'style' substrings", () => {
+    const legitimate = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      name: "Costa Rican Style Tree",
+      description: "A tree described in ancient manuscripts",
+      keywords: "lifestyle, description, prescription",
+    };
+
+    const { container } = render(<SafeJsonLd data={legitimate} />);
+    const script = container.querySelector("script");
+
+    expect(script?.getAttribute("type")).toBe("application/ld+json");
+    expect(script?.textContent).toContain("Costa Rican Style Tree");
+    expect(script?.textContent).toContain("manuscripts");
+    expect(script?.textContent).toContain("lifestyle");
+    expect(script?.textContent).toContain("description");
   });
 });
