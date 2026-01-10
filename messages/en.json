@@ -350,5 +350,96 @@
     "shareEvent": "Share event",
     "showEvents": "Show events",
     "hideEvents": "Hide events"
+  },
+  "safety": {
+    "title": "Safety Information",
+    "overallRisk": "Overall Risk Level",
+    "toxicityLevel": "Toxicity Level",
+    "skinContactRisk": "Skin Contact Risk",
+    "allergenRisk": "Allergen Risk",
+    "structuralRisks": "Structural Hazards",
+    "toxicParts": "Toxic Parts",
+    "childSafe": "Child Safe",
+    "petSafe": "Pet Safe",
+    "requiresProfessionalCare": "Requires Professional Care",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "levels": {
+      "none": "None",
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "severe": "Severe"
+    },
+    "parts": {
+      "seeds": "Seeds",
+      "sap": "Sap/Latex",
+      "leaves": "Leaves",
+      "bark": "Bark",
+      "all": "All Parts",
+      "fruit": "Fruit",
+      "flowers": "Flowers",
+      "roots": "Roots"
+    },
+    "structural": {
+      "falling-branches": "Falling Branches",
+      "sharp-spines": "Sharp Spines/Thorns",
+      "explosive-pods": "Explosive Seed Pods",
+      "aggressive-roots": "Aggressive Root System",
+      "brittle-wood": "Brittle Wood",
+      "heavy-fruit": "Heavy Falling Fruit"
+    },
+    "warnings": {
+      "critical": "CRITICAL DANGER",
+      "severe": "SEVERE HAZARD",
+      "high": "HIGH RISK",
+      "moderate": "CAUTION",
+      "criticalMessage": "This tree poses extreme danger. All parts are highly toxic and can cause serious injury or death. DO NOT touch, eat, or burn. Seek immediate medical attention if exposed.",
+      "severeMessage": "This tree is highly dangerous. Toxic parts can cause severe poisoning, chemical burns, or serious injury. Avoid contact and keep children and pets away.",
+      "highMessage": "This tree contains toxic substances that can cause poisoning or injury. Exercise caution and avoid ingestion of any plant parts.",
+      "moderateMessage": "This tree may cause mild to moderate reactions. Use caution around children and pets."
+    },
+    "details": {
+      "toxicityTitle": "Toxicity Details",
+      "skinContactTitle": "Skin Contact Risks",
+      "allergenTitle": "Allergenic Properties",
+      "structuralTitle": "Structural Hazards",
+      "safetyNotesTitle": "Safety Notes",
+      "wildlifeRisksTitle": "Wildlife & Pet Risks"
+    },
+    "firstAid": {
+      "title": "First Aid & Emergency Response",
+      "ingestion": "If ingested, seek immediate medical attention. Do not induce vomiting unless directed by medical professional.",
+      "skinContact": "If sap contacts skin, wash immediately with soap and water. Seek medical attention if blistering or severe irritation occurs.",
+      "eyeContact": "If sap enters eyes, flush immediately with clean water for 15 minutes and seek emergency medical care.",
+      "emergencyNumber": "Costa Rica Emergency: 911",
+      "poisonControl": "Costa Rica Poison Control: 2223-1028"
+    },
+    "disclaimer": {
+      "title": "Safety Information Disclaimer",
+      "content": "Safety information is provided for educational purposes only. Individual reactions may vary significantly based on age, health status, amount of exposure, and individual sensitivity. Always supervise children around plants. Consult a medical professional or certified arborist for specific concerns. The Costa Rica Tree Atlas is not liable for injuries or damages resulting from interaction with trees described in this guide.",
+      "sources": "Information compiled from authoritative toxicology sources, scientific literature, and medical case reports.",
+      "supervision": "Always supervise children around plants",
+      "medical": "Consult medical professional if unsure",
+      "emergency": "Seek immediate medical attention if poisoning occurs"
+    },
+    "filters": {
+      "childSafe": "Child-Safe Only",
+      "petSafe": "Pet-Safe Only",
+      "nonToxic": "Non-Toxic Only",
+      "lowRisk": "Low-Risk Only",
+      "safetyFilters": "Safety Filters"
+    },
+    "badges": {
+      "safe": "Safe",
+      "lowRisk": "Low Risk",
+      "moderateRisk": "Moderate Risk",
+      "highRisk": "High Risk",
+      "severeRisk": "Severe Risk",
+      "toxic": "Toxic",
+      "childSafe": "Child Safe",
+      "petSafe": "Pet Safe"
+    }
   }
 }

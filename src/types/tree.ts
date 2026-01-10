@@ -74,6 +74,29 @@ export type TreeTag =
   | "medicinal"
   | "ornamental";
 
+// Safety-related types
+export type ToxicityLevel = "none" | "low" | "moderate" | "high" | "severe";
+export type RiskLevel = "none" | "low" | "moderate" | "high" | "severe";
+export type AllergenRisk = "none" | "low" | "moderate" | "high";
+
+export type ToxicPart =
+  | "seeds"
+  | "sap"
+  | "leaves"
+  | "bark"
+  | "all"
+  | "fruit"
+  | "flowers"
+  | "roots";
+
+export type StructuralRisk =
+  | "falling-branches"
+  | "sharp-spines"
+  | "explosive-pods"
+  | "aggressive-roots"
+  | "brittle-wood"
+  | "heavy-fruit";
+
 export interface TreeBase {
   slug: string;
   locale: Locale;
@@ -95,6 +118,24 @@ export interface TreeMetadata {
   fruitingSeason?: Month[];
 }
 
+// Safety information interface
+export interface TreeSafety {
+  toxicityLevel?: ToxicityLevel;
+  toxicParts?: string[];
+  skinContactRisk?: RiskLevel;
+  allergenRisk?: AllergenRisk;
+  structuralRisks?: string[];
+  childSafe?: boolean;
+  petSafe?: boolean;
+  requiresProfessionalCare?: boolean;
+  toxicityDetails?: string;
+  skinContactDetails?: string;
+  allergenDetails?: string;
+  structuralRiskDetails?: string;
+  safetyNotes?: string;
+  wildlifeRisks?: string;
+}
+
 export interface TreeMedia {
   featuredImage?: string;
   images?: string[];
@@ -105,7 +146,8 @@ export interface TreeDates {
   updatedAt?: string;
 }
 
-export interface Tree extends TreeBase, TreeMetadata, TreeMedia, TreeDates {
+export interface Tree
+  extends TreeBase, TreeMetadata, TreeSafety, TreeMedia, TreeDates {
   _id: string;
   _raw: unknown;
   body: {
@@ -123,6 +165,11 @@ export interface TreeFilter {
   distribution?: Distribution[];
   seasonalFilter?: "all" | "flowering" | "fruiting";
   month?: Month;
+  // Safety filters
+  childSafe?: boolean;
+  petSafe?: boolean;
+  nonToxic?: boolean;
+  lowRisk?: boolean;
 }
 
 export type SortField = "title" | "scientificName" | "family";

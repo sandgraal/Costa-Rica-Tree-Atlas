@@ -111,6 +111,87 @@ export const Tree = defineDocumentType(() => ({
       description: "Last update date",
       required: false,
     },
+    // Safety Information Fields
+    toxicityLevel: {
+      type: "enum",
+      options: ["none", "low", "moderate", "high", "severe"],
+      description: "Overall toxicity level for ingestion risk",
+      required: false,
+    },
+    toxicParts: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Which parts are dangerous (e.g., seeds, sap, leaves, bark, all, fruit, flowers, roots)",
+      required: false,
+    },
+    skinContactRisk: {
+      type: "enum",
+      options: ["none", "low", "moderate", "high", "severe"],
+      description: "Risk level for skin contact (dermatitis, chemical burns)",
+      required: false,
+    },
+    allergenRisk: {
+      type: "enum",
+      options: ["none", "low", "moderate", "high"],
+      description: "Allergenic risk level (pollen, contact allergies)",
+      required: false,
+    },
+    structuralRisks: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Physical/structural hazards (e.g., falling-branches, sharp-spines, explosive-pods, aggressive-roots, brittle-wood, heavy-fruit)",
+      required: false,
+    },
+    childSafe: {
+      type: "boolean",
+      description: "Whether the tree is safe around children",
+      required: false,
+    },
+    petSafe: {
+      type: "boolean",
+      description: "Whether the tree is safe around pets",
+      required: false,
+    },
+    requiresProfessionalCare: {
+      type: "boolean",
+      description: "Whether the tree requires professional care/handling",
+      required: false,
+    },
+    toxicityDetails: {
+      type: "string",
+      description:
+        "Detailed description of toxicity, compounds, symptoms, first aid",
+      required: false,
+    },
+    skinContactDetails: {
+      type: "string",
+      description: "Detailed description of skin contact risks and effects",
+      required: false,
+    },
+    allergenDetails: {
+      type: "string",
+      description: "Detailed description of allergenic properties",
+      required: false,
+    },
+    structuralRiskDetails: {
+      type: "string",
+      description: "Detailed description of structural/physical hazards",
+      required: false,
+    },
+    safetyNotes: {
+      type: "string",
+      description:
+        "General safety notes, warnings, or precautions for this tree",
+      required: false,
+    },
+    wildlifeRisks: {
+      type: "string",
+      description:
+        "Specific risks to wildlife, birds, or domestic animals beyond pets",
+      required: false,
+    },
   },
   computedFields: {
     url: {

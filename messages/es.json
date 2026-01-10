@@ -350,5 +350,96 @@
     "shareEvent": "Compartir evento",
     "showEvents": "Mostrar eventos",
     "hideEvents": "Ocultar eventos"
+  },
+  "safety": {
+    "title": "Información de Seguridad",
+    "overallRisk": "Nivel de Riesgo General",
+    "toxicityLevel": "Nivel de Toxicidad",
+    "skinContactRisk": "Riesgo de Contacto con la Piel",
+    "allergenRisk": "Riesgo Alergénico",
+    "structuralRisks": "Peligros Estructurales",
+    "toxicParts": "Partes Tóxicas",
+    "childSafe": "Seguro para Niños",
+    "petSafe": "Seguro para Mascotas",
+    "requiresProfessionalCare": "Requiere Cuidado Profesional",
+    "yes": "Sí",
+    "no": "No",
+    "unknown": "Desconocido",
+    "levels": {
+      "none": "Ninguno",
+      "low": "Bajo",
+      "moderate": "Moderado",
+      "high": "Alto",
+      "severe": "Severo"
+    },
+    "parts": {
+      "seeds": "Semillas",
+      "sap": "Savia/Látex",
+      "leaves": "Hojas",
+      "bark": "Corteza",
+      "all": "Todas las Partes",
+      "fruit": "Frutos",
+      "flowers": "Flores",
+      "roots": "Raíces"
+    },
+    "structural": {
+      "falling-branches": "Caída de Ramas",
+      "sharp-spines": "Espinas/Púas Afiladas",
+      "explosive-pods": "Vainas Explosivas",
+      "aggressive-roots": "Sistema de Raíces Agresivo",
+      "brittle-wood": "Madera Quebradiza",
+      "heavy-fruit": "Caída de Frutos Pesados"
+    },
+    "warnings": {
+      "critical": "PELIGRO CRÍTICO",
+      "severe": "PELIGRO SEVERO",
+      "high": "ALTO RIESGO",
+      "moderate": "PRECAUCIÓN",
+      "criticalMessage": "Este árbol representa un peligro extremo. Todas las partes son altamente tóxicas y pueden causar lesiones graves o la muerte. NO tocar, comer ni quemar. Busque atención médica inmediata si se expone.",
+      "severeMessage": "Este árbol es altamente peligroso. Las partes tóxicas pueden causar envenenamiento severo, quemaduras químicas o lesiones graves. Evite el contacto y mantenga alejados a niños y mascotas.",
+      "highMessage": "Este árbol contiene sustancias tóxicas que pueden causar envenenamiento o lesiones. Tenga precaución y evite la ingestión de cualquier parte de la planta.",
+      "moderateMessage": "Este árbol puede causar reacciones leves a moderadas. Use precaución alrededor de niños y mascotas."
+    },
+    "details": {
+      "toxicityTitle": "Detalles de Toxicidad",
+      "skinContactTitle": "Riesgos de Contacto con la Piel",
+      "allergenTitle": "Propiedades Alergénicas",
+      "structuralTitle": "Peligros Estructurales",
+      "safetyNotesTitle": "Notas de Seguridad",
+      "wildlifeRisksTitle": "Riesgos para Fauna y Mascotas"
+    },
+    "firstAid": {
+      "title": "Primeros Auxilios y Respuesta de Emergencia",
+      "ingestion": "Si se ingiere, busque atención médica inmediata. No induzca el vómito a menos que lo indique un profesional médico.",
+      "skinContact": "Si la savia contacta la piel, lave inmediatamente con agua y jabón. Busque atención médica si ocurren ampollas o irritación severa.",
+      "eyeContact": "Si la savia entra en los ojos, enjuague inmediatamente con agua limpia durante 15 minutos y busque atención médica de emergencia.",
+      "emergencyNumber": "Emergencias Costa Rica: 911",
+      "poisonControl": "Centro de Intoxicaciones Costa Rica: 2223-1028"
+    },
+    "disclaimer": {
+      "title": "Descargo de Responsabilidad sobre Información de Seguridad",
+      "content": "La información de seguridad se proporciona únicamente con fines educativos. Las reacciones individuales pueden variar significativamente según la edad, estado de salud, cantidad de exposición y sensibilidad individual. Siempre supervise a los niños cerca de las plantas. Consulte a un profesional médico o arborista certificado para inquietudes específicas. El Atlas de Árboles de Costa Rica no se hace responsable por lesiones o daños resultantes de la interacción con los árboles descritos en esta guía.",
+      "sources": "Información compilada de fuentes toxicológicas autorizadas, literatura científica e informes de casos médicos.",
+      "supervision": "Siempre supervise a los niños cerca de las plantas",
+      "medical": "Consulte a un profesional médico si tiene dudas",
+      "emergency": "Busque atención médica inmediata si ocurre envenenamiento"
+    },
+    "filters": {
+      "childSafe": "Solo Seguros para Niños",
+      "petSafe": "Solo Seguros para Mascotas",
+      "nonToxic": "Solo No Tóxicos",
+      "lowRisk": "Solo Bajo Riesgo",
+      "safetyFilters": "Filtros de Seguridad"
+    },
+    "badges": {
+      "safe": "Seguro",
+      "lowRisk": "Riesgo Bajo",
+      "moderateRisk": "Riesgo Moderado",
+      "highRisk": "Alto Riesgo",
+      "severeRisk": "Riesgo Severo",
+      "toxic": "Tóxico",
+      "childSafe": "Seguro para Niños",
+      "petSafe": "Seguro para Mascotas"
+    }
   }
 }
