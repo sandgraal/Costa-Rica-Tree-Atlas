@@ -207,13 +207,13 @@ image: "/images/glossary/palmate-leaf.jpg"
 **UI Requirements:**
 - [ ] Searchable glossary page with A-Z navigation
 - [ ] Filter by category
-- [ ] Inline tooltips when terms appear in content (hover/tap for definition)
+- [ ] Inline tooltips on all pages when terms appear in content (hover/tap for definition)
 
 ### 2.2 Care & Cultivation Guidance
 
 **MVP Requirements:**
 - [ ] Add care fields to tree content schema
-- [ ] Document care guidance for top 20 most-viewed species first
+- [ ] Document care guidance for top 60 most-viewed species first
 - [ ] Expand to all 108 species
 
 **Care Data Schema:**
@@ -242,9 +242,9 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ### 2.3 Similar Species Comparison Guides
 
 **MVP Requirements:**
-- [ ] Identify top 10 commonly confused species pairs
+- [ ] Identify top 20 commonly confused species pairs
 - [ ] Create comparison page template
-- [ ] Build 10 comparison guides
+- [ ] Build 20 comparison guides
 
 **Priority Confusion Sets:**
 1. Ceiba vs. Pochote
@@ -261,19 +261,6 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - "Key ID Tip" callout (the single best differentiator)
 - Seasonal variation notes
 - Range maps showing where each occurs
-
-### 2.4 Reading Level Toggle
-
-**MVP Requirements:**
-- [ ] Implement three content modes: Simple, Standard, Technical
-- [ ] Create Simple versions (ages 8-12, ESL) for top 20 species
-- [ ] Create Technical versions (full botanical precision) for top 20 species
-- [ ] Add toggle UI with localStorage persistence
-
-**Reading Level Definitions:**
-- **Simple**: 5th-6th grade level, short sentences, analogies, conversational
-- **Standard**: 8th-10th grade level, current content style
-- **Technical**: Full botanical terminology, citations, scientific precision
 
 ### 2.5 Tree Health Diagnostic Tool
 
@@ -308,10 +295,9 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ### Success Metrics
 - [ ] 100+ glossary terms with definitions and visuals
 - [ ] Inline tooltips functional across site
-- [ ] Top 20 species have complete care guidance
-- [ ] 10 comparison guides published
-- [ ] Reading level toggle functional
-- [ ] Diagnostic tool handles 5+ common symptoms
+- [ ] Top 60 species have complete care guidance
+- [ ] 20 comparison guides published
+- [ ] Diagnostic tool handles 10+ common symptoms
 - [ ] Quiz has 50+ questions
 
 ---
@@ -338,6 +324,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [ ] Show active filter count
 - [ ] Add "Clear All Filters" button
 - [ ] Mobile-friendly filter panel
+- [ ] Complete review and cleanup of current filters
 
 ### 3.2 Seasonal Guide
 
