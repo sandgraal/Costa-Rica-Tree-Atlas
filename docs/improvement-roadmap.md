@@ -56,7 +56,7 @@ Distribution Data (Content)
 
 ## Content Completeness Audit
 
-Track content coverage across all 108 species. Update as work progresses.
+Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
