@@ -156,33 +156,26 @@ export function filterTrees(trees: Tree[], filter: TreeFilter): Tree[] {
     }
 
     // Safety filters
-    if (filter.childSafe !== undefined) {
-      if (tree.childSafe !== filter.childSafe) {
+    if (filter.childSafe !== undefined && tree.childSafe !== filter.childSafe) {
+      return false;
+    }
+
+    if (filter.petSafe !== undefined && tree.petSafe !== filter.petSafe) {
+      return false;
+    }
+
+    if (filter.nonToxic === true) {
+      // nonToxic means toxicityLevel is "none" or undefined
+      const toxicity = tree.toxicityLevel;
+      if (toxicity && toxicity !== "none") {
         return false;
       }
     }
 
-    if (filter.petSafe !== undefined) {
-      if (tree.petSafe !== filter.petSafe) {
-        return false;
-      }
-    }
-
-    if (filter.nonToxic !== undefined && filter.nonToxic) {
-      // nonToxic filter: only show trees with toxicityLevel "none" or no toxicity data
-      if (
-        tree.toxicityLevel &&
-        tree.toxicityLevel !== "none" &&
-        tree.toxicityLevel !== undefined
-      ) {
-        return false;
-      }
-    }
-
-    if (filter.lowRisk !== undefined && filter.lowRisk) {
-      // lowRisk filter: only show trees with toxicityLevel "none" or "low"
-      const riskLevel = tree.toxicityLevel;
-      if (riskLevel && riskLevel !== "none" && riskLevel !== "low") {
+    if (filter.lowRisk === true) {
+      // lowRisk means toxicityLevel is "none", "low", or undefined
+      const toxicity = tree.toxicityLevel;
+      if (toxicity && toxicity !== "none" && toxicity !== "low") {
         return false;
       }
     }

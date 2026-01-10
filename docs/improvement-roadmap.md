@@ -56,21 +56,21 @@ Distribution Data (Content)
 
 ## Content Completeness Audit
 
-Track content coverage across all 110 species (actual count verified). Update as work progresses.
+Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**Complete (7 species - verified 2026-01-10):**
+**STATUS: 7/110 species (6.4%) have safety data in both languages**
 
-- [x] Javillo (Hura crepitans) - SEVERE
-- [x] Manchineel (Hippomane mancinella) - SEVERE
-- [x] Yellow Oleander (Thevetia peruviana) - SEVERE
-- [x] Jaboncillo (Sapindus saponaria) - MODERATE
-- [x] Anona (Annona reticulata) - MODERATE
-- [x] Espavel (Anacardium excelsum) - LOW
-- [x] Madero Negro (Gliricidia sepium) - MODERATE
+**Complete (7 species with EN+ES):**
 
-**Coverage:** 7/110 species (6%) have toxicity data. Target: 100%
+- [x] Javillo (Hura crepitans) - SEVERE - EN+ES ✓
+- [x] Manchineel (Hippomane mancinella) - SEVERE - EN+ES ✓
+- [x] Yellow Oleander/Chirca (Thevetia peruviana) - SEVERE - EN+ES ✓
+- [x] Jaboncillo (Sapindus saponaria) - MODERATE - EN+ES ✓
+- [x] Anona (Annona reticulata) - MODERATE - EN only
+- [x] Espavel (Anacardium excelsum) - LOW - EN+ES ✓
+- [x] Madero Negro (Gliricidia sepium) - MODERATE - EN+ES ✓
 
 **High Priority - Commonly Encountered (6 species):**
 
@@ -110,12 +110,20 @@ Track content coverage across all 110 species (actual count verified). Update as
 ### Care Guidance Coverage
 
 - [ ] 0/110 species have complete care sections
+- Schema exists in contentlayer.config.ts but no content yet
 - Target: Top 20 most-viewed species first
+
+### Glossary Coverage
+
+- [x] 10 terms exist (5 EN + 5 ES)
+- [ ] Need 90+ more terms to reach 100+ target
+- Glossary page and infrastructure already functional
 
 ### Similar Species Comparisons
 
 - [ ] 0/10 priority confusion sets documented
 - Target: 10 comparison guides
+- `/compare` route exists but needs content
 
 ### Existing Features (Verified 2026-01-10)
 
@@ -154,11 +162,12 @@ Track content coverage across all 110 species (actual count verified). Update as
 
 ### 1.1 Complete Safety Data for All Species
 
-**Current Status:** 7/110 species (6%) complete
+**STATUS: 7/110 complete (6.4%)**
 
 **MVP Requirements:**
 
-- [ ] Research and add safety data to all 110 species
+- [ ] Research and add safety data to remaining 103 species (both EN+ES)
+- [x] Safety schema already defined in contentlayer.config.ts
 - [ ] Prioritize SEVERE/HIGH risk species first
 - [ ] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
 - [ ] Document pet safety (theobromine, oxalates, saponins)
@@ -191,19 +200,22 @@ safetyNotes: "General guidance"
 
 ### 1.2 Safety UI Enhancements
 
-- [x] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk)
-- [x] Add visual safety badges to tree cards in listings (already implemented)
-- [x] Ensure safety section displays prominently on all tree profile pages (SafetyCard component exists)
+**STATUS: Partially complete**
+
+- [ ] Add safety filter to tree directory (child-safe, pet-safe, non-toxic, low-risk) - Types exist but UI not implemented
+- [x] Visual safety badges already display on tree cards via SafetyIcon component
+- [x] Safety components exist: SafetyIcon, SafetyBadge, SafetyCard, SafetyWarning, SafetyDisclaimer
+- [x] Safety section displays prominently on tree profile pages
 
 ### 1.3 Dedicated Safety Page
 
-**Current Status:** ✅ COMPLETE (implemented 2026-01-10)
+**STATUS: Does not exist**
 
-- [x] Create `/safety` route at `src/app/[locale]/safety/page.tsx`
-- [x] List all trees by toxicity level (severe → moderate → low)
-- [x] Include emergency contacts section
-- [x] Add first aid procedures by exposure type
-- [x] Make page printable (CSS print styles)
+- [ ] Create `/[locale]/safety` route
+- [ ] List all trees by toxicity level (severe → moderate → low)
+- [ ] Include emergency contacts section
+- [ ] Add first aid procedures by exposure type
+- [ ] Make page printable (CSS print styles)
 
 **Emergency Contacts to Include:**
 
@@ -219,10 +231,10 @@ safetyNotes: "General guidance"
 
 ### Success Metrics
 
-- [ ] 100% of species have safety data (currently 13/110 = 12%)
-- [x] Safety page live with emergency contacts ✅
-- [x] Safety filtering functional in directory ✅
-- [ ] Zero tree profiles missing toxicity assessment (goal for future work)
+- [ ] 100% of species have safety data
+- [ ] Safety page live with emergency contacts
+- [ ] Safety filtering functional in directory
+- [ ] Zero tree profiles missing toxicity assessment
 
 ---
 
@@ -234,12 +246,13 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**Current Status:** 5/100+ terms complete, structure already exists
+**STATUS: 10/100+ terms complete (10%)**
 
 **MVP Requirements:**
 
-- [x] Create glossary content structure (`content/glossary/en/`, `content/glossary/es/`)
-- [x] Glossary route implemented at `/glossary`
+- [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
+- [x] Glossary page functional at `/[locale]/glossary`
+- [x] 10 terms currently defined (5 EN + 5 ES)
 - [ ] Add 50+ botanical terms (leaf types, flower parts, bark types, root types)
 - [ ] Add 20+ ecological terms (succession, nitrogen fixation, endemic, etc.)
 - [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
@@ -259,17 +272,19 @@ image: "/images/glossary/palmate-leaf.jpg"
 
 **UI Requirements:**
 
-- [ ] Searchable glossary page with A-Z navigation
-- [ ] Filter by category
-- [ ] Inline tooltips on all pages when terms appear in content (hover/tap for definition)
+- [x] Searchable glossary page with A-Z navigation - Already implemented
+- [x] Filter by category - Already implemented
+- [ ] Inline tooltips on all pages when terms appear in content (hover/tap for definition) - Not yet implemented
 
 ### 2.2 Care & Cultivation Guidance
 
+**STATUS: 0/110 species have care data**
+
 **MVP Requirements:**
 
-- [ ] Add care fields to tree content schema
+- [x] Care fields already in contentlayer schema (growthRate, matureHeight, soilRequirements, etc.)
 - [ ] Document care guidance for top 60 most-viewed species first
-- [ ] Expand to all 108 species
+- [ ] Expand to all 110 species
 
 **Care Data Schema:**
 
@@ -324,11 +339,11 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.5 Tree Health Diagnostic Tool
 
-**Current Status:** Does not exist
+**STATUS: Does not exist**
 
 **MVP Requirements:**
 
-- [ ] Create `/diagnose` route at `src/app/[locale]/diagnose/page.tsx` with symptom-based flow
+- [ ] Create `/[locale]/diagnose` route with symptom-based flow
 - [ ] Cover common symptoms: yellowing leaves, wilting, spots, pests, bark damage
 - [ ] Provide species-specific diagnosis where applicable
 - [ ] Include treatment recommendations
@@ -351,9 +366,9 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.7 Tree Identification Quiz
 
-**Current Status:** Does not exist
+**STATUS: Does not exist**
 
-- [ ] Create `/quiz` route at `src/app/[locale]/quiz/page.tsx`
+- [ ] Create `/[locale]/quiz` route
 - [ ] Multiple modes: photo ID, leaf matching, safety quiz
 - [ ] Track scores and progress
 - [ ] Award badges for completion
@@ -377,22 +392,25 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.1 Advanced Filtering System
 
+**STATUS: Partially complete**
+
 **Filter Categories:**
 
-- **Safety**: toxicity level, child-safe, pet-safe
-- **Conservation**: IUCN status (LC, NT, VU, EN, CR)
-- **Characteristics**: uses (edible, timber, medicinal, ornamental, shade), size, native status
-- **Temporal**: flowering month, fruiting month
-- **Geographic**: province, elevation range
-- **Ecological**: ecosystem type, wildlife value
+- **Safety**: Types defined (childSafe, petSafe, nonToxic, lowRisk) but UI not implemented
+- **Conservation**: ✅ Implemented
+- **Characteristics**: ✅ Tag filtering implemented
+- **Temporal**: ✅ Seasonal filtering exists
+- **Geographic**: ✅ Distribution filtering exists
+- **Ecological**: ✅ Via tags
 
 **Requirements:**
 
-- [ ] Implement multi-select filters
-- [ ] Add filter persistence (URL params + localStorage)
-- [ ] Show active filter count
-- [ ] Add "Clear All Filters" button
-- [ ] Mobile-friendly filter panel
+- [x] Multi-select filters for tags
+- [ ] Safety filters UI (types defined, need UI)
+- [x] Filter persistence (localStorage)
+- [x] Show active filter count
+- [x] "Clear All Filters" button
+- [x] Mobile-friendly filter panel
 - [ ] Complete review and cleanup of current filters
 
 ### 3.2 Seasonal Guide
@@ -632,8 +650,7 @@ Items that are valuable but require significant infrastructure or are lower prio
 
 ## Version History
 
-| Date       | Changes                                                                                                                                                                               |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-01-10 | Initial roadmap created                                                                                                                                                               |
-| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                            |
-| 2026-01-10 | **Audit completed**: Updated with actual counts (110 species, 7 with safety data, 5 glossary terms). Documented existing routes and missing features. Corrected outdated assumptions. |
+| Date       | Changes                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------ |
+| 2026-01-10 | Initial roadmap created                                                                    |
+| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels |

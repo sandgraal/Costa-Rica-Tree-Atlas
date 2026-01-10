@@ -329,58 +329,81 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
             {/* Safety filters */}
             <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-sm font-medium text-muted-foreground mb-2">
-                {locale === "es" ? "Seguridad" : "Safety"}
+              <p className="text-sm font-medium text-muted-foreground mb-3">
+                {locale === "es" ? "Filtros de Seguridad" : "Safety Filters"}
               </p>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() =>
-                    handleFilterChange("childSafe", !filter.childSafe)
-                  }
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
-                    filter.childSafe
-                      ? "bg-green-500 text-white"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {filter.childSafe ? "✓ " : ""}
-                  {locale === "es" ? "Seguro para niños" : "Child-safe"}
-                </button>
-                <button
-                  onClick={() => handleFilterChange("petSafe", !filter.petSafe)}
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
-                    filter.petSafe
-                      ? "bg-green-500 text-white"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {filter.petSafe ? "✓ " : ""}
-                  {locale === "es" ? "Seguro para mascotas" : "Pet-safe"}
-                </button>
-                <button
-                  onClick={() =>
-                    handleFilterChange("nonToxic", !filter.nonToxic)
-                  }
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
-                    filter.nonToxic
-                      ? "bg-green-500 text-white"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {filter.nonToxic ? "✓ " : ""}
-                  {locale === "es" ? "No tóxico" : "Non-toxic"}
-                </button>
-                <button
-                  onClick={() => handleFilterChange("lowRisk", !filter.lowRisk)}
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
-                    filter.lowRisk
-                      ? "bg-blue-500 text-white"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {filter.lowRisk ? "✓ " : ""}
-                  {locale === "es" ? "Bajo riesgo" : "Low risk"}
-                </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {/* Child Safe filter */}
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filter.childSafe === true}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "childSafe",
+                        e.target.checked ? true : undefined
+                      )
+                    }
+                    className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
+                  />
+                  <span className="text-sm">
+                    {locale === "es" ? "Seguro para niños" : "Child Safe"}
+                  </span>
+                </label>
+
+                {/* Pet Safe filter */}
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filter.petSafe === true}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "petSafe",
+                        e.target.checked ? true : undefined
+                      )
+                    }
+                    className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
+                  />
+                  <span className="text-sm">
+                    {locale === "es" ? "Seguro para mascotas" : "Pet Safe"}
+                  </span>
+                </label>
+
+                {/* Non-Toxic filter */}
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filter.nonToxic === true}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "nonToxic",
+                        e.target.checked ? true : undefined
+                      )
+                    }
+                    className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
+                  />
+                  <span className="text-sm">
+                    {locale === "es" ? "No tóxico" : "Non-Toxic"}
+                  </span>
+                </label>
+
+                {/* Low Risk filter */}
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filter.lowRisk === true}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "lowRisk",
+                        e.target.checked ? true : undefined
+                      )
+                    }
+                    className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
+                  />
+                  <span className="text-sm">
+                    {locale === "es" ? "Bajo riesgo" : "Low Risk"}
+                  </span>
+                </label>
               </div>
             </div>
           </div>
