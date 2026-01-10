@@ -29,6 +29,8 @@ export function MobileNav() {
     { href: "/identify", label: t("identify") },
     { href: "/seasonal", label: t("seasonal") },
     { href: "/education", label: t("education") },
+    { href: "/glossary", label: t("glossary") },
+    { href: "/safety", label: t("safety") },
     { href: "/about", label: t("about") },
   ];
 
