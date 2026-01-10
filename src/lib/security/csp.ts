@@ -165,6 +165,8 @@ export function buildCSP(nonce?: string): string {
  * @returns CSP header value string with unsafe-eval for MDX
  */
 export function buildMDXCSP(nonce?: string): string {
+  const isDev = process.env.NODE_ENV === "development";
+
   const directives = {
     "default-src": ["'self'"],
     "script-src": [
@@ -207,8 +209,7 @@ export function buildMDXCSP(nonce?: string): string {
     "frame-src": [
       "'self'",
       // Allow Vercel Toolbar in development/preview
-      ...(process.env.NODE_ENV === "development" ||
-      process.env.VERCEL_ENV === "preview"
+      ...(isDev || process.env.VERCEL_ENV === "preview"
         ? ["https://vercel.live"]
         : []),
     ],
