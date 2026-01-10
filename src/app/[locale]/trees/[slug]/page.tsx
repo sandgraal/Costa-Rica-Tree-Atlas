@@ -4,8 +4,7 @@ import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { getMDXComponent } from "next-contentlayer2/hooks";
-import { mdxComponents } from "@/components/mdx";
+import { MDXRenderer } from "@/components/MDXRenderer";
 import { PrintButton } from "@/components/PrintButton";
 import { ShareButton } from "@/components/ShareButton";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
@@ -409,10 +408,7 @@ export default async function TreePage({ params }: Props) {
 
           {/* MDX Content */}
           <div className="tree-content max-w-none">
-            {(() => {
-              const MDXContent = getMDXComponent(tree.body.code);
-              return <MDXContent components={mdxComponents} />;
-            })()}
+            <MDXRenderer code={tree.body.code} />
           </div>
 
           {/* Safety Disclaimer */}
