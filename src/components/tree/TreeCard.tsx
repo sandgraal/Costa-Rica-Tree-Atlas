@@ -9,6 +9,7 @@ import {
 } from "@/lib/i18n";
 import { SafeImage } from "@/components/SafeImage";
 import { ResponsiveVirtualizedGrid } from "@/components/ResponsiveVirtualizedGrid";
+import { SafetyIcon } from "@/components/safety";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import type { Locale, TreeTag } from "@/types/tree";
 
@@ -83,6 +84,17 @@ export function TreeCard({
               ]?.label[locale] || tree.conservationStatus}
             </span>
           )}
+
+          {/* Safety indicator icon */}
+          <div className="absolute bottom-3 left-3">
+            <SafetyIcon
+              toxicityLevel={tree.toxicityLevel}
+              skinContactRisk={tree.skinContactRisk}
+              childSafe={tree.childSafe}
+              petSafe={tree.petSafe}
+              className="text-2xl"
+            />
+          </div>
         </div>
 
         {/* Content */}

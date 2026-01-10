@@ -54,6 +54,16 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 - **Export Field Guide**: Print favorites as a styled field guide PDF
 - **Quick Compare**: Side-by-side comparison of tree characteristics
 
+### Safety Information ⚠️
+
+- **Toxicity Warnings**: Comprehensive safety data for dangerous species (severe, high, moderate, low, none)
+- **Visual Risk Indicators**: Color-coded badges (🟢🔵🟡🟠🔴⛔) on tree cards and detail pages
+- **Detailed Hazard Info**: Toxic parts, skin contact risks, allergen information, structural hazards
+- **Child & Pet Safety**: Clear indicators for family-safe vs. hazardous trees
+- **First Aid Guidance**: Emergency protocols and poison control contacts (Costa Rica: 2223-1028)
+- **Bilingual Warnings**: Medically accurate safety information in English and Spanish
+- **Critical Species Documented**: Javillo/Sandbox Tree (explosive pods, caustic sap), Madero Negro, and more
+
 ### Design & Accessibility
 
 - **Nature-Inspired Theme**: Custom color palette with forest greens and earth tones

@@ -14,6 +14,7 @@ import { TrackView } from "@/components/TrackView";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { SafeImage } from "@/components/SafeImage";
 import { ImageErrorBoundary } from "@/components/ImageErrorBoundary";
+import { SafetyCard, SafetyDisclaimer } from "@/components/safety";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
 
@@ -396,6 +397,9 @@ export default async function TreePage({ params }: Props) {
             locale={locale}
           />
 
+          {/* Safety Information */}
+          <SafetyCard tree={tree} className="mb-12" />
+
           {/* Biodiversity Data from GBIF and iNaturalist */}
           <BiodiversityInfo
             scientificName={tree.scientificName}
@@ -406,6 +410,9 @@ export default async function TreePage({ params }: Props) {
           <div className="tree-content max-w-none">
             <MDXContent code={tree.body.code} />
           </div>
+
+          {/* Safety Disclaimer */}
+          <SafetyDisclaimer />
 
           {/* Related Trees */}
           <RelatedTrees currentTree={tree} locale={locale} />
