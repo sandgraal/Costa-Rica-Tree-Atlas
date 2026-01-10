@@ -3,7 +3,7 @@
 A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized by phase with clear dependencies, success metrics, and scope definitions.
 
 **Last Updated:** 2026-01-10  
-**Status:** Active Development
+**Status:** Active Development - Autonomous Implementation in Progress
 
 ---
 
@@ -101,6 +101,12 @@ Track content coverage across all 110 species. Update as work progresses.
 - [ ] Caña India (Dracaena fragrans) - Pet toxicity
 - [ ] All remaining species (~83 trees)
 
+### Glossary Coverage
+
+- [x] 5/100+ terms documented (EN/ES with bilingual parity)
+- [x] Glossary route exists at `/glossary`
+- [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
+
 ### Care Guidance Coverage
 
 - [ ] 0/110 species have complete care sections
@@ -118,6 +124,33 @@ Track content coverage across all 110 species. Update as work progresses.
 - [ ] 0/10 priority confusion sets documented
 - Target: 10 comparison guides
 - `/compare` route exists but needs content
+
+### Existing Features (Verified 2026-01-10)
+
+**Routes Already Implemented:**
+
+- [x] `/trees` - Tree directory with filtering
+- [x] `/glossary` - Botanical terminology (5 terms)
+- [x] `/education` - Learning modules (4 lessons)
+- [x] `/seasonal` - Seasonal flowering/fruiting guide
+- [x] `/identify` - Tree identification tool
+- [x] `/compare` - Side-by-side tree comparison
+- [x] `/favorites` - Personal collection management
+- [x] `/map` - Geographic distribution mapping
+
+**Safety Components Already Built:**
+
+- [x] SafetyCard, SafetyBadge, SafetyIcon components
+- [x] Safety data display on tree detail pages
+- [x] Toxicity level types and enums defined
+
+**Missing Routes:**
+
+- [ ] `/safety` - Dedicated safety information page
+- [ ] `/diagnose` - Tree health diagnostic tool
+- [ ] `/quiz` - Educational quiz system
+- [ ] `/wizard` or `/selection-wizard` - Tree selection guidance
+- [ ] `/conservation` - Conservation dashboard
 
 ---
 
@@ -382,7 +415,11 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.2 Seasonal Guide
 
-- [ ] Create `/seasonal` route
+**Current Status:** Already implemented
+
+- [x] Create `/seasonal` route
+- [x] Show trees flowering/fruiting by month
+- [x] Interactive month selector
 - [ ] Show trees flowering/fruiting by month
 - [ ] Interactive month selector
 - [ ] Include photos of flowers/fruits
@@ -395,6 +432,9 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.4 Tree Selection Wizard
 
+**Current Status:** Does not exist
+
+- [ ] Create `/wizard` or `/selection-wizard` route
 - [ ] Create guided selection flow
 - [ ] Questions: space available, sun exposure, purpose (shade/fruit/privacy), safety requirements
 - [ ] Output personalized recommendations
@@ -435,7 +475,9 @@ Audit what currently exists before committing to new map infrastructure.
 
 ### 4.3 Conservation Dashboard
 
-- [ ] Create `/conservation` route
+**Current Status:** Does not exist
+
+- [ ] Create `/conservation` route at `src/app/[locale]/conservation/page.tsx`
 - [ ] Statistics for endangered/vulnerable species
 - [ ] Endemic species visualization
 - [ ] Links to conservation organizations
