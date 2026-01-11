@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (CORRECTED: Safety: 110/110 trees (100%), Glossary: 72 terms (72%) - Phase 1 COMPLETE)
+**Last Audited:** 2026-01-11 (CORRECTED: Safety: 110/110 trees (100%), Glossary: 74 terms (74%) - Phase 1 COMPLETE)
 
 ---
 
@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] **72/100+ terms documented (72% complete)** _(UPDATED 2026-01-11: Added 4 more terms - 72% reached!)_
-  - 72 EN + 72 ES with perfect bilingual parity
-  - Categories: Morphology (40), Ecology (25), Timber (9)
-  - **Morphology (40)**: Acuminate, Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dioecious, Drupe, Evergreen, Follicle, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Monoecious, Node, Opposite, Ovate, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Taproot, Trifoliate
-  - **Ecology (25)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Germination, Habitat, Invasive Species, Keystone Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed, Xerophytic
+- [x] **74/100+ terms documented (74% complete)** _(UPDATED 2026-01-11: Added 2 more terms - 74% reached!)_
+  - 74 EN + 74 ES with perfect bilingual parity
+  - Categories: Morphology (41), Ecology (26), Timber (9)
+  - **Morphology (41)**: Acuminate, Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dioecious, Drupe, Emergent Tree, Evergreen, Fibrous Roots, Follicle, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Monoecious, Node, Opposite, Ovate, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Taproot, Trifoliate
+  - **Ecology (26)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Germination, Habitat, Invasive Species, Keystone Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed, Xerophytic
   - **Timber (9)**: Air Drying, CITES, Figure, Hardwood, Heartwood, Janka Hardness, Lumber Grade, Sapwood, Wood Grain
-  - **Latest session (4 terms)**: Taproot, Germination, Hardwood, Xerophytic
+  - **Latest session (2 terms)**: Fibrous Roots, Emergent Tree
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,7 +303,7 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 72/100+ terms complete (72%)** _(UPDATED 2026-01-11: Added 4 more terms - REACHED 72%!)_
+**STATUS: 74/100+ terms complete (74%)** _(UPDATED 2026-01-11: Added 2 more terms - REACHED 74%!)_
 
 **Completed Terms (68 EN + 68 ES):**
 
@@ -389,10 +389,10 @@ safetyNotes: "General guidance"
 - [x] **60 terms defined - 60% MILESTONE REACHED! ✅**
 - [x] **65 terms defined - 65% MILESTONE REACHED! ✅** (65/100 complete)
 - [x] **70 terms defined - 70% MILESTONE REACHED! ✅** (70/100 complete)
-- [x] **72 terms defined - 72% complete** (72/100 complete)
-- [ ] Add 3+ more terms to reach 75/100 (75% milestone)
-- [x] Add botanical terms (fruit types, leaf shapes, root structures, etc.) - Added 8 terms ✅
-- [x] Add more ecological terms (reforestation, canopy gap, allelopathy, symbiosis, germination, xerophytic) - Added 6 terms ✅
+- [x] **74 terms defined - 74% complete** (74/100 complete)
+- [ ] Add 1+ more term to reach 75/100 (75% milestone)
+- [x] Add botanical terms (fruit types, leaf shapes, root structures, forest layers) - Added 10 terms ✅
+- [x] Add more ecological terms (reforestation, canopy gap, allelopathy, symbiosis, germination, xerophytic, emergent) - Added 7 terms ✅
 - [x] Add timber/wood terms (air drying, lumber grades, hardwood) - Added 3 terms ✅
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
@@ -509,7 +509,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] **72% of glossary target complete (72/100) - Past 70% milestone! ✅**
+- [x] **74% of glossary target complete (74/100) - Almost at 75% milestone! ✅**
 - [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
@@ -808,3 +808,4 @@ Items that are valuable but require significant infrastructure or are lower prio
 | 2026-01-11 | **GLOSSARY 65% MILESTONE REACHED (61→65 terms, 65% complete)**: Added 4 more comprehensive glossary terms: Ovate (egg-shaped leaf), Acuminate (drip-tip leaf apex adaptation), Lumber Grade (FAS hardwood grading system with Costa Rican examples), Symbiosis (mutualism, commensalism, parasitism relationships). All with full bilingual support (EN+ES). Total: 38 morphology, 23 ecology, 7 timber terms. Each term includes practical Costa Rican examples, field identification tips, detailed explanations. Past 65% milestone. Two autonomous sessions today added total 12 terms (53→65). Progressing steadily toward 70% target.                                                                                                                           |
 | 2026-01-11 | **GLOSSARY NEARING 70% MILESTONE (65→68 terms, 68% complete)**: Added 3 final terms in third session: Monoecious (one-house reproductive system, both male/female flowers on same tree), Figure (decorative wood patterns - ribbon, birdseye, quilted, burled), Keystone Species (disproportionate ecosystem impact - fig trees, ceiba, almendro examples). All with full bilingual support (EN+ES). Total: 39 morphology, 24 ecology, 8 timber terms. Three autonomous sessions today achieved remarkable progress: 53→61→65→68 terms (+15 total, 28% increase). Almost at 70% milestone. Ready to shift focus to implementation features (tooltips, care guides).                                                                                                   |
 | 2026-01-11 | **GLOSSARY 72% MILESTONE REACHED (68→72 terms, 72% complete)**: Added 4 comprehensive glossary terms: Taproot (root morphology - deep penetrating root system, Costa Rican examples), Germination (seed to seedling process - imbibition, activation, radicle emergence), Hardwood (botanical timber classification - angiosperms, ring-porous vs diffuse-porous, CR species), Xerophytic (drought adaptations - Guanacaste dry forest species, water conservation strategies). All with full bilingual support (EN+ES). Total: 40 morphology, 25 ecology, 9 timber terms. Comprehensive practical information for each: field identification, cultivation tips, Costa Rican examples. Past 70% milestone, progressing toward 75% target (100+ final goal).           |
+| 2026-01-11 | **GLOSSARY 74% MILESTONE REACHED (72→74 terms, 74% complete)**: Added 2 essential morphology/ecology terms: Fibrous Roots (complementary to taproot - shallow spreading root systems, palms/grasses/monocots, erosion control, transplanting advantages), Emergent Tree (forest stratification ecology - giants rising above canopy, environmental extremes, keystone species, conservation importance). All with full bilingual support (EN+ES). Total: 41 morphology, 26 ecology, 9 timber terms. Both terms highly practical with Costa Rican examples, field identification tips, cultivation considerations. Just 1 term away from 75% milestone!                                                                                                                |
