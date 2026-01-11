@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (Glossary: 19→23 terms, Safety: 25→39 trees)
+**Last Audited:** 2026-01-11 (Glossary: 23 terms, Safety: 39→49 trees, 44% complete)
 
 ---
 
@@ -61,9 +61,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 39/110 species (36%) have safety data in both languages** _(Updated 2026-01-11)_
+**STATUS: 49/110 species (44%) have safety data in both languages** _(Updated 2026-01-11)_
 
-**Complete (39 species with EN+ES):**
+**Complete (49 species with EN+ES):**
 
 **Previously completed (25):**
 
@@ -71,7 +71,7 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Guanábana, Guanacaste, Guayabo, Jaboncillo, Javillo, Jícaro, Laurel, Madero Negro
 - [x] Mamón Chino, Manchineel, Melina, Orey, Pilon, Sangrillo, Yellow Oleander, Zapatero
 
-**Added 2026-01-11 (14 new):**
+**Added 2026-01-11 - Morning Batch (14 trees):**
 
 - [x] Aguacate (Persea americana) - LOW, PET-TOXIC (persin) - EN+ES ✓
 - [x] Almendro (Dipteryx panamensis) - LOW (coumarin in seeds) - EN+ES ✓
@@ -88,13 +88,28 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Pochote (Pachira quinata) - NONE (temporary trunk spines) - EN+ES ✓
 - [x] Tamarindo (Tamarindus indica) - NONE (completely safe) - EN+ES ✓
 
-**High Priority - Commonly Encountered (Remaining):**
+**Added 2026-01-11 - Autonomous Agent Session (10 trees):**
+
+- [x] Caoba (Swietenia macrophylla) - NONE tree, HIGH wood dust allergen (respiratory sensitizer) - EN+ES ✓
+- [x] Carao (Cassia grandis) - NONE, completely safe (laxative fruit in large amounts) - EN+ES ✓
+- [x] Cedro Amargo (Cedrela odorata) - NONE tree, MODERATE wood dust allergen - EN+ES ✓
+- [x] Cenízaro (Samanea saman) - LOW toxicity (mild tannins/saponins, falling branches) - EN+ES ✓
+- [x] Corteza Amarilla (Handroanthus ochraceus) - NONE, completely safe - EN+ES ✓
+- [x] Cristóbal (Platymiscium pinnatum) - NONE tree, HIGH wood dust allergen (rosewood family) - EN+ES ✓
+- [x] Guachipelín (Diphysa americana) - NONE, exceptionally safe nitrogen-fixer - EN+ES ✓
+- [x] Indio Desnudo (Bursera simaruba) - NONE, exceptionally safe - EN+ES ✓
+- [x] Roble de Sabana (Tabebuia rosea) - LOW (mild alkaloids in bark/flowers) - EN+ES ✓
+- [x] Ron Ron (Astronium graveolens) - NONE, LOW wood dust sensitizer - EN+ES ✓
+
+**High Priority - Commonly Encountered (Remaining ~10):**
+
+- [ ] Ajo, Alcornoque, Caimito, Capulín, Cativo, Ciprecillo, Gallinazo, and others
 
 **Lower Priority:**
 
 - [ ] Ciprecillo (Podocarpus costaricensis)
 - [ ] Caña India (Dracaena fragrans) - Pet toxicity
-- [ ] All remaining species (~87 trees)
+- [ ] All remaining species (~61 trees)
 
 ### Glossary Coverage
 
@@ -156,12 +171,12 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 39/110 complete (36%)** _(Updated 2026-01-11)_
+**STATUS: 49/110 complete (44%)** _(Updated 2026-01-11)_
 
 **MVP Requirements:**
 
-- [x] Research and add safety data to 39 species (both EN+ES) - IN PROGRESS
-- [ ] Research and add safety data to remaining 71 species (both EN+ES)
+- [x] Research and add safety data to 49 species (both EN+ES) - IN PROGRESS
+- [ ] Research and add safety data to remaining 61 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
 - [x] Prioritize SEVERE/HIGH risk species first - ONGOING
 - [x] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
@@ -228,7 +243,7 @@ safetyNotes: "General guidance"
 
 ### Success Metrics
 
-- [x] 36% of species have safety data (39/110) - IN PROGRESS toward 100%
+- [x] 44% of species have safety data (49/110) - IN PROGRESS toward 100%
 - [x] Safety page live with emergency contacts
 - [x] Safety filtering functional in directory
 - [ ] 100% of species have safety data (target: 110/110)
@@ -686,8 +701,9 @@ Items that are valuable but require significant infrastructure or are lower prio
 
 ## Version History
 
-| Date       | Changes                                                                                                                                                                                                                                                                                                                   |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-01-10 | Initial roadmap created                                                                                                                                                                                                                                                                                                   |
-| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                                                                                                                                                                |
-| 2026-01-11 | Safety data: 25→39 trees (36%), Glossary: 19→23 terms (23%). Added 14 tree species with safety data across all categories (toxic, hazardous, safe). Added 4 glossary terms (Stipule, Inflorescence, Invasive Species, Heartwood) covering morphology, ecology, and timber. Updated progress tracking and success metrics. |
+| Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-01-10 | Initial roadmap created                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 2026-01-11 | Safety data: 25→39 trees (36%), Glossary: 19→23 terms (23%). Added 14 tree species with safety data across all categories (toxic, hazardous, safe). Added 4 glossary terms (Stipule, Inflorescence, Invasive Species, Heartwood) covering morphology, ecology, and timber. Updated progress tracking and success metrics.                                                                                                                                                                                                                 |
+| 2026-01-11 | Safety data: 39→49 trees (44%). Autonomous agent added 10 trees: Caoba, Carao, Cedro Amargo, Cenízaro (timber species with wood dust concerns), Corteza Amarilla, Cristóbal, Guachipelín (nitrogen-fixer), Indio Desnudo, Roble de Sabana, Ron Ron. Comprehensive research on wood dust allergenicity for timber species (mahogany, rosewood families). Focus on distinguishing living tree safety (mostly safe) vs woodworking safety (dust hazards). Updated all progress metrics to 44% complete. Maintained perfect bilingual parity. |
