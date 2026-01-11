@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (Glossary expansion: 18→30 terms, Safety data: 23→25 trees)
+**Last Audited:** 2026-01-11 (Glossary expansion: 18→38 terms, Safety data: 23→25 trees)
 
 ---
 
@@ -102,10 +102,10 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] 30/100+ terms documented (30% complete) _(Updated 2026-01-11)_
-  - 15 EN + 15 ES with perfect bilingual parity
-  - Categories: Morphology (10), Ecology (5)
-  - Morphology: Buttress Roots, Deciduous, Drupe, Pinnate, Palmate, Compound Leaf, Simple Leaf, Alternate, Opposite, Evergreen
+- [x] 38/100+ terms documented (38% complete) _(Updated 2026-01-11)_
+  - 19 EN + 19 ES with perfect bilingual parity
+  - Categories: Morphology (12), Ecology (7)
+  - Morphology: Buttress Roots, Deciduous, Drupe, Pinnate, Palmate, Compound Leaf, Simple Leaf, Alternate, Opposite, Evergreen, Legume, Bark
   - Ecology: Canopy, Epiphyte, Nitrogen Fixation, Pioneer Species, Endemic, Native, Succession
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
@@ -245,11 +245,11 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 30/100+ terms complete (30%)** _(Updated 2026-01-11)_
+**STATUS: 38/100+ terms complete (38%)** _(Updated 2026-01-11)_
 
-**Completed Terms (15 EN + 15 ES):**
+**Completed Terms (19 EN + 19 ES):**
 
-**Morphology (10 terms):**
+**Morphology (12 terms):**
 
 - ✅ Buttress Roots (Raíces Tablares)
 - ✅ Deciduous (Caducifolio)
@@ -261,8 +261,10 @@ safetyNotes: "General guidance"
 - ✅ Alternate (Alterno) _(Added 2026-01-11)_
 - ✅ Opposite (Opuesto) _(Added 2026-01-11)_
 - ✅ Evergreen (Perenne) _(Added 2026-01-11)_
+- ✅ Legume (Legumbre) _(Added 2026-01-11)_
+- ✅ Bark (Corteza) _(Added 2026-01-11)_
 
-**Ecology (5 terms):**
+**Ecology (7 terms):**
 
 - ✅ Canopy (Dosel)
 - ✅ Epiphyte (Epífita)
@@ -276,8 +278,9 @@ safetyNotes: "General guidance"
 
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
-- [x] 30 terms currently defined with full bilingual parity
-- [ ] Add 22+ botanical terms (flower parts, bark types, fruit types, etc.)
+- [x] 38 terms currently defined with full bilingual parity
+- [ ] Add 14+ botanical terms (flower parts, fruit types, etc.)
+- [ ] Add 8+ ecological terms (habitat, invasive, biodiversity, etc.)
 - [ ] Add 10+ ecological terms (habitat, invasive, biodiversity, etc.)
 - [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
@@ -680,4 +683,5 @@ Items that are valuable but require significant infrastructure or are lower prio
 | ---------- | ------------------------------------------------------------------------------------------ |
 | 2026-01-10 | Initial roadmap created                                                                    |
 | 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels |
+| 2026-01-11 | Glossary expansion: 18→38 terms (20 new), Safety data: 23→25 trees (2 new)                 |
 | 2026-01-11 | Glossary expansion: 18→30 terms (12 new), Safety data: 23→25 trees (2 new)                 |
