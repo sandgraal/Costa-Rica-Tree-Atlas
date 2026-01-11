@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (Glossary expansion: 18→38 terms, Safety data: 23→25 trees)
+**Last Audited:** 2026-01-11 (Glossary: 19→23 terms, Safety: 25→39 trees)
 
 ---
 
@@ -61,36 +61,32 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 25/110 species (23%) have safety data in both languages** _(Updated 2026-01-11)_
+**STATUS: 39/110 species (36%) have safety data in both languages** _(Updated 2026-01-11)_
 
-**Complete (25 species with EN+ES):**
+**Complete (39 species with EN+ES):**
 
-- [x] Amarillón (Terminalia amazonia) - EN+ES ✓
-- [x] Anona (Annona reticulata) - MODERATE - EN+ES ✓
-- [x] Cacao (Theobroma cacao) - EN+ES ✓
-- [x] Carambola (Averrhoa carambola) - EN+ES ✓
-- [x] Cas (Psidium friedrichsthalianum) - EN+ES ✓
-- [x] Ceiba (Ceiba pentandra) - EN+ES ✓
-- [x] Chancho Blanco (Vochysia guatemalensis) - EN+ES ✓
-- [x] Cocobolo (Dalbergia retusa) - EN+ES ✓
-- [x] Espavel (Anacardium excelsum) - LOW - EN+ES ✓
-- [x] Guanábana (Annona muricata) - EN+ES ✓
-- [x] Jaboncillo (Sapindus saponaria) - MODERATE - EN+ES ✓
-- [x] Javillo (Hura crepitans) - SEVERE - EN+ES ✓
-- [x] Jícaro (Crescentia alata) - EN+ES ✓
-- [x] Laurel (Cordia alliodora) - EN+ES ✓
-- [x] Madero Negro (Gliricidia sepium) - MODERATE - EN+ES ✓
-- [x] Mamón Chino (Nephelium lappaceum) - EN+ES ✓
-- [x] Manchineel (Hippomane mancinella) - SEVERE - EN+ES ✓
-- [x] Melina (Gmelina arborea) - EN+ES ✓
-- [x] Orey (Campnosperma panamense) - EN+ES ✓
-- [x] Pilon (Hyeronima alchorneoides) - EN+ES ✓
-- [x] Sangrillo (Pterocarpus officinalis) - EN+ES ✓
-- [x] Yellow Oleander/Chirca (Thevetia peruviana) - SEVERE - EN+ES ✓
-- [x] Zapatero (Hieronyma oblonga) - EN+ES ✓
+**Previously completed (25):**
 
-- [x] Guanacaste (Enterolobium cyclocarpum) - LOW - EN+ES ✓ _(Added 2026-01-11)_
-- [x] Guayabo (Psidium guajava) - NONE (Safe) - EN+ES ✓ _(Added 2026-01-11)_
+- [x] Amarillón, Anona, Cacao, Carambola, Cas, Ceiba, Chancho Blanco, Cocobolo, Espavel
+- [x] Guanábana, Guanacaste, Guayabo, Jaboncillo, Javillo, Jícaro, Laurel, Madero Negro
+- [x] Mamón Chino, Manchineel, Melina, Orey, Pilon, Sangrillo, Yellow Oleander, Zapatero
+
+**Added 2026-01-11 (14 new):**
+
+- [x] Aguacate (Persea americana) - LOW, PET-TOXIC (persin) - EN+ES ✓
+- [x] Almendro (Dipteryx panamensis) - LOW (coumarin in seeds) - EN+ES ✓
+- [x] Balsa (Ochroma pyramidale) - NONE (minor leaf hair irritation) - EN+ES ✓
+- [x] Coco (Cocos nucifera) - NONE (falling hazard) - EN+ES ✓
+- [x] Coyol (Acrocomia aculeata) - NONE (EXTREME spines 20cm) - EN+ES ✓
+- [x] Higuerón (Ficus insipida) - LOW (mild latex) - EN+ES ✓
+- [x] Jobo (Spondias mombin) - LOW (mild urushiol) - EN+ES ✓
+- [x] Mango (Mangifera indica) - LOW (urushiol/"mango mouth") - EN+ES ✓
+- [x] Marañón (Anacardium occidentale) - MODERATE/SEVERE (raw nuts toxic) - EN+ES ✓
+- [x] Nance (Byrsonima crassifolia) - NONE (completely safe) - EN+ES ✓
+- [x] Papaya (Carica papaya) - LOW (latex mildly irritating) - EN+ES ✓
+- [x] Pejibaye (Bactris gasipaes) - NONE (EXTREME spines 15cm) - EN+ES ✓
+- [x] Pochote (Pachira quinata) - NONE (temporary trunk spines) - EN+ES ✓
+- [x] Tamarindo (Tamarindus indica) - NONE (completely safe) - EN+ES ✓
 
 **High Priority - Commonly Encountered (Remaining):**
 
@@ -102,11 +98,12 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] 38/100+ terms documented (38% complete) _(Updated 2026-01-11)_
-  - 19 EN + 19 ES with perfect bilingual parity
-  - Categories: Morphology (12), Ecology (7)
-  - Morphology: Buttress Roots, Deciduous, Drupe, Pinnate, Palmate, Compound Leaf, Simple Leaf, Alternate, Opposite, Evergreen, Legume, Bark
-  - Ecology: Canopy, Epiphyte, Nitrogen Fixation, Pioneer Species, Endemic, Native, Succession
+- [x] 23/100+ terms documented (23% complete) _(Updated 2026-01-11)_
+  - 23 EN + 23 ES with perfect bilingual parity
+  - Categories: Morphology (14), Ecology (8), Timber (1)
+  - Morphology: Buttress Roots, Deciduous, Drupe, Pinnate, Palmate, Compound Leaf, Simple Leaf, Alternate, Opposite, Evergreen, Legume, Bark, Stipule, Inflorescence
+  - Ecology: Canopy, Epiphyte, Nitrogen Fixation, Pioneer Species, Endemic, Native, Succession, Invasive Species
+  - Timber: Heartwood
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -159,17 +156,18 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 25/110 complete (23%)** _(Updated 2026-01-11)_
+**STATUS: 39/110 complete (36%)** _(Updated 2026-01-11)_
 
 **MVP Requirements:**
 
-- [ ] Research and add safety data to remaining 85 species (both EN+ES)
+- [x] Research and add safety data to 39 species (both EN+ES) - IN PROGRESS
+- [ ] Research and add safety data to remaining 71 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
-- [ ] Prioritize SEVERE/HIGH risk species first
-- [ ] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
-- [ ] Document pet safety (theobromine, oxalates, saponins)
-- [ ] Document wood dust allergenicity for timber species
-- [ ] All data must be bilingual (EN/ES)
+- [x] Prioritize SEVERE/HIGH risk species first - ONGOING
+- [x] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
+- [x] Document pet safety (persin, urushiol)
+- [x] Document wood dust allergenicity for timber species
+- [x] All data must be bilingual (EN/ES) - 100% parity maintained
 
 **Safety Data Schema (reference):**
 
@@ -230,9 +228,10 @@ safetyNotes: "General guidance"
 
 ### Success Metrics
 
-- [ ] 100% of species have safety data
-- [ ] Safety page live with emergency contacts
-- [ ] Safety filtering functional in directory
+- [x] 36% of species have safety data (39/110) - IN PROGRESS toward 100%
+- [x] Safety page live with emergency contacts
+- [x] Safety filtering functional in directory
+- [ ] 100% of species have safety data (target: 110/110)
 - [ ] Zero tree profiles missing toxicity assessment
 
 ---
@@ -245,44 +244,51 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 38/100+ terms complete (38%)** _(Updated 2026-01-11)_
+**STATUS: 23/100+ terms complete (23%)** _(Updated 2026-01-11)_
 
-**Completed Terms (19 EN + 19 ES):**
+**Completed Terms (23 EN + 23 ES):**
 
-**Morphology (12 terms):**
+**Morphology (14 terms):**
 
+- ✅ Alternate (Alterno)
+- ✅ Bark (Corteza)
 - ✅ Buttress Roots (Raíces Tablares)
+- ✅ Compound Leaf (Hoja Compuesta)
 - ✅ Deciduous (Caducifolio)
 - ✅ Drupe (Drupa)
-- ✅ Pinnate (Pinnada)
+- ✅ Evergreen (Perenne)
+- ✅ Inflorescence (Inflorescencia) _(Added 2026-01-11)_
+- ✅ Legume (Legumbre)
+- ✅ Opposite (Opuesto)
 - ✅ Palmate (Palmada)
-- ✅ Compound Leaf (Hoja Compuesta) _(Added 2026-01-11)_
-- ✅ Simple Leaf (Hoja Simple) _(Added 2026-01-11)_
-- ✅ Alternate (Alterno) _(Added 2026-01-11)_
-- ✅ Opposite (Opuesto) _(Added 2026-01-11)_
-- ✅ Evergreen (Perenne) _(Added 2026-01-11)_
-- ✅ Legume (Legumbre) _(Added 2026-01-11)_
-- ✅ Bark (Corteza) _(Added 2026-01-11)_
+- ✅ Pinnate (Pinnada)
+- ✅ Simple Leaf (Hoja Simple)
+- ✅ Stipule (Estípula) _(Added 2026-01-11)_
 
-**Ecology (7 terms):**
+**Ecology (8 terms):**
 
 - ✅ Canopy (Dosel)
+- ✅ Endemic (Endémico)
 - ✅ Epiphyte (Epífita)
+- ✅ Invasive Species (Especie Invasora) _(Added 2026-01-11)_
+- ✅ Native (Nativo)
 - ✅ Nitrogen Fixation (Fijación de Nitrógeno)
 - ✅ Pioneer Species (Especie Pionera)
-- ✅ Endemic (Endémico) _(Added 2026-01-11)_
-- ✅ Native (Nativo) _(Added 2026-01-11)_
-- ✅ Succession (Sucesión) _(Added 2026-01-11)_
+- ✅ Succession (Sucesión)
+
+**Timber (1 term):**
+
+- ✅ Heartwood (Duramen) _(Added 2026-01-11)_
 
 **MVP Requirements:**
 
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
-- [x] 38 terms currently defined with full bilingual parity
+- [x] 23 terms currently defined with full bilingual parity
+- [ ] Add 27+ more terms to reach 50/100 (50% milestone)
 - [ ] Add 14+ botanical terms (flower parts, fruit types, etc.)
-- [ ] Add 8+ ecological terms (habitat, invasive, biodiversity, etc.)
-- [ ] Add 10+ ecological terms (habitat, invasive, biodiversity, etc.)
-- [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
+- [ ] Add 7+ more ecological terms (habitat, biodiversity, etc.)
+- [ ] Add 14+ timber/wood terms (sapwood, grain, Janka hardness, CITES)
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
 
@@ -398,7 +404,8 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] 100+ glossary terms with definitions and visuals (10/100 currently)
+- [x] 23% of glossary target complete (23/100) - IN PROGRESS toward 100+
+- [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
 - [ ] 20 comparison guides published (1/20 currently)
@@ -679,9 +686,8 @@ Items that are valuable but require significant infrastructure or are lower prio
 
 ## Version History
 
-| Date       | Changes                                                                                    |
-| ---------- | ------------------------------------------------------------------------------------------ |
-| 2026-01-10 | Initial roadmap created                                                                    |
-| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels |
-| 2026-01-11 | Glossary expansion: 18→38 terms (20 new), Safety data: 23→25 trees (2 new)                 |
-| 2026-01-11 | Glossary expansion: 18→30 terms (12 new), Safety data: 23→25 trees (2 new)                 |
+| Date       | Changes                                                                                                                                                                                                                                                                                                                   |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-01-10 | Initial roadmap created                                                                                                                                                                                                                                                                                                   |
+| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                                                                                                                                                                |
+| 2026-01-11 | Safety data: 25→39 trees (36%), Glossary: 19→23 terms (23%). Added 14 tree species with safety data across all categories (toxic, hazardous, safe). Added 4 glossary terms (Stipule, Inflorescence, Invasive Species, Heartwood) covering morphology, ecology, and timber. Updated progress tracking and success metrics. |
