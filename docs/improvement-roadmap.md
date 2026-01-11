@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (CORRECTED: Safety: 110/110 trees (100%), Glossary: 74 terms (74%) - Phase 1 COMPLETE)
+**Last Audited:** 2026-01-11 (CORRECTED: Safety: 110/110 trees (100%), Glossary: 75 terms (75%) - Phase 1 COMPLETE, Phase 2 75%!)
 
 ---
 
@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] **74/100+ terms documented (74% complete)** _(UPDATED 2026-01-11: Added 2 more terms - 74% reached!)_
-  - 74 EN + 74 ES with perfect bilingual parity
-  - Categories: Morphology (41), Ecology (26), Timber (9)
+- [x] **75/100+ terms documented (75% complete - THREE-QUARTERS MILESTONE!)** _(UPDATED 2026-01-11: Added 1 final term - 75% REACHED!)_
+  - 75 EN + 75 ES with perfect bilingual parity
+  - Categories: Morphology (41), Ecology (27), Timber (9)
   - **Morphology (41)**: Acuminate, Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dioecious, Drupe, Emergent Tree, Evergreen, Fibrous Roots, Follicle, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Monoecious, Node, Opposite, Ovate, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Taproot, Trifoliate
-  - **Ecology (26)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Germination, Habitat, Invasive Species, Keystone Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed, Xerophytic
+  - **Ecology (27)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Germination, Habitat, Invasive Species, Keystone Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Pollination, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed, Xerophytic
   - **Timber (9)**: Air Drying, CITES, Figure, Hardwood, Heartwood, Janka Hardness, Lumber Grade, Sapwood, Wood Grain
-  - **Latest session (2 terms)**: Fibrous Roots, Emergent Tree
+  - **Latest session (1 term)**: Pollination
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,7 +303,7 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 74/100+ terms complete (74%)** _(UPDATED 2026-01-11: Added 2 more terms - REACHED 74%!)_
+**STATUS: 75/100+ terms complete (75% - THREE-QUARTERS MILESTONE!)** _(COMPLETED 2026-01-11: Added 1 term - 75% REACHED!)_
 
 **Completed Terms (68 EN + 68 ES):**
 
@@ -389,8 +389,8 @@ safetyNotes: "General guidance"
 - [x] **60 terms defined - 60% MILESTONE REACHED! ✅**
 - [x] **65 terms defined - 65% MILESTONE REACHED! ✅** (65/100 complete)
 - [x] **70 terms defined - 70% MILESTONE REACHED! ✅** (70/100 complete)
-- [x] **74 terms defined - 74% complete** (74/100 complete)
-- [ ] Add 1+ more term to reach 75/100 (75% milestone)
+- [x] **75 terms defined - 75% MILESTONE REACHED! ✅** (75/100 complete - THREE-QUARTERS!)
+- [ ] Continue toward 80/100 (80% milestone)
 - [x] Add botanical terms (fruit types, leaf shapes, root structures, forest layers) - Added 10 terms ✅
 - [x] Add more ecological terms (reforestation, canopy gap, allelopathy, symbiosis, germination, xerophytic, emergent) - Added 7 terms ✅
 - [x] Add timber/wood terms (air drying, lumber grades, hardwood) - Added 3 terms ✅
@@ -509,7 +509,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] **74% of glossary target complete (74/100) - Almost at 75% milestone! ✅**
+- [x] **75% of glossary target complete (75/100) - THREE-QUARTERS MILESTONE REACHED! ✅**
 - [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
