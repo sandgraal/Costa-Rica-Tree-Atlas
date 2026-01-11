@@ -304,7 +304,7 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 90/100+ terms complete (90% - 90% MILESTONE REACHED!)** _(COMPLETED 2026-01-11: Added 5 more terms - 90% REACHED!)_
+**STATUS: 95/100+ terms complete (95% - ALMOST COMPLETE!)** _(VERIFIED 2026-01-11: 95 EN + 95 ES terms)_
 
 **Completed Terms (90 EN + 90 ES):**
 
@@ -441,6 +441,8 @@ image: "/images/glossary/palmate-leaf.jpg"
 
 - [x] Searchable glossary page with A-Z navigation - Already implemented
 - [x] Filter by category - Already implemented
+- [x] Individual glossary term pages with unique URLs - `/glossary/[slug]` ✅
+- [x] Copy/share links for glossary terms - ShareLink component added ✅
 - [ ] Inline tooltips on all pages when terms appear in content (hover/tap for definition) - Not yet implemented
 
 ### 2.2 Care & Cultivation Guidance
