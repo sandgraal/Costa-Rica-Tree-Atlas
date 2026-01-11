@@ -414,6 +414,7 @@ export default async function TreePage({ params }: Props) {
                 term: t.term,
                 slug: t.slug,
                 locale: t.locale,
+                simpleDefinition: t.simpleDefinition,
               }))}
               enableGlossaryLinks={true}
             />

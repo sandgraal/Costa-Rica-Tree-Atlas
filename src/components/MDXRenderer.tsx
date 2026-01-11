@@ -6,7 +6,12 @@ import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 
 interface MDXRendererProps {
   code: string;
-  glossaryTerms?: Array<{ term: string; slug: string; locale: string }>;
+  glossaryTerms?: Array<{
+    term: string;
+    slug: string;
+    locale: string;
+    simpleDefinition?: string;
+  }>;
   enableGlossaryLinks?: boolean;
 }
 
