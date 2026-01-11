@@ -594,9 +594,26 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.3 Use Case Search
 
-- [ ] Create predefined searches for common needs
-- [ ] Examples: "Trees for coffee shade", "Safe for playgrounds", "Erosion control", "Windbreaks"
-- [ ] Display curated results with explanations
+**STATUS: Complete** _(Implemented 2026-01-11)_
+
+- [x] Created `/use-cases` route with 12 predefined use case scenarios
+- [x] Curated searches for common needs:
+  - Coffee Shade Trees
+  - Safe for Playgrounds (child-safe, pet-safe)
+  - Erosion Control
+  - Windbreaks
+  - Urban Street Trees
+  - Wildlife Habitat
+  - Reforestation
+  - Timber Production
+  - Edible Fruits
+  - Drought Tolerant
+  - Riparian Restoration
+  - Medicinal Uses
+- [x] Each use case links to filtered tree directory with appropriate tags
+- [x] Bilingual descriptions explaining the purpose and benefits
+- [x] Links to additional tools (Tree Wizard, Tree Directory, Seasonal Calendar)
+- [x] Responsive card-based layout with icons
 
 ### 3.4 Tree Selection Wizard
 
@@ -617,16 +634,23 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 3.5 "Similar Trees" Recommendations
 
-- [ ] Add "Similar Trees" section to tree detail pages
-- [ ] Show 3-6 related species
-- [ ] Base on: family, size, uses, ecosystem
+**STATUS: Complete** _(Verified 2026-01-11 - Already implemented in code!)_
+
+- [x] "Related Trees" section exists on tree detail pages
+- [x] Shows up to 4 related species with scoring algorithm
+- [x] Based on: botanical family (5 pts), shared tags (2 pts each), conservation status (1 pt), overlapping flowering seasons (1 pt)
+- [x] Visual indicators for same-family trees
+- [x] Responsive grid layout with hover effects
 
 ### Success Metrics
 
-- [ ] 5+ filter categories functional
-- [ ] Seasonal guide shows all species with flowering data
-- [ ] 5+ predefined use case searches
-- [x] Tree wizard recommends appropriate species based on user criteria
+- [x] 5+ filter categories functional ✅
+- [x] Seasonal guide shows all species with flowering data ✅
+- [x] 12 predefined use case searches ✅ (target: 5+, achieved: 12)
+- [x] Tree wizard recommends appropriate species based on user criteria ✅
+- [x] Similar trees recommendations functional ✅
+
+**Phase 3: COMPLETE** ✅
 
 ---
 
