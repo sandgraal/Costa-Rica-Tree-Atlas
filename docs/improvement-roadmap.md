@@ -102,9 +102,12 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] 10/100+ terms documented (5 EN + 5 ES with bilingual parity)
+- [x] 18/100+ terms documented (18% complete) _(Updated 2026-01-10)_
+  - 9 EN + 9 ES with perfect bilingual parity
+  - Categories: Morphology (5), Ecology (4)
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
+- [ ] Inline tooltips not yet implemented
 
 ### Care Guidance Coverage
 
@@ -240,15 +243,27 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 10/100+ terms complete (10%)** _(Updated 2026-01-10)_
+**STATUS: 18/100+ terms complete (18%)** _(Updated 2026-01-10)_
+
+**Completed Terms (9 EN + 9 ES):**
+
+- ✅ Buttress Roots (Raíces Tablares)
+- ✅ Deciduous (Caducifolio)
+- ✅ Drupe (Drupa)
+- ✅ Pinnate (Pinnada)
+- ✅ Pioneer Species (Especie Pionera)
+- ✅ Palmate (Palmada) _(Added 2026-01-10)_
+- ✅ Canopy (Dosel) _(Added 2026-01-10)_
+- ✅ Epiphyte (Epífita) _(Added 2026-01-10)_
+- ✅ Nitrogen Fixation (Fijación de Nitrógeno) _(Added 2026-01-10)_
 
 **MVP Requirements:**
 
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
-- [x] 10 terms currently defined (5 EN + 5 ES with bilingual parity)
-- [ ] Add 50+ botanical terms (leaf types, flower parts, bark types, root types)
-- [ ] Add 20+ ecological terms (succession, nitrogen fixation, endemic, etc.)
+- [x] 18 terms currently defined with full bilingual parity
+- [ ] Add 32+ botanical terms (leaf types, flower parts, bark types, root types)
+- [ ] Add 15+ ecological terms (succession, endemic, habitat, etc.)
 - [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
