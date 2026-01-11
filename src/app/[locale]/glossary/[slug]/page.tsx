@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { allGlossaryTerms, allTrees } from "contentlayer/generated";
 import { getMDXComponent } from "next-contentlayer2/hooks";
 import { mdxComponents } from "@/components/mdx";
+import { ShareLink } from "@/components/ShareLink";
 import type { Locale } from "@/types";
 import { Link } from "@i18n/navigation";
 
@@ -85,13 +86,16 @@ export default async function GlossaryTermPage({
 
         {/* Term Header */}
         <header className="mb-8">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start justify-between gap-4 mb-4">
             <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light">
               {term.term}
             </h1>
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              {term.category}
-            </span>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                {term.category}
+              </span>
+              <ShareLink title="Copy Link" />
+            </div>
           </div>
 
           {term.pronunciation && (
