@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] **53/100+ terms documented (53% complete)** _(UPDATED 2026-01-11: Added 8 terms total - 53% reached!)_
-  - 53 EN + 53 ES with perfect bilingual parity
-  - Categories: Morphology (31), Ecology (20), Timber (5)
-  - **Morphology (31)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Crown, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Node, Opposite, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
-  - **Ecology (20)**: Biodiversity, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Riparian, Succession, Understory, Watershed
-  - **Timber (5)**: CITES, Heartwood, Janka Hardness, Sapwood, Wood Grain
-  - **Latest session (3 terms)**: Node, Watershed, Crown
+- [x] **68/100+ terms documented (68% complete)** _(UPDATED 2026-01-11: Added 3 more terms - 68% reached!)_
+  - 68 EN + 68 ES with perfect bilingual parity
+  - Categories: Morphology (39), Ecology (24), Timber (8)
+  - **Morphology (39)**: Acuminate, Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dioecious, Drupe, Evergreen, Follicle, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Monoecious, Node, Opposite, Ovate, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
+  - **Ecology (24)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Keystone Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed
+  - **Timber (8)**: Air Drying, CITES, Figure, Heartwood, Janka Hardness, Lumber Grade, Sapwood, Wood Grain
+  - **Latest session (3 terms)**: Monoecious, Figure, Keystone Species
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,12 +303,13 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 53/100+ terms complete (53%)** _(UPDATED 2026-01-11: Added 3 more terms - REACHED 53%!)_
+**STATUS: 68/100+ terms complete (68%)** _(UPDATED 2026-01-11: Added 3 more terms - REACHED 68%!)_
 
-**Completed Terms (53 EN + 53 ES):**
+**Completed Terms (68 EN + 68 ES):**
 
-**Morphology (31 terms):**
+**Morphology (38 terms):**
 
+- ✅ **Acuminate (Acuminado)** - NEW 2026-01-11
 - ✅ Alternate (Alterno)
 - ✅ Bark (Corteza)
 - ✅ Berry (Baya)
@@ -318,16 +319,21 @@ safetyNotes: "General guidance"
 - ✅ Canopy Layer (Capa del Dosel)
 - ✅ Capsule (Cápsula)
 - ✅ Compound Leaf (Hoja Compuesta)
-- ✅ **Crown (Copa)** - NEW 2026-01-11
+- ✅ **Cordate (Cordado)** - NEW 2026-01-11 (session 1)
+- ✅ Crown (Copa)
 - ✅ Deciduous (Caducifolio)
+- ✅ **Dioecious (Dioico)** - NEW 2026-01-11 (session 1)
 - ✅ Drupe (Drupa)
 - ✅ Evergreen (Perenne)
+- ✅ **Follicle (Folículo)** - NEW 2026-01-11 (session 1)
 - ✅ Inflorescence (Inflorescencia)
+- ✅ **Lanceolate (Lanceolado)** - NEW 2026-01-11 (session 1)
 - ✅ Latex (Látex)
 - ✅ Legume (Legumbre)
 - ✅ Lenticel (Lenticela)
-- ✅ **Node (Nodo)** - NEW 2026-01-11
+- ✅ Node (Nodo)
 - ✅ Opposite (Opuesto)
+- ✅ **Ovate (Ovado)** - NEW 2026-01-11
 - ✅ Palmate (Palmada)
 - ✅ Petal (Pétalo)
 - ✅ Petiole (Pecíolo)
@@ -342,9 +348,11 @@ safetyNotes: "General guidance"
 - ✅ Stipule (Estípula)
 - ✅ Trifoliate (Trifoliada)
 
-**Ecology (20 terms):**
+**Ecology (23 terms):**
 
+- ✅ **Allelopathy (Alelopatía)** - NEW 2026-01-11 (session 1)
 - ✅ Biodiversity (Biodiversidad)
+- ✅ **Canopy Gap (Claro del Dosel)** - NEW 2026-01-11 (session 1)
 - ✅ Cloud Forest (Bosque Nuboso)
 - ✅ Endemic (Endémico)
 - ✅ Epiphyte (Epífita)
@@ -356,16 +364,20 @@ safetyNotes: "General guidance"
 - ✅ Old-Growth Forest (Bosque Primario)
 - ✅ Photosynthesis (Fotosíntesis)
 - ✅ Pioneer Species (Especie Pionera)
+- ✅ **Reforestation (Reforestación)** - NEW 2026-01-11 (session 1)
 - ✅ Riparian (Ribereño)
 - ✅ Succession (Sucesión)
+- ✅ **Symbiosis (Simbiosis)** - NEW 2026-01-11
 - ✅ Understory (Sotobosque)
-- ✅ **Watershed (Cuenca Hidrográfica)** - NEW 2026-01-11
+- ✅ Watershed (Cuenca Hidrográfica)
 
-**Timber (5 terms):**
+**Timber (7 terms):**
 
+- ✅ **Air Drying (Secado al Aire)** - NEW 2026-01-11 (session 1)
 - ✅ CITES
 - ✅ Heartwood (Duramen)
 - ✅ Janka Hardness (Dureza Janka)
+- ✅ **Lumber Grade (Grado de Madera)** - NEW 2026-01-11
 - ✅ Sapwood (Albura)
 - ✅ Wood Grain (Veta de la Madera)
 
@@ -374,10 +386,12 @@ safetyNotes: "General guidance"
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
 - [x] **50 terms defined with full bilingual parity - 50% MILESTONE REACHED! ✅**
-- [ ] Add 10+ more terms to reach 60/100 (60% milestone)
-- [ ] Add 10+ botanical terms (fruit types, leaf shapes, etc.)
-- [ ] Add 5+ more ecological terms (watershed, reforestation, etc.)
-- [ ] Add 5+ timber/wood terms (seasoning, lumber grades, etc.)
+- [x] **60 terms defined - 60% MILESTONE REACHED! ✅**
+- [x] **65 terms defined - 65% MILESTONE REACHED! ✅** (65/100 complete)
+- [ ] Add 5+ more terms to reach 70/100 (70% milestone)
+- [x] Add botanical terms (fruit types, leaf shapes, etc.) - Added 7 terms ✅
+- [x] Add more ecological terms (reforestation, canopy gap, allelopathy, symbiosis) - Added 4 terms ✅
+- [x] Add timber/wood terms (air drying, lumber grades) - Added 2 terms ✅
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
 
@@ -493,7 +507,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] **53% of glossary target complete (53/100) - Past 50% milestone! ✅**
+- [x] **65% of glossary target complete (65/100) - Past 65% milestone! ✅**
 - [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
@@ -775,16 +789,19 @@ Items that are valuable but require significant infrastructure or are lower prio
 
 ## Version History
 
-| Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-01-10 | Initial roadmap created                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| 2026-01-11 | Safety data: 25→39 trees (36%), Glossary: 19→23 terms (23%). Added 14 tree species with safety data across all categories (toxic, hazardous, safe). Added 4 glossary terms (Stipule, Inflorescence, Invasive Species, Heartwood) covering morphology, ecology, and timber. Updated progress tracking and success metrics.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 2026-01-11 | Safety data: 39→49 trees (44%). Autonomous agent added 10 trees: Caoba, Carao, Cedro Amargo, Cenízaro (timber species with wood dust concerns), Corteza Amarilla, Cristóbal, Guachipelín (nitrogen-fixer), Indio Desnudo, Roble de Sabana, Ron Ron. Comprehensive research on wood dust allergenicity for timber species (mahogany, rosewood families). Focus on distinguishing living tree safety (mostly safe) vs woodworking safety (dust hazards). Updated all progress metrics to 44% complete. Maintained perfect bilingual parity.                                                                                                                                                                                      |
-| 2026-01-11 | **AUDIT & CORRECTION**: Discovered roadmap was significantly out-of-date. Actual state: Safety 99/110 (90%), Glossary 26/100+ (26%). Found 12 uncounted trees with safety data. Corrected all statistics. Roadmap now accurate baseline for autonomous implementation.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| 2026-01-11 | **MAJOR AUTONOMOUS IMPLEMENTATION**: Safety data 69→87 trees (79%, +18 species in single session). Completed ALL CRITICAL (Yellow Oleander Spanish) and ALL HIGH priority trees (12/12): timber species (Teca, Ojoche, Tempisque, Roble Encino), fruit trees (Zapote, Níspero, Mora, Fruta Dorada, Papaturro), native/ornamentals (Cedro María, Cortez Negro, Matapalo). Started MEDIUM priority: Gallinazo, Pomarrosa, Pitahaya, Nazareno, Laurel Negro. Comprehensive bilingual safety documentation maintained throughout. Distinguished living tree safety vs woodworking hazards. Documented allergens, pet toxicity, edible fruits. Only 23 trees remain (21%). Phase 1 nearly complete.                                 |
-| 2026-01-11 | **PHASE 1 COMPLETE - 100% SAFETY DATA**: Completed final 11 trees with comprehensive safety research. Added safety data for Guayacán Real, Madroño, Magnolia, Manú, Manzana de Agua, Muñeco, Olla de Mono, Palmera Real, Panamá, Sotacaballo, and Targuá. All 110 species now have complete bilingual safety documentation (EN+ES). Researched medicinal uses, allergens, skin contact risks, pet safety, and structural hazards for each species. Notable findings: Olla de Mono seeds can accumulate dangerous selenium levels; Palmera Real fruit pulp contains irritating calcium oxalate; Targuá sap (dragon's blood) is well-studied medicinal with good safety profile. Phase 1 Safety & Accuracy is now 100% complete. |
-| 2026-01-11 | **PHASE 2 STARTED - GLOSSARY EXPANSION**: Added 4 new glossary terms with full bilingual support (EN+ES): Bipinnate (doblemente compuesta leaves), Lenticel (pores respiratorios in bark), Samara (winged helicopter seeds), Cloud Forest (bosque nuboso ecosystem). Glossary now has 30 terms (30% of 100+ target). Focus on high-value botanical and ecological terms that help users understand tree descriptions. Each term includes simple definition, technical definition, pronunciation, etymology, example species, related terms, and detailed explanatory content.                                                                                                                                                  |
-| 2026-01-11 | **GLOSSARY MAJOR EXPANSION (30→45 terms, 45% complete)**: Added 15 new comprehensive glossary terms in single autonomous session: Trifoliate, Serrated, Capsule, Latex, Petiole (morphology), Understory, Biodiversity, Photosynthesis, Habitat (ecology), Wood Grain (timber), Stamen, Pistil (flower parts), Old-Growth Forest. All terms have full bilingual support (EN+ES). Expanded coverage to 25 morphology terms, 18 ecology terms, 3 timber terms. Each term includes practical field identification tips, Costa Rican examples, detailed explanations, and why-it-matters sections. Fixed MDX syntax issues (escaped angle brackets). Nearing 50% milestone (45/100 terms).                                         |
-| 2026-01-11 | **GLOSSARY 50% MILESTONE REACHED (45→50 terms)**: Added 5 high-value glossary terms to reach 50% target. Added Petal and Sepal (flower morphology), Rachis (compound leaf terminology), Riparian (ecology/habitat), and Janka Hardness (timber terminology). All with full bilingual support (EN+ES). Glossary now covers 29 morphology terms, 19 ecology terms, and 5 timber terms. Each term includes comprehensive explanations, Costa Rican examples, practical identification tips, and related concepts. Built successfully. Roadmap updated to reflect 50% completion. Phase 2 Educational Foundation advancing steadily toward 100+ term goal.                                                                         |
-| 2026-01-11 | **GLOSSARY EXPANSION CONTINUES (50→53 terms, 53% complete)**: Added 3 more essential terms with full bilingual support: Node/Nodo (leaf attachment point), Watershed/Cuenca Hidrográfica (water drainage area), Crown/Copa (tree top structure). Total: 31 morphology, 20 ecology, 5 timber terms. Past 50% milestone, progressing toward 60% target. Autonomous implementation proceeding efficiently with consistent quality and bilingual parity.                                                                                                                                                                                                                                                                           |
+| Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-01-10 | Initial roadmap created                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| 2026-01-11 | Safety data: 25→39 trees (36%), Glossary: 19→23 terms (23%). Added 14 tree species with safety data across all categories (toxic, hazardous, safe). Added 4 glossary terms (Stipule, Inflorescence, Invasive Species, Heartwood) covering morphology, ecology, and timber. Updated progress tracking and success metrics.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 2026-01-11 | Safety data: 39→49 trees (44%). Autonomous agent added 10 trees: Caoba, Carao, Cedro Amargo, Cenízaro (timber species with wood dust concerns), Corteza Amarilla, Cristóbal, Guachipelín (nitrogen-fixer), Indio Desnudo, Roble de Sabana, Ron Ron. Comprehensive research on wood dust allergenicity for timber species (mahogany, rosewood families). Focus on distinguishing living tree safety (mostly safe) vs woodworking safety (dust hazards). Updated all progress metrics to 44% complete. Maintained perfect bilingual parity.                                                                                                                                                                                                                             |
+| 2026-01-11 | **AUDIT & CORRECTION**: Discovered roadmap was significantly out-of-date. Actual state: Safety 99/110 (90%), Glossary 26/100+ (26%). Found 12 uncounted trees with safety data. Corrected all statistics. Roadmap now accurate baseline for autonomous implementation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 2026-01-11 | **MAJOR AUTONOMOUS IMPLEMENTATION**: Safety data 69→87 trees (79%, +18 species in single session). Completed ALL CRITICAL (Yellow Oleander Spanish) and ALL HIGH priority trees (12/12): timber species (Teca, Ojoche, Tempisque, Roble Encino), fruit trees (Zapote, Níspero, Mora, Fruta Dorada, Papaturro), native/ornamentals (Cedro María, Cortez Negro, Matapalo). Started MEDIUM priority: Gallinazo, Pomarrosa, Pitahaya, Nazareno, Laurel Negro. Comprehensive bilingual safety documentation maintained throughout. Distinguished living tree safety vs woodworking hazards. Documented allergens, pet toxicity, edible fruits. Only 23 trees remain (21%). Phase 1 nearly complete.                                                                        |
+| 2026-01-11 | **PHASE 1 COMPLETE - 100% SAFETY DATA**: Completed final 11 trees with comprehensive safety research. Added safety data for Guayacán Real, Madroño, Magnolia, Manú, Manzana de Agua, Muñeco, Olla de Mono, Palmera Real, Panamá, Sotacaballo, and Targuá. All 110 species now have complete bilingual safety documentation (EN+ES). Researched medicinal uses, allergens, skin contact risks, pet safety, and structural hazards for each species. Notable findings: Olla de Mono seeds can accumulate dangerous selenium levels; Palmera Real fruit pulp contains irritating calcium oxalate; Targuá sap (dragon's blood) is well-studied medicinal with good safety profile. Phase 1 Safety & Accuracy is now 100% complete.                                        |
+| 2026-01-11 | **PHASE 2 STARTED - GLOSSARY EXPANSION**: Added 4 new glossary terms with full bilingual support (EN+ES): Bipinnate (doblemente compuesta leaves), Lenticel (pores respiratorios in bark), Samara (winged helicopter seeds), Cloud Forest (bosque nuboso ecosystem). Glossary now has 30 terms (30% of 100+ target). Focus on high-value botanical and ecological terms that help users understand tree descriptions. Each term includes simple definition, technical definition, pronunciation, etymology, example species, related terms, and detailed explanatory content.                                                                                                                                                                                         |
+| 2026-01-11 | **GLOSSARY MAJOR EXPANSION (30→45 terms, 45% complete)**: Added 15 new comprehensive glossary terms in single autonomous session: Trifoliate, Serrated, Capsule, Latex, Petiole (morphology), Understory, Biodiversity, Photosynthesis, Habitat (ecology), Wood Grain (timber), Stamen, Pistil (flower parts), Old-Growth Forest. All terms have full bilingual support (EN+ES). Expanded coverage to 25 morphology terms, 18 ecology terms, 3 timber terms. Each term includes practical field identification tips, Costa Rican examples, detailed explanations, and why-it-matters sections. Fixed MDX syntax issues (escaped angle brackets). Nearing 50% milestone (45/100 terms).                                                                                |
+| 2026-01-11 | **GLOSSARY 50% MILESTONE REACHED (45→50 terms)**: Added 5 high-value glossary terms to reach 50% target. Added Petal and Sepal (flower morphology), Rachis (compound leaf terminology), Riparian (ecology/habitat), and Janka Hardness (timber terminology). All with full bilingual support (EN+ES). Glossary now covers 29 morphology terms, 19 ecology terms, and 5 timber terms. Each term includes comprehensive explanations, Costa Rican examples, practical identification tips, and related concepts. Built successfully. Roadmap updated to reflect 50% completion. Phase 2 Educational Foundation advancing steadily toward 100+ term goal.                                                                                                                |
+| 2026-01-11 | **GLOSSARY EXPANSION CONTINUES (50→53 terms, 53% complete)**: Added 3 more essential terms with full bilingual support: Node/Nodo (leaf attachment point), Watershed/Cuenca Hidrográfica (water drainage area), Crown/Copa (tree top structure). Total: 31 morphology, 20 ecology, 5 timber terms. Past 50% milestone, progressing toward 60% target. Autonomous implementation proceeding efficiently with consistent quality and bilingual parity.                                                                                                                                                                                                                                                                                                                  |
+| 2026-01-11 | **GLOSSARY 60% MILESTONE REACHED (53→61 terms, 61% complete)**: Added 8 comprehensive glossary terms in single session: Follicle (dry fruit type), Cordate (heart-shaped leaf), Lanceolate (lance-shaped leaf), Dioecious (male/female tree reproduction), Canopy Gap (forest opening dynamics), Air Drying (timber seasoning), Reforestation (Costa Rica's success story), Allelopathy (chemical plant warfare). All with full bilingual support (EN+ES). Total: 36 morphology, 22 ecology, 6 timber terms. Each term includes practical field identification tips, Costa Rican examples, detailed explanations, and why-it-matters sections. Past 60% milestone, progressing toward 70% target (100+ final goal). Autonomous implementation continuing efficiently. |
+| 2026-01-11 | **GLOSSARY 65% MILESTONE REACHED (61→65 terms, 65% complete)**: Added 4 more comprehensive glossary terms: Ovate (egg-shaped leaf), Acuminate (drip-tip leaf apex adaptation), Lumber Grade (FAS hardwood grading system with Costa Rican examples), Symbiosis (mutualism, commensalism, parasitism relationships). All with full bilingual support (EN+ES). Total: 38 morphology, 23 ecology, 7 timber terms. Each term includes practical Costa Rican examples, field identification tips, detailed explanations. Past 65% milestone. Two autonomous sessions today added total 12 terms (53→65). Progressing steadily toward 70% target.                                                                                                                           |
+| 2026-01-11 | **GLOSSARY NEARING 70% MILESTONE (65→68 terms, 68% complete)**: Added 3 final terms in third session: Monoecious (one-house reproductive system, both male/female flowers on same tree), Figure (decorative wood patterns - ribbon, birdseye, quilted, burled), Keystone Species (disproportionate ecosystem impact - fig trees, ceiba, almendro examples). All with full bilingual support (EN+ES). Total: 39 morphology, 24 ecology, 8 timber terms. Three autonomous sessions today achieved remarkable progress: 53→61→65→68 terms (+15 total, 28% increase). Almost at 70% milestone. Ready to shift focus to implementation features (tooltips, care guides).                                                                                                   |
