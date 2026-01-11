@@ -51,6 +51,9 @@ export { MobileNav } from "./MobileNav";
 // Content (used in MDXContent and tree pages)
 export { mdxComponents } from "./mdx";
 export { MDXContent } from "./MDXContent";
+export { MDXRenderer } from "./MDXRenderer";
+export { AutoGlossaryLink } from "./AutoGlossaryLink";
+export { GlossaryTooltip } from "./GlossaryTooltip";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
 export { ResponsiveImage } from "./ResponsiveImage";
 export { SafeImage } from "./SafeImage";

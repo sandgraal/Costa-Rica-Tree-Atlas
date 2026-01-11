@@ -1,32 +1,36 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { Link } from "@i18n/navigation";
 import { useParams } from "next/navigation";
+import { GlossaryTooltip } from "./GlossaryTooltip";
 
 interface GlossaryTerm {
   term: string;
   slug: string;
   locale: string;
+  simpleDefinition?: string;
 }
 
 interface AutoGlossaryLinkProps {
   children: React.ReactNode;
   glossaryTerms: GlossaryTerm[];
+  enableTooltips?: boolean; // Optional: allow disabling tooltips
 }
 
 /**
- * Component that automatically converts glossary terms in text to links.
+ * Component that automatically converts glossary terms in text to interactive tooltips.
  *
  * How it works:
  * 1. Receives text content and list of glossary terms
  * 2. For each text node, searches for glossary term matches
- * 3. Wraps matched terms in Link components to glossary pages
+ * 3. Wraps matched terms in GlossaryTooltip components with hover definitions
  * 4. Links only first occurrence per paragraph to avoid over-linking
+ * 5. Shows definition on hover/focus for better UX
  */
 export function AutoGlossaryLink({
   children,
   glossaryTerms,
+  enableTooltips = true,
 }: AutoGlossaryLinkProps) {
   const params = useParams();
   const locale = params?.locale as string;
@@ -40,6 +44,7 @@ export function AutoGlossaryLink({
       .map((t) => ({
         term: t.term,
         slug: t.slug,
+        simpleDefinition: t.simpleDefinition || "",
         // Create word boundary regex for whole-word matching
         // Use case-insensitive flag
         pattern: new RegExp(`\\b(${escapeRegex(t.term)})\\b`, "i"),
@@ -61,7 +66,7 @@ export function AutoGlossaryLink({
       let matched = false;
 
       // Try to find a glossary term in the remaining text
-      for (const { term, slug, pattern } of termPatterns) {
+      for (const { term, slug, pattern, simpleDefinition } of termPatterns) {
         const match = pattern.exec(remainingText);
 
         if (match && match.index !== undefined) {
@@ -75,17 +80,29 @@ export function AutoGlossaryLink({
               result.push(remainingText.substring(0, match.index));
             }
 
-            // Add the linked term
-            result.push(
-              <Link
-                key={`glossary-${slug}-${key++}`}
-                href={`/glossary/${slug}`}
-                className="text-primary hover:text-primary-dark underline decoration-dotted underline-offset-2 transition-colors"
-                title={`View glossary definition: ${matchedText}`}
-              >
-                {matchedText}
-              </Link>
-            );
+            // Add the linked term with tooltip (if enabled and definition available)
+            if (enableTooltips && simpleDefinition) {
+              result.push(
+                <GlossaryTooltip
+                  key={`glossary-${slug}-${key++}`}
+                  term={term}
+                  definition={simpleDefinition}
+                  slug={slug}
+                >
+                  {matchedText}
+                </GlossaryTooltip>
+              );
+            } else {
+              // Fallback to basic link if tooltips disabled
+              result.push(
+                <span
+                  key={`glossary-${slug}-${key++}`}
+                  className="text-primary hover:text-primary-dark underline decoration-dotted underline-offset-2 transition-colors"
+                >
+                  {matchedText}
+                </span>
+              );
+            }
 
             linkedTerms.add(termLower);
             remainingText = remainingText.substring(
