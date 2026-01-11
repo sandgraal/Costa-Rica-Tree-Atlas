@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] **50/100+ terms documented (50% complete - MILESTONE REACHED!)** _(UPDATED 2026-01-11: Added 5 new terms in autonomous session - REACHED 50%!)_
-  - 50 EN + 50 ES with perfect bilingual parity
-  - Categories: Morphology (29), Ecology (19), Timber (5)
-  - **Morphology (29)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Opposite, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
-  - **Ecology (19)**: Biodiversity, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Riparian, Succession, Understory
+- [x] **53/100+ terms documented (53% complete)** _(UPDATED 2026-01-11: Added 8 terms total - 53% reached!)_
+  - 53 EN + 53 ES with perfect bilingual parity
+  - Categories: Morphology (31), Ecology (20), Timber (5)
+  - **Morphology (31)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Crown, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Node, Opposite, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
+  - **Ecology (20)**: Biodiversity, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Riparian, Succession, Understory, Watershed
   - **Timber (5)**: CITES, Heartwood, Janka Hardness, Sapwood, Wood Grain
-  - **Session total (5 terms)**: Petal, Sepal, Rachis, Riparian, Janka Hardness
+  - **Latest session (3 terms)**: Node, Watershed, Crown
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,11 +303,11 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 50/100+ terms complete (50% - MILESTONE REACHED!)** _(COMPLETED 2026-01-11: Added 5 more terms - REACHED 50%!)_
+**STATUS: 53/100+ terms complete (53%)** _(UPDATED 2026-01-11: Added 3 more terms - REACHED 53%!)_
 
-**Completed Terms (50 EN + 50 ES):**
+**Completed Terms (53 EN + 53 ES):**
 
-**Morphology (29 terms):**
+**Morphology (31 terms):**
 
 - ✅ Alternate (Alterno)
 - ✅ Bark (Corteza)
@@ -318,6 +318,7 @@ safetyNotes: "General guidance"
 - ✅ Canopy Layer (Capa del Dosel)
 - ✅ Capsule (Cápsula)
 - ✅ Compound Leaf (Hoja Compuesta)
+- ✅ **Crown (Copa)** - NEW 2026-01-11
 - ✅ Deciduous (Caducifolio)
 - ✅ Drupe (Drupa)
 - ✅ Evergreen (Perenne)
@@ -325,22 +326,23 @@ safetyNotes: "General guidance"
 - ✅ Latex (Látex)
 - ✅ Legume (Legumbre)
 - ✅ Lenticel (Lenticela)
+- ✅ **Node (Nodo)** - NEW 2026-01-11
 - ✅ Opposite (Opuesto)
 - ✅ Palmate (Palmada)
-- ✅ **Petal (Pétalo)** - NEW 2026-01-11
+- ✅ Petal (Pétalo)
 - ✅ Petiole (Pecíolo)
 - ✅ Pinnate (Pinnada)
 - ✅ Pistil (Pistilo)
-- ✅ **Rachis (Raquis)** - NEW 2026-01-11
+- ✅ Rachis (Raquis)
 - ✅ Samara (Sámara)
-- ✅ **Sepal (Sépalo)** - NEW 2026-01-11
+- ✅ Sepal (Sépalo)
 - ✅ Serrated (Aserrado)
 - ✅ Simple Leaf (Hoja Simple)
 - ✅ Stamen (Estambre)
 - ✅ Stipule (Estípula)
 - ✅ Trifoliate (Trifoliada)
 
-**Ecology (19 terms):**
+**Ecology (20 terms):**
 
 - ✅ Biodiversity (Biodiversidad)
 - ✅ Cloud Forest (Bosque Nuboso)
@@ -354,15 +356,16 @@ safetyNotes: "General guidance"
 - ✅ Old-Growth Forest (Bosque Primario)
 - ✅ Photosynthesis (Fotosíntesis)
 - ✅ Pioneer Species (Especie Pionera)
-- ✅ **Riparian (Ribereño)** - NEW 2026-01-11
+- ✅ Riparian (Ribereño)
 - ✅ Succession (Sucesión)
 - ✅ Understory (Sotobosque)
+- ✅ **Watershed (Cuenca Hidrográfica)** - NEW 2026-01-11
 
 **Timber (5 terms):**
 
 - ✅ CITES
 - ✅ Heartwood (Duramen)
-- ✅ **Janka Hardness (Dureza Janka)** - NEW 2026-01-11
+- ✅ Janka Hardness (Dureza Janka)
 - ✅ Sapwood (Albura)
 - ✅ Wood Grain (Veta de la Madera)
 
@@ -490,7 +493,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] **50% of glossary target complete (50/100) - MILESTONE REACHED! ✅**
+- [x] **53% of glossary target complete (53/100) - Past 50% milestone! ✅**
 - [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
