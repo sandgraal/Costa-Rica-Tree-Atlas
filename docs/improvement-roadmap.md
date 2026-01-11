@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (VERIFIED: Safety: 110/110 trees (100%), Glossary: 85 terms (85%) - Phase 1 COMPLETE, Phase 2 85%!)
+**Last Audited:** 2026-01-11 (VERIFIED: Safety: 110/110 trees (100%), Glossary: 90 terms (90%) - Phase 1 COMPLETE, Phase 2 90%!)
 
 ---
 
@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] **85/100+ terms documented (85% complete - 85% MILESTONE REACHED!)** _(UPDATED 2026-01-11: Added 5 more terms - 85% REACHED!)_
-  - 85 EN + 85 ES with perfect bilingual parity
-  - Categories: Morphology (48), Ecology (28), Timber (10)
-  - **Morphology (48)**: Acuminate, Alternate, Bark, Berry, Bipinnate, Bole, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dehiscent, Dioecious, Drupe, Elliptic, Emergent Tree, Entire, Evergreen, Fibrous Roots, Follicle, Glabrous, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Monoecious, Node, Opposite, Ovate, Palmate, Paripinnate, Petal, Petiole, Pinnate, Pistil, Pubescent, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Taproot, Trifoliate
+- [x] **90/100+ terms documented (90% complete - 90% MILESTONE REACHED!)** _(UPDATED 2026-01-11: Added 5 more terms - 90% REACHED!)_
+  - 90 EN + 90 ES with perfect bilingual parity
+  - Categories: Morphology (53), Ecology (28), Timber (10)
+  - **Morphology (53)**: Acuminate, Acute, Alternate, Aromatic, Bark, Berry, Bipinnate, Bole, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dehiscent, Dioecious, Drupe, Elliptic, Emergent Tree, Entire, Evergreen, Fibrous Roots, Follicle, Glabrous, Imparipinnate, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Monoecious, Node, Oblong, Obovate, Opposite, Ovate, Palmate, Paripinnate, Petal, Petiole, Pinnate, Pistil, Pubescent, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Taproot, Trifoliate
   - **Ecology (28)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Coppice, Crown Shyness, Endemic, Epiphyte, Germination, Habitat, Invasive Species, Keystone Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Pollination, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed, Xerophytic
   - **Timber (10)**: Air Drying, CITES, Figure, Hardwood, Heartwood, Janka Hardness, Lumber Grade, Sapwood, Veneer, Wood Grain
-  - **Latest session (5 terms)**: Elliptic, Pubescent, Glabrous, Entire, Paripinnate
+  - **Latest session (5 terms)**: Oblong, Obovate, Acute, Aromatic, Imparipinnate
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -304,14 +304,16 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 85/100+ terms complete (85% - 85% MILESTONE REACHED!)** _(COMPLETED 2026-01-11: Added 5 more terms - 85% REACHED!)_
+**STATUS: 90/100+ terms complete (90% - 90% MILESTONE REACHED!)** _(COMPLETED 2026-01-11: Added 5 more terms - 90% REACHED!)_
 
-**Completed Terms (85 EN + 85 ES):**
+**Completed Terms (90 EN + 90 ES):**
 
-**Morphology (48 terms):**
+**Morphology (53 terms):**
 
 - ✅ **Acuminate (Acuminado)** - NEW 2026-01-11
+- ✅ **Acute (Agudo)** - NEW 2026-01-11 (autonomous session 2)
 - ✅ Alternate (Alterno)
+- ✅ **Aromatic (Aromático)** - NEW 2026-01-11 (autonomous session 2)
 - ✅ Bark (Corteza)
 - ✅ Berry (Baya)
 - ✅ Bipinnate (Bipinnada)
@@ -334,6 +336,7 @@ safetyNotes: "General guidance"
 - ✅ Fibrous Roots (Raíces Fibrosas)
 - ✅ **Follicle (Folículo)** - NEW 2026-01-11 (session 1)
 - ✅ **Glabrous (Glabro)** - NEW 2026-01-11 (autonomous session)
+- ✅ **Imparipinnate (Imparipinnada)** - NEW 2026-01-11 (autonomous session 2)
 - ✅ Inflorescence (Inflorescencia)
 - ✅ **Lanceolate (Lanceolado)** - NEW 2026-01-11 (session 1)
 - ✅ Latex (Látex)
@@ -341,6 +344,8 @@ safetyNotes: "General guidance"
 - ✅ Lenticel (Lenticela)
 - ✅ Monoecious (Monoico)
 - ✅ Node (Nodo)
+- ✅ **Oblong (Oblongo)** - NEW 2026-01-11 (autonomous session 2)
+- ✅ **Obovate (Obovada)** - NEW 2026-01-11 (autonomous session 2)
 - ✅ Opposite (Opuesto)
 - ✅ **Ovate (Ovado)** - NEW 2026-01-11
 - ✅ Palmate (Palmada)
@@ -413,8 +418,9 @@ safetyNotes: "General guidance"
 - [x] **75 terms defined - 75% MILESTONE REACHED! ✅** (75/100 complete - THREE-QUARTERS!)
 - [x] **80 terms defined - 80% MILESTONE REACHED! ✅** (80/100 complete - FOUR-FIFTHS!)
 - [x] **85 terms defined - 85% MILESTONE REACHED! ✅** (85/100 complete)
-- [ ] Continue toward 90/100 (90% milestone)
-- [x] Add botanical terms (fruit types, leaf shapes, root structures, forest layers) - Added 10 terms ✅
+- [x] **90 terms defined - 90% MILESTONE REACHED! ✅** (90/100 complete)
+- [ ] Continue toward 95/100 (95% milestone)
+- [x] Add botanical terms (fruit types, leaf shapes, root structures, forest layers) - Added 15+ terms ✅
 - [x] Add more ecological terms (reforestation, canopy gap, allelopathy, symbiosis, germination, xerophytic, emergent) - Added 7 terms ✅
 - [x] Add timber/wood terms (air drying, lumber grades, hardwood) - Added 3 terms ✅
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
@@ -836,3 +842,4 @@ Items that are valuable but require significant infrastructure or are lower prio
 | 2026-01-11 | **GLOSSARY 80% MILESTONE REACHED (75→80 terms, 80% complete - FOUR-FIFTHS!)**: Added 5 comprehensive high-value terms in autonomous session: Veneer (timber - thin wood slices for furniture, sustainability benefits), Coppice (ecology - sustainable woodland management through stump regrowth), Crown Shyness (ecology - fascinating tree canopy gap phenomenon), Bole (morphology - main trunk from ground to branches, commercial timber assessment), Dehiscent (morphology - fruits that actively split open to release seeds). All with full bilingual support (EN+ES). Total: 43 morphology, 28 ecology, 10 timber terms. Each term extensively detailed with Costa Rican examples, practical applications, field identification, ecological significance, conservation perspective. Fixed MDX syntax error (escaped angle brackets). Build successful. Major milestone - 80% of 100+ term target complete! |
 | 2026-01-11 | **COMPARISON GUIDES EXPANSION (1→2 guides, 10% complete)**: Created comprehensive Guanacaste vs. Cenízaro comparison guide with full bilingual support (EN+ES). Both are iconic legume giants easily confused—guide provides diagnostic pod shape differences (ear-shaped vs. straight), leaflet size comparisons (tiny vs. medium), growth form distinctions (wider-than-tall vs. umbrella), cultural significance, ecological roles, and field identification tests. 13,900+ characters in English, 15,600+ characters in Spanish. Includes detailed comparison tables, key features, habitat preferences, nitrogen-fixing benefits, conservation notes. Build verified successful. Phase 2 Educational Foundation progressing: 2/20 comparison guides now complete (10%).                                                                                                                                         |
 | 2026-01-11 | **GLOSSARY 85% MILESTONE REACHED (80→85 terms, 85% complete)**: Added 5 essential botanical morphology terms in autonomous session: Elliptic (oval leaf shape, 2:1 ratio - one of most common tropical leaf shapes), Pubescent (fuzzy/velvety surface with soft hairs - protective function), Glabrous (completely smooth/hairless - opposite of pubescent), Entire (smooth leaf margin without teeth - correlates with tropical climate), Paripinnate (even-pinnate compound leaf with paired leaflets). All with full bilingual support (EN+ES). Total: 48 morphology, 28 ecology, 10 timber terms. Each term includes comprehensive field identification, ecological significance, Costa Rican examples, common mistakes, measurement techniques. These are high-frequency terms used extensively in tree descriptions. Build verified successful. 85% complete - only 15 terms from 100+ goal!                   |
+| 2026-01-11 | **GLOSSARY 90% MILESTONE REACHED (85→90 terms, 90% complete - NINE-TENTHS!)**: Added 5 more high-value morphology terms in second autonomous session: Oblong (rectangle-shaped leaf with rounded ends, 2-4:1 ratio), Obovate (inverted egg-shaped, widest above middle), Acute (sharp leaf apex, 45-90° angle), Aromatic (fragrant when crushed - diagnostic for families like Lauraceae, Myrtaceae, Rutaceae), Imparipinnate (odd-pinnate compound leaf with terminal leaflet - complement to paripinnate). All with full bilingual support (EN+ES). Total: 53 morphology, 28 ecology, 10 timber terms. Each term extensively detailed with field identification keys, common mistakes, measurement techniques, Costa Rican examples. Fixed MDX syntax errors (escaped angle brackets). Build verified successful. 90% complete - only 10 terms from 100+ goal! Phase 2 nearing completion.                         |
