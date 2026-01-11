@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (Glossary: 23 terms, Safety: 39→49 trees, 44% complete)
+**Last Audited:** 2026-01-11 (Glossary: 23 terms, Safety: 51 trees, 46% complete - corrected from roadmap audit)
 
 ---
 
@@ -61,9 +61,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 49/110 species (44%) have safety data in both languages** _(Updated 2026-01-11)_
+**STATUS: 51/110 species (46%) have safety data in both languages** _(Updated 2026-01-11 - Corrected from audit)_
 
-**Complete (49 species with EN+ES):**
+**Complete (51 species with EN+ES):**
 
 **Previously completed (25):**
 
@@ -101,15 +101,21 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Roble de Sabana (Tabebuia rosea) - LOW (mild alkaloids in bark/flowers) - EN+ES ✓
 - [x] Ron Ron (Astronium graveolens) - NONE, LOW wood dust sensitizer - EN+ES ✓
 
-**High Priority - Commonly Encountered (Remaining ~10):**
+**Added 2026-01-11 - Previously Uncounted (2 trees):**
 
-- [ ] Ajo, Alcornoque, Caimito, Capulín, Cativo, Ciprecillo, Gallinazo, and others
+- [x] Caimito (Chrysophyllum cainito) - NONE (completely safe edible fruit) - EN+ES ✓
+- [x] Capulín (Muntingia calabura) - NONE (completely safe edible fruit) - EN+ES ✓
+
+**High Priority - Commonly Encountered (Remaining ~57):**
+
+- [ ] Aceituno, Aguacatillo, Ajo, Alcornoque, Araza, Botarrama, and 51 others
 
 **Lower Priority:**
 
-- [ ] Ciprecillo (Podocarpus costaricensis)
-- [ ] Caña India (Dracaena fragrans) - Pet toxicity
-- [ ] All remaining species (~61 trees)
+- [ ] All remaining species (~59 trees) including:
+  - Ciprecillo, Caña India, Caña Fístula, Cativo, Cedro María, Cerillo
+  - Ciprés, Copey, Cortez Negro, Fruta de Pan, Fruta Dorada, Gallinazo
+  - And 47 additional species
 
 ### Glossary Coverage
 
@@ -171,12 +177,12 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 49/110 complete (44%)** _(Updated 2026-01-11)_
+**STATUS: 51/110 complete (46%)** _(Updated 2026-01-11 - Corrected from audit)_
 
 **MVP Requirements:**
 
-- [x] Research and add safety data to 49 species (both EN+ES) - IN PROGRESS
-- [ ] Research and add safety data to remaining 61 species (both EN+ES)
+- [x] Research and add safety data to 51 species (both EN+ES) - COMPLETED
+- [ ] Research and add safety data to remaining 59 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
 - [x] Prioritize SEVERE/HIGH risk species first - ONGOING
 - [x] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
@@ -243,7 +249,7 @@ safetyNotes: "General guidance"
 
 ### Success Metrics
 
-- [x] 44% of species have safety data (49/110) - IN PROGRESS toward 100%
+- [x] 46% of species have safety data (51/110) - IN PROGRESS toward 100%
 - [x] Safety page live with emergency contacts
 - [x] Safety filtering functional in directory
 - [ ] 100% of species have safety data (target: 110/110)
