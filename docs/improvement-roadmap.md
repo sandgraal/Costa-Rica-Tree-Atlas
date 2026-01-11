@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] **61/100+ terms documented (61% complete)** _(UPDATED 2026-01-11: Added 8 more terms - 61% reached!)_
-  - 61 EN + 61 ES with perfect bilingual parity
-  - Categories: Morphology (36), Ecology (22), Timber (6)
-  - **Morphology (36)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dioecious, Drupe, Evergreen, Follicle, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Node, Opposite, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
-  - **Ecology (22)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Reforestation, Riparian, Succession, Understory, Watershed
-  - **Timber (6)**: Air Drying, CITES, Heartwood, Janka Hardness, Sapwood, Wood Grain
-  - **Latest session (8 terms)**: Follicle, Cordate, Lanceolate, Canopy Gap, Air Drying, Reforestation, Allelopathy, Dioecious
+- [x] **65/100+ terms documented (65% complete)** _(UPDATED 2026-01-11: Added 4 more terms - 65% reached!)_
+  - 65 EN + 65 ES with perfect bilingual parity
+  - Categories: Morphology (38), Ecology (23), Timber (7)
+  - **Morphology (38)**: Acuminate, Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Cordate, Crown, Deciduous, Dioecious, Drupe, Evergreen, Follicle, Inflorescence, Lanceolate, Latex, Legume, Lenticel, Node, Opposite, Ovate, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
+  - **Ecology (23)**: Allelopathy, Biodiversity, Canopy Gap, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Reforestation, Riparian, Succession, Symbiosis, Understory, Watershed
+  - **Timber (7)**: Air Drying, CITES, Heartwood, Janka Hardness, Lumber Grade, Sapwood, Wood Grain
+  - **Latest session (4 terms)**: Ovate, Acuminate, Lumber Grade, Symbiosis
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,12 +303,13 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 61/100+ terms complete (61%)** _(UPDATED 2026-01-11: Added 8 terms - REACHED 61%!)_
+**STATUS: 65/100+ terms complete (65%)** _(UPDATED 2026-01-11: Added 4 more terms - REACHED 65%!)_
 
-**Completed Terms (61 EN + 61 ES):**
+**Completed Terms (65 EN + 65 ES):**
 
-**Morphology (36 terms):**
+**Morphology (38 terms):**
 
+- ✅ **Acuminate (Acuminado)** - NEW 2026-01-11
 - ✅ Alternate (Alterno)
 - ✅ Bark (Corteza)
 - ✅ Berry (Baya)
@@ -318,20 +319,21 @@ safetyNotes: "General guidance"
 - ✅ Canopy Layer (Capa del Dosel)
 - ✅ Capsule (Cápsula)
 - ✅ Compound Leaf (Hoja Compuesta)
-- ✅ **Cordate (Cordado)** - NEW 2026-01-11
+- ✅ **Cordate (Cordado)** - NEW 2026-01-11 (session 1)
 - ✅ Crown (Copa)
 - ✅ Deciduous (Caducifolio)
-- ✅ **Dioecious (Dioico)** - NEW 2026-01-11
+- ✅ **Dioecious (Dioico)** - NEW 2026-01-11 (session 1)
 - ✅ Drupe (Drupa)
 - ✅ Evergreen (Perenne)
-- ✅ **Follicle (Folículo)** - NEW 2026-01-11
+- ✅ **Follicle (Folículo)** - NEW 2026-01-11 (session 1)
 - ✅ Inflorescence (Inflorescencia)
-- ✅ **Lanceolate (Lanceolado)** - NEW 2026-01-11
+- ✅ **Lanceolate (Lanceolado)** - NEW 2026-01-11 (session 1)
 - ✅ Latex (Látex)
 - ✅ Legume (Legumbre)
 - ✅ Lenticel (Lenticela)
 - ✅ Node (Nodo)
 - ✅ Opposite (Opuesto)
+- ✅ **Ovate (Ovado)** - NEW 2026-01-11
 - ✅ Palmate (Palmada)
 - ✅ Petal (Pétalo)
 - ✅ Petiole (Pecíolo)
@@ -346,11 +348,11 @@ safetyNotes: "General guidance"
 - ✅ Stipule (Estípula)
 - ✅ Trifoliate (Trifoliada)
 
-**Ecology (22 terms):**
+**Ecology (23 terms):**
 
-- ✅ **Allelopathy (Alelopatía)** - NEW 2026-01-11
+- ✅ **Allelopathy (Alelopatía)** - NEW 2026-01-11 (session 1)
 - ✅ Biodiversity (Biodiversidad)
-- ✅ **Canopy Gap (Claro del Dosel)** - NEW 2026-01-11
+- ✅ **Canopy Gap (Claro del Dosel)** - NEW 2026-01-11 (session 1)
 - ✅ Cloud Forest (Bosque Nuboso)
 - ✅ Endemic (Endémico)
 - ✅ Epiphyte (Epífita)
@@ -362,18 +364,20 @@ safetyNotes: "General guidance"
 - ✅ Old-Growth Forest (Bosque Primario)
 - ✅ Photosynthesis (Fotosíntesis)
 - ✅ Pioneer Species (Especie Pionera)
-- ✅ **Reforestation (Reforestación)** - NEW 2026-01-11
+- ✅ **Reforestation (Reforestación)** - NEW 2026-01-11 (session 1)
 - ✅ Riparian (Ribereño)
 - ✅ Succession (Sucesión)
+- ✅ **Symbiosis (Simbiosis)** - NEW 2026-01-11
 - ✅ Understory (Sotobosque)
 - ✅ Watershed (Cuenca Hidrográfica)
 
-**Timber (6 terms):**
+**Timber (7 terms):**
 
-- ✅ **Air Drying (Secado al Aire)** - NEW 2026-01-11
+- ✅ **Air Drying (Secado al Aire)** - NEW 2026-01-11 (session 1)
 - ✅ CITES
 - ✅ Heartwood (Duramen)
 - ✅ Janka Hardness (Dureza Janka)
+- ✅ **Lumber Grade (Grado de Madera)** - NEW 2026-01-11
 - ✅ Sapwood (Albura)
 - ✅ Wood Grain (Veta de la Madera)
 
@@ -382,11 +386,12 @@ safetyNotes: "General guidance"
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
 - [x] **50 terms defined with full bilingual parity - 50% MILESTONE REACHED! ✅**
-- [x] **60 terms defined - 60% MILESTONE REACHED! ✅** (61/100 complete)
-- [ ] Add 10+ more terms to reach 70/100 (70% milestone)
-- [x] Add botanical terms (fruit types, leaf shapes, etc.) - Added 5 terms ✅
-- [x] Add more ecological terms (reforestation, canopy gap, allelopathy) - Added 3 terms ✅
-- [x] Add timber/wood terms (air drying) - Added 1 term ✅
+- [x] **60 terms defined - 60% MILESTONE REACHED! ✅**
+- [x] **65 terms defined - 65% MILESTONE REACHED! ✅** (65/100 complete)
+- [ ] Add 5+ more terms to reach 70/100 (70% milestone)
+- [x] Add botanical terms (fruit types, leaf shapes, etc.) - Added 7 terms ✅
+- [x] Add more ecological terms (reforestation, canopy gap, allelopathy, symbiosis) - Added 4 terms ✅
+- [x] Add timber/wood terms (air drying, lumber grades) - Added 2 terms ✅
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
 
@@ -502,7 +507,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] **61% of glossary target complete (61/100) - Past 60% milestone! ✅**
+- [x] **65% of glossary target complete (65/100) - Past 65% milestone! ✅**
 - [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
@@ -798,3 +803,4 @@ Items that are valuable but require significant infrastructure or are lower prio
 | 2026-01-11 | **GLOSSARY 50% MILESTONE REACHED (45→50 terms)**: Added 5 high-value glossary terms to reach 50% target. Added Petal and Sepal (flower morphology), Rachis (compound leaf terminology), Riparian (ecology/habitat), and Janka Hardness (timber terminology). All with full bilingual support (EN+ES). Glossary now covers 29 morphology terms, 19 ecology terms, and 5 timber terms. Each term includes comprehensive explanations, Costa Rican examples, practical identification tips, and related concepts. Built successfully. Roadmap updated to reflect 50% completion. Phase 2 Educational Foundation advancing steadily toward 100+ term goal.                                                                                                                |
 | 2026-01-11 | **GLOSSARY EXPANSION CONTINUES (50→53 terms, 53% complete)**: Added 3 more essential terms with full bilingual support: Node/Nodo (leaf attachment point), Watershed/Cuenca Hidrográfica (water drainage area), Crown/Copa (tree top structure). Total: 31 morphology, 20 ecology, 5 timber terms. Past 50% milestone, progressing toward 60% target. Autonomous implementation proceeding efficiently with consistent quality and bilingual parity.                                                                                                                                                                                                                                                                                                                  |
 | 2026-01-11 | **GLOSSARY 60% MILESTONE REACHED (53→61 terms, 61% complete)**: Added 8 comprehensive glossary terms in single session: Follicle (dry fruit type), Cordate (heart-shaped leaf), Lanceolate (lance-shaped leaf), Dioecious (male/female tree reproduction), Canopy Gap (forest opening dynamics), Air Drying (timber seasoning), Reforestation (Costa Rica's success story), Allelopathy (chemical plant warfare). All with full bilingual support (EN+ES). Total: 36 morphology, 22 ecology, 6 timber terms. Each term includes practical field identification tips, Costa Rican examples, detailed explanations, and why-it-matters sections. Past 60% milestone, progressing toward 70% target (100+ final goal). Autonomous implementation continuing efficiently. |
+| 2026-01-11 | **GLOSSARY 65% MILESTONE REACHED (61→65 terms, 65% complete)**: Added 4 more comprehensive glossary terms: Ovate (egg-shaped leaf), Acuminate (drip-tip leaf apex adaptation), Lumber Grade (FAS hardwood grading system with Costa Rican examples), Symbiosis (mutualism, commensalism, parasitism relationships). All with full bilingual support (EN+ES). Total: 38 morphology, 23 ecology, 7 timber terms. Each term includes practical Costa Rican examples, field identification tips, detailed explanations. Past 65% milestone. Two autonomous sessions today added total 12 terms (53→65). Progressing steadily toward 70% target.                                                                                                                           |
