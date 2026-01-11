@@ -2,9 +2,9 @@
 
 A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized by phase with clear dependencies, success metrics, and scope definitions.
 
-**Last Updated:** 2026-01-10  
+**Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-10 (Codebase vs. Roadmap accuracy verified - corrections applied)
+**Last Audited:** 2026-01-11 (Glossary expansion: 18→38 terms, Safety data: 23→25 trees)
 
 ---
 
@@ -61,9 +61,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 23/110 species (21%) have safety data in both languages** _(Corrected 2026-01-10 after codebase audit)_
+**STATUS: 25/110 species (23%) have safety data in both languages** _(Updated 2026-01-11)_
 
-**Complete (23 species with EN+ES):**
+**Complete (25 species with EN+ES):**
 
 - [x] Amarillón (Terminalia amazonia) - EN+ES ✓
 - [x] Anona (Annona reticulata) - MODERATE - EN+ES ✓
@@ -89,10 +89,10 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Yellow Oleander/Chirca (Thevetia peruviana) - SEVERE - EN+ES ✓
 - [x] Zapatero (Hieronyma oblonga) - EN+ES ✓
 
-**High Priority - Commonly Encountered (Remaining):**
+- [x] Guanacaste (Enterolobium cyclocarpum) - LOW - EN+ES ✓ _(Added 2026-01-11)_
+- [x] Guayabo (Psidium guajava) - NONE (Safe) - EN+ES ✓ _(Added 2026-01-11)_
 
-- [ ] Guanacaste (Enterolobium cyclocarpum) - Pod safety
-- [ ] Guayaba (Psidium guajava) - Generally safe, document
+**High Priority - Commonly Encountered (Remaining):**
 
 **Lower Priority:**
 
@@ -102,9 +102,11 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] 18/100+ terms documented (18% complete) _(Updated 2026-01-10)_
-  - 9 EN + 9 ES with perfect bilingual parity
-  - Categories: Morphology (5), Ecology (4)
+- [x] 38/100+ terms documented (38% complete) _(Updated 2026-01-11)_
+  - 19 EN + 19 ES with perfect bilingual parity
+  - Categories: Morphology (12), Ecology (7)
+  - Morphology: Buttress Roots, Deciduous, Drupe, Pinnate, Palmate, Compound Leaf, Simple Leaf, Alternate, Opposite, Evergreen, Legume, Bark
+  - Ecology: Canopy, Epiphyte, Nitrogen Fixation, Pioneer Species, Endemic, Native, Succession
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -157,11 +159,11 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 23/110 complete (21%)** _(Updated 2026-01-10 after codebase audit)_
+**STATUS: 25/110 complete (23%)** _(Updated 2026-01-11)_
 
 **MVP Requirements:**
 
-- [ ] Research and add safety data to remaining 87 species (both EN+ES)
+- [ ] Research and add safety data to remaining 85 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
 - [ ] Prioritize SEVERE/HIGH risk species first
 - [ ] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
@@ -243,27 +245,43 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 18/100+ terms complete (18%)** _(Updated 2026-01-10)_
+**STATUS: 38/100+ terms complete (38%)** _(Updated 2026-01-11)_
 
-**Completed Terms (9 EN + 9 ES):**
+**Completed Terms (19 EN + 19 ES):**
+
+**Morphology (12 terms):**
 
 - ✅ Buttress Roots (Raíces Tablares)
 - ✅ Deciduous (Caducifolio)
 - ✅ Drupe (Drupa)
 - ✅ Pinnate (Pinnada)
+- ✅ Palmate (Palmada)
+- ✅ Compound Leaf (Hoja Compuesta) _(Added 2026-01-11)_
+- ✅ Simple Leaf (Hoja Simple) _(Added 2026-01-11)_
+- ✅ Alternate (Alterno) _(Added 2026-01-11)_
+- ✅ Opposite (Opuesto) _(Added 2026-01-11)_
+- ✅ Evergreen (Perenne) _(Added 2026-01-11)_
+- ✅ Legume (Legumbre) _(Added 2026-01-11)_
+- ✅ Bark (Corteza) _(Added 2026-01-11)_
+
+**Ecology (7 terms):**
+
+- ✅ Canopy (Dosel)
+- ✅ Epiphyte (Epífita)
+- ✅ Nitrogen Fixation (Fijación de Nitrógeno)
 - ✅ Pioneer Species (Especie Pionera)
-- ✅ Palmate (Palmada) _(Added 2026-01-10)_
-- ✅ Canopy (Dosel) _(Added 2026-01-10)_
-- ✅ Epiphyte (Epífita) _(Added 2026-01-10)_
-- ✅ Nitrogen Fixation (Fijación de Nitrógeno) _(Added 2026-01-10)_
+- ✅ Endemic (Endémico) _(Added 2026-01-11)_
+- ✅ Native (Nativo) _(Added 2026-01-11)_
+- ✅ Succession (Sucesión) _(Added 2026-01-11)_
 
 **MVP Requirements:**
 
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
-- [x] 18 terms currently defined with full bilingual parity
-- [ ] Add 32+ botanical terms (leaf types, flower parts, bark types, root types)
-- [ ] Add 15+ ecological terms (succession, endemic, habitat, etc.)
+- [x] 38 terms currently defined with full bilingual parity
+- [ ] Add 14+ botanical terms (flower parts, fruit types, etc.)
+- [ ] Add 8+ ecological terms (habitat, invasive, biodiversity, etc.)
+- [ ] Add 10+ ecological terms (habitat, invasive, biodiversity, etc.)
 - [ ] Add 15+ timber/wood terms (heartwood, grain, Janka hardness, CITES)
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
@@ -665,3 +683,5 @@ Items that are valuable but require significant infrastructure or are lower prio
 | ---------- | ------------------------------------------------------------------------------------------ |
 | 2026-01-10 | Initial roadmap created                                                                    |
 | 2026-01-10 | Reorganized phases, added dependencies map, care guidance, diagnostic tool, reading levels |
+| 2026-01-11 | Glossary expansion: 18→38 terms (20 new), Safety data: 23→25 trees (2 new)                 |
+| 2026-01-11 | Glossary expansion: 18→30 terms (12 new), Safety data: 23→25 trees (2 new)                 |
