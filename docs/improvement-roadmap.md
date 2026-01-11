@@ -174,6 +174,7 @@ Track content coverage across all 110 species. Update as work progresses.
 - Target: Top 20 most-viewed species first
 
 - [x] 1/20 priority comparison guides documented (5% complete)
+- [x] 2/20 priority comparison guides documented (10% complete) - Added Guanacaste vs Cenízaro ✅
 - Target: 20 comparison guides
 - `/compare` route exists with at least 1 comparison
 
@@ -455,8 +456,9 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 **MVP Requirements:**
 
 - [ ] Identify top 20 commonly confused species pairs
-- [ ] Create comparison page template
-- [ ] Build 20 comparison guides
+- [x] Ceiba vs. Pochote comparison guide complete ✅
+- [x] Guanacaste vs. Cenízaro comparison guide complete ✅
+- [ ] Build 18 more comparison guides (2/20 complete, 10%)
 
 **Priority Confusion Sets:**
 
@@ -811,3 +813,4 @@ Items that are valuable but require significant infrastructure or are lower prio
 | 2026-01-11 | **GLOSSARY 72% MILESTONE REACHED (68→72 terms, 72% complete)**: Added 4 comprehensive glossary terms: Taproot (root morphology - deep penetrating root system, Costa Rican examples), Germination (seed to seedling process - imbibition, activation, radicle emergence), Hardwood (botanical timber classification - angiosperms, ring-porous vs diffuse-porous, CR species), Xerophytic (drought adaptations - Guanacaste dry forest species, water conservation strategies). All with full bilingual support (EN+ES). Total: 40 morphology, 25 ecology, 9 timber terms. Comprehensive practical information for each: field identification, cultivation tips, Costa Rican examples. Past 70% milestone, progressing toward 75% target (100+ final goal).                                                                                                                                                          |
 | 2026-01-11 | **GLOSSARY 74% MILESTONE REACHED (72→74 terms, 74% complete)**: Added 2 essential morphology/ecology terms: Fibrous Roots (complementary to taproot - shallow spreading root systems, palms/grasses/monocots, erosion control, transplanting advantages), Emergent Tree (forest stratification ecology - giants rising above canopy, environmental extremes, keystone species, conservation importance). All with full bilingual support (EN+ES). Total: 41 morphology, 26 ecology, 9 timber terms. Both terms highly practical with Costa Rican examples, field identification tips, cultivation considerations. Just 1 term away from 75% milestone!                                                                                                                                                                                                                                                               |
 | 2026-01-11 | **GLOSSARY 80% MILESTONE REACHED (75→80 terms, 80% complete - FOUR-FIFTHS!)**: Added 5 comprehensive high-value terms in autonomous session: Veneer (timber - thin wood slices for furniture, sustainability benefits), Coppice (ecology - sustainable woodland management through stump regrowth), Crown Shyness (ecology - fascinating tree canopy gap phenomenon), Bole (morphology - main trunk from ground to branches, commercial timber assessment), Dehiscent (morphology - fruits that actively split open to release seeds). All with full bilingual support (EN+ES). Total: 43 morphology, 28 ecology, 10 timber terms. Each term extensively detailed with Costa Rican examples, practical applications, field identification, ecological significance, conservation perspective. Fixed MDX syntax error (escaped angle brackets). Build successful. Major milestone - 80% of 100+ term target complete! |
+| 2026-01-11 | **COMPARISON GUIDES EXPANSION (1→2 guides, 10% complete)**: Created comprehensive Guanacaste vs. Cenízaro comparison guide with full bilingual support (EN+ES). Both are iconic legume giants easily confused—guide provides diagnostic pod shape differences (ear-shaped vs. straight), leaflet size comparisons (tiny vs. medium), growth form distinctions (wider-than-tall vs. umbrella), cultural significance, ecological roles, and field identification tests. 13,900+ characters in English, 15,600+ characters in Spanish. Includes detailed comparison tables, key features, habitat preferences, nitrogen-fixing benefits, conservation notes. Build verified successful. Phase 2 Educational Foundation progressing: 2/20 comparison guides now complete (10%).                                                                                                                                         |
