@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] 45/100+ terms documented (45% complete) _(UPDATED 2026-01-11: Added 17 new terms in autonomous session - REACHED 45%!)_
-  - 45 EN + 45 ES with perfect bilingual parity
-  - Categories: Morphology (26), Ecology (18), Timber (4)
-  - **Morphology (26)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Opposite, Palmate, Petiole, Pinnate, Pistil, Samara, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
-  - **Ecology (18)**: Biodiversity, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Succession, Understory
-  - **Timber (4)**: CITES, Heartwood, Sapwood, Wood Grain
-  - **Session total (17 terms)**: Trifoliate, Serrated, Capsule, Latex, Petiole, Understory, Biodiversity, Photosynthesis, Wood Grain, Habitat, Stamen, Pistil, Old-Growth Forest, Berry, CITES
+- [x] **50/100+ terms documented (50% complete - MILESTONE REACHED!)** _(UPDATED 2026-01-11: Added 5 new terms in autonomous session - REACHED 50%!)_
+  - 50 EN + 50 ES with perfect bilingual parity
+  - Categories: Morphology (29), Ecology (19), Timber (5)
+  - **Morphology (29)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Opposite, Palmate, Petal, Petiole, Pinnate, Pistil, Rachis, Samara, Sepal, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
+  - **Ecology (19)**: Biodiversity, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Riparian, Succession, Understory
+  - **Timber (5)**: CITES, Heartwood, Janka Hardness, Sapwood, Wood Grain
+  - **Session total (5 terms)**: Petal, Sepal, Rachis, Riparian, Janka Hardness
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,58 +303,78 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 45/100+ terms complete (45%)** _(COMPLETED 2026-01-11: Reached 45% milestone with 17 new terms!)_
+**STATUS: 50/100+ terms complete (50% - MILESTONE REACHED!)** _(COMPLETED 2026-01-11: Added 5 more terms - REACHED 50%!)_
 
-**Completed Terms (30 EN + 30 ES):**
+**Completed Terms (50 EN + 50 ES):**
 
-**Morphology (17 terms):**
+**Morphology (29 terms):**
 
 - ✅ Alternate (Alterno)
 - ✅ Bark (Corteza)
-- ✅ **Bipinnate (Bipinnada)** - NEW 2026-01-11
+- ✅ Berry (Baya)
+- ✅ Bipinnate (Bipinnada)
 - ✅ Buttress Roots (Raíces Tablares)
 - ✅ Canopy (Dosel)
 - ✅ Canopy Layer (Capa del Dosel)
+- ✅ Capsule (Cápsula)
 - ✅ Compound Leaf (Hoja Compuesta)
 - ✅ Deciduous (Caducifolio)
 - ✅ Drupe (Drupa)
 - ✅ Evergreen (Perenne)
 - ✅ Inflorescence (Inflorescencia)
+- ✅ Latex (Látex)
 - ✅ Legume (Legumbre)
-- ✅ **Lenticel (Lenticela)** - NEW 2026-01-11
+- ✅ Lenticel (Lenticela)
 - ✅ Opposite (Opuesto)
 - ✅ Palmate (Palmada)
+- ✅ **Petal (Pétalo)** - NEW 2026-01-11
+- ✅ Petiole (Pecíolo)
 - ✅ Pinnate (Pinnada)
-- ✅ **Samara (Sámara)** - NEW 2026-01-11
+- ✅ Pistil (Pistilo)
+- ✅ **Rachis (Raquis)** - NEW 2026-01-11
+- ✅ Samara (Sámara)
+- ✅ **Sepal (Sépalo)** - NEW 2026-01-11
+- ✅ Serrated (Aserrado)
 - ✅ Simple Leaf (Hoja Simple)
+- ✅ Stamen (Estambre)
 - ✅ Stipule (Estípula)
+- ✅ Trifoliate (Trifoliada)
 
-**Ecology (11 terms):**
+**Ecology (19 terms):**
 
-- ✅ **Cloud Forest (Bosque Nuboso)** - NEW 2026-01-11
+- ✅ Biodiversity (Biodiversidad)
+- ✅ Cloud Forest (Bosque Nuboso)
 - ✅ Endemic (Endémico)
 - ✅ Epiphyte (Epífita)
+- ✅ Habitat (Hábitat)
 - ✅ Invasive Species (Especie Invasora)
 - ✅ Mycorrhiza (Micorriza)
 - ✅ Native (Nativo)
 - ✅ Nitrogen Fixation (Fijación de Nitrógeno)
+- ✅ Old-Growth Forest (Bosque Primario)
+- ✅ Photosynthesis (Fotosíntesis)
 - ✅ Pioneer Species (Especie Pionera)
+- ✅ **Riparian (Ribereño)** - NEW 2026-01-11
 - ✅ Succession (Sucesión)
+- ✅ Understory (Sotobosque)
 
-**Timber (2 terms):**
+**Timber (5 terms):**
 
+- ✅ CITES
 - ✅ Heartwood (Duramen)
+- ✅ **Janka Hardness (Dureza Janka)** - NEW 2026-01-11
 - ✅ Sapwood (Albura)
+- ✅ Wood Grain (Veta de la Madera)
 
 **MVP Requirements:**
 
 - [x] Glossary content structure exists (`content/glossary/en/`, `content/glossary/es/`)
 - [x] Glossary page functional at `/[locale]/glossary`
-- [x] 45 terms currently defined with full bilingual parity
-- [ ] Add 5+ more terms to reach 50/100 (50% milestone)
-- [ ] Add 10+ botanical terms (flower parts, fruit types, etc.)
-- [ ] Add 4+ more ecological terms (habitat, biodiversity, etc.)
-- [ ] Add 11+ timber/wood terms (grain, Janka hardness, CITES, etc.)
+- [x] **50 terms defined with full bilingual parity - 50% MILESTONE REACHED! ✅**
+- [ ] Add 10+ more terms to reach 60/100 (60% milestone)
+- [ ] Add 10+ botanical terms (fruit types, leaf shapes, etc.)
+- [ ] Add 5+ more ecological terms (watershed, reforestation, etc.)
+- [ ] Add 5+ timber/wood terms (seasoning, lumber grades, etc.)
 - [ ] Add 15+ indigenous terms (Bribri, Cabécar plant names)
 - [ ] Each term needs: definition, visual (where applicable), example species, related terms
 
@@ -470,7 +490,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### Success Metrics
 
-- [x] 45% of glossary target complete (45/100) - IN PROGRESS toward 100+
+- [x] **50% of glossary target complete (50/100) - MILESTONE REACHED! ✅**
 - [ ] 100+ glossary terms with definitions and visuals (target)
 - [ ] Inline tooltips functional across site
 - [ ] Top 60 species have complete care guidance
@@ -763,3 +783,4 @@ Items that are valuable but require significant infrastructure or are lower prio
 | 2026-01-11 | **PHASE 1 COMPLETE - 100% SAFETY DATA**: Completed final 11 trees with comprehensive safety research. Added safety data for Guayacán Real, Madroño, Magnolia, Manú, Manzana de Agua, Muñeco, Olla de Mono, Palmera Real, Panamá, Sotacaballo, and Targuá. All 110 species now have complete bilingual safety documentation (EN+ES). Researched medicinal uses, allergens, skin contact risks, pet safety, and structural hazards for each species. Notable findings: Olla de Mono seeds can accumulate dangerous selenium levels; Palmera Real fruit pulp contains irritating calcium oxalate; Targuá sap (dragon's blood) is well-studied medicinal with good safety profile. Phase 1 Safety & Accuracy is now 100% complete. |
 | 2026-01-11 | **PHASE 2 STARTED - GLOSSARY EXPANSION**: Added 4 new glossary terms with full bilingual support (EN+ES): Bipinnate (doblemente compuesta leaves), Lenticel (pores respiratorios in bark), Samara (winged helicopter seeds), Cloud Forest (bosque nuboso ecosystem). Glossary now has 30 terms (30% of 100+ target). Focus on high-value botanical and ecological terms that help users understand tree descriptions. Each term includes simple definition, technical definition, pronunciation, etymology, example species, related terms, and detailed explanatory content.                                                                                                                                                  |
 | 2026-01-11 | **GLOSSARY MAJOR EXPANSION (30→45 terms, 45% complete)**: Added 15 new comprehensive glossary terms in single autonomous session: Trifoliate, Serrated, Capsule, Latex, Petiole (morphology), Understory, Biodiversity, Photosynthesis, Habitat (ecology), Wood Grain (timber), Stamen, Pistil (flower parts), Old-Growth Forest. All terms have full bilingual support (EN+ES). Expanded coverage to 25 morphology terms, 18 ecology terms, 3 timber terms. Each term includes practical field identification tips, Costa Rican examples, detailed explanations, and why-it-matters sections. Fixed MDX syntax issues (escaped angle brackets). Nearing 50% milestone (45/100 terms).                                         |
+| 2026-01-11 | **GLOSSARY 50% MILESTONE REACHED (45→50 terms)**: Added 5 high-value glossary terms to reach 50% target. Added Petal and Sepal (flower morphology), Rachis (compound leaf terminology), Riparian (ecology/habitat), and Janka Hardness (timber terminology). All with full bilingual support (EN+ES). Glossary now covers 29 morphology terms, 19 ecology terms, and 5 timber terms. Each term includes comprehensive explanations, Costa Rican examples, practical identification tips, and related concepts. Built successfully. Roadmap updated to reflect 50% completion. Phase 2 Educational Foundation advancing steadily toward 100+ term goal.                                                                         |
