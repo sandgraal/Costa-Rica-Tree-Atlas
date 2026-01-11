@@ -484,12 +484,15 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
+**STATUS: 15% complete (3/20 guides)**
+
 **MVP Requirements:**
 
 - [ ] Identify top 20 commonly confused species pairs
 - [x] Ceiba vs. Pochote comparison guide complete ✅
 - [x] Guanacaste vs. Cenízaro comparison guide complete ✅
-- [ ] Build 18 more comparison guides (2/20 complete, 10%)
+- [x] **Cedro Amargo vs. Cedro María** comparison guide complete ✅ _(Added 2026-01-11)_
+- [ ] Build 17 more comparison guides (3/20 complete, 15%)
 
 **Priority Confusion Sets:**
 
