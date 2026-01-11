@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { allTrees } from "contentlayer/generated";
+import { allTrees, allGlossaryTerms } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -408,7 +408,15 @@ export default async function TreePage({ params }: Props) {
 
           {/* MDX Content */}
           <div className="tree-content max-w-none">
-            <MDXRenderer code={tree.body.code} />
+            <MDXRenderer
+              code={tree.body.code}
+              glossaryTerms={allGlossaryTerms.map((t) => ({
+                term: t.term,
+                slug: t.slug,
+                locale: t.locale,
+              }))}
+              enableGlossaryLinks={true}
+            />
           </div>
 
           {/* Safety Disclaimer */}
