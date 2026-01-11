@@ -156,13 +156,13 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Glossary Coverage
 
-- [x] 45/100+ terms documented (45% complete) _(UPDATED 2026-01-11: Added 15 new terms in autonomous session)_
+- [x] 45/100+ terms documented (45% complete) _(UPDATED 2026-01-11: Added 17 new terms in autonomous session - REACHED 45%!)_
   - 45 EN + 45 ES with perfect bilingual parity
-  - Categories: Morphology (25), Ecology (18), Timber (2)
-  - **Morphology (25)**: Alternate, Bark, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Opposite, Palmate, Petiole, Pinnate, Pistil, Samara, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
+  - Categories: Morphology (26), Ecology (18), Timber (4)
+  - **Morphology (26)**: Alternate, Bark, Berry, Bipinnate, Buttress Roots, Canopy, Canopy Layer, Capsule, Compound Leaf, Deciduous, Drupe, Evergreen, Inflorescence, Latex, Legume, Lenticel, Opposite, Palmate, Petiole, Pinnate, Pistil, Samara, Serrated, Simple Leaf, Stamen, Stipule, Trifoliate
   - **Ecology (18)**: Biodiversity, Cloud Forest, Endemic, Epiphyte, Habitat, Invasive Species, Mycorrhiza, Native, Nitrogen Fixation, Old-Growth Forest, Photosynthesis, Pioneer Species, Succession, Understory
-  - **Timber (2)**: Heartwood, Sapwood, Wood Grain
-  - **Latest additions (15 terms)**: Trifoliate, Serrated, Capsule, Latex, Petiole, Understory, Biodiversity, Photosynthesis, Wood Grain, Habitat, Stamen, Pistil, Old-Growth Forest
+  - **Timber (4)**: CITES, Heartwood, Sapwood, Wood Grain
+  - **Session total (17 terms)**: Trifoliate, Serrated, Capsule, Latex, Petiole, Understory, Biodiversity, Photosynthesis, Wood Grain, Habitat, Stamen, Pistil, Old-Growth Forest, Berry, CITES
 - [x] Glossary route exists at `/glossary`
 - [ ] Target: 100+ terms covering botanical, ecological, timber, and indigenous terminology
 - [ ] Inline tooltips not yet implemented
@@ -303,7 +303,7 @@ safetyNotes: "General guidance"
 
 ### 2.1 Glossary System (100+ Terms)
 
-**STATUS: 45/100+ terms complete (45%)** _(UPDATED 2026-01-11: Significant progress - added 15 more terms)_
+**STATUS: 45/100+ terms complete (45%)** _(COMPLETED 2026-01-11: Reached 45% milestone with 17 new terms!)_
 
 **Completed Terms (30 EN + 30 ES):**
 
