@@ -4,7 +4,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-11  
 **Status:** Active Development - Autonomous Implementation in Progress  
-**Last Audited:** 2026-01-11 (CORRECTED: Glossary: 26 terms, Safety: 69 trees, 63% complete)
+**Last Audited:** 2026-01-11 (UPDATED: Glossary: 26 terms, Safety: 87 trees, 79% complete - Major progress session)
 
 ---
 
@@ -61,9 +61,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 69/110 species (63%) have safety data in both languages** _(Updated 2026-01-11 - CORRECTED: Was incorrectly listed as 51)_
+**STATUS: 87/110 species (79%) have safety data in both languages** _(Updated 2026-01-11 - Major autonomous progress)_
 
-**Complete (69 species with EN+ES):**
+**Complete (87 species with EN+ES):**
 
 **Previously completed (25):**
 
@@ -101,23 +101,37 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Roble de Sabana (Tabebuia rosea) - LOW (mild alkaloids in bark/flowers) - EN+ES ✓
 - [x] Ron Ron (Astronium graveolens) - NONE, LOW wood dust sensitizer - EN+ES ✓
 
-**Added 2026-01-11 - Previously Uncounted (18 trees found during audit):**
+**Added 2026-01-11 - Autonomous Implementation Session (18 trees):**
 
-- [x] Aceituno, Aguacatillo, Ajo, Alcornoque, Caimito, Caña India, Capulín, Copey
-- [x] Fruta de Pan, Gavilán, Guaba, Guácimo, Guapinol, Guarumo, Hoja Santa, Icaco
-- [x] Jacaranda, Jocote
+**CRITICAL (1 tree):**
+- [x] Yellow Oleander - Created missing Spanish translation with full cardiac poison warnings ✅
 
-**Missing Safety Data (41 trees - PRIORITY ORDER):**
+**HIGH Priority Timber Species (4 trees):**
+- [x] Teca - Safe tree, HIGH wood dust allergen for woodworkers ✅
+- [x] Ojoche - Exceptionally safe, edible Maya superfood ✅
+- [x] Tempisque - Safe hardwood, edible fruits ✅
+- [x] Roble Encino - LOW toxicity (tannins in acorns, pet concern) ✅
 
-**CRITICAL - Highly Toxic (1 tree):**
-- [ ] Yellow Oleander - Already has English data, missing Spanish translation verification
+**HIGH Priority Fruit Trees (3 trees):**
+- [x] Zapote - Safe Sapotaceae fruit, popular for batidos ✅
+- [x] Níspero - Safe (avoid seeds with saponins) ✅
+- [x] Mora - LOW toxicity (mild Moraceae latex, thorny) ✅
 
-**HIGH PRIORITY - Common/Hazardous (15 trees):**
-- [ ] Teca, Tempisque, Roble Encino, Ojoche (common timber species)
-- [ ] Fruta Dorada, Papaturro, Nispero, Mora, Zapote (fruit trees)
-- [ ] Cedro María, Cortez Negro, Gallinazo, Laurel Negro, Nazareno, Matapalo
+**HIGH Priority Native/Ornamental (5 trees):**
+- [x] Fruta Dorada - MODERATE toxicity (Myristicaceae nutmeg family, red sap) ✅
+- [x] Papaturro - Completely safe, edible fruits ✅
+- [x] Cedro María - LOW toxicity (irritating yellow sap) ✅
+- [x] Cortez Negro - Completely safe ornamental, excellent urban tree ✅
+- [x] Matapalo - LOW toxicity (Ficus latex, moderate allergen) ✅
 
-**MEDIUM PRIORITY - Less Common (25 trees):**
+**MEDIUM Priority Batch (5 trees):**
+- [x] Gallinazo - Safe, fast-growing legume for reforestation ✅
+- [x] Pomarrosa - Safe, edible rose apple ✅
+- [x] Pitahaya - Safe, edible dragon fruit ✅
+- [x] Nazareno - Safe, valuable purple heartwood ✅
+- [x] Laurel Negro - Safe timber species ✅
+
+**Missing Safety Data (23 trees - 21% remaining):**
 - [ ] Araza, Botarrama, Caña Agria, Caña Fístula, Caobilla, Carboncillo
 - [ ] Cativo, Cerillo, Ciprecillo, Ciprés, Guayacán Real, Lechoso
 - [ ] Madroño, Magnolia, Manú, Manzana de Agua, Muñeco, Olla de Mono
@@ -183,14 +197,14 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### 1.1 Complete Safety Data for All Species
 
-**STATUS: 69/110 complete (63%)** _(CORRECTED 2026-01-11: Was incorrectly listed as 51)_
+**STATUS: 87/110 complete (79%)** _(MAJOR PROGRESS 2026-01-11: 69→87 trees, +18 in single session)_
 
 **MVP Requirements:**
 
-- [x] Research and add safety data to 69 species (both EN+ES) - COMPLETED
-- [ ] Research and add safety data to remaining 41 species (both EN+ES)
+- [x] Research and add safety data to 87 species (both EN+ES) - COMPLETED
+- [ ] Research and add safety data to remaining 23 species (both EN+ES)
 - [x] Safety schema already defined in contentlayer.config.ts
-- [x] Prioritize SEVERE/HIGH risk species first - ONGOING
+- [x] ALL CRITICAL and HIGH priority species complete ✅
 - [x] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
 - [x] Document pet safety (persin, urushiol)
 - [x] Document wood dust allergenicity for timber species
@@ -255,10 +269,12 @@ safetyNotes: "General guidance"
 
 ### Success Metrics
 
-- [x] 63% of species have safety data (69/110) - IN PROGRESS toward 100%
+- [x] 79% of species have safety data (87/110) - MAJOR PROGRESS toward 100%
 - [x] Safety page live with emergency contacts
 - [x] Safety filtering functional in directory
-- [ ] 100% of species have safety data (target: 110/110)
+- [x] ALL CRITICAL toxic species covered ✅
+- [x] ALL HIGH priority trees complete (12/12) ✅
+- [ ] 100% of species have safety data (target: 110/110) - 23 remaining
 - [ ] Zero tree profiles missing toxicity assessment
 
 ---
@@ -723,3 +739,4 @@ Items that are valuable but require significant infrastructure or are lower prio
 | 2026-01-11 | Safety data: 25→39 trees (36%), Glossary: 19→23 terms (23%). Added 14 tree species with safety data across all categories (toxic, hazardous, safe). Added 4 glossary terms (Stipule, Inflorescence, Invasive Species, Heartwood) covering morphology, ecology, and timber. Updated progress tracking and success metrics.                                                                                                                                                                                                                 |
 | 2026-01-11 | Safety data: 39→49 trees (44%). Autonomous agent added 10 trees: Caoba, Carao, Cedro Amargo, Cenízaro (timber species with wood dust concerns), Corteza Amarilla, Cristóbal, Guachipelín (nitrogen-fixer), Indio Desnudo, Roble de Sabana, Ron Ron. Comprehensive research on wood dust allergenicity for timber species (mahogany, rosewood families). Focus on distinguishing living tree safety (mostly safe) vs woodworking safety (dust hazards). Updated all progress metrics to 44% complete. Maintained perfect bilingual parity. |
 | 2026-01-11 | **AUDIT & CORRECTION**: Discovered roadmap was significantly out-of-date. Actual state: Safety 69/110 (63%), Glossary 26/100+ (26%). Found 18 uncounted trees with safety data and 3 uncounted glossary terms. Corrected all statistics, reorganized missing trees by priority (1 critical, 15 high, 25 medium). Updated success metrics throughout document to reflect reality. Roadmap now accurate baseline for autonomous implementation. |
+| 2026-01-11 | **MAJOR AUTONOMOUS IMPLEMENTATION**: Safety data 69→87 trees (79%, +18 species in single session). Completed ALL CRITICAL (Yellow Oleander Spanish) and ALL HIGH priority trees (12/12): timber species (Teca, Ojoche, Tempisque, Roble Encino), fruit trees (Zapote, Níspero, Mora, Fruta Dorada, Papaturro), native/ornamentals (Cedro María, Cortez Negro, Matapalo). Started MEDIUM priority: Gallinazo, Pomarrosa, Pitahaya, Nazareno, Laurel Negro. Comprehensive bilingual safety documentation maintained throughout. Distinguished living tree safety vs woodworking hazards. Documented allergens, pet toxicity, edible fruits. Only 23 trees remain (21%). Phase 1 nearly complete. |
