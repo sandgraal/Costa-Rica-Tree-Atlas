@@ -1,5 +1,8 @@
 # Image Integration Guide
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - Image resolution chain and iNaturalist integration
+
 ## Overview
 
 This guide explains how the Costa Rica Tree Atlas integrates optimized images with automatic resolution and fallback handling.

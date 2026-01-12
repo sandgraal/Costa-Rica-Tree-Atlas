@@ -1,5 +1,8 @@
 # Image Quality Monitoring
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - Automated weekly workflow via GitHub Actions
+
 ## Overview
 
 The Costa Rica Tree Atlas implements automated weekly image quality monitoring to ensure all tree images remain accessible, high-quality, and properly formatted across the site.

@@ -1,8 +1,11 @@
 # Image Resources for Costa Rica Tree Atlas
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - iNaturalist CC-licensed images, tracked in attributions.json
+
 ## Current Image Status
 
-All 74 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
+All 110 tree species now have locally-served featured images downloaded from iNaturalist research-grade observations. Images are stored in `/public/images/trees/` and referenced using local paths like `/images/trees/[tree-name].jpg`.
 
 Additionally, many tree pages include **photo galleries** with diverse images showing different aspects of each tree (whole tree, leaves, bark, flowers, fruit, habitat).
 

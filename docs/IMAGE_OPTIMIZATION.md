@@ -1,8 +1,14 @@
 # Image Optimization System
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - Sharp-based image optimization with automated workflows
+
 ## Overview
 
 The Costa Rica Tree Atlas uses Sharp for high-performance image optimization. The system automatically generates multiple responsive image sizes and modern formats (WebP, AVIF, JPEG) to ensure optimal performance across all devices and network conditions.
+
+**Scripts:** `scripts/optimize-images.mjs`  
+**Workflow:** `.github/workflows/weekly-image-quality.yml`
 
 ## Features
 

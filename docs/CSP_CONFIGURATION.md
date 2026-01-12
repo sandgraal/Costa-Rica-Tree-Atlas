@@ -1,8 +1,13 @@
 # Content Security Policy (CSP) Configuration
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - CSP configured in middleware.ts with nonce-based script execution
+
 ## Overview
 
 This document explains the Content Security Policy configuration for the Costa Rica Tree Atlas application.
+
+**Implementation:** See `src/lib/security/csp.ts` and `middleware.ts` for the actual CSP configuration.
 
 ## CSP Variants
 

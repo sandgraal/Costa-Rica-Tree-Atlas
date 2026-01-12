@@ -124,6 +124,16 @@ Rate limiting is disabled in development mode if Redis is not configured. To tes
 - Partnership with Costa Rican conservation organizations
 - Multi-language expansion (German, French for tourists)
 
+## Documentation
+
+Comprehensive documentation is available in the **[docs/](docs/)** directory:
+
+- **[Documentation Index](docs/README.md)** - Complete guide to all documentation
+- **[Contributing Guide](CONTRIBUTING.md)** - Setup and contribution instructions
+- **[Content Standards](docs/CONTENT_STANDARDIZATION_GUIDE.md)** - Tree profile standards
+- **[Project Roadmap](docs/improvement-roadmap.md)** - Feature status and roadmap
+- **[AI Agent Instructions](AGENTS.md)** - Coding conventions and patterns
+
 ## Contributing
 
 Contributions are welcome! We're building this as an open-source resource for education and conservation.

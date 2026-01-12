@@ -1,5 +1,8 @@
 # React Query Setup
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - React Query is currently used for caching and data fetching
+
 ## Overview
 
 This application uses React Query (TanStack Query) with a **singleton pattern** to ensure query cache persists across page navigations and optionally survives page refreshes via localStorage persistence.
