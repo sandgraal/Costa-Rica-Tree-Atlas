@@ -2,33 +2,31 @@
 
 A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized by phase with clear dependencies, success metrics, and scope definitions.
 
-**Last Updated:** 2026-01-12  
+**Last Updated:** 2026-01-12
 **Status:** Active Development - Autonomous Implementation in Progress  
 **Last Audited:** 2026-01-12  
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 73% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 79% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
 
 **Recent Progress (2026-01-12 Autonomous Session - Current):**
 
-- **Care & Cultivation Data: 40/60 species complete (67% - TWO-THIRDS MILESTONE! 🎉)**
-  - Previous batch (30 species): Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro, Coco, Nance, Papaya, Jobo, Cas, Carambola, Anona, Caimito, Balsa, Indio Desnudo, Caoba, Cortez Negro, Zapote, Guanábana, Marañón, Teca, Ojoche, Espavel
-  - **NEW Today's additions (10 species):**
-    - Guayabo - Popular guava fruit, moderate maintenance
-    - Jocote - Spanish plum, ultra-low maintenance living fence
-    - Mamón Chino - Rambutan, humid lowlands specialist
-    - Icaco - Cocoplum, salt-tolerant coastal specialist
-    - Jacaranda - Purple flowering ornamental, Central Valley favorite
-    - Laurel - Premium timber, coffee agroforestry standard
-    - Poró - Coffee shade tree, nitrogen-fixing, highly toxic seeds
-    - Guachipelín - Golden flowering legume, durable fence posts
-    - Melina - Fast-growing plantation timber, high maintenance
-    - Pomarrosa - Rose apple, low maintenance fruit tree
-  - All additions include complete cultivation guidance with bilingual parity (EN+ES)
-  - Comprehensive data: growth rates, spacing, water/soil/light needs, propagation, maintenance schedules, common problems
+- **Care & Cultivation Data: 49/60 species complete (82% - FOUR-FIFTHS MILESTONE! 🎉)**
+  - Previous batches (41 species): Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro, Coco, Nance, Papaya, Jobo, Cas, Carambola, Anona, Caimito, Balsa, Indio Desnudo, Caoba, Cortez Negro, Zapote, Guanábana, Marañón, Teca, Ojoche, Espavel, Guayabo, Jocote, Mamón Chino, Icaco, Jacaranda, Laurel, Poró, Guachipelín, Melina, Pomarrosa, Guarumo
+  - **NEW Today's additions (8 species - English complete, Spanish translations in progress):**
+    - Carao - Pink shower tree, fast-growing medicinal legume, low maintenance
+    - Coyol - Spiny wine palm, slow-growing, extreme drought tolerance, wine production
+    - Pejibaye - Peach palm food crop, clumping growth, high water needs, heart of palm
+    - Cristóbal - Premium rosewood timber, nitrogen-fixing, Near Threatened conservation
+    - Níspero - Sapodilla/chewing gum tree, slow-growing fruit, chicle latex
+    - Mora - Dyer's mulberry, golden dye wood, thorny living fence, ultra-low maintenance
+    - Tempisque - Ironwood, extremely slow-growing (40-70 year rotation), premium hardwood
+    - Ron Ron - Gonçalo Alves, figured tiger-stripe wood, valuable timber
+  - All additions include complete cultivation guidance with growth rates, spacing, water/soil/light needs, propagation, maintenance schedules, common problems
+  - **English: 49/60 complete (82%)** | **Spanish: 41/60 complete (68% - translations pending for 8 species)**
 - **Comparison guides: 8/20 complete (40%)** _(UPDATED: Added Guanábana vs Anona)_
   - NEW: Guanábana vs Anona - Annonaceae fruit cousins (spiny large vs scaly small)
   - Detailed guide covers size, texture, flavor, cultivation differences, toxic seed warnings
   - 10,000+ words with full bilingual support
-- **Phase 2 Educational Foundation at 73% completion** (↑ from 69%, care data 67% + glossary 100% + comparisons 40%)
+- **Phase 2 Educational Foundation at 79% completion** (↑ from 73%, care data 82% + glossary 100% + comparisons 40%)
 - Build verified successful: 940 pages generated, zero errors
 
 ---
@@ -195,11 +193,12 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Care Guidance Coverage
 
-- [x] 40/60 priority species have complete care sections (67% complete - **TWO-THIRDS MILESTONE!** 🎉)
+- [x] 49/60 priority species have complete care sections (82% complete - **FOUR-FIFTHS MILESTONE!** 🎉)
 - Schema exists in contentlayer.config.ts
 - Target: Top 60 most-viewed species first
+- **English: 49/60 (82%)** | **Spanish: 41/60 (68% - 8 translations pending)**
 
-**Completed Species (40):**
+**Completed Species (49 English, 41 Spanish):**
 
 **Initial batch (23 species - previously completed):**
 
@@ -237,18 +236,27 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Teca (Teak) - Fast growth, premium timber, requires distinct dry season ✅
 - [x] Zapote (Mamey Sapote) - Slow growth, high water needs, patience required 5-8 years ✅
 
-**NEW - Added 2026-01-12 Current Autonomous Session (10 species):**
+**NEW - Added 2026-01-12 Current Autonomous Session (18 species EN, 10 ES):**
 
-- [x] Guayabo (Guava) - Moderate growth, fruit flies major pest, popular fruit tree ✅ NEW
-- [x] Jocote (Spanish Plum) - Fast growth, ultra-low maintenance, living fence favorite ✅ NEW
-- [x] Mamón Chino (Rambutan) - Moderate growth, high water, Caribbean lowlands specialist ✅ NEW
-- [x] Icaco (Cocoplum) - Moderate growth, salt-tolerant coastal, edible hedging ✅ NEW
-- [x] Jacaranda (Blue Jacaranda) - Moderate growth, purple flowering, Central Valley ornamental ✅ NEW
-- [x] Laurel (Coffee Shade) - Fast growth, premium timber, agroforestry standard ✅ NEW
-- [x] Poró (Erythrina) - Fast growth, nitrogen-fixing coffee shade, TOXIC SEEDS ✅ NEW
-- [x] Guachipelín (Yellow Acacia) - Moderate growth, golden flowers, durable fence posts ✅ NEW
-- [x] Melina (Gmelina) - VERY fast growth, plantation timber, high maintenance ✅ NEW
-- [x] Pomarrosa (Rose Apple) - Moderate growth, edible fruit, humid lowlands ✅ NEW
+- [x] Guayabo (Guava) - Moderate growth, fruit flies major pest, popular fruit tree ✅
+- [x] Jocote (Spanish Plum) - Fast growth, ultra-low maintenance, living fence favorite ✅
+- [x] Mamón Chino (Rambutan) - Moderate growth, high water, Caribbean lowlands specialist ✅
+- [x] Icaco (Cocoplum) - Moderate growth, salt-tolerant coastal, edible hedging ✅
+- [x] Jacaranda (Blue Jacaranda) - Moderate growth, purple flowering, Central Valley ornamental ✅
+- [x] Laurel (Coffee Shade) - Fast growth, premium timber, agroforestry standard ✅
+- [x] Poró (Erythrina) - Fast growth, nitrogen-fixing coffee shade, TOXIC SEEDS ✅
+- [x] Guachipelín (Yellow Acacia) - Moderate growth, golden flowers, durable fence posts ✅
+- [x] Melina (Gmelina) - VERY fast growth, plantation timber, high maintenance ✅
+- [x] Pomarrosa (Rose Apple) - Moderate growth, edible fruit, humid lowlands ✅
+- [x] Guarumo (Cecropia) - Fast-growing pioneer, sloth habitat (previous session) ✅
+- [x] **Carao** (Pink Shower) - Fast-growing legume, medicinal fruit, low maintenance ✅ NEW (EN only)
+- [x] **Coyol** (Wine Palm) - Slow-growing spiny palm, extreme drought tolerance ✅ NEW (EN only)
+- [x] **Pejibaye** (Peach Palm) - Food crop palm, clumping growth, high water needs ✅ NEW (EN only)
+- [x] **Cristóbal** (Rosewood) - Premium timber, nitrogen-fixing, Near Threatened ✅ NEW (EN only)
+- [x] **Níspero** (Sapodilla) - Chewing gum tree, slow-growing fruit, chicle latex ✅ NEW (EN only)
+- [x] **Mora** (Dyer's Mulberry) - Golden dye wood, thorny living fence, ultra-low maintenance ✅ NEW (EN only)
+- [x] **Tempisque** (Ironwood) - Extremely slow-growing (40-70 year rotation), premium hardwood ✅ NEW (EN only)
+- [x] **Ron Ron** (Gonçalo Alves) - Figured tiger-stripe wood, valuable timber ✅ NEW (EN only)
 
 - [x] 8/20 priority comparison guides documented (40% complete) ✅
 - Target: 20 comparison guides
