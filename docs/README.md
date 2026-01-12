@@ -24,6 +24,7 @@ Start here if you're new to the project:
 ### Content Creation
 
 - **[CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md)** - Standards for tree profile pages
+- **[MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)** - Comprehensive list of ~65 species to add (mangroves, cloud forest, etc.)
 - **[improvement-roadmap.md](./improvement-roadmap.md)** - Project roadmap and feature status (comprehensive, 86KB)
 
 ### Testing & Quality
@@ -71,7 +72,7 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 
 ### By Topic
 
-- **Content Creation**: CONTENT_STANDARDIZATION_GUIDE.md
+- **Content Creation**: CONTENT_STANDARDIZATION_GUIDE.md, MISSING_SPECIES_LIST.md
 - **Internationalization**: .github/instructions/i18n.instructions.md
 - **Images**: IMAGE_OPTIMIZATION.md, IMAGE_QUALITY_MONITORING.md, IMAGE_RESOURCES.md
 - **Performance**: performance-testing-checklist.md, VIRTUALIZATION.md, REACT_QUERY_SETUP.md
@@ -82,7 +83,7 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 ### By Role
 
 **Content Writers:**
-- Main README, CONTRIBUTING, CONTENT_STANDARDIZATION_GUIDE
+- Main README, CONTRIBUTING, CONTENT_STANDARDIZATION_GUIDE, MISSING_SPECIES_LIST
 
 **Developers:**
 - AGENTS, .github/instructions/, all technical guides in docs/
@@ -91,7 +92,7 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 - NEXT_STEPS, accessibility-testing-checklist, performance-testing-checklist
 
 **Project Managers:**
-- improvement-roadmap, NEXT_STEPS, Main README
+- improvement-roadmap, MISSING_SPECIES_LIST, NEXT_STEPS, Main README
 
 ## 📦 Archived Documentation
 
