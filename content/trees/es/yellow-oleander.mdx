@@ -71,7 +71,8 @@ wildlifeRisks: "Altamente tóxica para todos los animales domésticos incluyendo
 ## Referencia Rápida
 
 <QuickRef
-  data={[
+  title="Referencia Rápida"
+  items={[
     { label: "Nombre Científico", value: "Thevetia peruviana" },
     { label: "Familia", value: "Apocynaceae (Familia de la Adelfa)" },
     {
@@ -82,7 +83,10 @@ wildlifeRisks: "Altamente tóxica para todos los animales domésticos incluyendo
     { label: "Región Nativa", value: "Américas Tropicales" },
     { label: "Forma de Crecimiento", value: "Arbusto grande o árbol pequeño" },
     { label: "Altura", value: "3-8 metros" },
-    { label: "Flores", value: "Amarillo brillante, forma de trompeta, fragantes" },
+    {
+      label: "Flores",
+      value: "Amarillo brillante, forma de trompeta, fragantes",
+    },
     { label: "Parte Más Tóxica", value: "Semillas (parecen almendras)" },
     { label: "Conservación", value: "Preocupación Menor (LC)" },
   ]}
@@ -380,20 +384,22 @@ Existe debate sobre la regulación:
 
 ## Recursos Externos
 
-<ResourceLinks
-  resources={[
-    {
-      title: "OMS: Toxinas Vegetales - Glucósidos Cardíacos",
-      url: "https://www.who.int/",
-      type: "Base de Datos",
-    },
-    {
-      title: "iNaturalist: Thevetia peruviana",
-      url: "https://www.inaturalist.org/taxa/54853-Thevetia-peruviana",
-      type: "Base de Datos",
-    },
-  ]}
-/>
+<ExternalLinksGrid>
+  <ExternalLink
+    href="https://www.who.int/"
+    title="OMS: Toxinas Vegetales - Glucósidos Cardíacos"
+    description="Información de la Organización Mundial de la Salud sobre toxinas de glucósidos cardíacos"
+    icon="🏥"
+    source="Base de Datos OMS"
+  />
+  <ExternalLink
+    href="https://www.inaturalist.org/taxa/54853-Thevetia-peruviana"
+    title="iNaturalist: Thevetia peruviana"
+    description="Observaciones comunitarias, fotos y datos de distribución"
+    icon="🌿"
+    source="Observaciones globales"
+  />
+</ExternalLinksGrid>
 
 ## Resumen Crítico de Seguridad
 

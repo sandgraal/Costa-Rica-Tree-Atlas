@@ -70,7 +70,8 @@ wildlifeRisks: "Highly toxic to all domestic animals including dogs, cats, horse
 ## Quick Reference
 
 <QuickRef
-  data={[
+  title="Quick Reference"
+  items={[
     { label: "Scientific Name", value: "Thevetia peruviana" },
     { label: "Family", value: "Apocynaceae (Dogbane Family)" },
     {
@@ -379,20 +380,22 @@ Debate exists about regulation:
 
 ## External Resources
 
-<ResourceLinks
-  resources={[
-    {
-      title: "WHO: Plant Toxins - Cardiac Glycosides",
-      url: "https://www.who.int/",
-      type: "Database",
-    },
-    {
-      title: "iNaturalist: Thevetia peruviana",
-      url: "https://www.inaturalist.org/taxa/54853-Thevetia-peruviana",
-      type: "Database",
-    },
-  ]}
-/>
+<ExternalLinksGrid>
+  <ExternalLink
+    href="https://www.who.int/"
+    title="WHO: Plant Toxins - Cardiac Glycosides"
+    description="World Health Organization information on cardiac glycoside toxins"
+    icon="🏥"
+    source="WHO Database"
+  />
+  <ExternalLink
+    href="https://www.inaturalist.org/taxa/54853-Thevetia-peruviana"
+    title="iNaturalist: Thevetia peruviana"
+    description="Community observations, photos, and distribution data"
+    icon="🌿"
+    source="Global observations"
+  />
+</ExternalLinksGrid>
 
 ## Critical Safety Summary
 

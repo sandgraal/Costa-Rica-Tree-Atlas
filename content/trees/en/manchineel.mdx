@@ -68,11 +68,15 @@ wildlifeRisks: "Fruit is toxic to most mammals including all domestic animals (d
 ## Quick Reference
 
 <QuickRef
-  data={[
+  title="Quick Reference"
+  items={[
     { label: "Scientific Name", value: "Hippomane mancinella" },
     { label: "Family", value: "Euphorbiaceae (Spurge Family)" },
     { label: "Common Names", value: "Manchineel, Beach Apple, Manzanillo" },
-    { label: "Danger Level", value: "⛔ EXTREME - World's Most Dangerous Tree" },
+    {
+      label: "Danger Level",
+      value: "⛔ EXTREME - World's Most Dangerous Tree",
+    },
     { label: "Native Region", value: "Caribbean, Central America" },
     { label: "Habitat", value: "Coastal beaches, mangrove edges" },
     { label: "Height", value: "Up to 15 meters" },
@@ -299,25 +303,29 @@ Despite extreme danger, Manchineel has conservation value:
 
 ## External Resources
 
-<ResourceLinks
-  resources={[
-    {
-      title: "Guinness World Records: Most Dangerous Tree",
-      url: "https://www.guinnessworldrecords.com/world-records/most-dangerous-tree",
-      type: "Database",
-    },
-    {
-      title: "USDA PLANTS Database: Hippomane mancinella",
-      url: "https://plants.usda.gov/home/plantProfile?symbol=HIMA3",
-      type: "Database",
-    },
-    {
-      title: "iNaturalist: Hippomane mancinella",
-      url: "https://www.inaturalist.org/taxa/57773-Hippomane-mancinella",
-      type: "Database",
-    },
-  ]}
-/>
+<ExternalLinksGrid>
+  <ExternalLink
+    href="https://www.guinnessworldrecords.com/world-records/most-dangerous-tree"
+    title="Guinness World Records: Most Dangerous Tree"
+    description="Official record listing Manchineel as the world's most dangerous tree"
+    icon="🏆"
+    source="Guinness World Records"
+  />
+  <ExternalLink
+    href="https://plants.usda.gov/home/plantProfile?symbol=HIMA3"
+    title="USDA PLANTS Database: Hippomane mancinella"
+    description="Comprehensive botanical and distribution information"
+    icon="🌱"
+    source="USDA Database"
+  />
+  <ExternalLink
+    href="https://www.inaturalist.org/taxa/57773-Hippomane-mancinella"
+    title="iNaturalist: Hippomane mancinella"
+    description="Community observations, photos, and distribution data"
+    icon="🌿"
+    source="Global observations"
+  />
+</ExternalLinksGrid>
 
 ## Critical Safety Summary
 
