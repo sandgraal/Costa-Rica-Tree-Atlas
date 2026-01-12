@@ -194,7 +194,7 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Glossary route exists at `/glossary`
 - [x] **100-term target COMPLETE!** ✅
 - [ ] Continue to 100+ terms with indigenous terminology (Bribri, Cabécar plant names)
-- [ ] Inline tooltips not yet implemented
+- [x] **Inline tooltips IMPLEMENTED!** ✅ _(GlossaryTooltip component with hover/focus states, AutoGlossaryLink integration)_
 
 ### Care Guidance Coverage
 
@@ -233,9 +233,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 **CARE GUIDANCE COMPLETE: 60/60 trees with full bilingual parity! 🎉**
 
-- [x] **12/20 priority comparison guides documented (60% complete - MORE THAN HALF!)** ✅ _(Updated 2026-01-12 Session #4)_
+- [x] **12/20 priority comparison guides documented (60% complete - MORE THAN HALF!)** ✅ _(Verified 2026-01-12: 12 EN + 12 ES files)_
 - Target: 20 comparison guides (can continue later as Phase 2 expansion)
-- `/compare` route exists with 11 comprehensive comparisons
+- `/compare` route exists with comparison tool; 12 comprehensive written guides in `/content/comparisons/`
 
 ### Existing Features (Verified 2026-01-10)
 
@@ -507,7 +507,7 @@ image: "/images/glossary/palmate-leaf.jpg"
 
 ### 2.2 Care & Cultivation Guidance
 
-**STATUS: 30/60 priority species have care data (50% complete - MILESTONE REACHED! 🎉)** _(UPDATED 2026-01-12: Added 7 more species in autonomous session)_
+**STATUS: 60/60 priority species have care data (100% COMPLETE - TARGET ACHIEVED! 🎉)** _(VERIFIED 2026-01-12: All 60 target species have complete care guidance)_
 
 **Completed Species (30):**
 
@@ -582,7 +582,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
-**STATUS: 55% complete (11/20 guides - MORE THAN HALF!)** _(UPDATED 2026-01-12: Added Cocobolo vs. Cristóbal)_
+**STATUS: 60% complete (12/20 guides - MORE THAN HALF!)** _(VERIFIED 2026-01-12: 12 EN + 12 ES comparison files in content/comparisons/)_
 
 **MVP Requirements:**
 
@@ -598,7 +598,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Teca vs. Melina** comparison guide complete ✅ _(Added 2026-01-12 Autonomous: plantation timber investment)_
 - [x] **Zapote vs. Níspero** comparison guide complete ✅ _(Added 2026-01-12 Autonomous: Sapotaceae sweet fruits)_
 - [x] **Cocobolo vs. Cristóbal** comparison guide complete ✅ _(Added 2026-01-12 Session #4: premium rosewoods, conservation contrast)_
-- [ ] Build 9 more comparison guides (11/20 complete, 55%)
+- [ ] Build 8 more comparison guides (12/20 complete, 60%)
 
 **Priority Confusion Sets:**
 
@@ -613,7 +613,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 9. ✅ Teca vs. Melina (plantation timber - COMPLETED 2026-01-12)
 10. ✅ Zapote vs. Níspero (Sapotaceae fruits - COMPLETED 2026-01-12)
 11. ✅ Cocobolo vs. Cristóbal (premium rosewoods - COMPLETED 2026-01-12)
-12. [ ] Ojoche vs. Javillo (tall Moraceae)
+12. [x] **Ojoche vs. Javillo** (tall rainforest trees - safe vs. dangerous) ✅ _(Completed 2026-01-12: Critical safety comparison)_
 13. [ ] Guayacán Real vs. Madero Negro (hardwoods)
 14. [ ] Aguacate vs. Aguacatillo (Lauraceae confusion)
         15-20. [Identify from user feedback/search queries]
