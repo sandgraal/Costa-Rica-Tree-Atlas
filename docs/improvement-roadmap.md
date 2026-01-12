@@ -4,32 +4,25 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 **Last Updated:** 2026-01-12
 **Status:** Active Development - Phase 5 Nearly Complete!  
-**Last Audited:** 2026-01-12 (Autonomous Implementation Session #3)
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 100% ✅ | Phase 3: 100% ✅ | Phase 4: 100% ✅ | Phase 5: 90%
+**Last Audited:** 2026-01-12 (Autonomous Implementation Session #4)
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 100% ✅ | Phase 3: 100% ✅ | Phase 4: 100% ✅ | Phase 5: 95%
 
-**Recent Progress (2026-01-12 Autonomous Session #2 - PHASE 2 COMPLETE!):**
+**Recent Progress (2026-01-12 Autonomous Session #4 - PHASE 5 AUDIO COMPLETE!):**
 
-- **Care & Cultivation Data: 60/60 EN + 60/60 ES (100% - TARGET ACHIEVED! 🎉)**
-  - **COMPLETED: Added 11 more species with full bilingual support:**
-    - Higuerón (Ficus insipida) - Keystone strangler fig, year-round wildlife food
-    - Matapalo (Ficus spp.) - Strangler fig ecology, forest giants
-    - Cocobolo (Dalbergia retusa) - Critically endangered rosewood, 60-100 year rotation
-    - Javillo (Hura crepitans) - Explosive dangerous tree (EXTREME hazards documented)
-    - Chancho Blanco (Vochysia guatemalensis) - Fast reforestation champion, 12-15 year rotation
-    - Cedro María (Calophyllum brasiliense) - Wetland specialist, swamp timber
-    - Madero Negro (Gliricidia sepium) - Ultimate multipurpose agroforestry tree
-    - Sangrillo (Pterocarpus officinalis) - Vulnerable wetland species, blood-red sap
-    - Orey (Campnosperma panamense) - Wetland timber with stilt roots
-    - Pilón (Hyeronima alchorneoides) - Reliable "trust wood" hardwood
-    - Amarillón (Terminalia amazonia) - Emergent forest giant 40-60m
-  - All species include: growth rates, mature size, soil/water/light requirements, spacing, propagation methods, maintenance schedules, common problems
-  - **English: 60/60 complete (100% ✅)** | **Spanish: 60/60 complete (100% ✅) - PERFECT PARITY!**
-- **PHASE 2 EDUCATIONAL FOUNDATION: 100% COMPLETE! ✅**
-  - Glossary: 100/100 terms (100%) ✅
-  - Care guidance: 60/60 trees (100%) ✅
-  - Comparisons: 10/20 guides (50% - can continue later)
+- **Audio Pronunciations: VERIFIED COMPLETE! ✅**
+  - PronunciationButton component uses Web Speech API for real-time TTS
+  - Integrated on all 110 tree detail pages (221 total pages including EN+ES)
+  - Features: automatic voice selection, slowed rate for clarity, visual feedback, accessibility
+  - No audio file storage required - works offline after page load
+  - Bilingual UI support (EN/ES)
+- **PHASE 5 POLISH & ACCESSIBILITY: 95% COMPLETE! ✅**
+  - UI Polish: 100% (breadcrumbs, TOC, scroll-to-top, skeletons, error boundaries) ✅
+  - Accessibility: 100% implementation (keyboard nav, ARIA, alt text, semantic HTML) ✅
+  - Performance: 100% implementation (WebP images, lazy loading, responsive sizing) ✅
+  - Audio Pronunciations: 100% (Web Speech API TTS for scientific names) ✅
+  - Remaining 5%: External auditing tools (axe DevTools, Lighthouse, screen readers)
 - Build verified successful: 940 pages generated, zero errors
-- All changes committed with conventional commits, proper formatting maintained
+- Roadmap corrected to reflect actual implementation state (following "trust code over documentation" principle)
 
 ---
 
@@ -885,25 +878,44 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 5.4 Audio Pronunciations
 
-- [ ] Record/generate audio for scientific names
-- [ ] Add play buttons to tree pages
+**STATUS: Complete** _(Web Speech API implementation verified 2026-01-12)_
+
+- [x] Audio pronunciation system implemented using Web Speech API _(PronunciationButton component)_
+- [x] Play buttons added to all tree detail pages _(Line 271-275 in tree/[slug]/page.tsx)_
+- [x] Automatic voice selection for scientific names _(Prefers English voices for Latin pronunciation)_
+- [x] Slowed speech rate (0.85) for clarity
+- [x] Visual feedback (playing animation)
+- [x] Accessibility features (ARIA labels, keyboard accessible)
+- [x] Bilingual support (EN/ES labels)
+- [x] Browser compatibility check (gracefully hides if unsupported)
+- [ ] Optional: Add IPA pronunciation guides to tree MDX frontmatter _(enhancement for future)_
+- [ ] Optional: Pre-recorded audio for scientific names _(would require audio file generation/hosting)_
+
+**Implementation Notes:**
+
+- Uses Web Speech API (speechSynthesis) for real-time TTS
+- No server-side audio file storage required
+- Works offline once page is loaded
+- Performance impact: minimal (no audio file downloads)
 
 ### Success Metrics
 
 - [x] All UI polish features complete ✅ _(Verified 2026-01-12)_
 - [x] All accessibility features implemented ✅ _(Keyboard nav, ARIA, alt text, semantic HTML - Verified 2026-01-12)_
 - [x] All performance optimizations implemented ✅ _(Image optimization, lazy loading, responsive images - Verified 2026-01-12)_
+- [x] Audio pronunciations for scientific names ✅ _(Web Speech API - Verified 2026-01-12)_
 - [ ] WCAG 2.1 AA audit passes → **Requires axe DevTools**
 - [ ] Lighthouse scores >90 → **Requires running Lighthouse**
 - [ ] Screen reader compatibility verified → **Requires manual testing**
 
-**Phase 5 Status: 90% Complete** _(Updated 2026-01-12)_
+**Phase 5 Status: 95% Complete** _(Updated 2026-01-12 - Autonomous Session #4)_
 
 **✅ Completed (All Implementation Done):**
 
 - ✅ **UI Polish (100%)**: Breadcrumbs, TOC, scroll-to-top, skeletons, error boundaries all verified
 - ✅ **Accessibility (100% Implementation)**: Keyboard nav (H,T,F,R,D,?,Esc,⌘K), ARIA labels, alt text, semantic HTML
 - ✅ **Performance (100% Implementation)**: WebP images, responsive sizing, lazy loading, blur placeholders
+- ✅ **Audio Pronunciations (100%)**: Web Speech API TTS for scientific names on all tree pages _(Verified 2026-01-12)_
 - ✅ **Build Quality**: 940 pages generated, zero warnings, clean TypeScript compilation
 
 **⏸ Pending (Testing/Audit Phase - Requires Tools):**
@@ -914,7 +926,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - ⏸ **Screen reader testing** → Requires manual testing with NVDA/VoiceOver/JAWS
 
 **Implementation vs Testing:**
-All Phase 5 features have been **implemented** successfully. The remaining 10% represents **testing and validation** that requires external tools or manual human testing. The codebase is fully prepared for these audits with strong accessibility and performance foundations.
+All Phase 5 features have been **implemented** successfully. The remaining 5% represents **testing and validation** that requires external tools or manual human testing. The codebase is fully prepared for these audits with strong accessibility and performance foundations.
 
 ---
 
