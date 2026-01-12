@@ -5,21 +5,27 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 **Last Updated:** 2026-01-12  
 **Status:** Active Development - Autonomous Implementation in Progress  
 **Last Audited:** 2026-01-12  
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 57% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 69% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
 
 **Recent Progress (2026-01-12 Autonomous Session - Current):**
 
-- **Care & Cultivation Data: 23/60 species complete (38%)**
-  - Previous: 12 species (Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro)
-  - Added: Coco, Nance, Papaya (existing but uncounted)
-  - Session additions: Jobo (living fences), Cas (Costa Rican guava), Carambola (star fruit)
-  - Session additions: Anona (custard apple), Caimito (star apple), Balsa (fastest-growing), Indio Desnudo (gumbo-limbo)
-  - Session additions: Caoba (mahogany timber) ✅
+- **Care & Cultivation Data: 30/60 species complete (50% MILESTONE REACHED! 🎉)**
+  - Previous batch (23 species): Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro, Coco, Nance, Papaya, Jobo, Cas, Carambola, Anona, Caimito, Balsa, Indio Desnudo, Caoba
+  - **NEW Session additions (7 species):**
+    - Cortez Negro - Spectacular flowering ornamental, low maintenance
+    - Zapote - Beloved batido fruit, slow growth but worth wait
+    - Guanábana - Soursop/graviola, tangy juice favorite
+    - Marañón - Cashew tree, extremely low maintenance
+    - Teca - Premium timber, requires distinct dry season
+    - Ojoche - Maya superfood, 300-600 lbs seeds/year
+    - Espavel - Riparian giant, critical watershed species
   - All additions include complete cultivation guidance with bilingual parity (EN+ES)
-- **Comparison guides: 7/20 complete (35%)** _(UPDATED: Added Mango vs Marañón)_
-  - New guide covers urushiol safety, fruit structure differences, identification keys
-  - Both important cultivated Anacardiaceae fruit trees with skin contact risks
-- Phase 2 Educational Foundation at 57% completion
+  - Comprehensive data: growth rates, spacing, water/soil/light needs, propagation, maintenance schedules, common problems
+- **Comparison guides: 8/20 complete (40%)** _(UPDATED: Added Guanábana vs Anona)_
+  - NEW: Guanábana vs Anona - Annonaceae fruit cousins (spiny large vs scaly small)
+  - Detailed guide covers size, texture, flavor, cultivation differences, toxic seed warnings
+  - 10,000+ words with full bilingual support
+- **Phase 2 Educational Foundation at 69% completion** (↑ from 57%)
 - Build verified successful: 940 pages generated, zero errors
 
 ---
@@ -186,26 +192,49 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Care Guidance Coverage
 
-- [x] 12/60 priority species have complete care sections (20% complete)
+- [x] 30/60 priority species have complete care sections (50% complete - **MILESTONE REACHED!** 🎉)
 - Schema exists in contentlayer.config.ts
 - Target: Top 60 most-viewed species first
 
-**Completed Species (12):**
+**Completed Species (30):**
 
-- [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
-- [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
-- [x] Mango (King of fruits) - Moderate growth, pruning essential, fruit management ✅
-- [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
-- [x] Almendro (Critical macaw habitat) - Slow-growing emergent, specialized rainforest species ✅
-- [x] Pochote (Endangered dry forest) - Moderate growth, drought-tolerant, temporary trunk spines ✅
-- [x] Corteza Amarilla (Golden flowering) - Moderate growth, urban-suitable, spectacular blooms ✅
+**Initial batch (23 species - previously completed):**
+
 - [x] Aguacate (Avocado) - Moderate growth, drainage critical, pet toxicity concerns ✅
+- [x] Almendro (Critical macaw habitat) - Slow-growing emergent, specialized rainforest species ✅
+- [x] Anona (Custard Apple) - Moderate growth, compact fruit tree, toxic seeds ✅
+- [x] Balsa (Lightest Wood) - EXTREMELY fast growth, pioneer species, short-lived ✅
 - [x] Cacao (Chocolate) - Moderate growth, shade-dependent, disease management crucial ✅
-- [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
+- [x] Caimito (Star Apple) - Moderate growth, ornamental leaves, latex concerns ✅
+- [x] Caoba (Mahogany) - Moderate growth, endangered timber, shoot borer challenges ✅
+- [x] Carambola (Star Fruit) - Moderate growth, ornamental + fruit, kidney warning ✅
+- [x] Cas (Costa Rican Guava) - Moderate growth, highland fruit, tart juice favorite ✅
 - [x] Cedro Amargo (Spanish Cedar) - Fast growth, vulnerable species, shoot borer challenges ✅
+- [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
 - [x] Cenízaro (Rain Tree) - Fast growth, massive crown (40-60m spread), iconic shade tree ✅
+- [x] Coco (Coconut Palm) - Moderate growth, coastal specialist, falling fruit hazard ✅
+- [x] Corteza Amarilla (Golden flowering) - Moderate growth, urban-suitable, spectacular blooms ✅
+- [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
+- [x] Indio Desnudo (Gumbo-Limbo) - Fast growth, living fences, ultra-low maintenance ✅
+- [x] Jobo (Hog Plum) - Fast growth, living fences, easy propagation from cuttings ✅
+- [x] Mango (King of fruits) - Moderate growth, pruning essential, fruit management ✅
+- [x] Nance (Golden Spoon) - Small tree, drought-tolerant, produces sweet fruit ✅
+- [x] Papaya (Papaya) - Very fast growth, short-lived, tropical fruit production ✅
+- [x] Pochote (Endangered dry forest) - Moderate growth, drought-tolerant, temporary trunk spines ✅
+- [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
+- [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
 
-- [x] 2/20 priority comparison guides documented (10% complete) - Added Guanacaste vs Cenízaro ✅
+**NEW - Added 2026-01-12 Autonomous Session (7 species):**
+
+- [x] Cortez Negro (Pink Trumpet) - Moderate growth, low maintenance, spectacular flowering ✅ NEW
+- [x] Espavel (Wild Cashew) - Fast growth in riparian zones, massive emergent tree ✅ NEW
+- [x] Guanábana (Soursop) - Moderate growth, compact size, hand-pollination tips ✅ NEW
+- [x] Marañón (Cashew) - Fast growth, extremely low maintenance, drought-tolerant ✅ NEW
+- [x] Ojoche (Breadnut) - Moderate growth, Maya superfood, 300-600 lbs seeds/year ✅ NEW
+- [x] Teca (Teak) - Fast growth, premium timber, requires distinct dry season ✅ NEW
+- [x] Zapote (Mamey Sapote) - Slow growth, high water needs, patience required 5-8 years ✅ NEW
+
+- [x] 8/20 priority comparison guides documented (40% complete) ✅
 - Target: 20 comparison guides
 - `/compare` route exists with at least 1 comparison
 
@@ -479,54 +508,68 @@ image: "/images/glossary/palmate-leaf.jpg"
 
 ### 2.2 Care & Cultivation Guidance
 
-**STATUS: 23/60 priority species have care data (38% complete)** _(UPDATED 2026-01-12: Added 11 more species in autonomous session)_
+**STATUS: 30/60 priority species have care data (50% complete - MILESTONE REACHED! 🎉)** _(UPDATED 2026-01-12: Added 7 more species in autonomous session)_
 
-**Completed Species (23):**
+**Completed Species (30):**
 
-- [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
-- [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
-- [x] Mango (King of fruits) - Moderate growth, pruning essential, fruit management ✅
-- [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
-- [x] Almendro (Critical macaw habitat) - Slow-growing emergent, specialized rainforest species ✅
-- [x] Pochote (Endangered dry forest) - Moderate growth, drought-tolerant, temporary trunk spines ✅
-- [x] Corteza Amarilla (Golden flowering) - Moderate growth, urban-suitable, spectacular blooms ✅
+**Initial batch (23 species - previously completed):**
+
 - [x] Aguacate (Avocado) - Moderate growth, drainage critical, pet toxicity concerns ✅
+- [x] Almendro (Critical macaw habitat) - Slow-growing emergent, specialized rainforest species ✅
+- [x] Anona (Custard Apple) - Moderate growth, compact fruit tree, toxic seeds ✅
+- [x] Balsa (Lightest Wood) - EXTREMELY fast growth, pioneer species, short-lived ✅
 - [x] Cacao (Chocolate) - Moderate growth, shade-dependent, disease management crucial ✅
-- [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
+- [x] Caimito (Star Apple) - Moderate growth, ornamental leaves, latex concerns ✅
+- [x] Caoba (Mahogany) - Moderate growth, endangered timber, shoot borer challenges ✅
+- [x] Carambola (Star Fruit) - Moderate growth, ornamental + fruit, kidney warning ✅
+- [x] Cas (Costa Rican Guava) - Moderate growth, highland fruit, tart juice favorite ✅
 - [x] Cedro Amargo (Spanish Cedar) - Fast growth, vulnerable species, shoot borer challenges ✅
+- [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
 - [x] Cenízaro (Rain Tree) - Fast growth, massive crown (40-60m spread), iconic shade tree ✅
 - [x] Coco (Coconut Palm) - Moderate growth, coastal specialist, falling fruit hazard ✅
+- [x] Corteza Amarilla (Golden flowering) - Moderate growth, urban-suitable, spectacular blooms ✅
+- [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
+- [x] Indio Desnudo (Gumbo-Limbo) - Fast growth, living fences, ultra-low maintenance ✅
+- [x] Jobo (Hog Plum) - Fast growth, living fences, easy propagation from cuttings ✅
+- [x] Mango (King of fruits) - Moderate growth, pruning essential, fruit management ✅
 - [x] Nance (Golden Spoon) - Small tree, drought-tolerant, produces sweet fruit ✅
 - [x] Papaya (Papaya) - Very fast growth, short-lived, tropical fruit production ✅
-- [x] Jobo (Hog Plum) - Fast growth, living fences, easy propagation from cuttings ✅ NEW
-- [x] Cas (Costa Rican Guava) - Moderate growth, highland fruit, tart juice favorite ✅ NEW
-- [x] Carambola (Star Fruit) - Moderate growth, ornamental + fruit, kidney warning ✅ NEW
-- [x] Anona (Custard Apple) - Moderate growth, compact fruit tree, toxic seeds ✅ NEW
-- [x] Caimito (Star Apple) - Moderate growth, ornamental leaves, latex concerns ✅ NEW
-- [x] Balsa (Lightest Wood) - EXTREMELY fast growth, pioneer species, short-lived ✅ NEW
-- [x] Indio Desnudo (Gumbo-Limbo) - Fast growth, living fences, ultra-low maintenance ✅ NEW
-- [x] Caoba (Mahogany) - Moderate growth, endangered timber, shoot borer challenges ✅ NEW
+- [x] Pochote (Endangered dry forest) - Moderate growth, drought-tolerant, temporary trunk spines ✅
+- [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
+- [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
+
+**NEW - Added 2026-01-12 Autonomous Session (7 species):**
+
+- [x] Cortez Negro (Pink Trumpet) - Moderate growth, low maintenance, spectacular flowering ✅ NEW
+- [x] Espavel (Wild Cashew) - Fast growth in riparian zones, massive emergent tree ✅ NEW
+- [x] Guanábana (Soursop) - Moderate growth, compact size, hand-pollination tips ✅ NEW
+- [x] Marañón (Cashew) - Fast growth, extremely low maintenance, drought-tolerant ✅ NEW
+- [x] Ojoche (Breadnut) - Moderate growth, Maya superfood, 300-600 lbs seeds/year ✅ NEW
+- [x] Teca (Teak) - Fast growth, premium timber, requires distinct dry season ✅ NEW
+- [x] Zapote (Mamey Sapote) - Slow growth, high water needs, patience required 5-8 years ✅ NEW
 
 **MVP Requirements:**
 
 - [x] Care fields already in contentlayer schema (growthRate, matureHeight, soilRequirements, etc.)
-- [ ] Document care guidance for top 60 most-viewed species first (23/60 = 38%)
-- [ ] Expand to all 110 species
+- [x] **50% MILESTONE: Document care guidance for 30/60 top species** ✅ COMPLETE!
+- [ ] Continue to 60/60 species (50% remaining)
+- [ ] Eventually expand to all 110 species
 
 **Care Data Schema:**
 
 ```yaml
 growthRate: "slow" | "moderate" | "fast"
 growthRateDetails: "2-3 ft/year when young"
-matureHeight: "40-60 ft"
-matureSpread: "30-40 ft"
+matureSize: "40-60 ft tall, 30-40 ft spread"
 soilRequirements: "Well-drained, tolerates clay"
-waterNeeds: "Moderate once established"
-lightRequirements: "Full sun"
-spacingFromBuildings: "20 ft minimum"
+waterNeeds: "low" | "moderate" | "high"
+waterDetails: "Specific watering instructions"
+lightRequirements: "full-sun" | "partial-shade" | "shade-tolerant"
+spacing: "20 ft minimum from buildings"
 propagationMethods: ["seeds", "cuttings"]
+propagationDifficulty: "easy" | "moderate" | "difficult"
 plantingSeason: "Rainy season (May-November)"
-establishmentCare: "Water deeply twice weekly for first 6 months"
+maintenanceNeeds: "Year-by-year care schedule"
 commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 ```
 
@@ -540,7 +583,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
-**STATUS: 35% complete (7/20 guides)** _(UPDATED 2026-01-12: Added Mango vs Marañón)_
+**STATUS: 40% complete (8/20 guides)** _(UPDATED 2026-01-12: Added Guanábana vs Anona)_
 
 **MVP Requirements:**
 
@@ -552,17 +595,24 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Corteza Amarilla vs. Roble de Sabana** comparison guide complete ✅ _(Added 2026-01-12: flowering trees)_
 - [x] **Higuerón vs. Matapalo** comparison guide complete ✅ _(Added 2026-01-12: strangler figs)_
 - [x] **Mango vs. Marañón** comparison guide complete ✅ _(Added 2026-01-12: Anacardiaceae urushiol cousins)_
-- [ ] Build 13 more comparison guides (7/20 complete, 35%)
+- [x] **Guanábana vs. Anona** comparison guide complete ✅ _(Added 2026-01-12: Annonaceae custard apples)_
+- [ ] Build 12 more comparison guides (8/20 complete, 40%)
 
 **Priority Confusion Sets:**
 
-1. Ceiba vs. Pochote
-2. Guanacaste vs. Cenízaro
-3. Fig species (Ficus spp.)
-4. Palm species differentiation
-5. Similar flowering trees
-6. Similar leaf structure trees
-   7-10. [Identify from user feedback/search queries]
+1. ✅ Ceiba vs. Pochote (massive dry forest trees)
+2. ✅ Guanacaste vs. Cenízaro (legume giants)
+3. ✅ Higuerón vs. Matapalo (strangler figs)
+4. ✅ Coyol vs. Pejibaye (spiny palms)
+5. ✅ Corteza Amarilla vs. Roble de Sabana (flowering trees)
+6. ✅ Cedro Amargo vs. Cedro María (cedars)
+7. ✅ Mango vs. Marañón (Anacardiaceae urushiol)
+8. ✅ Guanábana vs. Anona (Annonaceae fruits)
+9. [ ] Teca vs. Melina (plantation timber)
+10. [ ] Zapote vs. Níspero (Sapotaceae fruits)
+11. [ ] Cocobolo vs. Cristóbal (premium rosewoods)
+12. [ ] Ojoche vs. Javillo (tall Moraceae)
+        13-20. [Identify from user feedback/search queries]
 
 **Comparison Guide Structure:**
 
