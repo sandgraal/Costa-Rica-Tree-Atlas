@@ -38,7 +38,10 @@
       "discover": "Discover a Random Tree",
       "newTree": "Show Me a Tree",
       "learnMore": "Learn More"
-    }
+    },
+    "loadMore": "Load More",
+    "showing": "Showing {showing} of {total}",
+    "showingCount": "Showing {count} of {total}"
   },
   "trees": {
     "title": "Tree Directory",
