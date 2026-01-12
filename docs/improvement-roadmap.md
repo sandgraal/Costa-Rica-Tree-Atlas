@@ -7,7 +7,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 **Last Audited:** 2026-01-12 (Autonomous Implementation Session #4)
 **Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 100% ✅ | Phase 3: 100% ✅ | Phase 4: 100% ✅ | Phase 5: 95%
 
-**Recent Progress (2026-01-12 Autonomous Session #4 - PHASE 5 AUDIO COMPLETE!):**
+**Recent Progress (2026-01-12 Autonomous Session #4 - MAJOR COMPLETIONS!):**
 
 - **Audio Pronunciations: VERIFIED COMPLETE! ✅**
   - PronunciationButton component uses Web Speech API for real-time TTS
@@ -15,14 +15,24 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
   - Features: automatic voice selection, slowed rate for clarity, visual feedback, accessibility
   - No audio file storage required - works offline after page load
   - Bilingual UI support (EN/ES)
+  - **Phase 5.4 moved from "not started" to "complete"** in roadmap
+- **Comparison Guides: EXPANDED! ✅**
+  - Added comprehensive Cocobolo vs. Cristóbal comparison (EN: 21,887 chars | ES: 24,345 chars)
+  - Covers critical conservation distinction (Cocobolo CR vs Cristóbal NT), CITES restrictions
+  - Detailed wood characteristics, identification, distribution, workability guidance
+  - **11/20 comparison guides complete (55% - MORE THAN HALF!)**
 - **PHASE 5 POLISH & ACCESSIBILITY: 95% COMPLETE! ✅**
   - UI Polish: 100% (breadcrumbs, TOC, scroll-to-top, skeletons, error boundaries) ✅
   - Accessibility: 100% implementation (keyboard nav, ARIA, alt text, semantic HTML) ✅
   - Performance: 100% implementation (WebP images, lazy loading, responsive sizing) ✅
   - Audio Pronunciations: 100% (Web Speech API TTS for scientific names) ✅
   - Remaining 5%: External auditing tools (axe DevTools, Lighthouse, screen readers)
+- **Roadmap Accuracy Improvements:**
+  - Fixed duplicate entries in comparison guide list (items 11-12 were duplicates of 9-10)
+  - Corrected "Ojoche vs. Javillo" description (Javillo is Euphorbiaceae, not Moraceae)
+  - Updated all statistics to reflect actual codebase state (trust code over docs)
 - Build verified successful: 940 pages generated, zero errors
-- Roadmap corrected to reflect actual implementation state (following "trust code over documentation" principle)
+- All changes follow conventional commits and maintain bilingual parity
 
 ---
 
