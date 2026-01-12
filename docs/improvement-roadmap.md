@@ -223,9 +223,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 **CARE GUIDANCE COMPLETE: 60/60 trees with full bilingual parity! 🎉**
 
-- [x] 10/20 priority comparison guides documented (50% complete) ✅
+- [x] **12/20 priority comparison guides documented (60% complete - MORE THAN HALF!)** ✅ _(Updated 2026-01-12 Session #4)_
 - Target: 20 comparison guides (can continue later as Phase 2 expansion)
-- `/compare` route exists with 10 comprehensive comparisons
+- `/compare` route exists with 11 comprehensive comparisons
 
 ### Existing Features (Verified 2026-01-10)
 
@@ -572,7 +572,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
-**STATUS: 50% complete (10/20 guides - HALF-WAY MILESTONE!)** _(UPDATED 2026-01-12: Added Teca vs. Melina + Zapote vs. Níspero)_
+**STATUS: 55% complete (11/20 guides - MORE THAN HALF!)** _(UPDATED 2026-01-12: Added Cocobolo vs. Cristóbal)_
 
 **MVP Requirements:**
 
@@ -587,7 +587,8 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Guanábana vs. Anona** comparison guide complete ✅ _(Added 2026-01-12: Annonaceae custard apples)_
 - [x] **Teca vs. Melina** comparison guide complete ✅ _(Added 2026-01-12 Autonomous: plantation timber investment)_
 - [x] **Zapote vs. Níspero** comparison guide complete ✅ _(Added 2026-01-12 Autonomous: Sapotaceae sweet fruits)_
-- [ ] Build 10 more comparison guides (10/20 complete, 50%)
+- [x] **Cocobolo vs. Cristóbal** comparison guide complete ✅ _(Added 2026-01-12 Session #4: premium rosewoods, conservation contrast)_
+- [ ] Build 9 more comparison guides (11/20 complete, 55%)
 
 **Priority Confusion Sets:**
 
@@ -601,11 +602,11 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 8. ✅ Guanábana vs. Anona (Annonaceae fruits)
 9. ✅ Teca vs. Melina (plantation timber - COMPLETED 2026-01-12)
 10. ✅ Zapote vs. Níspero (Sapotaceae fruits - COMPLETED 2026-01-12)
-11. [ ] Teca vs. Melina (plantation timber)
-12. [ ] Zapote vs. Níspero (Sapotaceae fruits)
-13. [ ] Cocobolo vs. Cristóbal (premium rosewoods)
-14. [ ] Ojoche vs. Javillo (tall Moraceae)
-        13-20. [Identify from user feedback/search queries]
+11. ✅ Cocobolo vs. Cristóbal (premium rosewoods - COMPLETED 2026-01-12)
+12. [ ] Ojoche vs. Javillo (tall Moraceae)
+13. [ ] Guayacán Real vs. Madero Negro (hardwoods)
+14. [ ] Aguacate vs. Aguacatillo (Lauraceae confusion)
+        15-20. [Identify from user feedback/search queries]
 
 **Comparison Guide Structure:**
 
@@ -655,7 +656,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Inline tooltips functional across site** - COMPLETE! ✅ _(Completed 2026-01-11)_
 - [x] **Top 60 species have complete care guidance (60/60 = 100% COMPLETE!) ✅** _(Completed 2026-01-12)_
 - [x] **Perfect bilingual parity maintained (60 EN + 60 ES) ✅**
-- [x] 10 comparison guides published (10/20 = 50% - can expand later) ✅
+- [x] 11 comparison guides published (11/20 = 55% - MORE THAN HALF!) ✅ _(Updated 2026-01-12 Session #4)_
 - [x] Diagnostic tool handles 10+ common symptoms ✅
 - [x] Quiz has 50+ questions across multiple modes ✅
 
