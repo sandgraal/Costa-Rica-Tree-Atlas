@@ -97,20 +97,28 @@ commonProblems:
 <Column>
 
 <QuickRef
-  height="20-30 m"
-  spread="Variable, forma rodales densos"
-  growth="Moderado"
-  light="Pleno sol"
-  water="Muy alto - zona mareal"
-  soil="Lodo salino"
-  climate="Costero tropical"
-  nativity="Nativo"
+  title="Referencia Rápida"
+  items={[
+    { label: "Nombre Científico", value: "Rhizophora mangle" },
+    { label: "Familia", value: "Rhizophoraceae" },
+    { label: "Altura Máxima", value: "20-30 m (65-100 pies)" },
+    { label: "Tasa de Crecimiento", value: "Moderado (2-3 pies/año)" },
+    { label: "Luz", value: "Pleno sol" },
+    { label: "Necesidades de Agua", value: "Muy alto - zona mareal" },
+    { label: "Suelo", value: "Lodo salino" },
+    { label: "Conservación", value: "Preocupación Menor (UICN)" },
+    { label: "Estado Nativo", value: "Nativo de Costa Rica" },
+  ]}
 />
 
 </Column>
 <Column>
 
-<INaturalistEmbed observationId="rhizophora-mangle" />
+<INaturalistEmbed
+  taxonId="64276"
+  taxonName="Rhizophora mangle"
+  observationCount={12500}
+/>
 
 </Column>
 </TwoColumn>

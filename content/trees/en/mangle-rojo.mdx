@@ -96,20 +96,28 @@ commonProblems:
 <Column>
 
 <QuickRef
-  height="20-30 m"
-  spread="Variable, forms dense stands"
-  growth="Moderate"
-  light="Full sun"
-  water="Very high - tidal zone"
-  soil="Saline mud"
-  climate="Tropical coastal"
-  nativity="Native"
+  title="Quick Reference"
+  items={[
+    { label: "Scientific Name", value: "Rhizophora mangle" },
+    { label: "Family", value: "Rhizophoraceae" },
+    { label: "Max Height", value: "20-30 m (65-100 ft)" },
+    { label: "Growth Rate", value: "Moderate (2-3 ft/year)" },
+    { label: "Light", value: "Full sun" },
+    { label: "Water Needs", value: "Very high - tidal zone" },
+    { label: "Soil", value: "Saline mud" },
+    { label: "Conservation", value: "Least Concern (IUCN)" },
+    { label: "Native Status", value: "Native to Costa Rica" },
+  ]}
 />
 
 </Column>
 <Column>
 
-<INaturalistEmbed observationId="rhizophora-mangle" />
+<INaturalistEmbed
+  taxonId="64276"
+  taxonName="Rhizophora mangle"
+  observationCount={12500}
+/>
 
 </Column>
 </TwoColumn>

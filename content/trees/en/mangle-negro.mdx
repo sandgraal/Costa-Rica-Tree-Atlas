@@ -100,20 +100,28 @@ commonProblems:
 <Column>
 
 <QuickRef
-  height="15-25 m"
-  spread="Variable, forms dense stands"
-  growth="Moderate"
-  light="Full sun"
-  water="High - upper intertidal zone"
-  soil="Saline to hypersaline mud"
-  climate="Tropical coastal"
-  nativity="Native"
+  title="Quick Reference"
+  items={[
+    { label: "Scientific Name", value: "Avicennia germinans" },
+    { label: "Family", value: "Acanthaceae" },
+    { label: "Max Height", value: "15-25 m (50-80 ft)" },
+    { label: "Growth Rate", value: "Moderate (2-3 ft/year)" },
+    { label: "Light", value: "Full sun" },
+    { label: "Water Needs", value: "High - upper intertidal zone" },
+    { label: "Soil", value: "Saline to hypersaline mud" },
+    { label: "Conservation", value: "Least Concern (IUCN)" },
+    { label: "Native Status", value: "Native to Costa Rica" },
+  ]}
 />
 
 </Column>
 <Column>
 
-<INaturalistEmbed observationId="avicennia-germinans" />
+<INaturalistEmbed
+  taxonId="50661"
+  taxonName="Avicennia germinans"
+  observationCount={8200}
+/>
 
 </Column>
 </TwoColumn>
@@ -684,7 +692,7 @@ Black Mangrove has a wide distribution and large populations, resulting in a Lea
 
 </AccordionItem>
 
-<AccordionItem title="Inappropriate "Restoration"">
+<AccordionItem title="Inappropriate Restoration">
 
 **Ironic threat:**
 
