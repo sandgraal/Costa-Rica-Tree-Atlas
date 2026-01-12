@@ -1,10 +1,13 @@
 # Virtualization Components
 
-This directory contains components for virtualizing large lists and grids to improve performance.
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - Used in TreeGallery, TreeGrid, and other large list components
 
 ## Overview
 
 Virtualization is a technique that renders only the visible items in a scrollable list, dramatically improving performance when dealing with large datasets. Instead of rendering all 100+ items upfront, virtualization renders only the 10-20 items visible in the viewport, plus a small buffer.
+
+This project uses [@tanstack/react-virtual](https://tanstack.com/virtual) for virtualization.
 
 ## Components
 

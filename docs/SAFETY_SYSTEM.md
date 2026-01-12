@@ -1,8 +1,13 @@
 # Safety Information System
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Complete - All 110 species have comprehensive safety data (EN+ES)
+
 ## Overview
 
 The Costa Rica Tree Atlas now includes a comprehensive safety information system to prevent harm to users, children, pets, and property. This system addresses a critical gap in tree documentation by providing detailed warnings about toxic, hazardous, and dangerous tree species.
+
+All 110 species in the atlas have been researched and documented with safety information in both English and Spanish.
 
 ## Features
 

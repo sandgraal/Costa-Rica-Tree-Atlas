@@ -1,5 +1,8 @@
 # Scroll Lock Management
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - useScrollLock hook for modal/overlay coordination
+
 ## Problem
 
 Multiple modals/overlays need to prevent body scroll, but they can conflict if not coordinated.

@@ -1,5 +1,10 @@
 # React Hooks Best Practices
 
+**Last Updated:** 2026-01-12  
+**Status:** ✅ Active - General React Hooks guidance for the project
+
+## Overview
+
 This guide documents best practices for using React Hooks in the Costa Rica Tree Atlas project, with a focus on `useEffect` dependencies and common patterns.
 
 ## useEffect Dependencies
