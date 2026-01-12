@@ -17,12 +17,11 @@ export function Footer() {
           <div className="flex items-center gap-2 md:shrink-0">
             <Image
               src="/images/cr-tree-atlas-logo.png"
-              alt=""
+              alt="Costa Rica Tree Atlas logo"
               width={48}
               height={48}
               className="h-8 w-8 object-contain shrink-0"
               quality={90}
-              aria-hidden="true"
             />
             <span className="flex flex-col leading-none">
               <span className="text-[0.5rem] uppercase tracking-[0.2em] text-secondary/70">
