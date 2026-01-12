@@ -260,7 +260,7 @@ export function TreeGrid({
   );
 
   // Don't use virtualization - it creates scrolling issues
-  // Standard grid works well with modern browsers even for 100+ items
+  // Standard grid works well with lazy loading (initial 15 trees, load more on demand)
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {trees.map((tree, index) => renderTreeCard(tree, index))}

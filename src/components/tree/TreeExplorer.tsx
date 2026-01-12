@@ -474,6 +474,8 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
         {/* Tree display */}
         {viewMode === "alphabetical" ? (
+          // Alphabetical view shows all filtered trees (no pagination)
+          // This is intentional - A-Z index is for browsing the full list
           <AlphabeticalIndex
             trees={filteredTrees as unknown as ContentlayerTree[]}
             locale={locale}
