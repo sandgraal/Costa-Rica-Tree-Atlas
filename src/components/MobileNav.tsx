@@ -28,6 +28,7 @@ export function MobileNav() {
     { href: "/compare", label: t("compare") },
     { href: "/identify", label: t("identify") },
     { href: "/seasonal", label: t("seasonal") },
+    { href: "/field-guide", label: t("fieldGuide") },
     { href: "/education", label: t("education") },
     { href: "/glossary", label: t("glossary") },
     { href: "/safety", label: t("safety") },
