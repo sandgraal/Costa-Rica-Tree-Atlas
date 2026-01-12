@@ -10,7 +10,8 @@ export type GlossaryCategory =
   | "taxonomy"
   | "morphology"
   | "reproduction"
-  | "general";
+  | "general"
+  | "timber";
 
 export interface GlossaryTerm {
   _id: string;
