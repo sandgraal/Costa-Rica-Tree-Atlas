@@ -8,7 +8,6 @@ import {
   CONSERVATION_CATEGORIES,
 } from "@/lib/i18n";
 import { SafeImage } from "@/components/SafeImage";
-import { ResponsiveVirtualizedGrid } from "@/components/ResponsiveVirtualizedGrid";
 import { SafetyIcon } from "@/components/safety";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import type { Locale, TreeTag } from "@/types/tree";
@@ -250,9 +249,6 @@ export function TreeGrid({
     );
   }
 
-  // Use virtualization for large lists (30+ trees)
-  const useVirtualization = trees.length >= 30;
-
   const renderTreeCard = (tree: ContentlayerTree, index: number) => (
     <TreeCard
       key={tree._id}
@@ -263,19 +259,8 @@ export function TreeGrid({
     />
   );
 
-  if (useVirtualization) {
-    return (
-      <div className="h-[1200px] w-full">
-        <ResponsiveVirtualizedGrid
-          items={trees}
-          itemHeight={380}
-          gap={24}
-          renderItem={renderTreeCard}
-        />
-      </div>
-    );
-  }
-
+  // Don't use virtualization - it creates scrolling issues
+  // Standard grid works well with modern browsers even for 100+ items
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {trees.map((tree, index) => renderTreeCard(tree, index))}
