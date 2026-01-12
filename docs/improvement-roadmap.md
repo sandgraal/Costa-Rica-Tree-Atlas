@@ -5,7 +5,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 **Last Updated:** 2026-01-12  
 **Status:** Active Development - Autonomous Implementation in Progress  
 **Last Audited:** 2026-01-12  
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 55% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 57% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
 
 **Recent Progress (2026-01-12 Autonomous Session - Current):**
 
@@ -14,10 +14,12 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
   - Added: Coco, Nance, Papaya (existing but uncounted)
   - Session additions: Jobo (living fences), Cas (Costa Rican guava), Carambola (star fruit)
   - Session additions: Anona (custard apple), Caimito (star apple), Balsa (fastest-growing), Indio Desnudo (gumbo-limbo)
-  - Session additions: Caoba (mahogany timber) ✅ NEW
+  - Session additions: Caoba (mahogany timber) ✅
   - All additions include complete cultivation guidance with bilingual parity (EN+ES)
-- Comparison guides remain at 6/20 (30%)
-- Phase 2 Educational Foundation at 55% completion
+- **Comparison guides: 7/20 complete (35%)** _(UPDATED: Added Mango vs Marañón)_
+  - New guide covers urushiol safety, fruit structure differences, identification keys
+  - Both important cultivated Anacardiaceae fruit trees with skin contact risks
+- Phase 2 Educational Foundation at 57% completion
 - Build verified successful: 940 pages generated, zero errors
 
 ---
@@ -538,7 +540,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
-**STATUS: 30% complete (6/20 guides)** _(UPDATED 2026-01-12: Added 3 guides)_
+**STATUS: 35% complete (7/20 guides)** _(UPDATED 2026-01-12: Added Mango vs Marañón)_
 
 **MVP Requirements:**
 
@@ -549,7 +551,8 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Coyol vs. Pejibaye** comparison guide complete ✅ _(Added 2026-01-12: spiny palms)_
 - [x] **Corteza Amarilla vs. Roble de Sabana** comparison guide complete ✅ _(Added 2026-01-12: flowering trees)_
 - [x] **Higuerón vs. Matapalo** comparison guide complete ✅ _(Added 2026-01-12: strangler figs)_
-- [ ] Build 14 more comparison guides (6/20 complete, 30%)
+- [x] **Mango vs. Marañón** comparison guide complete ✅ _(Added 2026-01-12: Anacardiaceae urushiol cousins)_
+- [ ] Build 13 more comparison guides (7/20 complete, 35%)
 
 **Priority Confusion Sets:**
 
