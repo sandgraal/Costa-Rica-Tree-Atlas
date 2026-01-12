@@ -5,27 +5,30 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 **Last Updated:** 2026-01-12  
 **Status:** Active Development - Autonomous Implementation in Progress  
 **Last Audited:** 2026-01-12  
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 69% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 73% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
 
 **Recent Progress (2026-01-12 Autonomous Session - Current):**
 
-- **Care & Cultivation Data: 30/60 species complete (50% MILESTONE REACHED! 🎉)**
-  - Previous batch (23 species): Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro, Coco, Nance, Papaya, Jobo, Cas, Carambola, Anona, Caimito, Balsa, Indio Desnudo, Caoba
-  - **NEW Session additions (7 species):**
-    - Cortez Negro - Spectacular flowering ornamental, low maintenance
-    - Zapote - Beloved batido fruit, slow growth but worth wait
-    - Guanábana - Soursop/graviola, tangy juice favorite
-    - Marañón - Cashew tree, extremely low maintenance
-    - Teca - Premium timber, requires distinct dry season
-    - Ojoche - Maya superfood, 300-600 lbs seeds/year
-    - Espavel - Riparian giant, critical watershed species
+- **Care & Cultivation Data: 40/60 species complete (67% - TWO-THIRDS MILESTONE! 🎉)**
+  - Previous batch (30 species): Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro, Coco, Nance, Papaya, Jobo, Cas, Carambola, Anona, Caimito, Balsa, Indio Desnudo, Caoba, Cortez Negro, Zapote, Guanábana, Marañón, Teca, Ojoche, Espavel
+  - **NEW Today's additions (10 species):**
+    - Guayabo - Popular guava fruit, moderate maintenance
+    - Jocote - Spanish plum, ultra-low maintenance living fence
+    - Mamón Chino - Rambutan, humid lowlands specialist
+    - Icaco - Cocoplum, salt-tolerant coastal specialist
+    - Jacaranda - Purple flowering ornamental, Central Valley favorite
+    - Laurel - Premium timber, coffee agroforestry standard
+    - Poró - Coffee shade tree, nitrogen-fixing, highly toxic seeds
+    - Guachipelín - Golden flowering legume, durable fence posts
+    - Melina - Fast-growing plantation timber, high maintenance
+    - Pomarrosa - Rose apple, low maintenance fruit tree
   - All additions include complete cultivation guidance with bilingual parity (EN+ES)
   - Comprehensive data: growth rates, spacing, water/soil/light needs, propagation, maintenance schedules, common problems
 - **Comparison guides: 8/20 complete (40%)** _(UPDATED: Added Guanábana vs Anona)_
   - NEW: Guanábana vs Anona - Annonaceae fruit cousins (spiny large vs scaly small)
   - Detailed guide covers size, texture, flavor, cultivation differences, toxic seed warnings
   - 10,000+ words with full bilingual support
-- **Phase 2 Educational Foundation at 69% completion** (↑ from 57%)
+- **Phase 2 Educational Foundation at 73% completion** (↑ from 69%, care data 67% + glossary 100% + comparisons 40%)
 - Build verified successful: 940 pages generated, zero errors
 
 ---
@@ -192,11 +195,11 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Care Guidance Coverage
 
-- [x] 30/60 priority species have complete care sections (50% complete - **MILESTONE REACHED!** 🎉)
+- [x] 40/60 priority species have complete care sections (67% complete - **TWO-THIRDS MILESTONE!** 🎉)
 - Schema exists in contentlayer.config.ts
 - Target: Top 60 most-viewed species first
 
-**Completed Species (30):**
+**Completed Species (40):**
 
 **Initial batch (23 species - previously completed):**
 
@@ -224,15 +227,28 @@ Track content coverage across all 110 species. Update as work progresses.
 - [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
 - [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
 
-**NEW - Added 2026-01-12 Autonomous Session (7 species):**
+**Added 2026-01-12 Previous Session (7 species):**
 
-- [x] Cortez Negro (Pink Trumpet) - Moderate growth, low maintenance, spectacular flowering ✅ NEW
-- [x] Espavel (Wild Cashew) - Fast growth in riparian zones, massive emergent tree ✅ NEW
-- [x] Guanábana (Soursop) - Moderate growth, compact size, hand-pollination tips ✅ NEW
-- [x] Marañón (Cashew) - Fast growth, extremely low maintenance, drought-tolerant ✅ NEW
-- [x] Ojoche (Breadnut) - Moderate growth, Maya superfood, 300-600 lbs seeds/year ✅ NEW
-- [x] Teca (Teak) - Fast growth, premium timber, requires distinct dry season ✅ NEW
-- [x] Zapote (Mamey Sapote) - Slow growth, high water needs, patience required 5-8 years ✅ NEW
+- [x] Cortez Negro (Pink Trumpet) - Moderate growth, low maintenance, spectacular flowering ✅
+- [x] Espavel (Wild Cashew) - Fast growth in riparian zones, massive emergent tree ✅
+- [x] Guanábana (Soursop) - Moderate growth, compact size, hand-pollination tips ✅
+- [x] Marañón (Cashew) - Fast growth, extremely low maintenance, drought-tolerant ✅
+- [x] Ojoche (Breadnut) - Moderate growth, Maya superfood, 300-600 lbs seeds/year ✅
+- [x] Teca (Teak) - Fast growth, premium timber, requires distinct dry season ✅
+- [x] Zapote (Mamey Sapote) - Slow growth, high water needs, patience required 5-8 years ✅
+
+**NEW - Added 2026-01-12 Current Autonomous Session (10 species):**
+
+- [x] Guayabo (Guava) - Moderate growth, fruit flies major pest, popular fruit tree ✅ NEW
+- [x] Jocote (Spanish Plum) - Fast growth, ultra-low maintenance, living fence favorite ✅ NEW
+- [x] Mamón Chino (Rambutan) - Moderate growth, high water, Caribbean lowlands specialist ✅ NEW
+- [x] Icaco (Cocoplum) - Moderate growth, salt-tolerant coastal, edible hedging ✅ NEW
+- [x] Jacaranda (Blue Jacaranda) - Moderate growth, purple flowering, Central Valley ornamental ✅ NEW
+- [x] Laurel (Coffee Shade) - Fast growth, premium timber, agroforestry standard ✅ NEW
+- [x] Poró (Erythrina) - Fast growth, nitrogen-fixing coffee shade, TOXIC SEEDS ✅ NEW
+- [x] Guachipelín (Yellow Acacia) - Moderate growth, golden flowers, durable fence posts ✅ NEW
+- [x] Melina (Gmelina) - VERY fast growth, plantation timber, high maintenance ✅ NEW
+- [x] Pomarrosa (Rose Apple) - Moderate growth, edible fruit, humid lowlands ✅ NEW
 
 - [x] 8/20 priority comparison guides documented (40% complete) ✅
 - Target: 20 comparison guides
@@ -551,8 +567,8 @@ image: "/images/glossary/palmate-leaf.jpg"
 **MVP Requirements:**
 
 - [x] Care fields already in contentlayer schema (growthRate, matureHeight, soilRequirements, etc.)
-- [x] **50% MILESTONE: Document care guidance for 30/60 top species** ✅ COMPLETE!
-- [ ] Continue to 60/60 species (50% remaining)
+- [x] **67% MILESTONE: Documented care guidance for 40/60 top species** ✅ COMPLETE!
+- [ ] Continue to 60/60 species (33% remaining)
 - [ ] Eventually expand to all 110 species
 
 **Care Data Schema:**
