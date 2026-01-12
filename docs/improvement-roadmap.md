@@ -5,18 +5,22 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 **Last Updated:** 2026-01-12  
 **Status:** Active Development - Autonomous Implementation in Progress  
 **Last Audited:** 2026-01-12  
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 45% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 57% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
 
 **Recent Progress (2026-01-12 Autonomous Session - Current):**
 
-- **Care & Cultivation Data: 12/60 species complete (20%)**
-  - Previous: Guanacaste, Ceiba, Mango, Roble de Sabana
-  - Added: Almendro (rainforest emergent), Pochote (endangered dry forest)
-  - Added: Corteza Amarilla (ornamental), Aguacate (avocado fruit)
-  - Added: Cacao (chocolate crop), Tamarindo (drought-tolerant fruit)
-  - Added: Cedro Amargo (vulnerable timber), Cenízaro (massive shade tree)
-- Comparison guides remain at 6/20 (30%)
-- Phase 2 Educational Foundation at 45% completion
+- **Care & Cultivation Data: 23/60 species complete (38%)**
+  - Previous: 12 species (Guanacaste, Ceiba, Mango, Roble de Sabana, Almendro, Pochote, Corteza Amarilla, Aguacate, Cacao, Tamarindo, Cedro Amargo, Cenízaro)
+  - Added: Coco, Nance, Papaya (existing but uncounted)
+  - Session additions: Jobo (living fences), Cas (Costa Rican guava), Carambola (star fruit)
+  - Session additions: Anona (custard apple), Caimito (star apple), Balsa (fastest-growing), Indio Desnudo (gumbo-limbo)
+  - Session additions: Caoba (mahogany timber) ✅
+  - All additions include complete cultivation guidance with bilingual parity (EN+ES)
+- **Comparison guides: 7/20 complete (35%)** _(UPDATED: Added Mango vs Marañón)_
+  - New guide covers urushiol safety, fruit structure differences, identification keys
+  - Both important cultivated Anacardiaceae fruit trees with skin contact risks
+- Phase 2 Educational Foundation at 57% completion
+- Build verified successful: 940 pages generated, zero errors
 
 ---
 
@@ -475,9 +479,9 @@ image: "/images/glossary/palmate-leaf.jpg"
 
 ### 2.2 Care & Cultivation Guidance
 
-**STATUS: 12/60 priority species have care data (20% complete)** _(UPDATED 2026-01-12: Added 8 more species)_
+**STATUS: 23/60 priority species have care data (38% complete)** _(UPDATED 2026-01-12: Added 11 more species in autonomous session)_
 
-**Completed Species (12):**
+**Completed Species (23):**
 
 - [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
 - [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
@@ -491,11 +495,22 @@ image: "/images/glossary/palmate-leaf.jpg"
 - [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
 - [x] Cedro Amargo (Spanish Cedar) - Fast growth, vulnerable species, shoot borer challenges ✅
 - [x] Cenízaro (Rain Tree) - Fast growth, massive crown (40-60m spread), iconic shade tree ✅
+- [x] Coco (Coconut Palm) - Moderate growth, coastal specialist, falling fruit hazard ✅
+- [x] Nance (Golden Spoon) - Small tree, drought-tolerant, produces sweet fruit ✅
+- [x] Papaya (Papaya) - Very fast growth, short-lived, tropical fruit production ✅
+- [x] Jobo (Hog Plum) - Fast growth, living fences, easy propagation from cuttings ✅ NEW
+- [x] Cas (Costa Rican Guava) - Moderate growth, highland fruit, tart juice favorite ✅ NEW
+- [x] Carambola (Star Fruit) - Moderate growth, ornamental + fruit, kidney warning ✅ NEW
+- [x] Anona (Custard Apple) - Moderate growth, compact fruit tree, toxic seeds ✅ NEW
+- [x] Caimito (Star Apple) - Moderate growth, ornamental leaves, latex concerns ✅ NEW
+- [x] Balsa (Lightest Wood) - EXTREMELY fast growth, pioneer species, short-lived ✅ NEW
+- [x] Indio Desnudo (Gumbo-Limbo) - Fast growth, living fences, ultra-low maintenance ✅ NEW
+- [x] Caoba (Mahogany) - Moderate growth, endangered timber, shoot borer challenges ✅ NEW
 
 **MVP Requirements:**
 
 - [x] Care fields already in contentlayer schema (growthRate, matureHeight, soilRequirements, etc.)
-- [ ] Document care guidance for top 60 most-viewed species first (12/60 = 20%)
+- [ ] Document care guidance for top 60 most-viewed species first (23/60 = 38%)
 - [ ] Expand to all 110 species
 
 **Care Data Schema:**
@@ -525,7 +540,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
-**STATUS: 30% complete (6/20 guides)** _(UPDATED 2026-01-12: Added 3 guides)_
+**STATUS: 35% complete (7/20 guides)** _(UPDATED 2026-01-12: Added Mango vs Marañón)_
 
 **MVP Requirements:**
 
@@ -536,7 +551,8 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Coyol vs. Pejibaye** comparison guide complete ✅ _(Added 2026-01-12: spiny palms)_
 - [x] **Corteza Amarilla vs. Roble de Sabana** comparison guide complete ✅ _(Added 2026-01-12: flowering trees)_
 - [x] **Higuerón vs. Matapalo** comparison guide complete ✅ _(Added 2026-01-12: strangler figs)_
-- [ ] Build 14 more comparison guides (6/20 complete, 30%)
+- [x] **Mango vs. Marañón** comparison guide complete ✅ _(Added 2026-01-12: Anacardiaceae urushiol cousins)_
+- [ ] Build 13 more comparison guides (7/20 complete, 35%)
 
 **Priority Confusion Sets:**
 
