@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { allGlossaryTerms } from "contentlayer/generated";
 import { Suspense } from "react";
@@ -69,16 +68,6 @@ export default async function GlossaryPage({
   );
 
   const letters = Object.keys(groupedTerms).sort();
-
-  const categories: GlossaryCategory[] = [
-    "anatomy",
-    "ecology",
-    "taxonomy",
-    "morphology",
-    "reproduction",
-    "general",
-    "timber",
-  ];
 
   return (
     <div className="min-h-screen py-8 bg-background">
