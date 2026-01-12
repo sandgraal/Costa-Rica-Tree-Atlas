@@ -15,8 +15,11 @@ import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { SafeImage } from "@/components/SafeImage";
 import { ImageErrorBoundary } from "@/components/ImageErrorBoundary";
 import { SafetyCard, SafetyDisclaimer } from "@/components/safety";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { TableOfContents } from "@/components/TableOfContents";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
+import type { Locale } from "@/types/tree";
 
 // Dynamic imports for heavy below-fold components
 const DistributionMap = dynamic(
@@ -219,212 +222,222 @@ export default async function TreePage({ params }: Props) {
       <SafeJsonLd data={validatedStructuredData} />
       <SafeJsonLd data={validatedBreadcrumbData} />
       <article className="py-12 px-4 tree-detail">
-        <div className="container mx-auto max-w-4xl">
-          {/* Breadcrumb and Actions */}
-          <nav className="mb-8 flex justify-between items-center no-print">
-            <Link
-              href="/trees"
-              className="text-primary hover:text-primary-light transition-colors inline-flex items-center gap-2"
-            >
-              <ArrowLeftIcon className="h-4 w-4" />
-              {locale === "es" ? "Volver al Directorio" : "Back to Directory"}
-            </Link>
-            <div className="flex items-center gap-2">
-              <FavoriteButton
-                slug={tree.slug}
-                title={tree.title}
-                locale={locale}
-                showLabel
-              />
-              <ShareButton
-                title={tree.title}
-                scientificName={tree.scientificName}
-                slug={tree.slug}
-              />
-              <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
-            </div>
-          </nav>
+        <div className="container mx-auto max-w-7xl">
+          {/* Breadcrumbs */}
+          <Breadcrumbs
+            locale={locale as Locale}
+            customLabels={{ [tree.slug]: tree.title }}
+          />
 
-          {/* Header */}
-          <header className="mb-12">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                {tree.family}
-              </span>
-              {tree.conservationStatus && (
-                <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
-                  {tree.conservationStatus}
-                </span>
-              )}
-            </div>
-
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-2">
-              {tree.title}
-            </h1>
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <p className="text-2xl text-secondary italic">
-                {tree.scientificName}
-              </p>
-              <PronunciationButton
-                text={tree.scientificName}
-                label={locale === "es" ? "Pronunciar" : "Pronounce"}
-                locale={locale}
-              />
-            </div>
-
-            {/* Reading Time */}
-            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-              <span className="flex items-center gap-1.5">
-                <ClockIcon className="h-4 w-4" />
-                {(() => {
-                  // Estimate reading time from raw MDX content
-                  const wordCount = tree.body.raw.split(/\s+/).length;
-                  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-                  return locale === "es"
-                    ? `${readingTime} min de lectura`
-                    : `${readingTime} min read`;
-                })()}
-              </span>
-            </div>
-
-            {/* Alternate Language Link */}
-            {altTree && (
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <GlobeIcon className="h-4 w-4" />
-                <span>
-                  {locale === "es"
-                    ? "También disponible en"
-                    : "Also available in"}
-                  :
-                </span>
-                <Link
-                  href={`/trees/${slug}`}
-                  locale={otherLocale}
-                  className="text-primary hover:underline"
-                >
-                  {locale === "es" ? "English" : "Español"}
-                </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-8">
+            {/* Main Content */}
+            <div className="min-w-0">
+              {/* Actions Bar */}
+              <div className="mb-8 flex justify-end items-center gap-2 no-print">
+                <FavoriteButton
+                  slug={tree.slug}
+                  title={tree.title}
+                  locale={locale}
+                  showLabel
+                />
+                <ShareButton
+                  title={tree.title}
+                  scientificName={tree.scientificName}
+                  slug={tree.slug}
+                />
+                <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
               </div>
-            )}
-          </header>
 
-          {/* Featured Image */}
-          {tree.featuredImage ? (
-            <ImageErrorBoundary>
-              <div className="aspect-[4/3] rounded-xl overflow-hidden mb-12 bg-muted relative">
-                <SafeImage
-                  src={imageSource.src}
-                  alt={tree.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 896px"
-                  priority
-                  quality={80}
-                  fallback="placeholder"
-                  style={{ objectFit: "contain" }}
+              {/* Header */}
+              <header className="mb-12">
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    {tree.family}
+                  </span>
+                  {tree.conservationStatus && (
+                    <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
+                      {tree.conservationStatus}
+                    </span>
+                  )}
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-2">
+                  {tree.title}
+                </h1>
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <p className="text-2xl text-secondary italic">
+                    {tree.scientificName}
+                  </p>
+                  <PronunciationButton
+                    text={tree.scientificName}
+                    label={locale === "es" ? "Pronunciar" : "Pronounce"}
+                    locale={locale}
+                  />
+                </div>
+
+                {/* Reading Time */}
+                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                  <span className="flex items-center gap-1.5">
+                    <ClockIcon className="h-4 w-4" />
+                    {(() => {
+                      // Estimate reading time from raw MDX content
+                      const wordCount = tree.body.raw.split(/\s+/).length;
+                      const readingTime = Math.max(
+                        1,
+                        Math.ceil(wordCount / 200)
+                      );
+                      return locale === "es"
+                        ? `${readingTime} min de lectura`
+                        : `${readingTime} min read`;
+                    })()}
+                  </span>
+                </div>
+
+                {/* Alternate Language Link */}
+                {altTree && (
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <GlobeIcon className="h-4 w-4" />
+                    <span>
+                      {locale === "es"
+                        ? "También disponible en"
+                        : "Also available in"}
+                      :
+                    </span>
+                    <Link
+                      href={`/trees/${slug}`}
+                      locale={otherLocale}
+                      className="text-primary hover:underline"
+                    >
+                      {locale === "es" ? "English" : "Español"}
+                    </Link>
+                  </div>
+                )}
+              </header>
+
+              {/* Featured Image */}
+              {tree.featuredImage ? (
+                <ImageErrorBoundary>
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden mb-12 bg-muted relative">
+                    <SafeImage
+                      src={imageSource.src}
+                      alt={tree.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 896px"
+                      priority
+                      quality={80}
+                      fallback="placeholder"
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
+                </ImageErrorBoundary>
+              ) : (
+                <div className="aspect-[4/3] rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                  <TreeIcon className="h-24 w-24 text-primary/20" />
+                </div>
+              )}
+
+              {/* Quick Facts */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                {tree.nativeRegion && (
+                  <div className="bg-muted rounded-lg p-4">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      {locale === "es" ? "Región Nativa" : "Native Region"}
+                    </p>
+                    <p className="font-medium">{tree.nativeRegion}</p>
+                  </div>
+                )}
+                {tree.maxHeight && (
+                  <div className="bg-muted rounded-lg p-4">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      {locale === "es" ? "Altura Máxima" : "Max Height"}
+                    </p>
+                    <p className="font-medium">{tree.maxHeight}</p>
+                  </div>
+                )}
+                <div className="bg-muted rounded-lg p-4">
+                  <p className="text-sm text-muted-foreground mb-1">
+                    {locale === "es" ? "Familia" : "Family"}
+                  </p>
+                  <p className="font-medium">{tree.family}</p>
+                </div>
+                {tree.conservationStatus && (
+                  <div className="bg-muted rounded-lg p-4">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      {locale === "es" ? "Conservación" : "Conservation"}
+                    </p>
+                    <p className="font-medium">{tree.conservationStatus}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Uses */}
+              {tree.uses && tree.uses.length > 0 && (
+                <div className="mb-12">
+                  <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
+                    {locale === "es" ? "Usos" : "Uses"}
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    {tree.uses.map((use, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 bg-accent/10 text-accent-dark dark:text-accent rounded-full text-sm"
+                      >
+                        {use}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Distribution Map */}
+              <DistributionMap
+                distribution={tree.distribution}
+                elevation={tree.elevation}
+                locale={locale as "en" | "es"}
+              />
+
+              {/* Seasonal Information */}
+              <SeasonalInfo
+                floweringSeason={tree.floweringSeason}
+                fruitingSeason={tree.fruitingSeason}
+                locale={locale}
+              />
+
+              {/* Safety Information */}
+              <SafetyCard tree={tree} className="mb-12" />
+
+              {/* Biodiversity Data from GBIF and iNaturalist */}
+              <BiodiversityInfo
+                scientificName={tree.scientificName}
+                locale={locale as "en" | "es"}
+              />
+
+              {/* MDX Content */}
+              <div className="tree-content max-w-none">
+                <MDXRenderer
+                  code={tree.body.code}
+                  glossaryTerms={allGlossaryTerms.map((t) => ({
+                    term: t.term,
+                    slug: t.slug,
+                    locale: t.locale,
+                    simpleDefinition: t.simpleDefinition,
+                  }))}
+                  enableGlossaryLinks={true}
                 />
               </div>
-            </ImageErrorBoundary>
-          ) : (
-            <div className="aspect-[4/3] rounded-xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <TreeIcon className="h-24 w-24 text-primary/20" />
-            </div>
-          )}
 
-          {/* Quick Facts */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            {tree.nativeRegion && (
-              <div className="bg-muted rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">
-                  {locale === "es" ? "Región Nativa" : "Native Region"}
-                </p>
-                <p className="font-medium">{tree.nativeRegion}</p>
-              </div>
-            )}
-            {tree.maxHeight && (
-              <div className="bg-muted rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">
-                  {locale === "es" ? "Altura Máxima" : "Max Height"}
-                </p>
-                <p className="font-medium">{tree.maxHeight}</p>
-              </div>
-            )}
-            <div className="bg-muted rounded-lg p-4">
-              <p className="text-sm text-muted-foreground mb-1">
-                {locale === "es" ? "Familia" : "Family"}
-              </p>
-              <p className="font-medium">{tree.family}</p>
+              {/* Safety Disclaimer */}
+              <SafetyDisclaimer />
+
+              {/* Related Trees */}
+              <RelatedTrees currentTree={tree} locale={locale} />
             </div>
-            {tree.conservationStatus && (
-              <div className="bg-muted rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">
-                  {locale === "es" ? "Conservación" : "Conservation"}
-                </p>
-                <p className="font-medium">{tree.conservationStatus}</p>
-              </div>
-            )}
+
+            {/* Sidebar with Table of Contents - Hidden on mobile */}
+            <aside className="hidden lg:block">
+              <TableOfContents locale={locale} />
+            </aside>
           </div>
-
-          {/* Uses */}
-          {tree.uses && tree.uses.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
-                {locale === "es" ? "Usos" : "Uses"}
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {tree.uses.map((use, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-accent/10 text-accent-dark dark:text-accent rounded-full text-sm"
-                  >
-                    {use}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Distribution Map */}
-          <DistributionMap
-            distribution={tree.distribution}
-            elevation={tree.elevation}
-            locale={locale as "en" | "es"}
-          />
-
-          {/* Seasonal Information */}
-          <SeasonalInfo
-            floweringSeason={tree.floweringSeason}
-            fruitingSeason={tree.fruitingSeason}
-            locale={locale}
-          />
-
-          {/* Safety Information */}
-          <SafetyCard tree={tree} className="mb-12" />
-
-          {/* Biodiversity Data from GBIF and iNaturalist */}
-          <BiodiversityInfo
-            scientificName={tree.scientificName}
-            locale={locale as "en" | "es"}
-          />
-
-          {/* MDX Content */}
-          <div className="tree-content max-w-none">
-            <MDXRenderer
-              code={tree.body.code}
-              glossaryTerms={allGlossaryTerms.map((t) => ({
-                term: t.term,
-                slug: t.slug,
-                locale: t.locale,
-                simpleDefinition: t.simpleDefinition,
-              }))}
-              enableGlossaryLinks={true}
-            />
-          </div>
-
-          {/* Safety Disclaimer */}
-          <SafetyDisclaimer />
-
-          {/* Related Trees */}
-          <RelatedTrees currentTree={tree} locale={locale} />
         </div>
       </article>
     </>

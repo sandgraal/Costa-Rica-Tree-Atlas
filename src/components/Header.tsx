@@ -20,13 +20,12 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <Image
               src="/images/cr-tree-atlas-logo.png"
-              alt=""
+              alt="Costa Rica Tree Atlas logo"
               width={64}
               height={64}
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
               priority
               quality={90}
-              aria-hidden="true"
             />
             <span className="flex flex-col leading-none">
               <span className="text-[0.55rem] sm:text-[0.65rem] uppercase tracking-[0.25em] text-secondary/80">
