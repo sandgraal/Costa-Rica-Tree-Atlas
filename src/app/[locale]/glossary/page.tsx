@@ -73,14 +73,14 @@ export default async function GlossaryPage({
     <div className="min-h-screen py-8 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-dark dark:text-primary-light mb-4">
+        <header className="mb-8 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-primary-dark dark:text-primary-light mb-3">
             📖 {t("title")}
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
-          <p className="mt-4 text-lg text-foreground/70 font-medium">
+          <p className="mt-3 text-sm text-foreground/70">
             {t("termCount", { count: terms.length })}
           </p>
         </header>
@@ -97,7 +97,7 @@ export default async function GlossaryPage({
         {/* A-Z Navigation */}
         {letters.length > 0 && (
           <nav
-            className="mb-10 bg-muted/30 rounded-xl p-5 border border-border/50"
+            className="mb-8 bg-muted/30 rounded-lg p-4 border border-border/50"
             aria-label={t("alphabetNav")}
           >
             <div className="flex flex-wrap gap-2 justify-center">
@@ -105,7 +105,7 @@ export default async function GlossaryPage({
                 <a
                   key={letter}
                   href={`#${letter}`}
-                  className="min-w-[2.5rem] h-10 flex items-center justify-center px-3 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-semibold transition-all hover:scale-105 hover:shadow-md"
+                  className="min-w-[2rem] h-8 flex items-center justify-center px-2.5 rounded-md bg-primary/10 hover:bg-primary/20 text-primary text-sm font-medium transition-all hover:scale-105"
                 >
                   {letter}
                 </a>
@@ -116,31 +116,31 @@ export default async function GlossaryPage({
 
         {/* Terms List */}
         {letters.length > 0 ? (
-          <div className="space-y-16">
+          <div className="space-y-12">
             {letters.map((letter) => (
-              <section key={letter} id={letter} className="scroll-mt-24">
-                <h2 className="text-4xl font-bold text-primary-dark dark:text-primary-light mb-6 pb-3 border-b-2 border-primary/30 flex items-center gap-3">
-                  <span className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
+              <section key={letter} id={letter} className="scroll-mt-20">
+                <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4 pb-2 border-b border-primary/20 flex items-center gap-2">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-lg">
                     {letter}
                   </span>
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {groupedTerms[letter].map((term) => (
                     <a
                       key={term._id}
                       href={term.url}
-                      className="group block bg-card rounded-xl p-6 border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+                      className="group block bg-card rounded-lg p-4 border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-200"
                     >
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                           {term.term}
                         </h3>
-                        <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium whitespace-nowrap flex-shrink-0">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium whitespace-nowrap flex-shrink-0">
                           {t(`categories.${term.category}`)}
                         </span>
                       </div>
                       {term.pronunciation && (
-                        <p className="text-sm text-muted-foreground italic mb-3">
+                        <p className="text-xs text-muted-foreground italic mb-2">
                           {term.pronunciation}
                         </p>
                       )}
@@ -154,20 +154,18 @@ export default async function GlossaryPage({
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-card rounded-xl border border-border">
-            <div className="text-6xl mb-4">🔍</div>
-            <p className="text-2xl text-muted-foreground font-medium">
-              {t("noResults")}
-            </p>
+          <div className="text-center py-16 bg-card rounded-lg border border-border">
+            <div className="text-4xl mb-3">🔍</div>
+            <p className="text-lg text-muted-foreground">{t("noResults")}</p>
           </div>
         )}
 
         {/* Back to Top */}
         {letters.length > 0 && (
-          <div className="mt-16 text-center">
+          <div className="mt-12 text-center">
             <a
               href="#"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all hover:shadow-lg hover:-translate-y-0.5 font-medium text-lg"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all hover:shadow-md font-medium text-sm"
             >
               ↑ {t("backToTop")}
             </a>
