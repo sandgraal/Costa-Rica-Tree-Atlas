@@ -232,6 +232,31 @@ function FeaturedTreesSection({
   featuredTrees: string;
   viewAll: string;
 }) {
+  // Get current month name in lowercase English (e.g., "january", "february")
+  const currentMonth = new Date()
+    .toLocaleString("en-US", { month: "long" })
+    .toLowerCase();
+
+  // Filter trees that are flowering or fruiting this month
+  const floweringTrees = trees.filter((tree) =>
+    tree.floweringSeason?.includes(currentMonth)
+  );
+  const fruitingTrees = trees.filter((tree) =>
+    tree.fruitingSeason?.includes(currentMonth)
+  );
+
+  // Prioritize flowering trees, then fruiting trees (avoid duplicates)
+  const seasonalTrees = [
+    ...floweringTrees.slice(0, 6),
+    ...fruitingTrees
+      .filter((t) => !floweringTrees.some((f) => f._id === t._id))
+      .slice(0, Math.max(0, 6 - floweringTrees.length)),
+  ];
+
+  // If we don't have enough seasonal trees, fall back to first 6 trees
+  const displayTrees =
+    seasonalTrees.length > 0 ? seasonalTrees : trees.slice(0, 6);
+
   return (
     <>
       <div className="flex justify-between items-center mb-8">
@@ -246,9 +271,9 @@ function FeaturedTreesSection({
         </Link>
       </div>
 
-      {trees.length > 0 ? (
+      {displayTrees.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {trees.slice(0, 6).map((tree) => (
+          {displayTrees.map((tree) => (
             <TreeCard key={tree._id} tree={tree} locale={locale} />
           ))}
         </div>
