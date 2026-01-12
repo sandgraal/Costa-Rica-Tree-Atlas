@@ -80,7 +80,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   // Reset display limit when filters or search changes
   useEffect(() => {
     setDisplayLimit(INITIAL_LOAD_COUNT);
-  }, [filteredTrees]);
+  }, [searchQuery, filter, sort]);
 
   // Trees to actually display (limited)
   const visibleTrees = useMemo(() => {
