@@ -245,11 +245,12 @@ function FeaturedTreesSection({
     tree.fruitingSeason?.includes(currentMonth)
   );
 
-  // Prioritize flowering trees, then fruiting trees (avoid duplicates)
+  // Prioritize flowering trees, then fruiting trees (avoid duplicates using Set for efficiency)
+  const floweringIds = new Set(floweringTrees.map((t) => t._id));
   const seasonalTrees = [
     ...floweringTrees.slice(0, 6),
     ...fruitingTrees
-      .filter((t) => !floweringTrees.some((f) => f._id === t._id))
+      .filter((t) => !floweringIds.has(t._id))
       .slice(0, Math.max(0, 6 - floweringTrees.length)),
   ];
 
