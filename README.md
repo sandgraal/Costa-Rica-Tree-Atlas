@@ -4,7 +4,8 @@ Costa Rica Tree Atlas will truly never have ads, donations, sales, or other reve
 
 A bilingual (English/Spanish) open-source web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](LICENSE-CONTENT.md)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
@@ -196,13 +197,67 @@ This repository is configured with GitHub Copilot instructions (`AGENTS.md` and 
 
 ## License
 
-This project is open source and available under the **[MIT License](LICENSE)**.
+This project uses a **dual-license structure** to protect both the technical infrastructure and educational content:
 
-### Content Licensing
+### 📜 Code License: AGPL-3.0
 
-- **Code**: MIT License
-- **Tree Descriptions**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (unless otherwise noted)
-- **Images**: Individual licensing noted per image (see attribution in content files)
+All software, code, and technical infrastructure is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+**What this means:**
+- You can freely use, modify, and distribute the code
+- Any modifications or deployments must remain open source
+- Network use requires sharing source code of modifications
+- Ensures derivative works remain free and open
+
+**Applies to:**
+- TypeScript/JavaScript files (`.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`)
+- Configuration files (`next.config.ts`, `tailwind.config.js`, etc.)
+- Build scripts and utilities
+- API routes and server code
+
+### 📚 Content License: CC BY-NC-SA 4.0
+
+All educational content, tree data, and images are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0](LICENSE-CONTENT.md).
+
+**What this means:**
+- Free for educational, research, and non-commercial use
+- Attribution required when sharing or adapting
+- Derivative works must use the same license
+- Commercial use requires permission
+
+**Applies to:**
+- Tree descriptions and profiles (`.mdx` files)
+- Photographs and illustrations
+- Educational documentation
+- Multimedia content
+
+### 🌿 Why This Approach?
+
+We chose this dual-license structure to:
+
+1. **Protect the educational mission**: Prevent commercial exploitation of biodiversity data
+2. **Ensure accessibility**: Keep the resource free for education and conservation
+3. **Maintain openness**: Guarantee all improvements remain available to the community
+4. **Support conservation**: Align with ethical, sustainable use of natural history information
+
+### 💼 Commercial Licensing
+
+Interested in commercial use? We're open to discussion, especially for:
+- Eco-tourism educational materials
+- Conservation-focused applications
+- Environmental education platforms
+- Documentary and publishing projects
+
+Please open a [GitHub Issue](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/issues) to discuss commercial licensing.
+
+### 📋 Usage Policy
+
+For detailed ethical usage guidelines, see [USAGE-POLICY.md](USAGE-POLICY.md).
+
+### 📄 Full License Texts
+
+- [LICENSE](LICENSE) - AGPL-3.0 for code
+- [LICENSE-CONTENT.md](LICENSE-CONTENT.md) - CC BY-NC-SA 4.0 for content
 
 ## Acknowledgments
 
