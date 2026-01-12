@@ -5,19 +5,18 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 **Last Updated:** 2026-01-12  
 **Status:** Active Development - Autonomous Implementation in Progress  
 **Last Audited:** 2026-01-12  
-**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 25% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
+**Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 45% | Phase 3: 100% ✅ | Phase 4: 33% | Phase 5: 0%
 
-**Recent Progress (2026-01-12 Autonomous Session):**
+**Recent Progress (2026-01-12 Autonomous Session - Current):**
 
-- Added 3 comprehensive comparison guides (10,000+ words each, bilingual)
-  - Coyol vs Pejibaye (spiny palms with edible fruits)
-  - Corteza Amarilla vs Roble de Sabana (gold vs pink flowering trees)
-  - Higuerón vs Matapalo (strangler figs ecology)
-- Added care & cultivation data to 4 high-priority species (bilingual)
-  - Guanacaste (National tree), Ceiba (Sacred tree), Mango (fruit tree), Roble de Sabana (ornamental)
-- Comparison guides now 6/20 complete (30%)
-- Care data now 4/60 complete (7%)
-- Phase 2 Educational Foundation progressing steadily
+- **Care & Cultivation Data: 12/60 species complete (20%)**
+  - Previous: Guanacaste, Ceiba, Mango, Roble de Sabana
+  - Added: Almendro (rainforest emergent), Pochote (endangered dry forest)
+  - Added: Corteza Amarilla (ornamental), Aguacate (avocado fruit)
+  - Added: Cacao (chocolate crop), Tamarindo (drought-tolerant fruit)
+  - Added: Cedro Amargo (vulnerable timber), Cenízaro (massive shade tree)
+- Comparison guides remain at 6/20 (30%)
+- Phase 2 Educational Foundation at 45% completion
 
 ---
 
@@ -183,11 +182,25 @@ Track content coverage across all 110 species. Update as work progresses.
 
 ### Care Guidance Coverage
 
-- [ ] 0/110 species have complete care sections
-- Schema exists in contentlayer.config.ts but no content yet
-- Target: Top 20 most-viewed species first
+- [x] 12/60 priority species have complete care sections (20% complete)
+- Schema exists in contentlayer.config.ts
+- Target: Top 60 most-viewed species first
 
-- [x] 1/20 priority comparison guides documented (5% complete)
+**Completed Species (12):**
+
+- [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
+- [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
+- [x] Mango (King of fruits) - Moderate growth, pruning essential, fruit management ✅
+- [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
+- [x] Almendro (Critical macaw habitat) - Slow-growing emergent, specialized rainforest species ✅
+- [x] Pochote (Endangered dry forest) - Moderate growth, drought-tolerant, temporary trunk spines ✅
+- [x] Corteza Amarilla (Golden flowering) - Moderate growth, urban-suitable, spectacular blooms ✅
+- [x] Aguacate (Avocado) - Moderate growth, drainage critical, pet toxicity concerns ✅
+- [x] Cacao (Chocolate) - Moderate growth, shade-dependent, disease management crucial ✅
+- [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
+- [x] Cedro Amargo (Spanish Cedar) - Fast growth, vulnerable species, shoot borer challenges ✅
+- [x] Cenízaro (Rain Tree) - Fast growth, massive crown (40-60m spread), iconic shade tree ✅
+
 - [x] 2/20 priority comparison guides documented (10% complete) - Added Guanacaste vs Cenízaro ✅
 - Target: 20 comparison guides
 - `/compare` route exists with at least 1 comparison
@@ -462,19 +475,27 @@ image: "/images/glossary/palmate-leaf.jpg"
 
 ### 2.2 Care & Cultivation Guidance
 
-**STATUS: 4/60 priority species have care data (7% complete)** _(UPDATED 2026-01-12: Added 4 species)_
+**STATUS: 12/60 priority species have care data (20% complete)** _(UPDATED 2026-01-12: Added 8 more species)_
 
-**Completed Species (4):**
+**Completed Species (12):**
 
 - [x] Guanacaste (National tree) - Fast growth, nitrogen-fixing, drought-tolerant ✅
 - [x] Ceiba (Sacred tree) - Very fast, professional care required, massive size ✅
 - [x] Mango (King of fruits) - Moderate growth, pruning essential, fruit management ✅
 - [x] Roble de Sabana (Most popular ornamental) - Fast, extremely adaptable, low maintenance ✅
+- [x] Almendro (Critical macaw habitat) - Slow-growing emergent, specialized rainforest species ✅
+- [x] Pochote (Endangered dry forest) - Moderate growth, drought-tolerant, temporary trunk spines ✅
+- [x] Corteza Amarilla (Golden flowering) - Moderate growth, urban-suitable, spectacular blooms ✅
+- [x] Aguacate (Avocado) - Moderate growth, drainage critical, pet toxicity concerns ✅
+- [x] Cacao (Chocolate) - Moderate growth, shade-dependent, disease management crucial ✅
+- [x] Tamarindo (Tangy fruit) - Slow growth, extremely drought-tolerant, virtually maintenance-free ✅
+- [x] Cedro Amargo (Spanish Cedar) - Fast growth, vulnerable species, shoot borer challenges ✅
+- [x] Cenízaro (Rain Tree) - Fast growth, massive crown (40-60m spread), iconic shade tree ✅
 
 **MVP Requirements:**
 
 - [x] Care fields already in contentlayer schema (growthRate, matureHeight, soilRequirements, etc.)
-- [ ] Document care guidance for top 60 most-viewed species first (4/60 = 7%)
+- [ ] Document care guidance for top 60 most-viewed species first (12/60 = 20%)
 - [ ] Expand to all 110 species
 
 **Care Data Schema:**
@@ -573,8 +594,8 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] 100 glossary terms with definitions and bilingual parity - COMPLETE! ✅
 - [ ] Continue to 100+ with indigenous terminology
 - [x] **Inline tooltips functional across site** - COMPLETE! ✅ _(Completed 2026-01-11)_
-- [ ] Top 60 species have complete care guidance
-- [ ] 20 comparison guides published (2/20 currently)
+- [ ] Top 60 species have complete care guidance (12/60 = 20% complete)
+- [ ] 20 comparison guides published (6/20 = 30% currently)
 - [x] Diagnostic tool handles 10+ common symptoms
 - [x] Quiz has 50+ questions across multiple modes
 
