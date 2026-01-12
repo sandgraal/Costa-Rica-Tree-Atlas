@@ -13,6 +13,7 @@ For comprehensive project documentation, see the **[Documentation Index](docs/RE
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
+- [Contributor License Agreement](#contributor-license-agreement)
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
 - [Contributing Content](#contributing-content)
@@ -32,6 +33,45 @@ This project and everyone participating in it is governed by our commitment to c
 - Welcome newcomers and help them learn
 - Focus on what is best for the community and the project
 - Show empathy towards other community members
+
+## Contributor License Agreement
+
+### Understanding the Licenses
+
+This project uses a dual-license structure:
+
+- **Code (AGPL-3.0)**: All software and technical infrastructure
+- **Content (CC BY-NC-SA 4.0)**: All tree data, descriptions, images, and educational materials
+
+See [LICENSE](LICENSE) and [LICENSE-CONTENT.md](LICENSE-CONTENT.md) for full details.
+
+### By Contributing, You Agree To:
+
+**For Code Contributions:**
+- Your code contributions will be licensed under AGPL-3.0
+- You have the right to submit the code under this license
+- You retain copyright to your contributions
+- You grant the project rights to use and distribute your contributions under AGPL-3.0
+
+**For Content Contributions:**
+- Your content contributions (tree descriptions, translations, images) will be licensed under CC BY-NC-SA 4.0
+- You have the right to submit the content under this license (own it or have permission)
+- You retain copyright to your contributions
+- You grant the project rights to use and distribute your contributions under CC BY-NC-SA 4.0
+
+**For Photograph Contributions:**
+- You must own the copyright or have explicit permission to share under CC BY-NC-SA 4.0
+- You understand the NonCommercial restriction applies
+- You will provide proper attribution information
+
+### What This Means
+
+- **You keep your copyright**: You remain the owner of your work
+- **Open source forever**: Your contributions help keep this resource free for education
+- **No commercial exploitation**: Content can't be sold or exploited commercially without permission
+- **Share improvements**: Derivative works must use the same licenses
+
+If you have questions about licensing, please ask in [GitHub Discussions](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/discussions) before contributing.
 
 ## Getting Started
 

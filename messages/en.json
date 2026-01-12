@@ -85,7 +85,7 @@
     "aboutUs": "About Us",
     "openSource": "Open Source",
     "contribute": "This project is open source. Contribute on GitHub!",
-    "copyright": "© {year} Costa Rica Tree Atlas. Open source under MIT License.",
+    "copyright": "© {year} Costa Rica Tree Atlas. Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0",
     "license": "Made with ❤️ for Costa Rica's forests",
     "madeWith": "Made with ❤️ for Costa Rica's forests",
     "keyboardShortcuts": "Keyboard shortcuts"
@@ -157,8 +157,8 @@
       "community": "The global community of botanists and ecologists researching tropical trees"
     },
     "license": {
-      "title": "Open Source License",
-      "description": "Costa Rica Tree Atlas is released under the MIT License. The content is free to use, share, and adapt with attribution."
+      "title": "Dual-License Structure",
+      "description": "Costa Rica Tree Atlas uses two licenses: AGPL-3.0 for code and CC BY-NC-SA 4.0 for educational content. Free for education and research, with attribution required."
     }
   },
   "comparison": {
