@@ -1,4 +1,12 @@
 /**
+ * Copyright (c) 2024-present sandgraal
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ * 
+ * This file is part of Costa Rica Tree Atlas.
+ * See LICENSE file in the project root for full license information.
+ */
+
+/**
  * Middleware for authentication, internationalization, and security headers
  * @verified 2026-01-09 - All authentication paths complete and functional
  */

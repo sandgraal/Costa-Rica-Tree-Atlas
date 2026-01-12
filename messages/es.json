@@ -82,7 +82,7 @@
     "aboutUs": "Sobre Nosotros",
     "openSource": "Código Abierto",
     "contribute": "Este proyecto es de código abierto. ¡Contribuye en GitHub!",
-    "copyright": "© {year} Atlas de Árboles de Costa Rica. Código abierto bajo licencia MIT.",
+    "copyright": "© {year} Atlas de Árboles de Costa Rica. Código: AGPL-3.0 | Contenido: CC BY-NC-SA 4.0",
     "license": "Hecho con ❤️ para los bosques de Costa Rica",
     "madeWith": "Hecho con ❤️ para los bosques de Costa Rica",
     "keyboardShortcuts": "Atajos de teclado"
@@ -154,8 +154,8 @@
       "community": "La comunidad global de botánicos y ecólogos investigando árboles tropicales"
     },
     "license": {
-      "title": "Licencia de Código Abierto",
-      "description": "El Atlas de Árboles de Costa Rica se publica bajo la Licencia MIT. El contenido es libre de usar, compartir y adaptar con atribución."
+      "title": "Estructura de Licencia Dual",
+      "description": "El Atlas de Árboles de Costa Rica utiliza dos licencias: AGPL-3.0 para el código y CC BY-NC-SA 4.0 para el contenido educativo. Libre para educación e investigación, con atribución requerida."
     }
   },
   "comparison": {
