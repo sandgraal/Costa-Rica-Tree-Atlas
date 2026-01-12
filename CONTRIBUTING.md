@@ -2,6 +2,14 @@
 
 First off, thank you for considering contributing to the Costa Rica Tree Atlas! 🌳 This project aims to be a comprehensive, bilingual resource documenting the beautiful trees of Costa Rica, and we couldn't do it without contributors like you.
 
+## 📚 Documentation
+
+For comprehensive project documentation, see the **[Documentation Index](docs/README.md)** which includes:
+- Technical guides for developers
+- Content creation standards
+- Testing procedures
+- Security guidelines
+
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
