@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
@@ -17,6 +17,10 @@ interface TreeExplorerProps {
 }
 
 type ViewMode = "grid" | "alphabetical";
+
+// Constants for lazy loading
+const INITIAL_LOAD_COUNT = 15;
+const LOAD_MORE_COUNT = 12;
 
 // ============================================================================
 // Component
@@ -37,12 +41,28 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     direction: "asc",
   });
   const [showFilters, setShowFilters] = useState(false);
+  const [displayLimit, setDisplayLimit] = useState(INITIAL_LOAD_COUNT);
 
   // Facets from all trees
   const allFacets = useMemo(() => extractFacets(typedTrees), [typedTrees]);
 
+  // Filter facets to only show options with meaningful counts (>= 2)
+  const displayFacets = useMemo(() => {
+    const MIN_COUNT = 2;
+    return {
+      families: allFacets.families.filter((f) => f.count >= MIN_COUNT),
+      conservationStatuses: allFacets.conservationStatuses.filter(
+        (s) => s.count >= MIN_COUNT
+      ),
+      tags: allFacets.tags.filter((t) => t.count >= MIN_COUNT),
+      distributions: allFacets.distributions.filter(
+        (d) => d.count >= MIN_COUNT
+      ),
+    };
+  }, [allFacets]);
+
   // Search and filter pipeline
-  const displayTrees = useMemo(() => {
+  const filteredTrees = useMemo(() => {
     // Step 1: Search
     let results = searchQuery
       ? search(searchQuery, typedTrees).map((r) => r.tree)
@@ -56,6 +76,18 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
     return results;
   }, [typedTrees, searchQuery, filter, sort]);
+
+  // Reset display limit when filters or search changes
+  useEffect(() => {
+    setDisplayLimit(INITIAL_LOAD_COUNT);
+  }, [searchQuery, filter, sort]);
+
+  // Trees to actually display (limited)
+  const visibleTrees = useMemo(() => {
+    return filteredTrees.slice(0, displayLimit);
+  }, [filteredTrees, displayLimit]);
+
+  const hasMore = displayLimit < filteredTrees.length;
 
   // Handlers
   const handleSearchChange = useCallback(
@@ -91,6 +123,10 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     setSearchQuery("");
   }, []);
 
+  const handleLoadMore = useCallback(() => {
+    setDisplayLimit((prev) => prev + LOAD_MORE_COUNT);
+  }, []);
+
   const hasActiveFilters = Object.values(filter).some(
     (v) => v !== undefined && (Array.isArray(v) ? v.length > 0 : true)
   );
@@ -121,6 +157,15 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
       locale === "es"
         ? `Mostrando ${count} de ${total} árboles`
         : `Showing ${count} of ${total} trees`,
+    matchingTrees: (count: number) =>
+      locale === "es"
+        ? `${count} ${count === 1 ? "árbol" : "árboles"} coinciden`
+        : `${count} ${count === 1 ? "tree" : "trees"} match`,
+    loadMore: locale === "es" ? "Cargar más" : "Load More",
+    showingXofY: (showing: number, total: number) =>
+      locale === "es"
+        ? `Mostrando ${showing} de ${total}`
+        : `Showing ${showing} of ${total}`,
     stats: (species: number, families: number) =>
       locale === "es"
         ? `${species} especies de ${families} familias botánicas`
@@ -229,7 +274,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                   className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                 >
                   <option value="">{labels.allFamilies}</option>
-                  {allFacets.families.map(({ value, count }) => (
+                  {displayFacets.families.map(({ value, count }) => (
                     <option key={value} value={value}>
                       {value} ({count})
                     </option>
@@ -253,11 +298,13 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                   className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                 >
                   <option value="">{labels.allStatuses}</option>
-                  {allFacets.conservationStatuses.map(({ value, count }) => (
-                    <option key={value} value={value}>
-                      {value} ({count})
-                    </option>
-                  ))}
+                  {displayFacets.conservationStatuses.map(
+                    ({ value, count }) => (
+                      <option key={value} value={value}>
+                        {value} ({count})
+                      </option>
+                    )
+                  )}
                 </select>
               </div>
 
@@ -298,13 +345,13 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
             </div>
 
             {/* Tag filters */}
-            {allFacets.tags.length > 0 && (
+            {displayFacets.tags.length > 0 && (
               <div className="mt-4 pt-4 border-t border-border">
                 <p className="text-sm font-medium text-muted-foreground mb-2">
                   {locale === "es" ? "Características" : "Characteristics"}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {allFacets.tags.map(({ value, count }) => {
+                  {displayFacets.tags.map(({ value, count }) => {
                     const def = TAG_DEFINITIONS[value];
                     const isSelected = filter.tags?.includes(value);
                     return (
@@ -410,23 +457,53 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         )}
 
         {/* Results count */}
-        {displayTrees.length !== trees.length && (
-          <p className="text-center text-muted-foreground mb-6">
-            {labels.showing(displayTrees.length, trees.length)}
-          </p>
-        )}
+        <div className="text-center mb-6">
+          {filteredTrees.length !== trees.length && (
+            <p className="text-lg font-semibold text-primary mb-2">
+              {labels.matchingTrees(filteredTrees.length)}
+            </p>
+          )}
+          {hasActiveFilters && filteredTrees.length === 0 && (
+            <p className="text-muted-foreground">
+              {locale === "es"
+                ? "No se encontraron árboles con los filtros seleccionados"
+                : "No trees found with selected filters"}
+            </p>
+          )}
+        </div>
 
         {/* Tree display */}
         {viewMode === "alphabetical" ? (
+          // Alphabetical view shows all filtered trees (no pagination)
+          // This is intentional - A-Z index is for browsing the full list
           <AlphabeticalIndex
-            trees={displayTrees as unknown as ContentlayerTree[]}
+            trees={filteredTrees as unknown as ContentlayerTree[]}
             locale={locale}
           />
         ) : (
-          <TreeGrid
-            trees={displayTrees as unknown as ContentlayerTree[]}
-            locale={locale}
-          />
+          <>
+            <TreeGrid
+              trees={visibleTrees as unknown as ContentlayerTree[]}
+              locale={locale}
+            />
+            {/* Load More button */}
+            {hasMore && (
+              <div className="mt-8 text-center">
+                <button
+                  onClick={handleLoadMore}
+                  className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium shadow-sm hover:shadow-md"
+                >
+                  {labels.loadMore}
+                </button>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {labels.showingXofY(
+                    visibleTrees.length,
+                    filteredTrees.length
+                  )}
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
