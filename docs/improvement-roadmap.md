@@ -233,9 +233,9 @@ Track content coverage across all 110 species. Update as work progresses.
 
 **CARE GUIDANCE COMPLETE: 60/60 trees with full bilingual parity! 🎉**
 
-- [x] **13/20 priority comparison guides documented (65% complete - NEARLY TWO-THIRDS!)** ✅ _(Verified 2026-01-12: 13 EN + 13 ES files)_
+- [x] **14/20 priority comparison guides documented (70% complete - SEVEN-TENTHS!)** ✅ _(Verified 2026-01-12: 14 EN + 14 ES files)_
 - Target: 20 comparison guides (can continue later as Phase 2 expansion)
-- `/compare` route exists with comparison tool; 13 comprehensive written guides in `/content/comparisons/`
+- `/compare` route exists with comparison tool; 14 comprehensive written guides in `/content/comparisons/`
 
 ### Existing Features (Verified 2026-01-10)
 
@@ -582,7 +582,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 
 ### 2.3 Similar Species Comparison Guides
 
-**STATUS: 65% complete (13/20 guides - NEARLY TWO-THIRDS!)** _(VERIFIED 2026-01-12: 13 EN + 13 ES comparison files in content/comparisons/)_
+**STATUS: 70% complete (14/20 guides - SEVEN-TENTHS!)** _(VERIFIED 2026-01-12: 14 EN + 14 ES comparison files in content/comparisons/)_
 
 **MVP Requirements:**
 
@@ -598,7 +598,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 - [x] **Teca vs. Melina** comparison guide complete ✅ _(Added 2026-01-12 Autonomous: plantation timber investment)_
 - [x] **Zapote vs. Níspero** comparison guide complete ✅ _(Added 2026-01-12 Autonomous: Sapotaceae sweet fruits)_
 - [x] **Cocobolo vs. Cristóbal** comparison guide complete ✅ _(Added 2026-01-12 Session #4: premium rosewoods, conservation contrast)_
-- [ ] Build 7 more comparison guides (13/20 complete, 65%)
+- [ ] Build 6 more comparison guides (14/20 complete, 70%)
 
 **Priority Confusion Sets:**
 
@@ -615,7 +615,7 @@ commonProblems: ["pest X causes symptom Y", "disease Z prevention"]
 11. ✅ Cocobolo vs. Cristóbal (premium rosewoods - COMPLETED 2026-01-12)
 12. [x] **Ojoche vs. Javillo** (tall rainforest trees - safe vs. dangerous) ✅ _(Completed 2026-01-12: Critical safety comparison)_
 13. [x] **Guayacán Real vs. Madero Negro** (hardwoods - endangered vs. agroforestry) ✅ _(Completed 2026-01-12: Conservation contrast)_
-14. [ ] Aguacate vs. Aguacatillo (Lauraceae confusion)
+14. [x] **Aguacate vs. Aguacatillo** (Lauraceae confusion - cultivated vs. wild quetzal food) ✅ _(Completed 2026-01-12: Cloud forest ecology)_
         15-20. [Identify from user feedback/search queries]
 
 **Comparison Guide Structure:**
