@@ -5,6 +5,7 @@ import { TreeCard } from "@/components/tree";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import { SafeImage } from "@/components/SafeImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { FeaturedTreesSection } from "@/components/FeaturedTreesSection";
 import type { Locale } from "@/types/tree";
 
 type Props = {
@@ -164,6 +165,7 @@ export default async function HomePage({ params }: Props) {
               locale={locale as Locale}
               featuredTrees={t("featuredTrees")}
               viewAll={t("viewAll")}
+              loadMore={t("loadMore")}
             />
           </div>
         </section>
@@ -217,46 +219,6 @@ function HeroContent({
           />
         </svg>
       </Link>
-    </>
-  );
-}
-
-function FeaturedTreesSection({
-  trees,
-  locale,
-  featuredTrees,
-  viewAll,
-}: {
-  trees: typeof allTrees;
-  locale: Locale;
-  featuredTrees: string;
-  viewAll: string;
-}) {
-  return (
-    <>
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-primary-dark dark:text-primary-light">
-          {featuredTrees}
-        </h2>
-        <Link
-          href="/trees"
-          className="text-primary hover:text-primary-light transition-colors font-medium"
-        >
-          {viewAll} →
-        </Link>
-      </div>
-
-      {trees.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {trees.slice(0, 6).map((tree) => (
-            <TreeCard key={tree._id} tree={tree} locale={locale} />
-          ))}
-        </div>
-      ) : (
-        <p className="text-center text-muted-foreground py-12">
-          No trees found. Add some content to get started!
-        </p>
-      )}
     </>
   );
 }
