@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafetyPageClient } from "./SafetyPageClient";
 import type { Locale } from "@/types";

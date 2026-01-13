@@ -1,4 +1,4 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from "vitest";
 import { validateScientificName, detectHomoglyphs } from "../scientific-name";
 
 describe("validateScientificName", () => {
@@ -161,7 +161,7 @@ describe("validateScientificName", () => {
 
     it("should detect suspicious normalization", () => {
       // Create a string where NFKC differs from NFC
-      const suspicious = "ﬁ"; // Latin Small Ligature FI (U+FB01)
+      const suspicious = "Quercus ﬁgaris"; // Contains Latin Small Ligature FI (U+FB01)
       const result = validateScientificName(suspicious);
 
       // Should be rejected because NFKC normalizes ligatures

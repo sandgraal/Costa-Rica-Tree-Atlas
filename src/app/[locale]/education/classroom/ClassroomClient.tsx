@@ -58,7 +58,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
   });
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
-  const [storageError, setStorageError] = useState<string | null>(null);
+  const [_storageError, setStorageError] = useState<string | null>(null);
 
   const badges = getBadges();
   const earnedBadgeIcons = badges.filter((b) => b.earned).map((b) => b.icon);
@@ -69,7 +69,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       createStorage({
         key: CLASSROOM_STORAGE_KEY,
         schema: classroomSchema,
-        onError: (error) => {
+        onError: (_error) => {
           setStorageError(
             locale === "es"
               ? "Se detectaron datos corruptos del aula y fueron eliminados"
@@ -85,7 +85,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       createStorage({
         key: STUDENT_STORAGE_KEY,
         schema: studentInfoSchema,
-        onError: (error) => {
+        onError: (_error) => {
           setStorageError(
             locale === "es"
               ? "Se detectaron datos corruptos del estudiante y fueron eliminados"

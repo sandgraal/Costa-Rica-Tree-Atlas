@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { allGlossaryTerms } from "contentlayer/generated";
 import { Suspense } from "react";
-import type { Locale, GlossaryCategory } from "@/types";
+import type { Locale } from "@/types";
 import { GlossaryFilters } from "@/components/glossary/GlossaryFilters";
 
 interface GlossaryPageProps {
