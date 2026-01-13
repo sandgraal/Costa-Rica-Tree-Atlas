@@ -9,7 +9,7 @@ describe("useDebounce", () => {
   it("validates default delay parameter", () => {
     // The hook should accept a delay parameter with default value of 300
     expect(useDebounce).toBeDefined();
-    expect(useDebounce.length).toBe(2); // Expects 2 parameters (value, delay)
+    expect(useDebounce.length).toBe(1); // Only 1 required parameter (value), delay has a default
   });
 
   it("validates the hook type signature", () => {

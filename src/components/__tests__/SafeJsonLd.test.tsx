@@ -1,15 +1,25 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 import { render } from "@testing-library/react";
 import { SafeJsonLd } from "../SafeJsonLd";
 
 describe("SafeJsonLd Component", () => {
+  afterEach(() => {
+    // Clean up any scripts added to head
+    const scripts = document.head.querySelectorAll(
+      'script[type="application/ld+json"]'
+    );
+    scripts.forEach((script) => script.remove());
+  });
+
   it("should escape </script> tags", () => {
     const malicious = {
       name: "</script><script>alert(1)</script>",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).not.toContain("</script>");
     expect(script?.textContent).toContain("\\u003c/script\\u003e");
@@ -20,8 +30,10 @@ describe("SafeJsonLd Component", () => {
       description: "Line 1\u2028Line 2\u2029Line 3",
     };
 
-    const { container } = render(<SafeJsonLd data={data} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={data} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).toContain("\\u2028");
     expect(script?.textContent).toContain("\\u2029");
@@ -34,8 +46,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test Tree",
     };
 
-    const { container } = render(<SafeJsonLd data={valid} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={valid} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.getAttribute("type")).toBe("application/ld+json");
     expect(script?.textContent).toContain("Test Tree");
@@ -47,8 +61,10 @@ describe("SafeJsonLd Component", () => {
       description: "A < B > C",
     };
 
-    const { container } = render(<SafeJsonLd data={data} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={data} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).not.toContain("<div>");
     expect(script?.textContent).toContain("\\u003c");
@@ -60,8 +76,10 @@ describe("SafeJsonLd Component", () => {
       name: "</ScRiPt><ScRiPt>alert(1)</ScRiPt>",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     // Should be escaped and not executable
     expect(script?.textContent).not.toContain("</ScRiPt>");
@@ -73,8 +91,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test＜script＞alert(1)＜/script＞",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     // Fullwidth chars should be escaped
     expect(script?.textContent).not.toContain("＜");
@@ -86,8 +106,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test\u200Bmalicious\u200C",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     // Zero-width characters should be removed
     expect(script?.textContent).not.toContain("\u200B");
@@ -99,8 +121,10 @@ describe("SafeJsonLd Component", () => {
       name: 'Test<img onerror="alert(1)">',
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     // Event handlers should be escaped
     expect(script?.textContent).not.toContain("onerror=");
@@ -111,8 +135,10 @@ describe("SafeJsonLd Component", () => {
       name: "</style><style>body{display:none}</style>",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).not.toContain("</style>");
     expect(script?.textContent).toContain("\\u003c");
@@ -123,8 +149,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test-->",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).not.toContain("-->");
   });
@@ -134,8 +162,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test]]>",
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).not.toContain("]]>");
   });
@@ -146,8 +176,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test",
     };
 
-    const { container } = render(<SafeJsonLd data={data} nonce="test-nonce" />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={data} nonce="test-nonce" />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.getAttribute("nonce")).toBe("test-nonce");
   });
@@ -159,8 +191,10 @@ describe("SafeJsonLd Component", () => {
       },
     };
 
-    const { container } = render(<SafeJsonLd data={malicious} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={malicious} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.textContent).not.toContain("<script>");
   });
@@ -174,8 +208,10 @@ describe("SafeJsonLd Component", () => {
       keywords: "lifestyle, description, prescription",
     };
 
-    const { container } = render(<SafeJsonLd data={legitimate} />);
-    const script = container.querySelector("script");
+    render(<SafeJsonLd data={legitimate} />);
+    const script = document.head.querySelector(
+      'script[type="application/ld+json"]'
+    );
 
     expect(script?.getAttribute("type")).toBe("application/ld+json");
     expect(script?.textContent).toContain("Costa Rican Style Tree");
