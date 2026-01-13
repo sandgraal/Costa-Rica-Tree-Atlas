@@ -21,9 +21,7 @@ export function StreamingWrapper({
   if (delay > 0) {
     return (
       <Suspense
-        fallback={
-          <DelayedFallback delay={delay}>{fallback}</DelayedFallback>
-        }
+        fallback={<DelayedFallback delay={delay}>{fallback}</DelayedFallback>}
       >
         {children}
       </Suspense>

@@ -81,7 +81,9 @@ export function getImageStats(): {
     return { total: 0, cached: 0, avgLoadTime: 0, totalSize: 0 };
   }
 
-  const entries = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
+  const entries = performance.getEntriesByType(
+    "resource"
+  ) as PerformanceResourceTiming[];
   const imageEntries = entries.filter((entry) =>
     entry.name.match(/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i)
   );

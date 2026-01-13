@@ -5,7 +5,11 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
-import { createStorage, classroomSchema, studentInfoSchema } from "@/lib/storage";
+import {
+  createStorage,
+  classroomSchema,
+  studentInfoSchema,
+} from "@/lib/storage";
 
 interface ClassroomClientProps {
   locale: string;

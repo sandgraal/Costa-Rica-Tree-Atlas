@@ -32,7 +32,11 @@ export default async function ScavengerHuntPage({ params }: Props) {
   );
 }
 
-async function ScavengerHuntContent({ params }: { params: Promise<{ locale: string }> }) {
+async function ScavengerHuntContent({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 

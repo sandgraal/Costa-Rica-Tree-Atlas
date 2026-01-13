@@ -7,6 +7,7 @@ This document outlines the ethical usage guidelines for the Costa Rica Tree Atla
 ## Mission Statement
 
 The Costa Rica Tree Atlas exists to:
+
 - Educate people about Costa Rican biodiversity
 - Support conservation efforts
 - Provide accessible scientific information

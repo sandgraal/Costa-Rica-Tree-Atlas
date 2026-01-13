@@ -83,15 +83,19 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 ### By Role
 
 **Content Writers:**
+
 - Main README, CONTRIBUTING, CONTENT_STANDARDIZATION_GUIDE, MISSING_SPECIES_LIST
 
 **Developers:**
+
 - AGENTS, .github/instructions/, all technical guides in docs/
 
 **Testers:**
+
 - NEXT_STEPS, accessibility-testing-checklist, performance-testing-checklist
 
 **Project Managers:**
+
 - improvement-roadmap, MISSING_SPECIES_LIST, NEXT_STEPS, Main README
 
 ## 📦 Archived Documentation
@@ -118,6 +122,7 @@ Found outdated information or have suggestions? Please:
 4. Update the relevant documentation index if adding new docs
 
 **Documentation Standards:**
+
 - Use clear, concise language
 - Include code examples where relevant
 - Keep information up-to-date with code changes

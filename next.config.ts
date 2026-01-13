@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2024-present sandgraal
  * SPDX-License-Identifier: AGPL-3.0-or-later
- * 
+ *
  * This file is part of Costa Rica Tree Atlas.
  * See LICENSE file in the project root for full license information.
  */
