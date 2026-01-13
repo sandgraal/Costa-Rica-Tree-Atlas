@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
-import { TreeCard } from "@/components/tree";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import { SafeImage } from "@/components/SafeImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";

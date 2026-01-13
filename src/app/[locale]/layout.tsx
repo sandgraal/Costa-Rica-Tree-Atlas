@@ -6,11 +6,7 @@ import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import {
-  StoreProvider,
-  QueryProvider,
-  ThemeSync,
-} from "@/components/providers";
+import { StoreProvider, QueryProvider } from "@/components/providers";
 import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
 import { PWARegister } from "@/components/PWARegister";
 import { Analytics } from "@/components/Analytics";

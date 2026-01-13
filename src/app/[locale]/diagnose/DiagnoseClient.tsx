@@ -25,7 +25,7 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
   );
   const [selectedCategory, setSelectedCategory] =
     useState<SymptomCategory | null>(null);
-  const [selectedSymptom, setSelectedSymptom] = useState<Symptom | null>(null);
+  const [_selectedSymptom, setSelectedSymptom] = useState<Symptom | null>(null);
   const [diagnosis, setDiagnosis] = useState<Diagnosis | null>(null);
 
   const t = (key: string): string => {
