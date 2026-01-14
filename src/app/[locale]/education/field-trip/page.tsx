@@ -33,7 +33,11 @@ export default async function FieldTripPage({ params }: Props) {
   );
 }
 
-async function FieldTripContent({ params }: { params: Promise<{ locale: string }> }) {
+async function FieldTripContent({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 

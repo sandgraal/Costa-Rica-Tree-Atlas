@@ -5,6 +5,7 @@ First off, thank you for considering contributing to the Costa Rica Tree Atlas! 
 ## 📚 Documentation
 
 For comprehensive project documentation, see the **[Documentation Index](docs/README.md)** which includes:
+
 - Technical guides for developers
 - Content creation standards
 - Testing procedures
@@ -48,18 +49,21 @@ See [LICENSE](LICENSE) and [LICENSE-CONTENT.md](LICENSE-CONTENT.md) for full det
 ### By Contributing, You Agree To:
 
 **For Code Contributions:**
+
 - Your code contributions will be licensed under AGPL-3.0
 - You have the right to submit the code under this license
 - You retain copyright to your contributions
 - You grant the project rights to use and distribute your contributions under AGPL-3.0
 
 **For Content Contributions:**
+
 - Your content contributions (tree descriptions, translations, images) will be licensed under CC BY-NC-SA 4.0
 - You have the right to submit the content under this license (own it or have permission)
 - You retain copyright to your contributions
 - You grant the project rights to use and distribute your contributions under CC BY-NC-SA 4.0
 
 **For Photograph Contributions:**
+
 - You must own the copyright or have explicit permission to share under CC BY-NC-SA 4.0
 - You understand the NonCommercial restriction applies
 - You will provide proper attribution information

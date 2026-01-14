@@ -125,6 +125,9 @@ export const lessonProgressSchema = z.object({
   objectives: z.record(z.string(), z.boolean()).optional(),
 });
 
-export const educationProgressSchema = z.record(z.string(), lessonProgressSchema);
+export const educationProgressSchema = z.record(
+  z.string(),
+  lessonProgressSchema
+);
 
 export type EducationProgress = z.infer<typeof educationProgressSchema>;

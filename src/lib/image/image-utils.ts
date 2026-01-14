@@ -73,7 +73,7 @@ export function getOptimizedImageUrl(
 export function isValidImageUrl(url: string): boolean {
   try {
     const parsed = new URL(url, "https://example.com");
-    
+
     // Check for allowed protocols
     if (!["http:", "https:", "data:"].includes(parsed.protocol)) {
       return false;

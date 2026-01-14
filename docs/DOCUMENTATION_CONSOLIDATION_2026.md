@@ -47,11 +47,13 @@ Created **docs/README.md** as comprehensive documentation index:
 ### 3. Updated Primary Entry Points
 
 **README.md:**
+
 - Added "Documentation" section linking to docs/README.md
 - Maintained all feature descriptions
 - Kept comprehensive and current
 
 **CONTRIBUTING.md:**
+
 - Added reference to Documentation Index
 - Maintained all setup and contribution instructions
 
@@ -69,11 +71,13 @@ Verified each technical guide against actual codebase:
 ### 5. Added Status Metadata
 
 Updated all technical guides with:
+
 - **Status Badge:** ✅ Active or ✅ Complete
 - **Last Updated:** 2026-01-12
 - **Implementation Notes:** Links to relevant code/scripts
 
 Updated documents:
+
 1. REACT_QUERY_SETUP.md
 2. VIRTUALIZATION.md
 3. CSP_CONFIGURATION.md
@@ -95,15 +99,15 @@ Updated documents:
 
 ### Code Verification
 
-| Documentation | Implementation Status | Files/Evidence |
-|--------------|----------------------|----------------|
-| React Query | ✅ Active | src/lib/query-client.ts, query-helpers.ts |
-| Virtualization | ✅ Active | src/components/VirtualizedGrid.tsx, VirtualizedTreeList.tsx |
-| CSP | ✅ Active | middleware.ts with buildCSP functions |
-| Input Validation | ✅ Active | src/lib/validation/ directory |
-| Image Optimization | ✅ Active | scripts/optimize-images.mjs |
-| Safety System | ✅ Complete | 110 species with safety data |
-| Security Scanning | ✅ Active | GitHub workflows, Dependabot |
+| Documentation      | Implementation Status | Files/Evidence                                              |
+| ------------------ | --------------------- | ----------------------------------------------------------- |
+| React Query        | ✅ Active             | src/lib/query-client.ts, query-helpers.ts                   |
+| Virtualization     | ✅ Active             | src/components/VirtualizedGrid.tsx, VirtualizedTreeList.tsx |
+| CSP                | ✅ Active             | middleware.ts with buildCSP functions                       |
+| Input Validation   | ✅ Active             | src/lib/validation/ directory                               |
+| Image Optimization | ✅ Active             | scripts/optimize-images.mjs                                 |
+| Safety System      | ✅ Complete           | 110 species with safety data                                |
+| Security Scanning  | ✅ Active             | GitHub workflows, Dependabot                                |
 
 ### Content Verification
 
@@ -160,17 +164,20 @@ Costa-Rica-Tree-Atlas/
 ## Benefits
 
 ### For New Contributors
+
 - **Clear Entry Point:** README → docs/README.md provides easy navigation
 - **Role-Based Navigation:** Find docs relevant to your contribution type
 - **Up-to-Date Info:** All guides reflect current codebase (as of 2026-01-12)
 
 ### For Existing Maintainers
+
 - **Status Visibility:** Know which features are active vs historical
 - **Date Tracking:** See when docs were last verified
 - **Organized Archive:** Historical docs preserved but not cluttering main docs
 - **Maintenance Patterns:** Clear examples for future doc updates
 
 ### For the Project
+
 - **Reduced Confusion:** No more wondering if old docs are current
 - **Better Onboarding:** New contributors can get started faster
 - **Maintainability:** Established patterns for keeping docs current
@@ -196,12 +203,14 @@ Costa-Rica-Tree-Atlas/
 ### When to Archive Documentation
 
 Archive a document when:
+
 - It describes a one-time event (audit, migration)
 - Implementation is stable and doc no longer needs active updates
 - Content has been superseded by newer documentation
 - Information is historical but valuable for context
 
 **Never archive:**
+
 - Active technical guides
 - Setup/contribution instructions
 - Testing checklists

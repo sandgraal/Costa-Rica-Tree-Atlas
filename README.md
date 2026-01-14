@@ -204,12 +204,14 @@ This project uses a **dual-license structure** to protect both the technical inf
 All software, code, and technical infrastructure is licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 **What this means:**
+
 - You can freely use, modify, and distribute the code
 - Any modifications or deployments must remain open source
 - Network use requires sharing source code of modifications
 - Ensures derivative works remain free and open
 
 **Applies to:**
+
 - TypeScript/JavaScript files (`.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`)
 - Configuration files (`next.config.ts`, `tailwind.config.js`, etc.)
 - Build scripts and utilities
@@ -220,12 +222,14 @@ All software, code, and technical infrastructure is licensed under the [GNU Affe
 All educational content, tree data, and images are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0](LICENSE-CONTENT.md).
 
 **What this means:**
+
 - Free for educational, research, and non-commercial use
 - Attribution required when sharing or adapting
 - Derivative works must use the same license
 - Commercial use requires permission
 
 **Applies to:**
+
 - Tree descriptions and profiles (`.mdx` files)
 - Photographs and illustrations
 - Educational documentation
@@ -243,6 +247,7 @@ We chose this dual-license structure to:
 ### 💼 Commercial Licensing
 
 Interested in commercial use? We're open to discussion, especially for:
+
 - Eco-tourism educational materials
 - Conservation-focused applications
 - Environmental education platforms

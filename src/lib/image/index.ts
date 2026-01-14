@@ -25,4 +25,3 @@ export {
   monitorLCP,
   initImagePerformanceMonitoring,
 } from "./image-performance";
-

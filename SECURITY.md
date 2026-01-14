@@ -156,6 +156,7 @@ When working with filesystem operations:
 3. **Check results**: Validate function return values before using paths
 4. **Log attempts**: Failed validation attempts are logged for monitoring
 5. **Whitelist approach**: Only allow known-safe characters, reject everything else
+
 ### JSON-LD Sanitization
 
 All JSON-LD structured data undergoes comprehensive XSS sanitization before being rendered to prevent code injection attacks.
@@ -174,20 +175,20 @@ The application implements defense-in-depth with multiple sanitization layers:
 
 The following XSS attack vectors are detected and neutralized:
 
-| Attack Vector | Example | Protection Method |
-|---------------|---------|-------------------|
+| Attack Vector        | Example                              | Protection Method                                    |
+| -------------------- | ------------------------------------ | ---------------------------------------------------- |
 | Script tag injection | `</script><script>alert(1)</script>` | Case-insensitive pattern matching + Unicode escaping |
-| Case variation | `</ScRiPt>`, `<SCRIPT>` | Case-insensitive regex patterns |
-| Extra whitespace | `</script >`, `< script>` | Pattern matching with `[^>]*` |
-| Unicode homoglyphs | `＜/script＞` (fullwidth) | Fullwidth character detection + Unicode escaping |
-| HTML entities | `&lt;/script&gt;` | Entity pattern detection |
-| Style tag escape | `</style><style>...</style>` | Style tag pattern matching |
-| HTML comment escape | `-->` | Direct string detection |
-| CDATA escape | `]]>` | Direct string detection |
-| Event handlers | `onerror="alert(1)"` | Event handler pattern matching |
-| JavaScript protocol | `javascript:alert(1)` | Protocol pattern matching |
-| Data URI HTML | `data:text/html,...` | Data URI pattern matching |
-| Zero-width chars | U+200B, U+200C, U+200D, U+FEFF | Zero-width character detection |
+| Case variation       | `</ScRiPt>`, `<SCRIPT>`              | Case-insensitive regex patterns                      |
+| Extra whitespace     | `</script >`, `< script>`            | Pattern matching with `[^>]*`                        |
+| Unicode homoglyphs   | `＜/script＞` (fullwidth)            | Fullwidth character detection + Unicode escaping     |
+| HTML entities        | `&lt;/script&gt;`                    | Entity pattern detection                             |
+| Style tag escape     | `</style><style>...</style>`         | Style tag pattern matching                           |
+| HTML comment escape  | `-->`                                | Direct string detection                              |
+| CDATA escape         | `]]>`                                | Direct string detection                              |
+| Event handlers       | `onerror="alert(1)"`                 | Event handler pattern matching                       |
+| JavaScript protocol  | `javascript:alert(1)`                | Protocol pattern matching                            |
+| Data URI HTML        | `data:text/html,...`                 | Data URI pattern matching                            |
+| Zero-width chars     | U+200B, U+200C, U+200D, U+FEFF       | Zero-width character detection                       |
 
 #### Implementation Details
 
@@ -256,30 +257,39 @@ if (!validation.valid) {
 #### Example: Prevented Attacks
 
 **Attack 1: Script Tag with Case Variation**
+
 ```json
-{"name": "</ScRiPt><ScRiPt>alert('XSS')</ScRiPt>"}
+{ "name": "</ScRiPt><ScRiPt>alert('XSS')</ScRiPt>" }
 ```
+
 ✅ **Blocked:** Case-insensitive pattern matching detects all variations
 
 **Attack 2: Unicode Homoglyph**
+
 ```json
-{"name": "＜script＞alert(1)＜/script＞"}
+{ "name": "＜script＞alert(1)＜/script＞" }
 ```
+
 ✅ **Blocked:** Fullwidth characters detected and escaped to Unicode
 
 **Attack 3: Zero-Width Character Obfuscation**
+
 ```json
-{"name": "test\u200B<script\u200C>alert(1)</script\u200D>"}
+{ "name": "test\u200B<script\u200C>alert(1)</script\u200D>" }
 ```
+
 ✅ **Blocked:** Zero-width characters removed, script tags detected
 
 **Attack 4: Event Handler Injection**
+
 ```json
-{"url": "https://example.com\" onerror=\"alert(1)"}
+{ "url": "https://example.com\" onerror=\"alert(1)" }
 ```
+
 ✅ **Blocked:** Event handler pattern matching removes `onerror=`
 
 **Attack 5: Nested Object Attack**
+
 ```json
 {
   "author": {
@@ -287,6 +297,7 @@ if (!validation.valid) {
   }
 }
 ```
+
 ✅ **Blocked:** Recursive scanning detects malicious content in nested objects
 
 #### Testing
@@ -305,6 +316,7 @@ Comprehensive test suite covers:
 - ✅ Sanitization effectiveness
 
 Tests located in:
+
 - `src/components/__tests__/SafeJsonLd.test.tsx`
 - `src/lib/validation/__tests__/json-ld.test.ts`
 
