@@ -54,7 +54,7 @@ These tasks cannot be completed autonomously and require human intervention or s
 - **Species Count Updated: 122 Total ✅**
   - Verified actual count: 122 EN trees, 122 ES trees (244 documents total)
   - Updated from previous count of 110 species
-  - Removed duplicate Spanish file (chirca.mdx - same as yellow-oleander)
+  - Removed duplicate Spanish file (chirca.mdx - same species as yellow-oleander.mdx, both Thevetia peruviana, just different common Spanish names)
   - Updated README.md, MISSING_SPECIES_LIST.md, and roadmap documentation
   - All high-priority species from missing list now documented
   - **CONCLUSION: Documentation now reflects accurate species count**

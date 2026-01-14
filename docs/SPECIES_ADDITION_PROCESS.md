@@ -106,20 +106,18 @@ grep -h "scientificName:" content/trees/{en,es}/*.mdx | sort | uniq -d
 **Detection:**
 
 ```bash
-# Compare scientific names with different slugs
-for en_file in content/trees/en/*.mdx; do
-  en_slug=$(basename "$en_file" .mdx)
-  en_sci=$(grep "scientificName:" "$en_file" | cut -d'"' -f2)
+# More efficient approach using temporary files
+grep -h "scientificName:" content/trees/en/*.mdx | \
+  paste <(ls content/trees/en/*.mdx | xargs -n1 basename | sed 's/.mdx//') - | \
+  sort -k2 > /tmp/en_sci_names.txt
 
-  for es_file in content/trees/es/*.mdx; do
-    es_slug=$(basename "$es_file" .mdx)
-    es_sci=$(grep "scientificName:" "$es_file" | cut -d'"' -f2)
+grep -h "scientificName:" content/trees/es/*.mdx | \
+  paste <(ls content/trees/es/*.mdx | xargs -n1 basename | sed 's/.mdx//') - | \
+  sort -k2 > /tmp/es_sci_names.txt
 
-    if [ "$en_sci" = "$es_sci" ] && [ "$en_slug" != "$es_slug" ]; then
-      echo "Mismatch: $en_sci - EN:$en_slug ES:$es_slug"
-    fi
-  done
-done
+# Find same scientific name with different slugs
+join -1 2 -2 2 -o 1.1,2.1,1.2 /tmp/en_sci_names.txt /tmp/es_sci_names.txt | \
+  awk '$1 != $2 {print "Mismatch: " $3 " - EN:" $1 " ES:" $2}'
 ```
 
 **Resolution:**
