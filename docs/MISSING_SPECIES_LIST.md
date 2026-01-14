@@ -1,16 +1,23 @@
 # Missing Species - Expansion List
 
 **Last Updated:** 2026-01-14  
-**Current Species Count:** 122 documented  
-**Missing Species:** ~53+ identified for future expansion
+**Current Species Count:** 124 documented  
+**Missing Species:** ~51+ identified for future expansion
 
 ## Overview
 
 This document tracks tree species native to or ecologically significant in Costa Rica that are not yet documented in the atlas. Species are organized by ecological category and priority for addition.
 
-## ✅ Recently Added Species (Since 2026-01-12)
+## ✅ Recently Added Species
 
-The following 12 species from the original missing list have been successfully documented:
+### Latest Additions (2026-01-14)
+
+- **Quizarrá** - _Nectandra salicina_ - Cloud forest laurel ✅
+- **Llama del Bosque** - _Spathodea campanulata_ - African tulip tree (invasive ornamental) ✅
+
+### Previous Additions (Since 2026-01-12)
+
+The following 12 species from the original missing list were successfully documented:
 
 ### Mangrove Ecosystem (5 species) - ALL COMPLETE ✅
 
@@ -45,11 +52,11 @@ The following 12 species from the original missing list have been successfully d
 
 ## Priority Categories
 
-### HIGH PRIORITY - Native Forest Trees (9 species remaining)
+### HIGH PRIORITY - Native Forest Trees (8 species remaining)
 
 Important rainforest and montane species still needed:
 
-- **Quizarrá** - _Nectandra salicina_ - Laurel family timber
+- ~~**Quizarrá** - _Nectandra salicina_ - Laurel family timber~~ ✅ ADDED 2026-01-14
 - **Sigua** - _Nectandra cissiflora_ - Laurel family, fragrant wood
 - **Kerosén** - _Astronium graveolens_ - (Verify: may be same as Ron Ron already documented)
 - **Lechoso Montañero** - _Brosimum lactescens_ - Mountain breadnut
@@ -61,12 +68,12 @@ Important rainforest and montane species still needed:
 
 **Rationale:** These are ecologically significant native species commonly encountered in Costa Rican forests.
 
-### MEDIUM PRIORITY - Flowering/Ornamental (6 species)
+### MEDIUM PRIORITY - Flowering/Ornamental (5 species)
 
 Showy flowering species for urban landscaping and conservation:
 
 - **Cortez Blanco** - _Tabebuia donnell-smithii_ - White trumpet tree
-- **Llama del Bosque** - _Spathodea campanulata_ - African tulip tree (introduced but widespread)
+- ~~**Llama del Bosque** - _Spathodea campanulata_ - African tulip tree (introduced but widespread)~~ ✅ ADDED 2026-01-14
 - **Sardinillo** - _Tecoma stans_ - Yellow bells
 - **Cañafístula Rosada** - _Cassia grandis_ - (Verify: may be same as Carao already documented)
 - **Flor de Itabo** - _Yucca guatemalensis_ - Izote, national flower of El Salvador
@@ -233,10 +240,12 @@ All 5 mangrove species have been successfully documented.
 
 **Progress Update (2026-01-14):**
 
-- **12 species successfully added** since last update (2026-01-12)
+- **14 species successfully added** since last major update (2026-01-12)
+- New additions today: Quizarrá (Nectandra salicina), Llama del Bosque (Spathodea campanulata)
 - All mangrove species now documented (critical coastal ecosystem coverage complete)
 - High-priority native forest, cloud forest, and dry forest species added
-- Current total: 122 species documented (up from 110)
+- **Current total: 124 species documented** (up from 122)
+- Phase 2 in progress: 8 high-priority native forest species remaining
 
 ### Content Requirements per Species
 
@@ -252,14 +261,15 @@ Each new species should include:
 
 ### Estimated Effort
 
-**Updated calculations based on Phase 1 completion:**
+**Updated calculations based on recent progress:**
 
 - **Per species:** 4-6 hours (research + writing + translation + images)
 - **Phase 1 (5 species):** ✅ COMPLETE (20-30 hours invested)
-- **Phase 2 (17 species remaining):** 68-102 hours
-- **Complete remaining list (53 species):** 212-318 hours
+- **Recent additions (2 species):** ✅ COMPLETE (8-12 hours invested)
+- **Phase 2 (8 high-priority species remaining):** 32-48 hours
+- **Complete remaining list (51 species):** 204-306 hours
 
-**Achievement Rate:** 12 species added recently, demonstrating sustainable progress toward complete coverage.
+**Achievement Rate:** 14 species added recently, demonstrating sustainable progress toward complete coverage.
 
 ### Resources Needed
 
@@ -282,6 +292,7 @@ Each new species should include:
 **Status Update (2026-01-14):**
 
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
-- ✅ **12 total species** added since 2026-01-12
-- 📊 **122 species** now in atlas (up from 110)
-- 🎯 **Next:** Phase 2 native forest trees (53 species remaining overall)
+- ✅ **14 total species** added since 2026-01-12
+- ✅ **Today's additions:** Quizarrá (Nectandra salicina), Llama del Bosque (Spathodea campanulata)
+- 📊 **124 species** now in atlas (up from 110)
+- 🎯 **Next:** Continue Phase 2 native forest trees (51 species remaining overall)
