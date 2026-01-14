@@ -3,10 +3,7 @@ interface SkeletonTextProps {
   className?: string;
 }
 
-export function SkeletonText({
-  lines = 3,
-  className = "",
-}: SkeletonTextProps) {
+export function SkeletonText({ lines = 3, className = "" }: SkeletonTextProps) {
   return (
     <div className={`space-y-2 ${className}`}>
       {Array.from({ length: lines }, (_, i) => (

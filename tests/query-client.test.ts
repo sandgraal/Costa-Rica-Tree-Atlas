@@ -12,9 +12,7 @@ describe("Query Client Singleton", () => {
       const client = makeQueryClient();
 
       expect(client).toBeDefined();
-      expect(client.getDefaultOptions().queries?.staleTime).toBe(
-        5 * 60 * 1000
-      );
+      expect(client.getDefaultOptions().queries?.staleTime).toBe(5 * 60 * 1000);
       expect(client.getDefaultOptions().queries?.gcTime).toBe(
         24 * 60 * 60 * 1000
       );
@@ -58,9 +56,7 @@ describe("Query Client Singleton", () => {
   describe("Query Client Configuration", () => {
     it("should have correct stale time", () => {
       const client = makeQueryClient();
-      expect(client.getDefaultOptions().queries?.staleTime).toBe(
-        5 * 60 * 1000
-      );
+      expect(client.getDefaultOptions().queries?.staleTime).toBe(5 * 60 * 1000);
     });
 
     it("should have correct garbage collection time", () => {
