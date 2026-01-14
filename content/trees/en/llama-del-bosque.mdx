@@ -57,7 +57,7 @@ toxicityLevel: "high"
 toxicParts:
   - "seeds"
   - "fruit"
-  - "flowers (to some pollinators)"
+  - "flowers"
 skinContactRisk: "low"
 allergenRisk: "moderate"
 structuralRisks:
@@ -87,7 +87,7 @@ propagationMethods:
   - "root-suckers"
 propagationDifficulty: "easy"
 plantingSeason: "Can be planted year-round in Costa Rica; rainy season (May-November) is best"
-maintenanceNeeds">**NOT RECOMMENDED FOR NEW PLANTINGS** - this is an invasive species. If you already have one: Monitor carefully for spread. Remove seedlings promptly. DO NOT allow seeds to disperse into natural areas. Consider removal if tree is near forests or protected areas. Requires professional pruning due to size. Root suckers must be removed regularly to prevent spread."
+maintenanceNeeds: "**NOT RECOMMENDED FOR NEW PLANTINGS** - this is an invasive species. If you already have one: Monitor carefully for spread. Remove seedlings promptly. DO NOT allow seeds to disperse into natural areas. Consider removal if tree is near forests or protected areas. Requires professional pruning due to size. Root suckers must be removed regularly to prevent spread."
 commonProblems:
   - "INVASIVE SPREAD - produces hundreds of wind-dispersed seeds that colonize disturbed areas"
   - "Root suckers appear throughout lawn and garden - requires constant removal"
@@ -113,11 +113,16 @@ commonProblems:
 
 <TwoColumn>
   <QuickRef
-    family="Bignoniaceae"
-    conservation="Invasive (native: Least Concern)"
-    height="10-35 m"
-    elevation="0-1500 m"
-    distribution="Introduced throughout Costa Rica"
+    title="Quick Reference"
+    items={[
+      { label: "Scientific Name", value: "Spathodea campanulata" },
+      { label: "Family", value: "Bignoniaceae" },
+      { label: "Max Height", value: "10-35 m (33-115 ft)" },
+      { label: "Growth Rate", value: "Fast (1-2 m/year)" },
+      { label: "Status", value: "Invasive Species" },
+      { label: "Native Region", value: "Tropical Africa" },
+      { label: "Conservation", value: "Least Concern (native range)" },
+    ]}
   />
   <INaturalistEmbed
     taxonId="55877"
@@ -153,7 +158,7 @@ commonProblems:
 
 <DataTable
   headers={["Language/Region", "Common Name"]}
-  data={[
+  rows={[
     ["English", "African tulip tree, Fountain tree, Pichkari tree"],
     ["Spanish (Costa Rica)", "Llama del bosque, Tulipán africano"],
     ["Spanish (General)", "Tulipán de Gabón, Árbol de la tulipa"],
@@ -527,7 +532,7 @@ If you have an African tulip tree on your property:
     "Poró (Native)",
     "Cortez Amarillo (Native)",
   ]}
-  data={[
+  rows={[
     [
       "Scientific Name",
       "Spathodea campanulata",
