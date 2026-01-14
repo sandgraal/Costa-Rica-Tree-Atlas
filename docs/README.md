@@ -24,7 +24,8 @@ Start here if you're new to the project:
 ### Content Creation
 
 - **[CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md)** - Standards for tree profile pages
-- **[MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)** - Comprehensive list of ~65 species to add (mangroves, cloud forest, etc.)
+- **[MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)** - Comprehensive list of ~53 species to add (cloud forest, dry forest, etc.)
+- **[SPECIES_ADDITION_PROCESS.md](./SPECIES_ADDITION_PROCESS.md)** - Guide for reviewing missing list and adding new trees
 - **[improvement-roadmap.md](./improvement-roadmap.md)** - Project roadmap and feature status (comprehensive, 86KB)
 
 ### Testing & Quality
@@ -60,10 +61,10 @@ Start here if you're new to the project:
 
 ### Current State (January 2026)
 
-- ✅ **Content**: 110 species with complete safety data (EN+ES)
+- ✅ **Content**: 122 species with complete safety data (EN+ES)
 - ✅ **Educational**: 100 glossary terms, 60 species with care guidance, 14 comparison guides
 - ✅ **Features**: All planned features implemented (Phase 1-4 complete, Phase 5 at 95%)
-- ✅ **Build**: 942 pages generated successfully
+- ✅ **Build**: 1014 pages generated successfully
 - ⏸️ **Testing**: Awaiting external audits (axe DevTools, Lighthouse, screen readers)
 
 See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [NEXT_STEPS.md](./NEXT_STEPS.md) for launch tasks.
@@ -72,7 +73,7 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 
 ### By Topic
 
-- **Content Creation**: CONTENT_STANDARDIZATION_GUIDE.md, MISSING_SPECIES_LIST.md
+- **Content Creation**: CONTENT_STANDARDIZATION_GUIDE.md, MISSING_SPECIES_LIST.md, SPECIES_ADDITION_PROCESS.md
 - **Internationalization**: .github/instructions/i18n.instructions.md
 - **Images**: IMAGE_OPTIMIZATION.md, IMAGE_QUALITY_MONITORING.md, IMAGE_RESOURCES.md
 - **Performance**: performance-testing-checklist.md, VIRTUALIZATION.md, REACT_QUERY_SETUP.md
@@ -84,7 +85,7 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 
 **Content Writers:**
 
-- Main README, CONTRIBUTING, CONTENT_STANDARDIZATION_GUIDE, MISSING_SPECIES_LIST
+- Main README, CONTRIBUTING, CONTENT_STANDARDIZATION_GUIDE, MISSING_SPECIES_LIST, SPECIES_ADDITION_PROCESS
 
 **Developers:**
 
@@ -96,7 +97,7 @@ See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [
 
 **Project Managers:**
 
-- improvement-roadmap, MISSING_SPECIES_LIST, NEXT_STEPS, Main README
+- improvement-roadmap, MISSING_SPECIES_LIST, SPECIES_ADDITION_PROCESS, NEXT_STEPS, Main README
 
 ## 📦 Archived Documentation
 
@@ -131,5 +132,5 @@ Found outdated information or have suggestions? Please:
 
 ---
 
-**Last Updated:** 2026-01-12  
+**Last Updated:** 2026-01-14  
 **Maintained By:** Costa Rica Tree Atlas Contributors
