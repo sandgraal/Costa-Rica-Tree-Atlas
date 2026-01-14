@@ -17,7 +17,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 ### Bilingual Content
 
 - Full English and Spanish support with locale-based routing
-- 110 species with comprehensive bilingual profiles (220 documents)
+- 122 species with comprehensive bilingual profiles (244 documents)
 - MDX content system for rich tree profiles with React components
 
 ### Education Tools
