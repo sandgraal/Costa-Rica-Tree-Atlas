@@ -5,9 +5,10 @@
 
 ## Quick Reference
 
-- **Current Species Count:** 122 documented (244 bilingual documents)
-- **Last Major Update:** 2026-01-12 (12 species added)
-- **Missing Species Remaining:** ~53 identified for future expansion
+- **Current Species Count:** 124 documented (248 bilingual documents)
+- **Last Major Update:** 2026-01-14 (2 species added: Quizarrá, Llama del Bosque)
+- **Previous Major Update:** 2026-01-12 (12 species added)
+- **Missing Species Remaining:** ~51 identified for future expansion
 - **Missing Species List:** [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)
 
 ## Review Process
@@ -226,7 +227,17 @@ done
 
 ## Recent Updates Log
 
-### 2026-01-14
+### 2026-01-14 (Later Update)
+
+- **Added 2 new species:**
+  - Quizarrá (_Nectandra salicina_) - High-priority cloud forest laurel
+  - Llama del Bosque (_Spathodea campanulata_) - Medium-priority invasive ornamental
+- Updated documentation to reflect 124 species (up from 122)
+- Updated MISSING_SPECIES_LIST.md with new additions marked
+- Build verification: 1026 pages generated successfully
+- Progress: Phase 2 (native forest trees) in progress
+
+### 2026-01-14 (Morning Update)
 
 - Updated documentation to reflect 122 species (up from 110)
 - Removed duplicate chirca.mdx (Spanish version of yellow-oleander)
