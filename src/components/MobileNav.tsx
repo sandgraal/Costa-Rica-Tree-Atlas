@@ -79,7 +79,7 @@ export function MobileNav() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-x-0 top-0 bottom-0 z-40 bg-background/95 backdrop-blur-md pt-[5rem]">
+        <div className="fixed inset-x-0 top-0 bottom-0 z-[60] bg-background/95 backdrop-blur-md pt-[5rem]">
           <nav className="flex flex-col h-full px-6 pb-6 overflow-y-auto">
             {/* Navigation Links */}
             <ul className="space-y-1">
