@@ -20,9 +20,6 @@ import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
 import https from "node:https";
-import { promisify } from "node:util";
-
-const execAsync = promisify((await import("node:child_process")).exec);
 
 // Configuration
 const ROOT_DIR = process.cwd();
@@ -116,14 +113,15 @@ async function checkUrlExists(url) {
     }, 10000);
 
     https
-      .get(url, { method: "HEAD" }, (res) => {
+      .request(url, { method: "HEAD" }, (res) => {
         clearTimeout(timeout);
         resolve(res.statusCode === 200);
       })
       .on("error", () => {
         clearTimeout(timeout);
         resolve(false);
-      });
+      })
+      .end();
   });
 }
 
