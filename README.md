@@ -170,6 +170,15 @@ The project uses Sharp for high-performance image optimization:
 - **Blur Placeholders**: Tiny base64 data URLs for progressive loading
 - **Metadata Generation**: Complete image information in JSON format
 
+**Audit and validate:**
+
+```bash
+npm run images:audit           # Check featured images status
+npm run images:audit:gallery   # Check gallery images
+npm run images:validate        # Validate all image references (CI-ready)
+npm run images:validate:verbose # Detailed validation output
+```
+
 **Optimize images:**
 
 ```bash
@@ -177,7 +186,22 @@ npm run images:optimize         # Optimize new/changed images
 npm run images:optimize:force   # Re-optimize all images
 ```
 
-See **[Image Optimization Guide](docs/IMAGE_OPTIMIZATION.md)** for complete documentation.
+**Download/refresh images:**
+
+```bash
+npm run images:download        # Download missing images from iNaturalist
+npm run images:refresh         # Update with better quality versions
+npm run images:refresh:gallery # Refresh gallery images
+```
+
+**Cleanup:**
+
+```bash
+npm run images:check           # Check for orphaned images
+npm run images:cleanup         # Clean up obsolete images
+```
+
+See **[Image Optimization Guide](docs/IMAGE_OPTIMIZATION.md)** for complete documentation and **[Image Audit Report](docs/IMAGE_AUDIT.md)** for current status.
 
 ### Security & Code Quality
 

@@ -25,6 +25,8 @@
     "images:audit": "node scripts/manage-tree-images.mjs audit",
     "images:audit:all": "node scripts/manage-tree-images.mjs audit && node scripts/manage-tree-images.mjs audit-gallery",
     "images:audit:gallery": "node scripts/manage-tree-images.mjs audit-gallery",
+    "images:validate": "node scripts/validate-image-references.mjs",
+    "images:validate:verbose": "node scripts/validate-image-references.mjs --verbose",
     "images:download": "node scripts/manage-tree-images.mjs download",
     "images:download:force": "node scripts/manage-tree-images.mjs download --force",
     "images:refresh": "node scripts/manage-tree-images.mjs refresh",
