@@ -28,49 +28,127 @@ import type {
   TreeTag,
 } from "@/types/tree";
 
+// Conservation area ecosystem types
+type ConservationAreaType =
+  | "cloud-forest"
+  | "rainforest"
+  | "wetland"
+  | "volcano"
+  | "coastal"
+  | "dry-forest"
+  | "highland"
+  | "transition-forest";
+
 // Conservation areas with approximate locations
-const CONSERVATION_AREAS = [
+// Data source: SINAC (Sistema Nacional de Áreas de Conservación)
+const CONSERVATION_AREAS: Array<{
+  id: string;
+  name: Record<Locale, string>;
+  position: { x: number; y: number };
+  type: ConservationAreaType;
+  icon: string;
+}> = [
   {
     id: "monteverde",
-    name: { en: "Monteverde", es: "Monteverde" },
+    name: { en: "Monteverde Cloud Forest", es: "Bosque Nuboso Monteverde" },
     position: { x: 150, y: 95 },
     type: "cloud-forest" as const,
     icon: "🌲",
   },
   {
     id: "corcovado",
-    name: { en: "Corcovado", es: "Corcovado" },
+    name: { en: "Corcovado National Park", es: "Parque Nacional Corcovado" },
     position: { x: 115, y: 235 },
     type: "rainforest" as const,
     icon: "🦜",
   },
   {
     id: "tortuguero",
-    name: { en: "Tortuguero", es: "Tortuguero" },
+    name: {
+      en: "Tortuguero National Park",
+      es: "Parque Nacional Tortuguero",
+    },
     position: { x: 295, y: 75 },
     type: "wetland" as const,
     icon: "🐢",
   },
   {
     id: "arenal",
-    name: { en: "Arenal", es: "Arenal" },
+    name: {
+      en: "Arenal Volcano National Park",
+      es: "Parque Nacional Volcán Arenal",
+    },
     position: { x: 165, y: 85 },
     type: "volcano" as const,
     icon: "🌋",
   },
   {
     id: "manuel-antonio",
-    name: { en: "Manuel Antonio", es: "Manuel Antonio" },
+    name: {
+      en: "Manuel Antonio National Park",
+      es: "Parque Nacional Manuel Antonio",
+    },
     position: { x: 155, y: 175 },
     type: "coastal" as const,
     icon: "🏖️",
   },
   {
     id: "santa-rosa",
-    name: { en: "Santa Rosa", es: "Santa Rosa" },
+    name: {
+      en: "Santa Rosa National Park",
+      es: "Parque Nacional Santa Rosa",
+    },
     position: { x: 65, y: 60 },
     type: "dry-forest" as const,
     icon: "🌵",
+  },
+  {
+    id: "la-amistad",
+    name: {
+      en: "La Amistad Int'l Park",
+      es: "P.N. La Amistad",
+    },
+    position: { x: 230, y: 200 },
+    type: "highland" as const,
+    icon: "⛰️",
+  },
+  {
+    id: "rincon-de-la-vieja",
+    name: {
+      en: "Rincón de la Vieja N.P.",
+      es: "P.N. Rincón de la Vieja",
+    },
+    position: { x: 95, y: 55 },
+    type: "volcano" as const,
+    icon: "🌋",
+  },
+  {
+    id: "poas",
+    name: { en: "Poás Volcano N.P.", es: "P.N. Volcán Poás" },
+    position: { x: 175, y: 95 },
+    type: "volcano" as const,
+    icon: "🌋",
+  },
+  {
+    id: "cahuita",
+    name: { en: "Cahuita National Park", es: "Parque Nacional Cahuita" },
+    position: { x: 305, y: 140 },
+    type: "coastal" as const,
+    icon: "🏖️",
+  },
+  {
+    id: "carara",
+    name: { en: "Carara National Park", es: "Parque Nacional Carara" },
+    position: { x: 145, y: 160 },
+    type: "transition-forest" as const,
+    icon: "🦜",
+  },
+  {
+    id: "chirripo",
+    name: { en: "Chirripó National Park", es: "Parque Nacional Chirripó" },
+    position: { x: 215, y: 175 },
+    type: "highland" as const,
+    icon: "🏔️",
   },
 ];
 
@@ -503,6 +581,62 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
       <div className="container mx-auto max-w-7xl px-4 py-8">
         {activeTab === "discover" && (
           <div className="space-y-12">
+            <section className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 rounded-xl p-6 border border-green-200 dark:border-green-800">
+              <div className="flex items-start gap-4">
+                <span className="text-4xl">🌿</span>
+                <div>
+                  <h2 className="text-xl font-bold mb-2 text-green-900 dark:text-green-100">
+                    {typedLocale === "es"
+                      ? "Costa Rica: Potencia de Biodiversidad"
+                      : "Costa Rica: Biodiversity Powerhouse"}
+                  </h2>
+                  <p className="text-sm text-green-800 dark:text-green-200 mb-3">
+                    {typedLocale === "es"
+                      ? "Con solo el 0.03% de la superficie terrestre, Costa Rica alberga aproximadamente el 5% de toda la biodiversidad del planeta. Más del 25% del territorio está protegido como parques nacionales y reservas."
+                      : "With just 0.03% of Earth's land surface, Costa Rica hosts approximately 5% of all the planet's biodiversity. Over 25% of the country is protected as national parks and reserves."}
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                    <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
+                      <div className="font-bold text-green-700 dark:text-green-300">
+                        30+
+                      </div>
+                      <div className="text-green-600 dark:text-green-400">
+                        {typedLocale === "es"
+                          ? "Parques Nacionales"
+                          : "National Parks"}
+                      </div>
+                    </div>
+                    <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
+                      <div className="font-bold text-green-700 dark:text-green-300">
+                        ~500,000
+                      </div>
+                      <div className="text-green-600 dark:text-green-400">
+                        {typedLocale === "es" ? "Especies" : "Species"}
+                      </div>
+                    </div>
+                    <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
+                      <div className="font-bold text-green-700 dark:text-green-300">
+                        12
+                      </div>
+                      <div className="text-green-600 dark:text-green-400">
+                        {typedLocale === "es" ? "Zonas de Vida" : "Life Zones"}
+                      </div>
+                    </div>
+                    <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
+                      <div className="font-bold text-green-700 dark:text-green-300">
+                        25%+
+                      </div>
+                      <div className="text-green-600 dark:text-green-400">
+                        {typedLocale === "es"
+                          ? "Área Protegida"
+                          : "Protected Area"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <section>
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
                 ✨ {labels.featured}
@@ -606,7 +740,7 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                 </div>
               </div>
               <div className="bg-card rounded-xl border border-border p-4 text-center">
-                <div className="text-3xl font-bold text-amber-600">6</div>
+                <div className="text-3xl font-bold text-amber-600">12</div>
                 <div className="text-sm text-muted-foreground">
                   {labels.conservationAreas}
                 </div>
@@ -897,21 +1031,37 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
 
                 {displayProvince && (
                   <div className="mt-4 p-4 bg-primary/5 rounded-xl border border-primary/20">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-semibold text-lg">
                           {PROVINCES[displayProvince].name[typedLocale]}
                         </h3>
-                        <p className="text-muted-foreground">
-                          {treesByProvince[displayProvince].length}{" "}
-                          {labels.treesFound}
+                        <p className="text-sm text-muted-foreground">
+                          {PROVINCES[displayProvince].capital[typedLocale]}
                         </p>
                       </div>
                       <div className="text-right text-sm text-muted-foreground">
                         <p>
                           {PROVINCES[displayProvince].area.toLocaleString()} km²
                         </p>
+                        <p>
+                          {PROVINCES[
+                            displayProvince
+                          ].population.toLocaleString()}{" "}
+                          {typedLocale === "es" ? "hab." : "pop."}
+                        </p>
                       </div>
+                    </div>
+                    <div className="mb-2">
+                      <p className="text-sm text-foreground">
+                        {PROVINCES[displayProvince].climate[typedLocale]}
+                      </p>
+                    </div>
+                    <div className="pt-2 border-t border-border">
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {treesByProvince[displayProvince].length}{" "}
+                        {labels.treesFound}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -1040,18 +1190,68 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                   <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                     🏞️ {labels.conservationAreas}
                   </h2>
-                  <ul className="space-y-2">
-                    {CONSERVATION_AREAS.map((area) => (
-                      <li
-                        key={area.id}
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
-                      >
-                        <span className="text-xl">{area.icon}</span>
-                        <span className="text-sm">
-                          {area.name[typedLocale]}
-                        </span>
-                      </li>
-                    ))}
+                  <div className="text-xs text-muted-foreground mb-3">
+                    {typedLocale === "es"
+                      ? "Parques Nacionales de Costa Rica"
+                      : "Costa Rica National Parks"}
+                  </div>
+                  <ul className="space-y-2 max-h-96 overflow-y-auto">
+                    {CONSERVATION_AREAS.map((area) => {
+                      const ecosystemLabel =
+                        typedLocale === "es"
+                          ? area.type === "cloud-forest"
+                            ? "Bosque Nuboso"
+                            : area.type === "rainforest"
+                              ? "Bosque Lluvioso"
+                              : area.type === "wetland"
+                                ? "Humedal"
+                                : area.type === "volcano"
+                                  ? "Volcán"
+                                  : area.type === "coastal"
+                                    ? "Costero"
+                                    : area.type === "dry-forest"
+                                      ? "Bosque Seco"
+                                      : area.type === "highland"
+                                        ? "Tierras Altas"
+                                        : area.type === "transition-forest"
+                                          ? "Bosque de Transición"
+                                          : area.type
+                          : area.type === "cloud-forest"
+                            ? "Cloud Forest"
+                            : area.type === "rainforest"
+                              ? "Rainforest"
+                              : area.type === "wetland"
+                                ? "Wetland"
+                                : area.type === "volcano"
+                                  ? "Volcano"
+                                  : area.type === "coastal"
+                                    ? "Coastal"
+                                    : area.type === "dry-forest"
+                                      ? "Dry Forest"
+                                      : area.type === "highland"
+                                        ? "Highland"
+                                        : area.type === "transition-forest"
+                                          ? "Transition Forest"
+                                          : area.type;
+                      return (
+                        <li
+                          key={area.id}
+                          className="flex items-start gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
+                        >
+                          <span className="text-xl flex-shrink-0">
+                            {area.icon}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-sm font-medium">
+                              {area.name[typedLocale]}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {ecosystemLabel}
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
