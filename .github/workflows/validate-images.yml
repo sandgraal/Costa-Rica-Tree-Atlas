@@ -1,0 +1,102 @@
+name: Validate Image References
+
+on:
+  pull_request:
+    paths:
+      - "content/trees/**/*.mdx"
+      - "public/images/trees/**"
+      - ".github/workflows/validate-images.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate image references
+        id: validate
+        continue-on-error: true
+        run: |
+          echo "## Image Reference Validation" > validation-report.md
+          echo "" >> validation-report.md
+          echo "**Run Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> validation-report.md
+          echo "**Triggered by:** ${{ github.event_name }}" >> validation-report.md
+          echo "" >> validation-report.md
+          
+          if npm run images:validate >> validation-report.md 2>&1; then
+            echo "validation_passed=true" >> $GITHUB_OUTPUT
+            echo "" >> validation-report.md
+            echo "✅ **All image references are valid!**" >> validation-report.md
+          else
+            echo "validation_passed=false" >> $GITHUB_OUTPUT
+            echo "" >> validation-report.md
+            echo "❌ **Image reference validation failed. Please review the issues above.**" >> validation-report.md
+          fi
+
+      - name: Post validation report as comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('validation-report.md', 'utf8');
+            
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Image Reference Validation')
+            );
+            
+            const commentBody = `${report}\n\n---\n*This comment is automatically updated on each push.*`;
+            
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
+
+      - name: Post workflow summary
+        if: always()
+        run: |
+          if [ -f validation-report.md ]; then
+            cat validation-report.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Fail if validation failed
+        if: steps.validate.outputs.validation_passed == 'false'
+        run: |
+          echo "::error::Image reference validation failed. Please fix the issues reported above."
+          exit 1
