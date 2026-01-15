@@ -16,6 +16,8 @@ export interface ProvinceData {
   center: { x: number; y: number };
   area: number; // km²
   population: number;
+  capital: Record<Locale, string>;
+  climate: Record<Locale, string>;
 }
 
 export const PROVINCES: Record<Province, ProvinceData> = {
@@ -26,6 +28,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 90, y: 85 },
     area: 10141,
     population: 354154,
+    capital: { en: "Liberia", es: "Liberia" },
+    climate: {
+      en: "Tropical dry. Distinct dry season (Dec-Apr)",
+      es: "Seco tropical. Época seca marcada (dic-abr)",
+    },
   },
   alajuela: {
     id: "alajuela",
@@ -34,6 +41,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 160, y: 100 },
     area: 9757,
     population: 1018001,
+    capital: { en: "Alajuela", es: "Alajuela" },
+    climate: {
+      en: "Varies by elevation. Cooler highlands, humid lowlands",
+      es: "Varía según altitud. Tierras altas frescas, tierras bajas húmedas",
+    },
   },
   heredia: {
     id: "heredia",
@@ -42,6 +54,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 195, y: 100 },
     area: 2657,
     population: 512907,
+    capital: { en: "Heredia", es: "Heredia" },
+    climate: {
+      en: "Temperate in Central Valley, humid in northern lowlands",
+      es: "Templado en Valle Central, húmedo en tierras bajas del norte",
+    },
   },
   "san-jose": {
     id: "san-jose",
@@ -50,6 +67,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 185, y: 145 },
     area: 4966,
     population: 1694852,
+    capital: { en: "San José", es: "San José" },
+    climate: {
+      en: "Mild year-round (15-27°C). Rainy season May-Nov",
+      es: "Templado todo el año (15-27°C). Época lluviosa may-nov",
+    },
   },
   cartago: {
     id: "cartago",
@@ -58,6 +80,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 230, y: 130 },
     area: 3124,
     population: 524818,
+    capital: { en: "Cartago", es: "Cartago" },
+    climate: {
+      en: "Cool highland climate. Home to Costa Rica's highest peak",
+      es: "Clima fresco de tierras altas. Hogar del pico más alto",
+    },
   },
   limon: {
     id: "limon",
@@ -66,6 +93,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 285, y: 125 },
     area: 9189,
     population: 433082,
+    capital: { en: "Puerto Limón", es: "Puerto Limón" },
+    climate: {
+      en: "Humid tropical. Rain year-round (no dry season)",
+      es: "Tropical húmedo. Lluvia todo el año (sin época seca)",
+    },
   },
   puntarenas: {
     id: "puntarenas",
@@ -74,6 +106,11 @@ export const PROVINCES: Record<Province, ProvinceData> = {
     center: { x: 130, y: 185 },
     area: 11266,
     population: 490420,
+    capital: { en: "Puntarenas", es: "Puntarenas" },
+    climate: {
+      en: "Varies greatly. Dry N Pacific to wet S Pacific rainforests",
+      es: "Varía mucho. Pacífico N seco a bosques lluviosos Pacífico S",
+    },
   },
 };
 
@@ -94,8 +131,8 @@ export const REGIONS: Record<Region, RegionData> = {
     name: { en: "Pacific Coast", es: "Costa Pacífica" },
     provinces: ["guanacaste", "puntarenas"],
     description: {
-      en: "Tropical dry forests and beaches along the Pacific Ocean",
-      es: "Bosques secos tropicales y playas a lo largo del Océano Pacífico",
+      en: "Tropical dry forests and beaches. Distinct dry season (Dec-Apr). Home to unique deciduous trees that flower spectacularly during the dry season.",
+      es: "Bosques secos tropicales y playas. Estación seca marcada (dic-abr). Hogar de árboles deciduos únicos que florecen espectacularmente durante la época seca.",
     },
   },
   "caribbean-coast": {
@@ -103,8 +140,8 @@ export const REGIONS: Record<Region, RegionData> = {
     name: { en: "Caribbean Coast", es: "Costa Caribeña" },
     provinces: ["limon"],
     description: {
-      en: "Tropical rainforests and wetlands along the Caribbean Sea",
-      es: "Bosques tropicales húmedos y humedales a lo largo del Mar Caribe",
+      en: "Tropical rainforests with year-round rainfall (no dry season). Highest biodiversity. Wetlands, lowland rainforests, and coastal ecosystems.",
+      es: "Bosques tropicales lluviosos con lluvia todo el año (sin época seca). Mayor biodiversidad. Humedales, bosques lluviosos de tierras bajas y ecosistemas costeros.",
     },
   },
   "central-valley": {
@@ -112,8 +149,8 @@ export const REGIONS: Record<Region, RegionData> = {
     name: { en: "Central Valley", es: "Valle Central" },
     provinces: ["san-jose", "alajuela", "heredia", "cartago"],
     description: {
-      en: "Highland plateau with the highest population density",
-      es: "Meseta de tierras altas con la mayor densidad de población",
+      en: "Highland plateau (1,000-1,500m elevation) with mild climate year-round. Mix of premontane and montane forests. Coffee-growing region.",
+      es: "Meseta de tierras altas (1,000-1,500m) con clima templado todo el año. Mezcla de bosques premontanos y montanos. Región cafetalera.",
     },
   },
   "northern-zone": {
@@ -121,8 +158,8 @@ export const REGIONS: Record<Region, RegionData> = {
     name: { en: "Northern Zone", es: "Zona Norte" },
     provinces: ["alajuela", "heredia"],
     description: {
-      en: "Lowland plains near the Nicaraguan border",
-      es: "Llanuras bajas cerca de la frontera con Nicaragua",
+      en: "Lowland plains and volcanic slopes near Nicaragua. Transition from dry to wet forests. High rainfall. Mix of agricultural lands and protected forests.",
+      es: "Llanuras bajas y laderas volcánicas cerca de Nicaragua. Transición de bosques secos a húmedos. Alta precipitación. Mezcla de tierras agrícolas y bosques protegidos.",
     },
   },
 };
