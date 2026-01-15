@@ -270,15 +270,15 @@ async function validateAll() {
     }
   }
 
-  results.total = allTrees.size * 2; // Each tree should have 2 locales
-
   // Validate each tree
   if (singleTree) {
     console.log(`🔍 Validating single tree: ${singleTree}\n`);
+    results.total = 2; // One tree, two locales
     for (const locale of locales) {
       await validateTree(singleTree, locale);
     }
   } else {
+    results.total = allTrees.size * 2; // Each tree should have 2 locales
     console.log(`🔍 Validating ${allTrees.size} trees across 2 locales...\n`);
 
     for (const slug of allTrees) {
