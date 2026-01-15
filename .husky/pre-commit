@@ -1,6 +1,38 @@
 #!/usr/bin/env sh
 
-# Run lint-staged
-npx lint-staged
+# Pre-commit hook to validate MDX content changes
 
+echo "🔍 Checking for MDX content changes..."
+
+# Get list of staged MDX files
+MDX_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.mdx$' || true)
+
+if [ -n "$MDX_FILES" ]; then
+  echo "📝 MDX files changed, running validation..."
+  
+  # Run contentlayer build to validate MDX
+  echo "Building contentlayer..."
+  npm run contentlayer > /tmp/contentlayer-output.txt 2>&1
+  
+  if [ $? -ne 0 ]; then
+    echo "❌ Contentlayer build failed!"
+    cat /tmp/contentlayer-output.txt
+    exit 1
+  fi
+  
+  # Check for warnings
+  if grep -q "Warning.*problem" /tmp/contentlayer-output.txt; then
+    echo "⚠️  Contentlayer warnings detected:"
+    grep "Warning\|failed with" /tmp/contentlayer-output.txt
+    echo ""
+    echo "Please review the warnings above before committing."
+    echo "If these are expected, you can skip this check with: git commit --no-verify"
+    exit 1
+  fi
+  
+  echo "✅ MDX validation passed"
+fi
+
+# Run lint-staged for other file types
+npx lint-staged
 

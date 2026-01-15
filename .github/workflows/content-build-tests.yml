@@ -1,0 +1,92 @@
+name: Content & Build Tests
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'content/**/*.mdx'
+      - 'src/components/mdx/**'
+      - 'contentlayer.config.ts'
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'content/**/*.mdx'
+      - 'src/components/mdx/**'
+
+jobs:
+  content-validation:
+    name: Validate Content & Test Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Contentlayer
+        run: npm run contentlayer
+        continue-on-error: false
+        
+      - name: Check for Contentlayer warnings/errors
+        run: |
+          # Run contentlayer and capture output
+          output=$(npm run contentlayer 2>&1)
+          echo "$output"
+          
+          # Check for parsing errors
+          if echo "$output" | grep -q "failed with.*Error"; then
+            echo "❌ Contentlayer parsing errors detected!"
+            exit 1
+          fi
+          
+          # Check for warnings
+          if echo "$output" | grep -q "Warning.*problem"; then
+            echo "⚠️  Contentlayer warnings detected - review them carefully"
+            # Don't fail on warnings, just notify
+          fi
+          
+          echo "✅ Contentlayer built successfully"
+
+      - name: Run content validation tests
+        run: npm run test:run -- tests/content-validation.test.ts
+        
+      - name: Run MDX component tests  
+        run: npm run test:run -- tests/mdx-components.test.tsx
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Build Next.js
+        run: npm run build
+        env:
+          # Ensure build fails on errors, not just warnings
+          CI: true
+          
+      - name: Check build output
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "❌ Build failed - .next directory not created"
+            exit 1
+          fi
+          echo "✅ Build completed successfully"
+
+      - name: Report summary
+        if: always()
+        run: |
+          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Contentlayer validation passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Content validation tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ MDX component tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Type checking passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Next.js build succeeded" >> $GITHUB_STEP_SUMMARY

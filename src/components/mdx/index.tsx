@@ -1143,10 +1143,14 @@ export function Column({ children }: { children: React.ReactNode }) {
 // Data Table Component for use inside JSX components
 interface DataTableProps {
   headers: string[];
-  rows: string[][];
+  rows?: string[][];
+  data?: string[][]; // Support legacy prop name for backwards compatibility
 }
 
-export function DataTable({ headers, rows }: DataTableProps) {
+export function DataTable({ headers, rows, data }: DataTableProps) {
+  // Use rows if provided, otherwise fall back to data
+  const tableData = rows || data || [];
+
   return (
     <div className="overflow-x-auto my-4">
       <table className="w-full border-collapse text-sm">
@@ -1163,7 +1167,7 @@ export function DataTable({ headers, rows }: DataTableProps) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, rowIndex) => (
+          {tableData.map((row, rowIndex) => (
             <tr
               key={rowIndex}
               className={rowIndex % 2 === 0 ? "bg-muted/30" : "bg-muted/10"}
