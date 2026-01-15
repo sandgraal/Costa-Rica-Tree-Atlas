@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-01-14  
-**Current Species Count:** 124 documented  
-**Missing Species:** ~51+ identified for future expansion
+**Last Updated:** 2026-01-15  
+**Current Species Count:** 128 documented  
+**Missing Species:** ~47+ identified for future expansion
 
 ## Overview
 
@@ -10,7 +10,14 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ## ✅ Recently Added Species
 
-### Latest Additions (2026-01-14)
+### Latest Additions (2026-01-15)
+
+- **Sigua** - _Nectandra cissiflora_ - Laurel family, fragrant wood timber ✅
+- **Comenegro** - _Simarouba glauca_ - Paradise tree, medicinal bark ✅
+- **Mayo** - _Vochysia hondurensis_ - Important timber species ✅
+- **Lechoso Montañero** - _Brosimum lactescens_ - Mountain breadnut, milk tree ✅
+
+### Previous Additions (2026-01-14)
 
 - **Quizarrá** - _Nectandra salicina_ - Cloud forest laurel ✅
 - **Llama del Bosque** - _Spathodea campanulata_ - African tulip tree (invasive ornamental) ✅
@@ -52,18 +59,18 @@ The following 12 species from the original missing list were successfully docume
 
 ## Priority Categories
 
-### HIGH PRIORITY - Native Forest Trees (8 species remaining)
+### HIGH PRIORITY - Native Forest Trees (4 species remaining)
 
 Important rainforest and montane species still needed:
 
 - ~~**Quizarrá** - _Nectandra salicina_ - Laurel family timber~~ ✅ ADDED 2026-01-14
-- **Sigua** - _Nectandra cissiflora_ - Laurel family, fragrant wood
-- **Kerosén** - _Astronium graveolens_ - (Verify: may be same as Ron Ron already documented)
-- **Lechoso Montañero** - _Brosimum lactescens_ - Mountain breadnut
-- **Chilamate** - _Ficus insipida_ - (Verify: may be same as Higuerón already documented)
-- **Surá de Montaña** - _Terminalia oblonga_ - Mountain surá
-- **Comenegro** - _Simarouba glauca_ - Paradise tree
-- **Mayo** - _Vochysia hondurensis_ - Important timber species
+- ~~**Sigua** - _Nectandra cissiflora_ - Laurel family, fragrant wood~~ ✅ ADDED 2026-01-15
+- **Kerosén** - _Astronium graveolens_ - ✅ VERIFIED: Same as Ron Ron already documented
+- ~~**Lechoso Montañero** - _Brosimum lactescens_ - Mountain breadnut~~ ✅ ADDED 2026-01-15
+- **Chilamate** - _Ficus insipida_ - ✅ VERIFIED: Same as Higuerón already documented
+- **Surá de Montaña** - _Terminalia oblonga_ - ✅ VERIFIED: Same as Surá already documented
+- ~~**Comenegro** - _Simarouba glauca_ - Paradise tree~~ ✅ ADDED 2026-01-15
+- ~~**Mayo** - _Vochysia hondurensis_ - Important timber species~~ ✅ ADDED 2026-01-15
 - **Camíbar** - _Copaifera aromatica_ - Copaiba, medicinal resin
 
 **Rationale:** These are ecologically significant native species commonly encountered in Costa Rican forests.
@@ -238,14 +245,14 @@ All 5 mangrove species have been successfully documented.
 
 ### Implementation Notes
 
-**Progress Update (2026-01-14):**
+**Progress Update (2026-01-15):**
 
-- **14 species successfully added** since last major update (2026-01-12)
-- New additions today: Quizarrá (Nectandra salicina), Llama del Bosque (Spathodea campanulata)
+- **18 species successfully added** since last major update (2026-01-12)
+- New additions today: Sigua, Comenegro, Mayo, Lechoso Montañero
 - All mangrove species now documented (critical coastal ecosystem coverage complete)
 - High-priority native forest, cloud forest, and dry forest species added
-- **Current total: 124 species documented** (up from 122)
-- Phase 2 in progress: 8 high-priority native forest species remaining
+- **Current total: 128 species documented** (up from 124)
+- Phase 2 progress: Only 4 high-priority native forest species remaining (plus Camíbar)
 
 ### Content Requirements per Species
 
@@ -289,10 +296,10 @@ Each new species should include:
 
 **Note:** This list was compiled from community input and represents species commonly encountered in Costa Rica that would enhance the comprehensiveness of the atlas. Verification against existing content and scientific name accuracy should be performed before beginning content creation.
 
-**Status Update (2026-01-14):**
+**Status Update (2026-01-15):**
 
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
-- ✅ **14 total species** added since 2026-01-12
-- ✅ **Today's additions:** Quizarrá (Nectandra salicina), Llama del Bosque (Spathodea campanulata)
-- 📊 **124 species** now in atlas (up from 110)
-- 🎯 **Next:** Continue Phase 2 native forest trees (51 species remaining overall)
+- ✅ **18 total species** added since 2026-01-12
+- ✅ **Today's additions:** Sigua (Nectandra cissiflora), Comenegro (Simarouba glauca), Mayo (Vochysia hondurensis), Lechoso Montañero (Brosimum lactescens)
+- 📊 **128 species** now in atlas (up from 110)
+- 🎯 **Next:** Continue Phase 2 native forest trees (47 species remaining overall, 5 high-priority)
