@@ -166,36 +166,51 @@ function sanitizeString(value: string): string {
     let previous: string;
     let current = input;
 
-    // Single-attribute regex: name + optional value (quoted or unquoted)
-    const attrRegex =
-      /\s+([^\s=>\/]+)(\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*))?/gi;
+    // Safe regex approach: match attribute names separately from values
+    // Split into two simpler patterns to avoid nested quantifiers
+    // Pattern 1: attribute with double-quoted value
+    const attrDoubleQuote = /\s+([^\s=>\/]+)\s*=\s*"[^"]*"/gi;
+    // Pattern 2: attribute with single-quoted value
+    const attrSingleQuote = /\s+([^\s=>\/]+)\s*=\s*'[^']*'/gi;
+    // Pattern 3: attribute with unquoted value
+    const attrUnquoted = /\s+([^\s=>\/]+)\s*=\s*[^\s>]+/gi;
+    // Pattern 4: attribute without value
+    const attrNoValue = /\s+([^\s=>\/]+)(?=[\s/>])/gi;
 
     do {
       previous = current;
-      attrRegex.lastIndex = 0;
-      let match: RegExpExecArray | null;
-      let result = "";
-      let lastIndex = 0;
 
-      while ((match = attrRegex.exec(current)) !== null) {
-        const fullMatch = match[0];
-        const attrName = match[1];
+      // Process each pattern separately
+      const patterns = [
+        attrDoubleQuote,
+        attrSingleQuote,
+        attrUnquoted,
+        attrNoValue,
+      ];
 
-        if (/^on/i.test(attrName)) {
-          // Skip this attribute entirely (remove it)
-          result += current.slice(lastIndex, match.index);
-          lastIndex = match.index + fullMatch.length;
+      for (const regex of patterns) {
+        regex.lastIndex = 0;
+        let match: RegExpExecArray | null;
+        let result = "";
+        let lastIndex = 0;
+
+        while ((match = regex.exec(current)) !== null) {
+          const fullMatch = match[0];
+          const attrName = match[1];
+
+          if (/^on/i.test(attrName)) {
+            // Skip this attribute entirely (remove it)
+            result += current.slice(lastIndex, match.index);
+            lastIndex = match.index + fullMatch.length;
+          }
+        }
+
+        if (lastIndex > 0) {
+          // Append remainder of the string after the last removed attribute
+          result += current.slice(lastIndex);
+          current = result;
         }
       }
-
-      if (lastIndex === 0) {
-        // No event handler attributes removed in this pass
-        break;
-      }
-
-      // Append remainder of the string after the last removed attribute
-      result += current.slice(lastIndex);
-      current = result;
     } while (current !== previous);
 
     return current;
