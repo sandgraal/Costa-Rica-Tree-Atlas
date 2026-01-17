@@ -46,11 +46,8 @@ export function SafeImage({
     <>
       {loading && (
         <div
-          className="animate-pulse bg-muted rounded-lg"
-          style={{
-            width: props.width || "100%",
-            height: props.height || "100%",
-          }}
+          className="absolute inset-0 animate-pulse bg-muted rounded-lg"
+          aria-label="Loading image"
         />
       )}
       <Image
@@ -61,8 +58,14 @@ export function SafeImage({
         onError={() => {
           console.warn(`Failed to load image: ${src}`);
           setError(true);
+          setLoading(false);
         }}
         onLoad={() => setLoading(false)}
+        style={{
+          ...props.style,
+          opacity: loading ? 0 : 1,
+          transition: "opacity 0.2s ease-in-out",
+        }}
         {...props}
       />
     </>
