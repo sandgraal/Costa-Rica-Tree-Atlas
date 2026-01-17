@@ -223,9 +223,6 @@ function sanitizeString(value: string): string {
     // Use \s+ for whitespace before > to handle </script >, </script\t>, etc.
     clean = clean.replace(/<script[\s\S]*?>[\s\S]*?<\/script[\s\S]*?>/gis, "");
 
-    // Remove style tags (handle all whitespace)
-    clean = clean.replace(/<style[\s\S]*?>[\s\S]*?<\/style[\s\S]*?>/gis, "");
-
     // Remove event handler attributes safely (handles quoted and unquoted values)
     clean = removeEventHandlerAttributes(clean);
 
@@ -234,6 +231,33 @@ function sanitizeString(value: string): string {
     clean = clean.replace(/javascript:/gi, "");
     clean = clean.replace(/vbscript:/gi, "");
     clean = clean.replace(/data:/gi, ""); // Comprehensive - removes all data: URIs
+  }
+
+  // Ensure no residual <style or </style sequences remain (case-insensitive, with optional whitespace)
+  // Apply repeatedly in case earlier replacements create new <style / </style sequences
+  const removeStyleSequences = (input: string): string => {
+    let output = input;
+    // Remove complete <style>...</style> tags (including attributes and newlines)
+    // and any remaining <style / </style fragments. Apply repeatedly until no
+    // further changes occur to avoid incomplete multi-character sanitization.
+    let previous: string;
+    do {
+      previous = output;
+      output = output.replace(/<\s*style\b[\s\S]*?>/gi, "");
+      output = output.replace(/<\/\s*style\b[\s\S]*?>/gi, "");
+      // As a fallback, strip any remaining bare <style or </style fragments
+      output = output.replace(/<\s*style/gi, "");
+      output = output.replace(/<\/\s*style/gi, "");
+    } while (output !== previous);
+    return output;
+  };
+
+  while (true) {
+    const beforeStyleClean = clean;
+    clean = removeStyleSequences(clean);
+    if (clean === beforeStyleClean) {
+      break;
+    }
   }
 
   // Remove fullwidth variants (Unicode lookalikes)
