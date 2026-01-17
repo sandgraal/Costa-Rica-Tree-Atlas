@@ -27,7 +27,7 @@ The application uses three different CSP configurations depending on the route:
 
 ### 2. MDX CSP (`buildMDXCSP()`)
 
-**Used for:** Tree detail pages (`/[locale]/trees/[slug]`)
+**Used for:** Tree detail pages (`/[locale]/trees/[slug]`) and Glossary detail pages (`/[locale]/glossary/[slug]`)
 
 **Security level:** Medium - Requires `unsafe-eval` for MDX rendering
 
@@ -61,13 +61,14 @@ The application uses three different CSP configurations depending on the route:
 The middleware (`middleware.ts`) applies CSP based on URL patterns:
 
 ```typescript
-if (pathname.match(new RegExp(`^/(${localePattern})/marketing/`))) {
+if (MARKETING_ROUTE_REGEX.test(pathname)) {
   // Relaxed CSP for GTM
   csp = buildRelaxedCSP(nonce);
 } else if (
-  pathname.match(new RegExp(`^/(${localePattern})/trees/[a-zA-Z0-9-]+/?$`))
+  TREE_DETAIL_ROUTE_REGEX.test(pathname) ||
+  GLOSSARY_DETAIL_ROUTE_REGEX.test(pathname)
 ) {
-  // MDX CSP for tree detail pages
+  // MDX CSP for tree and glossary detail pages
   csp = buildMDXCSP(nonce);
 } else {
   // Strict CSP for everything else
