@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { DataSourceCard } from "@/components/DataSourceCard";
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -173,23 +174,45 @@ function AboutContent() {
         </div>
       </section>
 
-      {/* Acknowledgments */}
+      {/* Data Sources */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light">
-          {t("acknowledgments.title")}
+        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4">
+          {t("dataSources.title")}
         </h2>
-        <p>{t("acknowledgments.description")}</p>
-        <p className="mt-4 font-medium text-primary-dark dark:text-primary-light">
-          {t("acknowledgments.callToAction")}
-        </p>
-        <ul>
-          <li>{t("acknowledgments.inaturalist")}</li>
-          <li>{t("acknowledgments.sinac")}</li>
-          <li>{t("acknowledgments.community")}</li>
-        </ul>
-        <p className="mt-4 italic text-muted-foreground">
-          {t("acknowledgments.gratitude")}
-        </p>
+        <p className="mb-6 text-muted-foreground">{t("dataSources.intro")}</p>
+
+        <div className="grid md:grid-cols-2 gap-6 not-prose mb-6">
+          <DataSourceCard
+            name="iNaturalist"
+            icon="🔬"
+            description={t("dataSources.inaturalist.description")}
+            whatWeUse={t("dataSources.inaturalist.whatWeUse")}
+            whyItMatters={t("dataSources.inaturalist.whyItMatters")}
+            link="https://www.inaturalist.org"
+            ctaText={t("dataSources.inaturalist.cta")}
+          />
+
+          <DataSourceCard
+            name="SINAC"
+            icon="🌳"
+            description={t("dataSources.sinac.description")}
+            whatWeUse={t("dataSources.sinac.whatWeUse")}
+            whyItMatters={t("dataSources.sinac.whyItMatters")}
+            link="https://www.sinac.go.cr"
+            ctaText={t("dataSources.sinac.cta")}
+          />
+        </div>
+
+        <div className="bg-primary/5 dark:bg-primary/10 rounded-xl p-6 border border-primary/20">
+          <p className="text-sm">
+            <strong className="font-semibold text-primary-dark dark:text-primary-light">
+              {t("dataSources.callout.title")}:
+            </strong>{" "}
+            <span className="text-muted-foreground">
+              {t("dataSources.callout.description")}
+            </span>
+          </p>
+        </div>
       </section>
 
       {/* License */}
