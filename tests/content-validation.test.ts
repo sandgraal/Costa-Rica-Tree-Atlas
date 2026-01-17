@@ -7,6 +7,7 @@
 
 import { describe, it, expect } from "vitest";
 import { allTrees } from "contentlayer/generated";
+import type { TreeBase } from "@/types/tree";
 import fs from "fs";
 import path from "path";
 
@@ -42,7 +43,7 @@ describe("Tree Content Validation", () => {
   });
 
   it("should have required fields for all trees", () => {
-    const requiredFields = [
+    const requiredFields: (keyof TreeBase)[] = [
       "title",
       "scientificName",
       "family",

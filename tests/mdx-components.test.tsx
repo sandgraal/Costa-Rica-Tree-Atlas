@@ -60,7 +60,6 @@ describe("DataTable Component", () => {
     };
 
     expect(() => {
-      // @ts-expect-error Testing runtime behavior
       const component = DataTable(props);
       expect(component).toBeDefined();
     }).not.toThrow();
