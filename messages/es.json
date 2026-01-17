@@ -142,6 +142,36 @@
         "protected": "Territorio Protegido"
       }
     },
+    "impact": {
+      "title": "Nuestro Impacto",
+      "speciesDocumented": "Especies de Árboles",
+      "speciesCount": "50+",
+      "observations": "Observaciones Combinadas",
+      "observationsCount": "10,000+",
+      "openSource": "Código Abierto y Gratuito",
+      "openSourceValue": "100%",
+      "languages": "Idiomas",
+      "languagesCount": "2"
+    },
+    "howItWorks": {
+      "title": "Cómo Creamos Contenido",
+      "step1": {
+        "title": "Obtener Datos",
+        "description": "Recopilamos observaciones de plataformas de ciencia ciudadana y datos de organizaciones de conservación"
+      },
+      "step2": {
+        "title": "Investigar y Verificar",
+        "description": "Verificamos con literatura científica, registros de herbarios y guías de campo"
+      },
+      "step3": {
+        "title": "Crear Contenido",
+        "description": "Escribimos perfiles bilingües completos con fotos e información ecológica"
+      },
+      "step4": {
+        "title": "Compartir Abiertamente",
+        "description": "Publicamos libremente bajo licencias abiertas para educación y conservación"
+      }
+    },
     "contributing": {
       "title": "Cómo Contribuir",
       "description": "Damos la bienvenida a contribuciones de botánicos, naturalistas, fotógrafos, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica. Ya sea que quieras agregar un nuevo perfil de árbol, mejorar el contenido existente, traducir material o mejorar el sitio web, tu ayuda es valorada.",
@@ -164,6 +194,30 @@
         "whatWeUse": "Estado de conservación e información sobre áreas protegidas",
         "whyItMatters": "Datos oficiales de conservación del gobierno de Costa Rica",
         "cta": "Conoce la Conservación en CR"
+      },
+      "museoNacional": {
+        "description": "Museo Nacional de Costa Rica y su colección de herbario más grande",
+        "whatWeUse": "Registros de especímenes de herbario y referencias taxonómicas",
+        "whyItMatters": "500,000+ especímenes de plantas — la referencia botánica definitiva para Costa Rica",
+        "cta": "Explorar el Herbario"
+      },
+      "inbio": {
+        "description": "Instituto Nacional de Biodiversidad de Costa Rica",
+        "whatWeUse": "Datos de distribución de especies e información ecológica",
+        "whyItMatters": "160,000+ registros de plantas con datos detallados de distribución y hábitat",
+        "cta": "Ver Datos de Biodiversidad"
+      },
+      "ots": {
+        "description": "Organización para Estudios Tropicales — Jardín Botánico Wilson",
+        "whatWeUse": "Publicaciones de investigación y documentación de especies raras",
+        "whyItMatters": "Estación de investigación tropical líder que protege especies de árboles raras y en peligro",
+        "cta": "Conocer sobre OTS"
+      },
+      "lankester": {
+        "description": "Jardín Botánico Lankester — Universidad de Costa Rica",
+        "whatWeUse": "Investigación científica y recursos de educación botánica",
+        "whyItMatters": "Institución líder en investigación de biodiversidad vegetal costarricense",
+        "cta": "Visitar Jardín Lankester"
       },
       "callout": {
         "title": "Puedes Ayudar a Mejorar Los Datos",

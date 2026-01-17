@@ -143,6 +143,36 @@
         "protected": "Territory Protected"
       }
     },
+    "impact": {
+      "title": "Our Impact",
+      "speciesDocumented": "Tree Species",
+      "speciesCount": "50+",
+      "observations": "Combined Observations",
+      "observationsCount": "10,000+",
+      "openSource": "Open Source & Free",
+      "openSourceValue": "100%",
+      "languages": "Languages",
+      "languagesCount": "2"
+    },
+    "howItWorks": {
+      "title": "How We Create Content",
+      "step1": {
+        "title": "Source Data",
+        "description": "We gather observations from citizen science platforms and data from conservation organizations"
+      },
+      "step2": {
+        "title": "Research & Verify",
+        "description": "Cross-reference with scientific literature, herbarium records, and field guides"
+      },
+      "step3": {
+        "title": "Create Content",
+        "description": "Write comprehensive, bilingual species profiles with photos and ecological information"
+      },
+      "step4": {
+        "title": "Share Openly",
+        "description": "Publish freely under open licenses for education and conservation"
+      }
+    },
     "contributing": {
       "title": "How to Contribute",
       "description": "We welcome contributions from botanists, naturalists, photographers, developers, and anyone passionate about Costa Rica's trees. Whether you want to add a new tree profile, improve existing content, translate material, or enhance the website, your help is valued.",
@@ -165,6 +195,30 @@
         "whatWeUse": "Conservation status and protected areas information",
         "whyItMatters": "Official conservation data from Costa Rica's government",
         "cta": "Learn About CR Conservation"
+      },
+      "museoNacional": {
+        "description": "Costa Rica's National Museum and largest herbarium collection",
+        "whatWeUse": "Herbarium specimen records and taxonomic references",
+        "whyItMatters": "500,000+ plant specimens — the definitive botanical reference for Costa Rica",
+        "cta": "Explore the Herbarium"
+      },
+      "inbio": {
+        "description": "National Institute of Biodiversity of Costa Rica",
+        "whatWeUse": "Species distribution data and ecological information",
+        "whyItMatters": "160,000+ plant records with detailed distribution and habitat data",
+        "cta": "View Biodiversity Data"
+      },
+      "ots": {
+        "description": "Organization for Tropical Studies — Wilson Botanical Garden",
+        "whatWeUse": "Research publications and rare species documentation",
+        "whyItMatters": "Premier tropical research station protecting rare and endangered tree species",
+        "cta": "Learn About OTS"
+      },
+      "lankester": {
+        "description": "Lankester Botanical Garden — University of Costa Rica",
+        "whatWeUse": "Scientific research and botanical education resources",
+        "whyItMatters": "Leading research institution for Costa Rican plant biodiversity",
+        "cta": "Visit Lankester Garden"
       },
       "callout": {
         "title": "You Can Help Improve The Data",
