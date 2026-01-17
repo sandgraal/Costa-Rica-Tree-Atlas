@@ -234,8 +234,15 @@ function sanitizeString(value: string): string {
   }
 
   // Ensure no residual <style or </style sequences remain (case-insensitive, with optional whitespace)
-  clean = clean.replace(/<\s*style/gi, "");
-  clean = clean.replace(/<\/\s*style/gi, "");
+  // Apply repeatedly in case earlier replacements create new <style / </style sequences
+  while (true) {
+    const beforeStyleClean = clean;
+    clean = clean.replace(/<\s*style/gi, "");
+    clean = clean.replace(/<\/\s*style/gi, "");
+    if (clean === beforeStyleClean) {
+      break;
+    }
+  }
 
   // Remove fullwidth variants (Unicode lookalikes)
   clean = clean.replace(/[＜＞＆]/g, "");
