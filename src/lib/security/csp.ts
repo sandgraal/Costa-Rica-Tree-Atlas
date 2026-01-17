@@ -111,10 +111,8 @@ export function buildCSP(nonce?: string): string {
     ],
     "frame-src": [
       "'self'",
-      // Allow Vercel Toolbar in development/preview
-      ...(isDev || process.env.VERCEL_ENV === "preview"
-        ? ["https://vercel.live"]
-        : []),
+      // Allow Vercel Toolbar on all Vercel deployments (dev, preview, production)
+      ...(isDev || process.env.VERCEL ? ["https://vercel.live"] : []),
     ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
@@ -208,10 +206,8 @@ export function buildMDXCSP(nonce?: string): string {
     ],
     "frame-src": [
       "'self'",
-      // Allow Vercel Toolbar in development/preview
-      ...(isDev || process.env.VERCEL_ENV === "preview"
-        ? ["https://vercel.live"]
-        : []),
+      // Allow Vercel Toolbar on all Vercel deployments (dev, preview, production)
+      ...(isDev || process.env.VERCEL ? ["https://vercel.live"] : []),
     ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
@@ -292,10 +288,8 @@ export function buildRelaxedCSP(nonce?: string): string {
     ],
     "frame-src": [
       "'self'",
-      // Allow Vercel Toolbar in development/preview
-      ...(isDev || process.env.VERCEL_ENV === "preview"
-        ? ["https://vercel.live"]
-        : []),
+      // Allow Vercel Toolbar on all Vercel deployments (dev, preview, production)
+      ...(isDev || process.env.VERCEL ? ["https://vercel.live"] : []),
     ],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
