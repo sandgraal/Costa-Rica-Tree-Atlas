@@ -3,6 +3,26 @@ const recentNonces = new Map<string, number>();
 let lastCleanup = Date.now();
 
 /**
+ * Common image sources allowed across all CSP policies
+ * Includes a wildcard for HTTPS to ensure reliable image loading
+ *
+ * Security trade-off: The 'https:' wildcard allows any HTTPS image source.
+ * This is intentionally permissive to prevent image loading failures, as requested.
+ * HTTP sources are still blocked, providing basic protection against mixed content.
+ */
+const COMMON_IMG_SOURCES = [
+  "'self'",
+  "data:",
+  "blob:",
+  "https://static.inaturalist.org",
+  "https://inaturalist-open-data.s3.amazonaws.com",
+  "https://api.gbif.org",
+  "https://images.unsplash.com",
+  // Wildcard for all HTTPS images - intentionally permissive for reliability
+  "https:",
+] as const;
+
+/**
  * Generate a cryptographic nonce for CSP using Web Crypto API
  * Compatible with Edge Runtime
  *
@@ -93,17 +113,7 @@ export function buildCSP(nonce?: string): string {
       // TODO: Extract critical CSS to remove unsafe-inline
       "'unsafe-inline'",
     ],
-    "img-src": [
-      "'self'",
-      "data:",
-      "blob:",
-      "https://static.inaturalist.org",
-      "https://inaturalist-open-data.s3.amazonaws.com",
-      "https://api.gbif.org",
-      "https://images.unsplash.com",
-      // Allow all HTTPS images for maximum compatibility
-      "https:",
-    ],
+    "img-src": COMMON_IMG_SOURCES,
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
       "'self'",
@@ -191,17 +201,7 @@ export function buildMDXCSP(nonce?: string): string {
       // TODO: Extract critical CSS to remove unsafe-inline
       "'unsafe-inline'",
     ],
-    "img-src": [
-      "'self'",
-      "data:",
-      "blob:",
-      "https://static.inaturalist.org",
-      "https://inaturalist-open-data.s3.amazonaws.com",
-      "https://api.gbif.org",
-      "https://images.unsplash.com",
-      // Allow all HTTPS images for maximum compatibility
-      "https:",
-    ],
+    "img-src": COMMON_IMG_SOURCES,
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
       "'self'",
@@ -275,17 +275,9 @@ export function buildRelaxedCSP(nonce?: string): string {
       "'unsafe-inline'",
     ],
     "img-src": [
-      "'self'",
-      "data:",
-      "blob:",
-      "https://static.inaturalist.org",
-      "https://inaturalist-open-data.s3.amazonaws.com",
-      "https://api.gbif.org",
-      "https://images.unsplash.com",
+      ...COMMON_IMG_SOURCES,
       "https://www.google-analytics.com",
       "https://www.googletagmanager.com",
-      // Allow all HTTPS images for maximum compatibility
-      "https:",
     ],
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
