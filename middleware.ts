@@ -39,6 +39,9 @@ const MARKETING_ROUTE_REGEX = new RegExp(`^/(${localePattern})/marketing/`);
 const TREE_DETAIL_ROUTE_REGEX = new RegExp(
   `^/(${localePattern})/trees/[^/]+/?$`
 );
+const GLOSSARY_DETAIL_ROUTE_REGEX = new RegExp(
+  `^/(${localePattern})/glossary/[^/]+/?$`
+);
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -158,8 +161,11 @@ export default async function middleware(request: NextRequest) {
   if (MARKETING_ROUTE_REGEX.test(pathname)) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
     csp = buildRelaxedCSP(nonce);
-  } else if (TREE_DETAIL_ROUTE_REGEX.test(pathname)) {
-    // Tree detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
+  } else if (
+    TREE_DETAIL_ROUTE_REGEX.test(pathname) ||
+    GLOSSARY_DETAIL_ROUTE_REGEX.test(pathname)
+  ) {
+    // Tree and glossary detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
     csp = buildMDXCSP(nonce);
   } else {
     // All other pages: Strict CSP (no unsafe-eval)

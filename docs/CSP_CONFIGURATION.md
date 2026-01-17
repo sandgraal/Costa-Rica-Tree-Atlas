@@ -27,7 +27,7 @@ The application uses three different CSP configurations depending on the route:
 
 ### 2. MDX CSP (`buildMDXCSP()`)
 
-**Used for:** Tree detail pages (`/[locale]/trees/[slug]`)
+**Used for:** Tree detail pages (`/[locale]/trees/[slug]`) and Glossary detail pages (`/[locale]/glossary/[slug]`)
 
 **Security level:** Medium - Requires `unsafe-eval` for MDX rendering
 
@@ -61,13 +61,14 @@ The application uses three different CSP configurations depending on the route:
 The middleware (`middleware.ts`) applies CSP based on URL patterns:
 
 ```typescript
-if (pathname.match(new RegExp(`^/(${localePattern})/marketing/`))) {
+if (MARKETING_ROUTE_REGEX.test(pathname)) {
   // Relaxed CSP for GTM
   csp = buildRelaxedCSP(nonce);
 } else if (
-  pathname.match(new RegExp(`^/(${localePattern})/trees/[a-zA-Z0-9-]+/?$`))
+  TREE_DETAIL_ROUTE_REGEX.test(pathname) ||
+  GLOSSARY_DETAIL_ROUTE_REGEX.test(pathname)
 ) {
-  // MDX CSP for tree detail pages
+  // MDX CSP for tree and glossary detail pages
   csp = buildMDXCSP(nonce);
 } else {
   // Strict CSP for everything else
@@ -115,6 +116,22 @@ curl -I http://localhost:3000/en | grep content-security
 2. **Evaluate MDX alternatives:** Research CSP-compatible MDX runtimes
 3. **CSP reporting:** Configure `CSP_REPORT_URI` environment variable
 4. **Monitor violations:** Set up monitoring for CSP violation reports
+
+## Security Trade-offs
+
+### Image Loading
+
+- **Change:** Added wildcard `https:` to `img-src` directive
+- **Reason:** Ensures all HTTPS images load reliably without CSP failures
+- **Risk:** Slightly more permissive, but limited to HTTPS sources only
+- **Mitigation:** Still blocks HTTP images and non-HTTPS protocols
+
+### MDX Content
+
+- **Includes:** `'unsafe-eval'` on tree and glossary detail pages only
+- **Reason:** Required by contentlayer2's MDX bundler (`getMDXComponent`)
+- **Scope:** Limited to specific routes, not site-wide
+- **Content:** MDX files are part of the codebase, not user-generated
 
 ## References
 
