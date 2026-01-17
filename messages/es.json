@@ -148,14 +148,27 @@
       "github": "Ver en GitHub",
       "explore": "Explorar Árboles"
     },
-    "acknowledgments": {
-      "title": "Agradecimientos y Nuestra Misión",
-      "description": "Este sitio existe por una razón principal: destacar a los increíbles proveedores de datos que hacen posibles proyectos como el nuestro. El Atlas de Árboles de Costa Rica está construido sobre el trabajo incansable de investigadores, instituciones y científicos comunitarios que comparten libremente su conocimiento con el mundo.",
-      "callToAction": "Te animamos no solo a disfrutar de este recurso, sino a contribuir activamente a estas plataformas. Al mejorar los datos en su fuente, ayudas a garantizar que sitios como el nuestro—y muchos otros—puedan seguir llevando información precisa y actualizada a todos.",
-      "inaturalist": "iNaturalist — La comunidad de ciencia ciudadana cuyos datos de observación y fotografía forman la columna vertebral de la documentación de especies en todo el mundo. ¡Considera unirte y contribuir con tus propias observaciones!",
-      "sinac": "SINAC (Sistema Nacional de Áreas de Conservación de Costa Rica) — La agencia de conservación dedicada de Costa Rica que proporciona información esencial sobre áreas protegidas y estado de conservación de especies.",
-      "community": "La comunidad global de botánicos, ecólogos y naturalistas — Investigadores y entusiastas que dedican sus vidas a estudiar y documentar árboles tropicales, haciendo el conocimiento accesible para todos.",
-      "gratitude": "A todos los contribuyentes de datos: Gracias. Su trabajo importa, y nos honra ayudar a amplificarlo."
+    "dataSources": {
+      "title": "De Dónde Provienen Nuestros Datos",
+      "intro": "Este atlas es posible gracias a organizaciones y comunidades que comparten libremente datos de biodiversidad con el mundo. Agregamos y presentamos esta información para hacerla más accesible para la educación y la conservación.",
+      "whatWeUseLabel": "Qué Usamos",
+      "whyItMattersLabel": "Por Qué Importa",
+      "inaturalist": {
+        "description": "Una plataforma de ciencia ciudadana que conecta a millones de observadores de la naturaleza en todo el mundo",
+        "whatWeUse": "Observaciones de especies, fotografías y datos de distribución",
+        "whyItMatters": "Ciencia ciudadana a escala — millones de observaciones del mundo real de la comunidad global",
+        "cta": "Contribuye Tus Observaciones"
+      },
+      "sinac": {
+        "description": "Sistema Nacional de Áreas de Conservación de Costa Rica",
+        "whatWeUse": "Estado de conservación e información sobre áreas protegidas",
+        "whyItMatters": "Datos oficiales de conservación del gobierno de Costa Rica",
+        "cta": "Conoce la Conservación en CR"
+      },
+      "callout": {
+        "title": "Puedes Ayudar a Mejorar Los Datos",
+        "description": "Cuando contribuyes a iNaturalist o apoyas el trabajo de conservación de SINAC, estás mejorando la calidad de los datos para investigadores y educadores en todas partes. Mejores datos en la fuente significan mejores recursos para todos."
+      }
     },
     "license": {
       "title": "Estructura de Licencia Dual",
