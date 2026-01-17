@@ -161,6 +161,46 @@ export function validateJsonLd(data: unknown): {
 function sanitizeString(value: string): string {
   let clean = value;
 
+  // Helper: remove HTML attributes whose name starts with "on" (event handlers)
+  const removeEventHandlerAttributes = (input: string): string => {
+    let previous: string;
+    let current = input;
+
+    // Single-attribute regex: name + optional value (quoted or unquoted)
+    const attrRegex =
+      /\s+([^\s=>\/]+)(\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*))?/gi;
+
+    do {
+      previous = current;
+      attrRegex.lastIndex = 0;
+      let match: RegExpExecArray | null;
+      let result = "";
+      let lastIndex = 0;
+
+      while ((match = attrRegex.exec(current)) !== null) {
+        const fullMatch = match[0];
+        const attrName = match[1];
+
+        if (/^on/i.test(attrName)) {
+          // Skip this attribute entirely (remove it)
+          result += current.slice(lastIndex, match.index);
+          lastIndex = match.index + fullMatch.length;
+        }
+      }
+
+      if (lastIndex === 0) {
+        // No event handler attributes removed in this pass
+        break;
+      }
+
+      // Append remainder of the string after the last removed attribute
+      result += current.slice(lastIndex);
+      current = result;
+    } while (current !== previous);
+
+    return current;
+  };
+
   // Multiple passes to handle overlapping patterns and incomplete sanitization
   for (let i = 0; i < 3; i++) {
     // Remove script tags (handle all whitespace including tabs, newlines, spaces)
@@ -171,9 +211,8 @@ function sanitizeString(value: string): string {
     // Remove style tags (handle all whitespace)
     clean = clean.replace(/<style[\s\S]*?>[\s\S]*?<\/style[\s\S]*?>/gis, "");
 
-    // Remove event handlers (comprehensive - handles with/without quotes)
-    clean = clean.replace(/on\w+\s*=\s*["'][^"']*["']/gi, "");
-    clean = clean.replace(/on\w+\s*=\s*[^"'\s>]*/gi, "");
+    // Remove event handler attributes safely (handles quoted and unquoted values)
+    clean = removeEventHandlerAttributes(clean);
 
     // Remove ALL dangerous URL schemes
     // Remove data: entirely as it has many attack vectors (data:text/html, data:image/svg+xml with scripts, etc.)
