@@ -117,6 +117,22 @@ curl -I http://localhost:3000/en | grep content-security
 3. **CSP reporting:** Configure `CSP_REPORT_URI` environment variable
 4. **Monitor violations:** Set up monitoring for CSP violation reports
 
+## Security Trade-offs
+
+### Image Loading
+
+- **Change:** Added wildcard `https:` to `img-src` directive
+- **Reason:** Ensures all HTTPS images load reliably without CSP failures
+- **Risk:** Slightly more permissive, but limited to HTTPS sources only
+- **Mitigation:** Still blocks HTTP images and non-HTTPS protocols
+
+### MDX Content
+
+- **Includes:** `'unsafe-eval'` on tree and glossary detail pages only
+- **Reason:** Required by contentlayer2's MDX bundler (`getMDXComponent`)
+- **Scope:** Limited to specific routes, not site-wide
+- **Content:** MDX files are part of the codebase, not user-generated
+
 ## References
 
 - [MDN: Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)

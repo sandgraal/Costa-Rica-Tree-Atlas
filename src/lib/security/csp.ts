@@ -100,6 +100,9 @@ export function buildCSP(nonce?: string): string {
       "https://static.inaturalist.org",
       "https://inaturalist-open-data.s3.amazonaws.com",
       "https://api.gbif.org",
+      "https://images.unsplash.com",
+      // Allow all HTTPS images for maximum compatibility
+      "https:",
     ],
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
@@ -195,6 +198,9 @@ export function buildMDXCSP(nonce?: string): string {
       "https://static.inaturalist.org",
       "https://inaturalist-open-data.s3.amazonaws.com",
       "https://api.gbif.org",
+      "https://images.unsplash.com",
+      // Allow all HTTPS images for maximum compatibility
+      "https:",
     ],
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
@@ -275,8 +281,11 @@ export function buildRelaxedCSP(nonce?: string): string {
       "https://static.inaturalist.org",
       "https://inaturalist-open-data.s3.amazonaws.com",
       "https://api.gbif.org",
+      "https://images.unsplash.com",
       "https://www.google-analytics.com",
       "https://www.googletagmanager.com",
+      // Allow all HTTPS images for maximum compatibility
+      "https:",
     ],
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
