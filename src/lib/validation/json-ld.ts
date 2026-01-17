@@ -235,10 +235,20 @@ function sanitizeString(value: string): string {
 
   // Ensure no residual <style or </style sequences remain (case-insensitive, with optional whitespace)
   // Apply repeatedly in case earlier replacements create new <style / </style sequences
+  const removeStyleSequences = (input: string): string => {
+    let output = input;
+    // Remove complete <style>...</style> tags (including attributes and newlines)
+    output = output.replace(/<\s*style\b[\s\S]*?>/gi, "");
+    output = output.replace(/<\/\s*style\b[\s\S]*?>/gi, "");
+    // As a fallback, strip any remaining bare <style or </style fragments
+    output = output.replace(/<\s*style/gi, "");
+    output = output.replace(/<\/\s*style/gi, "");
+    return output;
+  };
+
   while (true) {
     const beforeStyleClean = clean;
-    clean = clean.replace(/<\s*style/gi, "");
-    clean = clean.replace(/<\/\s*style/gi, "");
+    clean = removeStyleSequences(clean);
     if (clean === beforeStyleClean) {
       break;
     }
