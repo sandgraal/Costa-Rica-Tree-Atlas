@@ -238,11 +238,17 @@ function sanitizeString(value: string): string {
   const removeStyleSequences = (input: string): string => {
     let output = input;
     // Remove complete <style>...</style> tags (including attributes and newlines)
-    output = output.replace(/<\s*style\b[\s\S]*?>/gi, "");
-    output = output.replace(/<\/\s*style\b[\s\S]*?>/gi, "");
-    // As a fallback, strip any remaining bare <style or </style fragments
-    output = output.replace(/<\s*style/gi, "");
-    output = output.replace(/<\/\s*style/gi, "");
+    // and any remaining <style / </style fragments. Apply repeatedly until no
+    // further changes occur to avoid incomplete multi-character sanitization.
+    let previous: string;
+    do {
+      previous = output;
+      output = output.replace(/<\s*style\b[\s\S]*?>/gi, "");
+      output = output.replace(/<\/\s*style\b[\s\S]*?>/gi, "");
+      // As a fallback, strip any remaining bare <style or </style fragments
+      output = output.replace(/<\s*style/gi, "");
+      output = output.replace(/<\/\s*style/gi, "");
+    } while (output !== previous);
     return output;
   };
 
