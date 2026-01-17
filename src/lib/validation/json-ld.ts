@@ -223,9 +223,6 @@ function sanitizeString(value: string): string {
     // Use \s+ for whitespace before > to handle </script >, </script\t>, etc.
     clean = clean.replace(/<script[\s\S]*?>[\s\S]*?<\/script[\s\S]*?>/gis, "");
 
-    // Remove style tags (handle all whitespace)
-    clean = clean.replace(/<style[\s\S]*?>[\s\S]*?<\/style[\s\S]*?>/gis, "");
-
     // Remove event handler attributes safely (handles quoted and unquoted values)
     clean = removeEventHandlerAttributes(clean);
 
@@ -235,6 +232,10 @@ function sanitizeString(value: string): string {
     clean = clean.replace(/vbscript:/gi, "");
     clean = clean.replace(/data:/gi, ""); // Comprehensive - removes all data: URIs
   }
+
+  // Ensure no residual <style or </style sequences remain (case-insensitive, with optional whitespace)
+  clean = clean.replace(/<\s*style/gi, "");
+  clean = clean.replace(/<\/\s*style/gi, "");
 
   // Remove fullwidth variants (Unicode lookalikes)
   clean = clean.replace(/[＜＞＆]/g, "");
