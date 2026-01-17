@@ -152,6 +152,8 @@
     "dataSources": {
       "title": "Where Our Data Comes From",
       "intro": "This atlas is made possible by organizations and communities that freely share biodiversity data with the world. We aggregate and present this information to make it more accessible for education and conservation.",
+      "whatWeUseLabel": "What We Use",
+      "whyItMattersLabel": "Why It Matters",
       "inaturalist": {
         "description": "A citizen science platform connecting millions of nature observers worldwide",
         "whatWeUse": "Species observations, photographs, and distribution data",
