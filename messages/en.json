@@ -150,11 +150,13 @@
       "explore": "Explore Trees"
     },
     "acknowledgments": {
-      "title": "Acknowledgments",
-      "description": "This project would not be possible without the wealth of knowledge shared by researchers, institutions, and community scientists:",
-      "inaturalist": "iNaturalist community for observation data and photography",
-      "sinac": "SINAC (Costa Rica's National System of Conservation Areas) for conservation information",
-      "community": "The global community of botanists and ecologists researching tropical trees"
+      "title": "Acknowledgments & Our Mission",
+      "description": "This site exists for one primary reason: to shine a spotlight on the incredible data providers who make projects like ours possible. The Costa Rica Tree Atlas is built upon the tireless work of researchers, institutions, and community scientists who freely share their knowledge with the world.",
+      "callToAction": "We encourage you to not only enjoy this resource but to actively contribute to these platforms. By improving the data at its source, you help ensure that sites like ours—and countless others—can continue to bring accurate, up-to-date information to everyone.",
+      "inaturalist": "iNaturalist — The citizen science community whose observation data and photography form the backbone of species documentation worldwide. Consider joining and contributing your own observations!",
+      "sinac": "SINAC (Costa Rica's National System of Conservation Areas) — Costa Rica's dedicated conservation agency providing essential information about protected areas and species conservation status.",
+      "community": "The global community of botanists, ecologists, and naturalists — Researchers and enthusiasts who dedicate their lives to studying and documenting tropical trees, making knowledge accessible to all.",
+      "gratitude": "To all data contributors: Thank you. Your work matters, and we are honored to help amplify it."
     },
     "license": {
       "title": "Dual-License Structure",

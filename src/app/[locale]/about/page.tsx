@@ -179,11 +179,17 @@ function AboutContent() {
           {t("acknowledgments.title")}
         </h2>
         <p>{t("acknowledgments.description")}</p>
+        <p className="mt-4 font-medium text-primary-dark dark:text-primary-light">
+          {t("acknowledgments.callToAction")}
+        </p>
         <ul>
           <li>{t("acknowledgments.inaturalist")}</li>
           <li>{t("acknowledgments.sinac")}</li>
           <li>{t("acknowledgments.community")}</li>
         </ul>
+        <p className="mt-4 italic text-muted-foreground">
+          {t("acknowledgments.gratitude")}
+        </p>
       </section>
 
       {/* License */}
