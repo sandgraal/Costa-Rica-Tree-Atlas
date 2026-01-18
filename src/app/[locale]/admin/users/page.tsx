@@ -19,12 +19,18 @@ export const metadata = {
   description: "Manage your account, security settings, and view audit logs",
 };
 
-export default async function AdminUsersPage() {
+export default async function AdminUsersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   // Check authentication
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
-    nextRedirect("/admin/login" as string);
+    nextRedirect(`/${locale}/admin/login` as never);
   }
 
   // Fetch user data with MFA status
@@ -43,7 +49,7 @@ export default async function AdminUsersPage() {
   });
 
   if (!user) {
-    nextRedirect("/admin/login" as string);
+    nextRedirect(`/${locale}/admin/login` as never);
   }
 
   // Fetch recent audit logs (last 50)
@@ -90,21 +96,38 @@ export default async function AdminUsersPage() {
             createdAt: user.createdAt.toISOString(),
             backupCodesRemaining,
           }}
-          auditLogs={auditLogs.map((log) => ({
-            id: log.id,
-            eventType: log.eventType,
-            ipAddress: log.ipAddress,
-            userAgent: log.userAgent,
-            metadata: log.metadata as Record<string, unknown> | null,
-            createdAt: log.createdAt.toISOString(),
-          }))}
-          activeSessions={activeSessions.map((session) => ({
-            id: session.id,
-            ipAddress: session.ipAddress,
-            userAgent: session.userAgent,
-            createdAt: session.createdAt.toISOString(),
-            expires: session.expires.toISOString(),
-          }))}
+          auditLogs={auditLogs.map(
+            (log: {
+              id: string;
+              eventType: string;
+              ipAddress: string | null;
+              userAgent: string | null;
+              metadata: unknown;
+              createdAt: Date;
+            }) => ({
+              id: log.id,
+              eventType: log.eventType,
+              ipAddress: log.ipAddress,
+              userAgent: log.userAgent,
+              metadata: log.metadata as Record<string, unknown> | null,
+              createdAt: log.createdAt.toISOString(),
+            })
+          )}
+          activeSessions={activeSessions.map(
+            (session: {
+              id: string;
+              ipAddress: string | null;
+              userAgent: string | null;
+              createdAt: Date;
+              expires: Date;
+            }) => ({
+              id: session.id,
+              ipAddress: session.ipAddress,
+              userAgent: session.userAgent,
+              createdAt: session.createdAt.toISOString(),
+              expires: session.expires.toISOString(),
+            })
+          )}
         />
       </div>
     </div>
