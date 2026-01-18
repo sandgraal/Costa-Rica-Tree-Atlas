@@ -179,6 +179,14 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
         <link rel="dns-prefetch" href="https://static.inaturalist.org" />
 
+        {/* Preload hero image for faster LCP on home page */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/trees/guanacaste.jpg"
+          fetchPriority="high"
+        />
+
         {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
