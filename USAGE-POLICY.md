@@ -204,6 +204,6 @@ Significant changes will be announced via GitHub releases and discussions.
 
 ---
 
-**Last Updated**: January 2025
+**Last Updated**: January 2026
 
 **Contact**: For questions or licensing inquiries, please use [GitHub Issues](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/issues) or [Discussions](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/discussions).

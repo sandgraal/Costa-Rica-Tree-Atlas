@@ -17,7 +17,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 ### Bilingual Content
 
 - Full English and Spanish support with locale-based routing
-- 128 species with comprehensive bilingual profiles (256 documents)
+- **128 tree species** with comprehensive bilingual profiles (256 documents)
 - MDX content system for rich tree profiles with React components
 
 ### Education Tools
@@ -86,7 +86,7 @@ A bilingual (English/Spanish) open-source web application showcasing the magnifi
 | `D`             | Toggle dark/light theme      |
 | `⌘K` / `Ctrl+K` | Quick search                 |
 
-## Rate Limiting
+## API Rate Limiting
 
 API endpoints are protected with persistent rate limiting using Upstash Redis:
 
@@ -97,24 +97,7 @@ API endpoints are protected with persistent rate limiting using Upstash Redis:
 | `/api/species/images` | 30 requests  | 1 minute |
 | `/api/species/random` | 100 requests | 1 minute |
 
-Rate limit information is included in response headers:
-
-- `X-RateLimit-Limit`: Maximum requests allowed
-- `X-RateLimit-Remaining`: Requests remaining in current window
-- `X-RateLimit-Reset`: Timestamp when limit resets
-- `Retry-After`: Seconds to wait (only when rate limited)
-
-### Setup for Development
-
-Rate limiting is disabled in development mode if Redis is not configured. To test rate limiting locally:
-
-1. Sign up for free Upstash Redis: https://upstash.com
-2. Create a database
-3. Add credentials to `.env.local`:
-   ```env
-   UPSTASH_REDIS_REST_URL=https://your-database.upstash.io
-   UPSTASH_REDIS_REST_TOKEN=your_token_here
-   ```
+See **[Contributing Guide](CONTRIBUTING.md)** for development setup instructions.
 
 ## Roadmap
 
@@ -217,7 +200,17 @@ See **[Security Setup Guide](docs/SECURITY_SETUP.md)** for details on our securi
 
 ### AI-Assisted Development
 
-This repository is configured with GitHub Copilot instructions (`AGENTS.md` and `.github/instructions/`) to help AI coding agents understand our architecture, conventions, and best practices. Feel free to use GitHub Copilot when contributing!
+This repository is optimized for AI-assisted development with comprehensive agent instructions:
+
+- **[AGENTS.md](AGENTS.md)** - Core coding conventions, patterns, and best practices
+- **[.github/instructions/](.github/instructions/)** - File-pattern specific guidelines
+  - [i18n.instructions.md](.github/instructions/i18n.instructions.md) - Internationalization rules
+  - [content.instructions.md](.github/instructions/content.instructions.md) - MDX content standards
+  - [components.instructions.md](.github/instructions/components.instructions.md) - React component patterns
+  - [api.instructions.md](.github/instructions/api.instructions.md) - API route development
+  - [scripts.instructions.md](.github/instructions/scripts.instructions.md) - Utility script conventions
+
+These instructions help AI agents understand our architecture, maintain consistency, and follow project best practices when making contributions.
 
 ## License
 

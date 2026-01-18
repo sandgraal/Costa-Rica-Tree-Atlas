@@ -20,8 +20,10 @@ These documents were moved here during the documentation consolidation in Januar
 
 ### One-Time Reports
 
+- **audit-report-2026-01-18.md** - Image quality audit results (automated report)
 - **audit-report.md** - Image quality audit results from 2026-01-11
 - **ACCURACY_AUDIT_REPORT.md** - Content accuracy audit
+- **REGIONS_PAGE_EVALUATION.md** - Geographic accuracy evaluation (Jan 15, 2026)
 
 ### Completed Implementation Docs
 
