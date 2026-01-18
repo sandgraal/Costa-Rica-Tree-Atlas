@@ -105,7 +105,7 @@ Already done in this branch! Dependencies installed:
    ```bash
    npx prisma studio
    ```
-   Opens GUI at http://localhost:5555 to view database.
+   Opens GUI at http://localhost:5555 to view the database.
 
 ### Step 4: Create Initial Admin User
 
