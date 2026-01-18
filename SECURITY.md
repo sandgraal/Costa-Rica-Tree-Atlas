@@ -30,6 +30,75 @@ Please include the following information in your report:
 
 This project implements the following security measures:
 
+### Authentication and Authorization
+
+The application uses a database-backed authentication system with industry-standard security practices.
+
+#### Password Storage
+
+- **Algorithm**: Argon2id (winner of the Password Hashing Competition)
+- **Parameters**:
+  - Memory cost: 19456 KiB (19 MiB)
+  - Time cost: 2 iterations
+  - Parallelism: 1 thread
+  - Salt: Unique per password (automatically generated)
+- **Properties**: Memory-hard, GPU-resistant, side-channel resistant
+
+#### Session Management
+
+- **Strategy**: JWT (JSON Web Tokens)
+- **Storage**: Secure HTTP-only cookies
+- **Duration**: 7 days maximum
+- **Rotation**: No automatic refresh (re-authentication required)
+- **Secret**: 256-bit minimum (`NEXTAUTH_SECRET`)
+
+#### Two-Factor Authentication (MFA)
+
+- **Algorithm**: TOTP (Time-based One-Time Password, RFC 6238)
+- **Key storage**: AES-256-GCM encrypted in database
+- **Backup codes**: 10 codes, Argon2id hashed
+- **Time window**: 30 seconds (±1 step tolerance)
+
+#### Authentication Flow Security
+
+1. **Constant-time operations**: Password and username verification uses constant-time comparison to prevent timing attacks
+2. **Rate limiting**: 5 failed login attempts per 15 minutes per IP
+3. **Audit logging**: All authentication events logged to database
+4. **Username enumeration prevention**: Generic error messages for failed logins
+5. **HTTPS enforcement**: Required in production (middleware enforced)
+
+#### Admin Route Protection
+
+- **Primary**: NextAuth session verification (JWT)
+- **Fallback**: HTTP Basic Auth (deprecated, migration period only)
+- **Redirect**: Unauthenticated requests redirected to `/admin/login`
+- **CSP headers**: Applied to all admin routes
+
+#### Database Security
+
+- **Provider**: Vercel Postgres (PostgreSQL)
+- **Connections**: Connection pooling via Prisma
+- **ORM**: Prisma (prevents SQL injection)
+- **Secrets**: Never logged or exposed to client
+
+#### API Endpoint Security
+
+- **Setup endpoint** (`/api/admin/setup`): Self-disabling after first admin created
+- **MFA endpoints**: Require valid session (authenticated users only)
+- **Password operations**: Require current password verification
+- **Input validation**: Zod schemas for all API payloads
+
+#### Environment Variables
+
+Sensitive configuration stored in environment variables (never in git):
+
+- `DATABASE_URL`: PostgreSQL connection string
+- `NEXTAUTH_SECRET`: JWT signing secret (256-bit minimum)
+- `MFA_ENCRYPTION_KEY`: TOTP secret encryption key (256-bit)
+- `ADMIN_PASSWORD`: Legacy Basic Auth (deprecated)
+
+See `.env.example` for full list and generation instructions.
+
 ### Filesystem Security and Path Traversal Prevention
 
 The application implements comprehensive protections against path traversal and filesystem access attacks.
