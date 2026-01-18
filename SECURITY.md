@@ -63,7 +63,7 @@ The application uses a database-backed authentication system with industry-stand
 
 1. **Constant-time operations**: Password and username verification uses constant-time comparison to prevent timing attacks
 2. **Rate limiting**: 5 failed login attempts per 15 minutes per IP
-3. **Audit logging**: All authentication events logged to database
+3. **Audit logging**: All authentication events logged to the database
 4. **Username enumeration prevention**: Generic error messages for failed logins
 5. **HTTPS enforcement**: Required in production (middleware enforced)
 
