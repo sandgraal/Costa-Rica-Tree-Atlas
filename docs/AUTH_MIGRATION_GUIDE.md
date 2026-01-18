@@ -204,7 +204,7 @@ The middleware includes a **temporary fallback** to HTTP Basic Auth:
 - If `ADMIN_PASSWORD` is set, Basic Auth still works
 - NextAuth session is checked **first** (preferred method)
 - Basic Auth is checked as fallback (deprecated)
-- Warning: Basic Auth will be removed in future release
+- Warning: Basic Auth will be removed in a future release
 
 ### Migration Path
 
