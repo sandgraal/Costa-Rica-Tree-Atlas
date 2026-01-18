@@ -154,26 +154,24 @@ export function buildCSP(nonce?: string): string {
 /**
  * Build CSP for pages with MDX content rendering
  *
- * IMPORTANT: This policy includes 'unsafe-eval' which is REQUIRED for MDX.
+ * NOTE: This policy NO LONGER requires 'unsafe-eval' thanks to server-side MDX rendering.
  *
- * Why unsafe-eval is needed:
- * - MDX content is compiled to JavaScript at build time
- * - The mdx-bundler library uses `new Function()` to evaluate this compiled code
- * - This is a controlled use case: we compile the MDX ourselves at build time
- * - The code is NOT user-generated or coming from untrusted sources
+ * Previous issue:
+ * - The mdx-bundler library used `new Function()` to evaluate compiled MDX code on the client
+ * - This required 'unsafe-eval' in CSP, which is a security weakness
  *
- * Security considerations:
- * - The MDX source files are part of our codebase (content/trees/{en,es}/*.mdx)
- * - Code is compiled during build, not at runtime from user input
- * - This is safer than inline scripts but requires unsafe-eval for the evaluation step
+ * Current solution (as of 2025):
+ * - MDX content is now rendered server-side using `@mdx-js/mdx` evaluate()
+ * - The ServerMDXContent component runs on the server where CSP doesn't apply
+ * - Only the rendered React elements are sent to the client
+ * - No client-side eval is needed, allowing a strict CSP
  *
- * Alternative approaches (for future consideration):
- * - Migrate to @next/mdx which may not require unsafe-eval
- * - Pre-render all MDX to static HTML (loses dynamic features)
- * - Use a different MDX runtime that doesn't use Function constructor
+ * This policy is now identical to buildCSP() but kept separate for:
+ * - Route-based policy selection in middleware
+ * - Future flexibility if MDX pages need different permissions
  *
  * @param nonce - Optional nonce for script-src directive
- * @returns CSP header value string with unsafe-eval for MDX
+ * @returns CSP header value string (strict, no unsafe-eval)
  */
 export function buildMDXCSP(nonce?: string): string {
   const isDev = process.env.NODE_ENV === "development";
@@ -184,11 +182,11 @@ export function buildMDXCSP(nonce?: string): string {
       "'self'",
       ...(nonce ? [`'nonce-${nonce}'`] : []),
       "'strict-dynamic'",
-      // MDX rendering requires unsafe-eval (see function docs above)
-      "'unsafe-eval'",
       // Privacy-friendly analytics
       "https://plausible.io",
       "https://scripts.simpleanalyticscdn.com",
+      // ONLY in development
+      ...(isDev ? ["'unsafe-eval'"] : []),
       // Fallback for browsers without strict-dynamic
       "https:",
     ],
