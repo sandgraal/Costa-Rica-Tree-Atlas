@@ -27,7 +27,7 @@
  */
 
 import { compileMDX } from "next-mdx-remote/rsc";
-import { mdxComponents } from "@/components/mdx";
+import { mdxComponents } from "@/components/mdx/server";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 
 interface GlossaryTerm {
@@ -112,7 +112,30 @@ export async function ServerMDXContent({
   const isDevelopment = process.env.NODE_ENV === "development";
 
   // Merge default MDX components with any additional ones passed in
-  const allComponents = { ...mdxComponents, ...components };
+  // Temporarily test with inline component to verify the approach works
+  const testComponents = {
+    Accordion: ({ children }: { children: React.ReactNode }) => (
+      <div className="my-6">{children}</div>
+    ),
+    AccordionItem: ({
+      title,
+      children,
+    }: {
+      title: string;
+      children: React.ReactNode;
+    }) => (
+      <details className="border border-border rounded-lg overflow-hidden my-2">
+        <summary className="w-full px-4 py-3 bg-primary/5 hover:bg-primary/10 cursor-pointer font-semibold text-foreground">
+          {title}
+        </summary>
+        <div className="px-4 py-4 bg-card border-t border-border">
+          {children}
+        </div>
+      </details>
+    ),
+  };
+
+  const allComponents = { ...mdxComponents, ...testComponents, ...components };
 
   // Debug: Log component names in development
   if (isDevelopment) {
