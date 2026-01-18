@@ -10,25 +10,37 @@
  * @see https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
  */
 
+// Import PrismaClient type if available
+type PrismaClientType = typeof import("@prisma/client").PrismaClient;
+type PrismaClientInstance = InstanceType<PrismaClientType>;
+// Proxy type for when Prisma is unavailable
+type PrismaClientProxy = Record<string, never>;
+
 // Type declaration for global scope - must be at module level
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  var prismaGlobal: any | undefined;
+  var prismaGlobal: PrismaClientInstance | undefined;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let PrismaClient: any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let prisma: any;
+let PrismaClient: PrismaClientType | undefined;
+let prisma: PrismaClientInstance | PrismaClientProxy;
 
 try {
   // Try to import Prisma Client - may not be available if DATABASE_URL wasn't set during build
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const prismaModule = require("@prisma/client");
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- require() is needed for conditional import
+  const prismaModule = require("@prisma/client") as {
+    PrismaClient: PrismaClientType;
+  };
+
+  // Verify PrismaClient exists on the module
+  if (!prismaModule.PrismaClient) {
+    throw new Error("PrismaClient not found in @prisma/client module");
+  }
+
   PrismaClient = prismaModule.PrismaClient;
 
-  const prismaClientSingleton = () => {
-    return new PrismaClient({
+  const prismaClientSingleton = (): PrismaClientInstance => {
+    // Non-null assertion is safe here because we've verified PrismaClient exists above
+    return new PrismaClient!({
       log:
         process.env.NODE_ENV === "development"
           ? ["query", "error", "warn"]
@@ -58,7 +70,7 @@ try {
         );
       },
     }
-  );
+  ) as PrismaClientProxy;
 }
 
 export default prisma;

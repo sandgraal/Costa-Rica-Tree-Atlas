@@ -22,6 +22,7 @@ import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
 import type { Locale } from "@/types/tree";
 
 // Dynamic imports for heavy below-fold components
+// DistributionMap renders static SVG from props, so SSR is beneficial for SEO
 const DistributionMap = dynamic(
   () => import("@/components/geo").then((mod) => mod.DistributionMap),
   {
@@ -31,6 +32,9 @@ const DistributionMap = dynamic(
   }
 );
 
+// BiodiversityInfo fetches data client-side with proper loading states
+// SSR renders the loading skeleton, then client-side hydration fetches the data
+// This avoids hydration mismatches and provides a good user experience
 const BiodiversityInfo = dynamic(
   () => import("@/components/data").then((mod) => mod.BiodiversityInfo),
   {
