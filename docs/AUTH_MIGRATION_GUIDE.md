@@ -16,7 +16,7 @@ Costa Rica Tree Atlas has migrated from HTTP Basic Authentication to a modern, d
 
 ### Security
 
-- **Audit logging** - All authentication events logged to database
+- **Audit logging** - All authentication events logged to the database
 - **Rate limiting** - Protects login endpoint from brute-force attacks
 - **Session management** - View and revoke active sessions (UI in progress)
 - **Constant-time operations** - Timing-attack resistant authentication
