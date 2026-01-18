@@ -160,7 +160,8 @@ Read and respect the `callbackUrl` parameter:
 ```typescript
 // In login page
 const searchParams = useSearchParams();
-const callbackUrl = searchParams.get("callbackUrl") || `/${locale}/admin/images`;
+const callbackUrl =
+  searchParams.get("callbackUrl") || `/${locale}/admin/images`;
 
 // After successful login
 if (result?.ok) {

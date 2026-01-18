@@ -279,7 +279,7 @@ Generate secrets:
 # Generate NEXTAUTH_SECRET
 openssl rand -base64 32
 
-# Generate MFA_ENCRYPTION_KEY  
+# Generate MFA_ENCRYPTION_KEY
 openssl rand -base64 32
 ```
 
