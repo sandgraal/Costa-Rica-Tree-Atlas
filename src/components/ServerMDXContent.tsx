@@ -51,7 +51,31 @@ interface ServerMDXContentProps {
 
 // Cache for compiled MDX content - keyed by hash of source
 // This prevents re-compilation on every render
+// Note: For typical content volumes (hundreds of pages), this cache is manageable.
+// In production environments with thousands of unique MDX sources, consider:
+// - Implementing LRU (Least Recently Used) eviction
+// - Setting a max cache size limit
+// - Using external caching (Redis, etc.)
 const mdxCache = new Map<string, Awaited<ReturnType<typeof evaluate>>>();
+
+// Maximum cache size - prevents unbounded memory growth
+const MAX_CACHE_SIZE = 1000;
+
+/**
+ * Evict oldest entries when cache grows too large
+ */
+function evictOldestCacheEntries() {
+  if (mdxCache.size <= MAX_CACHE_SIZE) return;
+
+  // Delete oldest 10% of entries
+  const entriesToDelete = Math.floor(MAX_CACHE_SIZE * 0.1);
+  const iterator = mdxCache.keys();
+
+  for (let i = 0; i < entriesToDelete; i++) {
+    const key = iterator.next().value;
+    if (key) mdxCache.delete(key);
+  }
+}
 
 /**
  * Generate a hash key for caching MDX compilation results
@@ -136,9 +160,22 @@ export async function ServerMDXContent({
 
       // Cache the compiled result
       mdxCache.set(cacheKey, result);
+
+      // Evict old entries if cache is too large
+      evictOldestCacheEntries();
     } catch (error) {
       // Gracefully handle MDX compilation/evaluation errors
-      console.error("Failed to compile/evaluate MDX content:", error);
+      // Only log in development to avoid exposing sensitive information
+      if (isDevelopment) {
+        console.error("Failed to compile/evaluate MDX content:", error);
+      } else {
+        // In production, log a sanitized version
+        console.error("MDX compilation failed", {
+          timestamp: new Date().toISOString(),
+          sourceLength: source.length,
+          // Don't log the actual source or detailed error message
+        });
+      }
       return <MDXErrorFallback error={error} />;
     }
   }
