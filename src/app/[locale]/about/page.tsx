@@ -2,6 +2,9 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { DataSourceCard } from "@/components/DataSourceCard";
+import { ImpactStat } from "@/components/ImpactStat";
+import { ProcessStep, ProcessArrow } from "@/components/ProcessStep";
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -146,6 +149,37 @@ function AboutContent() {
         </div>
       </section>
 
+      {/* Our Impact */}
+      <section className="mb-12">
+        <div className="bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light text-center mb-8">
+            {t("impact.title")}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 not-prose">
+            <ImpactStat
+              value={t("impact.speciesCount")}
+              label={t("impact.speciesDocumented")}
+              icon="🌳"
+            />
+            <ImpactStat
+              value={t("impact.observationsCount")}
+              label={t("impact.observations")}
+              icon="📸"
+            />
+            <ImpactStat
+              value={t("impact.openSourceValue")}
+              label={t("impact.openSource")}
+              icon="💻"
+            />
+            <ImpactStat
+              value={t("impact.languagesCount")}
+              label={t("impact.languages")}
+              icon="🌐"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Contributing */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light">
@@ -173,23 +207,109 @@ function AboutContent() {
         </div>
       </section>
 
-      {/* Acknowledgments */}
+      {/* How It Works */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light">
-          {t("acknowledgments.title")}
+        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-6">
+          🔄 {t("howItWorks.title")}
         </h2>
-        <p>{t("acknowledgments.description")}</p>
-        <p className="mt-4 font-medium text-primary-dark dark:text-primary-light">
-          {t("acknowledgments.callToAction")}
-        </p>
-        <ul>
-          <li>{t("acknowledgments.inaturalist")}</li>
-          <li>{t("acknowledgments.sinac")}</li>
-          <li>{t("acknowledgments.community")}</li>
-        </ul>
-        <p className="mt-4 italic text-muted-foreground">
-          {t("acknowledgments.gratitude")}
-        </p>
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 not-prose">
+          <ProcessStep number={1} title={t("howItWorks.step1.title")} icon="📥">
+            {t("howItWorks.step1.description")}
+          </ProcessStep>
+          <ProcessArrow />
+          <ProcessStep number={2} title={t("howItWorks.step2.title")} icon="🔬">
+            {t("howItWorks.step2.description")}
+          </ProcessStep>
+          <ProcessArrow />
+          <ProcessStep number={3} title={t("howItWorks.step3.title")} icon="✍️">
+            {t("howItWorks.step3.description")}
+          </ProcessStep>
+          <ProcessArrow />
+          <ProcessStep number={4} title={t("howItWorks.step4.title")} icon="🌐">
+            {t("howItWorks.step4.description")}
+          </ProcessStep>
+        </div>
+      </section>
+
+      {/* Data Sources */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4">
+          {t("dataSources.title")}
+        </h2>
+        <p className="mb-6 text-muted-foreground">{t("dataSources.intro")}</p>
+
+        <div className="grid md:grid-cols-2 gap-6 not-prose mb-6">
+          <DataSourceCard
+            name="iNaturalist"
+            icon="🔬"
+            description={t("dataSources.inaturalist.description")}
+            whatWeUse={t("dataSources.inaturalist.whatWeUse")}
+            whyItMatters={t("dataSources.inaturalist.whyItMatters")}
+            link="https://www.inaturalist.org"
+            ctaText={t("dataSources.inaturalist.cta")}
+          />
+
+          <DataSourceCard
+            name="SINAC"
+            icon="🌳"
+            description={t("dataSources.sinac.description")}
+            whatWeUse={t("dataSources.sinac.whatWeUse")}
+            whyItMatters={t("dataSources.sinac.whyItMatters")}
+            link="https://www.sinac.go.cr"
+            ctaText={t("dataSources.sinac.cta")}
+          />
+
+          <DataSourceCard
+            name="Museo Nacional de Costa Rica"
+            icon="🏛️"
+            description={t("dataSources.museoNacional.description")}
+            whatWeUse={t("dataSources.museoNacional.whatWeUse")}
+            whyItMatters={t("dataSources.museoNacional.whyItMatters")}
+            link="https://www.museocostarica.go.cr/nuestro-trabajo/colecciones/historia-natural/herbario/"
+            ctaText={t("dataSources.museoNacional.cta")}
+          />
+
+          <DataSourceCard
+            name="INBio"
+            icon="🦋"
+            description={t("dataSources.inbio.description")}
+            whatWeUse={t("dataSources.inbio.whatWeUse")}
+            whyItMatters={t("dataSources.inbio.whyItMatters")}
+            link="http://www.inbio.ac.cr"
+            ctaText={t("dataSources.inbio.cta")}
+          />
+
+          <DataSourceCard
+            name="Organization for Tropical Studies"
+            icon="🌿"
+            description={t("dataSources.ots.description")}
+            whatWeUse={t("dataSources.ots.whatWeUse")}
+            whyItMatters={t("dataSources.ots.whyItMatters")}
+            link="https://tropicalstudies.org/portfolio/las-cruces-research-station/"
+            ctaText={t("dataSources.ots.cta")}
+          />
+
+          <DataSourceCard
+            name="Jardín Botánico Lankester"
+            icon="🌺"
+            description={t("dataSources.lankester.description")}
+            whatWeUse={t("dataSources.lankester.whatWeUse")}
+            whyItMatters={t("dataSources.lankester.whyItMatters")}
+            link="https://jbl.ucr.ac.cr"
+            ctaText={t("dataSources.lankester.cta")}
+          />
+        </div>
+
+        <div className="bg-primary/5 dark:bg-primary/10 rounded-xl p-6 border border-primary/20">
+          <p className="text-sm">
+            <strong className="font-semibold text-primary-dark dark:text-primary-light">
+              {t("dataSources.callout.title")}:
+            </strong>{" "}
+            <span className="text-muted-foreground">
+              {t("dataSources.callout.description")}
+            </span>
+          </p>
+        </div>
       </section>
 
       {/* License */}

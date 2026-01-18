@@ -142,20 +142,87 @@
         "protected": "Territorio Protegido"
       }
     },
+    "impact": {
+      "title": "Nuestro Impacto",
+      "speciesDocumented": "Especies de Árboles",
+      "speciesCount": "50+",
+      "observations": "Observaciones Combinadas",
+      "observationsCount": "10,000+",
+      "openSource": "Código Abierto y Gratuito",
+      "openSourceValue": "100%",
+      "languages": "Idiomas",
+      "languagesCount": "2"
+    },
+    "howItWorks": {
+      "title": "Cómo Creamos Contenido",
+      "step1": {
+        "title": "Obtener Datos",
+        "description": "Recopilamos observaciones de plataformas de ciencia ciudadana y datos de organizaciones de conservación"
+      },
+      "step2": {
+        "title": "Investigar y Verificar",
+        "description": "Verificamos con literatura científica, registros de herbarios y guías de campo"
+      },
+      "step3": {
+        "title": "Crear Contenido",
+        "description": "Escribimos perfiles bilingües completos con fotos e información ecológica"
+      },
+      "step4": {
+        "title": "Compartir Abiertamente",
+        "description": "Publicamos libremente bajo licencias abiertas para educación y conservación"
+      }
+    },
     "contributing": {
       "title": "Cómo Contribuir",
       "description": "Damos la bienvenida a contribuciones de botánicos, naturalistas, fotógrafos, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica. Ya sea que quieras agregar un nuevo perfil de árbol, mejorar el contenido existente, traducir material o mejorar el sitio web, tu ayuda es valorada.",
       "github": "Ver en GitHub",
       "explore": "Explorar Árboles"
     },
-    "acknowledgments": {
-      "title": "Agradecimientos y Nuestra Misión",
-      "description": "Este sitio existe por una razón principal: destacar a los increíbles proveedores de datos que hacen posibles proyectos como el nuestro. El Atlas de Árboles de Costa Rica está construido sobre el trabajo incansable de investigadores, instituciones y científicos comunitarios que comparten libremente su conocimiento con el mundo.",
-      "callToAction": "Te animamos no solo a disfrutar de este recurso, sino a contribuir activamente a estas plataformas. Al mejorar los datos en su fuente, ayudas a garantizar que sitios como el nuestro—y muchos otros—puedan seguir llevando información precisa y actualizada a todos.",
-      "inaturalist": "iNaturalist — La comunidad de ciencia ciudadana cuyos datos de observación y fotografía forman la columna vertebral de la documentación de especies en todo el mundo. ¡Considera unirte y contribuir con tus propias observaciones!",
-      "sinac": "SINAC (Sistema Nacional de Áreas de Conservación de Costa Rica) — La agencia de conservación dedicada de Costa Rica que proporciona información esencial sobre áreas protegidas y estado de conservación de especies.",
-      "community": "La comunidad global de botánicos, ecólogos y naturalistas — Investigadores y entusiastas que dedican sus vidas a estudiar y documentar árboles tropicales, haciendo el conocimiento accesible para todos.",
-      "gratitude": "A todos los contribuyentes de datos: Gracias. Su trabajo importa, y nos honra ayudar a amplificarlo."
+    "dataSources": {
+      "title": "De Dónde Provienen Nuestros Datos",
+      "intro": "Este atlas es posible gracias a organizaciones y comunidades que comparten libremente datos de biodiversidad con el mundo. Agregamos y presentamos esta información para hacerla más accesible para la educación y la conservación.",
+      "whatWeUseLabel": "Qué Usamos",
+      "whyItMattersLabel": "Por Qué Importa",
+      "inaturalist": {
+        "description": "Una plataforma de ciencia ciudadana que conecta a millones de observadores de la naturaleza en todo el mundo",
+        "whatWeUse": "Observaciones de especies, fotografías y datos de distribución",
+        "whyItMatters": "Ciencia ciudadana a escala — millones de observaciones del mundo real de la comunidad global",
+        "cta": "Contribuye Tus Observaciones"
+      },
+      "sinac": {
+        "description": "Sistema Nacional de Áreas de Conservación de Costa Rica",
+        "whatWeUse": "Estado de conservación e información sobre áreas protegidas",
+        "whyItMatters": "Datos oficiales de conservación del gobierno de Costa Rica",
+        "cta": "Conoce la Conservación en CR"
+      },
+      "museoNacional": {
+        "description": "Museo Nacional de Costa Rica y su colección de herbario más grande",
+        "whatWeUse": "Registros de especímenes de herbario y referencias taxonómicas",
+        "whyItMatters": "500,000+ especímenes de plantas — la referencia botánica definitiva para Costa Rica",
+        "cta": "Explorar el Herbario"
+      },
+      "inbio": {
+        "description": "Instituto Nacional de Biodiversidad de Costa Rica",
+        "whatWeUse": "Datos de distribución de especies e información ecológica",
+        "whyItMatters": "160,000+ registros de plantas con datos detallados de distribución y hábitat",
+        "cta": "Ver Datos de Biodiversidad"
+      },
+      "ots": {
+        "description": "Organización para Estudios Tropicales — Jardín Botánico Wilson",
+        "whatWeUse": "Publicaciones de investigación y documentación de especies raras",
+        "whyItMatters": "Estación de investigación tropical líder que protege especies de árboles raras y en peligro",
+        "cta": "Conocer sobre OTS"
+      },
+      "lankester": {
+        "description": "Jardín Botánico Lankester — Universidad de Costa Rica",
+        "whatWeUse": "Investigación científica y recursos de educación botánica",
+        "whyItMatters": "Institución líder en investigación de biodiversidad vegetal costarricense",
+        "cta": "Visitar Jardín Lankester"
+      },
+      "callout": {
+        "title": "Puedes Ayudar a Mejorar Los Datos",
+        "description": "Cuando contribuyes a iNaturalist o apoyas el trabajo de conservación de SINAC, estás mejorando la calidad de los datos para investigadores y educadores en todas partes. Mejores datos en la fuente significan mejores recursos para todos."
+      }
     },
     "license": {
       "title": "Estructura de Licencia Dual",

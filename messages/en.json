@@ -143,20 +143,87 @@
         "protected": "Territory Protected"
       }
     },
+    "impact": {
+      "title": "Our Impact",
+      "speciesDocumented": "Tree Species",
+      "speciesCount": "50+",
+      "observations": "Combined Observations",
+      "observationsCount": "10,000+",
+      "openSource": "Open Source & Free",
+      "openSourceValue": "100%",
+      "languages": "Languages",
+      "languagesCount": "2"
+    },
+    "howItWorks": {
+      "title": "How We Create Content",
+      "step1": {
+        "title": "Source Data",
+        "description": "We gather observations from citizen science platforms and data from conservation organizations"
+      },
+      "step2": {
+        "title": "Research & Verify",
+        "description": "Cross-reference with scientific literature, herbarium records, and field guides"
+      },
+      "step3": {
+        "title": "Create Content",
+        "description": "Write comprehensive, bilingual species profiles with photos and ecological information"
+      },
+      "step4": {
+        "title": "Share Openly",
+        "description": "Publish freely under open licenses for education and conservation"
+      }
+    },
     "contributing": {
       "title": "How to Contribute",
       "description": "We welcome contributions from botanists, naturalists, photographers, developers, and anyone passionate about Costa Rica's trees. Whether you want to add a new tree profile, improve existing content, translate material, or enhance the website, your help is valued.",
       "github": "View on GitHub",
       "explore": "Explore Trees"
     },
-    "acknowledgments": {
-      "title": "Acknowledgments & Our Mission",
-      "description": "This site exists for one primary reason: to shine a spotlight on the incredible data providers who make projects like ours possible. The Costa Rica Tree Atlas is built upon the tireless work of researchers, institutions, and community scientists who freely share their knowledge with the world.",
-      "callToAction": "We encourage you to not only enjoy this resource but to actively contribute to these platforms. By improving the data at its source, you help ensure that sites like ours—and countless others—can continue to bring accurate, up-to-date information to everyone.",
-      "inaturalist": "iNaturalist — The citizen science community whose observation data and photography form the backbone of species documentation worldwide. Consider joining and contributing your own observations!",
-      "sinac": "SINAC (Costa Rica's National System of Conservation Areas) — Costa Rica's dedicated conservation agency providing essential information about protected areas and species conservation status.",
-      "community": "The global community of botanists, ecologists, and naturalists — Researchers and enthusiasts who dedicate their lives to studying and documenting tropical trees, making knowledge accessible to all.",
-      "gratitude": "To all data contributors: Thank you. Your work matters, and we are honored to help amplify it."
+    "dataSources": {
+      "title": "Where Our Data Comes From",
+      "intro": "This atlas is made possible by organizations and communities that freely share biodiversity data with the world. We aggregate and present this information to make it more accessible for education and conservation.",
+      "whatWeUseLabel": "What We Use",
+      "whyItMattersLabel": "Why It Matters",
+      "inaturalist": {
+        "description": "A citizen science platform connecting millions of nature observers worldwide",
+        "whatWeUse": "Species observations, photographs, and distribution data",
+        "whyItMatters": "Citizen science at scale — millions of real-world observations from the global community",
+        "cta": "Contribute Your Observations"
+      },
+      "sinac": {
+        "description": "Costa Rica's National System of Conservation Areas",
+        "whatWeUse": "Conservation status and protected areas information",
+        "whyItMatters": "Official conservation data from Costa Rica's government",
+        "cta": "Learn About CR Conservation"
+      },
+      "museoNacional": {
+        "description": "Costa Rica's National Museum and largest herbarium collection",
+        "whatWeUse": "Herbarium specimen records and taxonomic references",
+        "whyItMatters": "500,000+ plant specimens — the definitive botanical reference for Costa Rica",
+        "cta": "Explore the Herbarium"
+      },
+      "inbio": {
+        "description": "National Institute of Biodiversity of Costa Rica",
+        "whatWeUse": "Species distribution data and ecological information",
+        "whyItMatters": "160,000+ plant records with detailed distribution and habitat data",
+        "cta": "View Biodiversity Data"
+      },
+      "ots": {
+        "description": "Organization for Tropical Studies — Wilson Botanical Garden",
+        "whatWeUse": "Research publications and rare species documentation",
+        "whyItMatters": "Premier tropical research station protecting rare and endangered tree species",
+        "cta": "Learn About OTS"
+      },
+      "lankester": {
+        "description": "Lankester Botanical Garden — University of Costa Rica",
+        "whatWeUse": "Scientific research and botanical education resources",
+        "whyItMatters": "Leading research institution for Costa Rican plant biodiversity",
+        "cta": "Visit Lankester Garden"
+      },
+      "callout": {
+        "title": "You Can Help Improve The Data",
+        "description": "When you contribute to iNaturalist or support SINAC's conservation work, you're improving data quality for researchers and educators everywhere. Better data at the source means better resources for everyone."
+      }
     },
     "license": {
       "title": "Dual-License Structure",
