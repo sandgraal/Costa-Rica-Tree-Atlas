@@ -12,14 +12,14 @@ This document provides a comprehensive audit of all tree images in the Costa Ric
 
 ### Overall Statistics
 
-| Metric | Count | Percentage |
-|--------|-------|------------|
-| **Total Trees** | 128 | 100% |
-| **Trees with Valid Local Images** | 120 | 93.75% |
-| **Trees with External URLs** | 4 | 3.13% |
-| **Trees Missing Images** | 4 | 3.13% |
-| **Orphaned Images** | 1 | - |
-| **Optimized Image Directories** | 7 | 5.47% |
+| Metric                            | Count | Percentage |
+| --------------------------------- | ----- | ---------- |
+| **Total Trees**                   | 128   | 100%       |
+| **Trees with Valid Local Images** | 120   | 93.75%     |
+| **Trees with External URLs**      | 4     | 3.13%      |
+| **Trees Missing Images**          | 4     | 3.13%      |
+| **Orphaned Images**               | 1     | -          |
+| **Optimized Image Directories**   | 7     | 5.47%      |
 
 ### Image Health Score: 94% ✅
 
@@ -34,6 +34,7 @@ The majority of trees (120/128) have valid local images. The system is functioni
 These trees have local JPG files in `public/images/trees/` and properly configured `featuredImage` paths in their MDX frontmatter.
 
 #### Sample of Trees with Local Images:
+
 - aceituno (133KB)
 - aguacate (367KB)
 - aguacatillo (72KB)
@@ -66,12 +67,12 @@ These trees have local JPG files in `public/images/trees/` and properly configur
 
 These trees currently use iNaturalist images via external URLs. While functional, these rely on external services and may be subject to removal or link rot.
 
-| Tree | Scientific Name | Image URL | Status |
-|------|----------------|-----------|--------|
-| **cornizuelo** | Vachellia collinsii | https://inaturalist-open-data.s3.amazonaws.com/photos/294191914/large.jpeg | ✅ Active |
-| **llama-del-bosque** | Spathodea campanulata | https://inaturalist-open-data.s3.amazonaws.com/photos/378469362/large.jpg | ✅ Active |
-| **quebracho** | Lysiloma divaricatum | https://inaturalist-open-data.s3.amazonaws.com/photos/37740461/large.jpeg | ✅ Active |
-| **quizarra** | Leucaena leucocephala | https://inaturalist-open-data.s3.amazonaws.com/photos/44210839/large.jpg | ✅ Active |
+| Tree                 | Scientific Name       | Image URL                                                                  | Status    |
+| -------------------- | --------------------- | -------------------------------------------------------------------------- | --------- |
+| **cornizuelo**       | Vachellia collinsii   | https://inaturalist-open-data.s3.amazonaws.com/photos/294191914/large.jpeg | ✅ Active |
+| **llama-del-bosque** | Spathodea campanulata | https://inaturalist-open-data.s3.amazonaws.com/photos/378469362/large.jpg  | ✅ Active |
+| **quebracho**        | Lysiloma divaricatum  | https://inaturalist-open-data.s3.amazonaws.com/photos/37740461/large.jpeg  | ✅ Active |
+| **quizarra**         | Leucaena leucocephala | https://inaturalist-open-data.s3.amazonaws.com/photos/44210839/large.jpg   | ✅ Active |
 
 **Recommendation:** Consider downloading these images locally using `npm run images:download` to ensure long-term availability and improve performance.
 
@@ -81,21 +82,23 @@ These trees currently use iNaturalist images via external URLs. While functional
 
 These trees have no `featuredImage` field in their MDX frontmatter and require images to be added.
 
-| Tree | Scientific Name | Family | Published Date | Priority |
-|------|----------------|--------|----------------|----------|
-| **comenegro** | Simarouba glauca | Simaroubaceae | 2026-01-15 | 🔴 High |
-| **lechoso-montanero** | Brosimum lactescens | Moraceae | 2026-01-15 | 🔴 High |
-| **mayo** | Vochysia hondurensis | Vochysiaceae | 2026-01-15 | 🔴 High |
-| **sigua** | Nectandra cissiflora | Lauraceae | 2026-01-14 | 🔴 High |
+| Tree                  | Scientific Name      | Family        | Published Date | Priority |
+| --------------------- | -------------------- | ------------- | -------------- | -------- |
+| **comenegro**         | Simarouba glauca     | Simaroubaceae | 2026-01-15     | 🔴 High  |
+| **lechoso-montanero** | Brosimum lactescens  | Moraceae      | 2026-01-15     | 🔴 High  |
+| **mayo**              | Vochysia hondurensis | Vochysiaceae  | 2026-01-15     | 🔴 High  |
+| **sigua**             | Nectandra cissiflora | Lauraceae     | 2026-01-14     | 🔴 High  |
 
 **Impact:** These trees will display placeholder images on:
+
 - Main tree listing page
 - Tree detail pages
 - Search results
 - Featured tree carousels
 - Seasonal calendar views
 
-**Action Required:** 
+**Action Required:**
+
 1. Source high-quality images for these species from iNaturalist or other CC-licensed sources
 2. Run `npm run images:download` to attempt automatic image sourcing
 3. Manually add images if automatic sourcing fails
@@ -106,11 +109,12 @@ These trees have no `featuredImage` field in their MDX frontmatter and require i
 
 Images that exist in `public/images/trees/` but have no corresponding MDX file.
 
-| Image File | Status | Recommendation |
-|-----------|--------|----------------|
+| Image File        | Status   | Recommendation                                                              |
+| ----------------- | -------- | --------------------------------------------------------------------------- |
 | **chilamate.jpg** | Orphaned | Either create MDX file for this tree or remove image to clean up repository |
 
 **Action Options:**
+
 - If chilamate is a valid Costa Rican tree, create MDX files in both `content/trees/en/` and `content/trees/es/`
 - If this image was uploaded in error or the tree was removed, delete `public/images/trees/chilamate.jpg`
 
@@ -139,17 +143,20 @@ The following trees have optimized AVIF/WebP versions in `public/images/trees/op
 The atlas uses a 3-tier fallback system (implemented in `src/lib/image/image-resolver.ts`):
 
 ### Tier 1: Optimized Images
+
 - Location: `public/images/trees/optimized/[slug]/`
 - Formats: AVIF (preferred), WebP (fallback)
 - Sizes: 400w, 800w, 1200w
 - Includes srcSet for responsive loading
 
 ### Tier 2: Original Images
+
 - Location: `public/images/trees/[slug].jpg`
 - Format: JPEG
 - Single file per tree
 
 ### Tier 3: External/Placeholder
+
 - External URLs (e.g., iNaturalist)
 - Placeholder SVG (`/images/placeholder-tree.svg`)
 
@@ -209,11 +216,13 @@ All images meet the minimum size threshold of 20KB and are suitable for web disp
 ### Recommended Validation Workflow
 
 Run comprehensive validation:
+
 ```bash
 npm run images:validate
 ```
 
 Run all audits together:
+
 ```bash
 npm run images:audit:all
 ```
@@ -223,10 +232,12 @@ This runs both featured image and gallery audits in sequence.
 ### CI/CD Integration
 
 **Automatic PR Validation** - A GitHub Actions workflow (`.github/workflows/validate-images.yml`) runs on every pull request that modifies:
+
 - MDX files in `content/trees/`
 - Images in `public/images/trees/`
 
 The workflow:
+
 1. Validates all image references
 2. Posts results as a PR comment
 3. Fails the check if broken references are found
@@ -245,7 +256,7 @@ This ensures no broken image references make it into production.
    - lechoso-montanero
    - mayo
    - sigua
-   
+
    **Command:** `npm run images:download`
 
 2. **Decide on chilamate.jpg:**
@@ -259,12 +270,12 @@ This ensures no broken image references make it into production.
    - llama-del-bosque
    - quebracho
    - quizarra
-   
+
    **Command:** `npm run images:download`
 
 4. **Continue image optimization:**
    - Optimize remaining 121 trees (only 7/128 currently optimized)
-   
+
    **Command:** `npm run images:optimize`
 
 ### Future Enhancements (Low Priority)
@@ -287,21 +298,25 @@ This ensures no broken image references make it into production.
 All 4 trees missing images are recently added (January 2026) and need high-quality photographs:
 
 #### Comenegro (Simarouba glauca)
+
 - **Habitat:** Dry forest, 0-1000m elevation
 - **Key Features:** Distinctive smooth copper-colored bark
 - **Photo Needs:** Whole tree, bark detail, leaves, flowers
 
 #### Lechoso Montañero (Brosimum lactescens)
-- **Habitat:** Montane forest, 0-1600m elevation  
+
+- **Habitat:** Montane forest, 0-1600m elevation
 - **Key Features:** White latex, edible sap
 - **Photo Needs:** Whole tree, latex flow, fruit
 
 #### Mayo (Vochysia hondurensis)
+
 - **Habitat:** Rainforest, 0-1200m elevation
 - **Key Features:** Tall emergent tree, yellow flowers
 - **Photo Needs:** Whole tree, flowers, bark
 
 #### Sigua (Nectandra cissiflora)
+
 - **Habitat:** Rainforest, 0-1200m elevation
 - **Key Features:** Aromatic wood, laurel family
 - **Photo Needs:** Whole tree, leaves, flowers
@@ -337,6 +352,7 @@ featuredImage: "https://example.com/image.jpg"
 ### Image Attribution
 
 All image attributions are tracked in `public/images/trees/attributions.json`. This file contains:
+
 - Photographer/source
 - License information
 - iNaturalist observation IDs

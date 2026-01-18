@@ -61,23 +61,18 @@ const customComponents = {
 };
 
 export default async function MyPage() {
-  return (
-    <ServerMDXContent
-      source={mdxSource}
-      components={customComponents}
-    />
-  );
+  return <ServerMDXContent source={mdxSource} components={customComponents} />;
 }
 ```
 
 ## Props
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `source` | `string` | Yes | - | Raw MDX source content (use `body.raw` from Contentlayer) |
-| `components` | `Record<string, React.ComponentType>` | No | `{}` | Additional MDX components to merge with defaults |
-| `glossaryTerms` | `GlossaryTerm[]` | No | `[]` | Array of glossary terms for auto-linking |
-| `enableGlossaryLinks` | `boolean` | No | `false` | Whether to enable automatic glossary term linking |
+| Prop                  | Type                                  | Required | Default | Description                                               |
+| --------------------- | ------------------------------------- | -------- | ------- | --------------------------------------------------------- |
+| `source`              | `string`                              | Yes      | -       | Raw MDX source content (use `body.raw` from Contentlayer) |
+| `components`          | `Record<string, React.ComponentType>` | No       | `{}`    | Additional MDX components to merge with defaults          |
+| `glossaryTerms`       | `GlossaryTerm[]`                      | No       | `[]`    | Array of glossary terms for auto-linking                  |
+| `enableGlossaryLinks` | `boolean`                             | No       | `false` | Whether to enable automatic glossary term linking         |
 
 ## Implementation Details
 
