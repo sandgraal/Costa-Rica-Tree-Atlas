@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import react from "eslint-plugin-react";
 import security from "eslint-plugin-security";
 import noSecrets from "eslint-plugin-no-secrets";
 
@@ -21,9 +22,10 @@ const eslintConfig = defineConfig([
     // Scripts
     "scripts/**",
   ]),
-  // Security plugins
+  // Security and React plugins
   {
     plugins: {
+      react,
       security,
       "no-secrets": noSecrets,
     },
