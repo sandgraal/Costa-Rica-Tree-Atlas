@@ -152,6 +152,9 @@ export async function ServerMDXContent({
   const cacheKey = getCacheKey(source);
   let result = mdxCache.get(cacheKey);
 
+  // Merge default MDX components with any additional ones passed in
+  const allComponents = { ...mdxComponents, ...components };
+
   if (!result) {
     try {
       // Evaluate MDX on the server - this compiles and runs in one step
@@ -189,10 +192,8 @@ export async function ServerMDXContent({
 
   const { default: MDXContent } = result;
 
-  // Merge default MDX components with any additional ones passed in
-  const allComponents = { ...mdxComponents, ...components };
-
   // Render the MDX content with all components
+  // Client components are passed via the components prop
   // This returns React elements that will be serialized and sent to the client
   const content = <MDXContent components={allComponents} />;
 
