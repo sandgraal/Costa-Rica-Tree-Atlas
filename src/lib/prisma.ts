@@ -10,11 +10,20 @@
  * @see https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
  */
 
+// Type declaration for global scope - must be at module level
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  var prismaGlobal: any | undefined;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let PrismaClient: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let prisma: any;
 
 try {
   // Try to import Prisma Client - may not be available if DATABASE_URL wasn't set during build
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const prismaModule = require("@prisma/client");
   PrismaClient = prismaModule.PrismaClient;
 
@@ -27,14 +36,10 @@ try {
     });
   };
 
-  declare const globalThis: {
-    prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-  } & typeof global;
-
   prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
 
   if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
-} catch (error) {
+} catch (_error) {
   // Prisma Client not available - admin features will be disabled
   console.warn(
     "Prisma Client not available. Admin authentication features are disabled."

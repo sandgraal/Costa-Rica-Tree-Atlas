@@ -3,9 +3,20 @@ import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
-import { RecentlyViewedList } from "@/components/RecentlyViewedList";
-import { FeaturedTreesSection } from "@/components/FeaturedTreesSection";
+import dynamic from "next/dynamic";
 import type { Locale } from "@/types/tree";
+
+// Lazy load below-the-fold components to improve LCP and reduce TBT
+const RecentlyViewedList = dynamic(() =>
+  import("@/components/RecentlyViewedList").then((mod) => ({
+    default: mod.RecentlyViewedList,
+  }))
+);
+const FeaturedTreesSection = dynamic(() =>
+  import("@/components/FeaturedTreesSection").then((mod) => ({
+    default: mod.FeaturedTreesSection,
+  }))
+);
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -96,7 +107,7 @@ export default async function HomePage({ params }: Props) {
               fetchPriority="high"
               sizes="100vw"
               className="object-cover object-center"
-              quality={75}
+              quality={60}
               fallback="placeholder"
             />
             {/* Dark overlay for text readability */}
@@ -287,7 +298,7 @@ function NowBloomingSection({
                 alt={tree.title}
                 fill
                 sizes="192px"
-                quality={60}
+                quality={50}
                 className="object-cover"
                 fallback="placeholder"
               />
@@ -382,7 +393,7 @@ function TreeOfTheDay({
               alt={tree.title}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
-              quality={70}
+              quality={65}
               className="object-cover"
               fallback="placeholder"
             />

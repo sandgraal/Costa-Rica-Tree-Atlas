@@ -63,7 +63,6 @@ export function SafeImage({
         loading={priority ? undefined : "lazy"}
         fetchPriority={effectiveFetchPriority}
         onError={() => {
-          console.warn(`Failed to load image: ${src}`);
           setError(true);
           setLoading(false);
         }}

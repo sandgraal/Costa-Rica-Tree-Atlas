@@ -72,7 +72,7 @@ export function TreeCard({
             blurDataURL={BLUR_PLACEHOLDER}
             priority={priority}
             fetchPriority={priority ? "high" : "auto"}
-            quality={65}
+            quality={55}
             fallback="placeholder"
           />
 
