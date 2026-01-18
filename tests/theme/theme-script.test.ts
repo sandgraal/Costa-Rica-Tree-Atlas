@@ -9,36 +9,36 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { getThemeScript } from "@/lib/theme/theme-script";
+import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 
 describe("Theme Script", () => {
   describe("Script Generation", () => {
     it("should generate a non-empty script", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(script).toBeTruthy();
       expect(script.length).toBeGreaterThan(0);
     });
 
     it("should generate valid JavaScript syntax", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(() => new Function(script)).not.toThrow();
     });
 
     it("should be compact (< 2KB)", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(script.length).toBeLessThan(2000);
     });
   });
 
   describe("Script Content", () => {
     it("should include localStorage access", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(script).toContain("localStorage.getItem");
       expect(script).toContain("cr-tree-atlas");
     });
 
     it("should include DOM manipulation", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(script).toContain("classList.add");
       expect(script).toContain("setAttribute");
       expect(script).toContain("data-theme");
@@ -46,13 +46,13 @@ describe("Theme Script", () => {
     });
 
     it("should handle system preference", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(script).toContain("matchMedia");
       expect(script).toContain("prefers-color-scheme: dark");
     });
 
     it("should include error handling", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       expect(script).toContain("try");
       expect(script).toContain("catch");
     });
@@ -60,7 +60,7 @@ describe("Theme Script", () => {
 
   describe("Script Execution Simulation", () => {
     it("should apply dark theme when stored", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       const mockDOM: any = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("dark") },
@@ -97,7 +97,7 @@ describe("Theme Script", () => {
     });
 
     it("should apply light theme when stored", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       const mockDOM: any = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("light") },
@@ -134,7 +134,7 @@ describe("Theme Script", () => {
     });
 
     it('should use system preference when theme is "system"', () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       const mockDOM: any = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("dark") },
@@ -171,7 +171,7 @@ describe("Theme Script", () => {
     });
 
     it("should default to system preference when no stored theme", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       const mockDOM: any = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("light") },
@@ -208,7 +208,7 @@ describe("Theme Script", () => {
     });
 
     it("should handle corrupted localStorage gracefully", () => {
-      const script = getThemeScript();
+      const script = THEME_SCRIPT;
       let errorCalled = false;
       const mockDOM: any = {
         documentElement: {
