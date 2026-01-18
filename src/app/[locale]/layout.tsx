@@ -185,24 +185,30 @@ export default async function LocaleLayout({ children, params }: Props) {
             ],
           }}
         />
-        {/* Preconnect to external image hosts for faster loading */}
+
+        {/* Resource hints for faster loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           rel="preconnect"
           href="https://inaturalist-open-data.s3.amazonaws.com"
         />
         <link rel="preconnect" href="https://static.inaturalist.org" />
-        <link
-          rel="dns-prefetch"
-          href="https://inaturalist-open-data.s3.amazonaws.com"
-        />
-        <link rel="dns-prefetch" href="https://static.inaturalist.org" />
+        <link rel="dns-prefetch" href="https://api.gbif.org" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-        {/* Preload hero image for faster LCP on home page */}
+        {/* Preload critical hero image for faster LCP on home page */}
         <link
           rel="preload"
           as="image"
-          href="/images/trees/guanacaste.jpg"
+          href="/images/hero/guanacaste-desktop.webp"
           fetchPriority="high"
+          imageSrcSet="/images/hero/guanacaste-mobile.webp 640w, /images/hero/guanacaste-mobile-lg.webp 828w, /images/hero/guanacaste-tablet.webp 1200w, /images/hero/guanacaste-desktop.webp 1920w"
+          imageSizes="100vw"
         />
 
         {/* PWA manifest */}

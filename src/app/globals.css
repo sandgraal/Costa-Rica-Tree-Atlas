@@ -82,6 +82,29 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Performance optimizations */
+@layer base {
+  /* Optimize off-screen content rendering */
+  .section-offscreen {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Optimize animations and transitions */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Optimize font rendering */
+  @font-face {
+    font-display: swap;
+  }
+}
+
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root:not(.light):not([data-theme="light"]) {

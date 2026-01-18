@@ -88,6 +88,10 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["date-fns", "contentlayer2", "lucide-react"],
     // Enable optimized CSS loading
     optimizeCss: true,
+    // Enable parallel build workers for faster builds
+    webpackBuildWorker: true,
+    // Reduce memory usage during builds
+    memoryBasedWorkersCount: true,
   },
 };
 

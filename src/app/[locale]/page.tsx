@@ -2,8 +2,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
+import { HeroImage } from "@/components/HeroImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import dynamic from "next/dynamic";
+import { memo } from "react";
 import type { Locale } from "@/types/tree";
 
 // Lazy load below-the-fold components to improve LCP and reduce TBT
@@ -98,23 +100,12 @@ export default async function HomePage({ params }: Props) {
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-16 pb-24 px-4 md:pt-20 md:pb-28 min-h-[600px] md:min-h-[700px] flex items-center">
           {/* Hero Background Image - Guanacaste Tree */}
-          <div className="absolute inset-0">
-            <SafeImage
-              src="/images/trees/guanacaste.jpg"
-              alt="Guanacaste Tree - National Tree of Costa Rica"
-              fill
-              priority
-              fetchPriority="high"
-              sizes="100vw"
-              className="object-cover object-center"
-              quality={60}
-              fallback="placeholder"
-            />
-            {/* Dark overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
-            {/* Additional overlay for better contrast */}
-            <div className="absolute inset-0 bg-primary-dark/30"></div>
-          </div>
+          <HeroImage priority fetchPriority="high" />
+
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
+          {/* Additional overlay for better contrast */}
+          <div className="absolute inset-0 bg-primary-dark/30"></div>
 
           {/* Gradient fade to page content */}
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background"></div>
@@ -196,7 +187,7 @@ export default async function HomePage({ params }: Props) {
   );
 }
 
-function HeroContent({
+const HeroContent = memo(function HeroContent({
   title,
   description,
   exploreButton,
@@ -233,9 +224,9 @@ function HeroContent({
       </Link>
     </>
   );
-}
+});
 
-function NowBloomingSection({
+const NowBloomingSection = memo(function NowBloomingSection({
   trees,
   locale,
   nowBlooming,
@@ -298,7 +289,7 @@ function NowBloomingSection({
                 alt={tree.title}
                 fill
                 sizes="192px"
-                quality={50}
+                quality={40}
                 className="object-cover"
                 fallback="placeholder"
               />
@@ -331,9 +322,9 @@ function NowBloomingSection({
       </div>
     </>
   );
-}
+});
 
-function TreeOfTheDay({
+const TreeOfTheDay = memo(function TreeOfTheDay({
   trees,
   locale,
   treeOfTheDay,
@@ -393,7 +384,7 @@ function TreeOfTheDay({
               alt={tree.title}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
-              quality={65}
+              quality={70}
               className="object-cover"
               fallback="placeholder"
             />
@@ -452,9 +443,9 @@ function TreeOfTheDay({
       </div>
     </div>
   );
-}
+});
 
-function StatsSection({
+const StatsSection = memo(function StatsSection({
   speciesCount,
   familiesCount,
   statusCount,
@@ -505,9 +496,9 @@ function StatsSection({
       ))}
     </div>
   );
-}
+});
 
-function AboutSection({
+const AboutSection = memo(function AboutSection({
   openSource,
   description,
 }: {
@@ -534,4 +525,4 @@ function AboutSection({
       <p className="text-muted-foreground text-lg">{description}</p>
     </>
   );
-}
+});
