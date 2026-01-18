@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { allGlossaryTerms, allTrees } from "contentlayer/generated";
-import { getMDXComponent } from "next-contentlayer2/hooks";
-import { mdxComponents } from "@/components/mdx";
+import { ServerMDXContent } from "@/components/ServerMDXContent";
 import { ShareLink } from "@/components/ShareLink";
 import type { Locale } from "@/types";
 import { Link } from "@i18n/navigation";
@@ -54,8 +53,6 @@ export default async function GlossaryTermPage({
   if (!term) {
     notFound();
   }
-
-  const MDXContent = getMDXComponent(term.body.code);
 
   // Get related terms
   const relatedTerms = term.relatedTerms
@@ -146,7 +143,7 @@ export default async function GlossaryTermPage({
           prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl
           prose-p:leading-relaxed prose-li:leading-relaxed"
         >
-          <MDXContent components={mdxComponents} />
+          <ServerMDXContent source={term.body.raw} />
         </article>
 
         {/* Example Species */}
