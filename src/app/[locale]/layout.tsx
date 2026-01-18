@@ -4,7 +4,6 @@ import { routing } from "@i18n/routing";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StoreProvider, QueryProvider } from "@/components/providers";
@@ -120,11 +119,16 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <head>
-        {/* Theme script - MUST be first to prevent flash */}
-        {/* Using Next.js Script with id to avoid dangerouslySetInnerHTML XSS warnings */}
-        <Script id="theme-script" strategy="beforeInteractive" nonce={nonce}>
-          {THEME_SCRIPT}
-        </Script>
+        {/*
+          Theme script - MUST be first to prevent flash
+          Security: Safe to use dangerouslySetInnerHTML here because THEME_SCRIPT
+          is a static string with no user input - only compile-time constants.
+        */}
+        <script
+          nonce={nonce}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
+        />
 
         {/* Site-wide structured data */}
         <SafeJsonLd
