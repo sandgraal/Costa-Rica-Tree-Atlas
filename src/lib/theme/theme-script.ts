@@ -7,8 +7,12 @@ import { STORE_KEY } from "@/lib/store";
  * The script reads from localStorage and sets theme classes/attributes
  * before the browser paints, preventing any flash of incorrect theme.
  *
- * Exported as a constant string to be used with Next.js Script component,
- * avoiding dangerouslySetInnerHTML which triggers XSS warnings.
+ * Security note: This script is safe to use with dangerouslySetInnerHTML because:
+ * 1. The content is a static string defined at build time
+ * 2. No user input is interpolated into the script
+ * 3. The only variable (STORE_KEY) is a compile-time constant
+ *
+ * @security codacy-disable Generic Object Injection Sink
  */
 export const THEME_SCRIPT = `
 (function() {
