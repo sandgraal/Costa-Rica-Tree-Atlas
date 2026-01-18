@@ -8,6 +8,13 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+// Helper to get sorted trees for a locale
+function getTreesForLocale(locale: string) {
+  return allTrees
+    .filter((tree) => tree.locale === locale)
+    .sort((a, b) => a.title.localeCompare(b.title));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
@@ -30,8 +37,8 @@ export default async function TreesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // Get trees for current locale
-  const trees = allTrees.filter((tree) => tree.locale === locale);
+  // Get trees for current locale, sorted alphabetically for consistent first image
+  const trees = getTreesForLocale(locale);
 
   // Generate ItemList structured data for SEO
   const structuredData = {

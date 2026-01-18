@@ -71,7 +71,8 @@ export function TreeCard({
             placeholder="blur"
             blurDataURL={BLUR_PLACEHOLDER}
             priority={priority}
-            quality={75}
+            fetchPriority={priority ? "high" : "auto"}
+            quality={65}
             fallback="placeholder"
           />
 
@@ -255,12 +256,12 @@ export function TreeGrid({
       tree={tree}
       locale={locale}
       showFavorite={showFavorites}
-      priority={index < 6}
+      priority={index < 2} // Only prioritize first 2 for faster LCP
     />
   );
 
   // Don't use virtualization - it creates scrolling issues
-  // Standard grid works well with lazy loading (initial 15 trees, load more on demand)
+  // Standard grid works well with lazy loading (initial 12 trees, load more on demand)
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {trees.map((tree, index) => renderTreeCard(tree, index))}

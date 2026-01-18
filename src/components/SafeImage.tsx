@@ -7,6 +7,8 @@ interface SafeImageProps extends Omit<ImageProps, "onError" | "src"> {
   src: string;
   fallback?: "placeholder" | "hide";
   priority?: boolean;
+  /** High priority for LCP images - sets fetchPriority="high" */
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 /**
@@ -18,6 +20,7 @@ export function SafeImage({
   alt,
   fallback = "placeholder",
   priority = false,
+  fetchPriority,
   ...props
 }: SafeImageProps) {
   const [error, setError] = useState(false);
@@ -42,6 +45,9 @@ export function SafeImage({
     );
   }
 
+  // Use high fetchPriority for priority images (LCP optimization)
+  const effectiveFetchPriority = fetchPriority || (priority ? "high" : "auto");
+
   return (
     <>
       {loading && (
@@ -55,6 +61,7 @@ export function SafeImage({
         alt={alt}
         priority={priority}
         loading={priority ? undefined : "lazy"}
+        fetchPriority={effectiveFetchPriority}
         onError={() => {
           console.warn(`Failed to load image: ${src}`);
           setError(true);
