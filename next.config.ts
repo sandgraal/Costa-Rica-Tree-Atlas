@@ -85,13 +85,38 @@ const nextConfig: NextConfig = {
   // Experimental optimizations
   experimental: {
     // Optimize package imports for smaller bundles
-    optimizePackageImports: ["date-fns", "contentlayer2", "lucide-react"],
+    optimizePackageImports: [
+      "date-fns",
+      "contentlayer2",
+      "lucide-react",
+      "react-markdown",
+      "remark-gfm",
+    ],
     // Enable optimized CSS loading
     optimizeCss: true,
     // Enable parallel build workers for faster builds
     webpackBuildWorker: true,
     // Reduce memory usage during builds
     memoryBasedWorkersCount: true,
+  },
+
+  // Production optimizations
+  compiler: {
+    // Remove console.* in production
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+
+  // Webpack optimizations for better code splitting
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Reduce client bundle size
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: true,
+      };
+    }
+    return config;
   },
 };
 
