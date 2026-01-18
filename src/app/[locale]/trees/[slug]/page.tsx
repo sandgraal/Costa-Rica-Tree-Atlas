@@ -4,7 +4,7 @@ import { allTrees, allGlossaryTerms } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { MDXRenderer } from "@/components/MDXRenderer";
+import { ServerMDXContent } from "@/components/ServerMDXContent";
 import { PrintButton } from "@/components/PrintButton";
 import { ShareButton } from "@/components/ShareButton";
 import { SeasonalInfo } from "@/components/SeasonalInfo";
@@ -414,8 +414,8 @@ export default async function TreePage({ params }: Props) {
 
               {/* MDX Content */}
               <div className="tree-content max-w-none">
-                <MDXRenderer
-                  code={tree.body.code}
+                <ServerMDXContent
+                  source={tree.body.raw}
                   glossaryTerms={allGlossaryTerms.map((t) => ({
                     term: t.term,
                     slug: t.slug,
