@@ -61,7 +61,7 @@ export function HeroImage({
         sizes="100vw"
         className="object-cover object-center"
         quality={85}
-        onError={() => setError(true)}
+        onError={() => { setError(true); }}
       />
     </picture>
   );
