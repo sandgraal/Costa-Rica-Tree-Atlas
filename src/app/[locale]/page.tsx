@@ -3,6 +3,7 @@ import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import dynamic from "next/dynamic";
 import type { Locale } from "@/types/tree";
 
@@ -31,14 +32,6 @@ const FeaturedTreesSection = dynamic(
     ),
     ssr: true,
   }
-);
-
-const RecentlyViewedList = dynamic(
-  () =>
-    import("@/components/RecentlyViewedList").then(
-      (mod) => mod.RecentlyViewedList
-    ),
-  { ssr: false }
 );
 
 type Props = {
