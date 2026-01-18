@@ -61,10 +61,11 @@ Start here if you're new to the project:
 
 ### Current State (January 2026)
 
-- ✅ **Content**: 122 species with complete safety data (EN+ES)
+- ✅ **Content**: 128 species with complete safety data (EN+ES)
 - ✅ **Educational**: 100 glossary terms, 60 species with care guidance, 14 comparison guides
 - ✅ **Features**: All planned features implemented (Phase 1-4 complete, Phase 5 at 95%)
-- ✅ **Build**: 1014 pages generated successfully
+- ✅ **Build**: Pages generated successfully (last verified 2026-01-18)
+- ✅ **Documentation**: Consolidated and accurate (audit: [DOCUMENTATION_AUDIT_2026-01-18.md](./DOCUMENTATION_AUDIT_2026-01-18.md))
 - ⏸️ **Testing**: Awaiting external audits (axe DevTools, Lighthouse, screen readers)
 
 See [improvement-roadmap.md](./improvement-roadmap.md) for detailed status and [NEXT_STEPS.md](./NEXT_STEPS.md) for launch tasks.

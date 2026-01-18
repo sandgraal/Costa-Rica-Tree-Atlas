@@ -12,7 +12,7 @@ We take the security of Costa Rica Tree Atlas seriously. If you believe you have
 
 **Please do NOT report security vulnerabilities through public GitHub issues.**
 
-Instead, please report them via email to [your-security-email@example.com](mailto:your-security-email@example.com).
+Instead, please report them via [GitHub Security Advisories](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/security/advisories/new).
 
 You should receive a response within 48 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
 
@@ -759,7 +759,7 @@ Used only on `/en/marketing/*` and `/es/marketing/*` routes.
   - `'self'` - Stylesheets from same origin
   - `'nonce-{random}'` - Inline styles with per-request nonces
   - `https://fonts.googleapis.com` - Google Fonts
-  - `'unsafe-inline'` - TODO: Remove after extracting critical CSS
+  - `'unsafe-inline'` - Fallback for older browsers (modern browsers use nonce)
 
 - **img-src**:
   - `'self'`, `data:`, `blob:` - Local and data URLs

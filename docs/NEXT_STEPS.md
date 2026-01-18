@@ -7,7 +7,7 @@
 
 **CONGRATULATIONS!** All coding, content creation, and feature implementation work is complete. The Costa Rica Tree Atlas is fully functional with:
 
-- ✅ All 110 species with complete safety data (EN+ES)
+- ✅ All 128 species with complete safety data (EN+ES)
 - ✅ All 60 priority species with care & cultivation guidance
 - ✅ 100 glossary terms with inline tooltips
 - ✅ 14 comprehensive comparison guides (70% of 20 target)
