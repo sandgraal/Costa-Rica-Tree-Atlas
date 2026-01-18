@@ -72,7 +72,7 @@ export function TreeCard({
             blurDataURL={BLUR_PLACEHOLDER}
             priority={priority}
             fetchPriority={priority ? "high" : "auto"}
-            quality={75}
+            quality={65}
             fallback="placeholder"
           />
 
@@ -256,7 +256,7 @@ export function TreeGrid({
       tree={tree}
       locale={locale}
       showFavorite={showFavorites}
-      priority={index < 3} // Only prioritize first 3 (above fold on most screens)
+      priority={index < 2} // Only prioritize first 2 for faster LCP
     />
   );
 

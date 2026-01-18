@@ -19,7 +19,8 @@ interface TreeExplorerProps {
 type ViewMode = "grid" | "alphabetical";
 
 // Constants for lazy loading
-const INITIAL_LOAD_COUNT = 15;
+// Reduced initial count for faster LCP (fewer images to process)
+const INITIAL_LOAD_COUNT = 12;
 const LOAD_MORE_COUNT = 12;
 
 // ============================================================================
