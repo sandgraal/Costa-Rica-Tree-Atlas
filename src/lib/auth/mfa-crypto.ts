@@ -124,8 +124,21 @@ export function generateBackupCodes(count: number = 10): string[] {
     for (let j = 0; j < 3; j++) {
       let segment = "";
       for (let k = 0; k < 4; k++) {
-        const randomIndex =
-          crypto.getRandomValues(new Uint32Array(1))[0] % characters.length;
+        // Avoid modulo bias by discarding values outside the largest multiple of
+        // characters.length that fits into a 32‑bit unsigned integer.
+        const maxUnbiased = Math.floor(2 ** 32 / characters.length) * characters.length;
+        let randomIndex: number;
+
+        // This loop is extremely unlikely to iterate more than once, since the
+        // discarded range is strictly less than characters.length.
+        while (true) {
+          const randomValue = crypto.getRandomValues(new Uint32Array(1))[0];
+          if (randomValue < maxUnbiased) {
+            randomIndex = randomValue % characters.length;
+            break;
+          }
+        }
+
         // eslint-disable-next-line security/detect-object-injection
         segment += characters[randomIndex];
       }
