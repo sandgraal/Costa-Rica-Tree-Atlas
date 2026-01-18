@@ -1160,9 +1160,11 @@ export function DataTable({ headers, rows, data, columns }: DataTableProps) {
       // Check if data is array of objects (has columns prop or first item is an object)
       if (columns && typeof data[0] === "object" && !Array.isArray(data[0])) {
         // Data is array of objects, extract values using columns keys
-        tableData = (data as Record<string, string>[]).map((item) =>
-          columns.map((col) => String(item[col] ?? ""))
-        );
+        // Convert each object to a Map to avoid prototype pollution via direct bracket access
+        tableData = (data as Record<string, string>[]).map((item) => {
+          const safeMap = new Map(Object.entries(item));
+          return columns.map((col) => String(safeMap.get(col) ?? ""));
+        });
       } else if (Array.isArray(data[0])) {
         // Data is already string[][]
         tableData = data as string[][];
