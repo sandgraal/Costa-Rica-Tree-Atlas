@@ -169,7 +169,7 @@ curl -X POST http://localhost:3000/api/admin/setup \
 - **Use strong passwords** (12+ characters, mixed case, numbers, special characters)
 - **Enable MFA** for all admin accounts in production
 - **Monitor audit logs** regularly at `/admin/users`
-- **Expire sessions** are set to 7 days by default
+- **Sessions expire** after 7 days by default
 
 ## Monitoring
 
