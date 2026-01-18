@@ -1144,12 +1144,33 @@ export function Column({ children }: { children: React.ReactNode }) {
 interface DataTableProps {
   headers: string[];
   rows?: string[][];
-  data?: string[][]; // Support legacy prop name for backwards compatibility
+  data?: string[][] | Record<string, string>[]; // Support both array of arrays and array of objects
+  columns?: string[]; // Column keys when data is array of objects
 }
 
-export function DataTable({ headers, rows, data }: DataTableProps) {
-  // Use rows if provided, otherwise fall back to data
-  const tableData = rows || data || [];
+export function DataTable({ headers, rows, data, columns }: DataTableProps) {
+  // Normalize data to string[][] format
+  let tableData: string[][] = [];
+
+  if (rows) {
+    // Use rows if provided
+    tableData = rows;
+  } else if (data) {
+    if (Array.isArray(data) && data.length > 0) {
+      // Check if data is array of objects (has columns prop or first item is an object)
+      if (columns && typeof data[0] === "object" && !Array.isArray(data[0])) {
+        // Data is array of objects, extract values using columns keys
+        // Convert each object to a Map to avoid prototype pollution via direct bracket access
+        tableData = (data as Record<string, string>[]).map((item) => {
+          const safeMap = new Map(Object.entries(item));
+          return columns.map((col) => String(safeMap.get(col) ?? ""));
+        });
+      } else if (Array.isArray(data[0])) {
+        // Data is already string[][]
+        tableData = data as string[][];
+      }
+    }
+  }
 
   return (
     <div className="overflow-x-auto my-4">

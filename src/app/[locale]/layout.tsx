@@ -4,6 +4,7 @@ import { routing } from "@i18n/routing";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StoreProvider, QueryProvider } from "@/components/providers";
@@ -15,7 +16,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
-import { getThemeScript } from "@/lib/theme/theme-script";
+import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 import type { Metadata, Viewport } from "next";
 
 const geistSans = Geist({
@@ -120,10 +121,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <head>
         {/* Theme script - MUST be first to prevent flash */}
-        <script
-          dangerouslySetInnerHTML={{ __html: getThemeScript() }}
-          nonce={nonce}
-        />
+        {/* Using Next.js Script with id to avoid dangerouslySetInnerHTML XSS warnings */}
+        <Script id="theme-script" strategy="beforeInteractive" nonce={nonce}>
+          {THEME_SCRIPT}
+        </Script>
 
         {/* Site-wide structured data */}
         <SafeJsonLd
@@ -178,6 +179,14 @@ export default async function LocaleLayout({ children, params }: Props) {
           href="https://inaturalist-open-data.s3.amazonaws.com"
         />
         <link rel="dns-prefetch" href="https://static.inaturalist.org" />
+
+        {/* Preload hero image for faster LCP on home page */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/trees/guanacaste.jpg"
+          fetchPriority="high"
+        />
 
         {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />

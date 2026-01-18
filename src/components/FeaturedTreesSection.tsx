@@ -6,8 +6,8 @@ import { TreeCard } from "@/components/tree";
 import type { Locale } from "@/types/tree";
 import type { allTrees } from "contentlayer/generated";
 
-const INITIAL_LOAD_COUNT = 12;
-const LOAD_MORE_COUNT = 12;
+const INITIAL_LOAD_COUNT = 6;
+const LOAD_MORE_COUNT = 6;
 
 interface FeaturedTreesSectionProps {
   trees: typeof allTrees;

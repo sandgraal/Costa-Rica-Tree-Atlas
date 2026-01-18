@@ -1,11 +1,38 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
-import { RecentlyViewedList } from "@/components/RecentlyViewedList";
 import { SafeImage } from "@/components/SafeImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
-import { FeaturedTreesSection } from "@/components/FeaturedTreesSection";
+import { RecentlyViewedList } from "@/components/RecentlyViewedList";
+import dynamic from "next/dynamic";
 import type { Locale } from "@/types/tree";
+
+// Dynamic imports for below-fold components to reduce initial bundle
+const FeaturedTreesSection = dynamic(
+  () =>
+    import("@/components/FeaturedTreesSection").then(
+      (mod) => mod.FeaturedTreesSection
+    ),
+  {
+    loading: () => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="bg-card rounded-xl overflow-hidden animate-pulse"
+          >
+            <div className="aspect-video bg-muted" />
+            <div className="p-4 space-y-2">
+              <div className="h-5 bg-muted rounded w-3/4" />
+              <div className="h-4 bg-muted rounded w-1/2" />
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
+    ssr: true,
+  }
+);
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -93,8 +120,10 @@ export default async function HomePage({ params }: Props) {
               alt="Guanacaste Tree - National Tree of Costa Rica"
               fill
               priority
+              fetchPriority="high"
               sizes="100vw"
               className="object-cover object-center"
+              quality={75}
               fallback="placeholder"
             />
             {/* Dark overlay for text readability */}
@@ -246,7 +275,7 @@ function NowBloomingSection({
     ...fruitingNow
       .filter((t) => !floweringNow.some((f) => f._id === t._id))
       .map((t) => ({ ...t, activity: "fruiting" as const })),
-  ].slice(0, 8);
+  ].slice(0, 6); // Reduced from 8 to 6 for faster loading
 
   if (activeNow.length === 0) return null;
 
@@ -285,6 +314,7 @@ function NowBloomingSection({
                 alt={tree.title}
                 fill
                 sizes="192px"
+                quality={60}
                 className="object-cover"
                 fallback="placeholder"
               />
@@ -379,6 +409,7 @@ function TreeOfTheDay({
               alt={tree.title}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
+              quality={70}
               className="object-cover"
               fallback="placeholder"
             />
