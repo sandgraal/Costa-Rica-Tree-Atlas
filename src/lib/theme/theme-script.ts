@@ -1,16 +1,16 @@
 import { STORE_KEY } from "@/lib/store";
 
 /**
- * Generates inline script to prevent theme flash
+ * Inline script to prevent theme flash
  * This MUST run before first paint (blocking in <head>)
  *
  * The script reads from localStorage and sets theme classes/attributes
  * before the browser paints, preventing any flash of incorrect theme.
+ *
+ * Exported as a constant string to be used with Next.js Script component,
+ * avoiding dangerouslySetInnerHTML which triggers XSS warnings.
  */
-export function getThemeScript(): string {
-  // This code runs in the browser before React hydration
-  // Keep it minimal and fast
-  return `
+export const THEME_SCRIPT = `
 (function() {
   try {
     var stored = localStorage.getItem('${STORE_KEY}');
@@ -41,4 +41,3 @@ export function getThemeScript(): string {
   }
 })();
 `.trim();
-}
