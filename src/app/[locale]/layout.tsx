@@ -7,16 +7,29 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StoreProvider, QueryProvider } from "@/components/providers";
-import { KeyboardShortcuts } from "@/components/KeyboardShortcuts";
-import { PWARegister } from "@/components/PWARegister";
-import { Analytics } from "@/components/Analytics";
-import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
 import { THEME_SCRIPT } from "@/lib/theme/theme-script";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import dynamic from "next/dynamic";
 import type { Metadata, Viewport } from "next";
+
+// Lazy load non-critical client components
+const KeyboardShortcuts = dynamic(() =>
+  import("@/components/KeyboardShortcuts").then((m) => ({
+    default: m.KeyboardShortcuts,
+  }))
+);
+const PWARegister = dynamic(() =>
+  import("@/components/PWARegister").then((m) => ({ default: m.PWARegister }))
+);
+const Analytics = dynamic(() =>
+  import("@/components/Analytics").then((m) => ({ default: m.Analytics }))
+);
+const ScrollToTop = dynamic(() =>
+  import("@/components/ScrollToTop").then((m) => ({ default: m.ScrollToTop }))
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

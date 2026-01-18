@@ -85,7 +85,9 @@ const nextConfig: NextConfig = {
   // Experimental optimizations
   experimental: {
     // Optimize package imports for smaller bundles
-    optimizePackageImports: ["date-fns", "contentlayer2"],
+    optimizePackageImports: ["date-fns", "contentlayer2", "lucide-react"],
+    // Enable optimized CSS loading
+    optimizeCss: true,
   },
 };
 
