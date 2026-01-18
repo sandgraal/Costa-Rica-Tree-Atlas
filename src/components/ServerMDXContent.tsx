@@ -166,10 +166,11 @@ export async function ServerMDXContent({
         development: isDevelopment,
         // Required for import.meta resolution in compiled code
         baseUrl: import.meta.url,
-        // CRITICAL: Spread all component definitions into the evaluation scope
-        // This makes them globally available when MDX JSX elements like <Accordion> are created
-        // Without this, MDX can't resolve custom component names to actual component functions
-        ...allComponents,
+        // Enable MDX provider support for component resolution
+        providerImportSource: "@mdx-js/react",
+        // Provide components using the useMDXComponents pattern
+        // This allows MDX to find components when rendering JSX elements
+        useMDXComponents: () => allComponents,
       });
 
       // Cache the compiled result
@@ -196,9 +197,9 @@ export async function ServerMDXContent({
 
   const { default: MDXContent } = result;
 
-  // Render the MDX content - components were already provided during evaluation
-  // so they're available in the compiled MDX code
-  const content = <MDXContent />;
+  // Render the MDX content with components provided via the components prop
+  // This is the standard MDX v3 pattern for providing custom components
+  const content = <MDXContent components={allComponents} />;
 
   // Optionally wrap in AutoGlossaryLink for automatic term linking
   if (enableGlossaryLinks && glossaryTerms.length > 0) {
