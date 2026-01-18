@@ -55,7 +55,7 @@ The application uses a database-backed authentication system with industry-stand
 #### Two-Factor Authentication (MFA)
 
 - **Algorithm**: TOTP (Time-based One-Time Password, RFC 6238)
-- **Key storage**: AES-256-GCM encrypted in database
+- **Key storage**: AES-256-GCM encrypted in the database
 - **Backup codes**: 10 codes, Argon2id hashed
 - **Time window**: 30 seconds (±1 step tolerance)
 
