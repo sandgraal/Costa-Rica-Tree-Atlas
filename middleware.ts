@@ -16,6 +16,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
 import { secureCompare } from "@/lib/auth/secure-compare";
+import { getSessionFromRequest } from "@/lib/auth/session";
 import { serverEnv } from "@/lib/env/schema";
 import {
   generateNonce,
@@ -64,6 +65,17 @@ export default async function middleware(request: NextRequest) {
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
   if (ADMIN_ROUTE_REGEX.test(pathname)) {
+    // Skip authentication for login page
+    if (pathname.includes("/admin/login")) {
+      const response = intlMiddleware(request);
+      const csp = buildCSP(nonce);
+      response.headers.set("Content-Security-Policy", csp);
+      response.headers.set("X-Content-Type-Options", "nosniff");
+      response.headers.set("X-Frame-Options", "SAMEORIGIN");
+      response.headers.set("X-Nonce", nonce);
+      return response;
+    }
+
     // 1. HTTPS enforcement in production
     if (
       process.env.NODE_ENV === "production" &&
@@ -72,16 +84,37 @@ export default async function middleware(request: NextRequest) {
       return new NextResponse("HTTPS required", { status: 403 });
     }
 
-    // 2. Check if admin is configured
+    // 2. Try NextAuth session first (primary method)
+    const session = await getSessionFromRequest(request);
+
+    if (session) {
+      // Authenticated via NextAuth - allow access
+      const response = intlMiddleware(request);
+
+      // Add security headers
+      const csp = buildCSP(nonce);
+      response.headers.set("Content-Security-Policy", csp);
+      response.headers.set("X-Content-Type-Options", "nosniff");
+      response.headers.set("X-Frame-Options", "SAMEORIGIN");
+      response.headers.set("X-Nonce", nonce);
+
+      return response;
+    }
+
+    // 3. Fallback to HTTP Basic Auth (DEPRECATED - for migration period only)
     const adminPassword = serverEnv.ADMIN_PASSWORD;
     const adminUsername = serverEnv.ADMIN_USERNAME;
 
-    // If admin password is not configured, return 404 to hide admin routes
+    // If neither NextAuth session nor Basic Auth configured, redirect to login
     if (!adminPassword) {
-      return new NextResponse("Not Found", { status: 404 });
+      // Extract locale from pathname
+      const localeMatch = pathname.match(/^\/(en|es)\//);
+      const locale = localeMatch ? localeMatch[1] : "en";
+      const loginUrl = new URL(`/${locale}/admin/login`, request.url);
+      return NextResponse.redirect(loginUrl);
     }
 
-    // 3. Rate limiting check
+    // 4. Rate limiting check (only for Basic Auth attempts)
     const rateLimitResult = await constantTimeRateLimitCheck(request);
 
     if (!rateLimitResult.allowed) {
@@ -96,7 +129,7 @@ export default async function middleware(request: NextRequest) {
       });
     }
 
-    // 4. Check authentication
+    // 5. Check Basic Auth credentials (DEPRECATED)
     const basicAuth = request.headers.get("authorization");
 
     if (basicAuth) {
@@ -120,7 +153,7 @@ export default async function middleware(request: NextRequest) {
             const isAuthenticated = userValid && pwdValid;
 
             if (isAuthenticated) {
-              // Authentication successful
+              // Authentication successful via Basic Auth
               const response = intlMiddleware(request);
 
               // Add security headers
@@ -140,16 +173,12 @@ export default async function middleware(request: NextRequest) {
       }
     }
 
-    // 5. Authentication failed - return GENERIC error with NO details
-    // Do NOT include rate limit remaining in the response (prevents enumeration)
-    return new NextResponse("Authentication required", {
-      status: 401,
-      headers: {
-        "WWW-Authenticate": 'Basic realm="Admin Area"',
-        "Content-Type": "text/plain",
-        // DO NOT include X-RateLimit-Remaining here!
-      },
-    });
+    // 6. No valid authentication - redirect to login page
+    const localeMatch = pathname.match(/^\/(en|es)\//);
+    const locale = localeMatch ? localeMatch[1] : "en";
+    const loginUrl = new URL(`/${locale}/admin/login`, request.url);
+    loginUrl.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
   // For non-admin routes, use i18n middleware with security headers
