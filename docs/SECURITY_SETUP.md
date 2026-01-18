@@ -68,6 +68,109 @@ npm install
 npm run prepare
 ```
 
+### Database Authentication Setup
+
+The application uses Vercel Postgres with NextAuth.js for secure authentication. See [AUTH_MIGRATION_GUIDE.md](./AUTH_MIGRATION_GUIDE.md) for full migration details.
+
+#### Prerequisites
+
+1. **Vercel Postgres Database**
+   - Create a Postgres database in your Vercel project
+   - Or use a local PostgreSQL instance for development
+
+2. **Generate Security Keys**
+
+```bash
+# Generate NextAuth secret (32 bytes)
+openssl rand -hex 32
+
+# Generate MFA encryption key (32 bytes)
+openssl rand -hex 32
+```
+
+#### Environment Variables
+
+Add to `.env.local`:
+
+```env
+# Database Connection
+DATABASE_URL="postgres://user:password@host:5432/dbname"
+
+# NextAuth Configuration
+NEXTAUTH_SECRET="your-generated-secret-here"
+NEXTAUTH_URL="http://localhost:3000"
+
+# MFA Encryption Key (32-byte hex string)
+MFA_ENCRYPTION_KEY="your-generated-key-here"
+
+# Legacy Basic Auth (optional fallback)
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="your-password"
+```
+
+#### Database Setup
+
+1. **Generate Prisma Client**
+
+```bash
+npx prisma generate
+```
+
+2. **Create Database Tables**
+
+```bash
+# For development (push schema without migrations)
+npx prisma db push
+
+# For production (create migration)
+npx prisma migrate deploy
+```
+
+3. **Verify Database Connection**
+
+```bash
+npx prisma studio  # Opens database admin UI at http://localhost:5555
+```
+
+#### Create First Admin User
+
+1. Start the development server:
+
+```bash
+npm run dev
+```
+
+2. Call the one-time setup API:
+
+```bash
+curl -X POST http://localhost:3000/api/admin/setup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "admin@example.com",
+    "password": "YourSecurePassword123!",
+    "name": "Admin User"
+  }'
+```
+
+> **Note:** The setup endpoint is automatically disabled after creating the first user.
+
+#### Enable MFA (Optional but Recommended)
+
+1. Navigate to `/admin/users` after logging in
+2. Click "Enable MFA"
+3. Scan QR code with authenticator app (Google Authenticator, Authy, etc.)
+4. Enter TOTP code to verify
+5. Save the 10 backup codes in a secure location
+
+#### Security Best Practices
+
+- **Never commit** `.env.local` to version control
+- **Rotate secrets** regularly (every 90 days recommended)
+- **Use strong passwords** (12+ characters, mixed case, numbers, special characters)
+- **Enable MFA** for all admin accounts in production
+- **Monitor audit logs** regularly at `/admin/users`
+- **Expire sessions** are set to 7 days by default
+
 ## Monitoring
 
 ### Weekly Tasks
