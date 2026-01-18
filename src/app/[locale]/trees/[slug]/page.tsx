@@ -32,11 +32,12 @@ const DistributionMap = dynamic(
   }
 );
 
-// BiodiversityInfo fetches data client-side, so skip SSR to avoid hydration issues
+// BiodiversityInfo fetches data client-side with proper loading states
+// SSR renders the loading skeleton, then client-side hydration fetches the data
+// This avoids hydration mismatches and provides a good user experience
 const BiodiversityInfo = dynamic(
   () => import("@/components/data").then((mod) => mod.BiodiversityInfo),
   {
-    ssr: false,
     loading: () => (
       <div className="bg-muted rounded-xl p-6 mb-8 animate-pulse h-48" />
     ),
