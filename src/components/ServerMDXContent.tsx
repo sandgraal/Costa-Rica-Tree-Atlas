@@ -62,9 +62,11 @@ const mdxCache = new Map<string, Awaited<ReturnType<typeof evaluate>>>();
 const MAX_CACHE_SIZE = 1000;
 
 /**
- * Evict oldest entries when cache grows too large
+ * Evict oldest inserted entries when cache grows too large
+ * Note: This is FIFO (First In, First Out) eviction, not LRU.
+ * Map iteration order reflects insertion order, not access order.
  */
-function evictOldestCacheEntries() {
+function evictOldestInsertedEntries() {
   if (mdxCache.size <= MAX_CACHE_SIZE) return;
 
   // Delete oldest 10% of entries
@@ -123,6 +125,11 @@ function MDXErrorFallback({ error }: { error: unknown }) {
  * content entirely on the server. The resulting React elements are
  * then sent to the client as pre-rendered HTML.
  *
+ * SECURITY NOTE:
+ * This component assumes MDX source comes from trusted sources (our own content files).
+ * The `source` parameter should NEVER contain user-generated or external content.
+ * If you need to render user-provided MDX, additional validation and sandboxing are required.
+ *
  * Features:
  * - Caches compiled MDX by source hash to avoid repeated compilation
  * - Gracefully handles malformed MDX with error fallback UI
@@ -162,7 +169,7 @@ export async function ServerMDXContent({
       mdxCache.set(cacheKey, result);
 
       // Evict old entries if cache is too large
-      evictOldestCacheEntries();
+      evictOldestInsertedEntries();
     } catch (error) {
       // Gracefully handle MDX compilation/evaluation errors
       // Only log in development to avoid exposing sensitive information
