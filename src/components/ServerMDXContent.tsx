@@ -27,7 +27,14 @@
  */
 
 import { compileMDX } from "next-mdx-remote/rsc";
-import { mdxComponents } from "@/components/mdx/server";
+import { mdxServerComponents } from "@/components/mdx/server-components";
+import {
+  AccordionItem,
+  ImageCard,
+  ImageGallery,
+  Tabs,
+  GlossaryTooltip,
+} from "@/components/mdx/client-components";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 
 interface GlossaryTerm {
@@ -111,41 +118,24 @@ export async function ServerMDXContent({
 }: ServerMDXContentProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
 
-  // Merge default MDX components with any additional ones passed in
-  // Temporarily test with inline component to verify the approach works
-  const testComponents = {
-    Accordion: ({ children }: { children: React.ReactNode }) => (
-      <div className="my-6">{children}</div>
-    ),
-    AccordionItem: ({
-      title,
-      children,
-    }: {
-      title: string;
-      children: React.ReactNode;
-    }) => (
-      <details className="border border-border rounded-lg overflow-hidden my-2">
-        <summary className="w-full px-4 py-3 bg-primary/5 hover:bg-primary/10 cursor-pointer font-semibold text-foreground">
-          {title}
-        </summary>
-        <div className="px-4 py-4 bg-card border-t border-border">
-          {children}
-        </div>
-      </details>
-    ),
+  // Merge server MDX components with client components and any additional ones passed in
+  // Client components are imported individually (not as an object) to avoid RSC serialization issues
+  const allComponents = {
+    ...mdxServerComponents,
+    AccordionItem,
+    ImageCard,
+    ImageGallery,
+    Tabs,
+    GlossaryTooltip,
+    ...components,
   };
 
-  const allComponents = { ...mdxComponents, ...testComponents, ...components };
-
-  // Debug: Log component names in development
-  if (isDevelopment) {
-    console.log("Available MDX components:", Object.keys(allComponents));
-  }
+  let content: React.ReactElement;
 
   try {
     // Compile the MDX content using next-mdx-remote/rsc
     // This properly handles the client/server component boundary
-    const { content } = await compileMDX({
+    const result = await compileMDX({
       source,
       components: allComponents,
       options: {
@@ -155,16 +145,7 @@ export async function ServerMDXContent({
       },
     });
 
-    // Optionally wrap in AutoGlossaryLink for automatic term linking
-    if (enableGlossaryLinks && glossaryTerms.length > 0) {
-      return (
-        <AutoGlossaryLink glossaryTerms={glossaryTerms}>
-          {content}
-        </AutoGlossaryLink>
-      );
-    }
-
-    return content;
+    content = result.content;
   } catch (error) {
     // Gracefully handle MDX compilation/rendering errors
     // Only log in development to avoid exposing sensitive information
@@ -180,4 +161,16 @@ export async function ServerMDXContent({
     }
     return <MDXErrorFallback error={error} />;
   }
+
+  // Optionally wrap in AutoGlossaryLink for automatic term linking
+  // This is done outside the try/catch to avoid ESLint error
+  if (enableGlossaryLinks && glossaryTerms.length > 0) {
+    return (
+      <AutoGlossaryLink glossaryTerms={glossaryTerms}>
+        {content}
+      </AutoGlossaryLink>
+    );
+  }
+
+  return content;
 }
