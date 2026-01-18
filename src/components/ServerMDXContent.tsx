@@ -159,18 +159,19 @@ export async function ServerMDXContent({
     try {
       // Evaluate MDX on the server - this compiles and runs in one step
       // The execution happens on Node.js where there are no CSP restrictions
+      //
+      // IMPORTANT: Components need to be in the evaluation scope for MDX to find them
+      // when it compiles JSX elements like <Accordion>.
       result = await evaluate(source, {
-        // Spread the jsx-runtime to provide createElement, Fragment, etc.
+        // Core JSX runtime for React elements
         ...runtime,
-        // Use development mode based on NODE_ENV for better errors/warnings in dev
+        // Spread all MDX components as named exports in the scope
+        // This makes components like 'Accordion' available when MDX compiles
+        ...allComponents,
+        // Development mode for better error messages
         development: isDevelopment,
-        // Required for import.meta resolution in compiled code
+        // Required for import.meta resolution
         baseUrl: import.meta.url,
-        // Enable MDX provider support for component resolution
-        providerImportSource: "@mdx-js/react",
-        // Provide components using the useMDXComponents pattern
-        // This allows MDX to find components when rendering JSX elements
-        useMDXComponents: () => allComponents,
       });
 
       // Cache the compiled result
@@ -197,8 +198,8 @@ export async function ServerMDXContent({
 
   const { default: MDXContent } = result;
 
-  // Render the MDX content with components provided via the components prop
-  // This is the standard MDX v3 pattern for providing custom components
+  // Render the MDX content with components
+  // Components need to be both in the evaluation scope AND passed as a prop
   const content = <MDXContent components={allComponents} />;
 
   // Optionally wrap in AutoGlossaryLink for automatic term linking
