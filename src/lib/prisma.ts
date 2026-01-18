@@ -39,7 +39,8 @@ try {
   PrismaClient = prismaModule.PrismaClient;
 
   const prismaClientSingleton = (): PrismaClientInstance => {
-    return new PrismaClient({
+    // Non-null assertion is safe here because we've verified PrismaClient exists above
+    return new PrismaClient!({
       log:
         process.env.NODE_ENV === "development"
           ? ["query", "error", "warn"]
