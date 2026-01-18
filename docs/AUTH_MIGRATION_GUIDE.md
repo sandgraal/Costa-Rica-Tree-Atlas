@@ -1,205 +1,401 @@
 # Authentication System Migration Guide
 
+**Status:** Planning Document  
+**Last Updated:** 2026-01-18  
+**Purpose:** Guide for migrating from Basic Auth to NextAuth.js with MFA support
+
 ## Overview
 
-Costa Rica Tree Atlas has migrated from HTTP Basic Authentication to a modern, database-backed authentication system using NextAuth.js, Vercel Postgres, and Argon2id password hashing.
+This guide documents the migration path from simple Basic Authentication to a comprehensive NextAuth.js-based authentication system with multi-factor authentication (MFA) support.
 
-## 🚀 New Features
-
-### Authentication
-
-- **Database-backed user management** - User accounts stored in Postgres
-- **Argon2id password hashing** - Memory-hard, GPU-resistant hashing algorithm
-- **JWT session management** - Secure, stateless sessions (7-day expiry)
-- **Modern login UI** - Clean, responsive admin login page
-- **MFA/TOTP support** - Two-factor authentication ready (implementation in progress)
-
-### Security
+## Security
 
 - **Audit logging** - All authentication events logged to the database
 - **Rate limiting** - Protects login endpoint from brute-force attacks
 - **Session management** - View and revoke active sessions (UI in progress)
-- **Constant-time operations** - Timing-attack resistant authentication
 
-## 📋 Prerequisites
+## Features
 
-1. **Vercel Postgres Database**
-   - Sign up at [Vercel Storage](https://vercel.com/docs/storage/vercel-postgres)
-   - Create a new Postgres database
-   - Copy the `DATABASE_URL` connection string
+### Current Implementation (Basic Auth)
 
-2. **Environment Variables**
+- Single admin user
+- HTTP Basic Authentication
+- Password stored in environment variable
+- Rate limiting (5 attempts per 15 minutes)
+- HTTPS enforcement in production
 
-   ```bash
-   # Required
-   DATABASE_URL="postgres://..."
-   NEXTAUTH_SECRET="<generate-with-openssl-rand-hex-32>"
-   NEXTAUTH_URL="http://localhost:3000"  # Your site URL
+### Planned Implementation (NextAuth + MFA)
 
-   # Optional (for MFA)
-   MFA_ENCRYPTION_KEY="<generate-with-openssl-rand-hex-32>"
-   ```
+- Multiple admin users with roles
+- Database-backed authentication
+- Multi-factor authentication (TOTP)
+- Session management
+- Audit logging
+- Password requirements enforcement
+- Backup codes for MFA recovery
 
-## 🔧 Setup Instructions
+## Migration Steps
 
-### Step 1: Install Dependencies
+### Step 1: Database Setup
 
-Already done in this branch! Dependencies installed:
+Set up the Prisma schema for authentication:
 
-- `@vercel/postgres` - Vercel Postgres client
-- `next-auth@^4.24.10` - NextAuth.js authentication
-- `@next-auth/prisma-adapter` - Prisma adapter for NextAuth
-- `@prisma/client` - Prisma ORM client
-- `prisma` - Prisma CLI (dev dependency)
-- `argon2` - Argon2id password hashing
-- `otplib` - TOTP generation for MFA
-- `qrcode` - QR code generation for MFA setup
+```bash
+# Install Prisma if not already installed
+npm install --save-dev prisma
+npm install @prisma/client
 
-### Step 2: Configure Environment Variables
+# Initialize Prisma
+npx prisma init
+```
 
-1. Copy `.env.example` to `.env.local`:
+Add the authentication schema to `prisma/schema.prisma`:
 
-   ```bash
-   cp .env.example .env.local
-   ```
+```prisma
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  passwordHash  String
+  role          String    @default("admin")
+  mfaEnabled    Boolean   @default(false)
+  mfaSecrets    MfaSecret[]
+  sessions      Session[]
+  auditLogs     AuditLog[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
 
-2. Generate secrets:
+model MfaSecret {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totpSecret  String   // Encrypted with AES-256-GCM
+  backupCodes String[] // Hashed with Argon2id
+  createdAt   DateTime @default(now())
+  @@index([userId])
+}
 
-   ```bash
-   # Generate NEXTAUTH_SECRET
-   openssl rand -hex 32
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionToken String   @unique
+  expires      DateTime
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+  @@index([userId])
+  @@index([sessionToken])
+}
 
-   # Generate MFA_ENCRYPTION_KEY
-   openssl rand -hex 32
-   ```
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  details   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  @@index([userId])
+  @@index([createdAt])
+}
+```
 
-3. Fill in `.env.local`:
-   ```env
-   DATABASE_URL="your-vercel-postgres-url"
-   NEXTAUTH_SECRET="generated-secret-from-step-2"
-   NEXTAUTH_URL="http://localhost:3000"
-   MFA_ENCRYPTION_KEY="generated-key-from-step-2"
-   ```
+### Step 2: Run Migrations
 
-### Step 3: Initialize Database
+```bash
+# Generate Prisma Client
+npx prisma generate
 
-1. Generate Prisma client:
+# Create and run migrations
+npx prisma migrate dev --name add-auth-tables
 
-   ```bash
-   npx prisma generate
-   ```
+# View database (optional)
+npx prisma studio
+```
 
-2. Push schema to database:
+Opens GUI at http://localhost:5555 to view the database.
 
-   ```bash
-   npx prisma db push
-   ```
+### Step 3: Create Initial Admin User
 
-   Or use migrations (recommended for production):
+Use the admin setup script:
 
-   ```bash
-   npx prisma migrate dev --name init
-   ```
+```bash
+# Set up environment variables first
+export ADMIN_EMAIL="admin@example.com"
+export ADMIN_USERNAME="admin"
+export ADMIN_PASSWORD="your-secure-password"
 
-3. Verify tables created:
-   ```bash
-   npx prisma studio
-   ```
-   Opens GUI at http://localhost:5555 to view the database.
+# Run the setup script
+npm run setup:admin
+```
 
-### Step 4: Create Initial Admin User
+Or manually create via Prisma Studio or a Node.js script:
 
-**One-Time Setup API (Self-Disabling)**
+```typescript
+import { PrismaClient } from "@prisma/client";
+import { hashPassword } from "@/lib/auth/password";
 
-1. Start dev server:
+const prisma = new PrismaClient();
 
-   ```bash
-   npm run dev
-   ```
+async function createAdmin() {
+  const passwordHash = await hashPassword("your-secure-password");
 
-2. Call setup endpoint:
+  await prisma.user.create({
+    data: {
+      email: "admin@example.com",
+      username: "admin",
+      passwordHash,
+      role: "admin",
+      mfaEnabled: false,
+    },
+  });
 
-   ```bash
-   curl -X POST http://localhost:3000/api/admin/setup \
-     -H "Content-Type: application/json" \
-     -d '{
-       "email": "admin@example.com",
-       "password": "YourStrongPassword123!",
-       "name": "Admin"
-     }'
-   ```
+  console.log("Admin user created successfully");
+}
 
-   **Password Requirements:**
-   - Minimum 12 characters
-   - At least one uppercase letter
-   - At least one lowercase letter
-   - At least one number
-   - At least one special character
+createAdmin();
+```
 
-3. Expected response:
+### Step 4: Configure NextAuth
 
-   ```json
-   {
-     "success": true,
-     "message": "Admin user created successfully",
-     "user": {
-       "id": "clx...",
-       "email": "admin@example.com",
-       "name": "Admin"
-     }
-   }
-   ```
+Install NextAuth.js:
 
-4. **Important**: This endpoint self-disables after creating the first user. Subsequent calls return 403.
+```bash
+npm install next-auth @next-auth/prisma-adapter
+```
 
-### Step 5: Test Login
+Create NextAuth configuration in `src/app/api/auth/[...nextauth]/route.ts`:
 
-1. Navigate to: `http://localhost:3000/en/admin/login`
+```typescript
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
+import { verifyPassword } from "@/lib/auth/password";
 
-2. Enter your admin credentials
+export const authOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
+        totpCode: { label: "2FA Code", type: "text", optional: true },
+      },
+      async authorize(credentials) {
+        if (!credentials?.username || !credentials?.password) {
+          throw new Error("Missing credentials");
+        }
 
-3. On successful login, you'll be redirected to `/admin/images`
+        const user = await prisma.user.findUnique({
+          where: { username: credentials.username },
+          include: { mfaSecrets: true },
+        });
 
-## 🔐 Security Features
+        if (!user) {
+          throw new Error("Invalid credentials");
+        }
 
-### Password Hashing
+        const isValidPassword = await verifyPassword(
+          credentials.password,
+          user.passwordHash
+        );
 
-- **Algorithm**: Argon2id (type 2)
-- **Memory cost**: 19456 KiB (19 MiB)
-- **Time cost**: 2 iterations
-- **Parallelism**: 1 thread
-- **Output**: 32-byte hash
+        if (!isValidPassword) {
+          throw new Error("Invalid credentials");
+        }
 
-### Session Management
+        // If MFA is enabled, verify TOTP code
+        if (user.mfaEnabled) {
+          if (!credentials.totpCode) {
+            throw new Error("MFA_REQUIRED");
+          }
 
-- **Strategy**: JWT (JSON Web Tokens)
-- **Duration**: 7 days
-- **Storage**: Secure HTTP-only cookies
-- **Refresh**: No automatic refresh (re-login required after expiry)
+          // Verify using the dedicated MFA endpoint for consistency
+          const mfaResponse = await fetch("/api/auth/mfa/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: user.id,
+              totpCode: credentials.totpCode,
+            }),
+          });
 
-### Audit Logging
+          if (!mfaResponse.ok) {
+            throw new Error("Invalid 2FA code");
+          }
+        }
 
-All authentication events are logged to the `audit_logs` table:
+        return {
+          id: user.id,
+          email: user.email,
+          username: user.username,
+          role: user.role,
+        };
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+    maxAge: 7 * 24 * 60 * 60, // 7 days
+  },
+  pages: {
+    signIn: "/admin/login",
+    error: "/admin/login",
+  },
+};
 
-- `login` - Successful login
-- `login_failed` - Failed login attempt (with reason)
-- `logout` - User logout
-- `admin_setup` - Initial admin creation
-- `password_changed` - Password update
-- `mfa_enabled` - MFA enrollment
-- `mfa_disabled` - MFA removal
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
+```
 
-### Rate Limiting
+### Step 5: Environment Variables
 
-- **Login attempts**: 5 per 15 minutes per IP
-- **Endpoint**: `/admin/login` (via middleware)
-- **Storage**: Redis (Upstash) or in-memory fallback
+Add to `.env.local`:
 
-## 🔄 Migration from HTTP Basic Auth
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/tree_atlas"
 
-### Backward Compatibility
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
 
-The middleware includes a **temporary fallback** to HTTP Basic Auth:
+# MFA Encryption (32 bytes, base64-encoded)
+MFA_ENCRYPTION_KEY="generate-with-openssl-rand-base64-32"
+
+# Legacy Basic Auth (optional, for backward compatibility)
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="your-legacy-password"
+```
+
+Generate secrets:
+
+```bash
+# Generate NEXTAUTH_SECRET
+openssl rand -base64 32
+
+# Generate MFA_ENCRYPTION_KEY
+openssl rand -base64 32
+```
+
+### Step 6: Create Admin Login Page
+
+Create `src/app/[locale]/admin/login/page.tsx`:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
+
+export default function AdminLoginPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { locale } = useParams<{ locale: string }>();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [totpCode, setTotpCode] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [mfaRequired, setMfaRequired] = useState(false);
+
+  // Get callback URL from query params or default to admin images
+  const callbackUrl =
+    searchParams.get("callbackUrl") || `/${locale}/admin/images`;
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const result = await signIn("credentials", {
+        username,
+        password,
+        totpCode: mfaRequired ? totpCode : undefined,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        if (result.error === "MFA_REQUIRED") {
+          setMfaRequired(true);
+          setError("Please enter your 2FA code");
+        } else {
+          setError("Invalid credentials. Please try again.");
+        }
+      } else if (result?.ok) {
+        // Redirect to callback URL or default page
+        router.push(callbackUrl);
+        router.refresh();
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
+        <h1 className="text-2xl font-bold">Admin Login</h1>
+
+        {error && (
+          <div className="rounded bg-red-100 p-3 text-red-700">{error}</div>
+        )}
+
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          className="w-full rounded border p-2"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full rounded border p-2"
+        />
+
+        {mfaRequired && (
+          <input
+            type="text"
+            placeholder="2FA Code"
+            value={totpCode}
+            onChange={(e) => setTotpCode(e.target.value)}
+            required
+            className="w-full rounded border p-2"
+          />
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded bg-blue-600 p-2 text-white hover:bg-blue-700 disabled:opacity-50"
+        >
+          {loading ? "Logging in..." : "Log In"}
+        </button>
+      </form>
+    </div>
+  );
+}
+```
+
+## Backward Compatibility
+
+During the migration period:
 
 - If `ADMIN_PASSWORD` is set, Basic Auth still works
 - NextAuth session is checked **first** (preferred method)
@@ -208,239 +404,84 @@ The middleware includes a **temporary fallback** to HTTP Basic Auth:
 
 ### Migration Path
 
-1. **Deploy this branch** with both auth methods enabled
-2. **Test NextAuth login** thoroughly
-3. **Remove `ADMIN_PASSWORD`** from environment variables
-4. **Re-deploy** - now only NextAuth works
+1. **Phase 1** (Current): Basic Auth only
+2. **Phase 2** (Transition): Both Basic Auth and NextAuth work
+3. **Phase 3** (Future): NextAuth only, Basic Auth removed
 
-### Rollback Plan
+## Security Considerations
 
-If issues arise:
+### Password Hashing
 
-1. Set `ADMIN_PASSWORD` in environment variables
-2. Re-deploy
-3. HTTP Basic Auth will work again (session check gracefully fails)
+- Use Argon2id for password hashing (not bcrypt or SHA-256)
+- Argon2id is memory-hard and resistant to GPU/ASIC attacks
+- Never store plaintext passwords
 
-## 📊 Database Schema
+### MFA Implementation
 
-### Users Table
+- TOTP secrets encrypted with AES-256-GCM
+- Backup codes hashed with Argon2id
+- 30-second time window with ±1 step tolerance
+- Rate limiting on verification attempts
 
-```sql
-CREATE TABLE users (
-  id TEXT PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
-  name TEXT,
-  password_hash TEXT NOT NULL,  -- Argon2id hash
-  email_verified TIMESTAMP,
-  mfa_enabled BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-```
+### Session Security
 
-### Sessions Table
+- JWT-based sessions with 7-day expiry
+- Secure session tokens (cryptographically random)
+- Session revocation support
+- IP address and user agent tracking
 
-```sql
-CREATE TABLE sessions (
-  id TEXT PRIMARY KEY,
-  session_token TEXT UNIQUE NOT NULL,
-  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  expires TIMESTAMP NOT NULL,
-  ip_address VARCHAR(45),
-  user_agent TEXT,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-```
+### Audit Logging
 
-### Audit Logs Table
+- All login attempts (success and failure)
+- MFA setup and verification
+- Password changes
+- Session creation and revocation
+- Admin actions
 
-```sql
-CREATE TABLE audit_logs (
-  id TEXT PRIMARY KEY,
-  user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
-  event_type VARCHAR(100) NOT NULL,
-  ip_address VARCHAR(45),
-  user_agent TEXT,
-  metadata JSONB,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-```
+## Testing
 
-### MFA Secrets Table
-
-```sql
-CREATE TABLE mfa_secrets (
-  id TEXT PRIMARY KEY,
-  user_id TEXT UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  totp_secret TEXT,  -- Encrypted with MFA_ENCRYPTION_KEY
-  backup_codes TEXT[],  -- Array of hashed backup codes
-  backup_codes_used INTEGER[] DEFAULT '{}',
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-```
-
-## 🛠️ Development Workflow
-
-### View Database
+### Test Authentication Flow
 
 ```bash
-npx prisma studio
+# Start development server
+npm run dev
+
+# Test login
+curl -X POST http://localhost:3000/api/auth/callback/credentials \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"your-password"}'
 ```
 
-### Reset Database (Development Only)
+### Test MFA Flow
 
-```bash
-npx prisma migrate reset
-```
+1. Enable MFA for a user via admin panel
+2. Scan QR code with authenticator app
+3. Try logging in without 2FA code (should fail)
+4. Try logging in with 2FA code (should succeed)
+5. Test backup codes
 
-### Generate Prisma Client (After Schema Changes)
+## Rollback Plan
 
-```bash
-npx prisma generate
-```
+If issues occur during migration:
 
-### Run Migrations (Production)
+1. Remove NextAuth configuration
+2. Restore Basic Auth in middleware
+3. Remove database tables (if needed):
+   ```bash
+   npx prisma migrate reset
+   ```
 
-```bash
-npx prisma migrate deploy
-```
+## Related Documentation
 
-## 🚧 Work in Progress
+- [AUTH_IMPLEMENTATION_GUIDELINES.md](./AUTH_IMPLEMENTATION_GUIDELINES.md) - Proactive guidance
+- [SECURITY.md](../SECURITY.md) - Security measures
+- [SECURITY_SETUP.md](./SECURITY_SETUP.md) - Security scanning
 
-### MFA Implementation (Not Yet Complete)
+## Support
 
-- [ ] MFA enrollment API (`/api/auth/mfa/setup`)
-- [ ] MFA verification API (`/api/auth/mfa/verify`)
-- [ ] Backup code generation
-- [ ] QR code display for TOTP setup
-- [ ] Recovery code download
+For issues during migration:
 
-### Admin UI (Not Yet Complete)
-
-- [ ] User management page (`/admin/users`)
-- [ ] Audit log viewer
-- [ ] Active session management
-- [ ] Password reset flow
-- [ ] User invitation system
-
-## 📝 API Endpoints
-
-### Authentication
-
-#### POST `/api/admin/setup`
-
-Create initial admin user (one-time only).
-
-**Request:**
-
-```json
-{
-  "email": "admin@example.com",
-  "password": "StrongPassword123!",
-  "name": "Admin"
-}
-```
-
-**Response (Success):**
-
-```json
-{
-  "success": true,
-  "message": "Admin user created successfully",
-  "user": {
-    "id": "clx...",
-    "email": "admin@example.com",
-    "name": "Admin"
-  }
-}
-```
-
-**Response (Already Setup):**
-
-```json
-{
-  "error": "Setup has already been completed",
-  "message": "Admin user already exists. This endpoint is disabled."
-}
-```
-
-#### POST `/api/auth/signin`
-
-NextAuth-provided endpoint for login.
-
-#### POST `/api/auth/signout`
-
-NextAuth-provided endpoint for logout.
-
-#### GET `/api/auth/session`
-
-Get current session.
-
-## 🔍 Troubleshooting
-
-### "Admin user already exists"
-
-The setup endpoint has already been called. Cannot create another admin via this endpoint. Options:
-
-1. Use Prisma Studio to manage users directly
-2. Create additional admin management API
-3. Reset database (dev only): `npx prisma migrate reset`
-
-### "Invalid credentials"
-
-Check:
-
-1. Email address is correct (case-sensitive)
-2. Password is correct
-3. Audit logs table for failed login reason
-
-### "Authentication required" but correct credentials
-
-Check:
-
-1. `NEXTAUTH_SECRET` is set and matches between deployments
-2. Cookies are enabled in browser
-3. `NEXTAUTH_URL` matches your actual site URL
-4. JWT token hasn't expired (7-day max)
-
-### Database connection errors
-
-Check:
-
-1. `DATABASE_URL` is correct and accessible
-2. Database exists and tables are created (`npx prisma db push`)
-3. Vercel Postgres database is not paused (free tier auto-pauses)
-
-## 📚 Further Reading
-
-- [NextAuth.js Documentation](https://next-auth.js.org/)
-- [Prisma Documentation](https://www.prisma.io/docs/)
-- [Vercel Postgres Docs](https://vercel.com/docs/storage/vercel-postgres)
-- [Argon2 Specification](https://www.rfc-editor.org/rfc/rfc9106.html)
-- [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
-
-## 🤝 Contributing
-
-When working on authentication features:
-
-1. Test with real database (not mocked)
-2. Check audit logs after changes
-3. Verify session expiry behavior
-4. Test rate limiting
-5. Review security implications
-6. Update this README if adding new auth features
-
-## ⚠️ Security Notes
-
-1. **Never commit `.env.local`** - Contains sensitive secrets
-2. **Rotate secrets regularly** - Especially after team changes
-3. **Monitor audit logs** - Watch for suspicious activity
-4. **Test in staging first** - Don't test auth changes in production
-5. **Keep dependencies updated** - Security patches for auth libraries
-
----
-
-**Last Updated**: January 18, 2026  
-**Branch**: `feature/postgres-auth-mfa`  
-**Status**: Core authentication complete, MFA in progress
+1. Check environment variables are set correctly
+2. Verify database migrations ran successfully
+3. Check application logs for errors
+4. Consult NextAuth.js documentation: https://next-auth.js.org/
