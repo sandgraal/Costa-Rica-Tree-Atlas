@@ -4,35 +4,8 @@ import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { RecentlyViewedList } from "@/components/RecentlyViewedList";
-import dynamic from "next/dynamic";
+import { FeaturedTreesSection } from "@/components/FeaturedTreesSection";
 import type { Locale } from "@/types/tree";
-
-// Dynamic imports for below-fold components to reduce initial bundle
-const FeaturedTreesSection = dynamic(
-  () =>
-    import("@/components/FeaturedTreesSection").then(
-      (mod) => mod.FeaturedTreesSection
-    ),
-  {
-    loading: () => (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="bg-card rounded-xl overflow-hidden animate-pulse"
-          >
-            <div className="aspect-video bg-muted" />
-            <div className="p-4 space-y-2">
-              <div className="h-5 bg-muted rounded w-3/4" />
-              <div className="h-4 bg-muted rounded w-1/2" />
-            </div>
-          </div>
-        ))}
-      </div>
-    ),
-    ssr: true,
-  }
-);
 
 type Props = {
   params: Promise<{ locale: string }>;
