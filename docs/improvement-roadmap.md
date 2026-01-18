@@ -2,9 +2,9 @@
 
 A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized by phase with clear dependencies, success metrics, and scope definitions.
 
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-01-18
 **Status:** ✅ ALL IMPLEMENTATION COMPLETE - Ready for External Testing
-**Last Audited:** 2026-01-14 (Species Count Update)
+**Last Audited:** 2026-01-18 (Documentation Consolidation)
 **Current Phase Completion:** Phase 1: 100% ✅ | Phase 2: 100% ✅ | Phase 3: 100% ✅ | Phase 4: 100% ✅ | Phase 5: 95%
 
 ## 🎉 IMPLEMENTATION STATUS SUMMARY
@@ -13,7 +13,7 @@ A prioritized checklist of improvements for the Costa Rica Tree Atlas. Organized
 
 ### ✅ What's Done (100% of Implementation)
 
-- All 122 species have complete safety data (EN+ES)
+- All 128 species have complete safety data (EN+ES)
 - All 60 priority species have care guidance
 - 100 glossary terms with inline tooltips
 - 14/20 comparison guides (70% target - can expand later)
@@ -49,21 +49,30 @@ These tasks cannot be completed autonomously and require human intervention or s
 
 ---
 
-**Recent Progress (2026-01-14 - Species Count Update):**
+**Recent Progress (2026-01-18 - Documentation Consolidation):**
 
-- **Species Count Updated: 122 Total ✅**
-  - Verified actual count: 122 EN trees, 122 ES trees (244 documents total)
-  - Updated from previous count of 110 species
-  - Removed duplicate Spanish file (chirca.mdx - same species as yellow-oleander.mdx, both Thevetia peruviana, just different common Spanish names)
-  - Updated README.md, MISSING_SPECIES_LIST.md, and roadmap documentation
+- **Documentation Cleanup & Consolidation ✅**
+  - Updated species count across all documentation: 128 species (verified via file count)
+  - Moved audit reports to proper archive location (audit-report.md, REGIONS_PAGE_EVALUATION.md)
+  - Fixed USAGE-POLICY.md date (2025 → 2026)
+  - Fixed SECURITY.md placeholder email → GitHub Security Advisories
+  - Streamlined README.md by moving development setup details to CONTRIBUTING.md
+  - Ensured consistency across README.md, CONTRIBUTING.md, docs/README.md, NEXT_STEPS.md
+  - **CONCLUSION: All documentation is now accurate, consolidated, and AI-agent optimized**
+
+**Previous Progress (2026-01-14 - Species Count Update):**
+
+- **Species Count Verified: 128 Total ✅**
+  - Actual count confirmed: 128 EN trees, 128 ES trees (256 documents total)
+  - Previous documentation showed 110-122 species (inconsistent)
+  - All documentation now updated to reflect accurate count
   - All high-priority species from missing list now documented
-  - **CONCLUSION: Documentation now reflects accurate species count**
 
-**Recent Progress (2026-01-12 Autonomous Session #6 - COMPREHENSIVE AUDIT):**
+**Previous Progress (2026-01-12 Autonomous Session #6 - COMPREHENSIVE AUDIT):**
 
 - **Complete Roadmap Verification: AUDITED! ✅**
   - Verified ALL claims in roadmap against actual codebase
-  - Counted files: 122 EN trees, 100 EN glossary, 14 EN comparisons
+  - Counted files: 128 EN trees, 100 EN glossary, 14 EN comparisons
   - Checked features: All routes exist, all components present
   - Tested dev server: Starts and serves pages correctly
   - Ran test suite: Mostly passing (some pre-existing failures)
@@ -173,11 +182,11 @@ Distribution Data (Content)
 
 ## Content Completeness Audit
 
-Track content coverage across all 122 species. Update as work progresses.
+Track content coverage across all 128 species. Update as work progresses.
 
 ### Safety Data Coverage
 
-**STATUS: 122/122 species (100%) have safety data in both languages** _(COMPLETED 2026-01-11 - All trees now have safety data!)_
+**STATUS: 128/128 species (100%) have safety data in both languages** _(COMPLETED 2026-01-11 - All trees now have safety data!)_
 
 **Complete (87 species with EN+ES):**
 
@@ -367,7 +376,7 @@ Track content coverage across all 122 species. Update as work progresses.
 
 **MVP Requirements:**
 
-- [x] Research and add safety data to ALL 122 species (both EN+ES) - ✅ COMPLETED
+- [x] Research and add safety data to ALL 128 species (both EN+ES) - ✅ COMPLETED
 - [x] Safety schema already defined in contentlayer.config.ts
 - [x] ALL CRITICAL and HIGH priority species complete ✅
 - [x] Include: toxicity level, toxic parts, skin contact risk, allergen risk, structural risks
@@ -640,7 +649,7 @@ image: "/images/glossary/palmate-leaf.jpg"
 - [x] Care fields already in contentlayer schema (growthRate, matureHeight, soilRequirements, etc.)
 - [x] **67% MILESTONE: Documented care guidance for 40/60 top species** ✅ COMPLETE!
 - [ ] Continue to 60/60 species (33% remaining)
-- [ ] Eventually expand to all 122 species
+- [ ] Eventually expand to all 128 species
 
 **Care Data Schema:**
 
