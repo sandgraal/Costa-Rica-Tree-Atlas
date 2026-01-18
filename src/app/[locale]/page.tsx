@@ -1,12 +1,16 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
-import { SafeImage } from "@/components/SafeImage";
 import { HeroImage } from "@/components/HeroImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 import type { Locale } from "@/types/tree";
+import {
+  NowBloomingSkeleton,
+  TreeOfTheDaySkeleton,
+  StatsSkeleton,
+} from "@/components/LoadingSkeletons";
 
 // Lazy load below-the-fold components to improve LCP and reduce TBT
 const RecentlyViewedList = dynamic(() =>
@@ -17,6 +21,37 @@ const RecentlyViewedList = dynamic(() =>
 const FeaturedTreesSection = dynamic(() =>
   import("@/components/FeaturedTreesSection").then((mod) => ({
     default: mod.FeaturedTreesSection,
+  }))
+);
+
+// Lazy load heavy homepage sections with loading states
+const NowBloomingSection = dynamic(
+  () =>
+    import("@/components/home/NowBloomingSection").then((mod) => ({
+      default: mod.NowBloomingSection,
+    })),
+  { loading: () => <NowBloomingSkeleton /> }
+);
+
+const TreeOfTheDay = dynamic(
+  () =>
+    import("@/components/home/TreeOfTheDay").then((mod) => ({
+      default: mod.TreeOfTheDay,
+    })),
+  { loading: () => <TreeOfTheDaySkeleton /> }
+);
+
+const StatsSection = dynamic(
+  () =>
+    import("@/components/home/StatsSection").then((mod) => ({
+      default: mod.StatsSection,
+    })),
+  { loading: () => <StatsSkeleton /> }
+);
+
+const AboutSection = dynamic(() =>
+  import("@/components/home/AboutSection").then((mod) => ({
+    default: mod.AboutSection,
   }))
 );
 
@@ -222,307 +257,6 @@ const HeroContent = memo(function HeroContent({
           />
         </svg>
       </Link>
-    </>
-  );
-});
-
-const NowBloomingSection = memo(function NowBloomingSection({
-  trees,
-  locale,
-  nowBlooming,
-}: {
-  trees: typeof allTrees;
-  locale: string;
-  nowBlooming: string;
-}) {
-  const currentMonth = new Date().toLocaleString("en-US", { month: "long" });
-
-  // Filter trees that are flowering or fruiting this month
-  const floweringNow = trees.filter((tree) =>
-    tree.floweringSeason?.includes(currentMonth)
-  );
-  const fruitingNow = trees.filter((tree) =>
-    tree.fruitingSeason?.includes(currentMonth)
-  );
-
-  const activeNow = [
-    ...floweringNow.map((t) => ({ ...t, activity: "flowering" as const })),
-    ...fruitingNow
-      .filter((t) => !floweringNow.some((f) => f._id === t._id))
-      .map((t) => ({ ...t, activity: "fruiting" as const })),
-  ].slice(0, 6); // Reduced from 8 to 6 for faster loading
-
-  if (activeNow.length === 0) return null;
-
-  return (
-    <>
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light flex items-center gap-2">
-            <span className="text-3xl">🌸</span>
-            {nowBlooming}
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            {locale === "es"
-              ? `${floweringNow.length} floreciendo, ${fruitingNow.length} fructificando este mes`
-              : `${floweringNow.length} flowering, ${fruitingNow.length} fruiting this month`}
-          </p>
-        </div>
-        <Link
-          href="/seasonal"
-          className="text-primary hover:text-primary-light transition-colors font-medium"
-        >
-          {locale === "es" ? "Ver calendario" : "View calendar"} →
-        </Link>
-      </div>
-
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory">
-        {activeNow.map((tree) => (
-          <Link
-            key={tree._id}
-            href={`/trees/${tree.slug}`}
-            className="flex-none w-48 bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg snap-start"
-          >
-            <div className="relative h-32 bg-gradient-to-br from-primary/20 to-secondary/20">
-              <SafeImage
-                src={tree.featuredImage || ""}
-                alt={tree.title}
-                fill
-                sizes="192px"
-                quality={40}
-                className="object-cover"
-                fallback="placeholder"
-              />
-              <div
-                className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium ${
-                  tree.activity === "flowering"
-                    ? "bg-pink-500 text-white"
-                    : "bg-orange-500 text-white"
-                }`}
-              >
-                {tree.activity === "flowering"
-                  ? locale === "es"
-                    ? "🌸 Floreciendo"
-                    : "🌸 Flowering"
-                  : locale === "es"
-                    ? "🍊 Fructificando"
-                    : "🍊 Fruiting"}
-              </div>
-            </div>
-            <div className="p-3">
-              <h3 className="font-semibold text-foreground truncate">
-                {tree.title}
-              </h3>
-              <p className="text-xs text-muted-foreground italic truncate">
-                {tree.scientificName}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </>
-  );
-});
-
-const TreeOfTheDay = memo(function TreeOfTheDay({
-  trees,
-  locale,
-  treeOfTheDay,
-}: {
-  trees: typeof allTrees;
-  locale: string;
-  treeOfTheDay: string;
-}) {
-  // Get a deterministic tree based on day of year
-  const now = new Date();
-  const startOfYear = new Date(now.getFullYear(), 0, 0);
-  const diff = now.getTime() - startOfYear.getTime();
-  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const treeIndex = dayOfYear % trees.length;
-  const tree = trees[treeIndex];
-
-  if (!tree) return null;
-
-  // Get some interesting facts about the tree
-  const facts = [];
-  if (tree.maxHeight)
-    facts.push({
-      icon: "📏",
-      text:
-        locale === "es"
-          ? `Altura: ${tree.maxHeight}`
-          : `Height: ${tree.maxHeight}`,
-    });
-  if (tree.nativeRegion)
-    facts.push({
-      icon: "🌎",
-      text:
-        locale === "es"
-          ? `Región: ${tree.nativeRegion}`
-          : `Region: ${tree.nativeRegion}`,
-    });
-  if (tree.family)
-    facts.push({
-      icon: "🌿",
-      text:
-        locale === "es" ? `Familia: ${tree.family}` : `Family: ${tree.family}`,
-    });
-  if (tree.uses && tree.uses.length > 0)
-    facts.push({
-      icon: "🛠️",
-      text: tree.uses[0],
-    });
-
-  return (
-    <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-border overflow-hidden">
-      <div className="md:flex">
-        {/* Image */}
-        <div className="md:w-2/5 relative">
-          <div className="aspect-[4/3] md:aspect-auto md:h-full bg-gradient-to-br from-primary/20 to-secondary/20 relative">
-            <SafeImage
-              src={tree.featuredImage || ""}
-              alt={tree.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 40vw"
-              quality={70}
-              className="object-cover"
-              fallback="placeholder"
-            />
-          </div>
-          <div className="absolute top-4 left-4 px-3 py-1.5 bg-accent text-primary-dark rounded-full text-sm font-semibold shadow-lg">
-            🌟 {treeOfTheDay}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary-dark dark:text-primary-light mb-2">
-            {tree.title}
-          </h2>
-          <p className="text-lg text-secondary italic mb-4">
-            {tree.scientificName}
-          </p>
-          <p className="text-muted-foreground mb-6 line-clamp-3">
-            {tree.description}
-          </p>
-
-          {/* Quick Facts */}
-          {facts.length > 0 && (
-            <div className="flex flex-wrap gap-3 mb-6">
-              {facts.slice(0, 3).map((fact, i) => (
-                <span
-                  key={i}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background rounded-lg text-sm"
-                >
-                  <span>{fact.icon}</span>
-                  <span className="text-muted-foreground">{fact.text}</span>
-                </span>
-              ))}
-            </div>
-          )}
-
-          <Link
-            href={`/trees/${tree.slug}`}
-            className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-semibold transition-colors"
-          >
-            {locale === "es" ? "Conocer más" : "Learn more"}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-});
-
-const StatsSection = memo(function StatsSection({
-  speciesCount,
-  familiesCount,
-  statusCount,
-  locale,
-}: {
-  speciesCount: number;
-  familiesCount: number;
-  statusCount: number;
-  locale: string;
-}) {
-  const stats = [
-    {
-      value: speciesCount,
-      label: locale === "es" ? "Especies Documentadas" : "Documented Species",
-      icon: "🌳",
-    },
-    {
-      value: familiesCount,
-      label: locale === "es" ? "Familias Botánicas" : "Botanical Families",
-      icon: "🌿",
-    },
-    {
-      value: statusCount,
-      label:
-        locale === "es" ? "Estados de Conservación" : "Conservation Statuses",
-      icon: "🛡️",
-    },
-    {
-      value: 2,
-      label: locale === "es" ? "Idiomas" : "Languages",
-      icon: "🌐",
-    },
-  ];
-
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {stats.map((stat, index) => (
-        <div
-          key={index}
-          className="bg-card rounded-xl p-6 border border-border text-center hover:border-primary/50 transition-colors"
-        >
-          <div className="text-3xl mb-2">{stat.icon}</div>
-          <div className="text-3xl font-bold text-primary mb-1">
-            {stat.value}
-          </div>
-          <div className="text-sm text-muted-foreground">{stat.label}</div>
-        </div>
-      ))}
-    </div>
-  );
-});
-
-const AboutSection = memo(function AboutSection({
-  openSource,
-  description,
-}: {
-  openSource: string;
-  description: string;
-}) {
-  return (
-    <>
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8 text-primary"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path d="M12 22V8M5 12l7-10 7 10M5 12a7 7 0 0 0 14 0" />
-        </svg>
-      </div>
-      <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4">
-        {openSource}
-      </h2>
-      <p className="text-muted-foreground text-lg">{description}</p>
     </>
   );
 });

@@ -40,8 +40,8 @@ export const THEME_SCRIPT = `
     document.documentElement.setAttribute('data-theme', theme);
     document.documentElement.style.colorScheme = theme;
   } catch (e) {
-    // Fail gracefully - default to light theme
-    console.error('Theme initialization error:', e);
+    // Fail silently - default to light theme (no console error for better perf)
+    document.documentElement.classList.add('light');
   }
 })();
 `.trim();

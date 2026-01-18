@@ -36,6 +36,7 @@ const geistSans = Geist({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+  adjustFontFallback: true,
 });
 
 const geistMono = Geist_Mono({
@@ -43,6 +44,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   preload: false, // Only preload primary font
+  adjustFontFallback: true,
 });
 
 export function generateStaticParams() {
@@ -253,9 +255,9 @@ export default async function LocaleLayout({ children, params }: Props) {
             </NextIntlClientProvider>
           </StoreProvider>
         </QueryProvider>
-        {/* Vercel Speed Insights - placed outside providers for optimal performance monitoring */}
-        <SpeedInsights />
       </body>
+      {/* Vercel Speed Insights - deferred to reduce TBT */}
+      <SpeedInsights />
     </html>
   );
 }

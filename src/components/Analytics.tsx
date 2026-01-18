@@ -33,7 +33,7 @@ export function Analytics({
           defer
           data-domain={plausibleDomain}
           src="https://plausible.io/js/script.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       )}
 
@@ -46,7 +46,7 @@ export function Analytics({
               ? `https://${simpleAnalyticsDomain}/latest.js`
               : "https://scripts.simpleanalyticscdn.com/latest.js"
           }
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       )}
 
@@ -56,13 +56,9 @@ export function Analytics({
           <Script
             nonce={nonce}
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
-          <Script
-            nonce={nonce}
-            id="google-analytics"
-            strategy="afterInteractive"
-          >
+          <Script nonce={nonce} id="google-analytics" strategy="lazyOnload">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
