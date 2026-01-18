@@ -158,13 +158,16 @@ export default async function middleware(request: NextRequest) {
   // Add security headers with appropriate CSP based on route
   let csp: string;
 
-  if (MARKETING_ROUTE_REGEX.test(pathname)) {
+  // Determine which CSP policy to use based on route
+  const isTreeDetailPage = TREE_DETAIL_ROUTE_REGEX.test(pathname);
+  const isGlossaryDetailPage = GLOSSARY_DETAIL_ROUTE_REGEX.test(pathname);
+  const isMarketingPage = MARKETING_ROUTE_REGEX.test(pathname);
+  const isMDXPage = isTreeDetailPage || isGlossaryDetailPage;
+
+  if (isMarketingPage) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
     csp = buildRelaxedCSP(nonce);
-  } else if (
-    TREE_DETAIL_ROUTE_REGEX.test(pathname) ||
-    GLOSSARY_DETAIL_ROUTE_REGEX.test(pathname)
-  ) {
+  } else if (isMDXPage) {
     // Tree and glossary detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
     csp = buildMDXCSP(nonce);
   } else {
@@ -176,6 +179,18 @@ export default async function middleware(request: NextRequest) {
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
   response.headers.set("X-Nonce", nonce);
+
+  // For MDX pages, prevent caching of the HTML response to ensure CSP headers
+  // are always fresh. This is critical because MDX rendering requires unsafe-eval,
+  // and cached pages might have incorrect CSP headers from previous requests.
+  // Static assets are still cached normally (handled by early return above).
+  if (isMDXPage) {
+    response.headers.set(
+      "Cache-Control",
+      "private, no-cache, no-store, must-revalidate"
+    );
+    response.headers.set("Vary", "Cookie, Accept-Encoding");
+  }
 
   return response;
 }
