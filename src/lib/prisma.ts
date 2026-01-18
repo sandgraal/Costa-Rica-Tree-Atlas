@@ -13,6 +13,8 @@
 // Import PrismaClient type if available
 type PrismaClientType = typeof import("@prisma/client").PrismaClient;
 type PrismaClientInstance = InstanceType<PrismaClientType>;
+// Proxy type for when Prisma is unavailable
+type PrismaClientProxy = Record<string, never>;
 
 // Type declaration for global scope - must be at module level
 declare global {
@@ -20,7 +22,7 @@ declare global {
 }
 
 let PrismaClient: PrismaClientType | undefined;
-let prisma: PrismaClientInstance | Record<string, never>;
+let prisma: PrismaClientInstance | PrismaClientProxy;
 
 try {
   // Try to import Prisma Client - may not be available if DATABASE_URL wasn't set during build
@@ -28,6 +30,12 @@ try {
   const prismaModule = require("@prisma/client") as {
     PrismaClient: PrismaClientType;
   };
+
+  // Verify PrismaClient exists on the module
+  if (!prismaModule.PrismaClient) {
+    throw new Error("PrismaClient not found in @prisma/client module");
+  }
+
   PrismaClient = prismaModule.PrismaClient;
 
   const prismaClientSingleton = (): PrismaClientInstance => {
@@ -61,7 +69,7 @@ try {
         );
       },
     }
-  ) as Record<string, never>;
+  ) as PrismaClientProxy;
 }
 
 export default prisma;
