@@ -1,8 +1,8 @@
 /**
  * Server-side MDX Content Renderer
  *
- * This component renders MDX content on the server WITHOUT requiring
- * client-side JavaScript evaluation (no new Function() or eval()).
+ * This component renders MDX content on the server using next-mdx-remote/rsc,
+ * which is designed specifically for Next.js App Router's Server Components architecture.
  *
  * WHY THIS EXISTS:
  * - Contentlayer2's getMDXComponent/useMDXComponent use `new Function()` to
@@ -13,8 +13,9 @@
  *
  * HOW IT WORKS:
  * 1. Takes raw MDX source (from contentlayer's body.raw)
- * 2. Compiles and evaluates MDX on the Node.js server (no CSP restrictions)
- * 3. Returns pre-rendered React elements that hydrate normally on client
+ * 2. Uses next-mdx-remote/rsc's compileMDX to compile MDX on the server
+ * 3. Properly handles client components through Next.js RSC architecture
+ * 4. Returns pre-rendered React elements that hydrate normally on client
  *
  * SECURITY BENEFIT:
  * - Removes the need for 'unsafe-eval' in Content Security Policy
@@ -25,11 +26,9 @@
  * with "use client" and should only be used in server component contexts.
  */
 
-import { evaluate } from "@mdx-js/mdx";
-import * as runtime from "react/jsx-runtime";
+import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxComponents } from "@/components/mdx";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
-import { createHash } from "crypto";
 
 interface GlossaryTerm {
   term: string;
@@ -47,43 +46,6 @@ interface ServerMDXContentProps {
   glossaryTerms?: GlossaryTerm[];
   /** Enable automatic glossary term linking */
   enableGlossaryLinks?: boolean;
-}
-
-// Cache for compiled MDX content - keyed by hash of source
-// This prevents re-compilation on every render
-// Note: For typical content volumes (hundreds of pages), this cache is manageable.
-// In production environments with thousands of unique MDX sources, consider:
-// - Implementing LRU (Least Recently Used) eviction
-// - Setting a max cache size limit
-// - Using external caching (Redis, etc.)
-const mdxCache = new Map<string, Awaited<ReturnType<typeof evaluate>>>();
-
-// Maximum cache size - prevents unbounded memory growth
-const MAX_CACHE_SIZE = 1000;
-
-/**
- * Evict oldest inserted entries when cache grows too large
- * Note: This is FIFO (First In, First Out) eviction, not LRU.
- * Map iteration order reflects insertion order, not access order.
- */
-function evictOldestInsertedEntries() {
-  if (mdxCache.size <= MAX_CACHE_SIZE) return;
-
-  // Delete oldest 10% of entries
-  const entriesToDelete = Math.floor(MAX_CACHE_SIZE * 0.1);
-  const iterator = mdxCache.keys();
-
-  for (let i = 0; i < entriesToDelete; i++) {
-    const key = iterator.next().value;
-    if (key) mdxCache.delete(key);
-  }
-}
-
-/**
- * Generate a hash key for caching MDX compilation results
- */
-function getCacheKey(source: string): string {
-  return createHash("sha256").update(source).digest("hex");
 }
 
 /**
@@ -119,11 +81,11 @@ function MDXErrorFallback({ error }: { error: unknown }) {
 }
 
 /**
- * Server-side MDX renderer that avoids eval()
+ * Server-side MDX renderer using next-mdx-remote/rsc
  *
  * This is an async server component that compiles and renders MDX
- * content entirely on the server. The resulting React elements are
- * then sent to the client as pre-rendered HTML.
+ * content entirely on the server using next-mdx-remote/rsc's compileMDX,
+ * which properly handles the client/server component boundary in Next.js App Router.
  *
  * SECURITY NOTE:
  * This component assumes MDX source comes from trusted sources (our own content files).
@@ -131,7 +93,8 @@ function MDXErrorFallback({ error }: { error: unknown }) {
  * If you need to render user-provided MDX, additional validation and sandboxing are required.
  *
  * Features:
- * - Caches compiled MDX by source hash to avoid repeated compilation
+ * - Works seamlessly with both server and client components
+ * - Properly handles the RSC architecture in Next.js App Router
  * - Gracefully handles malformed MDX with error fallback UI
  * - Respects NODE_ENV for development mode features
  *
@@ -148,68 +111,50 @@ export async function ServerMDXContent({
 }: ServerMDXContentProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
 
-  // Check cache first
-  const cacheKey = getCacheKey(source);
-  let result = mdxCache.get(cacheKey);
-
   // Merge default MDX components with any additional ones passed in
   const allComponents = { ...mdxComponents, ...components };
 
-  if (!result) {
-    try {
-      // Evaluate MDX on the server - this compiles and runs in one step
-      // The execution happens on Node.js where there are no CSP restrictions
-      //
-      // IMPORTANT: Components need to be in the evaluation scope for MDX to find them
-      // when it compiles JSX elements like <Accordion>.
-      result = await evaluate(source, {
-        // Core JSX runtime for React elements
-        ...runtime,
-        // Spread all MDX components as named exports in the scope
-        // This makes components like 'Accordion' available when MDX compiles
-        ...allComponents,
-        // Development mode for better error messages
-        development: isDevelopment,
-        // Required for import.meta resolution
-        baseUrl: import.meta.url,
-      });
+  // Debug: Log component names in development
+  if (isDevelopment) {
+    console.log("Available MDX components:", Object.keys(allComponents));
+  }
 
-      // Cache the compiled result
-      mdxCache.set(cacheKey, result);
+  try {
+    // Compile the MDX content using next-mdx-remote/rsc
+    // This properly handles the client/server component boundary
+    const { content } = await compileMDX({
+      source,
+      components: allComponents,
+      options: {
+        mdxOptions: {
+          development: isDevelopment,
+        },
+      },
+    });
 
-      // Evict old entries if cache is too large
-      evictOldestInsertedEntries();
-    } catch (error) {
-      // Gracefully handle MDX compilation/evaluation errors
-      // Only log in development to avoid exposing sensitive information
-      if (isDevelopment) {
-        console.error("Failed to compile/evaluate MDX content:", error);
-      } else {
-        // In production, log a sanitized version
-        console.error("MDX compilation failed", {
-          timestamp: new Date().toISOString(),
-          sourceLength: source.length,
-          // Don't log the actual source or detailed error message
-        });
-      }
-      return <MDXErrorFallback error={error} />;
+    // Optionally wrap in AutoGlossaryLink for automatic term linking
+    if (enableGlossaryLinks && glossaryTerms.length > 0) {
+      return (
+        <AutoGlossaryLink glossaryTerms={glossaryTerms}>
+          {content}
+        </AutoGlossaryLink>
+      );
     }
+
+    return content;
+  } catch (error) {
+    // Gracefully handle MDX compilation/rendering errors
+    // Only log in development to avoid exposing sensitive information
+    if (isDevelopment) {
+      console.error("Failed to compile/render MDX content:", error);
+    } else {
+      // In production, log a sanitized version
+      console.error("MDX compilation failed", {
+        timestamp: new Date().toISOString(),
+        sourceLength: source.length,
+        // Don't log the actual source or detailed error message
+      });
+    }
+    return <MDXErrorFallback error={error} />;
   }
-
-  const { default: MDXContent } = result;
-
-  // Render the MDX content with components
-  // Components need to be both in the evaluation scope AND passed as a prop
-  const content = <MDXContent components={allComponents} />;
-
-  // Optionally wrap in AutoGlossaryLink for automatic term linking
-  if (enableGlossaryLinks && glossaryTerms.length > 0) {
-    return (
-      <AutoGlossaryLink glossaryTerms={glossaryTerms}>
-        {content}
-      </AutoGlossaryLink>
-    );
-  }
-
-  return content;
 }
