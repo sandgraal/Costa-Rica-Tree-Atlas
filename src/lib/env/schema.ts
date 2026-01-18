@@ -13,13 +13,23 @@ import { z } from "zod";
  * These are NEVER exposed to the client
  */
 const serverSchema = z.object({
-  // Authentication
+  // Authentication (Legacy - will be deprecated)
   // Note: ADMIN_PASSWORD validation is intentionally simple here.
   // The middleware returns 404 if not set, hiding admin routes.
   // When set, it should be strong (12+ chars, mixed case, numbers, special chars)
   // but we don't enforce at build time to allow builds without admin configured.
   ADMIN_PASSWORD: z.string().optional(),
   ADMIN_USERNAME: z.string().min(3).default("admin"),
+
+  // Database
+  DATABASE_URL: z.string().url().optional(),
+
+  // NextAuth
+  NEXTAUTH_SECRET: z.string().min(32).optional(),
+  NEXTAUTH_URL: z.string().url().optional(),
+
+  // MFA
+  MFA_ENCRYPTION_KEY: z.string().length(64).optional(), // 32-byte hex string
 
   // Redis (optional but recommended)
   UPSTASH_REDIS_REST_URL: z.string().url().optional(),
