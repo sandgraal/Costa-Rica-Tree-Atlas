@@ -230,7 +230,7 @@
     }
   },
   "comparison": {
-    "title": "Herramienta de Comparación",
+    "title": "Comparación de Árboles",
     "subtitle": "Compare características de diferentes especies de árboles lado a lado",
     "selectTree": "Seleccionar un árbol",
     "selectPlaceholder": "Añadir un árbol para comparar...",
@@ -239,6 +239,13 @@
     "noTreesSelected": "Seleccione hasta 4 árboles para comparar sus características",
     "clearAll": "Limpiar todo",
     "navLink": "Comparar",
+    "guidesTitle": "Guías de Comparación",
+    "guidesSubtitle": "Guías expertas para distinguir especies de árboles comúnmente confundidas",
+    "readGuide": "Leer Guía",
+    "keyDifference": "Diferencia Clave",
+    "comparingSpecies": "Comparando",
+    "toolTitle": "Herramienta Interactiva de Comparación",
+    "toolSubtitle": "O compare cualquier árbol lado a lado usando nuestra herramienta interactiva",
     "properties": {
       "image": "Imagen",
       "commonName": "Nombre Común",
