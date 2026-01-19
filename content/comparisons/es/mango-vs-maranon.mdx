@@ -5,6 +5,13 @@ slug: "mango-vs-maranon"
 species: ["mango", "maranon"]
 keyDifference: "El mango tiene un solo fruto grande colgando del tallo; el marañón tiene una 'manzana' con la nuez en forma de riñón pegada en la parte inferior."
 description: "Aprenda a distinguir Mangifera indica (mango) de Anacardium occidentale (marañón), dos árboles frutales importantes de la familia Anacardiaceae que ambos contienen urushiol."
+featuredImages:
+  - "/images/trees/mango.jpg"
+  - "/images/trees/maranon.jpg"
+confusionRating: 3
+comparisonTags: ["fruit", "leaves", "size", "bark", "flowers"]
+seasonalNote: "Más fácil en fructificación: mar-jun (marañón) vs abr-ago (mango). La punta de la hoja ayuda todo el año."
+difficulty: "moderate"
 publishedAt: "2026-01-12"
 ---
 
@@ -19,6 +26,14 @@ Tanto el mango como el marañón son árboles frutales queridos en Costa Rica de
   (amarilla/roja en forma de pera) con nuez dura en forma de riñón pegada en la
   parte inferior. ¡La nuez debe tostarse antes de comer!
 </Callout>
+
+<SideBySideImages
+  leftImage="/images/trees/mango.jpg"
+  rightImage="/images/trees/maranon.jpg"
+  leftLabel="Mango"
+  rightLabel="Marañón"
+  caption="Fruto único de mango vs manzana de marañón con nuez"
+/>
 
 ---
 
@@ -252,6 +267,26 @@ Tanto el mango como el marañón son árboles frutales queridos en Costa Rica de
 ---
 
 ## Prueba Rápida de Campo
+
+<QuickDecisionFlow
+  title="Identificación rápida"
+  steps={[
+    {
+      question: "¿Hay una nuez pegada a una manzana carnosa?",
+      yesAnswer: "Nuez en forma de riñón en la base",
+      noAnswer: "Fruto de mango único grande",
+      yesResult: "Marañón",
+      noResult: "Mango",
+    },
+    {
+      question: "¿Las puntas de las hojas son redondeadas?",
+      yesAnswer: "Redondeadas o ligeramente muescadas",
+      noAnswer: "Puntiagudas, acuminadas",
+      yesResult: "Marañón",
+      noResult: "Mango",
+    },
+  ]}
+/>
 
 1. **¿Hay una nuez en forma de riñón pegada a la parte inferior de una fruta carnosa?**
    - SÍ → Marañón
