@@ -14,15 +14,15 @@ model User {
   id            String    @id @default(cuid())
   email         String    @unique
   name          String?
-  passwordHash  String    // Argon2id hash
+  passwordHash  String // Argon2id hash
   emailVerified DateTime?
   mfaEnabled    Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  sessions      Session[]
-  auditLogs     AuditLog[]
-  mfaSecrets    MFASecret[]
+  sessions   Session[]
+  auditLogs  AuditLog[]
+  mfaSecrets MFASecret[]
 
   @@map("users")
 }
@@ -37,7 +37,7 @@ model Session {
   userAgent    String?  @db.Text
   createdAt    DateTime @default(now())
 
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([expires])
@@ -46,15 +46,15 @@ model Session {
 
 // MFA secrets (TOTP and backup codes)
 model MFASecret {
-  id            String   @id @default(cuid())
-  userId        String
-  totpSecret    String?  @db.Text // Encrypted TOTP secret
-  backupCodes   String[] // Hashed backup codes
-  backupCodesUsed Int[]  @default([]) // Indices of used backup codes
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id              String   @id @default(cuid())
+  userId          String
+  totpSecret      String?  @db.Text // Encrypted TOTP secret
+  backupCodes     String[] // Hashed backup codes
+  backupCodesUsed Int[]    @default([]) // Indices of used backup codes
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
   @@map("mfa_secrets")
@@ -67,10 +67,10 @@ model AuditLog {
   eventType String   @db.VarChar(100) // "login", "logout", "login_failed", "mfa_enabled", "mfa_disabled", "password_changed", etc.
   ipAddress String?  @db.VarChar(45)
   userAgent String?  @db.Text
-  metadata  Json?    // Additional event-specific data
+  metadata  Json? // Additional event-specific data
   createdAt DateTime @default(now())
 
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([eventType])
@@ -105,4 +105,176 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+// ============================================================================
+// IMAGE REVIEW SYSTEM
+// Human-in-the-loop workflow for image quality control
+// See docs/IMAGE_REVIEW_SYSTEM.md for full documentation
+// ============================================================================
+
+// Proposal statuses for image changes
+enum ImageProposalStatus {
+  PENDING // Awaiting admin review
+  APPROVED // Approved, ready to apply
+  APPLIED // Applied to the tree
+  DENIED // Rejected by admin
+  ARCHIVED // Dismissed/expired
+}
+
+// Source of the proposal
+enum ImageProposalSource {
+  WORKFLOW // From weekly-image-quality workflow
+  USER_FLAG // From user flagging an image
+  ADMIN // Manually created by admin
+  SCRIPT // From ad-hoc scripts
+}
+
+// Types of images in the tree gallery
+enum ImageType {
+  FEATURED // Main hero image
+  TREE // Full tree view
+  BARK // Bark close-up
+  LEAVES // Leaves/foliage
+  FLOWERS // Flowers/blooms
+  FRUIT // Fruit/seeds
+  ROOTS // Root system
+  HABITAT // Tree in its habitat/environment
+}
+
+// Image proposal for review
+model ImageProposal {
+  id        String    @id @default(cuid())
+  treeSlug  String    @db.VarChar(100)
+  imageType ImageType
+
+  // Current image details
+  currentUrl    String? @db.Text
+  currentSource String? @db.VarChar(255)
+  currentAlt    String? @db.Text
+
+  // Proposed image details
+  proposedUrl    String  @db.Text
+  proposedSource String? @db.VarChar(255)
+  proposedAlt    String? @db.Text
+
+  // Quality metrics
+  qualityScore Float? // 0-100 quality score
+  resolution   String? @db.VarChar(20) // e.g., "1920x1080"
+  fileSize     Int? // bytes
+
+  // Workflow/source info
+  source        ImageProposalSource
+  reason        String?             @db.Text // Why this change is proposed
+  workflowRunId String?             @db.VarChar(100) // GitHub Actions run ID
+
+  // Status and review
+  status      ImageProposalStatus @default(PENDING)
+  reviewedBy  String? // User ID who reviewed
+  reviewedAt  DateTime?
+  reviewNotes String?             @db.Text
+
+  // Voting aggregates (denormalized for performance)
+  upvotes   Int @default(0)
+  downvotes Int @default(0)
+  flagCount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  votes        ImageVote[]
+  auditEntries ImageAudit[]
+
+  @@index([treeSlug])
+  @@index([status])
+  @@index([source])
+  @@index([createdAt])
+  @@map("image_proposals")
+}
+
+// Reasons for flagging an image
+enum ImageFlagReason {
+  MISLABELED // Image doesn't match the type (leaf shows tree, etc.)
+  WRONG_SPECIES // Image shows a different species
+  POOR_QUALITY // Blurry, low resolution, bad lighting
+  INAPPROPRIATE // Offensive or irrelevant content
+  COPYRIGHT // Potential copyright violation
+  OTHER // Other reason (see notes)
+}
+
+// User votes and flags on images
+model ImageVote {
+  id         String    @id @default(cuid())
+  proposalId String? // Vote on a proposal
+  treeSlug   String    @db.VarChar(100) // Can vote on existing images too
+  imageType  ImageType
+
+  // Vote type
+  isUpvote   Boolean? // true=upvote, false=downvote, null=flag only
+  isFlag     Boolean          @default(false)
+  flagReason ImageFlagReason?
+  flagNotes  String?          @db.Text
+
+  // Voter info (anonymous but trackable)
+  sessionId String  @db.VarChar(64) // Anonymous session hash
+  ipHash    String? @db.VarChar(64) // Hashed IP for rate limiting
+  userId    String? // If logged in (optional)
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  proposal ImageProposal? @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+  // Prevent duplicate votes per session
+  @@unique([proposalId, sessionId])
+  @@unique([treeSlug, imageType, sessionId])
+  @@index([proposalId])
+  @@index([treeSlug, imageType])
+  @@index([sessionId])
+  @@map("image_votes")
+}
+
+// Audit types for image changes
+enum ImageAuditAction {
+  PROPOSAL_CREATED // New proposal submitted
+  PROPOSAL_APPROVED // Admin approved the proposal
+  PROPOSAL_DENIED // Admin denied the proposal
+  PROPOSAL_APPLIED // Approved proposal was applied
+  PROPOSAL_ARCHIVED // Proposal was archived/expired
+  IMAGE_REPLACED // Image file was replaced
+  IMAGE_DELETED // Image was removed
+  VOTE_CAST // User voted on image
+  FLAG_SUBMITTED // User flagged an image
+}
+
+// Audit log for all image-related changes
+model ImageAudit {
+  id         String     @id @default(cuid())
+  proposalId String?
+  treeSlug   String     @db.VarChar(100)
+  imageType  ImageType?
+
+  action ImageAuditAction
+
+  // Who performed the action
+  actorId      String? // User ID if authenticated
+  actorSession String? @db.VarChar(64) // Session ID if anonymous
+  ipAddress    String? @db.VarChar(45)
+
+  // What changed
+  previousValue String? @db.Text // JSON of previous state
+  newValue      String? @db.Text // JSON of new state
+  notes         String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  proposal ImageProposal? @relation(fields: [proposalId], references: [id], onDelete: SetNull)
+
+  @@index([proposalId])
+  @@index([treeSlug])
+  @@index([action])
+  @@index([createdAt])
+  @@map("image_audits")
 }
