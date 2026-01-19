@@ -118,7 +118,9 @@ export function FeaturedTreesSection({
         </div>
       ) : (
         <p className="text-center text-muted-foreground py-12">
-          No trees found. Add some content to get started!
+          {locale === "en"
+            ? "No trees available to display."
+            : "No hay árboles disponibles para mostrar."}
         </p>
       )}
     </>
