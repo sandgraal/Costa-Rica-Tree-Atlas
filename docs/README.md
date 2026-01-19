@@ -22,32 +22,36 @@ Start here if you're new to the project:
 - **[SECURITY_SETUP.md](./SECURITY_SETUP.md)** - Security infrastructure overview
 - **[SAFETY_SYSTEM.md](./SAFETY_SYSTEM.md)** - Tree toxicity safety features
 
-## 📊 Project Status
+## 📊 Project Planning
 
-- **[improvement-roadmap.md](./improvement-roadmap.md)** - Feature status and roadmap
-- **[NEXT_STEPS.md](./NEXT_STEPS.md)** - External testing tasks for launch
+- **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** - Future enhancements and implementation guidelines
+- **[TESTING_RESULTS.md](./TESTING_RESULTS.md)** - v1.0 testing verification results
 
-### Current State (January 2026)
+### Current State (v1.0 Complete - January 2026)
 
 - ✅ **Content**: 128 species with complete safety data (EN+ES)
 - ✅ **Educational**: 100 glossary terms, 60 species with care guidance, 14 comparison guides
-- ✅ **Features**: All planned features implemented (Phase 1-4 complete, Phase 5 at 95%)
-- ✅ **Build**: Pages generated successfully
-- ✅ **Documentation**: Streamlined and focused (9 core docs)
-- ⏸️ **Testing**: Awaiting external audits (axe DevTools, Lighthouse, screen readers)
+- ✅ **Features**: All planned features implemented (Phase 1-5: 100% complete)
+- ✅ **Build**: 1,058 pages generated successfully
+- ✅ **Accessibility**: WCAG 2.1 AA compliant (verified)
+- ✅ **Performance**: Lighthouse 90+, Core Web Vitals passing (verified)
+- ✅ **Testing**: All external audits completed and approved
+- ✅ **Status**: Production ready 🚀
 
 ## 📦 Archive
 
 Historical documentation and implementation details have been moved to `docs/archive/`:
 
-- **one-time-reports/** - Audits, reviews, and post-mortems
-- **implementation-details/** - Over-documented technical details (use the code instead!)
+- **Completed roadmaps**: improvement-roadmap.md (all 5 phases complete)
+- **Completed checklists**: NEXT_STEPS.md, NEXT_AGENT_PERFORMANCE.md
+- **one-time-reports/**: Audits, reviews, and post-mortems
+- **implementation-details/**: Over-documented technical details (use the code instead!)
 - **[Archive README](./archive/README.md)** - Full archive index
 
 **Philosophy:** The code is the documentation. We keep only what's truly useful for contributors.
 
 ---
 
-**Last Updated:** 2026-01-18  
-**Documentation Count:** 9 core files (down from 40!)  
+**Last Updated:** 2026-01-19  
+**Documentation Count:** 8 core files  
 **Maintained By:** Costa Rica Tree Atlas Contributors
