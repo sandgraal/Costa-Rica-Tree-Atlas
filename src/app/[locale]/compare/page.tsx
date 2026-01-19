@@ -5,6 +5,10 @@ import { allTrees, allSpeciesComparisons } from "contentlayer/generated";
 import { TreeComparison } from "@/components/TreeComparison";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
+import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
+import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
+import { getSpeciesImageUrl } from "@/lib/comparison";
+import type { Locale } from "@/types/tree";
 
 type Params = Promise<{ locale: string }>;
 
@@ -17,72 +21,6 @@ export async function generateMetadata({ params }: { params: Params }) {
     title: `${t("title")} | ${siteT("siteTitle")}`,
     description: t("subtitle"),
   };
-}
-
-// Confusion rating display component
-function ConfusionRatingBadge({
-  rating,
-  locale,
-}: {
-  rating: number;
-  locale: string;
-}) {
-  const normalizedRating = Math.min(5, Math.max(1, Math.round(rating)));
-  const labels =
-    locale === "es"
-      ? ["Fácil", "Moderado", "Confuso", "Muy confuso", "Casi idénticos"]
-      : ["Easy", "Moderate", "Confusing", "Very confusing", "Nearly identical"];
-
-  const colors = [
-    "bg-success/20 text-success border-success/30",
-    "bg-success/15 text-success border-success/20",
-    "bg-warning/20 text-warning border-warning/30",
-    "bg-orange-500/20 text-orange-600 dark:text-orange-400 border-orange-500/30",
-    "bg-destructive/20 text-destructive border-destructive/30",
-  ];
-
-  return (
-    <div
-      className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium border ${colors[normalizedRating - 1]}`}
-    >
-      <div className="flex gap-0.5">
-        {[1, 2, 3, 4, 5].map((level) => (
-          <div
-            key={level}
-            className={`w-1.5 h-3 rounded-sm ${
-              level <= normalizedRating ? "bg-current" : "bg-current/20"
-            }`}
-          />
-        ))}
-      </div>
-      <span>{labels[normalizedRating - 1]}</span>
-    </div>
-  );
-}
-
-// Tag display component
-function ComparisonTagPill({ tag }: { tag: string }) {
-  const tagIcons: Record<string, string> = {
-    leaves: "🍃",
-    bark: "🪵",
-    fruit: "🍎",
-    flowers: "🌸",
-    size: "📏",
-    habitat: "🏞️",
-    trunk: "🌳",
-    seeds: "🌰",
-    crown: "👑",
-    roots: "🌱",
-  };
-
-  const icon = tagIcons[tag.toLowerCase()];
-
-  return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-muted text-muted-foreground text-xs rounded-md">
-      {icon && <span className="text-xs">{icon}</span>}
-      <span className="capitalize">{tag}</span>
-    </span>
-  );
 }
 
 export default async function ComparePage({ params }: { params: Params }) {
@@ -168,19 +106,19 @@ function ComparePageClient({
                   Boolean(tree)
                 );
 
-              // Get featured images from comparison or fallback to tree images
+              // Get featured images using shared helper
               const leftTree = speciesTrees[0];
               const rightTree = speciesTrees[1];
 
-              const leftImage =
-                comparison.featuredImages?.[0] ||
-                leftTree?.featuredImage ||
-                `/images/trees/${leftTree?.slug}.jpg`;
+              const leftImage = leftTree
+                ? comparison.featuredImages?.[0] ||
+                  getSpeciesImageUrl(leftTree, 0)
+                : "";
 
-              const rightImage =
-                comparison.featuredImages?.[1] ||
-                rightTree?.featuredImage ||
-                `/images/trees/${rightTree?.slug}.jpg`;
+              const rightImage = rightTree
+                ? comparison.featuredImages?.[1] ||
+                  getSpeciesImageUrl(rightTree, 0)
+                : "";
 
               return (
                 <Link
@@ -258,14 +196,19 @@ function ComparePageClient({
                       {comparison.confusionRating && (
                         <ConfusionRatingBadge
                           rating={comparison.confusionRating}
-                          locale={locale}
+                          locale={locale as Locale}
+                          variant="compact"
                         />
                       )}
                       {comparison.comparisonTags &&
                         comparison.comparisonTags
                           .slice(0, 3)
                           .map((tag) => (
-                            <ComparisonTagPill key={tag} tag={tag} />
+                            <ComparisonTagPill
+                              key={tag}
+                              tag={tag}
+                              variant="muted"
+                            />
                           ))}
                     </div>
 

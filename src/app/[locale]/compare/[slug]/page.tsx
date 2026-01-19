@@ -9,6 +9,9 @@ import { ShareButton } from "@/components/ShareButton";
 import { PrintButton } from "@/components/PrintButton";
 import type { Locale } from "@/types/tree";
 import Image from "next/image";
+import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
+import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
+import { getSpeciesImageUrl } from "@/lib/comparison";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -51,85 +54,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// Confusion rating display
-function ConfusionRatingDisplay({
-  rating,
-  locale,
-}: {
-  rating: number;
-  locale: string;
-}) {
-  const normalizedRating = Math.min(5, Math.max(1, Math.round(rating)));
-  const labels =
-    locale === "es"
-      ? [
-          "Fácil de distinguir",
-          "Generalmente distinguibles",
-          "Moderadamente confusos",
-          "A menudo confundidos",
-          "Extremadamente similares",
-        ]
-      : [
-          "Easy to distinguish",
-          "Usually distinguishable",
-          "Moderately confusing",
-          "Often confused",
-          "Extremely similar",
-        ];
-
-  return (
-    <div className="flex items-center gap-3">
-      <span className="text-sm text-muted-foreground">
-        {locale === "es" ? "Nivel de confusión:" : "Confusion level:"}
-      </span>
-      <div className="flex gap-1">
-        {[1, 2, 3, 4, 5].map((level) => (
-          <div
-            key={level}
-            className={`w-3 h-5 rounded-sm transition-colors ${
-              level <= normalizedRating
-                ? level <= 2
-                  ? "bg-success"
-                  : level <= 3
-                    ? "bg-warning"
-                    : "bg-destructive"
-                : "bg-border"
-            }`}
-          />
-        ))}
-      </div>
-      <span className="text-sm font-medium">
-        {labels[normalizedRating - 1]}
-      </span>
-    </div>
-  );
-}
-
-// Tag pill component
-function TagPill({ tag }: { tag: string }) {
-  const tagIcons: Record<string, string> = {
-    leaves: "🍃",
-    bark: "🪵",
-    fruit: "🍎",
-    flowers: "🌸",
-    size: "📏",
-    habitat: "🏞️",
-    trunk: "🌳",
-    seeds: "🌰",
-    crown: "👑",
-    roots: "🌱",
-  };
-
-  const icon = tagIcons[tag.toLowerCase()];
-
-  return (
-    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full">
-      {icon && <span>{icon}</span>}
-      <span className="capitalize">{tag}</span>
-    </span>
-  );
-}
-
 export default async function ComparisonPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -154,16 +78,14 @@ export default async function ComparisonPage({ params }: Props) {
   const leftTree = speciesTrees[0];
   const rightTree = speciesTrees[1];
 
-  // Get images
-  const leftImage =
-    comparison.featuredImages?.[0] ||
-    leftTree?.featuredImage ||
-    `/images/trees/${leftTree?.slug}.jpg`;
+  // Get images using shared helper
+  const leftImage = leftTree
+    ? comparison.featuredImages?.[0] || getSpeciesImageUrl(leftTree, 0)
+    : "";
 
-  const rightImage =
-    comparison.featuredImages?.[1] ||
-    rightTree?.featuredImage ||
-    `/images/trees/${rightTree?.slug}.jpg`;
+  const rightImage = rightTree
+    ? comparison.featuredImages?.[1] || getSpeciesImageUrl(rightTree, 0)
+    : "";
 
   return (
     <article className="min-h-screen">
@@ -282,9 +204,10 @@ export default async function ComparisonPage({ params }: Props) {
               {/* Metadata: Rating, Tags, Seasonal Note */}
               <div className="flex flex-wrap items-center gap-4 mb-6">
                 {comparison.confusionRating && (
-                  <ConfusionRatingDisplay
+                  <ConfusionRatingBadge
                     rating={comparison.confusionRating}
-                    locale={locale}
+                    locale={locale as Locale}
+                    variant="detailed"
                   />
                 )}
               </div>
@@ -293,7 +216,11 @@ export default async function ComparisonPage({ params }: Props) {
                 comparison.comparisonTags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
                     {comparison.comparisonTags.map((tag) => (
-                      <TagPill key={tag} tag={tag} />
+                      <ComparisonTagPill
+                        key={tag}
+                        tag={tag}
+                        variant="primary"
+                      />
                     ))}
                   </div>
                 )}
@@ -407,10 +334,7 @@ export default async function ComparisonPage({ params }: Props) {
                     >
                       <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                         <Image
-                          src={
-                            tree.featuredImage ||
-                            `/images/trees/${tree.slug}.jpg`
-                          }
+                          src={getSpeciesImageUrl(tree, 0)}
                           alt={tree.title}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform"
