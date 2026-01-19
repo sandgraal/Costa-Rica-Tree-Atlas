@@ -83,7 +83,7 @@ export const authOptions: NextAuthOptions = {
             }
 
             // Verify TOTP or backup code (will be implemented in MFA API)
-            const { authenticator } = await import("otplib");
+            const { TOTP } = await import("@otplib/totp");
             const mfaSecret = user.mfaSecrets[0];
 
             if (!mfaSecret || !mfaSecret.totpSecret) {
@@ -92,12 +92,12 @@ export const authOptions: NextAuthOptions = {
 
             // Decrypt TOTP secret (will need crypto utility)
             // For now, assume it's decrypted
-            const isValidTotp = authenticator.verify({
-              token: credentials.totpCode,
+            const totp = new TOTP();
+            const result = await totp.verify(credentials.totpCode, {
               secret: mfaSecret.totpSecret, // TODO: Decrypt this
             });
 
-            if (!isValidTotp) {
+            if (!result.valid) {
               // Check backup codes
               // TODO: Implement backup code verification
               await prisma.auditLog.create({
