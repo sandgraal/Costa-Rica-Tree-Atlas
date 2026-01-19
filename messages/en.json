@@ -247,6 +247,8 @@
     "comparingSpecies": "Comparing",
     "toolTitle": "Interactive Comparison Tool",
     "toolSubtitle": "Or compare any trees side-by-side using our interactive tool",
+    "compareWith": "Compare with",
+    "backToComparisons": "Back to Comparisons",
     "properties": {
       "image": "Image",
       "commonName": "Common Name",

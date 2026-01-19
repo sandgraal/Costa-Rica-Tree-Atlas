@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allSpeciesComparisons, allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
@@ -62,12 +62,14 @@ export default async function ComparisonPage({ params }: Props) {
     notFound();
   }
 
+  const t = await getTranslations({ locale, namespace: "comparison" });
+
   // Get the tree objects for the species being compared
   const speciesTrees = comparison.species
     .map((speciesSlug) =>
       allTrees.find((t) => t.slug === speciesSlug && t.locale === locale)
     )
-    .filter(Boolean);
+    .filter((tree): tree is (typeof allTrees)[number] => Boolean(tree));
 
   return (
     <article className="py-12 px-4">
@@ -76,7 +78,7 @@ export default async function ComparisonPage({ params }: Props) {
         <Breadcrumbs
           locale={locale as Locale}
           customLabels={{
-            compare: locale === "es" ? "Comparar" : "Compare",
+            compare: t("navLink"),
             [comparison.slug]: comparison.title,
           }}
         />
@@ -102,13 +104,13 @@ export default async function ComparisonPage({ params }: Props) {
             <div className="mb-4 flex flex-wrap gap-3">
               {speciesTrees.map((tree) => (
                 <Link
-                  key={tree?.slug}
-                  href={`/trees/${tree?.slug}`}
+                  key={tree.slug}
+                  href={`/trees/${tree.slug}`}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors"
                 >
-                  <span className="font-medium">{tree?.title}</span>
+                  <span className="font-medium">{tree.title}</span>
                   <span className="text-sm italic opacity-80">
-                    {tree?.scientificName}
+                    {tree.scientificName}
                   </span>
                 </Link>
               ))}
@@ -118,7 +120,7 @@ export default async function ComparisonPage({ params }: Props) {
           {/* Key Difference Callout */}
           <div className="p-4 bg-primary/5 border-l-4 border-primary rounded-r-lg">
             <p className="text-sm font-semibold text-primary mb-1">
-              {locale === "es" ? "Diferencia Clave" : "Key Difference"}:
+              {t("keyDifference")}:
             </p>
             <p className="text-foreground">{comparison.keyDifference}</p>
           </div>
@@ -148,7 +150,7 @@ export default async function ComparisonPage({ params }: Props) {
               <path d="M19 12H5" />
               <path d="m12 19-7-7 7-7" />
             </svg>
-            {locale === "es" ? "Volver a Comparaciones" : "Back to Comparisons"}
+            {t("backToComparisons")}
           </Link>
         </div>
       </div>
