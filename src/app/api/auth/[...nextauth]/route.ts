@@ -161,8 +161,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/admin/login",
-    error: "/admin/login",
+    signIn: "/en/admin/login",
+    error: "/en/admin/login",
   },
   callbacks: {
     async jwt({ token, user }) {
