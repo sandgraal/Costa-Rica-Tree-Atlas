@@ -203,7 +203,6 @@ export default async function HomePage({ params }: Props) {
               locale={locale as Locale}
               featuredTrees={t("featuredTrees")}
               viewAll={t("viewAll")}
-              loadMore={t("loadMore")}
             />
           </div>
         </section>
