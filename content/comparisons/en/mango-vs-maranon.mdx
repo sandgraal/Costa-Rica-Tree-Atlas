@@ -5,6 +5,13 @@ slug: "mango-vs-maranon"
 species: ["mango", "maranon"]
 keyDifference: "Mango has a single large mango fruit hanging from stem; Marañón has a cashew 'apple' with kidney-shaped nut attached at bottom."
 description: "Learn to distinguish Mangifera indica (mango) from Anacardium occidentale (cashew/marañón), two important fruit trees in the Anacardiaceae family that both contain urushiol."
+featuredImages:
+  - "/images/trees/mango.jpg"
+  - "/images/trees/maranon.jpg"
+confusionRating: 3
+comparisonTags: ["fruit", "leaves", "size", "bark", "flowers"]
+seasonalNote: "Easiest during fruiting: Mar-Jun (marañón) vs Apr-Aug (mango). Leaf tip shape helps year-round."
+difficulty: "moderate"
 publishedAt: "2026-01-12"
 ---
 
@@ -18,6 +25,14 @@ Both mango and marañón (cashew) are beloved fruit trees in Costa Rica from the
   Unique structure - fleshy "cashew apple" (yellow/red pear-shaped) with hard
   kidney-shaped nut attached at the bottom. Nut must be roasted before eating!
 </Callout>
+
+<SideBySideImages
+  leftImage="/images/trees/mango.jpg"
+  rightImage="/images/trees/maranon.jpg"
+  leftLabel="Mango"
+  rightLabel="Marañón"
+  caption="Single mango fruit vs cashew apple with attached nut"
+/>
 
 ---
 
@@ -251,6 +266,26 @@ Both mango and marañón (cashew) are beloved fruit trees in Costa Rica from the
 ---
 
 ## Quick Field Test
+
+<QuickDecisionFlow
+  title="Quick ID"
+  steps={[
+    {
+      question: "Is there a nut attached to a fleshy apple?",
+      yesAnswer: "Kidney-shaped nut at the bottom",
+      noAnswer: "Single large mango fruit",
+      yesResult: "Marañón",
+      noResult: "Mango",
+    },
+    {
+      question: "Are the leaf tips rounded?",
+      yesAnswer: "Rounded to slightly notched",
+      noAnswer: "Pointed, acuminate",
+      yesResult: "Marañón",
+      noResult: "Mango",
+    },
+  ]}
+/>
 
 1. **Is there a kidney-shaped nut attached to the bottom of a fleshy fruit?**
    - YES → Marañón (Cashew)
