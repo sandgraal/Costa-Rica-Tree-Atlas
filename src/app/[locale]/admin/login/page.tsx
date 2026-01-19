@@ -50,6 +50,11 @@ export default function AdminLoginPage() {
       console.log("result.error:", result?.error);
       console.log("result.status:", result?.status);
 
+      // Temporary alert for debugging
+      alert(
+        `Login result - ok: ${result?.ok}, error: ${result?.error}, status: ${result?.status}`
+      );
+
       if (result?.error) {
         console.log("Has error, setting error state");
         if (result.error === "MFA_REQUIRED") {
