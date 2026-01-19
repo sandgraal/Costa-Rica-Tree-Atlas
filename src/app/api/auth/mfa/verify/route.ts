@@ -14,7 +14,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { TOTP } from "otplib";
+import { TOTP } from "@otplib/totp";
 import { verify } from "argon2";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
@@ -81,12 +81,11 @@ export async function POST(request: NextRequest) {
     // 5. Try TOTP verification first (6-digit code)
     if (/^\d{6}$/.test(code)) {
       const totp = new TOTP();
-      const isValidTotp = totp.verify({
-        token: code,
+      const result = await totp.verify(code, {
         secret: decryptedSecret,
       });
 
-      if (isValidTotp) {
+      if (result.valid) {
         // Enable MFA
         await prisma.user.update({
           where: { id: user.id },
