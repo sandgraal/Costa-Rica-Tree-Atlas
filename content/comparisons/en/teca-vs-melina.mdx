@@ -35,21 +35,32 @@ Costa Rica's commercial forestry sector revolves around two dominant introduced 
 />
 
 <QuickDecisionFlow
-  title="Quick ID"
   steps={[
     {
       question: "What do the leaves feel like?",
-      yesAnswer: "Rough, sandpaper-like",
-      noAnswer: "Soft, velvety",
-      yesResult: "Teak",
-      noResult: "Gmelina",
+      options: [
+        {
+          answer: "Rough, sandpaper-like texture",
+          result: "Teak",
+        },
+        {
+          answer: "Soft, velvety underneath",
+          result: "Gmelina",
+        },
+      ],
     },
     {
       question: "Does the tree go completely leafless in dry season?",
-      yesAnswer: "Yes, bare branches",
-      noAnswer: "Still mostly green",
-      yesResult: "Teak",
-      noResult: "Gmelina",
+      options: [
+        {
+          answer: "Yes, completely bare branches (Feb-Mar)",
+          result: "Definitely Teak",
+        },
+        {
+          answer: "No, stays mostly green year-round",
+          result: "Definitely Gmelina",
+        },
+      ],
     },
   ]}
 />

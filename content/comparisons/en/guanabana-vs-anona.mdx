@@ -35,21 +35,32 @@ publishedAt: "2026-01-12"
 />
 
 <QuickDecisionFlow
-  title="Quick ID"
   steps={[
     {
-      question: "Is the fruit huge and spiny?",
-      yesAnswer: "Soft flexible spines",
-      noAnswer: "Small, scaly plates",
-      yesResult: "Guanábana",
-      noResult: "Anona",
+      question: "What does the fruit skin look like?",
+      options: [
+        {
+          answer: "Soft flexible spines, green",
+          result: "Guanábana",
+        },
+        {
+          answer: "Hard overlapping scales, red/brown",
+          result: "Anona",
+        },
+      ],
     },
     {
       question: "How big is the fruit?",
-      yesAnswer: "2-5 kg (football-sized)",
-      noAnswer: "200-500 g (palm-sized)",
-      yesResult: "Guanábana",
-      noResult: "Anona",
+      options: [
+        {
+          answer: "HUGE: 2-5 kg (football-sized)",
+          result: "Definitely Guanábana",
+        },
+        {
+          answer: "Small: 200-500g (palm-sized)",
+          result: "Definitely Anona",
+        },
+      ],
     },
   ]}
 />

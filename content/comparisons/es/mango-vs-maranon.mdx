@@ -269,21 +269,32 @@ Tanto el mango como el marañón son árboles frutales queridos en Costa Rica de
 ## Prueba Rápida de Campo
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
-      question: "¿Hay una nuez pegada a una manzana carnosa?",
-      yesAnswer: "Nuez en forma de riñón en la base",
-      noAnswer: "Fruto de mango único grande",
-      yesResult: "Marañón",
-      noResult: "Mango",
+      question: "¿Cómo es la estructura del fruto?",
+      options: [
+        {
+          answer: "Nuez en forma de riñón pegada a manzana carnosa",
+          result: "Marañón",
+        },
+        {
+          answer: "Fruto de mango único grande sin nuez externa",
+          result: "Mango",
+        },
+      ],
     },
     {
-      question: "¿Las puntas de las hojas son redondeadas?",
-      yesAnswer: "Redondeadas o ligeramente muescadas",
-      noAnswer: "Puntiagudas, acuminadas",
-      yesResult: "Marañón",
-      noResult: "Mango",
+      question: "¿Cómo son las puntas de las hojas?",
+      options: [
+        {
+          answer: "Redondeadas o ligeramente muescadas",
+          result: "Definitivamente Marañón",
+        },
+        {
+          answer: "Puntiagudas, acuminadas",
+          result: "Definitivamente Mango",
+        },
+      ],
     },
   ]}
 />

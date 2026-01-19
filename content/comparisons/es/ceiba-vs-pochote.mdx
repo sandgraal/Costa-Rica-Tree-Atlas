@@ -206,21 +206,32 @@ Ambos árboles pueden ser confusos en estas situaciones:
 ## Prueba Rápida de Campo
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
       question: "¿La base del tronco tiene contrafuertes?",
-      yesAnswer: "Raíces tabulares en forma de ala",
-      noAnswer: "Tronco recto hasta el suelo",
-      yesResult: "Ceiba",
-      noResult: "Pochote",
+      options: [
+        {
+          answer: "Sí, raíces tabulares masivas en forma de ala",
+          result: "Ceiba",
+        },
+        {
+          answer: "No, tronco recto hasta el suelo",
+          result: "Pochote",
+        },
+      ],
     },
     {
       question: "¿Qué color son las flores?",
-      yesAnswer: "Blancas o rosa pálido",
-      noAnswer: "Naranja-rojo",
-      yesResult: "Ceiba",
-      noResult: "Pochote",
+      options: [
+        {
+          answer: "Blancas o rosa pálido",
+          result: "Definitivamente Ceiba",
+        },
+        {
+          answer: "Naranja-rojo brillante",
+          result: "Definitivamente Pochote",
+        },
+      ],
     },
   ]}
 />

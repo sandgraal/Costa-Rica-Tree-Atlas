@@ -35,21 +35,32 @@ El sector forestal comercial de Costa Rica gira en torno a dos especies introduc
 />
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
       question: "¿Cómo se sienten las hojas?",
-      yesAnswer: "Ásperas, como lija",
-      noAnswer: "Suaves y aterciopeladas",
-      yesResult: "Teca",
-      noResult: "Melina",
+      options: [
+        {
+          answer: "Ásperas, textura como lija",
+          result: "Teca",
+        },
+        {
+          answer: "Suaves y aterciopeladas",
+          result: "Melina",
+        },
+      ],
     },
     {
       question: "¿Pierde todas las hojas en estación seca?",
-      yesAnswer: "Sí, ramas desnudas",
-      noAnswer: "Se mantiene más verde",
-      yesResult: "Teca",
-      noResult: "Melina",
+      options: [
+        {
+          answer: "Sí, ramas completamente desnudas (feb-mar)",
+          result: "Definitivamente Teca",
+        },
+        {
+          answer: "No, se mantiene mayormente verde todo el año",
+          result: "Definitivamente Melina",
+        },
+      ],
     },
   ]}
 />

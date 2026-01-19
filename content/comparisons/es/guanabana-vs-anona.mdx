@@ -35,21 +35,32 @@ publishedAt: "2026-01-12"
 />
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
-      question: "¿La fruta es enorme y espinosa?",
-      yesAnswer: "Espinas suaves y flexibles",
-      noAnswer: "Escamas pequeñas y duras",
-      yesResult: "Guanábana",
-      noResult: "Anona",
+      question: "¿Cómo se ve la piel de la fruta?",
+      options: [
+        {
+          answer: "Espinas suaves y flexibles, verde",
+          result: "Guanábana",
+        },
+        {
+          answer: "Escamas duras superpuestas, rojo/café",
+          result: "Anona",
+        },
+      ],
     },
     {
       question: "¿Qué tan grande es la fruta?",
-      yesAnswer: "2-5 kg (tamaño balón)",
-      noAnswer: "200-500 g (tamaño palma)",
-      yesResult: "Guanábana",
-      noResult: "Anona",
+      options: [
+        {
+          answer: "ENORME: 2-5 kg (tamaño balón)",
+          result: "Definitivamente Guanábana",
+        },
+        {
+          answer: "Pequeña: 200-500g (tamaño palma)",
+          result: "Definitivamente Anona",
+        },
+      ],
     },
   ]}
 />

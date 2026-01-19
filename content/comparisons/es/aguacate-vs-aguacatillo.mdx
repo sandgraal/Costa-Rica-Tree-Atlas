@@ -54,21 +54,32 @@ Dos miembros del género Persea (familia Lauraceae) con nombres confusamente sim
 - **Árbol emergente de dosel alto (15-30m)** → Aguacatillo (bosque silvestre)
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
       question: "¿En qué elevación está?",
-      yesAnswer: "Bosque nuboso (1200m+)",
-      noAnswer: "Tierras bajas o elevación media",
-      yesResult: "Aguacatillo",
-      noResult: null,
+      options: [
+        {
+          answer: "Bosque nuboso (1200m+)",
+          result: "Aguacatillo",
+        },
+        {
+          answer: "Tierras bajas o elevación media",
+          result: "Probablemente Aguacate",
+        },
+      ],
     },
     {
       question: "¿Qué tamaño tienen los frutos?",
-      yesAnswer: "Diminutos, como canicas",
-      noAnswer: "Grandes, tamaño de puño",
-      yesResult: "Aguacatillo",
-      noResult: "Aguacate",
+      options: [
+        {
+          answer: "Diminutos, como canicas (2-3 cm)",
+          result: "Definitivamente Aguacatillo",
+        },
+        {
+          answer: "Grandes, tamaño de puño (7-20 cm)",
+          result: "Definitivamente Aguacate",
+        },
+      ],
     },
   ]}
 />
