@@ -5,6 +5,13 @@ slug: "cocobolo-vs-cristobal"
 species: ["cocobolo", "cristobal"]
 keyDifference: "El Cocobolo es un árbol pequeño críticamente amenazado (15-25 m) con duramen rojo-naranja y protección CITES, mientras que el Cristóbal es un árbol de dosel casi amenazado (25-40 m) con duramen púrpura y distribución más amplia—ambos valiosos pero con perfiles fundamentalmente diferentes de conservación y tamaño."
 description: "Compare las especies de palo de rosa premium Cocobolo y Cristóbal en Costa Rica, comprendiendo sus diferencias críticas en tamaño, color de madera, estado de conservación y características de identificación."
+featuredImages:
+  - "/images/trees/cocobolo.jpg"
+  - "/images/trees/cristobal.jpg"
+confusionRating: 2
+comparisonTags: ["size", "trunk", "bark", "leaves", "habitat"]
+seasonalNote: "Mejor distinguido por tamaño de árbol y forma de tronco durante todo el año; color de madera diagnóstico cuando está cortado"
+difficulty: "easy"
 publishedAt: "2026-01-12"
 ---
 
@@ -19,6 +26,60 @@ Los bosques secos de Costa Rica albergan dos de las especies maderables más val
   mucho más amenazado y enfrenta restricciones comerciales internacionales.
   Nunca coseche sin los permisos adecuados.
 </Callout>
+
+<SideBySideImages
+  leftImage="/images/trees/cocobolo.jpg"
+  rightImage="/images/trees/cristobal.jpg"
+  leftLabel="Cocobolo"
+  rightLabel="Cristóbal"
+  caption="Árbol pequeño y nudoso vs árbol alto de dosel recto"
+/>
+
+<QuickDecisionFlow
+  steps={[
+    {
+      question: "¿Cuál es el tamaño del árbol?",
+      options: [
+        {
+          answer: "Árbol pequeño, 15-25 m de altura, tronco corto irregular",
+          result: "Probablemente Cocobolo",
+        },
+        {
+          answer: "Árbol grande, 25-40 m de altura, tronco alto y recto",
+          result: "Probablemente Cristóbal",
+        },
+      ],
+    },
+    {
+      question: "Revise la corteza y forma del tronco",
+      options: [
+        {
+          answer:
+            "Corteza áspera, profundamente fisurada; a menudo multi-tallos",
+          result: "Cocobolo",
+        },
+        {
+          answer: "Corteza lisa a ligeramente fisurada; tronco recto único",
+          result: "Cristóbal",
+        },
+      ],
+    },
+    {
+      question: "Si tiene madera cortada, ¿cuál es el color del duramen?",
+      options: [
+        {
+          answer:
+            "Naranja-rojo a rojo profundo con marmoleado negro, muy aceitoso",
+          result: "Definitivamente Cocobolo",
+        },
+        {
+          answer: "Púrpura-marrón a marrón rojizo oscuro, menos aceitoso",
+          result: "Definitivamente Cristóbal",
+        },
+      ],
+    },
+  ]}
+/>
 
 ---
 

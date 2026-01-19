@@ -34,6 +34,7 @@ import {
   ImageGallery,
   Tabs,
   GlossaryTooltip,
+  SideBySideImages,
 } from "@/components/mdx/client-components";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 
@@ -130,6 +131,7 @@ export async function ServerMDXContent({
     ImageGallery,
     Tabs,
     GlossaryTooltip,
+    SideBySideImages,
     ...components,
   };
 
