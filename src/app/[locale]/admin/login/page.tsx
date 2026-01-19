@@ -28,56 +28,49 @@ export default function AdminLoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("=== Form submitted ===");
     setError("");
     setLoading(true);
 
     try {
-      console.log("Calling signIn with:", {
-        email,
-        passwordLength: password.length,
+      // Use fetch to call NextAuth directly for better cookie handling
+      const response = await fetch("/api/auth/callback/credentials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          email,
+          password,
+          ...(showMfa && totpCode ? { totpCode } : {}),
+          callbackUrl: "/en/admin/images",
+          json: "true",
+        }),
+        credentials: "same-origin",
       });
 
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-        totpCode: showMfa ? totpCode : undefined,
-      });
+      const result = await response.json();
 
-      console.log("=== Login result ===", result);
-
-      if (result?.error) {
-        console.log("Has error, setting error state");
+      if (result.error) {
         if (result.error === "MFA_REQUIRED") {
           setShowMfa(true);
           setError("Please enter your 2FA code");
         } else {
           setError(`Authentication failed: ${result.error}`);
         }
-      } else if (result?.ok) {
-        console.log("Login successful - using signIn with redirect");
-        // Call signIn again with redirect: true to properly set cookies
-        await signIn("credentials", {
-          email,
-          password,
-          totpCode: showMfa ? totpCode : undefined,
-          callbackUrl: "/en/admin/images",
-        });
+        setLoading(false);
+      } else if (result.url) {
+        // Success - redirect
+        window.location.href = result.url;
       } else {
-        console.log("Neither ok nor error - setting fallback error");
-        setError(
-          "Login failed. Please check your credentials or contact support."
-        );
+        setError("Login failed. Please try again.");
+        setLoading(false);
       }
     } catch (err) {
-      console.error("=== Login exception ===", err);
+      console.error("Login exception:", err);
       setError(
         `An error occurred: ${err instanceof Error ? err.message : "Unknown error"}`
       );
-    } finally {
       setLoading(false);
-      console.log("=== Login complete, loading:", false);
     }
   };
 
