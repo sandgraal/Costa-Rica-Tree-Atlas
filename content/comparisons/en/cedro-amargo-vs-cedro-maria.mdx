@@ -34,21 +34,32 @@ Both trees are called "cedro" (cedar) in Costa Rica, but they belong to complete
 />
 
 <QuickDecisionFlow
-  title="Quick ID"
   steps={[
     {
       question: "Are the leaves compound?",
-      yesAnswer: "Many small leaflets",
-      noAnswer: "Single blade, opposite",
-      yesResult: "Cedro Amargo",
-      noResult: "Cedro María",
+      options: [
+        {
+          answer: "Many small leaflets arranged feather-like",
+          result: "Cedro Amargo",
+        },
+        {
+          answer: "Single blade, leaves in pairs (opposite)",
+          result: "Cedro María",
+        },
+      ],
     },
     {
       question: "Do you see yellow latex when cut?",
-      yesAnswer: "Yellow sticky latex",
-      noAnswer: "Little or no sap",
-      yesResult: "Cedro María",
-      noResult: "Cedro Amargo",
+      options: [
+        {
+          answer: "Yellow sticky latex flows out",
+          result: "Definitely Cedro María",
+        },
+        {
+          answer: "Little or no sap",
+          result: "Definitely Cedro Amargo",
+        },
+      ],
     },
   ]}
 />

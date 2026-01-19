@@ -54,21 +54,32 @@ Dos árboles medianos ambos valorados por su madera y usos prácticos, pero repr
 - **Crecimiento extremadamente rápido, rebrota vigorosamente** → Madero Negro
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
       question: "¿Qué color son las flores?",
-      yesAnswer: "Azul profundo",
-      noAnswer: "Rosa o púrpura",
-      yesResult: "Guayacán Real",
-      noResult: "Madero Negro",
+      options: [
+        {
+          answer: "Azul profundo a púrpura (¡raro!)",
+          result: "Guayacán Real",
+        },
+        {
+          answer: "Rosa brillante a rosa-púrpura",
+          result: "Madero Negro",
+        },
+      ],
     },
     {
       question: "¿Qué tan grandes son los folíolos?",
-      yesAnswer: "Muy pequeños y emparejados",
-      noAnswer: "Grandes",
-      yesResult: "Guayacán Real",
-      noResult: "Madero Negro",
+      options: [
+        {
+          answer: "Muy pequeños emparejados (1-2 cm), 6-10 total",
+          result: "Definitivamente Guayacán Real",
+        },
+        {
+          answer: "Grandes folíolos (3-7 cm), 7-17 total",
+          result: "Definitivamente Madero Negro",
+        },
+      ],
     },
   ]}
 />

@@ -53,21 +53,32 @@ Two members of the Persea genus (Lauraceae family) with confusingly similar name
 - **Tall emergent canopy tree (15-30m)** → Aguacatillo (wild forest)
 
 <QuickDecisionFlow
-  title="Quick ID"
   steps={[
     {
       question: "What elevation are you at?",
-      yesAnswer: "Cloud forest (1200m+)",
-      noAnswer: "Lowlands or mid-elevation",
-      yesResult: "Aguacatillo",
-      noResult: null,
+      options: [
+        {
+          answer: "Cloud forest (1200m+)",
+          result: "Aguacatillo",
+        },
+        {
+          answer: "Lowlands or mid-elevation",
+          result: "Likely Aguacate",
+        },
+      ],
     },
     {
       question: "How big are the fruits?",
-      yesAnswer: "Tiny, marble-sized",
-      noAnswer: "Large, fist-sized",
-      yesResult: "Aguacatillo",
-      noResult: "Aguacate",
+      options: [
+        {
+          answer: "Tiny, marble-sized (2-3 cm)",
+          result: "Definitely Aguacatillo",
+        },
+        {
+          answer: "Large, fist-sized (7-20 cm)",
+          result: "Definitely Aguacate",
+        },
+      ],
     },
   ]}
 />

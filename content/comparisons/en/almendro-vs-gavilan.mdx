@@ -35,21 +35,32 @@ Both Almendro and Gavilán are impressive legume trees dominating Costa Rica's l
 />
 
 <QuickDecisionFlow
-  title="Quick ID"
   steps={[
     {
-      question: "Are the leaves twice-pinnate and feathery?",
-      yesAnswer: "Many tiny leaflets",
-      noAnswer: "5-9 large leaflets",
-      yesResult: "Gavilán",
-      noResult: "Almendro",
+      question: "What type of leaves does it have?",
+      options: [
+        {
+          answer: "Twice-pinnate feathery with many tiny leaflets",
+          result: "Gavilán",
+        },
+        {
+          answer: "Once-pinnate with 5-9 large leaflets",
+          result: "Almendro",
+        },
+      ],
     },
     {
-      question: "Do you see huge flat pods?",
-      yesAnswer: "Explosive 25-50 cm pods",
-      noAnswer: "Single drupes with vanilla scent",
-      yesResult: "Gavilán",
-      noResult: "Almendro",
+      question: "What type of fruits do you see?",
+      options: [
+        {
+          answer: "Huge flat explosive pods (25-50 cm)",
+          result: "Definitely Gavilán",
+        },
+        {
+          answer: "Single drupes with vanilla/coumarin scent",
+          result: "Definitely Almendro",
+        },
+      ],
     },
   ]}
 />

@@ -249,21 +249,32 @@ Ambos árboles pueden ser confusos en estas situaciones:
 ## Prueba Rápida de Campo
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
       question: "¿Qué forma tienen las vainas?",
-      yesAnswer: "Espiral en forma de oreja",
-      noAnswer: "Largas y rectas",
-      yesResult: "Guanacaste",
-      noResult: "Cenízaro",
+      options: [
+        {
+          answer: "Espiral en forma de oreja, circular",
+          result: "Guanacaste",
+        },
+        {
+          answer: "Largas, planas y rectas",
+          result: "Cenízaro",
+        },
+      ],
     },
     {
       question: "¿Qué tan grandes son las hojuelas?",
-      yesAnswer: "Muy pequeñas y plumosas",
-      noAnswer: "Más grandes y evidentes",
-      yesResult: "Guanacaste",
-      noResult: "Cenízaro",
+      options: [
+        {
+          answer: "Muy pequeñas y plumosas (5-8mm)",
+          result: "Definitivamente Guanacaste",
+        },
+        {
+          answer: "Más grandes y evidentes (2-4cm)",
+          result: "Definitivamente Cenízaro",
+        },
+      ],
     },
   ]}
 />

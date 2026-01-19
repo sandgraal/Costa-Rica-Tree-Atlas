@@ -34,21 +34,32 @@ Ambos árboles se llaman "cedro" en Costa Rica, pero pertenecen a familias botá
 />
 
 <QuickDecisionFlow
-  title="Identificación rápida"
   steps={[
     {
       question: "¿Las hojas son compuestas?",
-      yesAnswer: "Muchos folíolos pequeños",
-      noAnswer: "Lámina única, opuesta",
-      yesResult: "Cedro Amargo",
-      noResult: "Cedro María",
+      options: [
+        {
+          answer: "Muchos folíolos pequeños dispuestos como pluma",
+          result: "Cedro Amargo",
+        },
+        {
+          answer: "Lámina única, hojas en pares (opuestas)",
+          result: "Cedro María",
+        },
+      ],
     },
     {
       question: "¿Sale látex amarillo al cortar?",
-      yesAnswer: "Látex amarillo pegajoso",
-      noAnswer: "Poca o ninguna savia",
-      yesResult: "Cedro María",
-      noResult: "Cedro Amargo",
+      options: [
+        {
+          answer: "Látex amarillo pegajoso fluye",
+          result: "Definitivamente Cedro María",
+        },
+        {
+          answer: "Poca o ninguna savia",
+          result: "Definitivamente Cedro Amargo",
+        },
+      ],
     },
   ]}
 />

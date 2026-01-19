@@ -54,21 +54,32 @@ Two medium-sized trees both valued for their wood and practical uses, but repres
 - **Extremely fast growth, coppices vigorously** → Madero Negro
 
 <QuickDecisionFlow
-  title="Quick ID"
   steps={[
     {
       question: "What color are the flowers?",
-      yesAnswer: "Deep blue",
-      noAnswer: "Pink or purple",
-      yesResult: "Guayacán Real",
-      noResult: "Madero Negro",
+      options: [
+        {
+          answer: "Deep blue to purple (rare!)",
+          result: "Guayacán Real",
+        },
+        {
+          answer: "Bright pink to purple-pink",
+          result: "Madero Negro",
+        },
+      ],
     },
     {
       question: "How big are the leaflets?",
-      yesAnswer: "Tiny paired leaflets",
-      noAnswer: "Large leaflets",
-      yesResult: "Guayacán Real",
-      noResult: "Madero Negro",
+      options: [
+        {
+          answer: "Tiny paired leaflets (1-2 cm), 6-10 total",
+          result: "Definitely Guayacán Real",
+        },
+        {
+          answer: "Large leaflets (3-7 cm), 7-17 total",
+          result: "Definitely Madero Negro",
+        },
+      ],
     },
   ]}
 />
