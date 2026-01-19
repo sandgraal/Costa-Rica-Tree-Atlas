@@ -146,6 +146,20 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 7 * 24 * 60 * 60, // 7 days
   },
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NODE_ENV === "production"
+          ? "__Secure-next-auth.session-token"
+          : "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   pages: {
     signIn: "/admin/login",
     error: "/admin/login",
