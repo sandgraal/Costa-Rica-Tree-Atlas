@@ -102,13 +102,13 @@ export default async function ComparisonPage({ params }: Props) {
             <div className="mb-4 flex flex-wrap gap-3">
               {speciesTrees.map((tree) => (
                 <Link
-                  key={tree!.slug}
-                  href={`/trees/${tree!.slug}`}
+                  key={tree?.slug}
+                  href={`/trees/${tree?.slug}`}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors"
                 >
-                  <span className="font-medium">{tree!.title}</span>
+                  <span className="font-medium">{tree?.title}</span>
                   <span className="text-sm italic opacity-80">
-                    {tree!.scientificName}
+                    {tree?.scientificName}
                   </span>
                 </Link>
               ))}

@@ -693,7 +693,7 @@ function ComparisonLinks({
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1 text-sm">
                     {locale === "es" ? "Comparar con" : "Compare with"}{" "}
-                    {otherSpecies.map((t) => t!.title).join(", ")}
+                    {otherSpecies.map((t) => t?.title).join(", ")}
                   </h3>
                   <p className="text-xs text-muted-foreground line-clamp-2">
                     {comparison.keyDifference}

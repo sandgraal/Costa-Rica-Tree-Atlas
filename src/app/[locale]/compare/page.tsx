@@ -114,10 +114,10 @@ function ComparePageClient({
                     <div className="mb-3 flex flex-wrap gap-2">
                       {speciesTrees.map((tree) => (
                         <span
-                          key={tree!.slug}
+                          key={tree?.slug}
                           className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full"
                         >
-                          {tree!.title}
+                          {tree?.title}
                         </span>
                       ))}
                     </div>
