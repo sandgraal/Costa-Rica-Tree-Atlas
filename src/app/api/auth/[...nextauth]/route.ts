@@ -3,8 +3,8 @@
  *
  * Handles authentication with:
  * - Credentials provider (email/password with Argon2id verification)
- * - Database session strategy
- * - MFA support via callbacks
+ * - JWT session strategy
+ * - MFA support via TOTP and backup codes
  * - Audit logging
  *
  * @see https://next-auth.js.org/configuration/options
@@ -14,6 +14,8 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { verify } from "argon2";
 import prisma from "@/lib/prisma";
+import { decryptTotpSecret } from "@/lib/auth/mfa-crypto";
+import { verifyBackupCode } from "@/lib/auth/backup-codes";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -82,24 +84,49 @@ export const authOptions: NextAuthOptions = {
               throw new Error("MFA_REQUIRED");
             }
 
-            // Verify TOTP or backup code (will be implemented in MFA API)
-            const { TOTP } = await import("@otplib/totp");
             const mfaSecret = user.mfaSecrets[0];
 
             if (!mfaSecret || !mfaSecret.totpSecret) {
               throw new Error("MFA configuration error");
             }
 
-            // Decrypt TOTP secret (will need crypto utility)
-            // For now, assume it's decrypted
-            const totp = new TOTP();
-            const result = await totp.verify(credentials.totpCode, {
-              secret: mfaSecret.totpSecret, // TODO: Decrypt this
-            });
+            // First, try to verify as TOTP code
+            let mfaValid = false;
 
-            if (!result.valid) {
-              // Check backup codes
-              // TODO: Implement backup code verification
+            // Check if input looks like a backup code (format: XXXX-XXXX-XXXX)
+            const isBackupCodeFormat =
+              /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/i.test(
+                credentials.totpCode
+              );
+
+            if (!isBackupCodeFormat) {
+              // Verify as TOTP code
+              try {
+                const { TOTP } = await import("@otplib/totp");
+                const decryptedSecret = await decryptTotpSecret(
+                  mfaSecret.totpSecret
+                );
+                const totp = new TOTP();
+                const result = await totp.verify(credentials.totpCode, {
+                  secret: decryptedSecret,
+                });
+                mfaValid = result.valid;
+              } catch (error) {
+                console.error("[NextAuth] TOTP verification error:", error);
+                mfaValid = false;
+              }
+            }
+
+            // If TOTP failed or input looks like backup code, try backup code
+            if (!mfaValid) {
+              const backupResult = await verifyBackupCode(
+                user.id,
+                credentials.totpCode.toUpperCase()
+              );
+              mfaValid = backupResult.valid;
+            }
+
+            if (!mfaValid) {
               await prisma.auditLog.create({
                 data: {
                   userId: user.id,

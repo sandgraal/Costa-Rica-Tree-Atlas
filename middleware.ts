@@ -14,10 +14,7 @@ import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
-import { secureCompare } from "@/lib/auth/secure-compare";
 import { getSessionFromRequest } from "@/lib/auth/session";
-import { serverEnv } from "@/lib/env/schema";
 import {
   generateNonce,
   buildCSP,
@@ -84,7 +81,7 @@ export default async function middleware(request: NextRequest) {
       return new NextResponse("HTTPS required", { status: 403 });
     }
 
-    // 2. Try NextAuth session first (primary method)
+    // 2. Verify NextAuth JWT session
     const session = await getSessionFromRequest(request);
 
     if (session) {
@@ -101,79 +98,7 @@ export default async function middleware(request: NextRequest) {
       return response;
     }
 
-    // 3. Fallback to HTTP Basic Auth (DEPRECATED - for migration period only)
-    const adminPassword = serverEnv.ADMIN_PASSWORD;
-    const adminUsername = serverEnv.ADMIN_USERNAME;
-
-    // If neither NextAuth session nor Basic Auth configured, redirect to login
-    if (!adminPassword) {
-      // Extract locale from pathname
-      const localeMatch = pathname.match(/^\/(en|es)\//);
-      const locale = localeMatch ? localeMatch[1] : "en";
-      const loginUrl = new URL(`/${locale}/admin/login`, request.url);
-      return NextResponse.redirect(loginUrl);
-    }
-
-    // 4. Rate limiting check (only for Basic Auth attempts)
-    const rateLimitResult = await constantTimeRateLimitCheck(request);
-
-    if (!rateLimitResult.allowed) {
-      // Rate limit exceeded - return generic error
-      return new NextResponse("Too many requests. Please try again later.", {
-        status: 429,
-        headers: {
-          "Retry-After": rateLimitResult.retryAfter.toString(),
-          "Content-Type": "text/plain",
-          // NO X-RateLimit-Remaining header!
-        },
-      });
-    }
-
-    // 5. Check Basic Auth credentials (DEPRECATED)
-    const basicAuth = request.headers.get("authorization");
-
-    if (basicAuth) {
-      const authValue = basicAuth.split(" ")[1];
-      if (authValue) {
-        try {
-          const decoded = atob(authValue);
-          const colonIndex = decoded.indexOf(":");
-
-          if (colonIndex !== -1) {
-            const user = decoded.substring(0, colonIndex);
-            const pwd = decoded.substring(colonIndex + 1);
-
-            // CRITICAL: Check BOTH credentials ALWAYS, regardless of individual results
-            // This prevents timing attacks and username enumeration
-            const userValid = await secureCompare(user, adminUsername);
-            const pwdValid = await secureCompare(pwd, adminPassword);
-
-            // IMPORTANT: Both comparisons above are evaluated before this check
-            // This ensures consistent timing regardless of which credential is wrong
-            const isAuthenticated = userValid && pwdValid;
-
-            if (isAuthenticated) {
-              // Authentication successful via Basic Auth
-              const response = intlMiddleware(request);
-
-              // Add security headers
-              const csp = buildCSP(nonce);
-              response.headers.set("Content-Security-Policy", csp);
-              response.headers.set("X-Content-Type-Options", "nosniff");
-              response.headers.set("X-Frame-Options", "SAMEORIGIN");
-              response.headers.set("X-Nonce", nonce);
-
-              return response;
-            }
-          }
-        } catch (error) {
-          // Invalid base64 or malformed auth header
-          console.error("Auth parsing error:", error);
-        }
-      }
-    }
-
-    // 6. No valid authentication - redirect to login page
+    // 3. No valid session - redirect to login page
     const localeMatch = pathname.match(/^\/(en|es)\//);
     const locale = localeMatch ? localeMatch[1] : "en";
     const loginUrl = new URL(`/${locale}/admin/login`, request.url);
