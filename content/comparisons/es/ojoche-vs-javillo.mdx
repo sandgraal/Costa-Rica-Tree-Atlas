@@ -5,6 +5,13 @@ slug: "ojoche-vs-javillo"
 species: ["ojoche", "javillo"]
 keyDifference: "El Ojoche es excepcionalmente seguro con semillas comestibles, mientras que el Javillo es uno de los árboles más peligrosos de las Américas con savia cáustica y cápsulas explosivas."
 description: "Aprenda a distinguir entre Brosimum alicastrum (superalimento seguro) y Hura crepitans (árbol de peligro altamente tóxico)—dos árboles altos de bosque lluvioso con perfiles de seguridad opuestos."
+featuredImages:
+  - "/images/trees/ojoche.jpg"
+  - "/images/trees/javillo.jpg"
+confusionRating: 1
+comparisonTags: ["trunk", "fruit", "size", "habitat"]
+seasonalNote: "Espinas del tronco visibles todo el año; distinción de SEGURIDAD CRÍTICA en todo momento"
+difficulty: "easy"
 publishedAt: "2026-01-12"
 ---
 
@@ -18,6 +25,47 @@ Dos gigantes del bosque lluvioso que comparten hábitats y alturas similares, pe
   explosivas, semillas fatales) Esta es quizás la identificación de árboles más
   importante que puede aprender en Costa Rica.
 </Callout>
+
+<SideBySideImages
+  leftImage="/images/trees/ojoche.jpg"
+  rightImage="/images/trees/javillo.jpg"
+  leftLabel="Ojoche (SEGURO)"
+  rightLabel="Javillo (PELIGRO)"
+  caption="Tronco liso y seguro vs tronco cubierto de espinas peligrosas"
+/>
+
+<QuickDecisionFlow
+  steps={[
+    {
+      question: "¿El tronco tiene espinas?",
+      options: [
+        {
+          answer: "SIN ESPINAS - corteza lisa gris claro, seguro al tacto",
+          result: "Ojoche (SEGURO - semillas comestibles)",
+        },
+        {
+          answer: "CUBIERTO DE ESPINAS CÓNICAS AFILADAS (1-5cm)",
+          result: "Javillo (¡PELIGRO - manténgase alejado!)",
+        },
+      ],
+    },
+    {
+      question: "¿Qué tipo de frutos/semillas ve?",
+      options: [
+        {
+          answer:
+            "Pequeños frutos carnosos redondos (1-2 cm), semillas marrones nutritivas",
+          result: "Definitivamente Ojoche (superalimento seguro)",
+        },
+        {
+          answer:
+            "Grandes cápsulas con forma de calabaza (8-15 cm) - EXPLOSIVAS",
+          result: "Definitivamente Javillo (PELIGRO EXTREMO)",
+        },
+      ],
+    },
+  ]}
+/>
 
 ---
 
