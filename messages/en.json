@@ -596,5 +596,49 @@
     "errorRateLimit": "You're voting too fast! Please wait a moment.",
     "errorVoteFailed": "Failed to submit vote. Please try again.",
     "errorFlagFailed": "Failed to submit report. Please try again."
+  },
+  "contribute": {
+    "uploadPhoto": {
+      "title": "Contribute a Photo",
+      "description": "Share your tree photos to help improve our atlas. Your contributions are reviewed before being added.",
+      "loginRequired": "Please sign in to upload photos.",
+      "signIn": "Sign In",
+      "guidelinesTitle": "Photo Guidelines",
+      "guideline1": "Photos must be your own work or have permission to share",
+      "guideline2": "Clearly show the tree part (bark, leaves, flowers, etc.)",
+      "guideline3": "Good lighting and focus - avoid blurry or dark images",
+      "guideline4": "Minimum resolution: 800x600 pixels",
+      "dropzone": "Drop your photo here or click to browse",
+      "dropzoneHint": "Accepted formats: {types} • Max size: {maxMB}MB",
+      "removeFile": "Remove",
+      "changeFile": "Change Photo",
+      "selectTree": "Which tree is this?",
+      "searchPlaceholder": "Search by name...",
+      "selectTreePlaceholder": "Select a tree species...",
+      "imageType": "What part of the tree?",
+      "types": {
+        "fullTree": "Full Tree",
+        "bark": "Bark",
+        "leaves": "Leaves",
+        "flowers": "Flowers",
+        "fruit": "Fruit",
+        "roots": "Roots",
+        "habitat": "Habitat",
+        "featuredImage": "Featured"
+      },
+      "attribution": "Photo Credit (optional)",
+      "attributionPlaceholder": "e.g., Your name or 'Photo taken at Monteverde'",
+      "attributionHint": "How you'd like to be credited for this photo",
+      "notes": "Additional Notes (optional)",
+      "notesPlaceholder": "e.g., Location, date, or any helpful details...",
+      "uploading": "Uploading...",
+      "submit": "Submit Photo",
+      "termsNote": "By submitting, you confirm this is your photo and agree to share it under CC BY-NC-SA 4.0 license.",
+      "success": "Photo uploaded successfully!",
+      "successNote": "Your photo will be reviewed by our team. Thank you for contributing!",
+      "errorInvalidType": "Invalid file type. Please use JPEG, PNG, or WebP.",
+      "errorTooLarge": "File too large. Maximum size is {maxMB}MB.",
+      "errorGeneric": "Upload failed. Please try again."
+    }
   }
 }

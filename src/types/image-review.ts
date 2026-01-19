@@ -28,12 +28,14 @@ export const IMAGE_PROPOSAL_STATUSES: ImageProposalStatus[] = [
 // Source of the proposal
 export type ImageProposalSource =
   | "WORKFLOW" // From weekly-image-quality workflow
+  | "USER_UPLOAD" // From user photo upload
   | "USER_FLAG" // From user flagging an image
   | "ADMIN" // Manually created by admin
   | "SCRIPT"; // From ad-hoc scripts
 
 export const IMAGE_PROPOSAL_SOURCES: ImageProposalSource[] = [
   "WORKFLOW",
+  "USER_UPLOAD",
   "USER_FLAG",
   "ADMIN",
   "SCRIPT",
