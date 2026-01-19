@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { allTrees, allGlossaryTerms } from "contentlayer/generated";
+import {
+  allTrees,
+  allGlossaryTerms,
+  allSpeciesComparisons,
+} from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -433,6 +437,9 @@ export default async function TreePage({ params }: Props) {
               {/* Safety Disclaimer */}
               <SafetyDisclaimer />
 
+              {/* Comparison Links */}
+              <ComparisonLinks currentTree={tree} locale={locale} />
+
               {/* Related Trees */}
               <RelatedTrees currentTree={tree} locale={locale} />
             </div>
@@ -619,6 +626,95 @@ function RelatedTrees({
                 <p className="text-xs text-muted-foreground italic truncate">
                   {tree.scientificName}
                 </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ComparisonLinks({
+  currentTree,
+  locale,
+}: {
+  currentTree: (typeof allTrees)[0];
+  locale: string;
+}) {
+  // Find comparisons that include this tree
+  const relevantComparisons = allSpeciesComparisons.filter(
+    (comp) => comp.locale === locale && comp.species.includes(currentTree.slug)
+  );
+
+  if (relevantComparisons.length === 0) return null;
+
+  return (
+    <div className="mt-12 pt-8 border-t border-border no-print">
+      <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
+        {locale === "es" ? "Guías de Comparación" : "Comparison Guides"}
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {relevantComparisons.map((comparison) => {
+          // Get the other species in the comparison
+          const otherSpeciesSlugs = comparison.species.filter(
+            (slug) => slug !== currentTree.slug
+          );
+          const otherSpecies = otherSpeciesSlugs
+            .map((slug) =>
+              allTrees.find((t) => t.slug === slug && t.locale === locale)
+            )
+            .filter(Boolean);
+
+          return (
+            <Link
+              key={comparison._id}
+              href={`/compare/${comparison.slug}`}
+              className="group bg-card rounded-lg border border-border p-4 hover:border-primary/50 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 text-primary"
+                  >
+                    <path d="M18 21a8 8 0 0 0-16 0" />
+                    <circle cx="10" cy="8" r="5" />
+                    <path d="M22 21a8 8 0 0 0-16 0" />
+                    <circle cx="18" cy="8" r="5" />
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1 text-sm">
+                    {locale === "es" ? "Comparar con" : "Compare with"}{" "}
+                    {otherSpecies.map((t) => t?.title).join(", ")}
+                  </h3>
+                  <p className="text-xs text-muted-foreground line-clamp-2">
+                    {comparison.keyDifference}
+                  </p>
+                  <div className="mt-2 text-xs text-primary font-medium flex items-center gap-1">
+                    {locale === "es" ? "Leer guía" : "Read guide"}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-3 w-3"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </Link>
           );

@@ -231,7 +231,7 @@
     }
   },
   "comparison": {
-    "title": "Comparison Tool",
+    "title": "Tree Comparison",
     "subtitle": "Compare characteristics of different tree species side by side",
     "selectTree": "Select a tree",
     "selectPlaceholder": "Add a tree to compare...",
@@ -240,6 +240,13 @@
     "noTreesSelected": "Select up to 4 trees to compare their characteristics",
     "clearAll": "Clear all",
     "navLink": "Compare",
+    "guidesTitle": "Comparison Guides",
+    "guidesSubtitle": "Expert guides to distinguish commonly confused tree species",
+    "readGuide": "Read Guide",
+    "keyDifference": "Key Difference",
+    "comparingSpecies": "Comparing",
+    "toolTitle": "Interactive Comparison Tool",
+    "toolSubtitle": "Or compare any trees side-by-side using our interactive tool",
     "properties": {
       "image": "Image",
       "commonName": "Common Name",
