@@ -1,17 +1,22 @@
 # Tree Page Content Standardization Guide
 
-> **Goal**: Bring all 107 tree pages up to a consistent, well-fleshed quality level WITHOUT losing any existing content.
+> **Living Document**: This guide is updated quarterly to reflect current content state and quality standards. Last updated: **January 2026**
+
+> **Goal**: Bring all tree pages up to a consistent, well-fleshed quality level WITHOUT losing any existing content.
 
 ## Executive Summary
 
-**Current State Analysis** (December 2025):
+**Current State Analysis** (January 2026):
 
-- **Total tree pages**: 107 files
-- **Page length distribution**:
+- **Total tree pages**: 128 species (256 bilingual documents)
+- **Comparison guides**: 16 bilingual guides
+- **Glossary terms**: 100 terms documented
+- **Page length distribution** (based on December 2025 audit of 107 pages):
   - 700+ lines (strong): 8 pages
   - 600-700 lines: 43 pages
   - 500-600 lines: 44 pages
   - Under 500 lines (needs work): 12 pages
+  - **Note**: 21 species added since audit - distribution needs refresh
 
 ## Pages Requiring Priority Attention
 
@@ -37,6 +42,8 @@ The following 12 pages are under 500 lines and should be enhanced first:
 Based on analysis of the strongest pages (guanacaste, ceiba, almendro), here is the recommended standard structure:
 
 ### Required Sections (All Pages)
+
+> **Note**: For complete frontmatter field definitions and requirements, see [.github/instructions/content.instructions.md](../.github/instructions/content.instructions.md)
 
 ```markdown
 ---
@@ -250,7 +257,9 @@ For **palms**:
 
 ## Section Frequency Audit
 
-Current coverage across 107 pages:
+**Coverage data** (December 2025 audit of 107 pages):
+
+> ⚠️ **Audit Status**: Data below reflects 107 trees. Current count is 128 species. Re-audit recommended for accurate percentages.
 
 | Section                        | Pages with Section | Target             |
 | ------------------------------ | ------------------ | ------------------ |
@@ -269,6 +278,36 @@ Current coverage across 107 pages:
 | Where to See                   | 78 (73%)           | 100%               |
 | Similar Species                | 28 (26%)           | 50%+               |
 | Identification Guide           | 60 (56%)           | 75%+               |
+
+## Content Beyond Tree Pages
+
+### Comparison Guides
+
+**Current state**: 16 bilingual comparison guides in `content/comparisons/`
+
+**Purpose**: Help users distinguish between visually similar species
+
+**Standard structure**:
+
+- Introduction explaining similarity
+- Side-by-side comparison table
+- Key distinguishing features
+- Photos highlighting differences
+- Links to full species pages
+
+**Guidelines**: See [.github/instructions/comparisons.instructions.md](../.github/instructions/comparisons.instructions.md)
+
+### Glossary Terms
+
+**Current state**: 100 botanical and ecological terms in `content/glossary/`
+
+**Purpose**: Define technical terminology used in tree descriptions
+
+**Coverage**: Botanical anatomy, ecological concepts, wood properties, conservation terms
+
+**Format**: Brief definition with usage examples and related terms
+
+---
 
 ## Component Inventory
 
@@ -382,5 +421,23 @@ Current (428 lines) → Target (600+ lines)
 
 ---
 
+## Maintenance Notes
+
+**Update schedule**: Quarterly (March, June, September, December)
+
+**Next scheduled audit**: March 2026
+
+- Re-run section frequency audit on all 128 current species
+- Update priority attention list based on recent enhancements
+- Review and update component inventory with any new patterns
+
+**Automation opportunities**:
+
+- Consider creating `scripts/audit-content-coverage.mjs` to generate section frequency statistics automatically
+- Track metrics over time to show content improvement trajectory
+
+---
+
 _This guide should be updated as pages are enhanced and patterns emerge._
-_Last updated: December 2024_
+
+_Last updated: January 2026_

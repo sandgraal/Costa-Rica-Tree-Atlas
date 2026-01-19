@@ -1,14 +1,119 @@
 # Frontmatter Localization Guide
 
-This document explains how to handle localization for comparison guide frontmatter fields.
+> **Living Document**: This guide is updated as new frontmatter fields are added. Last updated: **January 2026**
 
-## Background
+This document explains how to handle localization for all content types (trees, comparison guides, and glossary terms) in the Costa Rica Tree Atlas.
+
+## Overview
+
+The Costa Rica Tree Atlas uses a bilingual (English/Spanish) content structure with three content types:
+
+1. **Trees** - Individual tree species pages (`content/trees/`)
+2. **Comparisons** - Side-by-side species comparison guides (`content/comparisons/`)
+3. **Glossary** - Botanical and ecological term definitions (`content/glossary/`)
+
+Some frontmatter fields are **user-facing** (should be translated), while others are **internal identifiers** (must remain in English).
+
+## Tree Pages: Field-by-Field Localization
+
+### User-Facing Fields (✅ Translate)
+
+These fields contain text that users see directly:
+
+- `title` - Common name of the tree
+- `description` - SEO meta description
+- `nativeRegion` - Native region description
+- `conservationStatus` - Use IUCN codes (same across languages: LC, EN, VU, etc.)
+- `maxHeight` - Can translate units ("25 m" or "82 ft")
+- `elevation` - Can translate units ("0-1500 m" or "0-4900 ft")
+- Text detail fields: `toxicityDetails`, `skinContactDetails`, `allergenDetails`, `structuralRiskDetails`, `safetyNotes`, `wildlifeRisks`, `growthRateDetails`, `waterDetails`, `soilRequirements`, `hardiness`, `spacing`, `plantingSeason`, `maintenanceNeeds`
+
+### Internal Fields (🔒 English Only)
+
+These use enum values and must remain in English:
+
+**Safety enums:**
+
+- `toxicityLevel`: `none`, `low`, `moderate`, `high`, `severe`
+- `skinContactRisk`: `none`, `low`, `moderate`, `high`, `severe`
+- `allergenRisk`: `none`, `low`, `moderate`, `high`
+
+**Care enums:**
+
+- `growthRate`: `slow`, `moderate`, `fast`
+- `waterNeeds`: `low`, `moderate`, `high`
+- `lightRequirements`: `full-sun`, `partial-shade`, `shade-tolerant`
+- `propagationDifficulty`: `easy`, `moderate`, `difficult`
+
+**Why English?** These are internal identifiers with TypeScript enum constraints that map to localized display text in the UI.
+
+### Technical Fields (⚠️ Keep Same)
+
+These should be identical across locales:
+
+- `scientificName` - Scientific name (Latin)
+- `family` - Botanical family name (Latin)
+- `slug` - URL identifier
+- `locale` - Language code (`en` or `es`)
+- `uses`, `tags`, `distribution` - Predefined list values (use English identifiers)
+- `floweringSeason`, `fruitingSeason` - Month names (use English: `january`, `february`, etc.)
+- `featuredImage`, `images` - File paths
+- `publishedAt`, `updatedAt` - Dates (ISO format: `2026-01-18`)
+- Boolean fields: `childSafe`, `petSafe`, `requiresProfessionalCare`
+- List fields with identifiers: `toxicParts`, `structuralRisks`, `propagationMethods`, `commonProblems`
+
+### Example Tree Frontmatter
+
+```yaml
+# English (content/trees/en/ceiba.mdx)
+---
+title: "Ceiba Tree"
+scientificName: "Ceiba pentandra"
+family: "Malvaceae"
+locale: "en"
+slug: "ceiba"
+description: "The sacred ceiba tree, a massive rainforest giant"
+maxHeight: "70 m"
+elevation: "0-1500 m"
+toxicityLevel: "low" # English enum
+skinContactRisk: "moderate" # English enum
+growthRate: "fast" # English enum
+waterNeeds: "moderate" # English enum
+lightRequirements: "full-sun" # English enum
+floweringSeason: ["january", "february", "march"] # English months
+tags: ["native", "deciduous", "sacred-tree"] # English identifiers
+---
+# Spanish (content/trees/es/ceiba.mdx)
+---
+title: "Ceiba"
+scientificName: "Ceiba pentandra" # Same
+family: "Malvaceae" # Same
+locale: "es"
+slug: "ceiba" # Same slug
+description: "La sagrada ceiba, un gigante masivo del bosque tropical"
+maxHeight: "70 m" # Can translate: "230 pies"
+elevation: "0-1500 m" # Can translate: "0-4900 pies"
+toxicityLevel: "low" # Same English enum!
+skinContactRisk: "moderate" # Same English enum!
+growthRate: "fast" # Same English enum!
+waterNeeds: "moderate" # Same English enum!
+lightRequirements: "full-sun" # Same English enum!
+floweringSeason: ["january", "february", "march"] # Same English months!
+tags: ["native", "deciduous", "sacred-tree"] # Same English identifiers!
+---
+```
+
+---
+
+## Comparison Guides: Internal vs. User-Facing Fields
+
+### Background
 
 The Costa Rica Tree Atlas uses a bilingual (English/Spanish) content structure. Comparison guides include frontmatter metadata that describes how to distinguish between similar tree species. Some of these fields are **user-facing** (should be translated), while others are **internal identifiers** (must remain in English).
 
-## The Issue
+### The Issue
 
-In PR #214, new frontmatter fields were added to comparison guides:
+When new frontmatter fields were added to comparison guides in January 2026:
 
 - `difficulty` - Identification difficulty level
 - `confusionRating` - How often species are confused (1-5)
@@ -165,6 +270,85 @@ Legend:
 - ⚠️ Same - Keep identical across languages
 - N/A - Not applicable to translation
 
+---
+
+## Glossary Terms: Field-by-Field Localization
+
+### User-Facing Fields (✅ Translate)
+
+- `term` - The glossary term itself
+- `simpleDefinition` - Beginner-friendly definition
+- `technicalDefinition` - Detailed technical definition
+- `pronunciation` - Pronunciation guide
+- `etymology` - Word origin and etymology
+
+### Internal/Technical Fields (🔒 English or Same)
+
+- `locale` - Language code (`en` or `es`)
+- `slug` - URL identifier (⚠️ keep same across languages)
+- `category` - MUST use English enum values: `anatomy`, `ecology`, `taxonomy`, `morphology`, `reproduction`, `general`
+- `exampleSpecies` - Tree slugs (⚠️ must match actual tree slugs)
+- `relatedTerms` - Glossary term slugs (⚠️ must match actual term slugs)
+- `image` - File path (⚠️ same across languages)
+- `publishedAt` - Date (ISO format)
+
+### Example Glossary Frontmatter
+
+```yaml
+# English (content/glossary/en/deciduous.mdx)
+---
+term: "Deciduous"
+locale: "en"
+slug: "deciduous"
+simpleDefinition: "A tree that loses all its leaves seasonally"
+technicalDefinition: "A plant that sheds all of its foliage for part of the year"
+category: "morphology" # English enum!
+pronunciation: "dih-SIJ-oo-us"
+etymology: "From Latin 'deciduus' meaning 'falling off'"
+exampleSpecies: ["guanacaste", "cortez-amarillo"] # Tree slugs
+relatedTerms: ["evergreen", "leaf-drop"] # Term slugs
+image: "/images/glossary/deciduous.jpg"
+publishedAt: "2026-01-15"
+---
+# Spanish (content/glossary/es/deciduous.mdx)
+---
+term: "Caducifolio"
+locale: "es"
+slug: "deciduous" # Same slug!
+simpleDefinition: "Un árbol que pierde todas sus hojas estacionalmente"
+technicalDefinition: "Una planta que pierde todo su follaje durante parte del año"
+category: "morphology" # Same English enum!
+pronunciation: "dih-SIJ-oo-us" # English pronunciation stays
+etymology: "Del latín 'deciduus' que significa 'que cae'"
+exampleSpecies: ["guanacaste", "cortez-amarillo"] # Same slugs!
+relatedTerms: ["evergreen", "leaf-drop"] # Same slugs!
+image: "/images/glossary/deciduous.jpg" # Same image!
+publishedAt: "2026-01-15" # Same date!
+---
+```
+
+---
+
+## Quick Reference: All Content Types
+
+### Field Localization Matrix
+
+| Field Type       | Trees        | Comparisons  | Glossary     | Rule                 |
+| ---------------- | ------------ | ------------ | ------------ | -------------------- |
+| Title/Name       | ✅ Translate | ✅ Translate | ✅ Translate | User-facing text     |
+| Description      | ✅ Translate | ✅ Translate | ✅ Translate | User-facing text     |
+| Slug             | ⚠️ Same      | ⚠️ Same      | ⚠️ Same      | URL identifier       |
+| Locale           | N/A          | N/A          | N/A          | `en` or `es`         |
+| Scientific names | ⚠️ Same      | ⚠️ Same      | N/A          | Latin names          |
+| Enum fields      | 🔒 English   | 🔒 English   | 🔒 English   | Internal identifiers |
+| List identifiers | 🔒 English   | 🔒 English   | 🔒 English   | tags, months, etc.   |
+| Images/paths     | ⚠️ Same      | ⚠️ Same      | ⚠️ Same      | File paths           |
+| Dates            | ⚠️ Same      | ⚠️ Same      | ⚠️ Same      | ISO format           |
+| Numbers          | ⚠️ Same      | ⚠️ Same      | N/A          | Numeric values       |
+| Detail text      | ✅ Translate | ✅ Translate | ✅ Translate | Long-form content    |
+
+---
+
 ## Common Mistakes
 
 ### ❌ Translating Internal Fields
@@ -252,7 +436,13 @@ When adding new fields:
 
 ## References
 
-- Contentlayer schema: `contentlayer.config.ts` lines 420-444
+- Tree schema: `contentlayer.config.ts` lines 11-290
+- Comparison schema: `contentlayer.config.ts` lines 376-450
+- Glossary schema: `contentlayer.config.ts` lines 293-373
+- Tree content instructions: `.github/instructions/content.instructions.md`
 - Comparison instructions: `.github/instructions/comparisons.instructions.md`
-- UI localization: `src/lib/comparison/index.ts`
-- Original issue: PR #214 review comments
+- UI localization examples: `src/lib/comparison/index.ts`
+
+---
+
+_Last updated: January 2026_

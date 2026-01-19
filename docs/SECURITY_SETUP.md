@@ -1,11 +1,46 @@
 # Security Setup Guide
 
-**Last Updated:** 2026-01-12  
-**Status:** ✅ Active - Multiple automated security scanners
+**Last Updated:** 2026-01-19  
+**Status:** ⚠️ Partially Active - Automated scanners work, authentication needs fixes  
+**Related:** See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) Priority 0.1 for auth fixes
+
+## Implementation Status
+
+### ✅ Fully Operational
+
+- **Automated security workflows** - `security.yml` runs weekly and on push/PR
+- **NPM audit** - Checks for vulnerable dependencies
+- **TruffleHog secret scanning** - Detects committed secrets
+- **CodeQL analysis** - Static application security testing (SAST)
+- **ESLint security rules** - Code quality and security patterns
+- **License compliance** - Dependency license checking
+- **Database schema** - Prisma with User, Session, MFASecret, AuditLog models
+- **Password hashing** - Argon2id implementation complete
+- **Admin setup scripts** - `setup-first-admin.mjs` and API endpoint `/api/admin/setup`
+
+### ⚠️ Needs Fixes (Priority 0.1)
+
+**Authentication System Issues:**
+
+- NextAuth JWT strategy configured but session management broken
+- `getSessionFromRequest` in middleware not working properly
+- MFA TOTP secret encryption/decryption incomplete
+- Session persistence unreliable
+- Basic Auth fallback still present (deprecated, should be removed)
+
+**See:** [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) Priority 0.1 for detailed fix plan
+
+### ❌ Not Implemented
+
+- CodeQL workflow as separate file (integrated into `security.yml` instead)
+- GitHub branch protection rules (needs manual setup)
+- Pre-commit hooks (optional, not configured)
+
+---
 
 ## Automated Security Checks
 
-This repository uses comprehensive automated security scanning:
+This repository uses comprehensive automated security scanning via `.github/workflows/security.yml`:
 
 ### 1. Dependabot
 
@@ -15,9 +50,11 @@ This repository uses comprehensive automated security scanning:
 
 ### 2. CodeQL Analysis
 
-- **Static analysis** on every push/PR
+- **Static analysis** on every push/PR (part of `security.yml` workflow)
+- **Custom configuration** in `.github/codeql/codeql-config.yml`
 - **Security queries** to detect vulnerabilities
 - **Quality checks** for code patterns
+- **Results** uploaded to GitHub Security tab
 
 ### 3. Secret Scanning
 
@@ -41,36 +78,77 @@ This repository uses comprehensive automated security scanning:
 
 ### Enable GitHub Security Features
 
+**Already Configured:**
+
+- ✅ **Security workflow** - `.github/workflows/security.yml` runs automatically
+- ✅ **CodeQL config** - `.github/codeql/codeql-config.yml` defines analysis scope
+
+**Manual Setup Required:**
+
 1. Go to: **Settings → Security & analysis**
 2. Enable:
-   - ✅ Dependency graph
-   - ✅ Dependabot alerts
-   - ✅ Dependabot security updates
-   - ✅ Secret scanning
-   - ✅ Secret scanning push protection
-   - ✅ Code scanning (CodeQL)
+   - ⬜ Dependency graph (if not auto-enabled)
+   - ⬜ Dependabot alerts
+   - ⬜ Dependabot security updates
+   - ⬜ Secret scanning (if private repo)
+   - ⬜ Secret scanning push protection
+   - ⬜ Code scanning results (auto-uploaded by workflow)
 
-### Configure Branch Protection
+### Configure Branch Protection (Recommended)
+
+**Status:** Not yet configured (manual setup required)
 
 1. Go to: **Settings → Branches → Branch protection rules**
 2. Add rule for `main`:
-   - ✅ Require status checks before merging
-   - ✅ Require "Security Checks" workflow to pass
-   - ✅ Require "CodeQL" workflow to pass
-   - ✅ Require branches to be up to date
+   - ⬜ Require status checks before merging
+   - ⬜ Require "Security Checks" workflow to pass (includes CodeQL)
+   - ⬜ Require branches to be up to date
+   - ⬜ Require pull request reviews before merging
+
+**Note:** The `security.yml` workflow combines all security checks into one job, so you only need to require the "Security Checks" status.
 
 ### Local Development
 
-Install pre-commit hooks:
+**Pre-commit hooks:** Currently not configured. The `prepare` script exists but doesn't set up Git hooks.
+
+To run security checks locally:
 
 ```bash
+# Install dependencies
 npm install
-npm run prepare
+
+# Run ESLint security checks
+npm run lint
+
+# Run NPM audit
+npm audit
+
+# Type check
+npm run type-check
 ```
 
 ### Database Authentication Setup
 
-The application uses Vercel Postgres with NextAuth.js for secure authentication. See [AUTH_MIGRATION_GUIDE.md](./AUTH_MIGRATION_GUIDE.md) for full migration details.
+**⚠️ CRITICAL:** Authentication system has known issues. See Priority 0.1 in [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)
+
+The application uses PostgreSQL with NextAuth.js for secure authentication.
+
+**Known Issues:**
+
+- Session management not working properly
+- JWT verification incomplete in middleware
+- MFA secret encryption/decryption missing
+- Login flow may fail despite correct credentials
+
+**Current State:**
+
+- ✅ Database schema complete (User, Session, MFASecret, AuditLog)
+- ✅ Password hashing with Argon2id works
+- ✅ Admin setup endpoint functional (`/api/admin/setup`)
+- ⚠️ Session persistence broken
+- ⚠️ Middleware authentication unreliable
+
+See [AUTH_MIGRATION_GUIDE.md](./AUTH_MIGRATION_GUIDE.md) for migration details (may be outdated).
 
 #### Prerequisites
 
@@ -134,6 +212,14 @@ npx prisma studio  # Opens database admin UI at http://localhost:5555
 
 #### Create First Admin User
 
+**Method 1: Using Setup Script (Recommended)**
+
+```bash
+node scripts/setup-first-admin.mjs
+```
+
+**Method 2: Using API Endpoint**
+
 1. Start the development server:
 
 ```bash
@@ -156,20 +242,32 @@ curl -X POST http://localhost:3000/api/admin/setup \
 
 #### Enable MFA (Optional but Recommended)
 
+**⚠️ WARNING:** MFA implementation incomplete. TOTP secret encryption/decryption not fully implemented.
+
+**When authentication is fixed:**
+
 1. Navigate to `/admin/users` after logging in
 2. Click "Enable MFA"
 3. Scan QR code with authenticator app (Google Authenticator, Authy, etc.)
 4. Enter TOTP code to verify
 5. Save the 10 backup codes in a secure location
 
+**Current Issues:**
+
+- Secret encryption/decryption incomplete (see `src/app/api/auth/[...nextauth]/route.ts` line 89)
+- Backup code verification not implemented
+- MFA flow may not work end-to-end
+
 #### Security Best Practices
 
 - **Never commit** `.env.local` to version control
 - **Rotate secrets** regularly (every 90 days recommended)
 - **Use strong passwords** (12+ characters, mixed case, numbers, special characters)
-- **Enable MFA** for all admin accounts in production
-- **Monitor audit logs** regularly at `/admin/users`
-- **Sessions expire** after 7 days by default
+- ⚠️ **Enable MFA** for all admin accounts in production (once implementation complete)
+- **Monitor audit logs** regularly at `/admin/users` (if accessible)
+- **Sessions expire** after 7 days by default (when session management is fixed)
+- ⚠️ **Test authentication** thoroughly before production deployment
+- **Fix Priority 0.1 issues** before relying on auth system
 
 ## Monitoring
 
@@ -191,5 +289,29 @@ Add to README.md:
 
 ```markdown
 [![Security Checks](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/workflows/Security%20Checks/badge.svg)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/actions)
-[![CodeQL](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/workflows/CodeQL/badge.svg)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/security/code-scanning)
 ```
+
+**Note:** CodeQL is integrated into the Security Checks workflow, not a separate workflow.
+
+## Files Reference
+
+**Workflows:**
+
+- `.github/workflows/security.yml` - Main security workflow (NPM audit, secret scan, CodeQL, ESLint, license check)
+- `.github/codeql/codeql-config.yml` - CodeQL analysis configuration
+
+**Authentication:**
+
+- `src/app/api/auth/[...nextauth]/route.ts` - NextAuth configuration (needs fixes)
+- `src/lib/auth/session.ts` - Session management (needs fixes)
+- `middleware.ts` - Auth middleware with Basic Auth fallback (needs cleanup)
+- `prisma/schema.prisma` - Database schema (complete)
+- `scripts/setup-first-admin.mjs` - Admin user setup script
+- `src/app/api/admin/setup/route.ts` - One-time setup API endpoint
+
+**Security Libraries:**
+
+- `src/lib/auth/constant-time-ratelimit.ts` - Rate limiting
+- `src/lib/auth/secure-compare.ts` - Constant-time string comparison
+- `src/lib/auth/mfa-crypto.ts` - MFA encryption (incomplete)
+- `src/lib/security/csp.ts` - Content Security Policy headers

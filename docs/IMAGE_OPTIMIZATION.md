@@ -1,14 +1,19 @@
 # Image Optimization System
 
-**Last Updated:** 2026-01-12  
+> **Living Document**: This guide is updated as the image optimization system evolves. Last updated: **January 2026**
+
 **Status:** ✅ Active - Sharp-based image optimization with automated workflows
 
 ## Overview
 
 The Costa Rica Tree Atlas uses Sharp for high-performance image optimization. The system automatically generates multiple responsive image sizes and modern formats (WebP, AVIF, JPEG) to ensure optimal performance across all devices and network conditions.
 
-**Scripts:** `scripts/optimize-images.mjs`  
-**Workflow:** `.github/workflows/weekly-image-quality.yml`
+**Current State** (January 2026):
+
+- **Tree Images**: 129 total, 109 optimized, 20 pending
+- **Optimized Storage**: ~134 MB (regeneratable, excluded from git)
+- **Scripts**: `optimize-images.mjs`, `optimize-hero-image.mjs`, `manage-tree-images.mjs`
+- **Workflow**: `.github/workflows/weekly-image-quality.yml`, `.github/workflows/validate-images.yml`
 
 ## Features
 
@@ -202,31 +207,155 @@ console.log(`Optimized: ${result.metadata.slug}`);
 console.log(`Savings: ${result.savingsPercent.toFixed(1)}%`);
 ```
 
-## Integration with Next.js
+## Component Architecture
 
-To use optimized images in Next.js components:
+The project uses a layered component system for optimal image handling:
+
+### Core Components
+
+#### 1. `SafeImage` - Error Handling Layer
 
 ```tsx
-import type { ImageMetadata } from "@/lib/image-optimizer";
-import metadata from "@/public/images/trees/optimized/guanacaste/metadata.json";
+import { SafeImage } from "@/components/SafeImage";
 
-function TreeImage({ slug }: { slug: string }) {
-  const webpVariant = metadata.variants["800w_webp"];
-  const jpgVariant = metadata.variants["800w_jpg"];
+<SafeImage
+  src="/images/trees/ceiba.jpg"
+  alt="Ceiba Tree"
+  fill
+  sizes="(max-width: 768px) 100vw, 896px"
+  priority
+  fallback="placeholder" // or "error"
+/>;
+```
 
-  return (
-    <picture>
-      <source srcSet={webpVariant.path} type="image/webp" />
-      <img
-        src={jpgVariant.path}
-        alt={slug}
-        width={jpgVariant.width}
-        height={jpgVariant.height}
-        style={{ backgroundImage: `url(${metadata.blurDataURL})` }}
-      />
-    </picture>
-  );
+**Features**: Automatic error handling, fallback to placeholder/error state, prevents layout shift
+
+#### 2. `OptimizedImage` - Responsive Image Layer
+
+```tsx
+import { OptimizedImage, IMAGE_SIZES } from "@/components/OptimizedImage";
+
+<OptimizedImage
+  src="/images/trees/ceiba.jpg"
+  alt="Ceiba Tree"
+  width={800}
+  height={600}
+  sizes={IMAGE_SIZES.card} // Predefined sizes
+  priority={false}
+/>;
+```
+
+**Features**: Blur placeholders, predefined responsive sizes, automatic format selection
+
+**Predefined Sizes**:
+
+- `card`: Grid card thumbnails - `"(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"`
+- `featured`: Detail page featured image - `"(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 896px"`
+- `gallery`: Gallery grid images - `"(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"`
+- `hero`: Full-width hero - `"100vw"`
+
+#### 3. `ResponsiveImage` - Aspect Ratio Layer
+
+```tsx
+import { ResponsiveImage } from "@/components/ResponsiveImage";
+
+<ResponsiveImage
+  src="/images/trees/ceiba.jpg"
+  alt="Ceiba Tree"
+  aspectRatio="4/3"
+  priority={true}
+/>;
+```
+
+**Features**: Automatic aspect ratio handling, responsive sizing, blur placeholders
+
+#### 4. `ProgressiveImage` - Progressive Loading
+
+```tsx
+import { ProgressiveImage } from "@/components/ProgressiveImage";
+
+<ProgressiveImage
+  src="/images/trees/ceiba.jpg"
+  alt="Ceiba Tree"
+  width={800}
+  height={600}
+/>;
+```
+
+**Features**: Blur-up effect during loading, smooth transitions
+
+### Component Selection Guide
+
+| Use Case             | Component                                   | Reason                      |
+| -------------------- | ------------------------------------------- | --------------------------- |
+| Tree cards in grid   | `OptimizedImage` with `IMAGE_SIZES.card`    | Predefined responsive sizes |
+| Detail page featured | `SafeImage`                                 | Error handling critical     |
+| Gallery grids        | `OptimizedImage` with `IMAGE_SIZES.gallery` | Optimal for multi-column    |
+| Hero/banner          | `HeroImage` or `ResponsiveImage`            | LCP optimization            |
+| Comparison split     | Next.js `Image` with `fill`                 | Dynamic layouts             |
+
+## srcSet Generation
+
+The system automatically generates responsive srcSet attributes:
+
+```typescript
+// From src/lib/image-resolver.ts
+function generateSrcSet(slug: string): string | undefined {
+  const sizes = [400, 800, 1200];
+  const formats = ["avif", "webp"];
+
+  return sizes
+    .map((w) => `/images/trees/optimized/${slug}/${w}w.webp ${w}w`)
+    .join(", ");
 }
+```
+
+**Output Example**:
+
+```html
+/images/trees/optimized/ceiba/400w.webp 400w,
+/images/trees/optimized/ceiba/800w.webp 800w,
+/images/trees/optimized/ceiba/1200w.webp 1200w
+```
+
+## Next.js Configuration
+
+Image optimization is configured in `next.config.ts`:
+
+```typescript
+images: {
+  formats: ["image/avif", "image/webp"],
+  deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+  imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  minimumCacheTTL: 31536000, // 1 year
+  remotePatterns: [
+    { protocol: "https", hostname: "static.inaturalist.org" },
+    { protocol: "https", hostname: "inaturalist-open-data.s3.amazonaws.com" },
+    { protocol: "https", hostname: "api.gbif.org" },
+    { protocol: "https", hostname: "images.unsplash.com" },
+  ],
+}
+```
+
+## Optimization Status
+
+**Current Progress**:
+
+- ✅ **Tree Images**: 109/129 optimized (84%)
+- 🟡 **Pending**: 20 images need optimization
+- ✅ **Hero Images**: Fully optimized with responsive variants
+- ✅ **Comparison Images**: 16 comparison guides with featured images
+
+**To optimize remaining images**:
+
+```bash
+npm run images:optimize
+```
+
+**To check which images need optimization**:
+
+```bash
+node scripts/manage-tree-images.mjs audit
 ```
 
 ## Git Integration
@@ -242,6 +371,25 @@ Optimized images are excluded from version control (`.gitignore`):
 
 ## CI/CD Integration
 
+### Automated Workflows
+
+#### Weekly Image Quality Check
+
+`.github/workflows/weekly-image-quality.yml`
+
+- **Schedule**: Every Sunday at 3 AM UTC
+- **Modes**: audit, download, refresh, full
+- **Actions**: ImageMagick quality checks, optimization verification
+
+#### Image Validation
+
+`.github/workflows/validate-images.yml`
+
+- **Trigger**: On push to main
+- **Checks**: Broken references, missing images, format validation
+
+### Manual Deployment
+
 For automated deployment pipelines, add the optimization step:
 
 ```yaml
@@ -252,6 +400,8 @@ For automated deployment pipelines, add the optimization step:
 - name: Build
   run: npm run build
 ```
+
+**⚠️ Important**: Run optimization before build to ensure all images are available.
 
 ## Troubleshooting
 
@@ -294,31 +444,75 @@ npm rebuild sharp
 
 ## Performance Benchmarks
 
-Based on the current tree image collection:
+Based on the current tree image collection (January 2026):
 
-- **Total Images**: 109 trees
-- **Average Original Size**: ~300 KB
-- **Average Optimized Size (WebP 800w)**: ~80 KB
-- **Space Savings**: ~73% reduction
+- **Total Images**: 129 tree images
+- **Optimized**: 109 trees
+- **Average Original Size**: ~300-400 KB
+- **Average Optimized Size (WebP 800w)**: ~80-100 KB
+- **Space Savings**: ~70-75% reduction per image
+- **Total Optimized Storage**: ~134 MB (all variants)
 - **Processing Time**: ~30-45 seconds for full optimization
+- **Variants Per Image**: 15 files (3 formats × 5 sizes)
+
+### Format Comparison
+
+Typical compression results:
+
+| Format   | Size (800w) | Savings vs JPEG | Browser Support                     |
+| -------- | ----------- | --------------- | ----------------------------------- |
+| **AVIF** | 60-70 KB    | 40-50%          | Chrome 85+, Firefox 93+, Safari 16+ |
+| **WebP** | 80-90 KB    | 25-35%          | Chrome 23+, Firefox 65+, Safari 14+ |
+| **JPEG** | 120-150 KB  | Baseline        | Universal                           |
+
+### LCP Performance
+
+- **Hero Image**: <500ms (WebP with preload)
+- **Featured Image**: <800ms (priority loading)
+- **Gallery Images**: Lazy loaded (not counted in LCP)
 
 ## Future Enhancements
 
-Potential improvements to consider:
+Potential improvements for upcoming work:
 
-1. **Lazy Loading**: Automatic `loading="lazy"` attributes
-2. **Responsive Syntax**: Generate `srcset` attributes
-3. **CDN Integration**: Upload to CDN after optimization
-4. **Image Analysis**: Detect and flag low-quality source images
-5. **Batch Processing**: Parallel processing for faster optimization
-6. **Custom Profiles**: Per-tree optimization settings
-7. **WebP/AVIF Fallback**: Automatic polyfills for older browsers
+### High Priority
+
+1. **Complete Optimization**: Optimize remaining 20/129 tree images
+2. **Gallery Optimization**: Implement optimization for species gallery collections
+3. **Comparison Images**: Standardize optimization for 16 comparison guide images
+4. **CDN Integration**: Upload optimized images to CDN for faster delivery
+
+### Medium Priority
+
+5. **Batch Processing**: Parallel processing for faster optimization (currently sequential)
+6. **Image Analysis**: Auto-detect and flag low-quality source images
+7. **Smart Cropping**: AI-powered focal point detection for responsive crops
+8. **Format Detection**: Auto-select optimal format based on image content (photos vs graphics)
+
+### Low Priority
+
+9. **Custom Profiles**: Per-tree optimization settings (e.g., endangered species get higher quality)
+10. **Blur Hash**: More advanced blur placeholder generation
+11. **WebP/AVIF Fallback Automation**: Automatic polyfills for older browsers
+12. **Monitoring**: Track image load performance in production
 
 ## Related Documentation
 
-- [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md) - Image sourcing and attribution
-- [IMAGE_QUALITY_MONITORING.md](./IMAGE_QUALITY_MONITORING.md) - Quality standards
-- [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md) - Content structure
+- [Scripts Documentation](../scripts/) - Image management scripts
+  - `optimize-images.mjs` - Batch tree image optimization
+  - `optimize-hero-image.mjs` - Hero image optimization
+  - `manage-tree-images.mjs` - Image audit and management
+  - `validate-image-references.mjs` - Reference validation
+  - `cleanup-tree-images.mjs` - Cleanup unused images
+- [Component Documentation](../src/components/) - Image components
+  - `OptimizedImage.tsx` - Responsive image component
+  - `SafeImage.tsx` - Error-handling wrapper
+  - `ResponsiveImage.tsx` - Aspect-ratio component
+  - `ProgressiveImage.tsx` - Progressive loading
+  - `HeroImage.tsx` - Hero banner component
+- [Image Resolver](../src/lib/image-resolver.ts) - Image path resolution and srcSet generation
+- [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md) - Content structure including image galleries
+- [GitHub Workflows](../.github/workflows/) - Automated image quality checks
 
 ## Support
 

@@ -1,8 +1,9 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-01-15  
-**Current Species Count:** 128 documented  
-**Missing Species:** ~47+ identified for future expansion
+**Last Updated:** 2026-01-19  
+**Current Species Count:** 129 documented  
+**Missing Species:** ~40 unique species identified for future expansion  
+**Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
 
@@ -59,32 +60,32 @@ The following 12 species from the original missing list were successfully docume
 
 ## Priority Categories
 
-### HIGH PRIORITY - Native Forest Trees (4 species remaining)
+### HIGH PRIORITY - Native Forest Trees (1 species remaining)
 
 Important rainforest and montane species still needed:
 
 - ~~**Quizarrá** - _Nectandra salicina_ - Laurel family timber~~ ✅ ADDED 2026-01-14
 - ~~**Sigua** - _Nectandra cissiflora_ - Laurel family, fragrant wood~~ ✅ ADDED 2026-01-15
-- **Kerosén** - _Astronium graveolens_ - ✅ VERIFIED: Same as Ron Ron already documented
+- ~~**Kerosén** - _Astronium graveolens_~~ ✅ DUPLICATE: Same as **Ron Ron** already documented
 - ~~**Lechoso Montañero** - _Brosimum lactescens_ - Mountain breadnut~~ ✅ ADDED 2026-01-15
-- **Chilamate** - _Ficus insipida_ - ✅ VERIFIED: Same as Higuerón already documented
-- **Surá de Montaña** - _Terminalia oblonga_ - ✅ VERIFIED: Same as Surá already documented
+- ~~**Chilamate** - _Ficus insipida_~~ ✅ DUPLICATE: Same as **Higuerón** already documented
+- ~~**Surá de Montaña** - _Terminalia oblonga_~~ ✅ DUPLICATE: Same as **Surá** already documented
 - ~~**Comenegro** - _Simarouba glauca_ - Paradise tree~~ ✅ ADDED 2026-01-15
 - ~~**Mayo** - _Vochysia hondurensis_ - Important timber species~~ ✅ ADDED 2026-01-15
 - **Camíbar** - _Copaifera aromatica_ - Copaiba, medicinal resin
 
 **Rationale:** These are ecologically significant native species commonly encountered in Costa Rican forests.
 
-### MEDIUM PRIORITY - Flowering/Ornamental (5 species)
+### MEDIUM PRIORITY - Flowering/Ornamental (4 species)
 
 Showy flowering species for urban landscaping and conservation:
 
 - **Cortez Blanco** - _Tabebuia donnell-smithii_ - White trumpet tree
 - ~~**Llama del Bosque** - _Spathodea campanulata_ - African tulip tree (introduced but widespread)~~ ✅ ADDED 2026-01-14
 - **Sardinillo** - _Tecoma stans_ - Yellow bells
-- **Cañafístula Rosada** - _Cassia grandis_ - (Verify: may be same as Carao already documented)
+- ~~**Cañafístula Rosada** - _Cassia grandis_~~ ✅ DUPLICATE: Same as **Carao** already documented
 - **Flor de Itabo** - _Yucca guatemalensis_ - Izote, national flower of El Salvador
-- **Lirio de Agua** - _Crinum erubescens_ - Not a tree, consider removal from list
+- ~~**Lirio de Agua** - _Crinum erubescens_~~ ❌ REMOVED: Not a tree (herbaceous aquatic plant)
 
 **Rationale:** Popular ornamental species, some with cultural significance.
 
@@ -118,16 +119,16 @@ Important for Guanacaste dry forest ecosystem:
 
 **Rationale:** Dry forest is threatened ecosystem in Costa Rica, needs better representation.
 
-### MEDIUM PRIORITY - Fruit Trees (6 species)
+### MEDIUM PRIORITY - Fruit Trees (4 species)
 
 Additional edible/cultivated species:
 
-- **Cas Dulce** - _Psidium friedrichsthalianum_ - (Verify: may be same as Cas already documented)
-- **Guaba Bejuco** - _Inga vera_ - Vine guaba
-- **Guaba Machete** - _Inga spectabilis_ - Machete guaba
-- **Anona Colorada** - _Annona purpurea_ - Red custard apple
-- **Guanábana Cimarrona** - _Annona montana_ - Wild soursop
-- **Marañón de Playa** - _Anacardium excelsum_ - (Verify: may be same as Espavel already documented)
+- ~~**Cas Dulce** - _Psidium friedrichsthalianum_~~ ✅ DUPLICATE: Same as **Cas** already documented
+- **Guaba Bejuco** - _Inga vera_ - Vine guaba (distinct from _I. edulis_ already documented)
+- **Guaba Machete** - _Inga spectabilis_ - Machete guaba (distinct from _I. edulis_ already documented)
+- **Anona Colorada** - _Annona purpurea_ - Red custard apple (distinct from _A. reticulata_ and _A. muricata_ already documented)
+- **Guanábana Cimarrona** - _Annona montana_ - Wild soursop (distinct from _A. muricata_ already documented)
+- ~~**Marañón de Playa** - _Anacardium excelsum_~~ ✅ DUPLICATE: Same as **Espavel** already documented
 
 **Rationale:** Fruit diversity important for ethnobotany and agroforestry documentation.
 
@@ -142,23 +143,23 @@ Traditional medicine species:
 
 **Rationale:** Important for ethnobotanical documentation.
 
-### LOW PRIORITY - Pioneer/Succession (3 species)
+### LOW PRIORITY - Pioneer/Succession (1 species)
 
 Fast-growing colonizers:
 
-- **Guarumo Colorado** - _Cecropia obtusifolia_ - (Verify: distinct from Guarumo already documented)
-- **Balso** - _Ochroma pyramidale_ - (Verify: check if Balsa already documented)
-- **Guarumbo Hembra** - _Cecropia peltata_ - Female guarumo
+- ~~**Guarumo Colorado** - _Cecropia obtusifolia_~~ ✅ DUPLICATE: Same as **Guarumo** already documented (_Cecropia obtusifolia_)
+- ~~**Balso** - _Ochroma pyramidale_~~ ✅ DUPLICATE: Same as **Balsa** already documented (_Ochroma pyramidale_)
+- **Guarumbo Hembra** - _Cecropia peltata_ - Female guarumo (distinct from _C. obtusifolia_ already documented)
 
 **Rationale:** Important for understanding forest succession.
 
-### LOW PRIORITY - Timber/Construction (3 species)
+### LOW PRIORITY - Timber/Construction (2 species)
 
 Additional timber species:
 
-- **Cedro Dulce** - _Cedrela tonduzii_ - (Verify: distinct from Cedro Amargo already documented)
-- **Nazareno** - _Peltogyne purpurea_ - (Verify: check if already documented)
-- **Laurel Aguacatillo** - _Persea caerulea_ - (Verify: check if Aguacatillo already documented)
+- **Cedro Dulce** - _Cedrela tonduzii_ - Highland cedar (distinct from _C. odorata_ **Cedro Amargo** already documented)
+- ~~**Nazareno** - _Peltogyne purpurea_~~ ✅ ADDED: Already documented
+- ~~**Laurel Aguacatillo** - _Persea caerulea_~~ ✅ DUPLICATE: Same as **Aguacatillo** already documented
 
 **Rationale:** Complete timber species documentation.
 
@@ -181,37 +182,54 @@ Non-native species with ecological impact:
 
 **Rationale:** Document invasive/plantation species for ecological context.
 
-### HIGHEST PRIORITY - Rare/Endemic/Conservation Priority (3 species)
+### HIGHEST PRIORITY - Rare/Endemic/Conservation Priority (2 species)
 
 Threatened species requiring documentation:
 
-- **Ajo Montañero** - _Caryocar costaricense_ - (Verify: distinct from Ajo already documented)
-- **Cristobalito** - _Platymiscium parviflorum_ - Small cristobal
-- **Cocobolo Prieto** - _Dalbergia tucurensis_ - Dark cocobolo, endangered
+- ~~**Ajo Montañero** - _Caryocar costaricense_~~ ✅ DUPLICATE: Same as **Ajo** already documented (_Caryocar costaricense_)
+- **Cristobalito** - _Platymiscium parviflorum_ - Small cristobal (distinct from _P. pinnatum_ **Cristóbal** already documented)
+- **Cocobolo Prieto** - _Dalbergia tucurensis_ - Dark cocobolo, endangered (distinct from _D. retusa_ **Cocobolo** already documented)
 
 **Rationale:** Conservation priority species need documentation for protection efforts.
 
-## Verification Needed
+## ✅ Verification Complete (2026-01-19)
 
-The following species from the list may already be documented under different common names:
+**CRITICAL FINDING:** System relies on **scientific names** for species identification. Common names can vary regionally and cause confusion.
 
-1. **Kerosén** vs **Ron Ron** (_Astronium graveolens_)
-2. **Chilamate** vs **Higuerón** (_Ficus insipida_)
-3. **Cañafístula Rosada** vs **Carao** (_Cassia grandis_)
-4. **Cas Dulce** vs **Cas** (_Psidium friedrichsthalianum_)
-5. **Marañón de Playa** vs **Espavel** (_Anacardium excelsum_)
-6. **Guarumo Colorado** vs **Guarumo** (genus _Cecropia_)
-7. **Balso** vs **Balsa** (_Ochroma pyramidale_)
-8. **Cedro Dulce** vs **Cedro Amargo** (genus _Cedrela_)
-9. **Laurel Aguacatillo** vs **Aguacatillo** (_Persea caerulea_)
-10. **Ajo Montañero** vs **Ajo** (_Caryocar costaricense_)
+### Confirmed Duplicates Removed (7 species)
 
-**Status Update (2026-01-14):** The following have been verified as documented:
+The following were listed as "missing" but are already documented under different common names:
 
-- ✅ **Madroño** (_Calycophyllum candidissimum_) - Confirmed in database
-- ✅ **Nazareno** (_Peltogyne purpurea_) - Confirmed in database
+1. ✅ **Kerosén** = **Ron Ron** (_Astronium graveolens_)
+2. ✅ **Chilamate** = **Higuerón** (_Ficus insipida_)
+3. ✅ **Cañafístula Rosada** = **Carao** (_Cassia grandis_)
+4. ✅ **Cas Dulce** = **Cas** (_Psidium friedrichsthalianum_)
+5. ✅ **Marañón de Playa** = **Espavel** (_Anacardium excelsum_)
+6. ✅ **Guarumo Colorado** = **Guarumo** (_Cecropia obtusifolia_)
+7. ✅ **Balso** = **Balsa** (_Ochroma pyramidale_)
+8. ✅ **Laurel Aguacatillo** = **Aguacatillo** (_Persea caerulea_)
+9. ✅ **Ajo Montañero** = **Ajo** (_Caryocar costaricense_)
 
-**Action Required:** Cross-reference scientific names against existing content before adding duplicates.
+### Confirmed as Documented
+
+- ✅ **Madroño** (_Calycophyllum candidissimum_)
+- ✅ **Nazareno** (_Peltogyne purpurea_)
+
+### Clarified as Distinct Species
+
+- ✅ **Cedro Dulce** (_Cedrela tonduzii_) ≠ **Cedro Amargo** (_Cedrela odorata_) - Different species
+- ✅ **Guaba Bejuco** (_Inga vera_) ≠ **Guaba** (_Inga edulis_) - Different species
+- ✅ **Guaba Machete** (_Inga spectabilis_) ≠ **Guaba** (_Inga edulis_) - Different species
+- ✅ **Anona Colorada** (_Annona purpurea_) ≠ **Anona** (_Annona reticulata_) or **Guanábana** (_Annona muricata_) - Different species
+- ✅ **Cristobalito** (_Platymiscium parviflorum_) ≠ **Cristóbal** (_Platymiscium pinnatum_) - Different species
+- ✅ **Cocobolo Prieto** (_Dalbergia tucurensis_) ≠ **Cocobolo** (_Dalbergia retusa_) - Different species
+- ✅ **Guarumbo Hembra** (_Cecropia peltata_) ≠ **Guarumo** (_Cecropia obtusifolia_) - Different species
+
+### Removed from List
+
+- ❌ **Lirio de Agua** (_Crinum erubescens_) - Not a tree (herbaceous plant)
+
+**Best Practice:** Always verify scientific name before adding new species to prevent duplicates.
 
 ## Recommended Addition Order
 
@@ -245,14 +263,16 @@ All 5 mangrove species have been successfully documented.
 
 ### Implementation Notes
 
-**Progress Update (2026-01-15):**
+**Progress Update (2026-01-19):**
 
 - **18 species successfully added** since last major update (2026-01-12)
-- New additions today: Sigua, Comenegro, Mayo, Lechoso Montañero
+- **7 duplicates identified and removed** from missing list through scientific name verification
+- Recent additions: Sigua, Comenegro, Mayo, Lechoso Montañero, Guanábana
 - All mangrove species now documented (critical coastal ecosystem coverage complete)
 - High-priority native forest, cloud forest, and dry forest species added
-- **Current total: 128 species documented** (up from 124)
-- Phase 2 progress: Only 4 high-priority native forest species remaining (plus Camíbar)
+- **Current total: 129 species documented** (up from 110)
+- **Actual missing species: ~40 unique species** (down from original 57 after removing duplicates)
+- Phase 2 progress: Only 1 high-priority native forest species remaining (Camíbar)
 
 ### Content Requirements per Species
 
@@ -268,15 +288,16 @@ Each new species should include:
 
 ### Estimated Effort
 
-**Updated calculations based on recent progress:**
+**Updated calculations based on recent progress and duplicate removal:**
 
 - **Per species:** 4-6 hours (research + writing + translation + images)
-- **Phase 1 (5 species):** ✅ COMPLETE (20-30 hours invested)
-- **Recent additions (2 species):** ✅ COMPLETE (8-12 hours invested)
-- **Phase 2 (8 high-priority species remaining):** 32-48 hours
-- **Complete remaining list (51 species):** 204-306 hours
+- **Phase 1 (5 mangrove species):** ✅ COMPLETE (20-30 hours invested)
+- **Recent additions (19 species total):** ✅ COMPLETE (76-114 hours invested)
+- **Phase 2 (1 high-priority species remaining):** 4-6 hours
+- **Complete remaining list (~40 unique species):** 160-240 hours
 
-**Achievement Rate:** 14 species added recently, demonstrating sustainable progress toward complete coverage.
+**Achievement Rate:** 19 species added in 6 days (2026-01-12 to 2026-01-19), demonstrating excellent progress.
+**Duplicate Prevention:** Scientific name verification saved ~28-42 hours by preventing duplicate documentation.
 
 ### Resources Needed
 
@@ -296,10 +317,12 @@ Each new species should include:
 
 **Note:** This list was compiled from community input and represents species commonly encountered in Costa Rica that would enhance the comprehensiveness of the atlas. Verification against existing content and scientific name accuracy should be performed before beginning content creation.
 
-**Status Update (2026-01-15):**
+**Status Update (2026-01-19):**
 
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
-- ✅ **18 total species** added since 2026-01-12
-- ✅ **Today's additions:** Sigua (Nectandra cissiflora), Comenegro (Simarouba glauca), Mayo (Vochysia hondurensis), Lechoso Montañero (Brosimum lactescens)
-- 📊 **128 species** now in atlas (up from 110)
-- 🎯 **Next:** Continue Phase 2 native forest trees (47 species remaining overall, 5 high-priority)
+- ✅ **19 total species** added since 2026-01-12 (including Guanábana)
+- ✅ **Verification complete:** 9 duplicates identified and removed from list
+- 📊 **129 species** now in atlas (up from 110)
+- 🎯 **Actual remaining:** ~40 unique species (down from 57 after duplicate removal)
+- 🎯 **Next Priority:** Complete Phase 2 native forest trees (1 high-priority: Camíbar)
+- 💡 **Key Learning:** Always verify scientific names to prevent duplicate documentation

@@ -1,8 +1,8 @@
-name: Weekly Image Quality Check
+name: Weekly Image Quality & Optimization
 
 on:
   schedule:
-    # Run every Sunday at 3 AM UTC (weekly instead of nightly)
+    # Run every Sunday at 3 AM UTC (weekly maintenance)
     - cron: "0 3 * * 0"
   workflow_dispatch:
     inputs:
@@ -18,6 +18,8 @@ on:
           - download-force
           - refresh
           - refresh-gallery
+          - optimize
+          - optimize-force
           - full
 
 permissions:
@@ -40,8 +42,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
+      # Note: Sharp (image optimization) is included in dependencies
+      # ImageMagick removed - not used by our scripts
 
       - name: Determine operation mode
         id: mode
@@ -109,13 +111,24 @@ jobs:
           echo "- **Broken/Missing Images:** ${{ steps.audit.outputs.broken_count || 0 }}" >> audit-report.md
           echo "- **Placeholder Images:** ${{ steps.audit.outputs.placeholder_count || 0 }}" >> audit-report.md
           echo "- **Undersized Images:** ${{ steps.audit.outputs.too_small_count || 0 }}" >> audit-report.md
+
+          # Count optimization status
+          TOTAL_IMAGES=$(find public/images/trees -maxdepth 1 -name "*.jpg" | wc -l)
+          OPTIMIZED_IMAGES=$(find public/images/trees/optimized -maxdepth 1 -type d | wc -l)
+          PENDING_IMAGES=$((TOTAL_IMAGES - OPTIMIZED_IMAGES))
+          echo "- **Total Tree Images:** $TOTAL_IMAGES" >> audit-report.md
+          echo "- **Optimized Images:** $OPTIMIZED_IMAGES" >> audit-report.md
+          echo "- **Pending Optimization:** $PENDING_IMAGES" >> audit-report.md
+
           echo "" >> audit-report.md
 
           TOTAL_ISSUES=$((${{ steps.audit.outputs.broken_count || 0 }} + ${{ steps.audit.outputs.placeholder_count || 0 }} + ${{ steps.audit.outputs.too_small_count || 0 }}))
           if [ $TOTAL_ISSUES -gt 0 ]; then
             echo "**Status:** ⚠️ Issues detected - automated fixes will be applied" >> audit-report.md
+          elif [ $PENDING_IMAGES -gt 0 ]; then
+            echo "**Status:** ⚠️ $PENDING_IMAGES images need optimization" >> audit-report.md
           else
-            echo "**Status:** ✅ All images are valid" >> audit-report.md
+            echo "**Status:** ✅ All images are valid and optimized" >> audit-report.md
           fi
 
       - name: Download missing/broken images
@@ -144,6 +157,37 @@ jobs:
           echo "" >> audit-report.md
           echo "#### Refreshed Gallery Images" >> audit-report.md
           npm run images:refresh:gallery >> audit-report.md 2>&1
+
+      # NEW: Image Optimization Steps
+      - name: Optimize tree images
+        if: steps.mode.outputs.mode == 'optimize' || steps.mode.outputs.mode == 'full' || steps.mode.outputs.mode == 'auto'
+        run: |
+          echo "" >> audit-report.md
+          echo "#### Image Optimization" >> audit-report.md
+          echo "" >> audit-report.md
+          echo "Optimizing tree images (generating WebP, AVIF, responsive sizes)..." >> audit-report.md
+          npm run images:optimize >> audit-report.md 2>&1
+
+          # Report optimization results
+          OPTIMIZED=$(find public/images/trees/optimized -maxdepth 1 -type d | wc -l)
+          echo "" >> audit-report.md
+          echo "✅ Total optimized: $OPTIMIZED trees" >> audit-report.md
+
+      - name: Force re-optimize all images
+        if: steps.mode.outputs.mode == 'optimize-force'
+        run: |
+          echo "" >> audit-report.md
+          echo "#### Force Re-optimization" >> audit-report.md
+          echo "" >> audit-report.md
+          echo "Re-optimizing ALL images..." >> audit-report.md
+          npm run images:optimize:force >> audit-report.md 2>&1
+
+      - name: Optimize hero images
+        if: steps.mode.outputs.mode == 'full'
+        run: |
+          echo "" >> audit-report.md
+          echo "#### Hero Image Optimization" >> audit-report.md
+          npm run images:optimize:hero >> audit-report.md 2>&1
 
       - name: Run legacy cleanup
         if: steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
@@ -183,14 +227,15 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: weekly image quality maintenance"
+          commit-message: "chore: weekly image quality and optimization"
           branch: automated/image-quality-${{ github.run_number }}
           delete-branch: true
-          title: "🖼️ Weekly Image Quality Maintenance"
+          title: "🖼️ Weekly Image Quality & Optimization (${{ steps.changes.outputs.changed_count }} files)"
           body-path: audit-report.md
           labels: |
             maintenance
             images
+            optimization
             automated
           assignees: sandgraal
           reviewers: sandgraal

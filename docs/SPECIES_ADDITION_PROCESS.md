@@ -1,16 +1,16 @@
 # Species Addition Process
 
-**Last Updated:** 2026-01-14  
+**Last Updated:** 2026-01-19  
 **Purpose:** Guide for reviewing the missing species list and adding new trees to the atlas
 
 ## Quick Reference
 
-- **Current Species Count:** 128 documented (256 bilingual documents)
+- **Current Species Count:** 129 documented (258 bilingual documents)
 - **Last Major Update:** 2026-01-15 (4 species added: Sigua, Comenegro, Mayo, Lechoso Montañero)
 - **Previous Major Update:** 2026-01-14 (2 species added)
 - **Previous Major Update:** 2026-01-12 (12 species added)
-- **Missing Species Remaining:** ~47 identified for future expansion
-- **Missing Species List:** [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)
+- **Missing Species Remaining:** ~40 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
+- **Quality Standard:** All species must have **100% safety data coverage** (13 required fields)
 
 ## Review Process
 
@@ -32,10 +32,19 @@ grep -h "scientificName:" content/trees/en/*.mdx | sort | uniq -d
 
 ### Step 2: Cross-Reference Missing List
 
+**⚠️ CRITICAL:** Always verify by scientific name, not common name!
+
 1. Open `docs/MISSING_SPECIES_LIST.md`
-2. Check each species against existing content
+2. **Before adding any species:**
+   ```bash
+   # Search for scientific name in existing content
+   grep -r "scientificName:.*Genus species" content/trees/
+   ```
 3. Verify scientific names to avoid duplicates (same species, different common name)
-4. Update the list to remove documented species
+   - Example: "Kerosén" and "Ron Ron" are both _Astronium graveolens_
+   - Example: "Chilamate" and "Higuerón" are both _Ficus obtusifolia_
+4. Check botanical databases (TROPICOS, IPNI) to confirm accepted name
+5. Update the list to remove documented species
 
 ### Step 3: Update Documentation
 
@@ -43,7 +52,141 @@ When species are added, update these files:
 
 1. **README.md** - Species count in "Features" section
 2. **MISSING_SPECIES_LIST.md** - Remove documented species, update counts
-3. **docs/improvement-roadmap.md** - Update species count references
+3. **docs/SPECIES_ADDITION_PROCESS.md** - Update species count in Quick Reference
+4. **docs/IMPLEMENTATION_PLAN.md** - Update any species count references
+
+## Quality Standards for New Species
+
+**Every new species MUST meet these standards:**
+
+### ✅ Complete Frontmatter (Required)
+
+See full schema in [contentlayer.config.ts](../contentlayer.config.ts) (lines 11-276). Minimum required:
+
+**Core Fields (ALWAYS REQUIRED):**
+
+```yaml
+title: "Common Name" # String
+scientificName: "Genus species" # String - UNIQUE identifier
+family: "Familyaceae" # String
+locale: "en" # Enum: "en" or "es"
+slug: "common-name" # String - same across both languages
+description: "Brief SEO description (150-160 chars)" # String
+```
+
+**Safety Fields (13 REQUIRED - 100% coverage for all species):**
+
+```yaml
+toxicityLevel: "none" # Enum: none, low, moderate, high, severe
+toxicParts: [] # List: seeds, sap, leaves, bark, all, fruit, flowers, roots
+skinContactRisk: "none" # Enum: none, low, moderate, high, severe
+allergenRisk: "none" # Enum: none, low, moderate, high
+structuralRisks: [] # List: falling-branches, sharp-spines, explosive-pods, aggressive-roots, brittle-wood, heavy-fruit
+childSafe: true # Boolean
+petSafe: true # Boolean
+requiresProfessionalCare: false # Boolean
+toxicityDetails: "" # String - detailed description
+skinContactDetails: "" # String - detailed description
+allergenDetails: "" # String - detailed description
+structuralRiskDetails: "" # String - detailed description
+safetyNotes: "" # String - general safety notes
+```
+
+**Highly Recommended Fields:**
+
+```yaml
+nativeRegion: "Pacific coast lowlands" # String
+conservationStatus: "LC" # String: EX, EW, CR, EN, VU, NT, LC, DD, NE
+maxHeight: "25-30 m" # String
+elevation: "0-1500 m" # String
+uses: ["timber", "ornamental"] # List of strings
+tags: ["native", "deciduous"] # List of strings
+distribution: ["guanacaste", "puntarenas"] # List - Costa Rican regions
+floweringSeason: ["march", "april"] # List - lowercase month names
+fruitingSeason: ["june", "july"] # List - lowercase month names
+featuredImage: "/images/trees/slug/featured.jpg" # String - path
+images: ["/images/trees/slug/01.jpg"] # List - additional images
+```
+
+**Care & Cultivation Fields (Optional but valuable):**
+
+```yaml
+growthRate: "moderate" # Enum: slow, moderate, fast
+growthRateDetails: "2-3 ft/year" # String
+matureSize: "40-60 ft tall" # String
+hardiness: "Tropical lowlands" # String
+soilRequirements: "Well-drained" # String
+waterNeeds: "moderate" # Enum: low, moderate, high
+waterDetails: "" # String
+lightRequirements: "full-sun" # Enum: full-sun, partial-shade, shade-tolerant
+spacing: "30 ft from buildings" # String
+propagationMethods: ["seeds"] # List
+propagationDifficulty: "easy" # Enum: easy, moderate, difficult
+plantingSeason: "Rainy season" # String
+maintenanceNeeds: "" # String
+commonProblems: [] # List
+```
+
+**See:** [.github/instructions/content.instructions.md](../.github/instructions/content.instructions.md) for detailed field usage
+
+### ✅ Bilingual Content (MANDATORY)
+
+**🚨 CRITICAL:** Both English AND Spanish versions MUST be created together.
+
+- Same `slug` in both files
+- Same image references
+- Same scientific names
+- Translate ALL user-facing text
+- Maintain same content structure
+
+**Verification:**
+
+```bash
+# After creating both files
+for file in content/trees/en/*.mdx; do
+  slug=$(basename "$file" .mdx)
+  if [ ! -f "content/trees/es/$slug.mdx" ]; then
+    echo "❌ Missing Spanish: $slug"
+  fi
+done
+```
+
+### ✅ Content Structure (Follow Template)
+
+Every species page should follow the standard structure from [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md):
+
+1. **Title & Callout** - Key highlight/significance
+2. **Quick Reference + iNaturalist** - `<TwoColumn>` layout
+3. **Photo Gallery** - 5 high-quality images minimum
+4. **Taxonomy & Classification** - Complete taxonomic hierarchy
+5. **Physical Description** - Tree form, bark, leaves, flowers, fruit
+6. **Distribution** - Geographic range with map if applicable
+7. **Habitat & Ecology** - Environmental context, wildlife interactions
+8. **Uses/Applications** - Traditional and modern uses
+9. **Cultural Significance** - Indigenous uses, regional importance
+10. **Conservation Status** - IUCN status, threats, protection
+11. **Growing/Cultivation** - Propagation, requirements
+12. **Where to See** - National parks, accessible locations
+13. **External Resources** - Links to IUCN, iNaturalist, databases
+
+**Target:** 600+ lines per file (strong quality benchmark)
+
+### ✅ Image Requirements
+
+**Minimum:** 1 featured image + 4 gallery images = 5 total images
+
+- Place in `public/images/trees/[slug]/`
+- Named: `featured.jpg`, `01.jpg`, `02.jpg`, `03.jpg`, `04.jpg`
+- Optimize: `npm run images:optimize`
+- See [IMAGE_OPTIMIZATION.md](./IMAGE_OPTIMIZATION.md) for guidelines
+- See [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md) for sourcing
+
+**Image Quality Standards:**
+
+- Resolution: 1200x800px minimum
+- Format: JPEG (optimized) or WebP
+- Proper attribution in frontmatter or captions
+- Show: tree form, bark, leaves, flowers, fruit (when available)
 
 ### Step 4: Verify Bilingual Coverage
 
@@ -78,8 +221,9 @@ npm run build
 Expected output should show:
 
 - No build errors
-- Increased page count (each tree generates ~8 pages per language)
+- Increased page count (each tree generates ~2 pages per language = 4 pages per species)
 - Contentlayer warnings are acceptable if they're just about extra fields
+- Current expected page count: ~516+ pages (129 trees × 2 languages × 2 pages/tree)
 
 ## Common Issues
 
@@ -135,19 +279,141 @@ Follow the standard content creation process:
 
 ### 1. Research Phase
 
-- Verify species is not already documented (check scientific name)
-- Gather botanical information
-- Find appropriate images (see [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md))
-- Research safety and toxicity data
-- Collect cultural/traditional use information
+**🔍 Scientific Verification (FIRST STEP):**
+
+- [ ] Search for scientific name in existing content
+  ```bash
+  grep -r "scientificName:.*Genus species" content/trees/
+  ```
+- [ ] Verify accepted scientific name on TROPICOS or IPNI
+- [ ] Check for synonyms that might already be documented
+- [ ] Confirm family classification
+
+**📚 Botanical Information:**
+
+- [ ] Tree form, size, and growth habit
+- [ ] Bark characteristics (color, texture, patterns)
+- [ ] Leaf morphology (simple/compound, arrangement, size)
+- [ ] Flower description (color, size, season)
+- [ ] Fruit/seed description (type, size, season)
+- [ ] Complete taxonomic hierarchy (Kingdom → Species)
+- [ ] Etymology of scientific and common names
+
+**🌍 Distribution & Habitat:**
+
+- [ ] Native range and introduced regions
+- [ ] Elevation range in Costa Rica
+- [ ] Climate zones (dry forest, rainforest, cloud forest, etc.)
+- [ ] Soil preferences
+- [ ] Costa Rican provinces/regions where found
+- [ ] Specific locations (national parks, accessible sites)
+
+**🛡️ Safety Information (13 REQUIRED FIELDS):**
+
+- [ ] Overall toxicity level (none/low/moderate/high/severe)
+- [ ] Toxic parts (if any): seeds, sap, leaves, bark, fruit, all
+- [ ] Skin contact risk (none/low/moderate/high/severe)
+- [ ] Allergen risk (none/low/moderate/high)
+- [ ] Structural risks: falling branches, spines, explosive pods, etc.
+- [ ] Child safety assessment
+- [ ] Pet safety (dogs, cats)
+- [ ] Whether professional care required
+- [ ] Detailed toxicity information (compounds, symptoms, first aid)
+- [ ] Detailed skin contact information
+- [ ] Detailed allergen information
+- [ ] Detailed structural risk information
+- [ ] General safety notes and precautions
+
+**📖 Uses & Cultural Information:**
+
+- [ ] Traditional indigenous uses
+- [ ] Modern applications (timber, medicine, food, ornamental)
+- [ ] Wood properties (if timber species)
+- [ ] Regional cultural significance
+- [ ] Local names and meanings
+- [ ] Historical importance
+
+**🦜 Ecological Information:**
+
+- [ ] Wildlife associations (birds, mammals, insects)
+- [ ] Ecological role (nitrogen-fixer, pioneer species, etc.)
+- [ ] Pollination syndrome
+- [ ] Seed dispersal method
+
+**🌱 Cultivation Information:**
+
+- [ ] Growth rate (slow/moderate/fast)
+- [ ] Propagation methods (seeds, cuttings, grafting)
+- [ ] Propagation difficulty (easy/moderate/difficult)
+- [ ] Water needs (low/moderate/high)
+- [ ] Light requirements (full-sun/partial-shade/shade-tolerant)
+- [ ] Soil requirements
+- [ ] Spacing recommendations
+- [ ] Planting season in Costa Rica
+- [ ] Maintenance needs
+- [ ] Common problems/pests
+
+**🔴 Conservation Status:**
+
+- [ ] IUCN Red List status
+- [ ] Current threats (habitat loss, overexploitation, etc.)
+- [ ] Protection measures
+- [ ] Population trends
+
+**📸 Image Collection:**
+
+- [ ] Minimum 5 high-quality images (see [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md))
+  - [ ] 1 featured image (full tree or distinctive feature)
+  - [ ] 4 gallery images (bark, leaves, flowers, fruit)
+- [ ] Proper attribution/licensing documented
+- [ ] Resolution: 1200x800px minimum
+
+**🔗 External Resources:**
+
+- [ ] iNaturalist observations link
+- [ ] IUCN Red List link (if applicable)
+- [ ] Relevant botanical database links
+- [ ] Additional scientific references
 
 ### 2. Content Creation
 
-- Create both EN and ES MDX files with same slug
-- Follow [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md)
-- Include all required frontmatter fields
-- Add bilingual safety information
-- Include iNaturalist links for observation data
+**🚨 CRITICAL:** Create BOTH English and Spanish versions together!
+
+**File Creation:**
+
+```bash
+# Create both files at once
+touch content/trees/en/new-species.mdx
+touch content/trees/es/new-species.mdx
+```
+
+**Frontmatter (Copy template below):**
+
+- [ ] All 6 core required fields
+- [ ] All 13 safety fields (100% coverage mandatory)
+- [ ] Distribution, elevation, seasons (highly recommended)
+- [ ] Care & cultivation fields (if available)
+- [ ] Same `slug` in both EN and ES files
+- [ ] Verify no typos in field names (case-sensitive!)
+
+**Content Structure:**
+
+- [ ] Follow [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md)
+- [ ] Include all 13 standard sections (see template above)
+- [ ] Use MDX components: `<Callout>`, `<QuickRef>`, `<INaturalistEmbed>`, `<DistributionMap>`
+- [ ] Target 600+ lines per file (quality benchmark)
+- [ ] Add bilingual safety information in SafetyCard sections
+- [ ] Include iNaturalist embed for observation data
+- [ ] Cross-reference related species where relevant
+
+**Translation Quality:**
+
+- [ ] Translate ALL user-facing text to Spanish
+- [ ] Keep scientific names unchanged (Latin)
+- [ ] Keep botanical terms accurate (consult Spanish botanical glossary)
+- [ ] Maintain same content structure and section order
+- [ ] Preserve image references (same paths)
+- [ ] Match tone and reading level across languages
 
 ### 3. Image Management
 
@@ -158,18 +424,82 @@ Follow the standard content creation process:
 
 ### 4. Verification
 
-- Build project: `npm run build`
-- Test both language versions
-- Verify search functionality includes new species
-- Check distribution maps render correctly
-- Verify safety badges display properly
+**Build & Technical Checks:**
+
+```bash
+# Build project
+npm run build
+
+# Run linter
+npm run lint
+
+# Type check
+npm run type-check
+```
+
+**Content Verification:**
+
+- [ ] Build completes without errors
+- [ ] Test both language versions load correctly
+  - `/en/trees/new-species`
+  - `/es/trees/new-species`
+- [ ] Verify search functionality includes new species
+- [ ] Check distribution maps render correctly (if applicable)
+- [ ] Verify safety badges display properly
+- [ ] Test image optimization worked: `ls -lh public/images/trees/new-species/`
+- [ ] Check all MDX components render (Callout, QuickRef, etc.)
+- [ ] Verify external links work (iNaturalist, IUCN, etc.)
+- [ ] Test mobile responsiveness
+
+**Safety Data Verification:**
+
+```bash
+# Verify safety fields present
+grep "toxicityLevel:" content/trees/en/new-species.mdx
+grep "childSafe:" content/trees/en/new-species.mdx
+grep "petSafe:" content/trees/en/new-species.mdx
+```
+
+**Bilingual Verification:**
+
+```bash
+# Verify both files have same slug
+grep "slug:" content/trees/en/new-species.mdx
+grep "slug:" content/trees/es/new-species.mdx
+```
 
 ### 5. Documentation Updates
 
-- Update species count in README.md
-- Remove from MISSING_SPECIES_LIST.md if applicable
-- Update improvement-roadmap.md if needed
-- Commit with descriptive message
+**Update Species Counts in:**
+
+- [ ] `README.md` - "Features" section
+- [ ] `docs/SPECIES_ADDITION_PROCESS.md` - Quick Reference section
+- [ ] `docs/IMPLEMENTATION_PLAN.md` - Any species count references
+- [ ] `docs/MISSING_SPECIES_LIST.md` - Remove documented species, update counts
+
+**Git Commit:**
+
+```bash
+# Stage changes
+git add content/trees/{en,es}/new-species.mdx
+git add public/images/trees/new-species/
+git add README.md docs/MISSING_SPECIES_LIST.md
+
+# Commit with descriptive message
+git commit -m "feat: add [Common Name] (_Scientific name_)
+
+- Add bilingual MDX content (EN + ES)
+- Add 5 images (featured + 4 gallery)
+- Complete safety data (13 fields)
+- Update species count: 129 → 130"
+
+# Create PR (DON'T push directly to main!)
+git checkout -b content/add-new-species
+git push origin content/add-new-species
+gh pr create --title "feat: Add [Common Name]" --body "..."
+```
+
+**⚠️ NEVER push directly to main!** Always create a feature branch and PR.
 
 ## Batch Addition Guidelines
 
@@ -228,6 +558,16 @@ done
 
 ## Recent Updates Log
 
+### 2026-01-19
+
+- **Documentation accuracy audit completed**
+  - Updated species count across all docs: 128 → 129
+  - Verified 100% safety data coverage (129 species × 13 fields = 1,677 data points)
+  - Removed 9 duplicate species from MISSING_SPECIES_LIST.md
+  - Updated SECURITY_SETUP.md with accurate implementation status
+  - Updated SAFETY_SYSTEM.md with current implementation details
+  - ~40 unique species remaining to document
+
 ### 2026-01-15
 
 - **Added 4 new species:**
@@ -263,6 +603,108 @@ done
 - Added 12 new species including all 5 mangroves
 - Phase 1 (Critical Gaps - Mangroves) marked complete
 - Build verification: 1014 pages generated successfully
+
+## Frontmatter Template
+
+Copy this template when creating new species files:
+
+```yaml
+---
+# Core Required Fields (6)
+title: "Common Name"
+scientificName: "Genus species"
+family: "Familyaceae"
+locale: "en" # or "es"
+slug: "common-name" # SAME in both EN and ES files
+description: "Brief SEO-friendly description in 150-160 characters that captures key features."
+
+# Distribution & Habitat (Highly Recommended)
+nativeRegion: "Native to tropical lowlands of Central America"
+conservationStatus: "LC" # EX, EW, CR, EN, VU, NT, LC, DD, NE
+maxHeight: "20-25 m"
+elevation: "0-1200 m"
+distribution:
+  - guanacaste
+  - puntarenas
+  - pacific-coast
+
+# Uses & Tags (Highly Recommended)
+uses:
+  - timber
+  - ornamental
+  - medicinal
+tags:
+  - native
+  - deciduous
+  - dry-forest
+  - flowering
+
+# Seasonal Data (Recommended)
+floweringSeason:
+  - march
+  - april
+  - may
+fruitingSeason:
+  - june
+  - july
+  - august
+
+# Images (Required)
+featuredImage: "/images/trees/common-name/featured.jpg"
+images:
+  - "/images/trees/common-name/01.jpg"
+  - "/images/trees/common-name/02.jpg"
+  - "/images/trees/common-name/03.jpg"
+  - "/images/trees/common-name/04.jpg"
+
+# Safety Information (13 REQUIRED FIELDS - 100% coverage mandatory)
+toxicityLevel: "none" # none, low, moderate, high, severe
+toxicParts: [] # Empty array if none; otherwise: ["seeds", "sap", "leaves", "bark", "fruit", "flowers", "roots", "all"]
+skinContactRisk: "none" # none, low, moderate, high, severe
+allergenRisk: "none" # none, low, moderate, high
+structuralRisks: [] # Empty array if none; otherwise: ["falling-branches", "sharp-spines", "explosive-pods", "aggressive-roots", "brittle-wood", "heavy-fruit"]
+childSafe: true
+petSafe: true
+requiresProfessionalCare: false
+toxicityDetails: "No known toxicity. Fruit is edible when ripe."
+skinContactDetails: "No known skin irritation."
+allergenDetails: "No known allergenic properties."
+structuralRiskDetails: "No significant structural hazards."
+safetyNotes: "Safe for planting near homes and play areas."
+
+# Care & Cultivation (Optional but valuable)
+growthRate: "moderate" # slow, moderate, fast
+growthRateDetails: "2-3 feet per year in optimal conditions"
+matureSize: "40-60 ft tall, 30-40 ft spread"
+hardiness: "USDA zones 10-12, tropical lowlands"
+soilRequirements: "Well-drained soils, tolerates clay"
+waterNeeds: "moderate" # low, moderate, high
+waterDetails: "Water regularly during establishment, drought-tolerant once mature"
+lightRequirements: "full-sun" # full-sun, partial-shade, shade-tolerant
+spacing: "30-40 ft from buildings and other trees"
+propagationMethods:
+  - seeds
+  - cuttings
+propagationDifficulty: "easy" # easy, moderate, difficult
+plantingSeason: "Beginning of rainy season (May-June)"
+maintenanceNeeds: "Minimal pruning required, monitor for pests"
+commonProblems:
+  - "leaf-cutter-ants"
+  - "scale-insects"
+
+# Dates (Optional)
+publishedAt: 2026-01-19
+updatedAt: 2026-01-19
+---
+```
+
+**Safety Field Guidelines:**
+
+- If tree is **completely safe**: Use "none"/empty arrays/true for child & pet safe
+- If **any toxicity**: Document specific parts, symptoms, first aid in details fields
+- If **skin irritant**: Note severity and affected populations (general public vs sensitive individuals)
+- If **structural hazards**: List all risks (thorns, brittle branches, aggressive roots, etc.)
+- **When in doubt**: Consult botanical references, poison control databases, veterinary resources
 
 ## See Also
 
