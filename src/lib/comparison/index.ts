@@ -136,30 +136,40 @@ export function getComparisonTagIcon(tag: string): string | undefined {
 }
 
 /**
+ * Tag labels for localization
+ * Defined at module level for performance
+ */
+const TAG_LABELS: Record<string, { en: string; es: string }> = {
+  leaves: { en: "Leaves", es: "Hojas" },
+  bark: { en: "Bark", es: "Corteza" },
+  fruit: { en: "Fruit", es: "Fruto" },
+  flowers: { en: "Flowers", es: "Flores" },
+  size: { en: "Size", es: "Tamaño" },
+  habitat: { en: "Habitat", es: "Hábitat" },
+  trunk: { en: "Trunk", es: "Tronco" },
+  seeds: { en: "Seeds", es: "Semillas" },
+  crown: { en: "Crown", es: "Copa" },
+  roots: { en: "Roots", es: "Raíces" },
+};
+
+/**
  * Get localized label for a comparison tag
  * @param tag - Tag name (case-insensitive)
  * @param locale - Current locale ('en' or 'es')
  * @returns Localized tag label
  */
 export function getComparisonTagLabel(tag: string, locale: Locale): string {
-  const tagLabels: Record<string, { en: string; es: string }> = {
-    leaves: { en: "Leaves", es: "Hojas" },
-    bark: { en: "Bark", es: "Corteza" },
-    fruit: { en: "Fruit", es: "Fruto" },
-    flowers: { en: "Flowers", es: "Flores" },
-    size: { en: "Size", es: "Tamaño" },
-    habitat: { en: "Habitat", es: "Hábitat" },
-    trunk: { en: "Trunk", es: "Tronco" },
-    seeds: { en: "Seeds", es: "Semillas" },
-    crown: { en: "Crown", es: "Copa" },
-    roots: { en: "Roots", es: "Raíces" },
-  };
-
   const tagKey = tag.toLowerCase();
-  const labels = tagLabels[tagKey];
+  const labels = TAG_LABELS[tagKey];
 
   if (!labels) {
     // Fallback: capitalize first letter if tag not found
+    // Log warning in development to help identify data issues
+    if (process.env.NODE_ENV === "development") {
+      console.warn(
+        `Unknown comparison tag encountered: "${tag}". Using fallback capitalization.`
+      );
+    }
     return tag.charAt(0).toUpperCase() + tag.slice(1);
   }
 
