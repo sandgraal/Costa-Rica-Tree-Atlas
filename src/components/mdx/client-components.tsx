@@ -436,6 +436,510 @@ export function GlossaryTooltip({
   );
 }
 
+// ============================================================================
+// COMPARISON-SPECIFIC COMPONENTS
+// ============================================================================
+
+// Before/After Image Slider for comparing similar features
+interface BeforeAfterSliderProps {
+  beforeImage: string;
+  afterImage: string;
+  beforeLabel: string;
+  afterLabel: string;
+  beforeAlt?: string;
+  afterAlt?: string;
+  beforeCredit?: string;
+  afterCredit?: string;
+}
+
+export function BeforeAfterSlider({
+  beforeImage,
+  afterImage,
+  beforeLabel,
+  afterLabel,
+  beforeAlt,
+  afterAlt,
+  beforeCredit,
+  afterCredit,
+}: BeforeAfterSliderProps) {
+  const [sliderPosition, setSliderPosition] = React.useState(50);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const handleMove = React.useCallback((clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const percentage = (x / rect.width) * 100;
+    setSliderPosition(percentage);
+  }, []);
+
+  const handleMouseMove = React.useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging) return;
+      handleMove(e.clientX);
+    },
+    [isDragging, handleMove]
+  );
+
+  const handleTouchMove = React.useCallback(
+    (e: TouchEvent) => {
+      if (!isDragging) return;
+      handleMove(e.touches[0].clientX);
+    },
+    [isDragging, handleMove]
+  );
+
+  const handleMouseUp = React.useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  React.useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove]);
+
+  const isBeforeRemote = beforeImage.startsWith("http");
+  const isAfterRemote = afterImage.startsWith("http");
+
+  return (
+    <div className="my-8 not-prose">
+      <div
+        ref={containerRef}
+        className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-ew-resize select-none border border-border"
+        onMouseDown={() => setIsDragging(true)}
+        onTouchStart={() => setIsDragging(true)}
+      >
+        {/* After Image (Full width, behind) */}
+        <div className="absolute inset-0">
+          <SafeImage
+            src={afterImage}
+            alt={afterAlt || afterLabel}
+            fill
+            className="object-cover"
+            unoptimized={isAfterRemote}
+          />
+          {/* After Label */}
+          <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/70 text-white text-sm font-medium rounded-full backdrop-blur-sm">
+            {afterLabel}
+          </div>
+        </div>
+
+        {/* Before Image (Clipped) */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ width: `${sliderPosition}%` }}
+        >
+          <div
+            className="relative w-full h-full"
+            style={{ width: `${100 / (sliderPosition / 100)}%` }}
+          >
+            <SafeImage
+              src={beforeImage}
+              alt={beforeAlt || beforeLabel}
+              fill
+              className="object-cover"
+              unoptimized={isBeforeRemote}
+            />
+          </div>
+          {/* Before Label */}
+          <div className="absolute top-4 left-4 px-3 py-1.5 bg-black/70 text-white text-sm font-medium rounded-full backdrop-blur-sm">
+            {beforeLabel}
+          </div>
+        </div>
+
+        {/* Slider Handle */}
+        <div
+          className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
+          style={{ left: `${sliderPosition}%`, transform: "translateX(-50%)" }}
+        >
+          {/* Handle Circle */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-primary">
+            <svg
+              className="w-5 h-5 text-primary"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M8 12H4m0 0l3-3m-3 3l3 3M16 12h4m0 0l-3-3m3 3l-3 3" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Instructions overlay (shown briefly) */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 text-white text-xs rounded-full backdrop-blur-sm opacity-70 pointer-events-none">
+          ← Drag to compare →
+        </div>
+      </div>
+
+      {/* Credits */}
+      {(beforeCredit || afterCredit) && (
+        <div className="flex justify-between mt-2 text-xs text-muted-foreground">
+          {beforeCredit && <span>📷 {beforeCredit}</span>}
+          {afterCredit && <span>📷 {afterCredit}</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Side-by-Side Images with synchronized lightbox
+interface SideBySideImagesProps {
+  leftImage: string;
+  rightImage: string;
+  leftLabel: string;
+  rightLabel: string;
+  leftAlt?: string;
+  rightAlt?: string;
+  leftCredit?: string;
+  rightCredit?: string;
+  caption?: string;
+}
+
+export function SideBySideImages({
+  leftImage,
+  rightImage,
+  leftLabel,
+  rightLabel,
+  leftAlt,
+  rightAlt,
+  leftCredit,
+  rightCredit,
+  caption,
+}: SideBySideImagesProps) {
+  const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
+  useScrollLock(lightboxOpen);
+
+  const images = [
+    {
+      src: leftImage,
+      alt: leftAlt || leftLabel,
+      label: leftLabel,
+      credit: leftCredit,
+    },
+    {
+      src: rightImage,
+      alt: rightAlt || rightLabel,
+      label: rightLabel,
+      credit: rightCredit,
+    },
+  ];
+
+  const isLeftRemote = leftImage.startsWith("http");
+  const isRightRemote = rightImage.startsWith("http");
+
+  return (
+    <>
+      <figure className="my-8 not-prose">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          {/* Left Image */}
+          <button
+            onClick={() => {
+              setActiveIndex(0);
+              setLightboxOpen(true);
+            }}
+            className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-border hover:border-primary/50 transition-colors group cursor-zoom-in"
+          >
+            <SafeImage
+              src={leftImage}
+              alt={leftAlt || leftLabel}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 50vw, 400px"
+              unoptimized={isLeftRemote}
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 pt-8">
+              <span className="text-white font-semibold text-sm sm:text-base">
+                {leftLabel}
+              </span>
+            </div>
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+              <svg
+                className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+                <path d="M11 8v6M8 11h6" />
+              </svg>
+            </div>
+          </button>
+
+          {/* Right Image */}
+          <button
+            onClick={() => {
+              setActiveIndex(1);
+              setLightboxOpen(true);
+            }}
+            className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-border hover:border-primary/50 transition-colors group cursor-zoom-in"
+          >
+            <SafeImage
+              src={rightImage}
+              alt={rightAlt || rightLabel}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 50vw, 400px"
+              unoptimized={isRightRemote}
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 pt-8">
+              <span className="text-white font-semibold text-sm sm:text-base">
+                {rightLabel}
+              </span>
+            </div>
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+              <svg
+                className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+                <path d="M11 8v6M8 11h6" />
+              </svg>
+            </div>
+          </button>
+        </div>
+
+        {/* Credits */}
+        {(leftCredit || rightCredit) && (
+          <div className="flex justify-between mt-2 px-1 text-xs text-muted-foreground">
+            <span>{leftCredit && `📷 ${leftCredit}`}</span>
+            <span>{rightCredit && `📷 ${rightCredit}`}</span>
+          </div>
+        )}
+
+        {caption && (
+          <figcaption className="text-center text-sm text-muted-foreground mt-3 italic">
+            {caption}
+          </figcaption>
+        )}
+      </figure>
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            onClick={() => setLightboxOpen(false)}
+            className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
+            aria-label="Close"
+          >
+            <svg
+              className="w-8 h-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Navigation */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveIndex(0);
+            }}
+            className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-colors ${activeIndex === 0 ? "bg-primary text-white" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
+            aria-label="View first image"
+          >
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveIndex(1);
+            }}
+            className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-colors ${activeIndex === 1 ? "bg-primary text-white" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
+            aria-label="View second image"
+          >
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+
+          <div
+            className="relative max-w-[90vw] max-h-[85vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={images[activeIndex].src}
+              alt={images[activeIndex].alt}
+              width={1200}
+              height={800}
+              className="max-h-[75vh] w-auto object-contain"
+              priority
+              quality={85}
+              unoptimized={images[activeIndex].src.startsWith("http")}
+            />
+            <div className="mt-4 text-center text-white">
+              <h3 className="text-lg font-semibold">
+                {images[activeIndex].label}
+              </h3>
+              {images[activeIndex].credit && (
+                <p className="text-sm text-white/70 mt-1">
+                  📷 {images[activeIndex].credit}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// Feature Annotation Component - Clickable hotspots on images
+interface AnnotationPoint {
+  x: number; // Percentage from left
+  y: number; // Percentage from top
+  label: string;
+  description: string;
+}
+
+interface FeatureAnnotationProps {
+  image: string;
+  alt: string;
+  annotations: AnnotationPoint[];
+  credit?: string;
+}
+
+export function FeatureAnnotation({
+  image,
+  alt,
+  annotations,
+  credit,
+}: FeatureAnnotationProps) {
+  const [activeAnnotation, setActiveAnnotation] = React.useState<number | null>(
+    null
+  );
+  const isRemote = image.startsWith("http");
+
+  return (
+    <figure className="my-8 not-prose">
+      <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-border">
+        <SafeImage
+          src={image}
+          alt={alt}
+          fill
+          className="object-cover"
+          unoptimized={isRemote}
+        />
+
+        {/* Annotation Points */}
+        {annotations.map((point, index) => (
+          <button
+            key={index}
+            className={`absolute w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-lg transition-all ${
+              activeAnnotation === index
+                ? "bg-primary scale-125 z-20"
+                : "bg-primary/80 hover:bg-primary hover:scale-110 z-10"
+            }`}
+            style={{ left: `${point.x}%`, top: `${point.y}%` }}
+            onClick={() =>
+              setActiveAnnotation(activeAnnotation === index ? null : index)
+            }
+            aria-label={point.label}
+          >
+            <span className="text-white font-bold text-sm">{index + 1}</span>
+          </button>
+        ))}
+
+        {/* Active Annotation Tooltip */}
+        {activeAnnotation !== null && (
+          <div
+            className="absolute z-30 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 max-w-xs border border-border"
+            style={{
+              left: `${Math.min(Math.max(annotations[activeAnnotation].x, 20), 80)}%`,
+              top: `${annotations[activeAnnotation].y + 8}%`,
+              transform: "translateX(-50%)",
+            }}
+          >
+            <button
+              onClick={() => setActiveAnnotation(null)}
+              className="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white rounded-full text-xs flex items-center justify-center hover:bg-primary-dark"
+            >
+              ✕
+            </button>
+            <h4 className="font-semibold text-sm mb-1">
+              {annotations[activeAnnotation].label}
+            </h4>
+            <p className="text-xs text-muted-foreground">
+              {annotations[activeAnnotation].description}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Annotation Legend */}
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {annotations.map((point, index) => (
+          <button
+            key={index}
+            onClick={() =>
+              setActiveAnnotation(activeAnnotation === index ? null : index)
+            }
+            className={`flex items-start gap-2 p-2 rounded-lg text-left transition-colors ${
+              activeAnnotation === index
+                ? "bg-primary/10 border border-primary/30"
+                : "hover:bg-muted"
+            }`}
+          >
+            <span className="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full text-xs flex items-center justify-center font-bold">
+              {index + 1}
+            </span>
+            <div>
+              <span className="font-medium text-sm">{point.label}</span>
+              <p className="text-xs text-muted-foreground line-clamp-1">
+                {point.description}
+              </p>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {credit && (
+        <p className="text-xs text-muted-foreground mt-2">📷 {credit}</p>
+      )}
+    </figure>
+  );
+}
+
 // Export all client components as a mapped object
 export const mdxClientComponents = {
   AccordionItem,
@@ -443,4 +947,8 @@ export const mdxClientComponents = {
   ImageGallery,
   Tabs,
   GlossaryTooltip,
+  // Comparison components
+  BeforeAfterSlider,
+  SideBySideImages,
+  FeatureAnnotation,
 };

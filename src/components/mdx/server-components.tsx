@@ -1287,6 +1287,416 @@ export function CommonProblems({ problems }: CommonProblemsProps) {
   );
 }
 
+// ============================================================================
+// COMPARISON-SPECIFIC SERVER COMPONENTS
+// ============================================================================
+
+// Confusion Rating Display (1-5 scale)
+interface ConfusionRatingProps {
+  rating: number;
+  label?: string;
+}
+
+export function ConfusionRating({ rating, label }: ConfusionRatingProps) {
+  const normalizedRating = Math.min(5, Math.max(1, Math.round(rating)));
+  const ratingLabels = [
+    "Easy to distinguish",
+    "Usually distinguishable",
+    "Moderately confusing",
+    "Often confused",
+    "Extremely similar",
+  ];
+
+  return (
+    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted rounded-full not-prose">
+      <span className="text-xs font-medium text-muted-foreground">
+        {label || "Confusion Level:"}
+      </span>
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map((level) => (
+          <div
+            key={level}
+            className={`w-2 h-4 rounded-sm transition-colors ${
+              level <= normalizedRating
+                ? level <= 2
+                  ? "bg-success"
+                  : level <= 3
+                    ? "bg-warning"
+                    : "bg-destructive"
+                : "bg-border"
+            }`}
+          />
+        ))}
+      </div>
+      <span className="text-xs font-medium">
+        {ratingLabels[normalizedRating - 1]}
+      </span>
+    </div>
+  );
+}
+
+// Comparison Hero Section
+interface ComparisonHeroProps {
+  leftImage: string;
+  rightImage: string;
+  leftLabel: string;
+  rightLabel: string;
+  leftSubtitle?: string;
+  rightSubtitle?: string;
+  vsText?: string;
+}
+
+export function ComparisonHero({
+  leftImage,
+  rightImage,
+  leftLabel,
+  rightLabel,
+  leftSubtitle,
+  rightSubtitle,
+  vsText = "VS",
+}: ComparisonHeroProps) {
+  return (
+    <div className="relative my-8 not-prose">
+      <div className="grid grid-cols-2 gap-0 rounded-2xl overflow-hidden border-2 border-border shadow-lg">
+        {/* Left Species */}
+        <div className="relative aspect-[4/3]">
+          <Image
+            src={leftImage}
+            alt={leftLabel}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, 400px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white">
+            <h3 className="text-lg sm:text-2xl font-bold drop-shadow-lg">
+              {leftLabel}
+            </h3>
+            {leftSubtitle && (
+              <p className="text-sm sm:text-base text-white/80 italic">
+                {leftSubtitle}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Right Species */}
+        <div className="relative aspect-[4/3]">
+          <Image
+            src={rightImage}
+            alt={rightLabel}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, 400px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white text-right">
+            <h3 className="text-lg sm:text-2xl font-bold drop-shadow-lg">
+              {rightLabel}
+            </h3>
+            {rightSubtitle && (
+              <p className="text-sm sm:text-base text-white/80 italic">
+                {rightSubtitle}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* VS Badge */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg sm:text-xl shadow-xl border-4 border-white">
+            {vsText}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Feature Compare Row - Visual comparison row with images
+interface FeatureCompareRowProps {
+  feature: string;
+  leftValue: string;
+  rightValue: string;
+  leftImage?: string;
+  rightImage?: string;
+  icon?: string;
+}
+
+export function FeatureCompareRow({
+  feature,
+  leftValue,
+  rightValue,
+  leftImage,
+  rightImage,
+  icon,
+}: FeatureCompareRowProps) {
+  return (
+    <div className="grid grid-cols-3 gap-4 py-4 border-b border-border last:border-b-0 not-prose items-center">
+      {/* Left Value */}
+      <div className="text-right">
+        {leftImage && (
+          <div className="relative w-16 h-16 rounded-lg overflow-hidden ml-auto mb-2">
+            <Image
+              src={leftImage}
+              alt={leftValue}
+              fill
+              className="object-cover"
+              sizes="64px"
+            />
+          </div>
+        )}
+        <span className="text-sm font-medium">{leftValue}</span>
+      </div>
+
+      {/* Feature Label (Center) */}
+      <div className="text-center">
+        <div className="inline-flex flex-col items-center gap-1 px-3 py-2 bg-primary/10 rounded-lg">
+          {icon && <span className="text-xl">{icon}</span>}
+          <span className="text-xs font-semibold text-primary uppercase tracking-wide">
+            {feature}
+          </span>
+        </div>
+      </div>
+
+      {/* Right Value */}
+      <div className="text-left">
+        {rightImage && (
+          <div className="relative w-16 h-16 rounded-lg overflow-hidden mb-2">
+            <Image
+              src={rightImage}
+              alt={rightValue}
+              fill
+              className="object-cover"
+              sizes="64px"
+            />
+          </div>
+        )}
+        <span className="text-sm font-medium">{rightValue}</span>
+      </div>
+    </div>
+  );
+}
+
+// Feature Compare Grid - Container for FeatureCompareRows
+interface FeatureCompareGridProps {
+  leftLabel: string;
+  rightLabel: string;
+  children: React.ReactNode;
+}
+
+export function FeatureCompareGrid({
+  leftLabel,
+  rightLabel,
+  children,
+}: FeatureCompareGridProps) {
+  return (
+    <div className="my-8 bg-card rounded-xl border border-border overflow-hidden not-prose">
+      {/* Header */}
+      <div className="grid grid-cols-3 gap-4 px-4 py-3 bg-muted border-b border-border">
+        <div className="text-right font-semibold text-primary">{leftLabel}</div>
+        <div className="text-center text-xs text-muted-foreground uppercase tracking-wide">
+          Feature
+        </div>
+        <div className="text-left font-semibold text-primary">{rightLabel}</div>
+      </div>
+      {/* Rows */}
+      <div className="px-4">{children}</div>
+    </div>
+  );
+}
+
+// Quick Decision Flow - Visual decision tree
+interface DecisionStep {
+  question: string;
+  yesAnswer: string;
+  noAnswer: string;
+  yesResult?: string; // Species name if this concludes
+  noResult?: string; // Species name if this concludes
+}
+
+interface QuickDecisionFlowProps {
+  title?: string;
+  steps: DecisionStep[];
+}
+
+export function QuickDecisionFlow({
+  title = "Quick Identification Guide",
+  steps,
+}: QuickDecisionFlowProps) {
+  return (
+    <div className="my-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 border border-border not-prose">
+      <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
+        <span>🔍</span>
+        {title}
+      </h4>
+      <div className="space-y-4">
+        {steps.map((step, index) => (
+          <div key={index} className="relative">
+            {/* Question */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border shadow-sm">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
+                  {index + 1}
+                </span>
+                <div className="flex-1">
+                  <p className="font-medium mb-3">{step.question}</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    {/* Yes Path */}
+                    <div
+                      className={`p-3 rounded-lg ${
+                        step.yesResult
+                          ? "bg-success/10 border border-success/30"
+                          : "bg-muted"
+                      }`}
+                    >
+                      <div className="text-xs font-semibold text-success mb-1">
+                        ✓ YES
+                      </div>
+                      <p className="text-sm">{step.yesAnswer}</p>
+                      {step.yesResult && (
+                        <div className="mt-2 px-2 py-1 bg-success/20 rounded text-xs font-semibold text-success">
+                          → {step.yesResult}
+                        </div>
+                      )}
+                    </div>
+                    {/* No Path */}
+                    <div
+                      className={`p-3 rounded-lg ${
+                        step.noResult
+                          ? "bg-info/10 border border-info/30"
+                          : "bg-muted"
+                      }`}
+                    >
+                      <div className="text-xs font-semibold text-info mb-1">
+                        ✗ NO
+                      </div>
+                      <p className="text-sm">{step.noAnswer}</p>
+                      {step.noResult && (
+                        <div className="mt-2 px-2 py-1 bg-info/20 rounded text-xs font-semibold text-info">
+                          → {step.noResult}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Connector Line */}
+            {index < steps.length - 1 && !step.yesResult && !step.noResult && (
+              <div className="absolute left-7 top-full w-0.5 h-4 bg-border" />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Compare In Tool Button
+interface CompareInToolButtonProps {
+  species: string[];
+  locale?: string;
+  label?: string;
+}
+
+export function CompareInToolButton({
+  species,
+  locale = "en",
+  label,
+}: CompareInToolButtonProps) {
+  const speciesParam = species.join(",");
+  const href = `/${locale}/compare?species=${encodeURIComponent(speciesParam)}`;
+  const buttonLabel =
+    label ||
+    (locale === "es"
+      ? "Comparar en herramienta interactiva"
+      : "Compare in interactive tool");
+
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md hover:shadow-lg not-prose my-4"
+    >
+      <svg
+        className="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+      </svg>
+      {buttonLabel}
+      <svg
+        className="w-4 h-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+    </a>
+  );
+}
+
+// Comparison Tags Display
+interface ComparisonTagsProps {
+  tags: string[];
+}
+
+export function ComparisonTags({ tags }: ComparisonTagsProps) {
+  const tagIcons: Record<string, string> = {
+    leaves: "🍃",
+    bark: "🪵",
+    fruit: "🍎",
+    flowers: "🌸",
+    size: "📏",
+    habitat: "🏞️",
+    trunk: "🌳",
+    seeds: "🌰",
+    crown: "👑",
+    roots: "🌱",
+  };
+
+  return (
+    <div className="flex flex-wrap gap-2 not-prose">
+      {tags.map((tag) => (
+        <span
+          key={tag}
+          className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full"
+        >
+          {tagIcons[tag.toLowerCase()] && (
+            <span>{tagIcons[tag.toLowerCase()]}</span>
+          )}
+          {tag.charAt(0).toUpperCase() + tag.slice(1)}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+// Seasonal Note Display
+interface SeasonalNoteProps {
+  note: string;
+  icon?: string;
+}
+
+export function SeasonalNote({ note, icon = "📅" }: SeasonalNoteProps) {
+  return (
+    <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-lg text-sm not-prose">
+      <span className="text-lg">{icon}</span>
+      <span className="text-foreground/90">{note}</span>
+    </div>
+  );
+}
+
 // Export all server components for MDX
 export const mdxServerComponents = {
   // Custom MDX components
@@ -1320,6 +1730,15 @@ export const mdxServerComponents = {
   MaintenanceTimeline,
   CareRequirements,
   CommonProblems,
+  // Comparison-specific components
+  ConfusionRating,
+  ComparisonHero,
+  FeatureCompareRow,
+  FeatureCompareGrid,
+  QuickDecisionFlow,
+  CompareInToolButton,
+  ComparisonTags,
+  SeasonalNote,
   // Native HTML element overrides for consistent styling
   h1: H1,
   h2: H2,
