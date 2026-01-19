@@ -7,13 +7,13 @@ import type { Locale } from "@/types/tree";
 import type { allTrees } from "contentlayer/generated";
 
 const MAX_FEATURED_TREES = 8;
+const MAX_ENDANGERED_TREES = 5;
 
 interface FeaturedTreesSectionProps {
   trees: typeof allTrees;
   locale: Locale;
   featuredTrees: string;
   viewAll: string;
-  loadMore: string;
 }
 
 export function FeaturedTreesSection({
@@ -35,9 +35,8 @@ export function FeaturedTreesSection({
     const isEmblematic = (tree: (typeof allTrees)[number]) => {
       const tags = tree.tags || [];
       return (
-        tags.includes("national") || // National tree
-        tags.includes("endemic") || // Endemic to Costa Rica
-        tags.includes("native") // Native to region
+        tags.includes("national") || // National tree of Costa Rica
+        tags.includes("endemic") // Endemic to Costa Rica/region
       );
     };
 
@@ -60,13 +59,37 @@ export function FeaturedTreesSection({
     // Combine endangered and emblematic trees, prioritizing endangered
     const combinedSet = new Set<(typeof allTrees)[number]>();
 
-    // Add endangered trees first (up to 5)
-    sortedEndangered.slice(0, 5).forEach((tree) => combinedSet.add(tree));
+    // Add endangered trees first (up to MAX_ENDANGERED_TREES)
+    sortedEndangered
+      .slice(0, MAX_ENDANGERED_TREES)
+      .forEach((tree) => combinedSet.add(tree));
 
     // Add emblematic trees that aren't already in the set
     for (const tree of emblematicTrees) {
       if (combinedSet.size >= MAX_FEATURED_TREES) break;
       combinedSet.add(tree);
+    }
+
+    // If we still don't have enough, add more endangered trees
+    if (combinedSet.size < MAX_FEATURED_TREES) {
+      for (
+        let i = MAX_ENDANGERED_TREES;
+        i < sortedEndangered.length && combinedSet.size < MAX_FEATURED_TREES;
+        i++
+      ) {
+        combinedSet.add(sortedEndangered[i]);
+      }
+    }
+
+    // Finally, if still not enough, add native trees as fallback
+    if (combinedSet.size < MAX_FEATURED_TREES) {
+      const nativeTrees = trees.filter((tree) =>
+        (tree.tags || []).includes("native")
+      );
+      for (const tree of nativeTrees) {
+        if (combinedSet.size >= MAX_FEATURED_TREES) break;
+        combinedSet.add(tree);
+      }
     }
 
     // Convert to array and limit to MAX_FEATURED_TREES
