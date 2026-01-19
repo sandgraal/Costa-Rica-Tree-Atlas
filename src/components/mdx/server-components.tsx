@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/lib/image";
+import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
+import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 
 // Callout Box Component
 interface CalloutProps {
@@ -1292,46 +1294,25 @@ export function CommonProblems({ problems }: CommonProblemsProps) {
 // ============================================================================
 
 // Confusion Rating Display (1-5 scale)
+// Wrapper around shared ConfusionRatingBadge component for MDX usage
 interface ConfusionRatingProps {
   rating: number;
   label?: string;
+  locale?: string;
 }
 
-export function ConfusionRating({ rating, label }: ConfusionRatingProps) {
-  const normalizedRating = Math.min(5, Math.max(1, Math.round(rating)));
-  const ratingLabels = [
-    "Easy to distinguish",
-    "Usually distinguishable",
-    "Moderately confusing",
-    "Often confused",
-    "Extremely similar",
-  ];
-
+export function ConfusionRating({
+  rating,
+  label,
+  locale = "en",
+}: ConfusionRatingProps) {
   return (
-    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted rounded-full not-prose">
-      <span className="text-xs font-medium text-muted-foreground">
-        {label || "Confusion Level:"}
-      </span>
-      <div className="flex gap-0.5">
-        {[1, 2, 3, 4, 5].map((level) => (
-          <div
-            key={level}
-            className={`w-2 h-4 rounded-sm transition-colors ${
-              level <= normalizedRating
-                ? level <= 2
-                  ? "bg-success"
-                  : level <= 3
-                    ? "bg-warning"
-                    : "bg-destructive"
-                : "bg-border"
-            }`}
-          />
-        ))}
-      </div>
-      <span className="text-xs font-medium">
-        {ratingLabels[normalizedRating - 1]}
-      </span>
-    </div>
+    <ConfusionRatingBadge
+      rating={rating}
+      locale={locale}
+      variant="default"
+      showLabel={!!label || label === undefined}
+    />
   );
 }
 
@@ -1647,36 +1628,16 @@ export function CompareInToolButton({
 }
 
 // Comparison Tags Display
+// Wrapper around shared ComparisonTagPill component for MDX usage
 interface ComparisonTagsProps {
   tags: string[];
 }
 
 export function ComparisonTags({ tags }: ComparisonTagsProps) {
-  const tagIcons: Record<string, string> = {
-    leaves: "🍃",
-    bark: "🪵",
-    fruit: "🍎",
-    flowers: "🌸",
-    size: "📏",
-    habitat: "🏞️",
-    trunk: "🌳",
-    seeds: "🌰",
-    crown: "👑",
-    roots: "🌱",
-  };
-
   return (
     <div className="flex flex-wrap gap-2 not-prose">
       {tags.map((tag) => (
-        <span
-          key={tag}
-          className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full"
-        >
-          {tagIcons[tag.toLowerCase()] && (
-            <span>{tagIcons[tag.toLowerCase()]}</span>
-          )}
-          {tag.charAt(0).toUpperCase() + tag.slice(1)}
-        </span>
+        <ComparisonTagPill key={tag} tag={tag} variant="primary" />
       ))}
     </div>
   );
