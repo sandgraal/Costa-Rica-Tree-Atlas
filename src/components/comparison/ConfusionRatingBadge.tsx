@@ -18,7 +18,6 @@ export function ConfusionRatingBadge({
   variant = "default",
   showLabel = true,
 }: ConfusionRatingBadgeProps) {
-  const normalizedRating = Math.min(5, Math.max(1, Math.round(rating)));
   const config = getConfusionRatingConfig(rating, locale);
 
   // Compact variant for list views
@@ -32,7 +31,7 @@ export function ConfusionRatingBadge({
             <div
               key={level}
               className={`w-1.5 h-3 rounded-sm ${
-                level <= normalizedRating ? "bg-current" : "bg-current/20"
+                level <= config.rating ? "bg-current" : "bg-current/20"
               }`}
             />
           ))}
@@ -54,7 +53,7 @@ export function ConfusionRatingBadge({
             <div
               key={level}
               className={`w-3 h-5 rounded-sm transition-colors ${
-                level <= normalizedRating ? config.colorClass : "bg-border"
+                level <= config.rating ? config.colorClass : "bg-border"
               }`}
             />
           ))}
@@ -79,7 +78,7 @@ export function ConfusionRatingBadge({
           <div
             key={level}
             className={`w-2 h-4 rounded-sm transition-colors ${
-              level <= normalizedRating ? config.colorClass : "bg-border"
+              level <= config.rating ? config.colorClass : "bg-border"
             }`}
           />
         ))}

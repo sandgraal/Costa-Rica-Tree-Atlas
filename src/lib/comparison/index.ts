@@ -11,6 +11,7 @@ import type { Locale } from "@/types/tree";
 export type ConfusionRating = 1 | 2 | 3 | 4 | 5;
 
 export interface ConfusionRatingConfig {
+  rating: number;
   label: string;
   shortLabel: string;
   colorClass: string;
@@ -55,7 +56,7 @@ export function getConfusionRatingConfig(
     "bg-success",
     "bg-success",
     "bg-warning",
-    "bg-destructive",
+    "bg-orange-500", // Level 4: intermediate between warning and destructive
     "bg-destructive",
   ];
 
@@ -63,7 +64,7 @@ export function getConfusionRatingConfig(
     "bg-success/20",
     "bg-success/15",
     "bg-warning/20",
-    "bg-orange-500/20",
+    "bg-orange-500/20", // Matches level 4 main color
     "bg-destructive/20",
   ];
 
@@ -71,7 +72,7 @@ export function getConfusionRatingConfig(
     "text-success",
     "text-success",
     "text-warning",
-    "text-orange-600 dark:text-orange-400",
+    "text-orange-600 dark:text-orange-400", // Matches level 4 theme
     "text-destructive",
   ];
 
@@ -79,13 +80,14 @@ export function getConfusionRatingConfig(
     "border-success/30",
     "border-success/20",
     "border-warning/30",
-    "border-orange-500/30",
+    "border-orange-500/30", // Matches level 4 theme
     "border-destructive/30",
   ];
 
   const localeLabels = locale === "es" ? labels.es : labels.en;
 
   return {
+    rating: normalizedRating,
     label: localeLabels[normalizedRating - 1].full,
     shortLabel: localeLabels[normalizedRating - 1].short,
     colorClass: colors[normalizedRating - 1],
