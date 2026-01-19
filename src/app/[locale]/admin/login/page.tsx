@@ -28,10 +28,16 @@ export default function AdminLoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("=== Form submitted ===");
     setError("");
     setLoading(true);
 
     try {
+      console.log("Calling signIn with:", {
+        email,
+        passwordLength: password.length,
+      });
+
       const result = await signIn("credentials", {
         redirect: false,
         email,
@@ -39,10 +45,13 @@ export default function AdminLoginPage() {
         totpCode: showMfa ? totpCode : undefined,
       });
 
-      // Debug logging (remove after testing)
-      console.log("Login result:", result);
+      console.log("=== Login result ===", result);
+      console.log("result.ok:", result?.ok);
+      console.log("result.error:", result?.error);
+      console.log("result.status:", result?.status);
 
       if (result?.error) {
+        console.log("Has error, setting error state");
         if (result.error === "MFA_REQUIRED") {
           setShowMfa(true);
           setError("Please enter your 2FA code");
@@ -50,22 +59,25 @@ export default function AdminLoginPage() {
           setError(`Authentication failed: ${result.error}`);
         }
       } else if (result?.ok) {
-        // Redirect to admin images page
+        console.log("Login successful, redirecting");
         router.push("/admin/images");
         nextRouter.refresh();
       } else {
-        // Neither ok nor error - something went wrong
+        console.log("Neither ok nor error - setting fallback error");
         setError(
           "Login failed. Please check your credentials or contact support."
         );
       }
+
+      console.log("Error state after processing:", error);
     } catch (err) {
-      console.error("Login error:", err);
+      console.error("=== Login exception ===", err);
       setError(
         `An error occurred: ${err instanceof Error ? err.message : "Unknown error"}`
       );
     } finally {
       setLoading(false);
+      console.log("=== Login complete, loading:", false);
     }
   };
 
