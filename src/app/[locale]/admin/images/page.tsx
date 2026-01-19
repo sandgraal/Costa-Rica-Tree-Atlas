@@ -76,6 +76,21 @@ export default async function ImageReviewPage({ params }: Props) {
           </p>
         </div>
 
+        {/* Admin Navigation */}
+        <div className="bg-card border border-border rounded-xl p-4 mb-8">
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/admin/images/proposals"
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              📋 Manage Proposals
+              <span className="bg-primary-foreground/20 px-2 py-0.5 rounded text-xs">
+                New
+              </span>
+            </Link>
+          </div>
+        </div>
+
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <div className="bg-card border border-border rounded-xl p-4 text-center">
