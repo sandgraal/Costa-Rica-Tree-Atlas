@@ -15,6 +15,42 @@ A bilingual (English/Spanish) Next.js 16 application documenting Costa Rican tre
 7. **Stop and ask when uncertain** - If technical resolution isn't clear, ask the user
 8. **Leave system clearer** - Every change should improve code clarity and robustness
 
+## 🚨 CRITICAL: Git Workflow - ALWAYS CREATE PR FIRST
+
+**NEVER push directly to main branch. ALWAYS follow this workflow:**
+
+1. **Create feature branch**: `git checkout -b feature/descriptive-name`
+2. **Make and commit changes**: Stage and commit to feature branch
+3. **Push feature branch**: `git push origin feature/descriptive-name`
+4. **Create Pull Request**: Create PR from feature branch to main
+5. **Wait for review**: Do not merge without approval
+
+### Required Branch Naming Convention
+
+- Feature: `feature/description` (e.g., `feature/add-comparison-guides`)
+- Fix: `fix/description` (e.g., `fix/broken-link`)
+- Content: `content/description` (e.g., `content/new-species`)
+- Docs: `docs/description` (e.g., `docs/update-readme`)
+
+### Example Workflow
+
+```bash
+# 1. Create feature branch
+git checkout -b content/add-mango-espavel-comparison
+
+# 2. Make changes and commit
+git add .
+git commit -m "feat: add Mango vs Espavel comparison guide"
+
+# 3. Push to feature branch (NOT main!)
+git push origin content/add-mango-espavel-comparison
+
+# 4. Create PR (use GitHub CLI or web interface)
+gh pr create --title "feat: Add Mango vs Espavel comparison" --body "..."
+```
+
+**⚠️ VIOLATION**: Pushing directly to main is a critical error. Always create a PR first.
+
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
