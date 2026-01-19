@@ -13,7 +13,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authenticator } from "otplib";
+import { TOTP } from "otplib";
 import QRCode from "qrcode";
 import { hash } from "argon2";
 import prisma from "@/lib/prisma";
@@ -54,14 +54,15 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. Generate TOTP secret
-    const secret = authenticator.generateSecret();
+    const totp = new TOTP();
+    const secret = totp.generateSecret();
 
     // 4. Create OTP Auth URL for QR code
-    const otpauthUrl = authenticator.keyuri(
-      user.email,
-      "Costa Rica Tree Atlas",
-      secret
-    );
+    const otpauthUrl = totp.toString({
+      label: user.email,
+      issuer: "Costa Rica Tree Atlas",
+      secret,
+    });
 
     // 5. Generate QR code as Data URL
     const qrCodeDataUrl = await QRCode.toDataURL(otpauthUrl);
