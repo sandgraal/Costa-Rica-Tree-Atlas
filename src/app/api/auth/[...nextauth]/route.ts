@@ -34,93 +34,111 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password required");
         }
 
-        // Find user by email
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-          include: { mfaSecrets: true },
-        });
-
-        if (!user) {
-          // Log failed attempt (no user ID)
-          await prisma.auditLog.create({
-            data: {
-              eventType: "login_failed",
-              metadata: { email: credentials.email, reason: "user_not_found" },
-            },
+        try {
+          // Find user by email
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+            include: { mfaSecrets: true },
           });
-          throw new Error("Invalid credentials");
-        }
 
-        // Verify password with Argon2id
-        const validPassword = await verify(
-          user.passwordHash,
-          credentials.password
-        );
-
-        if (!validPassword) {
-          // Log failed attempt
-          await prisma.auditLog.create({
-            data: {
-              userId: user.id,
-              eventType: "login_failed",
-              metadata: {
-                email: credentials.email,
-                reason: "invalid_password",
+          if (!user) {
+            // Log failed attempt (no user ID)
+            await prisma.auditLog.create({
+              data: {
+                eventType: "login_failed",
+                metadata: {
+                  email: credentials.email,
+                  reason: "user_not_found",
+                },
               },
-            },
-          });
-          throw new Error("Invalid credentials");
-        }
-
-        // Check if MFA is enabled
-        if (user.mfaEnabled) {
-          if (!credentials.totpCode) {
-            throw new Error("MFA_REQUIRED");
+            });
+            throw new Error("Invalid credentials");
           }
 
-          // Verify TOTP or backup code (will be implemented in MFA API)
-          const { authenticator } = await import("otplib");
-          const mfaSecret = user.mfaSecrets[0];
+          // Verify password with Argon2id
+          const validPassword = await verify(
+            user.passwordHash,
+            credentials.password
+          );
 
-          if (!mfaSecret || !mfaSecret.totpSecret) {
-            throw new Error("MFA configuration error");
-          }
-
-          // Decrypt TOTP secret (will need crypto utility)
-          // For now, assume it's decrypted
-          const isValidTotp = authenticator.verify({
-            token: credentials.totpCode,
-            secret: mfaSecret.totpSecret, // TODO: Decrypt this
-          });
-
-          if (!isValidTotp) {
-            // Check backup codes
-            // TODO: Implement backup code verification
+          if (!validPassword) {
+            // Log failed attempt
             await prisma.auditLog.create({
               data: {
                 userId: user.id,
                 eventType: "login_failed",
-                metadata: { email: credentials.email, reason: "invalid_mfa" },
+                metadata: {
+                  email: credentials.email,
+                  reason: "invalid_password",
+                },
               },
             });
-            throw new Error("Invalid 2FA code");
+            throw new Error("Invalid credentials");
           }
+
+          // Check if MFA is enabled
+          if (user.mfaEnabled) {
+            if (!credentials.totpCode) {
+              throw new Error("MFA_REQUIRED");
+            }
+
+            // Verify TOTP or backup code (will be implemented in MFA API)
+            const { authenticator } = await import("otplib");
+            const mfaSecret = user.mfaSecrets[0];
+
+            if (!mfaSecret || !mfaSecret.totpSecret) {
+              throw new Error("MFA configuration error");
+            }
+
+            // Decrypt TOTP secret (will need crypto utility)
+            // For now, assume it's decrypted
+            const isValidTotp = authenticator.verify({
+              token: credentials.totpCode,
+              secret: mfaSecret.totpSecret, // TODO: Decrypt this
+            });
+
+            if (!isValidTotp) {
+              // Check backup codes
+              // TODO: Implement backup code verification
+              await prisma.auditLog.create({
+                data: {
+                  userId: user.id,
+                  eventType: "login_failed",
+                  metadata: {
+                    email: credentials.email,
+                    reason: "invalid_mfa",
+                  },
+                },
+              });
+              throw new Error("Invalid 2FA code");
+            }
+          }
+
+          // Successful login - log it
+          await prisma.auditLog.create({
+            data: {
+              userId: user.id,
+              eventType: "login",
+              metadata: { email: credentials.email },
+            },
+          });
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          };
+        } catch (error) {
+          // Log database connection errors
+          console.error("[NextAuth] Login error:", {
+            error: error instanceof Error ? error.message : "Unknown error",
+            email: credentials.email,
+            stack: error instanceof Error ? error.stack : undefined,
+          });
+
+          // Re-throw the original error
+          throw error;
         }
-
-        // Successful login - log it
-        await prisma.auditLog.create({
-          data: {
-            userId: user.id,
-            eventType: "login",
-            metadata: { email: credentials.email },
-          },
-        });
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        };
       },
     }),
   ],

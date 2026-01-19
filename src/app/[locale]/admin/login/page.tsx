@@ -19,7 +19,6 @@ import { useTranslations } from "next-intl";
 export default function AdminLoginPage() {
   const router = useRouter();
   const nextRouter = useNextRouter();
-  const t = useTranslations("admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [totpCode, setTotpCode] = useState("");
@@ -40,20 +39,31 @@ export default function AdminLoginPage() {
         totpCode: showMfa ? totpCode : undefined,
       });
 
+      // Debug logging (remove after testing)
+      console.log("Login result:", result);
+
       if (result?.error) {
         if (result.error === "MFA_REQUIRED") {
           setShowMfa(true);
           setError("Please enter your 2FA code");
         } else {
-          setError("Invalid credentials. Please try again.");
+          setError(`Authentication failed: ${result.error}`);
         }
       } else if (result?.ok) {
-        // Use type assertion for admin route
-        router.push("/admin/images" as any);
+        // Redirect to admin images page
+        router.push("/admin/images");
         nextRouter.refresh();
+      } else {
+        // Neither ok nor error - something went wrong
+        setError(
+          "Login failed. Please check your credentials or contact support."
+        );
       }
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      console.error("Login error:", err);
+      setError(
+        `An error occurred: ${err instanceof Error ? err.message : "Unknown error"}`
+      );
     } finally {
       setLoading(false);
     }
