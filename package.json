@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "license": "AGPL-3.0-or-later AND CC-BY-NC-SA-4.0",
+  "overrides": {
+    "hono": "4.11.4"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "npm run prisma:generate:optional && contentlayer2 build && next build",
