@@ -409,6 +409,39 @@ export const SpeciesComparison = defineDocumentType(() => ({
       description: "Brief description for SEO",
       required: true,
     },
+    // NEW: Visual enhancement fields
+    featuredImages: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Two featured image paths for hero section (one per species, in species order)",
+      required: false,
+    },
+    confusionRating: {
+      type: "number",
+      description:
+        "How often these species are confused (1-5, where 5 = extremely often confused)",
+      required: false,
+    },
+    comparisonTags: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Visual features to compare (e.g., leaves, bark, fruit, flowers, size, habitat)",
+      required: false,
+    },
+    seasonalNote: {
+      type: "string",
+      description:
+        "When differences are most/least visible (e.g., 'Best distinguished during flowering: Dec-Feb')",
+      required: false,
+    },
+    difficulty: {
+      type: "enum",
+      options: ["easy", "moderate", "challenging"],
+      description: "How difficult it is to tell these species apart",
+      required: false,
+    },
     publishedAt: {
       type: "date",
       description: "Publication date",
