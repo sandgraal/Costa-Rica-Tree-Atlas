@@ -1,8 +1,9 @@
 import { getConfusionRatingConfig } from "@/lib/comparison";
+import type { Locale } from "@/types/tree";
 
 interface ConfusionRatingBadgeProps {
   rating: number;
-  locale: string;
+  locale: Locale;
   variant?: "default" | "compact" | "detailed";
   showLabel?: boolean;
 }

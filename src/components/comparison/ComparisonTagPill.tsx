@@ -2,7 +2,7 @@ import { getComparisonTagIcon } from "@/lib/comparison";
 
 interface ComparisonTagPillProps {
   tag: string;
-  variant?: "default" | "muted" | "primary";
+  variant?: "primary" | "muted";
 }
 
 /**
@@ -11,15 +11,14 @@ interface ComparisonTagPillProps {
  */
 export function ComparisonTagPill({
   tag,
-  variant = "default",
+  variant = "primary",
 }: ComparisonTagPillProps) {
   const icon = getComparisonTagIcon(tag);
   const formattedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
 
   const variantStyles = {
-    default: "bg-primary/10 text-primary",
-    muted: "bg-muted text-muted-foreground",
     primary: "bg-primary/10 text-primary",
+    muted: "bg-muted text-muted-foreground",
   };
 
   return (
@@ -27,7 +26,7 @@ export function ComparisonTagPill({
       className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-full ${variantStyles[variant]}`}
     >
       {icon && <span>{icon}</span>}
-      <span className="capitalize">{formattedTag}</span>
+      <span>{formattedTag}</span>
     </span>
   );
 }

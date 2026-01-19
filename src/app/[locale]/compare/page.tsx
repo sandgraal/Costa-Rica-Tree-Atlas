@@ -8,6 +8,7 @@ import Image from "next/image";
 import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
+import type { Locale } from "@/types/tree";
 
 type Params = Promise<{ locale: string }>;
 
@@ -195,7 +196,7 @@ function ComparePageClient({
                       {comparison.confusionRating && (
                         <ConfusionRatingBadge
                           rating={comparison.confusionRating}
-                          locale={locale}
+                          locale={locale as Locale}
                           variant="compact"
                         />
                       )}

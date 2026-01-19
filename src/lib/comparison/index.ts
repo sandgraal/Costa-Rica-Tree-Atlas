@@ -2,6 +2,8 @@
  * Shared utilities for comparison features
  */
 
+import type { Locale } from "@/types/tree";
+
 // ============================================================================
 // CONFUSION RATING UTILITIES
 // ============================================================================
@@ -25,7 +27,7 @@ export interface ConfusionRatingConfig {
  */
 export function getConfusionRatingConfig(
   rating: number,
-  locale: string
+  locale: Locale
 ): ConfusionRatingConfig {
   const normalizedRating = Math.min(
     5,
@@ -144,13 +146,18 @@ export interface TreeImageSource {
 /**
  * Get the image URL for a species with fallback logic
  * @param tree - Tree object with image properties
- * @param index - Index for featuredImages array (default: 0)
+ * @param index - Index for featuredImages array (default: 0, must be non-negative)
  * @returns Image URL string
  */
 export function getSpeciesImageUrl(
   tree: TreeImageSource,
   index: number = 0
 ): string {
+  // Validate index
+  if (index < 0) {
+    throw new Error("Index must be non-negative");
+  }
+
   // First try featuredImages array at given index
   if (tree.featuredImages && tree.featuredImages[index]) {
     return tree.featuredImages[index];

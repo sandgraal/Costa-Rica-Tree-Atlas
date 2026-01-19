@@ -206,7 +206,7 @@ export default async function ComparisonPage({ params }: Props) {
                 {comparison.confusionRating && (
                   <ConfusionRatingBadge
                     rating={comparison.confusionRating}
-                    locale={locale}
+                    locale={locale as Locale}
                     variant="detailed"
                   />
                 )}
