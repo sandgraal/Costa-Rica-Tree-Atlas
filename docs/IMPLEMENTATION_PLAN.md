@@ -60,21 +60,21 @@ This document provides a consolidated implementation plan for future enhancement
 
 #### 1.2 Comparison Guide Expansion
 
-- **Current**: 16/20 guides (80% complete) ✅ **2026-01-18 Progress Update**
+- **Current**: 17/20 guides (85% complete) ✅ **2026-01-18 Progress Update**
 - **Target**: 20 total guides
 - **Recently Added (2026-01-18)**:
   - ✅ Mango vs. Espavel (cultivated vs. wild Anacardiaceae giants)
   - ✅ Almendro vs. Gavilán (rainforest canopy legumes)
+  - ✅ Laurel vs. Laurel Negro (light pioneer vs. dark hardwood)
 - **Already Existing**:
   - ✅ Aguacate vs. Aguacatillo (documented)
   - ✅ Teca vs. Melina (documented)
   - ✅ Coyol vs. Pejibaye (documented)
   - ✅ Ceiba vs. Pochote (documented)
-- **Remaining Candidates** (4 more to reach 20):
-  - Cedro Amargo vs. Cedro María (both called "cedro", different families)
-  - Laurel vs. Laurel Negro (name confusion between families)
+- **Remaining Candidates** (3 more to reach 20):
   - Balsa vs. Guarumo (fast-growing pioneer species)
   - Cortez Amarillo vs. Cortez Negro (related but distinct dry forest trees)
+  - TBD: Identify another common confusion pair to complete the set
 - **Effort**: Low (1-2 days per guide)
 - **Impact**: Medium (helps users distinguish similar species)
 
