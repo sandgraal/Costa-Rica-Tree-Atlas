@@ -32,25 +32,16 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      // Use fetch to call NextAuth directly for better cookie handling
-      const response = await fetch("/api/auth/callback/credentials", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          email,
-          password,
-          ...(showMfa && totpCode ? { totpCode } : {}),
-          callbackUrl: "/en/admin/images",
-          json: "true",
-        }),
-        credentials: "same-origin",
+      // Use NextAuth's signIn function for proper cookie handling
+      const result = await signIn("credentials", {
+        email,
+        password,
+        ...(showMfa && totpCode ? { totpCode } : {}),
+        redirect: false, // Handle redirect manually to show errors
+        callbackUrl: "/en/admin/images",
       });
 
-      const result = await response.json();
-
-      if (result.error) {
+      if (result?.error) {
         if (result.error === "MFA_REQUIRED") {
           setShowMfa(true);
           setError("Please enter your 2FA code");
@@ -58,9 +49,9 @@ export default function AdminLoginPage() {
           setError(`Authentication failed: ${result.error}`);
         }
         setLoading(false);
-      } else if (result.url) {
-        // Success - redirect
-        window.location.href = result.url;
+      } else if (result?.ok) {
+        // Success - redirect using Next.js router for proper navigation
+        window.location.href = "/en/admin/images";
       } else {
         setError("Login failed. Please try again.");
         setLoading(false);
