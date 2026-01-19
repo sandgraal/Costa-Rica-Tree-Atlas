@@ -59,9 +59,9 @@ export default function AdminLoginPage() {
           setError(`Authentication failed: ${result.error}`);
         }
       } else if (result?.ok) {
-        console.log("Login successful, redirecting");
-        router.push("/admin/images");
-        nextRouter.refresh();
+        console.log("Login successful, redirecting to admin images");
+        // Force a full page navigation to ensure session is loaded
+        window.location.href = "/en/admin/images";
       } else {
         console.log("Neither ok nor error - setting fallback error");
         setError(
