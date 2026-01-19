@@ -46,14 +46,6 @@ export default function AdminLoginPage() {
       });
 
       console.log("=== Login result ===", result);
-      console.log("result.ok:", result?.ok);
-      console.log("result.error:", result?.error);
-      console.log("result.status:", result?.status);
-
-      // Temporary alert for debugging
-      alert(
-        `Login result - ok: ${result?.ok}, error: ${result?.error}, status: ${result?.status}`
-      );
 
       if (result?.error) {
         console.log("Has error, setting error state");
@@ -64,17 +56,20 @@ export default function AdminLoginPage() {
           setError(`Authentication failed: ${result.error}`);
         }
       } else if (result?.ok) {
-        console.log("Login successful, redirecting to admin images");
-        // Force a full page navigation to ensure session is loaded
-        window.location.href = "/en/admin/images";
+        console.log("Login successful - using signIn with redirect");
+        // Call signIn again with redirect: true to properly set cookies
+        await signIn("credentials", {
+          email,
+          password,
+          totpCode: showMfa ? totpCode : undefined,
+          callbackUrl: "/en/admin/images",
+        });
       } else {
         console.log("Neither ok nor error - setting fallback error");
         setError(
           "Login failed. Please check your credentials or contact support."
         );
       }
-
-      console.log("Error state after processing:", error);
     } catch (err) {
       console.error("=== Login exception ===", err);
       setError(
