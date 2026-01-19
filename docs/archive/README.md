@@ -13,6 +13,12 @@ These documents were moved here during the documentation consolidation in Januar
 
 ## Archived Documents
 
+### Completed Roadmaps and Checklists
+
+- **improvement-roadmap.md** - Detailed phase tracking (all 5 phases complete)
+- **NEXT_STEPS.md** - External testing checklist (all verified complete)
+- **NEXT_AGENT_PERFORMANCE.md** - Performance optimization handoff (complete)
+
 ### Session Summaries
 
 - **AUTONOMOUS_AGENT_SUMMARY.md** - Autonomous agent work summary from 2026-01-12
@@ -48,4 +54,5 @@ See **[docs/README.md](../README.md)** for up-to-date documentation index.
 ---
 
 **Archive Created:** 2026-01-12  
+**Last Updated:** 2026-01-19  
 **Archive Policy:** Documents are archived (not deleted) to maintain project history
