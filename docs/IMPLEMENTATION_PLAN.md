@@ -1,23 +1,23 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-01-19  
-**Version:** 1.0 (Production Ready)  
-**Status:** ✅ All v1.0 features complete, external testing verified
+**Last Updated:** 2026-01-18  
+**Version:** 1.0 (Production Ready + Ongoing Enhancements)  
+**Status:** ✅ All v1.0 features complete, actively expanding content
 
 ## Overview
 
-This document provides a consolidated implementation plan for future enhancements to the Costa Rica Tree Atlas. All v1.0 features are complete and deployed. This plan organizes potential future work by priority and provides guidelines for implementation.
+This document provides a consolidated implementation plan for future enhancements to the Costa Rica Tree Atlas. All v1.0 features are complete and deployed. This plan organizes potential future work by priority and tracks ongoing content expansion efforts.
 
 ---
 
-## Current State Summary (v1.0 Complete)
+## Current State Summary (v1.0 Complete + Active Expansion)
 
 ### Content Achievement
 
 - **128 species** documented with complete safety data (EN+ES)
 - **60 priority species** with comprehensive care & cultivation guidance
 - **100 glossary terms** with inline tooltips throughout the site
-- **14 comparison guides** (70% of 20 target) for commonly confused species
+- **16 comparison guides** (80% of 20 target) for commonly confused species ⬆️ **+2 added 2026-01-18**
 - **Perfect bilingual parity** maintained across all content (EN/ES)
 
 ### Feature Achievement
@@ -60,14 +60,21 @@ This document provides a consolidated implementation plan for future enhancement
 
 #### 1.2 Comparison Guide Expansion
 
-- **Target**: 6 more guides to reach 20 total
-- **Candidates**:
-  - Mango vs. Espavel (Anacardiaceae family confusion)
-  - Aguacate vs. Aguacatillo (Lauraceae native vs. cultivated)
-  - Teca vs. Melina (timber plantation species)
-  - Coyol vs. Pejibaye (spiny palms)
-  - Pochote vs. Ceiba (giant dry forest trees)
-  - Papaya vs. Papaya silvestre (cultivated vs. wild)
+- **Current**: 16/20 guides (80% complete) ✅ **2026-01-18 Progress Update**
+- **Target**: 20 total guides
+- **Recently Added (2026-01-18)**:
+  - ✅ Mango vs. Espavel (cultivated vs. wild Anacardiaceae giants)
+  - ✅ Almendro vs. Gavilán (rainforest canopy legumes)
+- **Already Existing**:
+  - ✅ Aguacate vs. Aguacatillo (documented)
+  - ✅ Teca vs. Melina (documented)
+  - ✅ Coyol vs. Pejibaye (documented)
+  - ✅ Ceiba vs. Pochote (documented)
+- **Remaining Candidates** (4 more to reach 20):
+  - Cedro Amargo vs. Cedro María (both called "cedro", different families)
+  - Laurel vs. Laurel Negro (name confusion between families)
+  - Balsa vs. Guarumo (fast-growing pioneer species)
+  - Cortez Amarillo vs. Cortez Negro (related but distinct dry forest trees)
 - **Effort**: Low (1-2 days per guide)
 - **Impact**: Medium (helps users distinguish similar species)
 
