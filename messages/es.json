@@ -595,5 +595,49 @@
     "errorRateLimit": "¡Estás votando muy rápido! Por favor espera un momento.",
     "errorVoteFailed": "Error al enviar el voto. Por favor intenta de nuevo.",
     "errorFlagFailed": "Error al enviar el reporte. Por favor intenta de nuevo."
+  },
+  "contribute": {
+    "uploadPhoto": {
+      "title": "Contribuir una Foto",
+      "description": "Comparte tus fotos de árboles para ayudar a mejorar nuestro atlas. Tus contribuciones serán revisadas antes de agregarse.",
+      "loginRequired": "Por favor inicia sesión para subir fotos.",
+      "signIn": "Iniciar Sesión",
+      "guidelinesTitle": "Guías para Fotos",
+      "guideline1": "Las fotos deben ser tuyas o tener permiso para compartirlas",
+      "guideline2": "Muestra claramente la parte del árbol (corteza, hojas, flores, etc.)",
+      "guideline3": "Buena iluminación y enfoque - evita imágenes borrosas u oscuras",
+      "guideline4": "Resolución mínima: 800x600 píxeles",
+      "dropzone": "Arrastra tu foto aquí o haz clic para buscar",
+      "dropzoneHint": "Formatos aceptados: {types} • Tamaño máximo: {maxMB}MB",
+      "removeFile": "Eliminar",
+      "changeFile": "Cambiar Foto",
+      "selectTree": "¿Qué árbol es este?",
+      "searchPlaceholder": "Buscar por nombre...",
+      "selectTreePlaceholder": "Selecciona una especie...",
+      "imageType": "¿Qué parte del árbol?",
+      "types": {
+        "fullTree": "Árbol Completo",
+        "bark": "Corteza",
+        "leaves": "Hojas",
+        "flowers": "Flores",
+        "fruit": "Fruto",
+        "roots": "Raíces",
+        "habitat": "Hábitat",
+        "featuredImage": "Principal"
+      },
+      "attribution": "Crédito de Foto (opcional)",
+      "attributionPlaceholder": "ej., Tu nombre o 'Foto tomada en Monteverde'",
+      "attributionHint": "Cómo te gustaría ser acreditado por esta foto",
+      "notes": "Notas Adicionales (opcional)",
+      "notesPlaceholder": "ej., Ubicación, fecha, o detalles útiles...",
+      "uploading": "Subiendo...",
+      "submit": "Enviar Foto",
+      "termsNote": "Al enviar, confirmas que esta es tu foto y aceptas compartirla bajo licencia CC BY-NC-SA 4.0.",
+      "success": "¡Foto subida exitosamente!",
+      "successNote": "Tu foto será revisada por nuestro equipo. ¡Gracias por contribuir!",
+      "errorInvalidType": "Tipo de archivo inválido. Por favor usa JPEG, PNG o WebP.",
+      "errorTooLarge": "Archivo muy grande. Tamaño máximo es {maxMB}MB.",
+      "errorGeneric": "Error al subir. Por favor intenta de nuevo."
+    }
   }
 }
