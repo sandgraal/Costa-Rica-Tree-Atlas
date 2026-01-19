@@ -208,6 +208,7 @@ function ComparePageClient({
                               key={tag}
                               tag={tag}
                               variant="muted"
+                              locale={locale as Locale}
                             />
                           ))}
                     </div>

@@ -33,20 +33,47 @@ publishedAt: "2026-01-18"
 
 ### Frontmatter Field Descriptions
 
-| Field             | Required | Description                                                  |
-| ----------------- | -------- | ------------------------------------------------------------ |
-| `title`           | Yes      | Format: "Species A vs. Species B: Descriptive Subtitle"      |
-| `locale`          | Yes      | Language code: `en` or `es`                                  |
-| `slug`            | Yes      | URL-friendly: `species-a-vs-species-b`                       |
-| `species`         | Yes      | Array of exactly 2 tree slugs being compared                 |
-| `keyDifference`   | Yes      | Single most diagnostic feature (1-2 sentences)               |
-| `description`     | Yes      | SEO meta description (150-160 characters)                    |
-| `featuredImages`  | Yes      | Array of 2 image paths (one per species, in species order)   |
-| `confusionRating` | Yes      | 1-5 scale of how often these are confused                    |
-| `comparisonTags`  | Yes      | Visual features: leaves, bark, fruit, flowers, size, habitat |
-| `seasonalNote`    | Yes      | When differences are most/least visible                      |
-| `difficulty`      | Yes      | Identification difficulty: easy, moderate, challenging       |
-| `publishedAt`     | Yes      | Publication date in ISO format                               |
+| Field             | Required | Description                                                                                                             | Localization    |
+| ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `title`           | Yes      | Format: "Species A vs. Species B: Descriptive Subtitle"                                                                 | ✅ Translate    |
+| `locale`          | Yes      | Language code: `en` or `es`                                                                                             | N/A             |
+| `slug`            | Yes      | URL-friendly: `species-a-vs-species-b`                                                                                  | ⚠️ Keep same    |
+| `species`         | Yes      | Array of exactly 2 tree slugs being compared                                                                            | ⚠️ Keep same    |
+| `keyDifference`   | Yes      | Single most diagnostic feature (1-2 sentences)                                                                          | ✅ Translate    |
+| `description`     | Yes      | SEO meta description (150-160 characters)                                                                               | ✅ Translate    |
+| `featuredImages`  | Yes      | Array of 2 image paths (one per species, in species order)                                                              | ⚠️ Keep same    |
+| `confusionRating` | Yes      | 1-5 scale of how often these are confused (numeric value)                                                               | ⚠️ Keep same    |
+| `comparisonTags`  | Yes      | Visual features in English: `leaves`, `bark`, `fruit`, `flowers`, `size`, `habitat`, `trunk`, `seeds`, `crown`, `roots` | 🔒 English only |
+| `seasonalNote`    | Yes      | When differences are most/least visible                                                                                 | ✅ Translate    |
+| `difficulty`      | Yes      | **ENUM (Internal)**: Must be `easy`, `moderate`, or `challenging` (English values only, localized automatically in UI)  | 🔒 English only |
+| `publishedAt`     | Yes      | Publication date in ISO format (YYYY-MM-DD)                                                                             | N/A             |
+
+### Important: Internal vs. User-Facing Fields
+
+**Internal Fields (English Only - DO NOT Translate):**
+
+Some frontmatter fields serve as internal identifiers and MUST remain in English across all language versions. These values are automatically localized by the application when displayed to users:
+
+- **`difficulty`**: MUST be one of: `easy`, `moderate`, or `challenging`
+  - ✅ Correct (Spanish file): `difficulty: "easy"`
+  - ❌ Wrong (Spanish file): `difficulty: "fácil"`
+  - The UI automatically displays: "Fácil" for Spanish users, "Easy" for English users
+
+- **`comparisonTags`**: MUST use English tag names from this list:
+  - Valid tags: `leaves`, `bark`, `fruit`, `flowers`, `size`, `habitat`, `trunk`, `seeds`, `crown`, `roots`
+  - ✅ Correct (Spanish file): `comparisonTags: ["leaves", "bark", "fruit"]`
+  - ❌ Wrong (Spanish file): `comparisonTags: ["hojas", "corteza", "fruto"]`
+  - Tags are displayed with icons and capitalized in the UI
+
+- **`confusionRating`**: A numeric value (1-5), same across all languages
+  - The labels ("Easy to distinguish", "Fácil de distinguir") are generated by the UI
+
+**Why?** Storing internal fields in English:
+
+1. Ensures consistency for data validation and enum constraints
+2. Prevents build-time errors from unexpected values
+3. Makes it easier to add new languages in the future
+4. Follows standard i18n best practices (data layer = English, UI layer = localized)
 
 ## Minimum Photo Requirements
 

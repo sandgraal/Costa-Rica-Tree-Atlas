@@ -47,6 +47,8 @@ interface GlossaryTerm {
 interface ServerMDXContentProps {
   /** Raw MDX source content (from contentlayer body.raw) */
   source: string;
+  /** Current locale for localization */
+  locale?: string;
   /** Additional components to pass to MDX */
   components?: Record<string, React.ComponentType<unknown>>;
   /** Glossary terms for automatic linking */
@@ -112,6 +114,7 @@ function MDXErrorFallback({ error }: { error: unknown }) {
  */
 export async function ServerMDXContent({
   source,
+  locale = "en",
   components = {},
   glossaryTerms = [],
   enableGlossaryLinks = false,

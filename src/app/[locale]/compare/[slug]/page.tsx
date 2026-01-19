@@ -220,6 +220,7 @@ export default async function ComparisonPage({ params }: Props) {
                         key={tag}
                         tag={tag}
                         variant="primary"
+                        locale={locale as Locale}
                       />
                     ))}
                   </div>
@@ -247,7 +248,7 @@ export default async function ComparisonPage({ params }: Props) {
 
             {/* MDX Content */}
             <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-              <ServerMDXContent source={comparison.body.raw} />
+              <ServerMDXContent source={comparison.body.raw} locale={locale} />
             </div>
 
             {/* Interactive Tool CTA */}

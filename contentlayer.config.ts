@@ -420,26 +420,27 @@ export const SpeciesComparison = defineDocumentType(() => ({
     confusionRating: {
       type: "number",
       description:
-        "How often these species are confused (1-5, where 5 = extremely often confused)",
+        "How often these species are confused (1-5, where 5 = extremely often confused). This numeric value is the same across all locales; labels are localized in the UI.",
       required: false,
     },
     comparisonTags: {
       type: "list",
       of: { type: "string" },
       description:
-        "Visual features to compare (e.g., leaves, bark, fruit, flowers, size, habitat)",
+        "Visual features to compare. MUST use English values (leaves, bark, fruit, flowers, size, habitat, trunk, seeds, crown, roots) across ALL locale files. These are internal identifiers displayed with icons in the UI.",
       required: false,
     },
     seasonalNote: {
       type: "string",
       description:
-        "When differences are most/least visible (e.g., 'Best distinguished during flowering: Dec-Feb')",
+        "When differences are most/least visible (e.g., 'Best distinguished during flowering: Dec-Feb'). This is user-facing text that should be translated for each locale.",
       required: false,
     },
     difficulty: {
       type: "enum",
       options: ["easy", "moderate", "challenging"],
-      description: "How difficult it is to tell these species apart",
+      description:
+        "How difficult it is to tell these species apart. MUST use these exact English enum values (easy, moderate, challenging) in ALL locale files, including Spanish. The UI automatically localizes display labels (Fácil, Moderado, Desafiante).",
       required: false,
     },
     publishedAt: {

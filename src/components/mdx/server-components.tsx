@@ -1630,6 +1630,10 @@ export function CompareInToolButton({
 
 // Comparison Tags Display
 // Wrapper around shared ComparisonTagPill component for MDX usage
+// Note: Uses English labels in MDX context due to MDX compilation limitations.
+// MDX components are compiled at build time and don't have direct access to runtime locale context.
+// For full localization, use ComparisonTagPill directly in page components with locale prop.
+// This is acceptable as tags include clear icons and are primarily technical identifiers.
 interface ComparisonTagsProps {
   tags: string[];
 }
@@ -1638,7 +1642,7 @@ export function ComparisonTags({ tags }: ComparisonTagsProps) {
   return (
     <div className="flex flex-wrap gap-2 not-prose">
       {tags.map((tag) => (
-        <ComparisonTagPill key={tag} tag={tag} variant="primary" />
+        <ComparisonTagPill key={tag} tag={tag} variant="primary" locale="en" />
       ))}
     </div>
   );
