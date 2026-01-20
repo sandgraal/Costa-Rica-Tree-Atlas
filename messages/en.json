@@ -598,6 +598,91 @@
     "errorFlagFailed": "Failed to submit report. Please try again."
   },
   "contribute": {
+    "title": "Contribute to the Atlas",
+    "description": "Help us grow and improve the Costa Rica Tree Atlas. Your knowledge makes a difference!",
+    "chooseType": "How would you like to contribute?",
+    "newSpecies": {
+      "title": "Suggest a New Species",
+      "description": "Know of a Costa Rican tree we haven't documented yet? Let us know!"
+    },
+    "correction": {
+      "title": "Suggest a Correction",
+      "description": "Found an error or outdated information? Help us fix it."
+    },
+    "localKnowledge": {
+      "title": "Share Local Knowledge",
+      "description": "Share traditional uses, local names, or cultural knowledge about trees."
+    },
+    "photo": {
+      "title": "Upload a Photo",
+      "description": "Share your tree photos to help others identify and learn about species."
+    },
+    "form": {
+      "selectTree": "Select a Tree",
+      "searchTrees": "Search trees by name...",
+      "title": "Title",
+      "titlePlaceholder": "Brief summary of your contribution",
+      "description": "Description",
+      "descriptionPlaceholder": "Provide details about your contribution...",
+      "evidence": "Sources or Evidence",
+      "evidencePlaceholder": "How do you know this? (e.g., personal observation, book, website)",
+      "scientificName": "Scientific Name",
+      "scientificNamePlaceholder": "e.g., Quercus costaricensis",
+      "commonNameEn": "Common Name (English)",
+      "commonNameEs": "Common Name (Spanish)",
+      "family": "Botanical Family",
+      "familyPlaceholder": "e.g., Fagaceae",
+      "whereFound": "Where did you see this tree?",
+      "whereFoundPlaceholder": "e.g., Monteverde Cloud Forest, near San José",
+      "targetField": "What needs correction?",
+      "knowledgeType": "Type of Knowledge",
+      "region": "Region of Origin",
+      "regionPlaceholder": "Where is this knowledge from? (e.g., Guanacaste, Limón)",
+      "contributorName": "Your Name",
+      "contributorNamePlaceholder": "How should we credit you?",
+      "contributorEmail": "Your Email",
+      "contributorEmailPlaceholder": "In case we need to follow up",
+      "optional": "optional",
+      "submit": "Submit Contribution",
+      "submitting": "Submitting...",
+      "cancel": "Cancel",
+      "back": "Back"
+    },
+    "fields": {
+      "title": "Title/Common Name",
+      "scientificName": "Scientific Name",
+      "description": "Description",
+      "family": "Botanical Family",
+      "nativeRegion": "Native Region",
+      "distribution": "Distribution",
+      "habitat": "Habitat",
+      "cultivation": "Cultivation",
+      "uses": "Uses",
+      "ecology": "Ecology",
+      "conservation": "Conservation",
+      "taxonomy": "Taxonomy",
+      "etymology": "Etymology",
+      "other": "Other"
+    },
+    "knowledgeTypes": {
+      "traditional_uses": "Traditional/Medicinal Uses",
+      "local_names": "Local or Indigenous Names",
+      "folklore": "Folklore and Stories",
+      "preparation": "Preparation Methods",
+      "harvesting": "Harvesting Practices",
+      "cultivation_tips": "Local Growing Tips",
+      "wildlife": "Wildlife Interactions",
+      "other": "Other Knowledge"
+    },
+    "success": {
+      "title": "Thank You!",
+      "message": "Your contribution has been submitted and will be reviewed by our team.",
+      "another": "Submit Another Contribution"
+    },
+    "error": {
+      "title": "Submission Failed",
+      "tryAgain": "Try Again"
+    },
     "uploadPhoto": {
       "title": "Contribute a Photo",
       "description": "Share your tree photos to help improve our atlas. Your contributions are reviewed before being added.",
