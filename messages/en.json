@@ -725,5 +725,54 @@
       "errorTooLarge": "File too large. Maximum size is {maxMB}MB.",
       "errorGeneric": "Upload failed. Please try again."
     }
+  },
+  "api": {
+    "title": "Developer API",
+    "subtitle": "Public REST API for researchers and developers",
+    "description": "Access Costa Rica Tree Atlas data programmatically. Our free API provides comprehensive tree data for research, education, and application development.",
+    "gettingStarted": "Getting Started",
+    "gettingStartedDesc": "The API is free to use and requires no authentication for basic usage. Rate limiting of 100 requests per minute applies to all endpoints.",
+    "baseUrl": "Base URL",
+    "authentication": "Authentication",
+    "authDesc": "No authentication required for public endpoints. For higher rate limits, include an X-API-Key header.",
+    "rateLimit": "Rate Limiting",
+    "rateLimitDesc": "100 requests per minute per IP address. Rate limit headers are included in all responses.",
+    "endpoints": "Endpoints",
+    "tryIt": "Try it",
+    "response": "Response",
+    "parameters": "Parameters",
+    "required": "Required",
+    "optional": "Optional",
+    "example": "Example",
+    "trees": {
+      "list": "List Trees",
+      "listDesc": "Retrieve a paginated list of trees with optional filtering and sorting.",
+      "get": "Get Tree",
+      "getDesc": "Retrieve detailed information about a specific tree by its slug."
+    },
+    "families": {
+      "list": "List Families",
+      "listDesc": "Get all botanical families with species counts."
+    },
+    "params": {
+      "locale": "Language code (en, es)",
+      "family": "Filter by botanical family name",
+      "conservationStatus": "Filter by IUCN conservation status",
+      "tag": "Filter by tag",
+      "distribution": "Filter by distribution region",
+      "floweringSeason": "Filter by flowering month",
+      "fruitingSeason": "Filter by fruiting month",
+      "search": "Search in title, scientific name, and description",
+      "page": "Page number (default: 1)",
+      "pageSize": "Results per page (default: 20, max: 100)",
+      "sort": "Sort field (title, scientificName, family, updatedAt)",
+      "order": "Sort order (asc, desc)",
+      "slug": "Tree URL slug"
+    },
+    "codeExamples": "Code Examples",
+    "support": "Support",
+    "supportDesc": "For questions or issues, please open an issue on our GitHub repository.",
+    "license": "Data License",
+    "licenseDesc": "API data is available under CC BY-NC-SA 4.0. Please cite Costa Rica Tree Atlas in your research or application."
   }
 }
