@@ -724,5 +724,54 @@
       "errorTooLarge": "Archivo muy grande. Tamaño máximo es {maxMB}MB.",
       "errorGeneric": "Error al subir. Por favor intenta de nuevo."
     }
+  },
+  "api": {
+    "title": "API para Desarrolladores",
+    "subtitle": "API REST pública para investigadores y desarrolladores",
+    "description": "Accede a los datos del Atlas de Árboles de Costa Rica programáticamente. Nuestra API gratuita proporciona datos completos de árboles para investigación, educación y desarrollo de aplicaciones.",
+    "gettingStarted": "Comenzar",
+    "gettingStartedDesc": "La API es gratuita y no requiere autenticación para uso básico. Se aplica un límite de 100 solicitudes por minuto a todos los endpoints.",
+    "baseUrl": "URL Base",
+    "authentication": "Autenticación",
+    "authDesc": "No se requiere autenticación para endpoints públicos. Para límites más altos, incluye un header X-API-Key.",
+    "rateLimit": "Límite de Solicitudes",
+    "rateLimitDesc": "100 solicitudes por minuto por dirección IP. Los headers de límite se incluyen en todas las respuestas.",
+    "endpoints": "Endpoints",
+    "tryIt": "Probar",
+    "response": "Respuesta",
+    "parameters": "Parámetros",
+    "required": "Requerido",
+    "optional": "Opcional",
+    "example": "Ejemplo",
+    "trees": {
+      "list": "Listar Árboles",
+      "listDesc": "Obtiene una lista paginada de árboles con filtrado y ordenamiento opcional.",
+      "get": "Obtener Árbol",
+      "getDesc": "Obtiene información detallada sobre un árbol específico por su slug."
+    },
+    "families": {
+      "list": "Listar Familias",
+      "listDesc": "Obtiene todas las familias botánicas con conteo de especies."
+    },
+    "params": {
+      "locale": "Código de idioma (en, es)",
+      "family": "Filtrar por nombre de familia botánica",
+      "conservationStatus": "Filtrar por estado de conservación UICN",
+      "tag": "Filtrar por etiqueta",
+      "distribution": "Filtrar por región de distribución",
+      "floweringSeason": "Filtrar por mes de floración",
+      "fruitingSeason": "Filtrar por mes de fructificación",
+      "search": "Buscar en título, nombre científico y descripción",
+      "page": "Número de página (por defecto: 1)",
+      "pageSize": "Resultados por página (por defecto: 20, máx: 100)",
+      "sort": "Campo de ordenamiento (title, scientificName, family, updatedAt)",
+      "order": "Orden (asc, desc)",
+      "slug": "Slug URL del árbol"
+    },
+    "codeExamples": "Ejemplos de Código",
+    "support": "Soporte",
+    "supportDesc": "Para preguntas o problemas, por favor abre un issue en nuestro repositorio de GitHub.",
+    "license": "Licencia de Datos",
+    "licenseDesc": "Los datos de la API están disponibles bajo CC BY-NC-SA 4.0. Por favor cita el Atlas de Árboles de Costa Rica en tu investigación o aplicación."
   }
 }
