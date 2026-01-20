@@ -327,33 +327,35 @@ export async function GET(request: NextRequest) {
     const total = Number(countResult[0]?.count || 0);
 
     // Transform to camelCase
-    const transformedContributions = contributions.map((c) => ({
-      id: c.id,
-      type: c.type,
-      treeSlug: c.tree_slug,
-      targetField: c.target_field,
-      title: c.title,
-      description: c.description,
-      evidence: c.evidence,
-      scientificName: c.scientific_name,
-      commonNameEn: c.common_name_en,
-      commonNameEs: c.common_name_es,
-      family: c.family,
-      proposedImages: c.proposed_images,
-      contributorName: isAdmin ? c.contributor_name : null, // Hide from non-admins
-      contributorEmail: isAdmin ? c.contributor_email : null, // Hide from non-admins
-      sessionId: c.session_id,
-      userId: c.user_id,
-      status: c.status,
-      priority: c.priority,
-      reviewedBy: c.reviewed_by,
-      reviewedAt: c.reviewed_at,
-      reviewNotes: c.review_notes,
-      resolvedPrId: c.resolved_pr_id,
-      locale: c.locale,
-      createdAt: c.created_at,
-      updatedAt: c.updated_at,
-    }));
+    const transformedContributions = contributions.map(
+      (c: ContributionRow) => ({
+        id: c.id,
+        type: c.type,
+        treeSlug: c.tree_slug,
+        targetField: c.target_field,
+        title: c.title,
+        description: c.description,
+        evidence: c.evidence,
+        scientificName: c.scientific_name,
+        commonNameEn: c.common_name_en,
+        commonNameEs: c.common_name_es,
+        family: c.family,
+        proposedImages: c.proposed_images,
+        contributorName: isAdmin ? c.contributor_name : null, // Hide from non-admins
+        contributorEmail: isAdmin ? c.contributor_email : null, // Hide from non-admins
+        sessionId: c.session_id,
+        userId: c.user_id,
+        status: c.status,
+        priority: c.priority,
+        reviewedBy: c.reviewed_by,
+        reviewedAt: c.reviewed_at,
+        reviewNotes: c.review_notes,
+        resolvedPrId: c.resolved_pr_id,
+        locale: c.locale,
+        createdAt: c.created_at,
+        updatedAt: c.updated_at,
+      })
+    );
 
     return NextResponse.json({
       contributions: transformedContributions,
