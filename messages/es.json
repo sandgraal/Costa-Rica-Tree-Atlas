@@ -597,6 +597,91 @@
     "errorFlagFailed": "Error al enviar el reporte. Por favor intenta de nuevo."
   },
   "contribute": {
+    "title": "Contribuir al Atlas",
+    "description": "Ayúdanos a crecer y mejorar el Atlas de Árboles de Costa Rica. ¡Tu conocimiento hace la diferencia!",
+    "chooseType": "¿Cómo te gustaría contribuir?",
+    "newSpecies": {
+      "title": "Sugerir una Nueva Especie",
+      "description": "¿Conoces un árbol costarricense que no hemos documentado? ¡Cuéntanos!"
+    },
+    "correction": {
+      "title": "Sugerir una Corrección",
+      "description": "¿Encontraste un error o información desactualizada? Ayúdanos a corregirla."
+    },
+    "localKnowledge": {
+      "title": "Compartir Conocimiento Local",
+      "description": "Comparte usos tradicionales, nombres locales o conocimiento cultural sobre árboles."
+    },
+    "photo": {
+      "title": "Subir una Foto",
+      "description": "Comparte tus fotos de árboles para ayudar a otros a identificar y aprender sobre especies."
+    },
+    "form": {
+      "selectTree": "Seleccionar un Árbol",
+      "searchTrees": "Buscar árboles por nombre...",
+      "title": "Título",
+      "titlePlaceholder": "Resumen breve de tu contribución",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Proporciona detalles sobre tu contribución...",
+      "evidence": "Fuentes o Evidencia",
+      "evidencePlaceholder": "¿Cómo sabes esto? (ej., observación personal, libro, sitio web)",
+      "scientificName": "Nombre Científico",
+      "scientificNamePlaceholder": "ej., Quercus costaricensis",
+      "commonNameEn": "Nombre Común (Inglés)",
+      "commonNameEs": "Nombre Común (Español)",
+      "family": "Familia Botánica",
+      "familyPlaceholder": "ej., Fagaceae",
+      "whereFound": "¿Dónde viste este árbol?",
+      "whereFoundPlaceholder": "ej., Bosque Nuboso de Monteverde, cerca de San José",
+      "targetField": "¿Qué necesita corrección?",
+      "knowledgeType": "Tipo de Conocimiento",
+      "region": "Región de Origen",
+      "regionPlaceholder": "¿De dónde es este conocimiento? (ej., Guanacaste, Limón)",
+      "contributorName": "Tu Nombre",
+      "contributorNamePlaceholder": "¿Cómo deberíamos acreditarte?",
+      "contributorEmail": "Tu Correo",
+      "contributorEmailPlaceholder": "En caso de que necesitemos contactarte",
+      "optional": "opcional",
+      "submit": "Enviar Contribución",
+      "submitting": "Enviando...",
+      "cancel": "Cancelar",
+      "back": "Volver"
+    },
+    "fields": {
+      "title": "Título/Nombre Común",
+      "scientificName": "Nombre Científico",
+      "description": "Descripción",
+      "family": "Familia Botánica",
+      "nativeRegion": "Región Nativa",
+      "distribution": "Distribución",
+      "habitat": "Hábitat",
+      "cultivation": "Cultivo",
+      "uses": "Usos",
+      "ecology": "Ecología",
+      "conservation": "Conservación",
+      "taxonomy": "Taxonomía",
+      "etymology": "Etimología",
+      "other": "Otro"
+    },
+    "knowledgeTypes": {
+      "traditional_uses": "Usos Tradicionales/Medicinales",
+      "local_names": "Nombres Locales o Indígenas",
+      "folklore": "Folclore e Historias",
+      "preparation": "Métodos de Preparación",
+      "harvesting": "Prácticas de Cosecha",
+      "cultivation_tips": "Consejos de Cultivo Local",
+      "wildlife": "Interacciones con Fauna",
+      "other": "Otro Conocimiento"
+    },
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Tu contribución ha sido enviada y será revisada por nuestro equipo.",
+      "another": "Enviar Otra Contribución"
+    },
+    "error": {
+      "title": "Error al Enviar",
+      "tryAgain": "Intentar de Nuevo"
+    },
     "uploadPhoto": {
       "title": "Contribuir una Foto",
       "description": "Comparte tus fotos de árboles para ayudar a mejorar nuestro atlas. Tus contribuciones serán revisadas antes de agregarse.",

@@ -278,3 +278,85 @@ model ImageAudit {
   @@index([createdAt])
   @@map("image_audits")
 }
+
+// ============================================================================
+// COMMUNITY CONTRIBUTIONS SYSTEM
+// Allow users to suggest new species, corrections, and share local knowledge
+// ============================================================================
+
+// Types of community contributions
+enum ContributionType {
+  NEW_SPECIES // Suggest a new tree species to add
+  CORRECTION // Suggest correction to existing content
+  LOCAL_KNOWLEDGE // Share traditional/local knowledge
+  TRANSLATION // Suggest translation improvement
+}
+
+// Status of a contribution
+enum ContributionStatus {
+  PENDING // Awaiting review
+  UNDER_REVIEW // Being reviewed by moderator
+  APPROVED // Approved, pending implementation
+  IMPLEMENTED // Changes applied to content
+  REJECTED // Rejected by moderator
+  DUPLICATE // Already exists or submitted
+}
+
+// Priority levels for contributions
+enum ContributionPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+// Community contribution submission
+model Contribution {
+  id   String           @id @default(cuid())
+  type ContributionType
+
+  // For NEW_SPECIES: proposed tree details
+  // For CORRECTION: target tree and field
+  // For LOCAL_KNOWLEDGE: target tree and knowledge type
+  treeSlug    String? @db.VarChar(100) // null for new species
+  targetField String? @db.VarChar(100) // e.g., "description", "uses", "distribution"
+
+  // Contribution content
+  title       String  @db.VarChar(255)
+  description String  @db.Text // Main content/details
+  evidence    String? @db.Text // Sources, references, personal experience
+
+  // For NEW_SPECIES type
+  scientificName String? @db.VarChar(255)
+  commonNameEn   String? @db.VarChar(255)
+  commonNameEs   String? @db.VarChar(255)
+  family         String? @db.VarChar(100)
+  proposedImages String[] // URLs or file paths
+
+  // Contributor info (can be anonymous)
+  contributorName  String? @db.VarChar(255)
+  contributorEmail String? @db.VarChar(255)
+  sessionId        String  @db.VarChar(64) // Anonymous session hash
+  ipHash           String? @db.VarChar(64) // Hashed IP for rate limiting
+  userId           String? // If logged in
+
+  // Review workflow
+  status       ContributionStatus   @default(PENDING)
+  priority     ContributionPriority @default(MEDIUM)
+  reviewedBy   String? // Admin/moderator user ID
+  reviewedAt   DateTime?
+  reviewNotes  String?              @db.Text
+  resolvedPrId String?              @db.VarChar(100) // GitHub PR that implemented this
+
+  // Metadata
+  locale    String   @default("en") @db.VarChar(5)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@index([treeSlug])
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("contributions")
+}
