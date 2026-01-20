@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
+import { captureException } from "@/lib/sentry";
+
 /**
  * Global Error Handler
  * Catches errors that occur in the root layout or during rendering.
@@ -12,6 +15,19 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    // Send error to Sentry
+    captureException(error, {
+      tags: {
+        boundary: "GlobalError",
+        digest: error.digest || "unknown",
+      },
+      extra: {
+        digest: error.digest,
+      },
+    });
+  }, [error]);
+
   return (
     <html lang="en">
       <body>
