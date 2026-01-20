@@ -1,6 +1,7 @@
 "use client";
 
 import { ErrorBoundary } from "./ErrorBoundary";
+import { captureException } from "@/lib/sentry";
 import type { ReactNode } from "react";
 
 interface ComponentErrorBoundaryProps {
@@ -41,8 +42,13 @@ export function ComponentErrorBoundary({
       )}
       onError={(error) => {
         console.error(`${componentName} error:`, error);
-        // TODO: Track component errors
-        // trackError('component_error', { componentName, error });
+        // Send to Sentry with component context
+        captureException(error, {
+          tags: {
+            boundary: "ComponentErrorBoundary",
+            componentName,
+          },
+        });
       }}
     >
       {children}
