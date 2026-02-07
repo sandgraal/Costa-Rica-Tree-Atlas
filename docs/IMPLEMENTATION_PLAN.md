@@ -6,17 +6,15 @@
 
 ## 📊 Current Status Dashboard
 
-**Last Auto-Updated:** 2026-01-20
+**Last Auto-Updated:** 2026-02-07
 
 ### Content Coverage
-
-- **Species**: 128/175 (73%) - Target: 175+ documented species
+- **Species**: 133/175 (76%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) - Target: 20 guides
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
 
 ### Implementation Progress
-
 - **Overall**: 0/0 tasks (0%)
 - **Priority 0 (Blockers)**: 0/0 (0%)
 - **Priority 1 (Content)**: 0/0 (0%)
@@ -24,16 +22,14 @@
 - **Priority 3 (Quick Wins)**: 0/0 (0%)
 
 ### Technical Health
-
 - **Lighthouse Score**: 48/100 → Target: 90/100
 - **LCP (Largest Contentful Paint)**: 6.0s → Target: <2.5s
 - **TBT (Total Blocking Time)**: 440ms → Target: <200ms
-- **Auth Status**: ✅ Complete (JWT strategy, MFA with TOTP + backup codes, Basic Auth removed)
+- **Auth Status**: ❌ Broken (MFA incomplete, session strategy conflict)
 - **Safety Integration**: 🟡 60% (components exist, filtering pending)
 - **Image Status**: 109/128 optimized (85%), 66 galleries need refresh
 
 ### Priority Status Legend
-
 - ✅ **Complete** - All tasks done, validated
 - 🟡 **In Progress** - Active work ongoing
 - 📋 **Ready** - No blockers, can start anytime
@@ -76,7 +72,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 - ✅ **51 valid galleries** (5+ images with good diversity)
 - ⚠️ **65 galleries with low diversity** (limited to 2 categories - need more varied images)
 - ❌ **1 broken gallery** (cocobolo: 3/5 broken images)
-- 📭 **11 missing galleries** (comenegro, cornizuelo, lechoso-montanero, llama-del-bosque, manchineel, mayo, orey, quebracho, quizarra, sigua, yellow-oleander)
+- 📭 **10 missing galleries** (comenegro, cornizuelo, lechoso-montanero, llama-del-bosque, mayo, orey, quebracho, quizarra, sigua, yellow-oleander) — manchineel ✅ gallery added
 - 📊 **Overall**: 109/128 featured images optimized (85%), 66 galleries need refresh
 
 **Action Items:**

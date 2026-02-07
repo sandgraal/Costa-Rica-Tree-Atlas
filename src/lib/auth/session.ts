@@ -7,6 +7,7 @@
 
 import { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
+import { logJWTVerificationError } from "./jwt-error-logger";
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET || "";
 const JWT_SECRET_KEY = new TextEncoder().encode(JWT_SECRET);
@@ -49,8 +50,10 @@ export async function getSessionFromRequest(
     }
 
     return null;
-  } catch {
-    // Invalid or expired token
+  } catch (error) {
+    // Invalid or expired token - log for operational diagnostics
+    // Note: No sensitive data (token payload) is logged
+    logJWTVerificationError(error);
     return null;
   }
 }
