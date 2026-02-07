@@ -9,12 +9,14 @@
 **Last Auto-Updated:** 2026-02-07
 
 ### Content Coverage
+
 - **Species**: 133/175 (76%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) - Target: 20 guides
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
 
 ### Implementation Progress
+
 - **Overall**: 0/0 tasks (0%)
 - **Priority 0 (Blockers)**: 0/0 (0%)
 - **Priority 1 (Content)**: 0/0 (0%)
@@ -22,6 +24,7 @@
 - **Priority 3 (Quick Wins)**: 0/0 (0%)
 
 ### Technical Health
+
 - **Lighthouse Score**: 48/100 → Target: 90/100
 - **LCP (Largest Contentful Paint)**: 6.0s → Target: <2.5s
 - **TBT (Total Blocking Time)**: 440ms → Target: <200ms
@@ -30,6 +33,7 @@
 - **Image Status**: 109/128 optimized (85%), 66 galleries need refresh
 
 ### Priority Status Legend
+
 - ✅ **Complete** - All tasks done, validated
 - 🟡 **In Progress** - Active work ongoing
 - 📋 **Ready** - No blockers, can start anytime
@@ -904,18 +908,14 @@ Each species should include:
 
 **Week 1: Emergency Fixes (Critical Short Pages)**
 
-- [ ] **Enhance comenegro (108 lines)** [1d] @content @critical ⚠️Priority1
-  - Currently severely underdeveloped at only 108 lines
-  - Add complete taxonomy, distribution, cultivation sections
-  - Research traditional uses and economic importance
-  - Add 5+ gallery images
-  - Target: 600+ lines minimum
-- [ ] **Enhance manchineel (349 lines)** [1d] @content @safety @critical
-  - Toxic species needs comprehensive safety information
-  - Expand toxicity details, first aid, safety warnings
-  - Add prominent SafetyWarning components
-  - Include historical uses and modern handling precautions
-  - Target: 700+ lines (safety-critical content)
+- [x] **Enhance comenegro (108→762 lines EN, 796 lines ES)** [1d] @content @critical ✅
+  - Complete taxonomy, distribution, cultivation, medicinal uses, and cultural significance
+  - Full bilingual parity achieved
+  - Target: 600+ lines → Achieved: 762 lines EN, 796 lines ES
+- [x] **Enhance manchineel (349→691 lines EN, 694 lines ES)** [1d] @content @safety @critical ✅
+  - ~~Toxic species needs comprehensive safety information~~ Completed
+  - Enhanced with comprehensive toxicity details, first aid, safety warnings
+  - Target: 700+ lines → Achieved: 691 lines EN, 694 lines ES
 - [x] **Enhance yellow-oleander (426→933 lines)** [1d] @content @safety @critical ✅
   - Comprehensive safety content with global epidemiology (Sri Lanka data)
   - Detailed toxicology with 5 cardiac glycosides and mechanism of action
@@ -939,8 +939,11 @@ Each species should include:
 
 **Week 4-6: Remaining 24 Short Pages**
 
-- [ ] Enhance 24 pages in 550-600 line range [96h] @content
-  - cacao, ajo, copey, aguacatillo, pejibaye, papaturro, nazareno, cativo, capulin, mamon, olla-de-mono, cas, lechoso, laurel, jicaro, manzana-de-agua, papaya, mora, nispero, cana-agria, amarillon, fruta-dorada, cerillo, caobilla
+- [ ] Enhance remaining short pages in 550-600 line range [96h] @content
+  - ~~cacao~~ (865 lines) ✅ Already enhanced
+  - ~~ajo~~ (1021 lines) ✅ Already enhanced
+  - [x] copey (548→797 lines EN, 805 lines ES) ✅ Enhanced with uses, cultural significance, conservation, cultivation, where to see
+  - aguacatillo, pejibaye, papaturro, nazareno, cativo, capulin, mamon, olla-de-mono, cas, lechoso, laurel, jicaro, manzana-de-agua, papaya, mora, nispero, cana-agria, amarillon, fruta-dorada, cerillo, caobilla
 
 **Enhancement Checklist (Per Page):**
 
