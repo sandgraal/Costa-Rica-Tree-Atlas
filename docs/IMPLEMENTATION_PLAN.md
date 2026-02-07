@@ -6,14 +6,12 @@
 ## 📊 Status Dashboard
 
 ### Content Coverage
-
 - **Species**: 133/175 (76%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
 
 ### Technical Health
-
 - **Lighthouse Score**: 48/100 → Target: 90/100
 - **LCP**: 6.0s → Target: <2.5s
 - **TBT**: 440ms → Target: <200ms
