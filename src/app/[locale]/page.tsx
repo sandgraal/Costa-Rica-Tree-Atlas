@@ -5,23 +5,31 @@ import { HeroImage } from "@/components/HeroImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import dynamic from "next/dynamic";
 import { memo } from "react";
+import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
 import {
   NowBloomingSkeleton,
   TreeOfTheDaySkeleton,
   StatsSkeleton,
+  FeaturedTreesSkeleton,
+  RecentlyViewedSkeleton,
+  AboutSkeleton,
 } from "@/components/LoadingSkeletons";
 
 // Lazy load below-the-fold components to improve LCP and reduce TBT
-const RecentlyViewedList = dynamic(() =>
-  import("@/components/RecentlyViewedList").then((mod) => ({
-    default: mod.RecentlyViewedList,
-  }))
+const RecentlyViewedList = dynamic(
+  () =>
+    import("@/components/RecentlyViewedList").then((mod) => ({
+      default: mod.RecentlyViewedList,
+    })),
+  { loading: () => <RecentlyViewedSkeleton /> }
 );
-const FeaturedTreesSection = dynamic(() =>
-  import("@/components/FeaturedTreesSection").then((mod) => ({
-    default: mod.FeaturedTreesSection,
-  }))
+const FeaturedTreesSection = dynamic(
+  () =>
+    import("@/components/FeaturedTreesSection").then((mod) => ({
+      default: mod.FeaturedTreesSection,
+    })),
+  { loading: () => <FeaturedTreesSkeleton /> }
 );
 
 // Lazy load heavy homepage sections with loading states
@@ -49,10 +57,12 @@ const StatsSection = dynamic(
   { loading: () => <StatsSkeleton /> }
 );
 
-const AboutSection = dynamic(() =>
-  import("@/components/home/AboutSection").then((mod) => ({
-    default: mod.AboutSection,
-  }))
+const AboutSection = dynamic(
+  () =>
+    import("@/components/home/AboutSection").then((mod) => ({
+      default: mod.AboutSection,
+    })),
+  { loading: () => <AboutSkeleton /> }
 );
 
 type Props = {
@@ -62,6 +72,15 @@ type Props = {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Preload hero image only on homepage (not all routes via layout)
+  preload("/images/hero/guanacaste-desktop.webp", {
+    as: "image",
+    fetchPriority: "high",
+    imageSrcSet:
+      "/images/hero/guanacaste-mobile.webp 640w, /images/hero/guanacaste-mobile-lg.webp 828w, /images/hero/guanacaste-tablet.webp 1200w, /images/hero/guanacaste-desktop.webp 1920w",
+    imageSizes: "100vw",
+  });
 
   // Get translations for the page
   const t = await getTranslations({ locale, namespace: "home" });

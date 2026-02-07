@@ -70,3 +70,55 @@ export function NowBloomingSkeleton() {
     </div>
   );
 }
+
+// Loading skeleton for featured trees section
+export function FeaturedTreesSkeleton() {
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-8">
+        <div className="h-8 bg-muted rounded w-48 animate-pulse" />
+        <div className="h-6 bg-muted rounded w-24 animate-pulse" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="bg-card rounded-xl border border-border overflow-hidden animate-pulse"
+          >
+            <div className="relative h-48 bg-muted" />
+            <div className="p-4 space-y-3">
+              <div className="h-5 bg-muted rounded w-3/4" />
+              <div className="h-4 bg-muted rounded w-5/6" />
+              <div className="h-4 bg-muted rounded w-2/3" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Loading skeleton for recently viewed section
+export function RecentlyViewedSkeleton() {
+  return (
+    <div>
+      <div className="h-7 bg-muted rounded w-40 mb-4 animate-pulse" />
+      <div className="flex gap-4 overflow-x-auto pb-4">
+        {[1, 2, 3, 4].map((i) => (
+          <TreeCardSkeleton key={i} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Loading skeleton for about section
+export function AboutSkeleton() {
+  return (
+    <div className="space-y-4 animate-pulse">
+      <div className="h-8 bg-muted rounded w-64 mx-auto" />
+      <div className="h-4 bg-muted rounded w-3/4 mx-auto" />
+      <div className="h-4 bg-muted rounded w-2/3 mx-auto" />
+    </div>
+  );
+}

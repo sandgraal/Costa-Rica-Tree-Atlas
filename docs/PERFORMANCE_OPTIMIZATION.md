@@ -1,7 +1,7 @@
 # Performance Optimization Guide
 
-**Last Updated:** 2026-01-18  
-**Status:** 🚀 Active Implementation  
+**Last Updated:** 2026-02-07  
+**Status:** 🚀 Phase 1 Validated, Phase 2 In Progress  
 **Lighthouse Baseline:** Performance 48/100 (2026-01-18)  
 **Target:** Performance >90/100
 
@@ -249,15 +249,19 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 - [x] Defer non-critical client scripts
 - [x] Audit and fix console errors
 - [x] Enable package import optimization
-- [ ] Test and measure improvements
+- [x] Test and measure improvements (validated 2026-02-07)
 
 ### Phase 2: Advanced Optimizations
 
 - [ ] Implement service worker for offline caching
-- [ ] Add resource hints (dns-prefetch, preconnect)
-- [ ] Optimize third-party scripts
+- [x] Add resource hints (dns-prefetch, preconnect) ✅
+- [x] Optimize third-party scripts (lazyOnload strategy) ✅
 - [ ] Implement request coalescing
 - [ ] Add performance monitoring dashboard
+- [x] Set up Lighthouse CI workflow ✅
+- [x] Move hero preload to homepage only (ReactDOM.preload) ✅
+- [x] Add Vercel Analytics preconnect hints ✅
+- [x] Add loading skeletons for all dynamic homepage sections ✅
 
 ### Phase 3: Long-term Improvements
 
@@ -349,6 +353,32 @@ lhci autorun
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
 
 ## Changelog
+
+### 2026-02-07 - Phase 1 Validation & Phase 2 Quick Wins ✅
+
+- **Phase 1 Validation:**
+  - ✅ All 18 hero image variants confirmed (6 sizes × 3 formats: AVIF, WebP, JPEG)
+  - ✅ HeroImage component uses `<picture>` with responsive srcsets and format fallbacks
+  - ✅ 6 homepage components lazy-loaded with `dynamic()` imports
+  - ✅ Resource hints (preconnect, dns-prefetch) for all external origins
+  - ✅ Font optimization: primary preloaded, secondary deferred
+  - ✅ `removeConsole` strips console.\* in production builds
+  - ✅ Package import optimization (date-fns, contentlayer2, lucide-react, react-markdown, remark-gfm)
+- **Issues Fixed:**
+  - Hero image preload moved from layout.tsx to page.tsx using `ReactDOM.preload()` — previously fired on ALL routes, wasting bandwidth on non-homepage pages
+  - Added loading skeletons for FeaturedTreesSection, RecentlyViewedList, AboutSection
+  - Added Vercel Analytics/Speed Insights preconnect (`va.vercel-scripts.com`, `vitals.vercel-insights.com`)
+- **Phase 2 Implemented:**
+  - Set up Lighthouse CI GitHub workflow (`.github/workflows/lighthouse-ci.yml`)
+  - Configured performance assertions (`.lighthouserc.json`) with budgets for LCP, TBT, CLS
+  - CI reports Lighthouse scores on PRs with automated comments
+- **Files Modified:**
+  - `src/app/[locale]/layout.tsx` — Removed global hero preload, added Vercel preconnect
+  - `src/app/[locale]/page.tsx` — Added `ReactDOM.preload()` for homepage-only hero preload, added loading skeletons
+  - `src/components/LoadingSkeletons.tsx` — Added FeaturedTreesSkeleton, RecentlyViewedSkeleton, AboutSkeleton
+- **Files Created:**
+  - `.github/workflows/lighthouse-ci.yml` — Lighthouse CI workflow
+  - `.lighthouserc.json` — Lighthouse CI configuration
 
 ### 2026-01-18 - Comprehensive Performance Optimization ✅
 
