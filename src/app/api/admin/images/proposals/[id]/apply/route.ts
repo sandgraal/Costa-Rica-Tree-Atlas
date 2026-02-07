@@ -69,9 +69,17 @@ async function downloadImage(
           reject(new Error("Too many redirects"));
           return;
         }
-        downloadImage(response.headers.location, destPath, maxRedirects - 1)
-          .then(resolve)
-          .catch(reject);
+        const locationHeader = Array.isArray(response.headers.location)
+          ? response.headers.location[0]
+          : response.headers.location;
+        try {
+          const resolvedUrl = new URL(locationHeader, url).toString();
+          downloadImage(resolvedUrl, destPath, maxRedirects - 1)
+            .then(resolve)
+            .catch(reject);
+        } catch (err) {
+          reject(err as Error);
+        }
         return;
       }
 
