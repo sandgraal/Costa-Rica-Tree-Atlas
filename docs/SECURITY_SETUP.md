@@ -17,6 +17,7 @@
 - **Database schema** - Prisma with User, Session, MFASecret, AuditLog models
 - **Password hashing** - Argon2id implementation complete
 - **Admin setup scripts** - `setup-first-admin.mjs` and API endpoint `/api/admin/setup`
+- **JWT error logging** - Non-sensitive, rate-limited logging for operational diagnostics
 
 ### ⚠️ Needs Fixes (Priority 0.1)
 
@@ -303,7 +304,8 @@ Add to README.md:
 **Authentication:**
 
 - `src/app/api/auth/[...nextauth]/route.ts` - NextAuth configuration (needs fixes)
-- `src/lib/auth/session.ts` - Session management (needs fixes)
+- `src/lib/auth/session.ts` - Session management with JWT error logging
+- `src/lib/auth/jwt-error-logger.ts` - Rate-limited JWT verification error logging
 - `middleware.ts` - Auth middleware with Basic Auth fallback (needs cleanup)
 - `prisma/schema.prisma` - Database schema (complete)
 - `scripts/setup-first-admin.mjs` - Admin user setup script
@@ -315,3 +317,67 @@ Add to README.md:
 - `src/lib/auth/secure-compare.ts` - Constant-time string comparison
 - `src/lib/auth/mfa-crypto.ts` - MFA encryption (incomplete)
 - `src/lib/security/csp.ts` - Content Security Policy headers
+
+## JWT Error Logging
+
+**Status:** ✅ Fully Operational (as of 2026-02-07)
+
+The application now includes non-sensitive, rate-limited logging for JWT verification errors.
+
+### Features
+
+- **Rate-limited logging**: Prevents log spam by limiting each error type to 1 log per 60 seconds
+- **Non-sensitive error extraction**: Classifies JWT errors without leaking tokens or payloads
+- **DEBUG mode support**: Bypasses rate limiting when `DEBUG=true` or `NODE_ENV=development`
+- **Sentry integration**: Sends sanitized errors to production monitoring
+
+### Error Types Detected
+
+- `JWT_EXPIRED` - Token has expired
+- `INVALID_SIGNATURE` - Token signature verification failed
+- `MALFORMED_TOKEN` - Token is malformed or cannot be parsed
+- `INVALID_TOKEN` - Token is invalid
+
+### Configuration
+
+Enable verbose logging by setting the `DEBUG` environment variable:
+
+```env
+# In .env.local for development debugging
+DEBUG=true
+```
+
+Or rely on automatic debug mode in development:
+
+```bash
+NODE_ENV=development npm run dev
+```
+
+### Security Guarantees
+
+✅ **No JWT tokens logged** - Token values are never included in logs  
+✅ **No payload data logged** - User data from JWT payloads is sanitized  
+✅ **Rate limited** - Prevents attackers from flooding logs  
+✅ **Production monitoring** - Integrates with Sentry for operational visibility
+
+### Testing
+
+Run comprehensive tests:
+
+```bash
+# JWT error logging unit tests
+npm test -- tests/security/jwt-error-logging.test.ts
+
+# Integration tests with session module
+npm test -- tests/security/session-error-logging-integration.test.ts
+
+# All security tests
+npm test -- tests/security/
+```
+
+### Files
+
+- `src/lib/auth/jwt-error-logger.ts` - Main logging utility
+- `src/lib/auth/session.ts` - Integration with JWT verification
+- `tests/security/jwt-error-logging.test.ts` - Unit tests (20 tests)
+- `tests/security/session-error-logging-integration.test.ts` - Integration tests (4 tests)
