@@ -293,8 +293,8 @@ export async function POST(request: NextRequest) {
         if (body.imageType === "FEATURED") {
           currentUrl = `/images/trees/${body.treeSlug}.jpg`;
         } else {
-          // For gallery images: /images/trees/{slug}/gallery/{type}.jpg
-          currentUrl = `/images/trees/${body.treeSlug}/gallery/${body.imageType.toLowerCase()}.jpg`;
+          // For gallery images: /images/trees/gallery/{slug}-{type}.jpg
+          currentUrl = `/images/trees/gallery/${body.treeSlug}-${body.imageType.toLowerCase()}.jpg`;
         }
 
         // For USER_FLAG proposals, proposed_url should be the same as current_url initially
