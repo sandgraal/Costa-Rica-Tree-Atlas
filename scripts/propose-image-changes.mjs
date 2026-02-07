@@ -32,7 +32,6 @@ const IMAGES_DIR = path.join(ROOT_DIR, "public/images/trees");
 
 const COSTA_RICA_PLACE_ID = 6924;
 const MIN_IMAGE_SIZE = 20_000; // 20KB minimum for valid images
-const MIN_RESOLUTION_WIDTH = 800; // Minimum acceptable width
 
 // API configuration
 const API_BASE_URL =
@@ -53,10 +52,8 @@ const SPECIFIC_TREE = args.find((a) => a.startsWith("--tree="))?.split("=")[1];
 const stats = {
   treesScanned: 0,
   proposalsCreated: 0,
-  proposalsSkipped: 0,
   missingImages: 0,
   lowQualityImages: 0,
-  brokenImages: 0,
   errors: 0,
 };
 
@@ -200,7 +197,7 @@ function fetchJson(url) {
 /**
  * Search iNaturalist for better images of a species
  */
-async function findBetterImages(scientificName, treeSlug) {
+async function findBetterImages(scientificName) {
   try {
     const query = encodeURIComponent(scientificName);
     const url = `https://api.inaturalist.org/v1/observations?taxon_name=${query}&place_id=${COSTA_RICA_PLACE_ID}&quality_grade=research&photos=true&per_page=10&order_by=votes`;
@@ -367,7 +364,7 @@ async function processTree(slug, frontmatter) {
     log.proposal(slug, "Featured image missing");
 
     // Search for replacement
-    const candidates = await findBetterImages(scientificName, slug);
+    const candidates = await findBetterImages(scientificName);
     if (candidates.length > 0) {
       const best = candidates[0];
       try {
@@ -396,7 +393,7 @@ async function processTree(slug, frontmatter) {
       `Featured image too small (${featuredQuality.size} bytes)`
     );
 
-    const candidates = await findBetterImages(scientificName, slug);
+    const candidates = await findBetterImages(scientificName);
     if (candidates.length > 0) {
       const best = candidates[0];
       try {
@@ -493,9 +490,7 @@ async function main() {
   console.log(`Trees scanned:      ${stats.treesScanned}`);
   console.log(`Missing images:     ${stats.missingImages}`);
   console.log(`Low quality images: ${stats.lowQualityImages}`);
-  console.log(`Broken images:      ${stats.brokenImages}`);
   console.log(`Proposals created:  ${stats.proposalsCreated}`);
-  console.log(`Proposals skipped:  ${stats.proposalsSkipped}`);
   console.log(`Errors:             ${stats.errors}`);
 
   if (DRY_RUN) {

@@ -288,6 +288,17 @@ export async function POST(request: NextRequest) {
       `;
 
       if (existingProposals.length === 0) {
+        // Derive current_url based on image type
+        let currentUrl: string;
+        if (body.imageType === "FEATURED") {
+          currentUrl = `/images/trees/${body.treeSlug}.jpg`;
+        } else {
+          // For gallery images: /images/trees/{slug}/gallery/{type}.jpg
+          currentUrl = `/images/trees/${body.treeSlug}/gallery/${body.imageType.toLowerCase()}.jpg`;
+        }
+
+        // For USER_FLAG proposals, proposed_url should be the same as current_url initially
+        // The admin will need to find a replacement image themselves
         const proposalId = `clp${Date.now().toString(36)}${Math.random().toString(36).substring(2, 9)}`;
         await (
           prisma as unknown as {
@@ -304,9 +315,9 @@ export async function POST(request: NextRequest) {
             flag_count, upvotes, downvotes,
             created_at, updated_at
           ) VALUES (
-            ${`/images/trees/${body.treeSlug}.jpg`}, ${""}, NULL,
-            ${`/images/trees/${body.treeSlug}.jpg`}, ${""}, ${null},
-            'USER_FLAG', ${`Multiple users flagged this image (${totalFlags} flags). Most common reason: ${body.reason}`},
+            ${proposalId}, ${body.treeSlug}, ${body.imageType},
+            ${currentUrl}, ${currentUrl}, ${"user_flags"},
+            'USER_FLAG', ${`Multiple users flagged this image (${totalFlags} flags). Most common reason: ${body.reason}. Requires admin to find replacement.`},
             'PENDING',
             ${totalFlags}, ${0}, ${0},
             NOW(), NOW()
