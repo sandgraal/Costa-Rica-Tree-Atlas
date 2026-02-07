@@ -20,6 +20,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import https from "node:https";
 import http from "node:http";
+import { pipeline } from "node:stream/promises";
+import { Transform } from "node:stream";
 import { validateSlug } from "@/lib/validation/slug";
 import { safePath } from "@/lib/filesystem/safe-path";
 
@@ -60,6 +62,7 @@ const ALLOWED_CONTENT_TYPES = [
 /**
  * Download an image from a URL to a local file path.
  * Streams the response to disk with size limits and content-type validation.
+ * Uses temp files to avoid partial writes on errors.
  * Follows redirects (up to 5 levels).
  */
 async function downloadImage(
@@ -104,62 +107,73 @@ async function downloadImage(
         return;
       }
 
-      // Validate content type
-      const contentType = response.headers["content-type"] || "image/jpeg";
-      if (!ALLOWED_CONTENT_TYPES.some((type) => contentType.includes(type))) {
+      // Validate content type (treat missing as invalid)
+      const contentType = response.headers["content-type"];
+      if (
+        !contentType ||
+        !ALLOWED_CONTENT_TYPES.some((type) => contentType.includes(type))
+      ) {
+        response.destroy(); // Drain/close the socket
         reject(
           new Error(
-            `Invalid content type: ${contentType}. Expected an image type.`
+            `Invalid content type: ${contentType || "missing"}. Expected an image type.`
           )
         );
         return;
       }
 
-      // Create write stream
+      // Write to a temp file first to avoid partial writes
+      const tempPath = `${destPath}.tmp`;
       let totalSize = 0;
-      const writeStream = createWriteStream(destPath);
 
-      // Track if stream ended successfully
-      let streamEnded = false;
+      // Create a transform stream that enforces size limits and handles backpressure
+      const sizeCheckTransform = new Transform({
+        transform(chunk: Buffer, encoding, callback) {
+          totalSize += chunk.length;
 
-      response.on("data", (chunk: Buffer) => {
-        totalSize += chunk.length;
+          // Enforce max size limit
+          if (totalSize > MAX_IMAGE_SIZE) {
+            callback(
+              new Error(
+                `Image too large: ${totalSize} bytes exceeds ${MAX_IMAGE_SIZE} byte limit`
+              )
+            );
+            return;
+          }
 
-        // Enforce max size limit
-        if (totalSize > MAX_IMAGE_SIZE) {
-          writeStream.destroy();
-          response.destroy();
-          reject(
-            new Error(
-              `Image too large: ${totalSize} bytes exceeds ${MAX_IMAGE_SIZE} byte limit`
-            )
-          );
-          return;
-        }
-
-        writeStream.write(chunk);
+          // Pass chunk through (this respects backpressure automatically)
+          callback(null, chunk);
+        },
       });
 
-      response.on("end", () => {
-        streamEnded = true;
-        writeStream.end();
-      });
+      const writeStream = createWriteStream(tempPath);
 
-      writeStream.on("finish", () => {
-        if (streamEnded) {
-          resolve({ size: totalSize, contentType });
-        }
-      });
-
-      writeStream.on("error", (err) => {
-        response.destroy();
-        reject(err);
-      });
-
-      response.on("error", (err) => {
-        writeStream.destroy();
-        reject(err);
-      });
+      // Use pipeline to handle backpressure correctly and cleanup on errors
+      pipeline(response, sizeCheckTransform, writeStream)
+        .then(async () => {
+          // Success: rename temp file to final destination
+          try {
+            await fs.rename(tempPath, destPath);
+            resolve({ size: totalSize, contentType });
+          } catch (renameErr) {
+            // Cleanup temp file if rename fails
+            try {
+              await fs.unlink(tempPath);
+            } catch {
+              // Ignore cleanup errors
+            }
+            reject(renameErr);
+          }
+        })
+        .catch(async (err) => {
+          // Error: cleanup temp file
+          try {
+            await fs.unlink(tempPath);
+          } catch {
+            // Ignore cleanup errors
+          }
+          reject(err);
+        });
     });
 
     request.on("error", reject);
