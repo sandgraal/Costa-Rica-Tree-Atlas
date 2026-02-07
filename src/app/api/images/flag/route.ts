@@ -145,28 +145,52 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for existing flag from this session for the same image
-    const existingFlags = await (
+    // Check for any existing vote from this session for the same image
+    const existingVotes = await (
       prisma as unknown as {
         $queryRaw: (
           query: TemplateStringsArray,
           ...args: unknown[]
-        ) => Promise<{ id: string }[]>;
+        ) => Promise<{ id: string; is_flag: boolean }[]>;
       }
     ).$queryRaw`
-      SELECT id FROM image_votes
+      SELECT id, is_flag FROM image_votes
       WHERE session_id = ${sessionId}
         AND tree_slug = ${body.treeSlug}
         AND image_type = ${body.imageType}
-        AND is_flag = true
       LIMIT 1
     `;
 
-    if (existingFlags.length > 0) {
-      return NextResponse.json(
-        { error: "You have already flagged this image" },
-        { status: 409 }
-      );
+    if (existingVotes.length > 0) {
+      const existingVote = existingVotes[0];
+
+      // If it's already a flag, prevent duplicate flagging
+      if (existingVote.is_flag) {
+        return NextResponse.json(
+          { error: "You have already flagged this image" },
+          { status: 409 }
+        );
+      }
+
+      // Otherwise, convert the existing vote into a flag
+      await (
+        prisma as unknown as {
+          $executeRaw: (
+            query: TemplateStringsArray,
+            ...args: unknown[]
+          ) => Promise<number>;
+        }
+      ).$executeRaw`
+        UPDATE image_votes
+        SET
+          is_flag = true,
+          flag_reason = ${body.reason},
+          flag_notes = ${body.details ?? null},
+          proposal_id = ${body.proposalId ?? null}
+        WHERE id = ${existingVote.id}
+      `;
+
+      return NextResponse.json({ data: { status: "updated_existing_vote_to_flag" } }, { status: 200 });
     }
 
     // Create the flag vote
