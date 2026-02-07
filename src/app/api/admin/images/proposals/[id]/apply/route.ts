@@ -3,7 +3,7 @@
  *
  * POST /api/admin/images/proposals/[id]/apply
  *
- * Downloads the proposed image, optimizes it, replaces the current image,
+ * Downloads the proposed image, saves it, replaces the current image,
  * updates the tree MDX frontmatter if needed, and creates an audit trail.
  *
  * Requires admin authentication.
