@@ -129,7 +129,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 
 1. comenegro (108 lines) - ⚠️ **Critical**: Severely underdeveloped
 2. manchineel (349 lines) - Toxic species needs comprehensive safety info
-3. yellow-oleander (426 lines) - Another toxic species
+3. ~~yellow-oleander (426 lines)~~ → **933 lines** ✅ Enhanced with comprehensive safety content
 4. ciprecillo (445 lines)
 5. quizarra (482 lines)
 6. quebracho (492 lines)
@@ -154,7 +154,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 
 - [ ] Review findings - Adjust effort estimates for Priority 1.4?
 - [ ] Prioritize comenegro (108 lines) as emergency enhancement
-- [ ] Focus on toxic species (manchineel, yellow-oleander) for safety reasons
+- [x] Focus on toxic species (manchineel, yellow-oleander) for safety reasons ✅ Both enhanced
 - [ ] Approve content quality audit and remove this review section
 
 **Audit Approval Checklist:**
@@ -920,11 +920,13 @@ Each species should include:
   - Add prominent SafetyWarning components
   - Include historical uses and modern handling precautions
   - Target: 700+ lines (safety-critical content)
-- [ ] **Enhance yellow-oleander (426 lines)** [1d] @content @safety @critical
-  - Another toxic species needing safety emphasis
-  - Expand ornamental cultivation guidance
-  - Add detailed toxicity warnings and pet safety
-  - Target: 650+ lines
+- [x] **Enhance yellow-oleander (426→933 lines)** [1d] @content @safety @critical ✅
+  - Comprehensive safety content with global epidemiology (Sri Lanka data)
+  - Detailed toxicology with 5 cardiac glycosides and mechanism of action
+  - Emergency protocols with 4-phase symptom progression
+  - Prevention guides for homeowners and schools with safer alternatives
+  - Medical significance section with DigiFab trial data
+  - Target: 650+ lines → Achieved: 933 lines EN, 814 lines ES
 
 **Week 2-3: High Priority Short Pages (10 species)**
 
