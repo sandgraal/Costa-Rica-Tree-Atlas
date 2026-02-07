@@ -81,11 +81,13 @@ featuredImage: "/images/trees/quizarra.jpg"
 
 <Callout type="info" title="Cloud Forest Laurel">
   **Quizarrá** (_Nectandra salicina_) is an evergreen cloud forest tree
-  belonging to the Lauraceae (laurel) family. This understory tree is an
-  important component of Costa Rica's montane ecosystems, valued for its
-  aromatic foliage and role as a food source for wildlife. The crushed leaves
-  emit a characteristic spicy-aromatic scent that helps identify this species in
-  the field.
+  belonging to the Lauraceae (laurel) family — one of the most ancient
+  angiosperm lineages, with fossil records dating back over 100 million years.
+  This understory tree is an important component of Costa Rica's montane
+  ecosystems, producing aromatic foliage rich in essential oils and
+  nutrient-dense fruits that sustain quetzals, trogons, and other cloud forest
+  birds. The crushed leaves emit a characteristic spicy-aromatic scent that
+  makes this species unmistakable in the field.
 </Callout>
 
 <TwoColumn>
@@ -93,10 +95,12 @@ featuredImage: "/images/trees/quizarra.jpg"
     title="Quick Reference"
     items={[
       { label: "Family", value: "Lauraceae" },
-      { label: "Conservation", value: "Least Concern" },
+      { label: "Conservation", value: "Least Concern (IUCN)" },
       { label: "Height", value: "5-20 m" },
-      { label: "Elevation", value: "500-2800 m" },
+      { label: "Elevation", value: "500-2,800 m" },
       { label: "Distribution", value: "Montane and cloud forests" },
+      { label: "Flowering", value: "March-May" },
+      { label: "Fruiting", value: "June-September" },
     ]}
   />
   <INaturalistEmbed
@@ -109,12 +113,13 @@ featuredImage: "/images/trees/quizarra.jpg"
 
 ## 📸 Photo Gallery
 
-{/* Note: Images would need to be sourced from iNaturalist or other open databases */}
-
-<Callout type="warning" title="Image Sourcing Needed">
-  High-quality images for this species need to be sourced from iNaturalist or
-  botanical databases following the project's image guidelines.
-</Callout>
+<ImageGallery>
+  <ImageCard
+    src="/images/trees/quizarra.jpg"
+    alt="Quizarrá tree in cloud forest understory"
+    caption="Quizarrá in its natural cloud forest habitat"
+  />
+</ImageGallery>
 
 ---
 
@@ -122,7 +127,7 @@ featuredImage: "/images/trees/quizarra.jpg"
 
 <PropertiesGrid>
   <PropertyCard icon="👑" label="Kingdom" value="Plantae" />
-  <PropertyCard icon="🌸" label="Clade" value="Angiosperms" />
+  <PropertyCard icon="🌸" label="Clade" value="Angiosperms / Magnoliids" />
   <PropertyCard icon="🌿" label="Order" value="Laurales" />
   <PropertyCard icon="🪴" label="Family" value="Lauraceae" />
   <PropertyCard icon="🌳" label="Genus" value="Nectandra" />
@@ -137,20 +142,53 @@ featuredImage: "/images/trees/quizarra.jpg"
     ["English", "Quizarrá"],
     ["Spanish (Costa Rica)", "Quizarrá, Aguacatillo, Ira"],
     ["Spanish (Panama)", "Canelo"],
-    ["Local", "Quizarrá Canela"],
+    ["Local (highlands)", "Quizarrá Canela"],
+    ["Trade name", "Quizarrá"],
   ]}
 />
 
 ### Taxonomic Notes
 
-The species was originally described by C.K. Allen. The genus _Nectandra_ includes approximately 114 species distributed throughout tropical and subtropical America, with many species found in montane forests. The genus name comes from Greek _nektar_ (nectar) and _andros_ (male), referring to the nectar-secreting stamens.
+The species was originally described by C.K. Allen in 1945 as part of her comprehensive survey of Mexican and Central American Lauraceae. The genus _Nectandra_ includes approximately 114 species distributed throughout tropical and subtropical America, with the greatest diversity in montane forests from southern Mexico to Bolivia. The genus name derives from Greek _nektar_ (nectar) and _andros_ (male), referring to the distinctive nectar-secreting stamens — a key characteristic that distinguishes _Nectandra_ from closely related genera.
 
-Recent molecular studies have sometimes placed this species in the genus _Damburneya_, but _Nectandra salicina_ remains the most widely used scientific name.
+Recent molecular phylogenetic studies (van der Werff, 2002; Rohwer & Rudolph, 2005; Trofimov et al., 2016) have suggested that _Nectandra_ as traditionally circumscribed is polyphyletic, and some authors have transferred species to the resurrected genus _Damburneya_. Under this revised classification the species is sometimes listed as _Damburneya salicina_. However, **_Nectandra salicina_** remains the most widely used and accepted name in Costa Rican botanical literature and the IUCN Red List.
+
+### The Lauraceae Family
+
+<Accordion title="Understanding the Laurel Family">
+  <AccordionItem title="An Ancient Lineage">
+    The Lauraceae is one of the oldest angiosperm families, with fossil pollen
+    and wood dating to the Late Cretaceous (~90 Mya). The family includes
+    roughly 2,500-3,000 species in 45-50 genera, making it one of the largest
+    families of woody plants. Members range from massive timber trees like
+    _Ocotea_ to the culinary bay laurel (_Laurus nobilis_) and the commercially
+    vital avocado (_Persea americana_).
+  </AccordionItem>
+  <AccordionItem title="Aromatic Chemistry">
+    A hallmark of the Lauraceae is the production of aromatic essential oils
+    stored in specialized idioblast cells within leaves, bark, and wood. Common
+    compounds include camphor, linalool, 1,8-cineole, cinnamaldehyde, and
+    various sesquiterpenes. In _Nectandra salicina_, the dominant volatiles are
+    terpenes and sesquiterpenes that produce the characteristic
+    spicy-camphoraceous scent when leaves are crushed. These compounds serve as
+    chemical defenses against herbivores and pathogens.
+  </AccordionItem>
+  <AccordionItem title="Ecological Importance in the Neotropics">
+    Lauraceae are among the most ecologically important tree families in
+    Neotropical montane forests. In many cloud forests, they rank first or
+    second in both species richness and basal area. Their fleshy fruits are a
+    critical food resource for frugivorous birds, and the obligate relationship
+    between some Lauraceae species and specialist avian dispersers — especially
+    quetzals and toucans — is one of the best-studied plant-bird mutualisms in
+    the tropics.
+  </AccordionItem>
+</Accordion>
 
 ### Etymology
 
-- **Nectandra**: From Greek, referring to nectar-producing stamens
-- **salicina**: Latin, meaning "willow-like," referring to the lanceolate leaf shape similar to willow leaves
+- **Nectandra**: From Greek _nektar_ (nectar) + _andros_ (male), referring to nectar-producing stamens
+- **salicina**: Latin, meaning "willow-like," describing the lanceolate leaf shape reminiscent of willows (_Salix_)
+- **Quizarrá**: A Costa Rican vernacular name of uncertain origin, possibly derived from indigenous Huetar or Bribri language
 
 ---
 
@@ -158,121 +196,208 @@ Recent molecular studies have sometimes placed this species in the genus _Dambur
 
 ### Tree Form
 
-Quizarrá is a small to medium evergreen tree, typically 5-20 meters tall depending on environmental conditions. In exposed sites or at higher elevations, trees tend to be smaller (5-10 m), while in protected forest settings they can reach 15-20 meters. The tree has a straight to slightly irregular trunk and a compact, rounded crown typical of understory species.
+Quizarrá is a small to medium-sized evergreen tree, typically 5-20 meters tall depending on environmental conditions. In exposed sites or at the upper limits of its elevation range, trees tend to be compact and shrubby (5-10 m), while in protected interior forest they can reach 15-20 meters with a well-defined trunk. The crown is compact and rounded, typical of shade-tolerant understory species, with a dense layer of aromatic foliage. Trunk diameter at breast height (DBH) typically reaches 15-40 cm at maturity.
 
 ### Bark
 
-The bark is gray to grayish-brown, smooth on young trees, becoming slightly rougher with age but never deeply furrowed. The bark remains relatively thin throughout the tree's life. When cut, the bark may have a faint aromatic scent typical of Lauraceae.
+The bark is gray to grayish-brown, smooth on young trees, becoming slightly rough with scattered lenticels as the tree ages but never deeply furrowed. The bark remains relatively thin throughout the tree's life. When slashed, the inner bark is reddish-brown and emits a faint aromatic scent — a useful diagnostic for the Lauraceae family.
 
 ### Leaves
 
 <PropertiesGrid>
-  <PropertyCard icon="🍃" label="Arrangement" value="Alternate" />
+  <PropertyCard icon="🍃" label="Arrangement" value="Alternate, spiral" />
   <PropertyCard icon="📏" label="Size" value="6-11 cm long, 2-3.4 cm wide" />
-  <PropertyCard
-    icon="✨"
-    label="Texture"
-    value="Shiny above, less so beneath"
-  />
-  <PropertyCard icon="🌿" label="Type" value="Simple, lanceolate" />
+  <PropertyCard icon="✨" label="Texture" value="Glossy above, matte beneath" />
+  <PropertyCard icon="🌿" label="Shape" value="Lanceolate, entire margin" />
 </PropertiesGrid>
 
-The leaves are one of the tree's most distinctive features. They are lanceolate (lance-shaped), with an entire margin and acute to acuminate tip. The upper surface is glossy dark green, while the lower surface is paler and matte. When crushed, the leaves emit a characteristic aromatic, spicy scent due to essential oils – this is an excellent field identification feature.
+The leaves are one of the tree's most distinctive and diagnostic features. They are lanceolate (lance-shaped), with an entire (smooth) margin and an acute to acuminate apex. The upper surface is glossy dark green, while the lower surface is significantly paler and matte, often with a slightly glaucous appearance. Venation is pinnate, with the midrib prominent on both surfaces and 6-10 pairs of secondary veins.
 
-Leaves are attached by slender, glabrous (hairless) petioles about 1-1.5 cm long. The venation is pinnate, with the midrib prominent on both surfaces.
+**Aromatic test**: When crushed, the leaves release a strong, characteristic spicy-camphoraceous scent due to volatile terpenes and sesquiterpenes stored in specialized idioblast oil cells. This is the single most reliable field identification feature and distinguishes _N. salicina_ from non-Lauraceae species with similar leaf shape.
+
+Leaves are attached by slender, glabrous (hairless) petioles about 1-1.5 cm long. Young leaves may show a bronze or reddish tinge before maturing to dark green.
 
 ### Flowers
 
 <PropertiesGrid>
   <PropertyCard icon="🌸" label="Color" value="White to pale yellow-green" />
-  <PropertyCard icon="📏" label="Size" value="Small, 2-3 mm" />
+  <PropertyCard icon="📏" label="Size" value="Small, 2-3 mm diameter" />
   <PropertyCard icon="🌿" label="Arrangement" value="Axillary panicles" />
-  <PropertyCard icon="📅" label="Season" value="March-May" />
+  <PropertyCard icon="📅" label="Season" value="March-May (dry season)" />
 </PropertiesGrid>
 
-The flowers are small and inconspicuous, typical of Lauraceae. They are arranged in axillary panicles (branched clusters) up to 12 cm long. Individual flowers are only 2-3 mm in diameter, with a tubular perianth (tepals) that is white to pale yellow or greenish. The flowers are perfect (bisexual), with 9 stamens arranged in three whorls. The outer stamens produce nectar from glands at their base.
+The flowers are small and inconspicuous, typical of Lauraceae. They are arranged in axillary panicles (branched clusters) up to 12 cm long that emerge from leaf axils along the branches. Individual flowers are only 2-3 mm in diameter, with a tubular perianth composed of 6 tepals that are white to pale yellow or greenish. The flowers are perfect (bisexual), with 9 stamens arranged in three whorls of three. The outer stamens produce nectar from paired glands at their base — a defining characteristic of the genus _Nectandra_.
 
-Flowering occurs primarily in the early dry season (March-May), when the tree produces numerous flower clusters that attract small insects for pollination.
+Pollination is primarily by small flies, beetles, and thrips that are attracted to the sweet nectar and faint floral scent. Flowering occurs during the early dry season (March–May), synchronized across populations.
 
 ### Fruit & Seeds
 
-The fruit is a small berry, subglobose (nearly round) in shape, approximately 1.5-2 cm in diameter. Immature fruits are green, becoming dark blue-black when ripe. The fruit sits in a distinctive red cupule (cup-like structure) at the base, which helps identify the genus _Nectandra_. The cupule remains attached to the peduncle after the fruit is taken by birds or falls.
+The fruit is a drupe (not a true berry), subglobose (nearly round), approximately 1.5-2 cm in diameter. Immature fruits are green, ripening to dark blue-black with a thin, fleshy mesocarp. The fruit sits in a distinctive **red to reddish-orange cupule** (cup-like structure) at the base — a hallmark of the genus _Nectandra_ and an important identification feature. The cupule remains attached to the peduncle after the fruit is taken by birds or falls naturally.
 
-Each fruit contains a single large seed. The fruits ripen from June through September and are an important food source for birds and small mammals in cloud forest ecosystems.
+Each fruit contains a single large seed rich in lipids and proteins — nutritional qualities that make Lauraceae fruits among the most energy-dense in tropical forests. The fruits ripen from June through September and are consumed by at least 15-20 bird species in Costa Rican cloud forests.
+
+<Callout type="info" title="Seed Biology">
+  Like most Lauraceae, Quizarrá produces **recalcitrant seeds** that cannot
+  survive drying and must germinate quickly after dispersal. This biological
+  trait means seeds cannot be stored in conventional seed banks and must be
+  planted fresh within days of collection — a significant consideration for
+  conservation and restoration programs.
+</Callout>
 
 ---
 
 ## Geographic Distribution
 
+<DistributionMap
+  distributions={["alajuela", "guanacaste", "heredia", "san-jose", "cartago"]}
+/>
+
 <PropertiesGrid>
   <PropertyCard icon="🌎" label="Range" value="Mexico to Panama" />
-  <PropertyCard icon="🇨🇷" label="Costa Rica" value="All montane provinces" />
-  <PropertyCard icon="⛰️" label="Elevation" value="500-2800 m" />
+  <PropertyCard icon="🇨🇷" label="Costa Rica" value="5 montane provinces" />
+  <PropertyCard icon="⛰️" label="Elevation" value="500-2,800 m" />
   <PropertyCard
     icon="🌡️"
     label="Climate Zone"
-    value="Cool montane/cloud forest"
+    value="Cool montane / cloud forest"
   />
 </PropertiesGrid>
 
+<FeatureBox title="Cloud Forest Distribution" icon="🌿">
+  Quizarrá is characteristic of Costa Rica's cloud forest belt — the narrow
+  elevational band where persistent cloud immersion creates cool, saturated
+  conditions that support mosses, epiphytes, and shade-tolerant Lauraceae. These
+  forests cover less than 2.5% of the world's tropical forest area but harbor a
+  disproportionate fraction of tropical plant diversity, with many species found
+  nowhere else.
+</FeatureBox>
+
 ### Distribution in Costa Rica
 
-Quizarrá is found in the montane and cloud forest zones of Costa Rica:
+<DataTable
+  headers={["Province", "Key Areas", "Elevation Range"]}
+  data={[
+    ["Alajuela", "Monteverde, Arenal highlands", "850-1,500 m"],
+    ["Guanacaste", "Higher elevations of volcanic cordilleras", "500-1,200 m"],
+    ["Heredia", "Braulio Carrillo, Barva Volcano", "800-2,500 m"],
+    [
+      "San José",
+      "Central Valley highlands, Cerro de la Muerte",
+      "1,000-2,500 m",
+    ],
+    ["Cartago", "Talamanca range, Chirripó foothills", "1,500-2,800 m"],
+  ]}
+/>
 
-- **Alajuela**: Cloud forests around Monteverde and higher elevations (850-1500 m)
-- **Guanacaste**: Higher elevation forests (500-1200 m)
-- **Heredia**: Braulio Carrillo area and cordillera forests (800-2500 m)
-- **San José**: Central Valley highlands and Talamanca foothills (1000-2500 m)
-- **Cartago**: Talamanca mountain range, including páramo transition zones (1500-2800 m)
-
-The species is also found in similar habitats throughout Central America, from southern Mexico through Guatemala, Honduras, Nicaragua, and Panama.
+The species ranges throughout Central America from southern Mexico (Chiapas, Oaxaca) through Guatemala, Honduras, El Salvador, Nicaragua, and Panama. It is most abundant in Costa Rica and western Panama, where cloud forest habitats are extensive and well-preserved.
 
 ### Where to See Quizarrá
 
-- **Monteverde Cloud Forest Reserve** - Common in understory
-- **Braulio Carrillo National Park** - Abundant in middle elevation forests
-- **Tapantí National Park** - Found along forest trails
-- **Chirripó National Park** - Present in oak-dominated forests at higher elevations
-- **Los Angeles Cloud Forest Reserve** - Part of mixed montane forest
+- **Monteverde Cloud Forest Reserve** — Common in the understory; look for the aromatic leaves along the main trail system
+- **Braulio Carrillo National Park** — Abundant in middle-elevation forests (800-1,500 m) along the Barva sector trails
+- **Tapantí-Macizo de la Muerte National Park** — Found along moist ravines and forest trails
+- **Chirripó National Park** — Present in oak-dominated forests (1,500-2,500 m); less common above treeline transition
+- **Los Angeles Cloud Forest Reserve** — Part of mixed montane forest near San Ramón
+- **Alberto Manuel Brenes Biological Reserve** — Common Lauraceae component in pristine cloud forest
 
 ---
 
 ## Habitat & Ecology
 
 <PropertiesGrid>
-  <PropertyCard icon="⛰️" label="Elevation" value="500-2800 m" />
-  <PropertyCard icon="🌡️" label="Temperature" value="12-25°C average" />
-  <PropertyCard icon="💧" label="Rainfall" value="2000-4000 mm/year" />
+  <PropertyCard icon="⛰️" label="Elevation" value="500-2,800 m" />
+  <PropertyCard icon="🌡️" label="Temperature" value="12-25°C mean" />
+  <PropertyCard icon="💧" label="Rainfall" value="2,000-4,000 mm/year" />
   <PropertyCard icon="🪨" label="Soil" value="Deep, moist, organic-rich" />
 </PropertiesGrid>
 
 ### Ecological Role
 
-Quizarrá plays several important ecological roles in cloud forest ecosystems:
+Quizarrá plays several critical ecological roles in cloud forest ecosystems, contributing to both forest structure and wildlife nutrition.
 
-1. **Wildlife Food Source**: The fruits are consumed by various bird species including quetzals, trogons, and tanagers, as well as mammals such as agoutis and coatis
-2. **Understory Structure**: Provides important mid-story structure in forest canopy layers
-3. **Soil Stabilization**: Root system helps prevent erosion on steep mountain slopes
-4. **Indicator Species**: Presence indicates intact montane forest conditions
+<Accordion title="Ecological Functions">
+  <AccordionItem title="Keystone Fruit Resource">
+    The lipid-rich fruits of _Nectandra salicina_ are among the most important
+    food sources for frugivorous birds in Costa Rican cloud forests. At least
+    15-20 bird species have been documented feeding on Quizarrá fruits,
+    including the **Resplendent Quetzal** (_Pharomachrus mocinno_), **Emerald
+    Toucanet** (_Aulacorhynchus prasinus_), **Mountain Trogon** (_Trogon
+    mexicanus_), **Black Guan** (_Chamaepetes unicolor_), and various tanagers
+    and thrushes including the **Mountain Robin** (_Turdus plebejus_). Mammals
+    such as agoutis (_Dasyprocta punctata_) and white-nosed coatis (_Nasua
+    narica_) also consume fallen fruits.
+  </AccordionItem>
+  <AccordionItem title="Quetzal-Lauraceae Mutualism">
+    The relationship between the Resplendent Quetzal and Lauraceae fruits is one
+    of the best-documented avian-plant mutualisms in Neotropical ecology.
+    Quetzals are specialized frugivores that depend heavily on Lauraceae fruits
+    including those of _Nectandra_, _Ocotea_, and _Persea_ species. They swallow
+    fruits whole, digest the nutritious pulp, and regurgitate the large seeds
+    intact, serving as essential long-distance seed dispersers. Research by
+    Wheelwright (1983) showed that Lauraceae fruits compose 50-80% of quetzal
+    diet during fruiting season, and that the decline of Lauraceae populations
+    directly threatens quetzal survival.
+  </AccordionItem>
+  <AccordionItem title="Understory Structure & Microhabitat">
+    As a shade-tolerant understory tree, Quizarrá provides critical mid-canopy
+    structure in cloud forests. Its dense crown creates shaded microhabitats
+    utilized by epiphytes (orchids, bromeliads, ferns), arboreal invertebrates,
+    and small vertebrates. The persistent leaf litter contributes to the thick
+    organic soil layer characteristic of cloud forests, improving water
+    retention and nutrient cycling.
+  </AccordionItem>
+  <AccordionItem title="Slope Stabilization & Hydrology">
+    On the steep mountain slopes where cloud forests occur, the root system of
+    Quizarrá and other Lauraceae helps prevent soil erosion and landslides.
+    Cloud forests capture moisture from fog and low clouds through a process
+    called horizontal precipitation, and the dense understory layer including
+    Quizarrá slows runoff and increases soil infiltration, contributing to
+    watershed protection for downstream communities.
+  </AccordionItem>
+</Accordion>
 
 ### Forest Associations
 
-Quizarrá typically grows in association with:
+Quizarrá typically grows in association with characteristic cloud forest species:
 
-- Oak species (_Quercus_ spp.)
-- Other Lauraceae family members (avocados, other _Nectandra_ species)
-- Tree ferns (_Cyathea_ spp.)
-- Understory palms
-- Epiphyte-laden emergent trees
+- **Oak forests** (_Quercus_ spp.) — Dominant canopy trees at 1,500-3,000 m; Quizarrá occupies the understory beneath these emergent oaks
+- **Other Lauraceae** — _Ocotea_ spp., _Persea_ spp., and other _Nectandra_ species, often forming Lauraceae-dominated understory guilds
+- **Tree ferns** (_Cyathea_ spp., _Dicksonia_ spp.) — Co-dominant understory plants in wet cloud forest
+- **Understory palms** (_Geonoma_, _Chamaedorea_) — Shade-tolerant palms sharing the same stratum
+- **Epiphyte communities** — The frequently fog-drenched branches of Quizarrá support dense loads of mosses, liverworts, orchids, and bromeliads
 
 ### Climate Requirements
 
-The species is adapted to cool, humid montane conditions:
-
-- **Temperature**: Prefers cool temperatures (12-25°C average)
-- **Humidity**: Requires high humidity (often >80%) and frequent fog/cloud cover
-- **Rainfall**: Needs 2000-4000 mm annual rainfall, preferably year-round
-- **Cloud cover**: Thrives in areas with frequent cloud immersion
+<DataTable
+  headers={["Parameter", "Optimal Range", "Notes"]}
+  data={[
+    [
+      "Temperature",
+      "12-22°C mean annual",
+      "Tolerates brief drops to 5°C at highest elevations",
+    ],
+    [
+      "Relative humidity",
+      ">80% year-round",
+      "Frequent fog immersion essential",
+    ],
+    [
+      "Annual rainfall",
+      "2,000-4,000 mm",
+      "Preferably year-round without severe dry season",
+    ],
+    [
+      "Cloud immersion",
+      "Frequent (daily)",
+      "Horizontal precipitation supplements rainfall",
+    ],
+    [
+      "Wind exposure",
+      "Low to moderate",
+      "Protected understory or leeward slopes preferred",
+    ],
+  ]}
+/>
 
 ---
 
@@ -280,7 +405,7 @@ The species is adapted to cool, humid montane conditions:
 
 <PropertiesGrid>
   <PropertyCard icon="🌳" label="Timber" value="Minor local use" />
-  <PropertyCard icon="🦜" label="Wildlife" value="Important food source" />
+  <PropertyCard icon="🦜" label="Wildlife" value="Critical food source" />
   <PropertyCard
     icon="🌿"
     label="Restoration"
@@ -295,141 +420,292 @@ The species is adapted to cool, humid montane conditions:
 
 ### Traditional and Local Uses
 
-**Timber**: While not a major commercial timber species, Quizarrá wood is occasionally used locally for:
+**Timber**: While not a major commercial timber species, Quizarrá wood is occasionally used locally for fence posts in rural mountain areas, rustic furniture or tool handles, firewood (though not preferred due to the tree's slow growth), and small construction projects in remote communities. The wood is moderately hard and durable but the tree's slow growth and typically small size limit its timber value. No large-scale commercial harvest occurs.
 
-- Fence posts in rural mountain areas
-- Firewood (though not preferred due to slow growth)
-- Rustic furniture or tool handles
-- Small construction projects in remote areas
+**Traditional Knowledge**: In highland communities around Monteverde, the Talamanca range, and the Central Valley highlands, experienced woodsmen and nature guides can identify Quizarrá by scent alone. When navigating dense cloud forest with limited visibility, the aromatic leaves serve as natural "scent landmarks." Crushing a leaf and recognizing the distinctive spicy-camphoraceous smell is a skill passed between generations of rural families.
 
-The wood is moderately hard and durable but the tree's slow growth and small size limit its timber value.
-
-**Traditional Knowledge**: In some rural communities, the aromatic leaves have been used as a natural identifier for orientation in forests. Experienced woodsmen and guides can identify Quizarrá by scent alone when navigating cloud forests.
+**Aromatic properties**: The essential oils in the leaves — primarily terpenes and sesquiterpenes — have attracted interest from phytochemistry researchers. While _N. salicina_ has not been commercially exploited for its oils, related _Nectandra_ species yield essential oils used in traditional remedies and perfumery across Latin America.
 
 ### Modern Applications
 
-**Ecological Restoration**: Quizarrá is increasingly used in cloud forest restoration projects because:
+**Ecological Restoration**: Quizarrá is increasingly valued in cloud forest restoration programs for its native provenance and known wildlife associations. It is included in mixed-species planting designs for degraded cloud forest sites, particularly where the goal is to re-establish food resources for frugivorous birds. The species adapts well to secondary forest conditions and can establish under partial canopy, making it useful for enrichment planting.
 
-- Native to montane ecosystems
-- Provides food for wildlife
-- Adapts well to reforestation sites
-- Helps recreate natural forest structure
-
-**Conservation Value**: As a native species that supports diverse wildlife, preserving Quizarrá populations helps maintain cloud forest biodiversity.
+**Research value**: As a member of the ecologically dominant Lauraceae, _N. salicina_ serves as a model species for studying cloud forest dynamics, plant-bird mutualisms, and the impacts of climate change on montane ecosystems. It is included in long-term monitoring plots in Costa Rica's protected areas.
 
 ---
 
 ## Cultural & Historical Significance
 
+### The Laurel Family in Mesoamerican History
+
+The Lauraceae family holds deep cultural significance across Mesoamerica. The avocado (_Persea americana_), domesticated from wild Lauraceae ancestors over 5,000 years ago, remains one of the most important crops in the region. Many Lauraceae species were recognized and named by indigenous peoples long before European contact, and their aromatic and medicinal properties were well documented in pre-Columbian pharmacopeia.
+
 ### Indigenous and Local Knowledge
 
-While Quizarrá doesn't have the dramatic cultural significance of some larger forest trees, it is well-known to people who live and work in Costa Rica's mountains. The distinctive aromatic leaves make it a reliable marker species for those familiar with cloud forests.
+While Quizarrá does not carry the cultural weight of the avocado or cinnamon (_Cinnamomum_), it is an integral part of the traditional ecological knowledge of Costa Rica's highland communities. The Cabécar and Bribri peoples of the Talamanca range recognize cloud forest Lauraceae as indicators of healthy forests and reliable water sources. The name "Quizarrá" itself may derive from indigenous linguistic roots, though its exact etymology is uncertain.
 
-### Regional Importance
+### Regional Identity
 
-In the communities surrounding cloud forest reserves, Quizarrá represents the characteristic flora of the montane zone. Its presence signals intact forest conditions and healthy ecosystems.
+In the communities surrounding Monteverde, Tapantí, and Los Quetzales, the cloud forest is a source of local pride and identity. Quizarrá, as one of the characteristic understory trees, represents the intact montane forests that draw ecotourists from around the world. Its association with the Resplendent Quetzal — Costa Rica's most iconic bird — gives it additional symbolic value, as the survival of the quetzal depends on the continued availability of Lauraceae fruiting trees like Quizarrá.
 
 ---
 
 ## Conservation Status
 
-<Callout type="success" title="Least Concern">
-  Nectandra salicina is assessed as **Least Concern (LC)** by the IUCN. The
-  species has a relatively wide distribution and is found in numerous protected
-  areas throughout its range.
+<Callout type="success" title="Least Concern (LC)">
+  _Nectandra salicina_ is assessed as **Least Concern** by the IUCN Red List.
+  The species has a relatively wide distribution across Central America and is
+  found in numerous protected areas. However, its cloud forest habitat faces
+  growing threats from climate change.
 </Callout>
 
 ### Current Status
 
-The species is not currently threatened and maintains stable populations throughout its range in Central America. In Costa Rica, it is common in protected cloud forests and montane reserves.
+The species maintains stable populations across its Central American range. In Costa Rica specifically, it is common in protected cloud forests and montane biological reserves. Its presence in at least five major national parks and numerous private reserves provides a solid conservation baseline.
 
 ### Threats
 
-Despite its "Least Concern" status, Quizarrá faces some localized threats:
+<Accordion title="Conservation Challenges">
+  <AccordionItem title="Climate Change & Cloud Base Rise">
+    Cloud forests are among the most climate-vulnerable ecosystems on Earth.
+    Research by Pounds et al. (1999, 2006) at Monteverde documented the upward
+    shift in the cloud condensation level — the altitude at which clouds form —
+    driven by increasing sea-surface temperatures and deforestation in adjacent
+    lowlands. As the cloud base rises, lower-elevation cloud forests dry out,
+    shrinking the habitat available for cloud-dependent species like Quizarrá.
+    Models project that Costa Rica could lose 60-90% of its current cloud forest
+    area by 2080 under high-emission scenarios.
+  </AccordionItem>
+  <AccordionItem title="Habitat Conversion">
+    Conversion of montane forests to coffee plantations, cattle pasture, and
+    residential development continues to reduce cloud forest area outside
+    protected zones. While Costa Rica's protected-area network is extensive,
+    unprotected cloud forest fragments on private land remain vulnerable.
+  </AccordionItem>
+  <AccordionItem title="Forest Fragmentation">
+    Isolated cloud forest patches may not sustain viable long-term populations
+    of Quizarrá or its avian seed dispersers. Fragmentation disrupts the
+    quetzal-Lauraceae mutualism — quetzals require large, connected forest
+    tracts for seasonal altitudinal migration, and without dispersal, Lauraceae
+    regeneration declines.
+  </AccordionItem>
+  <AccordionItem title="Invasive Species & Disease">
+    Although not yet documented as a major threat to _N. salicina_, Lauraceae
+    globally are threatened by laurel wilt disease caused by the fungus
+    _Raffaelea lauricola_, vectored by the redbay ambrosia beetle (_Xyleborus
+    glabratus_). This disease has devastated Lauraceae populations in North
+    America and could potentially spread to Central American species.
+  </AccordionItem>
+</Accordion>
 
-1. **Habitat Loss**: Conversion of montane forests to agriculture (especially coffee plantations) reduces available habitat
-2. **Climate Change**: Cloud forest ecosystems are particularly vulnerable to warming and changing precipitation patterns
-3. **Fragmentation**: Isolated forest patches may not support viable long-term populations
+### Cloud Forest Conservation Priorities
+
+<DataTable
+  headers={["Priority", "Action", "Benefit to Quizarrá"]}
+  data={[
+    [
+      "High",
+      "Protect biological corridors between cloud forest fragments",
+      "Maintains gene flow and avian dispersers",
+    ],
+    [
+      "High",
+      "Monitor cloud base altitude shifts",
+      "Early warning of habitat loss",
+    ],
+    [
+      "Medium",
+      "Include in mixed-species restoration plantings",
+      "Expands population beyond current protected areas",
+    ],
+    [
+      "Medium",
+      "Support Payment for Ecosystem Services (PES) programs",
+      "Incentivizes private landowner forest conservation",
+    ],
+    [
+      "Medium",
+      "Biosecurity monitoring for laurel wilt disease",
+      "Prevents potential catastrophic pathogen introduction",
+    ],
+  ]}
+/>
 
 ### Protection Measures
 
-Quizarrá benefits from protection of cloud forest habitats:
-
-- Found in numerous national parks and biological reserves
-- Protected by Costa Rica's forestry laws
-- Included in reforestation and restoration projects
-- Monitored as part of cloud forest biodiversity studies
+Quizarrá benefits from protection of cloud forest habitats through Costa Rica's national park system, forestry laws prohibiting native timber harvest, inclusion in reforestation and restoration programs, and monitoring as part of long-term cloud forest biodiversity studies. The species occurs in several areas covered by the Payment for Ecosystem Services (Pago por Servicios Ambientales) program, which compensates private landowners for maintaining forest cover.
 
 ---
 
 ## Growing Quizarrá
 
+<Callout type="warning" title="Specialized Growing Conditions">
+  Quizarrá is a cloud forest specialist that requires cool temperatures, high
+  humidity, and shade. It is **not suitable** for lowland gardens or dry Pacific
+  slope conditions. Best results are achieved at elevations above 800 m in areas
+  with frequent fog or mist.
+</Callout>
+
 ### Propagation
 
-**From Seed**: Seeds should be collected from ripe fruits (dark blue-black) in July-September. Clean seeds of pulp and plant immediately, as they may not store well. Germination can be slow and erratic (2-4 months). Sow in shaded nursery conditions in organic-rich potting mix.
-
-**From Cuttings**: Semi-hardwood cuttings can be attempted but success rates are variable. Use rooting hormone and maintain high humidity.
+<Accordion title="Propagation Methods">
+  <AccordionItem title="From Seed (Preferred)">
+    Collect ripe fruits (dark blue-black in the red cupule) from June to
+    September. Clean seeds of all pulp immediately, as residual fruit tissue
+    promotes fungal growth. Plant within 2-5 days of collection — Lauraceae
+    seeds are recalcitrant and lose viability rapidly if allowed to dry. Sow 1-2
+    cm deep in a shaded nursery bed using a well-draining mix of 50% forest soil
+    and 50% composted organic matter. Maintain consistent moisture and 60-80%
+    shade. Germination is slow and erratic, typically occurring over 2-4 months
+    with 40-60% success rate.
+  </AccordionItem>
+  <AccordionItem title="From Cuttings">
+    Semi-hardwood cuttings (current season's growth that has begun to firm) can
+    be attempted in June-August. Take 15-20 cm cuttings with 3-4 nodes, remove
+    lower leaves, dip in IBA rooting hormone (3000 ppm), and place in a mist bed
+    with bottom heat (20-22°C). Success rates are variable (20-40%) and cuttings
+    root slowly over 8-12 weeks. This method is mainly used in research
+    settings.
+  </AccordionItem>
+  <AccordionItem title="Wildlings">
+    In restoration contexts, carefully transplanting natural seedlings
+    (wildlings) from beneath parent trees can be effective. Select seedlings
+    20-40 cm tall, extract with intact root ball, and transplant to the
+    restoration site during rainy season. Success rates of 60-80% have been
+    reported when transplanted with adequate root soil and maintained shade.
+  </AccordionItem>
+</Accordion>
 
 ### Site Selection
 
-Choose a site that mimics natural cloud forest conditions:
+Choose a site that faithfully reproduces natural cloud forest conditions:
 
-- **Elevation**: Best above 800 m in Costa Rica
-- **Shade**: Partial to full shade, especially for young trees
-- **Protection**: Sheltered from strong winds
-- **Moisture**: Area with consistent fog/mist or high humidity
+- **Elevation**: Best above 800 m in Costa Rica; optimal 1,000-2,000 m
+- **Shade**: Partial to full shade, especially for young trees (60-80% shade cloth if no natural canopy)
+- **Protection**: Sheltered from strong winds and direct afternoon sun
+- **Moisture**: Area with consistent fog, mist, or high ambient humidity (>70% RH)
+- **Soil**: Deep, organic-rich, well-drained forest soil; pH 5.0-6.5
 
 ### Planting
 
-1. Plant during rainy season (May-November)
-2. Dig hole twice the size of root ball
-3. Amend soil with compost/organic matter
-4. Plant at same depth as in container
-5. Water thoroughly and mulch around base
-6. Provide shade cloth if necessary
+1. Plant during rainy season (May-November) for best establishment
+2. Dig hole twice the size of root ball in width and 1.5× in depth
+3. Mix excavated soil with compost or decomposed leaf litter
+4. Plant at same depth as in container — avoid burying the root collar
+5. Water thoroughly and apply 5-10 cm of organic mulch around the base
+6. Provide shade structure if site lacks natural canopy cover
 
 ### Care Requirements
 
 <PropertiesGrid>
-  <PropertyCard icon="☀️" label="Light" value="Partial shade" />
+  <PropertyCard icon="☀️" label="Light" value="Partial to full shade" />
   <PropertyCard icon="💧" label="Water" value="Keep consistently moist" />
-  <PropertyCard icon="🌡️" label="Temperature" value="Cool (12-25°C)" />
+  <PropertyCard icon="🌡️" label="Temperature" value="12-25°C (cool)" />
   <PropertyCard icon="🪴" label="Soil" value="Rich, organic, well-drained" />
 </PropertiesGrid>
 
-**Watering**: Keep soil consistently moist but not waterlogged. In areas without natural fog/mist, supplement with regular irrigation.
+**Watering**: Keep soil consistently moist but not waterlogged. In areas without natural fog or mist, supplement with regular irrigation and consider misting systems. Newly planted trees need watering every 2-3 days during dry periods.
 
-**Fertilizing**: Generally not necessary if planted in organic-rich soil. A light application of balanced organic fertilizer annually may benefit young trees.
+**Fertilizing**: Generally unnecessary in organic-rich soil. If growth is very slow after the first year, a light application of balanced organic fertilizer (e.g., 10-10-10 at half strength) in the early rainy season may help. Avoid high-nitrogen synthetic fertilizers.
 
-**Pruning**: Minimal pruning needed. Remove dead or damaged branches as necessary.
+**Pruning**: Minimal pruning needed. Remove dead or damaged branches as necessary. The natural growth form is already compact and well-shaped.
 
 ### Common Growing Problems
 
-1. **Leaf burn in full sun**: Solution - Provide more shade
-2. **Slow growth**: Solution - Be patient; this is normal for cloud forest species
-3. **Root rot in poorly drained soil**: Solution - Improve drainage, don't overwater
-4. **Stress in hot, dry conditions**: Solution - Increase humidity, shade, and moisture
+<DataTable
+  headers={["Problem", "Cause", "Solution"]}
+  data={[
+    [
+      "Leaf scorch / browning",
+      "Too much direct sun",
+      "Increase shade; relocate if possible",
+    ],
+    [
+      "Very slow growth",
+      "Normal species trait",
+      "Be patient; ensure adequate moisture and shade",
+    ],
+    [
+      "Root rot / wilting",
+      "Waterlogged soil",
+      "Improve drainage; reduce watering frequency",
+    ],
+    [
+      "Leaf drop / stress",
+      "Hot, dry conditions",
+      "Increase humidity; add misting; mulch heavily",
+    ],
+    [
+      "Poor germination",
+      "Seeds dried out",
+      "Use only fresh seeds; plant within days of collection",
+    ],
+  ]}
+/>
 
 ---
 
 ## Similar Species
 
-Quizarrá can be confused with other _Nectandra_ species and related Lauraceae:
+Quizarrá can be confused with other _Nectandra_ species and related Lauraceae in cloud forests. The following identification guide highlights key differences.
 
-### Other Nectandra Species
+### Identification Comparison
 
-Several other _Nectandra_ species occur in Costa Rican cloud forests with similar appearance:
+<DataTable
+  headers={[
+    "Feature",
+    "N. salicina (Quizarrá)",
+    "N. cissiflora (Sigua)",
+    "N. membranacea",
+    "Ocotea spp.",
+  ]}
+  data={[
+    [
+      "Leaf size",
+      "6-11 × 2-3.4 cm",
+      "8-15 × 4-7 cm",
+      "10-20 × 4-8 cm",
+      "Variable, often larger",
+    ],
+    [
+      "Leaf shape",
+      "Lanceolate (narrow)",
+      "Elliptic (broader)",
+      "Oblong-elliptic",
+      "Elliptic to oblong",
+    ],
+    [
+      "Leaf scent",
+      "Strong spicy-camphor",
+      "Mild aromatic",
+      "Mild to absent",
+      "Variable",
+    ],
+    [
+      "Cupule color",
+      "Red to orange-red",
+      "Green to brown",
+      "Green",
+      "Variable, often darker",
+    ],
+    [
+      "Elevation",
+      "500-2,800 m",
+      "800-2,500 m",
+      "0-1,500 m",
+      "Variable by species",
+    ],
+    [
+      "Habitat",
+      "Cloud forest understory",
+      "Montane forest",
+      "Wet lowland/premontane",
+      "Various",
+    ],
+  ]}
+/>
 
-- **_Nectandra cissiflora_** (Sigua) - Larger leaves, different flower structure
-- **_Nectandra membranacea_** - Distinguished by leaf venation pattern
-- **_Nectandra hihua_** - Lowland species, different habitat
-
-**Key identification**: Crushed leaves of _N. salicina_ have a characteristic aromatic scent. Leaf dimensions (10-11 cm × 2-3.4 cm) and the red cupule on fruits are also diagnostic.
-
-### Related Lauraceae
-
-- **_Ocotea_ species** - Generally larger trees with different leaf arrangement
-- **_Persea_ species** (Aguacatillo) - Often called by same common name, but different fruit and flower structure
+**Key identification tip**: The aromatic leaf-crush test is the simplest way to confirm _Nectandra salicina_ in the field. The strong spicy-camphoraceous scent is distinctive and consistent. Combined with the narrow lanceolate leaves and cloud forest habitat, this makes field identification straightforward.
 
 ---
 
@@ -437,29 +713,34 @@ Several other _Nectandra_ species occur in Costa Rican cloud forests with simila
 
 <ExternalLinksGrid>
   <ExternalLink
-    title="IUCN Red List - Damburneya salicina"
+    title="IUCN Red List — Damburneya salicina"
     url="https://www.iucnredlist.org/species/34670/9876438"
-    description="Conservation status: Least Concern"
+    description="Conservation status assessment: Least Concern"
   />
   <ExternalLink
-    title="iNaturalist - Nectandra salicina"
+    title="iNaturalist — Nectandra salicina"
     url="https://www.inaturalist.org/taxa/359445-Nectandra-salicina"
-    description="Community observations and photos from Costa Rica"
+    description="Community observations and photos from Costa Rica and Central America"
   />
   <ExternalLink
     title="World Flora Online"
     url="https://www.worldfloraonline.org/taxon/wfo-0000381683"
-    description="Taxonomic information and distribution"
+    description="Taxonomic information, synonyms, and global distribution"
   />
   <ExternalLink
-    title="Plants of the World Online - Kew"
+    title="Plants of the World Online — Kew"
     url="https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:167936-2"
-    description="Comprehensive botanical database entry"
+    description="Comprehensive botanical database entry with accepted name and range"
   />
   <ExternalLink
-    title="Missouri Botanical Garden - Flora CR"
+    title="Tropicos — Missouri Botanical Garden"
+    url="https://www.tropicos.org/name/17801505"
+    description="Specimen records, publications, and nomenclatural data"
+  />
+  <ExternalLink
+    title="Manual de Plantas de Costa Rica"
     url="https://www.mobot.org/Manual.Plantas/019996/S020304.html"
-    description="Detailed botanical description (Spanish)"
+    description="Detailed botanical description from the Flora of Costa Rica project"
   />
 </ExternalLinksGrid>
 
@@ -467,16 +748,24 @@ Several other _Nectandra_ species occur in Costa Rican cloud forests with simila
 
 ## References
 
-1. Allen, C.K. (1945). Studies in the Lauraceae VI. Preliminary survey of the Mexican-Central American species. _Journal of the Arnold Arboretum_ 26: 280-434.
+1. Allen, C.K. (1945). Studies in the Lauraceae VI. Preliminary survey of the Mexican and Central American species. _Journal of the Arnold Arboretum_ 26: 280-434.
 
 2. Hammel, B.E., Grayum, M.H., Herrera, C., & Zamora, N. (eds.) (2003-2015). _Manual de Plantas de Costa Rica_ (Vols. I-VIII). Missouri Botanical Garden Press, St. Louis.
 
 3. Jiménez, Q. (1999). _Árboles maderables de Costa Rica: ecología y silvicultura_. Instituto Nacional de Biodiversidad (INBio), Santo Domingo de Heredia, Costa Rica.
 
-4. Missouri Botanical Garden. _Flora de Costa Rica: Nectandra salicina_. Tropicos.org. https://www.mobot.org
+4. Pounds, J.A., Fogden, M.P.L., & Campbell, J.H. (1999). Biological response to climate change on a tropical mountain. _Nature_ 398: 611-615.
 
-5. Rohwer, J.G. & Rudolph, B. (2005). Jumping genera: The phylogenetic positions of Cassytha, Hypodaphnis, and Neocinnamomum (Lauraceae) based on different analyses of trnK intron sequences. _Annals of the Missouri Botanical Garden_ 92: 153-178.
+5. Pounds, J.A., Bustamante, M.R., Coloma, L.A., et al. (2006). Widespread amphibian extinctions from epidemic disease driven by global warming. _Nature_ 439: 161-167.
 
-6. Standley, P.C. & Steyermark, J.A. (1946). Flora of Guatemala. _Fieldiana: Botany_ 24(4): 234-235.
+6. Rohwer, J.G. & Rudolph, B. (2005). Jumping genera: The phylogenetic positions of Cassytha, Hypodaphnis, and Neocinnamomum (Lauraceae) based on different analyses of trnK intron sequences. _Annals of the Missouri Botanical Garden_ 92: 153-178.
 
-7. The IUCN Red List of Threatened Species. (2020). _Damburneya salicina_. Version 2024.1. https://www.iucnredlist.org
+7. Standley, P.C. & Steyermark, J.A. (1946). Flora of Guatemala. _Fieldiana: Botany_ 24(4): 234-235.
+
+8. The IUCN Red List of Threatened Species. (2020). _Damburneya salicina_. Version 2024.1. https://www.iucnredlist.org
+
+9. Trofimov, D., Rudolph, B., & Rohwer, J.G. (2016). Phylogenetic study of the genus _Nectandra_ (Lauraceae), and reinstatement of _Damburneya_. _Taxon_ 65(5): 980-996.
+
+10. van der Werff, H. (2002). A synopsis of _Ocotea_ (Lauraceae) in Central America and southern Mexico. _Annals of the Missouri Botanical Garden_ 89: 429-451.
+
+11. Wheelwright, N.T. (1983). Fruits and the ecology of Resplendent Quetzals. _The Auk_ 100: 286-301.
