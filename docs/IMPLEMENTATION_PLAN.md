@@ -76,7 +76,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 - ✅ **51 valid galleries** (5+ images with good diversity)
 - ⚠️ **65 galleries with low diversity** (limited to 2 categories - need more varied images)
 - ❌ **1 broken gallery** (cocobolo: 3/5 broken images)
-- 📭 **11 missing galleries** (comenegro, cornizuelo, lechoso-montanero, llama-del-bosque, manchineel, mayo, orey, quebracho, quizarra, sigua, yellow-oleander)
+- 📭 **10 missing galleries** (comenegro, cornizuelo, lechoso-montanero, llama-del-bosque, mayo, orey, quebracho, quizarra, sigua, yellow-oleander) — manchineel ✅ gallery added
 - 📊 **Overall**: 109/128 featured images optimized (85%), 66 galleries need refresh
 
 **Action Items:**
@@ -128,7 +128,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 **Shortest Pages (<550 lines - Priority Enhancement):**
 
 1. comenegro (108 lines) - ⚠️ **Critical**: Severely underdeveloped
-2. manchineel (349 lines) - Toxic species needs comprehensive safety info
+2. ~~manchineel (349 lines)~~ → ✅ Enhanced to 691 lines EN / 694 lines ES
 3. yellow-oleander (426 lines) - Another toxic species
 4. ciprecillo (445 lines)
 5. quizarra (482 lines)
@@ -154,7 +154,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 
 - [ ] Review findings - Adjust effort estimates for Priority 1.4?
 - [ ] Prioritize comenegro (108 lines) as emergency enhancement
-- [ ] Focus on toxic species (manchineel, yellow-oleander) for safety reasons
+- [x] Focus on toxic species (manchineel ✅, yellow-oleander pending) for safety reasons
 - [ ] Approve content quality audit and remove this review section
 
 **Audit Approval Checklist:**
@@ -914,12 +914,21 @@ Each species should include:
   - Research traditional uses and economic importance
   - Add 5+ gallery images
   - Target: 600+ lines minimum
-- [ ] **Enhance manchineel (349 lines)** [1d] @content @safety @critical
-  - Toxic species needs comprehensive safety information
-  - Expand toxicity details, first aid, safety warnings
-  - Add prominent SafetyWarning components
-  - Include historical uses and modern handling precautions
-  - Target: 700+ lines (safety-critical content)
+- [x] **Enhance manchineel (349→691 lines EN, 694 lines ES)** [1d] @content @safety @critical ✅
+  - ✅ Complete rewrite with comprehensive safety information
+  - ✅ Added TwoColumn layout with QuickRef + INaturalistEmbed
+  - ✅ Added Photo Gallery (5 iNaturalist images)
+  - ✅ Added Taxonomy & Classification with PropertiesGrid, common names DataTable, taxonomic notes
+  - ✅ Enhanced Physical Description with PropertiesGrid
+  - ✅ Added DistributionMap (15 countries) and FeatureBox with Costa Rica locations
+  - ✅ Enhanced Habitat & Ecology with PropertiesGrid and associated species
+  - ✅ Added Toxicology DataTable and Accordion for symptoms
+  - ✅ Added emergency numbers Callout
+  - ✅ Added Recognition PropertiesGrid and Uses PropertiesGrid
+  - ✅ Expanded Cultural & Historical Significance with colonial encounters
+  - ✅ Added Conservation PropertiesGrid
+  - ✅ Added 6 ExternalLinks (Guinness, IUCN, USDA, iNaturalist, GBIF, PubMed)
+  - ✅ Both EN and ES versions enhanced to ~690+ lines
 - [ ] **Enhance yellow-oleander (426 lines)** [1d] @content @safety @critical
   - Another toxic species needing safety emphasis
   - Expand ornamental cultivation guidance
