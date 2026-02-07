@@ -9,12 +9,14 @@
 **Last Auto-Updated:** 2026-02-07
 
 ### Content Coverage
+
 - **Species**: 133/175 (76%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) - Target: 20 guides
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
 
 ### Implementation Progress
+
 - **Overall**: 0/0 tasks (0%)
 - **Priority 0 (Blockers)**: 0/0 (0%)
 - **Priority 1 (Content)**: 0/0 (0%)
@@ -22,6 +24,7 @@
 - **Priority 3 (Quick Wins)**: 0/0 (0%)
 
 ### Technical Health
+
 - **Lighthouse Score**: 48/100 → Target: 90/100
 - **LCP (Largest Contentful Paint)**: 6.0s → Target: <2.5s
 - **TBT (Total Blocking Time)**: 440ms → Target: <200ms
@@ -30,6 +33,7 @@
 - **Image Status**: 109/128 optimized (85%), 66 galleries need refresh
 
 ### Priority Status Legend
+
 - ✅ **Complete** - All tasks done, validated
 - 🟡 **In Progress** - Active work ongoing
 - 📋 **Ready** - No blockers, can start anytime
@@ -939,7 +943,8 @@ Each species should include:
   - ~~cacao~~ (865 lines) ✅ Already enhanced
   - ~~ajo~~ (1021 lines) ✅ Already enhanced
   - [x] copey (548→797 lines EN, 805 lines ES) ✅ Enhanced with uses, cultural significance, conservation, cultivation, where to see
-  - aguacatillo, pejibaye, papaturro, nazareno, cativo, capulin, mamon, olla-de-mono, cas, lechoso, laurel, jicaro, manzana-de-agua, papaya, mora, nispero, cana-agria, amarillon, fruta-dorada, cerillo, caobilla
+  - [x] mamon (574→800 lines EN, 240→766 lines ES) ✅ Enhanced with full bilingual parity: taxonomy, ecology, cultivation, cultural heritage, conservation, external resources
+  - aguacatillo, pejibaye, papaturro, nazareno, cativo, capulin, olla-de-mono, cas, lechoso, laurel, jicaro, manzana-de-agua, papaya, mora, nispero, cana-agria, amarillon, fruta-dorada, cerillo, caobilla
 
 **Enhancement Checklist (Per Page):**
 
