@@ -219,7 +219,7 @@ export async function POST(request: NextRequest) {
         action, actor_session, ip_address, new_value, notes, created_at
       ) VALUES (
         ${auditId}, ${body.proposalId ?? null}, ${body.treeSlug}, ${body.imageType},
-        'FLAG_SUBMITTED', ${sessionId}, ${ip ?? null},
+        'FLAG_SUBMITTED', ${sessionId}, ${ipHash ?? null},
         ${JSON.stringify({ reason: body.reason, details: body.details })},
         ${body.details ?? `Flagged: ${body.reason}`},
         NOW()
