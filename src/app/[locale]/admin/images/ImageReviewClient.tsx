@@ -119,9 +119,9 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
       case "local":
         return tree.hasLocalImage;
       case "voted-up":
-        return votes[tree.slug].vote === "up";
+        return votes[tree.slug]?.vote === "up";
       case "voted-down":
-        return votes[tree.slug].vote === "down";
+        return votes[tree.slug]?.vote === "down";
       default:
         return true;
     }
