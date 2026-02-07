@@ -148,20 +148,22 @@ export default function VotingClient({ trees }: VotingClientProps) {
         }
 
         // Update local stats
-        setVoteStats((prev) => ({
-          ...prev,
-          [currentTree.slug]: {
-            ...(prev[currentTree.slug] || {
-              upvotes: 0,
-              downvotes: 0,
-              flags: 0,
-            }),
-            upvotes: (prev[currentTree.slug].upvotes || 0) + (isUpvote ? 1 : 0),
-            downvotes:
-              (prev[currentTree.slug].downvotes || 0) + (isUpvote ? 0 : 1),
-            userVote: isUpvote ? "up" : "down",
-          },
-        }));
+        setVoteStats((prev) => {
+          const prevStats = prev[currentTree.slug] ?? {
+            upvotes: 0,
+            downvotes: 0,
+            flags: 0,
+          };
+          return {
+            ...prev,
+            [currentTree.slug]: {
+              ...prevStats,
+              upvotes: prevStats.upvotes + (isUpvote ? 1 : 0),
+              downvotes: prevStats.downvotes + (isUpvote ? 0 : 1),
+              userVote: isUpvote ? "up" : "down",
+            },
+          };
+        });
 
         // Show thank you briefly
         setShowThankYou(true);
