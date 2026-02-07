@@ -281,7 +281,7 @@ export async function POST(request: NextRequest) {
             flag_count, upvotes, downvotes,
             created_at, updated_at
           ) VALUES (
-            ${proposalId}, ${body.treeSlug}, ${body.imageType},
+            ${`/images/trees/${body.treeSlug}.jpg`}, ${""}, NULL,
             ${`/images/trees/${body.treeSlug}.jpg`}, ${""}, ${null},
             'USER_FLAG', ${`Multiple users flagged this image (${totalFlags} flags). Most common reason: ${body.reason}`},
             'PENDING',
