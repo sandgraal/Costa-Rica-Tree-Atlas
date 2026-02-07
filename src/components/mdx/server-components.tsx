@@ -351,14 +351,19 @@ export function Timeline({ items }: { items: TimelineItemProps[] }) {
 
 // Distribution Map Placeholder Component
 interface DistributionMapProps {
-  countries: string[];
+  distribution?: string[];
+  countries?: string[];
+  elevation?: string;
   locale?: string;
 }
 
 export function DistributionMap({
+  distribution,
   countries,
+  elevation,
   locale = "en",
 }: DistributionMapProps) {
+  const items = distribution || countries || [];
   return (
     <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 my-6 not-prose border border-border">
       <div className="text-center mb-4">
@@ -369,16 +374,23 @@ export function DistributionMap({
             : "Geographic Distribution"}
         </h4>
       </div>
-      <div className="flex flex-wrap justify-center gap-2">
-        {countries.map((country, index) => (
-          <span
-            key={index}
-            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
-          >
-            📍 {country}
-          </span>
-        ))}
-      </div>
+      {items.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-2">
+          {items.map((item, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+            >
+              📍 {item}
+            </span>
+          ))}
+        </div>
+      )}
+      {elevation && (
+        <p className="text-center text-sm text-muted-foreground mt-3">
+          {locale === "es" ? "Elevación" : "Elevation"}: {elevation}
+        </p>
+      )}
     </div>
   );
 }
