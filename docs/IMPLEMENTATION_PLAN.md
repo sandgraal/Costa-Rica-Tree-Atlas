@@ -21,16 +21,16 @@
 
 ### Key Priorities
 
-| Priority | Focus Area                | Status     | Impact   | Est. Time |
-| -------- | ------------------------- | ---------- | -------- | --------- |
-| **0**    | **Critical Blockers**     | 🟡 Partial | Critical | 3 weeks   |
-| **1**    | **Content Expansion**     | 📋 Ready   | High     | 12-16 wks |
-| **2**    | **Performance**           | ⏸️ Blocked | High     | 6-8 weeks |
-| **3**    | **Infrastructure**        | 🟢 Mostly  | High     | 5 min     |
-| **4**    | **Community Features**    | ⏸️ Blocked | Medium   | 8-12 wks  |
-| **5**    | **Content Enrichment**    | 📋 Ready   | Medium   | Ongoing   |
-| **6**    | **Internationalization**  | 📋 Ready   | Medium   | 6-9 wks   |
-| **7**    | **Technical Enhancement** | 📋 Ready   | Medium   | 4-6 wks   |
+| Priority | Focus Area                | Status     | Impact   |
+| -------- | ------------------------- | ---------- | -------- |
+| **0**    | **Critical Blockers**     | 🟡 Partial | Critical |
+| **1**    | **Content Expansion**     | 📋 Ready   | High     |
+| **2**    | **Performance**           | ⏸️ Blocked | High     |
+| **3**    | **Infrastructure**        | 🟢 Mostly  | High     |
+| **4**    | **Community Features**    | ⏸️ Blocked | Medium   |
+| **5**    | **Content Enrichment**    | 📋 Ready   | Medium   |
+| **6**    | **Internationalization**  | 📋 Ready   | Medium   |
+| **7**    | **Technical Enhancement** | 📋 Ready   | Medium   |
 
 **Legend:** ✅ Complete | 🟡 In Progress | 📋 Ready | ⏸️ Blocked | ⚠️ Issues
 
@@ -73,56 +73,56 @@
 
 **Goal:** Human-in-the-loop workflow to prevent automatic image overwrites
 
-#### Week 1: Database & Workflow
+#### Database & Workflow
 
-- [ ] **Day 1-2**: Database schema [2d]
+- [ ] Database schema
   - [ ] Add `ImageProposal` model (treeSlug, imageType, currentUrl, proposedUrl, qualityScore, status, reviewedBy)
   - [ ] Add `ImageVote` model (user votes: upvote/downvote/flag)
   - [ ] Add `ImageAudit` model (change history: who, when, what, why)
   - [ ] Run `npx prisma migrate dev --name add-image-review-system`
   - [ ] Test with sample data
-- [ ] **Day 3-4**: Update weekly workflow [2d]
+- [ ] Update weekly workflow
   - [ ] Modify `.github/workflows/weekly-image-quality.yml` to CREATE proposals (not apply)
   - [ ] Create `scripts/propose-image-changes.mjs`
   - [ ] Save proposals to database via API
   - [ ] PR links to admin review dashboard
-- [ ] **Day 5**: Integrate audit reports [1d]
+- [ ] Integrate audit reports
   - [ ] Auto-create proposals for broken/missing/low-quality images
   - [ ] Test end-to-end workflow
 
-#### Week 2: Admin Dashboard
+#### Admin Dashboard
 
-- [ ] **Day 6-8**: Build admin review UI [3d]
+- [ ] Build admin review UI
   - [ ] Create `/admin/images/proposals` page
   - [ ] Side-by-side comparison (current vs proposed)
   - [ ] Display quality metrics (resolution, file size, source)
   - [ ] Action buttons: Approve, Deny, Archive
   - [ ] Bulk operations support
   - [ ] Filter by status and species
-- [ ] **Day 9**: Build admin API [1d]
+- [ ] Build admin API
   - [ ] POST `/api/admin/images/proposals` - Create proposal
   - [ ] GET `/api/admin/images/proposals` - List proposals (paginated)
   - [ ] PATCH `/api/admin/images/proposals/[id]` - Update status
   - [ ] POST `/api/admin/images/proposals/[id]/apply` - Apply approved proposal
-- [ ] **Day 10**: Approval logic [1d]
+- [ ] Approval logic
   - [ ] Download, optimize, and replace approved images
   - [ ] Create audit log entry
   - [ ] Update tree MDX frontmatter if needed
   - [ ] Mark proposal as applied
 
-#### Week 3: Public Voting & Validation
+#### Public Voting & Validation
 
-- [ ] **Day 11-13**: Public voting interface [3d]
+- [ ] Public voting interface
   - [ ] Create `/images/vote` page
   - [ ] Upvote/downvote buttons (anonymous, session-based)
   - [ ] Flag dialog: "This is mislabeled" with reasons
   - [ ] Prevent duplicate votes
-- [ ] **Day 14**: Public voting API [1d]
+- [ ] Public voting API
   - [ ] POST `/api/images/vote` - Submit vote
   - [ ] POST `/api/images/flag` - Flag image with reason
   - [ ] GET `/api/images/vote/stats` - Get vote counts
   - [ ] Rate limiting: 100 votes/hour per session
-- [ ] **Day 15**: Validation gate [1d]
+- [ ] Validation gate
   - [ ] Test 10 proposals end-to-end
   - [ ] Verify side-by-side comparison works
   - [ ] Confirm audit log tracks changes
@@ -136,46 +136,45 @@
 
 **Impact:** High - Broader coverage, more comprehensive resource  
 **Status:** 📋 Ready (No blockers)  
-**Est. Time:** 12-16 weeks (can run in parallel)
 
 ### 1.1: Add 47 Missing Species
 
 **Status:** 📋 Ready (188 hours total)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
-#### High Priority Native Species (10 species - Weeks 1-2)
+#### High Priority Native Species (10 species)
 
-- [ ] Camíbar (Copaifera camibar) [4h]
-- [ ] Cedro Real (Cedrela fissilis) [4h]
-- [ ] Guayacán Real (Guaiacum sanctum) [4h]
-- [ ] Cristóbal (Platymiscium pinnatum) [4h]
-- [ ] Cachá/Copey (Clusia rosea) [4h]
-- [ ] María (Calophyllum brasiliense) [4h]
-- [ ] Níspero (Manilkara zapota) [4h]
-- [ ] Almendro de Montaña (Dipteryx panamensis) [4h]
-- [ ] Guácimo Colorado (Luehea seemannii) [4h]
-- [ ] Caimitillo (Chrysophyllum cainito) [4h]
+- [ ] Camíbar (Copaifera camibar)
+- [ ] Cedro Real (Cedrela fissilis)
+- [ ] Guayacán Real (Guaiacum sanctum)
+- [ ] Cristóbal (Platymiscium pinnatum)
+- [ ] Cachá/Copey (Clusia rosea)
+- [ ] María (Calophyllum brasiliense)
+- [ ] Níspero (Manilkara zapota)
+- [ ] Almendro de Montaña (Dipteryx panamensis)
+- [ ] Guácimo Colorado (Luehea seemannii)
+- [ ] Caimitillo (Chrysophyllum cainito)
 
-#### Common Ornamentals & Fruit (10 species - Weeks 3-4)
+#### Common Ornamentals & Fruit (10 species)
 
-- [ ] Flamboyan (Delonix regia) [4h]
-- [ ] Jacaranda Blanco (Jacaranda mimosifolia alba) [4h]
-- [ ] Cas (Psidium friedrichsthalianum) [4h]
-- [ ] Mora (Rubus adenotrichos) [4h]
-- [ ] Guanábana (Annona muricata) [4h]
-- [ ] Rambután (Nephelium lappaceum) [4h]
-- [ ] Carambola (Averrhoa carambola) [4h]
-- [ ] Guayaba Chilena (Acca sellowiana) [4h]
-- [ ] Tamarindo Dulce (Tamarindus indica var. dulcis) [4h]
-- [ ] Marañón de Jardín (Anacardium occidentale var.) [4h]
+- [ ] Flamboyan (Delonix regia)
+- [ ] Jacaranda Blanco (Jacaranda mimosifolia alba)
+- [ ] Cas (Psidium friedrichsthalianum)
+- [ ] Mora (Rubus adenotrichos)
+- [ ] Guanábana (Annona muricata)
+- [ ] Rambután (Nephelium lappaceum)
+- [ ] Carambola (Averrhoa carambola)
+- [ ] Guayaba Chilena (Acca sellowiana)
+- [ ] Tamarindo Dulce (Tamarindus indica var. dulcis)
+- [ ] Marañón de Jardín (Anacardium occidentale var.)
 
-#### Medium Priority (20 species - Weeks 5-8)
+#### Medium Priority (20 species)
 
-- [ ] Add 20 medium priority species [80h] (See MISSING_SPECIES_LIST.md)
+- [ ] Add 20 medium priority species (See MISSING_SPECIES_LIST.md)
 
-#### Low Priority (7 species - Weeks 9-11)
+#### Low Priority (7 species)
 
-- [ ] Add 7 low priority species [28h] (See MISSING_SPECIES_LIST.md)
+- [ ] Add 7 low priority species (See MISSING_SPECIES_LIST.md)
 
 **Per-Species Checklist:**
 
@@ -201,25 +200,25 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 📋 Ready (40-80 hours)  
+**Status:** 📋 Ready
 **Current:** 60/128 (47%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species)
 
-- [ ] Guanábana [2h]
-- [ ] Carambola [2h]
-- [ ] Cas [2h]
-- [ ] Mora [2h]
-- [ ] Rambután [2h]
-- [ ] Tamarindo [2h]
-- [ ] Laurel [2h]
-- [ ] Cedro Amargo [2h]
-- [ ] Pochote [2h]
-- [ ] Corteza Amarilla [2h]
+- [ ] Guanábana
+- [ ] Carambola
+- [ ] Cas
+- [ ] Mora
+- [ ] Rambután
+- [ ] Tamarindo
+- [ ] Laurel
+- [ ] Cedro Amargo
+- [ ] Pochote
+- [ ] Corteza Amarilla
 
-#### Weeks 2-4: Additional 30 Species (60 hours)
+#### Weeks 2-4: Additional 30 Species
 
-- [ ] Add care guidance to 30 mid-priority species [60h]
+- [ ] Add care guidance to 30 mid-priority species
 
 **Care Guidance Template:**
 
@@ -257,32 +256,32 @@ Recent additions completed:
 
 #### 📋 Remaining Short Pages (22 species)
 
-**Priority: 550-600 lines (8 species - Weeks 1-2)**
+**Priority: 550-600 lines (8 species)**
 
-- [ ] aguacatillo (549 lines) [1d]
-- [ ] pejibaye (553 lines) [1d]
-- [ ] papaturro (557 lines) [1d]
-- [ ] nazareno (562 lines) [1d]
-- [ ] cativo (5XX lines) [1d]
-- [ ] capulin (5XX lines) [1d]
-- [ ] olla-de-mono (5XX lines) [1d]
-- [ ] cas (5XX lines) [1d]
+- [ ] aguacatillo (549 lines)
+- [ ] pejibaye (553 lines)
+- [ ] papaturro (557 lines)
+- [ ] nazareno (562 lines)
+- [ ] cativo (5XX lines)
+- [ ] capulin (5XX lines)
+- [ ] olla-de-mono (5XX lines)
+- [ ] cas (5XX lines)
 
-**Standard: 600+ lines (14 species - Weeks 3-5)**
+**Standard: 600+ lines (14 species)**
 
-- [ ] lechoso [1d]
-- [ ] laurel [1d]
-- [ ] jicaro [1d]
-- [ ] manzana-de-agua [1d]
-- [ ] papaya [1d]
-- [ ] mora [1d]
-- [ ] nispero [1d]
-- [ ] cana-agria [1d]
-- [ ] amarillon [1d]
-- [ ] fruta-dorada [1d]
-- [ ] cerillo [1d]
-- [ ] caobilla [1d]
-- [ ] (2 more TBD based on audit) [2d]
+- [ ] lechoso
+- [ ] laurel
+- [ ] jicaro
+- [ ] manzana-de-agua
+- [ ] papaya
+- [ ] mora
+- [ ] nispero
+- [ ] cana-agria
+- [ ] amarillon
+- [ ] fruta-dorada
+- [ ] cerillo
+- [ ] caobilla
+- [ ] (2 more TBD based on audit)
 
 **Enhancement Checklist (Per Page):**
 
@@ -311,28 +310,28 @@ Recent additions completed:
 
 ### Phase 1: Validation Required
 
-- [ ] **Test Phase 1 improvements** [2d]
+- [ ] **Test Phase 1 improvements**
   - [ ] Measure current metrics after hero image optimization
   - [ ] Verify lazy loading working
   - [ ] Confirm console errors fixed
   - [ ] Document improvements
 
-### Phase 2: Medium Priority (3-4 weeks)
+### Phase 2: Medium Priority
 
-- [ ] Implement service worker for offline caching [1w]
-- [ ] Add resource hints (dns-prefetch, preconnect) [2d]
-- [ ] Optimize third-party scripts (analytics, fonts) [3d]
-- [ ] Implement request coalescing [2d]
-- [ ] Add performance monitoring dashboard [1w]
-- [ ] Set up Lighthouse CI [2d]
+- [ ] Implement service worker for offline caching
+- [ ] Add resource hints (dns-prefetch, preconnect)
+- [ ] Optimize third-party scripts (analytics, fonts)
+- [ ] Implement request coalescing
+- [ ] Add performance monitoring dashboard
+- [ ] Set up Lighthouse CI
 
-### Phase 3: Long-term (3-4 weeks)
+### Phase 3: Long-term
 
-- [ ] Migrate more components to Server Components [1w]
-- [ ] Implement partial hydration [1w]
-- [ ] Add progressive enhancement strategies [1w]
-- [ ] Optimize database queries (when admin active) [3d]
-- [ ] Implement edge caching strategies [3d]
+- [ ] Migrate more components to Server Components
+- [ ] Implement partial hydration
+- [ ] Add progressive enhancement strategies
+- [ ] Optimize database queries (when admin active)
+- [ ] Implement edge caching strategies
 
 **Performance Budgets:**
 
@@ -350,7 +349,7 @@ Recent additions completed:
 **Impact:** High - Quick security wins  
 **Status:** 🟢 Mostly Complete (Only branch protection remains)
 
-### 📋 3.1: GitHub Branch Protection (5 minutes)
+### 📋 3.1: GitHub Branch Protection
 
 **Status:** ❌ Not Configured (Manual setup required)
 
@@ -382,12 +381,9 @@ Recent additions completed:
 - [x] Works with or without Sentry SDK installed
 - [x] NEXT_PUBLIC_SENTRY_DSN in .env.example
 
-### ⏸️ 3.4: CSP Optimization (DEFERRED)
+### ⏸️ 3.4: CSP Optimization
 
-**Status:** Deferred - Not a "quick win" (requires 30+ component refactors)
-
-**Reason:** Original 2-4 hour estimate was too low. Requires:
-
+Requires:
 - Refactoring 30+ components with inline styles
 - Converting `style={{...}}` to CSS modules/Tailwind
 - Extensive testing for layout regressions
@@ -407,7 +403,6 @@ Recent additions completed:
 
 **Impact:** Medium - Enables user contributions  
 **Status:** ⏸️ Blocked (Requires Priority 0 complete)  
-**Est. Time:** 8-12 weeks
 
 ### 4.1: User Photo Upload System
 
@@ -428,8 +423,6 @@ Recent additions completed:
 - [ ] Spam/abuse prevention
 - [ ] Image optimization pipeline integration
 
-**Est. Time:** 2-3 weeks
-
 ### 4.2: Community Contributions Workflow
 
 **Features:**
@@ -446,8 +439,6 @@ Recent additions completed:
 - [ ] Version control for content changes
 - [ ] User reputation system
 
-**Est. Time:** 4-6 weeks
-
 ### 4.3: Public API for Researchers
 
 **Features:**
@@ -463,8 +454,6 @@ Recent additions completed:
 - [ ] Authentication middleware
 - [ ] Rate limiting (Upstash/Redis)
 - [ ] API documentation generation
-
-**Est. Time:** 2-3 weeks
 
 ---
 
@@ -483,8 +472,6 @@ Recent additions completed:
 - [ ] Identify sacred trees
 - [ ] Partner with indigenous communities for validation
 
-**Est. Time:** Ongoing (high effort, requires partnerships)
-
 ### 5.2: Expanded Glossary
 
 **Current:** 100/150 terms (67%)  
@@ -497,8 +484,6 @@ Recent additions completed:
 - [ ] Forest ecology (succession, gap dynamics) (10 terms)
 - [ ] Agroforestry systems (alley cropping, silvopasture) (10 terms)
 
-**Est. Time:** Ongoing (medium effort)
-
 ### 5.3: Traditional Uses Documentation
 
 **Content:**
@@ -508,49 +493,40 @@ Recent additions completed:
 - [ ] Cultural practices (ceremonies, tools)
 - [ ] Elder interviews and oral histories
 
-**Est. Time:** High (requires field research and validation)
-
 ---
 
 ## Priority 6: Internationalization 🌍
 
 **Impact:** Medium - Expands international user base  
 **Status:** 📋 Ready (Independent)  
-**Est. Time:** 6-9 weeks total
 
 ### 6.1: Portuguese Translation
 
 **Target:** Brazilian researchers and tourists
 
-- [ ] Add `pt` locale to i18n config [1d]
-- [ ] Create `messages/pt.json` [2w]
-- [ ] Translate all UI strings [1w]
-- [ ] Translate tree content [3w]
-- [ ] Native speaker review [1w]
-
-**Est. Time:** 2-3 weeks
+- [ ] Add `pt` locale to i18n config
+- [ ] Create `messages/pt.json`
+- [ ] Translate all UI strings
+- [ ] Translate tree content
+- [ ] Native speaker review
 
 ### 6.2: German Translation
 
 **Target:** European ecotourists
 
-- [ ] Add `de` locale to i18n config [1d]
-- [ ] Create `messages/de.json` [2w]
-- [ ] Translate all content [4w]
-- [ ] Native speaker review [1w]
-
-**Est. Time:** 2-3 weeks
+- [ ] Add `de` locale to i18n config
+- [ ] Create `messages/de.json`
+- [ ] Translate all content
+- [ ] Native speaker review
 
 ### 6.3: French Translation
 
 **Target:** European and Canadian users
 
-- [ ] Add `fr` locale to i18n config [1d]
-- [ ] Create `messages/fr.json` [2w]
-- [ ] Translate all content [4w]
-- [ ] Native speaker review [1w]
-
-**Est. Time:** 2-3 weeks
+- [ ] Add `fr` locale to i18n config
+- [ ] Create `messages/fr.json`
+- [ ] Translate all content
+- [ ] Native speaker review
 
 ---
 
@@ -558,7 +534,6 @@ Recent additions completed:
 
 **Impact:** Medium - Enhanced UX and developer productivity  
 **Status:** 📋 Ready (Independent)  
-**Est. Time:** 4-6 weeks
 
 ### 7.1: Enhanced Search
 
@@ -566,11 +541,11 @@ Recent additions completed:
 
 **Enhancements:**
 
-- [ ] Fuzzy matching (typo tolerance) [1w]
-- [ ] Voice search integration [3d]
-- [ ] Search suggestions and autocomplete [3d]
-- [ ] Advanced filters (bloom time, size, uses) [1w]
-- [ ] Search analytics [2d]
+- [ ] Fuzzy matching (typo tolerance)
+- [ ] Voice search integration 
+- [ ] Search suggestions and autocomplete
+- [ ] Advanced filters (bloom time, size, uses)
+- [ ] Search analytics
 
 **Technical:**
 
@@ -578,18 +553,16 @@ Recent additions completed:
 - [ ] Voice API integration
 - [ ] Analytics tracking
 
-**Est. Time:** 2-3 weeks
-
 ### 7.2: Offline Enhancements
 
 **Current:** Basic PWA with service worker
 
 **Enhancements:**
 
-- [ ] Download species for offline use [1w]
-- [ ] Offline search functionality [1w]
-- [ ] Background sync for user data [3d]
-- [ ] Offline-first architecture [1w]
+- [ ] Download species for offline use
+- [ ] Offline search functionality
+- [ ] Background sync for user data
+- [ ] Offline-first architecture
 
 **Technical:**
 
@@ -597,20 +570,16 @@ Recent additions completed:
 - [ ] IndexedDB for local storage
 - [ ] Sync strategies
 
-**Est. Time:** 2-3 weeks
-
 ### 7.3: Performance Monitoring Dashboard
 
 **Features:**
 
-- [ ] Real-time Core Web Vitals [3d]
-- [ ] Bundle size tracking [2d]
-- [ ] Build time metrics [2d]
-- [ ] Error tracking integration [2d]
+- [ ] Real-time Core Web Vitals
+- [ ] Bundle size tracking
+- [ ] Build time metrics
+- [ ] Error tracking integration
 
 **Tools:** Vercel Analytics, Sentry, Lighthouse CI
-
-**Est. Time:** 1 week
 
 ---
 
