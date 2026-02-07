@@ -287,7 +287,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     // Determine local image path using validated values
     const imageFilename = getImageFilename(
       slugValidation.sanitized!,
-      imageTypeValidation.sanitized!
+      proposal.image_type
     );
 
     let localImagePath: string;
