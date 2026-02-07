@@ -264,7 +264,13 @@ export function TreeTags({
         <TreeTag
           key={tag}
           tag={tag}
-          onClick={onTagClick ? () => onTagClick(tag) : undefined}
+          onClick={
+            onTagClick
+              ? () => {
+                  onTagClick(tag);
+                }
+              : undefined
+          }
           selected={selectedTags.includes(tag)}
           size={size}
         />

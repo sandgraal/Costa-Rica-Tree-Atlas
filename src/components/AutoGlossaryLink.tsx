@@ -33,7 +33,7 @@ export function AutoGlossaryLink({
   enableTooltips = true,
 }: AutoGlossaryLinkProps) {
   const params = useParams();
-  const locale = params?.locale as string;
+  const locale = params.locale as string;
 
   // Filter terms for current locale and create regex patterns
   const termPatterns = useMemo(() => {
@@ -169,9 +169,9 @@ export function AutoGlossaryLink({
         typeof element.props === "object" &&
         "children" in element.props
       ) {
-        return React.cloneElement(element as React.ReactElement<any>, {
+        return React.cloneElement(element as React.ReactElement<unknown>, {
           ...element.props,
-          children: processNode((element.props as any).children),
+          children: processNode((element.props as unknown).children),
         });
       }
     }

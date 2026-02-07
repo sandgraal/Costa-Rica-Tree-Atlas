@@ -105,7 +105,9 @@ export function KeyboardShortcuts() {
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [handleKeyDown]);
 
   if (!isOpen) return null;
@@ -113,14 +115,18 @@ export function KeyboardShortcuts() {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
-      onClick={() => setIsOpen(false)}
+      onClick={() => {
+        setIsOpen(false);
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="shortcuts-title"
     >
       <div
         className="bg-background rounded-2xl shadow-2xl border border-border p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <div className="flex items-center justify-between mb-6">
           <h2

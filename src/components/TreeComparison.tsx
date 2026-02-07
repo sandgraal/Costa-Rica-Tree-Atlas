@@ -94,7 +94,9 @@ export function TreeComparison({
           <div className="flex-1 min-w-[200px] max-w-md">
             <select
               value=""
-              onChange={(e) => addTree(e.target.value)}
+              onChange={(e) => {
+                addTree(e.target.value);
+              }}
               disabled={selectedSlugs.length >= maxTrees}
               className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
             >
@@ -131,7 +133,9 @@ export function TreeComparison({
               >
                 {tree.title}
                 <button
-                  onClick={() => removeTree(tree.slug)}
+                  onClick={() => {
+                    removeTree(tree.slug);
+                  }}
                   className="ml-1 hover:text-primary-dark"
                   aria-label={`Remove ${tree.title}`}
                 >
@@ -351,7 +355,7 @@ export function TreeComparison({
                     className="p-3 border-b border-border align-top"
                   >
                     {(tree as Tree & { tags?: string[] }).tags &&
-                    (tree as Tree & { tags?: string[] }).tags!.length > 0 ? (
+                    (tree as Tree & { tags?: string[] }).tags?.length > 0 ? (
                       <TreeTags
                         tags={(tree as Tree & { tags?: string[] }).tags!}
                         size="sm"

@@ -58,7 +58,9 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
   useState(() => {
     fetch("/api/images/upload")
       .then((res) => res.json())
-      .then((data) => setLimits(data.data?.limits))
+      .then((data) => {
+        setLimits(data.data?.limits);
+      })
       .catch(() => {});
   });
 
@@ -257,7 +259,9 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
           {/* File drop zone */}
           <div
             onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => {
+              e.preventDefault();
+            }}
             className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
               preview
                 ? "border-primary bg-primary/5"
@@ -325,13 +329,17 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+              }}
               placeholder={t("uploadPhoto.searchPlaceholder")}
               className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground mb-2"
             />
             <select
               value={treeSlug}
-              onChange={(e) => setTreeSlug(e.target.value)}
+              onChange={(e) => {
+                setTreeSlug(e.target.value);
+              }}
               required
               className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground"
             >
@@ -354,13 +362,16 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
                 <button
                   key={type}
                   type="button"
-                  onClick={() => setImageType(type)}
+                  onClick={() => {
+                    setImageType(type);
+                  }}
                   className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
                     imageType === type
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border hover:border-primary/50"
                   }`}
                 >
+                  {/* eslint-disable-next-line security/detect-object-injection */}
                   {t(`uploadPhoto.types.${IMAGE_TYPE_LABELS[type]}`)}
                 </button>
               ))}
@@ -375,7 +386,9 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
             <input
               type="text"
               value={attribution}
-              onChange={(e) => setAttribution(e.target.value)}
+              onChange={(e) => {
+                setAttribution(e.target.value);
+              }}
               placeholder={t("uploadPhoto.attributionPlaceholder")}
               className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground"
             />
@@ -391,7 +404,9 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
             </label>
             <textarea
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) => {
+                setNotes(e.target.value);
+              }}
               placeholder={t("uploadPhoto.notesPlaceholder")}
               rows={3}
               className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground resize-none"

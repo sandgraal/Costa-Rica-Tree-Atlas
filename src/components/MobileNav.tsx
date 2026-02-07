@@ -39,7 +39,9 @@ export function MobileNav() {
     <div className="lg:hidden">
       {/* Hamburger Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
         className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}

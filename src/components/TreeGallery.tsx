@@ -109,7 +109,9 @@ export function ImageLightbox({
       {/* Image container */}
       <div
         className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         {/* Loading spinner */}
         {isLoading && (
@@ -128,7 +130,9 @@ export function ImageLightbox({
             className={`max-h-[75vh] w-auto object-contain transition-opacity duration-300 ${
               isLoading ? "opacity-0" : "opacity-100"
             }`}
-            onLoad={() => setIsLoading(false)}
+            onLoad={() => {
+              setIsLoading(false);
+            }}
             quality={85}
             priority
             fallback="placeholder"
@@ -228,7 +232,9 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
           {images.map((image, index) => (
             <button
               key={index}
-              onClick={() => openLightbox(index)}
+              onClick={() => {
+                openLightbox(index);
+              }}
               className="group relative aspect-square rounded-lg overflow-hidden bg-muted border border-border hover:border-primary/50 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               <SafeImage
@@ -262,7 +268,9 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
         {images.length > 8 && (
           <div className="mt-4 text-center">
             <button
-              onClick={() => openLightbox(0)}
+              onClick={() => {
+                openLightbox(0);
+              }}
               className="text-sm text-primary hover:text-primary-dark transition-colors"
             >
               View all {images.length} photos →
@@ -275,7 +283,9 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
           <ImageLightbox
             images={images}
             initialIndex={lightboxIndex}
-            onClose={() => setLightboxOpen(false)}
+            onClose={() => {
+              setLightboxOpen(false);
+            }}
           />
         )}
       </div>

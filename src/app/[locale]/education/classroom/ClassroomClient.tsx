@@ -316,7 +316,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
         // Fallback - user can manually copy from displayed code
       });
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
     }
   };
 
@@ -352,7 +354,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     return (
       <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
         <button
-          onClick={() => setMode("create")}
+          onClick={() => {
+            setMode("create");
+          }}
           className="bg-card border-2 border-border rounded-2xl p-8 text-center hover:border-primary transition-colors group"
         >
           <div className="text-5xl mb-4">👩‍🏫</div>
@@ -363,7 +367,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
         </button>
 
         <button
-          onClick={() => setMode("join")}
+          onClick={() => {
+            setMode("join");
+          }}
           className="bg-card border-2 border-border rounded-2xl p-8 text-center hover:border-primary transition-colors group"
         >
           <div className="text-5xl mb-4">👨‍🎓</div>
@@ -381,7 +387,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     return (
       <div className="max-w-md mx-auto">
         <button
-          onClick={() => setMode("select")}
+          onClick={() => {
+            setMode("select");
+          }}
           className="text-sm text-muted-foreground hover:text-primary mb-6 inline-flex items-center"
         >
           {t.back}
@@ -399,9 +407,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
               <input
                 type="text"
                 value={formData.classroomName}
-                onChange={(e) =>
-                  setFormData({ ...formData, classroomName: e.target.value })
-                }
+                onChange={(e) => {
+                  setFormData({ ...formData, classroomName: e.target.value });
+                }}
                 placeholder={
                   locale === "es" ? "Ej: Ciencias 5A" : "E.g. Science 5A"
                 }
@@ -414,9 +422,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
               <input
                 type="text"
                 value={formData.teacherName}
-                onChange={(e) =>
-                  setFormData({ ...formData, teacherName: e.target.value })
-                }
+                onChange={(e) => {
+                  setFormData({ ...formData, teacherName: e.target.value });
+                }}
                 placeholder={
                   locale === "es" ? "Ej: Sra. García" : "E.g. Mrs. Garcia"
                 }
@@ -463,9 +471,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
               <input
                 type="text"
                 value={formData.studentName}
-                onChange={(e) =>
-                  setFormData({ ...formData, studentName: e.target.value })
-                }
+                onChange={(e) => {
+                  setFormData({ ...formData, studentName: e.target.value });
+                }}
                 placeholder={locale === "es" ? "Tu nombre" : "Your name"}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
               />

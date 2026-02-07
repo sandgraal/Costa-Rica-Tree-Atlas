@@ -725,7 +725,9 @@ function ConservationLessonContent({
                 return (
                   <button
                     key={threat.id}
-                    onClick={() => handleThreatSelect(threat.id)}
+                    onClick={() => {
+                      handleThreatSelect(threat.id);
+                    }}
                     disabled={!isSelected && state.selectedThreats.length >= 3}
                     className={`p-4 rounded-xl border-2 text-left transition-all ${
                       isSelected
@@ -805,7 +807,9 @@ function ConservationLessonContent({
                         return (
                           <button
                             key={oIndex}
-                            onClick={() => handleQuizAnswer(qIndex, oIndex)}
+                            onClick={() => {
+                              handleQuizAnswer(qIndex, oIndex);
+                            }}
                             disabled={isAnswered}
                             className={`p-3 rounded-lg border text-left text-sm transition-all ${
                               isAnswered
@@ -896,7 +900,9 @@ function ConservationLessonContent({
                 return (
                   <button
                     key={action.id}
-                    onClick={() => handleActionSelect(action.id)}
+                    onClick={() => {
+                      handleActionSelect(action.id);
+                    }}
                     disabled={!isSelected && state.selectedActions.length >= 3}
                     className={`relative p-4 rounded-xl border-2 text-center transition-all ${
                       isSelected
@@ -1027,7 +1033,9 @@ function ConservationLessonContent({
       {/* Navigation */}
       <div className="flex justify-between">
         <button
-          onClick={() => dispatch({ type: "PREVIOUS_STEP" })}
+          onClick={() => {
+            dispatch({ type: "PREVIOUS_STEP" });
+          }}
           disabled={state.currentStep === 0}
           className="px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -1035,7 +1043,9 @@ function ConservationLessonContent({
         </button>
         {state.currentStep < steps.length - 1 ? (
           <button
-            onClick={() => dispatch({ type: "NEXT_STEP" })}
+            onClick={() => {
+              dispatch({ type: "NEXT_STEP" });
+            }}
             disabled={!canProceed()}
             className={`px-6 py-3 rounded-xl transition-all ${
               canProceed()

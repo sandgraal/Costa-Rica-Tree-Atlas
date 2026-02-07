@@ -189,7 +189,9 @@ export function SafetyPageClient({ trees, locale }: SafetyPageClientProps) {
         {/* Print button */}
         <div className="mb-6 print:hidden">
           <button
-            onClick={() => window.print()}
+            onClick={() => {
+              window.print();
+            }}
             className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
           >
             🖨️ {t.printButton}
@@ -291,11 +293,13 @@ export function SafetyPageClient({ trees, locale }: SafetyPageClientProps) {
               const count =
                 cat.value === "all"
                   ? trees.length
-                  : treesByToxicity[cat.value]?.length || 0;
+                  : treesByToxicity[cat.value].length || 0;
               return (
                 <button
                   key={cat.value}
-                  onClick={() => setSelectedCategory(cat.value)}
+                  onClick={() => {
+                    setSelectedCategory(cat.value);
+                  }}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${
                     selectedCategory === cat.value
                       ? `${cat.color} text-white`

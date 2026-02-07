@@ -109,7 +109,9 @@ export function ColoringPagesClient({
             {trees.map((tree) => (
               <button
                 key={tree.slug}
-                onClick={() => toggleTree(tree.slug)}
+                onClick={() => {
+                  toggleTree(tree.slug);
+                }}
                 className={`relative rounded-xl border-2 p-3 transition-all text-left ${
                   selectedTrees.has(tree.slug)
                     ? "border-primary bg-primary/5 ring-2 ring-primary/20"

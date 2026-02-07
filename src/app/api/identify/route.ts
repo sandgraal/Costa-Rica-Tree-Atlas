@@ -269,7 +269,7 @@ export async function POST(request: NextRequest) {
   }
 
   const labels: VisionLabel[] =
-    data?.responses?.[0]?.labelAnnotations?.map((label: VisionLabel) => ({
+    data.responses?.[0]?.labelAnnotations?.map((label: VisionLabel) => ({
       description: label.description,
       score: label.score,
     })) ?? [];

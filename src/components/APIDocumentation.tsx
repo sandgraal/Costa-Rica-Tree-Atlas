@@ -241,7 +241,9 @@ export function APIDocumentation({ locale }: APIDocumentationProps) {
           {(["curl", "javascript", "python"] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => {
+                setActiveTab(tab);
+              }}
               className={`rounded px-4 py-2 text-sm font-medium ${
                 activeTab === tab
                   ? "bg-green-600 text-white"
@@ -446,7 +448,9 @@ function EndpointCard({
 
       <div className="border-t border-gray-200 p-4 dark:border-gray-700">
         <button
-          onClick={() => setShowResponse(!showResponse)}
+          onClick={() => {
+            setShowResponse(!showResponse);
+          }}
           className="flex items-center gap-2 font-medium text-gray-900 dark:text-white"
         >
           <svg

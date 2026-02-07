@@ -45,7 +45,9 @@ export function ResponsiveVirtualizedGrid<T>({
 
     updateColumns();
     window.addEventListener("resize", updateColumns);
-    return () => window.removeEventListener("resize", updateColumns);
+    return () => {
+      window.removeEventListener("resize", updateColumns);
+    };
   }, []);
 
   return (

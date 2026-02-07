@@ -84,7 +84,7 @@ export function ContributionsListClient() {
   }, [filter]);
 
   useEffect(() => {
-    fetchContributions();
+    void fetchContributions();
   }, [fetchContributions]);
 
   const handleAction = async (
@@ -231,7 +231,9 @@ export function ContributionsListClient() {
           {contributions.map((contribution) => (
             <div
               key={contribution.id}
-              onClick={() => setSelectedContribution(contribution)}
+              onClick={() => {
+                setSelectedContribution(contribution);
+              }}
               className="p-4 bg-card rounded-lg border border-border hover:border-primary cursor-pointer transition-colors"
             >
               <div className="flex items-start justify-between gap-4">
@@ -306,7 +308,9 @@ export function ContributionsListClient() {
                   </h2>
                 </div>
                 <button
-                  onClick={() => setSelectedContribution(null)}
+                  onClick={() => {
+                    setSelectedContribution(null);
+                  }}
                   className="text-2xl text-muted-foreground hover:text-foreground"
                 >
                   ×
@@ -424,7 +428,9 @@ export function ContributionsListClient() {
                     </label>
                     <textarea
                       value={reviewNotes}
-                      onChange={(e) => setReviewNotes(e.target.value)}
+                      onChange={(e) => {
+                        setReviewNotes(e.target.value);
+                      }}
                       placeholder="Add notes about your decision..."
                       rows={3}
                       className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-background resize-y"

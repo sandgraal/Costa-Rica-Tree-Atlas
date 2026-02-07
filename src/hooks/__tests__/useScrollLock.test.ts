@@ -33,19 +33,25 @@ describe("useScrollLock", () => {
   });
 
   it("locks scroll when active", () => {
-    renderHook(() => useScrollLock(true));
+    renderHook(() => {
+      useScrollLock(true);
+    });
     expect(document.body.style.overflow).toBe("hidden");
     expect(document.body.style.position).toBe("fixed");
   });
 
   it("does not lock scroll when inactive", () => {
-    renderHook(() => useScrollLock(false));
+    renderHook(() => {
+      useScrollLock(false);
+    });
     expect(document.body.style.overflow).toBe("");
     expect(document.body.style.position).toBe("");
   });
 
   it("unlocks scroll on unmount", () => {
-    const { unmount } = renderHook(() => useScrollLock(true));
+    const { unmount } = renderHook(() => {
+      useScrollLock(true);
+    });
     expect(document.body.style.overflow).toBe("hidden");
 
     unmount();
@@ -54,8 +60,12 @@ describe("useScrollLock", () => {
   });
 
   it("handles multiple locks correctly", () => {
-    const { unmount: unmount1 } = renderHook(() => useScrollLock(true));
-    const { unmount: unmount2 } = renderHook(() => useScrollLock(true));
+    const { unmount: unmount1 } = renderHook(() => {
+      useScrollLock(true);
+    });
+    const { unmount: unmount2 } = renderHook(() => {
+      useScrollLock(true);
+    });
 
     expect(scrollLock.getCount()).toBe(2);
     expect(document.body.style.overflow).toBe("hidden");
@@ -72,9 +82,14 @@ describe("useScrollLock", () => {
   });
 
   it("toggles lock when active changes", () => {
-    const { rerender } = renderHook(({ active }) => useScrollLock(active), {
-      initialProps: { active: true },
-    });
+    const { rerender } = renderHook(
+      ({ active }) => {
+        useScrollLock(active);
+      },
+      {
+        initialProps: { active: true },
+      }
+    );
 
     expect(document.body.style.overflow).toBe("hidden");
 
@@ -90,7 +105,9 @@ describe("useScrollLock", () => {
       value: 500,
     });
 
-    renderHook(() => useScrollLock(true, { disableOnMobile: true }));
+    renderHook(() => {
+      useScrollLock(true, { disableOnMobile: true });
+    });
     expect(document.body.style.overflow).toBe("");
   });
 
@@ -102,9 +119,9 @@ describe("useScrollLock", () => {
       value: 900,
     });
 
-    renderHook(() =>
-      useScrollLock(true, { disableOnMobile: true, mobileBreakpoint: 1000 })
-    );
+    renderHook(() => {
+      useScrollLock(true, { disableOnMobile: true, mobileBreakpoint: 1000 });
+    });
     expect(document.body.style.overflow).toBe("");
   });
 
@@ -168,7 +185,9 @@ describe("useScrollLock", () => {
   });
 
   it("defaults to active=true when no parameter provided", () => {
-    renderHook(() => useScrollLock());
+    renderHook(() => {
+      useScrollLock();
+    });
     expect(document.body.style.overflow).toBe("hidden");
     expect(scrollLock.getCount()).toBe(1);
   });

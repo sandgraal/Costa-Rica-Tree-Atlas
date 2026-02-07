@@ -193,7 +193,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         <div className="flex justify-center mb-6">
           <div className="inline-flex rounded-lg border border-border p-1 bg-muted/30">
             <button
-              onClick={() => setViewMode("grid")}
+              onClick={() => {
+                setViewMode("grid");
+              }}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                 viewMode === "grid"
                   ? "bg-background text-foreground shadow-sm"
@@ -203,7 +205,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
               {labels.gridView}
             </button>
             <button
-              onClick={() => setViewMode("alphabetical")}
+              onClick={() => {
+                setViewMode("alphabetical");
+              }}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                 viewMode === "alphabetical"
                   ? "bg-background text-foreground shadow-sm"
@@ -238,7 +242,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         {/* Filters toggle */}
         <div className="flex justify-center mb-4">
           <button
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={() => {
+              setShowFilters(!showFilters);
+            }}
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <FilterIcon className="w-4 h-4" />
@@ -269,9 +275,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </label>
                 <select
                   value={filter.family ?? ""}
-                  onChange={(e) =>
-                    handleFilterChange("family", e.target.value || undefined)
-                  }
+                  onChange={(e) => {
+                    handleFilterChange("family", e.target.value || undefined);
+                  }}
                   className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                 >
                   <option value="">{labels.allFamilies}</option>
@@ -358,7 +364,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                     return (
                       <button
                         key={value}
-                        onClick={() => handleTagToggle(value)}
+                        onClick={() => {
+                          handleTagToggle(value);
+                        }}
                         className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full transition-all ${
                           isSelected
                             ? (def?.color ?? "bg-primary text-white")

@@ -116,7 +116,9 @@ export function UserManagementClient({
       }
 
       setSuccess("MFA enabled successfully! Redirecting...");
-      setTimeout(() => window.location.reload(), 2000);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Verification failed");
     } finally {
@@ -271,7 +273,9 @@ export function UserManagementClient({
               <input
                 type="password"
                 value={disablePassword}
-                onChange={(e) => setDisablePassword(e.target.value)}
+                onChange={(e) => {
+                  setDisablePassword(e.target.value);
+                }}
                 placeholder="Enter password to disable MFA"
                 className="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:text-white"
               />
@@ -315,9 +319,9 @@ export function UserManagementClient({
                 <input
                   type="text"
                   value={verifyCode}
-                  onChange={(e) =>
-                    setVerifyCode(e.target.value.replace(/\D/g, ""))
-                  }
+                  onChange={(e) => {
+                    setVerifyCode(e.target.value.replace(/\D/g, ""));
+                  }}
                   maxLength={6}
                   placeholder="000000"
                   className="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-center text-2xl font-mono tracking-widest dark:bg-gray-700 dark:text-white"

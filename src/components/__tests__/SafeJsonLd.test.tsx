@@ -8,7 +8,9 @@ describe("SafeJsonLd Component", () => {
     const scripts = document.head.querySelectorAll(
       'script[type="application/ld+json"]'
     );
-    scripts.forEach((script) => script.remove());
+    scripts.forEach((script) => {
+      script.remove();
+    });
   });
 
   it("should escape </script> tags", () => {

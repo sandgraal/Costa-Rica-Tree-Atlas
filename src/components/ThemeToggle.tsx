@@ -28,7 +28,9 @@ export function ThemeToggle() {
       cycleTheme();
     };
     window.addEventListener("toggleTheme", handleToggleTheme);
-    return () => window.removeEventListener("toggleTheme", handleToggleTheme);
+    return () => {
+      window.removeEventListener("toggleTheme", handleToggleTheme);
+    };
   }, [cycleTheme]);
 
   // Use a safe default for server-side render to prevent hydration mismatch

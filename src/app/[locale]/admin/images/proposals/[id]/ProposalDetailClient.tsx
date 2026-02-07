@@ -73,7 +73,7 @@ export default function ProposalDetailClient({
       }
     };
 
-    fetchProposal();
+    void fetchProposal();
   }, [proposalId]);
 
   const handleStatusChange = async (newStatus: ImageProposalStatus) => {
@@ -367,7 +367,9 @@ export default function ProposalDetailClient({
             <textarea
               id="reviewNotes"
               value={reviewNotes}
-              onChange={(e) => setReviewNotes(e.target.value)}
+              onChange={(e) => {
+                setReviewNotes(e.target.value);
+              }}
               placeholder="Add notes about your decision..."
               rows={3}
               className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"

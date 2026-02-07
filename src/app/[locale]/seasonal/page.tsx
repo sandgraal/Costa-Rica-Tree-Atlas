@@ -77,7 +77,7 @@ export async function generateMetadata({
         december: "Diciembre",
       },
     };
-    const monthName = monthNames[locale]?.[month] || month;
+    const monthName = monthNames[locale][month] || month;
 
     return {
       title: `${monthName} - ${t("title")}`,

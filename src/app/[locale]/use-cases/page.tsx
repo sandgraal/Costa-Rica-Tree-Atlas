@@ -191,7 +191,9 @@ function UseCaseCard({
   // Build search URL with tags
   const searchParams = new URLSearchParams();
   if (useCase.tags.length > 0) {
-    useCase.tags.forEach((tag) => searchParams.append("tag", tag));
+    useCase.tags.forEach((tag) => {
+      searchParams.append("tag", tag);
+    });
   }
   if (useCase.safetyFilter?.childSafe) {
     searchParams.append("childSafe", "true");
@@ -304,8 +306,8 @@ function UseCaseCard({
     },
   };
 
-  const title = titles[useCase.id]?.[locale as "en" | "es"] || useCase.id;
-  const description = descriptions[useCase.id]?.[locale as "en" | "es"] || "";
+  const title = titles[useCase.id][locale as "en" | "es"] || useCase.id;
+  const description = descriptions[useCase.id][locale as "en" | "es"] || "";
 
   return (
     <Link

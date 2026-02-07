@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
         // Get medium-sized photo URL
         // iNaturalist URLs are like: https://static.inaturalist.org/photos/123456/square.jpg
         // We want medium: https://static.inaturalist.org/photos/123456/medium.jpg
-        const mediumUrl = photo.url?.replace(/\/square\./, "/medium.");
+        const mediumUrl = photo.url.replace(/\/square\./, "/medium.");
 
         if (mediumUrl && !seenUrls.has(mediumUrl)) {
           seenUrls.add(mediumUrl);

@@ -17,7 +17,9 @@ export function ProgressiveImage(props: ImageProps) {
       <Image
         {...props}
         alt={props.alt}
-        onLoad={() => setIsLoading(false)}
+        onLoad={() => {
+          setIsLoading(false);
+        }}
         className={`${props.className} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity`}
       />
     </div>

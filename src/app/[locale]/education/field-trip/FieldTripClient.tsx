@@ -65,10 +65,12 @@ export default function FieldTripClient({
 
     // Check online status
     dispatch({ type: "SET_OFFLINE", payload: !navigator.onLine });
-    const handleOnline = () =>
+    const handleOnline = () => {
       dispatch({ type: "SET_OFFLINE", payload: false });
-    const handleOffline = () =>
+    };
+    const handleOffline = () => {
       dispatch({ type: "SET_OFFLINE", payload: true });
+    };
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
     return () => {
@@ -342,7 +344,9 @@ export default function FieldTripClient({
               </div>
             ) : (
               <button
-                onClick={() => dispatch({ type: "TOGGLE_START_MODAL" })}
+                onClick={() => {
+                  dispatch({ type: "TOGGLE_START_MODAL" });
+                }}
                 className="w-full py-4 bg-white/20 rounded-xl hover:bg-white/30 transition-colors font-semibold text-lg"
               >
                 {t.startTrip}
@@ -423,9 +427,9 @@ export default function FieldTripClient({
           <input
             type="text"
             value={state.ui.searchQuery}
-            onChange={(e) =>
-              dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value })
-            }
+            onChange={(e) => {
+              dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value });
+            }}
             placeholder={t.searchPlaceholder}
             className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground"
           />
@@ -453,7 +457,9 @@ export default function FieldTripClient({
               <input
                 type="checkbox"
                 checked={state.ui.showOnlySpotted}
-                onChange={() => dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" })}
+                onChange={() => {
+                  dispatch({ type: "TOGGLE_SHOW_ONLY_SPOTTED" });
+                }}
                 className="w-5 h-5 rounded"
               />
               <span className="text-sm">{t.showSpotted}</span>
@@ -490,7 +496,9 @@ export default function FieldTripClient({
                 <div className="flex items-center gap-4 p-4">
                   {/* Checkbox / Spotted Indicator */}
                   <button
-                    onClick={() => handleSpotTree(tree)}
+                    onClick={() => {
+                      handleSpotTree(tree);
+                    }}
                     className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl shrink-0 transition-all ${
                       isSpotted
                         ? "bg-green-500 text-white"
@@ -549,7 +557,7 @@ export default function FieldTripClient({
                           });
                           dispatch({
                             type: "SET_NOTE_INPUT",
-                            payload: spotted?.notes || "",
+                            payload: spotted.notes || "",
                           });
                         }}
                         className="px-3 py-1.5 text-sm bg-muted rounded-lg hover:bg-muted/80"
@@ -590,9 +598,9 @@ export default function FieldTripClient({
               <input
                 type="text"
                 value={state.setup.tripName}
-                onChange={(e) =>
-                  dispatch({ type: "SET_TRIP_NAME", payload: e.target.value })
-                }
+                onChange={(e) => {
+                  dispatch({ type: "SET_TRIP_NAME", payload: e.target.value });
+                }}
                 placeholder={t.tripNamePlaceholder}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
                 autoFocus
@@ -631,9 +639,9 @@ export default function FieldTripClient({
               <span className="text-sm font-medium">{t.notes}</span>
               <textarea
                 value={state.modal.noteInput}
-                onChange={(e) =>
-                  dispatch({ type: "SET_NOTE_INPUT", payload: e.target.value })
-                }
+                onChange={(e) => {
+                  dispatch({ type: "SET_NOTE_INPUT", payload: e.target.value });
+                }}
                 placeholder={t.notePlaceholder}
                 rows={4}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background resize-none"

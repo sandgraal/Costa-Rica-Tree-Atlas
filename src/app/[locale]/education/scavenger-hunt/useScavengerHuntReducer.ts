@@ -252,7 +252,7 @@ function scavengerHuntReducer(
       };
 
       const updatedTeams = state.session.teams.map((team, i) => {
-        if (i === state.session!.currentTeamIndex) {
+        if (i === state.session?.currentTeamIndex) {
           return {
             ...team,
             completedMissions: [...team.completedMissions, completedMission],

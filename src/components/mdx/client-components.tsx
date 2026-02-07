@@ -119,7 +119,9 @@ export function ImageCard({
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-primary hover:underline mt-1 inline-block"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             View source ↗
           </a>
@@ -238,14 +240,16 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
   const childrenWithHandlers = React.Children.map(children, (child, index) => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child as React.ReactElement<ImageCardProps>, {
-        onClick: () => openLightbox(index),
+        onClick: () => {
+          openLightbox(index);
+        },
       });
     }
     return child;
   });
 
   const currentImage = images[lightbox.currentIndex];
-  const isRemote = currentImage?.src?.startsWith("http");
+  const isRemote = currentImage.src?.startsWith("http");
 
   return (
     <>

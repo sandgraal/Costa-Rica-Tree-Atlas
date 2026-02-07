@@ -254,8 +254,8 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
       if (collection.tags && collection.tags.length > 0) {
         filtered = filtered.filter((tree) => {
           if (!tree.tags) return false;
-          return collection.tags!.some((tag) =>
-            tree.tags!.includes(tag as TreeTag)
+          return collection.tags?.some((tag) =>
+            tree.tags?.includes(tag as TreeTag)
           );
         });
       }
@@ -370,14 +370,18 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
     return (
       <div
         className={cardClass}
-        onClick={() => setSelectedCollection(collection)}
+        onClick={() => {
+          setSelectedCollection(collection);
+        }}
       >
         <div className={paddingClass}>
           <div className="flex items-start justify-between gap-4 mb-3">
             <span className={iconClass}>{collection.icon}</span>
             <div
               className="flex items-center gap-2"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
             >
               <ShareCollectionButton
                 collection={collection}
@@ -420,7 +424,9 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
         <div className="bg-gradient-to-b from-primary/10 to-background py-8 px-4">
           <div className="container mx-auto max-w-6xl">
             <button
-              onClick={() => setSelectedCollection(null)}
+              onClick={() => {
+                setSelectedCollection(null);
+              }}
               className="text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
             >
               {labels.backToCollections}
@@ -564,7 +570,9 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
               return (
                 <button
                   key={tab}
-                  onClick={() => setActiveTab(tab)}
+                  onClick={() => {
+                    setActiveTab(tab);
+                  }}
                   className={tabClass}
                 >
                   {tab === "discover" && "✨ "}
@@ -754,9 +762,9 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                     <input
                       type="checkbox"
                       checked={showConservationAreas}
-                      onChange={(e) =>
-                        setShowConservationAreas(e.target.checked)
-                      }
+                      onChange={(e) => {
+                        setShowConservationAreas(e.target.checked);
+                      }}
                       className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
                     />
                     <span className="text-sm">{labels.showAreas}</span>
@@ -918,10 +926,12 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                               setSelectedProvince(key as Province);
                               setSelectedRegion(null);
                             }}
-                            onMouseEnter={() =>
-                              setHoveredProvince(key as Province)
-                            }
-                            onMouseLeave={() => setHoveredProvince(null)}
+                            onMouseEnter={() => {
+                              setHoveredProvince(key as Province);
+                            }}
+                            onMouseLeave={() => {
+                              setHoveredProvince(null);
+                            }}
                             tabIndex={0}
                             role="button"
                             aria-label={`${province.name[typedLocale]}: ${treeCount} ${labels.species}`}
@@ -1344,9 +1354,9 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                               .map((collection) => (
                                 <button
                                   key={collection.id}
-                                  onClick={() =>
-                                    setSelectedCollection(collection)
-                                  }
+                                  onClick={() => {
+                                    setSelectedCollection(collection);
+                                  }}
                                   className="w-full flex items-center gap-2 text-left text-xs p-2 rounded bg-muted/50 hover:bg-muted transition-colors"
                                 >
                                   <span>{collection.icon}</span>

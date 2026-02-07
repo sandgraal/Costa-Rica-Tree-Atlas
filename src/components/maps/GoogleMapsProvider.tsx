@@ -85,7 +85,9 @@ export function GoogleMapsProvider({ children }: GoogleMapsProviderProps) {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,marker&callback=initGoogleMaps`;
     script.async = true;
     script.defer = true;
-    script.onerror = () => setLoadError("Failed to load Google Maps");
+    script.onerror = () => {
+      setLoadError("Failed to load Google Maps");
+    };
 
     document.head.appendChild(script);
 

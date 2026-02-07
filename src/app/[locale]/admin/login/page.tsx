@@ -12,13 +12,8 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter as useNextRouter } from "next/navigation";
-import { useRouter } from "@i18n/navigation";
-import { useTranslations } from "next-intl";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
-  const nextRouter = useNextRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [totpCode, setTotpCode] = useState("");
@@ -95,7 +90,9 @@ export default function AdminLoginPage() {
                 required
                 disabled={showMfa}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="admin@example.com"
               />
@@ -117,7 +114,9 @@ export default function AdminLoginPage() {
                 required
                 disabled={showMfa}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="••••••••••••"
               />
@@ -139,9 +138,9 @@ export default function AdminLoginPage() {
                   autoComplete="one-time-code"
                   required
                   value={totpCode}
-                  onChange={(e) =>
-                    setTotpCode(e.target.value.replace(/\D/g, ""))
-                  }
+                  onChange={(e) => {
+                    setTotpCode(e.target.value.replace(/\D/g, ""));
+                  }}
                   maxLength={6}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white text-center text-2xl tracking-widest font-mono"
                   placeholder="000000"

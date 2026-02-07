@@ -47,10 +47,18 @@ export function GlossaryTooltip({
     }
   }, [isVisible]);
 
-  const handleMouseEnter = () => setIsVisible(true);
-  const handleMouseLeave = () => setIsVisible(false);
-  const handleFocus = () => setIsVisible(true);
-  const handleBlur = () => setIsVisible(false);
+  const handleMouseEnter = () => {
+    setIsVisible(true);
+  };
+  const handleMouseLeave = () => {
+    setIsVisible(false);
+  };
+  const handleFocus = () => {
+    setIsVisible(true);
+  };
+  const handleBlur = () => {
+    setIsVisible(false);
+  };
 
   // Truncate definition for tooltip (full definition on glossary page)
   const truncatedDefinition =
