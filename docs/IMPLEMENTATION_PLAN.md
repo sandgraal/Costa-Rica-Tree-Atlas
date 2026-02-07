@@ -129,8 +129,8 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 
 1. comenegro (108 lines) - ⚠️ **Critical**: Severely underdeveloped
 2. ~~manchineel (349 lines)~~ → ✅ Enhanced to 691 lines EN / 694 lines ES
-3. yellow-oleander (426 lines) - Another toxic species
 4. ~~ciprecillo (445 lines)~~ → **885 lines** ✅ Enhanced with conservation, taxonomy, ecology, cultivation
+3. ~~yellow-oleander (426 lines)~~ → **933 lines** ✅ Enhanced with comprehensive safety content
 5. quizarra (482 lines)
 6. quebracho (492 lines)
 7. carboncillo (498 lines)
@@ -154,7 +154,7 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 
 - [ ] Review findings - Adjust effort estimates for Priority 1.4?
 - [ ] Prioritize comenegro (108 lines) as emergency enhancement
-- [x] Focus on toxic species (manchineel ✅, yellow-oleander pending) for safety reasons
+- [x] Focus on toxic species (manchineel, yellow-oleander) for safety reasons ✅ Both enhanced
 - [ ] Approve content quality audit and remove this review section
 
 **Audit Approval Checklist:**
@@ -914,26 +914,19 @@ Each species should include:
   - Research traditional uses and economic importance
   - Add 5+ gallery images
   - Target: 600+ lines minimum
-- [x] **Enhance manchineel (349→691 lines EN, 694 lines ES)** [1d] @content @safety @critical ✅
-  - ✅ Complete rewrite with comprehensive safety information
-  - ✅ Added TwoColumn layout with QuickRef + INaturalistEmbed
-  - ✅ Added Photo Gallery (5 iNaturalist images)
-  - ✅ Added Taxonomy & Classification with PropertiesGrid, common names DataTable, taxonomic notes
-  - ✅ Enhanced Physical Description with PropertiesGrid
-  - ✅ Added DistributionMap (15 countries) and FeatureBox with Costa Rica locations
-  - ✅ Enhanced Habitat & Ecology with PropertiesGrid and associated species
-  - ✅ Added Toxicology DataTable and Accordion for symptoms
-  - ✅ Added emergency numbers Callout
-  - ✅ Added Recognition PropertiesGrid and Uses PropertiesGrid
-  - ✅ Expanded Cultural & Historical Significance with colonial encounters
-  - ✅ Added Conservation PropertiesGrid
-  - ✅ Added 6 ExternalLinks (Guinness, IUCN, USDA, iNaturalist, GBIF, PubMed)
-  - ✅ Both EN and ES versions enhanced to ~690+ lines
-- [ ] **Enhance yellow-oleander (426 lines)** [1d] @content @safety @critical
-  - Another toxic species needing safety emphasis
-  - Expand ornamental cultivation guidance
-  - Add detailed toxicity warnings and pet safety
-  - Target: 650+ lines
+- [ ] **Enhance manchineel (349 lines)** [1d] @content @safety @critical
+  - Toxic species needs comprehensive safety information
+  - Expand toxicity details, first aid, safety warnings
+  - Add prominent SafetyWarning components
+  - Include historical uses and modern handling precautions
+  - Target: 700+ lines (safety-critical content)
+- [x] **Enhance yellow-oleander (426→933 lines)** [1d] @content @safety @critical ✅
+  - Comprehensive safety content with global epidemiology (Sri Lanka data)
+  - Detailed toxicology with 5 cardiac glycosides and mechanism of action
+  - Emergency protocols with 4-phase symptom progression
+  - Prevention guides for homeowners and schools with safer alternatives
+  - Medical significance section with DigiFab trial data
+  - Target: 650+ lines → Achieved: 933 lines EN, 814 lines ES
 
 **Week 2-3: High Priority Short Pages (10 species)**
 
