@@ -4,8 +4,8 @@
   "private": true,
   "license": "AGPL-3.0-or-later AND CC-BY-NC-SA-4.0",
   "overrides": {
-    "hono": "^4.11.7",
-    "lodash": "^4.17.23"
+    "hono": "4.11.8",
+    "lodash": "4.17.23"
   },
   "scripts": {
     "dev": "next dev",
