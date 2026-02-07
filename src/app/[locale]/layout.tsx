@@ -202,16 +202,9 @@ export default async function LocaleLayout({ children, params }: Props) {
         <link rel="preconnect" href="https://static.inaturalist.org" />
         <link rel="dns-prefetch" href="https://api.gbif.org" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
-
-        {/* Preload critical hero image for faster LCP on home page */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/hero/guanacaste-desktop.webp"
-          fetchPriority="high"
-          imageSrcSet="/images/hero/guanacaste-mobile.webp 640w, /images/hero/guanacaste-mobile-lg.webp 828w, /images/hero/guanacaste-tablet.webp 1200w, /images/hero/guanacaste-desktop.webp 1920w"
-          imageSizes="100vw"
-        />
+        {/* Vercel Analytics & Speed Insights */}
+        <link rel="preconnect" href="https://va.vercel-scripts.com" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
 
         {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />
