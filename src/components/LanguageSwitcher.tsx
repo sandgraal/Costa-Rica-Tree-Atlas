@@ -33,7 +33,9 @@ export function LanguageSwitcher() {
             </span>
           )}
           <button
-            onClick={() => switchLocale(loc)}
+            onClick={() => {
+              switchLocale(loc);
+            }}
             className={`px-1.5 py-1 text-sm font-medium rounded transition-colors ${
               locale === loc
                 ? "text-primary"

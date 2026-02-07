@@ -71,7 +71,9 @@ export function ShareButton({ title, scientificName, slug }: ShareButtonProps) {
             document.body.removeChild(textArea);
           }
           setShowCopied(true);
-          setTimeout(() => setShowCopied(false), 2000);
+          setTimeout(() => {
+            setShowCopied(false);
+          }, 2000);
         } catch (err) {
           console.error("Failed to copy:", err);
           // Show user-facing error
@@ -125,7 +127,9 @@ export function ShareButton({ title, scientificName, slug }: ShareButtonProps) {
         <>
           <div
             className="fixed inset-0 z-40"
-            onClick={() => setShowDropdown(false)}
+            onClick={() => {
+              setShowDropdown(false);
+            }}
           />
           <div className="absolute right-0 top-full mt-2 z-50 w-48 bg-card rounded-lg shadow-lg border border-border py-1 overflow-hidden">
             <button

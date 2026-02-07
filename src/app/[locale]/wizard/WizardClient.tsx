@@ -190,10 +190,10 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
         characteristics: "Características:",
       },
     };
-    return translations[locale]?.[key] || key;
+    return translations[locale][key] || key;
   };
 
-  const handleAnswer = (key: keyof Answers, value: any) => {
+  const handleAnswer = (key: keyof Answers, value: unknown) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -392,7 +392,9 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
         ].map((option) => (
           <button
             key={option.id}
-            onClick={() => handleMultiSelect("purpose", option.id)}
+            onClick={() => {
+              handleMultiSelect("purpose", option.id);
+            }}
             className={`p-4 rounded-lg border-2 transition-all text-center ${
               (answers.purpose || []).includes(option.id)
                 ? "border-primary bg-primary/10"
@@ -405,7 +407,9 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
         ))}
       </div>
       <button
-        onClick={() => setStep(3)}
+        onClick={() => {
+          setStep(3);
+        }}
         disabled={!answers.purpose || answers.purpose.length === 0}
         className="w-full px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -428,7 +432,9 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
         ].map((option) => (
           <button
             key={option.id}
-            onClick={() => handleMultiSelect("safety", option.id)}
+            onClick={() => {
+              handleMultiSelect("safety", option.id);
+            }}
             className={`p-4 rounded-lg border-2 transition-all text-left ${
               (answers.safety || []).includes(option.id)
                 ? "border-primary bg-primary/10"
@@ -441,7 +447,9 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
         ))}
       </div>
       <button
-        onClick={() => setStep(4)}
+        onClick={() => {
+          setStep(4);
+        }}
         className="w-full px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
       >
         {t("next")}
@@ -658,7 +666,9 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
         <div className="bg-card rounded-xl border border-border p-8">
           {step > 0 && (
             <button
-              onClick={() => setStep(step - 1)}
+              onClick={() => {
+                setStep(step - 1);
+              }}
               className="mb-6 text-primary hover:text-primary-dark"
             >
               {t("back")}

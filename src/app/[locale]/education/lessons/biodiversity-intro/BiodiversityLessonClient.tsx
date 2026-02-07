@@ -79,7 +79,9 @@ function BiodiversityLessonContent({
         });
         if (step >= steps) clearInterval(timer);
       }, interval);
-      return () => clearInterval(timer);
+      return () => {
+        clearInterval(timer);
+      };
     }
   }, [currentStep, totalSpecies, totalFamilies]);
 
@@ -615,7 +617,9 @@ function BiodiversityLessonContent({
                     {funFacts.map((_, i) => (
                       <button
                         key={i}
-                        onClick={() => setCurrentFact(i)}
+                        onClick={() => {
+                          setCurrentFact(i);
+                        }}
                         className={`w-2 h-2 rounded-full transition-colors ${
                           i === currentFact
                             ? "bg-yellow-500"
@@ -751,7 +755,9 @@ function BiodiversityLessonContent({
                 return (
                   <button
                     key={tree.slug}
-                    onClick={() => handleTreeSelect(tree)}
+                    onClick={() => {
+                      handleTreeSelect(tree);
+                    }}
                     disabled={!isSelected && selectedTrees.length >= 5}
                     className={`group relative p-3 rounded-xl border-2 text-left transition-all animate-slide-up ${
                       isSelected
@@ -852,7 +858,9 @@ function BiodiversityLessonContent({
                         return (
                           <button
                             key={oIndex}
-                            onClick={() => handleQuizAnswer(qIndex, oIndex)}
+                            onClick={() => {
+                              handleQuizAnswer(qIndex, oIndex);
+                            }}
                             disabled={isAnswered}
                             className={`p-4 rounded-xl border-2 text-left transition-all ${
                               isAnswered
@@ -895,9 +903,9 @@ function BiodiversityLessonContent({
 
                     {!isAnswered && (
                       <button
-                        onClick={() =>
-                          setShowHint(showHint === qIndex ? null : qIndex)
-                        }
+                        onClick={() => {
+                          setShowHint(showHint === qIndex ? null : qIndex);
+                        }}
                         className="mt-3 text-sm text-primary hover:underline"
                       >
                         {t.hint}
@@ -1013,7 +1021,9 @@ function BiodiversityLessonContent({
       {/* Navigation Buttons */}
       <div className="flex justify-between">
         <button
-          onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
+          onClick={() => {
+            setCurrentStep((prev) => Math.max(0, prev - 1));
+          }}
           disabled={currentStep === 0}
           className={`px-6 py-3 rounded-xl transition-colors flex items-center gap-2 ${
             currentStep === 0
@@ -1026,9 +1036,9 @@ function BiodiversityLessonContent({
 
         {currentStep < steps.length - 1 ? (
           <button
-            onClick={() =>
-              setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))
-            }
+            onClick={() => {
+              setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1));
+            }}
             disabled={!canProceed()}
             className={`px-6 py-3 rounded-xl transition-colors flex items-center gap-2 ${
               canProceed()

@@ -160,12 +160,12 @@ export function SeasonalInfo({
           {MONTHS_ORDER.map((month) => {
             const isFlowering =
               hasFlowering &&
-              (floweringSeason!.includes(month) ||
-                floweringSeason!.includes("all-year"));
+              (floweringSeason?.includes(month) ||
+                floweringSeason?.includes("all-year"));
             const isFruiting =
               hasFruiting &&
-              (fruitingSeason!.includes(month) ||
-                fruitingSeason!.includes("all-year"));
+              (fruitingSeason?.includes(month) ||
+                fruitingSeason?.includes("all-year"));
 
             return (
               <div key={month} className="flex-1 text-center">

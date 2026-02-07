@@ -62,8 +62,12 @@ export function OptimizedImage({
     placeholder: placeholder as "blur" | "empty",
     blurDataURL,
     quality,
-    onError: () => setError(true),
-    onLoad: () => setIsLoading(false),
+    onError: () => {
+      setError(true);
+    },
+    onLoad: () => {
+      setIsLoading(false);
+    },
   };
 
   if (fill) {

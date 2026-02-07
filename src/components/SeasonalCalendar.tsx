@@ -276,7 +276,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
       } else {
         await copyToClipboard(shareUrl);
         setShareTooltip(month);
-        setTimeout(() => setShareTooltip(null), 2000);
+        setTimeout(() => {
+          setShareTooltip(null);
+        }, 2000);
       }
     },
     [locale, fullMonthLabels]
@@ -335,7 +337,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         {/* View Mode Toggle */}
         <div className="inline-flex rounded-lg border border-border p-1">
           <button
-            onClick={() => setViewMode("calendar")}
+            onClick={() => {
+              setViewMode("calendar");
+            }}
             className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
               viewMode === "calendar"
                 ? "bg-primary text-primary-foreground"
@@ -345,7 +349,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
             {labels.calendarView}
           </button>
           <button
-            onClick={() => setViewMode("list")}
+            onClick={() => {
+              setViewMode("list");
+            }}
             className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
               viewMode === "list"
                 ? "bg-primary text-primary-foreground"
@@ -359,7 +365,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
         {/* Filter Type */}
         <div className="inline-flex rounded-lg border border-border p-1">
           <button
-            onClick={() => setFilterType("all")}
+            onClick={() => {
+              setFilterType("all");
+            }}
             className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
               filterType === "all"
                 ? "bg-primary text-primary-foreground"
@@ -369,7 +377,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
             {labels.all}
           </button>
           <button
-            onClick={() => setFilterType("flowering")}
+            onClick={() => {
+              setFilterType("flowering");
+            }}
             className={`px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1.5 ${
               filterType === "flowering"
                 ? "bg-pink-500 text-white"
@@ -380,7 +390,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
             {labels.flowering}
           </button>
           <button
-            onClick={() => setFilterType("fruiting")}
+            onClick={() => {
+              setFilterType("fruiting");
+            }}
             className={`px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1.5 ${
               filterType === "fruiting"
                 ? "bg-orange-500 text-white"
@@ -394,7 +406,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
         {/* Events Toggle */}
         <button
-          onClick={() => setShowEvents(!showEvents)}
+          onClick={() => {
+            setShowEvents(!showEvents);
+          }}
           className={`px-3 py-1.5 text-sm rounded-lg border transition-colors flex items-center gap-1.5 ${
             showEvents
               ? "bg-green-500 text-white border-green-500"
@@ -419,7 +433,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
             return (
               <button
                 key={month}
-                onClick={() => setSelectedMonth(month)}
+                onClick={() => {
+                  setSelectedMonth(month);
+                }}
                 className={`relative p-3 rounded-lg border transition-all ${
                   isSelected
                     ? "ring-2 ring-primary border-primary"
@@ -497,7 +513,9 @@ export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
 
           <select
             value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
+            onChange={(e) => {
+              setSelectedMonth(e.target.value);
+            }}
             className="px-4 py-2 rounded-lg border border-border bg-background text-foreground font-medium min-w-[150px] text-center appearance-none cursor-pointer hover:bg-muted transition-colors"
           >
             {MONTHS.map((month) => (
@@ -727,7 +745,9 @@ function EventCard({
         </div>
         <div className="relative flex-shrink-0">
           <button
-            onClick={() => onShare(event)}
+            onClick={() => {
+              onShare(event);
+            }}
             className="p-1.5 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
             aria-label={labels.shareEvent}
             title={labels.shareEvent}

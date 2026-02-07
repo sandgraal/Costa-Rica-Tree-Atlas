@@ -197,14 +197,18 @@ function CertificateContent({ locale }: CertificateClientProps) {
               <input
                 type="text"
                 value={studentName}
-                onChange={(e) => setStudentName(e.target.value)}
+                onChange={(e) => {
+                  setStudentName(e.target.value);
+                }}
                 placeholder={t.namePlaceholder}
                 className="mt-2 w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </label>
 
             <button
-              onClick={() => setShowCertificate(true)}
+              onClick={() => {
+                setShowCertificate(true);
+              }}
               disabled={!studentName.trim()}
               className={`w-full py-3 rounded-xl font-semibold transition-colors ${
                 studentName.trim()
@@ -237,7 +241,9 @@ function CertificateContent({ locale }: CertificateClientProps) {
           {t.printCertificate}
         </button>
         <button
-          onClick={() => setShowCertificate(false)}
+          onClick={() => {
+            setShowCertificate(false);
+          }}
           className="inline-flex items-center gap-2 px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted/80 transition-colors"
         >
           {t.newCertificate}

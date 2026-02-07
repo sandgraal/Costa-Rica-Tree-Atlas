@@ -220,7 +220,7 @@ export function EducationProgressProvider({
           ([, badgeId]) => badgeId === badge.id
         )?.[0];
         if (lessonId) {
-          earned = progress[lessonId]?.completed || false;
+          earned = progress[lessonId].completed || false;
         }
       }
 

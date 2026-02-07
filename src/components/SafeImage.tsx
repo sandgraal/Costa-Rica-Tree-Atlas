@@ -66,7 +66,9 @@ export function SafeImage({
           setError(true);
           setLoading(false);
         }}
-        onLoad={() => setLoading(false)}
+        onLoad={() => {
+          setLoading(false);
+        }}
         style={{
           ...props.style,
           opacity: loading ? 0 : 1,

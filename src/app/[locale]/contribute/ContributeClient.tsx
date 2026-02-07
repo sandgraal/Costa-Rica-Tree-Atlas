@@ -206,7 +206,9 @@ export function ContributeClient({
         <h2 className="text-2xl font-bold mb-4">{t.error.title}</h2>
         <p className="text-red-500 mb-8">{errorMessage}</p>
         <button
-          onClick={() => setSubmitStatus("idle")}
+          onClick={() => {
+            setSubmitStatus("idle");
+          }}
           className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition"
         >
           {t.error.tryAgain}
@@ -226,7 +228,9 @@ export function ContributeClient({
         <div className="grid md:grid-cols-2 gap-6">
           {/* New Species */}
           <button
-            onClick={() => setSelectedType("NEW_SPECIES")}
+            onClick={() => {
+              setSelectedType("NEW_SPECIES");
+            }}
             className="p-6 rounded-xl border-2 border-border hover:border-primary transition-colors text-left group"
           >
             <div className="text-4xl mb-4">{t.newSpecies.icon}</div>
@@ -238,7 +242,9 @@ export function ContributeClient({
 
           {/* Correction */}
           <button
-            onClick={() => setSelectedType("CORRECTION")}
+            onClick={() => {
+              setSelectedType("CORRECTION");
+            }}
             className="p-6 rounded-xl border-2 border-border hover:border-primary transition-colors text-left group"
           >
             <div className="text-4xl mb-4">{t.correction.icon}</div>
@@ -250,7 +256,9 @@ export function ContributeClient({
 
           {/* Local Knowledge */}
           <button
-            onClick={() => setSelectedType("LOCAL_KNOWLEDGE")}
+            onClick={() => {
+              setSelectedType("LOCAL_KNOWLEDGE");
+            }}
             className="p-6 rounded-xl border-2 border-border hover:border-primary transition-colors text-left group"
           >
             <div className="text-4xl mb-4">{t.localKnowledge.icon}</div>
@@ -283,7 +291,9 @@ export function ContributeClient({
     <div className="space-y-6">
       {/* Back button */}
       <button
-        onClick={() => setSelectedType(null)}
+        onClick={() => {
+          setSelectedType(null);
+        }}
         className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
       >
         <span>←</span>
@@ -306,7 +316,9 @@ export function ContributeClient({
               type="text"
               placeholder={t.form.searchTrees}
               value={treeSearch}
-              onChange={(e) => setTreeSearch(e.target.value)}
+              onChange={(e) => {
+                setTreeSearch(e.target.value);
+              }}
               className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
             />
             {treeSearch && filteredTrees.length > 0 && (

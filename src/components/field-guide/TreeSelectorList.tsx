@@ -25,7 +25,9 @@ export function TreeSelectorList({
         return (
           <button
             key={tree.slug}
-            onClick={() => onToggle(tree.slug)}
+            onClick={() => {
+              onToggle(tree.slug);
+            }}
             className={`
               text-left p-4 rounded-lg border-2 transition-all
               ${

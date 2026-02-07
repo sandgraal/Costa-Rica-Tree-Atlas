@@ -202,7 +202,7 @@ export default function TreeJournalClient({
       createStorage({
         key: JOURNAL_STORAGE_KEY,
         schema: adoptedTreeSchema,
-        onError: (error) => {
+        onError: (_error) => {
           setStorageError(
             locale === "es"
               ? "Se detectaron datos corruptos y fueron eliminados"
@@ -493,7 +493,9 @@ export default function TreeJournalClient({
             <div className="flex items-center justify-between gap-4">
               <p className="text-sm">{storageError}</p>
               <button
-                onClick={() => setStorageError(null)}
+                onClick={() => {
+                  setStorageError(null);
+                }}
                 className="text-sm underline hover:no-underline"
               >
                 {locale === "es" ? "Cerrar" : "Dismiss"}
@@ -531,14 +533,18 @@ export default function TreeJournalClient({
                 type="text"
                 placeholder={t.searchTrees}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                }}
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-primary mb-4"
               />
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto p-1">
                 {filteredTrees.slice(0, 18).map((tree) => (
                   <button
                     key={tree.slug}
-                    onClick={() => setSelectedTreeSlug(tree.slug)}
+                    onClick={() => {
+                      setSelectedTreeSlug(tree.slug);
+                    }}
                     className={`p-3 rounded-xl border text-left transition-all ${
                       selectedTreeSlug === tree.slug
                         ? "border-primary bg-primary/10 ring-2 ring-primary/50"
@@ -580,7 +586,9 @@ export default function TreeJournalClient({
                 type="text"
                 placeholder={t.nicknamePlaceholder}
                 value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
+                onChange={(e) => {
+                  setNickname(e.target.value);
+                }}
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-primary"
               />
             </div>
@@ -594,7 +602,9 @@ export default function TreeJournalClient({
                 type="text"
                 placeholder={t.locationPlaceholder}
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-primary"
               />
             </div>
@@ -648,7 +658,9 @@ export default function TreeJournalClient({
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-green-50/50 to-background dark:from-green-950/20">
         <div className="container mx-auto max-w-2xl">
           <button
-            onClick={() => setView("journal")}
+            onClick={() => {
+              setView("journal");
+            }}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6"
           >
             ← {t.cancel}
@@ -735,9 +747,9 @@ export default function TreeJournalClient({
                 </label>
                 <div className="flex gap-2">
                   <button
-                    onClick={() =>
-                      setNewEntry((prev) => ({ ...prev, hasFlowers: true }))
-                    }
+                    onClick={() => {
+                      setNewEntry((prev) => ({ ...prev, hasFlowers: true }));
+                    }}
                     className={`flex-1 px-4 py-2 rounded-lg border transition-all ${
                       newEntry.hasFlowers
                         ? "border-pink-500 bg-pink-50 dark:bg-pink-900/20"
@@ -747,9 +759,9 @@ export default function TreeJournalClient({
                     🌸 {t.yes}
                   </button>
                   <button
-                    onClick={() =>
-                      setNewEntry((prev) => ({ ...prev, hasFlowers: false }))
-                    }
+                    onClick={() => {
+                      setNewEntry((prev) => ({ ...prev, hasFlowers: false }));
+                    }}
                     className={`flex-1 px-4 py-2 rounded-lg border transition-all ${
                       !newEntry.hasFlowers
                         ? "border-primary bg-primary/10"
@@ -766,9 +778,9 @@ export default function TreeJournalClient({
                 </label>
                 <div className="flex gap-2">
                   <button
-                    onClick={() =>
-                      setNewEntry((prev) => ({ ...prev, hasFruits: true }))
-                    }
+                    onClick={() => {
+                      setNewEntry((prev) => ({ ...prev, hasFruits: true }));
+                    }}
                     className={`flex-1 px-4 py-2 rounded-lg border transition-all ${
                       newEntry.hasFruits
                         ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20"
@@ -778,9 +790,9 @@ export default function TreeJournalClient({
                     🍎 {t.yes}
                   </button>
                   <button
-                    onClick={() =>
-                      setNewEntry((prev) => ({ ...prev, hasFruits: false }))
-                    }
+                    onClick={() => {
+                      setNewEntry((prev) => ({ ...prev, hasFruits: false }));
+                    }}
                     className={`flex-1 px-4 py-2 rounded-lg border transition-all ${
                       !newEntry.hasFruits
                         ? "border-primary bg-primary/10"
@@ -861,9 +873,12 @@ export default function TreeJournalClient({
                 <input
                   type="text"
                   value={newEntry.height || ""}
-                  onChange={(e) =>
-                    setNewEntry((prev) => ({ ...prev, height: e.target.value }))
-                  }
+                  onChange={(e) => {
+                    setNewEntry((prev) => ({
+                      ...prev,
+                      height: e.target.value,
+                    }));
+                  }}
                   className="w-full px-3 py-2 rounded-lg border border-border bg-background"
                   placeholder="~"
                 />
@@ -947,7 +962,9 @@ export default function TreeJournalClient({
                   }
                 </p>
                 <button
-                  onClick={() => setNewBadge(null)}
+                  onClick={() => {
+                    setNewBadge(null);
+                  }}
                   className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-lg"
                 >
                   {locale === "es" ? "¡Genial!" : "Awesome!"}
@@ -1033,7 +1050,9 @@ export default function TreeJournalClient({
               📖 {t.myJournal}
             </button>
             <button
-              onClick={() => setView("timeline")}
+              onClick={() => {
+                setView("timeline");
+              }}
               className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap ${
                 view === "timeline"
                   ? "bg-primary text-primary-foreground"
@@ -1043,7 +1062,9 @@ export default function TreeJournalClient({
               📊 {t.timeline}
             </button>
             <button
-              onClick={() => setView("badges")}
+              onClick={() => {
+                setView("badges");
+              }}
               className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap ${
                 view === "badges"
                   ? "bg-primary text-primary-foreground"
@@ -1053,7 +1074,9 @@ export default function TreeJournalClient({
               🏅 {t.badges}
             </button>
             <button
-              onClick={() => setView("entry")}
+              onClick={() => {
+                setView("entry");
+              }}
               className="px-4 py-2 rounded-lg font-medium whitespace-nowrap bg-green-600 text-white hover:bg-green-700"
             >
               {t.newEntry}

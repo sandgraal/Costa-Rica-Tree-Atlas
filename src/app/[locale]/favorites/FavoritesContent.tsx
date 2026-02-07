@@ -101,7 +101,9 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
     try {
       await navigator.clipboard.writeText(url.toString());
       setShareStatus("copied");
-      setTimeout(() => setShareStatus("idle"), 2000);
+      setTimeout(() => {
+        setShareStatus("idle");
+      }, 2000);
     } catch {
       // Fallback for browsers that don't support clipboard API
       const textArea = document.createElement("textarea");
@@ -195,7 +197,9 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
                 {/* Compare Toggle */}
                 {selectedForCompare.length === 0 ? (
                   <button
-                    onClick={() => setSelectedForCompare([])}
+                    onClick={() => {
+                      setSelectedForCompare([]);
+                    }}
                     className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
                     title={t.selectToCompare}
                   >
@@ -247,7 +251,9 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
                   {/* Selection Checkbox Overlay */}
                   {selectedForCompare.length > 0 || favorites.length >= 2 ? (
                     <button
-                      onClick={() => toggleSelectForCompare(tree.slug)}
+                      onClick={() => {
+                        toggleSelectForCompare(tree.slug);
+                      }}
                       className={`absolute top-3 left-3 z-10 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                         selectedForCompare.includes(tree.slug)
                           ? "bg-primary border-primary text-primary-foreground"

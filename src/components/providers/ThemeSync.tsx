@@ -24,11 +24,15 @@ export function ThemeSync() {
     // Modern browsers
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
+      return () => {
+        mediaQuery.removeEventListener("change", handleChange);
+      };
     } else {
       // Fallback for older browsers
       mediaQuery.addListener(handleChange);
-      return () => mediaQuery.removeListener(handleChange);
+      return () => {
+        mediaQuery.removeListener(handleChange);
+      };
     }
   }, [theme, setResolvedTheme]);
 

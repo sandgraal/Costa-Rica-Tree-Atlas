@@ -71,7 +71,9 @@ export default function FlashcardsClient({
                 <span className="text-muted-foreground">{t.cardsPerPage}:</span>
                 <select
                   value={cardsPerPage}
-                  onChange={(e) => setCardsPerPage(Number(e.target.value))}
+                  onChange={(e) => {
+                    setCardsPerPage(Number(e.target.value));
+                  }}
                   className="rounded-md border border-border bg-background px-2 py-1"
                 >
                   <option value={4}>4</option>
@@ -80,7 +82,9 @@ export default function FlashcardsClient({
                 </select>
               </label>
               <button
-                onClick={() => window.print()}
+                onClick={() => {
+                  window.print();
+                }}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
               >
                 {t.printButton}

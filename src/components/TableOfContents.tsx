@@ -115,7 +115,9 @@ export function TableOfContents({
           return (
             <li key={heading.id} className={isH3 ? "ml-4" : ""}>
               <button
-                onClick={() => scrollToHeading(heading.id)}
+                onClick={() => {
+                  scrollToHeading(heading.id);
+                }}
                 className={`
                   text-left w-full py-1 px-2 rounded transition-colors
                   ${

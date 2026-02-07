@@ -119,9 +119,9 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
       case "local":
         return tree.hasLocalImage;
       case "voted-up":
-        return votes[tree.slug]?.vote === "up";
+        return votes[tree.slug].vote === "up";
       case "voted-down":
-        return votes[tree.slug]?.vote === "down";
+        return votes[tree.slug].vote === "down";
       default:
         return true;
     }
@@ -182,7 +182,9 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
             type="text"
             placeholder="Search trees..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
             className="w-full rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
         </div>
@@ -190,7 +192,9 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
         {/* Filter */}
         <select
           value={filter}
-          onChange={(e) => setFilter(e.target.value as FilterType)}
+          onChange={(e) => {
+            setFilter(e.target.value as FilterType);
+          }}
           className="rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
           <option value="all">All Trees ({trees.length})</option>
@@ -241,10 +245,12 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
                 saveVote(tree.slug, voteValue, tree.featuredImage);
               }
             }}
-            onRemoveVote={() => removeVote(tree.slug)}
+            onRemoveVote={() => {
+              removeVote(tree.slug);
+            }}
             onSelectForAlternates={() => {
               setSelectedTree(tree);
-              fetchAlternateImages(tree.scientificName);
+              void fetchAlternateImages(tree.scientificName);
             }}
           />
         ))}
@@ -265,7 +271,9 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
                   </p>
                 </div>
                 <button
-                  onClick={() => setSelectedTree(null)}
+                  onClick={() => {
+                    setSelectedTree(null);
+                  }}
                   className="text-muted-foreground hover:text-foreground text-2xl"
                 >
                   ×
@@ -328,7 +336,7 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
                         <button
                           onClick={() => {
                             // Copy URL to clipboard
-                            navigator.clipboard.writeText(img.url);
+                            void navigator.clipboard.writeText(img.url);
                             alert("Image URL copied to clipboard!");
                           }}
                           className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-lg px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
@@ -406,7 +414,9 @@ function TreeImageCard({
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             quality={75}
             unoptimized={tree.featuredImage.startsWith("http")}
-            onError={() => setImageError(true)}
+            onError={() => {
+              setImageError(true);
+            }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -437,7 +447,9 @@ function TreeImageCard({
         {/* Hover overlay with actions */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
           <button
-            onClick={() => onVote("up")}
+            onClick={() => {
+              onVote("up");
+            }}
             className={`p-3 rounded-full transition ${
               vote?.vote === "up"
                 ? "bg-green-500 text-white"
@@ -448,7 +460,9 @@ function TreeImageCard({
             👍
           </button>
           <button
-            onClick={() => onVote("down")}
+            onClick={() => {
+              onVote("down");
+            }}
             className={`p-3 rounded-full transition ${
               vote?.vote === "down"
                 ? "bg-red-500 text-white"

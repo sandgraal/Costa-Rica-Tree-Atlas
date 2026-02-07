@@ -80,7 +80,7 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
         exploretrees: "Explorar Directorio de Árboles",
       },
     };
-    return translations[locale]?.[key] || key;
+    return translations[locale][key] || key;
   };
 
   const getCategories = () => {
@@ -565,7 +565,9 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
               {getCategories().map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => handleCategorySelect(category.id)}
+                  onClick={() => {
+                    handleCategorySelect(category.id);
+                  }}
                   className="p-6 bg-card rounded-xl border-2 border-border hover:border-primary transition-all text-left group"
                 >
                   <div className="text-4xl mb-3">{category.icon}</div>
@@ -607,7 +609,9 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
               {getSymptoms(selectedCategory).map((symptom) => (
                 <button
                   key={symptom}
-                  onClick={() => handleSymptomSelect(symptom)}
+                  onClick={() => {
+                    handleSymptomSelect(symptom);
+                  }}
                   className="w-full p-4 bg-card rounded-lg border-2 border-border hover:border-primary transition-all text-left"
                 >
                   <span className="font-medium">{symptom}</span>

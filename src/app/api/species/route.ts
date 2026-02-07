@@ -21,7 +21,9 @@ export async function GET(request: NextRequest) {
     // Use sanitized value with a timeout wrapper
     let timeoutId: NodeJS.Timeout;
     const timeoutPromise = new Promise<never>((_, reject) => {
-      timeoutId = setTimeout(() => reject(new Error("Request timeout")), 15000);
+      timeoutId = setTimeout(() => {
+        reject(new Error("Request timeout"));
+      }, 15000);
     });
 
     const dataPromise = fetchBiodiversityData(validation.sanitized!);

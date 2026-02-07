@@ -70,7 +70,9 @@ export function ShareCollectionButton({
             document.body.removeChild(textArea);
           }
           setShowCopied(true);
-          setTimeout(() => setShowCopied(false), 2000);
+          setTimeout(() => {
+            setShowCopied(false);
+          }, 2000);
         } catch (err) {
           console.error("Failed to copy:", err);
         }
@@ -102,7 +104,9 @@ export function ShareCollectionButton({
   return (
     <div className="relative">
       <button
-        onClick={() => setShowDropdown(!showDropdown)}
+        onClick={() => {
+          setShowDropdown(!showDropdown);
+        }}
         className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
         aria-label={labels.share}
       >
@@ -129,7 +133,9 @@ export function ShareCollectionButton({
           {/* Backdrop */}
           <div
             className="fixed inset-0 z-40"
-            onClick={() => setShowDropdown(false)}
+            onClick={() => {
+              setShowDropdown(false);
+            }}
           />
 
           {/* Dropdown */}

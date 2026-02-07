@@ -58,7 +58,9 @@ export function GlossaryFilters() {
             id="search"
             name="search"
             value={currentSearch}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => {
+              handleSearchChange(e.target.value);
+            }}
             placeholder={t("searchPlaceholder")}
             className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
           />
@@ -76,7 +78,9 @@ export function GlossaryFilters() {
             id="category"
             name="category"
             value={currentCategory}
-            onChange={(e) => handleCategoryChange(e.target.value)}
+            onChange={(e) => {
+              handleCategoryChange(e.target.value);
+            }}
             className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors cursor-pointer"
           >
             <option value="all">{t("categories.all")}</option>

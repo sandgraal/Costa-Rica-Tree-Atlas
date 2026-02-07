@@ -57,14 +57,14 @@ export default async function GlossaryTermPage({
   // Get related terms
   const relatedTerms = term.relatedTerms
     ? allGlossaryTerms.filter(
-        (t) => term.relatedTerms!.includes(t.slug) && t.locale === locale
+        (t) => term.relatedTerms?.includes(t.slug) && t.locale === locale
       )
     : [];
 
   // Get example species
   const exampleSpecies = term.exampleSpecies
     ? allTrees.filter(
-        (t) => term.exampleSpecies!.includes(t.slug) && t.locale === locale
+        (t) => term.exampleSpecies?.includes(t.slug) && t.locale === locale
       )
     : [];
 

@@ -627,7 +627,7 @@ function reducer(state: AppState, action: Action): AppState {
       };
 
       const updatedTeams = state.session.teams.map((team, index) =>
-        index === state.session!.currentTeamIndex
+        index === state.session?.currentTeamIndex
           ? {
               ...team,
               completedMissions: [...team.completedMissions, completedMission],
@@ -781,7 +781,9 @@ export default function ScavengerHuntClient({
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [state.missionTimer]);
 
   const handleTeamCountChange = (count: number) => {
@@ -918,7 +920,9 @@ export default function ScavengerHuntClient({
                 {[2, 3, 4].map((count) => (
                   <button
                     key={count}
-                    onClick={() => handleTeamCountChange(count)}
+                    onClick={() => {
+                      handleTeamCountChange(count);
+                    }}
                     className={`flex-1 py-3 rounded-lg border transition-all font-medium ${
                       state.setup.teamCount === count
                         ? "border-primary bg-primary/10 text-primary"
@@ -966,7 +970,9 @@ export default function ScavengerHuntClient({
                         <span>{member.avatar}</span>
                         <span className="text-sm">{member.name}</span>
                         <button
-                          onClick={() => removeTeamMember(i, member.id)}
+                          onClick={() => {
+                            removeTeamMember(i, member.id);
+                          }}
                           className="ml-1 text-muted-foreground hover:text-red-500"
                         >
                           ×
@@ -992,15 +998,17 @@ export default function ScavengerHuntClient({
                         autoFocus
                       />
                       <button
-                        onClick={() => addTeamMember(i)}
+                        onClick={() => {
+                          addTeamMember(i);
+                        }}
                         className="px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm"
                       >
                         +
                       </button>
                       <button
-                        onClick={() =>
-                          dispatch({ type: "SET_EDITING_TEAM", payload: null })
-                        }
+                        onClick={() => {
+                          dispatch({ type: "SET_EDITING_TEAM", payload: null });
+                        }}
                         className="px-3 py-2 border border-border rounded-lg text-sm"
                       >
                         ✓
@@ -1008,9 +1016,9 @@ export default function ScavengerHuntClient({
                     </div>
                   ) : (
                     <button
-                      onClick={() =>
-                        dispatch({ type: "SET_EDITING_TEAM", payload: i })
-                      }
+                      onClick={() => {
+                        dispatch({ type: "SET_EDITING_TEAM", payload: i });
+                      }}
                       className="text-sm text-primary hover:underline"
                     >
                       + {t.addMember}
@@ -1099,7 +1107,7 @@ export default function ScavengerHuntClient({
     const teamColor =
       TEAM_COLORS.find((c) => c.name === currentTeam.color) || TEAM_COLORS[0];
     const availableMissions = MISSIONS.filter((m) =>
-      state.session!.activeMissions.includes(m.id)
+      state.session?.activeMissions.includes(m.id)
     );
 
     return (
@@ -1174,7 +1182,9 @@ export default function ScavengerHuntClient({
             {availableMissions.map((mission) => (
               <button
                 key={mission.id}
-                onClick={() => selectMissionHandler(mission)}
+                onClick={() => {
+                  selectMissionHandler(mission);
+                }}
                 className="bg-card rounded-xl p-5 border border-border hover:border-primary/50 hover:shadow-md transition-all text-left group"
               >
                 <div className="flex items-start gap-4">
@@ -1255,7 +1265,9 @@ export default function ScavengerHuntClient({
       <div className="py-8 px-4 min-h-screen bg-gradient-to-b from-amber-50/50 to-background dark:from-amber-950/20">
         <div className="container mx-auto max-w-4xl">
           <button
-            onClick={() => dispatch({ type: "SET_VIEW", payload: "hunt" })}
+            onClick={() => {
+              dispatch({ type: "SET_VIEW", payload: "hunt" });
+            }}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6"
           >
             ← {locale === "es" ? "Volver a Misiones" : "Back to Missions"}
@@ -1294,7 +1306,9 @@ export default function ScavengerHuntClient({
             {/* Hint */}
             {!state.showHint ? (
               <button
-                onClick={() => dispatch({ type: "TOGGLE_HINT" })}
+                onClick={() => {
+                  dispatch({ type: "TOGGLE_HINT" });
+                }}
                 className="mt-4 text-sm text-muted-foreground hover:text-primary"
               >
                 💡 {t.showHint}
@@ -1315,7 +1329,9 @@ export default function ScavengerHuntClient({
                 type="text"
                 placeholder={t.searchTrees}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                }}
                 className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50"
               />
               <p className="text-sm text-muted-foreground mt-2">
@@ -1329,7 +1345,9 @@ export default function ScavengerHuntClient({
                 return (
                   <button
                     key={tree.slug}
-                    onClick={() => submitMissionAnswer(tree.slug)}
+                    onClick={() => {
+                      submitMissionAnswer(tree.slug);
+                    }}
                     className={`p-3 rounded-xl border text-left transition-all ${
                       isValid
                         ? "border-green-300 bg-green-50/50 dark:bg-green-900/10 hover:border-green-500"

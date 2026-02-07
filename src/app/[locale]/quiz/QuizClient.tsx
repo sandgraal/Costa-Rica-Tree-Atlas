@@ -97,7 +97,7 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
         loading: "Cargando cuestionario...",
       },
     };
-    return translations[locale]?.[key] || key;
+    return translations[locale][key] || key;
   };
 
   const generatePhotoQuestions = useCallback(() => {
@@ -253,7 +253,9 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <button
-                onClick={() => startQuiz("photo")}
+                onClick={() => {
+                  startQuiz("photo");
+                }}
                 className="p-6 bg-card rounded-xl border-2 border-border hover:border-primary transition-all text-left group"
               >
                 <div className="text-4xl mb-3">📷</div>
@@ -266,7 +268,9 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
               </button>
 
               <button
-                onClick={() => startQuiz("safety")}
+                onClick={() => {
+                  startQuiz("safety");
+                }}
                 className="p-6 bg-card rounded-xl border-2 border-border hover:border-primary transition-all text-left group"
               >
                 <div className="text-4xl mb-3">⚠️</div>
@@ -279,7 +283,9 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
               </button>
 
               <button
-                onClick={() => startQuiz("family")}
+                onClick={() => {
+                  startQuiz("family");
+                }}
                 className="p-6 bg-card rounded-xl border-2 border-border hover:border-primary transition-all text-left group"
               >
                 <div className="text-4xl mb-3">🌳</div>

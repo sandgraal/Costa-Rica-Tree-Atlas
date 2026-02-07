@@ -96,7 +96,7 @@ export default function VotingClient({ trees }: VotingClientProps) {
     };
 
     if (!voteStats[currentTree.slug]) {
-      fetchStats();
+      void fetchStats();
     }
   }, [currentTree, voteStats]);
 
@@ -156,10 +156,9 @@ export default function VotingClient({ trees }: VotingClientProps) {
               downvotes: 0,
               flags: 0,
             }),
-            upvotes:
-              (prev[currentTree.slug]?.upvotes || 0) + (isUpvote ? 1 : 0),
+            upvotes: (prev[currentTree.slug].upvotes || 0) + (isUpvote ? 1 : 0),
             downvotes:
-              (prev[currentTree.slug]?.downvotes || 0) + (isUpvote ? 0 : 1),
+              (prev[currentTree.slug].downvotes || 0) + (isUpvote ? 0 : 1),
             userVote: isUpvote ? "up" : "down",
           },
         }));
@@ -220,7 +219,7 @@ export default function VotingClient({ trees }: VotingClientProps) {
         ...prev,
         [currentTree.slug]: {
           ...(prev[currentTree.slug] || { upvotes: 0, downvotes: 0, flags: 0 }),
-          flags: (prev[currentTree.slug]?.flags || 0) + 1,
+          flags: (prev[currentTree.slug].flags || 0) + 1,
           userVote: "flag",
         },
       }));
@@ -272,12 +271,12 @@ export default function VotingClient({ trees }: VotingClientProps) {
         case "ArrowUp":
         case "w":
           e.preventDefault();
-          submitVote(true);
+          void submitVote(true);
           break;
         case "ArrowDown":
         case "s":
           e.preventDefault();
-          submitVote(false);
+          void submitVote(false);
           break;
         case "ArrowRight":
         case "d":
@@ -300,7 +299,9 @@ export default function VotingClient({ trees }: VotingClientProps) {
     };
 
     window.addEventListener("keydown", handleKeydown);
-    return () => window.removeEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
   }, [submitVote, skipToNext, goToPrevious, showFlagDialog]);
 
   if (shuffledTrees.length === 0) {
@@ -490,7 +491,9 @@ export default function VotingClient({ trees }: VotingClientProps) {
             {/* Secondary actions */}
             <div className="flex justify-center gap-4 mt-6 text-sm">
               <button
-                onClick={() => setShowFlagDialog(true)}
+                onClick={() => {
+                  setShowFlagDialog(true);
+                }}
                 className="text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300 flex items-center gap-1"
               >
                 🚩 {t("reportProblem")}
@@ -553,9 +556,9 @@ export default function VotingClient({ trees }: VotingClientProps) {
                   </label>
                   <select
                     value={flagReason}
-                    onChange={(e) =>
-                      setFlagReason(e.target.value as ImageFlagReason)
-                    }
+                    onChange={(e) => {
+                      setFlagReason(e.target.value as ImageFlagReason);
+                    }}
                     className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground"
                   >
                     {FLAG_REASONS.map((reason) => (
@@ -572,7 +575,9 @@ export default function VotingClient({ trees }: VotingClientProps) {
                   </label>
                   <textarea
                     value={flagNotes}
-                    onChange={(e) => setFlagNotes(e.target.value)}
+                    onChange={(e) => {
+                      setFlagNotes(e.target.value);
+                    }}
                     placeholder={t("flagNotesPlaceholder")}
                     rows={3}
                     className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground resize-none"
@@ -582,7 +587,9 @@ export default function VotingClient({ trees }: VotingClientProps) {
 
               <div className="flex gap-3 mt-6">
                 <button
-                  onClick={() => setShowFlagDialog(false)}
+                  onClick={() => {
+                    setShowFlagDialog(false);
+                  }}
                   className="flex-1 px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors"
                 >
                   {t("cancel")}

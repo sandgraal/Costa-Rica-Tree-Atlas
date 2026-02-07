@@ -705,7 +705,9 @@ function EcosystemServicesContent({
                 return (
                   <button
                     key={cat.id}
-                    onClick={() => handleServiceDiscover(cat.id)}
+                    onClick={() => {
+                      handleServiceDiscover(cat.id);
+                    }}
                     className={`relative p-6 rounded-xl border-2 text-left transition-all ${
                       isDiscovered
                         ? `border-transparent bg-gradient-to-br ${cat.color} text-white`
@@ -777,7 +779,9 @@ function EcosystemServicesContent({
                       ? "border-green-500 bg-green-500/10"
                       : "border-border"
                   }`}
-                  onDragOver={(e) => e.preventDefault()}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                  }}
                   onDrop={() => draggedItem && handleDrop(cat.id, draggedItem)}
                 >
                   <div className="text-center mb-2">
@@ -810,8 +814,12 @@ function EcosystemServicesContent({
                   <div
                     key={item.id}
                     draggable
-                    onDragStart={() => setDraggedItem(item.id)}
-                    onDragEnd={() => setDraggedItem(null)}
+                    onDragStart={() => {
+                      setDraggedItem(item.id);
+                    }}
+                    onDragEnd={() => {
+                      setDraggedItem(null);
+                    }}
                     className="px-4 py-2 bg-muted rounded-lg cursor-move hover:bg-muted/80 transition-colors flex items-center gap-2"
                   >
                     <span>{item.icon}</span>
@@ -844,7 +852,9 @@ function EcosystemServicesContent({
               {treeUseCategories.map((cat) => (
                 <button
                   key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
+                  onClick={() => {
+                    setSelectedCategory(cat.id);
+                  }}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
                     selectedCategory === cat.id
                       ? "bg-primary text-white"
@@ -871,7 +881,9 @@ function EcosystemServicesContent({
                       {q.options.map((opt, oIndex) => (
                         <button
                           key={oIndex}
-                          onClick={() => handleQuizAnswer(qIndex, oIndex)}
+                          onClick={() => {
+                            handleQuizAnswer(qIndex, oIndex);
+                          }}
                           disabled={isAnswered}
                           className={`p-3 rounded-lg border text-left text-sm ${
                             isAnswered
@@ -960,7 +972,9 @@ function EcosystemServicesContent({
                     return (
                       <button
                         key={i}
-                        onClick={() => handleAddToPoster(label)}
+                        onClick={() => {
+                          handleAddToPoster(label);
+                        }}
                         disabled={isAdded}
                         className={`w-full p-3 rounded-lg border text-left transition-all flex items-center justify-between ${
                           isAdded
@@ -1020,7 +1034,9 @@ function EcosystemServicesContent({
                 </div>
                 {createdPoster.length >= 3 && (
                   <button
-                    onClick={() => window.print()}
+                    onClick={() => {
+                      window.print();
+                    }}
                     className="w-full mt-4 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors"
                   >
                     {t.printPoster}
@@ -1035,7 +1051,9 @@ function EcosystemServicesContent({
       {/* Navigation */}
       <div className="flex justify-between">
         <button
-          onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
+          onClick={() => {
+            setCurrentStep((prev) => Math.max(0, prev - 1));
+          }}
           disabled={currentStep === 0}
           className="px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -1043,7 +1061,9 @@ function EcosystemServicesContent({
         </button>
         {currentStep < steps.length - 1 ? (
           <button
-            onClick={() => setCurrentStep((prev) => prev + 1)}
+            onClick={() => {
+              setCurrentStep((prev) => prev + 1);
+            }}
             disabled={!canProceed()}
             className={`px-6 py-3 rounded-xl transition-all ${
               canProceed()

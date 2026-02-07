@@ -534,7 +534,9 @@ function TreeIdentificationContent({
               {features.map(({ key, label, icon }) => (
                 <button
                   key={key}
-                  onClick={() => setSelectedFeature(key)}
+                  onClick={() => {
+                    setSelectedFeature(key);
+                  }}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
                     selectedFeature === key
                       ? "bg-primary text-white"
@@ -564,7 +566,9 @@ function TreeIdentificationContent({
                   {familyTrees.map((tree) => (
                     <button
                       key={tree.slug}
-                      onClick={() => setSelectedLearnTree(tree)}
+                      onClick={() => {
+                        setSelectedLearnTree(tree);
+                      }}
                       className={`group relative p-3 rounded-xl border-2 text-left transition-all ${
                         learnedTrees.has(tree.slug)
                           ? "border-green-500/50 bg-green-500/5"
@@ -673,7 +677,9 @@ function TreeIdentificationContent({
                 return (
                   <button
                     key={option.slug}
-                    onClick={() => handleQuizAnswer(option)}
+                    onClick={() => {
+                      handleQuizAnswer(option);
+                    }}
                     disabled={showFeedback !== null}
                     className={`p-4 rounded-xl border-2 text-left transition-all ${
                       showResult
@@ -702,7 +708,9 @@ function TreeIdentificationContent({
             {matchCards.map((card) => (
               <button
                 key={card.id}
-                onClick={() => handleCardClick(card.id)}
+                onClick={() => {
+                  handleCardClick(card.id);
+                }}
                 disabled={card.matched || card.flipped}
                 className={`aspect-square rounded-xl border-2 transition-all transform ${
                   card.matched
@@ -750,11 +758,15 @@ function TreeIdentificationContent({
       {selectedLearnTree && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={() => setSelectedLearnTree(null)}
+          onClick={() => {
+            setSelectedLearnTree(null);
+          }}
         >
           <div
             className="bg-card rounded-2xl p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto animate-bounce-in"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             {selectedLearnTree.featuredImage && (
               <div className="aspect-video relative rounded-xl overflow-hidden mb-4">

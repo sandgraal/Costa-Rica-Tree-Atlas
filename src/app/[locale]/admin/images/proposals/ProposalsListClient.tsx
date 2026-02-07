@@ -80,7 +80,7 @@ export default function ProposalsListClient() {
   }, [page, filterStatus, filterSource, searchQuery]);
 
   useEffect(() => {
-    fetchProposals();
+    void fetchProposals();
   }, [fetchProposals]);
 
   const handleStatusChange = async (
@@ -530,7 +530,9 @@ export default function ProposalsListClient() {
       {totalPages > 1 && (
         <div className="flex justify-center gap-2 mt-6">
           <button
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            onClick={() => {
+              setPage((p) => Math.max(1, p - 1));
+            }}
             disabled={page === 1}
             className="px-4 py-2 bg-card border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
@@ -540,7 +542,9 @@ export default function ProposalsListClient() {
             Page {page} of {totalPages}
           </span>
           <button
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => {
+              setPage((p) => Math.min(totalPages, p + 1));
+            }}
             disabled={page === totalPages}
             className="px-4 py-2 bg-card border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >

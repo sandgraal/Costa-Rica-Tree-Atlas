@@ -64,9 +64,15 @@ export function PronunciationButton({
     utterance.rate = 0.85;
     utterance.pitch = 1;
 
-    utterance.onstart = () => setIsPlaying(true);
-    utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
+    utterance.onstart = () => {
+      setIsPlaying(true);
+    };
+    utterance.onend = () => {
+      setIsPlaying(false);
+    };
+    utterance.onerror = () => {
+      setIsPlaying(false);
+    };
 
     window.speechSynthesis.speak(utterance);
   }, [text, isSupported]);

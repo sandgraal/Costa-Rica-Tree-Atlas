@@ -403,7 +403,9 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                   stroke={region.color}
                   strokeWidth="2"
                   className="cursor-pointer transition-all hover:opacity-80"
-                  onClick={() => setSelectedRegion(region)}
+                  onClick={() => {
+                    setSelectedRegion(region);
+                  }}
                 />
               ))}
 
@@ -600,7 +602,9 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                 return (
                   <button
                     key={region.id}
-                    onClick={() => handleAnswer(region.id)}
+                    onClick={() => {
+                      handleAnswer(region.id);
+                    }}
                     disabled={showFeedback}
                     className={`p-4 rounded-xl border-2 transition-all text-left ${
                       showFeedback
@@ -734,7 +738,9 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               {t.playAgain}
             </button>
             <button
-              onClick={() => setGameMode("learn")}
+              onClick={() => {
+                setGameMode("learn");
+              }}
               className="w-full py-3 bg-muted text-foreground rounded-xl font-semibold hover:bg-muted/80 transition-colors"
             >
               {t.backToLearn}

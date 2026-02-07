@@ -92,7 +92,9 @@ export function FieldGuideGenerator({
       <FieldGuidePreview
         trees={selectedTrees}
         locale={locale}
-        onBack={() => setShowPreview(false)}
+        onBack={() => {
+          setShowPreview(false);
+        }}
       />
     );
   }
@@ -120,7 +122,9 @@ export function FieldGuideGenerator({
               type="text"
               placeholder={t.search}
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+              }}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>

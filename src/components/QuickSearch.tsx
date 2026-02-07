@@ -75,7 +75,7 @@ export function QuickSearch() {
         setIsLoadingTrees(false);
       }
     };
-    loadTrees();
+    void loadTrees();
   }, [locale]);
 
   // Comprehensive search function with fuzzy matching
@@ -179,7 +179,9 @@ export function QuickSearch() {
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   // Handle click outside
@@ -194,7 +196,9 @@ export function QuickSearch() {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleSelect = useCallback(
@@ -254,7 +258,9 @@ export function QuickSearch() {
                   ref={inputRef}
                   type="text"
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                  }}
                   onKeyDown={handleKeyDown}
                   placeholder={
                     locale === "es"
@@ -283,7 +289,9 @@ export function QuickSearch() {
                   {results.map((tree, index) => (
                     <li key={tree.slug}>
                       <button
-                        onClick={() => handleSelect(tree.slug)}
+                        onClick={() => {
+                          handleSelect(tree.slug);
+                        }}
                         className={`w-full px-4 py-3 text-left flex items-start gap-3 transition-colors ${
                           index === selectedIndex
                             ? "bg-primary/10 text-foreground"
