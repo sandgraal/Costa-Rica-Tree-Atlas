@@ -224,7 +224,7 @@ describe("JWT Error Logger", () => {
     });
 
     it("should bypass rate limiting in development mode", () => {
-      process.env.NODE_ENV = "development";
+      vi.stubEnv("NODE_ENV", "development");
 
       const error = new Error("Token expired");
       error.name = "JWTExpired";
@@ -239,7 +239,7 @@ describe("JWT Error Logger", () => {
 
   describe("Production Behavior", () => {
     it("should send to Sentry in production", () => {
-      process.env.NODE_ENV = "production";
+      vi.stubEnv("NODE_ENV", "production");
 
       const error = new Error("Token expired");
       error.name = "JWTExpired";
@@ -263,7 +263,7 @@ describe("JWT Error Logger", () => {
     });
 
     it("should not send to Sentry in non-production", () => {
-      process.env.NODE_ENV = "development";
+      vi.stubEnv("NODE_ENV", "development");
 
       const error = new Error("Token expired");
 
@@ -273,8 +273,8 @@ describe("JWT Error Logger", () => {
     });
 
     it("should use minimal console output in production", () => {
-      process.env.NODE_ENV = "production";
-      process.env.DEBUG = "false";
+      vi.stubEnv("NODE_ENV", "production");
+      vi.stubEnv("DEBUG", "false");
 
       const error = new Error("Token expired");
       error.name = "JWTExpired";
@@ -318,8 +318,8 @@ describe("JWT Error Logger", () => {
     });
 
     it("should never include error stack traces in production", () => {
-      process.env.NODE_ENV = "production";
-      process.env.DEBUG = "false";
+      vi.stubEnv("NODE_ENV", "production");
+      vi.stubEnv("DEBUG", "false");
 
       const error = new Error("Token verification failed");
       error.stack =

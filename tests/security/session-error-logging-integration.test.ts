@@ -112,6 +112,7 @@ describe("Session Module - JWT Error Logging Integration", () => {
         name: "Test User",
       },
       protectedHeader: { alg: "HS256" },
+      key: new Uint8Array(),
     });
 
     // Create mock request with valid token
