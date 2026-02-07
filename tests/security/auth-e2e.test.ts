@@ -59,6 +59,9 @@ vi.mock("next-auth", () => ({
 
 // Mock @otplib/totp with a proper class constructor
 vi.mock("@otplib/totp", () => {
+  // Mock verify function that can be overridden per test
+  const mockVerify = vi.fn().mockResolvedValue({ valid: true });
+
   class MockTOTP {
     generateSecret() {
       return "MOCK_TOTP_SECRET";
@@ -66,11 +69,14 @@ vi.mock("@otplib/totp", () => {
     toURI() {
       return "otpauth://totp/test?secret=MOCK";
     }
-    async verify() {
-      return { valid: true };
+    verify() {
+      return mockVerify();
     }
   }
-  return { TOTP: MockTOTP };
+  return {
+    TOTP: MockTOTP,
+    __mockVerify: mockVerify, // Export for test access
+  };
 });
 
 // Mock qrcode
@@ -121,7 +127,7 @@ vi.mock("next-intl/middleware", () => ({
 }));
 
 // Mock i18n routing
-vi.mock("@/../../i18n/routing", () => ({
+vi.mock("@i18n/routing", () => ({
   routing: {
     locales: ["en", "es"],
     defaultLocale: "en",
@@ -486,11 +492,10 @@ describe("E2E Authentication Flows", () => {
         ],
       });
 
-      // Override TOTP mock to return invalid by mocking decryptTotpSecret to throw
-      const { decryptTotpSecret } = await import("@/lib/auth/mfa-crypto");
-      vi.mocked(decryptTotpSecret).mockRejectedValueOnce(
-        new Error("TOTP verification error")
-      );
+      // Override TOTP.verify mock to return invalid result
+      const totpModule = await import("@otplib/totp");
+      const mockVerify = (totpModule as any).__mockVerify;
+      mockVerify.mockResolvedValueOnce({ valid: false });
 
       vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser as never);
       vi.mocked(prisma.mFASecret.findUnique).mockResolvedValue(null as never);
@@ -1390,13 +1395,17 @@ describe("E2E Authentication Flows", () => {
     it("should configure custom sign-in page", async () => {
       const { authOptions } =
         await import("@/app/api/auth/[...nextauth]/route");
-      expect(authOptions.pages?.signIn).toBe("/en/admin/login");
+      const { routing } = await import("@i18n/routing");
+      const expectedPath = `/${routing.defaultLocale}/admin/login`;
+      expect(authOptions.pages?.signIn).toBe(expectedPath);
     });
 
     it("should configure custom error page", async () => {
       const { authOptions } =
         await import("@/app/api/auth/[...nextauth]/route");
-      expect(authOptions.pages?.error).toBe("/en/admin/login");
+      const { routing } = await import("@i18n/routing");
+      const expectedPath = `/${routing.defaultLocale}/admin/login`;
+      expect(authOptions.pages?.error).toBe(expectedPath);
     });
 
     it("should have credentials provider configured", async () => {
@@ -1419,32 +1428,81 @@ describe("E2E Authentication Flows", () => {
   // ────────────────────────────────────────────────────────────────
 
   describe("Rate Limiting", () => {
-    it("should enforce constant-time checks (min 50ms)", async () => {
-      // The constant-time rate limit enforces minimum duration
+    it("should validate IP address formats using actual implementation", async () => {
+      // Import the actual rate limit module to test its IP validation
+      const rateLimitModule = await import("@/lib/auth/rate-limit");
+
+      // Test that checkAuthRateLimit handles valid IPv4
+      const mockRequestIPv4 = createMockRequest(
+        "https://example.com/api/auth",
+        {
+          headers: {
+            "x-real-ip": "192.168.1.1",
+          },
+        }
+      );
+
+      const result1 = await rateLimitModule.checkAuthRateLimit(mockRequestIPv4);
+      expect(result1).toHaveProperty("success");
+      expect(result1).toHaveProperty("remaining");
+      expect(result1).toHaveProperty("reset");
+      expect(typeof result1.success).toBe("boolean");
+      expect(typeof result1.remaining).toBe("number");
+      expect(typeof result1.reset).toBe("number");
+
+      // Test that checkAuthRateLimit handles valid IPv6
+      const mockRequestIPv6 = createMockRequest(
+        "https://example.com/api/auth",
+        {
+          headers: {
+            "x-real-ip": "2001:db8:85a3:0:0:8a2e:370:7334",
+          },
+        }
+      );
+
+      const result2 = await rateLimitModule.checkAuthRateLimit(mockRequestIPv6);
+      expect(result2).toHaveProperty("success");
+      expect(result2).toHaveProperty("remaining");
+      expect(result2).toHaveProperty("reset");
+
+      // Test that checkAuthRateLimit handles unknown/invalid IPs gracefully
+      const mockRequestInvalid = createMockRequest(
+        "https://example.com/api/auth",
+        {
+          headers: {
+            "x-real-ip": "999.999.999.999",
+          },
+        }
+      );
+
+      const result3 =
+        await rateLimitModule.checkAuthRateLimit(mockRequestInvalid);
+      expect(result3).toHaveProperty("success");
+      expect(result3).toHaveProperty("remaining");
+      expect(result3).toHaveProperty("reset");
+    });
+
+    it("should enforce rate limits per IP address", async () => {
+      const rateLimitModule = await import("@/lib/auth/rate-limit");
       const { AUTH_CONFIG } = await import("@/lib/auth/constants");
 
+      // Verify constants are defined
       expect(AUTH_CONFIG.MAX_LOGIN_ATTEMPTS).toBe(5);
       expect(AUTH_CONFIG.LOCKOUT_DURATION).toBe(15 * 60 * 1000); // 15 min
       expect(AUTH_CONFIG.SESSION_DURATION).toBe(24 * 60 * 60); // 24 hours
-    });
 
-    it("should validate IP address formats", async () => {
-      // Test valid IPs
-      const validIPv4 = "192.168.1.1";
-      const validIPv6 = "2001:db8:85a3:0:0:8a2e:370:7334";
+      // Test that the rate limiter decrements remaining attempts
+      const testIP = `192.168.1.${Math.floor(Math.random() * 255)}`;
+      const mockRequest = createMockRequest("https://example.com/api/auth", {
+        headers: { "x-real-ip": testIP },
+      });
 
-      const ipv4Parts = validIPv4.split(".");
-      expect(ipv4Parts).toHaveLength(4);
-      expect(ipv4Parts.every((p) => Number(p) >= 0 && Number(p) <= 255)).toBe(
-        true
+      const result = await rateLimitModule.checkAuthRateLimit(mockRequest);
+      expect(result.success).toBe(true);
+      expect(result.remaining).toBeLessThanOrEqual(
+        AUTH_CONFIG.MAX_LOGIN_ATTEMPTS
       );
-
-      expect(validIPv6.includes(":")).toBe(true);
-
-      // Test invalid IPs
-      const invalidIP = "999.999.999.999";
-      const parts = invalidIP.split(".");
-      expect(parts.some((p) => Number(p) > 255)).toBe(true);
+      expect(result.reset).toBeGreaterThan(Date.now());
     });
   });
 
@@ -1531,6 +1589,8 @@ describe("E2E Authentication Flows", () => {
         "mfa_disabled",
         "mfa_setup_initiated",
         "mfa_disable_failed",
+        "mfa_verification_failed",
+        "mfa_backup_code_used",
         "backup_code_used",
       ];
 
