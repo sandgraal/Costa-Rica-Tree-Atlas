@@ -178,7 +178,7 @@ describe("JWT Error Logger", () => {
 
     it("should reset rate limit after cooldown period", async () => {
       // Create a rate limiter with very short cooldown for testing
-      const testLimiter = new (__testing__.rateLimiter.constructor as any)(0.1); // 0.1 seconds
+      const testLimiter = new __testing__.JWTErrorRateLimiter(0.1); // 0.1 seconds
 
       expect(testLimiter.shouldLog("test")).toBe(true);
       expect(testLimiter.shouldLog("test")).toBe(false);

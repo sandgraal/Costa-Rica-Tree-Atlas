@@ -7,6 +7,14 @@
 
 import { captureException } from "@/lib/sentry";
 
+// Common JWT error patterns for classification
+const JWT_ERROR_PATTERNS = {
+  EXPIRED: ["JWTExpired", "exp claim"],
+  INVALID_SIGNATURE: ["JWSSignatureVerificationFailed", "signature"],
+  MALFORMED: ["malformed", "parse"],
+  INVALID: ["invalid", "JWTInvalid"],
+} as const;
+
 /**
  * Rate limiter for JWT error logging
  * Tracks last log time per error type to prevent spam
@@ -59,8 +67,11 @@ function extractSafeErrorInfo(error: unknown): {
     const errorName = error.name;
     const errorMessage = error.message;
 
-    // Classify error types
-    if (errorName === "JWTExpired" || errorMessage.includes("exp claim")) {
+    // Classify error types using predefined patterns
+    if (
+      errorName === JWT_ERROR_PATTERNS.EXPIRED[0] ||
+      errorMessage.includes(JWT_ERROR_PATTERNS.EXPIRED[1])
+    ) {
       return {
         type: "expired",
         code: "JWT_EXPIRED",
@@ -69,8 +80,8 @@ function extractSafeErrorInfo(error: unknown): {
     }
 
     if (
-      errorName === "JWSSignatureVerificationFailed" ||
-      errorMessage.includes("signature")
+      errorName === JWT_ERROR_PATTERNS.INVALID_SIGNATURE[0] ||
+      errorMessage.includes(JWT_ERROR_PATTERNS.INVALID_SIGNATURE[1])
     ) {
       return {
         type: "invalid_signature",
@@ -79,7 +90,10 @@ function extractSafeErrorInfo(error: unknown): {
       };
     }
 
-    if (errorMessage.includes("malformed") || errorMessage.includes("parse")) {
+    if (
+      errorMessage.includes(JWT_ERROR_PATTERNS.MALFORMED[0]) ||
+      errorMessage.includes(JWT_ERROR_PATTERNS.MALFORMED[1])
+    ) {
       return {
         type: "malformed",
         code: "MALFORMED_TOKEN",
@@ -87,7 +101,10 @@ function extractSafeErrorInfo(error: unknown): {
       };
     }
 
-    if (errorMessage.includes("invalid") || errorName === "JWTInvalid") {
+    if (
+      errorMessage.includes(JWT_ERROR_PATTERNS.INVALID[0]) ||
+      errorName === JWT_ERROR_PATTERNS.INVALID[1]
+    ) {
       return {
         type: "invalid",
         code: "INVALID_TOKEN",
@@ -170,10 +187,11 @@ export function logJWTVerificationError(error: unknown): void {
 }
 
 /**
- * Export rate limiter for testing purposes
+ * Export rate limiter and helper functions for testing purposes
  * @internal
  */
 export const __testing__ = {
   rateLimiter,
   extractSafeErrorInfo,
+  JWTErrorRateLimiter, // Export class for proper testing
 };
