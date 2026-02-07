@@ -169,9 +169,11 @@ export function AutoGlossaryLink({
         typeof element.props === "object" &&
         "children" in element.props
       ) {
-        return React.cloneElement(element as React.ReactElement<unknown>, {
-          ...element.props,
-          children: processNode((element.props as unknown).children),
+        const { children: originalChildren, ...restProps } =
+          element.props as any;
+        return React.cloneElement(element as React.ReactElement<any>, {
+          ...restProps,
+          children: processNode(originalChildren),
         });
       }
     }

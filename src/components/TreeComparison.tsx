@@ -349,23 +349,21 @@ export function TreeComparison({
                 <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10 align-top">
                   {translations.properties.tags}
                 </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border align-top"
-                  >
-                    {(tree as Tree & { tags?: string[] }).tags &&
-                    (tree as Tree & { tags?: string[] }).tags?.length > 0 ? (
-                      <TreeTags
-                        tags={(tree as Tree & { tags?: string[] }).tags!}
-                        size="sm"
-                        limit={6}
-                      />
-                    ) : (
-                      <span className="text-center block">—</span>
-                    )}
-                  </td>
-                ))}
+                {selectedTrees.map((tree) => {
+                  const tags = (tree as Tree & { tags?: string[] }).tags;
+                  return (
+                    <td
+                      key={tree.slug}
+                      className="p-3 border-b border-border align-top"
+                    >
+                      {tags && tags.length > 0 ? (
+                        <TreeTags tags={tags} size="sm" limit={6} />
+                      ) : (
+                        <span className="text-center block">—</span>
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
             </tbody>
           </table>
