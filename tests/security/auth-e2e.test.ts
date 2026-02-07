@@ -629,25 +629,43 @@ describe("E2E Authentication Flows", () => {
     });
 
     it("should return null session when NEXTAUTH_SECRET is not set", async () => {
-      // Save and clear the secret
+      // Save and clear the secret so the session module sees it as missing
       const savedSecret = process.env.NEXTAUTH_SECRET;
       delete process.env.NEXTAUTH_SECRET;
 
-      // The session module reads JWT_SECRET at module load time.
-      // Since we can't re-evaluate without resetModules (which breaks other tests),
-      // we verify the behavior by checking that an empty secret leads to null session.
-      // The token check `if (!token || !JWT_SECRET)` handles this case.
+      // Ensure the session module is re-evaluated with the missing secret
+      vi.resetModules();
+
+      const { jwtVerify } = await import("jose");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
-      const request = createMockRequest(
-        "http://localhost:3000/en/admin/dashboard"
-      );
+      // Prepare a request that includes a session cookie so the code path
+      // would normally attempt JWT verification if a secret were present.
+      const requestWithCookie = {
+        cookies: {
+          get: vi.fn(() => ({ value: "test-token" })),
+        },
+      } as unknown as NextRequest;
 
-      // Without any cookie, session should be null regardless of secret
-      const session = await getSessionFromRequest(request);
+      // Mock jwtVerify to a successful value (it should NOT be called when the
+      // secret is missing due to the early `!JWT_SECRET` check).
+      vi.mocked(jwtVerify).mockResolvedValue({
+        payload: {
+          id: "user-id",
+          email: "user@example.com",
+        },
+        protectedHeader: { alg: "HS256" },
+        key: new Uint8Array(),
+      } as never);
+
+      const session = await getSessionFromRequest(requestWithCookie);
+
+      // With a token present but no NEXTAUTH_SECRET, we should get a null session
+      // specifically because verification cannot proceed.
       expect(session).toBeNull();
+      expect(jwtVerify).not.toHaveBeenCalled();
 
-      // Restore
+      // Restore the original secret
       process.env.NEXTAUTH_SECRET = savedSecret;
     });
 
