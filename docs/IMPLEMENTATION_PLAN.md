@@ -128,9 +128,9 @@ This document is the **executable implementation roadmap** for the Costa Rica Tr
 **Shortest Pages (<550 lines - Priority Enhancement):**
 
 1. comenegro (108 lines) - ⚠️ **Critical**: Severely underdeveloped
-2. manchineel (349 lines) - Toxic species needs comprehensive safety info
+2. ~~manchineel (349 lines)~~ → ✅ Enhanced to 691 lines EN / 694 lines ES
 3. ~~yellow-oleander (426 lines)~~ → **933 lines** ✅ Enhanced with comprehensive safety content
-4. ciprecillo (445 lines)
+4. ~~ciprecillo (445 lines)~~ → **885 lines** ✅ Enhanced with conservation, taxonomy, ecology, cultivation
 5. ~~quizarra (482 lines)~~ → **771 lines** ✅ Enhanced with comprehensive cloud forest ecology content
 6. quebracho (492 lines)
 7. carboncillo (498 lines)
@@ -930,9 +930,9 @@ Each species should include:
 
 **Week 2-3: High Priority Short Pages (10 species)**
 
-- [ ] Enhance ciprecillo (445 lines) → 600+ [4h] @content
 - [x] Enhance quizarra (482 lines) → 600+ [4h] @content
-  - Target: 600+ lines → Achieved: 771 lines EN, 714 lines ES
+- [x] Enhance ciprecillo (445→885 lines EN, 915 lines ES) → 600+ ✅ @content
+- [ ] Enhance quizarra (482 lines) → 600+ [4h] @content
 - [ ] Enhance quebracho (492 lines) → 600+ [4h] @content
 - [ ] Enhance carboncillo (498 lines) → 600+ [4h] @content
 - [ ] Enhance targua (513 lines) → 600+ [4h] @content
