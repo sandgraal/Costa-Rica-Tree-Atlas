@@ -935,11 +935,11 @@ Each species should include:
 - [x] Enhance carboncillo (498→761 lines EN, 668 lines ES) → 600+ ✅ @content
 - [x] Enhance quizarra (482→771 lines EN, 714 lines ES) → 600+ ✅ @content
 - [x] Enhance quebracho (492→745 lines EN, 770 lines ES) → 600+ ✅ @content
-- [ ] Enhance targua (513 lines) → 600+ [4h] @content
+- [x] Enhance targua (513 lines) → 600+ [4h] @content
 - [x] Enhance cana-india (516→729 lines EN, 624 lines ES) → 600+ ✅ @content
 - [x] Enhance carboncillo (498→761 lines EN, 668 lines ES) → 600+ ✅ @content
 - [x] Enhance targua (513→779 lines EN, 822 lines ES) → 600+ ✅ @content
-- [ ] Enhance cana-india (516 lines) → 600+ [4h] @content
+- [x] Enhance cana-india (516 lines) → 600+ [4h] @content
 - [x] Enhance palmera-real (519→869 lines EN, 691 lines ES) → 600+ ✅ @content
 - [x] Enhance cornizuelo (524→875 lines EN, 856 lines ES) → 600+ ✅ @content
 - [ ] Enhance manu (531 lines) → 600+ [4h] @content
