@@ -171,7 +171,6 @@ export async function POST(request: NextRequest) {
 
     // Create the flag vote
     const flagId = `clf${Date.now().toString(36)}${Math.random().toString(36).substring(2, 9)}`;
-    const isUpvote: boolean | null = null;
 
     await (
       prisma as unknown as {
@@ -187,7 +186,7 @@ export async function POST(request: NextRequest) {
         session_id, ip_hash, created_at
       ) VALUES (
         ${flagId}, ${body.proposalId ?? null}, ${body.treeSlug}, ${body.imageType},
-        ${isUpvote}, ${true}, ${body.reason}, ${body.details ?? null},
+        NULL, ${true}, ${body.reason}, ${body.details ?? null},
         ${sessionId}, ${ipHash}, NOW()
       )
     `;
