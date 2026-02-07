@@ -249,7 +249,7 @@ export function ImageGallery({ children }: ImageGalleryWithLightboxProps) {
   });
 
   const currentImage = images[lightbox.currentIndex];
-  const isRemote = currentImage.src?.startsWith("http");
+  const isRemote = currentImage?.src?.startsWith("http");
 
   return (
     <>
