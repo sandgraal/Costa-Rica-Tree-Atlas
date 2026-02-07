@@ -21,6 +21,7 @@ import {
   IMAGE_TYPES,
   IMAGE_FLAG_REASONS,
 } from "@/types/image-review";
+import { validateSlug } from "@/lib/validation/slug";
 
 // Get or create a session ID for anonymous flagging
 function getSessionId(request: NextRequest): string {
@@ -288,31 +289,53 @@ export async function POST(request: NextRequest) {
       `;
 
       if (existingProposals.length === 0) {
-        const proposalId = `clp${Date.now().toString(36)}${Math.random().toString(36).substring(2, 9)}`;
-        await (
-          prisma as unknown as {
-            $executeRaw: (
-              query: TemplateStringsArray,
-              ...args: unknown[]
-            ) => Promise<number>;
+        // Validate treeSlug before constructing URLs/proposals
+        const slugValidation = validateSlug(body.treeSlug);
+        if (!slugValidation.valid) {
+          console.error(
+            `Invalid treeSlug in flag auto-proposal: ${slugValidation.error}`
+          );
+          // Skip auto-proposal creation but still return success for the flag itself
+        } else {
+          const sanitizedSlug = slugValidation.sanitized!;
+
+          // Derive current_url based on image type
+          let currentUrl: string;
+          if (body.imageType === "FEATURED") {
+            currentUrl = `/images/trees/${sanitizedSlug}.jpg`;
+          } else {
+            // For gallery images: /images/trees/gallery/{slug}-{type}.jpg
+            currentUrl = `/images/trees/gallery/${sanitizedSlug}-${body.imageType.toLowerCase()}.jpg`;
           }
-        ).$executeRaw`
-          INSERT INTO image_proposals (
-            id, tree_slug, image_type,
-            current_url, proposed_url, proposed_source,
-            source, reason, status,
-            flag_count, upvotes, downvotes,
-            created_at, updated_at
-          ) VALUES (
-            ${`/images/trees/${body.treeSlug}.jpg`}, ${""}, NULL,
-            ${`/images/trees/${body.treeSlug}.jpg`}, ${""}, ${null},
-            'USER_FLAG', ${`Multiple users flagged this image (${totalFlags} flags). Most common reason: ${body.reason}`},
-            'PENDING',
-            ${totalFlags}, ${0}, ${0},
-            NOW(), NOW()
-          )
-        `;
-        autoProposalCreated = true;
+
+          // For USER_FLAG proposals, proposed_url should be the same as current_url initially
+          // The admin will need to find a replacement image themselves
+          const proposalId = `clp${Date.now().toString(36)}${Math.random().toString(36).substring(2, 9)}`;
+          await (
+            prisma as unknown as {
+              $executeRaw: (
+                query: TemplateStringsArray,
+                ...args: unknown[]
+              ) => Promise<number>;
+            }
+          ).$executeRaw`
+            INSERT INTO image_proposals (
+              id, tree_slug, image_type,
+              current_url, proposed_url, proposed_source,
+              source, reason, status,
+              flag_count, upvotes, downvotes,
+              created_at, updated_at
+            ) VALUES (
+              ${proposalId}, ${sanitizedSlug}, ${body.imageType},
+              ${currentUrl}, ${currentUrl}, ${"user_flags"},
+              'USER_FLAG', ${`Multiple users flagged this image (${totalFlags} flags). Most common reason: ${body.reason}. Requires admin to find replacement.`},
+              'PENDING',
+              ${totalFlags}, ${0}, ${0},
+              NOW(), NOW()
+            )
+          `;
+          autoProposalCreated = true;
+        }
       }
     }
 

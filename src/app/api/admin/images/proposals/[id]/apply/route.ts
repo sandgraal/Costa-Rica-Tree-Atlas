@@ -15,11 +15,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
-import { existsSync } from "node:fs";
+import { existsSync, createWriteStream } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import https from "node:https";
 import http from "node:http";
+import { pipeline } from "node:stream/promises";
+import { Transform } from "node:stream";
+import { validateSlug } from "@/lib/validation/slug";
+import { safePath } from "@/lib/filesystem/safe-path";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -45,8 +49,20 @@ const IMAGES_DIR = path.join(ROOT_DIR, "public/images/trees");
 const CONTENT_EN_DIR = path.join(ROOT_DIR, "content/trees/en");
 const CONTENT_ES_DIR = path.join(ROOT_DIR, "content/trees/es");
 
+// Security limits
+const MAX_IMAGE_SIZE = 50 * 1024 * 1024; // 50MB max
+const ALLOWED_CONTENT_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "image/avif",
+];
+
 /**
  * Download an image from a URL to a local file path.
+ * Streams the response to disk with size limits and content-type validation.
+ * Uses temp files to avoid partial writes on errors.
  * Follows redirects (up to 5 levels).
  */
 async function downloadImage(
@@ -58,7 +74,7 @@ async function downloadImage(
     const protocol = url.startsWith("https") ? https : http;
 
     const request = protocol.get(url, { timeout: 30000 }, (response) => {
-      // Handle redirects
+      // Handle redirects (301, 302, 303, 307, 308)
       if (
         response.statusCode &&
         response.statusCode >= 300 &&
@@ -73,6 +89,7 @@ async function downloadImage(
           ? response.headers.location[0]
           : response.headers.location;
         try {
+          // Resolve relative URLs using the original URL as base
           const resolvedUrl = new URL(locationHeader, url).toString();
           downloadImage(resolvedUrl, destPath, maxRedirects - 1)
             .then(resolve)
@@ -90,21 +107,73 @@ async function downloadImage(
         return;
       }
 
-      const contentType = response.headers["content-type"] || "image/jpeg";
-      const chunks: Buffer[] = [];
+      // Validate content type (treat missing as invalid)
+      const contentType = response.headers["content-type"];
+      if (
+        !contentType ||
+        !ALLOWED_CONTENT_TYPES.some((type) => contentType.includes(type))
+      ) {
+        response.destroy(); // Drain/close the socket
+        reject(
+          new Error(
+            `Invalid content type: ${contentType || "missing"}. Expected an image type.`
+          )
+        );
+        return;
+      }
 
-      response.on("data", (chunk: Buffer) => chunks.push(chunk));
-      response.on("end", async () => {
-        try {
-          const buffer = Buffer.concat(chunks);
-          await fs.mkdir(path.dirname(destPath), { recursive: true });
-          await fs.writeFile(destPath, buffer);
-          resolve({ size: buffer.length, contentType });
-        } catch (err) {
-          reject(err);
-        }
+      // Write to a temp file first to avoid partial writes
+      const tempPath = `${destPath}.tmp`;
+      let totalSize = 0;
+
+      // Create a transform stream that enforces size limits and handles backpressure
+      const sizeCheckTransform = new Transform({
+        transform(chunk: Buffer, encoding, callback) {
+          totalSize += chunk.length;
+
+          // Enforce max size limit
+          if (totalSize > MAX_IMAGE_SIZE) {
+            callback(
+              new Error(
+                `Image too large: ${totalSize} bytes exceeds ${MAX_IMAGE_SIZE} byte limit`
+              )
+            );
+            return;
+          }
+
+          // Pass chunk through (this respects backpressure automatically)
+          callback(null, chunk);
+        },
       });
-      response.on("error", reject);
+
+      const writeStream = createWriteStream(tempPath);
+
+      // Use pipeline to handle backpressure correctly and cleanup on errors
+      pipeline(response, sizeCheckTransform, writeStream)
+        .then(async () => {
+          // Success: rename temp file to final destination
+          try {
+            await fs.rename(tempPath, destPath);
+            resolve({ size: totalSize, contentType });
+          } catch (renameErr) {
+            // Cleanup temp file if rename fails
+            try {
+              await fs.unlink(tempPath);
+            } catch {
+              // Ignore cleanup errors
+            }
+            reject(renameErr);
+          }
+        })
+        .catch(async (err) => {
+          // Error: cleanup temp file
+          try {
+            await fs.unlink(tempPath);
+          } catch {
+            // Ignore cleanup errors
+          }
+          reject(err);
+        });
     });
 
     request.on("error", reject);
@@ -205,12 +274,56 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // Determine local image path
+    // Validate tree_slug to prevent path traversal
+    const slugValidation = validateSlug(proposal.tree_slug);
+    if (!slugValidation.valid) {
+      return NextResponse.json(
+        {
+          error: "Invalid tree slug",
+          details: slugValidation.error,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate image_type (should be alphanumeric, safe for filesystem)
+    const imageTypeValidation = validateSlug(proposal.image_type);
+    if (!imageTypeValidation.valid) {
+      return NextResponse.json(
+        {
+          error: "Invalid image type",
+          details: imageTypeValidation.error,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Determine local image path using validated values
     const imageFilename = getImageFilename(
-      proposal.tree_slug,
+      slugValidation.sanitized!,
       proposal.image_type
     );
-    const localImagePath = path.join(IMAGES_DIR, imageFilename);
+
+    let localImagePath: string;
+    try {
+      // Use safePath to ensure path stays within IMAGES_DIR
+      if (imageFilename.includes("/")) {
+        // For gallery images (e.g., "gallery/slug-type.jpg")
+        const parts = imageFilename.split("/");
+        localImagePath = safePath(IMAGES_DIR, ...parts);
+      } else {
+        // For featured images (e.g., "slug.jpg")
+        localImagePath = safePath(IMAGES_DIR, imageFilename);
+      }
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: "Path validation failed",
+          details: error instanceof Error ? error.message : "Unknown error",
+        },
+        { status: 400 }
+      );
+    }
 
     // Back up existing image if it exists
     const previousState: Record<string, unknown> = {
@@ -227,6 +340,9 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     // Download proposed image
     let downloadResult: { size: number; contentType: string };
     try {
+      // Ensure destination directory exists
+      await fs.mkdir(path.dirname(localImagePath), { recursive: true });
+
       downloadResult = await downloadImage(
         proposal.proposed_url,
         localImagePath
