@@ -31,15 +31,7 @@ export async function getSessionFromRequest(
     )?.value;
     const token = prodToken || devToken;
 
-    console.log("[Session] Checking cookies:", {
-      hasDevToken: !!devToken,
-      hasProdToken: !!prodToken,
-      hasSecret: !!JWT_SECRET,
-      allCookies: Array.from(request.cookies.getAll()).map((c) => c.name),
-    });
-
     if (!token || !JWT_SECRET) {
-      console.log("[Session] No token or secret");
       return null;
     }
 
@@ -47,8 +39,6 @@ export async function getSessionFromRequest(
     const { payload } = await jwtVerify(token, JWT_SECRET_KEY, {
       algorithms: ["HS256"],
     });
-
-    console.log("[Session] JWT verified, payload:", payload);
 
     // Extract user from payload
     if (payload && typeof payload === "object" && "id" in payload) {
