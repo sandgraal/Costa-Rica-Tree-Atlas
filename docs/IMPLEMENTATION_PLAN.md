@@ -200,8 +200,8 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 4/30 complete ✅, 26 remaining)  
-**Current:** 68/128 (53%) → **Target:** 100/128 (78%)
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2+: 6/30 in progress)  
+**Current:** 70/128 (55%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
 
@@ -244,18 +244,20 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 9. **Pochote** - Living fence establishment and dry forest restoration
 10. **Corteza Amarilla** - Ornamental flowering tree optimization and landscape design
 
-#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 4/30)
+#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 6/30)
 
-**Completed (2026-02-08):**
+**Recently Completed (2026-02-08):**
 
-- [x] **Mango** - Comprehensive companion planting and seasonal care with flowering stress management
-- [x] **Aguacate (Avocado)** - Detailed care guidance emphasizing drainage criticality and Phytophthora prevention
-- [x] **Cacao** - Traditional Bribri agroforestry systems and multi-layer shade management
-- [x] **Papaya** - Fast-growing pioneer tree with sequential planting strategies
+- [x] **Mango (PR #316)** - Comprehensive companion planting and seasonal care with flowering stress management
+- [x] **Aguacate/Avocado (PR #316)** - Detailed care guidance emphasizing drainage criticality and Phytophthora prevention
+- [x] **Cacao (PR #316)** - Traditional Bribri agroforestry systems and multi-layer shade management
+- [x] **Papaya (PR #316)** - Fast-growing pioneer tree with sequential planting strategies
+- [x] **Anona** - Hand-pollination techniques and Annona family integration strategies
+- [x] **Jocote** - Living fence propagation and deciduous tree seasonal management
 
 **In Progress:**
 
-- [ ] Add care guidance to 26 additional mid-priority species
+- [ ] Add care guidance to 24 additional mid-priority species
 
 **Care Guidance Template:**
 
