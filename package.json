@@ -44,7 +44,10 @@
     "images:optimize:force": "node scripts/optimize-images.mjs --force",
     "images:optimize:hero": "node scripts/optimize-hero-image.mjs",
     "images:migrate": "node scripts/migrate-mdx-to-local-images.mjs",
-    "images:setup-all": "npm run images:download && npm run images:optimize && npm run images:migrate"
+    "images:setup-all": "npm run images:download && npm run images:optimize && npm run images:migrate",
+    "content:audit": "node scripts/audit-content-quality.mjs",
+    "content:audit:verbose": "node scripts/audit-content-quality.mjs --verbose",
+    "content:audit:json": "node scripts/audit-content-quality.mjs --json"
   },
   "browserslist": [
     "defaults and supports es6-module"

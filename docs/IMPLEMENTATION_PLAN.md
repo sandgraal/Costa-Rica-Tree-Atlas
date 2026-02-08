@@ -233,8 +233,27 @@ Recent additions completed:
 
 ### 1.4: Fix Short Pages Quality
 
-**Status:** 🟡 In Progress (37 pages under 600 lines)  
-**Target:** All pages 600+ lines
+**Status:** 🟡 In Progress (26 pages under 600 lines per Feb 2026 audit)  
+**Target:** All pages 600+ lines  
+**Tools:** ✅ Content audit script available (`npm run content:audit`)
+
+#### ✅ Audit Tool Created (2026-02-08)
+
+- [x] Created `scripts/audit-content-quality.mjs` - PR #307
+- [x] Automated identification of short pages
+- [x] Bilingual parity checking
+- [x] Missing sections detection
+- [x] Gallery image count verification
+- [x] External resources validation
+
+**Latest Audit Findings (Feb 2026):**
+
+- **26 pages under 600 lines** (19.5% of 133 species)
+- **Main issue:** Spanish translations significantly shorter than English
+- **Average page length:** 698 lines
+- **Critical issue:** Many pages missing required sections (Taxonomy, Geographic Distribution, etc.)
+
+See `audit-content-report.md` for full details.
 
 #### ✅ Completed Enhancements (15 species)
 
@@ -281,7 +300,20 @@ Recent additions completed:
 - [x] fruta-dorada (688 lines)
 - [x] cerillo (729 lines)
 - [x] caobilla (696 lines)
-- [ ] (2 more TBD based on audit)
+- [ ] yos (EN: 581 | ES: 594 lines) - needs expansion in both locales
+- [ ] madrono (EN: 583 | ES: 596 lines) - needs expansion in both locales
+
+**Additional Species from 2026 Audit Requiring Attention:**
+
+Priority should focus on **bilingual parity** - many species have good English content but very short Spanish translations:
+
+- [ ] anona (EN: 607 | ES: 260 lines) - 347 line gap
+- [ ] guanabana (EN: 594 | ES: 313 lines) - 281 line gap
+- [ ] carambola (EN: 606 | ES: 314 lines) - 292 line gap
+- [ ] pitahaya (EN: 615 | ES: 330 lines) - 285 line gap
+- [ ] icaco (EN: 625 | ES: 332 lines) - 293 line gap
+
+See `audit-content-report.md` for complete list of 26 species.
 
 **Enhancement Checklist (Per Page):**
 
