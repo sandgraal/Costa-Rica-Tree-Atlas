@@ -20,7 +20,7 @@
 
 > "As an admin, I want workflow runs to **propose** image changes so I can review them before they replace existing good images. I also want crowdsourced feedback from users to help identify the best images."
 
-## Proposed Architecture
+## Implementation Architecture
 
 ### Three-Layer System
 
@@ -419,35 +419,35 @@ async function handleFlag(treeSlug: string, reason: string, details: string) {
 }
 ```
 
-## Migration Path
+## Implementation History
 
-### Phase 1: Database Setup (Week 1)
+### Phase 1: Database Setup ✅ Complete
 
-1. Add new tables to schema
-2. Run migrations
-3. Seed initial proposals from current issues
+1. Added new tables to schema
+2. Created manual migrations
+3. Seeded initial proposals from current issues
 
-### Phase 2: Workflow Updates (Week 2)
+### Phase 2: Workflow Updates ✅ Complete
 
-1. Update weekly workflow to generate proposals (not apply)
-2. Create `propose-image-changes.mjs` script
-3. Test proposal generation
+1. Updated weekly workflow to generate proposals (not apply)
+2. Created `propose-image-changes.mjs` script
+3. Tested proposal generation
 
-### Phase 3: Admin Dashboard (Week 3-4)
+### Phase 3: Admin Dashboard ✅ Complete
 
-1. Create proposals review page
-2. Implement side-by-side comparison UI
-3. Add approve/deny/archive actions
-4. Connect to database
+1. Created proposals review page
+2. Implemented side-by-side comparison UI
+3. Added approve/deny/archive actions
+4. Connected to database
 
-### Phase 4: Public Voting (Week 5)
+### Phase 4: Public Voting ✅ Complete
 
-1. Create public voting page
-2. Implement anonymous voting
-3. Add flag functionality
-4. Create leaderboard
+1. Created public voting page
+2. Implemented anonymous voting
+3. Added flag functionality
+4. Created leaderboard
 
-### Phase 5: Integration (Week 6)
+### Phase 5: Integration ✅ Complete
 
 1. Connect votes to admin dashboard
 2. Add automated proposal creation from flags
