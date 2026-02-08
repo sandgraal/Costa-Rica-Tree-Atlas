@@ -259,11 +259,11 @@ Recent additions completed:
 **Priority: 550-600 lines (8 species)**
 
 - [x] aguacatillo (549→749 lines)
-- [ ] pejibaye (553 lines)
+- [x] pejibaye (826 lines)
 - [x] papaturro (557→687 lines)
 - [x] nazareno (562→707 lines)
 - [x] cativo (569→690 lines)
-- [ ] capulin (5XX lines)
+- [x] capulin (571→602 lines)
 - [x] olla-de-mono (574→672 lines)
 - [x] cas (578→671 lines)
 
@@ -271,12 +271,12 @@ Recent additions completed:
 
 - [x] lechoso (699 lines)
 - [x] laurel (677 lines)
-- [ ] jicaro (596 lines)
-- [ ] manzana-de-agua (592 lines)
+- [x] jicaro (596→617 lines)
+- [x] manzana-de-agua (592→607 lines)
 - [x] papaya (656 lines)
 - [x] mora (609 lines)
 - [x] nispero (648 lines)
-- [ ] cana-agria (582 lines)
+- [x] cana-agria (582→629 lines)
 - [x] amarillon (682 lines)
 - [x] fruta-dorada (688 lines)
 - [x] cerillo (729 lines)
