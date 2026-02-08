@@ -246,7 +246,7 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 
 #### Weeks 2-4: Additional 30 Species (🚧 In Progress: 11/30)
 
-**Completed (2026-02-08):**
+**Recently Completed (2026-02-08):**
 
 - [x] **Mango (PR #316 ✅ merged)** - Comprehensive companion planting and seasonal care with flowering stress management
 - [x] **Aguacate (Avocado) (PR #316 ✅ merged)** - Detailed care guidance emphasizing drainage criticality and Phytophthora prevention
