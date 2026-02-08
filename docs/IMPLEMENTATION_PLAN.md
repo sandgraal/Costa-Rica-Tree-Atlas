@@ -261,11 +261,11 @@ Recent additions completed:
 - [x] aguacatillo (549→749 lines)
 - [ ] pejibaye (553 lines)
 - [x] papaturro (557→687 lines)
-- [ ] nazareno (562 lines)
-- [ ] cativo (5XX lines)
+- [x] nazareno (562→707 lines)
+- [x] cativo (569→690 lines)
 - [ ] capulin (5XX lines)
-- [ ] olla-de-mono (5XX lines)
-- [ ] cas (5XX lines)
+- [x] olla-de-mono (574→672 lines)
+- [x] cas (578→671 lines)
 
 **Standard: 600+ lines (14 species)**
 
