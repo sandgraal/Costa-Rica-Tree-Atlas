@@ -300,7 +300,7 @@ See `audit-content-report.md` for full details.
 - [x] fruta-dorada (688 lines)
 - [x] cerillo (729 lines)
 - [x] caobilla (696 lines)
-- [ ] yos (EN: 581 | ES: 594 lines) - needs expansion in both locales
+- [x] yos (581→750 lines)
 - [ ] madrono (EN: 583 | ES: 596 lines) - needs expansion in both locales
 
 **Additional Species from 2026 Audit Requiring Attention:**
