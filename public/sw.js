@@ -85,7 +85,7 @@ self.addEventListener("fetch", (event) => {
           return caches.match(request).then((cached) => {
             if (cached) return cached;
             // Try locale-specific fallbacks instead of "/"
-            const pathname = url.pathname;
+            const { pathname } = url;
             const localeMatch = pathname.match(/^\/(en|es)/);
             const locale = localeMatch ? localeMatch[1] : "en";
             return caches.match(`/${locale}`).then(

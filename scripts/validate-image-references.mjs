@@ -145,7 +145,7 @@ async function validateTree(slug, locale) {
       return;
     }
 
-    const featuredImage = frontmatter.featuredImage;
+    const { featuredImage } = frontmatter;
 
     if (!featuredImage) {
       results.missingFeaturedImage.push({ slug, locale });
