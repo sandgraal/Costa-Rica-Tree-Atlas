@@ -200,10 +200,10 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 6/10 complete)  
-**Current:** 60/128 (47%) → **Target:** 100/128 (78%)
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅)  
+**Current:** 64/128 (50%) → **Target:** 100/128 (78%)
 
-#### Week 1: Common Planted Trees (10 species)
+#### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
 
 - [x] Guanábana (EN & ES complete)
 - [x] Carambola (EN & ES complete)
@@ -211,10 +211,10 @@ Recent additions completed:
 - [x] Mora (EN & ES complete)
 - [x] Rambután (EN complete, ES pending)
 - [x] Tamarindo (EN complete, ES pending)
-- [ ] Laurel
-- [ ] Cedro Amargo
-- [ ] Pochote
-- [ ] Corteza Amarilla
+- [x] Laurel (EN & ES complete - 2026-02-08)
+- [x] Cedro Amargo (EN & ES complete - 2026-02-08)
+- [x] Pochote (EN & ES complete - 2026-02-08)
+- [x] Corteza Amarilla (EN & ES complete - 2026-02-08)
 
 **Completed Enhancements (2026-02-08):**
 
@@ -228,6 +228,21 @@ Each completed species now includes:
 - **NEW: Year-Round Care Calendars** tailored to Costa Rican climate zones
 - Harvest guidelines with timing, techniques, and quality indicators
 - Species-specific considerations (elevation, climate zones, etc.)
+
+**Week 1 Completed Species (2026-02-08):**
+
+All 10 Week 1 species now have comprehensive advanced care guidance:
+
+1. **Guanábana** - Fruit tree care with companion planting and seasonal calendar
+2. **Carambola** - Tropical fruit production optimization
+3. **Cas** - Native fruit cultivation strategies
+4. **Mora** - Berry production and training systems
+5. **Rambután** - Exotic fruit tree management
+6. **Tamarindo** - Drought-tolerant fruit tree care
+7. **Laurel** - Timber production and agroforestry systems (reforestation focus)
+8. **Cedro Amargo** - Specialized shoot borer management and mixed plantations
+9. **Pochote** - Living fence establishment and dry forest restoration
+10. **Corteza Amarilla** - Ornamental flowering tree optimization and landscape design
 
 #### Weeks 2-4: Additional 30 Species
 
