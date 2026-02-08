@@ -1,6 +1,6 @@
 ## Image Quality Audit Report
 
-**Run Date:** 2026-02-01 04:00:06 UTC
+**Run Date:** 2026-02-08 04:01:57 UTC
 
 ### Featured Images
 
@@ -183,7 +183,7 @@ sips (macOS): ❌
 
 ⚠️ aceituno: limited diversity (2 categories)
 ⚠️ aguacate: limited diversity (2 categories)
-⚠️ aguacatillo: limited diversity (2 categories)
+✅ aguacatillo: 5 images OK
 ✅ ajo: 5 images OK
 ✅ alcornoque: 5 images OK
 ⚠️ almendro: limited diversity (2 categories)
@@ -196,10 +196,10 @@ sips (macOS): ❌
 ✅ cacao: 5 images OK
 ⚠️ cachimbo: limited diversity (2 categories)
 ✅ caimito: 5 images OK
-❌ camibar: 3/3 broken
+⚠️ camibar: limited diversity (2 categories)
 ⚠️ cana-agria: limited diversity (2 categories)
 ✅ cana-fistula: 5 images OK
-⚠️ cana-india: limited diversity (2 categories)
+✅ cana-india: 5 images OK
 ⚠️ caoba: limited diversity (2 categories)
 ⚠️ caobilla: limited diversity (2 categories)
 ✅ capulin: 5 images OK
@@ -210,31 +210,31 @@ sips (macOS): ❌
 ✅ cativo: 5 images OK
 ⚠️ cedro-amargo: limited diversity (2 categories)
 ⚠️ cedro-maria: limited diversity (2 categories)
-❌ cedro-real: 1/4 broken
+⚠️ cedro-real: limited diversity (2 categories)
 ✅ ceiba: 5 images OK
 ✅ cenizaro: 5 images OK
 ✅ cerillo: 5 images OK
 ✅ chancho-blanco: 5 images OK
-⚠️ ciprecillo: limited diversity (2 categories)
+✅ ciprecillo: 5 images OK
 ⚠️ cipres: limited diversity (2 categories)
 ⚠️ coco: limited diversity (2 categories)
 ❌ cocobolo: 3/5 broken
 📭 comenegro: no gallery section
 ✅ copey: 5 images OK
-📭 cornizuelo: no gallery section
+❌ cornizuelo: 3/4 broken
 ✅ cortez-negro: 5 images OK
 ⚠️ corteza-amarilla: limited diversity (2 categories)
 ✅ coyol: 5 images OK
 ⚠️ cristobal: limited diversity (2 categories)
 ⚠️ espavel: limited diversity (2 categories)
-❌ flamboyan: 3/4 broken
+✅ flamboyan: 5 images OK
 ⚠️ fruta-de-pan: limited diversity (2 categories)
 ✅ fruta-dorada: 5 images OK
 ✅ gallinazo: 5 images OK
 ✅ gavilan: 5 images OK
 ✅ guaba: 5 images OK
 ⚠️ guachipelin: limited diversity (2 categories)
-❌ guacimo-colorado: 4/4 broken
+⚠️ guacimo-colorado: limited diversity (2 categories)
 ✅ guacimo: 5 images OK
 ⚠️ guanabana: limited diversity (2 categories)
 ⚠️ guanacaste: limited diversity (2 categories)
@@ -264,14 +264,14 @@ sips (macOS): ❌
 ⚠️ magnolia: limited diversity (2 categories)
 ✅ mamon-chino: 5 images OK
 ⚠️ mamon: limited diversity (2 categories)
-📭 manchineel: no gallery section
+❌ manchineel: 3/5 broken
 ⚠️ mangle-blanco: limited diversity (2 categories)
 ✅ mangle-botoncillo: 5 images OK
 ⚠️ mangle-negro: limited diversity (2 categories)
 ⚠️ mangle-pinuela: limited diversity (2 categories)
 ✅ mangle-rojo: 5 images OK
 ⚠️ mango: limited diversity (2 categories)
-⚠️ manu: limited diversity (2 categories)
+✅ manu: 5 images OK
 ⚠️ manzana-de-agua: limited diversity (2 categories)
 ✅ maranon: 5 images OK
 ✅ mastate: 5 images OK
@@ -296,9 +296,9 @@ sips (macOS): ❌
 ⚠️ pochote: limited diversity (2 categories)
 ⚠️ pomarrosa: limited diversity (2 categories)
 ⚠️ poro: limited diversity (2 categories)
-📭 quebracho: no gallery section
-📭 quizarra: no gallery section
-❌ rambutan: 4/4 broken
+❌ quebracho: 1/1 broken
+❌ quizarra: 1/1 broken
+✅ rambutan: 5 images OK
 ✅ roble-de-sabana: 5 images OK
 ✅ roble-encino: 5 images OK
 ⚠️ ron-ron: limited diversity (2 categories)
@@ -307,10 +307,10 @@ sips (macOS): ❌
 ✅ sotacaballo: 5 images OK
 ✅ sura: 5 images OK
 ⚠️ tamarindo: limited diversity (2 categories)
-⚠️ targua: limited diversity (2 categories)
+✅ targua: 5 images OK
 ⚠️ teca: limited diversity (2 categories)
 ✅ tempisque: 5 images OK
-📭 yellow-oleander: no gallery section
+❌ yellow-oleander: 5/5 broken
 ⚠️ yos: limited diversity (2 categories)
 ⚠️ zapatero: limited diversity (2 categories)
 ⚠️ zapote: limited diversity (2 categories)
@@ -318,13 +318,13 @@ sips (macOS): ❌
 ==================================================
 📊 GALLERY AUDIT SUMMARY
 ==================================================
-✅ Valid galleries: 51
+✅ Valid galleries: 58
 ⚠️ Low quality: 0
-⚠️ Low diversity: 65
+⚠️ Low diversity: 63
 ❌ Broken images: 6
-📭 No gallery: 11
+📭 No gallery: 6
 
-💡 Run 'npm run images:refresh-gallery' to fix 71 galleries
+💡 Run 'npm run images:refresh-gallery' to fix 69 galleries
 
 ### Quality Metrics
 
@@ -383,106 +383,107 @@ sips (macOS): ❌
 ⏭️ cedro-real: no better photo found
 ⏭️ ceiba: no better photo found
 ⏭️ cenizaro: no better photo found
-❌ cerillo: Taxon not found on iNaturalist
-⏭️ chancho-blanco: no better photo found
+⏭️ cerillo: no better photo found
+❌ chancho-blanco: Taxon not found on iNaturalist
 ⏭️ ciprecillo: no better photo found
-❌ cipres: Taxon not found on iNaturalist
-❌ coco: Taxon not found on iNaturalist
-⏭️ cocobolo: no better photo found
-⏭️ comenegro: no better photo found
-⏭️ copey: no better photo found
+⏭️ cipres: no better photo found
+⏭️ coco: no better photo found
+❌ cocobolo: Taxon not found on iNaturalist
+❌ comenegro: Taxon not found on iNaturalist
+❌ copey: Taxon not found on iNaturalist
 ❌ cornizuelo: Taxon not found on iNaturalist
 ❌ cortez-negro: Taxon not found on iNaturalist
 ⏭️ corteza-amarilla: no better photo found
-❌ coyol: Taxon not found on iNaturalist
-❌ cristobal: Taxon not found on iNaturalist
-⏭️ espavel: no better photo found
-⏭️ flamboyan: no better photo found
-⏭️ fruta-de-pan: no better photo found
+⏭️ coyol: no better photo found
+⏭️ cristobal: no better photo found
+❌ espavel: Taxon not found on iNaturalist
+❌ flamboyan: Taxon not found on iNaturalist
+❌ fruta-de-pan: Taxon not found on iNaturalist
 ❌ fruta-dorada: Taxon not found on iNaturalist
 ❌ gallinazo: Taxon not found on iNaturalist
 ⏭️ gavilan: no better photo found
-⏭️ guaba: no better photo found
+❌ guaba: Taxon not found on iNaturalist
 ❌ guachipelin: Taxon not found on iNaturalist
-⏭️ guacimo-colorado: no better photo found
+❌ guacimo-colorado: Taxon not found on iNaturalist
 ❌ guacimo: Taxon not found on iNaturalist
 ❌ guanabana: Taxon not found on iNaturalist
 ⏭️ guanacaste: no better photo found
 ⏭️ guapinol: no better photo found
-❌ guarumo: Taxon not found on iNaturalist
+⏭️ guarumo: no better photo found
 ⏭️ guayabo: no better photo found
 ❌ guayacan-real: Taxon not found on iNaturalist
 ⏭️ higueron: no better photo found
 ⏭️ hoja-santa: no better photo found
 ❌ icaco: Taxon not found on iNaturalist
-❌ indio-desnudo: Taxon not found on iNaturalist
+⏭️ indio-desnudo: no better photo found
 ⏭️ ira-rosa: no better photo found
 ⏭️ jaboncillo: no better photo found
 ⏭️ jacaranda: no better photo found
-❌ javillo: Taxon not found on iNaturalist
-❌ jicaro: Taxon not found on iNaturalist
-⏭️ jobo: no better photo found
-⏭️ jocote: no better photo found
+⏭️ javillo: no better photo found
+⏭️ jicaro: no better photo found
+❌ jobo: Taxon not found on iNaturalist
+❌ jocote: Taxon not found on iNaturalist
 ❌ laurel-negro: Taxon not found on iNaturalist
 ❌ laurel: Taxon not found on iNaturalist
-⏭️ lechoso-montanero: no better photo found
+❌ lechoso-montanero: Taxon not found on iNaturalist
 ⏭️ lechoso: no better photo found
-❌ llama-del-bosque: Taxon not found on iNaturalist
-❌ lorito: Taxon not found on iNaturalist
-⏭️ madero-negro: no better photo found
-⏭️ madrono: no better photo found
-❌ magnolia: Taxon not found on iNaturalist
-⏭️ mamon-chino: no better photo found
-❌ mamon: Taxon not found on iNaturalist
+⏭️ llama-del-bosque: no better photo found
+⏭️ lorito: no better photo found
+❌ madero-negro: Taxon not found on iNaturalist
+❌ madrono: Taxon not found on iNaturalist
+⏭️ magnolia: no better photo found
+❌ mamon-chino: Taxon not found on iNaturalist
+⏭️ mamon: no better photo found
+📗 manchineel: refreshing featured image (10 votes vs 1)
 ❌ manchineel: Taxon not found on iNaturalist
-⏭️ mangle-blanco: no better photo found
-❌ mangle-botoncillo: Taxon not found on iNaturalist
+❌ mangle-blanco: Taxon not found on iNaturalist
+⏭️ mangle-botoncillo: no better photo found
 ⏭️ mangle-negro: no better photo found
-❌ mangle-pinuela: Taxon not found on iNaturalist
-⏭️ mangle-rojo: no better photo found
+⏭️ mangle-pinuela: no better photo found
+❌ mangle-rojo: Taxon not found on iNaturalist
 ⏭️ mango: no better photo found
-❌ manu: Taxon not found on iNaturalist
+⏭️ manu: no better photo found
 ⏭️ manzana-de-agua: no better photo found
-⏭️ maranon: no better photo found
+❌ maranon: Taxon not found on iNaturalist
 ❌ mastate: Taxon not found on iNaturalist
 ❌ matapalo: Taxon not found on iNaturalist
 ⏭️ mayo: no better photo found
 ❌ melina: Taxon not found on iNaturalist
 ⏭️ mora: no better photo found
-❌ muneco: Taxon not found on iNaturalist
+⏭️ muneco: no better photo found
 ❌ nance: Taxon not found on iNaturalist
 ⏭️ nazareno: no better photo found
-⏭️ nispero: no better photo found
-❌ ojoche: Taxon not found on iNaturalist
-❌ olla-de-mono: Taxon not found on iNaturalist
+❌ nispero: Taxon not found on iNaturalist
+⏭️ ojoche: no better photo found
+⏭️ olla-de-mono: no better photo found
 ⏭️ orey: no better photo found
 ⏭️ palmera-real: no better photo found
 ⏭️ panama: no better photo found
 ❌ papaturro: Taxon not found on iNaturalist
-⏭️ papaya: no better photo found
+❌ papaya: Taxon not found on iNaturalist
 ❌ pejibaye: Taxon not found on iNaturalist
 ❌ pilon: Taxon not found on iNaturalist
 ⏭️ pitahaya: no better photo found
-❌ pochote: Taxon not found on iNaturalist
+⏭️ pochote: no better photo found
 ⏭️ pomarrosa: no better photo found
 ⏭️ poro: no better photo found
-❌ quebracho: Taxon not found on iNaturalist
-❌ quizarra: Taxon not found on iNaturalist
-⏭️ rambutan: no better photo found
-⏭️ roble-de-sabana: no better photo found
+⏭️ quebracho: no better photo found
+⏭️ quizarra: no better photo found
+❌ rambutan: Taxon not found on iNaturalist
+❌ roble-de-sabana: Taxon not found on iNaturalist
 ⏭️ roble-encino: no better photo found
 ❌ ron-ron: Taxon not found on iNaturalist
 ⏭️ sangrillo: no better photo found
 ❌ sigua: Taxon not found on iNaturalist
-❌ sotacaballo: Taxon not found on iNaturalist
-⏭️ sura: no better photo found
-❌ tamarindo: Taxon not found on iNaturalist
+⏭️ sotacaballo: no better photo found
+❌ sura: Taxon not found on iNaturalist
+⏭️ tamarindo: no better photo found
 ⏭️ targua: no better photo found
-⏭️ teca: no better photo found
-❌ tempisque: Taxon not found on iNaturalist
-❌ yellow-oleander: Taxon not found on iNaturalist
-⏭️ yos: no better photo found
-⏭️ zapatero: no better photo found
+❌ teca: Taxon not found on iNaturalist
+⏭️ tempisque: no better photo found
+⏭️ yellow-oleander: no better photo found
+❌ yos: Taxon not found on iNaturalist
+❌ zapatero: Taxon not found on iNaturalist
 ❌ zapote: Taxon not found on iNaturalist
 
 ==================================================
@@ -494,53 +495,53 @@ sips (macOS): ❌
 
 Failed trees:
 
-- cerillo: Taxon not found on iNaturalist
-- cipres: Taxon not found on iNaturalist
-- coco: Taxon not found on iNaturalist
+- chancho-blanco: Taxon not found on iNaturalist
+- cocobolo: Taxon not found on iNaturalist
+- comenegro: Taxon not found on iNaturalist
+- copey: Taxon not found on iNaturalist
 - cornizuelo: Taxon not found on iNaturalist
 - cortez-negro: Taxon not found on iNaturalist
-- coyol: Taxon not found on iNaturalist
-- cristobal: Taxon not found on iNaturalist
+- espavel: Taxon not found on iNaturalist
+- flamboyan: Taxon not found on iNaturalist
+- fruta-de-pan: Taxon not found on iNaturalist
 - fruta-dorada: Taxon not found on iNaturalist
 - gallinazo: Taxon not found on iNaturalist
+- guaba: Taxon not found on iNaturalist
 - guachipelin: Taxon not found on iNaturalist
+- guacimo-colorado: Taxon not found on iNaturalist
 - guacimo: Taxon not found on iNaturalist
 - guanabana: Taxon not found on iNaturalist
-- guarumo: Taxon not found on iNaturalist
 - guayacan-real: Taxon not found on iNaturalist
 - icaco: Taxon not found on iNaturalist
-- indio-desnudo: Taxon not found on iNaturalist
-- javillo: Taxon not found on iNaturalist
-- jicaro: Taxon not found on iNaturalist
+- jobo: Taxon not found on iNaturalist
+- jocote: Taxon not found on iNaturalist
 - laurel-negro: Taxon not found on iNaturalist
 - laurel: Taxon not found on iNaturalist
-- llama-del-bosque: Taxon not found on iNaturalist
-- lorito: Taxon not found on iNaturalist
-- magnolia: Taxon not found on iNaturalist
-- mamon: Taxon not found on iNaturalist
+- lechoso-montanero: Taxon not found on iNaturalist
+- madero-negro: Taxon not found on iNaturalist
+- madrono: Taxon not found on iNaturalist
+- mamon-chino: Taxon not found on iNaturalist
 - manchineel: Taxon not found on iNaturalist
-- mangle-botoncillo: Taxon not found on iNaturalist
-- mangle-pinuela: Taxon not found on iNaturalist
-- manu: Taxon not found on iNaturalist
+- mangle-blanco: Taxon not found on iNaturalist
+- mangle-rojo: Taxon not found on iNaturalist
+- maranon: Taxon not found on iNaturalist
 - mastate: Taxon not found on iNaturalist
 - matapalo: Taxon not found on iNaturalist
 - melina: Taxon not found on iNaturalist
-- muneco: Taxon not found on iNaturalist
 - nance: Taxon not found on iNaturalist
-- ojoche: Taxon not found on iNaturalist
-- olla-de-mono: Taxon not found on iNaturalist
+- nispero: Taxon not found on iNaturalist
 - papaturro: Taxon not found on iNaturalist
+- papaya: Taxon not found on iNaturalist
 - pejibaye: Taxon not found on iNaturalist
 - pilon: Taxon not found on iNaturalist
-- pochote: Taxon not found on iNaturalist
-- quebracho: Taxon not found on iNaturalist
-- quizarra: Taxon not found on iNaturalist
+- rambutan: Taxon not found on iNaturalist
+- roble-de-sabana: Taxon not found on iNaturalist
 - ron-ron: Taxon not found on iNaturalist
 - sigua: Taxon not found on iNaturalist
-- sotacaballo: Taxon not found on iNaturalist
-- tamarindo: Taxon not found on iNaturalist
-- tempisque: Taxon not found on iNaturalist
-- yellow-oleander: Taxon not found on iNaturalist
+- sura: Taxon not found on iNaturalist
+- teca: Taxon not found on iNaturalist
+- yos: Taxon not found on iNaturalist
+- zapatero: Taxon not found on iNaturalist
 - zapote: Taxon not found on iNaturalist
 
 #### Refreshed Gallery Images
@@ -561,8 +562,7 @@ sips (macOS): ❌
 ✅ aceituno: updated with 5 high-quality photos
 📗 aguacate: refreshing gallery (Persea americana)
 ✅ aguacate: updated with 5 high-quality photos
-📗 aguacatillo: refreshing gallery (Persea caerulea)
-✅ aguacatillo: updated with 5 high-quality photos
+⏭️ aguacatillo: gallery already valid
 ⏭️ ajo: gallery already valid
 ⏭️ alcornoque: gallery already valid
 📗 almendro: refreshing gallery (Dipteryx panamensis)
@@ -585,8 +585,7 @@ sips (macOS): ❌
 📗 cana-agria: refreshing gallery (Costus spicatus)
 ✅ cana-agria: updated with 5 high-quality photos
 ⏭️ cana-fistula: gallery already valid
-📗 cana-india: refreshing gallery (Dracaena fragrans)
-✅ cana-india: updated with 5 high-quality photos
+⏭️ cana-india: gallery already valid
 📗 caoba: refreshing gallery (Swietenia macrophylla)
 ✅ caoba: updated with 5 high-quality photos
 📗 caobilla: refreshing gallery (Carapa guianensis)
@@ -609,8 +608,7 @@ sips (macOS): ❌
 ⏭️ cenizaro: gallery already valid
 ⏭️ cerillo: gallery already valid
 ⏭️ chancho-blanco: gallery already valid
-📗 ciprecillo: refreshing gallery (Podocarpus costaricensis)
-✅ ciprecillo: updated with 5 high-quality photos
+⏭️ ciprecillo: gallery already valid
 📗 cipres: refreshing gallery (Cupressus lusitanica)
 ✅ cipres: updated with 5 high-quality photos
 📗 coco: refreshing gallery (Cocos nucifera)
@@ -619,7 +617,8 @@ sips (macOS): ❌
 ✅ cocobolo: updated with 5 high-quality photos
 ⏭️ comenegro: no gallery section
 ⏭️ copey: gallery already valid
-⏭️ cornizuelo: no gallery section
+📗 cornizuelo: refreshing gallery (Vachellia collinsii)
+✅ cornizuelo: updated with 5 high-quality photos
 ⏭️ cortez-negro: gallery already valid
 📗 corteza-amarilla: refreshing gallery (Handroanthus ochraceus)
 ✅ corteza-amarilla: updated with 5 high-quality photos
@@ -628,8 +627,7 @@ sips (macOS): ❌
 ✅ cristobal: updated with 5 high-quality photos
 📗 espavel: refreshing gallery (Anacardium excelsum)
 ✅ espavel: updated with 5 high-quality photos
-📗 flamboyan: refreshing gallery (Delonix regia)
-✅ flamboyan: updated with 5 high-quality photos
+⏭️ flamboyan: gallery already valid
 📗 fruta-de-pan: refreshing gallery (Artocarpus altilis)
 ✅ fruta-de-pan: updated with 5 high-quality photos
 ⏭️ fruta-dorada: gallery already valid
@@ -684,7 +682,8 @@ sips (macOS): ❌
 ⏭️ mamon-chino: gallery already valid
 📗 mamon: refreshing gallery (Melicoccus bijugatus)
 ✅ mamon: updated with 5 high-quality photos
-⏭️ manchineel: no gallery section
+📗 manchineel: refreshing gallery (Hippomane mancinella)
+✅ manchineel: updated with 5 high-quality photos
 📗 mangle-blanco: refreshing gallery (Laguncularia racemosa)
 ✅ mangle-blanco: updated with 5 high-quality photos
 ⏭️ mangle-botoncillo: gallery already valid
@@ -695,8 +694,7 @@ sips (macOS): ❌
 ⏭️ mangle-rojo: gallery already valid
 📗 mango: refreshing gallery (Mangifera indica)
 ✅ mango: updated with 5 high-quality photos
-📗 manu: refreshing gallery (Minquartia guianensis)
-✅ manu: updated with 5 high-quality photos
+⏭️ manu: gallery already valid
 📗 manzana-de-agua: refreshing gallery (Syzygium malaccense)
 ✅ manzana-de-agua: updated with 5 high-quality photos
 ⏭️ maranon: gallery already valid
@@ -734,10 +732,11 @@ sips (macOS): ❌
 ✅ pomarrosa: updated with 5 high-quality photos
 📗 poro: refreshing gallery (Erythrina poeppigiana)
 ✅ poro: updated with 5 high-quality photos
-⏭️ quebracho: no gallery section
-⏭️ quizarra: no gallery section
-📗 rambutan: refreshing gallery (Nephelium lappaceum)
-✅ rambutan: updated with 5 high-quality photos
+📗 quebracho: refreshing gallery (Lysiloma divaricatum)
+✅ quebracho: updated with 5 high-quality photos
+📗 quizarra: refreshing gallery (Nectandra salicina)
+✅ quizarra: updated with 3 high-quality photos
+⏭️ rambutan: gallery already valid
 ⏭️ roble-de-sabana: gallery already valid
 ⏭️ roble-encino: gallery already valid
 📗 ron-ron: refreshing gallery (Astronium graveolens)
@@ -749,12 +748,12 @@ sips (macOS): ❌
 ⏭️ sura: gallery already valid
 📗 tamarindo: refreshing gallery (Tamarindus indica)
 ✅ tamarindo: updated with 5 high-quality photos
-📗 targua: refreshing gallery (Croton draco)
-✅ targua: updated with 5 high-quality photos
+⏭️ targua: gallery already valid
 📗 teca: refreshing gallery (Tectona grandis)
 ✅ teca: updated with 5 high-quality photos
 ⏭️ tempisque: gallery already valid
-⏭️ yellow-oleander: no gallery section
+📗 yellow-oleander: refreshing gallery (Thevetia peruviana)
+✅ yellow-oleander: updated with 5 high-quality photos
 📗 yos: refreshing gallery (Sapium glandulosum)
 ✅ yos: updated with 5 high-quality photos
 📗 zapatero: refreshing gallery (Hieronyma oblonga)
@@ -765,8 +764,8 @@ sips (macOS): ❌
 ==================================================
 📊 GALLERY REFRESH SUMMARY
 ==================================================
-✅ Updated: 71
-⏭️ Skipped: 62
+✅ Updated: 69
+⏭️ Skipped: 64
 ❌ Failed: 0
 
 #### Image Optimization
@@ -2773,6 +2772,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/coco.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cocobolo.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/copey.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cornizuelo.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cortez-negro.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/corteza-amarilla.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/coyol.mdx
@@ -2813,6 +2813,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/magnolia.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mamon-chino.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mamon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/manchineel.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-blanco.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-botoncillo.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-negro.mdx
@@ -2843,6 +2844,9 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pochote.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pomarrosa.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/poro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quebracho.mdx
+No replacement photo left for /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quizarra.mdx. Keeping https://inaturalist-open-data.s3.amazonaws.com/photos/44210839/medium.jpg.
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quizarra.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/rambutan.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/roble-de-sabana.mdx
 No iNaturalist taxon for Quercus spp. (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/roble-encino.mdx).
@@ -2854,6 +2858,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/targua.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/teca.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/tempisque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/yellow-oleander.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/yos.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/zapatero.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/zapote.mdx
@@ -2896,6 +2901,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/coco.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cocobolo.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/copey.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cornizuelo.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cortez-negro.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/corteza-amarilla.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/coyol.mdx
@@ -2936,6 +2942,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/magnolia.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mamon-chino.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mamon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/manchineel.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-blanco.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-botoncillo.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-negro.mdx
@@ -2966,6 +2973,9 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pochote.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pomarrosa.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/poro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quebracho.mdx
+No replacement photo left for /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quizarra.mdx. Keeping https://inaturalist-open-data.s3.amazonaws.com/photos/44210839/medium.jpg.
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quizarra.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/rambutan.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/roble-de-sabana.mdx
 No iNaturalist taxon for Quercus spp. (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/roble-encino.mdx).
@@ -2977,6 +2987,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/targua.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/teca.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/tempisque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/yellow-oleander.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/yos.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/zapatero.mdx
 Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/zapote.mdx
@@ -2984,7 +2995,7 @@ Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/tr
 Processing complete:
 
 - Files processed: 266
-- Files updated: 240
+- Files updated: 250
 - Issues found: 6
 - Issues remaining: 6
   Remaining image issues: 6
@@ -2992,38 +3003,40 @@ Processing complete:
 ### Files Modified
 
 ```
+ M audit-report.md
  M content/trees/en/aceituno.mdx
  M content/trees/en/aguacate.mdx
  M content/trees/en/aguacatillo.mdx
  M content/trees/en/ajo.mdx
+ M content/trees/en/alcornoque.mdx
  M content/trees/en/almendro.mdx
+ M content/trees/en/amarillon.mdx
  M content/trees/en/anona.mdx
  M content/trees/en/arrayan.mdx
- M content/trees/en/balsa.mdx
- M content/trees/en/botarrama.mdx
- M content/trees/en/camibar.mdx
  M content/trees/en/cana-fistula.mdx
  M content/trees/en/cana-india.mdx
  M content/trees/en/caoba.mdx
- M content/trees/en/caobilla.mdx
  M content/trees/en/capulin.mdx
- M content/trees/en/carambola.mdx
  M content/trees/en/carao.mdx
+ M content/trees/en/carboncillo.mdx
  M content/trees/en/cas.mdx
  M content/trees/en/cativo.mdx
  M content/trees/en/cedro-amargo.mdx
  M content/trees/en/cedro-maria.mdx
- M content/trees/en/cedro-real.mdx
- M content/trees/en/chancho-blanco.mdx
+ M content/trees/en/cerillo.mdx
  M content/trees/en/cipres.mdx
  M content/trees/en/coco.mdx
  M content/trees/en/cocobolo.mdx
+ M content/trees/en/copey.mdx
+ M content/trees/en/cornizuelo.mdx
+ M content/trees/en/cortez-negro.mdx
  M content/trees/en/corteza-amarilla.mdx
- M content/trees/en/cristobal.mdx
  M content/trees/en/espavel.mdx
  M content/trees/en/flamboyan.mdx
  M content/trees/en/fruta-de-pan.mdx
  M content/trees/en/fruta-dorada.mdx
+ M content/trees/en/gavilan.mdx
+ M content/trees/en/guaba.mdx
  M content/trees/en/guachipelin.mdx
  M content/trees/en/guacimo-colorado.mdx
  M content/trees/en/guacimo.mdx
@@ -3033,45 +3046,40 @@ Processing complete:
  M content/trees/en/guayabo.mdx
  M content/trees/en/higueron.mdx
  M content/trees/en/hoja-santa.mdx
- M content/trees/en/icaco.mdx
+ M content/trees/en/ira-rosa.mdx
  M content/trees/en/jaboncillo.mdx
  M content/trees/en/javillo.mdx
  M content/trees/en/jicaro.mdx
- M content/trees/en/jobo.mdx
  M content/trees/en/jocote.mdx
  M content/trees/en/lorito.mdx
- M content/trees/en/madero-negro.mdx
  M content/trees/en/madrono.mdx
- M content/trees/en/magnolia.mdx
  M content/trees/en/mamon-chino.mdx
- M content/trees/en/mamon.mdx
+ M content/trees/en/manchineel.mdx
  M content/trees/en/mangle-blanco.mdx
+ M content/trees/en/mangle-negro.mdx
  M content/trees/en/mangle-pinuela.mdx
  M content/trees/en/mango.mdx
  M content/trees/en/manzana-de-agua.mdx
  M content/trees/en/maranon.mdx
  M content/trees/en/melina.mdx
- M content/trees/en/mora.mdx
  M content/trees/en/muneco.mdx
  M content/trees/en/nance.mdx
  M content/trees/en/nispero.mdx
- M content/trees/en/ojoche.mdx
  M content/trees/en/olla-de-mono.mdx
  M content/trees/en/panama.mdx
- M content/trees/en/papaturro.mdx
  M content/trees/en/papaya.mdx
- M content/trees/en/pejibaye.mdx
- M content/trees/en/pilon.mdx
  M content/trees/en/pochote.mdx
  M content/trees/en/pomarrosa.mdx
  M content/trees/en/poro.mdx
+ M content/trees/en/quebracho.mdx
+ M content/trees/en/quizarra.mdx
  M content/trees/en/rambutan.mdx
  M content/trees/en/roble-de-sabana.mdx
- M content/trees/en/ron-ron.mdx
+ M content/trees/en/sangrillo.mdx
  M content/trees/en/sotacaballo.mdx
- M content/trees/en/tamarindo.mdx
  M content/trees/en/targua.mdx
  M content/trees/en/teca.mdx
+ M content/trees/en/yellow-oleander.mdx
  M content/trees/en/yos.mdx
  M content/trees/en/zapatero.mdx
  M content/trees/en/zapote.mdx
@@ -3079,34 +3087,35 @@ Processing complete:
  M content/trees/es/aguacate.mdx
  M content/trees/es/aguacatillo.mdx
  M content/trees/es/ajo.mdx
+ M content/trees/es/alcornoque.mdx
  M content/trees/es/almendro.mdx
+ M content/trees/es/amarillon.mdx
  M content/trees/es/anona.mdx
  M content/trees/es/arrayan.mdx
- M content/trees/es/balsa.mdx
- M content/trees/es/botarrama.mdx
- M content/trees/es/camibar.mdx
  M content/trees/es/cana-fistula.mdx
  M content/trees/es/cana-india.mdx
  M content/trees/es/caoba.mdx
- M content/trees/es/caobilla.mdx
  M content/trees/es/capulin.mdx
- M content/trees/es/carambola.mdx
  M content/trees/es/carao.mdx
+ M content/trees/es/carboncillo.mdx
  M content/trees/es/cas.mdx
  M content/trees/es/cativo.mdx
  M content/trees/es/cedro-amargo.mdx
  M content/trees/es/cedro-maria.mdx
- M content/trees/es/cedro-real.mdx
- M content/trees/es/chancho-blanco.mdx
+ M content/trees/es/cerillo.mdx
  M content/trees/es/cipres.mdx
  M content/trees/es/coco.mdx
  M content/trees/es/cocobolo.mdx
+ M content/trees/es/copey.mdx
+ M content/trees/es/cornizuelo.mdx
+ M content/trees/es/cortez-negro.mdx
  M content/trees/es/corteza-amarilla.mdx
- M content/trees/es/cristobal.mdx
  M content/trees/es/espavel.mdx
  M content/trees/es/flamboyan.mdx
  M content/trees/es/fruta-de-pan.mdx
  M content/trees/es/fruta-dorada.mdx
+ M content/trees/es/gavilan.mdx
+ M content/trees/es/guaba.mdx
  M content/trees/es/guachipelin.mdx
  M content/trees/es/guacimo-colorado.mdx
  M content/trees/es/guacimo.mdx
@@ -3116,49 +3125,42 @@ Processing complete:
  M content/trees/es/guayabo.mdx
  M content/trees/es/higueron.mdx
  M content/trees/es/hoja-santa.mdx
- M content/trees/es/icaco.mdx
+ M content/trees/es/ira-rosa.mdx
  M content/trees/es/jaboncillo.mdx
  M content/trees/es/javillo.mdx
  M content/trees/es/jicaro.mdx
- M content/trees/es/jobo.mdx
  M content/trees/es/jocote.mdx
  M content/trees/es/lorito.mdx
- M content/trees/es/madero-negro.mdx
  M content/trees/es/madrono.mdx
- M content/trees/es/magnolia.mdx
  M content/trees/es/mamon-chino.mdx
- M content/trees/es/mamon.mdx
+ M content/trees/es/manchineel.mdx
  M content/trees/es/mangle-blanco.mdx
+ M content/trees/es/mangle-negro.mdx
  M content/trees/es/mangle-pinuela.mdx
  M content/trees/es/mango.mdx
  M content/trees/es/manzana-de-agua.mdx
  M content/trees/es/maranon.mdx
  M content/trees/es/melina.mdx
- M content/trees/es/mora.mdx
  M content/trees/es/muneco.mdx
  M content/trees/es/nance.mdx
  M content/trees/es/nispero.mdx
- M content/trees/es/ojoche.mdx
  M content/trees/es/olla-de-mono.mdx
  M content/trees/es/panama.mdx
- M content/trees/es/papaturro.mdx
  M content/trees/es/papaya.mdx
- M content/trees/es/pejibaye.mdx
- M content/trees/es/pilon.mdx
  M content/trees/es/pochote.mdx
  M content/trees/es/pomarrosa.mdx
  M content/trees/es/poro.mdx
+ M content/trees/es/quebracho.mdx
+ M content/trees/es/quizarra.mdx
  M content/trees/es/rambutan.mdx
  M content/trees/es/roble-de-sabana.mdx
- M content/trees/es/ron-ron.mdx
+ M content/trees/es/sangrillo.mdx
  M content/trees/es/sotacaballo.mdx
- M content/trees/es/tamarindo.mdx
  M content/trees/es/targua.mdx
  M content/trees/es/teca.mdx
+ M content/trees/es/yellow-oleander.mdx
  M content/trees/es/yos.mdx
  M content/trees/es/zapatero.mdx
  M content/trees/es/zapote.mdx
  M public/images/trees/attributions.json
- M public/images/trees/optimized/amarillon/400w.avif
-?? audit-report.md
 ```
