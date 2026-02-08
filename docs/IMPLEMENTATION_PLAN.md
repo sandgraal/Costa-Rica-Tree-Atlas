@@ -200,7 +200,7 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** � In Progress (Week 1: 6/10 complete)  
+**Status:** 🚧 In Progress (Week 1: 6/10 complete)  
 **Current:** 60/128 (47%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species)
