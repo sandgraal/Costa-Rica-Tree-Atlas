@@ -258,9 +258,9 @@ Recent additions completed:
 
 **Priority: 550-600 lines (8 species)**
 
-- [ ] aguacatillo (549 lines)
+- [x] aguacatillo (549→749 lines)
 - [ ] pejibaye (553 lines)
-- [ ] papaturro (557 lines)
+- [x] papaturro (557→687 lines)
 - [ ] nazareno (562 lines)
 - [ ] cativo (5XX lines)
 - [ ] capulin (5XX lines)
@@ -269,18 +269,18 @@ Recent additions completed:
 
 **Standard: 600+ lines (14 species)**
 
-- [ ] lechoso
-- [ ] laurel
-- [ ] jicaro
-- [ ] manzana-de-agua
-- [ ] papaya
-- [ ] mora
-- [ ] nispero
-- [ ] cana-agria
-- [ ] amarillon
-- [ ] fruta-dorada
-- [ ] cerillo
-- [ ] caobilla
+- [x] lechoso (699 lines)
+- [x] laurel (677 lines)
+- [ ] jicaro (596 lines)
+- [ ] manzana-de-agua (592 lines)
+- [x] papaya (656 lines)
+- [x] mora (609 lines)
+- [x] nispero (648 lines)
+- [ ] cana-agria (582 lines)
+- [x] amarillon (682 lines)
+- [x] fruta-dorada (688 lines)
+- [x] cerillo (729 lines)
+- [x] caobilla (696 lines)
 - [ ] (2 more TBD based on audit)
 
 **Enhancement Checklist (Per Page):**
