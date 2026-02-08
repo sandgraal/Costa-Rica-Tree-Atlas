@@ -2,7 +2,9 @@
 CREATE TYPE "ImageProposalStatus" AS ENUM ('PENDING', 'APPROVED', 'APPLIED', 'DENIED', 'ARCHIVED');
 
 -- CreateEnum: ImageProposalSource
-CREATE TYPE "ImageProposalSource" AS ENUM ('WORKFLOW', 'USER_FLAG', 'ADMIN', 'SCRIPT');
+-- Note: If upgrading an existing database where this enum already exists without USER_UPLOAD,
+-- use the idempotent upgrade script: upgrade_add_user_upload_to_proposal_source.sql
+CREATE TYPE "ImageProposalSource" AS ENUM ('WORKFLOW', 'USER_UPLOAD', 'USER_FLAG', 'ADMIN', 'SCRIPT');
 
 -- CreateEnum: ImageType
 CREATE TYPE "ImageType" AS ENUM ('FEATURED', 'TREE', 'BARK', 'LEAVES', 'FLOWERS', 'FRUIT', 'ROOTS', 'HABITAT');
