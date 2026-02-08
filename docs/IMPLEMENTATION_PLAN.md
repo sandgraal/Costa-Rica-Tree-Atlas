@@ -200,8 +200,8 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅)  
-**Current:** 64/128 (50%) → **Target:** 100/128 (78%)
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2+: 4/30 in progress)  
+**Current:** 68/128 (53%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
 
@@ -244,20 +244,30 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 9. **Pochote** - Living fence establishment and dry forest restoration
 10. **Corteza Amarilla** - Ornamental flowering tree optimization and landscape design
 
-#### Weeks 2-4: Additional 30 Species
+#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 4/30)
 
-- [ ] Add care guidance to 30 mid-priority species
+**Completed (2026-02-08):**
+
+- [x] **Mango** - Comprehensive companion planting and seasonal care with flowering stress management
+- [x] **Aguacate (Avocado)** - Detailed care guidance emphasizing drainage criticality and Phytophthora prevention
+- [x] **Cacao** - Traditional Bribri agroforestry systems and multi-layer shade management
+- [x] **Papaya** - Fast-growing pioneer tree with sequential planting strategies
+
+**In Progress:**
+
+- [ ] Add care guidance to 26 additional mid-priority species
 
 **Care Guidance Template:**
 
-- [ ] Planting instructions (site, soil, spacing)
-- [ ] Watering requirements
-- [ ] Fertilization schedule
-- [ ] Pruning guidelines
-- [ ] Pest/disease management
-- [ ] Companion planting suggestions
-- [ ] Growth timeline and mature size
-- [ ] Harvest information (if applicable)
+- [x] Planting instructions (site, soil, spacing)
+- [x] Watering requirements and seasonal adjustments
+- [x] Fertilization schedule with NPK recommendations
+- [x] Pruning guidelines (formative and maintenance)
+- [x] Pest/disease management strategies
+- [x] Companion planting suggestions with agroforestry integration
+- [x] Seasonal Care Calendar tailored to Costa Rican climate
+- [x] Growth timeline and mature size
+- [x] Harvest information (if applicable)
 
 ### 1.4: Fix Short Pages Quality
 
