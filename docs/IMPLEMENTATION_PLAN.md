@@ -200,21 +200,34 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 📋 Ready
+**Status:** 🚧 In Progress (Week 1: 6/10 complete)  
 **Current:** 60/128 (47%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species)
 
-- [ ] Guanábana
-- [ ] Carambola
-- [ ] Cas
-- [ ] Mora
-- [ ] Rambután
-- [ ] Tamarindo
+- [x] Guanábana (EN & ES complete)
+- [x] Carambola (EN & ES complete)
+- [x] Cas (EN & ES complete)
+- [x] Mora (EN & ES complete)
+- [x] Rambután (EN complete, ES pending)
+- [x] Tamarindo (EN complete, ES pending)
 - [ ] Laurel
 - [ ] Cedro Amargo
 - [ ] Pochote
 - [ ] Corteza Amarilla
+
+**Completed Enhancements (2026-02-08):**
+
+Each completed species now includes:
+
+- Comprehensive watering requirements with seasonal adjustments
+- Detailed fertilization schedules with NPK ratios and timing
+- Professional pruning guidelines with formative, maintenance, and production pruning
+- Extensive pest and disease management strategies
+- **NEW: Companion Planting sections** with beneficial companions, compatible trees, plants to avoid, and agroforestry integration
+- **NEW: Year-Round Care Calendars** tailored to Costa Rican climate zones
+- Harvest guidelines with timing, techniques, and quality indicators
+- Species-specific considerations (elevation, climate zones, etc.)
 
 #### Weeks 2-4: Additional 30 Species
 
