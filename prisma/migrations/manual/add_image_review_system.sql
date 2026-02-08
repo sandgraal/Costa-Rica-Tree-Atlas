@@ -2,7 +2,7 @@
 CREATE TYPE "ImageProposalStatus" AS ENUM ('PENDING', 'APPROVED', 'APPLIED', 'DENIED', 'ARCHIVED');
 
 -- CreateEnum: ImageProposalSource
-CREATE TYPE "ImageProposalSource" AS ENUM ('WORKFLOW', 'USER_FLAG', 'ADMIN', 'SCRIPT');
+CREATE TYPE "ImageProposalSource" AS ENUM ('WORKFLOW', 'USER_UPLOAD', 'USER_FLAG', 'ADMIN', 'SCRIPT');
 
 -- CreateEnum: ImageType
 CREATE TYPE "ImageType" AS ENUM ('FEATURED', 'TREE', 'BARK', 'LEAVES', 'FLOWERS', 'FRUIT', 'ROOTS', 'HABITAT');

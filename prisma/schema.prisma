@@ -125,6 +125,7 @@ enum ImageProposalStatus {
 // Source of the proposal
 enum ImageProposalSource {
   WORKFLOW // From weekly-image-quality workflow
+  USER_UPLOAD // From user photo upload
   USER_FLAG // From user flagging an image
   ADMIN // Manually created by admin
   SCRIPT // From ad-hoc scripts
