@@ -5,12 +5,11 @@ GitHub issue/PR metadata is not available from this local environment (no remote
 ## Local discovery commands used
 
 - `rg -n "\[ \]" docs/IMPLEMENTATION_PLAN.md`
-- `rg --files content/trees/en content/trees/es | rg -i 'camibar|cortez-blanco|sardinillo|flor-de-itabo|corozo|papayillo|tirra|lengua-de-vaca|chirraca|palma-de-escoba|palma-yolillo|palma-suita|palma-cacho-de-venado'`
-- `find content/trees/en -name '*.mdx' | wc -l`
-- `find content/trees/es -name '*.mdx' | wc -l`
+- `sed -n '420,470p' docs/IMPLEMENTATION_PLAN.md`
+- `rg -n "^\"use client\"|^'use client'" src/components src/app`
+- `sed -n '1,260p' src/app/[locale]/page.tsx`
 
 ## Summary
 
-- The checklist item "Add remaining medium priority species" was stale relative to current content files.
-- All medium-priority species listed in plan/missing-list are present in both English and Spanish content trees.
-- Documentation was updated to mark medium-priority groups complete and set next focus to low-priority/special-case species.
+- Highest-priority open implementation item selected: Phase 3 performance task to migrate more components to server components.
+- Homepage sections that did not require client hooks were converted to server components and wired with localized server-provided strings.

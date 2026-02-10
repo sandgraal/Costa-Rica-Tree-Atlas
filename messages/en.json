@@ -42,7 +42,18 @@
     },
     "loadMore": "Load More",
     "showing": "Showing {showing} of {total}",
-    "showingCount": "Showing {count} of {total}"
+    "showingCount": "Showing {count} of {total}",
+    "viewCalendar": "View calendar",
+    "floweringLabel": "Flowering",
+    "fruitingLabel": "Fruiting",
+    "floweringSummary": "{count} flowering",
+    "fruitingSummary": "{count} fruiting this month",
+    "stats": {
+      "documentedSpecies": "Documented Species",
+      "botanicalFamilies": "Botanical Families",
+      "conservationStatuses": "Conservation Statuses",
+      "languages": "Languages"
+    }
   },
   "trees": {
     "title": "Tree Directory",

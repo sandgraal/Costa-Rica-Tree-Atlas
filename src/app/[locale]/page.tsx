@@ -3,17 +3,17 @@ import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { HeroImage } from "@/components/HeroImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { NowBloomingSection } from "@/components/home/NowBloomingSection";
+import { TreeOfTheDay } from "@/components/home/TreeOfTheDay";
+import { StatsSection } from "@/components/home/StatsSection";
+import { AboutSection } from "@/components/home/AboutSection";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
 import {
-  NowBloomingSkeleton,
-  TreeOfTheDaySkeleton,
-  StatsSkeleton,
   FeaturedTreesSkeleton,
   RecentlyViewedSkeleton,
-  AboutSkeleton,
 } from "@/components/LoadingSkeletons";
 
 // Lazy load below-the-fold components to improve LCP and reduce TBT
@@ -30,39 +30,6 @@ const FeaturedTreesSection = dynamic(
       default: mod.FeaturedTreesSection,
     })),
   { loading: () => <FeaturedTreesSkeleton /> }
-);
-
-// Lazy load heavy homepage sections with loading states
-const NowBloomingSection = dynamic(
-  () =>
-    import("@/components/home/NowBloomingSection").then((mod) => ({
-      default: mod.NowBloomingSection,
-    })),
-  { loading: () => <NowBloomingSkeleton /> }
-);
-
-const TreeOfTheDay = dynamic(
-  () =>
-    import("@/components/home/TreeOfTheDay").then((mod) => ({
-      default: mod.TreeOfTheDay,
-    })),
-  { loading: () => <TreeOfTheDaySkeleton /> }
-);
-
-const StatsSection = dynamic(
-  () =>
-    import("@/components/home/StatsSection").then((mod) => ({
-      default: mod.StatsSection,
-    })),
-  { loading: () => <StatsSkeleton /> }
-);
-
-const AboutSection = dynamic(
-  () =>
-    import("@/components/home/AboutSection").then((mod) => ({
-      default: mod.AboutSection,
-    })),
-  { loading: () => <AboutSkeleton /> }
 );
 
 type Props = {
@@ -94,6 +61,16 @@ export default async function HomePage({ params }: Props) {
   const conservationTags = new Set(
     trees.filter((t) => t.conservationStatus).map((t) => t.conservationStatus)
   ).size;
+  const stats = [
+    { value: trees.length, label: t("stats.documentedSpecies"), icon: "🌳" },
+    { value: families, label: t("stats.botanicalFamilies"), icon: "🌿" },
+    {
+      value: conservationTags,
+      label: t("stats.conservationStatuses"),
+      icon: "🛡️",
+    },
+    { value: 2, label: t("stats.languages"), icon: "🌐" },
+  ];
 
   // Structured data for homepage
   const structuredData = {
@@ -177,12 +154,7 @@ export default async function HomePage({ params }: Props) {
         {/* Stats Banner */}
         <section className="py-12 px-4 bg-background">
           <div className="container mx-auto max-w-4xl">
-            <StatsSection
-              speciesCount={trees.length}
-              familiesCount={families}
-              statusCount={conservationTags}
-              locale={locale}
-            />
+            <StatsSection stats={stats} />
           </div>
         </section>
 
@@ -191,8 +163,12 @@ export default async function HomePage({ params }: Props) {
           <div className="container mx-auto max-w-6xl">
             <NowBloomingSection
               trees={trees}
-              locale={locale}
               nowBlooming={t("nowBlooming")}
+              floweringSummary={t("floweringSummary", { count: "{count}" })}
+              fruitingSummary={t("fruitingSummary", { count: "{count}" })}
+              viewCalendar={t("viewCalendar")}
+              floweringLabel={t("floweringLabel")}
+              fruitingLabel={t("fruitingLabel")}
             />
           </div>
         </section>
