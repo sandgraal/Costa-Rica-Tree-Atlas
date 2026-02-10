@@ -434,7 +434,7 @@ See `audit-content-report.md` for complete list of 26 species.
 - [ ] Implement service worker for offline caching [1w]
 - [x] Add resource hints (dns-prefetch, preconnect) [2d] ✅
 - [x] Optimize third-party scripts (analytics, fonts) [3d] ✅
-- [ ] Implement request coalescing [2d]
+- [x] Implement request coalescing [2d] ✅
 - [ ] Add performance monitoring dashboard [1w]
 - [x] Set up Lighthouse CI [2d] ✅
 

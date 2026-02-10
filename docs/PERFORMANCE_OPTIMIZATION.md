@@ -256,7 +256,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 - [ ] Implement service worker for offline caching
 - [x] Add resource hints (dns-prefetch, preconnect) ✅
 - [x] Optimize third-party scripts (lazyOnload strategy) ✅
-- [ ] Implement request coalescing
+- [x] Implement request coalescing ✅
 - [ ] Add performance monitoring dashboard
 - [x] Set up Lighthouse CI workflow ✅
 - [x] Move hero preload to homepage only (ReactDOM.preload) ✅
@@ -414,6 +414,12 @@ lhci autorun
   3. Validate TBT improvement (target: <200ms)
   4. Monitor real-user metrics via Vercel Speed Insights
   5. Adjust strategies based on production metrics
+
+### 2026-02-10 - Request Coalescing ✅
+
+- Added in-flight request coalescing for biodiversity data fetching to prevent
+  duplicate external API calls during concurrent renders.
+- Targets the Phase 2 “request coalescing” milestone for performance stability.
 
 ---
 
