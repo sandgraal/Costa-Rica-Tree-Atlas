@@ -121,7 +121,7 @@ const getTransferSize = (entry: PerformanceResourceTiming) => {
   if (entry.transferSize && entry.transferSize > 0) {
     return entry.transferSize;
   }
-  return entry.encodedBodySize || 0;
+  return 0;
 };
 
 const getMetricValue = (
