@@ -18,6 +18,7 @@ on:
           - download-force
           - refresh
           - refresh-gallery
+          - propose
           - optimize
           - optimize-force
           - full
@@ -124,7 +125,7 @@ jobs:
 
           TOTAL_ISSUES=$((${{ steps.audit.outputs.broken_count || 0 }} + ${{ steps.audit.outputs.placeholder_count || 0 }} + ${{ steps.audit.outputs.too_small_count || 0 }}))
           if [ $TOTAL_ISSUES -gt 0 ]; then
-            echo "**Status:** ⚠️ Issues detected - automated fixes will be applied" >> audit-report.md
+            echo "**Status:** ⚠️ Issues detected - proposals will be generated for admin review" >> audit-report.md
           elif [ $PENDING_IMAGES -gt 0 ]; then
             echo "**Status:** ⚠️ $PENDING_IMAGES images need optimization" >> audit-report.md
           else
@@ -132,7 +133,7 @@ jobs:
           fi
 
       - name: Download missing/broken images
-        if: steps.mode.outputs.mode == 'download' || steps.mode.outputs.mode == 'full' || (steps.mode.outputs.mode == 'auto' && steps.audit.outputs.audit_failed == 'true')
+        if: steps.mode.outputs.mode == 'download'
         run: |
           echo "" >> audit-report.md
           echo "### Automated Fixes Applied" >> audit-report.md
@@ -145,20 +146,36 @@ jobs:
         run: npm run images:download:force
 
       - name: Check for better featured images
-        if: steps.mode.outputs.mode == 'refresh' || steps.mode.outputs.mode == 'full' || steps.mode.outputs.mode == 'auto'
+        if: steps.mode.outputs.mode == 'refresh'
         run: |
           echo "" >> audit-report.md
           echo "#### Refreshed Featured Images" >> audit-report.md
           npm run images:refresh >> audit-report.md 2>&1
 
       - name: Refresh gallery images
-        if: steps.mode.outputs.mode == 'refresh-gallery' || (steps.mode.outputs.mode == 'auto' && steps.audit_gallery.outputs.gallery_audit_failed == 'true') || steps.mode.outputs.mode == 'full'
+        if: steps.mode.outputs.mode == 'refresh-gallery'
         run: |
           echo "" >> audit-report.md
           echo "#### Refreshed Gallery Images" >> audit-report.md
           npm run images:refresh:gallery >> audit-report.md 2>&1
 
       # NEW: Image Optimization Steps
+
+      - name: Generate image review proposals
+        if: steps.mode.outputs.mode == 'propose' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
+        env:
+          API_BASE_URL: ${{ secrets.IMAGE_PROPOSALS_API_BASE_URL }}
+          WORKFLOW_TOKEN: Bearer workflow-${{ github.run_id }}
+        run: |
+          echo "" >> audit-report.md
+          echo "### Image Proposal Generation" >> audit-report.md
+          if [ -z "$API_BASE_URL" ]; then
+            echo "⚠️ Skipped: IMAGE_PROPOSALS_API_BASE_URL secret is not configured." >> audit-report.md
+            echo "Set it to your deployed endpoint, e.g. https://example.com/api/admin/images/proposals" >> audit-report.md
+          else
+            npm run images:propose -- --verbose >> audit-report.md 2>&1
+          fi
+
       - name: Optimize tree images
         if: steps.mode.outputs.mode == 'optimize' || steps.mode.outputs.mode == 'full' || steps.mode.outputs.mode == 'auto'
         run: |
@@ -190,7 +207,7 @@ jobs:
           npm run images:optimize:hero >> audit-report.md 2>&1
 
       - name: Run legacy cleanup
-        if: steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
+        if: steps.mode.outputs.mode == 'full'
         run: |
           echo "" >> audit-report.md
           echo "#### Updated iNaturalist Links" >> audit-report.md
