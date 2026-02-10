@@ -30,6 +30,8 @@ const API_CONFIG = {
   timeout: 8000, // 8 second timeout for external API calls
 };
 
+const inFlightRequests = new Map<string, Promise<BiodiversityData>>();
+
 // ============================================================================
 // Fetch with Timeout Helper
 // ============================================================================
@@ -293,26 +295,47 @@ function mapCategoryToCode(category: string): string {
 // Unified Biodiversity Data Fetcher
 // ============================================================================
 
+function normalizeScientificName(scientificName: string): string {
+  return scientificName.trim().toLowerCase();
+}
+
 export async function fetchBiodiversityData(
   scientificName: string
 ): Promise<BiodiversityData> {
-  // First get GBIF match for the taxon key (needed for IUCN)
-  const gbifMatch = await matchGBIFSpecies(scientificName);
-  const taxonKey = gbifMatch?.usageKey;
+  const key = normalizeScientificName(scientificName);
+  const existing = inFlightRequests.get(key);
 
-  // Fetch all data sources in parallel
-  const [gbif, inaturalist, iucn] = await Promise.all([
-    fetchGBIFData(scientificName),
-    fetchINaturalistData(scientificName),
-    taxonKey ? fetchIUCNData(taxonKey) : Promise.resolve(null),
-  ]);
+  if (existing) {
+    return existing;
+  }
 
-  return {
-    gbif,
-    inaturalist,
-    iucn,
-    lastUpdated: new Date().toISOString(),
-  };
+  const request = (async () => {
+    // First get GBIF match for the taxon key (needed for IUCN)
+    const gbifMatch = await matchGBIFSpecies(scientificName);
+    const taxonKey = gbifMatch?.usageKey;
+
+    // Fetch all data sources in parallel
+    const [gbif, inaturalist, iucn] = await Promise.all([
+      fetchGBIFData(scientificName),
+      fetchINaturalistData(scientificName),
+      taxonKey ? fetchIUCNData(taxonKey) : Promise.resolve(null),
+    ]);
+
+    return {
+      gbif,
+      inaturalist,
+      iucn,
+      lastUpdated: new Date().toISOString(),
+    };
+  })();
+
+  inFlightRequests.set(key, request);
+
+  try {
+    return await request;
+  } finally {
+    inFlightRequests.delete(key);
+  }
 }
 
 // ============================================================================
