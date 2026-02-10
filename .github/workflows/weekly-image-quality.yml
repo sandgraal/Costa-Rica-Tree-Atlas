@@ -133,7 +133,7 @@ jobs:
           fi
 
       - name: Download missing/broken images
-        if: steps.mode.outputs.mode == 'download'
+        if: steps.mode.outputs.mode == 'download' || steps.mode.outputs.mode == 'full'
         run: |
           echo "" >> audit-report.md
           echo "### Automated Fixes Applied" >> audit-report.md
@@ -146,20 +146,29 @@ jobs:
         run: npm run images:download:force
 
       - name: Check for better featured images
-        if: steps.mode.outputs.mode == 'refresh'
+        if: steps.mode.outputs.mode == 'refresh' || steps.mode.outputs.mode == 'full'
         run: |
           echo "" >> audit-report.md
           echo "#### Refreshed Featured Images" >> audit-report.md
           npm run images:refresh >> audit-report.md 2>&1
 
       - name: Refresh gallery images
-        if: steps.mode.outputs.mode == 'refresh-gallery'
+        if: steps.mode.outputs.mode == 'refresh-gallery' || steps.mode.outputs.mode == 'full'
         run: |
           echo "" >> audit-report.md
           echo "#### Refreshed Gallery Images" >> audit-report.md
           npm run images:refresh:gallery >> audit-report.md 2>&1
 
       # NEW: Image Optimization Steps
+
+      # Initialize report for propose mode (audit steps don't run in propose-only mode)
+      - name: Initialize audit report for propose mode
+        if: steps.mode.outputs.mode == 'propose'
+        run: |
+          echo "## Image Quality Audit Report" > audit-report.md
+          echo "" >> audit-report.md
+          echo "**Run Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> audit-report.md
+          echo "" >> audit-report.md
 
       - name: Generate image review proposals
         if: steps.mode.outputs.mode == 'propose' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
