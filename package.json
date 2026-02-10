@@ -37,6 +37,8 @@
     "images:refresh": "node scripts/manage-tree-images.mjs refresh",
     "images:refresh:gallery": "node scripts/manage-tree-images.mjs refresh-gallery",
     "images:refresh:gallery:force": "node scripts/manage-tree-images.mjs refresh-gallery --force",
+    "images:propose": "node scripts/propose-image-changes.mjs",
+    "images:propose:dry": "node scripts/propose-image-changes.mjs --dry-run",
     "images:check": "node scripts/cleanup-tree-images.mjs",
     "images:cleanup": "node scripts/cleanup-tree-images.mjs --write",
     "images:cleanup:force": "node scripts/cleanup-tree-images.mjs --write --force",

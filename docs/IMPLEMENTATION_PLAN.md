@@ -126,7 +126,7 @@
   - [ ] Test 10 proposals end-to-end
   - [ ] Verify side-by-side comparison works
   - [ ] Confirm audit log tracks changes
-  - [ ] Ensure weekly workflow generates proposals (not auto-applies)
+  - [x] Ensure weekly workflow generates proposals (not auto-applies) — automated mode now runs `npm run images:propose` (2026-02-10)
 
 **🚦 Completion Gate:** Auth fixed ✅, Safety live ✅, Image Review code complete ✅ (validation pending DB deployment) → Unblocks Priority 4
 

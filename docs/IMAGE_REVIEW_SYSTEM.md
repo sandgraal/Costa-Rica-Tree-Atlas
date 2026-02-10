@@ -525,3 +525,25 @@ export const QUALITY_CONFIG = {
 - [ ] Should user votes be public or anonymous?
 - [ ] Do we want email notifications for new proposals?
 - [ ] Should we have categories of users (admin, moderator, contributor)?
+
+## Validation Gate Runbook
+
+Use this checklist after database deployment to complete Priority 0.3 validation:
+
+1. Configure `IMAGE_PROPOSALS_API_BASE_URL` in GitHub Actions secrets to point to your deployed endpoint (`https://<domain>/api/admin/images/proposals`).
+2. Trigger **Weekly Image Quality & Optimization** with mode `propose` or wait for the scheduled run.
+3. Confirm the workflow report includes proposal generation output and does not auto-apply images.
+4. Review at least 10 proposals in `/admin/images/proposals` and open at least one detail page to verify side-by-side comparison.
+5. Approve and apply one proposal, then verify an `ImageAudit` row is created with action `APPLIED_PROPOSAL`.
+
+### Validation Commands
+
+```bash
+# Local dry run (no proposal creation)
+npm run images:propose:dry
+
+# Local proposal generation against a deployed API
+API_BASE_URL="https://<domain>/api/admin/images/proposals" \
+WORKFLOW_TOKEN="Bearer workflow-local" \
+npm run images:propose -- --verbose
+```
