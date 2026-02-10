@@ -38,9 +38,9 @@ export async function Footer({ locale }: FooterProps) {
           {/* Copyright and info - centered, takes remaining space */}
           <div className="flex-1 text-center text-sm text-foreground/60">
             <p>
-              © <CurrentYear /> {t("copyrightProject")}. {t("copyrightLicense")}
+              © <CurrentYear /> {t("copyrightProject")}. {t("copyrightLicense")}{" "}
+              {t("madeWith")}
             </p>
-            <p className="mt-1 text-xs">{t("madeWith")}</p>
             <p className="mt-2 text-xs text-foreground/50">
               <kbd className="px-2 py-1 text-xs font-mono bg-foreground/5 rounded border border-foreground/10">
                 ?
