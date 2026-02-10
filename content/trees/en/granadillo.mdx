@@ -53,67 +53,774 @@ images: []
       title="Quick reference"
       items={[
         { label: "Scientific name", value: "Dalbergia tucurensis" },
-        { label: "Family", value: "Fabaceae" },
+        { label: "Family", value: "Fabaceae (Legume family)" },
         { label: "Conservation status", value: "VU – Vulnerable" },
-        { label: "Max height", value: "25 m" },
-        { label: "Growth rate", value: "Moderate" },
+        { label: "Max height", value: "25 m (82 ft)" },
+        { label: "Growth rate", value: "Moderate to slow" },
+        { label: "Native range", value: "Mexico to Panama" },
+        { label: "Elevation", value: "100-1500m" },
       ]}
     />
   </Column>
   <Column>
-    <INaturalistEmbed
-      taxonId={0}
-      taxonName="Dalbergia tucurensis"
-    />
+    <INaturalistEmbed taxonId={0} taxonName="Dalbergia tucurensis" />
   </Column>
 </TwoColumn>
 
-## Taxonomy
+---
 
-**Dalbergia tucurensis** belongs to the Fabaceae (legume) family. It is a true rosewood, closely related to the critically endangered **Cocobolo** (_Dalbergia retusa_). However, Granadillo is distinguished by its generally lighter heartwood, lack of allergenic oils, and different leaf structure.
+## 📸 Photo Gallery
+
+<ImageGallery>
+  <ImageCard
+    src="/images/trees/granadillo/featured.jpg"
+    alt="Granadillo tree in habitat"
+    title="Mature Tree"
+    credit="Placeholder - community contributions welcome"
+    license="CC BY-SA"
+  />
+</ImageGallery>
+
+<Callout type="info">
+  **Help Document This Species**: Granadillo is a newly added species requiring
+  community photo contributions. If you have quality images of this tree (bark,
+  leaves, flowers, wood), please contribute through our [photo submission
+  page](/contribute/photo).
+</Callout>
+
+---
+
+## Taxonomy & Classification
+
+<PropertiesGrid>
+  <PropertyCard title="Kingdom" value="Plantae" />
+  <PropertyCard title="Clade" value="Angiosperms" />
+  <PropertyCard title="Clade" value="Eudicots" />
+  <PropertyCard title="Clade" value="Rosids" />
+  <PropertyCard title="Order" value="Fabales" />
+  <PropertyCard title="Family" value="Fabaceae" />
+  <PropertyCard title="Subfamily" value="Faboideae" />
+  <PropertyCard title="Genus" value="Dalbergia" />
+  <PropertyCard title="Species" value="D. tucurensis" />
+</PropertiesGrid>
+
+<Callout type="info" title="The Rosewood Lineage">
+  _Dalbergia tucurensis_ is one of approximately 250 species in the genus
+  _Dalbergia_, the true rosewoods. While all _Dalbergia_ produce valuable
+  hardwoods, Granadillo is particularly prized for its resonant acoustic
+  properties, making it a preferred choice for high-end musical instruments. It
+  shares the genus with famous species like Brazilian Rosewood (_D. nigra_),
+  Indian Rosewood (_D. latifolia_), and the closely related Cocobolo (_D.
+  retusa_).
+</Callout>
+
+### Common Names by Region
+
+<DataTable
+  headers={["Language/Region", "Common Name(s)", "Notes"]}
+  rows={[
+    ["English", "Granadillo, Guatemalan Rosewood", "Most common trade names"],
+    ["Spanish (Costa Rica)", "Granadillo, Palo de Rosa", "Regional names"],
+    ["Spanish (Mexico)", "Granadillo, Cocobolo Blanco", "Northern range names"],
+    ["Spanish (Guatemala)", "Palo de Hormigo, Granadillo", "Local variations"],
+    ["Trade", "Guatemalan Rosewood", "International lumber trade"],
+  ]}
+/>
+
+### Etymology
+
+- **Genus**: _Dalbergia_ honors Swedish botanist Nils Dahlberg (1736-1820)
+- **Species**: _tucurensis_ likely refers to Tucurú or a similar locality
+- **Common name "Granadillo"**: Diminutive of "granada" (pomegranate), possibly referring to the wood's reddish hues or the tree's valued status
+
+### Key Distinction from Cocobolo
+
+Granadillo (_D. tucurensis_) is often confused with Cocobolo (_D. retusa_), but they are distinct species with important differences:
+
+<DataTable
+  headers={[
+    "Characteristic",
+    "Granadillo (D. tucurensis)",
+    "Cocobolo (D. retusa)",
+  ]}
+  rows={[
+    [
+      "Heartwood Color",
+      "Golden-orange to reddish-brown",
+      "Deep orange with black streaks",
+    ],
+    ["Natural Oils", "Low oil content", "Extremely oily (clogs sandpaper)"],
+    [
+      "Allergenicity",
+      "Generally non-allergenic",
+      "Highly allergenic (severe reactions)",
+    ],
+    ["Elevation Range", "100-1500m (wider)", "0-600m (lower elevations)"],
+    [
+      "Workability",
+      "Easier to glue and finish",
+      "Difficult (oils resist adhesives)",
+    ],
+    ["Conservation Status", "Vulnerable (VU)", "Critically Endangered (CR)"],
+    [
+      "Color Change",
+      "Deepens to rich brown",
+      "Darkens dramatically to black/red",
+    ],
+  ]}
+/>
+
+---
 
 ## Physical Description
 
-Granadillo is a medium-sized deciduous tree reaching up to **25 meters** in height with a straight, cylindrical trunk up to 60-80 cm in diameter.
+### Overall Form
 
-- **Bark:** Smooth to slightly fissured, greyish in color, distinct from the rougher bark of some other _Dalbergia_ species.
-- **Leaves:** Compound, imparipinnate, typically with 9-15 leaflets. The leaflets are lighter green and slightly thinner than those of _D. retusa_.
-- **Flowers:** Small, white to cream-colored, arranged in axillary panicles. They appear during the dry season.
-- **Fruit:** Flat, oblong, thin paper-like pods (samaras) containing 1-2 seeds. They mature from green to yellow-brown.
-- **Wood:** The heartwood ranges from golden-orange to reddish-brown, often with darker streaks but generally lacking the intense orange/black contrast and oily feel of Cocobolo. It is dense, durable, and possesses exceptional acoustic properties.
+Granadillo is a medium-sized deciduous tree with a generally straight, cylindrical trunk—a valuable characteristic for timber production. Trees typically develop an open, spreading crown when growing in open conditions, but form taller, more vertical crowns in forest settings. The tree loses its leaves during the dry season, a common adaptation in its native range.
 
-## Distribution and Habitat
+<StatsGroup>
+  <StatBar label="Mature Height" value={25} max={30} unit="meters" />
+  <StatBar label="Trunk Diameter" value={70} max={100} unit="cm" />
+  <StatBar label="Crown Spread" value={15} max={20} unit="meters" />
+  <StatBar label="Wood Density" value={850} max={1000} unit="kg/m³" />
+</StatsGroup>
 
-Native from Southern Mexico through Central America to Panama. In Costa Rica, it is found on both the Pacific and Atlantic slopes, adapting to a wider range of conditions than Cocobolo.
+### Distinctive Features
 
-It thrives in:
+<TwoColumn>
+<Column>
 
-- Tropical dry forests
-- Moist intermediate forests
-- Elevations from 100m up to 1500m
+#### Trunk & Bark
 
-Its wider elevational range allows it to grow in areas like the Central Valley (Heredia, San José) as well as the drier Guanacaste region.
+- **Trunk**: Usually straight, cylindrical (better form than Cocobolo)
+- **Bark**: Smooth to slightly fissured, greyish
+- **Texture**: Less deeply furrowed than other _Dalbergia_
+- **Heartwood**: Golden-orange to reddish-brown
+- **Sapwood**: Pale yellow, clearly demarcated
+- **Grain**: Straight to slightly interlocked
 
-## Uses
+#### Leaves
 
-Granadillo is a **premier tonewood**, highly sought after for:
+- **Type**: Pinnately compound (imparipinnate)
+- **Leaflets**: 9-15 per leaf
+- **Arrangement**: Alternate on rachis
+- **Shape**: Ovate to elliptic
+- **Size**: Individual leaflets 2-4 cm long
+- **Color**: Light to medium green (lighter than Cocobolo)
+- **Texture**: Thin, slightly papery
+- **Deciduous**: Drops leaves in dry season
 
-- **Musical Instruments:** Marimbas, guitars (backs/sides), and clarinets. Its density and resonance ("the wood that sings") make it a preferred substitute for Brazilian Rosewood.
-- **Fine Woodworking:** Furniture, cabinetry, and decorative boxes.
-- **Turnery:** Pens, bowls, and tool handles.
+</Column>
+<Column>
 
-Unlike Cocobolo, Granadillo is easier to glue and finish because it lacks the heavy natural oils that can interfere with finishes.
+#### Flowers
 
-## Cultivation
+- **Color**: White to cream
+- **Size**: Small, 5-8 mm across
+- **Arrangement**: Axillary panicles
+- **Timing**: Dry season (April-June)
+- **Fragrance**: Lightly fragrant
+- **Pollinators**: Bees, small insects
 
-- **Growth Rate:** Moderate to slow, though typically faster than Cocobolo.
-- **Light:** Requires full sun for best growth.
-- **Soil:** Tolerates a range of soils but prefers well-drained, fertile sites.
-- **Propagation:** Primarily by seeds, which should be collected when pods are dry and brown.
+#### Fruit & Seeds
 
-## Safety & Allergies
+- **Type**: Legume (flat pod)
+- **Appearance**: Paper-like samaras
+- **Shape**: Narrow, oblong
+- **Length**: 5-9 cm
+- **Width**: 1.5-2.5 cm
+- **Seeds**: 1-2 per pod
+- **Maturation**: Dry season (July-September)
+- **Dispersal**: Wind (samara wings aid flight)
 
-A key advantage of Granadillo over Cocobolo is its safety profile.
+</Column>
+</TwoColumn>
 
-- **Hypoallergenic:** It is generally considered non-allergenic and does not typically cause the severe contact dermatitis (rashes) associated with the quinones in Cocobolo (_D. retusa_).
-- **Working Properties:** It produces less irritating dust, though standard respiratory protection is always recommended when sanding any tropical hardwood.
+### Wood Properties
+
+Granadillo produces one of the most valued tonewoods in the world. Its acoustic properties have made it a premium choice for musical instrument makers:
+
+<PropertiesGrid>
+  <PropertyCard title="Density" value="850-950 kg/m³" />
+  <PropertyCard title="Janka Hardness" value="2,150 lbf (9,560 N)" />
+  <PropertyCard title="Grain" value="Straight to slightly interlocked" />
+  <PropertyCard title="Texture" value="Fine, uniform" />
+  <PropertyCard title="Luster" value="High natural luster" />
+  <PropertyCard title="Odor" value="Mild, slightly sweet when worked" />
+  <PropertyCard title="Durability" value="Very durable, decay resistant" />
+  <PropertyCard title="Workability" value="Good - machines and finishes well" />
+</PropertiesGrid>
+
+---
+
+## Geographic Distribution
+
+### Native Range
+
+---
+
+## Geographic Distribution
+
+### Native Range
+
+Granadillo is native to **Southern Mexico through Central America to Panama**, with populations documented from:
+
+- **Mexico**: Chiapas, Oaxaca, Veracruz
+- **Guatemala**: Pacific slope, Caribbean lowlands
+- **Belize**: Central and southern regions
+- **Honduras**: Both coasts
+- **Nicaragua**: Pacific and Caribbean slopes
+- **Costa Rica**: Throughout (see below)
+- **Panama**: Western and central provinces
+
+### Distribution in Costa Rica
+
+In Costa Rica, Granadillo has a **wider elevational and ecological range** than its cousin Cocobolo, making it more widespread:
+
+<PropertiesGrid>
+  <PropertyCard title="Provinces" value="All 7 provinces" />
+  <PropertyCard
+    title="Pacific Slope"
+    value="Common in Guanacaste, Puntarenas"
+  />
+  <PropertyCard
+    title="Caribbean Slope"
+    value="Present in Limón, Heredia lowlands"
+  />
+  <PropertyCard
+    title="Central Valley"
+    value="Found in San José, Alajuela, Heredia"
+  />
+  <PropertyCard
+    title="Elevation Range"
+    value="100m to 1500m (wider than Cocobolo)"
+  />
+</PropertiesGrid>
+
+**Key Costa Rican Locations:**
+
+- **Guanacaste**: Dry forests of Santa Rosa, Palo Verde
+- **Puntarenas**: Coastal areas, Osa Peninsula
+- **Alajuela**: Mid-elevation transitional forests
+- **Heredia**: Sarapiquí region, mid-elevation slopes
+- **San José**: Central Valley margins, transitional zones
+- **Limón**: Caribbean lowland forests
+
+The species' ability to adapt to elevations up to 1500m (versus Cocobolo's 0-600m range) gives it access to Central Valley and intermediate forest zones, making it historically more available yet still over-harvested.
+
+---
+
+## Habitat & Ecology
+
+<PropertiesGrid>
+  <PropertyCard title="Elevation" value="100-1500 m" />
+  <PropertyCard title="Climate" value="Tropical dry to humid" />
+  <PropertyCard title="Annual Rainfall" value="1000-3000 mm" />
+  <PropertyCard title="Temperature" value="22-30°C" />
+  <PropertyCard title="Soil Type" value="Well-drained, fertile preferred" />
+  <PropertyCard title="Soil pH" value="5.5-7.5" />
+  <PropertyCard title="Light Requirements" value="Full sun to partial shade" />
+  <PropertyCard title="Fire Tolerance" value="Moderate (as young tree)" />
+</PropertiesGrid>
+
+### Forest Type & Ecological Role
+
+Granadillo is found across multiple forest types, reflecting its ecological flexibility:
+
+1. **Tropical Dry Forests** (Pacific lowlands)
+   - Deciduous forests of Guanacaste
+   - Associates with other dry forest legumes
+   - Loses leaves in 4-6 month dry season
+
+2. **Moist Intermediate Forests** (500-1500m)
+   - Transitional zones between dry and wet
+   - Mixed forest composition
+   - Partially deciduous behavior
+
+3. **Secondary Growth** (disturbed areas)
+   - Colonizes gaps and edges
+   - Moderate pioneer ability
+   - Benefits from canopy openings
+
+### Wildlife Associations
+
+As a member of the Fabaceae (legume) family, Granadillo plays important ecological roles:
+
+- **Nitrogen Fixation**: Like many legumes, fixes atmospheric nitrogen, enriching soil
+- **Bee Forage**: Flowers provide nectar and pollen for native bees
+- **Seed Dispersal**: Wind-dispersed samaras colonize open areas
+- **Insect Habitat**: Foliage supports various caterpillar and beetle species
+- **Not Major Wildlife Food**: Unlike some legumes, seeds not heavily consumed by mammals
+
+### Soil & Water Relations
+
+Granadillo demonstrates good drought tolerance while preferring moderate moisture:
+
+- **Drought Adaptation**: Deep taproot system allows dry season survival
+- **Drainage Critical**: Will not tolerate waterlogged or poorly drained soils
+- **Moisture Preference**: Best growth with consistent but not excessive moisture
+- **Dry Season**: Fully deciduous, conserving water during driest months
+- **Soil Improvement**: Nitrogen fixation benefits neighboring plants
+
+---
+
+## Uses & Applications
+
+### Musical Instruments – "The Wood That Sings"
+
+Granadillo's premier use is as a **tonewood** for high-quality musical instruments. Its acoustic properties have made it a sought-after alternative to increasingly rare Brazilian Rosewood:
+
+<TwoColumn>
+<Column>
+
+#### Marimba Construction
+
+- **Traditional Use**: Indigenous and modern marimba makers
+- **Sound Quality**: Rich, resonant, clear tone
+- **Guatemalan Tradition**: National instrument of Guatemala
+- **Costa Rican Makers**: Used by regional craftsmen
+- **Tonal Range**: Excellent low-frequency response
+
+#### String Instruments
+
+- **Acoustic Guitars**: Backs, sides, and fretboards
+- **Classical Guitars**: Preferred for traditional Spanish guitar
+- **Mandolins & Ukuleles**: High-end instrument backs
+- **Violins**: Occasionally used for fittings
+- **Sound Character**: Warm, balanced, responsive
+
+</Column>
+<Column>
+
+#### Wind Instruments
+
+- **Clarinets**: Premium wood for body and keys
+- **Oboes**: High-end instrument construction
+- **Flutes**: Wooden flute construction
+- **Tone Quality**: Stable, resonant, consistent
+
+#### Why Granadillo Works for Music
+
+- Dimensional stability (doesn't warp)
+- High density = good sustain and projection
+- Fine, uniform grain = consistent tone
+- Takes polish to high gloss
+- Doesn't deaden tone with finishes
+- Less allergenic than Cocobolo (safer for makers)
+
+</Column>
+</TwoColumn>
+
+### Fine Woodworking & Crafts
+
+<PropertiesGrid>
+  <PropertyCard
+    title="Furniture"
+    value="High-end cabinets, decorative inlays"
+  />
+  <PropertyCard
+    title="Turnery"
+    value="Pens, bowls, tool handles, chess pieces"
+  />
+  <PropertyCard title="Veneer" value="Decorative panels and marquetry" />
+  <PropertyCard title="Carving" value="Detailed sculpture and figurines" />
+  <PropertyCard
+    title="Knife Handles"
+    value="Premium kitchen and hunting knives"
+  />
+  <PropertyCard title="Jewelry Boxes" value="Ornamental containers" />
+</PropertiesGrid>
+
+### Advantages Over Cocobolo
+
+Woodworkers often prefer Granadillo over Cocobolo for several practical reasons:
+
+- **Gluing**: Bonds readily with standard woodglues (Cocobolo's oils resist adhesion)
+- **Finishing**: Accepts finishes easily without special preparation
+- **Safety**: Non-allergenic (Cocobolo causes severe dermatitis in many people)
+- **Workability**: Dust is less irritating
+- **Color Stability**: Mellows to warm brown (Cocobolo can turn black)
+- **Cost**: Generally less expensive (though still premium)
+
+### Traditional & Medicinal Uses
+
+While not as well-documented as some tropical legumes, Granadillo has traditional applications:
+
+- **Construction**: Historically used for durable posts and beams where available
+- **Tool Handles**: Long-lasting handles for agricultural implements
+- **Folk Medicine**: Bark decoctions used traditionally (not scientifically validated)
+- **Dye**: Wood chips can produce brown dyes
+
+---
+
+## Conservation Status & Threats
+
+<ConservationStatus
+  status="VU"
+  statusText="Vulnerable"
+  assessed="2018"
+  population="Decreasing"
+  threats={[
+    "Overexploitation for timber and musical instruments",
+    "Habitat loss from agriculture and development",
+    "Slow growth rate limits recovery",
+    "High commercial value drives illegal harvest",
+  ]}
+/>
+
+### CITES Protection
+
+Granadillo is listed under **CITES Appendix II**, alongside all _Dalbergia_ species:
+
+- **International Trade**: Requires permits and documentation
+- **Export Controls**: Exporting countries must monitor and limit harvest
+- **Enforcement Challenges**: Distinguishing _Dalbergia_ species is difficult
+- **Look-alike Issue**: Can be confused with Cocobolo and other rosewoods
+
+### Current Threats
+
+1. **Commercial Overexploitation**
+   - High demand from musical instrument industry
+   - Premium prices incentivize illegal logging
+   - Slow growth (40-60+ years to maturity) limits sustainability
+   - Selective cutting targets largest, best trees (genetic impact)
+
+2. **Habitat Loss**
+   - Forest conversion to agriculture (cattle, crops)
+   - Pacific dry forests heavily impacted
+   - Urban expansion in Central Valley areas
+   - Road construction in previously remote areas
+
+3. **Climate Change**
+   - Longer, more severe dry seasons stress trees
+   - Changing rainfall patterns affect regeneration
+   - Increased fire frequency in dry forest habitats
+   - Phenology shifts may affect pollination success
+
+### Recovery Efforts
+
+- **Reforestation**: Small-scale plantings for timber and conservation
+- **Agroforestry Integration**: Trees planted in coffee and cacao systems
+- **Protected Areas**: Present in numerous Costa Rican national parks
+- **Sustainable Harvest**: Some certified operations (limited)
+- **Alternative Species**: Woodworkers encouraged to use more common species
+
+---
+
+## Growing Granadillo / Cultivation
+
+### Propagation
+
+<PropertiesGrid>
+  <PropertyCard title="Primary Method" value="Seeds" />
+  <PropertyCard title="Viability" value="Seeds viable 6-12 months" />
+  <PropertyCard title="Germination" value="60-80% with proper treatment" />
+  <PropertyCard title="Cuttings" value="Difficult, limited success" />
+  <PropertyCard title="Pre-treatment" value="Scarification or hot water soak" />
+  <PropertyCard title="Germination Time" value="2-4 weeks" />
+</PropertiesGrid>
+
+**Seed Collection & Preparation:**
+
+1. Collect pods when they turn brown (July-September)
+2. Dry pods until they split naturally
+3. Extract seeds from pods
+4. Seeds can be stored in cool, dry location 6-12 months
+5. Before planting: Scarify seed coat OR soak 12-24 hours in hot water (not boiling)
+
+**Seedling Care:**
+
+- Plant 1-2 cm deep in well-drained potting mix
+- Keep moist but not waterlogged
+- Germination in 2-4 weeks
+- Grow in pots 6-12 months before outplanting
+- Provide light shade initially, gradually increase sun exposure
+- Protect from excessive dry season stress first 2-3 years
+
+### Site Requirements
+
+<PropertiesGrid>
+  <PropertyCard title="Sunlight" value="Full sun for best growth" />
+  <PropertyCard title="Soil Drainage" value="Well-drained ESSENTIAL" />
+  <PropertyCard title="Soil Fertility" value="Moderate to fertile preferred" />
+  <PropertyCard title="Soil pH" value="5.5-7.5 (acid to neutral)" />
+  <PropertyCard title="Water" value="Moderate (1000-2500mm/year)" />
+  <PropertyCard title="Elevation" value="100-1500m optimal" />
+  <PropertyCard title="Temperature" value="22-30°C mean annual" />
+  <PropertyCard title="Spacing" value="4x4m to 6x6m for timber" />
+</PropertiesGrid>
+
+### Planting & Establishment
+
+**Timing**: Plant at beginning of rainy season (May-June in Pacific slope, flexible in wetter Caribbean slope)
+
+**Site Preparation**:
+
+- Clear competing vegetation
+- Dig holes 40x40x40 cm
+- Mix soil with compost or aged manure
+- Ensure good drainage (critical)
+
+**Outplanting**:
+
+- Plant seedlings 30-60 cm tall
+- Water thoroughly at planting
+- Mulch around base (keep mulch off trunk)
+- Stake if in windy location
+
+**First Year Care** (Critical for Success):
+
+- Water during dry season (weekly to bi-weekly)
+- Weed control essential (young trees easily overtopped)
+- Protect from browsing animals (fence if cattle present)
+- Monitor for pests (generally resistant)
+
+### Long-term Management
+
+**Growth Rate**: Moderate to slow - expect 30-50 cm height growth per year under good conditions
+
+**Timeline to Maturity**:
+
+- Height 5m: 8-12 years
+- Height 15m: 25-35 years
+- Timber size (40+ cm diameter): 40-60+ years
+- **This is a long-term investment tree**
+
+**Maintenance**:
+
+- Formative pruning: Remove lower branches to develop straight trunk
+- Years 1-5: Prune annually to shape
+- Fertilization: Generally not needed (nitrogen-fixing)
+- Thinning: If planted densely, thin to favor best-formed trees
+- Patience required: This tree rewards long-term thinking
+
+**Production**:
+
+- Timber harvest at 40-60+ years minimum
+- Sustainable harvest requires management plan and permits
+- CITES documentation required for international trade
+- Consider non-timber uses (erosion control, reforestation) as primary goals
+
+**Common Challenges**:
+
+- Slow growth tests patience - not for short-term investors
+- Dry season stress in young trees - irrigation first 2-3 years critical
+- Browsing by cattle/deer - protection needed
+- Weed competition - aggressive control required in early years
+- Long investment period - 40-60+ years to harvestable timber
+
+---
+
+## Cultural & Historical Significance
+
+### Musical Tradition
+
+Granadillo holds deep cultural significance in Central American musical traditions, particularly in **Guatemala**, where it is the preferred wood for the **marimba**, the national instrument.
+
+**Marimba Heritage**:
+
+- Indigenous Guatemalans have used Granadillo for marimbas for centuries
+- The wood's resonant properties are central to marimba's distinctive sound
+- Traditional knowledge of wood selection passed through generations
+- Marimba orchestras are fundamental to Guatemalan cultural identity
+- Similar traditions in southern Mexico (Chiapas, Oaxaca)
+
+### Indigenous Knowledge
+
+While less documented than some other Central American timber species, Granadillo features in indigenous ethnobotany:
+
+- **Traditional Construction**: Durable posts and beams when available
+- **Tool Making**: Handles and implements from waste wood
+- **Forest Indicators**: Presence indicates specific soil and moisture conditions
+- **Medicinal**: Bark used in some traditional medicine systems (not scientifically validated)
+
+### Contemporary Significance
+
+Today, Granadillo represents both craftsmanship tradition and conservation challenges:
+
+- **Luthier Community**: High-end guitar and marimba makers seek sustainably sourced Granadillo
+- **Conservation Symbol**: Its Vulnerable status highlights Central American forest conservation needs
+- **Sustainable Forestry**: Small-scale efforts to grow Granadillo for future timber
+- **Cultural Preservation**: Maintaining traditional instrument-making while protecting remaining forests
+
+---
+
+## Safety & Woodworking Considerations
+
+### Health & Safety Profile
+
+Granadillo is notably **safer to work with than Cocobolo**, making it preferred by many woodworkers:
+
+<PropertiesGrid>
+  <PropertyCard
+    title="Dermatitis Risk"
+    value="Low (generally non-allergenic)"
+  />
+  <PropertyCard title="Respiratory" value="Mild - standard dust precautions" />
+  <PropertyCard title="Eye Irritation" value="Minimal" />
+  <PropertyCard title="Sensitization" value="Rare (unlike Cocobolo)" />
+  <PropertyCard title="Toxicity" value="Not toxic if ingested (not food)" />
+  <PropertyCard title="Overall" value="Safe with basic precautions" />
+</PropertiesGrid>
+
+### Working Properties
+
+<TwoColumn>
+<Column>
+
+#### Advantages
+
+- **Easy Gluing**: Bonds well with standard woodglues
+- **Finishes Well**: Accepts oils, lacquers, shellac readily
+- **Machines Cleanly**: Sharp tools give clean cuts
+- **Takes Polish**: Buffs to high natural luster
+- **Stable**: Low movement after drying
+- **Non-Oily**: Unlike Cocobolo, doesn't clog sandpaper
+
+</Column>
+<Column>
+
+#### Considerations
+
+- **Hardness**: Sharp tools required (dulls blades faster than softwoods)
+- **Dust**: Fine dust - use dust collection
+- **Grain**: Can tear if planed against grain
+- **Cost**: Premium price limits availability
+- **Sourcing**: Verify legal harvest and CITES compliance
+- **Color Variation**: Heartwood/sapwood contrast requires planning
+
+</Column>
+</TwoColumn>
+
+###standard Safety Precautions
+
+While Granadillo is safer than many tropical hardwoods, follow basic woodworking safety:
+
+1. **Dust Control**: Use dust collection and respirator (standard practice for all tropical hardwoods)
+2. **Eye Protection**: Safety glasses when machining
+3. **Sharp Tools**: Reduces tearout and effort
+4. **Ventilation**: Good airflow in workspace
+5. **First Time Use**: Monitor for any personal sensitivity (rare but possible)
+
+### Comparison: Granadillo vs. Cocobolo Safety
+
+<DataTable
+  headers={[
+    "Safety Factor",
+    "Granadillo (D. tucurensis)",
+    "Cocobolo (D. retusa)",
+  ]}
+  rows={[
+    ["Contact Dermatitis", "Rare, mild if occurs", "Common, can be severe"],
+    [
+      "Respiratory Irritation",
+      "Minimal with dust control",
+      "Moderate to severe",
+    ],
+    ["Sensitization Risk", "Low", "High - permanent sensitivity possible"],
+    ["Eye Irritation", "Minimal", "Moderate"],
+    [
+      "Gluing Issues",
+      "None - glues bond normally",
+      "Difficult - oils resist adhesion",
+    ],
+    [
+      "Finishing Issues",
+      "None - finishes apply normally",
+      "Special prep needed",
+    ],
+  ]}
+/>
+
+For woodworkers with known **Dalbergia** allergies (especially Cocobolo sensitivity), Granadillo is generally well-tolerated, but individual testing on small sample is recommended.
+
+---
+
+## Where to See Granadillo in Costa Rica
+
+### Protected Areas
+
+Granadillo can be found in numerous Costa Rican national parks and reserves, though identifying it requires familiarity with _Dalbergia_ features:
+
+**Pacific Dry Forests**:
+
+- **Santa Rosa National Park** (Guanacaste) - Dry forest habitat
+- **Palo Verde National Park** (Guanacaste) - Wetland margins
+- **Rincón de la Vieja National Park** - Mid-elevation slopes
+
+**Pacific Humid Forests**:
+
+- **Carara National Park** (Puntarenas) - Transitional forest
+- **Corcovado National Park** (Osa Peninsula) - Humid forest edges
+- **Manuel Antonio National Park** - Coastal forest
+
+**Central Valley & Intermediate**:
+
+- **Braulio Carrillo National Park** - Wide elevation range
+- **Irazú Volcano National Park** - Mid-elevation forest remnants
+
+**Caribbean Slope**:
+
+- **Tortuguero National Park** - Lowland humid forests
+- **Barra del Colorado Wildlife Refuge** - Riparian zones
+
+### Identification in the Wild
+
+Look for these **field identification features**:
+
+- **Tree Form**: Medium-sized, relatively straight trunk (straighter than Cocobolo's typical crookedness)
+- **Bark**: Smooth to slightly fissured, greyish (lighter than Cocobolo)
+- **Leaves**: Compound with 9-15 leaflets, deciduous in dry season
+- **Elevation**: Above 100m (Cocobolo typically below 600m is key differentiator)
+- **Habitat**: Wider ecological range - dry forest up to mid-elevation moist forest
+
+---
+
+## External Resources & Further Reading
+
+### Conservation & Scientific Resources
+
+- **[IUCN Red List - Dalbergia tucurensis](https://www.iucnredlist.org/)** - Official conservation assessment
+- **[CITES Species Database](https://checklist.cites.org)** - International trade regulations
+- **[Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/)** - Occurrence records and distribution data
+- **[The Wood Database - Granadillo](https://www.wood-database.com/)** - Wood properties and working characteristics
+
+### Research & Identification
+
+- **[INaturalist - Dalbergia tucurensis](https://www.inaturalist.org/taxa/search?q=Dalbergia+tucurensis)** - Community observations
+- **[Tropicos - Missouri Botanical Garden](https://www.tropicos.org/)** - Taxonomic information
+- **Manual de Plantas de Costa Rica** - Comprehensive Costa Rican flora reference
+
+### Related Species in This Atlas
+
+- **[Cocobolo (Dalbergia retusa)](/en/trees/cocobolo)** - Critically endangered cousin
+- **[Cristóbal (Platymiscium pinnatum)](/en/trees/cristobal)** - Another valuable Central American hardwood
+- **[Cristobalito (Platymiscium parviflorum)](/en/trees/cristobalito)** - Related conservation-concern species
+
+---
+
+## Quick Identification Guide
+
+<Callout type="success" title="At a Glance">
+  **Granadillo vs. Cocobolo** - Quick Field Distinctions: ✓ **Granadillo**:
+  Found 100-1500m elevation | Straighter trunk | Less oily wood | Non-allergenic
+  | Golden-brown heartwood | Wider range of habitats ✓ **Cocobolo**: Found
+  0-600m elevation | Often crooked trunk | Very oily wood | Highly allergenic |
+  Orange-black heartwood | Dry Pacific forests only If you're above 600m
+  elevation and find a _Dalbergia_ with compound leaves and straight trunk, it's
+  likely Granadillo, not Cocobolo.
+</Callout>
+
+---
+
+## References
+
+1. IUCN. (2018). _Dalbergia tucurensis_. The IUCN Red List of Threatened Species.
+2. Sousa, M., & Rudd, V. E. (1993). _Dalbergia_ (Leguminosae: Papilionoideae) in Mexico. Annals of the Missouri Botanical Garden.
+3. Hoadley, R. B. (2000). _Understanding Wood: A Craftsman's Guide to Wood Technology_. Taunton Press.
+4. Richter, H. G., & Dallwitz, M. J. (2000). Commercial timbers: descriptions. DELTA System.
+5. Zamora, N. (2010). _Arboles de Costa Rica Vol. II_. INBio, Costa Rica.
+
+---
+
+**_Contributions welcome_** - If you have photos or traditional knowledge about Granadillo, please [contribute](/contribute).
