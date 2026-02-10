@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-01-22  
-**Current Species Count:** 137 documented  
-**Missing Species:** ~36 unique species identified for future expansion  
+**Last Updated:** 2026-02-10  
+**Current Species Count:** 153 documented  
+**Missing Species:** ~35 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -11,7 +11,11 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ## ✅ Recently Added Species
 
-### Latest Additions (2026-01-15)
+### Latest Additions (2026-02-10)
+
+- **Granadillo** - _Dalbergia tucurensis_ - Guatemalan Rosewood, vulnerable timber species ✅
+
+### Previous Additions (2026-01-15)
 
 - **Sigua** - _Nectandra cissiflora_ - Laurel family, fragrant wood timber ✅
 - **Comenegro** - _Simarouba glauca_ - Paradise tree, medicinal bark ✅
