@@ -3,7 +3,8 @@ import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
 
 interface NowBloomingSectionProps {
-  trees: typeof allTrees;
+  floweringNow: typeof allTrees;
+  fruitingNow: typeof allTrees;
   nowBlooming: string;
   floweringSummary: string;
   fruitingSummary: string;
@@ -13,7 +14,8 @@ interface NowBloomingSectionProps {
 }
 
 export function NowBloomingSection({
-  trees,
+  floweringNow,
+  fruitingNow,
   nowBlooming,
   floweringSummary,
   fruitingSummary,
@@ -21,18 +23,6 @@ export function NowBloomingSection({
   floweringLabel,
   fruitingLabel,
 }: NowBloomingSectionProps) {
-  const currentMonth = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    timeZone: "America/Costa_Rica",
-  }).format(new Date());
-
-  const floweringNow = trees.filter((tree) =>
-    tree.floweringSeason?.includes(currentMonth)
-  );
-  const fruitingNow = trees.filter((tree) =>
-    tree.fruitingSeason?.includes(currentMonth)
-  );
-
   const activeNow = [
     ...floweringNow.map((t) => ({ ...t, activity: "flowering" as const })),
     ...fruitingNow
@@ -51,8 +41,7 @@ export function NowBloomingSection({
             {nowBlooming}
           </h2>
           <p className="mt-1 text-muted-foreground">
-            {floweringSummary.replace("{count}", String(floweringNow.length))},{" "}
-            {fruitingSummary.replace("{count}", String(fruitingNow.length))}
+            {floweringSummary}, {fruitingSummary}
           </p>
         </div>
         <Link
