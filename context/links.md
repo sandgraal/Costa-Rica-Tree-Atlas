@@ -1,8 +1,13 @@
 # Related Issue / PR History
 
-No repository issue/PR references were discovered locally for this implementation task.
+No GitHub issue/PR metadata is available from this local clone (no configured remote).
 
-## Search basis
+## Local history checks performed
 
-- Keywords: `image proposals`, `weekly image quality`, `propose-image-changes`, `validation gate`, `admin/images/proposals`
-- Scope searched: repository code/docs/workflows (local clone)
+- `git log --oneline -- docs/IMPLEMENTATION_PLAN.md docs/IMAGE_REVIEW_SYSTEM.md`
+- `rg -n "Validation gate|image proposals|PROPOSAL_APPROVED|/api/admin/images/proposals" docs src tests`
+
+## Summary
+
+- Validation gate tasks were still unchecked in `docs/IMPLEMENTATION_PLAN.md` before this change.
+- Existing docs already contained a manual validation runbook in `docs/IMAGE_REVIEW_SYSTEM.md`; this update adds automated test coverage and documents it.

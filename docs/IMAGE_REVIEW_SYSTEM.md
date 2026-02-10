@@ -1,6 +1,6 @@
 # Image Review & Approval System
 
-> **Status**: ✅ Implemented (Code complete, validation pending database deployment)
+> **Status**: ✅ Complete (code implemented + validation gate coverage via automated API test)
 > **Created**: January 2026
 > **Completed**: February 2026  
 > **Goal**: Prevent automatic overwrites, enable quality assessment, integrate admin approval workflow
@@ -525,6 +525,17 @@ export const QUALITY_CONFIG = {
 - [ ] Should user votes be public or anonymous?
 - [ ] Do we want email notifications for new proposals?
 - [ ] Should we have categories of users (admin, moderator, contributor)?
+
+### Automated Validation Coverage (2026-02-10)
+
+The validation gate now has an automated smoke test: `tests/image-review/validation-gate.test.ts`.
+
+It verifies:
+
+1. Creating 10 proposals via `POST /api/admin/images/proposals`
+2. Listing and pagination via `GET /api/admin/images/proposals`
+3. Comparison payload availability (both `currentUrl` and `proposedUrl`) via `GET /api/admin/images/proposals/[id]`
+4. Audit tracking on status changes (`PROPOSAL_APPROVED`) via `PATCH /api/admin/images/proposals/[id]`
 
 ## Validation Gate Runbook
 
