@@ -443,6 +443,7 @@ See `audit-content-report.md` for complete list of 26 species.
 - [ ] Migrate more components to Server Components
   - [x] Convert `Footer` to server component to reduce client hydration (2026-02-10)
   - [x] Convert homepage `AboutSection`, `StatsSection`, and `NowBloomingSection` to server components (2026-02-10)
+  - [x] Convert `DataSourceCard` (about page) to server component by moving translations to parent and passing labels as props (2026-02-10)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement strategies
 - [ ] Optimize database queries (when admin active)

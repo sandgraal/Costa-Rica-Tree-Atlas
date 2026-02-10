@@ -1,7 +1,3 @@
-"use client";
-
-import { useTranslations } from "next-intl";
-
 interface DataSourceCardProps {
   name: string;
   icon: string;
@@ -10,6 +6,8 @@ interface DataSourceCardProps {
   whyItMatters: string;
   link: string;
   ctaText: string;
+  whatWeUseLabel: string;
+  whyItMattersLabel: string;
 }
 
 export function DataSourceCard({
@@ -20,9 +18,9 @@ export function DataSourceCard({
   whyItMatters,
   link,
   ctaText,
+  whatWeUseLabel,
+  whyItMattersLabel,
 }: DataSourceCardProps) {
-  const t = useTranslations("about.dataSources");
-
   return (
     <div className="bg-card border border-border rounded-xl p-6 hover:border-primary/30 hover:shadow-lg transition-all">
       {/* Header */}
@@ -37,7 +35,7 @@ export function DataSourceCard({
       {/* What We Use */}
       <div className="mb-4">
         <h4 className="text-sm font-semibold text-primary-dark dark:text-primary-light mb-2">
-          {t("whatWeUseLabel")}
+          {whatWeUseLabel}
         </h4>
         <p className="text-sm text-foreground/80">{whatWeUse}</p>
       </div>
@@ -45,7 +43,7 @@ export function DataSourceCard({
       {/* Why It Matters */}
       <div className="mb-4">
         <h4 className="text-sm font-semibold text-primary-dark dark:text-primary-light mb-2">
-          {t("whyItMattersLabel")}
+          {whyItMattersLabel}
         </h4>
         <p className="text-sm text-foreground/80">{whyItMatters}</p>
       </div>

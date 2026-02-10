@@ -3,7 +3,7 @@
 ## Project Summary
 
 - Costa Rica Tree Atlas is a bilingual (EN/ES) Next.js 16 application using Contentlayer MDX content and next-intl routing.
-- This task focused on the highest-priority open engineering work in `docs/IMPLEMENTATION_PLAN.md` Phase 3 performance: migrating additional homepage UI sections from client to server components to reduce hydration cost.
+- This task focused on the highest-priority open engineering work in `docs/IMPLEMENTATION_PLAN.md` Phase 3 performance: migrating additional UI components from client to server components to reduce hydration cost.
 
 ## Dependency Graph (High Level)
 
@@ -22,11 +22,8 @@
 
 ## Key Paths by Feature
 
-- Homepage route and composition: `src/app/[locale]/page.tsx`
-- Homepage sections converted to server components:
-  - `src/components/home/AboutSection.tsx`
-  - `src/components/home/StatsSection.tsx`
-  - `src/components/home/NowBloomingSection.tsx`
+- About route and composition: `src/app/[locale]/about/page.tsx`
+- About data source card component: `src/components/DataSourceCard.tsx`
 - Translation source files: `messages/en.json`, `messages/es.json`
 - Planning tracker: `docs/IMPLEMENTATION_PLAN.md`
 
@@ -34,4 +31,4 @@
 
 - EN/ES translation parity is required for any UI string changes.
 - Components under `src/components/**` should avoid `"use client"` unless hooks/browser APIs are needed.
-- The homepage retains dynamic/lazy loading for heavier below-the-fold components while moving purely render-only sections to server components.
+- Components in `src/components/**` should avoid client boundaries unless hooks or browser APIs are required.
