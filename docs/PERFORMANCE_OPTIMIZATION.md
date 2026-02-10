@@ -1,6 +1,6 @@
 # Performance Optimization Guide
 
-**Last Updated:** 2026-02-07  
+**Last Updated:** 2026-02-10  
 **Status:** 🚀 Phase 1 Validated, Phase 2 In Progress  
 **Lighthouse Baseline:** Performance 48/100 (2026-01-18)  
 **Target:** Performance >90/100
@@ -253,11 +253,11 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 
 ### Phase 2: Advanced Optimizations
 
-- [ ] Implement service worker for offline caching
+- [x] Implement service worker for offline caching ✅
 - [x] Add resource hints (dns-prefetch, preconnect) ✅
 - [x] Optimize third-party scripts (lazyOnload strategy) ✅
 - [x] Implement request coalescing ✅
-- [ ] Add performance monitoring dashboard
+- [x] Add performance monitoring dashboard ✅
 - [x] Set up Lighthouse CI workflow ✅
 - [x] Move hero preload to homepage only (ReactDOM.preload) ✅
 - [x] Add Vercel Analytics preconnect hints ✅
@@ -420,6 +420,13 @@ lhci autorun
 - Added in-flight request coalescing for biodiversity data fetching to prevent
   duplicate external API calls during concurrent renders.
 - Targets the Phase 2 “request coalescing” milestone for performance stability.
+
+### 2026-02-10 - Performance Monitoring Dashboard ✅
+
+- Added admin-facing performance dashboard to surface live Core Web Vitals and
+  resource transfer snapshots using the browser Performance APIs.
+- Provides quick links to Vercel Analytics and Speed Insights for longitudinal
+  monitoring.
 
 ---
 
