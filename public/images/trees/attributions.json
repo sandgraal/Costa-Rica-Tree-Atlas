@@ -5111,5 +5111,40 @@
       ],
       "updatedAt": "2026-02-01T04:07:17.681Z"
     }
+  },
+  "cortez-blanco": {
+    "attribution": "(c) María Elizalde Dávila, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/225367792",
+    "downloadedAt": "2026-02-10T01:54:06.382Z",
+    "votes": 1,
+    "photoId": 399558611
+  },
+  "sardinillo": {
+    "attribution": "(c) Bernardo Boscoso, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/69398711",
+    "downloadedAt": "2026-02-10T01:54:16.878Z",
+    "votes": 2,
+    "photoId": 112590162
+  },
+  "flor-de-itabo": {
+    "attribution": "(c) Luis Caldera, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/321217783",
+    "downloadedAt": "2026-02-10T01:54:21.645Z",
+    "votes": 0,
+    "photoId": 580895810
+  },
+  "corozo": {
+    "attribution": "(c) Eduardo Chacón Madrigal, some rights reserved (CC BY)",
+    "source": "https://www.inaturalist.org/observations/51748310",
+    "downloadedAt": "2026-02-10T01:54:25.778Z",
+    "votes": 1,
+    "photoId": 82234661
+  },
+  "papayillo": {
+    "attribution": "(c) Jacob Martin, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/51020328",
+    "downloadedAt": "2026-02-10T01:54:29.313Z",
+    "votes": 1,
+    "photoId": 81041233
   }
 }
