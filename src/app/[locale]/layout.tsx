@@ -229,7 +229,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <main id="main-content" className="flex-grow">
                   {children}
                 </main>
-                <Footer />
+                <Footer locale={locale} />
                 <ScrollToTop />
                 <KeyboardShortcuts />
                 <PWARegister />
