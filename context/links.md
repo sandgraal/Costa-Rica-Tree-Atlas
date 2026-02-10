@@ -19,3 +19,9 @@ GitHub issue/PR metadata is not available from this local environment (no remote
 
 - Highest-priority open implementation item selected: Phase 3 performance task to migrate more components to server components.
 - Homepage sections that did not require client hooks were converted to server components and wired with localized server-provided strings.
+
+## Additional discovery commands used for CurrentYear migration
+
+- `sed -n '1,160p' src/components/CurrentYear.tsx`
+- `rg -n "CurrentYear" src`
+- `sed -n '240,320p' docs/PERFORMANCE_OPTIMIZATION.md`
