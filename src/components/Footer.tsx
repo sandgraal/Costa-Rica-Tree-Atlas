@@ -38,10 +38,7 @@ export async function Footer({ locale }: FooterProps) {
           {/* Copyright and info - centered, takes remaining space */}
           <div className="flex-1 text-center text-sm text-foreground/60">
             <p>
-              © <CurrentYear />{" "}
-              {locale === "es"
-                ? "Atlas de Árboles de Costa Rica. Código: AGPL-3.0 | Contenido: CC BY-NC-SA 4.0"
-                : "Costa Rica Tree Atlas. Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0"}
+              © <CurrentYear /> {t("copyrightProject")}. {t("copyrightLicense")}
             </p>
             <p className="mt-1 text-xs">{t("madeWith")}</p>
             <p className="mt-2 text-xs text-foreground/50">

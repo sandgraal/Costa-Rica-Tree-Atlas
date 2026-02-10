@@ -89,7 +89,9 @@
     "copyright": "© {year} Costa Rica Tree Atlas. Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0",
     "license": "Made with ❤️ for Costa Rica's forests",
     "madeWith": "Made with ❤️ for Costa Rica's forests",
-    "keyboardShortcuts": "Keyboard shortcuts"
+    "keyboardShortcuts": "Keyboard shortcuts",
+    "copyrightProject": "Costa Rica Tree Atlas",
+    "copyrightLicense": "Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0"
   },
   "language": {
     "en": "English",

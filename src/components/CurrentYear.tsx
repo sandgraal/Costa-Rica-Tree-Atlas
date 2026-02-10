@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
  * Ensures the year is always fresh and not frozen at build time.
  */
 export function CurrentYear() {
-  const [year, setYear] = useState<number>(() => new Date().getFullYear());
+  const [year, setYear] = useState<number>(new Date().getFullYear());
 
   useEffect(() => {
     // Update year on mount to ensure it's current

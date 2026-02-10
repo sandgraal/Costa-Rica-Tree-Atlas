@@ -114,12 +114,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params;
+  const { locale: localeParam } = await params;
 
   // Validate that the incoming `locale` parameter is valid
-  if (!hasLocale(routing.locales, locale)) {
+  if (!hasLocale(routing.locales, localeParam)) {
     notFound();
   }
+
+  // After validation, we know localeParam is a valid Locale
+  const locale = localeParam as Locale;
 
   // Enable static rendering
   setRequestLocale(locale);
@@ -229,7 +232,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <main id="main-content" className="flex-grow">
                   {children}
                 </main>
-                <Footer locale={locale as Locale} />
+                <Footer locale={locale} />
                 <ScrollToTop />
                 <KeyboardShortcuts />
                 <PWARegister />
