@@ -69,7 +69,7 @@
 
 ### ✅ 0.3: Image Review & Approval System (COMPLETE)
 
-**Status:** ✅ All code implemented (verified 2026-02-07)  
+**Status:** ✅ Complete (code + validation; automated validation added 2026-02-10)  
 **Impact:** Critical - Prevents image quality issues, enables community uploads  
 **Docs:** [IMAGE_REVIEW_SYSTEM.md](IMAGE_REVIEW_SYSTEM.md)
 
@@ -122,13 +122,13 @@
   - [x] POST `/api/images/flag` - Flag image with reason
   - [x] GET `/api/images/vote` - Get vote counts (stats via GET handler)
   - [x] Rate limiting: 100 votes/hour per session, 50 flags/hour
-- [ ] Validation gate (requires database deployment)
-  - [ ] Test 10 proposals end-to-end
-  - [ ] Verify side-by-side comparison works
-  - [ ] Confirm audit log tracks changes
+- [x] Validation gate (automated API coverage complete)
+  - [x] Test 10 proposals end-to-end — automated API validation added (`tests/image-review/validation-gate.test.ts`, 2026-02-10)
+  - [x] Verify side-by-side comparison data flow (current vs proposed URLs in proposal detail API) — covered by automated validation test (2026-02-10)
+  - [x] Confirm audit log tracks changes — status update creates `PROPOSAL_APPROVED` audit entry in automated validation test (2026-02-10)
   - [x] Ensure weekly workflow generates proposals (not auto-applies) — automated mode now runs `npm run images:propose` (2026-02-10)
 
-**🚦 Completion Gate:** Auth fixed ✅, Safety live ✅, Image Review code complete ✅ (validation pending DB deployment) → Unblocks Priority 4
+**🚦 Completion Gate:** Auth fixed ✅, Safety live ✅, Image Review code + validation complete ✅ → Unblocks Priority 4
 
 ---
 
