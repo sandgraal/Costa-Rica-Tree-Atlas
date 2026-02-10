@@ -211,6 +211,7 @@ const executeRawMock = vi.fn(
         _fileSize,
         source,
         reason,
+        _workflowRunId,
       ] = args as string[];
 
       state.proposals.push({
