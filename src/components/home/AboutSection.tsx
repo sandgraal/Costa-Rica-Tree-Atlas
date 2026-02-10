@@ -1,8 +1,4 @@
-"use client";
-
-import { memo } from "react";
-
-export const AboutSection = memo(function AboutSection({
+export function AboutSection({
   openSource,
   description,
 }: {
@@ -29,4 +25,4 @@ export const AboutSection = memo(function AboutSection({
       <p className="text-muted-foreground text-lg">{description}</p>
     </>
   );
-});
+}

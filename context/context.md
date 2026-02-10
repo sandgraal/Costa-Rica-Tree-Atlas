@@ -3,8 +3,7 @@
 ## Project Summary
 
 - Costa Rica Tree Atlas is a bilingual (EN/ES) Next.js 16 application using Contentlayer MDX content and next-intl routing.
-- For this task, the highest-priority unaddressed item in `docs/IMPLEMENTATION_PLAN.md` was Priority 1.1: "Add remaining medium priority species."
-- Repository content verification showed those medium-priority species already exist in both locales, so this change synchronizes planning docs with implementation reality.
+- This task focused on the highest-priority open engineering work in `docs/IMPLEMENTATION_PLAN.md` Phase 3 performance: migrating additional homepage UI sections from client to server components to reduce hydration cost.
 
 ## Dependency Graph (High Level)
 
@@ -23,13 +22,16 @@
 
 ## Key Paths by Feature
 
-- Master implementation tracker: `docs/IMPLEMENTATION_PLAN.md`
-- Missing-species source of truth: `docs/MISSING_SPECIES_LIST.md`
-- Species content (EN): `content/trees/en/*.mdx`
-- Species content (ES): `content/trees/es/*.mdx`
+- Homepage route and composition: `src/app/[locale]/page.tsx`
+- Homepage sections converted to server components:
+  - `src/components/home/AboutSection.tsx`
+  - `src/components/home/StatsSection.tsx`
+  - `src/components/home/NowBloomingSection.tsx`
+- Translation source files: `messages/en.json`, `messages/es.json`
+- Planning tracker: `docs/IMPLEMENTATION_PLAN.md`
 
 ## Known Constraints & Feature Flags
 
-- Species additions require EN+ES parity and frontmatter/schema compatibility.
-- Documentation should track real implementation status to prevent duplicated content work.
-- No runtime code changes or dependency updates were necessary for this docs-alignment task.
+- EN/ES translation parity is required for any UI string changes.
+- Components under `src/components/**` should avoid `"use client"` unless hooks/browser APIs are needed.
+- The homepage retains dynamic/lazy loading for heavier below-the-fold components while moving purely render-only sections to server components.

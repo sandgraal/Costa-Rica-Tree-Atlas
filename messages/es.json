@@ -41,7 +41,18 @@
       "learnMore": "Más Información"
     },
     "loadMore": "Cargar Más",
-    "showing": "Mostrando {showing} de {total}"
+    "showing": "Mostrando {showing} de {total}",
+    "viewCalendar": "Ver calendario",
+    "floweringLabel": "Floreciendo",
+    "fruitingLabel": "Fructificando",
+    "floweringSummary": "{count} floreciendo",
+    "fruitingSummary": "{count} fructificando este mes",
+    "stats": {
+      "documentedSpecies": "Especies Documentadas",
+      "botanicalFamilies": "Familias Botánicas",
+      "conservationStatuses": "Estados de Conservación",
+      "languages": "Idiomas"
+    }
   },
   "trees": {
     "title": "Directorio de Árboles",
