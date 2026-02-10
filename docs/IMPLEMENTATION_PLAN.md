@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 151/175 (86%) - Target: 175+ documented species
+- **Species**: 153/175 (87%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
@@ -168,7 +168,7 @@
 - [x] Tamarindo Dulce (Tamarindus indica var. dulcis) — added 2026-02-09
 - [x] Marañón de Jardín (Anacardium occidentale var.) — already existed
 
-#### Medium Priority (20 species) — 16/20 complete ✅ Fruit Trees Done
+#### Medium Priority (20 species) — 20/20 complete ✅
 
 - [x] Cortez Blanco (Roseodendron donnell-smithii) — added 2026-02-09
 - [x] Sardinillo (Tecoma stans) — added 2026-02-09
@@ -186,7 +186,7 @@
 - [x] Guaba Machete (Inga spectabilis) — added 2026-01-22
 - [x] Anona Colorada (Annona purpurea) — added 2026-01-22
 - [x] Guanábana Cimarrona (Annona montana) — added 2026-01-22
-- [ ] Add remaining medium priority species (See MISSING_SPECIES_LIST.md)
+- [x] Add remaining medium priority species (completed 2026-02-10; see docs/MISSING_SPECIES_LIST.md)
 
 #### Low Priority (7 species)
 
