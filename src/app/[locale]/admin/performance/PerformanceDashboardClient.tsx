@@ -96,26 +96,22 @@ const formatValue = (value: number | null, unit: string) => {
   return `${Math.round(value)} ${unit}`;
 };
 
-const getThresholds = (key: MetricKey) => {
-  switch (key) {
-    case "lcp":
-      return { good: 2500, needsImprovement: 4000 };
-    case "cls":
-      return { good: 0.1, needsImprovement: 0.25 };
-    case "inp":
-      return { good: 200, needsImprovement: 500 };
-    case "fcp":
-      return { good: 1800, needsImprovement: 3000 };
-    case "ttfb":
-      return { good: 800, needsImprovement: 1800 };
-    default:
-      return { good: 0, needsImprovement: 0 };
-  }
-};
-
 const getRating = (key: MetricKey, value: number | null): Rating => {
   if (value === null) return "needs-improvement";
-  const { good, needsImprovement } = getThresholds(key);
+
+  // Derive thresholds from METRICS to avoid duplication and drift.
+  const metric = METRICS.find((m) => m.key === key);
+  const thresholds = metric && (metric as any).thresholds;
+
+  if (!thresholds) {
+    // Fallback if METRICS is misconfigured for this key.
+    return "needs-improvement";
+  }
+
+  const { good, needsImprovement } = thresholds as {
+    good: number;
+    needsImprovement: number;
+  };
   if (value <= good) return "good";
   if (value <= needsImprovement) return "needs-improvement";
   return "poor";
