@@ -316,14 +316,14 @@ export async function GET(request: NextRequest) {
       updated_at: Date;
     }
 
-    const contributions = await prisma.$queryRawUnsafe<ContributionRow[]>(
+    const contributions = (await prisma.$queryRawUnsafe(
       `SELECT * FROM contributions WHERE ${whereClause} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`
-    );
+    )) as ContributionRow[];
 
     // Get total count
-    const countResult = await prisma.$queryRawUnsafe<[{ count: bigint }]>(
+    const countResult = (await prisma.$queryRawUnsafe(
       `SELECT COUNT(*) as count FROM contributions WHERE ${whereClause}`
-    );
+    )) as [{ count: bigint }];
     const total = Number(countResult[0]?.count || 0);
 
     // Transform to camelCase

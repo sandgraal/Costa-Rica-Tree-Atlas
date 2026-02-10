@@ -7,40 +7,30 @@
  * NOTE: This module gracefully handles missing Prisma Client (when DATABASE_URL is not set).
  * Admin features will be unavailable but the application will still build and run.
  *
+ * We intentionally use `any` types here because the Prisma generated client types
+ * are only available after `prisma generate` runs, which requires DATABASE_URL.
+ * Using explicit type imports would break the build in environments without a database.
+ *
  * @see https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
  */
 
-// Import PrismaClient type if available
-type PrismaClientType = typeof import("@prisma/client").PrismaClient;
-type PrismaClientInstance = InstanceType<PrismaClientType>;
-// Proxy type for when Prisma is unavailable
-type PrismaClientProxy = Record<string, never>;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-// Type declaration for global scope - must be at module level
-declare global {
-  var prismaGlobal: PrismaClientInstance | undefined;
-}
-
-let PrismaClient: PrismaClientType | undefined;
-let prisma: PrismaClientInstance | PrismaClientProxy;
+let PrismaClient: any;
+let prisma: any;
 
 try {
   // Try to import Prisma Client - may not be available if DATABASE_URL wasn't set during build
   // eslint-disable-next-line @typescript-eslint/no-require-imports -- require() is needed for conditional import
-  const prismaModule = require("@prisma/client") as {
-    PrismaClient: PrismaClientType;
-  };
+  const prismaModule = require("@prisma/client");
+  PrismaClient = prismaModule.PrismaClient;
 
-  // Verify PrismaClient exists on the module
-  if (!prismaModule.PrismaClient) {
+  if (!PrismaClient) {
     throw new Error("PrismaClient not found in @prisma/client module");
   }
 
-  PrismaClient = prismaModule.PrismaClient;
-
-  const prismaClientSingleton = (): PrismaClientInstance => {
-    // Non-null assertion is safe here because we've verified PrismaClient exists above
-    return new PrismaClient!({
+  const prismaClientSingleton = () => {
+    return new PrismaClient({
       log:
         process.env.NODE_ENV === "development"
           ? ["query", "error", "warn"]
@@ -48,9 +38,10 @@ try {
     });
   };
 
-  prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+  const g = globalThis as any;
+  prisma = g.prismaGlobal ?? prismaClientSingleton();
 
-  if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
+  if (process.env.NODE_ENV !== "production") g.prismaGlobal = prisma;
 } catch (_error) {
   // Prisma Client not available - admin features will be disabled
   console.warn(
@@ -70,7 +61,9 @@ try {
         );
       },
     }
-  ) as PrismaClientProxy;
+  );
 }
+
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export default prisma;
