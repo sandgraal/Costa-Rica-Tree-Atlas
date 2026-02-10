@@ -1,6 +1,6 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
-import { routing } from "@i18n/routing";
+import { routing, type Locale } from "@i18n/routing";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -114,12 +114,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params;
+  const { locale: localeParam } = await params;
 
   // Validate that the incoming `locale` parameter is valid
-  if (!hasLocale(routing.locales, locale)) {
+  if (!hasLocale(routing.locales, localeParam)) {
     notFound();
   }
+
+  // After validation, we know localeParam is a valid Locale
+  const locale = localeParam as Locale;
 
   // Enable static rendering
   setRequestLocale(locale);
