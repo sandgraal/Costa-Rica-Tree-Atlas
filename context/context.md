@@ -32,3 +32,8 @@
 - EN/ES translation parity is required for any UI string changes.
 - Components under `src/components/**` should avoid `"use client"` unless hooks/browser APIs are needed.
 - Components in `src/components/**` should avoid client boundaries unless hooks or browser APIs are required.
+
+## Latest Update (2026-02-10)
+
+- Continued Phase 3 performance work by converting `src/components/CurrentYear.tsx` from a client component to a server component.
+- Updated performance planning docs to track this migration under the existing Server Components checklist.
