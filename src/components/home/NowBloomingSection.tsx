@@ -3,8 +3,8 @@ import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
 
 interface NowBloomingSectionProps {
-  trees: typeof allTrees;
-  currentMonth: string;
+  floweringNow: typeof allTrees;
+  fruitingNow: typeof allTrees;
   nowBlooming: string;
   floweringSummary: string;
   fruitingSummary: string;
@@ -14,8 +14,8 @@ interface NowBloomingSectionProps {
 }
 
 export function NowBloomingSection({
-  trees,
-  currentMonth,
+  floweringNow,
+  fruitingNow,
   nowBlooming,
   floweringSummary,
   fruitingSummary,
@@ -23,13 +23,6 @@ export function NowBloomingSection({
   floweringLabel,
   fruitingLabel,
 }: NowBloomingSectionProps) {
-  const floweringNow = trees.filter((tree) =>
-    tree.floweringSeason?.includes(currentMonth)
-  );
-  const fruitingNow = trees.filter((tree) =>
-    tree.fruitingSeason?.includes(currentMonth)
-  );
-
   const activeNow = [
     ...floweringNow.map((t) => ({ ...t, activity: "flowering" as const })),
     ...fruitingNow

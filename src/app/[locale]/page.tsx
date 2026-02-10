@@ -182,8 +182,8 @@ export default async function HomePage({ params }: Props) {
         <section className="py-12 px-4 bg-gradient-to-r from-pink-50 to-orange-50 dark:from-pink-950/20 dark:to-orange-950/20">
           <div className="container mx-auto max-w-6xl">
             <NowBloomingSection
-              trees={trees}
-              currentMonth={currentMonth}
+              floweringNow={floweringNow}
+              fruitingNow={fruitingNow}
               nowBlooming={t("nowBlooming")}
               floweringSummary={t("floweringSummary", {
                 count: floweringNow.length,
