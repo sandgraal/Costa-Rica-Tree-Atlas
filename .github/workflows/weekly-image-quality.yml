@@ -165,7 +165,7 @@ jobs:
         if: steps.mode.outputs.mode == 'propose' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
         env:
           API_BASE_URL: ${{ secrets.IMAGE_PROPOSALS_API_BASE_URL }}
-          WORKFLOW_TOKEN: Bearer workflow-${{ github.run_id }}
+          WORKFLOW_TOKEN: ${{ secrets.IMAGE_PROPOSALS_WORKFLOW_TOKEN }}
         run: |
           echo "" >> audit-report.md
           echo "### Image Proposal Generation" >> audit-report.md
