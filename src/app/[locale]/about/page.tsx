@@ -75,6 +75,10 @@ export default async function AboutPage({ params }: Props) {
 function AboutContent() {
   const t = useTranslations("about");
   const dataSourcesLabels = {
+    // Prefer these label-suffixed keys for clarity and easier prop spreading
+    whatWeUseLabel: t("dataSources.whatWeUseLabel"),
+    whyItMattersLabel: t("dataSources.whyItMattersLabel"),
+    // Backwards-compatible aliases for existing call sites
     whatWeUse: t("dataSources.whatWeUseLabel"),
     whyItMatters: t("dataSources.whyItMattersLabel"),
   };
