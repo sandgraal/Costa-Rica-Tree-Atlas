@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 143/175 (82%) - Target: 175+ documented species
+- **Species**: 151/175 (86%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
@@ -139,7 +139,7 @@
 
 ### 1.1: Add Missing Species
 
-**Status:** 🟡 In Progress (30/47 complete)  
+**Status:** 🟡 In Progress (34/47 complete)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
 #### High Priority Native Species (10 species) ✅ COMPLETE
@@ -168,7 +168,7 @@
 - [x] Tamarindo Dulce (Tamarindus indica var. dulcis) — added 2026-02-09
 - [x] Marañón de Jardín (Anacardium occidentale var.) — already existed
 
-#### Medium Priority (20 species) — 12/20 complete
+#### Medium Priority (20 species) — 16/20 complete ✅ Fruit Trees Done
 
 - [x] Cortez Blanco (Roseodendron donnell-smithii) — added 2026-02-09
 - [x] Sardinillo (Tecoma stans) — added 2026-02-09
@@ -182,10 +182,10 @@
 - [x] Tirrá (Ulmus mexicana) — added 2026-02-09
 - [x] Lengua de Vaca (Miconia argentea) — added 2026-02-09
 - [x] Chirraca (Lonchocarpus minimiflorus) — added 2026-02-09
-- [ ] Guaba Bejuco (Inga vera)
-- [ ] Guaba Machete (Inga spectabilis)
-- [ ] Anona Colorada (Annona purpurea)
-- [ ] Guanábana Cimarrona (Annona montana)
+- [x] Guaba Bejuco (Inga vera) — added 2026-01-22
+- [x] Guaba Machete (Inga spectabilis) — added 2026-01-22
+- [x] Anona Colorada (Annona purpurea) — added 2026-01-22
+- [x] Guanábana Cimarrona (Annona montana) — added 2026-01-22
 - [ ] Add remaining medium priority species (See MISSING_SPECIES_LIST.md)
 
 #### Low Priority (7 species)
