@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 138/175 (79%) - Target: 175+ documented species
+- **Species**: 143/175 (82%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
@@ -139,7 +139,7 @@
 
 ### 1.1: Add Missing Species
 
-**Status:** 🟡 In Progress (25/47 complete)  
+**Status:** 🟡 In Progress (30/47 complete)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
 #### High Priority Native Species (10 species) ✅ COMPLETE
@@ -155,7 +155,7 @@
 - [x] Guácimo Colorado (Luehea seemannii) — already existed
 - [x] Caimitillo (Chrysophyllum cainito) — already existed
 
-#### Common Ornamentals & Fruit (10 species) — 8/10 complete
+#### Common Ornamentals & Fruit (10 species) ✅ COMPLETE
 
 - [x] Flamboyan (Delonix regia) — already existed
 - [x] Jacaranda Blanco (Jacaranda mimosifolia alba) — already existed
@@ -164,20 +164,20 @@
 - [x] Guanábana (Annona muricata) — already existed
 - [x] Rambután (Nephelium lappaceum) — already existed
 - [x] Carambola (Averrhoa carambola) — already existed
-- [ ] Guayaba Chilena (Acca sellowiana)
-- [ ] Tamarindo Dulce (Tamarindus indica var. dulcis)
+- [x] Guayaba Chilena (Acca sellowiana) — added 2026-02-09
+- [x] Tamarindo Dulce (Tamarindus indica var. dulcis) — added 2026-02-09
 - [x] Marañón de Jardín (Anacardium occidentale var.) — already existed
 
-#### Medium Priority (20 species) — 5/20 complete
+#### Medium Priority (20 species) — 8/20 complete
 
 - [x] Cortez Blanco (Roseodendron donnell-smithii) — added 2026-02-09
 - [x] Sardinillo (Tecoma stans) — added 2026-02-09
 - [x] Flor de Itabo (Yucca guatemalensis) — added 2026-02-09
 - [x] Corozo (Elaeis oleifera) — added 2026-02-09
 - [x] Papayillo (Vasconcellea cauliflora) — added 2026-02-09
-- [ ] Palma de Escoba (Cryosophila albida)
-- [ ] Palma Yolillo (Raphia taedigera)
-- [ ] Palma Suita (Geonoma congesta)
+- [x] Palma de Escoba (Cryosophila albida) — added 2026-02-09
+- [x] Palma Yolillo (Raphia taedigera) — added 2026-02-09
+- [x] Palma Suita (Geonoma congesta) — added 2026-02-09
 - [ ] Palma Cacho de Venado (Oenocarpus bataua)
 - [ ] Tirrá (Ulmus mexicana)
 - [ ] Lengua de Vaca (Miconia argentea)
