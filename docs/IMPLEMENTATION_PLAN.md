@@ -168,7 +168,7 @@
 - [x] Tamarindo Dulce (Tamarindus indica var. dulcis) — added 2026-02-09
 - [x] Marañón de Jardín (Anacardium occidentale var.) — already existed
 
-#### Medium Priority (20 species) — 8/20 complete
+#### Medium Priority (20 species) — 12/20 complete
 
 - [x] Cortez Blanco (Roseodendron donnell-smithii) — added 2026-02-09
 - [x] Sardinillo (Tecoma stans) — added 2026-02-09
@@ -178,10 +178,10 @@
 - [x] Palma de Escoba (Cryosophila albida) — added 2026-02-09
 - [x] Palma Yolillo (Raphia taedigera) — added 2026-02-09
 - [x] Palma Suita (Geonoma congesta) — added 2026-02-09
-- [ ] Palma Cacho de Venado (Oenocarpus bataua)
-- [ ] Tirrá (Ulmus mexicana)
-- [ ] Lengua de Vaca (Miconia argentea)
-- [ ] Chirraca (Lonchocarpus minimiflorus)
+- [x] Palma Cacho de Venado (Oenocarpus bataua) — added 2026-02-09
+- [x] Tirrá (Ulmus mexicana) — added 2026-02-09
+- [x] Lengua de Vaca (Miconia argentea) — added 2026-02-09
+- [x] Chirraca (Lonchocarpus minimiflorus) — added 2026-02-09
 - [ ] Guaba Bejuco (Inga vera)
 - [ ] Guaba Machete (Inga spectabilis)
 - [ ] Anona Colorada (Annona purpurea)
