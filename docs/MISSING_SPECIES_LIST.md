@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-01-19  
-**Current Species Count:** 129 documented  
-**Missing Species:** ~40 unique species identified for future expansion  
+**Last Updated:** 2026-01-22  
+**Current Species Count:** 137 documented  
+**Missing Species:** ~36 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -119,15 +119,15 @@ Important for Guanacaste dry forest ecosystem:
 
 **Rationale:** Dry forest is threatened ecosystem in Costa Rica, needs better representation.
 
-### MEDIUM PRIORITY - Fruit Trees (4 species)
+### MEDIUM PRIORITY - Fruit Trees (4 species) - COMPLETE ✅
 
 Additional edible/cultivated species:
 
 - ~~**Cas Dulce** - _Psidium friedrichsthalianum_~~ ✅ DUPLICATE: Same as **Cas** already documented
-- **Guaba Bejuco** - _Inga vera_ - Vine guaba (distinct from _I. edulis_ already documented)
-- **Guaba Machete** - _Inga spectabilis_ - Machete guaba (distinct from _I. edulis_ already documented)
-- **Anona Colorada** - _Annona purpurea_ - Red custard apple (distinct from _A. reticulata_ and _A. muricata_ already documented)
-- **Guanábana Cimarrona** - _Annona montana_ - Wild soursop (distinct from _A. muricata_ already documented)
+- **Guaba Bejuco** - _Inga vera_ - Vine guaba (distinct from _I. edulis_ already documented) ✅
+- **Guaba Machete** - _Inga spectabilis_ - Machete guaba (distinct from _I. edulis_ already documented) ✅
+- **Anona Colorada** - _Annona purpurea_ - Red custard apple (distinct from _A. reticulata_ and _A. muricata_ already documented) ✅
+- **Guanábana Cimarrona** - _Annona montana_ - Wild soursop (distinct from _A. muricata_ already documented) ✅
 - ~~**Marañón de Playa** - _Anacardium excelsum_~~ ✅ DUPLICATE: Same as **Espavel** already documented
 
 **Rationale:** Fruit diversity important for ethnobotany and agroforestry documentation.
