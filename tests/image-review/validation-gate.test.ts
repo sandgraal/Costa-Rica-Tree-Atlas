@@ -235,7 +235,7 @@ const executeRawMock = vi.fn(
     }
 
     if (sql.includes("UPDATE image_proposals") && sql.includes("reviewed_by")) {
-      const [status, actorId, reviewNotes, proposalId] = args as [
+      const [status, _actorId, _reviewNotes, proposalId] = args as [
         string,
         string,
         string,
@@ -252,60 +252,63 @@ const executeRawMock = vi.fn(
           : proposal
       );
 
-      state.audits.push({
-        id: `audit-${proposalId}`,
-        proposalId,
-        treeSlug:
-          state.proposals.find((proposal) => proposal.id === proposalId)
-            ?.treeSlug ?? "unknown",
-        imageType:
-          state.proposals.find((proposal) => proposal.id === proposalId)
-            ?.imageType ?? "FEATURED",
-        action:
-          status === "APPROVED" ? "PROPOSAL_APPROVED" : "PROPOSAL_UPDATED",
-        actorId,
-        previousValue: JSON.stringify({ status: "PENDING" }),
-        newValue: JSON.stringify({ status, reviewNotes }),
-        notes: reviewNotes,
-        createdAt: now,
-      });
-
       return 1;
     }
 
     if (sql.includes("INSERT INTO image_audits")) {
-      const [
-        auditId,
-        proposalId,
-        treeSlug,
-        imageType,
-        action,
-        maybeActorOrValue,
-        maybePrevious,
-        maybeNew,
-        maybeNotes,
-      ] = args;
+      // POST route: 6 args (id, proposal_id, tree_slug, image_type, new_value, notes)
+      // Note: action='PROPOSAL_CREATED' is a SQL literal, not a parameter
+      // PATCH route: 9 args (id, proposal_id, tree_slug, image_type, action, actor_id, previous_value, new_value, notes)
 
-      state.audits.push({
-        id: String(auditId),
-        proposalId: proposalId ? String(proposalId) : null,
-        treeSlug: String(treeSlug),
-        imageType: String(imageType),
-        action: String(action),
-        actorId:
-          typeof maybeActorOrValue === "string" &&
-          maybeActorOrValue.startsWith("admin")
-            ? maybeActorOrValue
-            : null,
-        previousValue:
-          typeof maybePrevious === "string"
-            ? maybePrevious
-            : JSON.stringify(maybePrevious),
-        newValue:
-          typeof maybeNew === "string" ? maybeNew : JSON.stringify(maybeNew),
-        notes: maybeNotes ? String(maybeNotes) : null,
-        createdAt: now,
-      });
+      if (args.length === 6) {
+        // POST route pattern
+        const [auditId, proposalId, treeSlug, imageType, newValue, notes] =
+          args;
+
+        state.audits.push({
+          id: String(auditId),
+          proposalId: proposalId ? String(proposalId) : null,
+          treeSlug: String(treeSlug),
+          imageType: String(imageType),
+          action: "PROPOSAL_CREATED",
+          actorId: null,
+          previousValue: null,
+          newValue:
+            typeof newValue === "string" ? newValue : JSON.stringify(newValue),
+          notes: notes ? String(notes) : null,
+          createdAt: now,
+        });
+      } else {
+        // PATCH route pattern (9 args)
+        const [
+          auditId,
+          proposalId,
+          treeSlug,
+          imageType,
+          action,
+          actorId,
+          previousValue,
+          newValue,
+          notes,
+        ] = args;
+
+        state.audits.push({
+          id: String(auditId),
+          proposalId: proposalId ? String(proposalId) : null,
+          treeSlug: String(treeSlug),
+          imageType: String(imageType),
+          action: String(action),
+          actorId: actorId ? String(actorId) : null,
+          previousValue:
+            typeof previousValue === "string"
+              ? previousValue
+              : JSON.stringify(previousValue),
+          newValue:
+            typeof newValue === "string" ? newValue : JSON.stringify(newValue),
+          notes: notes ? String(notes) : null,
+          createdAt: now,
+        });
+      }
 
       return 1;
     }
@@ -337,7 +340,8 @@ describe("Priority 0.3 validation gate - proposal workflow", () => {
     state.audits = [];
     queryRawMock.mockClear();
     executeRawMock.mockClear();
-    getServerSessionMock.mockResolvedValue({ user: { id: "admin-test-user" } });
+    // Initially return null to ensure workflow requests don't require a session
+    getServerSessionMock.mockResolvedValue(null);
   });
 
   it("creates 10 proposals, lists them, exposes comparison payload, and records review audit", async () => {
@@ -353,7 +357,7 @@ describe("Priority 0.3 validation gate - proposal workflow", () => {
           method: "POST",
           headers: {
             "content-type": "application/json",
-            authorization: "Bearer workflow-local",
+            authorization: "Bearer workflow-test",
           },
           body: JSON.stringify({
             treeSlug: `species-${i}`,
@@ -369,6 +373,14 @@ describe("Priority 0.3 validation gate - proposal workflow", () => {
       const response = await createProposal(request);
       expect(response.status).toBe(201);
     }
+
+    // Verify PROPOSAL_CREATED audit entries were created
+    expect(
+      state.audits.filter((audit) => audit.action === "PROPOSAL_CREATED")
+    ).toHaveLength(10);
+
+    // Set authenticated session for GET operations (which require authentication)
+    getServerSessionMock.mockResolvedValue({ user: { id: "admin-test-user" } });
 
     const listResponse = await listProposals(
       new NextRequest(
