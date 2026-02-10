@@ -74,6 +74,10 @@ export default async function AboutPage({ params }: Props) {
 
 function AboutContent() {
   const t = useTranslations("about");
+  const dataSourcesLabels = {
+    whatWeUse: t("dataSources.whatWeUseLabel"),
+    whyItMatters: t("dataSources.whyItMattersLabel"),
+  };
 
   return (
     <article className="prose prose-lg dark:prose-invert mx-auto">
@@ -247,6 +251,8 @@ function AboutContent() {
             whyItMatters={t("dataSources.inaturalist.whyItMatters")}
             link="https://www.inaturalist.org"
             ctaText={t("dataSources.inaturalist.cta")}
+            whatWeUseLabel={dataSourcesLabels.whatWeUse}
+            whyItMattersLabel={dataSourcesLabels.whyItMatters}
           />
 
           <DataSourceCard
@@ -257,6 +263,8 @@ function AboutContent() {
             whyItMatters={t("dataSources.sinac.whyItMatters")}
             link="https://www.sinac.go.cr"
             ctaText={t("dataSources.sinac.cta")}
+            whatWeUseLabel={dataSourcesLabels.whatWeUse}
+            whyItMattersLabel={dataSourcesLabels.whyItMatters}
           />
 
           <DataSourceCard
@@ -267,6 +275,8 @@ function AboutContent() {
             whyItMatters={t("dataSources.museoNacional.whyItMatters")}
             link="https://www.museocostarica.go.cr/nuestro-trabajo/colecciones/historia-natural/herbario/"
             ctaText={t("dataSources.museoNacional.cta")}
+            whatWeUseLabel={dataSourcesLabels.whatWeUse}
+            whyItMattersLabel={dataSourcesLabels.whyItMatters}
           />
 
           <DataSourceCard
@@ -277,6 +287,8 @@ function AboutContent() {
             whyItMatters={t("dataSources.inbio.whyItMatters")}
             link="http://www.inbio.ac.cr"
             ctaText={t("dataSources.inbio.cta")}
+            whatWeUseLabel={dataSourcesLabels.whatWeUse}
+            whyItMattersLabel={dataSourcesLabels.whyItMatters}
           />
 
           <DataSourceCard
@@ -287,6 +299,8 @@ function AboutContent() {
             whyItMatters={t("dataSources.ots.whyItMatters")}
             link="https://tropicalstudies.org/portfolio/las-cruces-research-station/"
             ctaText={t("dataSources.ots.cta")}
+            whatWeUseLabel={dataSourcesLabels.whatWeUse}
+            whyItMattersLabel={dataSourcesLabels.whyItMatters}
           />
 
           <DataSourceCard
@@ -297,6 +311,8 @@ function AboutContent() {
             whyItMatters={t("dataSources.lankester.whyItMatters")}
             link="https://jbl.ucr.ac.cr"
             ctaText={t("dataSources.lankester.cta")}
+            whatWeUseLabel={dataSourcesLabels.whatWeUse}
+            whyItMattersLabel={dataSourcesLabels.whyItMatters}
           />
         </div>
 
