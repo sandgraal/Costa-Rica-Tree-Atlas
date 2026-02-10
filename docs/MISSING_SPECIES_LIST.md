@@ -188,7 +188,7 @@ Threatened species requiring documentation:
 
 - ~~**Ajo Montañero** - _Caryocar costaricense_~~ ✅ DUPLICATE: Same as **Ajo** already documented (_Caryocar costaricense_)
 - **Cristobalito** - _Platymiscium parviflorum_ - Small cristobal (distinct from _P. pinnatum_ **Cristóbal** already documented)
-- ~~**Granadillo** - _Dalbergia tucurensis_~~ ✅ ADDED 2026-02-10 - Guatemalan Rosewood, vulnerable (distinct from _D. retusa_)
+- ~~**Cocobolo Prieto** - _Dalbergia tucurensis_~~ ✅ ADDED 2026-02-10 - Guatemalan Rosewood, vulnerable (distinct from _D. retusa_)
 
 **Rationale:** Conservation priority species need documentation for protection efforts.
 
