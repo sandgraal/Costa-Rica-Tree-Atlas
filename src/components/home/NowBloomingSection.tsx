@@ -21,7 +21,10 @@ export function NowBloomingSection({
   floweringLabel,
   fruitingLabel,
 }: NowBloomingSectionProps) {
-  const currentMonth = new Date().toLocaleString("en-US", { month: "long" });
+  const currentMonth = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    timeZone: "America/Costa_Rica",
+  }).format(new Date());
 
   const floweringNow = trees.filter((tree) =>
     tree.floweringSeason?.includes(currentMonth)
