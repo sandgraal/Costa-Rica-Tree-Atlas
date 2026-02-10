@@ -1,6 +1,6 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
-import { routing } from "@i18n/routing";
+import { routing, type Locale } from "@i18n/routing";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -229,7 +229,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <main id="main-content" className="flex-grow">
                   {children}
                 </main>
-                <Footer locale={locale} />
+                <Footer locale={locale as Locale} />
                 <ScrollToTop />
                 <KeyboardShortcuts />
                 <PWARegister />

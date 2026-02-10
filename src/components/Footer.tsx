@@ -1,13 +1,14 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { Locale } from "@i18n/routing";
+import { CurrentYear } from "./CurrentYear";
 
 interface FooterProps {
-  locale: string;
+  locale: Locale;
 }
 
 export async function Footer({ locale }: FooterProps) {
   const t = await getTranslations({ locale, namespace: "footer" });
-  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-primary/5 border-t border-primary/10 mt-auto">
@@ -37,8 +38,12 @@ export async function Footer({ locale }: FooterProps) {
           {/* Copyright and info - centered, takes remaining space */}
           <div className="flex-1 text-center text-sm text-foreground/60">
             <p>
-              {t("copyright", { year: currentYear })} {t("license")}
+              © <CurrentYear />{" "}
+              {locale === "es"
+                ? "Atlas de Árboles de Costa Rica. Código: AGPL-3.0 | Contenido: CC BY-NC-SA 4.0"
+                : "Costa Rica Tree Atlas. Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0"}
             </p>
+            <p className="mt-1 text-xs">{t("madeWith")}</p>
             <p className="mt-2 text-xs text-foreground/50">
               <kbd className="px-2 py-1 text-xs font-mono bg-foreground/5 rounded border border-foreground/10">
                 ?
