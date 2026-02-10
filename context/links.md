@@ -1,14 +1,16 @@
 # Related Issue / PR History
 
-No GitHub issue/PR metadata is available from this local clone (no configured remote).
+GitHub issue/PR metadata is not available from this local environment (no remote issue tracker context available in-repo).
 
-## Local history checks performed
+## Local discovery commands used
 
-- `git log --oneline -- docs/IMPLEMENTATION_PLAN.md docs/PERFORMANCE_OPTIMIZATION.md src/components/Footer.tsx src/app/[locale]/layout.tsx`
-- `rg -n "Phase 3|Server Components|Footer" docs/IMPLEMENTATION_PLAN.md docs/PERFORMANCE_OPTIMIZATION.md src/components/Footer.tsx src/app/[locale]/layout.tsx`
+- `rg -n "\[ \]" docs/IMPLEMENTATION_PLAN.md`
+- `rg --files content/trees/en content/trees/es | rg -i 'camibar|cortez-blanco|sardinillo|flor-de-itabo|corozo|papayillo|tirra|lengua-de-vaca|chirraca|palma-de-escoba|palma-yolillo|palma-suita|palma-cacho-de-venado'`
+- `find content/trees/en -name '*.mdx' | wc -l`
+- `find content/trees/es -name '*.mdx' | wc -l`
 
 ## Summary
 
-- Priority 2 / Phase 3 still listed server-component migration work as open.
-- Footer was a low-risk target because it only needed locale-aware text and no client interactivity.
-- This commit captures one incremental migration and documents progress in both implementation and performance tracking docs.
+- The checklist item "Add remaining medium priority species" was stale relative to current content files.
+- All medium-priority species listed in plan/missing-list are present in both English and Spanish content trees.
+- Documentation was updated to mark medium-priority groups complete and set next focus to low-priority/special-case species.
