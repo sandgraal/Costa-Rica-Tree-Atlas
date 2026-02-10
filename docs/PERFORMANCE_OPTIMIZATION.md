@@ -266,6 +266,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 ### Phase 3: Long-term Improvements
 
 - [ ] Migrate more components to Server Components
+  - [x] Convert `Footer` from client component to async server component (2026-02-10)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement
 - [ ] Optimize database queries

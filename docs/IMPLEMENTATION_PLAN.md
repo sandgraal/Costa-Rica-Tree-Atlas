@@ -441,6 +441,7 @@ See `audit-content-report.md` for complete list of 26 species.
 ### Phase 3: Long-term
 
 - [ ] Migrate more components to Server Components
+  - [x] Convert `Footer` to server component to reduce client hydration (2026-02-10)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement strategies
 - [ ] Optimize database queries (when admin active)

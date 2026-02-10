@@ -4,10 +4,11 @@ No GitHub issue/PR metadata is available from this local clone (no configured re
 
 ## Local history checks performed
 
-- `git log --oneline -- docs/IMPLEMENTATION_PLAN.md docs/IMAGE_REVIEW_SYSTEM.md`
-- `rg -n "Validation gate|image proposals|PROPOSAL_APPROVED|/api/admin/images/proposals" docs src tests`
+- `git log --oneline -- docs/IMPLEMENTATION_PLAN.md docs/PERFORMANCE_OPTIMIZATION.md src/components/Footer.tsx src/app/[locale]/layout.tsx`
+- `rg -n "Phase 3|Server Components|Footer" docs/IMPLEMENTATION_PLAN.md docs/PERFORMANCE_OPTIMIZATION.md src/components/Footer.tsx src/app/[locale]/layout.tsx`
 
 ## Summary
 
-- Validation gate tasks were still unchecked in `docs/IMPLEMENTATION_PLAN.md` before this change.
-- Existing docs already contained a manual validation runbook in `docs/IMAGE_REVIEW_SYSTEM.md`; this update adds automated test coverage and documents it.
+- Priority 2 / Phase 3 still listed server-component migration work as open.
+- Footer was a low-risk target because it only needed locale-aware text and no client interactivity.
+- This commit captures one incremental migration and documents progress in both implementation and performance tracking docs.

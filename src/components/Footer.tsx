@@ -1,11 +1,12 @@
-"use client";
-
-import { useTranslations, useLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-export function Footer() {
-  const t = useTranslations("footer");
-  const locale = useLocale();
+interface FooterProps {
+  locale: string;
+}
+
+export async function Footer({ locale }: FooterProps) {
+  const t = await getTranslations({ locale, namespace: "footer" });
   const currentYear = new Date().getFullYear();
 
   return (
