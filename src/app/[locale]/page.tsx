@@ -281,6 +281,7 @@ const HeroContent = memo(function HeroContent({
         </Link>
         <Link
           href="/admin/login"
+          prefetch={false}
           className="inline-flex items-center gap-2 border border-white/70 bg-white/10 text-white font-semibold py-3.5 px-6 rounded-lg transition-all duration-200 hover:bg-white/20"
         >
           {adminButton}
