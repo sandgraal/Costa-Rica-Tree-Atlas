@@ -169,6 +169,7 @@ export default async function HomePage({ params }: Props) {
               title={t("title")}
               description={t("description")}
               exploreButton={t("exploreButton")}
+              adminButton={t("adminButton")}
             />
           </div>
         </section>
@@ -244,10 +245,12 @@ const HeroContent = memo(function HeroContent({
   title,
   description,
   exploreButton,
+  adminButton,
 }: {
   title: string;
   description: string;
   exploreButton: string;
+  adminButton: string;
 }) {
   return (
     <>
@@ -257,24 +260,32 @@ const HeroContent = memo(function HeroContent({
       <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
         {description}
       </p>
-      <Link
-        href="/trees"
-        className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-2xl hover:shadow-xl hover:scale-[1.02]"
-      >
-        {exploreButton}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+      <div className="flex flex-wrap justify-center gap-3">
+        <Link
+          href="/trees"
+          className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-2xl hover:shadow-xl hover:scale-[1.02]"
         >
-          <path
-            fillRule="evenodd"
-            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </Link>
+          {exploreButton}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </Link>
+        <Link
+          href="/admin/login"
+          className="inline-flex items-center gap-2 border border-white/70 bg-white/10 text-white font-semibold py-3.5 px-6 rounded-lg transition-all duration-200 hover:bg-white/20"
+        >
+          {adminButton}
+        </Link>
+      </div>
     </>
   );
 });
