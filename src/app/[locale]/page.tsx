@@ -4,7 +4,6 @@ import { allTrees } from "contentlayer/generated";
 import { HeroImage } from "@/components/HeroImage";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { NowBloomingSection } from "@/components/home/NowBloomingSection";
-import { TreeOfTheDay } from "@/components/home/TreeOfTheDay";
 import { StatsSection } from "@/components/home/StatsSection";
 import { AboutSection } from "@/components/home/AboutSection";
 import dynamic from "next/dynamic";
@@ -12,11 +11,19 @@ import { memo } from "react";
 import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
 import {
+  TreeOfTheDaySkeleton,
   FeaturedTreesSkeleton,
   RecentlyViewedSkeleton,
 } from "@/components/LoadingSkeletons";
 
 // Lazy load below-the-fold components to improve LCP and reduce TBT
+const TreeOfTheDay = dynamic(
+  () =>
+    import("@/components/home/TreeOfTheDay").then((mod) => ({
+      default: mod.TreeOfTheDay,
+    })),
+  { loading: () => <TreeOfTheDaySkeleton /> }
+);
 const RecentlyViewedList = dynamic(
   () =>
     import("@/components/RecentlyViewedList").then((mod) => ({
@@ -55,6 +62,19 @@ export default async function HomePage({ params }: Props) {
 
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
+
+  // Calculate seasonal activity for "What's Blooming Now"
+  const currentMonth = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    timeZone: "America/Costa_Rica",
+  }).format(new Date());
+
+  const floweringNow = trees.filter((tree) =>
+    tree.floweringSeason?.includes(currentMonth)
+  );
+  const fruitingNow = trees.filter((tree) =>
+    tree.fruitingSeason?.includes(currentMonth)
+  );
 
   // Calculate stats
   const families = new Set(trees.map((t) => t.family)).size;
@@ -163,9 +183,14 @@ export default async function HomePage({ params }: Props) {
           <div className="container mx-auto max-w-6xl">
             <NowBloomingSection
               trees={trees}
+              currentMonth={currentMonth}
               nowBlooming={t("nowBlooming")}
-              floweringSummary={t("floweringSummary", { count: "{count}" })}
-              fruitingSummary={t("fruitingSummary", { count: "{count}" })}
+              floweringSummary={t("floweringSummary", {
+                count: floweringNow.length,
+              })}
+              fruitingSummary={t("fruitingSummary", {
+                count: fruitingNow.length,
+              })}
               viewCalendar={t("viewCalendar")}
               floweringLabel={t("floweringLabel")}
               fruitingLabel={t("fruitingLabel")}
