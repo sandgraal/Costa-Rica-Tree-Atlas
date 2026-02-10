@@ -1544,7 +1544,7 @@ describe("E2E Authentication Flows", () => {
 
       const auditCalls = vi.mocked(prisma.auditLog.create).mock.calls;
       const loginAudit = auditCalls.find(
-        (call) =>
+        (call: [{ data: { eventType: string } }]) =>
           (call[0] as { data: { eventType: string } }).data.eventType ===
           "login"
       );
