@@ -121,7 +121,7 @@ If you have questions about licensing, please ask in [GitHub Discussions](https:
 
 ### Admin Access
 
-The project includes admin routes (e.g., `/en/admin/images` for reviewing tree images) that require **NextAuth + database-backed authentication**.
+The project includes admin routes (e.g., `/{locale}/admin/images` such as `/en/admin/images` or `/es/admin/images` for reviewing tree images) that require **NextAuth + database-backed authentication**.
 
 To enable admin access during development:
 
