@@ -25,3 +25,10 @@ GitHub issue/PR metadata is not available from this local environment (no remote
 - `sed -n '1,160p' src/components/CurrentYear.tsx`
 - `rg -n "CurrentYear" src`
 - `sed -n '240,320p' docs/PERFORMANCE_OPTIMIZATION.md`
+
+## Additional discovery commands used for FeaturedTreesSection migration
+
+- `sed -n '1,220p' src/components/FeaturedTreesSection.tsx`
+- `rg -n 'FeaturedTreesSection' -g '*.tsx' src`
+- `sed -n '1,290p' src/app/[locale]/page.tsx`
+- `rg -n 'Phase 3|Server Components|Footer|AboutSection|CurrentYear|FeaturedTreesSection' docs/PERFORMANCE_OPTIMIZATION.md docs/IMPLEMENTATION_PLAN.md`

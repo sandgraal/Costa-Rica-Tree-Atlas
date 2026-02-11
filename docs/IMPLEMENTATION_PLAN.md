@@ -445,6 +445,7 @@ See `audit-content-report.md` for complete list of 26 species.
   - [x] Convert homepage `AboutSection`, `StatsSection`, and `NowBloomingSection` to server components (2026-02-10)
   - [x] Convert `DataSourceCard` (about page) to server component by moving translations to parent and passing labels as props (2026-02-10)
   - [x] Convert `CurrentYear` to server rendering to remove a client-only boundary in footer copyright text (2026-02-10)
+  - [x] Convert homepage `FeaturedTreesSection` to a server component and move selection logic to server rendering (2026-02-10)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement strategies
 - [ ] Optimize database queries (when admin active)
