@@ -37,3 +37,9 @@
 
 - Continued Phase 3 performance work by converting `src/components/CurrentYear.tsx` from a client component to a server component.
 - Updated performance planning docs to track this migration under the existing Server Components checklist.
+
+## Latest Update (2026-02-10, FeaturedTreesSection)
+
+- Continued Phase 3 performance work by converting `src/components/FeaturedTreesSection.tsx` from a client component to a server component.
+- Removed `useMemo`/client boundary and extracted deterministic featured-tree selection into a pure server-side helper within the component file.
+- Updated performance tracking docs in `docs/IMPLEMENTATION_PLAN.md` and `docs/PERFORMANCE_OPTIMIZATION.md`.
