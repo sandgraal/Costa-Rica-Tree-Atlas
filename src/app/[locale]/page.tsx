@@ -6,13 +6,13 @@ import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { NowBloomingSection } from "@/components/home/NowBloomingSection";
 import { StatsSection } from "@/components/home/StatsSection";
 import { AboutSection } from "@/components/home/AboutSection";
+import { FeaturedTreesSection } from "@/components/FeaturedTreesSection";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
 import {
   TreeOfTheDaySkeleton,
-  FeaturedTreesSkeleton,
   RecentlyViewedSkeleton,
 } from "@/components/LoadingSkeletons";
 
@@ -30,13 +30,6 @@ const RecentlyViewedList = dynamic(
       default: mod.RecentlyViewedList,
     })),
   { loading: () => <RecentlyViewedSkeleton /> }
-);
-const FeaturedTreesSection = dynamic(
-  () =>
-    import("@/components/FeaturedTreesSection").then((mod) => ({
-      default: mod.FeaturedTreesSection,
-    })),
-  { loading: () => <FeaturedTreesSkeleton /> }
 );
 
 type Props = {
