@@ -154,7 +154,7 @@ To enable admin access during development:
 
 5. **Access admin routes**
 
-   Visit `http://localhost:3000/en/admin/login` and sign in with your database-backed credentials.
+   Visit `http://localhost:3000/{locale}/admin/login` (for example, `/en/admin/login` or `/es/admin/login`) and sign in with your database-backed credentials.
 
 **Security Note**: Never commit `.env.local` or share secrets/passwords publicly.
 
