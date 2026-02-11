@@ -32,3 +32,14 @@ GitHub issue/PR metadata is not available from this local environment (no remote
 - `rg -n 'FeaturedTreesSection' -g '*.tsx' src`
 - `sed -n '1,290p' src/app/[locale]/page.tsx`
 - `rg -n 'Phase 3|Server Components|Footer|AboutSection|CurrentYear|FeaturedTreesSection' docs/PERFORMANCE_OPTIMIZATION.md docs/IMPLEMENTATION_PLAN.md`
+
+## Additional discovery commands used for Prisma admin auth issue
+
+- `rg -n "Prisma Client is not available|DATABASE_URL was not set during build|Authentication failed" src`
+- `sed -n '1,220p' src/lib/prisma.ts`
+- `sed -n '1,220p' package.json`
+
+## Additional discovery commands used for admin docs cleanup
+
+- `nl -ba CONTRIBUTING.md | sed -n '110,180p'`
+- `rg -n "Admin Access|ADMIN_PASSWORD|DATABASE_URL|NextAuth" CONTRIBUTING.md src/app/api/auth/[...nextauth]/route.ts package.json`
