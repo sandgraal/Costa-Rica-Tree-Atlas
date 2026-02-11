@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run prisma:generate:optional && contentlayer2 build && next build",
-    "prisma:generate:optional": "DATABASE_URL=${DATABASE_URL:-postgresql://placeholder:placeholder@localhost:5432/placeholder} prisma generate",
+    "prisma:generate:optional": "DATABASE_URL=\"${DATABASE_URL:-postgresql://placeholder:placeholder@localhost:5432/placeholder}\" prisma generate",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
