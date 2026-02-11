@@ -121,7 +121,7 @@ If you have questions about licensing, please ask in [GitHub Discussions](https:
 
 ### Admin Access
 
-The project includes admin routes (e.g., `/en/admin/images` for reviewing tree images) that require authentication.
+The project includes admin routes (e.g., `/{locale}/admin/images` such as `/en/admin/images` or `/es/admin/images` for reviewing tree images) that require **NextAuth + database-backed authentication**.
 
 To enable admin access during development:
 
@@ -131,20 +131,34 @@ To enable admin access during development:
    cp .env.example .env.local
    ```
 
-2. **Set the `ADMIN_PASSWORD` environment variable**
+2. **Configure required auth/database environment variables**
 
    ```bash
    # In .env.local
-   ADMIN_PASSWORD=your-secure-password
+   DATABASE_URL=postgresql://USER:PASSWORD@HOST:5432/DB_NAME
+   NEXTAUTH_SECRET=your-generated-secret
+   NEXTAUTH_URL=http://localhost:3000
+   MFA_ENCRYPTION_KEY=your-64-char-hex-key
    ```
 
-3. **Access admin routes**
+3. **Generate Prisma Client and run migrations**
 
-   When you visit an admin route (e.g., `http://localhost:3000/en/admin/images`), your browser will prompt for credentials:
-   - **Username**: `admin`
-   - **Password**: The value you set in `ADMIN_PASSWORD`
+   ```bash
+   npm run prisma:generate:optional
+   npx prisma migrate dev
+   ```
 
-**Security Note**: Without `ADMIN_PASSWORD` configured, admin routes will return a 503 error. Never commit `.env.local` or share your admin password publicly.
+4. **Create the first admin user**
+
+   With your dev server running, call the one-time setup endpoint to create the initial admin user:
+
+   ```bash
+   curl -X POST http://localhost:3000/api/admin/setup
+5. **Access admin routes**
+
+   Visit `http://localhost:3000/{locale}/admin/login` (for example, `/en/admin/login` or `/es/admin/login`) and sign in with your database-backed credentials.
+
+**Security Note**: Never commit `.env.local` or share secrets/passwords publicly.
 
 ## Development Workflow
 

@@ -43,3 +43,13 @@
 - Continued Phase 3 performance work by converting `src/components/FeaturedTreesSection.tsx` from a client component to a server component.
 - Removed `useMemo`/client boundary and extracted deterministic featured-tree selection into a pure server-side helper within the component file.
 - Updated performance tracking docs in `docs/IMPLEMENTATION_PLAN.md` and `docs/PERFORMANCE_OPTIMIZATION.md`.
+
+## Latest Update (2026-02-11, Prisma build env fallback)
+
+- Fixed admin login deployment regression where Prisma Client could be unavailable at runtime because `prisma generate` was skipped when `DATABASE_URL` was not present at build time.
+- Updated the npm `prisma:generate:optional` script to always run `prisma generate` using a placeholder PostgreSQL URL when `DATABASE_URL` is unset.
+
+## Latest Update (2026-02-11, Admin auth docs alignment)
+
+- Updated `CONTRIBUTING.md` Admin Access section to reflect current NextAuth + Prisma workflow (database-backed login), replacing outdated legacy `ADMIN_PASSWORD` basic-auth instructions.
+- Added explicit setup steps for required env vars, Prisma generation/migrations, and login path.
