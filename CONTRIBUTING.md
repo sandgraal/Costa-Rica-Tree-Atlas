@@ -148,10 +148,12 @@ To enable admin access during development:
    npx prisma migrate dev
    ```
 
-4. **Create at least one admin user record**
+4. **Create the first admin user**
 
-   Use the app's auth/admin bootstrap flow or a seed script for your environment so a valid user exists in the `users` table.
+   With your dev server running, call the one-time setup endpoint to create the initial admin user:
 
+   ```bash
+   curl -X POST http://localhost:3000/api/admin/setup
 5. **Access admin routes**
 
    Visit `http://localhost:3000/{locale}/admin/login` (for example, `/en/admin/login` or `/es/admin/login`) and sign in with your database-backed credentials.
