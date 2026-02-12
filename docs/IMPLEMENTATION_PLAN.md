@@ -10,7 +10,7 @@
 - **Species**: 160/175 (91%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
-- **Care Guidance**: 65/128 (51%) - Target: 100/128 (78%)
+- **Care Guidance**: 85/128 (66%) - Target: 100/128 (78%)
 
 ### Technical Health
 
@@ -223,8 +223,8 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 20/30 in progress)  
-**Current:** 80/128 (63%) → **Target:** 100/128 (78%)
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 25/30 in progress)  
+**Current:** 85/128 (66%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
 
@@ -267,9 +267,9 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 9. **Pochote** - Living fence establishment and dry forest restoration
 10. **Corteza Amarilla** - Ornamental flowering tree optimization and landscape design
 
-#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 20/30)
+#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 25/30)
 
-**Recently Completed (2026-02-08):**
+**Recently Completed (2026-02-12):**
 
 - [x] **Mango (PR #316 ✅ merged)** - Comprehensive companion planting and seasonal care with flowering stress management
 - [x] **Aguacate (Avocado) (PR #316 ✅ merged)** - Detailed care guidance emphasizing drainage criticality and Phytophthora prevention
@@ -286,15 +286,20 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - [x] **Palma Yolillo (Batch 4, 2026-02-12)** - Wetland restoration-focused management (hydrology, monitoring, and seasonal restoration calendar)
 - [x] **Palma Suita (Batch 4, 2026-02-12)** - Deep-shade understory cultivation with humidity management and companion planting
 - [x] **Palma Cacho de Venado (Batch 4, 2026-02-12)** - High-rainfall canopy palm care with fruiting-season safety and agroforestry companions
-- [x] **Corozo (Batch 5, 2026-02-12)** - Wet-site companion planting guidance for floodplain restoration and riparian design
-- [x] **Cortez Blanco (Batch 5, 2026-02-12)** - Dry-forest companion planting strategy for pollinator support and mixed reforestation
-- [x] **Flor de Itabo (Batch 5, 2026-02-12)** - Living-fence companion planting patterns for homestead and agroecological systems
-- [x] **Papayillo (Batch 5, 2026-02-12)** - Cloud-forest companion planting framework focused on humidity and microclimate stability
-- [x] **Sardinillo (Batch 5, 2026-02-12)** - Pollinator-corridor companion planting for farm edges and degraded-site recovery
+- [x] **Cortez Blanco (Batch 5, 2026-02-12)** - Advanced ornamental care with dry-season flowering support and pollinator companions
+- [x] **Sardinillo (Batch 5, 2026-02-12)** - Drought-adapted flowering shrub/tree management with repeat-bloom pruning strategy
+- [x] **Flor de Itabo (Batch 5, 2026-02-12)** - Drainage-first yucca care with edible flower harvest and dry-forest companion planting
+- [x] **Corozo (Batch 5, 2026-02-12)** - Humid lowland palm management with hydrology-aware restoration calendar
+- [x] **Papayillo (Batch 5, 2026-02-12)** - Premontane fruit-tree guidance with drainage, nutrition, and pest controls
+- [x] **Tirrá (Batch 5, 2026-02-12)** - Long-cycle timber/restoration care with structural pruning and slope management
+- [x] **Lengua de Vaca (Batch 5, 2026-02-12)** - Pioneer restoration-care package with bird-supporting companion systems
+- [x] **Chirraca (Batch 5, 2026-02-12)** - Agroforestry-focused care with canopy-light and nitrogen-cycling integration
+- [x] **Guaba Bejuco (Batch 5, 2026-02-12)** - Productive nitrogen-fixing canopy care with pod sanitation protocols
+- [x] **Guaba Machete (Batch 5, 2026-02-12)** - Large-canopy Inga management with harvest-safe structural pruning
 
 **In Progress:**
 
-- [ ] Add care guidance to 10 additional mid-priority species
+- [ ] Add care guidance to 5 additional mid-priority species
 
 **Care Guidance Template:**
 

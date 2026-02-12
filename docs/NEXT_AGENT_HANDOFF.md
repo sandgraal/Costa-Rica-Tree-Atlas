@@ -6,18 +6,20 @@ Last updated: 2026-02-12
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Main commit at handoff update: `e8b5e23`
-- Relevant PR state:
-  - Open: #364 `feat: expand care guidance for 5 mid-priority species`
-  - Most recent merged PRs: #362 `[ImgBot] Optimize images`, #361 `feat: expand care guidance for 4 medium-priority palm species`
+- Main commit at handoff creation: `e8b5e23`
+- Most recent merged PRs:
+  - #363 `docs: add persistent next-agent handoff guide`
+  - #362 `[ImgBot] Optimize images`
+- Open PRs from current cycle:
+  - #365 `feat: add care guidance for 10 mid-priority species` (branch: `codex/content/add-care-guidance-mid-priority-batch5`, head commit `336f3e3`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.3 remains active.
-- Week 2 progress: `20/30`.
-- Open task: `Add care guidance to 10 additional mid-priority species`.
+- Week 2 progress: `25/30`.
+- Open task: `Add care guidance to 5 additional mid-priority species`.
 
 ## Operator Preferences (Persistent)
 
@@ -42,6 +44,7 @@ Mission
 - Execute the highest-priority unchecked item in docs/IMPLEMENTATION_PLAN.md.
 - If multiple tightly coupled changes affect the same feature/files, implement them together.
 - Do not ask questions if answer exists in repo docs.
+- Continue Priority 1.3 by completing the remaining 5 mid-priority care-guidance species (Week 2 target 30/30).
 
 Required workflow
 1. Read and follow:
@@ -53,7 +56,7 @@ Required workflow
    - git fetch origin
    - git checkout main
    - git pull --ff-only origin main
-3. Create a branch using conventions: feature/*, fix/*, content/*, docs/*.
+3. Create a branch using conventions: feature/*, fix/*, content/*, docs/* (use `codex/` prefix in this environment, e.g., `codex/content/...`).
 4. Implement selected item end-to-end.
 5. Update docs/counters/checklists affected by your change.
 6. Verify:
