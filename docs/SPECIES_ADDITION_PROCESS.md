@@ -5,13 +5,14 @@
 
 ## Quick Reference
 
-- **Current Species Count:** 155 documented (310 bilingual documents)
-- **Last Major Update:** 2026-02-12 (2 species added: Quina, Cedro Dulce)
+- **Current Species Count:** 160 documented (320 bilingual documents)
+- **Last Major Update:** 2026-02-12 (5 species added: Zorrillo, Contra, Achotillo, Guarumbo Hembra, Bambu Gigante)
+- **Previous Major Update:** 2026-02-12 (2 species added: Quina, Cedro Dulce)
 - **Previous Major Update:** 2026-02-10 (1 species added: Granadillo)
 - **Previous Major Update:** 2026-01-15 (4 species added: Sigua, Comenegro, Mayo, Lechoso Montañero)
 - **Previous Major Update:** 2026-01-14 (2 species added)
 - **Previous Major Update:** 2026-01-12 (12 species added)
-- **Missing Species Remaining:** ~33 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
+- **Missing Species Remaining:** ~28 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
 - **Quality Standard:** All species must have **100% safety data coverage** (13 required fields)
 
 ## Review Process
@@ -225,7 +226,7 @@ Expected output should show:
 - No build errors
 - Increased page count (each tree generates ~2 pages per language = 4 pages per species)
 - Contentlayer warnings are acceptable if they're just about extra fields
-- Current expected page count: ~620+ pages (155 trees × 2 languages × 2 pages/tree)
+- Current expected page count: ~640+ pages (160 trees × 2 languages × 2 pages/tree)
 
 ## Common Issues
 
