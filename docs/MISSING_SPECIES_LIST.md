@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-02-10  
-**Current Species Count:** 153 documented  
-**Missing Species:** ~35 unique species identified for future expansion  
+**Last Updated:** 2026-02-12  
+**Current Species Count:** 154 documented  
+**Missing Species:** ~34 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -11,7 +11,11 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ## ✅ Recently Added Species
 
-### Latest Additions (2026-02-10)
+### Latest Additions (2026-02-12)
+
+- **Quina** - _Cinchona pubescens_ - Quinine tree, historic medicinal bark ✅
+
+### Previous Additions (2026-02-10)
 
 - **Granadillo** - _Dalbergia tucurensis_ - Guatemalan Rosewood, vulnerable timber species ✅
 
@@ -136,14 +140,14 @@ Additional edible/cultivated species:
 
 **Rationale:** Fruit diversity important for ethnobotany and agroforestry documentation.
 
-### LOW PRIORITY - Medicinal/Traditional (4 species)
+### LOW PRIORITY - Medicinal/Traditional (3 species)
 
 Traditional medicine species:
 
 - **Zorrillo** - _Senna reticulata_ - Medicinal legume
 - **Contra** - _Rauvolfia tetraphylla_ - Traditional medicine (caution: toxic)
 - **Achotillo** - _Brosimum costaricanum_ - Costa Rican breadnut
-- **Quina** - _Cinchona pubescens_ - Quinine tree (introduced, historical)
+- ~~**Quina** - _Cinchona pubescens_ - Quinine tree, historic medicinal bark~~ ✅ ADDED 2026-02-12
 
 **Rationale:** Important for ethnobotanical documentation.
 
@@ -267,6 +271,13 @@ All 5 mangrove species have been successfully documented.
 
 ### Implementation Notes
 
+**Progress Update (2026-02-12):**
+
+- **Quina (_Cinchona pubescens_) added** to the atlas
+- **Current total: 154 species documented**
+- **Actual remaining:** ~34 unique species after duplicate removal
+- Focus remains on low-priority medicinal, timber, and special-case species
+
 **Progress Update (2026-02-10):**
 
 - **18 species successfully added** since last major update (2026-01-12)
@@ -321,12 +332,12 @@ Each new species should include:
 
 **Note:** This list was compiled from community input and represents species commonly encountered in Costa Rica that would enhance the comprehensiveness of the atlas. Verification against existing content and scientific name accuracy should be performed before beginning content creation.
 
-**Status Update (2026-02-10):**
+**Status Update (2026-02-12):**
 
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
 - ✅ **19 total species** added since 2026-01-12 (including Guanábana)
 - ✅ **Verification complete:** 9 duplicates identified and removed from list
-- 📊 **153 species** now in atlas (up from 110)
-- 🎯 **Actual remaining:** ~40 unique species (down from 57 after duplicate removal)
+- 📊 **154 species** now in atlas (up from 110)
+- 🎯 **Actual remaining:** ~34 unique species (down from 57 after duplicate removal)
 - 🎯 **Next Priority:** Complete low-priority medicinal, timber, and introduced-context species
 - 💡 **Key Learning:** Always verify scientific names to prevent duplicate documentation
