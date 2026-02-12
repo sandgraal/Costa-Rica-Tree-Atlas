@@ -6,18 +6,18 @@ Last updated: 2026-02-12
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Main commit at handoff creation: `66c51d5`
-- Most recent merged PRs:
-  - #362 `[ImgBot] Optimize images`
-  - #361 `feat: expand care guidance for 4 medium-priority palm species`
+- Main commit at handoff update: `e8b5e23`
+- Relevant PR state:
+  - Open: #364 `feat: expand care guidance for 5 mid-priority species`
+  - Most recent merged PRs: #362 `[ImgBot] Optimize images`, #361 `feat: expand care guidance for 4 medium-priority palm species`
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.3 remains active.
-- Week 2 progress: `15/30`.
-- Open task: `Add care guidance to 15 additional mid-priority species`.
+- Week 2 progress: `20/30`.
+- Open task: `Add care guidance to 10 additional mid-priority species`.
 
 ## Operator Preferences (Persistent)
 
@@ -74,15 +74,15 @@ MANDATORY END-OF-RUN DIRECTIVES
    - If PR merged, clean associated branches (remote and local) when safe.
    - Ensure local main can be fast-forwarded cleanly.
 2. Handoff:
-   - Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged PR, remaining top task).
-   - Write a fresh next-agent prompt that explicitly references this handoff file.
+   - Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged/open PR, remaining top task).
+   - Write a fresh next-agent prompt that explicitly references $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md.
 ```
 
 ## End-of-Run Checklist
 
-- [ ] `main` synced to `origin/main`
-- [ ] Feature/fix/content/docs branch used for changes
-- [ ] PR opened (and merged if applicable)
+- [x] `main` synced to `origin/main`
+- [x] Feature/fix/content/docs branch used for changes
+- [x] PR opened (and merged if applicable)
 - [ ] Associated merged branches cleaned up (remote + local)
-- [ ] `docs/NEXT_AGENT_HANDOFF.md` updated
-- [ ] Next-agent prompt generated and references `docs/NEXT_AGENT_HANDOFF.md`
+- [x] `docs/NEXT_AGENT_HANDOFF.md` updated
+- [x] Next-agent prompt generated and references `docs/NEXT_AGENT_HANDOFF.md`
