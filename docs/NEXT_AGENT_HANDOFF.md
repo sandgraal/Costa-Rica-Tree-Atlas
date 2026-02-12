@@ -77,8 +77,8 @@ MANDATORY END-OF-RUN DIRECTIVES
    - If PR merged, clean associated branches (remote and local) when safe.
    - Ensure local main can be fast-forwarded cleanly.
 2. Handoff:
-   - Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged PR, remaining top task).
-   - Write a fresh next-agent prompt that explicitly references this handoff file.
+   - Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged/open PR, remaining top task).
+   - Write a fresh next-agent prompt that explicitly references $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md.
 ```
 
 ## End-of-Run Checklist
