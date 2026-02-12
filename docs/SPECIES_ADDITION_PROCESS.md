@@ -1,15 +1,17 @@
 # Species Addition Process
 
-**Last Updated:** 2026-01-19  
+**Last Updated:** 2026-02-12  
 **Purpose:** Guide for reviewing the missing species list and adding new trees to the atlas
 
 ## Quick Reference
 
-- **Current Species Count:** 129 documented (258 bilingual documents)
-- **Last Major Update:** 2026-01-15 (4 species added: Sigua, Comenegro, Mayo, Lechoso Montañero)
+- **Current Species Count:** 154 documented (308 bilingual documents)
+- **Last Major Update:** 2026-02-12 (1 species added: Quina)
+- **Previous Major Update:** 2026-02-10 (1 species added: Granadillo)
+- **Previous Major Update:** 2026-01-15 (4 species added: Sigua, Comenegro, Mayo, Lechoso Montañero)
 - **Previous Major Update:** 2026-01-14 (2 species added)
 - **Previous Major Update:** 2026-01-12 (12 species added)
-- **Missing Species Remaining:** ~40 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
+- **Missing Species Remaining:** ~34 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
 - **Quality Standard:** All species must have **100% safety data coverage** (13 required fields)
 
 ## Review Process
@@ -223,7 +225,7 @@ Expected output should show:
 - No build errors
 - Increased page count (each tree generates ~2 pages per language = 4 pages per species)
 - Contentlayer warnings are acceptable if they're just about extra fields
-- Current expected page count: ~516+ pages (129 trees × 2 languages × 2 pages/tree)
+- Current expected page count: ~616+ pages (154 trees × 2 languages × 2 pages/tree)
 
 ## Common Issues
 
