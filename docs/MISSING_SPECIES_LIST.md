@@ -147,7 +147,7 @@ Traditional medicine species:
 - **Zorrillo** - _Senna reticulata_ - Medicinal legume
 - **Contra** - _Rauvolfia tetraphylla_ - Traditional medicine (caution: toxic)
 - **Achotillo** - _Brosimum costaricanum_ - Costa Rican breadnut
-- ~~**Quina** - _Cinchona pubescens_ - Quinine tree (introduced, historical)~~ ✅ ADDED 2026-02-12
+- ~~**Quina** - _Cinchona pubescens_ - Quinine tree, historic medicinal bark~~ ✅ ADDED 2026-02-12
 
 **Rationale:** Important for ethnobotanical documentation.
 
