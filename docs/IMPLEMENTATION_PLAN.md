@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 154/175 (88%) - Target: 175+ documented species
+- **Species**: 155/175 (89%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
@@ -139,7 +139,7 @@
 
 ### 1.1: Add Missing Species
 
-**Status:** 🟡 In Progress (34/47 complete)  
+**Status:** 🟡 In Progress (35/47 complete)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
 #### High Priority Native Species (10 species) ✅ COMPLETE
@@ -188,9 +188,10 @@
 - [x] Guanábana Cimarrona (Annona montana) — added 2026-01-22
 - [x] Add remaining medium priority species (completed 2026-02-10; see docs/MISSING_SPECIES_LIST.md)
 
-#### Low Priority (6 species)
+#### Low Priority (5 species)
 
-- [ ] Add remaining 6 low priority species (Quina added 2026-02-12; see MISSING_SPECIES_LIST.md)
+- [x] Cedro Dulce (Cedrela tonduzii) — added 2026-02-12
+- [ ] Add remaining 5 low priority species (Quina + Cedro Dulce added 2026-02-12; see MISSING_SPECIES_LIST.md)
 
 **Per-Species Checklist:**
 
@@ -742,7 +743,7 @@ Requires:
 
 **Content Coverage:**
 
-- Species count: 175+ (current: 154)
+- Species count: 175+ (current: 155)
 - Care guidance: 80%+ (current: 47%)
 - Comparison guides: 20/20 ✅
 - Glossary terms: 150+ (current: 100)
