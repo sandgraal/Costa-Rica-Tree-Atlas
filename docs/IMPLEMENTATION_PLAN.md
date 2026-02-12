@@ -10,7 +10,7 @@
 - **Species**: 160/175 (91%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
-- **Care Guidance**: 80/128 (63%) - Target: 100/128 (78%)
+- **Care Guidance**: 65/128 (51%) - Target: 100/128 (78%)
 
 ### Technical Health
 
