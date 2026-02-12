@@ -188,7 +188,7 @@
 - [x] Guanábana Cimarrona (Annona montana) — added 2026-01-22
 - [x] Add remaining medium priority species (completed 2026-02-10; see docs/MISSING_SPECIES_LIST.md)
 
-#### Low Priority (5 species) ✅ COMPLETE
+#### Low Priority (7 species) ✅ COMPLETE
 
 - [x] Cedro Dulce (Cedrela tonduzii) — added 2026-02-12
 - [x] Quina (Cinchona pubescens) — added 2026-02-12
