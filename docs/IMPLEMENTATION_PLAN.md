@@ -10,7 +10,7 @@
 - **Species**: 160/175 (91%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
-- **Care Guidance**: 85/128 (66%) - Target: 100/128 (78%)
+- **Care Guidance**: 90/128 (70%) - Target: 100/128 (78%)
 
 ### Technical Health
 
@@ -223,8 +223,8 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 25/30 in progress)  
-**Current:** 85/128 (66%) → **Target:** 100/128 (78%)
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 30/30 complete ✅)  
+**Current:** 90/128 (70%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
 
@@ -267,7 +267,7 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 9. **Pochote** - Living fence establishment and dry forest restoration
 10. **Corteza Amarilla** - Ornamental flowering tree optimization and landscape design
 
-#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 25/30)
+#### Weeks 2-4: Additional 30 Species (✅ Complete: 30/30)
 
 **Recently Completed (2026-02-12):**
 
@@ -296,10 +296,15 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - [x] **Chirraca (Batch 5, 2026-02-12)** - Agroforestry-focused care with canopy-light and nitrogen-cycling integration
 - [x] **Guaba Bejuco (Batch 5, 2026-02-12)** - Productive nitrogen-fixing canopy care with pod sanitation protocols
 - [x] **Guaba Machete (Batch 5, 2026-02-12)** - Large-canopy Inga management with harvest-safe structural pruning
+- [x] **Anona Colorada (Batch 6, 2026-02-12)** - Humid lowland fruit-production strategy with structured fertility, pollination-supporting canopy, and seasonal harvest management
+- [x] **Guanábana Cimarrona (Batch 6, 2026-02-12)** - Wet-site resilient Annona care with moisture-first management, sanitation protocol, and agroforestry integration
+- [x] **Llama del Bosque (Batch 6, 2026-02-12)** - Invasive-context management guidance focused on phased native replacement, seed suppression, and seasonal control
+- [x] **Cristobalito (Batch 6, 2026-02-12)** - Long-cycle dry-forest timber/restoration care with form-focused pruning and fire-season risk mitigation
+- [x] **Granadillo (Batch 6, 2026-02-12)** - Premium timber establishment program with structural training, mixed-system companions, and long-rotation planning
 
-**In Progress:**
+**Week 2 Completion Gate:**
 
-- [ ] Add care guidance to 5 additional mid-priority species
+- [x] Add care guidance to 5 additional mid-priority species
 
 **Care Guidance Template:**
 
@@ -765,7 +770,7 @@ Requires:
 **Content Coverage:**
 
 - Species count: 175+ (current: 160)
-- Care guidance: 80%+ (current: 47%)
+- Care guidance: 80%+ (current: 70%)
 - Comparison guides: 20/20 ✅
 - Glossary terms: 150+ (current: 100)
 
