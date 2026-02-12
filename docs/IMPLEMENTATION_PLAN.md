@@ -223,17 +223,17 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 EN guides complete ✅, ES pending for 2 species | Week 2: 30/30 complete ✅)  
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 30/30 complete ✅ | Enrichment batch: 5 low-priority species complete ✅)  
 **Current:** 90/128 (70%) → **Target:** 100/128 (78%)
 
-#### Week 1: Common Planted Trees (10 species) ✅ EN COMPLETE; ES pending for Rambután & Tamarindo
+#### Week 1: Common Planted Trees (10 species) ✅ COMPLETE (EN & ES)
 
 - [x] Guanábana (EN & ES complete)
 - [x] Carambola (EN & ES complete)
 - [x] Cas (EN & ES complete)
 - [x] Mora (EN & ES complete)
-- [x] Rambután (EN complete, ES pending)
-- [x] Tamarindo (EN complete, ES pending)
+- [x] Rambután (EN & ES complete)
+- [x] Tamarindo (EN & ES complete)
 - [x] Laurel (EN & ES complete - 2026-02-08)
 - [x] Cedro Amargo (EN & ES complete - 2026-02-08)
 - [x] Pochote (EN & ES complete - 2026-02-08)
@@ -302,6 +302,14 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - [x] **Cristobalito (Batch 6, 2026-02-12)** - Long-cycle dry-forest timber/restoration care with form-focused pruning and fire-season risk mitigation
 - [x] **Granadillo (Batch 6, 2026-02-12)** - Premium timber establishment program with structural training, mixed-system companions, and long-rotation planning
 
+**Post-Week 2 Enrichment (2026-02-12):**
+
+- [x] **Zorrillo** - Added advanced care framework for wetland buffers, companion planting, and seasonal management
+- [x] **Contra** - Added toxic-safe cultivation guidance with PPE, placement controls, and structured pruning
+- [x] **Achotillo** - Added humid-forest restoration care program including juvenile shade and integrated pest management
+- [x] **Guarumbo Hembra** - Added pioneer-phase management guidance for succession release and structural risk control
+- [x] **Bambú Gigante** - Added stand-level bamboo management with rotation, rhizome containment, and productivity calendars
+
 **Week 2 Completion Gate:**
 
 - [x] Add care guidance to 5 additional mid-priority species
@@ -339,7 +347,7 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - **Main issue:** Spanish translations significantly shorter than English
 - **Average page length:** 698 lines
 - **Critical issue:** Many pages missing required sections (Taxonomy, Geographic Distribution, etc.)
-- **2026-02-12 update:** Newly added low-priority species baseline pages (`zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, `bambu-gigante`) were added with full structure and safety data, but remain below the 600-line benchmark pending enhancement pass.
+- **2026-02-12 update:** Advanced care-guidance enrichment completed for low-priority species (`zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, `bambu-gigante`), improving depth to ~367-381 lines per locale; these pages still remain below the 600-line benchmark pending full expansion.
 
 See `audit-content-report.md` for full details.
 
