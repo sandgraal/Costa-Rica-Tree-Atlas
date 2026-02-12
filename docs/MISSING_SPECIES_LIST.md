@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
 **Last Updated:** 2026-02-12  
-**Current Species Count:** 154 documented  
-**Missing Species:** ~34 unique species identified for future expansion  
+**Current Species Count:** 155 documented  
+**Missing Species:** ~33 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -13,6 +13,7 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ### Latest Additions (2026-02-12)
 
+- **Cedro Dulce** - _Cedrela tonduzii_ - Highland cedar, montane timber species ✅
 - **Quina** - _Cinchona pubescens_ - Quinine tree, historic medicinal bark ✅
 
 ### Previous Additions (2026-02-10)
@@ -161,11 +162,11 @@ Fast-growing colonizers:
 
 **Rationale:** Important for understanding forest succession.
 
-### LOW PRIORITY - Timber/Construction (2 species)
+### LOW PRIORITY - Timber/Construction (0 species remaining) ✅ COMPLETE
 
 Additional timber species:
 
-- **Cedro Dulce** - _Cedrela tonduzii_ - Highland cedar (distinct from _C. odorata_ **Cedro Amargo** already documented)
+- ~~**Cedro Dulce** - _Cedrela tonduzii_ - Highland cedar (distinct from _C. odorata_ **Cedro Amargo** already documented)~~ ✅ ADDED 2026-02-12
 - ~~**Nazareno** - _Peltogyne purpurea_~~ ✅ ADDED: Already documented
 - ~~**Laurel Aguacatillo** - _Persea caerulea_~~ ✅ DUPLICATE: Same as **Aguacatillo** already documented
 
@@ -190,12 +191,12 @@ Non-native species with ecological impact:
 
 **Rationale:** Document invasive/plantation species for ecological context.
 
-### HIGHEST PRIORITY - Rare/Endemic/Conservation Priority (2 species)
+### HIGHEST PRIORITY - Rare/Endemic/Conservation Priority (0 species remaining) ✅ COMPLETE
 
 Threatened species requiring documentation:
 
 - ~~**Ajo Montañero** - _Caryocar costaricense_~~ ✅ DUPLICATE: Same as **Ajo** already documented (_Caryocar costaricense_)
-- **Cristobalito** - _Platymiscium parviflorum_ - Small cristobal (distinct from _P. pinnatum_ **Cristóbal** already documented)
+- ~~**Cristobalito** - _Platymiscium parviflorum_ - Small cristobal (distinct from _P. pinnatum_ **Cristóbal** already documented)~~ ✅ ADDED 2026-02-10
 - ~~**Cocobolo Prieto** - _Dalbergia tucurensis_~~ ✅ ADDED 2026-02-10 - Guatemalan Rosewood, vulnerable (distinct from _D. retusa_)
 
 **Rationale:** Conservation priority species need documentation for protection efforts.
@@ -274,8 +275,9 @@ All 5 mangrove species have been successfully documented.
 **Progress Update (2026-02-12):**
 
 - **Quina (_Cinchona pubescens_) added** to the atlas
-- **Current total: 154 species documented**
-- **Actual remaining:** ~34 unique species after duplicate removal
+- **Cedro Dulce (_Cedrela tonduzii_) added** to the atlas
+- **Current total: 155 species documented**
+- **Actual remaining:** ~33 unique species after duplicate removal
 - Focus remains on low-priority medicinal, timber, and special-case species
 
 **Progress Update (2026-02-10):**
@@ -309,7 +311,7 @@ Each new species should include:
 - **Phase 1 (5 mangrove species):** ✅ COMPLETE (20-30 hours invested)
 - **Recent additions (19 species total):** ✅ COMPLETE (76-114 hours invested)
 - **Phase 2:** ✅ COMPLETE
-- **Complete remaining list (~40 unique species):** 160-240 hours
+- **Complete remaining list (~33 unique species):** 132-198 hours
 
 **Achievement Rate:** 19 species added in 6 days (2026-01-12 to 2026-01-19), demonstrating excellent progress.
 **Duplicate Prevention:** Scientific name verification saved ~28-42 hours by preventing duplicate documentation.
@@ -337,7 +339,7 @@ Each new species should include:
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
 - ✅ **19 total species** added since 2026-01-12 (including Guanábana)
 - ✅ **Verification complete:** 9 duplicates identified and removed from list
-- 📊 **154 species** now in atlas (up from 110)
-- 🎯 **Actual remaining:** ~34 unique species (down from 57 after duplicate removal)
+- 📊 **155 species** now in atlas (up from 110)
+- 🎯 **Actual remaining:** ~33 unique species (down from 57 after duplicate removal)
 - 🎯 **Next Priority:** Complete low-priority medicinal, timber, and introduced-context species
 - 💡 **Key Learning:** Always verify scientific names to prevent duplicate documentation
