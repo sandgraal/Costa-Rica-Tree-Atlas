@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
 **Last Updated:** 2026-02-12  
-**Current Species Count:** 155 documented  
-**Missing Species:** ~33 unique species identified for future expansion  
+**Current Species Count:** 160 documented  
+**Missing Species:** ~28 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -13,6 +13,11 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ### Latest Additions (2026-02-12)
 
+- **Zorrillo** - _Senna reticulata_ - Medicinal wetland legume ✅
+- **Contra** - _Rauvolfia tetraphylla_ - Traditional medicinal shrub-tree (toxic) ✅
+- **Achotillo** - _Brosimum costaricanum_ - Native rainforest Moraceae tree ✅
+- **Guarumbo Hembra** - _Cecropia peltata_ - Pioneer succession tree distinct from _C. obtusifolia_ ✅
+- **Bambú Gigante** - _Guadua angustifolia_ - Structural giant bamboo (special-case woody grass) ✅
 - **Cedro Dulce** - _Cedrela tonduzii_ - Highland cedar, montane timber species ✅
 - **Quina** - _Cinchona pubescens_ - Quinine tree, historic medicinal bark ✅
 
@@ -141,24 +146,24 @@ Additional edible/cultivated species:
 
 **Rationale:** Fruit diversity important for ethnobotany and agroforestry documentation.
 
-### LOW PRIORITY - Medicinal/Traditional (3 species)
+### LOW PRIORITY - Medicinal/Traditional (0 species remaining) ✅ COMPLETE
 
 Traditional medicine species:
 
-- **Zorrillo** - _Senna reticulata_ - Medicinal legume
-- **Contra** - _Rauvolfia tetraphylla_ - Traditional medicine (caution: toxic)
-- **Achotillo** - _Brosimum costaricanum_ - Costa Rican breadnut
+- ~~**Zorrillo** - _Senna reticulata_ - Medicinal legume~~ ✅ ADDED 2026-02-12
+- ~~**Contra** - _Rauvolfia tetraphylla_ - Traditional medicine (caution: toxic)~~ ✅ ADDED 2026-02-12
+- ~~**Achotillo** - _Brosimum costaricanum_ - Costa Rican breadnut~~ ✅ ADDED 2026-02-12
 - ~~**Quina** - _Cinchona pubescens_ - Quinine tree, historic medicinal bark~~ ✅ ADDED 2026-02-12
 
 **Rationale:** Important for ethnobotanical documentation.
 
-### LOW PRIORITY - Pioneer/Succession (1 species)
+### LOW PRIORITY - Pioneer/Succession (0 species remaining) ✅ COMPLETE
 
 Fast-growing colonizers:
 
 - ~~**Guarumo Colorado** - _Cecropia obtusifolia_~~ ✅ DUPLICATE: Same as **Guarumo** already documented (_Cecropia obtusifolia_)
 - ~~**Balso** - _Ochroma pyramidale_~~ ✅ DUPLICATE: Same as **Balsa** already documented (_Ochroma pyramidale_)
-- **Guarumbo Hembra** - _Cecropia peltata_ - Female guarumo (distinct from _C. obtusifolia_ already documented)
+- ~~**Guarumbo Hembra** - _Cecropia peltata_ - Female guarumo (distinct from _C. obtusifolia_ already documented)~~ ✅ ADDED 2026-02-12
 
 **Rationale:** Important for understanding forest succession.
 
@@ -172,11 +177,11 @@ Additional timber species:
 
 **Rationale:** Complete timber species documentation.
 
-### LOW PRIORITY - Bamboos (1 species)
+### LOW PRIORITY - Bamboos (0 species remaining) ✅ COMPLETE
 
 If including non-tree woody plants:
 
-- **Bambú Gigante** - _Guadua angustifolia_ - Giant bamboo (technically a grass)
+- ~~**Bambú Gigante** - _Guadua angustifolia_ - Giant bamboo (technically a grass)~~ ✅ ADDED 2026-02-12
 
 **Rationale:** Ecologically and economically important but not technically a tree.
 
@@ -274,11 +279,10 @@ All 5 mangrove species have been successfully documented.
 
 **Progress Update (2026-02-12):**
 
-- **Quina (_Cinchona pubescens_) added** to the atlas
-- **Cedro Dulce (_Cedrela tonduzii_) added** to the atlas
-- **Current total: 155 species documented**
-- **Actual remaining:** ~33 unique species after duplicate removal
-- Focus remains on low-priority medicinal, timber, and special-case species
+- **5 additional species added** to the atlas: Zorrillo, Contra, Achotillo, Guarumbo Hembra, Bambu Gigante
+- **Current total: 160 species documented**
+- **Actual remaining:** ~28 unique species after duplicate removal
+- Focus now shifts to introduced-context and special-case ecological species
 
 **Progress Update (2026-02-10):**
 
@@ -309,9 +313,9 @@ Each new species should include:
 
 - **Per species:** 4-6 hours (research + writing + translation + images)
 - **Phase 1 (5 mangrove species):** ✅ COMPLETE (20-30 hours invested)
-- **Recent additions (19 species total):** ✅ COMPLETE (76-114 hours invested)
+- **Recent additions (24 species total):** ✅ COMPLETE (96-144 hours invested)
 - **Phase 2:** ✅ COMPLETE
-- **Complete remaining list (~33 unique species):** 132-198 hours
+- **Complete remaining list (~28 unique species):** 112-168 hours
 
 **Achievement Rate:** 19 species added in 6 days (2026-01-12 to 2026-01-19), demonstrating excellent progress.
 **Duplicate Prevention:** Scientific name verification saved ~28-42 hours by preventing duplicate documentation.
@@ -337,9 +341,9 @@ Each new species should include:
 **Status Update (2026-02-12):**
 
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
-- ✅ **19 total species** added since 2026-01-12 (including Guanábana)
+- ✅ **24 total species** added since 2026-01-12
 - ✅ **Verification complete:** 9 duplicates identified and removed from list
-- 📊 **155 species** now in atlas (up from 110)
-- 🎯 **Actual remaining:** ~33 unique species (down from 57 after duplicate removal)
-- 🎯 **Next Priority:** Complete low-priority medicinal, timber, and introduced-context species
+- 📊 **160 species** now in atlas (up from 110)
+- 🎯 **Actual remaining:** ~28 unique species (down from 57 after duplicate removal)
+- 🎯 **Next Priority:** Complete introduced-context species and remaining special-case additions
 - 💡 **Key Learning:** Always verify scientific names to prevent duplicate documentation
