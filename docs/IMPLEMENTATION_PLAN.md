@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 155/175 (89%) - Target: 175+ documented species
+- **Species**: 160/175 (91%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
@@ -139,7 +139,7 @@
 
 ### 1.1: Add Missing Species
 
-**Status:** 🟡 In Progress (35/47 complete)  
+**Status:** 🟡 In Progress (40/47 complete)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
 #### High Priority Native Species (10 species) ✅ COMPLETE
@@ -188,21 +188,27 @@
 - [x] Guanábana Cimarrona (Annona montana) — added 2026-01-22
 - [x] Add remaining medium priority species (completed 2026-02-10; see docs/MISSING_SPECIES_LIST.md)
 
-#### Low Priority (5 species)
+#### Low Priority (5 species) ✅ COMPLETE
 
 - [x] Cedro Dulce (Cedrela tonduzii) — added 2026-02-12
-- [ ] Add remaining 5 low priority species (Quina + Cedro Dulce added 2026-02-12; see MISSING_SPECIES_LIST.md)
+- [x] Quina (Cinchona pubescens) — added 2026-02-12
+- [x] Zorrillo (Senna reticulata) — added 2026-02-12
+- [x] Contra (Rauvolfia tetraphylla) — added 2026-02-12
+- [x] Achotillo (Brosimum costaricanum) — added 2026-02-12
+- [x] Guarumbo Hembra (Cecropia peltata) — added 2026-02-12
+- [x] Bambu Gigante (Guadua angustifolia) — added 2026-02-12
+- [x] Add remaining 5 low priority species (Zorrillo, Contra, Achotillo, Guarumbo Hembra, and Bambu Gigante added 2026-02-12; see MISSING_SPECIES_LIST.md)
 
 **Per-Species Checklist:**
 
-- [ ] Research 3+ reliable sources
-- [ ] Create EN and ES MDX files with complete frontmatter
-- [ ] Add taxonomy, description, distribution, cultivation sections
-- [ ] Include comprehensive safety data
-- [ ] Source 5+ high-quality images (featured + gallery)
-- [ ] Add external resources (IUCN, iNaturalist, GBIF)
-- [ ] Verify bilingual parity
-- [ ] Test build generates pages correctly
+- [x] Research 3+ reliable sources
+- [x] Create EN and ES MDX files with complete frontmatter
+- [x] Add taxonomy, description, distribution, cultivation sections
+- [x] Include comprehensive safety data
+- [x] Source 5+ high-quality images (featured + gallery)
+- [x] Add external resources (IUCN, iNaturalist, GBIF)
+- [x] Verify bilingual parity
+- [x] Test build generates pages correctly
 
 ### ✅ 1.2: Comparison Guides (COMPLETE)
 
@@ -295,8 +301,8 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 
 ### 1.4: Fix Short Pages Quality
 
-**Status:** ✅ Complete (2026-02-08)  
-**Target:** All pages 600+ lines ✅ **ACHIEVED**  
+**Status:** 🟡 Ongoing maintenance (legacy backlog completed 2026-02-08)  
+**Target:** Maintain all pages at 600+ lines (newly added species may need expansion passes)  
 **Tools:** ✅ Content audit script available (`npm run content:audit`)
 
 #### ✅ Audit Tool Created (2026-02-08)
@@ -314,6 +320,7 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - **Main issue:** Spanish translations significantly shorter than English
 - **Average page length:** 698 lines
 - **Critical issue:** Many pages missing required sections (Taxonomy, Geographic Distribution, etc.)
+- **2026-02-12 update:** Newly added low-priority species baseline pages (`zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, `bambu-gigante`) were added with full structure and safety data, but remain below the 600-line benchmark pending enhancement pass.
 
 See `audit-content-report.md` for full details.
 
@@ -743,7 +750,7 @@ Requires:
 
 **Content Coverage:**
 
-- Species count: 175+ (current: 155)
+- Species count: 175+ (current: 160)
 - Care guidance: 80%+ (current: 47%)
 - Comparison guides: 20/20 ✅
 - Glossary terms: 150+ (current: 100)
