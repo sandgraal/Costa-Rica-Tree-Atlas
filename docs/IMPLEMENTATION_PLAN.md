@@ -223,7 +223,7 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 11/30 in progress)  
+**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 15/30 in progress)  
 **Current:** 75/128 (59%) → **Target:** 100/128 (78%)
 
 #### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
@@ -267,7 +267,7 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 9. **Pochote** - Living fence establishment and dry forest restoration
 10. **Corteza Amarilla** - Ornamental flowering tree optimization and landscape design
 
-#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 11/30)
+#### Weeks 2-4: Additional 30 Species (🚧 In Progress: 15/30)
 
 **Recently Completed (2026-02-08):**
 
@@ -282,10 +282,14 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - [x] **Zapote/Mamey Sapote (Batch 3)** - Patio tree integration and batido production
 - [x] **Balsa (Batch 3)** - Pioneer succession forestry and rapid rotation timber
 - [x] **Caimito/Star Apple (Batch 3)** - Caribbean home garden and Sapotaceae cultivation
+- [x] **Palma de Escoba (Batch 4, 2026-02-12)** - Understory palm care with spine-safe pruning, companion planting, and seasonal calendar
+- [x] **Palma Yolillo (Batch 4, 2026-02-12)** - Wetland restoration-focused management (hydrology, monitoring, and seasonal restoration calendar)
+- [x] **Palma Suita (Batch 4, 2026-02-12)** - Deep-shade understory cultivation with humidity management and companion planting
+- [x] **Palma Cacho de Venado (Batch 4, 2026-02-12)** - High-rainfall canopy palm care with fruiting-season safety and agroforestry companions
 
 **In Progress:**
 
-- [ ] Add care guidance to 19 additional mid-priority species
+- [ ] Add care guidance to 15 additional mid-priority species
 
 **Care Guidance Template:**
 
