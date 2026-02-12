@@ -4,7 +4,7 @@ Last updated: 2026-02-12
 
 ## Current Repository State
 
-- Repository path: `/Users/christopherennis/Websites/Costa-Rica-Tree-Atlas`
+- Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
 - Main commit at handoff creation: `66c51d5`
 - Most recent merged PRs:
@@ -13,7 +13,7 @@ Last updated: 2026-02-12
 
 ## Highest-Priority Remaining Work
 
-From `/Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/docs/IMPLEMENTATION_PLAN.md`:
+From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.3 remains active.
 - Week 2 progress: `15/30`.
@@ -32,8 +32,10 @@ From `/Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/docs/IMPLEMENTATION
 You are working in an existing repo with strict agent instructions.
 
 Repository
-- Path: /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas
-- Start by reading: /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/docs/NEXT_AGENT_HANDOFF.md
+- Resolve repo root first:
+  - REPO_ROOT=$(git rev-parse --show-toplevel)
+- Path: $REPO_ROOT
+- Start by reading: $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
@@ -43,10 +45,10 @@ Mission
 
 Required workflow
 1. Read and follow:
-   - /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/AGENTS.md
-   - /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/.github/instructions/*.md
-   - /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/docs/IMPLEMENTATION_PLAN.md
-   - /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/docs/NEXT_AGENT_HANDOFF.md
+   - $REPO_ROOT/AGENTS.md
+   - $REPO_ROOT/.github/instructions/*.md
+   - $REPO_ROOT/docs/IMPLEMENTATION_PLAN.md
+   - $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md
 2. Sync main:
    - git fetch origin
    - git checkout main
@@ -72,7 +74,7 @@ MANDATORY END-OF-RUN DIRECTIVES
    - If PR merged, clean associated branches (remote and local) when safe.
    - Ensure local main can be fast-forwarded cleanly.
 2. Handoff:
-   - Update /Users/christopherennis/Websites/Costa-Rica-Tree-Atlas/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged PR, remaining top task).
+   - Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged PR, remaining top task).
    - Write a fresh next-agent prompt that explicitly references this handoff file.
 ```
 
