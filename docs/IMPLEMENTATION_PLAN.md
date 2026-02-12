@@ -223,10 +223,10 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** 🚧 In Progress (Week 1: 10/10 complete ✅ | Week 2: 30/30 complete ✅)  
+**Status:** 🚧 In Progress (Week 1: 10/10 EN guides complete ✅, ES pending for 2 species | Week 2: 30/30 complete ✅)  
 **Current:** 90/128 (70%) → **Target:** 100/128 (78%)
 
-#### Week 1: Common Planted Trees (10 species) ✅ COMPLETE
+#### Week 1: Common Planted Trees (10 species) ✅ EN COMPLETE; ES pending for Rambután & Tamarindo
 
 - [x] Guanábana (EN & ES complete)
 - [x] Carambola (EN & ES complete)
