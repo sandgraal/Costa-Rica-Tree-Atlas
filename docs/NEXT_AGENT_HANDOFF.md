@@ -1,25 +1,31 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-12
+Last updated: 2026-02-13
 
 ## Current Repository State
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Main commit at handoff creation: `9158bc1`
+- Current `origin/main` commit: `b7c244f`
+- Current working branch for this cycle: `codex/content/full-expansion-low-priority-short-pages`
+- Working branch head commit: `705adce`
 - Most recent merged PRs:
-  - #367 `feat: complete week2 care guidance for final 5 species`
-  - #366 `fix: standardize Spanish terminology in care guidance sections`
+  - #372 `[ImgBot] Optimize images`
+  - #371 `fix(deps): upgrade next-mdx-remote to v6`
+  - #370 `🖼️ Weekly Image Quality & Optimization (210 files)`
+  - #369 `fix(i18n): standardize Spanish header capitalization and diacritics in advanced care sections`
+  - #368 `feat(content): expand advanced care guidance for five low-priority species`
 - Open PRs from current cycle:
-  - #368 `feat(content): expand advanced care guidance for five low-priority species` (branch: `codex/content/expand-care-guidance-low-priority-batch1`, head commit `3c09add`)
+  - #373 `feat(content): full expansion pass for five low-priority short pages` (branch: `codex/content/full-expansion-low-priority-short-pages`, head commit `705adce`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
-- Priority 1.4 remains active for short-page quality maintenance.
-- The 2026-02-12 care-guidance enrichment pass raised five low-priority species to ~367-381 lines per locale, but all remain below the 600+ target.
-- Open task: perform a full expansion pass for `zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, and `bambu-gigante` (EN+ES), focusing on missing depth sections while preserving bilingual parity.
+- Priority 1.4 remains active as **ongoing short-page quality maintenance**.
+- The full expansion pass for `zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, and `bambu-gigante` is complete in EN+ES; all ten files now exceed 600 lines.
+- Next maintenance task: rerun `npm run content:audit` after syncing to latest `main`, then triage any newly flagged short pages or bilingual depth gaps.
+- If no Priority 1.4 short-page findings remain, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md` and execute end-to-end.
 
 ## Operator Preferences (Persistent)
 
@@ -44,10 +50,11 @@ Mission
 - Execute the highest-priority unchecked item in docs/IMPLEMENTATION_PLAN.md.
 - If multiple tightly coupled changes affect the same feature/files, implement them together.
 - Do not ask questions if answer exists in repo docs.
-- Continue Priority 1.4 by completing full expansion for the five low-priority pages currently below 600 lines:
-  - content/trees/en/{zorrillo,contra,achotillo,guarumbo-hembra,bambu-gigante}.mdx
-  - content/trees/es/{zorrillo,contra,achotillo,guarumbo-hembra,bambu-gigante}.mdx
-- Preserve bilingual parity and keep newly added advanced care guidance sections intact while adding missing narrative depth.
+- Priority 1.4 remains active for maintenance:
+  - sync to latest main
+  - run npm run content:audit
+  - address the highest-impact remaining short-page/parity findings (if any)
+- If audit shows no Priority 1.4 gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
 Required workflow
 1. Read and follow:
