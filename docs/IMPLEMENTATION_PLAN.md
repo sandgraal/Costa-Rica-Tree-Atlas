@@ -348,6 +348,11 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
 - **Average page length:** 698 lines
 - **Critical issue:** Many pages missing required sections (Taxonomy, Geographic Distribution, etc.)
 - **2026-02-12 update:** Advanced care-guidance enrichment completed for low-priority species (`zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, `bambu-gigante`), improving depth to ~367-381 lines per locale; these pages still remain below the 600-line benchmark pending full expansion.
+- **2026-02-13 update:** Full expansion pass completed for the same five low-priority species in both locales.
+  - EN line counts: `zorrillo` 663, `contra` 656, `achotillo` 644, `guarumbo-hembra` 648, `bambu-gigante` 656
+  - ES line counts: `zorrillo` 657, `contra` 656, `achotillo` 640, `guarumbo-hembra` 652, `bambu-gigante` 661
+  - Result: all ten files now exceed the 600-line maintenance threshold while preserving bilingual parity and advanced care sections.
+  - Next maintenance step: rerun `npm run content:audit` in a follow-up pass to refresh repository-wide short-page inventory after this expansion.
 
 See `audit-content-report.md` for full details.
 
