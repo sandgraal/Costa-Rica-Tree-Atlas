@@ -538,7 +538,8 @@
       "severeRisk": "Severe Risk",
       "toxic": "Toxic",
       "childSafe": "Child Safe",
-      "petSafe": "Pet Safe"
+      "petSafe": "Pet Safe",
+      "ariaLabel": "Safety level:"
     }
   },
   "glossary": {

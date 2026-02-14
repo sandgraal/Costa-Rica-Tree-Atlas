@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import type { ToxicityLevel, RiskLevel } from "@/types/tree";
 
 interface SafetyBadgeProps {
-  level: ToxicityLevel | RiskLevel | "safe" | string;
+  level: ToxicityLevel | RiskLevel | "safe" | (string & {});
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
   className?: string;
@@ -107,24 +107,33 @@ export function SafetyBadge({
   const translate = (key: string) =>
     t.has(key as never) ? t(key as never) : null;
 
-  const getLabel = () => {
+  // Compute label once per render
+  const label = (() => {
+    // Handle blank/whitespace as unknown
+    if (!level || !level.trim()) {
+      return translate("unknown") ?? "Unknown";
+    }
+
     if (normalizedLevel === "safe") {
       return translate("badges.safe") ?? humanizeToken(level);
     }
     if (normalizedLevel !== "unknown") {
       return translate(`levels.${normalizedLevel}`) ?? humanizeToken(level);
     }
-    return humanizeToken(level);
-  };
+    return translate("unknown") ?? humanizeToken(level);
+  })();
+
+  // Localized aria-label prefix
+  const ariaLabelPrefix = translate("badges.ariaLabel") ?? "Safety level:";
 
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-full font-medium ${getRiskColor(normalizedLevel)} ${getSizeClasses(size)} ${className}`}
       role="status"
-      aria-label={`Safety level: ${getLabel()}`}
+      aria-label={`${ariaLabelPrefix} ${label}`}
     >
       <span aria-hidden="true">{getRiskIcon(normalizedLevel)}</span>
-      {showLabel && <span>{getLabel()}</span>}
+      {showLabel && <span>{label}</span>}
     </span>
   );
 }
