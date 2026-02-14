@@ -370,6 +370,13 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
   - Expanded `content/trees/es/mangle-pinuela.mdx` from 396 → 603 lines (EN counterpart 612).
   - Audit short-page backlog reduced from 33 → 29 species.
   - Next priority candidates by parity gap: `mastate` (EN 688 | ES 473), `papaya` (EN 736 | ES 530), `mangle-blanco` (EN 605 | ES 416), and `llama-del-bosque` (EN 682 | ES 497).
+- **2026-02-14 parity maintenance update:** Continued Priority 1.4 work on the next four high-gap Spanish pages, then reran `npm run content:audit`.
+  - Expanded `content/trees/es/mastate.mdx` from 473 → 608 lines (EN counterpart 688).
+  - Expanded `content/trees/es/papaya.mdx` from 530 → 729 lines (EN counterpart 736).
+  - Expanded `content/trees/es/mangle-blanco.mdx` from 416 → 602 lines (EN counterpart 605).
+  - Expanded `content/trees/es/llama-del-bosque.mdx` from 497 → 603 lines (EN counterpart 682).
+  - Audit short-page backlog reduced from 29 → 25 species.
+  - Next priority candidates by parity gap: `cachimbo` (EN 653 | ES 478), `cortez-negro` (EN 606 | ES 449), `guachipelin` (EN 582 | ES 448), then `quina` for low-line bilingual expansion (EN 385 | ES 386).
 
 See `audit-content-report.md` for full details.
 
