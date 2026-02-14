@@ -1,31 +1,38 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-13
+Last updated: 2026-02-14
 
 ## Current Repository State
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Current `origin/main` commit: `b7c244f`
-- Current working branch for this cycle: `codex/content/full-expansion-low-priority-short-pages`
-- Working branch head commit: `705adce`
+- Current `origin/main` commit: `15b2f65`
+- Current working branch for this cycle: `codex/content/priority-1-4-audit-maintenance`
+- Working branch head commit: resolve via `git rev-parse --short HEAD`
 - Most recent merged PRs:
+  - #374 `fix: correct 200+ missing Spanish diacritics in five ES tree content files`
+  - #373 `feat(content): full expansion pass for five low-priority short pages`
   - #372 `[ImgBot] Optimize images`
   - #371 `fix(deps): upgrade next-mdx-remote to v6`
   - #370 `🖼️ Weekly Image Quality & Optimization (210 files)`
-  - #369 `fix(i18n): standardize Spanish header capitalization and diacritics in advanced care sections`
-  - #368 `feat(content): expand advanced care guidance for five low-priority species`
 - Open PRs from current cycle:
-  - #373 `feat(content): full expansion pass for five low-priority short pages` (branch: `codex/content/full-expansion-low-priority-short-pages`, head commit `705adce`)
+  - #375 `feat(content): improve ES parity pages and harden MDX table rendering` (branch: `codex/content/priority-1-4-audit-maintenance`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.4 remains active as **ongoing short-page quality maintenance**.
-- The full expansion pass for `zorrillo`, `contra`, `achotillo`, `guarumbo-hembra`, and `bambu-gigante` is complete in EN+ES; all ten files now exceed 600 lines.
-- Next maintenance task: rerun `npm run content:audit` after syncing to latest `main`, then triage any newly flagged short pages or bilingual depth gaps.
-- If no Priority 1.4 short-page findings remain, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md` and execute end-to-end.
+- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **37 -> 35**.
+- This cycle completed high-impact parity lifts:
+  - `content/trees/es/granadillo.mdx` 167 -> 931 lines
+  - `content/trees/es/ira-rosa.mdx` 341 -> 675 lines
+- Next maintenance targets by bilingual depth gap (highest impact first):
+  1. `mamon-chino` (EN 653 | ES 357)
+  2. `lorito` (EN 700 | ES 375)
+  3. `pomarrosa` (EN 618 | ES 377)
+  4. `guanabana-cimarrona` (EN 890 | ES 469)
+- If Priority 1.4 findings are cleared, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`.
 
 ## Operator Preferences (Persistent)
 
@@ -47,14 +54,11 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Execute the highest-priority unchecked item in docs/IMPLEMENTATION_PLAN.md.
-- If multiple tightly coupled changes affect the same feature/files, implement them together.
+- Continue Priority 1.4 short-page maintenance from the latest audit baseline.
+- Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
+- Start with: `mamon-chino`, `lorito`, `pomarrosa`, and `guanabana-cimarrona` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
-- Priority 1.4 remains active for maintenance:
-  - sync to latest main
-  - run npm run content:audit
-  - address the highest-impact remaining short-page/parity findings (if any)
-- If audit shows no Priority 1.4 gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
+- If Priority 1.4 shows no actionable gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
 Required workflow
 1. Read and follow:
