@@ -8,7 +8,7 @@ Last updated: 2026-02-14
 - Canonical base branch: `main`
 - Current `origin/main` commit: `59d355a`
 - Current working branch for this cycle: `codex/fix/mdx-map-and-safety-fallbacks`
-- Working branch head commit: `554f0bf`
+- Working branch head commit: resolve via `git rev-parse --short HEAD`
 - Most recent merged PRs:
   - #375 `feat(content): improve ES parity pages and harden MDX table rendering`
   - #374 `fix: correct 200+ missing Spanish diacritics in five ES tree content files`
