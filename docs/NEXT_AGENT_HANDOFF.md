@@ -16,7 +16,7 @@ Last updated: 2026-02-14
   - #377 `feat(content): expand ES parity for six Priority 1.4 targets`
   - #376 `fix(content): address PR #375 review comments - MDX syntax, diacritics, duplicate section`
 - Open PRs from current cycle:
-  - (to be created from `codex/content/priority-1-4-parity-cachimbo-quina`)
+  - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance` (branch: `codex/content/priority-1-4-parity-cachimbo-quina`)
 
 ## Highest-Priority Remaining Work
 
@@ -108,7 +108,7 @@ MANDATORY END-OF-RUN DIRECTIVES
 
 - [x] `main` synced to `origin/main`
 - [x] Feature/fix/content/docs branch used for changes
-- [ ] PR opened (and merged if applicable)
+- [x] PR opened (and merged if applicable)
 - [ ] Associated merged branches cleaned up (remote + local)
 - [x] `docs/NEXT_AGENT_HANDOFF.md` updated
 - [x] Next-agent prompt generated and references `docs/NEXT_AGENT_HANDOFF.md`
