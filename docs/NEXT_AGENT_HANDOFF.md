@@ -8,7 +8,7 @@ Last updated: 2026-02-14
 - Canonical base branch: `main`
 - Current `origin/main` commit: `8482617`
 - Current working branch for this cycle: `codex/content/priority-1-4-parity-mastate-papaya`
-- Working branch head commit: resolve via `git rev-parse --short HEAD`
+- Working branch head commit: `9e25916`
 - Most recent merged PRs:
   - #375 `feat(content): improve ES parity pages and harden MDX table rendering`
   - #374 `fix: correct 200+ missing Spanish diacritics in five ES tree content files`
