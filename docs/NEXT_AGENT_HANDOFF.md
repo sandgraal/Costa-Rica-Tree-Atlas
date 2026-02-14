@@ -63,7 +63,7 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Continue Priority 1.4 short-page maintenance from the latest audit baseline.
+- Continue Priority 1.4 short-page maintenance from the latest audit baseline (after handling active review feedback on open PRs #377, #378, and #380 if requested).
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
 - Start with: `cedro-dulce`, `cristobalito`, `papayillo`, `guayaba-chilena`, then `cortez-blanco` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.

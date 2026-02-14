@@ -5,6 +5,10 @@ import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBad
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import type { Locale } from "@/types/tree";
 
+function asArray<T>(value: T[] | undefined | null): T[] {
+  return Array.isArray(value) ? value : [];
+}
+
 // Callout Box Component
 interface CalloutProps {
   type?:
@@ -138,7 +142,9 @@ interface ComparisonRowProps {
   cedar: string;
 }
 
-export function ComparisonTable({ rows }: { rows: ComparisonRowProps[] }) {
+export function ComparisonTable({ rows }: { rows?: ComparisonRowProps[] }) {
+  const safeRows = asArray(rows);
+
   return (
     <div className="overflow-x-auto my-6 not-prose">
       <table className="w-full border-collapse">
@@ -157,7 +163,7 @@ export function ComparisonTable({ rows }: { rows: ComparisonRowProps[] }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => (
+          {safeRows.map((row, index) => (
             <tr
               key={index}
               className={index % 2 === 0 ? "bg-muted" : "bg-muted/50"}
@@ -215,13 +221,15 @@ export function Figure({ src, alt, caption, credit }: FigureProps) {
 
 // Image Gallery Component
 interface GalleryProps {
-  images: { src: string; alt: string; caption?: string }[];
+  images?: { src: string; alt: string; caption?: string }[];
 }
 
 export function Gallery({ images }: GalleryProps) {
+  const safeImages = asArray(images);
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8 not-prose">
-      {images.map((image, index) => (
+      {safeImages.map((image, index) => (
         <div key={index} className="group relative">
           <div className="aspect-square rounded-lg overflow-hidden bg-muted relative">
             <Image
@@ -248,13 +256,15 @@ export function Gallery({ images }: GalleryProps) {
 
 // Wood Color Swatch Component
 interface ColorSwatchProps {
-  colors: { name: string; hex: string; description?: string }[];
+  colors?: { name: string; hex: string; description?: string }[];
 }
 
 export function ColorSwatch({ colors }: ColorSwatchProps) {
+  const safeColors = asArray(colors);
+
   return (
     <div className="flex flex-wrap gap-4 my-6 not-prose">
-      {colors.map((color, index) => (
+      {safeColors.map((color, index) => (
         <div key={index} className="flex items-center gap-3">
           <div
             className="w-12 h-12 rounded-lg shadow-md border border-border"
@@ -327,11 +337,13 @@ interface TimelineItemProps {
   description: string;
 }
 
-export function Timeline({ items }: { items: TimelineItemProps[] }) {
+export function Timeline({ items }: { items?: TimelineItemProps[] }) {
+  const safeItems = asArray(items);
+
   return (
     <div className="relative my-8 not-prose">
       <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-      {items.map((item, index) => (
+      {safeItems.map((item, index) => (
         <div key={index} className="relative pl-12 pb-8 last:pb-0">
           <div className="absolute left-2 w-5 h-5 rounded-full bg-primary border-4 border-background" />
           <div className="bg-muted rounded-lg p-4">
@@ -853,17 +865,18 @@ export function DataTable({ headers, rows, data, columns }: DataTableProps) {
 
 // Simple List for use inside JSX components
 interface SimpleListProps {
-  items: (string | { label: string; value: string })[];
+  items?: (string | { label: string; value: string })[];
   ordered?: boolean;
 }
 
 export function SimpleList({ items, ordered = false }: SimpleListProps) {
+  const safeItems = asArray(items);
   const ListTag = ordered ? "ol" : "ul";
   return (
     <ListTag
       className={`my-3 space-y-2 ${ordered ? "list-decimal" : "list-disc"} list-inside`}
     >
-      {items.map((item, index) => (
+      {safeItems.map((item, index) => (
         <li key={index} className="text-foreground/90">
           {typeof item === "string" ? (
             item
@@ -1160,7 +1173,7 @@ export function CareGuide({ children }: CareGuideProps) {
 }
 
 interface PlantingInstructionsProps {
-  steps: Array<{
+  steps?: Array<{
     title: string;
     description: string;
     tip?: string;
@@ -1168,6 +1181,8 @@ interface PlantingInstructionsProps {
 }
 
 export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
+  const safeSteps = asArray(steps);
+
   return (
     <div className="my-6">
       <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -1175,7 +1190,7 @@ export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
         <span>Planting Instructions</span>
       </h3>
       <ol className="space-y-4">
-        {steps.map((step, index) => (
+        {safeSteps.map((step, index) => (
           <li
             key={index}
             className="bg-card rounded-lg p-4 border-l-4 border-primary"
@@ -1204,7 +1219,7 @@ export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
 }
 
 interface MaintenanceTimelineProps {
-  stages: Array<{
+  stages?: Array<{
     period: string;
     tasks: string[];
     frequency?: string;
@@ -1212,6 +1227,8 @@ interface MaintenanceTimelineProps {
 }
 
 export function MaintenanceTimeline({ stages }: MaintenanceTimelineProps) {
+  const safeStages = asArray(stages);
+
   return (
     <div className="my-6">
       <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -1219,7 +1236,7 @@ export function MaintenanceTimeline({ stages }: MaintenanceTimelineProps) {
         <span>Maintenance Schedule</span>
       </h3>
       <div className="space-y-3">
-        {stages.map((stage, index) => (
+        {safeStages.map((stage, index) => (
           <div
             key={index}
             className="bg-muted rounded-lg p-4 border-l-4 border-secondary"
@@ -1235,7 +1252,7 @@ export function MaintenanceTimeline({ stages }: MaintenanceTimelineProps) {
               )}
             </div>
             <ul className="space-y-1 text-sm">
-              {stage.tasks.map((task, taskIndex) => (
+              {asArray(stage.tasks).map((task, taskIndex) => (
                 <li key={taskIndex} className="flex items-start gap-2">
                   <span className="text-secondary mt-0.5">✓</span>
                   <span className="text-foreground/80">{task}</span>
@@ -1250,7 +1267,7 @@ export function MaintenanceTimeline({ stages }: MaintenanceTimelineProps) {
 }
 
 interface CareRequirementsProps {
-  requirements: Array<{
+  requirements?: Array<{
     icon: string;
     label: string;
     value: string;
@@ -1259,9 +1276,11 @@ interface CareRequirementsProps {
 }
 
 export function CareRequirements({ requirements }: CareRequirementsProps) {
+  const safeRequirements = asArray(requirements);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-      {requirements.map((req, index) => (
+      {safeRequirements.map((req, index) => (
         <div
           key={index}
           className="bg-card rounded-lg p-4 border border-border hover:border-primary/30 transition-colors"
@@ -1281,7 +1300,7 @@ export function CareRequirements({ requirements }: CareRequirementsProps) {
 }
 
 interface CommonProblemsProps {
-  problems: Array<{
+  problems?: Array<{
     symptom: string;
     cause: string;
     solution: string;
@@ -1289,6 +1308,8 @@ interface CommonProblemsProps {
 }
 
 export function CommonProblems({ problems }: CommonProblemsProps) {
+  const safeProblems = asArray(problems);
+
   return (
     <div className="my-6">
       <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -1296,7 +1317,7 @@ export function CommonProblems({ problems }: CommonProblemsProps) {
         <span>Common Problems & Solutions</span>
       </h3>
       <div className="space-y-3">
-        {problems.map((problem, index) => (
+        {safeProblems.map((problem, index) => (
           <div
             key={index}
             className="bg-card rounded-lg p-4 border border-warning/20"
@@ -1539,13 +1560,15 @@ interface DecisionStep {
 
 interface QuickDecisionFlowProps {
   title?: string;
-  steps: DecisionStep[];
+  steps?: DecisionStep[];
 }
 
 export function QuickDecisionFlow({
   title = "Quick Identification Guide",
   steps,
 }: QuickDecisionFlowProps) {
+  const safeSteps = asArray(steps);
+
   return (
     <div className="my-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 border border-border not-prose">
       <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -1553,7 +1576,7 @@ export function QuickDecisionFlow({
         {title}
       </h4>
       <div className="space-y-4">
-        {steps.map((step, index) => (
+        {safeSteps.map((step, index) => (
           <div key={index} className="relative">
             {/* Question */}
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border shadow-sm">
@@ -1605,9 +1628,11 @@ export function QuickDecisionFlow({
               </div>
             </div>
             {/* Connector Line */}
-            {index < steps.length - 1 && !step.yesResult && !step.noResult && (
-              <div className="absolute left-7 top-full w-0.5 h-4 bg-border" />
-            )}
+            {index < safeSteps.length - 1 &&
+              !step.yesResult &&
+              !step.noResult && (
+                <div className="absolute left-7 top-full w-0.5 h-4 bg-border" />
+              )}
           </div>
         ))}
       </div>
@@ -1673,13 +1698,15 @@ export function CompareInToolButton({
 // For full localization, use ComparisonTagPill directly in page components with locale prop.
 // This is acceptable as tags include clear icons and are primarily technical identifiers.
 interface ComparisonTagsProps {
-  tags: string[];
+  tags?: string[];
 }
 
 export function ComparisonTags({ tags }: ComparisonTagsProps) {
+  const safeTags = asArray(tags);
+
   return (
     <div className="flex flex-wrap gap-2 not-prose">
-      {tags.map((tag) => (
+      {safeTags.map((tag) => (
         <ComparisonTagPill key={tag} tag={tag} variant="primary" locale="en" />
       ))}
     </div>

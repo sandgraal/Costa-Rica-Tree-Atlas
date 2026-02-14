@@ -537,7 +537,8 @@
       "severeRisk": "Riesgo Severo",
       "toxic": "Tóxico",
       "childSafe": "Seguro para Niños",
-      "petSafe": "Seguro para Mascotas"
+      "petSafe": "Seguro para Mascotas",
+      "ariaLabel": "Nivel de seguridad:"
     }
   },
   "glossary": {
