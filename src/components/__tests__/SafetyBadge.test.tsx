@@ -14,7 +14,26 @@ const messages = {
     },
     badges: {
       safe: "Safe",
+      ariaLabel: "Safety level:",
     },
+    unknown: "Unknown",
+  },
+};
+
+const messagesEs = {
+  safety: {
+    levels: {
+      none: "Ninguno",
+      low: "Bajo",
+      moderate: "Moderado",
+      high: "Alto",
+      severe: "Severo",
+    },
+    badges: {
+      safe: "Seguro",
+      ariaLabel: "Nivel de seguridad:",
+    },
+    unknown: "Desconocido",
   },
 };
 
@@ -100,5 +119,142 @@ describe("SafetyBadge", () => {
     );
     const badge = container.querySelector(".custom-class");
     expect(badge).toBeInTheDocument();
+  });
+
+  // New tests for normalization/alias behavior
+  describe("Level normalization and aliases", () => {
+    it("normalizes Spanish 'alto' to high level", () => {
+      render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="alto" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Alto")).toBeInTheDocument();
+    });
+
+    it("normalizes Spanish 'moderado' to moderate level", () => {
+      render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="moderado" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Moderado")).toBeInTheDocument();
+    });
+
+    it("normalizes Spanish 'bajo' to low level", () => {
+      render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="bajo" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Bajo")).toBeInTheDocument();
+    });
+
+    it("normalizes Spanish 'severo' to severe level", () => {
+      render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="severo" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Severo")).toBeInTheDocument();
+    });
+
+    it("normalizes Spanish 'ninguno' to none level", () => {
+      render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="ninguno" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Ninguno")).toBeInTheDocument();
+    });
+
+    it("handles unknown level gracefully with fallback", () => {
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <SafetyBadge level="unknown-level" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Unknown")).toBeInTheDocument();
+    });
+
+    it("handles blank level with unknown fallback", () => {
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <SafetyBadge level="" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Unknown")).toBeInTheDocument();
+    });
+
+    it("handles whitespace-only level with unknown fallback", () => {
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <SafetyBadge level="   " />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Unknown")).toBeInTheDocument();
+    });
+
+    it("normalizes 'mild' alias to low level", () => {
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <SafetyBadge level="mild" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Low")).toBeInTheDocument();
+    });
+
+    it("handles case-insensitive normalization", () => {
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <SafetyBadge level="HIGH" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("High")).toBeInTheDocument();
+    });
+
+    it("handles accented Spanish variants (alta -> high)", () => {
+      render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="alta" />
+        </NextIntlClientProvider>
+      );
+      expect(screen.getByText("Alto")).toBeInTheDocument();
+    });
+  });
+
+  describe("Localized aria-label", () => {
+    it("uses English aria-label prefix for English locale", () => {
+      const { container } = render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <SafetyBadge level="high" />
+        </NextIntlClientProvider>
+      );
+      const badge = container.querySelector('[role="status"]');
+      expect(badge).toHaveAttribute("aria-label", "Safety level: High");
+    });
+
+    it("uses Spanish aria-label prefix for Spanish locale", () => {
+      const { container } = render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="alto" />
+        </NextIntlClientProvider>
+      );
+      const badge = container.querySelector('[role="status"]');
+      expect(badge).toHaveAttribute("aria-label", "Nivel de seguridad: Alto");
+    });
+
+    it("uses localized aria-label for unknown levels", () => {
+      const { container } = render(
+        <NextIntlClientProvider locale="es" messages={messagesEs}>
+          <SafetyBadge level="unknown-value" />
+        </NextIntlClientProvider>
+      );
+      const badge = container.querySelector('[role="status"]');
+      expect(badge).toHaveAttribute(
+        "aria-label",
+        "Nivel de seguridad: Desconocido"
+      );
+    });
   });
 });

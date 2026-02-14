@@ -221,7 +221,7 @@ export function Figure({ src, alt, caption, credit }: FigureProps) {
 
 // Image Gallery Component
 interface GalleryProps {
-  images: { src: string; alt: string; caption?: string }[];
+  images?: { src: string; alt: string; caption?: string }[];
 }
 
 export function Gallery({ images }: GalleryProps) {
