@@ -370,6 +370,20 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
   - Expanded `content/trees/es/mangle-pinuela.mdx` from 396 → 603 lines (EN counterpart 612).
   - Audit short-page backlog reduced from 33 → 29 species.
   - Next priority candidates by parity gap: `mastate` (EN 688 | ES 473), `papaya` (EN 736 | ES 530), `mangle-blanco` (EN 605 | ES 416), and `llama-del-bosque` (EN 682 | ES 497).
+- **2026-02-14 parity maintenance cycle update:** Completed two sequential Priority 1.4 passes from a fresh `npm run content:audit` baseline.
+  - Pass A (initial highest-parity gaps from audit):
+    - `content/trees/es/cachimbo.mdx` 477 → 600 (EN 652)
+    - `content/trees/es/cortez-negro.mdx` 448 → 635 (EN 605)
+    - `content/trees/en/guachipelin.mdx` 581 → 709 and `content/trees/es/guachipelin.mdx` 447 → 665
+    - `content/trees/en/quina.mdx` 384 → 635 and `content/trees/es/quina.mdx` 385 → 632
+  - Mid-cycle rerun surfaced additional high-impact ES pages still below 600 (`mangle-blanco`, `mastate`, `llama-del-bosque`, `papaya`).
+  - Pass B (reprioritized by fresh audit):
+    - `content/trees/es/mangle-blanco.mdx` 415 → 602
+    - `content/trees/es/mastate.mdx` 472 → 600
+    - `content/trees/es/llama-del-bosque.mdx` 496 → 600
+    - `content/trees/es/papaya.mdx` 529 → 717
+  - Final maintenance rerun result: short-page backlog reduced **25 → 21**.
+  - Next short-page targets by current audit order: `cedro-dulce`, `cristobalito`, `papayillo`, `guayaba-chilena`, then `cortez-blanco`.
 - **2026-02-14 parity maintenance update:** Continued Priority 1.4 work on the next four high-gap Spanish pages, then reran `npm run content:audit`.
   - Expanded `content/trees/es/mastate.mdx` from 473 → 608 lines (EN counterpart 688).
   - Expanded `content/trees/es/papaya.mdx` from 530 → 729 lines (EN counterpart 736).
