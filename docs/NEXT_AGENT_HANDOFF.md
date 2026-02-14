@@ -6,9 +6,9 @@ Last updated: 2026-02-14
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Current `origin/main` commit: `030a646`
-- Current working branch for this cycle: `codex/content/priority-1-4-maintenance-rerun`
-- Working branch head commit: resolve via `git rev-parse --short HEAD`
+- Current `origin/main` commit: `59d355a`
+- Current working branch for this cycle: `codex/fix/mdx-map-and-safety-fallbacks`
+- Working branch head commit: `ec0bdbe`
 - Most recent merged PRs:
   - #375 `feat(content): improve ES parity pages and harden MDX table rendering`
   - #374 `fix: correct 200+ missing Spanish diacritics in five ES tree content files`
@@ -17,6 +17,7 @@ Last updated: 2026-02-14
   - #371 `fix(deps): upgrade next-mdx-remote to v6`
 - Open PRs from current cycle:
   - #377 `feat(content): expand ES parity for mamon-chino and lorito` (branch: `codex/content/priority-1-4-maintenance-rerun`)
+  - #378 `fix: prevent tree page runtime crashes` (branch: `codex/fix/mdx-map-and-safety-fallbacks`)
 
 ## Highest-Priority Remaining Work
 
@@ -56,7 +57,7 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Continue Priority 1.4 short-page maintenance from the latest audit baseline.
+- Continue Priority 1.4 short-page maintenance from the latest audit baseline (after handling active review feedback on open PRs #377 and #378 if requested).
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
 - Start with: `mastate`, `papaya`, `mangle-blanco`, and `llama-del-bosque` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
