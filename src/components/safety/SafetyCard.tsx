@@ -11,8 +11,83 @@ interface SafetyCardProps {
   className?: string;
 }
 
+const PART_ALIASES: Record<string, string> = {
+  savia: "sap",
+  latex: "sap",
+  semillas: "seeds",
+  hojas: "leaves",
+  corteza: "bark",
+  flores: "flowers",
+  raices: "roots",
+  raiceszanco: "roots",
+  "raices-zanco": "roots",
+  fruto: "fruit",
+  frutos: "fruit",
+  bayas: "fruit",
+  todaslaspartes: "all",
+  "todas-las-partes": "all",
+};
+
+const STRUCTURAL_ALIASES: Record<string, string> = {
+  "caida-de-ramas": "falling-branches",
+  "caida-ramas": "falling-branches",
+  "falling-fronds": "falling-branches",
+  "falling-fruit": "heavy-fruit",
+  "frutos-pesados": "heavy-fruit",
+  "sharp-thorns-3-10-cm-long": "sharp-spines",
+  "espinas-afiladas-3-10-cm-de-largo": "sharp-spines",
+  "brittle-wood-prone-to-wind-damage": "brittle-wood",
+  "madera-fragil-propensa-a-danos-por-viento": "brittle-wood",
+  "madera-fragil-propensa-a-danos-por-viento-": "brittle-wood",
+};
+
+function normalizeLookupToken(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim();
+}
+
+function slugifyLookupToken(value: string): string {
+  return normalizeLookupToken(value)
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function humanizeToken(value: string): string {
+  return value.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim();
+}
+
 export function SafetyCard({ tree, className = "" }: SafetyCardProps) {
   const t = useTranslations("safety");
+  const translate = (key: string) =>
+    t.has(key as never) ? t(key as never) : null;
+  const getSafetyValueLabel = (
+    group: "parts" | "structural",
+    value: string
+  ) => {
+    const raw = value?.trim();
+    if (!raw) return t("unknown");
+
+    const normalized = normalizeLookupToken(raw);
+    const slug = slugifyLookupToken(raw);
+    const aliasMap = group === "parts" ? PART_ALIASES : STRUCTURAL_ALIASES;
+    const candidates = [
+      raw,
+      raw.toLowerCase(),
+      slug,
+      aliasMap[normalized],
+      aliasMap[slug],
+    ].filter((candidate): candidate is string => Boolean(candidate));
+
+    for (const candidate of candidates) {
+      const translated = translate(`${group}.${candidate}`);
+      if (translated) return translated;
+    }
+
+    return humanizeToken(raw);
+  };
 
   // If no safety data, don't render
   const hasSafetyData =
@@ -67,7 +142,7 @@ export function SafetyCard({ tree, className = "" }: SafetyCardProps) {
                       key={part}
                       className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
                     >
-                      {t(`parts.${part}` as never)}
+                      {getSafetyValueLabel("parts", part)}
                     </span>
                   ))}
                 </div>
@@ -108,7 +183,7 @@ export function SafetyCard({ tree, className = "" }: SafetyCardProps) {
                   key={risk}
                   className="text-xs px-2 py-1 rounded-md bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
                 >
-                  {t(`structural.${risk}` as never)}
+                  {getSafetyValueLabel("structural", risk)}
                 </span>
               ))}
             </div>

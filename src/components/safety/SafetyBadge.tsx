@@ -4,13 +4,52 @@ import { useTranslations } from "next-intl";
 import type { ToxicityLevel, RiskLevel } from "@/types/tree";
 
 interface SafetyBadgeProps {
-  level: ToxicityLevel | RiskLevel | "safe";
+  level: ToxicityLevel | RiskLevel | "safe" | string;
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
   className?: string;
 }
 
-const getRiskColor = (level: ToxicityLevel | RiskLevel | "safe") => {
+const LEVEL_ALIASES: Record<string, ToxicityLevel | RiskLevel | "safe"> = {
+  none: "none",
+  ningun: "none",
+  ninguno: "none",
+  ningunos: "none",
+  ninguna: "none",
+  safe: "safe",
+  low: "low",
+  mild: "low",
+  bajo: "low",
+  baja: "low",
+  moderate: "moderate",
+  moderado: "moderate",
+  moderada: "moderate",
+  high: "high",
+  alto: "high",
+  alta: "high",
+  severe: "severe",
+  severo: "severe",
+  severa: "severe",
+};
+
+function normalizeLevel(
+  value: string
+): ToxicityLevel | RiskLevel | "safe" | "unknown" {
+  const key = value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim();
+  return LEVEL_ALIASES[key] ?? "unknown";
+}
+
+function humanizeToken(value: string): string {
+  return value.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+const getRiskColor = (
+  level: ToxicityLevel | RiskLevel | "safe" | "unknown"
+) => {
   switch (level) {
     case "none":
     case "safe":
@@ -28,7 +67,7 @@ const getRiskColor = (level: ToxicityLevel | RiskLevel | "safe") => {
   }
 };
 
-const getRiskIcon = (level: ToxicityLevel | RiskLevel | "safe") => {
+const getRiskIcon = (level: ToxicityLevel | RiskLevel | "safe" | "unknown") => {
   switch (level) {
     case "none":
     case "safe":
@@ -64,19 +103,27 @@ export function SafetyBadge({
   className = "",
 }: SafetyBadgeProps) {
   const t = useTranslations("safety");
+  const normalizedLevel = normalizeLevel(level);
+  const translate = (key: string) =>
+    t.has(key as never) ? t(key as never) : null;
 
   const getLabel = () => {
-    if (level === "safe") return t("badges.safe");
-    return t(`levels.${level}`);
+    if (normalizedLevel === "safe") {
+      return translate("badges.safe") ?? humanizeToken(level);
+    }
+    if (normalizedLevel !== "unknown") {
+      return translate(`levels.${normalizedLevel}`) ?? humanizeToken(level);
+    }
+    return humanizeToken(level);
   };
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full font-medium ${getRiskColor(level)} ${getSizeClasses(size)} ${className}`}
+      className={`inline-flex items-center gap-1 rounded-full font-medium ${getRiskColor(normalizedLevel)} ${getSizeClasses(size)} ${className}`}
       role="status"
       aria-label={`Safety level: ${getLabel()}`}
     >
-      <span aria-hidden="true">{getRiskIcon(level)}</span>
+      <span aria-hidden="true">{getRiskIcon(normalizedLevel)}</span>
       {showLabel && <span>{getLabel()}</span>}
     </span>
   );
