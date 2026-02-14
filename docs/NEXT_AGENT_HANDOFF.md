@@ -6,8 +6,8 @@ Last updated: 2026-02-14
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Current `origin/main` commit: `59d355a`
-- Current working branch for this cycle: `codex/fix/mdx-map-and-safety-fallbacks`
+- Current `origin/main` commit: `8482617`
+- Current working branch for this cycle: `codex/content/priority-1-4-parity-mastate-papaya`
 - Working branch head commit: resolve via `git rev-parse --short HEAD`
 - Most recent merged PRs:
   - #375 `feat(content): improve ES parity pages and harden MDX table rendering`
@@ -18,23 +18,24 @@ Last updated: 2026-02-14
 - Open PRs from current cycle:
   - #377 `feat(content): expand ES parity for mamon-chino and lorito` (branch: `codex/content/priority-1-4-maintenance-rerun`)
   - #378 `fix: prevent tree page runtime crashes` (branch: `codex/fix/mdx-map-and-safety-fallbacks`)
+  - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque` (branch: `codex/content/priority-1-4-parity-mastate-papaya`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.4 remains active as **ongoing short-page quality maintenance**.
-- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **33 -> 29**.
+- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **29 -> 25**.
 - This cycle completed high-impact parity lifts:
-  - `content/trees/es/pomarrosa.mdx` 377 -> 602 lines (EN 618)
-  - `content/trees/es/guanabana-cimarrona.mdx` 469 -> 812 lines (EN 890)
-  - `content/trees/es/mangle-botoncillo.mdx` 457 -> 662 lines (EN 705)
-  - `content/trees/es/mangle-pinuela.mdx` 396 -> 603 lines (EN 612)
-- Next maintenance targets by bilingual depth gap (highest impact first):
-  1. `mastate` (EN 688 | ES 473)
-  2. `papaya` (EN 736 | ES 530)
-  3. `mangle-blanco` (EN 605 | ES 416)
-  4. `llama-del-bosque` (EN 682 | ES 497)
+  - `content/trees/es/mastate.mdx` 473 -> 608 lines (EN 688)
+  - `content/trees/es/papaya.mdx` 530 -> 729 lines (EN 736)
+  - `content/trees/es/mangle-blanco.mdx` 416 -> 602 lines (EN 605)
+  - `content/trees/es/llama-del-bosque.mdx` 497 -> 603 lines (EN 682)
+- Next maintenance targets by impact/parity gap (highest first):
+  1. `cachimbo` (EN 653 | ES 478)
+  2. `cortez-negro` (EN 606 | ES 449)
+  3. `guachipelin` (EN 582 | ES 448)
+  4. `quina` (EN 385 | ES 386) for low-line bilingual expansion
 - If Priority 1.4 findings are cleared, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`.
 
 ## Operator Preferences (Persistent)
@@ -57,9 +58,9 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Continue Priority 1.4 short-page maintenance from the latest audit baseline (after handling active review feedback on open PRs #377 and #378 if requested).
+- Continue Priority 1.4 short-page maintenance from the latest audit baseline (after handling active review feedback on open PRs #377, #378, and #380 if requested).
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
-- Start with: `mastate`, `papaya`, `mangle-blanco`, and `llama-del-bosque` (unless a fresh audit reprioritizes).
+- Start with: `cachimbo`, `cortez-negro`, `guachipelin`, then `quina` for low-line bilingual expansion (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
 - If Priority 1.4 shows no actionable gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
