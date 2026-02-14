@@ -23,15 +23,17 @@ Last updated: 2026-02-14
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.4 remains active as **ongoing short-page quality maintenance**.
-- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **35 -> 33**.
+- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **33 -> 29**.
 - This cycle completed high-impact parity lifts:
-  - `content/trees/es/mamon-chino.mdx` 357 -> 684 lines (EN 653)
-  - `content/trees/es/lorito.mdx` 375 -> 618 lines (EN 700)
+  - `content/trees/es/pomarrosa.mdx` 377 -> 602 lines (EN 618)
+  - `content/trees/es/guanabana-cimarrona.mdx` 469 -> 812 lines (EN 890)
+  - `content/trees/es/mangle-botoncillo.mdx` 457 -> 662 lines (EN 705)
+  - `content/trees/es/mangle-pinuela.mdx` 396 -> 603 lines (EN 612)
 - Next maintenance targets by bilingual depth gap (highest impact first):
-  1. `guanabana-cimarrona` (EN 890 | ES 469)
-  2. `pomarrosa` (EN 618 | ES 377)
-  3. `mangle-botoncillo` (EN 705 | ES 457)
-  4. `mangle-pinuela` (EN 612 | ES 396)
+  1. `mastate` (EN 688 | ES 473)
+  2. `papaya` (EN 736 | ES 530)
+  3. `mangle-blanco` (EN 605 | ES 416)
+  4. `llama-del-bosque` (EN 682 | ES 497)
 - If Priority 1.4 findings are cleared, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`.
 
 ## Operator Preferences (Persistent)
@@ -56,7 +58,7 @@ Repository
 Mission
 - Continue Priority 1.4 short-page maintenance from the latest audit baseline.
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
-- Start with: `guanabana-cimarrona`, `pomarrosa`, `mangle-botoncillo`, and `mangle-pinuela` (unless a fresh audit reprioritizes).
+- Start with: `mastate`, `papaya`, `mangle-blanco`, and `llama-del-bosque` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
 - If Priority 1.4 shows no actionable gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
