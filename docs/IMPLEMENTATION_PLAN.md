@@ -353,6 +353,11 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
   - ES line counts: `zorrillo` 657, `contra` 656, `achotillo` 640, `guarumbo-hembra` 652, `bambu-gigante` 661
   - Result: all ten files now exceed the 600-line maintenance threshold while preserving bilingual parity and advanced care sections.
   - Next maintenance step: rerun `npm run content:audit` in a follow-up pass to refresh repository-wide short-page inventory after this expansion.
+- **2026-02-14 update:** Maintenance rerun completed (`npm run content:audit`) and highest-impact bilingual gaps were reduced.
+  - Expanded `content/trees/es/granadillo.mdx` from 167 → 940 lines (EN counterpart 879).
+  - Expanded `content/trees/es/ira-rosa.mdx` from 341 → 675 lines (EN counterpart 749).
+  - Audit short-page backlog reduced from 37 → 35 species.
+  - Next priority candidates by parity gap: `mamon-chino`, `lorito`, `pomarrosa`, and `guanabana-cimarrona` (all EN substantially longer than ES).
 
 See `audit-content-report.md` for full details.
 

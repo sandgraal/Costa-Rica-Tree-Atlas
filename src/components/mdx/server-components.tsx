@@ -397,11 +397,16 @@ export function DistributionMap({
 
 // Quick Reference Card
 interface QuickRefProps {
-  title: string;
-  items: { label: string; value: string }[];
+  title?: string;
+  items?: { label: string; value: string }[];
 }
 
-export function QuickRef({ title, items }: QuickRefProps) {
+export function QuickRef({
+  title = "Quick Reference",
+  items = [],
+}: QuickRefProps) {
+  const safeItems = Array.isArray(items) ? items : [];
+
   return (
     <div className="bg-card border-2 border-primary/20 rounded-xl overflow-hidden my-6 not-prose">
       <div className="bg-primary/10 px-4 py-2 border-b border-primary/20">
@@ -411,7 +416,7 @@ export function QuickRef({ title, items }: QuickRefProps) {
       </div>
       <div className="p-4">
         <dl className="space-y-2">
-          {items.map((item, index) => (
+          {safeItems.map((item, index) => (
             <div key={index} className="flex justify-between">
               <dt className="text-muted-foreground">{item.label}</dt>
               <dd className="font-medium">{item.value}</dd>
@@ -758,51 +763,72 @@ export function Column({ children }: { children: React.ReactNode }) {
 
 // Data Table Component for use inside JSX components
 interface DataTableProps {
-  headers: string[];
+  headers?: string[];
   rows?: string[][];
-  data?: string[][] | Record<string, string>[];
+  data?: string[][] | Record<string, unknown>[];
   columns?: string[];
 }
 
 export function DataTable({ headers, rows, data, columns }: DataTableProps) {
+  const safeHeaders = Array.isArray(headers) ? headers : [];
+  const safeColumns = Array.isArray(columns) ? columns : [];
+
   // Normalize data to string[][] format
   let tableData: string[][] = [];
 
-  if (rows) {
+  if (Array.isArray(rows)) {
     // Use rows if provided
-    tableData = rows;
-  } else if (data) {
+    tableData = rows
+      .filter((row): row is string[] => Array.isArray(row))
+      .map((row) => row.map((cell) => String(cell ?? "")));
+  } else if (Array.isArray(data)) {
     if (Array.isArray(data) && data.length > 0) {
       // Check if data is array of objects (has columns prop or first item is an object)
-      if (columns && typeof data[0] === "object" && !Array.isArray(data[0])) {
+      if (
+        safeColumns.length > 0 &&
+        typeof data[0] === "object" &&
+        data[0] !== null &&
+        !Array.isArray(data[0])
+      ) {
         // Data is array of objects, extract values using columns keys
         // Convert each object to a Map to avoid prototype pollution via direct bracket access
-        tableData = (data as Record<string, string>[]).map((item) => {
+        tableData = (data as Record<string, unknown>[]).map((item) => {
           const safeMap = new Map(Object.entries(item));
-          return columns.map((col) => String(safeMap.get(col) ?? ""));
+          return safeColumns.map((col) => String(safeMap.get(col) ?? ""));
         });
       } else if (Array.isArray(data[0])) {
         // Data is already string[][]
-        tableData = data as string[][];
+        tableData = (data as unknown[][])
+          .filter((row): row is unknown[] => Array.isArray(row))
+          .map((row) => row.map((cell) => String(cell ?? "")));
       }
     }
   }
 
+  const resolvedHeaders =
+    safeHeaders.length > 0
+      ? safeHeaders
+      : safeColumns.length > 0
+        ? safeColumns
+        : tableData[0]?.map((_, index) => `Column ${index + 1}`) || [];
+
   return (
     <div className="overflow-x-auto my-4">
       <table className="w-full border-collapse text-sm">
-        <thead>
-          <tr className="bg-primary/10">
-            {headers.map((header, index) => (
-              <th
-                key={index}
-                className="p-3 text-left font-semibold text-foreground border-b border-border"
-              >
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
+        {resolvedHeaders.length > 0 && (
+          <thead>
+            <tr className="bg-primary/10">
+              {resolvedHeaders.map((header, index) => (
+                <th
+                  key={index}
+                  className="p-3 text-left font-semibold text-foreground border-b border-border"
+                >
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
         <tbody>
           {tableData.map((row, rowIndex) => (
             <tr
