@@ -358,6 +358,18 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
   - Expanded `content/trees/es/ira-rosa.mdx` from 341 → 770 lines (EN counterpart 749).
   - Audit short-page backlog reduced from 37 → 35 species.
   - Next priority candidates by parity gap: `mamon-chino`, `lorito`, `pomarrosa`, and `guanabana-cimarrona` (all EN substantially longer than ES).
+- **2026-02-14 follow-up update:** Additional Priority 1.4 maintenance pass completed (`npm run content:audit`) on the highest-parity ES pages.
+  - Expanded `content/trees/es/mamon-chino.mdx` from 357 → 684 lines (EN counterpart 653).
+  - Expanded `content/trees/es/lorito.mdx` from 375 → 618 lines (EN counterpart 700).
+  - Audit short-page backlog reduced from 35 → 33 species.
+  - Next priority candidates by parity gap: `pomarrosa` (EN 618 | ES 377), `guanabana-cimarrona` (EN 890 | ES 469), then `mangle-botoncillo` (EN 705 | ES 457).
+- **2026-02-14 batch update:** Continued Priority 1.4 maintenance on the next four highest-impact short ES pages from the refreshed audit.
+  - Expanded `content/trees/es/pomarrosa.mdx` from 377 → 602 lines (EN counterpart 618).
+  - Expanded `content/trees/es/guanabana-cimarrona.mdx` from 469 → 812 lines (EN counterpart 890).
+  - Expanded `content/trees/es/mangle-botoncillo.mdx` from 457 → 662 lines (EN counterpart 705).
+  - Expanded `content/trees/es/mangle-pinuela.mdx` from 396 → 603 lines (EN counterpart 612).
+  - Audit short-page backlog reduced from 33 → 29 species.
+  - Next priority candidates by parity gap: `mastate` (EN 688 | ES 473), `papaya` (EN 736 | ES 530), `mangle-blanco` (EN 605 | ES 416), and `llama-del-bosque` (EN 682 | ES 497).
 
 See `audit-content-report.md` for full details.
 

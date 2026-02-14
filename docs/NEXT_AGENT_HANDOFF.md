@@ -6,32 +6,34 @@ Last updated: 2026-02-14
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Current `origin/main` commit: `15b2f65`
-- Current working branch for this cycle: `codex/content/priority-1-4-audit-maintenance`
+- Current `origin/main` commit: `030a646`
+- Current working branch for this cycle: `codex/content/priority-1-4-maintenance-rerun`
 - Working branch head commit: resolve via `git rev-parse --short HEAD`
 - Most recent merged PRs:
+  - #375 `feat(content): improve ES parity pages and harden MDX table rendering`
   - #374 `fix: correct 200+ missing Spanish diacritics in five ES tree content files`
   - #373 `feat(content): full expansion pass for five low-priority short pages`
   - #372 `[ImgBot] Optimize images`
   - #371 `fix(deps): upgrade next-mdx-remote to v6`
-  - #370 `🖼️ Weekly Image Quality & Optimization (210 files)`
 - Open PRs from current cycle:
-  - #375 `feat(content): improve ES parity pages and harden MDX table rendering` (branch: `codex/content/priority-1-4-audit-maintenance`)
+  - #377 `feat(content): expand ES parity for mamon-chino and lorito` (branch: `codex/content/priority-1-4-maintenance-rerun`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md`:
 
 - Priority 1.4 remains active as **ongoing short-page quality maintenance**.
-- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **37 -> 35**.
+- Latest maintenance rerun completed (`npm run content:audit`): short-page backlog reduced **33 -> 29**.
 - This cycle completed high-impact parity lifts:
-  - `content/trees/es/granadillo.mdx` 167 -> 931 lines
-  - `content/trees/es/ira-rosa.mdx` 341 -> 675 lines
+  - `content/trees/es/pomarrosa.mdx` 377 -> 602 lines (EN 618)
+  - `content/trees/es/guanabana-cimarrona.mdx` 469 -> 812 lines (EN 890)
+  - `content/trees/es/mangle-botoncillo.mdx` 457 -> 662 lines (EN 705)
+  - `content/trees/es/mangle-pinuela.mdx` 396 -> 603 lines (EN 612)
 - Next maintenance targets by bilingual depth gap (highest impact first):
-  1. `mamon-chino` (EN 653 | ES 357)
-  2. `lorito` (EN 700 | ES 375)
-  3. `pomarrosa` (EN 618 | ES 377)
-  4. `guanabana-cimarrona` (EN 890 | ES 469)
+  1. `mastate` (EN 688 | ES 473)
+  2. `papaya` (EN 736 | ES 530)
+  3. `mangle-blanco` (EN 605 | ES 416)
+  4. `llama-del-bosque` (EN 682 | ES 497)
 - If Priority 1.4 findings are cleared, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`.
 
 ## Operator Preferences (Persistent)
@@ -56,7 +58,7 @@ Repository
 Mission
 - Continue Priority 1.4 short-page maintenance from the latest audit baseline.
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
-- Start with: `mamon-chino`, `lorito`, `pomarrosa`, and `guanabana-cimarrona` (unless a fresh audit reprioritizes).
+- Start with: `mastate`, `papaya`, `mangle-blanco`, and `llama-del-bosque` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
 - If Priority 1.4 shows no actionable gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
