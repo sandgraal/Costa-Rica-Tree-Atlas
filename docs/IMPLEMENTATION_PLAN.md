@@ -399,6 +399,15 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
   - Expanded `content/trees/en/cortez-blanco.mdx` 479 → 600 and `content/trees/es/cortez-blanco.mdx` 502 → 622.
   - Audit short-page backlog reduced **21 → 16**.
   - Next short-page targets by current audit order: `lengua-de-vaca`, `corozo`, `tirra`, `tamarindo-dulce`, then `flor-de-itabo`.
+- **2026-02-15 maintenance completion update:** Ran a fresh baseline audit and closed the final short-page backlog in one pass.
+  - Expanded `content/trees/en/palma-cacho-de-venado.mdx` and `content/trees/es/palma-cacho-de-venado.mdx` to clear the threshold.
+  - Expanded `content/trees/en/javillo.mdx`.
+  - Expanded `content/trees/en/cipres.mdx`.
+  - Expanded `content/trees/en/fruta-de-pan.mdx` and `content/trees/es/fruta-de-pan.mdx`.
+  - Expanded `content/trees/en/guacimo.mdx`.
+  - Expanded `content/trees/en/capulin.mdx`.
+  - Audit short-page backlog reduced **6 → 0** (all 160 species now at 600+ lines in both locales where applicable).
+  - Next action after Priority 1.4: move to the highest unchecked item in this plan.
 
 See `audit-content-report.md` for full details.
 
