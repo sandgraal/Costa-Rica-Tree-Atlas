@@ -1,6 +1,6 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-12  
+**Last Updated:** 2026-02-15  
 **Status:** ✅ v1.0 Complete | 🎯 Active Development
 
 ## 📊 Status Dashboard
@@ -391,6 +391,14 @@ All 10 Week 1 species now have comprehensive advanced care guidance:
   - Expanded `content/trees/es/llama-del-bosque.mdx` from 497 → 603 lines (EN counterpart 682).
   - Audit short-page backlog reduced from 29 → 25 species.
   - Next priority candidates by parity gap: `cachimbo` (EN 653 | ES 478), `cortez-negro` (EN 606 | ES 449), `guachipelin` (EN 582 | ES 448), then `quina` for low-line bilingual expansion (EN 385 | ES 386).
+- **2026-02-15 maintenance update:** Completed the next top-five short-page batch from a fresh `npm run content:audit` baseline.
+  - Expanded `content/trees/en/cedro-dulce.mdx` 405 → 611 and `content/trees/es/cedro-dulce.mdx` 419 → 612.
+  - Expanded `content/trees/en/cristobalito.mdx` 470 → 601 and `content/trees/es/cristobalito.mdx` 473 → 604.
+  - Expanded `content/trees/en/papayillo.mdx` 472 → 607 and `content/trees/es/papayillo.mdx` 491 → 611.
+  - Expanded `content/trees/en/guayaba-chilena.mdx` 477 → 610 and `content/trees/es/guayaba-chilena.mdx` 489 → 608.
+  - Expanded `content/trees/en/cortez-blanco.mdx` 479 → 600 and `content/trees/es/cortez-blanco.mdx` 502 → 622.
+  - Audit short-page backlog reduced **21 → 16**.
+  - Next short-page targets by current audit order: `lengua-de-vaca`, `corozo`, `tirra`, `tamarindo-dulce`, then `flor-de-itabo`.
 
 See `audit-content-report.md` for full details.
 
