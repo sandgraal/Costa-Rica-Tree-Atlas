@@ -8,7 +8,7 @@ Last updated: 2026-02-15
 - Canonical base branch: `main`
 - Current `origin/main` commit: `f1bd71e`
 - Current working branch for this cycle: `codex/content/priority-1-4-short-page-maintenance-pass-6`
-- Working branch head commit: `1930fef`
+- Working branch head commit: `77c9eba`
 - Most recent merged PRs:
   - #388 `feat(content): Priority 1.4 Short-Page Maintenance Pass 5 - Expand 5 Species to 600+ Lines` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-5`)
   - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-4`)
@@ -17,7 +17,7 @@ Last updated: 2026-02-15
   - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance`
   - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque`
 - Open PRs from current cycle:
-  - #390 `feat(content): close Priority 1.4 short-page maintenance backlog` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-6`)
+  - PR #390 `feat(content): close Priority 1.4 short-page maintenance backlog` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-6`)
 
 ## Highest-Priority Remaining Work
 
@@ -102,7 +102,6 @@ MANDATORY END-OF-RUN DIRECTIVES
 
 - [x] `main` synced to `origin/main`
 - [x] Feature/fix/content/docs branch used for changes
-- [ ] PR opened (and merged if applicable)
 - [x] PR opened (and merged if applicable)
 - [ ] Associated merged branches cleaned up (remote + local)
 - [x] `docs/NEXT_AGENT_HANDOFF.md` updated
