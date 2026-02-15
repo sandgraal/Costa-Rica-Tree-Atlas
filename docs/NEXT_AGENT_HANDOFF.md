@@ -7,40 +7,48 @@ Last updated: 2026-02-15
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
 - Current `origin/main` commit: `6167b43`
-- Current working branch for this cycle: `codex/content/priority-1-4-short-page-maintenance-pass-3`
+- Current working branch for this cycle: `codex/content/priority-1-4-short-page-maintenance-pass-4`
 - Working branch head commit: resolve via `git rev-parse --short HEAD`
 - Most recent merged PRs:
+  - #383 `feat(content): expand Priority 1.4 short-page maintenance batch` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-3`)
   - #382 `🖼️ Weekly Image Quality & Optimization (1 files)`
   - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance`
   - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque`
   - #379 `refactor: harden SafetyBadge type safety, i18n, and test coverage`
   - #378 `fix: prevent tree page runtime crashes`
 - Open PRs from current cycle:
-  - #383 `feat(content): expand Priority 1.4 short-page maintenance batch` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-3`)
+  - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-4`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:audit`:
 
 - Priority 1.4 remains active as **ongoing short-page quality maintenance**.
-- This cycle completed the next top-five short-page batch and reduced short-page backlog **21 -> 16**.
+- This cycle completed the next top-five short-page batch and reduced short-page backlog **16 -> 11**.
 - Completed this cycle:
-  - `content/trees/en/cedro-dulce.mdx` 405 -> 611
-  - `content/trees/es/cedro-dulce.mdx` 419 -> 612
-  - `content/trees/en/cristobalito.mdx` 470 -> 601
-  - `content/trees/es/cristobalito.mdx` 473 -> 604
-  - `content/trees/en/papayillo.mdx` 472 -> 607
-  - `content/trees/es/papayillo.mdx` 491 -> 611
-  - `content/trees/en/guayaba-chilena.mdx` 477 -> 610
-  - `content/trees/es/guayaba-chilena.mdx` 489 -> 608
-  - `content/trees/en/cortez-blanco.mdx` 479 -> 600
-  - `content/trees/es/cortez-blanco.mdx` 502 -> 622
+  - `content/trees/en/lengua-de-vaca.mdx` 483 -> 606
+  - `content/trees/es/lengua-de-vaca.mdx` 493 -> 616
+  - `content/trees/en/corozo.mdx` 486 -> 609
+  - `content/trees/es/corozo.mdx` 516 -> 609
+  - `content/trees/en/tirra.mdx` 490 -> 611
+  - `content/trees/es/tirra.mdx` 509 -> 613
+  - `content/trees/en/tamarindo-dulce.mdx` 503 -> 601
+  - `content/trees/es/tamarindo-dulce.mdx` 507 -> 605
+  - `content/trees/en/flor-de-itabo.mdx` 504 -> 601
+  - `content/trees/es/flor-de-itabo.mdx` 512 -> 609
 - Next maintenance targets by current audit order:
-  1. `lengua-de-vaca` (EN 483 | ES 493)
-  2. `corozo` (EN 486 | ES 516)
-  3. `tirra` (EN 490 | ES 509)
-  4. `tamarindo-dulce` (EN 503 | ES 507)
-  5. `flor-de-itabo` (EN 504 | ES 512)
+  1. `palma-de-escoba` (EN 507 | ES 523)
+  2. `sardinillo` (EN 507 | ES 521)
+  3. `palma-suita` (EN 512 | ES 531)
+  4. `chirraca` (EN 517 | ES 529)
+  5. `palma-yolillo` (EN 522 | ES 535)
+- Additional short pages (lower priority):
+  - `palma-cacho-de-venado` (EN 534 | ES 545)
+  - `javillo` (EN 587 | ES 605)
+  - `cipres` (EN 591 | ES 608)
+  - `fruta-de-pan` (EN 592 | ES 599)
+  - `guacimo` (EN 593 | ES 601)
+  - `capulin` (EN 596 | ES 652)
 - If Priority 1.4 findings are cleared, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`.
 
 ## Operator Preferences (Persistent)
@@ -65,7 +73,7 @@ Repository
 Mission
 - Continue Priority 1.4 short-page maintenance from the latest audit baseline.
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
-- Start with: `lengua-de-vaca`, `corozo`, `tirra`, `tamarindo-dulce`, then `flor-de-itabo` (unless a fresh audit reprioritizes).
+- Start with: `palma-de-escoba`, `sardinillo`, `palma-suita`, `chirraca`, then `palma-yolillo` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
 - If Priority 1.4 shows no actionable gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
