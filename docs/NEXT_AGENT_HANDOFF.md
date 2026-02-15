@@ -7,25 +7,35 @@ Last updated: 2026-02-15
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
 - Current `origin/main` commit: `6167b43`
-- Current working branch for this cycle: `codex/content/priority-1-4-short-page-maintenance-pass-4`
-- Working branch head commit: resolve via `git rev-parse --short HEAD`
+- Current working branch for this cycle: `codex/content/priority-1-4-short-page-maintenance-pass-5`
+- Working branch head commit: `8d4c624`
 - Most recent merged PRs:
+  - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-4`)
   - #383 `feat(content): expand Priority 1.4 short-page maintenance batch` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-3`)
   - #382 `🖼️ Weekly Image Quality & Optimization (1 files)`
   - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance`
   - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque`
-  - #379 `refactor: harden SafetyBadge type safety, i18n, and test coverage`
-  - #378 `fix: prevent tree page runtime crashes`
 - Open PRs from current cycle:
-  - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-4`)
+  - #388 `feat(content): Priority 1.4 Short-Page Maintenance Pass 5 - Expand 5 Species to 600+ Lines` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-5`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:audit`:
 
 - Priority 1.4 remains active as **ongoing short-page quality maintenance**.
-- This cycle completed the next top-five short-page batch and reduced short-page backlog **16 -> 11**.
-- Completed this cycle:
+- This cycle completed the next top-five short-page batch and reduced short-page backlog **11 -> 6**.
+- Completed this cycle (Pass 5):
+  - `content/trees/en/sardinillo.mdx` 507 -> 601
+  - `content/trees/es/sardinillo.mdx` 520 -> 603
+  - `content/trees/en/palma-de-escoba.mdx` 507 -> 601
+  - `content/trees/es/palma-de-escoba.mdx` 522 -> 609
+  - `content/trees/en/palma-suita.mdx` 512 -> 615
+  - `content/trees/es/palma-suita.mdx` 530 -> 600
+  - `content/trees/en/chirraca.mdx` 517 -> 613
+  - `content/trees/es/chirraca.mdx` 528 -> 602
+  - `content/trees/en/palma-yolillo.mdx` 522 -> 635
+  - `content/trees/es/palma-yolillo.mdx` 534 -> 600
+- Completed previous cycle (Pass 4):
   - `content/trees/en/lengua-de-vaca.mdx` 483 -> 606
   - `content/trees/es/lengua-de-vaca.mdx` 493 -> 616
   - `content/trees/en/corozo.mdx` 486 -> 609
@@ -36,19 +46,13 @@ From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:a
   - `content/trees/es/tamarindo-dulce.mdx` 507 -> 605
   - `content/trees/en/flor-de-itabo.mdx` 504 -> 601
   - `content/trees/es/flor-de-itabo.mdx` 512 -> 609
-- Next maintenance targets by current audit order:
-  1. `palma-de-escoba` (EN 507 | ES 523)
-  2. `sardinillo` (EN 507 | ES 521)
-  3. `palma-suita` (EN 512 | ES 531)
-  4. `chirraca` (EN 517 | ES 529)
-  5. `palma-yolillo` (EN 522 | ES 535)
-- Additional short pages (lower priority):
-  - `palma-cacho-de-venado` (EN 534 | ES 545)
-  - `javillo` (EN 587 | ES 605)
-  - `cipres` (EN 591 | ES 608)
-  - `fruta-de-pan` (EN 592 | ES 599)
-  - `guacimo` (EN 593 | ES 601)
-  - `capulin` (EN 596 | ES 652)
+- Next maintenance targets by current audit order (6 remaining short pages):
+  1. `corteza-amarilla` (EN 535 | ES 594)
+  2. `quira-macho` (EN 550 | ES 560)
+  3. `almendro-amarillo` (EN 560 | ES 590)
+  4. `cedro-amargo` (EN 570 | ES 560)
+  5. `achotillo` (EN 588 | ES 585)
+  6. `fruta-dorada` (EN 598 | ES 588)
 - If Priority 1.4 findings are cleared, move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`.
 
 ## Operator Preferences (Persistent)
@@ -73,7 +77,7 @@ Repository
 Mission
 - Continue Priority 1.4 short-page maintenance from the latest audit baseline.
 - Sync to latest main, rerun `npm run content:audit`, and address the highest-impact EN/ES parity gaps.
-- Start with: `palma-de-escoba`, `sardinillo`, `palma-suita`, `chirraca`, then `palma-yolillo` (unless a fresh audit reprioritizes).
+- Start with: `corteza-amarilla`, `quira-macho`, `almendro-amarillo`, `cedro-amargo`, then `achotillo` or `fruta-dorada` (unless a fresh audit reprioritizes).
 - Do not ask questions if answer exists in repo docs.
 - If Priority 1.4 shows no actionable gaps, move to the next highest unchecked item in IMPLEMENTATION_PLAN.md.
 
