@@ -2,15 +2,9 @@ import { describe, expect, it } from "vitest";
 import { allTrees } from "contentlayer/generated";
 import { mdxServerComponents } from "@/components/mdx/server-components";
 
-const MDX_CLIENT_COMPONENTS = [
-  "AccordionItem",
-  "ImageCard",
-  "ImageGallery",
-  "Tabs",
-  "GlossaryTooltip",
-  "SideBySideImages",
-  "TreeGallery",
-] as const;
+const MDX_CLIENT_COMPONENTS = Object.keys(
+  mdxServerComponents
+) as readonly string[];
 
 const CUSTOM_COMPONENT_TAG_REGEX = /<([A-Z][A-Za-z0-9]*)\b/g;
 
