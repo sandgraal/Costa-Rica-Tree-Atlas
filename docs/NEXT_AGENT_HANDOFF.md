@@ -7,8 +7,8 @@ Last updated: 2026-02-15
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
 - Current `origin/main` commit: `58dc000`
-- Current working branch for this cycle: `codex/content/add-nim-neem-species-profile`
-- Working branch head commit: `8c4be11`
+- Current working branch for this cycle: `codex/docs/full-cleanup-handoff-sync`
+- Working branch head commit: `a58bc8f`
 - Most recent merged PRs:
   - #394 `feat(content): add Nim species profiles and fix MDX component registry test` (branch: `codex/content/add-nim-neem-species-profile`)
   - #388 `feat(content): Priority 1.4 Short-Page Maintenance Pass 5 - Expand 5 Species to 600+ Lines` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-5`)
@@ -18,7 +18,7 @@ Last updated: 2026-02-15
   - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance`
   - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque`
 - Open PRs from current cycle:
-  - PR #395 `[WIP] Update Nim species profiles and MDX component registry test` (branch: `copilot/sub-pr-394`, draft)
+  - PR #396 `docs: sync NEXT_AGENT_HANDOFF after PR #394 merge` (branch: `codex/docs/full-cleanup-handoff-sync`)
 
 ## Highest-Priority Remaining Work
 
@@ -48,6 +48,7 @@ From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:a
 - Latest audit result (`npm run content:audit`): **Under 600 lines: 0** (still clear after Nim addition).
 - Next highest unchecked work item: continue **Priority 1.1 Add Missing Species**, focusing on remaining introduced-but-ecologically-significant species in `docs/MISSING_SPECIES_LIST.md` (`acacia-mangium`, `pino-caribeno`, `eucalipto`).
 - CI status note: PR #394 is merged to `main`; continue from updated `main` baseline.
+- Housekeeping note: stale draft PR #395 was closed because it contained no file changes.
 
 ## Operator Preferences (Persistent)
 
@@ -116,6 +117,6 @@ MANDATORY END-OF-RUN DIRECTIVES
 - [x] `main` synced to `origin/main`
 - [x] Feature/fix/content/docs branch used for changes
 - [x] PR opened (and merged if applicable)
-- [ ] Associated merged branches cleaned up (remote + local)
+- [x] Associated merged branches cleaned up (remote + local)
 - [x] `docs/NEXT_AGENT_HANDOFF.md` updated
 - [x] Next-agent prompt generated and references `docs/NEXT_AGENT_HANDOFF.md`
