@@ -134,6 +134,233 @@ export function PropertiesGrid({ children }: PropertiesGridProps) {
   );
 }
 
+// Legacy alias used by some MDX files
+interface PropertyProps {
+  icon?: string;
+  label?: string;
+  title?: string;
+  value: string;
+  description?: string;
+}
+
+export function Property({
+  icon = "📌",
+  label,
+  title,
+  value,
+  description,
+}: PropertyProps) {
+  return (
+    <PropertyCard
+      icon={icon}
+      label={label || title || "Property"}
+      value={value}
+      description={description}
+    />
+  );
+}
+
+// Legacy safety component used in some tree MDX content
+interface SafetyCardProps {
+  safetyLevel?: "safe" | "caution" | "warning" | "danger";
+  warnings?: string[];
+  precautions?: string[];
+}
+
+export function SafetyCard({
+  safetyLevel = "safe",
+  warnings,
+  precautions,
+}: SafetyCardProps) {
+  const safeWarnings = asArray(warnings);
+  const safePrecautions = asArray(precautions);
+
+  const levelConfig = {
+    safe: {
+      badge: "Safe",
+      badgeClass: "bg-success/15 text-success border-success/30",
+      title: "Safety Overview",
+    },
+    caution: {
+      badge: "Caution",
+      badgeClass: "bg-warning/15 text-warning border-warning/30",
+      title: "Safety Overview",
+    },
+    warning: {
+      badge: "Warning",
+      badgeClass: "bg-warning/20 text-warning border-warning/40",
+      title: "Safety Warning",
+    },
+    danger: {
+      badge: "High Risk",
+      badgeClass: "bg-destructive/15 text-destructive border-destructive/30",
+      title: "Safety Warning",
+    },
+  };
+
+  const config = levelConfig[safetyLevel];
+
+  return (
+    <div className="my-6 rounded-xl border border-border bg-card p-5 not-prose">
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <h4 className="font-semibold text-foreground">{config.title}</h4>
+        <span
+          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${config.badgeClass}`}
+        >
+          {config.badge}
+        </span>
+      </div>
+
+      {safeWarnings.length > 0 && (
+        <div className="mb-4">
+          <h5 className="text-sm font-semibold text-foreground mb-2">
+            Warnings
+          </h5>
+          <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-foreground/90">
+            {safeWarnings.map((warning, index) => (
+              <li key={index}>{warning}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {safePrecautions.length > 0 && (
+        <div>
+          <h5 className="text-sm font-semibold text-foreground mb-2">
+            Precautions
+          </h5>
+          <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-foreground/90">
+            {safePrecautions.map((precaution, index) => (
+              <li key={index}>{precaution}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Legacy conservation component used in some tree MDX content
+interface LegacyConservationStatusProps {
+  code?: string;
+  status?: string;
+  statusText?: string;
+  rationale?: string;
+  assessed?: string;
+  assessmentDate?: string;
+  population?: string;
+  threats?: string[];
+}
+
+export function ConservationStatus({
+  code,
+  status,
+  statusText,
+  rationale,
+  assessed,
+  assessmentDate,
+  population,
+  threats,
+}: LegacyConservationStatusProps) {
+  const category = status || code || "NE";
+  const threatList = asArray(threats);
+
+  return (
+    <div className="my-6 rounded-xl border border-border bg-card p-5 not-prose">
+      <div className="flex flex-wrap items-center gap-3 mb-3">
+        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border border-primary/25 bg-primary/10 text-primary">
+          {category}
+        </span>
+        {statusText && (
+          <span className="text-sm text-foreground font-medium">
+            {statusText}
+          </span>
+        )}
+        {(assessed || assessmentDate) && (
+          <span className="text-xs text-muted-foreground">
+            Assessed: {assessed || assessmentDate}
+          </span>
+        )}
+      </div>
+
+      {rationale && (
+        <p className="text-sm text-foreground/90 mb-3">{rationale}</p>
+      )}
+
+      {population && (
+        <p className="text-sm text-foreground/90 mb-3">
+          <strong>Population trend:</strong> {population}
+        </p>
+      )}
+
+      {threatList.length > 0 && (
+        <div>
+          <h5 className="text-sm font-semibold text-foreground mb-2">
+            Threats
+          </h5>
+          <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-foreground/90">
+            {threatList.map((threat, index) => (
+              <li key={index}>{threat}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Legacy care-calendar component used in some tree MDX content
+interface CareCalendarProps {
+  locale?: "en" | "es";
+  items?: Array<{
+    month: string;
+    tasks: string;
+  }>;
+}
+
+export function CareCalendar({ locale = "en", items }: CareCalendarProps) {
+  const safeItems = asArray(items);
+
+  if (safeItems.length === 0) return null;
+
+  return (
+    <div className="my-6 not-prose">
+      <h4 className="font-semibold text-foreground mb-3">
+        {locale === "es" ? "Calendario de Cuidados" : "Care Calendar"}
+      </h4>
+      <div className="overflow-x-auto rounded-lg border border-border">
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr className="bg-primary/10">
+              <th className="p-3 text-left font-semibold border-b border-border">
+                {locale === "es" ? "Mes" : "Month"}
+              </th>
+              <th className="p-3 text-left font-semibold border-b border-border">
+                {locale === "es" ? "Tareas" : "Tasks"}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {safeItems.map((item, index) => (
+              <tr
+                key={index}
+                className={index % 2 === 0 ? "bg-muted/20" : "bg-background"}
+              >
+                <td className="p-3 border-b border-border/50 font-medium">
+                  {item.month}
+                </td>
+                <td className="p-3 border-b border-border/50 text-foreground/90">
+                  {item.tasks}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 // Comparison Table Component
 interface ComparisonRowProps {
   property: string;
@@ -793,27 +1020,25 @@ export function DataTable({ headers, rows, data, columns }: DataTableProps) {
     tableData = rows
       .filter((row): row is string[] => Array.isArray(row))
       .map((row) => row.map((cell) => String(cell ?? "")));
-  } else if (Array.isArray(data)) {
-    if (Array.isArray(data) && data.length > 0) {
-      // Check if data is array of objects (has columns prop or first item is an object)
-      if (
-        safeColumns.length > 0 &&
-        typeof data[0] === "object" &&
-        data[0] !== null &&
-        !Array.isArray(data[0])
-      ) {
-        // Data is array of objects, extract values using columns keys
-        // Convert each object to a Map to avoid prototype pollution via direct bracket access
-        tableData = (data as Record<string, unknown>[]).map((item) => {
-          const safeMap = new Map(Object.entries(item));
-          return safeColumns.map((col) => String(safeMap.get(col) ?? ""));
-        });
-      } else if (Array.isArray(data[0])) {
-        // Data is already string[][]
-        tableData = (data as unknown[][])
-          .filter((row): row is unknown[] => Array.isArray(row))
-          .map((row) => row.map((cell) => String(cell ?? "")));
-      }
+  } else if (Array.isArray(data) && data.length > 0) {
+    // Check if data is array of objects (has columns prop or first item is an object)
+    if (
+      safeColumns.length > 0 &&
+      typeof data[0] === "object" &&
+      data[0] !== null &&
+      !Array.isArray(data[0])
+    ) {
+      // Data is array of objects, extract values using columns keys
+      // Convert each object to a Map to avoid prototype pollution via direct bracket access
+      tableData = (data as Record<string, unknown>[]).map((item) => {
+        const safeMap = new Map(Object.entries(item));
+        return safeColumns.map((col) => String(safeMap.get(col) ?? ""));
+      });
+    } else if (Array.isArray(data[0])) {
+      // Data is already string[][]
+      tableData = (data as unknown[][])
+        .filter((row): row is unknown[] => Array.isArray(row))
+        .map((row) => row.map((cell) => String(cell ?? "")));
     }
   }
 
@@ -1733,7 +1958,11 @@ export const mdxServerComponents = {
   // Custom MDX components
   Callout,
   PropertyCard,
+  Property,
   PropertiesGrid,
+  SafetyCard,
+  ConservationStatus,
+  CareCalendar,
   ComparisonTable,
   Figure,
   Gallery,
