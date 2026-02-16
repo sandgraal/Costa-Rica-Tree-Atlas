@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+#
+# Vercel Ignore Build Script
+# 
+# This script determines whether a Vercel preview build should proceed or be skipped.
+# 
+# Exit code convention (Vercel-specific):
+#   - exit 1 (non-zero) = Proceed with build
+#   - exit 0 = Skip/ignore build
+#
+# The script examines changed files between commits and skips builds when only
+# non-app-impacting files (docs, README, etc.) have changed.
 
 set -euo pipefail
 
@@ -127,9 +138,11 @@ done <<< "$CHANGED_FILES"
 if [[ "$SHOULD_BUILD" == true ]]; then
   echo "✅ App-impacting changes detected."
   echo "➡️ Proceeding with build."
+  # Vercel convention: exit 1 (non-zero) = proceed with build
   exit 1
 fi
 
 echo "⏭️ Only non-app-impacting changes detected (e.g., docs/meta)."
 echo "➡️ Skipping this preview build."
+# Vercel convention: exit 0 = skip/ignore build
 exit 0
