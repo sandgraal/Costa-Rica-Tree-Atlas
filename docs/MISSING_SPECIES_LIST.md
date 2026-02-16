@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-02-15  
-**Current Species Count:** 161 documented  
-**Missing Species:** ~27 unique species identified for future expansion  
+**Last Updated:** 2026-02-16  
+**Current Species Count:** 164 documented  
+**Missing Species:** ~24 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -189,14 +189,14 @@ If including non-tree woody plants:
 
 **Rationale:** Ecologically and economically important but not technically a tree.
 
-### LOW PRIORITY - Introduced But Ecologically Significant (3 species remaining)
+### LOW PRIORITY - Introduced But Ecologically Significant (0 species remaining) ✅ COMPLETE
 
 Non-native species with ecological impact:
 
 - ~~**Nim** - _Azadirachta indica_ - Neem tree~~ ✅ ADDED 2026-02-15
-- **Acacia Mangium** - _Acacia mangium_ - Australian acacia
-- **Pino Caribeño** - _Pinus caribaea_ - Caribbean pine (plantations)
-- **Eucalipto** - _Eucalyptus deglupta_ - Rainbow eucalyptus
+- ~~**Acacia Mangium** - _Acacia mangium_ - Australian acacia~~ ✅ ADDED 2026-02-16
+- ~~**Pino Caribeño** - _Pinus caribaea_ - Caribbean pine (plantations)~~ ✅ ADDED 2026-02-16
+- ~~**Eucalipto** - _Eucalyptus deglupta_ - Rainbow eucalyptus~~ ✅ ADDED 2026-02-16
 
 **Rationale:** Document invasive/plantation species for ecological context.
 
@@ -291,9 +291,9 @@ All 5 mangrove species have been successfully documented.
 **Progress Update (2026-02-15):**
 
 - **1 additional species added** to the atlas: Nim (_Azadirachta indica_)
-- **Current total: 161 species documented**
-- **Actual remaining:** ~27 unique species after duplicate removal
-- Next batch remains introduced-context species: _Acacia mangium_, _Pinus caribaea_, and _Eucalyptus deglupta_
+- **Current total: 164 species documented**
+- **Actual remaining:** ~24 unique species after duplicate removal
+- Introduced-context species batch complete: _Acacia mangium_, _Pinus caribaea_, and _Eucalyptus deglupta_ added 2026-02-16
 
 **Progress Update (2026-02-10):**
 
