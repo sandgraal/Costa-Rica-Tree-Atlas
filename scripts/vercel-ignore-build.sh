@@ -102,35 +102,32 @@ check_if_app_impacting() {
   return 1  # No match
 }
 
-# Parse git diff output with status codes (handles renames correctly)
-while IFS= read -r line; do
-  [[ -z "$line" ]] && continue
-  
-  # Use IFS to safely parse tab-delimited fields (handles tabs in filenames)
-  IFS=$'\t' read -r status rest <<< "$line"
-  
-  # For renames (R) and copies (C), there are 3 tab-separated fields: status, old path, new path
-  # Status may include similarity score (e.g., R095)
-  # For other statuses (M, A, D), there are 2 fields: status, path
+# Parse git diff output with status codes using NUL delimiters
+# This safely handles paths that may contain spaces, tabs, or newlines,
+# and correctly processes renames/copies by reading old and new paths.
+while IFS= read -r -d '' status; do
   if [[ "$status" =~ ^[RC] ]]; then
-    IFS=$'\t' read -r old_path new_path <<< "$rest"
+    # For renames (R) and copies (C), there are 3 NUL-separated fields: status, old path, new path
+    # Status may include similarity score (e.g., R095)
+    IFS= read -r -d '' old_path || break
+    IFS= read -r -d '' new_path || break
     echo "  Checking renamed/copied file: $old_path -> $new_path"
-    
+
     # Check both old and new paths for renames/copies
     if check_if_app_impacting "$old_path" || check_if_app_impacting "$new_path"; then
       SHOULD_BUILD=true
       break
     fi
   else
-    # For all other statuses, rest contains the file path
-    file_path="$rest"
-    
+    # For all other statuses (M, A, D, etc.), the next field is the file path
+    IFS= read -r -d '' file_path || break
+
     if check_if_app_impacting "$file_path"; then
       SHOULD_BUILD=true
       break
     fi
   fi
-done <<< "$CHANGED_FILES"
+done < <(git diff --name-status -z "$PREVIOUS_SHA" "$CURRENT_SHA")
 
 if [[ "$SHOULD_BUILD" == true ]]; then
   echo "✅ App-impacting changes detected."
