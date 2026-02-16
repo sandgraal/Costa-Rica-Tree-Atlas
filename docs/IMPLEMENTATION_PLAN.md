@@ -1,13 +1,13 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-15  
+**Last Updated:** 2026-02-16  
 **Status:** ✅ v1.0 Complete | 🎯 Active Development
 
 ## 📊 Status Dashboard
 
 ### Content Coverage
 
-- **Species**: 161/175 (92%) - Target: 175+ documented species
+- **Species**: 164/175 (94%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 90/128 (70%) - Target: 100/128 (78%)
@@ -199,12 +199,12 @@
 - [x] Bambu Gigante (Guadua angustifolia) — added 2026-02-12
 - [x] Add remaining 5 low priority species (Zorrillo, Contra, Achotillo, Guarumbo Hembra, and Bambu Gigante added 2026-02-12; see MISSING_SPECIES_LIST.md)
 
-#### Introduced but Ecologically Significant (4 species) — 1/4 complete
+#### Introduced but Ecologically Significant (4 species) — 4/4 complete ✅
 
 - [x] Nim (Azadirachta indica) — added 2026-02-15
-- [ ] Acacia Mangium (Acacia mangium)
-- [ ] Pino Caribeño (Pinus caribaea)
-- [ ] Eucalipto (Eucalyptus deglupta)
+- [x] Acacia Mangium (Acacia mangium) — added 2026-02-16
+- [x] Pino Caribeño (Pinus caribaea) — added 2026-02-16
+- [x] Eucalipto (Eucalyptus deglupta) — added 2026-02-16
 
 **Per-Species Checklist:**
 
