@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { allTrees } from "contentlayer/generated";
 import { mdxServerComponents } from "@/components/mdx/server-components";
+import { mdxClientComponents } from "@/components/mdx/client-components";
 
 const MDX_CLIENT_COMPONENTS = Object.keys(
-  mdxServerComponents
+  mdxClientComponents
 ) as readonly string[];
 
 const CUSTOM_COMPONENT_TAG_REGEX = /<([A-Z][A-Za-z0-9]*)\b/g;
@@ -13,6 +14,7 @@ describe("Tree MDX component registry", () => {
     const availableComponents = new Set([
       ...Object.keys(mdxServerComponents),
       ...MDX_CLIENT_COMPONENTS,
+      "TreeGallery",
     ]);
 
     const missingByTree = new Map<string, Set<string>>();
