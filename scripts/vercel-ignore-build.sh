@@ -92,11 +92,8 @@ check_if_app_impacting() {
   local check_path="$1"
   
   for pattern in "${APP_IMPACTING_PATTERNS[@]}"; do
-    # Convert glob pattern to extended regex
-    regex_pattern="${pattern//\*/.*}"
-    regex_pattern="^${regex_pattern}$"
-    
-    if [[ "$check_path" =~ $regex_pattern ]]; then
+    # Use bash's native glob matching (handles *, **, etc. correctly)
+    if [[ "$check_path" == $pattern ]]; then
       echo "  ✅ '$check_path' matches app-impacting pattern: $pattern"
       return 0  # Match found
     fi
@@ -109,14 +106,14 @@ check_if_app_impacting() {
 while IFS= read -r line; do
   [[ -z "$line" ]] && continue
   
-  # Split by tab character
-  status=$(echo "$line" | cut -f1)
+  # Use IFS to safely parse tab-delimited fields (handles tabs in filenames)
+  IFS=$'\t' read -r status rest <<< "$line"
   
   # For renames (R) and copies (C), there are 3 tab-separated fields: status, old path, new path
+  # Status may include similarity score (e.g., R095)
   # For other statuses (M, A, D), there are 2 fields: status, path
   if [[ "$status" =~ ^[RC] ]]; then
-    old_path=$(echo "$line" | cut -f2)
-    new_path=$(echo "$line" | cut -f3)
+    IFS=$'\t' read -r old_path new_path <<< "$rest"
     echo "  Checking renamed/copied file: $old_path -> $new_path"
     
     # Check both old and new paths for renames/copies
@@ -125,8 +122,8 @@ while IFS= read -r line; do
       break
     fi
   else
-    # For all other statuses, file is in field 2
-    file_path=$(echo "$line" | cut -f2)
+    # For all other statuses, rest contains the file path
+    file_path="$rest"
     
     if check_if_app_impacting "$file_path"; then
       SHOULD_BUILD=true
