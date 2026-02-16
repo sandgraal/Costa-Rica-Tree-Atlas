@@ -6,10 +6,11 @@ Last updated: 2026-02-15
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Current `origin/main` commit: `f1bd71e`
-- Current working branch for this cycle: `codex/content/priority-1-4-short-page-maintenance-pass-6`
-- Working branch head commit: `77c9eba`
+- Current `origin/main` commit: `58dc000`
+- Current working branch for this cycle: `codex/content/add-nim-neem-species-profile`
+- Working branch head commit: `8c4be11`
 - Most recent merged PRs:
+  - #394 `feat(content): add Nim species profiles and fix MDX component registry test` (branch: `codex/content/add-nim-neem-species-profile`)
   - #388 `feat(content): Priority 1.4 Short-Page Maintenance Pass 5 - Expand 5 Species to 600+ Lines` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-5`)
   - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-4`)
   - #383 `feat(content): expand Priority 1.4 short-page maintenance batch` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-3`)
@@ -17,7 +18,7 @@ Last updated: 2026-02-15
   - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance`
   - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque`
 - Open PRs from current cycle:
-  - PR #390 `feat(content): close Priority 1.4 short-page maintenance backlog` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-6`)
+  - PR #395 `[WIP] Update Nim species profiles and MDX component registry test` (branch: `copilot/sub-pr-394`, draft)
 
 ## Highest-Priority Remaining Work
 
@@ -35,7 +36,18 @@ From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:a
   - `content/trees/en/capulin.mdx`
 - Latest audit result (`npm run content:audit`): **Under 600 lines: 0**.
 - `docs/IMPLEMENTATION_PLAN.md` was updated to reflect backlog reduction **6 → 0**.
-- Next highest unchecked work item: continue **Priority 1.1 Add Missing Species**, focusing on remaining introduced-but-ecologically-significant species in `docs/MISSING_SPECIES_LIST.md` (`nim`, `acacia-mangium`, `pino-caribeno`, `eucalipto`).
+- Priority 1.1 progress this cycle:
+  - Added `nim` (`Azadirachta indica`) with bilingual pages:
+    - `content/trees/en/nim.mdx`
+    - `content/trees/es/nim.mdx`
+  - Updated species counters and tracking docs:
+    - `docs/IMPLEMENTATION_PLAN.md` (`Species` 160 → 161; Priority 1.1 progress 40/47 → 41/47)
+    - `docs/MISSING_SPECIES_LIST.md` (`Missing Species` ~28 → ~27; `nim` marked complete)
+  - Fixed MDX registry test mismatch with runtime component availability:
+    - `tests/tree-mdx-component-registry.test.ts`
+- Latest audit result (`npm run content:audit`): **Under 600 lines: 0** (still clear after Nim addition).
+- Next highest unchecked work item: continue **Priority 1.1 Add Missing Species**, focusing on remaining introduced-but-ecologically-significant species in `docs/MISSING_SPECIES_LIST.md` (`acacia-mangium`, `pino-caribeno`, `eucalipto`).
+- CI status note: PR #394 is merged to `main`; continue from updated `main` baseline.
 
 ## Operator Preferences (Persistent)
 
@@ -60,6 +72,7 @@ Mission
 - Priority 1.4 short-page maintenance is currently clear (`npm run content:audit` shows 0 pages under 600 lines).
 - Move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`: continue Priority 1.1 missing-species expansion.
 - Use `docs/MISSING_SPECIES_LIST.md` as the source of truth for remaining species and pick the highest-impact bilingual-safe batch.
+- Start with remaining introduced-context species: `acacia-mangium`, then `pino-caribeno`, then `eucalipto`.
 - Do not ask questions if answer exists in repo docs.
 - Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
 
