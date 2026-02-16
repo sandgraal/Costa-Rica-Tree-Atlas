@@ -5655,5 +5655,68 @@
       ],
       "updatedAt": "2026-02-12T21:55:31.966Z"
     }
+  },
+  "balsamo": {
+    "attribution": "(c) Ruth Ripley, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/36272366",
+    "downloadedAt": "2026-02-16T21:49:08.366Z",
+    "votes": 1,
+    "photoId": 57318307
+  },
+  "acacia-mangium": {
+    "attribution": "(c) swetlana_k, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/137327228",
+    "downloadedAt": "2026-02-16T21:49:16.289Z",
+    "votes": 0,
+    "photoId": 234519046
+  },
+  "burio": {
+    "attribution": "(c) Richard Joyce, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/37560080",
+    "downloadedAt": "2026-02-16T21:49:20.017Z",
+    "votes": 0,
+    "photoId": 59567250
+  },
+  "eucalipto": {
+    "attribution": "(c) A Emmerson, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/24923739",
+    "downloadedAt": "2026-02-16T21:49:24.094Z",
+    "votes": 1,
+    "photoId": 38557131
+  },
+  "guitite": {
+    "attribution": "(c) rhardb, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/172382530",
+    "downloadedAt": "2026-02-16T21:49:28.492Z",
+    "votes": 1,
+    "photoId": 299244931
+  },
+  "hule": {
+    "attribution": "(c) alexqxu, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/122494083",
+    "downloadedAt": "2026-02-16T21:49:32.742Z",
+    "votes": 0,
+    "photoId": 207398642
+  },
+  "peine-de-mico": {
+    "attribution": "(c) Lena Struwe, some rights reserved (CC BY-SA)",
+    "source": "https://www.inaturalist.org/observations/9819046",
+    "downloadedAt": "2026-02-16T21:49:36.874Z",
+    "votes": 1,
+    "photoId": 13439680
+  },
+  "pino-caribeno": {
+    "attribution": "(c) douglas arce, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/323842258",
+    "downloadedAt": "2026-02-16T21:49:41.398Z",
+    "votes": 1,
+    "photoId": 586036170
+  },
+  "nim": {
+    "attribution": "(c) Roberto Quirós, all rights reserved",
+    "source": "https://www.inaturalist.org/observations/265463868",
+    "downloadedAt": "2026-02-16T21:49:44.983Z",
+    "votes": 0,
+    "photoId": 476854184
   }
 }
