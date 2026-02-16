@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
 **Last Updated:** 2026-02-16  
-**Current Species Count:** 164 documented  
-**Missing Species:** ~24 unique species identified for future expansion  
+**Current Species Count:** 169 documented  
+**Missing Species:** ~19 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -11,7 +11,15 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ## ✅ Recently Added Species
 
-### Latest Additions (2026-02-15)
+### Latest Additions (2026-02-16)
+
+- **Bálsamo** - _Myroxylon balsamum_ - Aromatic resin/timber legume, CITES Appendix III ✅
+- **Hule** - _Castilla elastica_ - Panama Rubber Tree, pre-Columbian rubber source ✅
+- **Güítite** - _Acnistus arborescens_ - Keystone bird-habitat tree, 50+ bird species ✅
+- **Burío** - _Heliocarpus appendiculatus_ - Pioneer fiber tree, traditional cordage ✅
+- **Peine de Mico** - _Apeiba tibourbou_ - Spiny fruit rainforest tree, wildlife food source ✅
+
+### Previous Additions (2026-02-15)
 
 - **Nim** - _Azadirachta indica_ - Introduced drought-tolerant medicinal/agroforestry tree ✅
 
@@ -199,6 +207,18 @@ Non-native species with ecological impact:
 - ~~**Eucalipto** - _Eucalyptus deglupta_ - Rainbow eucalyptus~~ ✅ ADDED 2026-02-16
 
 **Rationale:** Document invasive/plantation species for ecological context.
+
+### ADDITIONAL - Native Species Expansion (0 species remaining) ✅ COMPLETE
+
+Notable native trees not previously tracked:
+
+- ~~**Bálsamo** - _Myroxylon balsamum_ - Aromatic resin tree, CITES Appendix III~~ ✅ ADDED 2026-02-16
+- ~~**Hule** - _Castilla elastica_ - Panama Rubber Tree, pre-Columbian rubber source~~ ✅ ADDED 2026-02-16
+- ~~**Güítite** - _Acnistus arborescens_ - Keystone bird-habitat tree (50+ bird species)~~ ✅ ADDED 2026-02-16
+- ~~**Burío** - _Heliocarpus appendiculatus_ - Pioneer fiber tree, traditional cordage~~ ✅ ADDED 2026-02-16
+- ~~**Peine de Mico** - _Apeiba tibourbou_ - Spiny fruit rainforest tree, wildlife food source~~ ✅ ADDED 2026-02-16
+
+**Rationale:** Ecologically significant native species commonly encountered in Costa Rican landscapes, selected for ethnobotanical importance, wildlife habitat value, and cultural significance.
 
 ### HIGHEST PRIORITY - Rare/Endemic/Conservation Priority (0 species remaining) ✅ COMPLETE
 
