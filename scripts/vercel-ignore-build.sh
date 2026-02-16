@@ -76,6 +76,24 @@ APP_IMPACTING_PATTERNS=(
   ".github/workflows/*"
 )
 
+# Function to check if a path matches any app-impacting pattern
+check_if_app_impacting() {
+  local check_path="$1"
+  
+  for pattern in "${APP_IMPACTING_PATTERNS[@]}"; do
+    # Convert glob pattern to extended regex
+    regex_pattern="${pattern//\*/.*}"
+    regex_pattern="^${regex_pattern}$"
+    
+    if [[ "$check_path" =~ $regex_pattern ]]; then
+      echo "  ✅ '$check_path' matches app-impacting pattern: $pattern"
+      return 0  # Match found
+    fi
+  done
+  
+  return 1  # No match
+}
+
 # Parse git diff output with status codes (handles renames correctly)
 while IFS= read -r line; do
   [[ -z "$line" ]] && continue
@@ -91,27 +109,19 @@ while IFS= read -r line; do
     echo "  Checking renamed/copied file: $old_path -> $new_path"
     
     # Check both old and new paths for renames/copies
-    paths_to_check=("$old_path" "$new_path")
+    if check_if_app_impacting "$old_path" || check_if_app_impacting "$new_path"; then
+      SHOULD_BUILD=true
+      break
+    fi
   else
     # For all other statuses, file is in field 2
     file_path=$(echo "$line" | cut -f2)
-    paths_to_check=("$file_path")
+    
+    if check_if_app_impacting "$file_path"; then
+      SHOULD_BUILD=true
+      break
+    fi
   fi
-  
-  # Check if any path matches app-impacting patterns
-  for check_path in "${paths_to_check[@]}"; do
-    for pattern in "${APP_IMPACTING_PATTERNS[@]}"; do
-      # Convert glob pattern to extended regex
-      regex_pattern="${pattern//\*/.*}"
-      regex_pattern="^${regex_pattern}$"
-      
-      if [[ "$check_path" =~ $regex_pattern ]]; then
-        echo "  ✅ '$check_path' matches app-impacting pattern: $pattern"
-        SHOULD_BUILD=true
-        break 3
-      fi
-    done
-  done
 done <<< "$CHANGED_FILES"
 
 if [[ "$SHOULD_BUILD" == true ]]; then
