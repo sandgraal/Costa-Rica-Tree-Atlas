@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 160/175 (91%) - Target: 175+ documented species
+- **Species**: 161/175 (92%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 90/128 (70%) - Target: 100/128 (78%)
@@ -139,7 +139,7 @@
 
 ### 1.1: Add Missing Species
 
-**Status:** 🟡 In Progress (40/47 complete)  
+**Status:** 🟡 In Progress (41/47 complete)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
 #### High Priority Native Species (10 species) ✅ COMPLETE
@@ -198,6 +198,13 @@
 - [x] Guarumbo Hembra (Cecropia peltata) — added 2026-02-12
 - [x] Bambu Gigante (Guadua angustifolia) — added 2026-02-12
 - [x] Add remaining 5 low priority species (Zorrillo, Contra, Achotillo, Guarumbo Hembra, and Bambu Gigante added 2026-02-12; see MISSING_SPECIES_LIST.md)
+
+#### Introduced but Ecologically Significant (4 species) — 1/4 complete
+
+- [x] Nim (Azadirachta indica) — added 2026-02-15
+- [ ] Acacia Mangium (Acacia mangium)
+- [ ] Pino Caribeño (Pinus caribaea)
+- [ ] Eucalipto (Eucalyptus deglupta)
 
 **Per-Species Checklist:**
 

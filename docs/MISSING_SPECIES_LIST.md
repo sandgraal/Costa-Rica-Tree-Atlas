@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-02-12  
-**Current Species Count:** 160 documented  
-**Missing Species:** ~28 unique species identified for future expansion  
+**Last Updated:** 2026-02-15  
+**Current Species Count:** 161 documented  
+**Missing Species:** ~27 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -10,6 +10,10 @@
 This document tracks tree species native to or ecologically significant in Costa Rica that are not yet documented in the atlas. Species are organized by ecological category and priority for addition.
 
 ## ✅ Recently Added Species
+
+### Latest Additions (2026-02-15)
+
+- **Nim** - _Azadirachta indica_ - Introduced drought-tolerant medicinal/agroforestry tree ✅
 
 ### Latest Additions (2026-02-12)
 
@@ -185,11 +189,11 @@ If including non-tree woody plants:
 
 **Rationale:** Ecologically and economically important but not technically a tree.
 
-### LOW PRIORITY - Introduced But Ecologically Significant (4 species)
+### LOW PRIORITY - Introduced But Ecologically Significant (3 species remaining)
 
 Non-native species with ecological impact:
 
-- **Nim** - _Azadirachta indica_ - Neem tree
+- ~~**Nim** - _Azadirachta indica_ - Neem tree~~ ✅ ADDED 2026-02-15
 - **Acacia Mangium** - _Acacia mangium_ - Australian acacia
 - **Pino Caribeño** - _Pinus caribaea_ - Caribbean pine (plantations)
 - **Eucalipto** - _Eucalyptus deglupta_ - Rainbow eucalyptus
@@ -284,6 +288,13 @@ All 5 mangrove species have been successfully documented.
 - **Actual remaining:** ~28 unique species after duplicate removal
 - Focus now shifts to introduced-context and special-case ecological species
 
+**Progress Update (2026-02-15):**
+
+- **1 additional species added** to the atlas: Nim (_Azadirachta indica_)
+- **Current total: 161 species documented**
+- **Actual remaining:** ~27 unique species after duplicate removal
+- Next batch remains introduced-context species: _Acacia mangium_, _Pinus caribaea_, and _Eucalyptus deglupta_
+
 **Progress Update (2026-02-10):**
 
 - **18 species successfully added** since last major update (2026-01-12)
@@ -315,7 +326,7 @@ Each new species should include:
 - **Phase 1 (5 mangrove species):** ✅ COMPLETE (20-30 hours invested)
 - **Recent additions (24 species total):** ✅ COMPLETE (96-144 hours invested)
 - **Phase 2:** ✅ COMPLETE
-- **Complete remaining list (~28 unique species):** 112-168 hours
+- **Complete remaining list (~27 unique species):** 108-162 hours
 
 **Achievement Rate:** 19 species added in 6 days (2026-01-12 to 2026-01-19), demonstrating excellent progress.
 **Duplicate Prevention:** Scientific name verification saved ~28-42 hours by preventing duplicate documentation.
@@ -338,12 +349,12 @@ Each new species should include:
 
 **Note:** This list was compiled from community input and represents species commonly encountered in Costa Rica that would enhance the comprehensiveness of the atlas. Verification against existing content and scientific name accuracy should be performed before beginning content creation.
 
-**Status Update (2026-02-12):**
+**Status Update (2026-02-15):**
 
 - ✅ **Phase 1 Complete!** All 5 mangrove species documented
 - ✅ **24 total species** added since 2026-01-12
 - ✅ **Verification complete:** 9 duplicates identified and removed from list
-- 📊 **160 species** now in atlas (up from 110)
-- 🎯 **Actual remaining:** ~28 unique species (down from 57 after duplicate removal)
+- 📊 **161 species** now in atlas (up from 110)
+- 🎯 **Actual remaining:** ~27 unique species (down from 57 after duplicate removal)
 - 🎯 **Next Priority:** Complete introduced-context species and remaining special-case additions
 - 💡 **Key Learning:** Always verify scientific names to prevent duplicate documentation
