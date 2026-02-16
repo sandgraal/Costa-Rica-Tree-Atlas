@@ -539,7 +539,24 @@
       "childSafe": "Seguro para Niños",
       "petSafe": "Seguro para Mascotas",
       "ariaLabel": "Nivel de seguridad:"
+    },
+    "legacy": {
+      "safetyOverview": "Resumen de Seguridad",
+      "safetyWarning": "Advertencia de Seguridad",
+      "warnings": "Advertencias",
+      "precautions": "Precauciones",
+      "safetyLevels": {
+        "safe": "Seguro",
+        "caution": "Precaución",
+        "warning": "Advertencia",
+        "danger": "Alto Riesgo"
+      }
     }
+  },
+  "conservation": {
+    "assessed": "Evaluado",
+    "populationTrend": "Tendencia poblacional",
+    "threats": "Amenazas"
   },
   "glossary": {
     "title": "Glosario Botánico",

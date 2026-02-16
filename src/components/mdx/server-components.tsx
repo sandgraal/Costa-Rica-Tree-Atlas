@@ -9,6 +9,45 @@ function asArray<T>(value: T[] | undefined | null): T[] {
   return Array.isArray(value) ? value : [];
 }
 
+// Translation helper for legacy MDX components
+// These translations are loaded from messages/{locale}.json
+const translations = {
+  en: {
+    safety: {
+      safetyOverview: "Safety Overview",
+      safetyWarning: "Safety Warning",
+      warnings: "Warnings",
+      precautions: "Precautions",
+      safe: "Safe",
+      caution: "Caution",
+      warning: "Warning",
+      danger: "High Risk",
+    },
+    conservation: {
+      assessed: "Assessed",
+      populationTrend: "Population trend",
+      threats: "Threats",
+    },
+  },
+  es: {
+    safety: {
+      safetyOverview: "Resumen de Seguridad",
+      safetyWarning: "Advertencia de Seguridad",
+      warnings: "Advertencias",
+      precautions: "Precauciones",
+      safe: "Seguro",
+      caution: "Precaución",
+      warning: "Advertencia",
+      danger: "Alto Riesgo",
+    },
+    conservation: {
+      assessed: "Evaluado",
+      populationTrend: "Tendencia poblacional",
+      threats: "Amenazas",
+    },
+  },
+} as const;
+
 // Callout Box Component
 interface CalloutProps {
   type?:
@@ -165,36 +204,39 @@ interface SafetyCardProps {
   safetyLevel?: "safe" | "caution" | "warning" | "danger";
   warnings?: string[];
   precautions?: string[];
+  locale?: "en" | "es";
 }
 
 export function SafetyCard({
   safetyLevel = "safe",
   warnings,
   precautions,
+  locale = "en",
 }: SafetyCardProps) {
   const safeWarnings = asArray(warnings);
   const safePrecautions = asArray(precautions);
+  const t = translations[locale].safety;
 
   const levelConfig = {
     safe: {
-      badge: "Safe",
+      badge: t.safe,
       badgeClass: "bg-success/15 text-success border-success/30",
-      title: "Safety Overview",
+      title: t.safetyOverview,
     },
     caution: {
-      badge: "Caution",
+      badge: t.caution,
       badgeClass: "bg-warning/15 text-warning border-warning/30",
-      title: "Safety Overview",
+      title: t.safetyOverview,
     },
     warning: {
-      badge: "Warning",
+      badge: t.warning,
       badgeClass: "bg-warning/20 text-warning border-warning/40",
-      title: "Safety Warning",
+      title: t.safetyWarning,
     },
     danger: {
-      badge: "High Risk",
+      badge: t.danger,
       badgeClass: "bg-destructive/15 text-destructive border-destructive/30",
-      title: "Safety Warning",
+      title: t.safetyWarning,
     },
   };
 
@@ -214,7 +256,7 @@ export function SafetyCard({
       {safeWarnings.length > 0 && (
         <div className="mb-4">
           <h5 className="text-sm font-semibold text-foreground mb-2">
-            Warnings
+            {t.warnings}
           </h5>
           <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-foreground/90">
             {safeWarnings.map((warning, index) => (
@@ -227,7 +269,7 @@ export function SafetyCard({
       {safePrecautions.length > 0 && (
         <div>
           <h5 className="text-sm font-semibold text-foreground mb-2">
-            Precautions
+            {t.precautions}
           </h5>
           <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-foreground/90">
             {safePrecautions.map((precaution, index) => (
@@ -250,6 +292,7 @@ interface LegacyConservationStatusProps {
   assessmentDate?: string;
   population?: string;
   threats?: string[];
+  locale?: "en" | "es";
 }
 
 export function ConservationStatus({
@@ -261,9 +304,11 @@ export function ConservationStatus({
   assessmentDate,
   population,
   threats,
+  locale = "en",
 }: LegacyConservationStatusProps) {
   const category = status || code || "NE";
   const threatList = asArray(threats);
+  const t = translations[locale].conservation;
 
   return (
     <div className="my-6 rounded-xl border border-border bg-card p-5 not-prose">
@@ -278,7 +323,7 @@ export function ConservationStatus({
         )}
         {(assessed || assessmentDate) && (
           <span className="text-xs text-muted-foreground">
-            Assessed: {assessed || assessmentDate}
+            {t.assessed}: {assessed || assessmentDate}
           </span>
         )}
       </div>
@@ -289,14 +334,14 @@ export function ConservationStatus({
 
       {population && (
         <p className="text-sm text-foreground/90 mb-3">
-          <strong>Population trend:</strong> {population}
+          <strong>{t.populationTrend}:</strong> {population}
         </p>
       )}
 
       {threatList.length > 0 && (
         <div>
           <h5 className="text-sm font-semibold text-foreground mb-2">
-            Threats
+            {t.threats}
           </h5>
           <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-foreground/90">
             {threatList.map((threat, index) => (
