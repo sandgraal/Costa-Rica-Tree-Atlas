@@ -123,10 +123,37 @@ export async function ServerMDXContent({
 }: ServerMDXContentProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
 
+  // Create locale-aware wrappers for legacy components that need localization
+  // These components are imported from server-components and have a locale prop
+  const localizedComponents = {
+    SafetyCard: (
+      props: React.ComponentProps<typeof mdxServerComponents.SafetyCard>
+    ) =>
+      mdxServerComponents.SafetyCard({
+        ...props,
+        locale: locale as "en" | "es",
+      }),
+    ConservationStatus: (
+      props: React.ComponentProps<typeof mdxServerComponents.ConservationStatus>
+    ) =>
+      mdxServerComponents.ConservationStatus({
+        ...props,
+        locale: locale as "en" | "es",
+      }),
+    CareCalendar: (
+      props: React.ComponentProps<typeof mdxServerComponents.CareCalendar>
+    ) =>
+      mdxServerComponents.CareCalendar({
+        ...props,
+        locale: locale as "en" | "es",
+      }),
+  };
+
   // Merge server MDX components with client components and any additional ones passed in
   // Client components are imported individually (not as an object) to avoid RSC serialization issues
   const allComponents = {
     ...mdxServerComponents,
+    ...localizedComponents,
     AccordionItem,
     ImageCard,
     ImageGallery,
