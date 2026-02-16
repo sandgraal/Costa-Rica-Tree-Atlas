@@ -7,7 +7,7 @@
 
 ### Content Coverage
 
-- **Species**: 164/175 (94%) - Target: 175+ documented species
+- **Species**: 169/175 (97%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
 - **Care Guidance**: 90/128 (70%) - Target: 100/128 (78%)
@@ -139,7 +139,7 @@
 
 ### 1.1: Add Missing Species
 
-**Status:** 🟡 In Progress (41/47 complete)  
+**Status:** 🟡 In Progress (46/52 complete)  
 **Reference:** [MISSING_SPECIES_LIST.md](MISSING_SPECIES_LIST.md)
 
 #### High Priority Native Species (10 species) ✅ COMPLETE
@@ -205,6 +205,14 @@
 - [x] Acacia Mangium (Acacia mangium) — added 2026-02-16
 - [x] Pino Caribeño (Pinus caribaea) — added 2026-02-16
 - [x] Eucalipto (Eucalyptus deglupta) — added 2026-02-16
+
+#### Additional Native Species (5 species) — 5/5 complete ✅
+
+- [x] Bálsamo (Myroxylon balsamum) — added 2026-02-16
+- [x] Hule (Castilla elastica) — added 2026-02-16
+- [x] Güítite (Acnistus arborescens) — added 2026-02-16
+- [x] Burío (Heliocarpus appendiculatus) — added 2026-02-16
+- [x] Peine de Mico (Apeiba tibourbou) — added 2026-02-16
 
 **Per-Species Checklist:**
 
@@ -844,7 +852,7 @@ Requires:
 
 **Content Coverage:**
 
-- Species count: 175+ (current: 160)
+- Species count: 175+ (current: 169)
 - Care guidance: 80%+ (current: 70%)
 - Comparison guides: 20/20 ✅
 - Glossary terms: 150+ (current: 100)
