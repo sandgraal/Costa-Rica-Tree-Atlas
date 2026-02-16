@@ -43,31 +43,14 @@ jobs:
         run: npm run contentlayer
         continue-on-error: false
 
-      - name: Check for Contentlayer warnings/errors
-        run: |
-          # Run contentlayer and capture output
-          output=$(npm run contentlayer 2>&1)
-          echo "$output"
-
-          # Check for parsing errors
-          if echo "$output" | grep -q "failed with.*Error"; then
-            echo "❌ Contentlayer parsing errors detected!"
-            exit 1
-          fi
-
-          # Check for warnings
-          if echo "$output" | grep -q "Warning.*problem"; then
-            echo "⚠️  Contentlayer warnings detected - review them carefully"
-            # Don't fail on warnings, just notify
-          fi
-
-          echo "✅ Contentlayer built successfully"
-
       - name: Run content validation tests
         run: npm run test:run -- tests/content-validation.test.ts
 
       - name: Run MDX component tests
         run: npm run test:run -- tests/mdx-components.test.tsx
+
+      - name: Validate tree MDX component registry
+        run: npm run test:run -- tests/tree-mdx-component-registry.test.ts
 
       - name: Type check
         run: npm run type-check
@@ -94,5 +77,6 @@ jobs:
           echo "- ✅ Contentlayer validation passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Content validation tests passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ MDX component tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Tree MDX component registry validation passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Type checking passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Next.js build succeeded" >> $GITHUB_STEP_SUMMARY

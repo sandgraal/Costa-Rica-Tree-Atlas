@@ -37,6 +37,7 @@ import {
   SideBySideImages,
 } from "@/components/mdx/client-components";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
+import { TreeGallery } from "@/components/TreeGallery";
 
 interface GlossaryTerm {
   term: string;
@@ -132,6 +133,7 @@ export async function ServerMDXContent({
     Tabs,
     GlossaryTooltip,
     SideBySideImages,
+    TreeGallery,
     ...components,
   };
 
