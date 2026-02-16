@@ -540,7 +540,24 @@
       "childSafe": "Child Safe",
       "petSafe": "Pet Safe",
       "ariaLabel": "Safety level:"
+    },
+    "legacy": {
+      "safetyOverview": "Safety Overview",
+      "safetyWarning": "Safety Warning",
+      "warnings": "Warnings",
+      "precautions": "Precautions",
+      "safetyLevels": {
+        "safe": "Safe",
+        "caution": "Caution",
+        "warning": "Warning",
+        "danger": "High Risk"
+      }
     }
+  },
+  "conservation": {
+    "assessed": "Assessed",
+    "populationTrend": "Population trend",
+    "threats": "Threats"
   },
   "glossary": {
     "title": "Botanical Glossary",
