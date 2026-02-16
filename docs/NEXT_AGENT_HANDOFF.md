@@ -1,54 +1,40 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-15
+Last updated: 2026-02-16
 
 ## Current Repository State
 
 - Repository path: `<REPO_ROOT>` (resolve via `git rev-parse --show-toplevel`)
 - Canonical base branch: `main`
-- Current `origin/main` commit: `58dc000`
-- Current working branch for this cycle: `codex/docs/full-cleanup-handoff-sync`
-- Working branch head commit: `a58bc8f`
+- Current `origin/main` commit: `c3eca4a`
+- Current working branch for this cycle: `content/add-introduced-species-batch`
+- Working branch head commit: `184747e`
 - Most recent merged PRs:
+  - #396 `docs: sync NEXT_AGENT_HANDOFF after PR #394 merge` (branch: `codex/docs/full-cleanup-handoff-sync`)
   - #394 `feat(content): add Nim species profiles and fix MDX component registry test` (branch: `codex/content/add-nim-neem-species-profile`)
-  - #388 `feat(content): Priority 1.4 Short-Page Maintenance Pass 5 - Expand 5 Species to 600+ Lines` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-5`)
-  - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-4`)
-  - #383 `feat(content): expand Priority 1.4 short-page maintenance batch` (branch: `codex/content/priority-1-4-short-page-maintenance-pass-3`)
-  - #382 `🖼️ Weekly Image Quality & Optimization (1 files)`
-  - #381 `feat(content): expand Priority 1.4 ES parity and short-page maintenance`
-  - #380 `feat(content): expand ES parity for mastate, papaya, mangle-blanco, and llama-del-bosque`
+  - #388 `feat(content): Priority 1.4 Short-Page Maintenance Pass 5 - Expand 5 Species to 600+ Lines`
+  - #386 `feat(content): expand 5 short species pages to 600+ lines (Priority 1.4 pass 4)`
+  - #383 `feat(content): expand Priority 1.4 short-page maintenance batch`
 - Open PRs from current cycle:
-  - PR #396 `docs: sync NEXT_AGENT_HANDOFF after PR #394 merge` (branch: `codex/docs/full-cleanup-handoff-sync`)
+  - PR #400 `feat(content): add 3 introduced species (acacia-mangium, pino-caribeno, eucalipto)` (branch: `content/add-introduced-species-batch`)
 
 ## Highest-Priority Remaining Work
 
 From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:audit`:
 
-- Priority 1.4 short-page maintenance was completed this cycle from a fresh audit baseline.
-- Completed this cycle (Pass 6):
-  - `content/trees/en/palma-cacho-de-venado.mdx`
-  - `content/trees/es/palma-cacho-de-venado.mdx`
-  - `content/trees/en/javillo.mdx`
-  - `content/trees/en/cipres.mdx`
-  - `content/trees/en/fruta-de-pan.mdx`
-  - `content/trees/es/fruta-de-pan.mdx`
-  - `content/trees/en/guacimo.mdx`
-  - `content/trees/en/capulin.mdx`
-- Latest audit result (`npm run content:audit`): **Under 600 lines: 0**.
-- `docs/IMPLEMENTATION_PLAN.md` was updated to reflect backlog reduction **6 → 0**.
-- Priority 1.1 progress this cycle:
-  - Added `nim` (`Azadirachta indica`) with bilingual pages:
-    - `content/trees/en/nim.mdx`
-    - `content/trees/es/nim.mdx`
-  - Updated species counters and tracking docs:
-    - `docs/IMPLEMENTATION_PLAN.md` (`Species` 160 → 161; Priority 1.1 progress 40/47 → 41/47)
-    - `docs/MISSING_SPECIES_LIST.md` (`Missing Species` ~28 → ~27; `nim` marked complete)
-  - Fixed MDX registry test mismatch with runtime component availability:
-    - `tests/tree-mdx-component-registry.test.ts`
-- Latest audit result (`npm run content:audit`): **Under 600 lines: 0** (still clear after Nim addition).
-- Next highest unchecked work item: continue **Priority 1.1 Add Missing Species**, focusing on remaining introduced-but-ecologically-significant species in `docs/MISSING_SPECIES_LIST.md` (`acacia-mangium`, `pino-caribeno`, `eucalipto`).
-- CI status note: PR #394 is merged to `main`; continue from updated `main` baseline.
-- Housekeeping note: stale draft PR #395 was closed because it contained no file changes.
+- Priority 1.4 short-page maintenance: **clear** (`npm run content:audit` shows 0 pages under 600 lines, 164 total trees).
+- Priority 1.1 "Introduced but Ecologically Significant" category: **complete (4/4)** after this cycle.
+  - Added this cycle (3 species, 6 bilingual files):
+    - `content/trees/{en,es}/acacia-mangium.mdx` — Acacia mangium
+    - `content/trees/{en,es}/pino-caribeno.mdx` — Pinus caribaea (Caribbean Pine)
+    - `content/trees/{en,es}/eucalipto.mdx` — Eucalyptus deglupta (Rainbow Eucalyptus)
+  - Species count updated: 161 → 164 (94% of 175 target)
+- Updated tracking docs:
+  - `docs/IMPLEMENTATION_PLAN.md` (species 161→164, introduced section 1/4→4/4 ✅)
+  - `docs/MISSING_SPECIES_LIST.md` (3 species marked added, remaining ~24)
+- Verification: lint 0 errors, build successful, content audit 0 pages under threshold.
+- **Next highest unchecked work item**: continue **Priority 1.1 Add Missing Species** with additional species from `docs/MISSING_SPECIES_LIST.md`. Remaining categories include low-priority special-case ecological species and any other unchecked categories.
+- CI status note: PR #400 is open and awaiting review/merge.
 
 ## Operator Preferences (Persistent)
 
@@ -71,11 +57,12 @@ Repository
 
 Mission
 - Priority 1.4 short-page maintenance is currently clear (`npm run content:audit` shows 0 pages under 600 lines).
-- Move to the highest unchecked item in `docs/IMPLEMENTATION_PLAN.md`: continue Priority 1.1 missing-species expansion.
-- Use `docs/MISSING_SPECIES_LIST.md` as the source of truth for remaining species and pick the highest-impact bilingual-safe batch.
-- Start with remaining introduced-context species: `acacia-mangium`, then `pino-caribeno`, then `eucalipto`.
+- The "Introduced but Ecologically Significant" species category is now complete (4/4).
+- Continue Priority 1.1 missing-species expansion with the next highest-impact batch from `docs/MISSING_SPECIES_LIST.md`.
+- Review remaining unchecked categories and pick the highest-priority species batch.
 - Do not ask questions if answer exists in repo docs.
 - Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
+- Check if PR #400 has been merged; if so, clean up the branch before starting new work.
 
 Required workflow
 1. Read and follow:
@@ -87,7 +74,7 @@ Required workflow
    - git fetch origin
    - git checkout main
    - git pull --ff-only origin main
-3. Create a branch using conventions: feature/*, fix/*, content/*, docs/* (use `codex/` prefix in this environment, e.g., `codex/content/...`).
+3. Create a branch using conventions: feature/*, fix/*, content/*, docs/*.
 4. Implement selected item end-to-end.
 5. Update docs/counters/checklists affected by your change.
 6. Verify:
@@ -116,7 +103,7 @@ MANDATORY END-OF-RUN DIRECTIVES
 
 - [x] `main` synced to `origin/main`
 - [x] Feature/fix/content/docs branch used for changes
-- [x] PR opened (and merged if applicable)
-- [x] Associated merged branches cleaned up (remote + local)
+- [x] PR opened (#400)
+- [ ] Associated merged branches cleaned up (PR not yet merged)
 - [x] `docs/NEXT_AGENT_HANDOFF.md` updated
 - [x] Next-agent prompt generated and references `docs/NEXT_AGENT_HANDOFF.md`
