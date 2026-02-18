@@ -2,15 +2,28 @@
 
 Last updated: 2026-02-17
 
+## Latest Run Summary
+
+- **Branch**: `content/add-care-guidance-batch` → PR to main (open)
+- **Task completed**: Added care/cultivation guidance to the final 7 species lacking it (almendro, guarumo, manchineel, mangle-blanco, mangle-pinuela, matapalo, yellow-oleander) — 14 MDX files (7 EN + 7 ES).
+- **Care guidance coverage**: 169/169 (100%) — P1.3 now complete.
+- **Updated tracking docs**: `docs/IMPLEMENTATION_PLAN.md` (care guidance 100%, P1.3 marked complete, batch note added).
+- **Verification**: lint 0 errors (267 pre-existing warnings), build successful (1365 pages), content audit 0 pages under 600-line threshold, average 726 lines.
+
 ## Highest-Priority Remaining Work
 
-From `<REPO_ROOT>/docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:audit`:
+From `docs/IMPLEMENTATION_PLAN.md` and the latest `npm run content:audit`:
 
-- - Updated tracking docs:
-  - `docs/IMPLEMENTATION_PLAN.md` (species 164→169, section 1.1: 46/52, new category added)
-  - `docs/MISSING_SPECIES_LIST.md` (new tracking category, latest additions)
-- Verification: lint 0 errors, build successful, content audit 0 pages under threshold.
-- **Next highest unchecked work item**: Review remaining unchecked categories in the missing species list.
+| Priority | Task                | Status               | Notes                                                          |
+| -------- | ------------------- | -------------------- | -------------------------------------------------------------- |
+| P1.1     | Species content     | 169/169 (100%) ✅    | Target 175+ by adding new species from MISSING_SPECIES_LIST.md |
+| P1.3     | Care guidance       | 169/169 (100%) ✅    | Completed this run                                             |
+| P1.4     | Short pages         | 0 under threshold ✅ | Monitor after new species additions                            |
+| P2       | Performance Phase 3 | 🔲 Not started       | Lighthouse CI, bundle analysis, image CDN                      |
+| P4       | Community features  | 🔲 Not started       | Now unblocked — user contributions, ratings                    |
+| P5.2     | Glossary expansion  | 100/150 (67%)        | Add 50+ glossary terms (EN+ES)                                 |
+
+**Recommended next task**: Glossary expansion (P5.2) — 50 terms needed, high user value, moderate effort. Alternatively, add new species from MISSING_SPECIES_LIST.md toward the 175+ target.
 
 ## Operator Preferences (Persistent)
 
