@@ -4,27 +4,31 @@ Last updated: 2026-02-20
 
 ## Latest Run Summary
 
-- **Branch**: `content/glossary-expansion-50-terms` → [PR #413](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/413) to main (open)
-- **Task completed**: Added 50 new bilingual glossary terms (100 MDX files: 50 EN + 50 ES) across 6 focus areas: Wood Anatomy (10), Forest Ecology (10), Agroforestry (10), Taxonomy (5), Morphology/Botany (10), Reproduction (5).
-- **Glossary coverage**: 100/150 (67%) → **150/150 (100%)** — P5.2 now complete.
-- **Updated tracking docs**: `docs/IMPLEMENTATION_PLAN.md` (glossary 150/150 100%, P5.2 marked complete, success metrics updated).
-- **Verification**: lint 0 errors (267 pre-existing warnings), build successful, contentlayer MDX validation passed.
+- **Branch**: `feature/performance-phase3-optimizations` → [PR #416](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/416) to main (open)
+- **Task completed**: Performance Phase 3 (P2) — converted SafeJsonLd and HeroImage from client to server components, applied `content-visibility: auto` to 6 below-fold homepage sections, tightened Lighthouse CI thresholds.
+- **Key changes**:
+  - `SafeJsonLd.tsx`: Removed `"use client"`, `useEffect`, `useRef` — renders `<script>` server-side (eliminates client JS across 9+ pages)
+  - `HeroImage.tsx`: Removed `"use client"`, `useState` — CSS gradient fallback replaces JS error handler (removes JS from LCP path)
+  - `page.tsx`: Applied `.section-offscreen` class to 6 homepage sections (content-visibility: auto)
+  - `.lighthouserc.json`: Perf 0.70→0.85, LCP 4000ms→2500ms, TBT 500ms→300ms
+- **Updated tracking docs**: `docs/PERFORMANCE_OPTIMIZATION.md` (Phase 3 checklist), `docs/IMPLEMENTATION_PLAN.md` (Phase 3 items marked complete).
+- **Verification**: lint 0 errors (267 pre-existing warnings), build successful, 16/16 SafeJsonLd tests pass.
 
 ## Highest-Priority Remaining Work
 
 From `docs/IMPLEMENTATION_PLAN.md`:
 
-| Priority | Task                 | Status               | Notes                                                          |
-| -------- | -------------------- | -------------------- | -------------------------------------------------------------- |
-| P1.1     | Species content      | 169/169 (100%) ✅    | Target 175+ by adding new species from MISSING_SPECIES_LIST.md |
-| P1.3     | Care guidance        | 169/169 (100%) ✅    | Complete                                                       |
-| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                            |
-| P2       | Performance Phase 3  | 🔲 Not started       | Lighthouse CI, bundle analysis, image CDN                      |
-| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                    |
-| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                               |
-| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Completed this run                                             |
+| Priority | Task                 | Status               | Notes                                                                                                                                                      |
+| -------- | -------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1.1     | Species content      | 169/169 (100%) ✅    | Target 175+ by adding new species from MISSING_SPECIES_LIST.md                                                                                             |
+| P1.3     | Care guidance        | 169/169 (100%) ✅    | Complete                                                                                                                                                   |
+| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                                                                                                                        |
+| P2       | Performance Phase 3  | � In progress        | SafeJsonLd + HeroImage converted, content-visibility applied, CI thresholds tightened. Remaining: partial hydration, progressive enhancement, edge caching |
+| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                                                                                                                |
+| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                           |
+| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                   |
 
-**Recommended next task**: Add new species from `MISSING_SPECIES_LIST.md` toward the 175+ target (P1.1). Alternatively, tackle Performance Phase 3 (P2) for Lighthouse score improvement (48 → 90).
+**Recommended next task**: Add new species beyond the current 169 toward the 175+ target (P1.1) — identify species not yet in `content/trees/`. Alternatively, continue Performance Phase 3 (P2) remaining items: partial hydration, progressive enhancement, edge caching, or pursue further Server Component conversions from the 60+ remaining client components.
 
 ## Operator Preferences (Persistent)
 
