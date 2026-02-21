@@ -43,6 +43,7 @@ export function FeatureAnnotation({
         {annotations.map((point, index) => (
           <button
             key={index}
+            type="button"
             className={`absolute w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-lg transition-all ${
               activeAnnotation === index
                 ? "bg-primary scale-125 z-20"
@@ -53,6 +54,7 @@ export function FeatureAnnotation({
               setActiveAnnotation(activeAnnotation === index ? null : index)
             }
             aria-label={point.label}
+            aria-pressed={activeAnnotation === index}
           >
             <span className="text-white font-bold text-sm">{index + 1}</span>
           </button>
@@ -69,10 +71,12 @@ export function FeatureAnnotation({
             }}
           >
             <button
+              type="button"
               onClick={() => setActiveAnnotation(null)}
+              aria-label="Close annotation"
               className="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white rounded-full text-xs flex items-center justify-center hover:bg-primary-dark"
             >
-              ✕
+              <span aria-hidden="true">✕</span>
             </button>
             <h4 className="font-semibold text-sm mb-1">
               {annotations[activeAnnotation].label}
@@ -89,9 +93,11 @@ export function FeatureAnnotation({
         {annotations.map((point, index) => (
           <button
             key={index}
+            type="button"
             onClick={() =>
               setActiveAnnotation(activeAnnotation === index ? null : index)
             }
+            aria-pressed={activeAnnotation === index}
             className={`flex items-start gap-2 p-2 rounded-lg text-left transition-colors ${
               activeAnnotation === index
                 ? "bg-primary/10 border border-primary/30"

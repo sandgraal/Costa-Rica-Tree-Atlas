@@ -148,6 +148,9 @@ export function SideBySideImages({
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={() => setLightboxOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Image lightbox: ${images[activeIndex].label}`}
         >
           <button
             onClick={() => setLightboxOpen(false)}

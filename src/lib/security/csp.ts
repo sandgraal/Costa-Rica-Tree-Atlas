@@ -103,8 +103,6 @@ export function buildCSP(): string {
       "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // Allow other HTTPS scripts as fallback
-      "https:",
     ],
     "style-src": [
       "'self'",
@@ -194,8 +192,8 @@ export function buildMDXCSP(): string {
       "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // Allow other HTTPS scripts as fallback
-      "https:",
+      // In development, allow other HTTPS scripts as a fallback
+      ...(isDev ? ["https:"] : []),
     ],
     "style-src": [
       "'self'",
@@ -270,8 +268,8 @@ export function buildRelaxedCSP(): string {
       // Vercel Analytics & Speed Insights
       "https://va.vercel-scripts.com",
       "https://vitals.vercel-insights.com",
-      // Allow other HTTPS scripts as fallback
-      "https:",
+      // In development, allow other HTTPS scripts as a fallback
+      ...(isDev ? ["https:"] : []),
     ],
     "style-src": [
       "'self'",
