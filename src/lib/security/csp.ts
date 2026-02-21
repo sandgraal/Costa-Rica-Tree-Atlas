@@ -33,7 +33,7 @@ const COMMON_IMG_SOURCES = [
  *     console.log('sha256-' + require('crypto').createHash('sha256').update(THEME_SCRIPT, 'utf8').digest('base64'));"
  */
 const THEME_SCRIPT_HASH =
-  "'sha256-eznarqhEH+dVy3cgm/b3Jqm0dVn5twXeA2yaCUDEAkw='";
+  "'sha256-0xv81yB5NADv8PB1GJ/KUCaSky5FyqNwJ9+UQq/FzwM='";
 
 /**
  * Generate a cryptographic nonce for CSP using Web Crypto API
