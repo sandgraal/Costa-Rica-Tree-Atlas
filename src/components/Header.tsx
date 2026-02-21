@@ -7,7 +7,7 @@ import { FavoritesLink } from "./FavoritesLink";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-// Lazy load QuickSearch — 417-line client component only needed on user interaction
+// Lazy load QuickSearch — 417-line client component deferred from the initial bundle but rendered in the header
 const QuickSearch = dynamic(
   () => import("./QuickSearch").then((m) => ({ default: m.QuickSearch })),
   {
