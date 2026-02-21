@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations, useLocale } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
@@ -9,9 +7,9 @@ import { MobileNav } from "./MobileNav";
 import { FavoritesLink } from "./FavoritesLink";
 import Image from "next/image";
 
-export function Header() {
-  const t = useTranslations("nav");
-  const locale = useLocale();
+export async function Header() {
+  const t = await getTranslations("nav");
+  const locale = await getLocale();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-primary/10">
