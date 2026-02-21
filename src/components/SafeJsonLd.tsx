@@ -39,15 +39,16 @@ const DANGEROUS_PATTERNS = [
 
 /**
  * Unicode-aware character escapes
- * Maps dangerous characters to their Unicode escape sequences
+ * Maps dangerous characters to their Unicode escape sequences.
+ * Note: `"` and `'` are intentionally NOT escaped here — they are valid JSON
+ * delimiters and safe inside <script type="application/ld+json">. Escaping
+ * them would produce invalid JSON (e.g. {\u0022name\u0022:...}).
  */
 const UNICODE_ESCAPES: [RegExp, string][] = [
-  // ASCII dangerous chars
+  // ASCII dangerous chars — only chars that can break out of a script tag
   [/</g, "\\u003c"],
   [/>/g, "\\u003e"],
   [/&/g, "\\u0026"],
-  [/'/g, "\\u0027"],
-  [/"/g, "\\u0022"],
 
   // Fullwidth variants (U+FF00-FF60)
   [/＜/g, "\\uff1c"], // Fullwidth less-than
@@ -109,6 +110,16 @@ function sanitizeJsonForHtml(json: string): string {
       "⚠️ JSON-LD sanitization failed - dangerous content detected"
     );
     // Return safe empty object instead of potentially dangerous content
+    return "{}";
+  }
+
+  // 5. Validate that the result is still parseable JSON.
+  // Sanitization should never break valid JSON; if it does, fall back to
+  // an empty object to avoid serving malformed structured data.
+  try {
+    JSON.parse(sanitized);
+  } catch {
+    console.error("⚠️ JSON-LD sanitization produced invalid JSON");
     return "{}";
   }
 
