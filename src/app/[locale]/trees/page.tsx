@@ -1,8 +1,31 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
-import { TreeExplorer } from "@/components/tree";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+
+// Lazy load TreeExplorer — 685-line client component with search, filters, and grid
+const TreeExplorer = dynamic(
+  () =>
+    import("@/components/tree/TreeExplorer").then((m) => ({
+      default: m.TreeExplorer,
+    })),
+  {
+    loading: () => (
+      <div className="space-y-6 animate-pulse">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="h-12 bg-muted rounded-lg flex-1" />
+          <div className="h-12 bg-muted rounded-lg w-32" />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div key={i} className="h-64 bg-muted rounded-xl" />
+          ))}
+        </div>
+      </div>
+    ),
+  }
+);
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -69,6 +92,29 @@ export default async function TreesPage({ params }: Props) {
     <>
       <SafeJsonLd data={structuredData} />
       <TreeExplorer trees={trees} />
+      <noscript>
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold mb-6">
+            {locale === "es" ? "Directorio de Árboles" : "Tree Directory"}
+          </h1>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {trees.map((tree) => (
+              <li key={tree.slug}>
+                <a
+                  href={`/${locale}/trees/${tree.slug}`}
+                  className="block p-4 border rounded-lg hover:bg-muted"
+                >
+                  <strong>{tree.title}</strong>
+                  <br />
+                  <em className="text-sm text-muted-foreground">
+                    {tree.scientificName}
+                  </em>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </noscript>
     </>
   );
 }

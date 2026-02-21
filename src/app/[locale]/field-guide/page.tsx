@@ -1,7 +1,27 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
-import { FieldGuideGenerator } from "@/components/field-guide/FieldGuideGenerator";
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+
+// Lazy load FieldGuideGenerator — 225-line client component + 267-line FieldGuidePreview child
+const FieldGuideGenerator = dynamic(
+  () =>
+    import("@/components/field-guide/FieldGuideGenerator").then((m) => ({
+      default: m.FieldGuideGenerator,
+    })),
+  {
+    loading: () => (
+      <div className="space-y-6 animate-pulse p-4">
+        <div className="h-12 bg-muted rounded-lg w-72" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="h-24 bg-muted rounded-lg" />
+          ))}
+        </div>
+      </div>
+    ),
+  }
+);
 
 type Props = {
   params: Promise<{ locale: string }>;

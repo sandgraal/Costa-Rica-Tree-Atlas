@@ -2,10 +2,32 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
-import { QuickSearch } from "./QuickSearch";
 import { MobileNav } from "./MobileNav";
 import { FavoritesLink } from "./FavoritesLink";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+// Lazy load QuickSearch — 417-line client component deferred from the initial bundle but rendered in the header
+const QuickSearch = dynamic(
+  () => import("./QuickSearch").then((m) => ({ default: m.QuickSearch })),
+  {
+    loading: () => (
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-muted/50 text-muted-foreground text-sm">
+        <svg
+          className="h-4 w-4"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+      </div>
+    ),
+  }
+);
 
 export async function Header() {
   const t = await getTranslations("nav");

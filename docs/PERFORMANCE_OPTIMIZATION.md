@@ -1,7 +1,7 @@
 # Performance Optimization Guide
 
 **Last Updated:** 2026-02-20  
-**Status:** Phase 1-2 Validated, Phase 3 In Progress  
+**Status:** Phase 1-2 Validated, Phase 3 Nearly Complete (DB query optimization remaining)  
 **Lighthouse Baseline:** Performance 48/100 (2026-01-18)  
 **Target:** Performance >90/100
 
@@ -284,8 +284,19 @@ import { useVirtualizer } from "@tanstack/react-virtual";
   - [x] Delete `ProgressiveImage` — 0 imports in codebase (2026-02-20)
   - [x] Delete `ResponsiveImage` — only barrel re-export, never imported (2026-02-20)
 - [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)
-- [ ] Implement partial hydration
-- [ ] Add progressive enhancement
+- [x] Implement partial hydration (2026-02-20)
+  - Dynamic import `QuickSearch` (417 lines) in Header — loaded on every page; dynamic chunk requested during initial render (not deferred until interaction)
+  - Dynamic import `TreeExplorer` (685 lines) in trees page with loading skeleton
+  - Dynamic import `SeasonalCalendar` (953 lines) in seasonal page with loading skeleton
+  - Dynamic import `TreeComparison` (426 lines) in compare page with loading skeleton
+  - Dynamic import `APIDocumentation` (479 lines) in api-docs page with loading skeleton
+  - Dynamic import `FieldGuideGenerator` (225+267 lines) in field-guide page with loading skeleton
+  - Total: ~3,252 lines of client JS deferred from initial page bundles
+- [x] Add progressive enhancement (2026-02-20)
+  - `<noscript>` fallback in layout: bilingual banner informing no-JS users site works best with JavaScript
+  - `<noscript>` fallback on trees page: server-rendered list of all trees with links (no search/filter but browsable)
+  - `<noscript>` fallback on seasonal page: server-rendered lists of currently flowering and fruiting trees
+  - CSS rule to hide `animate-pulse` loading skeletons when JS is disabled
 - [ ] Optimize database queries
 - [x] Implement edge caching (2026-02-21)
   - Removed `headers()` call from layout that forced all pages dynamic
