@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
 interface SafeJsonLdProps {
   data: Record<string, unknown>;
   nonce?: string;
@@ -80,7 +76,7 @@ const UNICODE_ESCAPES: [RegExp, string][] = [
  * - Removes zero-width characters
  * - Validates final output
  */
-function sanitizeJsonForHtml(json: string): string {
+export function sanitizeJsonForHtml(json: string): string {
   // 1. Apply Unicode escapes for all dangerous characters
   let sanitized = json;
 
@@ -105,9 +101,6 @@ function sanitizeJsonForHtml(json: string): string {
     sanitized.includes("-->") ||
     sanitized.includes("]]>")
   ) {
-    console.error(
-      "⚠️ JSON-LD sanitization failed - dangerous content detected"
-    );
     // Return safe empty object instead of potentially dangerous content
     return "{}";
   }
@@ -118,59 +111,36 @@ function sanitizeJsonForHtml(json: string): string {
 /**
  * Safe JSON-LD component that prevents XSS attacks
  *
- * Features:
+ * Renders structured data as a server-side <script> tag for:
+ * - Immediate visibility to search engine crawlers (SEO)
+ * - Zero client-side JavaScript overhead
+ * - No hydration cost
+ *
+ * Security:
  * - Comprehensive sanitization of JSON content
- * - Client-side only rendering (no hydration mismatches)
  * - CSP nonce support
+ * - Unicode homoglyph protection
  * - Validation of output before injection
  *
  * @param data - JSON-LD structured data object
  * @param nonce - CSP nonce for inline script
  */
 export function SafeJsonLd({ data, nonce }: SafeJsonLdProps) {
-  const scriptRef = useRef<HTMLScriptElement | null>(null);
+  // Serialize and sanitize outside JSX to avoid try/catch around rendering
+  let json: string;
+  try {
+    json = sanitizeJsonForHtml(JSON.stringify(data, null, 0));
+  } catch {
+    // Silently fail — don't break the page for structured data issues
+    return null;
+  }
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    try {
-      // Serialize to JSON
-      let json = JSON.stringify(data, null, 0);
-
-      // Sanitize for HTML context
-      json = sanitizeJsonForHtml(json);
-
-      // Create script element
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-
-      if (nonce) {
-        script.setAttribute("nonce", nonce);
-      }
-
-      // Use textContent instead of innerHTML (safer)
-      script.textContent = json;
-
-      // Remove old script if exists
-      if (scriptRef.current?.parentNode) {
-        scriptRef.current.parentNode.removeChild(scriptRef.current);
-      }
-
-      // Append new script
-      document.head.appendChild(script);
-      scriptRef.current = script;
-
-      // Cleanup
-      return () => {
-        if (scriptRef.current?.parentNode) {
-          scriptRef.current.parentNode.removeChild(scriptRef.current);
-        }
-      };
-    } catch (error) {
-      console.error("Failed to render JSON-LD:", error);
-    }
-  }, [data, nonce]);
-
-  // This component doesn't render anything visible
-  return null;
+  return (
+    <script
+      type="application/ld+json"
+      nonce={nonce}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: json }}
+    />
+  );
 }

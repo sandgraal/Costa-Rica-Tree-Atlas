@@ -1,7 +1,7 @@
 # Performance Optimization Guide
 
-**Last Updated:** 2026-02-10  
-**Status:** 🚀 Phase 1 Validated, Phase 2 In Progress  
+**Last Updated:** 2026-02-20  
+**Status:** 🚀 Phase 1-2 Validated, Phase 3 In Progress  
 **Lighthouse Baseline:** Performance 48/100 (2026-01-18)  
 **Target:** Performance >90/100
 
@@ -265,10 +265,13 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 
 ### Phase 3: Long-term Improvements
 
-- [ ] Migrate more components to Server Components
+- [x] Migrate more components to Server Components
   - [x] Convert `Footer` from client component to async server component (2026-02-10)
   - [x] Convert `CurrentYear` to a server component to remove unnecessary client hydration (2026-02-10)
   - [x] Convert `FeaturedTreesSection` to a server component and shift featured list derivation to server rendering (2026-02-10)
+  - [x] Convert `SafeJsonLd` to a server component — removes useEffect/useRef client JS, renders <script> tag server-side for SEO (2026-02-20)
+  - [x] Convert `HeroImage` to a server component — removes useState client JS from LCP critical path (2026-02-20)
+- [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement
 - [ ] Optimize database queries
@@ -356,6 +359,38 @@ lhci autorun
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
 
 ## Changelog
+
+### 2026-02-20 - Phase 3: Server Component Migration & Rendering Optimization ✅
+
+- **SafeJsonLd → Server Component:**
+  - Removed `"use client"` directive, `useEffect`, and `useRef` (entire component was client-side JS)
+  - Now renders `<script type="application/ld+json">` directly in HTML via `dangerouslySetInnerHTML`
+  - **Impact:** Structured data visible to crawlers on first render (SEO improvement), zero client-side JS overhead, no hydration cost
+  - Used across 9+ pages (layout, homepage, trees, conservation, about, education, seasonal, map, identify)
+  - Exported `sanitizeJsonForHtml` for direct testing; all 16 security tests pass
+- **HeroImage → Server Component:**
+  - Removed `"use client"` directive and `useState` (only used for error fallback)
+  - Added CSS gradient fallback on parent `<section>` instead of client-side error state
+  - **Impact:** LCP element renders without any client-side JavaScript — reduces TBT and TTI
+- **Applied `content-visibility: auto` to below-fold sections:**
+  - The `.section-offscreen` CSS class existed but was never used; now applied to 6 homepage sections
+  - Sections: Stats, Now Blooming, Tree of the Day, Recently Viewed, Featured Trees, About
+  - **Impact:** Browser skips rendering off-screen sections until user scrolls near them, reducing initial paint cost
+- **Cleaned up dark theme CSS comments** (no functional change — values were already identical)
+- **Tightened Lighthouse CI thresholds:**
+  - Performance: 0.70 → 0.85
+  - Best Practices: 0.85 → 0.90
+  - SEO: 0.85 → 0.90
+  - LCP: 4000ms → 2500ms
+  - TBT: 500ms → 300ms
+- **Files Modified:**
+  - `src/components/SafeJsonLd.tsx` — Server component conversion
+  - `src/components/__tests__/SafeJsonLd.test.tsx` — Updated tests for server rendering
+  - `src/components/HeroImage.tsx` — Server component conversion
+  - `src/app/[locale]/page.tsx` — Added `section-offscreen` and hero gradient fallback
+  - `src/app/globals.css` — Cleaned dark theme CSS comments
+  - `.lighthouserc.json` — Tightened performance thresholds
+- **Verification:** Lint 0 errors (267 pre-existing warnings), build successful, 16/16 SafeJsonLd tests pass
 
 ### 2026-02-07 - Phase 1 Validation & Phase 2 Quick Wins ✅
 
