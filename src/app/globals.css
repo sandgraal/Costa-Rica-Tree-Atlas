@@ -105,7 +105,12 @@
   }
 }
 
-/* Dark theme */
+/*
+ * Dark theme — single source of truth for dark mode variables.
+ * Applies via:
+ *   1. OS preference (prefers-color-scheme: dark) — unless user opted for light
+ *   2. Manual toggle (.dark class or data-theme="dark")
+ */
 @media (prefers-color-scheme: dark) {
   :root:not(.light):not([data-theme="light"]) {
     --background: #0f1a0f;
@@ -130,7 +135,6 @@
     --card-foreground: #e8f0e6;
     --background-pattern: none;
 
-    /* Foreground colors for dark mode */
     --primary-foreground: #ffffff;
     --secondary-foreground: #ffffff;
     --accent-foreground: #1f2f25;
@@ -139,7 +143,6 @@
   }
 }
 
-/* Manual dark mode support */
 .dark,
 [data-theme="dark"] {
   --background: #0f1a0f;
@@ -164,7 +167,6 @@
   --card-foreground: #e8f0e6;
   --background-pattern: none;
 
-  /* Foreground colors for dark mode */
   --primary-foreground: #ffffff;
   --secondary-foreground: #ffffff;
   --accent-foreground: #1f2f25;

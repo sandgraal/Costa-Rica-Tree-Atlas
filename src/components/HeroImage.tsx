@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
 
 interface HeroImageProps {
   priority?: boolean;
@@ -9,22 +6,17 @@ interface HeroImageProps {
 }
 
 /**
- * Optimized Hero Image Component
- * Uses native <picture> element with responsive srcsets for optimal LCP
+ * Optimized Hero Image Component (Server Component)
+ *
+ * Uses native <picture> element with responsive srcsets for optimal LCP.
+ * Rendered entirely on the server — zero client-side JavaScript.
+ * The parent element should provide a gradient fallback background
+ * so that if the image fails to load, the page still looks good.
  */
 export function HeroImage({
   priority = true,
   fetchPriority = "high",
 }: HeroImageProps) {
-  const [error, setError] = useState(false);
-
-  if (error) {
-    // Fallback to solid color background
-    return (
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30" />
-    );
-  }
-
   return (
     <picture className="absolute inset-0">
       {/* AVIF for best compression (newest browsers) */}
@@ -61,7 +53,6 @@ export function HeroImage({
         sizes="100vw"
         className="object-cover object-center"
         quality={85}
-        onError={() => { setError(true); }}
       />
     </picture>
   );

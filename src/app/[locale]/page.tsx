@@ -141,8 +141,8 @@ export default async function HomePage({ params }: Props) {
       <SafeJsonLd data={structuredData} />
       <SafeJsonLd data={organizationData} />
       <div className="relative">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-24 px-4 md:pt-20 md:pb-28 min-h-[600px] md:min-h-[700px] flex items-center">
+        {/* Hero Section — gradient fallback if hero image fails */}
+        <section className="relative overflow-hidden pt-16 pb-24 px-4 md:pt-20 md:pb-28 min-h-[600px] md:min-h-[700px] flex items-center bg-gradient-to-br from-primary-dark/80 to-secondary-dark/60">
           {/* Hero Background Image - Guanacaste Tree */}
           <HeroImage priority fetchPriority="high" />
 
@@ -165,14 +165,14 @@ export default async function HomePage({ params }: Props) {
         </section>
 
         {/* Stats Banner */}
-        <section className="py-12 px-4 bg-background">
+        <section className="py-12 px-4 bg-background section-offscreen">
           <div className="container mx-auto max-w-4xl">
             <StatsSection stats={stats} />
           </div>
         </section>
 
         {/* What's Blooming Now */}
-        <section className="py-12 px-4 bg-gradient-to-r from-pink-50 to-orange-50 dark:from-pink-950/20 dark:to-orange-950/20">
+        <section className="py-12 px-4 bg-gradient-to-r from-pink-50 to-orange-50 dark:from-pink-950/20 dark:to-orange-950/20 section-offscreen">
           <div className="container mx-auto max-w-6xl">
             <NowBloomingSection
               floweringNow={floweringNow}
@@ -192,7 +192,7 @@ export default async function HomePage({ params }: Props) {
         </section>
 
         {/* Tree of the Day */}
-        <section className="py-12 px-4">
+        <section className="py-12 px-4 section-offscreen">
           <div className="container mx-auto max-w-6xl">
             <TreeOfTheDay
               trees={trees}
@@ -203,14 +203,14 @@ export default async function HomePage({ params }: Props) {
         </section>
 
         {/* Recently Viewed (client-side, only shows if user has history) */}
-        <section className="px-4">
+        <section className="px-4 section-offscreen">
           <div className="container mx-auto max-w-6xl">
             <RecentlyViewedList locale={locale} />
           </div>
         </section>
 
         {/* Featured Trees Section */}
-        <section className="py-16 px-4 bg-muted">
+        <section className="py-16 px-4 bg-muted section-offscreen">
           <div className="container mx-auto max-w-6xl">
             <FeaturedTreesSection
               trees={trees}
@@ -222,7 +222,7 @@ export default async function HomePage({ params }: Props) {
         </section>
 
         {/* About Section */}
-        <section className="py-16 px-4">
+        <section className="py-16 px-4 section-offscreen">
           <div className="container mx-auto max-w-4xl text-center">
             <AboutSection
               openSource={footerT("openSource")}
