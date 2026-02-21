@@ -183,19 +183,20 @@ describe("SafeJsonLd Component", () => {
       description: 'A site with "quoted" content',
     };
 
-    render(<SafeJsonLd data={data} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={data} />);
+    const content = getScriptContent(container);
+
+    // Ensure script content is present
+    expect(content).not.toBeNull();
 
     // The output must be valid JSON — parseable without errors
-    expect(() => JSON.parse(script!.textContent!)).not.toThrow();
+    expect(() => JSON.parse(content as string)).not.toThrow();
 
     // Double-quotes must NOT be escaped to \u0022 (that would break JSON)
-    expect(script?.textContent).not.toContain("\\u0022");
+    expect(content).not.toContain("\\u0022");
 
     // Single-quotes must NOT be escaped to \u0027
-    expect(script?.textContent).not.toContain("\\u0027");
+    expect(content).not.toContain("\\u0027");
   });
 
   it("should allow legitimate content with 'script' or 'style' substrings", () => {
