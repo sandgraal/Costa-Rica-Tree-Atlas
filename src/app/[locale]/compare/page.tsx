@@ -2,13 +2,29 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
 import { allTrees, allSpeciesComparisons } from "contentlayer/generated";
-import { TreeComparison } from "@/components/TreeComparison";
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
+import dynamic from "next/dynamic";
 import type { Locale } from "@/types/tree";
+
+// Lazy load TreeComparison — 426-line client component with interactive tree selector
+const TreeComparison = dynamic(
+  () =>
+    import("@/components/TreeComparison").then((m) => ({
+      default: m.TreeComparison,
+    })),
+  {
+    loading: () => (
+      <div className="space-y-4 animate-pulse">
+        <div className="h-12 bg-muted rounded-lg w-64" />
+        <div className="h-64 bg-muted rounded-xl" />
+      </div>
+    ),
+  }
+);
 
 type Params = Promise<{ locale: string }>;
 

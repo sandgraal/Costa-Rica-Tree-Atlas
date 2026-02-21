@@ -1,6 +1,6 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-17  
+**Last Updated:** 2026-02-20  
 **Status:** ✅ v1.0 Complete | 🎯 Active Development
 
 ## 📊 Status Dashboard
@@ -583,8 +583,12 @@ See `audit-content-report.md` for complete list of 26 species.
 - [x] Remove unused client components (dead code)
   - [x] Delete `StreamingWrapper`, `ProgressiveImage`, `ResponsiveImage` — 0 imports (2026-02-20)
 - [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)
-- [ ] Implement partial hydration
-- [ ] Add progressive enhancement strategies
+- [x] Implement partial hydration (2026-02-20)
+  - Dynamic import 6 heavy client components (~3,252 lines deferred from initial bundles)
+  - QuickSearch (every page), TreeExplorer, SeasonalCalendar, TreeComparison, APIDocumentation, FieldGuideGenerator
+- [x] Add progressive enhancement strategies (2026-02-20)
+  - `<noscript>` fallbacks for trees directory, seasonal calendar, and global layout
+  - CSS rule to suppress loading skeletons when JS is disabled
 - [ ] Optimize database queries (when admin active)
 - [ ] Implement edge caching strategies
 

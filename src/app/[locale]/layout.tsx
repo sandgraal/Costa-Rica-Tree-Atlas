@@ -224,6 +224,22 @@ export default async function LocaleLayout({ children, params }: Props) {
           <StoreProvider>
             <NextIntlClientProvider messages={messages}>
               <PageErrorBoundary>
+                <noscript>
+                  <div
+                    role="alert"
+                    style={{
+                      padding: "12px 16px",
+                      backgroundColor: "#fef3c7",
+                      color: "#92400e",
+                      textAlign: "center",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {locale === "es"
+                      ? "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles."
+                      : "This site works best with JavaScript enabled. Navigation and core content remain available."}
+                  </div>
+                </noscript>
                 <a href="#main-content" className="skip-link">
                   Skip to main content
                 </a>

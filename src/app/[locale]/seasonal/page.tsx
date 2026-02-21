@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { SeasonalCalendar } from "@/components/SeasonalCalendar";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { allTrees } from "contentlayer/generated";
 import {
@@ -8,6 +7,27 @@ import {
   getEventTranslation,
   COSTA_RICA_EVENTS,
 } from "@/lib/costaRicaEvents";
+import dynamic from "next/dynamic";
+
+// Lazy load SeasonalCalendar — 953-line client component with interactive calendar grid
+const SeasonalCalendar = dynamic(
+  () =>
+    import("@/components/SeasonalCalendar").then((m) => ({
+      default: m.SeasonalCalendar,
+    })),
+  {
+    loading: () => (
+      <div className="space-y-6 animate-pulse">
+        <div className="flex gap-2 justify-center">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div key={i} className="h-10 w-10 bg-muted rounded-lg" />
+          ))}
+        </div>
+        <div className="h-96 bg-muted rounded-xl" />
+      </div>
+    ),
+  }
+);
 
 interface SeasonalPageProps {
   params: Promise<{ locale: string }>;
@@ -209,6 +229,60 @@ export default async function SeasonalPage({
         </div>
 
         <SeasonalCalendar trees={trees} locale={locale} />
+
+        {/* Progressive enhancement: fallback list when JS is disabled */}
+        <noscript>
+          <div className="mt-8 space-y-6">
+            {treesFloweringNow.length > 0 && (
+              <div>
+                <h2 className="text-xl font-semibold mb-3">
+                  {locale === "es"
+                    ? "Árboles floreciendo ahora"
+                    : "Trees flowering now"}
+                </h2>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {treesFloweringNow.map((tree) => (
+                    <li key={tree.slug}>
+                      <a
+                        href={`/${locale}/trees/${tree.slug}`}
+                        className="block p-3 border rounded-lg hover:bg-muted"
+                      >
+                        <strong>{tree.title}</strong>
+                        <span className="text-sm text-muted-foreground ml-2">
+                          🌸
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {treesFruitingNow.length > 0 && (
+              <div>
+                <h2 className="text-xl font-semibold mb-3">
+                  {locale === "es"
+                    ? "Árboles fructificando ahora"
+                    : "Trees fruiting now"}
+                </h2>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {treesFruitingNow.map((tree) => (
+                    <li key={tree.slug}>
+                      <a
+                        href={`/${locale}/trees/${tree.slug}`}
+                        className="block p-3 border rounded-lg hover:bg-muted"
+                      >
+                        <strong>{tree.title}</strong>
+                        <span className="text-sm text-muted-foreground ml-2">
+                          🍎
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </noscript>
 
         {/* Costa Rica Climate Info */}
         <section className="mt-12 bg-muted rounded-xl p-6">

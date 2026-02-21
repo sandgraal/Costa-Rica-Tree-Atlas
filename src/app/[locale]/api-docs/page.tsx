@@ -1,6 +1,26 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
-import { APIDocumentation } from "@/components/APIDocumentation";
+import dynamic from "next/dynamic";
+
+// Lazy load APIDocumentation — 479-line client component, low-traffic page
+const APIDocumentation = dynamic(
+  () =>
+    import("@/components/APIDocumentation").then((m) => ({
+      default: m.APIDocumentation,
+    })),
+  {
+    loading: () => (
+      <div className="space-y-6 animate-pulse">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-24 bg-gray-200 dark:bg-gray-700 rounded-lg"
+          />
+        ))}
+      </div>
+    ),
+  }
+);
 
 interface PageProps {
   params: Promise<{ locale: string }>;

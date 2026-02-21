@@ -103,6 +103,13 @@
   @font-face {
     font-display: swap;
   }
+
+  /* Progressive enhancement: hide loading skeletons when JS is disabled
+     since dynamically loaded components won't ever replace them */
+  noscript + .animate-pulse,
+  noscript ~ .animate-pulse {
+    display: none;
+  }
 }
 
 /*
