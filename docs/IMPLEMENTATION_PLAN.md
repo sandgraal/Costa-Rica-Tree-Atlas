@@ -1,6 +1,6 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-20  
+**Last Updated:** 2026-02-21  
 **Status:** ✅ v1.0 Complete | 🎯 Active Development
 
 ## 📊 Status Dashboard
@@ -591,6 +591,12 @@ See `audit-content-report.md` for complete list of 26 species.
   - CSS rule to suppress loading skeletons when JS is disabled
 - [ ] Optimize database queries (when admin active)
 - [x] Implement edge caching strategies (2026-02-21)
+- [x] Code-split `mdx/client-components.tsx` into individual files (2026-02-21)
+  - Split 958-line monolithic `"use client"` module into 8 individual files under `mdx/client/`
+  - Each component (AccordionItem, ImageCard, ImageGallery, Tabs, GlossaryTooltip, BeforeAfterSlider, SideBySideImages, FeatureAnnotation) has its own `"use client"` boundary
+  - Enables per-component code-splitting: only rendered components are included in page bundles
+  - Comparison-only components (BeforeAfterSlider, SideBySideImages, FeatureAnnotation) no longer bundled on tree pages
+  - Backward-compatible: `client-components.tsx` now re-exports from `./client/`
 
 **Performance Budgets:**
 

@@ -28,14 +28,14 @@
 
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxServerComponents } from "@/components/mdx/server-components";
-import {
-  AccordionItem,
-  ImageCard,
-  ImageGallery,
-  Tabs,
-  GlossaryTooltip,
-  SideBySideImages,
-} from "@/components/mdx/client-components";
+import { AccordionItem } from "@/components/mdx/client/AccordionItem";
+import { ImageCard } from "@/components/mdx/client/ImageCard";
+import { ImageGallery } from "@/components/mdx/client/ImageGallery";
+import { Tabs } from "@/components/mdx/client/Tabs";
+import { GlossaryTooltip } from "@/components/mdx/client/GlossaryTooltip";
+import { BeforeAfterSlider } from "@/components/mdx/client/BeforeAfterSlider";
+import { SideBySideImages } from "@/components/mdx/client/SideBySideImages";
+import { FeatureAnnotation } from "@/components/mdx/client/FeatureAnnotation";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 import { TreeGallery } from "@/components/TreeGallery";
 
@@ -150,7 +150,7 @@ export async function ServerMDXContent({
   };
 
   // Merge server MDX components with client components and any additional ones passed in
-  // Client components are imported individually (not as an object) to avoid RSC serialization issues
+  // Client components are imported from individual files for per-component code-splitting
   const allComponents = {
     ...mdxServerComponents,
     ...localizedComponents,
@@ -159,7 +159,10 @@ export async function ServerMDXContent({
     ImageGallery,
     Tabs,
     GlossaryTooltip,
+    // Comparison-specific components (only hydrated when actually rendered in MDX)
+    BeforeAfterSlider,
     SideBySideImages,
+    FeatureAnnotation,
     TreeGallery,
     ...components,
   };
