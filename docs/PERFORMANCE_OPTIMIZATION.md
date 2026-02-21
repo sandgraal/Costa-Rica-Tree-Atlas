@@ -1,7 +1,7 @@
 # Performance Optimization Guide
 
 **Last Updated:** 2026-02-20  
-**Status:** 🚀 Phase 1-2 Validated, Phase 3 In Progress  
+**Status:** Phase 1-2 Validated, Phase 3 In Progress  
 **Lighthouse Baseline:** Performance 48/100 (2026-01-18)  
 **Target:** Performance >90/100
 
@@ -274,8 +274,11 @@ import { useVirtualizer } from "@tanstack/react-virtual";
   - [x] Convert `SafetyCard` to async server component — 327 lines moved off client bundle, useTranslations → getTranslations (2026-02-20)
   - [x] Convert `SafetyDisclaimer` to async server component — useTranslations → getTranslations (2026-02-20)
   - [x] Convert `Breadcrumbs` to server component — usePathname → pathname prop from server pages (2026-02-20)
-  - [ ] Convert `SafetyIcon` to server component — BLOCKED: imported by client components (`SafetyPageClient`, `TreeCard`); refactor call sites first
-  - [ ] Convert `QRCodeGenerator` to server component — BLOCKED: imported by client component (`FieldGuidePreview`); refactor call site first
+  - [x] Convert `SafetyIcon` to server component — pure render logic, no hooks (2026-02-20)
+  - [x] Convert `QRCodeGenerator` to server component — pure Image wrapper, no hooks (2026-02-20)
+  - [x] Convert `Header` to async server component — useTranslations/useLocale to getTranslations/getLocale, renders on every page (2026-02-20)
+  - [x] Convert `SafetyWarning` to async server component — useTranslations to getTranslations, only used by SafetyCard (2026-02-20)
+  - [x] Convert `TreeOfTheDay` to server component — removed memo wrapper, no hooks, replaced dynamic() with direct import on homepage (2026-02-20)
 - [x] Remove unused client components (dead code)
   - [x] Delete `StreamingWrapper` — 0 imports in codebase (2026-02-20)
   - [x] Delete `ProgressiveImage` — 0 imports in codebase (2026-02-20)

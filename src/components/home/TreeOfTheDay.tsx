@@ -1,11 +1,8 @@
-"use client";
-
-import { memo } from "react";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
 
-export const TreeOfTheDay = memo(function TreeOfTheDay({
+export function TreeOfTheDay({
   trees,
   locale,
   treeOfTheDay,
@@ -124,4 +121,4 @@ export const TreeOfTheDay = memo(function TreeOfTheDay({
       </div>
     </div>
   );
-});
+}

@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import type { ToxicityLevel } from "@/types/tree";
 
 interface SafetyWarningProps {
@@ -40,12 +38,12 @@ const getWarningStyles = (level: ToxicityLevel) => {
   }
 };
 
-export function SafetyWarning({
+export async function SafetyWarning({
   level,
   message,
   className = "",
 }: SafetyWarningProps) {
-  const t = useTranslations("safety");
+  const t = await getTranslations("safety");
 
   // Only show warnings for moderate and above
   if (level === "none" || level === "low") {

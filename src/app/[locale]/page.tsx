@@ -7,23 +7,14 @@ import { NowBloomingSection } from "@/components/home/NowBloomingSection";
 import { StatsSection } from "@/components/home/StatsSection";
 import { AboutSection } from "@/components/home/AboutSection";
 import { FeaturedTreesSection } from "@/components/FeaturedTreesSection";
+import { TreeOfTheDay } from "@/components/home/TreeOfTheDay";
 import dynamic from "next/dynamic";
-import { memo } from "react";
+// memo/Suspense removed: server components don't re-render or need client code-splitting
 import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
-import {
-  TreeOfTheDaySkeleton,
-  RecentlyViewedSkeleton,
-} from "@/components/LoadingSkeletons";
+import { RecentlyViewedSkeleton } from "@/components/LoadingSkeletons";
 
-// Lazy load below-the-fold components to improve LCP and reduce TBT
-const TreeOfTheDay = dynamic(
-  () =>
-    import("@/components/home/TreeOfTheDay").then((mod) => ({
-      default: mod.TreeOfTheDay,
-    })),
-  { loading: () => <TreeOfTheDaySkeleton /> }
-);
+// Lazy load client-only below-the-fold components to reduce TBT
 const RecentlyViewedList = dynamic(
   () =>
     import("@/components/RecentlyViewedList").then((mod) => ({
@@ -235,7 +226,7 @@ export default async function HomePage({ params }: Props) {
   );
 }
 
-const HeroContent = memo(function HeroContent({
+function HeroContent({
   title,
   description,
   exploreButton,
@@ -283,4 +274,4 @@ const HeroContent = memo(function HeroContent({
       </div>
     </>
   );
-});
+}
