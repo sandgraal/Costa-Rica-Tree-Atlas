@@ -137,9 +137,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Nonce removed: the layout no longer calls headers(), making all child
   // pages eligible for static generation and Vercel edge caching.
   // Theme bootstrap is an inline script allowed via its SHA-256 hash in the
-  // CSP (see src/lib/security/csp.ts).  The CSP uses 'self' + explicit
-  // host allowlisting instead of 'strict-dynamic', so Next.js framework
-  // scripts load normally without nonce attributes.
+  // CSP (see src/lib/security/csp.ts). The CSP uses 'self' + explicit host
+  // allowlisting for known third-party origins, with an `https:` fallback
+  // in script-src (and no 'strict-dynamic'), so Next.js framework scripts
+  // load normally without nonce attributes.
   // Analytics scripts use next/script with strategy="lazyOnload".
   // JSON-LD <script type="application/ld+json"> is a data block
   // (non-executable) and does not require a nonce in modern browsers.
