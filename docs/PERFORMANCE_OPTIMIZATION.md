@@ -285,7 +285,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
   - [x] Delete `ResponsiveImage` — only barrel re-export, never imported (2026-02-20)
 - [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)
 - [x] Implement partial hydration (2026-02-20)
-  - Dynamic import `QuickSearch` (417 lines) in Header — loaded on every page, deferred until interaction
+  - Dynamic import `QuickSearch` (417 lines) in Header — loaded on every page; dynamic chunk requested during initial render (not deferred until interaction)
   - Dynamic import `TreeExplorer` (685 lines) in trees page with loading skeleton
   - Dynamic import `SeasonalCalendar` (953 lines) in seasonal page with loading skeleton
   - Dynamic import `TreeComparison` (426 lines) in compare page with loading skeleton
