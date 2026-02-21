@@ -4,31 +4,34 @@ Last updated: 2026-02-20
 
 ## Latest Run Summary
 
-- **Branch**: `feature/performance-phase3-optimizations` → [PR #416](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/416) to main (open)
-- **Task completed**: Performance Phase 3 (P2) — converted SafeJsonLd and HeroImage from client to server components, applied `content-visibility: auto` to 6 below-fold homepage sections, tightened Lighthouse CI thresholds.
+- **Branch**: `feature/server-component-conversions-phase3b` → PR to main (open)
+- **Task completed**: Performance Phase 3 (P2) — continued server component conversions, removed dead code.
 - **Key changes**:
-  - `SafeJsonLd.tsx`: Removed `"use client"`, `useEffect`, `useRef` — renders `<script>` server-side (eliminates client JS across 9+ pages)
-  - `HeroImage.tsx`: Removed `"use client"`, `useState` — CSS gradient fallback replaces JS error handler (removes JS from LCP path)
-  - `page.tsx`: Applied `.section-offscreen` class to 6 homepage sections (content-visibility: auto)
-  - `.lighthouserc.json`: Perf 0.70→0.85, LCP 4000ms→2500ms, TBT 500ms→300ms
-- **Updated tracking docs**: `docs/PERFORMANCE_OPTIMIZATION.md` (Phase 3 checklist), `docs/IMPLEMENTATION_PLAN.md` (Phase 3 items marked complete).
-- **Verification**: lint 0 errors (267 pre-existing warnings), build successful, 16/16 SafeJsonLd tests pass.
+  - `SafetyCard.tsx` (327 lines): Converted from client to async server component — replaced `useTranslations` with `getTranslations`, removed `"use client"`. Imported directly by tree detail server page, so client hydration cost eliminated entirely.
+  - `SafetyDisclaimer.tsx`: Converted from client to async server component — same `useTranslations` → `getTranslations` refactor.
+  - `Breadcrumbs.tsx`: Converted from client to server component — replaced `usePathname()` with `pathname` prop passed from server pages, removed `useMemo`. Updated 2 call sites.
+  - `SafetyIcon.tsx`: Removed `"use client"` (pure render logic, no hooks).
+  - `QRCodeGenerator.tsx`: Removed `"use client"` (pure Image wrapper, no hooks).
+  - Deleted 3 unused components: `StreamingWrapper.tsx` (0 imports), `ProgressiveImage.tsx` (0 imports), `ResponsiveImage.tsx` (0 imports, only barrel re-export).
+  - Updated barrel export (`components/index.ts`) to remove dead re-export.
+- **Updated tracking docs**: This handoff file, `docs/PERFORMANCE_OPTIMIZATION.md` (Phase 3 checklist), `docs/IMPLEMENTATION_PLAN.md` (Phase 3 items).
+- **Verification**: lint 0 errors (pre-existing warnings only), build successful, 23/23 SafetyBadge tests pass.
 
 ## Highest-Priority Remaining Work
 
 From `docs/IMPLEMENTATION_PLAN.md`:
 
-| Priority | Task                 | Status               | Notes                                                                                                                                                      |
-| -------- | -------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1.1     | Species content      | 169/169 (100%) ✅    | Target 175+ by adding new species from MISSING_SPECIES_LIST.md                                                                                             |
-| P1.3     | Care guidance        | 169/169 (100%) ✅    | Complete                                                                                                                                                   |
-| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                                                                                                                        |
-| P2       | Performance Phase 3  | � In progress        | SafeJsonLd + HeroImage converted, content-visibility applied, CI thresholds tightened. Remaining: partial hydration, progressive enhancement, edge caching |
-| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                                                                                                                |
-| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                           |
-| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                   |
+| Priority | Task                 | Status               | Notes                                                                                                                                                                                                                                                                             |
+| -------- | -------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1.1     | Species content      | 169/169 (100%) ✅    | All species from MISSING_SPECIES_LIST.md complete. Target 175+ by identifying new species.                                                                                                                                                                                        |
+| P1.3     | Care guidance        | 169/169 (100%) ✅    | Complete                                                                                                                                                                                                                                                                          |
+| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                                                                                                                                                                                                                                               |
+| P2       | Performance Phase 3  | 🟡 In progress       | 12 server component conversions done (Footer, CurrentYear, FeaturedTrees, SafeJsonLd, HeroImage, SafetyCard, SafetyDisclaimer, Breadcrumbs, SafetyIcon, QRCode + 3 dead code deleted). Remaining: ~55 client components, partial hydration, progressive enhancement, edge caching |
+| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                                                                                                                                                                                                                                       |
+| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                                                                                                                                                  |
+| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                                                                                                                                          |
 
-**Recommended next task**: Add new species beyond the current 169 toward the 175+ target (P1.1) — identify species not yet in `content/trees/`. Alternatively, continue Performance Phase 3 (P2) remaining items: partial hydration, progressive enhancement, edge caching, or pursue further Server Component conversions from the 60+ remaining client components.
+**Recommended next task**: Continue Performance Phase 3 — pursue further server component conversions among the ~55 remaining client components. Focus on components imported directly by server pages where conversion yields real JS bundle savings. Good candidates: components that only use `useTranslations` (refactor to `getTranslations`). Alternatively, begin Performance Phase 3 items: partial hydration, progressive enhancement, edge caching. Or add new species toward 175+ target.
 
 ## Operator Preferences (Persistent)
 
@@ -47,7 +50,11 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Review remaining unchecked categories and pick the highest-priority species batch.
+- Continue Performance Phase 3: convert more client components to server components where feasible.
+- Focus on components imported by server pages where useTranslations → getTranslations conversion eliminates client JS.
+- ~55 client components remain; many use only useTranslations and could be refactored.
+- Alternatively, pursue partial hydration, progressive enhancement, or edge caching items.
+- Or add new species toward the 175+ target.
 - Do not ask questions if answer exists in repo docs.
 - Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
 

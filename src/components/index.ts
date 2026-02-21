@@ -55,7 +55,6 @@ export { MDXRenderer } from "./MDXRenderer";
 export { AutoGlossaryLink } from "./AutoGlossaryLink";
 export { GlossaryTooltip } from "./GlossaryTooltip";
 export { OptimizedImage, IMAGE_SIZES } from "./OptimizedImage";
-export { ResponsiveImage } from "./ResponsiveImage";
 export { SafeImage } from "./SafeImage";
 export { SafeJsonLd } from "./SafeJsonLd";
 export { ImageErrorBoundary } from "./ImageErrorBoundary";

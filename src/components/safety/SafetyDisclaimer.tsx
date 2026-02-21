@@ -1,9 +1,7 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslations } from "next-intl";
-
-export function SafetyDisclaimer() {
-  const t = useTranslations("safety.disclaimer");
+export async function SafetyDisclaimer() {
+  const t = await getTranslations("safety.disclaimer");
 
   return (
     <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">

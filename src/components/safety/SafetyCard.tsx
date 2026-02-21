@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import { SafetyBadge } from "./SafetyBadge";
 import { SafetyWarning } from "./SafetyWarning";
@@ -59,8 +57,8 @@ function humanizeToken(value: string): string {
   return value.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-export function SafetyCard({ tree, className = "" }: SafetyCardProps) {
-  const t = useTranslations("safety");
+export async function SafetyCard({ tree, className = "" }: SafetyCardProps) {
+  const t = await getTranslations("safety");
   const translate = (key: string) =>
     t.has(key as never) ? t(key as never) : null;
   const getSafetyValueLabel = (

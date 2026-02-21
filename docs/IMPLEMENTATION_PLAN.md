@@ -572,6 +572,13 @@ See `audit-content-report.md` for complete list of 26 species.
   - [x] Convert homepage `FeaturedTreesSection` to a server component and move selection logic to server rendering (2026-02-10)
   - [x] Convert `SafeJsonLd` to server component — removes useEffect/useRef client JS, renders `<script>` tag server-side for SEO (2026-02-20)
   - [x] Convert `HeroImage` to server component — removes useState from LCP critical path (2026-02-20)
+  - [x] Convert `SafetyCard` to async server component — 327 lines off client bundle, useTranslations → getTranslations (2026-02-20)
+  - [x] Convert `SafetyDisclaimer` to async server component — useTranslations → getTranslations (2026-02-20)
+  - [x] Convert `Breadcrumbs` to server component — usePathname → pathname prop (2026-02-20)
+  - [x] Convert `SafetyIcon` to server component — pure render logic (2026-02-20)
+  - [x] Convert `QRCodeGenerator` to server component — pure Image wrapper (2026-02-20)
+- [x] Remove unused client components (dead code)
+  - [x] Delete `StreamingWrapper`, `ProgressiveImage`, `ResponsiveImage` — 0 imports (2026-02-20)
 - [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement strategies

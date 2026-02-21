@@ -1,22 +1,21 @@
-"use client";
-
 import { Link } from "@i18n/navigation";
-import { usePathname } from "next/navigation";
-import { useMemo } from "react";
 import type { Locale } from "@/types/tree";
 
 interface BreadcrumbsProps {
   locale: Locale;
+  /** The path without locale prefix (e.g., "/trees/ceiba") */
+  pathname: string;
   customLabels?: Record<string, string>;
 }
 
-export function Breadcrumbs({ locale, customLabels = {} }: BreadcrumbsProps) {
-  const pathname = usePathname();
-
-  const breadcrumbs = useMemo(() => {
-    // Remove locale prefix and split path
-    const pathWithoutLocale = pathname.replace(/^\/(en|es)/, "");
-    const segments = pathWithoutLocale.split("/").filter(Boolean);
+export function Breadcrumbs({
+  locale,
+  pathname,
+  customLabels = {},
+}: BreadcrumbsProps) {
+  const breadcrumbs = (() => {
+    // Split path into segments (pathname is already without locale prefix)
+    const segments = pathname.split("/").filter(Boolean);
 
     // Default labels for common paths
     const defaultLabels: Record<string, { en: string; es: string }> = {
@@ -73,7 +72,7 @@ export function Breadcrumbs({ locale, customLabels = {} }: BreadcrumbsProps) {
     });
 
     return crumbs;
-  }, [pathname, locale, customLabels]);
+  })();
 
   // Don't show breadcrumbs on home page
   if (breadcrumbs.length <= 1) {
