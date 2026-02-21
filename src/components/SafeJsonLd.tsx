@@ -106,14 +106,21 @@ export function sanitizeJsonForHtml(json: string): string {
     return "{}";
   }
 
-  // 5. Validate that the result is still parseable JSON.
+  // 5. If the sanitized value looks like JSON, validate that it is still parseable.
   // Sanitization should never break valid JSON; if it does, fall back to
   // an empty object to avoid serving malformed structured data.
-  try {
-    JSON.parse(sanitized);
-  } catch {
-    console.error("⚠️ JSON-LD sanitization produced invalid JSON");
-    return "{}";
+  const trimmed = sanitized.trim();
+  const looksLikeJson =
+    (trimmed.startsWith("{") && trimmed.endsWith("}")) ||
+    (trimmed.startsWith("[") && trimmed.endsWith("]"));
+
+  if (looksLikeJson) {
+    try {
+      JSON.parse(sanitized);
+    } catch {
+      console.error("⚠️ JSON-LD sanitization produced invalid JSON");
+      return "{}";
+    }
   }
 
   return sanitized;
