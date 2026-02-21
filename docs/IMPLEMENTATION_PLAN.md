@@ -590,7 +590,7 @@ See `audit-content-report.md` for complete list of 26 species.
   - `<noscript>` fallbacks for trees directory, seasonal calendar, and global layout
   - CSS rule to suppress loading skeletons when JS is disabled
 - [ ] Optimize database queries (when admin active)
-- [ ] Implement edge caching strategies
+- [x] Implement edge caching strategies (2026-02-21)
 
 **Performance Budgets:**
 
