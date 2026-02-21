@@ -14,6 +14,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { UserManagementClient } from "./UserManagementClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "User Management | Admin",
   description: "Manage your account, security settings, and view audit logs",

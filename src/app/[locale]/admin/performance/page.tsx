@@ -3,6 +3,8 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import PerformanceDashboardClient from "./PerformanceDashboardClient";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: Promise<{ locale: string }>;
 };

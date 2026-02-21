@@ -122,10 +122,12 @@ export default async function middleware(request: NextRequest) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
     csp = buildRelaxedCSP(nonce);
   } else if (isMDXPage) {
-    // Tree and glossary detail pages: MDX CSP (requires unsafe-eval for MDX rendering)
+    // Tree and glossary detail pages: MDX-specific CSP (currently identical
+    // to standard CSP since server-side rendering removed unsafe-eval need,
+    // but kept separate for future route-based policy flexibility)
     csp = buildMDXCSP(nonce);
   } else {
-    // All other pages: Strict CSP (no unsafe-eval)
+    // All other pages: Strict CSP
     csp = buildCSP(nonce);
   }
 
@@ -134,16 +136,28 @@ export default async function middleware(request: NextRequest) {
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
   response.headers.set("X-Nonce", nonce);
 
-  // For MDX pages, prevent caching of the HTML response to ensure CSP headers
-  // are always fresh. This is critical because MDX rendering requires unsafe-eval,
-  // and cached pages might have incorrect CSP headers from previous requests.
-  // Static assets are still cached normally (handled by early return above).
+  // Edge caching for public pages
+  //
+  // Previously, MDX pages used `no-cache, no-store` to keep CSP nonces fresh.
+  // That is unnecessary because:
+  //   1. Middleware runs on EVERY request (even for edge-cached pages) and
+  //      sets fresh CSP headers each time — nonces are never stale.
+  //   2. `buildMDXCSP()` no longer requires `unsafe-eval` in production
+  //      (server-side MDX rendering eliminated client-side eval).
+  //   3. Tree and glossary pages are statically generated via
+  //      `generateStaticParams` and contain no inline scripts with nonce
+  //      attributes — the HTML body is nonce-agnostic.
+  //
+  // Using `s-maxage` lets Vercel's CDN serve cached HTML at the edge while
+  // middleware still applies per-request CSP headers on top.
+  // `stale-while-revalidate` serves stale content instantly while
+  // revalidating in the background, providing a smooth user experience.
   if (isMDXPage) {
     response.headers.set(
       "Cache-Control",
-      "private, no-cache, no-store, must-revalidate"
+      "public, s-maxage=86400, stale-while-revalidate=604800"
     );
-    response.headers.set("Vary", "Cookie, Accept-Encoding");
+    response.headers.set("Vary", "Accept-Encoding");
   }
 
   return response;

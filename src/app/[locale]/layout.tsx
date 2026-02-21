@@ -2,14 +2,12 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@i18n/routing";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StoreProvider, QueryProvider } from "@/components/providers";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
-import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
@@ -130,27 +128,28 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Providing all messages to the client side
   const messages = await getMessages();
 
-  // Get nonce from middleware
-  const headersList = await headers();
-  const nonce = headersList.get("x-nonce") || undefined;
+  // Nonce removed: the layout no longer calls headers(), making all child
+  // pages eligible for static generation and Vercel edge caching.
+  // Theme init is now an external script (/public/theme-init.js) served
+  // via 'self' in CSP.  Analytics scripts use next/script with
+  // strategy="lazyOnload" which is handled by strict-dynamic CSP.
+  // JSON-LD <script type="application/ld+json"> is a data block
+  // (non-executable) and does not require a nonce in modern browsers.
 
   return (
     <html lang={locale}>
       <head>
         {/*
-          Theme script - MUST be first to prevent flash
-          Security: Safe to use dangerouslySetInnerHTML here because THEME_SCRIPT
-          is a static string with no user input - only compile-time constants.
+          Theme init script - MUST load synchronously before first paint.
+          External file avoids inline-script nonce dependency, making the
+          layout compatible with static generation and edge caching.
+          Allowed by CSP 'self' directive.
         */}
-        <script
-          nonce={nonce}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
-        />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts -- intentionally synchronous to prevent FOUC */}
+        <script src="/theme-init.js" />
 
         {/* Site-wide structured data */}
         <SafeJsonLd
-          nonce={nonce}
           data={{
             "@context": "https://schema.org",
             "@graph": [
@@ -238,7 +237,6 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <PWARegister />
                 {/* Privacy-respecting analytics - configure via env vars */}
                 <Analytics
-                  nonce={nonce}
                   plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
                   enableSimpleAnalytics={
                     process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
