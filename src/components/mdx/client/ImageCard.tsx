@@ -68,15 +68,12 @@ export function ImageCard({
             {license && <span className="ml-2 opacity-75">({license})</span>}
           </p>
         )}
-        {sourceUrl && (
+        {sourceUrl && !onClick && (
           <a
             href={sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-primary hover:underline mt-1 inline-block"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
           >
             View source ↗
           </a>
