@@ -20,6 +20,7 @@ export { LanguageSwitcher } from "./LanguageSwitcher";
 // Tree display (used in tree pages and comparison)
 export { TreeTags } from "./TreeTags";
 export { TreeGallery } from "./TreeGallery";
+export { ImageLightbox } from "./ImageLightbox";
 export { TreeComparison } from "./TreeComparison";
 export { ConservationStatus } from "./ConservationStatus";
 export { SeasonalCalendar } from "./SeasonalCalendar";

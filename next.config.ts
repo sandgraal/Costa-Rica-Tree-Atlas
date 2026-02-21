@@ -80,6 +80,90 @@ const nextConfig: NextConfig = {
         },
       ],
     },
+    // Edge caching for static public pages
+    // These pages are pre-rendered at build and don't use per-request data.
+    // Middleware still applies fresh CSP headers on every request.
+    {
+      source: "/:locale(en|es)/trees",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/glossary",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/about",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/conservation",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/education",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/safety",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/seasonal",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/map",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/identify",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
   ],
 
   // Experimental optimizations

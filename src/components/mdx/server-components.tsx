@@ -1912,17 +1912,30 @@ export function QuickDecisionFlow({
 
 // Compare In Tool Button
 interface CompareInToolButtonProps {
-  species: string[];
+  /** Accepts string[] from code or comma-separated string from MDX
+   *  (MDX security plugin strips JS expression attributes like arrays) */
+  species?: string[] | string;
   locale?: string;
   label?: string;
 }
 
 export function CompareInToolButton({
-  species,
+  species = [],
   locale = "en",
   label,
 }: CompareInToolButtonProps) {
-  const speciesParam = species.join(",");
+  // Handle both string (from MDX where array expressions are stripped) and array
+  const speciesList = Array.isArray(species)
+    ? species
+    : typeof species === "string"
+      ? species.split(",").map((s) => s.trim())
+      : [];
+
+  if (speciesList.length === 0) {
+    return null;
+  }
+
+  const speciesParam = speciesList.join(",");
   const href = `/${locale}/compare?species=${encodeURIComponent(speciesParam)}`;
   const buttonLabel =
     label ||

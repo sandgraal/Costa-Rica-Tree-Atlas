@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import ProposalDetailClient from "./ProposalDetailClient";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: Promise<{ locale: string; id: string }>;
 };

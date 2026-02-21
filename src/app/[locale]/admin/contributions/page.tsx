@@ -4,6 +4,8 @@ import { redirect as nextRedirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ContributionsListClient } from "./ContributionsListClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Review Contributions | Admin",
   description: "Review and manage community contributions",
