@@ -42,6 +42,8 @@ export const THEME_SCRIPT = `
   } catch (e) {
     // Fail silently - default to light theme (no console error for better perf)
     document.documentElement.classList.add('light');
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.style.colorScheme = 'light';
   }
 })();
 `.trim();

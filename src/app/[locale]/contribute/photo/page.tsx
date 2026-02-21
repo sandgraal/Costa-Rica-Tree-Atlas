@@ -3,8 +3,6 @@ import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import PhotoUploadClient from "./PhotoUploadClient";
 
-export const dynamic = "force-dynamic";
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
