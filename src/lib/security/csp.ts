@@ -29,8 +29,8 @@ const COMMON_IMG_SOURCES = [
  * calling headers() so pages can be statically generated and edge-cached.
  *
  * Recompute when THEME_SCRIPT changes:
- *   node -e "require('crypto').createHash('sha256')
- *     .update(THEME_SCRIPT_STRING,'utf8').digest('base64')"
+ *   node -e "const { THEME_SCRIPT } = require('./src/lib/theme/theme-script'); \
+ *     console.log('sha256-' + require('crypto').createHash('sha256').update(THEME_SCRIPT, 'utf8').digest('base64'));"
  */
 const THEME_SCRIPT_HASH =
   "'sha256-eznarqhEH+dVy3cgm/b3Jqm0dVn5twXeA2yaCUDEAkw='";
