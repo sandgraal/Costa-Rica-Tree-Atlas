@@ -23,6 +23,19 @@ const COMMON_IMG_SOURCES = [
 ] as const;
 
 /**
+ * SHA-256 hash of the inline theme bootstrap script (THEME_SCRIPT from
+ * src/lib/theme/theme-script.ts).  Used to whitelist the inline <script>
+ * in the CSP without requiring a nonce — which in turn lets the layout avoid
+ * calling headers() so pages can be statically generated and edge-cached.
+ *
+ * Recompute when THEME_SCRIPT changes:
+ *   node -e "require('crypto').createHash('sha256')
+ *     .update(THEME_SCRIPT_STRING,'utf8').digest('base64')"
+ */
+const THEME_SCRIPT_HASH =
+  "'sha256-eznarqhEH+dVy3cgm/b3Jqm0dVn5twXeA2yaCUDEAkw='";
+
+/**
  * Generate a cryptographic nonce for CSP using Web Crypto API
  * Compatible with Edge Runtime
  *
@@ -92,6 +105,8 @@ export function buildCSP(nonce?: string): string {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
+      // Hash for the inline theme bootstrap script (no nonce needed)
+      THEME_SCRIPT_HASH,
       // Nonce for inline scripts
       ...(nonce ? [`'nonce-${nonce}'`] : []),
       // strict-dynamic allows nonce-approved scripts to load other scripts
@@ -180,6 +195,8 @@ export function buildMDXCSP(nonce?: string): string {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
+      // Hash for the inline theme bootstrap script (no nonce needed)
+      THEME_SCRIPT_HASH,
       ...(nonce ? [`'nonce-${nonce}'`] : []),
       "'strict-dynamic'",
       // Privacy-friendly analytics
@@ -255,6 +272,8 @@ export function buildRelaxedCSP(nonce?: string): string {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
+      // Hash for the inline theme bootstrap script (no nonce needed)
+      THEME_SCRIPT_HASH,
       ...(nonce ? [`'nonce-${nonce}'`] : []),
       "'strict-dynamic'",
       "https://www.googletagmanager.com",

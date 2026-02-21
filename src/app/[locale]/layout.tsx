@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { StoreProvider, QueryProvider } from "@/components/providers";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
+import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
@@ -130,9 +131,11 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   // Nonce removed: the layout no longer calls headers(), making all child
   // pages eligible for static generation and Vercel edge caching.
-  // Theme init is now an external script (/public/theme-init.js) served
-  // via 'self' in CSP.  Analytics scripts use next/script with
-  // strategy="lazyOnload" which is handled by strict-dynamic CSP.
+  // Theme bootstrap is an inline script allowed via its SHA-256 hash in the
+  // CSP (see src/lib/security/csp.ts).  With 'strict-dynamic', hash-based
+  // allowance works alongside nonces — 'self' is ignored but hashes are not.
+  // Analytics scripts use next/script with strategy="lazyOnload" which is
+  // handled by strict-dynamic CSP.
   // JSON-LD <script type="application/ld+json"> is a data block
   // (non-executable) and does not require a nonce in modern browsers.
 
@@ -140,13 +143,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <head>
         {/*
-          Theme init script - MUST load synchronously before first paint.
-          External file avoids inline-script nonce dependency, making the
-          layout compatible with static generation and edge caching.
-          Allowed by CSP 'self' directive.
+          Theme bootstrap - MUST run synchronously before first paint to
+          prevent flash of incorrect theme (FOUC).
+          No nonce needed: the script content is static and its SHA-256 hash
+          is whitelisted in the CSP, satisfying 'strict-dynamic'.
+          Security: THEME_SCRIPT is a compile-time constant — no user input.
         */}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts -- intentionally synchronous to prevent FOUC */}
-        <script src="/theme-init.js" />
+        {/* eslint-disable-next-line react/no-danger */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
 
         {/* Site-wide structured data */}
         <SafeJsonLd

@@ -3,8 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { ContributeClient } from "./ContributeClient";
 import { allTrees, type Tree } from "contentlayer/generated";
 
-export const dynamic = "force-dynamic";
-
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
