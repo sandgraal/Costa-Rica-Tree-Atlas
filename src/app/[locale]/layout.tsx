@@ -1,7 +1,11 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@i18n/routing";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -128,6 +132,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   // Providing all messages to the client side
   const messages = await getMessages();
+  const tNav = await getTranslations("nav");
 
   // Nonce removed: the layout no longer calls headers(), making all child
   // pages eligible for static generation and Vercel edge caching.
@@ -231,17 +236,9 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <noscript>
                   <div
                     role="alert"
-                    style={{
-                      padding: "12px 16px",
-                      backgroundColor: "#fef3c7",
-                      color: "#92400e",
-                      textAlign: "center",
-                      fontSize: "14px",
-                    }}
+                    className="px-4 py-3 bg-amber-100 text-amber-800 text-center text-sm"
                   >
-                    {locale === "es"
-                      ? "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles."
-                      : "This site works best with JavaScript enabled. Navigation and core content remain available."}
+                    {tNav("noJsBanner")}
                   </div>
                 </noscript>
                 <a href="#main-content" className="skip-link">

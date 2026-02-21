@@ -23,7 +23,8 @@
     "fieldGuide": "Guía de Campo",
     "about": "Acerca de",
     "glossary": "Glosario",
-    "safety": "Seguridad"
+    "safety": "Seguridad",
+    "noJsBanner": "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles."
   },
   "home": {
     "title": "Descubre los Árboles de Costa Rica",
@@ -447,7 +448,9 @@
     "shareMonth": "Compartir este mes",
     "shareEvent": "Compartir evento",
     "showEvents": "Mostrar eventos",
-    "hideEvents": "Ocultar eventos"
+    "hideEvents": "Ocultar eventos",
+    "floweringNow": "Árboles floreciendo ahora",
+    "fruitingNow": "Árboles fructificando ahora"
   },
   "safety": {
     "title": "Información de Seguridad",

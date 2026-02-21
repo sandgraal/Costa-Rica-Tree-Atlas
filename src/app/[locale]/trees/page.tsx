@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { Link } from "@i18n/navigation";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 
@@ -100,8 +101,8 @@ export default async function TreesPage({ params }: Props) {
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {trees.map((tree) => (
               <li key={tree.slug}>
-                <a
-                  href={`/${locale}/trees/${tree.slug}`}
+                <Link
+                  href={`/trees/${tree.slug}`}
                   className="block p-4 border rounded-lg hover:bg-muted"
                 >
                   <strong>{tree.title}</strong>
@@ -109,7 +110,7 @@ export default async function TreesPage({ params }: Props) {
                   <em className="text-sm text-muted-foreground">
                     {tree.scientificName}
                   </em>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

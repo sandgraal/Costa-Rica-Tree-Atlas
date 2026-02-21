@@ -23,7 +23,8 @@
     "fieldGuide": "Field Guide",
     "about": "About",
     "glossary": "Glossary",
-    "safety": "Safety"
+    "safety": "Safety",
+    "noJsBanner": "This site works best with JavaScript enabled. Navigation and core content remain available."
   },
   "home": {
     "title": "Discover Costa Rica's Trees",
@@ -448,7 +449,9 @@
     "shareMonth": "Share this month",
     "shareEvent": "Share event",
     "showEvents": "Show events",
-    "hideEvents": "Hide events"
+    "hideEvents": "Hide events",
+    "floweringNow": "Trees flowering now",
+    "fruitingNow": "Trees fruiting now"
   },
   "safety": {
     "title": "Safety Information",

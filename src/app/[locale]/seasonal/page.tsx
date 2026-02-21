@@ -236,9 +236,7 @@ export default async function SeasonalPage({
             {treesFloweringNow.length > 0 && (
               <div>
                 <h2 className="text-xl font-semibold mb-3">
-                  {locale === "es"
-                    ? "Árboles floreciendo ahora"
-                    : "Trees flowering now"}
+                  {t("floweringNow")}
                 </h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {treesFloweringNow.map((tree) => (
@@ -248,7 +246,10 @@ export default async function SeasonalPage({
                         className="block p-3 border rounded-lg hover:bg-muted"
                       >
                         <strong>{tree.title}</strong>
-                        <span className="text-sm text-muted-foreground ml-2">
+                        <span
+                          aria-hidden="true"
+                          className="text-sm text-muted-foreground ml-2"
+                        >
                           🌸
                         </span>
                       </a>
@@ -260,9 +261,7 @@ export default async function SeasonalPage({
             {treesFruitingNow.length > 0 && (
               <div>
                 <h2 className="text-xl font-semibold mb-3">
-                  {locale === "es"
-                    ? "Árboles fructificando ahora"
-                    : "Trees fruiting now"}
+                  {t("fruitingNow")}
                 </h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {treesFruitingNow.map((tree) => (
@@ -272,7 +271,10 @@ export default async function SeasonalPage({
                         className="block p-3 border rounded-lg hover:bg-muted"
                       >
                         <strong>{tree.title}</strong>
-                        <span className="text-sm text-muted-foreground ml-2">
+                        <span
+                          aria-hidden="true"
+                          className="text-sm text-muted-foreground ml-2"
+                        >
                           🍎
                         </span>
                       </a>
