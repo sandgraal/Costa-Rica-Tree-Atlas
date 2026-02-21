@@ -43,12 +43,12 @@ export async function SafetyWarning({
   message,
   className = "",
 }: SafetyWarningProps) {
-  const t = await getTranslations("safety");
-
   // Only show warnings for moderate and above
   if (level === "none" || level === "low") {
     return null;
   }
+
+  const t = await getTranslations("safety");
 
   const styles = getWarningStyles(level);
   if (!styles) return null;
