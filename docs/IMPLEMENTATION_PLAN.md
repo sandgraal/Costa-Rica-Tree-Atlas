@@ -575,8 +575,8 @@ See `audit-content-report.md` for complete list of 26 species.
   - [x] Convert `SafetyCard` to async server component — 327 lines off client bundle, useTranslations → getTranslations (2026-02-20)
   - [x] Convert `SafetyDisclaimer` to async server component — useTranslations → getTranslations (2026-02-20)
   - [x] Convert `Breadcrumbs` to server component — usePathname → pathname prop (2026-02-20)
-  - [x] Convert `SafetyIcon` to server component — pure render logic (2026-02-20)
-  - [x] Convert `QRCodeGenerator` to server component — pure Image wrapper (2026-02-20)
+  - [ ] Convert `SafetyIcon` to server component — BLOCKED: imported by client components (`SafetyPageClient`, `TreeCard`); refactor call sites first
+  - [ ] Convert `QRCodeGenerator` to server component — BLOCKED: imported by client component (`FieldGuidePreview`); refactor call site first
 - [x] Remove unused client components (dead code)
   - [x] Delete `StreamingWrapper`, `ProgressiveImage`, `ResponsiveImage` — 0 imports (2026-02-20)
 - [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)

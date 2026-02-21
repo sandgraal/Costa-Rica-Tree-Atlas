@@ -274,8 +274,8 @@ import { useVirtualizer } from "@tanstack/react-virtual";
   - [x] Convert `SafetyCard` to async server component — 327 lines moved off client bundle, useTranslations → getTranslations (2026-02-20)
   - [x] Convert `SafetyDisclaimer` to async server component — useTranslations → getTranslations (2026-02-20)
   - [x] Convert `Breadcrumbs` to server component — usePathname → pathname prop from server pages (2026-02-20)
-  - [x] Convert `SafetyIcon` to server component — pure render logic, no hooks (2026-02-20)
-  - [x] Convert `QRCodeGenerator` to server component — pure Image wrapper, no hooks (2026-02-20)
+  - [ ] Convert `SafetyIcon` to server component — BLOCKED: imported by client components (`SafetyPageClient`, `TreeCard`); refactor call sites first
+  - [ ] Convert `QRCodeGenerator` to server component — BLOCKED: imported by client component (`FieldGuidePreview`); refactor call site first
 - [x] Remove unused client components (dead code)
   - [x] Delete `StreamingWrapper` — 0 imports in codebase (2026-02-20)
   - [x] Delete `ProgressiveImage` — 0 imports in codebase (2026-02-20)
@@ -382,14 +382,16 @@ lhci autorun
   - Replaced `usePathname()` with `pathname` prop passed from server pages
   - Removed `useMemo` (computation is cheap, no memoization needed)
   - Updated 2 call sites (trees/[slug], compare/[slug]) to pass pathname from params
-- **SafetyIcon → Server Component:** Pure render logic, zero hooks — removed `"use client"`
-- **QRCodeGenerator → Server Component:** Pure `next/image` wrapper — removed `"use client"`
+- **SafetyIcon:** Kept as client component — imported by client components `SafetyPageClient` and `TreeCard`; cannot remove `"use client"` without refactoring those call sites
+- **QRCodeGenerator:** Kept as client component — imported by client component `FieldGuidePreview`; cannot remove `"use client"` without refactoring that call site
+- **SafetyDisclaimer barrel fix:** Removed server-only `SafetyDisclaimer` from `safety/index.ts` barrel; updated `trees/[slug]/page.tsx` to import it directly (prevents server-only code leaking into client bundle via barrel)
 - **Dead Code Removed:**
   - Deleted `StreamingWrapper.tsx` — 0 imports in codebase
   - Deleted `ProgressiveImage.tsx` — 0 imports in codebase
   - Deleted `ResponsiveImage.tsx` — only barrel re-export, never imported
   - Cleaned barrel export in `components/index.ts`
-- **Running totals:** 12 server component conversions completed in Phase 3 (Footer, CurrentYear, FeaturedTrees, SafeJsonLd, HeroImage, SafetyCard, SafetyDisclaimer, Breadcrumbs, SafetyIcon, QRCode + 3 dead code deletions)
+- **Running totals:** 8 server component conversions completed in Phase 3 (Footer, CurrentYear, FeaturedTrees, SafeJsonLd, HeroImage, SafetyCard, SafetyDisclaimer, Breadcrumbs)
+- **Dead code removed in Phase 3:** 3 components deleted (StreamingWrapper, ProgressiveImage, ResponsiveImage)
 - **Verification:** Lint 0 errors, build successful, 23/23 SafetyBadge tests pass
 
 ### 2026-02-20 - Phase 3: Server Component Migration & Rendering Optimization ✅
