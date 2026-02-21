@@ -20,7 +20,13 @@ export function ImageGallery({ children }: ImageGalleryProps) {
     currentIndex: 0,
   });
 
-  // Extract image data from children
+  // Build a stable, filtered array of valid React elements (excludes
+  // whitespace/text nodes that MDX may inject between components).
+  const validChildren = React.Children.toArray(children).filter(
+    React.isValidElement
+  ) as React.ReactElement<ImageCardProps>[];
+
+  // Extract image data from valid children
   const images: Array<{
     src: string;
     alt: string;
@@ -28,18 +34,15 @@ export function ImageGallery({ children }: ImageGalleryProps) {
     credit?: string;
     license?: string;
   }> = [];
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.props) {
-      const props = child.props as ImageCardProps;
-      if (props.src) {
-        images.push({
-          src: props.src,
-          alt: props.alt || "",
-          title: props.title,
-          credit: props.credit,
-          license: props.license,
-        });
-      }
+  validChildren.forEach((child) => {
+    if (child.props.src) {
+      images.push({
+        src: child.props.src,
+        alt: child.props.alt || "",
+        title: child.props.title,
+        credit: child.props.credit,
+        license: child.props.license,
+      });
     }
   });
 
@@ -95,13 +98,14 @@ export function ImageGallery({ children }: ImageGalleryProps) {
     };
   }, [lightbox.isOpen, goToPrevious, goToNext]);
 
-  // Clone children with onClick handlers
-  const childrenWithHandlers = React.Children.map(children, (child, index) => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child as React.ReactElement<ImageCardProps>, {
-        onClick: () => {
-          openLightbox(index);
-        },
+  // Clone valid children with onClick handlers — index matches images[] exactly
+  // because both are derived from the same validChildren array.
+  let imageIndex = 0;
+  const childrenWithHandlers = validChildren.map((child) => {
+    if (child.props.src) {
+      const currentIndex = imageIndex++;
+      return React.cloneElement(child, {
+        onClick: () => openLightbox(currentIndex),
       });
     }
     return child;
@@ -120,6 +124,9 @@ export function ImageGallery({ children }: ImageGalleryProps) {
       {lightbox.isOpen && currentImage && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image lightbox"
           onClick={closeLightbox}
         >
           {/* Close button */}

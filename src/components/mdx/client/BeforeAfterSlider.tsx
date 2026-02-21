@@ -100,11 +100,13 @@ export function BeforeAfterSlider({
         {/* Before Image (Clipped) */}
         <div
           className="absolute inset-0 overflow-hidden"
-          style={{ width: `${sliderPosition}%` }}
+          style={{ width: `${Math.min(99.9, Math.max(0.1, sliderPosition))}%` }}
         >
           <div
             className="relative w-full h-full"
-            style={{ width: `${100 / (sliderPosition / 100)}%` }}
+            style={{
+              width: `${100 / (Math.min(99.9, Math.max(0.1, sliderPosition)) / 100)}%`,
+            }}
           >
             <SafeImage
               src={beforeImage}
