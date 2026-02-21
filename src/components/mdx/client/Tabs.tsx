@@ -20,7 +20,7 @@ export function Tabs({ tabs }: TabsProps) {
     const currentIndex = tabs.findIndex((tab) => tab.id === currentTabId);
     if (currentIndex === -1) return;
 
-    let nextIndex = currentIndex;
+    let nextIndex;
 
     switch (event.key) {
       case "ArrowRight": {
