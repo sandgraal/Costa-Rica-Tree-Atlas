@@ -234,6 +234,7 @@ export default async function TreePage({ params }: Props) {
           {/* Breadcrumbs */}
           <Breadcrumbs
             locale={locale as Locale}
+            pathname={`/trees/${tree.slug}`}
             customLabels={{ [tree.slug]: tree.title }}
           />
 

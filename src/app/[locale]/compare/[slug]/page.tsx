@@ -174,6 +174,7 @@ export default async function ComparisonPage({ params }: Props) {
         <div className="mb-6">
           <Breadcrumbs
             locale={locale as Locale}
+            pathname={`/compare/${comparison.slug}`}
             customLabels={{
               compare: t("navLink"),
               [comparison.slug]: comparison.title,
