@@ -287,7 +287,12 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement
 - [ ] Optimize database queries
-- [ ] Implement edge caching
+- [x] Implement edge caching (2026-02-21)
+  - Removed `headers()` call from layout that forced all pages dynamic
+  - External theme script replaces inline nonce-dependent script
+  - Middleware cache headers: `public, s-maxage=86400, stale-while-revalidate=604800`
+  - Added cache headers to next.config.ts for 9 public routes
+  - 1465 static pages now eligible for Vercel CDN edge caching
 
 ## Best Practices
 
@@ -371,6 +376,21 @@ lhci autorun
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
 
 ## Changelog
+
+### 2026-02-21 - Edge Caching Architecture Fix ✅
+
+- **Root cause discovered:** Layout called `headers()` to read CSP nonce, which forces ALL child pages into dynamic rendering — completely preventing edge caching of any page on Vercel CDN.
+- **External theme script:** Replaced inline `<script nonce={nonce} dangerouslySetInnerHTML>` with external `public/theme-init.js`. CSP `'self'` directive allows it without a nonce.
+- **Nonce removal:** Removed nonce prop from `SafeJsonLd` (JSON-LD `type="application/ld+json"` exempt from CSP script-src) and `Analytics` (uses `next/script` with `strict-dynamic`).
+- **Cache headers fixed:** Middleware was setting `Cache-Control: private, no-cache, no-store, must-revalidate` on all tree/glossary MDX pages. Changed to `public, s-maxage=86400, stale-while-revalidate=604800` (24h TTL, 7d SWR).
+- **Config cache headers:** Added matching `Cache-Control: public, s-maxage=86400, stale-while-revalidate=604800` in `next.config.ts` for 9 public routes (trees, glossary, about, conservation, education, safety, seasonal, map, identify).
+- **Auth pages isolated:** Added `export const dynamic = 'force-dynamic'` to 9 auth-dependent pages (admin/contributions, admin/images, admin/images/proposals, admin/images/proposals/[id], admin/performance, admin/users, contribute, contribute/photo, images/vote).
+- **Component split:** Extracted `ImageLightbox` from `TreeGallery` into its own client component — reduces JS bundle for pages that only need the gallery grid.
+- **Bug fix:** `CompareInToolButton` crashed with `species.join()` when `species` was undefined (MDX security plugin strips array expressions). Now accepts `string | string[]` with null guard.
+- **Impact:** 1465 static pages now eligible for Vercel CDN edge caching. Previously 0 pages were cached.
+- **Files created:** `public/theme-init.js`, `src/components/ImageLightbox.tsx`
+- **Files modified:** `middleware.ts`, `next.config.ts`, `src/app/[locale]/layout.tsx`, `src/components/TreeGallery.tsx`, `src/components/index.ts`, `src/components/mdx/server-components.tsx`, 9 page.tsx files
+- **Verification:** Lint 0 errors, build successful (1465/1465 static pages), PR #424
 
 ### 2026-02-20 - Phase 3b: Additional Server Component Conversions & Dead Code Removal ✅
 
