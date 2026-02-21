@@ -134,13 +134,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
   const tNav = await getTranslations("nav");
 
-  // Nonce removed: the layout no longer calls headers(), making all child
-  // pages eligible for static generation and Vercel edge caching.
-  // Theme bootstrap is an inline script allowed via its SHA-256 hash in the
-  // CSP (see src/lib/security/csp.ts). The CSP uses 'self' + explicit host
-  // allowlisting for known third-party origins, with an `https:` fallback
-  // in script-src (and no 'strict-dynamic'), so Next.js framework scripts
-  // load normally without nonce attributes.
+  // CSP uses 'unsafe-inline' for script-src (no nonce needed) to support
+  // Next.js RSC hydration scripts while keeping pages statically generated.
+  // The theme bootstrap runs as inline script — allowed by 'unsafe-inline'.
   // Analytics scripts use next/script with strategy="lazyOnload".
   // JSON-LD <script type="application/ld+json"> is a data block
   // (non-executable) and does not require a nonce in modern browsers.
@@ -151,8 +147,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         {/*
           Theme bootstrap - MUST run synchronously before first paint to
           prevent flash of incorrect theme (FOUC).
-          No nonce needed: the script content is static and its SHA-256 hash
-          is whitelisted in the CSP, satisfying 'strict-dynamic'.
+          Allowed by 'unsafe-inline' in the CSP script-src directive.
           Security: THEME_SCRIPT is a compile-time constant — no user input.
         */}
         {/* eslint-disable-next-line react/no-danger */}

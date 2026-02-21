@@ -23,19 +23,6 @@ const COMMON_IMG_SOURCES = [
 ] as const;
 
 /**
- * SHA-256 hash of the inline theme bootstrap script (THEME_SCRIPT from
- * src/lib/theme/theme-script.ts).  Used to whitelist the inline <script>
- * in the CSP without requiring a nonce — which in turn lets the layout avoid
- * calling headers() so pages can be statically generated and edge-cached.
- *
- * Recompute when THEME_SCRIPT changes:
- *   node -e "const { THEME_SCRIPT } = require('./src/lib/theme/theme-script'); \
- *     console.log('sha256-' + require('crypto').createHash('sha256').update(THEME_SCRIPT, 'utf8').digest('base64'));"
- */
-const THEME_SCRIPT_HASH =
-  "'sha256-0xv81yB5NADv8PB1GJ/KUCaSky5FyqNwJ9+UQq/FzwM='";
-
-/**
  * Generate a cryptographic nonce for CSP using Web Crypto API
  * Compatible with Edge Runtime
  *
@@ -88,27 +75,26 @@ export function generateNonce(): string {
 
 /**
  * Build Content Security Policy header value
- * Strict policy: NO unsafe-inline, NO unsafe-eval
  *
- * This is the most secure CSP used for pages without dynamic content rendering.
- * It does NOT include unsafe-eval, making it incompatible with:
- * - Google Tag Manager (use buildRelaxedCSP)
- * - MDX content rendering (use buildMDXCSP)
+ * Uses 'unsafe-inline' for script-src to support Next.js App Router inline
+ * hydration scripts (RSC payload). This is intentional: the layout does not
+ * call headers() so pages remain eligible for static generation / edge caching.
+ * Per CSP spec, 'unsafe-inline' is ignored when any nonce or hash source is
+ * present — so we intentionally omit both.
  *
- * @param nonce - Optional nonce for script-src directive
  * @returns CSP header value string
  */
-export function buildCSP(nonce?: string): string {
+export function buildCSP(): string {
   const isDev = process.env.NODE_ENV === "development";
 
   const directives = {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
-      // Hash for the inline theme bootstrap script (no nonce needed)
-      THEME_SCRIPT_HASH,
-      // Nonce for inline scripts
-      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // Allow inline scripts (required for Next.js RSC hydration payload).
+      // NOTE: 'unsafe-inline' is ignored by browsers when any nonce or
+      // hash source is present, so we intentionally omit both here.
+      "'unsafe-inline'",
       // Privacy-friendly analytics (no eval needed)
       "https://plausible.io",
       "https://scripts.simpleanalyticscdn.com",
@@ -184,19 +170,19 @@ export function buildCSP(nonce?: string): string {
  * - Route-based policy selection in middleware
  * - Future flexibility if MDX pages need different permissions
  *
- * @param nonce - Optional nonce for script-src directive
  * @returns CSP header value string (strict, no unsafe-eval)
  */
-export function buildMDXCSP(nonce?: string): string {
+export function buildMDXCSP(): string {
   const isDev = process.env.NODE_ENV === "development";
 
   const directives = {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
-      // Hash for the inline theme bootstrap script (no nonce needed)
-      THEME_SCRIPT_HASH,
-      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // Allow inline scripts (required for Next.js RSC hydration payload).
+      // NOTE: 'unsafe-inline' is ignored by browsers when any nonce or
+      // hash source is present, so we intentionally omit both here.
+      "'unsafe-inline'",
       // Privacy-friendly analytics
       "https://plausible.io",
       "https://scripts.simpleanalyticscdn.com",
@@ -263,19 +249,17 @@ export function buildMDXCSP(nonce?: string): string {
  *
  * Should only be used on routes like /marketing/* or specific landing pages.
  *
- * @param nonce - Optional nonce for script-src directive
  * @returns Relaxed CSP header value string
  */
-export function buildRelaxedCSP(nonce?: string): string {
+export function buildRelaxedCSP(): string {
   const isDev = process.env.NODE_ENV === "development";
 
   const directives = {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
-      // Hash for the inline theme bootstrap script (no nonce needed)
-      THEME_SCRIPT_HASH,
-      ...(nonce ? [`'nonce-${nonce}'`] : []),
+      // Allow inline scripts (required for Next.js RSC hydration payload).
+      "'unsafe-inline'",
       "https://www.googletagmanager.com",
       "https://www.google-analytics.com",
       // GTM requires unsafe-eval :(
