@@ -205,8 +205,8 @@ export function buildMDXCSP(nonce?: string): string {
       "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // Allow other HTTPS scripts as fallback
-      "https:",
+      // In development, allow other HTTPS scripts as a fallback
+      ...(isDev ? ["https:"] : []),
     ],
     "style-src": [
       "'self'",
