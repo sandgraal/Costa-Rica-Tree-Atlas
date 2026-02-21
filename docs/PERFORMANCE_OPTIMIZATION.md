@@ -390,7 +390,8 @@ lhci autorun
   - Deleted `ProgressiveImage.tsx` — 0 imports in codebase
   - Deleted `ResponsiveImage.tsx` — only barrel re-export, never imported
   - Cleaned barrel export in `components/index.ts`
-- **Running totals:** 10 server component conversions completed in Phase 3 (Footer, CurrentYear, FeaturedTrees, SafeJsonLd, HeroImage, SafetyCard, SafetyDisclaimer, Breadcrumbs + 3 dead code deletions)
+- **Running totals:** 8 server component conversions completed in Phase 3 (Footer, CurrentYear, FeaturedTrees, SafeJsonLd, HeroImage, SafetyCard, SafetyDisclaimer, Breadcrumbs)
+- **Dead code removed in Phase 3:** 3 components deleted (StreamingWrapper, ProgressiveImage, ResponsiveImage)
 - **Verification:** Lint 0 errors, build successful, 23/23 SafetyBadge tests pass
 
 ### 2026-02-20 - Phase 3: Server Component Migration & Rendering Optimization ✅
