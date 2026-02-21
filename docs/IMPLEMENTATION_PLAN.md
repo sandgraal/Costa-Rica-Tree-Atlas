@@ -9,7 +9,7 @@
 
 - **Species**: 169/169 (100%) - Target: 169+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
-- **Glossary Terms**: 100/150 (67%) - Target: 150+ terms
+- **Glossary Terms**: 150/150 (100%) ✅ Complete
 - **Care Guidance**: 169/169 (100%) ✅ Complete
 
 ### Technical Health
@@ -715,17 +715,20 @@ Requires:
 - [ ] Identify sacred trees
 - [ ] Partner with indigenous communities for validation
 
-### 5.2: Expanded Glossary
+### 5.2: Expanded Glossary ✅ Complete
 
-**Current:** 100/150 terms (67%)  
-**Target:** 150+ terms
+**Current:** 150/150 terms (100%)  
+**Target:** 150+ terms ✅ Achieved
 
-**Focus Areas:**
+**Completed Focus Areas:**
 
-- [ ] Indigenous terminology (15-20 terms)
-- [ ] Wood anatomy (grain patterns, figure types) (10 terms)
-- [ ] Forest ecology (succession, gap dynamics) (10 terms)
-- [ ] Agroforestry systems (alley cropping, silvopasture) (10 terms)
+- [x] Wood anatomy (grain patterns, figure types) (10 terms)
+- [x] Forest ecology (succession, gap dynamics) (10 terms)
+- [x] Agroforestry systems (alley cropping, silvopasture) (10 terms)
+- [x] Taxonomy (nomenclature, classification) (5 terms)
+- [x] Morphology/Botany (leaf and root adaptations) (10 terms)
+- [x] Reproduction (pollination, seeds) (5 terms)
+- [ ] Indigenous terminology (15-20 terms) — deferred to Phase 5.1
 
 ### 5.3: Traditional Uses Documentation
 
@@ -869,7 +872,7 @@ Requires:
 - Species count: 175+ (current: 169)
 - Care guidance: 100% ✅ (current: 169/169)
 - Comparison guides: 20/20 ✅
-- Glossary terms: 150+ (current: 100)
+- Glossary terms: 150+ ✅ (current: 150)
 
 **Performance:**
 
