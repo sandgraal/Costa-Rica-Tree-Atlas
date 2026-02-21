@@ -4,18 +4,17 @@ Last updated: 2026-02-20
 
 ## Latest Run Summary
 
-- **Branch**: `feature/server-component-conversions-phase3b` → PR to main (open)
-- **Task completed**: Performance Phase 3 (P2) — continued server component conversions, removed dead code.
+- **Branch**: `feature/server-component-conversions-phase3c` (PR to main, open)
+- **Task completed**: Performance Phase 3 (P2) continued -- server component conversions batch 3.
 - **Key changes**:
-  - `SafetyCard.tsx` (327 lines): Converted from client to async server component — replaced `useTranslations` with `getTranslations`, removed `"use client"`. Imported directly by tree detail server page, so client hydration cost eliminated entirely.
-  - `SafetyDisclaimer.tsx`: Converted from client to async server component — same `useTranslations` → `getTranslations` refactor.
-  - `Breadcrumbs.tsx`: Converted from client to server component — replaced `usePathname()` with `pathname` prop passed from server pages, removed `useMemo`. Updated 2 call sites.
-  - `SafetyIcon.tsx`: Removed `"use client"` (pure render logic, no hooks).
-  - `QRCodeGenerator.tsx`: Removed `"use client"` (pure Image wrapper, no hooks).
-  - Deleted 3 unused components: `StreamingWrapper.tsx` (0 imports), `ProgressiveImage.tsx` (0 imports), `ResponsiveImage.tsx` (0 imports, only barrel re-export).
-  - Updated barrel export (`components/index.ts`) to remove dead re-export.
+  - `Header.tsx` (119 lines): Converted from client to async server component. Replaced `useTranslations`/`useLocale` with `getTranslations`/`getLocale`. All interactive children (LanguageSwitcher, ThemeToggle, QuickSearch, MobileNav, FavoritesLink) remain client components rendered as islands. High-impact: Header renders on every page.
+  - `SafetyWarning.tsx` (76 lines): Converted from client to async server component. Replaced `useTranslations` with `getTranslations`. Only imported by SafetyCard (already a server component).
+  - `TreeOfTheDay.tsx` (125 lines): Removed `"use client"` directive and `React.memo` wrapper. No hooks used, pure render function with SafeImage client child.
+  - `page.tsx` (homepage): Replaced `dynamic()` import of TreeOfTheDay with direct import (server components don't need client-side code splitting). Removed unused `memo` and `Suspense` imports. Removed `memo` wrapper from `HeroContent` (pointless in a server component).
 - **Updated tracking docs**: This handoff file, `docs/PERFORMANCE_OPTIMIZATION.md` (Phase 3 checklist), `docs/IMPLEMENTATION_PLAN.md` (Phase 3 items).
 - **Verification**: lint 0 errors (pre-existing warnings only), build successful, 23/23 SafetyBadge tests pass.
+- **Total server component conversions to date**: 15 components converted + 3 dead code deleted.
+- **Remaining client components**: ~53 (many require hooks/interactivity and cannot be converted).
 
 ## Highest-Priority Remaining Work
 
@@ -31,7 +30,7 @@ From `docs/IMPLEMENTATION_PLAN.md`:
 | P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                                                                                                                                                  |
 | P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                                                                                                                                          |
 
-**Recommended next task**: Continue Performance Phase 3 — pursue further server component conversions among the ~55 remaining client components. Focus on components imported directly by server pages where conversion yields real JS bundle savings. Good candidates: components that only use `useTranslations` (refactor to `getTranslations`). Alternatively, begin Performance Phase 3 items: partial hydration, progressive enhancement, edge caching. Or add new species toward 175+ target.
+**Recommended next task**: Most easy server component conversions (useTranslations-only) have been completed. The ~53 remaining client components genuinely require client-side hooks (useState, useEffect, useCallback, useStore, etc.) or event handlers. Next recommended focus areas: (1) Implement partial hydration for large client components like TreeExplorer, (2) Add progressive enhancement patterns, (3) Implement edge caching strategies, (4) Or add new species toward the 175+ target.
 
 ## Operator Preferences (Persistent)
 
@@ -50,11 +49,14 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Continue Performance Phase 3: convert more client components to server components where feasible.
-- Focus on components imported by server pages where useTranslations → getTranslations conversion eliminates client JS.
-- ~55 client components remain; many use only useTranslations and could be refactored.
-- Alternatively, pursue partial hydration, progressive enhancement, or edge caching items.
-- Or add new species toward the 175+ target.
+- Performance Phase 3: server component conversions largely complete (15 done).
+  Remaining ~53 client components require genuine client-side interactivity.
+- Next recommended tasks (pick one or more):
+  1. Implement partial hydration for heavy client components (TreeExplorer, TreeComparison, SeasonalCalendar)
+  2. Add progressive enhancement patterns (graceful degradation without JS)
+  3. Implement edge caching strategies for tree pages
+  4. Optimize database queries for admin features
+  5. Add new species toward 175+ target
 - Do not ask questions if answer exists in repo docs.
 - Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
 
