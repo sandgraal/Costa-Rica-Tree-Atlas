@@ -283,8 +283,8 @@ export function buildRelaxedCSP(nonce?: string): string {
       // Vercel Analytics & Speed Insights
       "https://va.vercel-scripts.com",
       "https://vitals.vercel-insights.com",
-      // Allow other HTTPS scripts as fallback
-      "https:",
+      // In development, allow other HTTPS scripts as a fallback
+      ...(isDev ? ["https:"] : []),
     ],
     "style-src": [
       "'self'",
