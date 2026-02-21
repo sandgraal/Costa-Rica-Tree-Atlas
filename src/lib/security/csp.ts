@@ -109,15 +109,14 @@ export function buildCSP(nonce?: string): string {
       THEME_SCRIPT_HASH,
       // Nonce for inline scripts
       ...(nonce ? [`'nonce-${nonce}'`] : []),
-      // strict-dynamic allows nonce-approved scripts to load other scripts
-      "'strict-dynamic'",
       // Privacy-friendly analytics (no eval needed)
       "https://plausible.io",
       "https://scripts.simpleanalyticscdn.com",
+      // Vercel Analytics & Speed Insights
+      "https://va.vercel-scripts.com",
+      "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // Fallback for browsers that don't support strict-dynamic
-      "https:",
     ],
     "style-src": [
       "'self'",
@@ -198,13 +197,15 @@ export function buildMDXCSP(nonce?: string): string {
       // Hash for the inline theme bootstrap script (no nonce needed)
       THEME_SCRIPT_HASH,
       ...(nonce ? [`'nonce-${nonce}'`] : []),
-      "'strict-dynamic'",
       // Privacy-friendly analytics
       "https://plausible.io",
       "https://scripts.simpleanalyticscdn.com",
+      // Vercel Analytics & Speed Insights
+      "https://va.vercel-scripts.com",
+      "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // Fallback for browsers without strict-dynamic
+      // Allow other HTTPS scripts as fallback
       "https:",
     ],
     "style-src": [
@@ -275,13 +276,15 @@ export function buildRelaxedCSP(nonce?: string): string {
       // Hash for the inline theme bootstrap script (no nonce needed)
       THEME_SCRIPT_HASH,
       ...(nonce ? [`'nonce-${nonce}'`] : []),
-      "'strict-dynamic'",
       "https://www.googletagmanager.com",
       "https://www.google-analytics.com",
       // GTM requires unsafe-eval :(
       "'unsafe-eval'",
-      // Fallback for browsers without strict-dynamic
-      "https:",
+      // Vercel Analytics & Speed Insights
+      "https://va.vercel-scripts.com",
+      "https://vitals.vercel-insights.com",
+      // In development, allow other HTTPS scripts as a fallback
+      ...(isDev ? ["https:"] : []),
     ],
     "style-src": [
       "'self'",
