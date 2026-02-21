@@ -88,6 +88,7 @@ export function ImageCard({
   if (onClick) {
     return (
       <button
+        type="button"
         onClick={onClick}
         className="text-left w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary rounded-xl"
       >
