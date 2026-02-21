@@ -23,7 +23,9 @@ export function ImageLightbox({
   initialIndex = 0,
   onClose,
 }: ImageLightboxProps) {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const safeInitialIndex =
+    images.length > 0 && initialIndex < images.length ? initialIndex : 0;
+  const [currentIndex, setCurrentIndex] = useState(safeInitialIndex);
   const [isLoading, setIsLoading] = useState(true);
 
   const currentImage = images[currentIndex];
@@ -62,6 +64,11 @@ export function ImageLightbox({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose, goToPrevious, goToNext]);
+
+  // Guard: don't render if no images or current image is unavailable
+  if (images.length === 0 || !currentImage) {
+    return null;
+  }
 
   return (
     <div
