@@ -5,8 +5,10 @@
  * first paint. Reads the persisted theme from localStorage and applies
  * the correct class/attribute to <html> immediately.
  *
- * This is an external file (not inline) so it works with CSP 'self'
- * and is compatible with edge caching (no nonce required).
+ * Note: This file is kept as a standalone reference implementation.
+ * The layout uses the equivalent inline THEME_SCRIPT (src/lib/theme/theme-script.ts)
+ * whitelisted via its SHA-256 hash in the CSP, enabling static generation
+ * and edge caching without requiring a per-request nonce.
  */
 (function () {
   try {
@@ -35,5 +37,7 @@
     document.documentElement.style.colorScheme = theme;
   } catch (e) {
     document.documentElement.classList.add("light");
+    document.documentElement.setAttribute("data-theme", "light");
+    document.documentElement.style.colorScheme = "light";
   }
 })();
