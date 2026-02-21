@@ -170,7 +170,6 @@ export function buildCSP(): string {
  * - Route-based policy selection in middleware
  * - Future flexibility if MDX pages need different permissions
  *
- * @param nonce - Optional nonce for script-src directive
  * @returns CSP header value string (strict, no unsafe-eval)
  */
 export function buildMDXCSP(): string {
