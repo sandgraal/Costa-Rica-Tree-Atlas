@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { allTrees } from "contentlayer/generated";
 import { mdxServerComponents } from "@/components/mdx/server-components";
-import { mdxClientComponents } from "@/components/mdx/client-components";
+import { mdxClientComponents } from "@/components/mdx/client";
 
 const MDX_CLIENT_COMPONENTS = Object.keys(
   mdxClientComponents

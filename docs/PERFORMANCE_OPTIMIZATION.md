@@ -1,6 +1,6 @@
 # Performance Optimization Guide
 
-**Last Updated:** 2026-02-20  
+**Last Updated:** 2026-02-21  
 **Status:** Phase 1-2 Validated, Phase 3 Nearly Complete (DB query optimization remaining)  
 **Lighthouse Baseline:** Performance 48/100 (2026-01-18)  
 **Target:** Performance >90/100
@@ -304,6 +304,11 @@ import { useVirtualizer } from "@tanstack/react-virtual";
   - Middleware cache headers: `public, s-maxage=86400, stale-while-revalidate=604800`
   - Added cache headers to next.config.ts for 9 public routes
   - 1465 static pages now eligible for Vercel CDN edge caching
+- [x] Code-split MDX client components (2026-02-21)
+  - Split 958-line monolithic `client-components.tsx` into 8 individual files under `mdx/client/`
+  - Each component has its own `"use client"` boundary enabling per-component code-splitting
+  - Comparison-specific components (BeforeAfterSlider, SideBySideImages, FeatureAnnotation) no longer bundled on tree pages
+  - Backward-compatible re-export shim maintains all existing import paths
 
 ## Best Practices
 
