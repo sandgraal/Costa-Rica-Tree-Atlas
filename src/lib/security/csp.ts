@@ -117,8 +117,6 @@ export function buildCSP(nonce?: string): string {
       "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // Allow other HTTPS scripts as fallback
-      "https:",
     ],
     "style-src": [
       "'self'",
