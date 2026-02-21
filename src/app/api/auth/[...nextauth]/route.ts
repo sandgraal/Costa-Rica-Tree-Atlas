@@ -36,6 +36,24 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password required");
         }
 
+        // Fallback credentials: allows login when DB is unavailable.
+        // Set ADMIN_FALLBACK_EMAIL and ADMIN_FALLBACK_PASSWORD in env vars.
+        const fallbackEmail = process.env.ADMIN_FALLBACK_EMAIL;
+        const fallbackPassword = process.env.ADMIN_FALLBACK_PASSWORD;
+
+        if (
+          fallbackEmail &&
+          fallbackPassword &&
+          credentials.email === fallbackEmail &&
+          credentials.password === fallbackPassword
+        ) {
+          return {
+            id: "fallback-admin",
+            email: fallbackEmail,
+            name: "Admin (fallback)",
+          };
+        }
+
         try {
           // Find user by email
           const user = await prisma.user.findUnique({
