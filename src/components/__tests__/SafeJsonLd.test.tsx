@@ -1,30 +1,32 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import { SafeJsonLd } from "../SafeJsonLd";
+import { SafeJsonLd, sanitizeJsonForHtml } from "../SafeJsonLd";
+
+/**
+ * Helper to get the rendered script tag content from container.
+ * Since SafeJsonLd is now a server component that renders a <script> tag
+ * directly, we find it in the render container instead of document.head.
+ */
+function getScriptContent(container: HTMLElement): string | null {
+  const script = container.querySelector('script[type="application/ld+json"]');
+  return script?.innerHTML ?? null;
+}
+
+function getScriptElement(container: HTMLElement): HTMLScriptElement | null {
+  return container.querySelector('script[type="application/ld+json"]');
+}
 
 describe("SafeJsonLd Component", () => {
-  afterEach(() => {
-    // Clean up any scripts added to head
-    const scripts = document.head.querySelectorAll(
-      'script[type="application/ld+json"]'
-    );
-    scripts.forEach((script) => {
-      script.remove();
-    });
-  });
-
   it("should escape </script> tags", () => {
     const malicious = {
       name: "</script><script>alert(1)</script>",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).not.toContain("</script>");
-    expect(script?.textContent).toContain("\\u003c/script\\u003e");
+    expect(content).not.toContain("</script>");
+    expect(content).toContain("\\u003c/script\\u003e");
   });
 
   it("should escape unicode line separators", () => {
@@ -32,13 +34,11 @@ describe("SafeJsonLd Component", () => {
       description: "Line 1\u2028Line 2\u2029Line 3",
     };
 
-    render(<SafeJsonLd data={data} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={data} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).toContain("\\u2028");
-    expect(script?.textContent).toContain("\\u2029");
+    expect(content).toContain("\\u2028");
+    expect(content).toContain("\\u2029");
   });
 
   it("should render valid JSON-LD correctly", () => {
@@ -48,13 +48,11 @@ describe("SafeJsonLd Component", () => {
       name: "Test Tree",
     };
 
-    render(<SafeJsonLd data={valid} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={valid} />);
+    const script = getScriptElement(container);
 
     expect(script?.getAttribute("type")).toBe("application/ld+json");
-    expect(script?.textContent).toContain("Test Tree");
+    expect(script?.innerHTML).toContain("Test Tree");
   });
 
   it("should escape all angle brackets", () => {
@@ -63,14 +61,12 @@ describe("SafeJsonLd Component", () => {
       description: "A < B > C",
     };
 
-    render(<SafeJsonLd data={data} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={data} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).not.toContain("<div>");
-    expect(script?.textContent).toContain("\\u003c");
-    expect(script?.textContent).toContain("\\u003e");
+    expect(content).not.toContain("<div>");
+    expect(content).toContain("\\u003c");
+    expect(content).toContain("\\u003e");
   });
 
   it("should handle case variation attacks", () => {
@@ -78,14 +74,11 @@ describe("SafeJsonLd Component", () => {
       name: "</ScRiPt><ScRiPt>alert(1)</ScRiPt>",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    // Should be escaped and not executable
-    expect(script?.textContent).not.toContain("</ScRiPt>");
-    expect(script?.textContent).toContain("\\u003c");
+    expect(content).not.toContain("</ScRiPt>");
+    expect(content).toContain("\\u003c");
   });
 
   it("should remove fullwidth characters", () => {
@@ -93,14 +86,11 @@ describe("SafeJsonLd Component", () => {
       name: "Test＜script＞alert(1)＜/script＞",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    // Fullwidth chars should be escaped
-    expect(script?.textContent).not.toContain("＜");
-    expect(script?.textContent).not.toContain("＞");
+    expect(content).not.toContain("＜");
+    expect(content).not.toContain("＞");
   });
 
   it("should remove zero-width characters", () => {
@@ -108,14 +98,11 @@ describe("SafeJsonLd Component", () => {
       name: "Test\u200Bmalicious\u200C",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    // Zero-width characters should be removed
-    expect(script?.textContent).not.toContain("\u200B");
-    expect(script?.textContent).not.toContain("\u200C");
+    expect(content).not.toContain("\u200B");
+    expect(content).not.toContain("\u200C");
   });
 
   it("should handle event handlers", () => {
@@ -123,13 +110,10 @@ describe("SafeJsonLd Component", () => {
       name: 'Test<img onerror="alert(1)">',
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    // Event handlers should be escaped
-    expect(script?.textContent).not.toContain("onerror=");
+    expect(content).not.toContain("onerror=");
   });
 
   it("should escape style tags", () => {
@@ -137,13 +121,11 @@ describe("SafeJsonLd Component", () => {
       name: "</style><style>body{display:none}</style>",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).not.toContain("</style>");
-    expect(script?.textContent).toContain("\\u003c");
+    expect(content).not.toContain("</style>");
+    expect(content).toContain("\\u003c");
   });
 
   it("should handle HTML comment escapes", () => {
@@ -151,12 +133,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test-->",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).not.toContain("-->");
+    expect(content).not.toContain("-->");
   });
 
   it("should handle CDATA escapes", () => {
@@ -164,12 +144,10 @@ describe("SafeJsonLd Component", () => {
       name: "Test]]>",
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).not.toContain("]]>");
+    expect(content).not.toContain("]]>");
   });
 
   it("should include nonce attribute when provided", () => {
@@ -178,10 +156,8 @@ describe("SafeJsonLd Component", () => {
       name: "Test",
     };
 
-    render(<SafeJsonLd data={data} nonce="test-nonce" />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={data} nonce="test-nonce" />);
+    const script = getScriptElement(container);
 
     expect(script?.getAttribute("nonce")).toBe("test-nonce");
   });
@@ -193,12 +169,10 @@ describe("SafeJsonLd Component", () => {
       },
     };
 
-    render(<SafeJsonLd data={malicious} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={malicious} />);
+    const content = getScriptContent(container);
 
-    expect(script?.textContent).not.toContain("<script>");
+    expect(content).not.toContain("<script>");
   });
 
   it("should produce valid parseable JSON (double-quotes must not be escaped)", () => {
@@ -233,15 +207,29 @@ describe("SafeJsonLd Component", () => {
       keywords: "lifestyle, description, prescription",
     };
 
-    render(<SafeJsonLd data={legitimate} />);
-    const script = document.head.querySelector(
-      'script[type="application/ld+json"]'
-    );
+    const { container } = render(<SafeJsonLd data={legitimate} />);
+    const script = getScriptElement(container);
+    const content = getScriptContent(container);
 
     expect(script?.getAttribute("type")).toBe("application/ld+json");
-    expect(script?.textContent).toContain("Costa Rican Style Tree");
-    expect(script?.textContent).toContain("manuscripts");
-    expect(script?.textContent).toContain("lifestyle");
-    expect(script?.textContent).toContain("description");
+    expect(content).toContain("Costa Rican Style Tree");
+    expect(content).toContain("manuscripts");
+    expect(content).toContain("lifestyle");
+    expect(content).toContain("description");
+  });
+});
+
+describe("sanitizeJsonForHtml", () => {
+  it("should escape angle brackets to Unicode sequences", () => {
+    const result = sanitizeJsonForHtml("<div>test</div>");
+    expect(result).not.toContain("<");
+    expect(result).not.toContain(">");
+    expect(result).toContain("\\u003c");
+    expect(result).toContain("\\u003e");
+  });
+
+  it("should return safe content unchanged", () => {
+    const result = sanitizeJsonForHtml("safe content");
+    expect(result).toBe("safe content");
   });
 });

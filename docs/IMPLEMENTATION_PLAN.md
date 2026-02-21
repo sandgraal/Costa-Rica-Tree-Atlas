@@ -564,12 +564,15 @@ See `audit-content-report.md` for complete list of 26 species.
 
 ### Phase 3: Long-term
 
-- [ ] Migrate more components to Server Components
+- [x] Migrate more components to Server Components
   - [x] Convert `Footer` to server component to reduce client hydration (2026-02-10)
   - [x] Convert homepage `AboutSection`, `StatsSection`, and `NowBloomingSection` to server components (2026-02-10)
   - [x] Convert `DataSourceCard` (about page) to server component by moving translations to parent and passing labels as props (2026-02-10)
   - [x] Convert `CurrentYear` to server rendering to remove a client-only boundary in footer copyright text (2026-02-10)
   - [x] Convert homepage `FeaturedTreesSection` to a server component and move selection logic to server rendering (2026-02-10)
+  - [x] Convert `SafeJsonLd` to server component — removes useEffect/useRef client JS, renders `<script>` tag server-side for SEO (2026-02-20)
+  - [x] Convert `HeroImage` to server component — removes useState from LCP critical path (2026-02-20)
+- [x] Apply `content-visibility: auto` to below-fold homepage sections (2026-02-20)
 - [ ] Implement partial hydration
 - [ ] Add progressive enhancement strategies
 - [ ] Optimize database queries (when admin active)
