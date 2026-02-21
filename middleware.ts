@@ -15,12 +15,7 @@ import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getSessionFromRequest } from "@/lib/auth/session";
-import {
-  generateNonce,
-  buildCSP,
-  buildMDXCSP,
-  buildRelaxedCSP,
-} from "@/lib/security/csp";
+import { buildCSP, buildMDXCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -56,20 +51,16 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Generate nonce for this request
-  const nonce = generateNonce();
-
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
   if (ADMIN_ROUTE_REGEX.test(pathname)) {
     // Skip authentication for login page
     if (pathname.includes("/admin/login")) {
       const response = intlMiddleware(request);
-      const csp = buildCSP(nonce);
+      const csp = buildCSP();
       response.headers.set("Content-Security-Policy", csp);
       response.headers.set("X-Content-Type-Options", "nosniff");
       response.headers.set("X-Frame-Options", "SAMEORIGIN");
-      response.headers.set("X-Nonce", nonce);
       return response;
     }
 
@@ -89,11 +80,10 @@ export default async function middleware(request: NextRequest) {
       const response = intlMiddleware(request);
 
       // Add security headers
-      const csp = buildCSP(nonce);
+      const csp = buildCSP();
       response.headers.set("Content-Security-Policy", csp);
       response.headers.set("X-Content-Type-Options", "nosniff");
       response.headers.set("X-Frame-Options", "SAMEORIGIN");
-      response.headers.set("X-Nonce", nonce);
 
       return response;
     }
@@ -120,21 +110,20 @@ export default async function middleware(request: NextRequest) {
 
   if (isMarketingPage) {
     // Marketing pages: Relaxed CSP for Google Tag Manager
-    csp = buildRelaxedCSP(nonce);
+    csp = buildRelaxedCSP();
   } else if (isMDXPage) {
     // Tree and glossary detail pages: MDX-specific CSP (currently identical
     // to standard CSP since server-side rendering removed unsafe-eval need,
     // but kept separate for future route-based policy flexibility)
-    csp = buildMDXCSP(nonce);
+    csp = buildMDXCSP();
   } else {
     // All other pages: Strict CSP
-    csp = buildCSP(nonce);
+    csp = buildCSP();
   }
 
   response.headers.set("Content-Security-Policy", csp);
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
-  response.headers.set("X-Nonce", nonce);
 
   // Edge caching for public pages
   //
