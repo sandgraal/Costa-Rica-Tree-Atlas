@@ -19,11 +19,12 @@ export function GlossaryTooltip({
   return (
     <span className="relative inline-block">
       <button
+        type="button"
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
         onFocus={() => setIsOpen(true)}
         onBlur={() => setIsOpen(false)}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(true)}
         className="underline decoration-dotted decoration-primary hover:text-primary transition-colors cursor-help"
         aria-label={`Definition of ${term}`}
         aria-describedby={isOpen ? tooltipId : undefined}
