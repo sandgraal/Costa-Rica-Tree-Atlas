@@ -147,10 +147,15 @@ export default async function LocaleLayout({ children, params }: Props) {
     "glossary",
     "api",
   ] as const;
-  const clientMessages = Object.fromEntries(
+
+  type ClientNamespace = (typeof clientNamespaces)[number];
+  type ClientMessages = Partial<Record<ClientNamespace, AbstractIntlMessages>>;
+
+  const castMessages = messages as Record<string, AbstractIntlMessages>;
+  const clientMessages: ClientMessages = Object.fromEntries(
     clientNamespaces
-      .filter((ns) => ns in (messages as Record<string, unknown>))
-      .map((ns) => [ns, (messages as Record<string, AbstractIntlMessages>)[ns]])
+      .filter((ns) => ns in castMessages)
+      .map((ns) => [ns, castMessages[ns]])
   );
 
   // CSP uses 'unsafe-inline' for script-src (no nonce needed) to support
