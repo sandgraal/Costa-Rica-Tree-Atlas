@@ -1718,6 +1718,9 @@ describe("E2E Authentication Flows", () => {
       expect(getToken).toHaveBeenCalledWith(
         expect.objectContaining({
           secret: expect.any(String),
+        })
+      );
+    });
     it("should call getToken with the configured NEXTAUTH_SECRET", async () => {
       const { getToken } = await import("next-auth/jwt");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
