@@ -55,7 +55,7 @@ try {
 } catch (_error) {
   // Prisma Client or database URL not available — admin features disabled
   console.warn(
-    "Prisma Client not available. Admin authentication features are disabled."
+    `Prisma Client not available (${reason}). Admin authentication features are disabled.`
   );
   console.warn(
     "To enable admin features, set NEON_DATABASE_URL or DATABASE_URL and rebuild the application."

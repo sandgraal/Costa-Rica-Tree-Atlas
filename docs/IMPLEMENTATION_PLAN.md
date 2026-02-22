@@ -24,7 +24,7 @@
 
 - [x] Provision PostgreSQL instance — Neon free tier provisioned via Vercel integration
 - [x] Add Neon env vars to Vercel environment variables (Development, Preview, Production) — `NEON_DATABASE_URL`, `NEON_DATABASE_URL_UNPOOLED`, etc.
-- [x] Updated `prisma.config.ts` (root) to use `env("NEON_DATABASE_URL_UNPOOLED")` for migrations
+- [x] Updated `prisma.config.ts` (root) to use `NEON_DATABASE_URL_UNPOOLED` (with `DATABASE_URL` fallback) for migrations
 - [x] Ran `npx prisma migrate dev --name init` — created and applied initial schema migration
 - [x] Manual SQL scripts moved to `prisma/manual/` (schema already included them via `schema.prisma`)
 - [x] Updated `src/lib/prisma.ts` and all admin scripts to use `@prisma/adapter-neon` (required by Prisma 7)
@@ -75,7 +75,7 @@
 - [x] Hero image re-encoded to AVIF (47–64% smaller)
 - [x] Neon PostgreSQL provisioned via Vercel integration (2026-02-22)
 - [x] Initial Prisma migration applied to Neon — `20260222175434_init` (2026-02-22)
-- [x] `prisma.config.ts` updated to use `env("NEON_DATABASE_URL_UNPOOLED")` for Prisma 7 (2026-02-22)
+- [x] `prisma.config.ts` updated to use `NEON_DATABASE_URL_UNPOOLED` (with `DATABASE_URL` fallback) for Prisma 7 (2026-02-22)
 - [x] `src/lib/prisma.ts` and all 3 admin scripts updated to use `@prisma/adapter-neon` (2026-02-22)
 - [x] First admin user created in Neon — `cennisc@gmail.com` (2026-02-22)
 
