@@ -8,8 +8,21 @@
 
 import { hash } from "argon2";
 import { PrismaClient } from "@prisma/client";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { loadEnv } from "./lib/env.mjs";
 
-const prisma = new PrismaClient();
+const env = { ...loadEnv(), ...process.env };
+const connectionString =
+  env.NEON_DATABASE_URL_UNPOOLED ?? env.NEON_DATABASE_URL ?? env.DATABASE_URL;
+if (!connectionString) {
+  console.error(
+    "No database URL found in environment or .env files. Set NEON_DATABASE_URL or DATABASE_URL."
+  );
+  process.exit(1);
+}
+
+const adapter = new PrismaNeon({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
 async function resetPassword(email, newPassword) {
   try {

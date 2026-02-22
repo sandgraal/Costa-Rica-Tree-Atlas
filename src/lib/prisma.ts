@@ -4,33 +4,43 @@
  * Ensures a single Prisma Client instance is used across the application
  * to prevent connection pool exhaustion in serverless environments.
  *
- * NOTE: This module gracefully handles missing Prisma Client (when DATABASE_URL is not set).
- * Admin features will be unavailable but the application will still build and run.
+ * Uses the Neon serverless driver adapter (required by Prisma 7).
+ * Gracefully degrades when database env vars are not present at build time
+ * so the app still builds and runs without a database.
  *
- * We intentionally use `any` types here because the Prisma generated client types
- * are only available after `prisma generate` runs, which requires DATABASE_URL.
- * Using explicit type imports would break the build in environments without a database.
+ * Runtime connection uses the pooled URL (NEON_DATABASE_URL) which is
+ * optimised for serverless/edge environments, with a fallback to DATABASE_URL
+ * for local/non-Neon environments.
+ *
+ * We intentionally use `any` types here because the Prisma generated client
+ * types are only available after `prisma generate` runs, which requires a
+ * database URL. Using explicit type imports would break the build in
+ * environments without a database.
  *
  * @see https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-let PrismaClient: any;
 let prisma: any;
 
 try {
-  // Try to import Prisma Client - may not be available if DATABASE_URL wasn't set during build
-  // eslint-disable-next-line @typescript-eslint/no-require-imports -- require() is needed for conditional import
-  const prismaModule = require("@prisma/client");
-  PrismaClient = prismaModule.PrismaClient;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { PrismaClient } = require("@prisma/client");
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { PrismaNeon } = require("@prisma/adapter-neon");
 
-  if (!PrismaClient) {
-    throw new Error("PrismaClient not found in @prisma/client module");
-  }
+  if (!PrismaClient) throw new Error("PrismaClient not found");
+
+  const connectionString =
+    process.env.NEON_DATABASE_URL ?? process.env.DATABASE_URL;
+
+  if (!connectionString) throw new Error("No database URL set");
 
   const prismaClientSingleton = () => {
+    const adapter = new PrismaNeon({ connectionString });
     return new PrismaClient({
+      adapter,
       log:
         process.env.NODE_ENV === "development"
           ? ["query", "error", "warn"]
@@ -43,21 +53,20 @@ try {
 
   if (process.env.NODE_ENV !== "production") g.prismaGlobal = prisma;
 } catch (_error) {
-  // Prisma Client not available - admin features will be disabled
+  // Prisma Client or database URL not available — admin features disabled
   console.warn(
     "Prisma Client not available. Admin authentication features are disabled."
   );
   console.warn(
-    "To enable admin features, set DATABASE_URL and rebuild the application."
+    "To enable admin features, set NEON_DATABASE_URL or DATABASE_URL and rebuild the application."
   );
 
-  // Create a proxy that throws helpful errors if someone tries to use it
   prisma = new Proxy(
     {},
     {
       get() {
         throw new Error(
-          "Prisma Client is not available. DATABASE_URL was not set during build. Admin features are disabled."
+          "Prisma Client is not available. NEON_DATABASE_URL or DATABASE_URL was not set during build. Admin features are disabled."
         );
       },
     }
@@ -67,3 +76,4 @@ try {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 export default prisma;
+
