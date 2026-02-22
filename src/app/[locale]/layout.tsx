@@ -255,43 +255,39 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <QueryProvider>
-          <StoreProvider>
-            <NextIntlClientProvider messages={clientMessages}>
-              <PageErrorBoundary>
-                <noscript>
-                  <div
-                    role="alert"
-                    className="px-4 py-3 bg-amber-100 text-amber-800 text-center text-sm"
-                  >
-                    {tNav("noJsBanner")}
-                  </div>
-                </noscript>
-                <a href="#main-content" className="skip-link">
-                  Skip to main content
-                </a>
-                <Header />
-                <main id="main-content" className="flex-grow">
-                  {children}
-                </main>
-                <Footer locale={locale} />
-                <ScrollToTop />
-                <KeyboardShortcuts />
-                <PWARegister />
-                {/* Privacy-respecting analytics - configure via env vars */}
-                <Analytics
-                  plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-                  enableSimpleAnalytics={
-                    process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
-                  }
-                  googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
-                />
-                {/* Vercel Web Analytics */}
-                <VercelAnalytics />
-              </PageErrorBoundary>
-            </NextIntlClientProvider>
-          </StoreProvider>
-        </QueryProvider>
+        <NextIntlClientProvider messages={clientMessages}>
+          <PageErrorBoundary>
+            <noscript>
+              <div
+                role="alert"
+                className="px-4 py-3 bg-amber-100 text-amber-800 text-center text-sm"
+              >
+                {tNav("noJsBanner")}
+              </div>
+            </noscript>
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
+            <Header />
+            <main id="main-content" className="flex-grow">
+              {children}
+            </main>
+            <Footer locale={locale} />
+            <ScrollToTop />
+            <KeyboardShortcuts />
+            <PWARegister />
+            {/* Privacy-respecting analytics - configure via env vars */}
+            <Analytics
+              plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+              enableSimpleAnalytics={
+                process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
+              }
+              googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+            />
+            {/* Vercel Web Analytics */}
+            <VercelAnalytics />
+          </PageErrorBoundary>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
