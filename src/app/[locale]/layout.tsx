@@ -138,24 +138,30 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Server components use getTranslations() which reads from the server bundle
   // and does NOT need messages in the client-side provider.
   // Client namespaces: nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
-  //   safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation)
-  const clientNamespaces = [
+  //   safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation),
+  //   identify (IdentifyClient), contribute (PhotoUploadClient),
+  //   imageVoting (VotingClient)
+  const CLIENT_NAMESPACES = [
     "nav",
     "theme",
     "language",
     "safety",
     "glossary",
     "api",
+    "identify",
+    "contribute",
+    "imageVoting",
   ] as const;
 
-  type ClientNamespace = (typeof clientNamespaces)[number];
+  type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];
   type ClientMessages = Partial<Record<ClientNamespace, AbstractIntlMessages>>;
 
   const castMessages = messages as Record<string, AbstractIntlMessages>;
   const clientMessages: ClientMessages = Object.fromEntries(
-    clientNamespaces
-      .filter((ns) => ns in castMessages)
-      .map((ns) => [ns, castMessages[ns]])
+    CLIENT_NAMESPACES.filter((ns) => ns in castMessages).map((ns) => [
+      ns,
+      castMessages[ns],
+    ])
   );
 
   // CSP uses 'unsafe-inline' for script-src (no nonce needed) to support
@@ -280,8 +286,6 @@ export default async function LocaleLayout({ children, params }: Props) {
             />
             {/* Vercel Web Analytics */}
             <VercelAnalytics />
-            {/* Vercel Speed Insights - deferred to reduce TBT */}
-            <SpeedInsights />
           </PageErrorBoundary>
         </NextIntlClientProvider>
       </body>

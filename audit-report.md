@@ -1,6 +1,6 @@
 ## Image Quality Audit Report
 
-**Run Date:** 2026-02-15 03:54:24 UTC
+**Run Date:** 2026-02-22 03:51:48 UTC
 
 ### Featured Images
 
@@ -16,6 +16,7 @@ sips (macOS): ❌
 
 🔍 Auditing tree images...
 
+✅ acacia-mangium: local (542KB)
 ✅ aceituno: local (128KB)
 ✅ achotillo: local (107KB)
 ✅ aguacate: local (346KB)
@@ -29,8 +30,10 @@ sips (macOS): ❌
 ✅ araza: local (549KB)
 ✅ arrayan: local (255KB)
 ✅ balsa: local (318KB)
+✅ balsamo: local (306KB)
 ✅ bambu-gigante: local (126KB)
 ✅ botarrama: local (289KB)
+✅ burio: local (417KB)
 ✅ cacao: local (322KB)
 ✅ cachimbo: local (246KB)
 ✅ caimito: local (711KB)
@@ -71,6 +74,7 @@ sips (macOS): ❌
 ✅ cristobal: local (413KB)
 ✅ cristobalito: local (296KB)
 ✅ espavel: local (439KB)
+✅ eucalipto: local (193KB)
 ✅ flamboyan: local (612KB)
 ✅ flor-de-itabo: local (417KB)
 ✅ fruta-de-pan: local (146KB)
@@ -93,8 +97,10 @@ sips (macOS): ❌
 ✅ guayaba-chilena: local (155KB)
 ✅ guayabo: local (862KB)
 ✅ guayacan-real: local (301KB)
+✅ guitite: local (283KB)
 ✅ higueron: local (408KB)
 ✅ hoja-santa: local (390KB)
+✅ hule: local (416KB)
 ✅ icaco: local (115KB)
 ✅ indio-desnudo: local (659KB)
 ✅ ira-rosa: local (257KB)
@@ -134,6 +140,7 @@ sips (macOS): ❌
 ✅ muneco: local (468KB)
 ✅ nance: local (385KB)
 ✅ nazareno: local (892KB)
+✅ nim: local (498KB)
 ✅ nispero: local (407KB)
 ✅ ojoche: local (426KB)
 ✅ olla-de-mono: local (307KB)
@@ -147,8 +154,10 @@ sips (macOS): ❌
 ✅ papaturro: local (330KB)
 ✅ papaya: local (568KB)
 ✅ papayillo: local (388KB)
+✅ peine-de-mico: local (136KB)
 ✅ pejibaye: local (477KB)
 ✅ pilon: local (595KB)
+✅ pino-caribeno: local (459KB)
 ✅ pitahaya: local (658KB)
 ✅ pochote: local (325KB)
 ✅ pomarrosa: local (431KB)
@@ -180,7 +189,7 @@ sips (macOS): ❌
 ==================================================
 📊 AUDIT SUMMARY
 ==================================================
-✅ Valid local images: 160
+✅ Valid local images: 169
 📡 External URLs: 0
 ⚠️ Placeholders: 0
 ⚠️ Low resolution: 0
@@ -190,9 +199,9 @@ sips (macOS): ❌
 ==================================================
 📈 QUALITY METRICS
 ==================================================
-Total trees: 160
-Image health: 100% (160/160)
-Average image size: 415KB
+Total trees: 169
+Image health: 100% (169/169)
+Average image size: 412KB
 
 ### Gallery Images
 
@@ -208,6 +217,7 @@ sips (macOS): ❌
 
 🖼️ Auditing photo gallery images...
 
+❌ acacia-mangium: 5/5 broken
 ⚠️ aceituno: limited diversity (2 categories)
 ⚠️ achotillo: limited diversity (2 categories)
 ⚠️ aguacate: limited diversity (2 categories)
@@ -221,8 +231,10 @@ sips (macOS): ❌
 ⚠️ araza: limited diversity (2 categories)
 ⚠️ arrayan: limited diversity (2 categories)
 ✅ balsa: 5 images OK
+❌ balsamo: 5/5 broken
 ⚠️ bambu-gigante: limited diversity (2 categories)
 ✅ botarrama: 5 images OK
+❌ burio: 5/5 broken
 ✅ cacao: 5 images OK
 ⚠️ cachimbo: limited diversity (2 categories)
 ✅ caimito: 5 images OK
@@ -263,6 +275,7 @@ sips (macOS): ❌
 ⚠️ cristobal: limited diversity (2 categories)
 ✅ cristobalito: 5 images OK
 ⚠️ espavel: limited diversity (2 categories)
+❌ eucalipto: 4/5 broken
 ✅ flamboyan: 5 images OK
 📭 flor-de-itabo: no gallery section
 ⚠️ fruta-de-pan: limited diversity (2 categories)
@@ -285,8 +298,10 @@ sips (macOS): ❌
 📭 guayaba-chilena: no gallery section
 ✅ guayabo: 5 images OK
 ⚠️ guayacan-real: limited diversity (2 categories)
+❌ guitite: 5/5 broken
 ⚠️ higueron: limited diversity (2 categories)
 ⚠️ hoja-santa: limited diversity (2 categories)
+❌ hule: 5/5 broken
 ✅ icaco: 5 images OK
 ✅ indio-desnudo: 5 images OK
 ⚠️ ira-rosa: limited diversity (2 categories)
@@ -326,6 +341,7 @@ sips (macOS): ❌
 ⚠️ muneco: limited diversity (2 categories)
 ✅ nance: 5 images OK
 ⚠️ nazareno: limited diversity (2 categories)
+❌ nim: 4/5 broken
 ⚠️ nispero: limited diversity (2 categories)
 ✅ ojoche: 5 images OK
 ✅ olla-de-mono: 5 images OK
@@ -339,8 +355,10 @@ sips (macOS): ❌
 ⚠️ papaturro: limited diversity (2 categories)
 ⚠️ papaya: limited diversity (2 categories)
 📭 papayillo: no gallery section
+❌ peine-de-mico: 3/5 broken
 ⚠️ pejibaye: limited diversity (2 categories)
 ⚠️ pilon: limited diversity (2 categories)
+❌ pino-caribeno: 3/5 broken
 ⚠️ pitahaya: limited diversity (2 categories)
 ⚠️ pochote: limited diversity (2 categories)
 ⚠️ pomarrosa: limited diversity (2 categories)
@@ -375,19 +393,19 @@ sips (macOS): ❌
 ✅ Valid galleries: 61
 ⚠️ Low quality: 0
 ⚠️ Low diversity: 77
-❌ Broken images: 2
+❌ Broken images: 11
 📭 No gallery: 20
 
-💡 Run 'npm run images:refresh-gallery' to fix 79 galleries
+💡 Run 'npm run images:refresh-gallery' to fix 88 galleries
 
 ### Quality Metrics
 
 - **Broken/Missing Images:** 3
 - **Placeholder Images:** 0
 - **Undersized Images:** 0
-- **Total Tree Images:** 155
+- **Total Tree Images:** 164
 - **Optimized Images:** 8
-- **Pending Optimization:** 147
+- **Pending Optimization:** 156
 
 **Status:** ⚠️ Issues detected - proposals will be generated for admin review
 
@@ -410,8 +428,22 @@ Output: public/images/trees/optimized
 Mode: Optimize new/changed only
 ==================================================
 
-Found 155 image(s) to process
+Found 164 image(s) to process
 
+▶ Optimizing: acacia-mangium
+Original: 1200x1600 (541.8 KB)
+WEBP 400w: 400x533 55.99 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 86.17 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 60.24 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 169.27 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 249.84 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 202.43 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 296.23 KB ✓
+AVIF 1200w: 1200x1600 406.01 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 396.36 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.88 MB combined)
+Best JPG: 396.36 KB (26.8% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/acacia-mangium/metadata.json
 ⊘ aceituno: Already optimized (use --force to re-optimize)
 ⊘ aguacate: Already optimized (use --force to re-optimize)
 ⊘ aguacatillo: Already optimized (use --force to re-optimize)
@@ -509,6 +541,21 @@ Total variants: 9 files (676.03 KB combined)
 Best JPG: 147.96 KB (53.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/balsa/metadata.json
 
+▶ Optimizing: balsamo
+Original: 1200x900 (306 KB)
+WEBP 400w: 400x300 28.5 KB ✓
+AVIF 400w: 400x300 52.01 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 33.65 KB ✓
+WEBP 800w: 800x600 77.37 KB ✓
+AVIF 800w: 800x600 141.33 KB ✓
+JPG 800w: 800x600 99.93 KB ✓
+WEBP 1200w: 1200x900 169.72 KB ✓
+AVIF 1200w: 1200x900 232.6 KB ✓
+JPG 1200w: 1200x900 216.68 KB ✓
+Total variants: 9 files (1.03 MB combined)
+Best JPG: 216.68 KB (29.2% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/balsamo/metadata.json
+
 ▶ Optimizing: botarrama
 Original: 1200x800 (289.27 KB)
 WEBP 400w: 400x267 31.09 KB ✓
@@ -523,6 +570,21 @@ JPG 1200w: 1200x800 231.31 KB ✓
 Total variants: 9 files (1.13 MB combined)
 Best JPG: 231.31 KB (20.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/botarrama/metadata.json
+
+▶ Optimizing: burio
+Original: 1200x900 (417.22 KB)
+WEBP 400w: 400x300 40.05 KB ✓
+AVIF 400w: 400x300 68.38 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 41.33 KB ✓
+WEBP 800w: 800x600 133.28 KB ✓
+AVIF 800w: 800x600 203.91 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 142.52 KB ✓
+WEBP 1200w: 1200x900 269.48 KB ✓
+AVIF 1200w: 1200x900 350.74 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x900 295.35 KB ✓
+Total variants: 9 files (1.51 MB combined)
+Best JPG: 295.35 KB (29.2% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/burio/metadata.json
 
 ▶ Optimizing: cacao
 Original: 1200x1812 (322.47 KB)
@@ -1109,6 +1171,21 @@ Total variants: 9 files (1.02 MB combined)
 Best JPG: 215.94 KB (50.8% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/espavel/metadata.json
 
+▶ Optimizing: eucalipto
+Original: 1200x1161 (192.93 KB)
+WEBP 400w: 400x387 11.95 KB ✓
+AVIF 400w: 400x387 16.54 KB ✓
+JPG 400w: 400x387 20.93 KB ✓
+WEBP 800w: 800x774 31.2 KB ✓
+AVIF 800w: 800x774 45.07 KB ✓
+JPG 800w: 800x774 63.18 KB ✓
+WEBP 1200w: 1200x1161 57.63 KB ✓
+AVIF 1200w: 1200x1161 97.83 KB ✓
+JPG 1200w: 1200x1161 128.64 KB ✓
+Total variants: 9 files (472.96 KB combined)
+Best JPG: 128.64 KB (33.3% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/eucalipto/metadata.json
+
 ▶ Optimizing: flamboyan
 Original: 956x2048 (612.25 KB)
 WEBP 400w: 400x857 90.62 KB ⚠ (target: 50 KB)
@@ -1439,6 +1516,21 @@ Total variants: 9 files (775.76 KB combined)
 Best JPG: 152.62 KB (49.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guayacan-real/metadata.json
 
+▶ Optimizing: guitite
+Original: 1200x1600 (283.17 KB)
+WEBP 400w: 400x533 26.15 KB ✓
+AVIF 400w: 400x533 38.1 KB ✓
+JPG 400w: 400x533 36.07 KB ✓
+WEBP 800w: 800x1067 64.57 KB ✓
+AVIF 800w: 800x1067 88.78 KB ✓
+JPG 800w: 800x1067 102.65 KB ✓
+WEBP 1200w: 1200x1600 110.79 KB ✓
+AVIF 1200w: 1200x1600 151.18 KB ✓
+JPG 1200w: 1200x1600 193.26 KB ✓
+Total variants: 9 files (811.55 KB combined)
+Best JPG: 193.26 KB (31.8% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/guitite/metadata.json
+
 ▶ Optimizing: higueron
 Original: 1200x1594 (407.52 KB)
 WEBP 400w: 400x531 27.98 KB ✓
@@ -1468,6 +1560,21 @@ JPG 1200w: 1200x1600 292.94 KB ✓
 Total variants: 9 files (1.32 MB combined)
 Best JPG: 292.94 KB (25.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/hoja-santa/metadata.json
+
+▶ Optimizing: hule
+Original: 1200x900 (416.37 KB)
+WEBP 400w: 400x300 42.2 KB ✓
+AVIF 400w: 400x300 67.15 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 41.43 KB ✓
+WEBP 800w: 800x600 139.95 KB ✓
+AVIF 800w: 800x600 207.31 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 144.9 KB ✓
+WEBP 1200w: 1200x900 274.48 KB ✓
+AVIF 1200w: 1200x900 342.13 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x900 298.14 KB ✓
+Total variants: 9 files (1.52 MB combined)
+Best JPG: 298.14 KB (28.4% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/hule/metadata.json
 
 ▶ Optimizing: icaco
 Original: 1200x900 (115.18 KB)
@@ -2054,6 +2161,21 @@ Total variants: 9 files (2.14 MB combined)
 Best JPG: 436.91 KB (51.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/nazareno/metadata.json
 
+▶ Optimizing: nim
+Original: 1200x1600 (497.63 KB)
+WEBP 400w: 400x533 53.29 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 80.2 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 59.23 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 145.58 KB ✓
+AVIF 800w: 800x1067 214.95 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 186.32 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 249.5 KB ✓
+AVIF 1200w: 1200x1600 355.85 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 356.82 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.66 MB combined)
+Best JPG: 356.82 KB (28.3% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/nim/metadata.json
+
 ▶ Optimizing: nispero
 Original: 1200x1600 (406.92 KB)
 WEBP 400w: 400x533 24.24 KB ✓
@@ -2249,6 +2371,21 @@ Total variants: 9 files (1.34 MB combined)
 Best JPG: 292.69 KB (24.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/papayillo/metadata.json
 
+▶ Optimizing: peine-de-mico
+Original: 1200x900 (135.9 KB)
+WEBP 400w: 400x300 13.01 KB ✓
+AVIF 400w: 400x300 18.31 KB ✓
+JPG 400w: 400x300 17.95 KB ✓
+WEBP 800w: 800x600 32.71 KB ✓
+AVIF 800w: 800x600 41.37 KB ✓
+JPG 800w: 800x600 50.21 KB ✓
+WEBP 1200w: 1200x900 54.61 KB ✓
+AVIF 1200w: 1200x900 66.3 KB ✓
+JPG 1200w: 1200x900 94.36 KB ✓
+Total variants: 9 files (388.82 KB combined)
+Best JPG: 94.36 KB (30.6% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/peine-de-mico/metadata.json
+
 ▶ Optimizing: pejibaye
 Original: 1200x1600 (477.05 KB)
 WEBP 400w: 400x533 41.64 KB ✓
@@ -2278,6 +2415,21 @@ JPG 1200w: 1200x1600 277.79 KB ✓
 Total variants: 9 files (1.28 MB combined)
 Best JPG: 277.79 KB (53.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pilon/metadata.json
+
+▶ Optimizing: pino-caribeno
+Original: 1200x1600 (458.61 KB)
+WEBP 400w: 400x533 60.28 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 79.48 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 63.25 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 148.14 KB ✓
+AVIF 800w: 800x1067 200.17 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 180.64 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 233.77 KB ✓
+AVIF 1200w: 1200x1600 309.34 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 329.34 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.57 MB combined)
+Best JPG: 329.34 KB (28.2% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/pino-caribeno/metadata.json
 
 ▶ Optimizing: pitahaya
 Original: 956x2048 (658.38 KB)
@@ -2654,21 +2806,21 @@ Best JPG: 299.35 KB (53.2% smaller than original)
 ==================================================
 📊 Optimization Summary
 ==================================================
-Total images: 155
-Optimized: 149
+Total images: 164
+Optimized: 158
 Skipped: 6
 Errors: 0
-Variants generated: 1338
+Variants generated: 1419
 
-Original images total: 61.62 MB
-All variants total: 184.9 MB
+Original images total: 64.79 MB
+All variants total: 195.69 MB
 
 Note: Each image generates 3 formats × 5 sizes
 Modern formats (WebP/AVIF) typically save 25-50% vs JPEG
 
 ✅ Image optimization complete!
 
-✅ Total optimized: 156 trees
+✅ Total optimized: 165 trees
 
 ### Files Modified
 
