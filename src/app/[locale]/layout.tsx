@@ -13,12 +13,12 @@ import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
 import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
 import type { Metadata, Viewport } from "next";
 import type { AbstractIntlMessages } from "next-intl";
 
-// Lazy load non-critical client components
+// Lazy load non-critical client components — code-split to reduce initial
+// bundle size. These components are only loaded when the page hydrates.
 const KeyboardShortcuts = dynamic(() =>
   import("@/components/KeyboardShortcuts").then((m) => ({
     default: m.KeyboardShortcuts,

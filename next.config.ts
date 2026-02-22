@@ -175,6 +175,9 @@ const nextConfig: NextConfig = {
       "lucide-react",
       "react-markdown",
       "remark-gfm",
+      "fuse.js",
+      "zustand",
+      "@tanstack/react-query",
     ],
     // Enable optimized CSS loading
     optimizeCss: true,
