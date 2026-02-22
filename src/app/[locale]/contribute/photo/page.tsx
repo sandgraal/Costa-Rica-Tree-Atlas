@@ -1,6 +1,12 @@
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import {
+  setRequestLocale,
+  getMessages,
+  getTranslations,
+} from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
+import type { AbstractIntlMessages } from "next-intl";
 import PhotoUploadClient from "./PhotoUploadClient";
 
 export const dynamic = "force-dynamic";
@@ -41,5 +47,14 @@ export default async function ContributePhotoPage({ params }: Props) {
     }))
     .sort((a, b) => a.title.localeCompare(b.title));
 
-  return <PhotoUploadClient trees={trees} />;
+  // Provide contribute namespace to the client component.
+  const messages = await getMessages();
+  const castMessages = messages as Record<string, AbstractIntlMessages>;
+  const clientMessages = { contribute: castMessages.contribute };
+
+  return (
+    <NextIntlClientProvider messages={clientMessages}>
+      <PhotoUploadClient trees={trees} />
+    </NextIntlClientProvider>
+  );
 }

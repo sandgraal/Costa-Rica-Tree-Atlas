@@ -4,28 +4,19 @@ Last updated: 2026-02-22
 
 ## Latest Run Summary
 
-- **Branch**: `feature/lighthouse-performance-optimization` (PR #440 to main, open)
+- **Branch**: `fix/missing-client-translation-namespaces` (PR to main, pending)
 - **Tasks completed**:
-  1. **Lighthouse performance optimization (P2)**: Targeted the three key bottlenecks — JS bundle size, LCP (hero image), and client-side payload.
-     - Removed no-op `StoreProvider` "use client" boundary from root layout (dead client boundary on every page).
-     - Removed global `QueryProvider` from root layout — React Query (~40-60KB) was loaded on EVERY page but only used by one component (`BiodiversityInfo`) on tree detail pages. Made BiodiversityInfo self-contained with its own provider.
-     - Filtered `NextIntlClientProvider` messages to only ship client-needed namespaces (~7.5KB vs ~36KB): `nav`, `theme`, `language`, `safety`, `glossary`, `api`.
-     - Re-encoded hero AVIF images (were 399KB, larger than WebP 293KB). Now: desktop 155KB, tablet 155KB, mobile-lg 79KB, mobile 48KB (47-64% smaller).
-     - Fixed hero preload/picture format mismatch (was preloading WebP but serving AVIF first).
-     - Removed `priority` from header logo to avoid LCP contention with hero image.
-     - Moved SpeedInsights inside `<body>` for valid HTML.
-     - Deleted dead code: `StoreProvider.tsx`, cleaned provider exports.
+  1. **Fix missing client translation namespaces**: After the root layout was optimized to ship only global client namespaces (`nav`, `theme`, `language`, `safety`, `glossary`, `api`), three pages with client components using page-specific namespaces lost their translations.
+     - `contribute/photo/page.tsx` — wraps `PhotoUploadClient` with scoped `NextIntlClientProvider` supplying `contribute` namespace.
+     - `identify/page.tsx` — wraps `IdentifyClient` with scoped `NextIntlClientProvider` supplying `identify` namespace.
+     - `images/vote/page.tsx` — wraps `VotingClient` with scoped `NextIntlClientProvider` supplying `imageVoting` namespace.
+  2. **Full audit**: Confirmed all 13 `useTranslations` call sites are covered — 6 global namespaces in root layout, 3 page-scoped providers (fixed here), 4 server components using `useTranslations` server-side (no provider needed).
 - **Key files changed**:
-  - `src/app/[locale]/layout.tsx` — removed StoreProvider, QueryProvider, filtered messages, fixed SpeedInsights placement
-  - `src/app/[locale]/page.tsx` — fixed hero preload to AVIF format
-  - `src/components/Header.tsx` — removed priority from logo image
-  - `src/components/data/BiodiversityInfo.tsx` — self-contained QueryClientProvider
-  - `src/components/providers/StoreProvider.tsx` — deleted (no-op)
-  - `src/components/providers/index.ts` — cleaned exports
-  - `src/components/index.ts` — cleaned exports
-  - 6 AVIF hero images — re-encoded with proper compression
+  - `src/app/[locale]/contribute/photo/page.tsx` — scoped NextIntlClientProvider for `contribute`
+  - `src/app/[locale]/identify/page.tsx` — scoped NextIntlClientProvider for `identify`
+  - `src/app/[locale]/images/vote/page.tsx` — scoped NextIntlClientProvider for `imageVoting`
   - `docs/NEXT_AGENT_HANDOFF.md` — this file
-- **Verification**: Lint 0 errors (268 pre-existing warnings), build successful, 175 EN + 175 ES species confirmed.
+- **Verification**: Lint 0 errors (268 pre-existing warnings), build successful.
 
 ## Highest-Priority Remaining Work
 
@@ -62,7 +53,8 @@ Repository
 Mission
 - Performance (P2): JS bundle reduced (~70-90KB removed from every page), hero AVIF
   re-encoded (47-64% smaller), preload/picture mismatch fixed, logo priority contention
-  resolved. Lighthouse score improvement pending post-deploy measurement (baseline 48/100,
+  resolved. Missing page-scoped i18n namespaces fixed (contribute, identify, imageVoting).
+  Lighthouse score improvement pending post-deploy measurement (baseline 48/100,
   target 90/100). ~51 client components retain genuine client-side interactivity.
 - Species content: 175/175 (100%) — 175+ target achieved. Can continue expanding.
 - Next recommended tasks (pick one or more):
