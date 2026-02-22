@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
 **Last Updated:** 2026-02-22  
-**Status:** ✅ v1.0 Complete | 🎯 Active Development
+**Status:** ✅ v1.0 Complete | 🎯 Active Development (P2 performance, P4 community features next)
 
 ---
 
@@ -11,36 +11,38 @@
 
 ### 🔴 Active Blockers
 
-| #   | Blocker                                                                                                                                                                             | Blocks                                                      | Owner |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ----- |
-| B1  | **No PostgreSQL database deployed** — Vercel Postgres or Neon instance not yet provisioned                                                                                          | Image Review validation (P0.3), all Community Features (P4) | Human |
-| B2  | **PR #447 pending review** — `feature/performance-ssr-refactor-fuse-lazy` open; Fuse.js lazy-load and 4 education pages SSR-refactored                                              | Performance metrics can't be re-measured until this deploys | Human |
-| B3  | **Lighthouse score not re-measured** — Significant optimizations shipped in PRs #446 and #447 but no post-deploy audit has been run; reported score (48/100) is the Jan 18 baseline | Can't confirm P2 goals met or identify remaining hotspots   | Human |
-| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                                                                          | Community photo uploads (P4.1) fully blocked                | Human |
+| #      | Blocker                                                                                                                                                   | Blocks                                                    | Owner                                                                   |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------------- |
+| ~~B1~~ | ~~No PostgreSQL database deployed~~                                                                                                                       | ~~Image Review validation, Community Features~~           | ✅ **Resolved 2026-02-22** — Neon provisioned, `init` migration applied |
+| ~~B2~~ | ~~PR #447 pending review~~                                                                                                                                | ~~Performance metrics can't be re-measured~~              | ✅ **Resolved 2026-02-22** — PR #447 merged                             |
+| B3     | **Lighthouse score not re-measured** — PRs #446 and #447 now merged; reported score (48/100) is the Jan 18 baseline; awaiting post-deploy audit of new PR | Can't confirm P2 goals met or identify remaining hotspots | Human                                                                   |
+| B4     | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                                                | Community photo uploads (P4.1) fully blocked              | Human                                                                   |
 
 ### 🟡 Manual Steps Required Before Work Can Proceed
 
-#### Database Setup (Required for P0.3 validation and all P4 work)
+#### Database Setup ✅ Complete (2026-02-22)
 
-- [ ] Provision PostgreSQL instance (recommended: [Neon](https://neon.tech) free tier or Vercel Postgres)
-- [ ] Add `DATABASE_URL` to Vercel environment variables (Production + Preview)
-- [ ] Run Prisma migrations: `npx prisma migrate deploy`
-- [ ] Apply manual migration: `prisma/migrations/manual/add_image_review_system.sql`
-- [ ] Apply manual migration: `prisma/migrations/manual/upgrade_add_user_upload_to_proposal_source.sql`
-- [ ] Run `npx prisma db seed` (if applicable) and create first admin user: `npm run create-admin`
+- [x] Provision PostgreSQL instance — Neon free tier provisioned via Vercel integration
+- [x] Add Neon env vars to Vercel environment variables (Development, Preview, Production) — `NEON_DATABASE_URL`, `NEON_DATABASE_URL_UNPOOLED`, etc.
+- [x] Updated `prisma.config.ts` (root) to use `env("NEON_DATABASE_URL_UNPOOLED")` for migrations
+- [x] Ran `npx prisma migrate dev --name init` — created and applied initial schema migration
+- [x] Manual SQL scripts moved to `prisma/manual/` (schema already included them via `schema.prisma`)
+- [x] Updated `src/lib/prisma.ts` and all admin scripts to use `@prisma/adapter-neon` (required by Prisma 7)
+- [x] Created first admin user `cennisc@gmail.com` directly via Neon adapter (2026-02-22)
 
 #### Performance Validation (Required to confirm P2 goals)
 
-- [ ] Merge PR #447 and wait for Vercel deployment
-- [ ] Run Lighthouse audit on production URL (target: >90 Performance)
+- [x] Merge PR #447 — merged 2026-02-22
+- [ ] Wait for Vercel deployment of new PR, then run Lighthouse audit on production URL (target: >90 Performance)
 - [ ] Record actual LCP and TBT from production audit
 - [ ] Update the metrics in the Status Dashboard below with real post-deploy numbers
 
 #### Production Environment Variables (Vercel Dashboard)
 
-- [ ] `DATABASE_URL` — PostgreSQL connection string
-- [ ] `NEXTAUTH_SECRET` — Generate with `openssl rand -base64 32`
-- [ ] `NEXTAUTH_URL` — Production URL (e.g. `https://crtreeatlas.com`)
+- [x] `NEON_DATABASE_URL` — Pooled connection (set automatically by Vercel–Neon integration)
+- [x] `NEON_DATABASE_URL_UNPOOLED` — Direct connection for migrations (set automatically)
+- [x] `NEXTAUTH_SECRET` — Set in Vercel dashboard (2026-02-22)
+- [x] `NEXTAUTH_URL` — Set in Vercel dashboard (2026-02-22)
 - [ ] `NEXT_PUBLIC_SENTRY_DSN` — From Sentry project settings (optional but recommended)
 - [ ] `ADMIN_TOTP_SECRET_SALT` — Encryption salt for TOTP (generate a random 32-char string)
 
@@ -71,6 +73,11 @@
 - [x] Husky pre-commit hooks installed and tested
 - [x] Admin authentication E2E tested (2026-02-07)
 - [x] Hero image re-encoded to AVIF (47–64% smaller)
+- [x] Neon PostgreSQL provisioned via Vercel integration (2026-02-22)
+- [x] Initial Prisma migration applied to Neon — `20260222175434_init` (2026-02-22)
+- [x] `prisma.config.ts` updated to use `env("NEON_DATABASE_URL_UNPOOLED")` for Prisma 7 (2026-02-22)
+- [x] `src/lib/prisma.ts` and all 3 admin scripts updated to use `@prisma/adapter-neon` (2026-02-22)
+- [x] First admin user created in Neon — `cennisc@gmail.com` (2026-02-22)
 
 ---
 
@@ -93,21 +100,21 @@
 - **Auth Status**: ✅ Complete (MFA, JWT, backup codes working)
 - **Safety System**: ✅ Complete (100% coverage, filters live)
 - **Image Status**: 128/128 optimized (100%) ✅
-- **Database**: ⚠️ Not deployed (blocks Image Review validation + Community Features)
-- **Open PRs**: ⚠️ PR #447 pending review (`feature/performance-ssr-refactor-fuse-lazy`)
+- **Database**: ✅ Neon PostgreSQL deployed, schema migrated (2026-02-22)
+- **Open PRs**: ✅ PR #447 merged 2026-02-22 | ⏳ PR #450 open (`feature/neon-database-prisma7-setup`)
 
 ### Key Priorities
 
-| Priority | Focus Area                | Status                                                | Impact   |
-| -------- | ------------------------- | ----------------------------------------------------- | -------- |
-| **0**    | **Critical Blockers**     | ✅ Code Complete (DB deploy pending — see Blocker B1) | Critical |
-| **1**    | **Content Expansion**     | ✅ Complete                                           | High     |
-| **2**    | **Performance**           | 🟡 In Progress (re-measure needed — see Blocker B3)   | High     |
-| **3**    | **Infrastructure**        | 🟢 Mostly                                             | High     |
-| **4**    | **Community Features**    | ⏸️ Blocked (DB + cloud storage — see B1, B4)          | Medium   |
-| **5**    | **Content Enrichment**    | 📋 Ready (P5.1/P5.3 require human partnership)        | Medium   |
-| **6**    | **Internationalization**  | 📋 Ready (requires native-speaker review)             | Medium   |
-| **7**    | **Technical Enhancement** | 📋 Ready                                              | Medium   |
+| Priority | Focus Area                | Status                                                 | Impact   |
+| -------- | ------------------------- | ------------------------------------------------------ | -------- |
+| **0**    | **Critical Blockers**     | ✅ Complete (Auth ✅, Safety ✅, DB ✅, Admin user ✅) | Critical |
+| **1**    | **Content Expansion**     | ✅ Complete                                            | High     |
+| **2**    | **Performance**           | 🟡 In Progress (re-measure needed — see Blocker B3)    | High     |
+| **3**    | **Infrastructure**        | 🟢 Mostly                                              | High     |
+| **4**    | **Community Features**    | ⏸️ Partially blocked (cloud storage only — see B4)     | Medium   |
+| **5**    | **Content Enrichment**    | 📋 Ready (P5.1/P5.3 require human partnership)         | Medium   |
+| **6**    | **Internationalization**  | 📋 Ready (requires native-speaker review)              | Medium   |
+| **7**    | **Technical Enhancement** | 📋 Ready                                               | Medium   |
 
 **Legend:** ✅ Complete | ✅ Code (code complete, validation pending) | 🟡 In Progress | 🟢 Mostly (largely implemented; minor tasks remaining) | 📋 Ready | ⏸️ Blocked | ⚠️ Issues
 
@@ -116,7 +123,7 @@
 ## Priority 0: Critical Blockers 🚨
 
 **Impact:** Critical - Blocks community features  
-**Status:** ✅ Code Complete (Auth ✅, Safety ✅, Image Review ✅ — Validation pending DB deployment)
+**Status:** ✅ Complete (Auth ✅, Safety ✅, Image Review ✅, DB deployed ✅, Admin user created ✅)
 
 ### ✅ 0.1: Admin Authentication (COMPLETE)
 
@@ -763,18 +770,18 @@ Requires:
 ## Priority 4: Community Features 👥
 
 **Impact:** Medium - Enables user contributions  
-**Status:** ⏸️ Blocked (see Manual Tasks — Blockers B1 and B4)
+**Status:** ⏸️ Partially blocked (B4: cloud image storage — see Manual Tasks)
 
-> **⚠️ Blockers:**
+> **⚠️ Remaining Blocker:**
 >
-> - **B1**: No PostgreSQL database deployed. All community features require database access.
-> - **B4**: No cloud image storage (Cloudinary/S3) configured. Photo uploads are impossible without this.
+> - ~~**B1**~~: ✅ PostgreSQL database now deployed on Neon (2026-02-22)
+> - **B4**: No cloud image storage (Cloudinary/S3) configured. Photo uploads require this.
 >
-> Once B1 and B4 are resolved by a human operator, all tasks in this section are ready to implement.
+> Most community features are now unblocked. Photo upload specifically still requires B4 to be resolved.
 
 ### 4.1: User Photo Upload System
 
-**Prerequisites:** ✅ Image Review System (Priority 0.3) | ⏸️ Cloud storage (B4) | ⏸️ DB (B1)
+**Prerequisites:** ✅ Image Review System (Priority 0.3) | ✅ DB (Neon deployed) | ⏸️ Cloud storage (B4)
 
 **Features:**
 
@@ -1032,5 +1039,5 @@ Requires:
 ---
 
 **Last Comprehensive Review:** 2026-02-22  
-**Status:** 🚀 v1.0 Complete, Active Development on Priority 2 + 4  
-**Next Milestones:** Deploy DB → Merge PR #447 → Re-measure Lighthouse → Community Features (P4) → Refactor remaining 2 education pages
+**Status:** 🚀 v1.0 Complete, Priority 0 fully resolved, Active Development on P2 + P4  
+**Next Milestones:** New infra PR merged → Re-measure Lighthouse (B3) → Community Features (P4, only B4 remaining) → Remaining 2 education page SSR refactors
