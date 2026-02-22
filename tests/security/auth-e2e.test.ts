@@ -41,14 +41,9 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
-// Mock jose for JWT verification
-vi.mock("jose", () => ({
-  jwtVerify: vi.fn(),
-}));
-
-// Mock JWT error logger
-vi.mock("@/lib/auth/jwt-error-logger", () => ({
-  logJWTVerificationError: vi.fn(),
+// Mock next-auth/jwt getToken
+vi.mock("next-auth/jwt", () => ({
+  getToken: vi.fn(),
 }));
 
 // Mock next-auth getServerSession
@@ -546,15 +541,11 @@ describe("E2E Authentication Flows", () => {
 
   describe("Middleware Route Protection", () => {
     it("should allow access to admin routes with valid session", async () => {
-      const { jwtVerify } = await import("jose");
-      vi.mocked(jwtVerify).mockResolvedValue({
-        payload: {
-          id: "user-123",
-          email: "admin@example.com",
-          name: "Admin",
-        },
-        protectedHeader: { alg: "HS256" },
-        key: new Uint8Array(),
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue({
+        id: "user-123",
+        email: "admin@example.com",
+        name: "Admin",
       } as never);
 
       const { getSessionFromRequest } = await import("@/lib/auth/session");
@@ -576,13 +567,9 @@ describe("E2E Authentication Flows", () => {
     });
 
     it("should deny access with invalid JWT token", async () => {
-      const { jwtVerify } = await import("jose");
-      const jwtError = new Error("signature verification failed");
-      jwtError.name = "JWSSignatureVerificationFailed";
-      vi.mocked(jwtVerify).mockRejectedValue(jwtError);
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue(null);
 
-      const { logJWTVerificationError } =
-        await import("@/lib/auth/jwt-error-logger");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
       const request = createMockRequest(
@@ -595,17 +582,12 @@ describe("E2E Authentication Flows", () => {
       const session = await getSessionFromRequest(request);
 
       expect(session).toBeNull();
-      expect(logJWTVerificationError).toHaveBeenCalledWith(jwtError);
     });
 
     it("should deny access with expired JWT token", async () => {
-      const { jwtVerify } = await import("jose");
-      const expiredError = new Error('"exp" claim timestamp check failed');
-      expiredError.name = "JWTExpired";
-      vi.mocked(jwtVerify).mockRejectedValue(expiredError);
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue(null);
 
-      const { logJWTVerificationError } =
-        await import("@/lib/auth/jwt-error-logger");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
       const request = createMockRequest(
@@ -618,10 +600,12 @@ describe("E2E Authentication Flows", () => {
       const session = await getSessionFromRequest(request);
 
       expect(session).toBeNull();
-      expect(logJWTVerificationError).toHaveBeenCalledWith(expiredError);
     });
 
     it("should return null session when no token is present", async () => {
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue(null);
+
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
       const request = createMockRequest(
@@ -634,99 +618,61 @@ describe("E2E Authentication Flows", () => {
     });
 
     it("should return null session when NEXTAUTH_SECRET is not set", async () => {
-      // Save and clear the secret so the session module sees it as missing
       const savedSecret = process.env.NEXTAUTH_SECRET;
       delete process.env.NEXTAUTH_SECRET;
 
-      // Ensure the session module is re-evaluated with the missing secret
       vi.resetModules();
 
-      const { jwtVerify } = await import("jose");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
-      // Prepare a request that includes a session cookie so the code path
-      // would normally attempt JWT verification if a secret were present.
-      const requestWithCookie = {
-        cookies: {
-          get: vi.fn(() => ({ value: "test-token" })),
-        },
-      } as unknown as NextRequest;
+      const request = createMockRequest(
+        "http://localhost:3000/en/admin/dashboard",
+        { cookies: { "next-auth.session-token": "test-token" } }
+      );
 
-      // Mock jwtVerify to a successful value (it should NOT be called when the
-      // secret is missing due to the early `!JWT_SECRET` check).
-      vi.mocked(jwtVerify).mockResolvedValue({
-        payload: {
-          id: "user-id",
-          email: "user@example.com",
-        },
-        protectedHeader: { alg: "HS256" },
-        key: new Uint8Array(),
-      } as never);
+      const session = await getSessionFromRequest(request);
 
-      const session = await getSessionFromRequest(requestWithCookie);
-
-      // With a token present but no NEXTAUTH_SECRET, we should get a null session
-      // specifically because verification cannot proceed.
       expect(session).toBeNull();
-      expect(jwtVerify).not.toHaveBeenCalled();
 
-      // Restore the original secret
       process.env.NEXTAUTH_SECRET = savedSecret;
     });
 
-    it("should prefer production cookie over dev cookie", async () => {
-      // The session module reads __Secure-next-auth.session-token first.
-      // When both are present, prodToken takes priority (prodToken || devToken).
-      const { jwtVerify } = await import("jose");
-      const { getSessionFromRequest } = await import("@/lib/auth/session");
-
-      vi.mocked(jwtVerify).mockResolvedValue({
-        payload: {
-          id: "prod-user",
-          email: "prod@example.com",
-        },
-        protectedHeader: { alg: "HS256" },
-        key: new Uint8Array(),
-      } as never);
-
-      // Create a mock request with both cookies
-      const mockRequest = {
-        cookies: {
-          get: vi.fn((name: string) => {
-            if (name === "__Secure-next-auth.session-token") {
-              return { value: "prod-token" };
-            }
-            if (name === "next-auth.session-token") {
-              return { value: "dev-token" };
-            }
-            return undefined;
-          }),
-        },
-      } as unknown as NextRequest;
-
-      const session = await getSessionFromRequest(mockRequest);
-
-      expect(session).toEqual({
+    it("should use secureCookie in production for getToken", async () => {
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue({
         id: "prod-user",
         email: "prod@example.com",
-        name: undefined,
-      });
+        name: null,
+      } as never);
 
-      // jwtVerify should have been called with the prod token
-      expect(jwtVerify).toHaveBeenCalledTimes(1);
-      const callArgs = vi.mocked(jwtVerify).mock.calls[0];
-      expect(callArgs[0]).toBe("prod-token");
+      vi.stubEnv("NODE_ENV", "production");
+      vi.resetModules();
+
+      const { getSessionFromRequest } = await import("@/lib/auth/session");
+
+      const request = createMockRequest(
+        "http://localhost:3000/en/admin/dashboard",
+        {
+          cookies: {
+            "__Secure-next-auth.session-token": "prod-token",
+          },
+        }
+      );
+
+      await getSessionFromRequest(request);
+
+      expect(getToken).toHaveBeenCalledWith(
+        expect.objectContaining({ secureCookie: true })
+      );
+
+      vi.unstubAllEnvs();
     });
 
     it("should reject JWT payload without id claim", async () => {
-      const { jwtVerify } = await import("jose");
-      vi.mocked(jwtVerify).mockResolvedValue({
-        payload: {
-          email: "admin@example.com",
-          // Missing 'id' field
-        },
-        protectedHeader: { alg: "HS256" },
-        key: new Uint8Array(),
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue({
+        email: "admin@example.com",
+        // Missing 'id' field
       } as never);
 
       const { getSessionFromRequest } = await import("@/lib/auth/session");
@@ -1703,38 +1649,30 @@ describe("E2E Authentication Flows", () => {
       expect(wrongPasswordError).toBe("Invalid credentials");
     });
 
-    it("should use HS256 algorithm for JWT verification", async () => {
-      const { jwtVerify } = await import("jose");
-      const { getSessionFromRequest } = await import("@/lib/auth/session");
-
-      vi.mocked(jwtVerify).mockResolvedValue({
-        payload: { id: "user-123", email: "test@test.com" },
-        protectedHeader: { alg: "HS256" },
-        key: new Uint8Array(),
+    it("should call getToken with the configured secret", async () => {
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue({
+        id: "user-123",
+        email: "test@test.com",
       } as never);
 
-      // Use the mock request pattern
-      const mockRequest = {
-        cookies: {
-          get: vi.fn((name: string) => {
-            if (name === "next-auth.session-token") {
-              return { value: "valid-token" };
-            }
-            return undefined;
-          }),
-        },
-      } as unknown as NextRequest;
+      const { getSessionFromRequest } = await import("@/lib/auth/session");
 
-      await getSessionFromRequest(mockRequest);
+      const request = createMockRequest(
+        "http://localhost:3000/en/admin/dashboard",
+        {
+          cookies: { "next-auth.session-token": "valid-token" },
+        }
+      );
 
-      // Verify jwtVerify was called with correct algorithm constraint
-      expect(jwtVerify).toHaveBeenCalledTimes(1);
-      const callArgs = vi.mocked(jwtVerify).mock.calls[0];
-      expect(callArgs[0]).toBe("valid-token");
-      // Second arg is the encoded secret key (Uint8Array from TextEncoder)
-      expect(ArrayBuffer.isView(callArgs[1])).toBe(true);
-      // Third arg specifies the algorithm
-      expect(callArgs[2]).toEqual({ algorithms: ["HS256"] });
+      await getSessionFromRequest(request);
+
+      expect(getToken).toHaveBeenCalledTimes(1);
+      expect(getToken).toHaveBeenCalledWith(
+        expect.objectContaining({
+          secret: expect.any(String),
+        })
+      );
     });
   });
 });
