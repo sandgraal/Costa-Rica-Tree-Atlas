@@ -17,6 +17,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
 import type { Metadata, Viewport } from "next";
+import type { AbstractIntlMessages } from "next-intl";
 
 // Lazy load non-critical client components
 const KeyboardShortcuts = dynamic(() =>
@@ -134,6 +135,36 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
   const tNav = await getTranslations("nav");
 
+  // Only ship namespaces that client components actually use via useTranslations.
+  // Server components use getTranslations() which reads from the server bundle
+  // and does NOT need messages in the client-side provider.
+  // Client namespaces: nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
+  //   safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation),
+  //   identify (IdentifyClient), contribute (PhotoUploadClient),
+  //   imageVoting (VotingClient)
+  const CLIENT_NAMESPACES = [
+    "nav",
+    "theme",
+    "language",
+    "safety",
+    "glossary",
+    "api",
+    "identify",
+    "contribute",
+    "imageVoting",
+  ] as const;
+
+  type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];
+  type ClientMessages = Partial<Record<ClientNamespace, AbstractIntlMessages>>;
+
+  const castMessages = messages as Record<string, AbstractIntlMessages>;
+  const clientMessages: ClientMessages = Object.fromEntries(
+    CLIENT_NAMESPACES.filter((ns) => ns in castMessages).map((ns) => [
+      ns,
+      castMessages[ns],
+    ])
+  );
+
   // CSP uses 'unsafe-inline' for script-src (no nonce needed) to support
   // Next.js RSC hydration scripts while keeping pages statically generated.
   // The theme bootstrap runs as inline script — allowed by 'unsafe-inline'.
@@ -227,7 +258,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <QueryProvider>
           <StoreProvider>
-            <NextIntlClientProvider messages={messages}>
+            <NextIntlClientProvider messages={clientMessages}>
               <PageErrorBoundary>
                 <noscript>
                   <div
