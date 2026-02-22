@@ -7,10 +7,10 @@
 
 ### Content Coverage
 
-- **Species**: 169/169 (100%) - Target: 169+ documented species
+- **Species**: 175/175 (100%) - Target: 175+ documented species
 - **Comparison Guides**: 20/20 (100%) ✅ Complete
 - **Glossary Terms**: 150/150 (100%) ✅ Complete
-- **Care Guidance**: 169/169 (100%) ✅ Complete
+- **Care Guidance**: 175/175 (100%) ✅ Complete
 
 ### Technical Health
 
@@ -238,8 +238,8 @@ Recent additions completed:
 
 ### 1.3: Expand Care Guidance
 
-**Status:** ✅ Complete (All 169 species now include cultivation, restoration, or management guidance)  
-**Current:** 169/169 (100%) ✅
+**Status:** ✅ Complete (All 175 species now include cultivation, restoration, or management guidance)  
+**Current:** 175/175 (100%) ✅
 
 #### Week 1: Common Planted Trees (10 species) ✅ COMPLETE (EN & ES)
 
@@ -892,8 +892,8 @@ Requires:
 
 **Content Coverage:**
 
-- Species count: 175+ (current: 169)
-- Care guidance: 100% ✅ (current: 169/169)
+- Species count: 175+ (current: 175) ✅
+- Care guidance: 100% ✅ (current: 175/175)
 - Comparison guides: 20/20 ✅
 - Glossary terms: 150+ ✅ (current: 150)
 

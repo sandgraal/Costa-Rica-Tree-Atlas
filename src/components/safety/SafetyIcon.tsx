@@ -1,5 +1,3 @@
-"use client";
-
 import type { ToxicityLevel, RiskLevel } from "@/types/tree";
 
 interface SafetyIconProps {
