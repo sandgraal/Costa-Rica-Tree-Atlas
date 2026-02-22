@@ -2,7 +2,7 @@
  * Prisma 7 Configuration
  * https://pris.ly/d/config-datasource
  */
-import { defineConfig } from "prisma/config";
+import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -10,6 +10,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env.DATABASE_URL,
+    // Use the unpooled (direct) connection for migrations; pooled URL used by PrismaClient at runtime
+    url: env("NEON_DATABASE_URL_UNPOOLED"),
   },
 });
