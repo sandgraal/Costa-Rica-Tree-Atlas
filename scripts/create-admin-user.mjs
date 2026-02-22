@@ -14,29 +14,36 @@ import * as readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";
 
 // Load .env / .env.local for the connection string
-function loadEnv() {
-  for (const file of [".env.local", ".env"]) {
-    try {
-      return Object.fromEntries(
-        readFileSync(file, "utf8")
-          .split("\n")
-          .filter((l) => l && !l.startsWith("#") && l.includes("="))
-          .map((l) => {
-            const i = l.indexOf("=");
-            return [
-              l.slice(0, i).trim(),
-              l
-                .slice(i + 1)
-                .trim()
-                .replace(/^"|"$/g, ""),
-            ];
-          })
-      );
-    } catch {
-      /* file not found, try next */
-    }
+function parseEnvFile(file) {
+  try {
+    return Object.fromEntries(
+      readFileSync(file, "utf8")
+        .split("\n")
+        .filter((l) => l && !l.startsWith("#") && l.includes("="))
+        .map((l) => {
+          const i = l.indexOf("=");
+          return [
+            l.slice(0, i).trim(),
+            l
+              .slice(i + 1)
+              .trim()
+              .replace(/^"|"$/g, ""),
+          ];
+        })
+    );
+  } catch {
+    // File not found or unreadable; ignore and return empty object
+    return {};
   }
-  return {};
+}
+
+function loadEnv() {
+  // Merge base .env first, then override with .env.local if present
+  const env = {};
+  for (const file of [".env", ".env.local"]) {
+    Object.assign(env, parseEnvFile(file));
+  }
+  return env;
 }
 
 const env = { ...loadEnv(), ...process.env };
