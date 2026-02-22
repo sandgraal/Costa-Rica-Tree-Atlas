@@ -4,7 +4,7 @@
  */
 
 // Providers (used in layout.tsx)
-export { StoreProvider, QueryProvider } from "./providers";
+export { QueryProvider } from "./providers";
 
 // Core tree components (used in pages)
 export { TreeCard, TreeExplorer, TreeGrid } from "./tree";

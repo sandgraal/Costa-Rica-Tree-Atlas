@@ -44,7 +44,7 @@ export async function Header() {
               width={64}
               height={64}
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
-              priority
+              loading="eager"
               quality={90}
             />
             <span className="flex flex-col leading-none">

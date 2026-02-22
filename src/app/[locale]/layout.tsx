@@ -9,7 +9,6 @@ import {
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { StoreProvider, QueryProvider } from "@/components/providers";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
 import { THEME_SCRIPT } from "@/lib/theme/theme-script";
@@ -17,6 +16,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
 import type { Metadata, Viewport } from "next";
+import type { AbstractIntlMessages } from "next-intl";
 
 // Lazy load non-critical client components
 const KeyboardShortcuts = dynamic(() =>
@@ -134,6 +134,25 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
   const tNav = await getTranslations("nav");
 
+  // Only ship namespaces that client components actually use via useTranslations.
+  // Server components use getTranslations() which reads from the server bundle
+  // and does NOT need messages in the client-side provider.
+  // Client namespaces: nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
+  //   safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation)
+  const clientNamespaces = [
+    "nav",
+    "theme",
+    "language",
+    "safety",
+    "glossary",
+    "api",
+  ] as const;
+  const clientMessages = Object.fromEntries(
+    clientNamespaces
+      .filter((ns) => ns in (messages as Record<string, unknown>))
+      .map((ns) => [ns, (messages as Record<string, AbstractIntlMessages>)[ns]])
+  );
+
   // CSP uses 'unsafe-inline' for script-src (no nonce needed) to support
   // Next.js RSC hydration scripts while keeping pages statically generated.
   // The theme bootstrap runs as inline script — allowed by 'unsafe-inline'.
@@ -225,46 +244,42 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <QueryProvider>
-          <StoreProvider>
-            <NextIntlClientProvider messages={messages}>
-              <PageErrorBoundary>
-                <noscript>
-                  <div
-                    role="alert"
-                    className="px-4 py-3 bg-amber-100 text-amber-800 text-center text-sm"
-                  >
-                    {tNav("noJsBanner")}
-                  </div>
-                </noscript>
-                <a href="#main-content" className="skip-link">
-                  Skip to main content
-                </a>
-                <Header />
-                <main id="main-content" className="flex-grow">
-                  {children}
-                </main>
-                <Footer locale={locale} />
-                <ScrollToTop />
-                <KeyboardShortcuts />
-                <PWARegister />
-                {/* Privacy-respecting analytics - configure via env vars */}
-                <Analytics
-                  plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-                  enableSimpleAnalytics={
-                    process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
-                  }
-                  googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
-                />
-                {/* Vercel Web Analytics */}
-                <VercelAnalytics />
-              </PageErrorBoundary>
-            </NextIntlClientProvider>
-          </StoreProvider>
-        </QueryProvider>
+        <NextIntlClientProvider messages={clientMessages}>
+          <PageErrorBoundary>
+            <noscript>
+              <div
+                role="alert"
+                className="px-4 py-3 bg-amber-100 text-amber-800 text-center text-sm"
+              >
+                {tNav("noJsBanner")}
+              </div>
+            </noscript>
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
+            <Header />
+            <main id="main-content" className="flex-grow">
+              {children}
+            </main>
+            <Footer locale={locale} />
+            <ScrollToTop />
+            <KeyboardShortcuts />
+            <PWARegister />
+            {/* Privacy-respecting analytics - configure via env vars */}
+            <Analytics
+              plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+              enableSimpleAnalytics={
+                process.env.NEXT_PUBLIC_ENABLE_SIMPLE_ANALYTICS === "true"
+              }
+              googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+            />
+            {/* Vercel Web Analytics */}
+            <VercelAnalytics />
+            {/* Vercel Speed Insights - deferred to reduce TBT */}
+            <SpeedInsights />
+          </PageErrorBoundary>
+        </NextIntlClientProvider>
       </body>
-      {/* Vercel Speed Insights - deferred to reduce TBT */}
-      <SpeedInsights />
     </html>
   );
 }
