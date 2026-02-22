@@ -5,13 +5,57 @@
  * Run with: node scripts/create-admin-user.mjs
  */
 
+import { readFileSync } from "fs";
 import { hash } from "argon2";
 import { PrismaClient } from "@prisma/client";
+import { PrismaNeon } from "@prisma/adapter-neon";
 import { randomBytes } from "crypto";
 import * as readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";
 
-const prisma = new PrismaClient();
+// Load .env / .env.local for the connection string
+function parseEnvFile(file) {
+  try {
+    return Object.fromEntries(
+      readFileSync(file, "utf8")
+        .split("\n")
+        .filter((l) => l && !l.startsWith("#") && l.includes("="))
+        .map((l) => {
+          const i = l.indexOf("=");
+          return [
+            l.slice(0, i).trim(),
+            l
+              .slice(i + 1)
+              .trim()
+              .replace(/^"|"$/g, ""),
+          ];
+        })
+    );
+  } catch {
+    // File not found or unreadable; ignore and return empty object
+    return {};
+  }
+}
+
+function loadEnv() {
+  // Merge base .env first, then override with .env.local if present
+  const env = {};
+  for (const file of [".env", ".env.local"]) {
+    Object.assign(env, parseEnvFile(file));
+  }
+  return env;
+}
+
+const env = { ...loadEnv(), ...process.env };
+const connectionString =
+  env.NEON_DATABASE_URL_UNPOOLED ?? env.NEON_DATABASE_URL ?? env.DATABASE_URL;
+if (!connectionString) {
+  console.error("No database URL found in .env");
+  process.exit(1);
+}
+
+const adapter = new PrismaNeon({ connectionString });
+const prisma = new PrismaClient({ adapter });
 const rl = readline.createInterface({ input, output });
 
 // Simple CUID generator (compatible with Prisma's default)
