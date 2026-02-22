@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
@@ -44,6 +44,10 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [displayLimit, setDisplayLimit] = useState(INITIAL_LOAD_COUNT);
 
+  // Async search results (Fuse.js is lazy-loaded on first query)
+  const [searchedTrees, setSearchedTrees] = useState<Tree[] | null>(null);
+  const searchAbortRef = useRef(0);
+
   // Facets from all trees
   const allFacets = useMemo(() => extractFacets(typedTrees), [typedTrees]);
 
@@ -62,21 +66,30 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     };
   }, [allFacets]);
 
-  // Search and filter pipeline
+  // Lazy-load Fuse.js and perform search asynchronously
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchedTrees(null);
+      return;
+    }
+
+    const id = ++searchAbortRef.current;
+
+    search(searchQuery, typedTrees).then((results) => {
+      // Only apply if this is still the latest search
+      if (id === searchAbortRef.current) {
+        setSearchedTrees(results.map((r) => r.tree));
+      }
+    });
+  }, [searchQuery, typedTrees]);
+
+  // Filter and sort pipeline (synchronous — operates on already-searched results)
   const filteredTrees = useMemo(() => {
-    // Step 1: Search
-    let results = searchQuery
-      ? search(searchQuery, typedTrees).map((r) => r.tree)
-      : typedTrees;
-
-    // Step 2: Filter
-    results = filterTrees(results, filter);
-
-    // Step 3: Sort
+    const base = searchedTrees ?? typedTrees;
+    let results = filterTrees(base, filter);
     results = sortTrees(results, sort);
-
     return results;
-  }, [typedTrees, searchQuery, filter, sort]);
+  }, [typedTrees, searchedTrees, filter, sort]);
 
   // Reset display limit when filters or search changes
   useEffect(() => {
