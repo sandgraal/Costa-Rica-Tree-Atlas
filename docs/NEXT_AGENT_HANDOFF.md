@@ -1,36 +1,37 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-21
+Last updated: 2026-02-22
 
 ## Latest Run Summary
 
-- **Branch**: `feature/code-split-mdx-client-components` (PR to main, open)
-- **Task completed**: Performance Phase 3 continued — code-split `mdx/client-components.tsx` + stale branch cleanup.
-- **Key changes**:
-  - **Code-split MDX client components**: Split monolithic 958-line `client-components.tsx` into 8 individual files under `src/components/mdx/client/`, each with its own `"use client"` boundary. Components: AccordionItem, ImageCard, ImageGallery, Tabs, GlossaryTooltip, BeforeAfterSlider, SideBySideImages, FeatureAnnotation.
-  - **Per-component code-splitting**: Comparison-specific components (BeforeAfterSlider, SideBySideImages, FeatureAnnotation ~520 lines) are no longer bundled on tree pages — only loaded when rendered in comparison MDX content.
-  - **Backward compatibility**: `client-components.tsx` now re-exports from `./client/` barrel; `mdx/index.tsx` imports from `./client`; all existing import paths continue to work.
-  - **Updated imports**: `ServerMDXContent.tsx` imports from individual files; test imports updated to `./client`.
-  - **Stale branch cleanup**: Deleted 10 merged local branches (cleanup, content/_, feature/_, fix/\*) and 1 orphan backup branch.
-  - **Updated tracking docs**: IMPLEMENTATION_PLAN.md Phase 3 checklist, PERFORMANCE_OPTIMIZATION.md Phase 3 status.
-- **Verification**: TypeScript 0 errors, lint 0 errors (265 pre-existing warnings), build successful (1465/1465 static pages), MDX component registry test passing.
-- **Impact**: Tree pages (~338 pages × 2 locales) no longer load ~520 lines of comparison-only client JS. Each client component is independently tree-shakeable.
+- **Branch**: `feature/server-components-new-species` (PR to main, open)
+- **Tasks completed**:
+  1. **Server component audit & conversions**: Audited ~53 client components. Converted 2 to server components (SafetyIcon.tsx, QRCodeGenerator.tsx — removed unnecessary `"use client"` directives). Analyzed and justifiably skipped SafetyBadge (uses `useTranslations`), TreeTags (uses onClick), and ~49 others that require genuine client interactivity.
+  2. **6 new species added** (169 → 175): pochote-de-agua, canelo, cedro-macho, copal, sota, guacimo-molenillo — all with full bilingual EN+ES content, complete frontmatter (including 13 safety fields + care/cultivation fields), standardized body sections, and iNaturalist embeds.
+- **Key files changed**:
+  - `src/components/safety/SafetyIcon.tsx` — removed `"use client"`
+  - `src/components/field-guide/QRCodeGenerator.tsx` — removed `"use client"`
+  - 12 new MDX files: `content/trees/{en,es}/{pochote-de-agua,canelo,cedro-macho,copal,sota,guacimo-molenillo}.mdx`
+  - `docs/IMPLEMENTATION_PLAN.md` — updated species/care counts to 175
+  - `docs/MISSING_SPECIES_LIST.md` — added 6 new species to recently added section
+  - `docs/NEXT_AGENT_HANDOFF.md` — this file
+- **Verification**: Lint 0 errors (267 pre-existing warnings), build successful, 175 EN + 175 ES species confirmed.
 
 ## Highest-Priority Remaining Work
 
 From `docs/IMPLEMENTATION_PLAN.md`:
 
-| Priority | Task                 | Status               | Notes                                                                                                                                                                                                                                                                                                                                   |
-| -------- | -------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1.1     | Species content      | 169/169 (100%) ✅    | All species from MISSING_SPECIES_LIST.md complete. Target 175+ by identifying new species.                                                                                                                                                                                                                                              |
-| P1.3     | Care guidance        | 169/169 (100%) ✅    | Complete                                                                                                                                                                                                                                                                                                                                |
-| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                                                                                                                                                                                                                                                                                                     |
-| P2       | Performance Phase 3  | 🟡 Nearly complete   | 15 server component conversions + 3 dead code deletions done. Edge caching implemented. Partial hydration implemented (6 components). Progressive enhancement implemented (noscript fallbacks). MDX client components code-split (8 files). Remaining: database query optimization. ~53 client components retain genuine interactivity. |
-| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                                                                                                                                                                                                                                                                                             |
-| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                                                                                                                                                                                                        |
-| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                                                                                                                                                                                                |
+| Priority | Task                 | Status               | Notes                                                                                                                                                                                                                                                                                                                                       |
+| -------- | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1.1     | Species content      | 175/175 (100%) ✅    | 175+ target achieved. Can continue expanding with more species.                                                                                                                                                                                                                                                                             |
+| P1.3     | Care guidance        | 175/175 (100%) ✅    | Complete — all species include cultivation/care sections                                                                                                                                                                                                                                                                                    |
+| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                                                                                                                                                                                                                                                                                                         |
+| P2       | Performance Phase 3  | 🟡 Nearly complete   | 17 server component conversions total (15 prior + 2 this run) + 3 dead code deletions. Edge caching implemented. Partial hydration implemented (6 components). Progressive enhancement implemented. MDX client components code-split (8 files). Remaining: database query optimization. ~51 client components retain genuine interactivity. |
+| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                                                                                                                                                                                                                                                                                                 |
+| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                                                                                                                                                                                                            |
+| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                                                                                                                                                                                                    |
 
-**Recommended next task**: Performance Phase 3 is nearly complete (only DB query optimization remains, blocked until admin DB is active in production). Top candidates: (1) Add new species toward 175+ target (identify 6+ new species relevant to Costa Rica), (2) Community features (P4, now unblocked), (3) Further performance work — analyze remaining ~53 client components for additional server-component conversion candidates.
+**Recommended next task**: Top candidates: (1) Community features (P4, now unblocked — user photo uploads, contribution workflow), (2) Lighthouse performance improvements (current: 48/100, target: 90/100), (3) Database query optimization (requires active DB in production), (4) Continue species expansion beyond 175 if more Costa Rican species are identified.
 
 ## Operator Preferences (Persistent)
 
@@ -49,15 +50,16 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Performance Phase 3: server component conversions complete (15 done), edge caching implemented,
+- Performance Phase 3: 17 server component conversions done, edge caching implemented,
   partial hydration implemented (6 heavy components dynamically imported), progressive enhancement
   implemented (noscript fallbacks on key pages), MDX client components code-split (8 individual files).
-  Remaining ~53 client components retain genuine client-side interactivity.
+  Remaining ~51 client components retain genuine client-side interactivity.
+- Species content: 175/175 (100%) — 175+ target achieved. Can continue expanding.
 - Next recommended tasks (pick one or more):
-  1. Add new species toward 175+ target (identify 6+ new species relevant to Costa Rica)
-  2. Analyze remaining ~53 client components for further server-component conversion opportunities
+  1. Start community features (P4) — user photo uploads, contribution workflow
+  2. Lighthouse performance improvements (current: 48/100, target: 90/100)
   3. Optimize database queries for admin features (requires active DB in production)
-  4. Start community features (P4) — user photo uploads, contribution workflow
+  4. Continue species expansion beyond 175 if more Costa Rican species are identified
 - Do not ask questions if answer exists in repo docs.
 - Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
 
