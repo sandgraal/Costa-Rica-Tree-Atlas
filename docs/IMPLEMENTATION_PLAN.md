@@ -101,7 +101,7 @@
 - **Safety System**: ✅ Complete (100% coverage, filters live)
 - **Image Status**: 128/128 optimized (100%) ✅
 - **Database**: ✅ Neon PostgreSQL deployed, schema migrated (2026-02-22)
-- **Open PRs**: ✅ PR #447 merged 2026-02-22 | ⏳ New DB/infra PR being created
+- **Open PRs**: ✅ PR #447 merged 2026-02-22 | ⏳ PR #450 open (`feature/neon-database-prisma7-setup`)
 
 ### Key Priorities
 
