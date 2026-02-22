@@ -6,49 +6,18 @@
  * Usage: node scripts/reset-admin-password.mjs <email> <new-password>
  */
 
-import { readFileSync } from "fs";
 import { hash } from "argon2";
 import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
-
-// Load .env / .env.local for the connection string
-function parseEnvFile(file) {
-  try {
-    return Object.fromEntries(
-      readFileSync(file, "utf8")
-        .split("\n")
-        .filter((l) => l && !l.startsWith("#") && l.includes("="))
-        .map((l) => {
-          const i = l.indexOf("=");
-          return [
-            l.slice(0, i).trim(),
-            l
-              .slice(i + 1)
-              .trim()
-              .replace(/^"|"$/g, ""),
-          ];
-        })
-    );
-  } catch {
-    // File not found or unreadable; ignore and return empty object
-    return {};
-  }
-}
-
-function loadEnv() {
-  // Merge base .env first, then override with .env.local if present
-  const env = {};
-  for (const file of [".env", ".env.local"]) {
-    Object.assign(env, parseEnvFile(file));
-  }
-  return env;
-}
+import { loadEnv } from "./lib/env.mjs";
 
 const env = { ...loadEnv(), ...process.env };
 const connectionString =
   env.NEON_DATABASE_URL_UNPOOLED ?? env.NEON_DATABASE_URL ?? env.DATABASE_URL;
 if (!connectionString) {
-  console.error("No database URL found in .env");
+  console.error(
+    "No database URL found in environment or .env files. Set NEON_DATABASE_URL or DATABASE_URL."
+  );
   process.exit(1);
 }
 

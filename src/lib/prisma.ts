@@ -5,14 +5,17 @@
  * to prevent connection pool exhaustion in serverless environments.
  *
  * Uses the Neon serverless driver adapter (required by Prisma 7).
- * Gracefully degrades when Neon env vars are not present at build time
+ * Gracefully degrades when database env vars are not present at build time
  * so the app still builds and runs without a database.
  *
  * Runtime connection uses the pooled URL (NEON_DATABASE_URL) which is
- * optimised for serverless/edge environments.
+ * optimised for serverless/edge environments, with a fallback to DATABASE_URL
+ * for local/non-Neon environments.
  *
  * We intentionally use `any` types here because the Prisma generated client
- * types are only available after `prisma generate` runs.
+ * types are only available after `prisma generate` runs, which requires a
+ * database URL. Using explicit type imports would break the build in
+ * environments without a database.
  *
  * @see https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
  */
@@ -32,7 +35,7 @@ try {
   const connectionString =
     process.env.NEON_DATABASE_URL ?? process.env.DATABASE_URL;
 
-  if (!connectionString) throw new Error("No Neon database URL set");
+  if (!connectionString) throw new Error("No database URL set");
 
   const prismaClientSingleton = () => {
     const adapter = new PrismaNeon({ connectionString });
@@ -49,16 +52,14 @@ try {
   prisma = g.prismaGlobal ?? prismaClientSingleton();
 
   if (process.env.NODE_ENV !== "production") g.prismaGlobal = prisma;
-} catch (_error) {
-  // Prisma Client unavailable — possible causes:
-  //   • @prisma/client not yet generated (run `prisma generate`)
-  //   • NEON_DATABASE_URL / DATABASE_URL not set at runtime
-  const reason = _error instanceof Error ? _error.message : String(_error);
+} catch (error) {
+  // Prisma Client or database URL not available — admin features disabled
+  const reason = error instanceof Error ? error.message : String(error);
   console.warn(
     `Prisma Client not available (${reason}). Admin authentication features are disabled.`
   );
   console.warn(
-    "To enable admin features, run `prisma generate` and set NEON_DATABASE_URL (or DATABASE_URL)."
+    "To enable admin features, set NEON_DATABASE_URL or DATABASE_URL and rebuild the application."
   );
 
   prisma = new Proxy(
@@ -66,7 +67,7 @@ try {
     {
       get() {
         throw new Error(
-          `Prisma Client is not available (${reason}). Run \`prisma generate\` and ensure NEON_DATABASE_URL or DATABASE_URL is set.`
+          "Prisma Client is not available. NEON_DATABASE_URL or DATABASE_URL was not set during build. Admin features are disabled."
         );
       },
     }
@@ -76,3 +77,4 @@ try {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 export default prisma;
+
