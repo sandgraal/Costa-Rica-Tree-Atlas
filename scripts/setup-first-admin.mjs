@@ -13,28 +13,34 @@ import { randomBytes } from "crypto";
 
 // Load .env / .env.local for the connection string
 function loadEnv() {
-  for (const file of [".env.local", ".env"]) {
+  const result = {};
+
+  // Load base .env first, then override with .env.local if present
+  for (const file of [".env", ".env.local"]) {
     try {
-      return Object.fromEntries(
-        readFileSync(file, "utf8")
-          .split("\n")
-          .filter((l) => l && !l.startsWith("#") && l.includes("="))
-          .map((l) => {
-            const i = l.indexOf("=");
-            return [
-              l.slice(0, i).trim(),
-              l
-                .slice(i + 1)
-                .trim()
-                .replace(/^"|"$/g, ""),
-            ];
-          })
-      );
+      const entries = readFileSync(file, "utf8")
+        .split("\n")
+        .filter((l) => l && !l.startsWith("#") && l.includes("="))
+        .map((l) => {
+          const i = l.indexOf("=");
+          return [
+            l.slice(0, i).trim(),
+            l
+              .slice(i + 1)
+              .trim()
+              .replace(/^"|"$/g, ""),
+          ];
+        });
+
+      for (const [key, value] of entries) {
+        result[key] = value;
+      }
     } catch {
       /* file not found, try next */
     }
   }
-  return {};
+
+  return result;
 }
 
 const env = { ...loadEnv(), ...process.env };
