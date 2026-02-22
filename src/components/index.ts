@@ -3,9 +3,6 @@
  * Only exports actually used elsewhere in the codebase
  */
 
-// Providers (used in layout.tsx)
-export { QueryProvider } from "./providers";
-
 // Core tree components (used in pages)
 export { TreeCard, TreeExplorer, TreeGrid } from "./tree";
 export { DistributionMap } from "./geo";
