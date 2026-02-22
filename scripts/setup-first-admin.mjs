@@ -5,11 +5,48 @@
  * Run with: node scripts/setup-first-admin.mjs
  */
 
+import { readFileSync } from "fs";
 import { hash } from "argon2";
 import { PrismaClient } from "@prisma/client";
+import { PrismaNeon } from "@prisma/adapter-neon";
 import { randomBytes } from "crypto";
 
-const prisma = new PrismaClient();
+// Load .env / .env.local for the connection string
+function loadEnv() {
+  for (const file of [".env.local", ".env"]) {
+    try {
+      return Object.fromEntries(
+        readFileSync(file, "utf8")
+          .split("\n")
+          .filter((l) => l && !l.startsWith("#") && l.includes("="))
+          .map((l) => {
+            const i = l.indexOf("=");
+            return [
+              l.slice(0, i).trim(),
+              l
+                .slice(i + 1)
+                .trim()
+                .replace(/^"|"$/g, ""),
+            ];
+          })
+      );
+    } catch {
+      /* file not found, try next */
+    }
+  }
+  return {};
+}
+
+const env = { ...loadEnv(), ...process.env };
+const connectionString =
+  env.NEON_DATABASE_URL_UNPOOLED ?? env.NEON_DATABASE_URL ?? env.DATABASE_URL;
+if (!connectionString) {
+  console.error("No database URL found in .env");
+  process.exit(1);
+}
+
+const adapter = new PrismaNeon({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
 // Simple CUID generator
 function createId() {
