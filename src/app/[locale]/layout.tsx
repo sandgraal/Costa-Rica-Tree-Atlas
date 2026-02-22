@@ -9,7 +9,6 @@ import {
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { StoreProvider, QueryProvider } from "@/components/providers";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
 import { THEME_SCRIPT } from "@/lib/theme/theme-script";
@@ -294,8 +293,6 @@ export default async function LocaleLayout({ children, params }: Props) {
           </StoreProvider>
         </QueryProvider>
       </body>
-      {/* Vercel Speed Insights - deferred to reduce TBT */}
-      <SpeedInsights />
     </html>
   );
 }

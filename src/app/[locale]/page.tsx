@@ -32,11 +32,13 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
 
   // Preload hero image only on homepage (not all routes via layout)
-  preload("/images/hero/guanacaste-desktop.webp", {
+  // Preload AVIF format to match the first <source> in HeroImage's <picture> element
+  preload("/images/hero/guanacaste-desktop.avif", {
     as: "image",
     fetchPriority: "high",
+    type: "image/avif",
     imageSrcSet:
-      "/images/hero/guanacaste-mobile.webp 640w, /images/hero/guanacaste-mobile-lg.webp 828w, /images/hero/guanacaste-tablet.webp 1200w, /images/hero/guanacaste-desktop.webp 1920w",
+      "/images/hero/guanacaste-mobile.avif 640w, /images/hero/guanacaste-mobile-lg.avif 828w, /images/hero/guanacaste-tablet.avif 1200w, /images/hero/guanacaste-desktop.avif 1920w",
     imageSizes: "100vw",
   });
 

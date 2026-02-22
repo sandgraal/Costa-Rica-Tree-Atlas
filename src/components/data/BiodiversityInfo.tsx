@@ -1,6 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryClientProvider } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/query-client";
 import { biodiversityQueryKeys } from "@/lib/api/biodiversity";
 import {
   CONSERVATION_CATEGORIES,
@@ -28,7 +29,21 @@ interface BiodiversityInfoProps {
 // Component
 // ============================================================================
 
-export function BiodiversityInfo({
+/**
+ * Self-contained biodiversity data component.
+ * Includes its own QueryClientProvider so it doesn't require a global provider,
+ * keeping React Query out of every page's JS bundle.
+ */
+export function BiodiversityInfo(props: BiodiversityInfoProps) {
+  const queryClient = getQueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BiodiversityInfoInner {...props} />
+    </QueryClientProvider>
+  );
+}
+
+function BiodiversityInfoInner({
   scientificName,
   locale,
 }: BiodiversityInfoProps) {
