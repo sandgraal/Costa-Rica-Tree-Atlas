@@ -1,8 +1,8 @@
 # Missing Species - Expansion List
 
-**Last Updated:** 2026-02-16  
-**Current Species Count:** 169 documented  
-**Missing Species:** ~19 unique species identified for future expansion  
+**Last Updated:** 2026-02-22  
+**Current Species Count:** 175 documented  
+**Missing Species:** ~13 unique species identified for future expansion  
 **Duplicates Removed:** 7 species already documented under different common names
 
 ## Overview
@@ -11,7 +11,16 @@ This document tracks tree species native to or ecologically significant in Costa
 
 ## ✅ Recently Added Species
 
-### Latest Additions (2026-02-16)
+### Latest Additions (2026-02-22)
+
+- **Pochote de Agua** - _Pachira aquatica_ - Malabar Chestnut, ornamental/edible wetland tree ✅
+- **Canelo** - _Ocotea tenera_ - Lauraceae cloud forest timber, aromatic bark ✅
+- **Cedro Macho** - _Carapa guianensis_ - Crabwood, andiroba oil, Meliaceae timber ✅
+- **Copal** - _Protium costaricense_ - Ceremonial incense resin, Burseraceae ✅
+- **Sota** - _Mora oleifera_ - Endangered Fabaceae, massive buttress roots, Osa Peninsula ✅
+- **Guácimo Molenillo** - _Luehea candida_ - White Linden, fibrous bark for cordage ✅
+
+### Previous Additions (2026-02-16)
 
 - **Bálsamo** - _Myroxylon balsamum_ - Aromatic resin/timber legume, CITES Appendix III ✅
 - **Hule** - _Castilla elastica_ - Panama Rubber Tree, pre-Columbian rubber source ✅
