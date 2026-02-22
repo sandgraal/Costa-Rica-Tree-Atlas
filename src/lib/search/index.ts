@@ -1,9 +1,11 @@
 /**
- * Search infrastructure using Fuse.js
+ * Search infrastructure using Fuse.js (lazy-loaded)
  * Provides fuzzy search, faceted filtering, and ranked results
+ *
+ * Fuse.js (~30KB gzipped) is dynamically imported only when the user
+ * actually performs a search, keeping the initial bundle smaller.
  */
 
-import Fuse, { IFuseOptions, FuseResult } from "fuse.js";
 import type {
   Tree,
   TreeFilter,
@@ -14,10 +16,10 @@ import type {
 } from "@/types/tree";
 
 // ============================================================================
-// Search Configuration
+// Search Configuration (Fuse.js options — applied at lazy-init time)
 // ============================================================================
 
-const FUSE_OPTIONS: IFuseOptions<Tree> = {
+const FUSE_OPTIONS = {
   keys: [
     // Primary identifiers (highest weight)
     { name: "title", weight: 0.25 },
@@ -48,17 +50,32 @@ const FUSE_OPTIONS: IFuseOptions<Tree> = {
 };
 
 // ============================================================================
-// Search Index
+// Search Index (lazy-loaded)
 // ============================================================================
 
-let searchIndex: Fuse<Tree> | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let FuseClass: any = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let searchIndex: any = null;
+let indexedTreesRef: Tree[] | null = null;
 
-export function initializeSearchIndex(trees: Tree[]): Fuse<Tree> {
-  searchIndex = new Fuse(trees, FUSE_OPTIONS);
-  return searchIndex;
-}
+/**
+ * Lazily load Fuse.js and build (or reuse) the search index.
+ * Returns the Fuse instance ready to query.
+ */
+async function getOrCreateIndex(trees: Tree[]) {
+  // Load Fuse.js on first call
+  if (!FuseClass) {
+    const mod = await import("fuse.js");
+    FuseClass = mod.default ?? mod;
+  }
 
-export function getSearchIndex(): Fuse<Tree> | null {
+  // Rebuild index only when the tree list changes
+  if (!searchIndex || indexedTreesRef !== trees) {
+    searchIndex = new FuseClass(trees, FUSE_OPTIONS);
+    indexedTreesRef = trees;
+  }
+
   return searchIndex;
 }
 
@@ -76,21 +93,25 @@ export interface SearchResult {
   }>;
 }
 
-export function search(query: string, trees: Tree[]): SearchResult[] {
+/**
+ * Perform a fuzzy search across trees.
+ * Fuse.js is loaded lazily on the first actual search query.
+ */
+export async function search(
+  query: string,
+  trees: Tree[]
+): Promise<SearchResult[]> {
   if (!query.trim()) {
     return trees.map((tree) => ({ tree, score: 0 }));
   }
 
-  // Initialize index if needed
-  if (!searchIndex) {
-    initializeSearchIndex(trees);
-  }
+  const index = await getOrCreateIndex(trees);
+  const results = index.search(query);
 
-  const results = searchIndex!.search(query);
-
-  return results.map((result: FuseResult<Tree>) => ({
-    tree: result.item,
-    score: result.score ?? 0,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return results.map((result: any) => ({
+    tree: result.item as Tree,
+    score: (result.score as number) ?? 0,
     matches: result.matches,
   }));
 }
