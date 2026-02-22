@@ -27,7 +27,8 @@ const STATIC_FILE_REGEX =
   /\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico|map)$/;
 
 // Regex patterns for route matching - compiled once at module level for performance
-const ADMIN_ROUTE_REGEX = new RegExp(`^/(${localePattern})/admin/`);
+// Note: (/|$) matches both /en/admin (no trailing slash) and /en/admin/ or /en/admin/...
+const ADMIN_ROUTE_REGEX = new RegExp(`^/(${localePattern})/admin(/|$)`);
 const MARKETING_ROUTE_REGEX = new RegExp(`^/(${localePattern})/marketing/`);
 const TREE_DETAIL_ROUTE_REGEX = new RegExp(
   `^/(${localePattern})/trees/[^/]+/?$`

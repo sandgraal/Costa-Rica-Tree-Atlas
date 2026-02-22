@@ -2,15 +2,16 @@
  * NextAuth Session Helper for Edge Middleware
  *
  * Verifies JWT tokens in Edge runtime without database calls.
- * Uses jose library for JWT verification.
+ * Uses next-auth/jwt getToken which correctly handles NextAuth's JWE
+ * (JSON Web Encryption) token format used by default in next-auth v4.
+ *
+ * Note: The previous implementation used jose's jwtVerify (JWS only) which
+ * is incompatible with NextAuth's JWE-encrypted tokens, causing all session
+ * checks to silently fail and redirect users back to login.
  */
 
 import { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
-import { logJWTVerificationError } from "./jwt-error-logger";
-
-const JWT_SECRET = process.env.NEXTAUTH_SECRET || "";
-const JWT_SECRET_KEY = new TextEncoder().encode(JWT_SECRET);
+import { getToken } from "next-auth/jwt";
 
 interface SessionUser {
   id: string;
@@ -21,39 +22,33 @@ interface SessionUser {
 export async function getSessionFromRequest(
   request: NextRequest
 ): Promise<SessionUser | null> {
+  const secret = process.env.NEXTAUTH_SECRET;
+
+  if (!secret) {
+    return null;
+  }
+
   try {
-    // NextAuth stores JWT in cookies
-    // Development uses next-auth.session-token
-    // Production uses __Secure-next-auth.session-token (with https)
-    const devToken = request.cookies.get("next-auth.session-token")?.value;
-    const prodToken = request.cookies.get(
-      "__Secure-next-auth.session-token"
-    )?.value;
-    const token = prodToken || devToken;
+    // getToken handles both dev (next-auth.session-token) and prod
+    // (__Secure-next-auth.session-token) cookies automatically, and correctly
+    // decrypts NextAuth's JWE-encrypted JWT tokens.
+    const token = await getToken({ req: request, secret });
 
-    if (!token || !JWT_SECRET) {
-      return null;
-    }
-
-    // Verify JWT
-    const { payload } = await jwtVerify(token, JWT_SECRET_KEY, {
-      algorithms: ["HS256"],
-    });
-
-    // Extract user from payload
-    if (payload && typeof payload === "object" && "id" in payload) {
+    if (
+      token &&
+      typeof token.id === "string" &&
+      typeof token.email === "string"
+    ) {
       return {
-        id: payload.id as string,
-        email: payload.email as string,
-        name: payload.name as string | undefined,
+        id: token.id,
+        email: token.email,
+        name: token.name ?? null,
       };
     }
 
     return null;
-  } catch (error) {
-    // Invalid or expired token - log for operational diagnostics
-    // Note: No sensitive data (token payload) is logged
-    logJWTVerificationError(error);
+  } catch {
+    // Token decryption/verification failed (invalid, expired, or tampered)
     return null;
   }
 }
