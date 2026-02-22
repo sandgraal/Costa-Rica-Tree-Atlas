@@ -1661,6 +1661,32 @@ describe("E2E Authentication Flows", () => {
       expect(wrongPasswordError).toBe("Invalid credentials");
     });
 
+    it("should call getToken with the configured secret", async () => {
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue({
+        id: "user-123",
+        email: "test@test.com",
+      } as never);
+
+      const { getSessionFromRequest } = await import("@/lib/auth/session");
+
+      const request = createMockRequest(
+        "http://localhost:3000/en/admin/dashboard",
+        {
+          cookies: { "next-auth.session-token": "valid-token" },
+        }
+      );
+
+      await getSessionFromRequest(request);
+
+      expect(getToken).toHaveBeenCalledTimes(1);
+      expect(getToken).toHaveBeenCalledWith(
+        expect.objectContaining({
+          secret: expect.any(String),
+        })
+      );
+    });
+
     it("should call getToken with the configured NEXTAUTH_SECRET", async () => {
       const { getToken } = await import("next-auth/jwt");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
