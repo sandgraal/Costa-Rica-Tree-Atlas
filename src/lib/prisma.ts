@@ -52,8 +52,9 @@ try {
   prisma = g.prismaGlobal ?? prismaClientSingleton();
 
   if (process.env.NODE_ENV !== "production") g.prismaGlobal = prisma;
-} catch (_error) {
+} catch (error) {
   // Prisma Client or database URL not available — admin features disabled
+  const reason = error instanceof Error ? error.message : String(error);
   console.warn(
     `Prisma Client not available (${reason}). Admin authentication features are disabled.`
   );
