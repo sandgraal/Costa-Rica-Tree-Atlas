@@ -1,6 +1,8 @@
-import { setRequestLocale } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale, getMessages } from "next-intl/server";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
+import type { AbstractIntlMessages } from "next-intl";
 import IdentifyClient from "./IdentifyClient";
 
 interface IdentifyPageProps {
@@ -61,10 +63,15 @@ export default async function IdentifyPage({ params }: IdentifyPageProps) {
     },
   };
 
+  // Provide identify namespace to the client component.
+  const messages = await getMessages();
+  const castMessages = messages as Record<string, AbstractIntlMessages>;
+  const clientMessages = { identify: castMessages.identify };
+
   return (
-    <>
+    <NextIntlClientProvider messages={clientMessages}>
       <SafeJsonLd data={structuredData} />
       <IdentifyClient />
-    </>
+    </NextIntlClientProvider>
   );
 }

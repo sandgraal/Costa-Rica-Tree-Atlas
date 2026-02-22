@@ -1,6 +1,12 @@
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import {
+  setRequestLocale,
+  getMessages,
+  getTranslations,
+} from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
+import type { AbstractIntlMessages } from "next-intl";
 import VotingClient from "./VotingClient";
 
 type Props = {
@@ -30,6 +36,13 @@ export default async function ImageVotePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  // Provide imageVoting namespace to the client component.
+  // The root layout only ships global namespaces; page-specific
+  // namespaces are provided here to avoid bloating all pages.
+  const messages = await getMessages();
+  const castMessages = messages as Record<string, AbstractIntlMessages>;
+  const clientMessages = { imageVoting: castMessages.imageVoting };
+
   // Get trees with images for voting
   const treesWithImages = allTrees
     .filter((t) => t.locale === locale && t.featuredImage)
@@ -44,5 +57,9 @@ export default async function ImageVotePage({ params }: Props) {
     }))
     .filter((t) => !t.hasPlaceholder); // Exclude placeholders from voting
 
-  return <VotingClient trees={treesWithImages} />;
+  return (
+    <NextIntlClientProvider messages={clientMessages}>
+      <VotingClient trees={treesWithImages} />
+    </NextIntlClientProvider>
+  );
 }
