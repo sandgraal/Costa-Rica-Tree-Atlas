@@ -4,35 +4,55 @@ Last updated: 2026-02-22
 
 ## Latest Run Summary
 
-- **Branch**: `fix/missing-client-translation-namespaces` (PR to main, pending)
+- **Branch**: `feature/performance-bundle-optimization` (PR to main, pending)
 - **Tasks completed**:
-  1. **Fix missing client translation namespaces**: After the root layout was optimized to ship only global client namespaces (`nav`, `theme`, `language`, `safety`, `glossary`, `api`), three pages with client components using page-specific namespaces lost their translations.
-     - `contribute/photo/page.tsx` — wraps `PhotoUploadClient` with scoped `NextIntlClientProvider` supplying `contribute` namespace.
-     - `identify/page.tsx` — wraps `IdentifyClient` with scoped `NextIntlClientProvider` supplying `identify` namespace.
-     - `images/vote/page.tsx` — wraps `VotingClient` with scoped `NextIntlClientProvider` supplying `imageVoting` namespace.
-  2. **Full audit**: Confirmed all 13 `useTranslations` call sites are covered — 6 global namespaces in root layout, 3 page-scoped providers (fixed here), 4 server components using `useTranslations` server-side (no provider needed).
+  1. **Dead code & dependency audit**: Full codebase analysis identified dead imports, unused dependencies, and orphaned modules.
+  2. **Remove dead SpeedInsights import**: `@vercel/speed-insights` was imported in root layout but never rendered in JSX. Removed import and dependency.
+  3. **Remove dead QueryProvider infrastructure**: `QueryProvider.tsx`, `query-client-persister.ts`, `query-helpers.ts` were all dead code (QueryProvider was never used in any layout or page after global React Query provider was removed earlier). Removed files, barrel exports, and their tests.
+  4. **Remove phantom dependencies**: Removed `shiki` (~5MB on disk), `rehype-pretty-code`, `@tanstack/query-sync-storage-persister`, `@tanstack/react-query-persist-client` — all installed but never imported in source code. Net: **51 packages removed** from node_modules.
+  5. **Optimize package imports**: Added `fuse.js`, `zustand`, `@tanstack/react-query` to `optimizePackageImports` in next.config.ts for better tree-shaking.
+  6. **CSS cleanup**: Updated dark theme CSS comments for clarity (no semantic change).
 - **Key files changed**:
-  - `src/app/[locale]/contribute/photo/page.tsx` — scoped NextIntlClientProvider for `contribute`
-  - `src/app/[locale]/identify/page.tsx` — scoped NextIntlClientProvider for `identify`
-  - `src/app/[locale]/images/vote/page.tsx` — scoped NextIntlClientProvider for `imageVoting`
-  - `docs/NEXT_AGENT_HANDOFF.md` — this file
-- **Verification**: Lint 0 errors (268 pre-existing warnings), build successful.
+  - `src/app/[locale]/layout.tsx` — removed dead SpeedInsights import
+  - `src/components/providers/QueryProvider.tsx` — deleted (dead code)
+  - `src/lib/query-client-persister.ts` — deleted (dead code)
+  - `src/lib/query-helpers.ts` — deleted (dead code)
+  - `tests/query-client.test.ts` — deleted (tested dead code)
+  - `tests/query-helpers.test.ts` — deleted (tested dead code)
+  - `src/components/providers/index.ts` — removed QueryProvider export
+  - `src/components/index.ts` — removed QueryProvider export
+  - `package.json` — removed 5 unused dependencies
+  - `next.config.ts` — added 3 entries to optimizePackageImports
+  - `src/app/globals.css` — CSS comment cleanup
+- **Verification**: Lint 0 errors (268 pre-existing warnings), build successful, tests 340 passed (7 pre-existing failures unrelated to changes).
+
+## Performance Audit Findings (for next agent)
+
+Bundle analysis revealed these remaining optimization opportunities:
+
+| Finding                                          | Impact | Status                                                                             |
+| ------------------------------------------------ | ------ | ---------------------------------------------------------------------------------- |
+| 93 `"use client"` components                     | High   | Architectural — education lesson pages (1000-1500 lines) ship static content as JS |
+| QuickSearch (417 lines) in Header                | Medium | Loaded on every page via Header; already dynamically imported                      |
+| Fuse.js (~30KB gz) in TreeExplorer               | Medium | Could be lazy-loaded only when user searches                                       |
+| Education lesson pages as full client components | High   | Could extract static markup to server components                                   |
+| `ssr: false` not usable in Server Components     | N/A    | Next.js 16 limitation — dynamic imports still code-split effectively               |
 
 ## Highest-Priority Remaining Work
 
 From `docs/IMPLEMENTATION_PLAN.md`:
 
-| Priority | Task                 | Status               | Notes                                                                                                                                                                                                                                                                                                                                      |
-| -------- | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| P1.1     | Species content      | 175/175 (100%) ✅    | 175+ target achieved. Can continue expanding with more species.                                                                                                                                                                                                                                                                            |
-| P1.3     | Care guidance        | 175/175 (100%) ✅    | Complete — all species include cultivation/care sections                                                                                                                                                                                                                                                                                   |
-| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after new species additions                                                                                                                                                                                                                                                                                                        |
-| P2       | Performance          | 🟡 In progress       | JS bundle: removed ~70-90KB from every page (React Query global, StoreProvider, translation payload). Hero AVIF: 47-64% smaller. Preload/picture mismatch fixed. Logo priority contention fixed. Remaining: measure post-deploy Lighthouse score, further bundle optimization if needed, database query optimization (requires active DB). |
-| P4       | Community features   | 🔲 Not started       | Now unblocked — user contributions, ratings                                                                                                                                                                                                                                                                                                |
-| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                                                                                                                                                                                                           |
-| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                                                                                                                                                                                                   |
+| Priority | Task                 | Status               | Notes                                                                                                                    |
+| -------- | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| P1.1     | Species content      | 175/175 (100%) ✅    | 175+ target achieved                                                                                                     |
+| P1.3     | Care guidance        | 175/175 (100%) ✅    | Complete                                                                                                                 |
+| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after additions                                                                                                  |
+| P2       | Performance          | 🟡 In progress       | Dead code removed (51 packages). Remaining: Lighthouse measurement, education page SSR refactoring, Fuse.js lazy-loading |
+| P4       | Community features   | 🔲 Not started       | Now unblocked                                                                                                            |
+| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                         |
+| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                 |
 
-**Recommended next task**: Top candidates: (1) Measure post-deploy Lighthouse score to validate improvements and identify remaining bottlenecks, (2) Community features (P4, now unblocked — user photo uploads, contribution workflow), (3) Further bundle size analysis with `@next/bundle-analyzer` to find remaining heavy imports, (4) Database query optimization (requires active DB in production), (5) Continue species expansion beyond 175 if more Costa Rican species are identified.
+**Recommended next task**: (1) Measure post-deploy Lighthouse score (baseline 48/100, target 90/100), (2) Refactor education lesson pages to extract static HTML as server components (biggest remaining bundle win), (3) Lazy-load Fuse.js to defer ~30KB until user searches, (4) Community features (P4), (5) Species expansion beyond 175.
 
 ## Operator Preferences (Persistent)
 
@@ -51,18 +71,22 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Performance (P2): JS bundle reduced (~70-90KB removed from every page), hero AVIF
-  re-encoded (47-64% smaller), preload/picture mismatch fixed, logo priority contention
-  resolved. Missing page-scoped i18n namespaces fixed (contribute, identify, imageVoting).
-  Lighthouse score improvement pending post-deploy measurement (baseline 48/100,
-  target 90/100). ~51 client components retain genuine client-side interactivity.
-- Species content: 175/175 (100%) — 175+ target achieved. Can continue expanding.
+- Performance (P2): Dead code audit completed — 51 packages removed, dead imports
+  and unused modules cleaned up. Prior work removed ~70-90KB from every page
+  (React Query global, StoreProvider, translation payload). Hero AVIF re-encoded
+  (47-64% smaller). Lighthouse baseline 48/100, target 90/100.
+  Remaining: (a) measure post-deploy Lighthouse, (b) refactor education lesson
+  pages from full "use client" to server/client split (biggest remaining win),
+  (c) lazy-load Fuse.js (~30KB) until user initiates search.
+- Species content: 175/175 (100%) — complete.
 - Next recommended tasks (pick one or more):
   1. Measure post-deploy Lighthouse and identify remaining bottlenecks
-  2. Run @next/bundle-analyzer to find heavy imports for further tree-shaking
-  3. Start community features (P4) — user photo uploads, contribution workflow
-  4. Optimize database queries for admin features (requires active DB in production)
-  5. Continue species expansion beyond 175 if more Costa Rican species are identified
+  2. Refactor education lesson pages — extract static markup as server components,
+     keep only interactive parts as "use client" (6 pages, 1000-1500 lines each)
+  3. Lazy-load Fuse.js in TreeExplorer (defer ~30KB until search is used)
+  4. Start community features (P4) — user photo uploads, contribution workflow
+  5. Database query optimization (requires active DB in production)
+  6. Continue species expansion beyond 175
 - Do not ask questions if answer exists in repo docs.
 - Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
 
