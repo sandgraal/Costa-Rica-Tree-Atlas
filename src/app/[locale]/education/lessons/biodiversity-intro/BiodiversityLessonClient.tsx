@@ -12,12 +12,14 @@ import {
   injectEducationStyles,
   type LessonTreeData,
 } from "@/lib/education";
+import type { BiodiversityLessonData } from "./biodiversity-data";
 
 interface BiodiversityLessonClientProps {
   trees: LessonTreeData[];
   locale: string;
   totalSpecies: number;
   totalFamilies: number;
+  lessonData: BiodiversityLessonData;
 }
 
 export default function BiodiversityLessonClient(
@@ -35,7 +37,9 @@ function BiodiversityLessonContent({
   locale,
   totalSpecies,
   totalFamilies,
+  lessonData,
 }: BiodiversityLessonClientProps) {
+  const { labels: t, funFacts, quizQuestions, steps } = lessonData;
   const { markLessonComplete } = useEducationProgress();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedTrees, setSelectedTrees] = useState<string[]>([]);
@@ -100,178 +104,12 @@ function BiodiversityLessonContent({
     }
   }, [currentStep, selectedTrees.length, quizAnswers, completedObjectives]);
 
-  const funFacts =
-    locale === "es"
-      ? [
-          "Costa Rica tiene más especies de aves que toda Europa junta",
-          "El 25% del territorio de Costa Rica está protegido",
-          "Los bosques de Costa Rica capturan millones de toneladas de carbono cada año",
-          "La palabra 'biodiversidad' se usó por primera vez en 1986",
-        ]
-      : [
-          "Costa Rica has more bird species than all of Europe combined",
-          "25% of Costa Rica's territory is protected",
-          "Costa Rica's forests capture millions of tons of carbon each year",
-          "The word 'biodiversity' was first used in 1986",
-        ];
-
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentFact((prev) => (prev + 1) % funFacts.length);
     }, 5000);
     return () => clearInterval(timer);
   }, [funFacts.length]);
-
-  const t = {
-    title:
-      locale === "es"
-        ? "Introducción a la Biodiversidad"
-        : "Introduction to Biodiversity",
-    subtitle:
-      locale === "es"
-        ? "Descubre la increíble diversidad de árboles en Costa Rica"
-        : "Discover the incredible diversity of trees in Costa Rica",
-    step1Title:
-      locale === "es" ? "¿Qué es la Biodiversidad?" : "What is Biodiversity?",
-    step1Content:
-      locale === "es"
-        ? "La biodiversidad es la variedad de vida en la Tierra. Costa Rica, con solo el 0.03% de la superficie terrestre, alberga cerca del 5% de la biodiversidad mundial. ¡Esto hace de Costa Rica uno de los países más diversos del planeta!"
-        : "Biodiversity is the variety of life on Earth. Costa Rica, with only 0.03% of the Earth's surface, is home to nearly 5% of the world's biodiversity. This makes Costa Rica one of the most diverse countries on the planet!",
-    step2Title:
-      locale === "es" ? "Árboles de Costa Rica" : "Costa Rica's Trees",
-    step2Content:
-      locale === "es"
-        ? `Nuestro atlas documenta ${totalSpecies} especies de árboles en ${totalFamilies} familias botánicas diferentes.`
-        : `Our atlas documents ${totalSpecies} tree species across ${totalFamilies} different botanical families.`,
-    step3Title:
-      locale === "es"
-        ? "🎯 Misión: Explora los Árboles"
-        : "🎯 Mission: Explore the Trees",
-    step3Content:
-      locale === "es"
-        ? "¡Selecciona 5 árboles para completar tu colección!"
-        : "Select 5 trees to complete your collection!",
-    step4Title:
-      locale === "es" ? "🧠 Desafío de Conocimiento" : "🧠 Knowledge Challenge",
-    step5Title:
-      locale === "es" ? "🎨 Actividad Creativa" : "🎨 Creative Activity",
-    next: locale === "es" ? "Siguiente →" : "Next →",
-    previous: locale === "es" ? "← Anterior" : "← Previous",
-    finish: locale === "es" ? "🎉 Finalizar" : "🎉 Finish",
-    backToLessons:
-      locale === "es" ? "← Volver a Lecciones" : "← Back to Lessons",
-    selected: locale === "es" ? "seleccionados" : "selected",
-    results: locale === "es" ? "¡Felicidades!" : "Congratulations!",
-    correct: locale === "es" ? "respuestas correctas" : "correct answers",
-    tryAgain: locale === "es" ? "🔄 Intentar de nuevo" : "🔄 Try Again",
-    hint: locale === "es" ? "💡 Pista" : "💡 Hint",
-    points: locale === "es" ? "puntos" : "points",
-    streak: locale === "es" ? "🔥 Racha" : "🔥 Streak",
-    didYouKnow: locale === "es" ? "¿Sabías que...?" : "Did you know...?",
-    objectives:
-      locale === "es"
-        ? [
-            "Definir qué es biodiversidad",
-            "Explicar por qué Costa Rica es tan biodiversa",
-            "Identificar 5 árboles nativos de Costa Rica",
-            "Entender la importancia de proteger los bosques",
-          ]
-        : [
-            "Define what biodiversity is",
-            "Explain why Costa Rica is so biodiverse",
-            "Identify 5 native Costa Rican trees",
-            "Understand the importance of protecting forests",
-          ],
-    learningObjectives:
-      locale === "es" ? "Objetivos de Aprendizaje" : "Learning Objectives",
-    nextLesson: locale === "es" ? "Siguiente Lección →" : "Next Lesson →",
-    exploreMoreTrees:
-      locale === "es" ? "Explorar Más Árboles" : "Explore More Trees",
-    treesExplored: locale === "es" ? "Árboles Explorados" : "Trees Explored",
-    lessonComplete:
-      locale === "es"
-        ? "¡Has completado la lección de Biodiversidad!"
-        : "You've completed the Biodiversity lesson!",
-    clickToExplore: locale === "es" ? "Clic para explorar" : "Click to explore",
-    viewInAtlas: locale === "es" ? "Ver en Atlas" : "View in Atlas",
-    close: locale === "es" ? "Cerrar" : "Close",
-  };
-
-  const quizQuestions = [
-    {
-      question:
-        locale === "es"
-          ? "¿Qué porcentaje de la biodiversidad mundial se encuentra en Costa Rica?"
-          : "What percentage of world's biodiversity is found in Costa Rica?",
-      options: ["1%", "5%", "10%", "25%"],
-      correct: 1,
-      hint:
-        locale === "es"
-          ? "Es mucho más de lo que esperarías para un país tan pequeño"
-          : "It's much more than you'd expect for such a small country",
-      points: 10,
-    },
-    {
-      question:
-        locale === "es"
-          ? "¿Por qué es importante la biodiversidad?"
-          : "Why is biodiversity important?",
-      options:
-        locale === "es"
-          ? [
-              "Solo para la ciencia",
-              "Para ecosistemas, medicina, y aire limpio",
-              "No es importante",
-              "Solo para el turismo",
-            ]
-          : [
-              "Only for science",
-              "For ecosystems, medicine, and clean air",
-              "It's not important",
-              "Only for tourism",
-            ],
-      correct: 1,
-      hint:
-        locale === "es"
-          ? "Piensa en todo lo que obtenemos de la naturaleza"
-          : "Think about everything we get from nature",
-      points: 10,
-    },
-    {
-      question:
-        locale === "es"
-          ? `¿Cuántas familias botánicas de árboles hay en nuestro atlas?`
-          : `How many botanical families of trees are in our atlas?`,
-      options: ["5", "10", `${totalFamilies}`, "100"],
-      correct: 2,
-      hint:
-        locale === "es"
-          ? "Revisa las estadísticas que viste al principio"
-          : "Check the statistics you saw at the beginning",
-      points: 15,
-    },
-    {
-      question:
-        locale === "es"
-          ? "¿Qué porcentaje de la superficie de la Tierra ocupa Costa Rica?"
-          : "What percentage of Earth's surface does Costa Rica occupy?",
-      options: ["0.03%", "1%", "5%", "10%"],
-      correct: 0,
-      hint:
-        locale === "es"
-          ? "Es un país muy pequeño pero muy diverso"
-          : "It's a very small country but very diverse",
-      points: 15,
-    },
-  ];
-
-  const steps = [
-    { title: t.step1Title, icon: "🌍" },
-    { title: t.step2Title, icon: "🌳" },
-    { title: t.step3Title, icon: "🔍" },
-    { title: t.step4Title, icon: "📝" },
-    { title: t.step5Title, icon: "🎨" },
-  ];
 
   const handleTreeSelect = (tree: LessonTreeData) => {
     if (selectedTrees.includes(tree.slug)) {

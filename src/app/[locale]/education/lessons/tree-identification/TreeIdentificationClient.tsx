@@ -12,12 +12,14 @@ import {
   injectEducationStyles,
   type LessonTreeData,
 } from "@/lib/education";
+import type { TreeIdentificationLessonData } from "./tree-identification-data";
 
 interface TreeIdentificationClientProps {
   trees: LessonTreeData[];
   locale: string;
   totalSpecies: number;
   totalFamilies: number;
+  lessonData: TreeIdentificationLessonData;
 }
 
 export default function TreeIdentificationClient(
@@ -33,7 +35,9 @@ export default function TreeIdentificationClient(
 function TreeIdentificationContent({
   trees,
   locale,
+  lessonData,
 }: TreeIdentificationClientProps) {
+  const { labels: t, features } = lessonData;
   const { markLessonComplete } = useEducationProgress();
   const [_currentStep, _setCurrentStep] = useState(0);
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "match">("learn");
@@ -69,85 +73,6 @@ function TreeIdentificationContent({
   useEffect(() => {
     injectEducationStyles();
   }, []);
-
-  const t = {
-    title:
-      locale === "es"
-        ? "Habilidades de Identificación"
-        : "Tree Identification Skills",
-    subtitle:
-      locale === "es"
-        ? "Aprende a reconocer árboles por sus características"
-        : "Learn to recognize trees by their features",
-    backToLessons:
-      locale === "es" ? "← Volver a Lecciones" : "← Back to Lessons",
-    learn: locale === "es" ? "📚 Aprender" : "📚 Learn",
-    quiz: locale === "es" ? "🎯 Quiz" : "🎯 Quiz",
-    match: locale === "es" ? "🃏 Memoria" : "🃏 Memory",
-    learnTitle: locale === "es" ? "Conoce los Árboles" : "Meet the Trees",
-    learnDesc:
-      locale === "es"
-        ? "Explora y aprende las características de cada árbol"
-        : "Explore and learn the features of each tree",
-    quizTitle:
-      locale === "es" ? "Prueba tus Conocimientos" : "Test Your Knowledge",
-    quizDesc:
-      locale === "es"
-        ? "¿Puedes identificar el árbol por su imagen?"
-        : "Can you identify the tree from its image?",
-    matchTitle: locale === "es" ? "Juego de Memoria" : "Memory Game",
-    matchDesc:
-      locale === "es"
-        ? "Encuentra los pares de árboles y sus nombres"
-        : "Match the trees with their names",
-    whichTree: locale === "es" ? "¿Qué árbol es este?" : "Which tree is this?",
-    correct: locale === "es" ? "¡Correcto!" : "Correct!",
-    wrong: locale === "es" ? "¡Inténtalo de nuevo!" : "Try again!",
-    score: locale === "es" ? "Puntuación" : "Score",
-    streak: locale === "es" ? "🔥 Racha" : "🔥 Streak",
-    round: locale === "es" ? "Ronda" : "Round",
-    moves: locale === "es" ? "Movimientos" : "Moves",
-    playAgain: locale === "es" ? "🔄 Jugar de nuevo" : "🔄 Play Again",
-    nextQuestion: locale === "es" ? "Siguiente →" : "Next →",
-    startQuiz: locale === "es" ? "Comenzar Quiz" : "Start Quiz",
-    startMatch: locale === "es" ? "Comenzar Juego" : "Start Game",
-    features: locale === "es" ? "Características" : "Features",
-    family: locale === "es" ? "Familia" : "Family",
-    height: locale === "es" ? "Altura" : "Height",
-    flowering: locale === "es" ? "Floración" : "Flowering",
-    fruiting: locale === "es" ? "Fructificación" : "Fruiting",
-    all: locale === "es" ? "Todos" : "All",
-    treesLearned: locale === "es" ? "Árboles Aprendidos" : "Trees Learned",
-    points: locale === "es" ? "puntos" : "points",
-    congratulations: locale === "es" ? "¡Felicidades!" : "Congratulations!",
-    matchComplete:
-      locale === "es"
-        ? "¡Completaste el juego de memoria!"
-        : "You completed the memory game!",
-    quizComplete:
-      locale === "es" ? "¡Completaste el quiz!" : "You completed the quiz!",
-    perfectScore: locale === "es" ? "¡Puntuación Perfecta!" : "Perfect Score!",
-    greatJob: locale === "es" ? "¡Excelente trabajo!" : "Great job!",
-    keepPracticing:
-      locale === "es" ? "¡Sigue practicando!" : "Keep practicing!",
-    viewDetails: locale === "es" ? "Ver Detalles" : "View Details",
-    close: locale === "es" ? "Cerrar" : "Close",
-    clickToLearn: locale === "es" ? "Clic para aprender" : "Click to learn",
-    nextLesson: locale === "es" ? "Siguiente Lección →" : "Next Lesson →",
-    filterByFamily:
-      locale === "es" ? "Filtrar por familia" : "Filter by family",
-  };
-
-  const features = [
-    { key: "all", label: t.all, icon: "🌳" },
-    { key: "flowering", label: t.flowering, icon: "🌸" },
-    { key: "fruiting", label: t.fruiting, icon: "🍎" },
-    {
-      key: "tall",
-      label: locale === "es" ? "Altos (>20m)" : "Tall (>20m)",
-      icon: "📏",
-    },
-  ];
 
   const filteredTrees = trees.filter((tree) => {
     if (selectedFeature === "all") return true;
@@ -418,7 +343,7 @@ function TreeIdentificationContent({
             <p className="text-muted-foreground">{t.subtitle}</p>
             <div className="flex items-center gap-4 mt-2 text-sm">
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
-                {locale === "es" ? "Grados 4-6" : "Grades 4-6"}
+                {t.grades}
               </span>
               <span className="px-3 py-1 bg-muted text-muted-foreground rounded-full">
                 ⏱️ 30-45 min
@@ -502,7 +427,7 @@ function TreeIdentificationContent({
                 </div>
                 <div>
                   <span className="text-muted-foreground text-sm">
-                    {locale === "es" ? "Pares" : "Pairs"}
+                    {t.pairs}
                   </span>
                   <span className="ml-2 text-xl font-bold text-green-600">
                     {matchCards.filter((c) => c.matched).length / 2}/6
@@ -515,7 +440,7 @@ function TreeIdentificationContent({
             onClick={resetAll}
             className="text-sm text-muted-foreground hover:text-foreground"
           >
-            ✕ {locale === "es" ? "Salir" : "Exit"}
+            ✕ {t.exit}
           </button>
         </div>
       )}

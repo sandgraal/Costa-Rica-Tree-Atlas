@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import TreeIdentificationClient from "./TreeIdentificationClient";
+import { getTreeIdentificationLessonData } from "./tree-identification-data";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -44,12 +45,17 @@ export default async function TreeIdentificationPage({ params }: PageProps) {
 
   const uniqueFamilies = [...new Set(trees.map((t) => t.family))].length;
 
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getTreeIdentificationLessonData(locale);
+
   return (
     <TreeIdentificationClient
       trees={trees}
       locale={locale}
       totalSpecies={trees.length}
       totalFamilies={uniqueFamilies}
+      lessonData={lessonData}
     />
   );
 }

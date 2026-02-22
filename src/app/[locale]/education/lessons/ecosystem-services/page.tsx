@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import EcosystemServicesClient from "./EcosystemServicesClient";
+import { getEcosystemServicesLessonData } from "./ecosystem-services-data";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -38,5 +39,15 @@ export default async function EcosystemServicesPage({ params }: PageProps) {
       tags: tree.tags || [],
     }));
 
-  return <EcosystemServicesClient trees={trees} locale={locale} />;
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getEcosystemServicesLessonData(locale);
+
+  return (
+    <EcosystemServicesClient
+      trees={trees}
+      locale={locale}
+      lessonData={lessonData}
+    />
+  );
 }

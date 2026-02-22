@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import BiodiversityLessonClient from "./BiodiversityLessonClient";
+import { getBiodiversityLessonData } from "./biodiversity-data";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -63,12 +64,24 @@ export default async function BiodiversityLessonPage({ params }: Props) {
     ),
   ];
 
+  const totalSpecies = allTrees.filter((t) => t.locale === locale).length;
+  const totalFamilies = families.length;
+
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getBiodiversityLessonData(
+    locale,
+    totalSpecies,
+    totalFamilies
+  );
+
   return (
     <BiodiversityLessonClient
       trees={trees}
       locale={locale}
-      totalSpecies={allTrees.filter((t) => t.locale === locale).length}
-      totalFamilies={families.length}
+      totalSpecies={totalSpecies}
+      totalFamilies={totalFamilies}
+      lessonData={lessonData}
     />
   );
 }

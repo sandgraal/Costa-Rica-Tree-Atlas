@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import ConservationLessonClient from "./ConservationLessonClient";
+import { getConservationLessonData } from "./conservation-data";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -61,12 +62,17 @@ export default async function ConservationPage({ params }: PageProps) {
     ].includes(t.conservationStatus || "")
   );
 
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getConservationLessonData(locale);
+
   return (
     <ConservationLessonClient
       trees={trees}
       locale={locale}
       statusCounts={statusCounts}
       endangeredTrees={endangeredTrees}
+      lessonData={lessonData}
     />
   );
 }
