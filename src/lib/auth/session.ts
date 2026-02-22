@@ -25,6 +25,7 @@ export async function getSessionFromRequest(
   const secret = process.env.NEXTAUTH_SECRET;
 
   if (!secret) {
+    console.error("[Auth] NEXTAUTH_SECRET is not configured");
     return null;
   }
 
@@ -32,7 +33,12 @@ export async function getSessionFromRequest(
     // getToken handles both dev (next-auth.session-token) and prod
     // (__Secure-next-auth.session-token) cookies automatically, and correctly
     // decrypts NextAuth's JWE-encrypted JWT tokens.
-    const token = await getToken({ req: request, secret });
+    // secureCookie must match the NextAuth cookie config (see route.ts cookies.sessionToken).
+    const token = await getToken({
+      req: request,
+      secret,
+      secureCookie: process.env.NODE_ENV === "production",
+    });
 
     if (
       token &&

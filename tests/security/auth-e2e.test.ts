@@ -41,7 +41,7 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
-// Mock next-auth/jwt for session verification
+// Mock next-auth/jwt getToken
 vi.mock("next-auth/jwt", () => ({
   getToken: vi.fn(),
 }));
@@ -568,6 +568,7 @@ describe("E2E Authentication Flows", () => {
 
     it("should deny access with invalid JWT token", async () => {
       const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue(null);
       vi.mocked(getToken).mockRejectedValue(
         new Error("signature verification failed")
       );
@@ -588,6 +589,7 @@ describe("E2E Authentication Flows", () => {
 
     it("should deny access with expired JWT token", async () => {
       const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue(null);
       vi.mocked(getToken).mockRejectedValue(
         new Error('"exp" claim timestamp check failed')
       );
@@ -607,6 +609,9 @@ describe("E2E Authentication Flows", () => {
     });
 
     it("should return null session when no token is present", async () => {
+      const { getToken } = await import("next-auth/jwt");
+      vi.mocked(getToken).mockResolvedValue(null);
+
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
       const request = createMockRequest(
@@ -619,65 +624,60 @@ describe("E2E Authentication Flows", () => {
     });
 
     it("should return null session when NEXTAUTH_SECRET is not set", async () => {
-      // Save and clear the secret so the session module sees it as missing
       const savedSecret = process.env.NEXTAUTH_SECRET;
       delete process.env.NEXTAUTH_SECRET;
 
-      // Ensure the session module is re-evaluated with the missing secret
       vi.resetModules();
 
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
-      // Prepare a request that includes a session cookie so the code path
-      // would normally attempt JWT verification if a secret were present.
-      const requestWithCookie = {
-        cookies: {
-          get: vi.fn(() => ({ value: "test-token" })),
-        },
-      } as unknown as NextRequest;
+      const request = createMockRequest(
+        "http://localhost:3000/en/admin/dashboard",
+        { cookies: { "next-auth.session-token": "test-token" } }
+      );
 
-      const session = await getSessionFromRequest(requestWithCookie);
+      const session = await getSessionFromRequest(request);
 
       // With no NEXTAUTH_SECRET, getSessionFromRequest returns null early.
       expect(session).toBeNull();
 
-      // Restore the original secret
       process.env.NEXTAUTH_SECRET = savedSecret;
     });
 
-    it("should return the session from getToken result", async () => {
-      // getToken (next-auth/jwt) handles cookie selection internally.
-      // Verify that getSessionFromRequest correctly maps the token to a session.
+    it("should use secureCookie in production for getToken", async () => {
+      vi.stubEnv("NODE_ENV", "production");
+      vi.resetModules();
+
       const { getToken } = await import("next-auth/jwt");
       const { getSessionFromRequest } = await import("@/lib/auth/session");
 
       vi.mocked(getToken).mockResolvedValue({
         id: "prod-user",
         email: "prod@example.com",
+        name: null,
       } as never);
 
-      const mockRequest = {
-        cookies: {
-          get: vi.fn((name: string) => {
-            if (name === "__Secure-next-auth.session-token") {
-              return { value: "prod-token" };
-            }
-            if (name === "next-auth.session-token") {
-              return { value: "dev-token" };
-            }
-            return undefined;
-          }),
-        },
-      } as unknown as NextRequest;
+      const request = createMockRequest(
+        "http://localhost:3000/en/admin/dashboard",
+        {
+          cookies: {
+            "__Secure-next-auth.session-token": "prod-token",
+          },
+        }
+      );
 
-      const session = await getSessionFromRequest(mockRequest);
+      const session = await getSessionFromRequest(request);
 
+      expect(getToken).toHaveBeenCalledWith(
+        expect.objectContaining({ secureCookie: true })
+      );
       expect(session).toEqual({
         id: "prod-user",
         email: "prod@example.com",
         name: null,
       });
-      expect(getToken).toHaveBeenCalledTimes(1);
+
+      vi.unstubAllEnvs();
     });
 
     it("should reject JWT payload without id claim", async () => {
