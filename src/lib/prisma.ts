@@ -50,12 +50,12 @@ try {
 
   if (process.env.NODE_ENV !== "production") g.prismaGlobal = prisma;
 } catch (_error) {
-  // Prisma Client or Neon URL not available — admin features disabled
+  // Prisma Client or database URL not available — admin features disabled
   console.warn(
     "Prisma Client not available. Admin authentication features are disabled."
   );
   console.warn(
-    "To enable admin features, set NEON_DATABASE_URL and rebuild the application."
+    "To enable admin features, set NEON_DATABASE_URL (or DATABASE_URL) and run the application."
   );
 
   prisma = new Proxy(
@@ -63,7 +63,7 @@ try {
     {
       get() {
         throw new Error(
-          "Prisma Client is not available. NEON_DATABASE_URL was not set during build. Admin features are disabled."
+          "Prisma Client is not available. Neither NEON_DATABASE_URL nor DATABASE_URL was set. Admin features are disabled."
         );
       },
     }
