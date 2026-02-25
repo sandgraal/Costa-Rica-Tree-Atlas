@@ -289,35 +289,3 @@ export function useFavorite(slug: string) {
   const toggleFavorite = useStore((state) => state.toggleFavorite);
   return { isFavorite, toggle: () => toggleFavorite(slug) };
 }
-
-/**
- * @deprecated Use the ThemeSync component instead
- * This hook is kept for backward compatibility but is no longer used internally
- */
-export function useThemeSync() {
-  const theme = useStore((state) => state.theme);
-  const setResolvedTheme = useStore((state) => state.setResolvedTheme);
-
-  // This should be called in a useEffect in the root layout
-  const syncTheme = () => {
-    const root = document.documentElement;
-    let resolved: ResolvedTheme;
-
-    if (theme === "system") {
-      resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    } else {
-      resolved = theme;
-    }
-
-    setResolvedTheme(resolved);
-
-    root.classList.remove("light", "dark");
-    root.classList.add(resolved);
-
-    return resolved;
-  };
-
-  return { theme, syncTheme };
-}

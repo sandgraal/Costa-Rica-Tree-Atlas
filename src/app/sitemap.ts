@@ -1,99 +1,76 @@
 import { MetadataRoute } from "next";
-import { allTrees } from "contentlayer/generated";
+import {
+  allTrees,
+  allGlossaryTerms,
+  allSpeciesComparisons,
+} from "contentlayer/generated";
 
 const BASE_URL = "https://costaricatreeatlas.com";
+const locales = ["en", "es"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
-  // Static pages for both locales
+  // Helper to generate entries for both locales
+  const bilingualPages = (
+    path: string,
+    options: {
+      changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+      priority: number;
+    }
+  ): MetadataRoute.Sitemap =>
+    locales.map((locale) => ({
+      url: `${BASE_URL}/${locale}${path}`,
+      lastModified: now,
+      changeFrequency: options.changeFrequency,
+      priority: options.priority,
+    }));
+
+  // Static section pages for both locales
   const staticPages: MetadataRoute.Sitemap = [
-    // English static pages
-    {
-      url: `${BASE_URL}/en`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/en/trees`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/en/identify`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/en/compare`,
-      lastModified: now,
+    ...bilingualPages("", { changeFrequency: "weekly", priority: 1.0 }),
+    ...bilingualPages("/trees", { changeFrequency: "weekly", priority: 0.9 }),
+    ...bilingualPages("/compare", {
       changeFrequency: "monthly",
       priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/en/education`,
-      lastModified: now,
+    }),
+    ...bilingualPages("/education", {
       changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/en/seasonal`,
-      lastModified: now,
+    }),
+    ...bilingualPages("/seasonal", {
       changeFrequency: "monthly",
       priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/en/about`,
-      lastModified: now,
+    }),
+    ...bilingualPages("/about", { changeFrequency: "monthly", priority: 0.6 }),
+    ...bilingualPages("/glossary", {
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+    ...bilingualPages("/safety", { changeFrequency: "monthly", priority: 0.7 }),
+    ...bilingualPages("/conservation", {
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+    ...bilingualPages("/map", { changeFrequency: "monthly", priority: 0.7 }),
+    ...bilingualPages("/field-guide", {
       changeFrequency: "monthly",
       priority: 0.6,
-    },
-    // Spanish static pages
-    {
-      url: `${BASE_URL}/es`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/es/trees`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/es/identify`,
-      lastModified: now,
+    }),
+    ...bilingualPages("/wizard", { changeFrequency: "monthly", priority: 0.6 }),
+    ...bilingualPages("/quiz", { changeFrequency: "monthly", priority: 0.5 }),
+    ...bilingualPages("/diagnose", {
       changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/es/compare`,
-      lastModified: now,
+      priority: 0.5,
+    }),
+    ...bilingualPages("/contribute", {
       changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/es/education`,
-      lastModified: now,
+      priority: 0.5,
+    }),
+    ...bilingualPages("/use-cases", {
       changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/es/seasonal`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/es/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+      priority: 0.5,
+    }),
   ];
 
   // Dynamic tree pages
@@ -104,5 +81,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...treePages];
+  // Dynamic glossary term pages
+  const glossaryPages: MetadataRoute.Sitemap = allGlossaryTerms.map((term) => ({
+    url: `${BASE_URL}/${term.locale}/glossary/${term.slug}`,
+    lastModified: term.publishedAt || now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  // Dynamic comparison pages
+  const comparisonPages: MetadataRoute.Sitemap = allSpeciesComparisons.map(
+    (comparison) => ({
+      url: `${BASE_URL}/${comparison.locale}/compare/${comparison.slug}`,
+      lastModified: comparison.publishedAt || now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    })
+  );
+
+  return [...staticPages, ...treePages, ...glossaryPages, ...comparisonPages];
 }

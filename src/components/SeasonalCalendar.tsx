@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import Link from "next/link";
+import { Link } from "@i18n/navigation";
 import { SafeImage } from "@/components/SafeImage";
 import {
   getEventsForMonth,
@@ -734,7 +734,7 @@ function EventCard({
               {event.relatedTrees.map((treeSlug) => (
                 <Link
                   key={treeSlug}
-                  href={`/${locale}/trees/${treeSlug}`}
+                  href={`/trees/${treeSlug}`}
                   className="text-xs px-2 py-0.5 rounded-full bg-green-200 dark:bg-green-900/50 text-green-800 dark:text-green-300 hover:bg-green-300 dark:hover:bg-green-800/50 transition-colors"
                 >
                   🌳 {treeSlug}
@@ -787,7 +787,7 @@ function TreeListItem({
 
   return (
     <Link
-      href={`/${locale}/trees/${tree.slug}`}
+      href={`/trees/${tree.slug}`}
       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
     >
       <div className="w-10 h-10 relative rounded-lg overflow-hidden flex-shrink-0">

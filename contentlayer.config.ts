@@ -50,8 +50,9 @@ export const Tree = defineDocumentType(() => ({
       required: false,
     },
     conservationStatus: {
-      type: "string",
-      description: "IUCN conservation status if known",
+      type: "enum",
+      options: ["LC", "NT", "VU", "EN", "CR", "EW", "EX", "DD", "NE"],
+      description: "IUCN conservation status code",
       required: false,
     },
     maxHeight: {
