@@ -9,6 +9,7 @@ import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
 import dynamic from "next/dynamic";
 import type { Locale } from "@/types/tree";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 
 // Lazy load TreeComparison — 426-line client component with interactive tree selector
 const TreeComparison = dynamic(
@@ -53,12 +54,32 @@ export default async function ComparePage({ params }: { params: Params }) {
     .filter((comp) => comp.locale === locale)
     .sort((a, b) => a.title.localeCompare(b.title));
 
+  // Structured data for comparison page
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name:
+      locale === "es"
+        ? "Comparar Árboles de Costa Rica"
+        : "Compare Costa Rica Trees",
+    description:
+      locale === "es"
+        ? `Compara ${comparisons.length} guías de comparación de especies de árboles de Costa Rica.`
+        : `Compare ${comparisons.length} species comparison guides for Costa Rican trees.`,
+    url: `https://costaricatreeatlas.com/${locale}/compare`,
+    numberOfItems: comparisons.length,
+    inLanguage: locale,
+  };
+
   return (
-    <ComparePageClient
-      locale={locale}
-      trees={trees}
-      comparisons={comparisons}
-    />
+    <>
+      <SafeJsonLd data={structuredData} />
+      <ComparePageClient
+        locale={locale}
+        trees={trees}
+        comparisons={comparisons}
+      />
+    </>
   );
 }
 

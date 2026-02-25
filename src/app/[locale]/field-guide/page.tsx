@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+import { SafeJsonLd } from "@/components/SafeJsonLd";
 
 // Lazy load FieldGuideGenerator — 225-line client component + 267-line FieldGuidePreview child
 const FieldGuideGenerator = dynamic(
@@ -53,5 +54,22 @@ export default async function FieldGuidePage({ params }: Props) {
   // Get trees for current locale
   const trees = allTrees.filter((tree) => tree.locale === locale);
 
-  return <FieldGuideGenerator trees={trees} locale={locale} />;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name:
+      locale === "es" ? "Generador de Guía de Campo" : "Field Guide Generator",
+    description:
+      locale === "es"
+        ? "Crea tu propia guía de campo personalizada de árboles de Costa Rica."
+        : "Create your own custom field guide of Costa Rican trees.",
+    url: `https://costaricatreeatlas.com/${locale}/field-guide`,
+  };
+
+  return (
+    <>
+      <SafeJsonLd data={structuredData} />
+      <FieldGuideGenerator trees={trees} locale={locale} />
+    </>
+  );
 }

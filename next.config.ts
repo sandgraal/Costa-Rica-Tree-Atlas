@@ -164,6 +164,34 @@ const nextConfig: NextConfig = {
         },
       ],
     },
+    // Individual content pages (highest-traffic)
+    {
+      source: "/:locale(en|es)/trees/:slug",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/compare/:slug",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+    {
+      source: "/:locale(en|es)/glossary/:slug",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
   ],
 
   // Experimental optimizations
