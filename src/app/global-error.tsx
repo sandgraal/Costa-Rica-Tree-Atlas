@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { captureException } from "@/lib/sentry";
+import { captureException } from "@/lib/error-tracking";
 
 /**
  * Global Error Handler
@@ -16,7 +16,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Send error to Sentry
+    // Log error for tracking
     captureException(error, {
       tags: {
         boundary: "GlobalError",
