@@ -209,10 +209,14 @@ describe("Theme Script", () => {
 
     it("should handle corrupted localStorage gracefully", () => {
       const script = THEME_SCRIPT;
-      let errorCalled = false;
+      let themeApplied = "";
       const mockDOM: any = {
         documentElement: {
-          classList: { add: () => {} },
+          classList: {
+            add: (cls: string) => {
+              themeApplied = cls;
+            },
+          },
           setAttribute: () => {},
           style: {},
         },
@@ -227,9 +231,7 @@ describe("Theme Script", () => {
         },
         document: mockDOM,
         console: {
-          error: () => {
-            errorCalled = true;
-          },
+          error: () => {},
         },
       };
 
@@ -244,7 +246,8 @@ describe("Theme Script", () => {
       expect(() =>
         new Function("mockEnv", wrappedScript)(mockEnv)
       ).not.toThrow();
-      expect(errorCalled).toBe(true);
+      // Script silently falls back to light theme on parse error
+      expect(themeApplied).toBe("light");
     });
   });
 });

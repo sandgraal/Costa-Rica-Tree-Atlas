@@ -10,7 +10,8 @@ describe("ReDoS Prevention", () => {
     const duration = performance.now() - start;
 
     expect(duration).toBeLessThan(1);
-    expect(result.valid).toBe(false); // Invalid format, but should reject fast
+    // Single long word starting with uppercase is structurally valid Latin text
+    expect(result.valid).toBe(true);
   });
 
   it("should reject zero-width character spam instantly", () => {

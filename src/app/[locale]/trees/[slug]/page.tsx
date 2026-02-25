@@ -211,7 +211,6 @@ export default async function TreePage({ params }: Props) {
     validatedStructuredData = sanitizeJsonLd(
       structuredData
     ) as typeof structuredData;
-    console.log("Sanitized structured data applied");
   }
   if (!breadcrumbDataValidation.valid) {
     console.error(
@@ -222,7 +221,6 @@ export default async function TreePage({ params }: Props) {
     validatedBreadcrumbData = sanitizeJsonLd(
       breadcrumbData
     ) as typeof breadcrumbData;
-    console.log("Sanitized breadcrumb data applied");
   }
 
   return (
@@ -454,24 +452,6 @@ export default async function TreePage({ params }: Props) {
         </div>
       </article>
     </>
-  );
-}
-
-function ArrowLeftIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="m12 19-7-7 7-7" />
-      <path d="M19 12H5" />
-    </svg>
   );
 }
 
