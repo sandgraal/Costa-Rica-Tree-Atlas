@@ -1,65 +1,61 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-22
+Last updated: 2026-02-25
 
-## Latest Run Summary
+## Latest Run Summary (2026-02-25)
 
-- **Branch**: `feature/performance-ssr-refactor-fuse-lazy` → [PR #447](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/447) (open, pending review)
-- **Commits**: `192de5d` (Fuse.js lazy-load), `384a2a3` (education SSR data extraction)
+- **Branch**: `fix/quick-wins-phase2-5` → [PR #463](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/463)
+- **Commit**: `54477d9`
 - **Tasks completed**:
-  1. **Lazy-load Fuse.js (~30KB gzipped deferred)**: Replaced static `import Fuse from 'fuse.js'` in `src/lib/search/index.ts` with dynamic `import('fuse.js')` on first search query. `search()` is now async, Fuse constructor cached after first load. Updated `TreeExplorer.tsx` from sync `useMemo` to async `useEffect` with stale-request cancellation via `searchAbortRef`.
-  2. **Education lesson SSR data extraction (~980 lines moved server-side)**: Created 4 server-only data modules that export locale-dependent static data (translations, quiz questions, steps, categories). Server `page.tsx` imports and passes data as `lessonData` prop. Client components receive data as props instead of defining inline.
-     - `biodiversity-intro/biodiversity-data.ts` (233 lines) — ~170 lines extracted
-     - `ecosystem-services/ecosystem-services-data.ts` (416 lines) — ~350 lines extracted
-     - `conservation/conservation-data.ts` (480 lines) — ~403 lines extracted
-     - `tree-identification/tree-identification-data.ts` (149 lines) — ~90 lines extracted
-- **Key files changed**:
-  - `src/lib/search/index.ts` — Fuse.js dynamic import, async `search()`
-  - `src/components/tree/TreeExplorer.tsx` — async search pipeline with stale-request cancellation
-  - `src/app/[locale]/education/lessons/biodiversity-intro/{page.tsx,BiodiversityLessonClient.tsx,biodiversity-data.ts}`
-  - `src/app/[locale]/education/lessons/ecosystem-services/{page.tsx,EcosystemServicesClient.tsx,ecosystem-services-data.ts}`
-  - `src/app/[locale]/education/lessons/conservation/{page.tsx,ConservationLessonClient.tsx,conservation-data.ts}`
-  - `src/app/[locale]/education/lessons/tree-identification/{page.tsx,TreeIdentificationClient.tsx,tree-identification-data.ts}`
-- **Verification**: Lint 0 errors (269 pre-existing warnings), build successful, tests 340 passed (7 pre-existing failures unchanged).
+  1. **Fixed 5 failing tests** (324/324 now passing): entropy.test.ts (3 expectations corrected), redos.test.ts (1), theme-script.test.ts (1)
+  2. **Removed debug code**: 2 console.log statements + unused ArrowLeftIcon from tree detail page
+  3. **Filled missing frontmatter** (6 MDX files): quina (distribution + seasons), bambú gigante (seasons), granadillo (complete safety fields)
+  4. **Added cache headers** in next.config.ts for tree/compare/glossary detail pages (s-maxage=86400, stale-while-revalidate=604800)
+  5. **Added JSON-LD structured data** to glossary (DefinedTermSet), compare (CollectionPage), safety (MedicalWebPage), field-guide (WebPage)
+  6. **Created 4 OG images**: trees index, compare index, glossary index, education section (all bilingual, using next/og ImageResponse)
 
-## Previous Run Summary
+## Previous Run Summary (2026-02-24)
 
-- **Branch**: `feature/performance-bundle-optimization` → PR #446 (merged)
-- **Tasks completed**: Dead code & dependency audit — removed 51 packages, dead SpeedInsights import, QueryProvider infrastructure, phantom dependencies. Added `optimizePackageImports` in next.config.ts.
+- **Branch**: `fix/scientific-accuracy-audit` → [PR #462](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/462) (merged)
+- Scientific accuracy audit across 29 files (taxonomic corrections, SEO improvements, DX cleanup)
 
-## Performance Audit Findings (for next agent)
+## Older Runs
 
-Bundle analysis revealed these remaining optimization opportunities:
+- **PR #447 (merged)**: Fuse.js lazy-load + 4/6 education pages SSR-refactored
+- **PR #446 (merged)**: Dead code & dependency audit — removed 51 packages, optimizePackageImports
 
-| Finding                                          | Impact | Status                                                                                             |
-| ------------------------------------------------ | ------ | -------------------------------------------------------------------------------------------------- |
-| 93 `"use client"` components                     | High   | Architectural — 2 remaining large education pages not yet refactored                               |
-| QuickSearch (417 lines) in Header                | Medium | Loaded on every page via Header; already dynamically imported                                      |
-| Fuse.js (~30KB gz) in TreeExplorer               | Low    | ✅ Done — lazy-loaded via dynamic import (PR #447)                                                 |
-| Education lesson pages as full client components | Medium | ✅ 4/6 done (PR #447). Remaining: ScavengerHuntClient (1491 lines), TreeJournalClient (1305 lines) |
-| `ssr: false` not usable in Server Components     | N/A    | Next.js 16 limitation — dynamic imports still code-split effectively                               |
+## Current Project State
+
+- **Tests**: 324/324 passing (19 test files)
+- **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
+- **All pages**: 600+ lines, bilingual parity achieved
+- **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active
+- **Performance**: Major optimizations landed but Lighthouse not yet re-measured (still baseline 48/100 from Jan 18)
 
 ## Highest-Priority Remaining Work
 
-From `docs/IMPLEMENTATION_PLAN.md`:
+From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-25):
 
-| Priority | Task                 | Status               | Notes                                                                                                                                                                         |
-| -------- | -------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1.1     | Species content      | 175/175 (100%) ✅    | 175+ target achieved                                                                                                                                                          |
-| P1.3     | Care guidance        | 175/175 (100%) ✅    | Complete                                                                                                                                                                      |
-| P1.4     | Short pages          | 0 under threshold ✅ | Monitor after additions                                                                                                                                                       |
-| P2       | Performance          | 🟡 In progress       | Fuse.js lazy-loaded ✅, 4/6 education pages SSR-refactored ✅. Remaining: Lighthouse measurement, 2 more education pages (ScavengerHunt, TreeJournal), post-deploy validation |
-| P4       | Community features   | 🔲 Not started       | Now unblocked                                                                                                                                                                 |
-| P5.1     | Indigenous knowledge | 🔲 Not started       | Requires community collaboration                                                                                                                                              |
-| P5.2     | Glossary expansion   | 150/150 (100%) ✅    | Complete                                                                                                                                                                      |
+| Priority | Task                                  | Status   | Notes                                                            |
+| -------- | ------------------------------------- | -------- | ---------------------------------------------------------------- |
+| P2.1     | Photo gallery sections                | 📋 Ready | Script exists: `scripts/add-gallery-sections.mjs`                |
+| P2.2     | Applications/Uses body sections       | 📋 Ready | 171 trees have `uses:` frontmatter, no body section              |
+| P2.3     | Seasonal phenology body sections      | 📋 Ready | 131 trees have seasons frontmatter, no body section              |
+| P2.4     | GBIF/IUCN external links              | 📋 Ready | Auto-generate from `scientificName`                              |
+| P3.2     | OG images for tree detail pages       | 📋 Ready | 175 pages, highest social sharing impact                         |
+| P3.1     | OG images for comparison detail pages | 📋 Ready | Follow existing pattern                                          |
+| P4.1     | Lighthouse re-measurement             | ⏸️ B3    | Needs production deploy first                                    |
+| P4.2     | SSR refactor 2 education pages        | 📋 Ready | ScavengerHuntClient (1491 lines), TreeJournalClient (1305 lines) |
+| P5.1     | API route test coverage               | 📋 Ready | Zero coverage currently                                          |
+| P4.3     | Split large client components         | 📋 Ready | 3 components over 1,300 lines each                               |
 
-**Recommended next task**: (1) Measure post-deploy Lighthouse score (baseline 48/100, target 90/100), (2) Refactor remaining 2 education lesson pages — ScavengerHuntClient (1491 lines) and TreeJournalClient (1305 lines) — using the same data-extraction pattern established in PR #447, (3) Community features (P4), (4) Species expansion beyond 175.
+**Recommended next task**: P2.1–P2.4 (content batch enrichment scripts) — high impact, low effort, no dependencies.
 
 ## Established Patterns
 
 ### Education Lesson SSR Data Extraction Pattern
 
-Used in PR #447 for 4 lessons. For remaining pages, follow the same approach:
+Used in PR #447 for 4 lessons. For remaining 2 pages (ScavengerHuntClient, TreeJournalClient):
 
 1. Create `{lesson-name}-data.ts` in the lesson directory
 2. Export a function `get{LessonName}LessonData(locale: string)` returning typed data
@@ -67,6 +63,16 @@ Used in PR #447 for 4 lessons. For remaining pages, follow the same approach:
 4. `page.tsx` (server component) imports and calls the data function, passes result as `lessonData` prop
 5. Client component receives `lessonData` prop, destructures needed fields, removes inline data definitions
 6. This moves static locale data from client JS bundle to RSC payload
+
+### OG Image Pattern
+
+Used in PR #463 for 4 section pages. For remaining pages:
+
+1. Create `opengraph-image.tsx` in the route directory
+2. Export `runtime = 'edge'`, `alt`, `size`, `contentType`
+3. Use `ImageResponse` from `next/og`
+4. Include bilingual text based on locale param
+5. Use gradient backgrounds (green for nature, blue for education, brown for comparisons)
 
 ## Operator Preferences (Persistent)
 
@@ -85,24 +91,21 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Performance (P2): Fuse.js lazy-loaded ✅, 4/6 education pages SSR-refactored ✅,
-  dead code audit done (51 packages removed). Prior work removed ~70-90KB from
-  every page. Hero AVIF re-encoded (47-64% smaller). Lighthouse baseline 48/100,
-  target 90/100.
-  Remaining: (a) measure post-deploy Lighthouse, (b) refactor 2 remaining
-  education lesson pages (ScavengerHuntClient 1491 lines, TreeJournalClient
-  1305 lines) using established data-extraction pattern — see "Established
-  Patterns" section in NEXT_AGENT_HANDOFF.md.
-- Species content: 175/175 (100%) — complete.
-- Next recommended tasks (pick one or more):
-  1. Measure post-deploy Lighthouse and identify remaining bottlenecks
-  2. Refactor ScavengerHuntClient and TreeJournalClient using the same SSR
-     data-extraction pattern (create data module, pass as lessonData prop)
-  3. Start community features (P4) — user photo uploads, contribution workflow
-  4. Database query optimization (requires active DB in production)
-  5. Continue species expansion beyond 175
-- Do not ask questions if answer exists in repo docs.
-- Keep Priority 1.4 monitored by rerunning `npm run content:audit` after species additions.
+- Content Enrichment (P2): Photo gallery sections (script exists), Applications/Uses
+  body sections (171 trees), Seasonal phenology sections (131 trees), GBIF/IUCN links
+  (~98+45 trees). All are scriptable batch operations with high impact.
+- SEO (P3): OG images for 175 individual tree pages and 20 comparison detail pages.
+  JSON-LD enhancement for tree pages.
+- Performance (P4): Lighthouse re-measurement needed (baseline 48/100, significant work
+  done). SSR refactor 2 remaining education pages (ScavengerHuntClient, TreeJournalClient).
+  Split 3 large client components (1,300+ lines each).
+- Testing (P5): API route test coverage (zero currently). Error tracking (Sentry stub).
+- Recommended execution order (pick one or more):
+  1. P2.1-P2.4: Content batch enrichment scripts
+  2. P3.2: OG images for tree detail pages
+  3. P4.2: SSR refactor ScavengerHuntClient and TreeJournalClient
+  4. P5.1: API route test coverage
+  5. P4.3: Split large client components
 
 Required workflow
 1. Read and follow:
@@ -121,18 +124,10 @@ Required workflow
    - npm run lint
    - npm run build
 7. Commit with conventional commit type
-8. If feasible, choose another item and implement it as well, stepping thru 5, 6 and 7 again, repeat until not feasible
+8. If feasible, choose another item and implement it as well
 9. Push, and open PR to main.
 
-Output format
-- Chosen task and why it was highest priority
-- Exact files changed
-- Verification results (lint/build)
-- PR link
-- Blockers or follow-up recommendations
-
 MANDATORY END-OF-RUN DIRECTIVES
-1. Handoff:
-   - Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state (commit, merged/open PR, remaining top task).
-   - Write a fresh next-agent prompt that explicitly references $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md.
+1. Update $REPO_ROOT/docs/NEXT_AGENT_HANDOFF.md with latest state
+2. Write a fresh next-agent prompt that references this file
 ```
