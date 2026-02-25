@@ -6,11 +6,11 @@
 
 ## Executive Summary
 
-**Current State Analysis** (January 2026):
+**Current State Analysis** (February 2026):
 
-- **Total tree pages**: 128 species (256 bilingual documents)
-- **Comparison guides**: 16 bilingual guides
-- **Glossary terms**: 100 terms documented
+- **Total tree pages**: 175 species (350 bilingual documents)
+- **Comparison guides**: 20 bilingual guides
+- **Glossary terms**: 150 terms documented
 - **Page length distribution** (based on December 2025 audit of 107 pages):
   - 700+ lines (strong): 8 pages
   - 600-700 lines: 43 pages
@@ -259,7 +259,7 @@ For **palms**:
 
 **Coverage data** (December 2025 audit of 107 pages):
 
-> ⚠️ **Audit Status**: Data below reflects 107 trees. Current count is 128 species. Re-audit recommended for accurate percentages.
+> ⚠️ **Audit Status**: Data below reflects 107 trees. Current count is 175 species. Re-audit recommended for accurate percentages.
 
 | Section                        | Pages with Section | Target             |
 | ------------------------------ | ------------------ | ------------------ |
