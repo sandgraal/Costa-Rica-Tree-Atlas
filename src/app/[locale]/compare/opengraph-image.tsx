@@ -1,3 +1,4 @@
+import { allSpeciesComparisons } from "contentlayer/generated";
 import { ImageResponse } from "next/og";
 
 export const alt = "Costa Rica Tree Atlas - Compare Species";
@@ -15,10 +16,11 @@ export default async function OGImage({ params }: Props) {
     locale === "es"
       ? "Comparar Árboles de Costa Rica"
       : "Compare Costa Rica Trees";
+  const count = allSpeciesComparisons.filter((c) => c.locale === locale).length;
   const subtitle =
     locale === "es"
-      ? "20 guías de comparación de especies lado a lado"
-      : "20 side-by-side species comparison guides";
+      ? `${count} guías de comparación de especies lado a lado`
+      : `${count} side-by-side species comparison guides`;
 
   return new ImageResponse(
     <div

@@ -1,3 +1,4 @@
+import { allGlossaryTerms } from "contentlayer/generated";
 import { ImageResponse } from "next/og";
 
 export const alt = "Costa Rica Tree Atlas - Botanical Glossary";
@@ -12,10 +13,11 @@ export default async function OGImage({ params }: Props) {
   const { locale } = await params;
 
   const title = locale === "es" ? "Glosario Botánico" : "Botanical Glossary";
+  const count = allGlossaryTerms.filter((t) => t.locale === locale).length;
   const subtitle =
     locale === "es"
-      ? "150 términos botánicos con definiciones claras y ejemplos"
-      : "150 botanical terms with clear definitions and examples";
+      ? `${count} términos botánicos con definiciones claras y ejemplos`
+      : `${count} botanical terms with clear definitions and examples`;
 
   return new ImageResponse(
     <div

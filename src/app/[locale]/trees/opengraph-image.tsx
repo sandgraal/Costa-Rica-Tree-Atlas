@@ -1,3 +1,4 @@
+import { allTrees } from "contentlayer/generated";
 import { ImageResponse } from "next/og";
 
 export const alt = "Costa Rica Tree Atlas - Browse Trees";
@@ -15,10 +16,11 @@ export default async function OGImage({ params }: Props) {
     locale === "es"
       ? "Explorar Árboles de Costa Rica"
       : "Explore Costa Rica Trees";
+  const count = allTrees.filter((t) => t.locale === locale).length;
   const subtitle =
     locale === "es"
-      ? "175 especies documentadas con información científica detallada"
-      : "175 species documented with detailed scientific information";
+      ? `${count} especies documentadas con información científica detallada`
+      : `${count} species documented with detailed scientific information`;
 
   return new ImageResponse(
     <div
