@@ -11,18 +11,21 @@
 
 ### Active Blockers
 
-| #   | Blocker                                                                                                                             | Blocks                         | Owner |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----- |
-| B3  | **Lighthouse score not re-measured** — Baseline 48/100 from Jan 18; significant perf work landed since (PRs #446, #447, #462, #463) | Can't confirm perf goals met   | Human |
-| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                          | Community photo uploads (P6.1) | Human |
+| #   | Blocker                                                                                                                       | Blocks                          | Owner |
+| --- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ----- |
+| B3  | **Lighthouse Performance score 43/100** — Re-measured Feb 25; LCP 36.2s and TBT 2,610ms are critical (see P4 for action plan) | Perf goals not met (target >90) | Human |
+| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                    | Community photo uploads (P6.1)  | Human |
 
 ### Manual Steps Required
 
 #### Performance Validation (B3)
 
-- [ ] Run Lighthouse audit on production URL after latest deploys (target: >90 Performance)
-- [ ] Record actual LCP and TBT from production audit
-- [ ] Update metrics in the Status Dashboard below with real numbers
+- [x] Run Lighthouse audit on production URL after latest deploys (target: >90 Performance) — **Done Feb 25**
+- [x] Record actual LCP and TBT from production audit — **LCP 36.2s, TBT 2,610ms**
+- [x] Update metrics in the Status Dashboard below with real numbers
+- [ ] Investigate and fix LCP regression (36.2s vs 6.0s baseline — likely redirect chain + JS bundle)
+- [ ] Reduce TBT from 2,610ms to <200ms target
+- [ ] Re-run Lighthouse after fixes to confirm improvement
 
 #### Cloud Image Storage Setup (B4 — Required for P6.1)
 
@@ -37,13 +40,7 @@
 - [x] `NEON_DATABASE_URL_UNPOOLED` — Direct connection for migrations
 - [x] `NEXTAUTH_SECRET` — Set (2026-02-22)
 - [x] `NEXTAUTH_URL` — Set (2026-02-22)
-- [ ] `NEXT_PUBLIC_SENTRY_DSN` — From Sentry project settings (optional but recommended)
-- [ ] `ADMIN_TOTP_SECRET_SALT` — Encryption salt for TOTP (generate a random 32-char string)
-
-#### GitHub Branch Protection
-
-- [ ] Confirm rule for `main` branch is enforced in **Settings → Branches**
-- [ ] Confirm "Security Checks" status check is required before merge
+- [x] `ADMIN_TOTP_SECRET_SALT` — Encryption salt for TOTP (set 2026-02-25)
 
 ### Human Collaborations Required
 
@@ -71,17 +68,23 @@
 
 ### Technical Health
 
-| Metric           | Current                     | Target | Status                                           |
-| ---------------- | --------------------------- | ------ | ------------------------------------------------ |
-| Lighthouse Score | 48/100 (Jan 18 baseline)    | >90    | ⚠️ Needs re-measurement (B3)                     |
-| LCP              | 6.0s (baseline)             | <2.5s  | 🟡 Significant work done; re-measure needed      |
-| TBT              | 440ms (baseline)            | <200ms | 🟡 JS bundle reduced ~70–90KB; re-measure needed |
-| Tests            | 324/324 passing (19 files)  | 100%   | ✅                                               |
-| Lint errors      | 0                           | 0      | ✅                                               |
-| Images optimized | 128/128                     | 100%   | ✅                                               |
-| Database         | Neon PostgreSQL deployed    | —      | ✅                                               |
-| Auth + MFA       | JWT, TOTP, backup codes     | —      | ✅                                               |
-| Safety system    | 100% coverage, filters live | —      | ✅                                               |
+| Metric           | Current                        | Target | Status                                           |
+| ---------------- | ------------------------------ | ------ | ------------------------------------------------ |
+| Lighthouse Score | 43/100 (Feb 25 re-measurement) | >90    | 🔴 Regressed from 48 baseline; needs urgent work |
+| LCP              | 36.2s (Feb 25)                 | <2.5s  | 🔴 Critical — redirect chain + heavy JS bundle   |
+| TBT              | 2,610ms (Feb 25)               | <200ms | 🔴 Critical — 5.1s JS execution on main thread   |
+| FCP              | 2.0s (Feb 25)                  | <1.8s  | 🟡 Close to target                               |
+| CLS              | 0 (Feb 25)                     | <0.1   | ✅ Excellent                                     |
+| Speed Index      | 3.8s (Feb 25)                  | <3.4s  | 🟡 Needs improvement                             |
+| Accessibility    | 96/100 (Feb 25)                | >90    | ✅ Passing                                       |
+| Best Practices   | 100/100 (Feb 25)               | >90    | ✅ Perfect                                       |
+| SEO              | 92/100 (Feb 25)                | >90    | ✅ Passing                                       |
+| Tests            | 324/324 passing (19 files)     | 100%   | ✅                                               |
+| Lint errors      | 0                              | 0      | ✅                                               |
+| Images optimized | 128/128                        | 100%   | ✅                                               |
+| Database         | Neon PostgreSQL deployed       | —      | ✅                                               |
+| Auth + MFA       | JWT, TOTP, backup codes        | —      | ✅                                               |
+| Safety system    | 100% coverage, filters live    | —      | ✅                                               |
 
 ---
 
@@ -245,11 +248,36 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ### P4: Performance (High Impact)
 
-#### P4.1: Lighthouse Re-measurement (Blocked on B3)
+#### P4.1: Lighthouse Re-measurement — DONE (Feb 25)
 
-- [ ] Run Lighthouse on production after latest deploys
-- [ ] Identify remaining bottlenecks from audit results
-- [ ] Create targeted optimization plan based on real data
+- [x] Run Lighthouse on production after latest deploys
+- [x] Identify remaining bottlenecks from audit results
+
+**Results (Feb 25, Lighthouse CLI, headless Chrome):**
+
+| Category       | Score |
+| -------------- | ----- |
+| Performance    | 43    |
+| Accessibility  | 96    |
+| Best Practices | 100   |
+| SEO            | 92    |
+
+**Critical findings:**
+
+- **LCP 36.2s** — Largest Contentful Paint is catastrophic; likely caused by redirect chain (~845ms) combined with heavy JS blocking render
+- **TBT 2,610ms** — Total Blocking Time from 6.5s main-thread work (5.1s JS execution)
+- **Multiple redirects** — `costaricatreeatlas.org` → `costaricatreeatlas.org/en/` adds ~845ms
+- **FCP 2.0s** — Acceptable but could be faster
+- **CLS 0** — Excellent, no layout shift
+
+**Targeted optimization plan:**
+
+- [ ] Eliminate redirect chain (configure Vercel redirect or default locale at edge)
+- [ ] Audit and reduce JS bundle size — TBT 2,610ms indicates massive client-side JS
+- [ ] Investigate LCP element — determine what content is being measured as LCP
+- [ ] Consider moving more components to Server Components to reduce client JS
+- [ ] Profile remaining `"use client"` components for tree-shaking opportunities
+- [ ] Re-run Lighthouse after each optimization round
 
 #### P4.2: SSR Refactor Remaining Education Pages
 

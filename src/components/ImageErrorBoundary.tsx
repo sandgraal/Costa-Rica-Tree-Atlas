@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { captureException } from "@/lib/sentry";
+import { captureException } from "@/lib/error-tracking";
 
 interface Props {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ export class ImageErrorBoundary extends React.Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("Image error boundary caught:", error, errorInfo);
 
-    // Send to Sentry error tracking
+    // Log error for tracking
     captureException(error, {
       tags: { boundary: "ImageErrorBoundary" },
       extra: {
