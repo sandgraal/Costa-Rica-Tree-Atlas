@@ -65,7 +65,7 @@ const MISSION_VALIDATORS: Record<string, MissionValidator> = {
     trees.filter((t) => {
       if (!t.conservationStatus) return false;
       const statusCode = t.conservationStatus.toUpperCase().trim();
-      return ["VU", "EN", "CR", "NT"].includes(statusCode);
+      return ["VU", "EN", "CR"].includes(statusCode);
     }),
   "medicinal-tree": (trees) =>
     trees.filter((t) => t.tags?.includes("medicinal")),
