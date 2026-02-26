@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
@@ -41,13 +41,11 @@ function getTreesForLocale(locale: string) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "trees" });
 
   return {
-    title: locale === "es" ? "Directorio de Árboles" : "Tree Directory",
-    description:
-      locale === "es"
-        ? "Explora 175 especies de árboles de Costa Rica con fichas detalladas, fotos, mapas de distribución y guías de cuidado. Filtrable por familia, región y usos."
-        : "Explore 175 Costa Rican tree species with detailed profiles, photos, distribution maps, and care guides. Filter by family, region, and uses.",
+    title: t("title"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/trees",
