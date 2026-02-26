@@ -111,7 +111,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TreePage({ params }: Props) {
-  const { locale, slug } = await params;
+  const { locale: localeStr, slug } = await params;
+  const locale = localeStr as Locale;
   setRequestLocale(locale);
 
   const tree = allTrees.find((t) => t.locale === locale && t.slug === slug);
@@ -274,7 +275,7 @@ export default async function TreePage({ params }: Props) {
         <div className="container mx-auto max-w-7xl">
           {/* Breadcrumbs */}
           <Breadcrumbs
-            locale={locale as Locale}
+            locale={locale}
             pathname={`/trees/${tree.slug}`}
             customLabels={{ [tree.slug]: tree.title }}
           />
@@ -443,7 +444,7 @@ export default async function TreePage({ params }: Props) {
               <DistributionMap
                 distribution={tree.distribution}
                 elevation={tree.elevation}
-                locale={locale as "en" | "es"}
+                locale={locale}
               />
 
               {/* Seasonal Information */}
@@ -459,7 +460,7 @@ export default async function TreePage({ params }: Props) {
               {/* Biodiversity Data from GBIF and iNaturalist */}
               <BiodiversityInfo
                 scientificName={tree.scientificName}
-                locale={locale as "en" | "es"}
+                locale={locale}
               />
 
               {/* MDX Content */}
