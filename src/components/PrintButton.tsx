@@ -13,7 +13,7 @@ export function PrintButton({ label, className = "" }: PrintButtonProps) {
   return (
     <button
       onClick={handlePrint}
-      className={`inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors no-print ${className}`}
+      className={`inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-dark transition-colors no-print ${className}`}
       aria-label="Print this page"
     >
       <PrintIcon className="w-4 h-4" />
