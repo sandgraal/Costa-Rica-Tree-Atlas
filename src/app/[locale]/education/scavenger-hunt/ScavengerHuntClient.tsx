@@ -62,14 +62,11 @@ const MISSION_VALIDATORS: Record<string, MissionValidator> = {
   "fruit-tree": (trees) =>
     trees.filter((t) => t.tags?.includes("edible-fruit")),
   "endangered-tree": (trees) =>
-    trees.filter((t) =>
-      [
-        "Vulnerable",
-        "Endangered",
-        "Critically Endangered",
-        "Near Threatened",
-      ].some((status) => t.conservationStatus?.includes(status))
-    ),
+    trees.filter((t) => {
+      if (!t.conservationStatus) return false;
+      const statusCode = t.conservationStatus.toUpperCase().trim();
+      return ["VU", "EN", "CR", "NT"].includes(statusCode);
+    }),
   "medicinal-tree": (trees) =>
     trees.filter((t) => t.tags?.includes("medicinal")),
   "three-families": (trees) => trees, // Special handling in component
