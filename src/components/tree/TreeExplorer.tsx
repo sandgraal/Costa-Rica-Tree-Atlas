@@ -12,8 +12,11 @@ import type { Tree, TreeFilter, TreeSort, Locale, TreeTag } from "@/types/tree";
 // Types
 // ============================================================================
 
+/** Tree data without the heavy body/_raw fields */
+type LightTree = Omit<ContentlayerTree, "body" | "_raw">;
+
 interface TreeExplorerProps {
-  trees: ContentlayerTree[];
+  trees: LightTree[];
 }
 
 type ViewMode = "grid" | "alphabetical";
@@ -499,13 +502,13 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
           // Alphabetical view shows all filtered trees (no pagination)
           // This is intentional - A-Z index is for browsing the full list
           <AlphabeticalIndex
-            trees={filteredTrees as unknown as ContentlayerTree[]}
+            trees={filteredTrees as unknown as LightTree[]}
             locale={locale}
           />
         ) : (
           <>
             <TreeGrid
-              trees={visibleTrees as unknown as ContentlayerTree[]}
+              trees={visibleTrees as unknown as LightTree[]}
               locale={locale}
             />
             {/* Load More button */}
@@ -540,11 +543,11 @@ function AlphabeticalIndex({
   trees,
   locale,
 }: {
-  trees: ContentlayerTree[];
+  trees: LightTree[];
   locale: Locale;
 }) {
   const grouped = useMemo(() => {
-    const groups: Record<string, ContentlayerTree[]> = {};
+    const groups: Record<string, LightTree[]> = {};
     for (const tree of trees) {
       const letter = tree.title.charAt(0).toUpperCase();
       if (!groups[letter]) groups[letter] = [];
@@ -596,7 +599,7 @@ function AlphabeticalIndex({
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {grouped[letter].map((tree) => (
                 <a
-                  key={tree._id}
+                  key={tree.slug}
                   href={`/${locale}/trees/${tree.slug}`}
                   className="flex items-center gap-3 p-3 rounded-lg border border-border hover:border-primary/30 hover:bg-muted/50 transition-colors"
                 >

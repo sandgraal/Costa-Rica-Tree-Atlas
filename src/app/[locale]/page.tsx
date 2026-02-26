@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 // memo/Suspense removed: server components don't re-render or need client code-splitting
 import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
+import type { RecentlyViewedTree } from "@/components/RecentlyViewedList";
 import { RecentlyViewedSkeleton } from "@/components/LoadingSkeletons";
 
 // Lazy load client-only below-the-fold components to reduce TBT
@@ -77,6 +78,18 @@ export default async function HomePage({ params }: Props) {
     },
     { value: 2, label: t("stats.languages"), icon: "🌐" },
   ];
+
+  // Build a lightweight slug → minimal-tree lookup for the RecentlyViewedList
+  // client component so it never imports the full contentlayer bundle.
+  const treeLookup: Record<string, RecentlyViewedTree> = {};
+  for (const tree of trees) {
+    treeLookup[tree.slug] = {
+      slug: tree.slug,
+      title: tree.title,
+      scientificName: tree.scientificName,
+      featuredImage: tree.featuredImage,
+    };
+  }
 
   // Structured data for homepage
   const structuredData = {
@@ -198,7 +211,7 @@ export default async function HomePage({ params }: Props) {
         {/* Recently Viewed (client-side, only shows if user has history) */}
         <section className="px-4 section-offscreen">
           <div className="container mx-auto max-w-6xl">
-            <RecentlyViewedList locale={locale} />
+            <RecentlyViewedList locale={locale} treeLookup={treeLookup} />
           </div>
         </section>
 
@@ -250,6 +263,7 @@ function HeroContent({
       <div className="flex flex-wrap justify-center gap-3">
         <Link
           href="/trees"
+          prefetch={false}
           className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-primary-dark font-semibold py-3.5 px-8 rounded-lg transition-all duration-200 shadow-2xl hover:shadow-xl hover:scale-[1.02]"
         >
           {exploreButton}

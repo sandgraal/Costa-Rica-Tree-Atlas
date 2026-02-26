@@ -1,19 +1,25 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useStore } from "@/lib/store";
 import { TreeCard } from "@/components/tree";
 import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
+import type { ExportableTree } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
 import { useSearchParams } from "next/navigation";
-import { allTrees } from "contentlayer/generated";
+import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import type { Locale } from "@/types/tree";
+
+/** Lightweight tree data for the favorites page (body/raw stripped on the server). */
+export type LightweightTree = Omit<ContentlayerTree, "body" | "_raw">;
 
 interface FavoritesContentProps {
   locale: string;
+  /** Trees for the current locale, pre-stripped of heavy fields (passed from server). */
+  trees: LightweightTree[];
 }
 
-export function FavoritesContent({ locale }: FavoritesContentProps) {
+export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
   const clearFavorites = useStore((state) => state.clearFavorites);
@@ -85,13 +91,37 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
         : "Trees added to your favorites!",
   };
 
-  // Get full tree data for favorited slugs (only after hydration)
+  // Build a slug lookup for O(1) access
+  const treeLookup = useMemo(
+    () => Object.fromEntries(trees.map((t) => [t.slug, t])),
+    [trees]
+  );
+
+  // Build export lookup (minimal fields for the export button)
+  const exportLookup = useMemo<Record<string, ExportableTree>>(
+    () =>
+      Object.fromEntries(
+        trees.map((t) => [
+          t.slug,
+          {
+            slug: t.slug,
+            title: t.title,
+            scientificName: t.scientificName,
+            family: t.family,
+            maxHeight: t.maxHeight,
+            nativeRegion: t.nativeRegion,
+            uses: t.uses,
+          },
+        ])
+      ),
+    [trees]
+  );
+
+  // Resolve favorited slugs against the lightweight lookup (only after hydration)
   const favoriteTrees = hydrated
     ? favorites
-        .map((slug) =>
-          allTrees.find((t) => t.slug === slug && t.locale === locale)
-        )
-        .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined)
+        .map((slug) => treeLookup[slug])
+        .filter((tree): tree is LightweightTree => tree !== undefined)
     : [];
 
   const handleShare = async () => {
@@ -183,7 +213,10 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
               </span>
               <div className="flex flex-wrap items-center gap-3">
                 {/* Export Button */}
-                <ExportFavoritesButton locale={locale} />
+                <ExportFavoritesButton
+                  locale={locale}
+                  treeLookup={exportLookup}
+                />
 
                 {/* Share Button */}
                 <button
@@ -247,7 +280,7 @@ export function FavoritesContent({ locale }: FavoritesContentProps) {
             {/* Favorites Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {favoriteTrees.map((tree) => (
-                <div key={tree._id} className="relative">
+                <div key={tree.slug} className="relative">
                   {/* Selection Checkbox Overlay */}
                   {selectedForCompare.length > 0 || favorites.length >= 2 ? (
                     <button

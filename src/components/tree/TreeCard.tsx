@@ -16,8 +16,11 @@ import type { Locale, TreeTag } from "@/types/tree";
 // Types
 // ============================================================================
 
+/** Tree data without the heavy body/_raw fields that are never used in cards */
+type LightTree = Omit<ContentlayerTree, "body" | "_raw">;
+
 interface TreeCardProps {
-  tree: ContentlayerTree; // Use contentlayer's Tree type for compatibility
+  tree: LightTree;
   locale: Locale;
   showFavorite?: boolean;
   priority?: boolean;
@@ -229,7 +232,7 @@ function HeightIcon() {
 // ============================================================================
 
 interface TreeGridProps {
-  trees: ContentlayerTree[];
+  trees: LightTree[];
   locale: Locale;
   showFavorites?: boolean;
 }
@@ -250,9 +253,9 @@ export function TreeGrid({
     );
   }
 
-  const renderTreeCard = (tree: ContentlayerTree, index: number) => (
+  const renderTreeCard = (tree: LightTree, index: number) => (
     <TreeCard
-      key={tree._id}
+      key={tree.slug}
       tree={tree}
       locale={locale}
       showFavorite={showFavorites}

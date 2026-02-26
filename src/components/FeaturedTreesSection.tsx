@@ -29,6 +29,7 @@ export function FeaturedTreesSection({
         </h2>
         <Link
           href="/trees"
+          prefetch={false}
           className="text-primary hover:text-primary-light transition-colors font-medium"
         >
           {viewAll} →

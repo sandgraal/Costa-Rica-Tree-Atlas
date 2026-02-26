@@ -1,4 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
+import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { FavoritesContent } from "./FavoritesContent";
 
@@ -31,5 +32,11 @@ export default async function FavoritesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <FavoritesContent locale={locale} />;
+  // Strip heavy fields (body, _raw) so we don't ship the full contentlayer
+  // bundle (~30 MB) to the client via FavoritesContent.
+  const trees = allTrees
+    .filter((t) => t.locale === locale)
+    .map(({ body: _body, _raw: _r, ...rest }) => rest);
+
+  return <FavoritesContent locale={locale} trees={trees} />;
 }
