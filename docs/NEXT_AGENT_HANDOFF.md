@@ -1,8 +1,18 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-27
+Last updated: 2026-06-10
 
-## Latest Run Summary (2026-02-27 — Run 7)
+## Latest Run Summary (2026-06-10 — Run 8)
+
+- **Branch**: `feature/p46-lcp-p52-sentry-p44-db-optimization` → PR pending
+- **Tasks completed**:
+  1. **P4.6: LCP image optimization** — Recompressed 112 tree images via `scripts/optimize-tree-images.mjs` (68.77MB → 43.17MB, 37% reduction, mozjpeg quality 80). Added `priority` prop to TreeOfTheDay hero image and first 2 FeaturedTreesSection cards.
+  2. **P5.2: Sentry-ready error tracking** — Enhanced `src/lib/error-tracking.ts` from a 30-line console stub to a 170-line Sentry-ready module with dynamic import, graceful fallback, and structured JSON logging. Added `captureException`, `captureMessage`, `captureApiError` helpers. Created `src/instrumentation.ts` for Next.js server-side Sentry initialization. Updated all 18 API routes from `console.error` to `captureApiError`. Created `docs/SENTRY_SETUP.md` with setup instructions. Zero new dependencies — works by default with console logging.
+  3. **P4.4: Database query optimization** — Added 3 missing indexes to Prisma schema: `Account.userId` (user-account lookups), compound `(status, createdAt)` on `image_proposals` and `contributions` (admin listing queries). Created migration `20260610000000_add_query_optimization_indexes`.
+  4. **Bug fix**: Fixed stale contentlayer cache causing 1 test failure (`guanabana-cimarrona` skinContactRisk "mild" vs "low").
+  5. **Verified**: 479/479 tests pass, 0 lint errors, build clean.
+
+## Previous Run Summary (2026-02-27 — Run 7)
 
 - **Branch**: `feature/content-validation-error-tracking` → [PR #487](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/487)
 - **Tasks completed**:
@@ -175,14 +185,15 @@ Repository
 Mission
 - Content Enrichment (P2): ✅ ALL COMPLETE (P2.1–P2.4).
 - SEO (P3): ✅ ALL COMPLETE (P3.1–P3.5). OG images, JSON-LD, Sitemap, Meta descriptions all done.
-- Performance (P4): Lighthouse 85/100. LCP 4.0s is network-bound. A11y contrast ✅.
-  SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
-- Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking stub (P5.2) remaining.
+- Performance (P4): Lighthouse 85/100. LCP optimized (images recompressed 37%, priority props added). DB indexes added. A11y contrast ✅. SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
+- Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps).
 - Recommended execution order (pick one or more):
-  1. P5.2: Error tracking / Sentry integration
-  2. P4.4: Database query optimization (indexes, pooling, caching)
-  3. Content standardization: Fix glossary exampleSpecies (185 using common names), normalize ES enum values
-  4. Any remaining polish from IMPLEMENTATION_PLAN.md
+  1. Content standardization: Fix glossary exampleSpecies (~185 using common names instead of tree slugs), normalize ES enum values to English schema values
+  2. Fix glossary relatedTerms (~172 referencing non-existent slugs)
+  3. Add `timber` to contentlayer glossary category schema (or rename in content)
+  4. Apply DB migration to production (manual step — `npx prisma migrate deploy`)
+  5. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
+  6. Any remaining polish from IMPLEMENTATION_PLAN.md
 
 Required workflow
 1. Read and follow:
