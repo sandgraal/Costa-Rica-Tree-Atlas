@@ -2,7 +2,21 @@
 
 Last updated: 2026-02-26
 
-## Latest Run Summary (2026-02-26 — Run 5)
+## Latest Run Summary (2026-02-26 — Run 6)
+
+- **Branch**: `feature/meta-descriptions-impl-plan-sync` → PR pending
+- **Tasks completed**:
+  1. **P3.5: Meta description optimization** — Audited all 39 page types. Optimized 16 meta descriptions across 14 files:
+     - Fixed 4 critically short descriptions (under 50 chars): trees index (43→143), use-cases (37→116), field-trip (45→112), checklist (49→130)
+     - Added "Costa Rica" keyword to 8 pages missing geographic context: ecosystem-services, tree-identification, diagnose, wizard, classroom, scavenger-hunt, tree-journal, field-guide
+     - Trimmed ES api-docs description from 191→103 chars (was over SERP limit)
+     - Enriched 6 descriptions: field-guide, lessons index, biodiversity-intro, conservation, tree-journal, scavenger-hunt
+     - Added dedicated `metaDescription` key to comparison namespace (decoupled from UI subtitle)
+  2. **Bug fix: ES comparison "Compare" → "Compara"** — Fixed `subtitle` and `toolSubtitle` in es.json from English "Compare" to Spanish "Compara" (tú form consistency)
+  3. **IMPLEMENTATION_PLAN.md sync** — Updated P4.3, P5.1, P3.5 to ✅ Complete. Updated execution order, test counts (324→431), milestones, status line
+  4. **Verified**: 431/431 tests pass, 0 lint errors, build clean.
+
+## Previous Run Summary (2026-02-26 — Run 5)
 
 - **Branch**: `feature/api-tests-component-splits-meta` → PR pending
 - **Tasks completed**:
@@ -63,6 +77,7 @@ Last updated: 2026-02-26
 - **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active
 - **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound. A11y expected 100 after contrast fix deployed.
 - **Component sizes**: All 3 large clients split — TreeMapClient 1,027, ScavengerHuntClient 575, TreeJournalClient 672 lines
+- **SEO**: All P3 tasks complete (P3.1–P3.5). OG images, JSON-LD, sitemap, and meta descriptions all optimized.
 
 ## Highest-Priority Remaining Work
 
@@ -78,14 +93,16 @@ From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 | P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                 |
 | P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image        |
 | P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included          |
+| P3.5     | Meta description optimization         | ✅ Complete | 16 descriptions optimized across 14 files, ES i18n bugs fixed       |
 | P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
 | P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%   |
 | P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
 | P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                 |
-| P3.5     | Meta description optimization         | 📋 Ready    | Audit uniqueness, length, key terms                                 |
 | P5.2     | Error tracking (Sentry)               | 📋 Ready    | Stub integration                                                    |
+| P5.3     | Content validation tests              | 📋 Ready    | Frontmatter schema, bilingual parity, broken links                  |
+| P4.4     | Database query optimization           | 📋 Ready    | Indexes, pooling, caching                                           |
 
-**Recommended next task**: P3.5 (Meta description audit) — last remaining SEO task.
+**Recommended next task**: P5.2 (Error tracking / Sentry integration) or P5.3 (Content validation tests).
 
 ## Established Patterns
 
@@ -149,14 +166,15 @@ Repository
 
 Mission
 - Content Enrichment (P2): ✅ ALL COMPLETE (P2.1–P2.4).
-- SEO (P3): OG images ✅, JSON-LD ✅, Sitemap ✅. Remaining: meta description audit (P3.5).
+- SEO (P3): ✅ ALL COMPLETE (P3.1–P3.5). OG images, JSON-LD, Sitemap, Meta descriptions all done.
 - Performance (P4): Lighthouse 85/100. LCP 4.0s is network-bound. A11y contrast ✅.
   SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
 - Testing (P5): API route tests ✅ (107 tests, 431 total). Error tracking stub (P5.2) remaining.
 - Recommended execution order (pick one or more):
-  1. P3.5: Meta description optimization audit (last SEO task)
-  2. P5.2: Error tracking / Sentry integration
-  3. Any remaining polish from IMPLEMENTATION_PLAN.md
+  1. P5.2: Error tracking / Sentry integration
+  2. P5.3: Content validation tests (frontmatter schema, bilingual parity, broken links)
+  3. P4.4: Database query optimization (indexes, pooling, caching)
+  4. Any remaining polish from IMPLEMENTATION_PLAN.md
 
 Required workflow
 1. Read and follow:

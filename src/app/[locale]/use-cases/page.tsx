@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: locale === "es" ? "Casos de Uso" : "Use Cases",
     description:
       locale === "es"
-        ? "Encuentra árboles organizados por necesidades comunes"
-        : "Find trees organized by common needs",
+        ? "Encuentra árboles de Costa Rica organizados por uso: sombra para café, cortavientos, control de erosión, jardines y más."
+        : "Find Costa Rican trees organized by use case: shade for coffee, windbreaks, erosion control, gardens, and more.",
     alternates: {
       languages: {
         en: "/en/use-cases",

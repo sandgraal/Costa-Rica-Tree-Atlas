@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Field Trip Mode - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Lista de verificación offline para excursiones de campo."
-        : "Offline checklist for field trip expeditions.",
+        ? "Lista de verificación offline para excursiones de campo. Identifica y registra árboles de Costa Rica durante salidas educativas."
+        : "Offline checklist for Costa Rican tree field trips. Identify and record species during educational expeditions.",
   };
 }
 

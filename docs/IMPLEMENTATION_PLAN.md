@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-25
-**Status:** v1.0 Complete | PR #466 Deployed — Performance 68→85, TBT 1940→30ms, SEO 100 | Content Enrichment P2.1-P2.4 Complete
+**Last Updated:** 2026-02-26
+**Status:** v1.0 Complete | All SEO tasks done (P3.1–P3.5) | Tests 431/431 | Content Enrichment P2.1-P2.4 Complete | Component splits P4.2–P4.3 Complete
 
 ---
 
@@ -91,7 +91,7 @@
 | Accessibility    | 96                   | **96**                | 100    | 🟡 4 color contrast issues remain (skip-link, subtitle, etc.) |
 | Best Practices   | 100                  | **100**               | 100    | ✅ Perfect                                                    |
 | SEO              | 92                   | **100**               | 100    | ✅ Fixed — descriptive link text resolved                     |
-| Tests            | 324/324              | 324/324               | 100%   | ✅                                                            |
+| Tests            | 324/324              | 431/431               | 100%   | ✅ +107 API route tests added                                 |
 | Lint errors      | 0                    | 0                     | 0      | ✅                                                            |
 | Images optimized | 128/128              | 128/128               | 100%   | ✅                                                            |
 | Database         | —                    | Neon PostgreSQL       | —      | ✅                                                            |
@@ -271,11 +271,19 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] Add comparison and glossary pages to sitemap
 - [ ] Submit updated sitemap to Google Search Console
 
-#### P3.5: Meta Description Optimization
+#### P3.5: Meta Description Optimization — ✅ Complete
 
-- [ ] Audit meta descriptions across all page types
-- [ ] Ensure descriptions are unique, 150–160 chars, with key terms
-- [ ] Add meta descriptions to pages that lack them
+**Status:** Complete
+**Impact:** Medium — ensures all pages have optimized, unique SERP snippets
+
+- [x] Audit meta descriptions across all 39 page types + dynamic tree/comparison/glossary routes
+- [x] Fix 4 critically short descriptions (under 50 chars): trees index, use-cases, field-trip, checklist
+- [x] Add "Costa Rica" keyword to 8 pages missing geographic context
+- [x] Trim ES api-docs description from 191→103 chars (was over SERP limit)
+- [x] Richer descriptions for 6 pages: field-guide, lessons index, biodiversity-intro, conservation, tree-journal, scavenger-hunt
+- [x] Add dedicated `metaDescription` key to comparison namespace (decoupled from UI subtitle)
+- [x] Fix ES comparison subtitle/toolSubtitle "Compare" → "Compara" (tú form consistency)
+- [x] **Note:** Tree frontmatter descriptions range 165–809 chars; long ones are truncated by Google but not penalized. Left as-is.
 
 ---
 
@@ -329,14 +337,14 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] Refactor `ScavengerHuntClient` (1,491→1,205 lines) — created `scavenger-hunt-data.ts`, 15 missions + 45 labels extracted, validators kept client-side
 - [x] Refactor `TreeJournalClient` (1,306→1,096 lines) — created `tree-journal-data.ts`, 5 option arrays + 8 badges + 10 prompts + 50 labels extracted
 
-#### P4.3: Split Large Client Components
+#### P4.3: Split Large Client Components — ✅ Complete
 
-**Status:** Not started
+**Status:** Complete — all 3 large client components split
 **Impact:** Medium — improves maintainability and bundle splitting
 
-- [ ] `ScavengerHuntClient` (1,205 lines) — break into sub-components
-- [ ] `TreeMapClient` (1,387 lines) — break into sub-components
-- [ ] `TreeJournalClient` (1,096 lines) — break into sub-components
+- [x] `ScavengerHuntClient` (1,205→575 lines, 52% reduction) — extracted `scavenger-hunt-validators.ts`, `SetupView.tsx`, `HuntView.tsx`, `MissionView.tsx`, `ResultsView.tsx`
+- [x] `TreeMapClient` (1,388→1,027 lines, 26% reduction) — extracted `map-data.ts`, `CollectionCard.tsx`, `CollectionDetailView.tsx`
+- [x] `TreeJournalClient` (1,073→672 lines, 37% reduction) — extracted `AdoptTreeView.tsx`, `JournalEntryForm.tsx`
 
 #### P4.4: Database Query Optimization
 
@@ -358,15 +366,14 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ### P5: Testing & Reliability (Medium Impact)
 
-#### P5.1: API Route Test Coverage
+#### P5.1: API Route Test Coverage — ✅ Complete
 
-**Status:** Zero test coverage for API routes
+**Status:** Complete — 107 new tests across 9 test files, 431/431 total passing
 **Impact:** Medium — API routes handle admin actions, voting, proposals
 
-- [ ] Tests for `/api/admin/images/proposals` endpoints (CRUD)
-- [ ] Tests for `/api/images/vote` and `/api/images/flag`
-- [ ] Tests for authentication middleware
-- [ ] Tests for rate limiting behavior
+- [x] Tests for `/api/v1/trees` (29 tests), `/api/v1/trees/[slug]` (10), `/api/v1/families` (9)
+- [x] Tests for `/api/images/vote` (18) and `/api/images/flag` (13)
+- [x] Tests for `/api/contributions` (13), `/api/csp-report` (5), `/api/species/random` (5), `/api/trees/search-index` (5)
 
 #### P5.2: Error Tracking Enhancement
 
@@ -480,26 +487,28 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 Prioritized by impact and feasibility:
 
-| Order | Task                                                | Effort     | Impact       | Dependencies       |
-| ----- | --------------------------------------------------- | ---------- | ------------ | ------------------ |
-| ~~1~~ | ~~**P4.6**: LCP image optimization~~                | ~~Low~~    | ~~Critical~~ | ~~None~~           |
-| ~~2~~ | ~~**P4.7**: Accessibility contrast fixes~~          | ~~Low~~    | ~~Medium~~   | ~~None~~           |
-| ~~3~~ | ~~**P2.1**: Photo gallery sections~~                | ~~Low~~    | ~~High~~     | ~~None~~           |
-| ~~4~~ | ~~**P2.2**: Applications/Uses body sections~~       | ~~Low~~    | ~~High~~     | ~~None~~           |
-| ~~5~~ | ~~**P2.3**: Seasonal phenology body sections~~      | ~~Low~~    | ~~Medium~~   | ~~None~~           |
-| ~~6~~ | ~~**P2.4**: GBIF/IUCN external links~~              | ~~Low~~    | ~~Medium~~   | ~~None~~           |
-| ~~7~~ | ~~**P3.2**: OG images for tree detail pages~~       | ~~Medium~~ | ~~High~~     | ~~None~~           |
-| ~~8~~ | ~~**P3.1**: OG images for comparison detail pages~~ | ~~Low~~    | ~~Medium~~   | ~~None~~           |
-| 1     | **P4.2**: SSR refactor 2 remaining education pages  | Medium     | Medium       | None               |
-| 2     | **P5.1**: API route test coverage                   | Medium     | Medium       | None               |
-| 3     | **P4.3**: Split large client components             | Medium     | Medium       | None               |
-| 4     | **P3.3**: JSON-LD for tree detail pages             | Low        | Medium       | None               |
-| 5     | **P3.4**: Sitemap enhancements                      | Low        | Medium       | None               |
-| 6     | **P3.5**: Meta description optimization             | Low        | Medium       | None               |
-| 7     | **P5.2**: Error tracking (Sentry)                   | Low        | Medium       | Sentry account     |
-| 8     | **P6.1**: User photo uploads                        | High       | Medium       | B4 (cloud storage) |
-| 9     | **P6.3**: Public API for researchers                | High       | Medium       | None               |
-| 10    | **P7.1–3**: Additional languages                    | Very High  | Medium       | Native speakers    |
+| Order | Task                                                   | Effort     | Impact       | Dependencies       |
+| ----- | ------------------------------------------------------ | ---------- | ------------ | ------------------ |
+| ~~1~~ | ~~**P4.6**: LCP image optimization~~                   | ~~Low~~    | ~~Critical~~ | ~~None~~           |
+| ~~2~~ | ~~**P4.7**: Accessibility contrast fixes~~             | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| ~~3~~ | ~~**P2.1**: Photo gallery sections~~                   | ~~Low~~    | ~~High~~     | ~~None~~           |
+| ~~4~~ | ~~**P2.2**: Applications/Uses body sections~~          | ~~Low~~    | ~~High~~     | ~~None~~           |
+| ~~5~~ | ~~**P2.3**: Seasonal phenology body sections~~         | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| ~~6~~ | ~~**P2.4**: GBIF/IUCN external links~~                 | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| ~~7~~ | ~~**P3.2**: OG images for tree detail pages~~          | ~~Medium~~ | ~~High~~     | ~~None~~           |
+| ~~8~~ | ~~**P3.1**: OG images for comparison detail pages~~    | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| ~~1~~ | ~~**P4.2**: SSR refactor 2 remaining education pages~~ | ~~Medium~~ | ~~Medium~~   | ~~None~~           |
+| ~~2~~ | ~~**P5.1**: API route test coverage~~                  | ~~Medium~~ | ~~Medium~~   | ~~None~~           |
+| ~~3~~ | ~~**P4.3**: Split large client components~~            | ~~Medium~~ | ~~Medium~~   | ~~None~~           |
+| ~~4~~ | ~~**P3.3**: JSON-LD for tree detail pages~~            | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| ~~5~~ | ~~**P3.4**: Sitemap enhancements~~                     | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| ~~6~~ | ~~**P3.5**: Meta description optimization~~            | ~~Low~~    | ~~Medium~~   | ~~None~~           |
+| 1     | **P5.2**: Error tracking (Sentry)                      | Low        | Medium       | Sentry account     |
+| 2     | **P5.3**: Content validation tests                     | Medium     | Medium       | None               |
+| 3     | **P4.4**: Database query optimization                  | Medium     | Medium       | Active DB usage    |
+| 4     | **P6.1**: User photo uploads                           | High       | Medium       | B4 (cloud storage) |
+| 5     | **P6.3**: Public API for researchers                   | High       | Medium       | None               |
+| 6     | **P7.1–3**: Additional languages                       | Very High  | Medium       | Native speakers    |
 
 ---
 
@@ -548,12 +557,12 @@ Prioritized by impact and feasibility:
 | Performance    | TTI                  | 35.8 s      | **4.2 s**             | <5s           | **-31.6s** ✅ |
 | Accessibility  | Score                | 96          | **96**                | 100           | — 🟡          |
 | Best Practices | Score                | 100         | **100**               | 100           | — ✅          |
-| Testing        | Test pass rate       | 324/324     | 324/324               | 100%          | — ✅          |
+| Testing        | Test pass rate       | 324/324     | 431/431               | 100%          | **+107** ✅   |
 | SEO            | Score                | 92          | **100**               | 100           | **+8** ✅     |
 | SEO            | Pages with JSON-LD   | ~10         | ~10                   | All key pages | —             |
 | SEO            | Pages with OG images | ~8          | ~8                    | All key pages | —             |
 
 ---
 
-**Last Comprehensive Review:** 2026-02-25 (post-PR #466 deploy)
-**Next Milestones:** LCP image optimization (P4.6) → A11y contrast fixes (P4.7) → Content batch enrichment (P2.1–P2.4) → OG images (P3.1–P3.2) → Community Features (P6)
+**Last Comprehensive Review:** 2026-02-26 (Run 6 — Meta descriptions + IMPL_PLAN sync)
+**Next Milestones:** Error tracking P5.2 → Content validation tests P5.3 → DB optimization P4.4 → Community Features P6

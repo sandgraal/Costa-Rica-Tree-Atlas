@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: locale === "es" ? "Directorio de Árboles" : "Tree Directory",
     description:
       locale === "es"
-        ? "Explora nuestra colección de árboles costarricenses"
-        : "Browse our collection of Costa Rican trees",
+        ? "Explora 175 especies de árboles de Costa Rica con fichas detalladas, fotos, mapas de distribución y guías de cuidado. Filtrable por familia, región y usos."
+        : "Explore 175 Costa Rican tree species with detailed profiles, photos, distribution maps, and care guides. Filter by family, region, and uses.",
     alternates: {
       languages: {
         en: "/en/trees",

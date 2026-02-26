@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Tree Health Diagnostic Tool - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Diagnostica problemas de salud de árboles basado en síntomas y recibe recomendaciones de tratamiento."
-        : "Diagnose tree health problems based on symptoms and receive treatment recommendations.",
+        ? "Diagnostica problemas de salud en árboles de Costa Rica según sus síntomas y recibe recomendaciones de tratamiento."
+        : "Diagnose health problems in Costa Rican trees based on symptoms and receive treatment recommendations.",
     alternates: {
       languages: {
         en: "/en/diagnose",
