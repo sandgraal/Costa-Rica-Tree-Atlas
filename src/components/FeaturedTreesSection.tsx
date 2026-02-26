@@ -37,8 +37,13 @@ export function FeaturedTreesSection({
 
       {featuredTreesList.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {featuredTreesList.map((tree) => (
-            <TreeCard key={tree.slug} tree={tree} locale={locale} />
+          {featuredTreesList.map((tree, index) => (
+            <TreeCard
+              key={tree.slug}
+              tree={tree}
+              locale={locale}
+              priority={index < 2}
+            />
           ))}
         </div>
       ) : (
