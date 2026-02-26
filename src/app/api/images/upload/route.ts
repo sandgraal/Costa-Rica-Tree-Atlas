@@ -1,35 +1,32 @@
 /**
  * User Photo Upload API
  *
- * POST - Upload a photo for a tree species
+ * POST - Upload a photo for a tree species (via Cloudinary)
  *
  * Allows authenticated users to submit photos which create
- * ImageProposals for admin review.
+ * ImageProposals for admin review. Images are stored in Cloudinary
+ * for CDN-backed delivery with automatic format negotiation.
  *
  * @see docs/IMAGE_REVIEW_SYSTEM.md
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
-import { createHash } from "crypto";
 import sharp from "sharp";
 import prisma from "@/lib/prisma";
 import { captureApiError } from "@/lib/error-tracking";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { type ImageType, IMAGE_TYPES } from "@/types/image-review";
+import {
+  uploadImage,
+  isCloudinaryConfigured,
+  MAX_UPLOAD_BYTES,
+  ALLOWED_MIME_TYPES,
+} from "@/lib/cloudinary";
 
-// Max file size: 10MB
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
-// Allowed file types
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 // Minimum dimensions
 const MIN_WIDTH = 800;
 const MIN_HEIGHT = 600;
-// Target dimensions for optimized images
-const TARGET_WIDTH = 1200;
-const TARGET_HEIGHT = 900;
 
 // Check if image tables exist
 async function checkTablesExist(): Promise<boolean> {
@@ -148,7 +145,11 @@ export async function POST(
     }
 
     // Validate file type
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    if (
+      !ALLOWED_MIME_TYPES.includes(
+        file.type as (typeof ALLOWED_MIME_TYPES)[number]
+      )
+    ) {
       return NextResponse.json(
         { error: "Invalid file type. Allowed: JPEG, PNG, WebP" },
         { status: 400 }
@@ -156,10 +157,21 @@ export async function POST(
     }
 
     // Validate file size
-    if (file.size > MAX_FILE_SIZE) {
+    if (file.size > MAX_UPLOAD_BYTES) {
       return NextResponse.json(
         { error: "File too large. Maximum size is 10MB." },
         { status: 400 }
+      );
+    }
+
+    // Check Cloudinary is configured
+    if (!isCloudinaryConfigured()) {
+      return NextResponse.json(
+        {
+          error: "Image storage not configured",
+          message: "Cloud storage is not yet set up. Please contact the admin.",
+        },
+        { status: 503 }
       );
     }
 
@@ -184,46 +196,25 @@ export async function POST(
       );
     }
 
-    // Generate unique filename
-    const hash = createHash("sha256")
-      .update(buffer)
-      .update(Date.now().toString())
-      .digest("hex")
-      .substring(0, 16);
-    const filename = `${treeSlug}-${imageType.toLowerCase()}-${hash}.webp`;
+    // Upload to Cloudinary (handles optimisation and CDN delivery)
+    const uploadResult = await uploadImage(buffer, {
+      treeSlug,
+      imageType,
+      tags: [
+        `user:${userId}`,
+        `uploaded:${new Date().toISOString().slice(0, 10)}`,
+      ],
+    });
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), "public", "images", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
+    const imageUrl = uploadResult.url;
+    const resolution = `${uploadResult.width}x${uploadResult.height}`;
+    const fileSize = uploadResult.bytes;
 
-    // Optimize and save image
-    const optimizedBuffer = await sharp(buffer)
-      .resize(TARGET_WIDTH, TARGET_HEIGHT, {
-        fit: "inside",
-        withoutEnlargement: true,
-      })
-      .webp({ quality: 85 })
-      .toBuffer();
-
-    const filepath = join(uploadsDir, filename);
-    await writeFile(filepath, optimizedBuffer);
-
-    // Get optimized file size
-    const fileSize = optimizedBuffer.length;
-    const optimizedMetadata = await sharp(optimizedBuffer).metadata();
-    const resolution = `${optimizedMetadata.width}x${optimizedMetadata.height}`;
-
-    // Calculate simple quality score based on resolution
+    // Calculate quality score based on resolution
     const qualityScore = Math.min(
       100,
-      Math.round(
-        ((optimizedMetadata.width || 0) * (optimizedMetadata.height || 0)) /
-          10800
-      )
+      Math.round((uploadResult.width * uploadResult.height) / 10800)
     );
-
-    // Create image URL
-    const imageUrl = `/images/uploads/${filename}`;
 
     // Create proposal ID
     const proposalId = `clp${Date.now().toString(36)}${Math.random().toString(36).substring(2, 9)}`;
@@ -273,7 +264,7 @@ export async function POST(
         id, proposal_id, action, performed_by, notes, created_at
       ) VALUES (
         ${auditId}, ${proposalId}, 'PROPOSAL_CREATED', ${userId},
-        ${`User uploaded ${imageType} image for ${treeSlug}`}, NOW()
+        ${`User uploaded ${imageType} image for ${treeSlug} (Cloudinary: ${uploadResult.publicId})`}, NOW()
       )
     `;
 
@@ -299,16 +290,17 @@ export async function POST(
  * GET /api/images/upload
  * Get upload guidelines and limits
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const session = await getServerSession(authOptions);
 
   return NextResponse.json({
     data: {
       authenticated: !!session?.user,
+      cloudinaryConfigured: isCloudinaryConfigured(),
       limits: {
-        maxFileSize: MAX_FILE_SIZE,
-        maxFileSizeMB: MAX_FILE_SIZE / (1024 * 1024),
-        allowedTypes: ALLOWED_TYPES,
+        maxFileSize: MAX_UPLOAD_BYTES,
+        maxFileSizeMB: MAX_UPLOAD_BYTES / (1024 * 1024),
+        allowedTypes: [...ALLOWED_MIME_TYPES],
         minWidth: MIN_WIDTH,
         minHeight: MIN_HEIGHT,
         uploadsPerHour: 5,

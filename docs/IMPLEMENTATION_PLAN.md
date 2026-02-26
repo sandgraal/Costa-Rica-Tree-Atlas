@@ -11,15 +11,14 @@
 
 ### Active Blockers
 
-| #   | Blocker                                                                    | Blocks                         | Owner |
-| --- | -------------------------------------------------------------------------- | ------------------------------ | ----- |
-| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up | Community photo uploads (P6.1) | Human |
+None — all blockers resolved.
 
 ### Resolved Blockers
 
-| #   | Blocker                                                                                                                                                          | Resolution                                                                |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| B3  | **PR #466 not yet deployed** — Lighthouse audit on Feb 25 confirmed pre-fix baseline (68/100 Perf); PR #466 removes 6 MB+ client bundle but needs merge & deploy | ✅ Deployed Feb 25 — Perf 68→85, TBT 1940→30ms, TTI 35.8→4.2s, SEO 92→100 |
+| #   | Blocker                                                                                                                                                          | Resolution                                                                       |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                                                       | ✅ Cloudinary SDK integrated Feb 26 — upload route, env validation, CDN delivery |
+| B3  | **PR #466 not yet deployed** — Lighthouse audit on Feb 25 confirmed pre-fix baseline (68/100 Perf); PR #466 removes 6 MB+ client bundle but needs merge & deploy | ✅ Deployed Feb 25 — Perf 68→85, TBT 1940→30ms, TTI 35.8→4.2s, SEO 92→100        |
 
 ### Manual Steps Required
 
@@ -33,12 +32,14 @@
 
 **Post-deploy findings:** TBT (30ms) and TTI (4.2s) dramatically improved. LCP regressed from 2.6s→4.0s — now the primary bottleneck. Root cause: homepage tree card images (ciprecillo 270KB, ajo 185KB, coyol 184KB) served as JPEG via `_next/image` instead of AVIF/WebP, plus 300ms render-blocking CSS. See P4.6 below.
 
-#### Cloud Image Storage Setup (B4 — Required for P6.1)
+#### Cloud Image Storage Setup (B4 — ✅ Complete)
 
-- [ ] Choose storage provider: Cloudinary (recommended) or AWS S3
-- [ ] Create account and bucket/upload preset
+- [x] Choose storage provider: Cloudinary
+- [x] Install `cloudinary` SDK and create `src/lib/cloudinary.ts`
+- [x] Refactor upload route to use Cloudinary instead of local filesystem
+- [x] Add `res.cloudinary.com` to `next.config.ts` remote patterns
+- [x] Add env var validation schema (CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET)
 - [ ] Add API keys to Vercel environment variables
-- [ ] Update upload handler in P6.1 implementation
 
 #### Environment Variables (Vercel Dashboard)
 
