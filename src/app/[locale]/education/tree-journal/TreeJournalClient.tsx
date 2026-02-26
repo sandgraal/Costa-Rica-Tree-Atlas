@@ -6,6 +6,7 @@ import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
 import { createStorage, adoptedTreeSchema } from "@/lib/storage";
 import { useDebounce } from "@/hooks/useDebounce";
+import type { TreeJournalLessonData } from "./tree-journal-data";
 
 interface Tree {
   title: string;
@@ -47,132 +48,25 @@ interface AdoptedTree {
 interface TreeJournalClientProps {
   trees: Tree[];
   locale: string;
+  lessonData: TreeJournalLessonData;
 }
 
 const JOURNAL_STORAGE_KEY = "costa-rica-tree-atlas-tree-journal";
 
-const WEATHER_OPTIONS = [
-  { value: "sunny", emoji: "☀️", label: { en: "Sunny", es: "Soleado" } },
-  { value: "cloudy", emoji: "☁️", label: { en: "Cloudy", es: "Nublado" } },
-  { value: "rainy", emoji: "🌧️", label: { en: "Rainy", es: "Lluvioso" } },
-  { value: "stormy", emoji: "⛈️", label: { en: "Stormy", es: "Tormentoso" } },
-  { value: "foggy", emoji: "🌫️", label: { en: "Foggy", es: "Neblinoso" } },
-];
-
-const LEAF_STATUS_OPTIONS = [
-  {
-    value: "green",
-    emoji: "🌿",
-    label: { en: "Full Green", es: "Verde Completo" },
-  },
-  {
-    value: "yellowing",
-    emoji: "🍂",
-    label: { en: "Yellowing", es: "Amarillento" },
-  },
-  { value: "bare", emoji: "🪵", label: { en: "Bare", es: "Sin Hojas" } },
-  { value: "budding", emoji: "🌱", label: { en: "Budding", es: "Brotando" } },
-  {
-    value: "full",
-    emoji: "🌳",
-    label: { en: "Full Foliage", es: "Follaje Completo" },
-  },
-];
-
-const MOOD_OPTIONS = [
-  {
-    value: "excited",
-    emoji: "🤩",
-    label: { en: "Excited", es: "Emocionado/a" },
-  },
-  { value: "curious", emoji: "🤔", label: { en: "Curious", es: "Curioso/a" } },
-  {
-    value: "peaceful",
-    emoji: "😌",
-    label: { en: "Peaceful", es: "Tranquilo/a" },
-  },
-  { value: "amazed", emoji: "😲", label: { en: "Amazed", es: "Asombrado/a" } },
-  {
-    value: "thoughtful",
-    emoji: "🧐",
-    label: { en: "Thoughtful", es: "Pensativo/a" },
-  },
-];
-
-const WILDLIFE_OPTIONS = [
-  { value: "birds", emoji: "🐦", label: { en: "Birds", es: "Aves" } },
-  {
-    value: "butterflies",
-    emoji: "🦋",
-    label: { en: "Butterflies", es: "Mariposas" },
-  },
-  { value: "insects", emoji: "🐛", label: { en: "Insects", es: "Insectos" } },
-  {
-    value: "squirrels",
-    emoji: "🐿️",
-    label: { en: "Squirrels", es: "Ardillas" },
-  },
-  { value: "monkeys", emoji: "🐒", label: { en: "Monkeys", es: "Monos" } },
-  { value: "lizards", emoji: "🦎", label: { en: "Lizards", es: "Lagartijas" } },
-  { value: "bees", emoji: "🐝", label: { en: "Bees", es: "Abejas" } },
-  { value: "frogs", emoji: "🐸", label: { en: "Frogs", es: "Ranas" } },
-];
-
-const BADGES = [
-  {
-    id: "first-entry",
-    emoji: "📝",
-    name: { en: "First Entry", es: "Primera Entrada" },
-    requirement: 1,
-  },
-  {
-    id: "week-streak",
-    emoji: "🔥",
-    name: { en: "Week Streak", es: "Racha Semanal" },
-    requirement: 7,
-  },
-  {
-    id: "botanist",
-    emoji: "🔬",
-    name: { en: "Junior Botanist", es: "Botánico Junior" },
-    requirement: 10,
-  },
-  {
-    id: "wildlife-spotter",
-    emoji: "🦜",
-    name: { en: "Wildlife Spotter", es: "Observador de Fauna" },
-    requirement: 5,
-  },
-  {
-    id: "flower-finder",
-    emoji: "🌸",
-    name: { en: "Flower Finder", es: "Buscador de Flores" },
-    requirement: 1,
-  },
-  {
-    id: "fruit-tracker",
-    emoji: "🍎",
-    name: { en: "Fruit Tracker", es: "Rastreador de Frutos" },
-    requirement: 1,
-  },
-  {
-    id: "all-weather",
-    emoji: "🌦️",
-    name: { en: "All Weather", es: "Todo Clima" },
-    requirement: 5,
-  },
-  {
-    id: "nature-master",
-    emoji: "🏆",
-    name: { en: "Nature Master", es: "Maestro de la Naturaleza" },
-    requirement: 25,
-  },
-];
-
 export default function TreeJournalClient({
   trees,
   locale,
+  lessonData,
 }: TreeJournalClientProps) {
+  const {
+    labels: t,
+    weatherOptions,
+    leafStatusOptions,
+    moodOptions,
+    wildlifeOptions,
+    badges,
+    prompts,
+  } = lessonData;
   const [adoptedTree, setAdoptedTree] = useState<AdoptedTree | null>(null);
   const [view, setView] = useState<
     "adopt" | "journal" | "timeline" | "badges" | "entry"
@@ -203,115 +97,11 @@ export default function TreeJournalClient({
         key: JOURNAL_STORAGE_KEY,
         schema: adoptedTreeSchema,
         onError: (_error) => {
-          setStorageError(
-            locale === "es"
-              ? "Se detectaron datos corruptos y fueron eliminados"
-              : "Corrupted data was detected and cleared"
-          );
+          setStorageError(t.corruptedDataCleared);
         },
       }),
-    [locale]
+    [t.corruptedDataCleared]
   );
-
-  const t = {
-    title: locale === "es" ? "Diario del Árbol 🌳" : "Tree Journal 🌳",
-    subtitle:
-      locale === "es"
-        ? "Adopta un árbol y observa cómo cambia durante el año"
-        : "Adopt a tree and watch it change throughout the year",
-    backToEducation:
-      locale === "es" ? "← Volver a Educación" : "← Back to Education",
-    adoptTree: locale === "es" ? "Adoptar un Árbol" : "Adopt a Tree",
-    chooseTree: locale === "es" ? "Elige tu árbol" : "Choose your tree",
-    nickname:
-      locale === "es"
-        ? "Dale un nombre a tu árbol"
-        : "Give your tree a nickname",
-    nicknamePlaceholder:
-      locale === "es" ? "Ej: El Gran Roble" : "E.g. The Great Oak",
-    location: locale === "es" ? "¿Dónde está tu árbol?" : "Where is your tree?",
-    locationPlaceholder:
-      locale === "es" ? "Ej: Patio de la escuela" : "E.g. School yard",
-    startJournal: locale === "es" ? "🌱 Comenzar Diario" : "🌱 Start Journal",
-    myJournal: locale === "es" ? "Mi Diario" : "My Journal",
-    timeline: locale === "es" ? "Línea de Tiempo" : "Timeline",
-    badges: locale === "es" ? "Insignias" : "Badges",
-    newEntry: locale === "es" ? "📝 Nueva Entrada" : "📝 New Entry",
-    searchTrees: locale === "es" ? "Buscar árboles..." : "Search trees...",
-    weather:
-      locale === "es" ? "¿Cómo está el clima?" : "What's the weather like?",
-    leafStatus: locale === "es" ? "Estado de las hojas" : "Leaf Status",
-    flowers: locale === "es" ? "¿Hay flores?" : "Any flowers?",
-    fruits: locale === "es" ? "¿Hay frutos?" : "Any fruits?",
-    wildlife:
-      locale === "es" ? "¿Qué animales viste?" : "What wildlife did you see?",
-    observation: locale === "es" ? "Tu observación" : "Your observation",
-    observationPlaceholder:
-      locale === "es"
-        ? "Escribe lo que observaste hoy..."
-        : "Write what you observed today...",
-    mood: locale === "es" ? "¿Cómo te sientes?" : "How do you feel?",
-    height:
-      locale === "es"
-        ? "Altura estimada (metros)"
-        : "Estimated height (meters)",
-    circumference:
-      locale === "es"
-        ? "Circunferencia del tronco (cm)"
-        : "Trunk circumference (cm)",
-    saveEntry: locale === "es" ? "💾 Guardar Entrada" : "💾 Save Entry",
-    cancel: locale === "es" ? "Cancelar" : "Cancel",
-    adoptedOn: locale === "es" ? "Adoptado el" : "Adopted on",
-    totalEntries: locale === "es" ? "entradas totales" : "total entries",
-    viewDetails: locale === "es" ? "Ver en el Atlas" : "View in Atlas",
-    yes: locale === "es" ? "Sí" : "Yes",
-    no: locale === "es" ? "No" : "No",
-    prompt: locale === "es" ? "💡 Sugerencia del día" : "💡 Today's prompt",
-    unlocked: locale === "es" ? "Desbloqueada" : "Unlocked",
-    locked: locale === "es" ? "Bloqueada" : "Locked",
-    progress: locale === "es" ? "Progreso" : "Progress",
-    congratsNewBadge:
-      locale === "es" ? "¡Nueva insignia desbloqueada!" : "New badge unlocked!",
-    resetJournal: locale === "es" ? "Reiniciar Diario" : "Reset Journal",
-    confirmReset:
-      locale === "es"
-        ? "¿Estás seguro? Esto borrará todos tus datos."
-        : "Are you sure? This will delete all your data.",
-    noEntries:
-      locale === "es"
-        ? "Aún no tienes entradas. ¡Haz tu primera observación!"
-        : "No entries yet. Make your first observation!",
-    seasonalTip: locale === "es" ? "Consejo estacional" : "Seasonal tip",
-    scientificName: locale === "es" ? "Nombre científico" : "Scientific name",
-    family: locale === "es" ? "Familia" : "Family",
-  };
-
-  const prompts =
-    locale === "es"
-      ? [
-          "Dibuja las hojas de tu árbol. ¿Qué forma tienen?",
-          "Cuenta cuántas ramas principales tiene tu árbol.",
-          "¿Puedes encontrar insectos viviendo en tu árbol?",
-          "Mide la sombra de tu árbol al mediodía.",
-          "Describe el sonido que hace el viento en las hojas.",
-          "¿De qué color es la corteza? ¿Es lisa o rugosa?",
-          "Busca señales de vida animal (nidos, agujeros, huellas).",
-          "¿Tu árbol tiene algún aroma especial?",
-          "Compara tu árbol con uno cercano. ¿En qué se diferencian?",
-          "¿Cómo crees que se verá tu árbol en la próxima estación?",
-        ]
-      : [
-          "Draw your tree's leaves. What shape are they?",
-          "Count how many main branches your tree has.",
-          "Can you find any insects living on your tree?",
-          "Measure your tree's shadow at noon.",
-          "Describe the sound the wind makes in the leaves.",
-          "What color is the bark? Is it smooth or rough?",
-          "Look for signs of animal life (nests, holes, tracks).",
-          "Does your tree have any special smell?",
-          "Compare your tree with a nearby one. How are they different?",
-          "How do you think your tree will look next season?",
-        ];
 
   // Load saved data
   useEffect(() => {
@@ -498,7 +288,7 @@ export default function TreeJournalClient({
                 }}
                 className="text-sm underline hover:no-underline"
               >
-                {locale === "es" ? "Cerrar" : "Dismiss"}
+                {t.dismiss}
               </button>
             </div>
           </div>
@@ -685,7 +475,7 @@ export default function TreeJournalClient({
                 {t.weather}
               </label>
               <div className="flex flex-wrap gap-2">
-                {WEATHER_OPTIONS.map((option) => (
+                {weatherOptions.map((option) => (
                   <button
                     key={option.value}
                     onClick={() =>
@@ -701,9 +491,7 @@ export default function TreeJournalClient({
                     }`}
                   >
                     <span>{option.emoji}</span>
-                    <span className="text-sm">
-                      {option.label[locale as "en" | "es"]}
-                    </span>
+                    <span className="text-sm">{option.label}</span>
                   </button>
                 ))}
               </div>
@@ -715,7 +503,7 @@ export default function TreeJournalClient({
                 {t.leafStatus}
               </label>
               <div className="flex flex-wrap gap-2">
-                {LEAF_STATUS_OPTIONS.map((option) => (
+                {leafStatusOptions.map((option) => (
                   <button
                     key={option.value}
                     onClick={() =>
@@ -731,9 +519,7 @@ export default function TreeJournalClient({
                     }`}
                   >
                     <span>{option.emoji}</span>
-                    <span className="text-sm">
-                      {option.label[locale as "en" | "es"]}
-                    </span>
+                    <span className="text-sm">{option.label}</span>
                   </button>
                 ))}
               </div>
@@ -811,7 +597,7 @@ export default function TreeJournalClient({
                 {t.wildlife}
               </label>
               <div className="flex flex-wrap gap-2">
-                {WILDLIFE_OPTIONS.map((option) => (
+                {wildlifeOptions.map((option) => (
                   <button
                     key={option.value}
                     onClick={() => {
@@ -828,9 +614,7 @@ export default function TreeJournalClient({
                     }`}
                   >
                     <span>{option.emoji}</span>
-                    <span className="text-sm">
-                      {option.label[locale as "en" | "es"]}
-                    </span>
+                    <span className="text-sm">{option.label}</span>
                   </button>
                 ))}
               </div>
@@ -840,7 +624,7 @@ export default function TreeJournalClient({
             <div>
               <label className="block text-sm font-medium mb-3">{t.mood}</label>
               <div className="flex flex-wrap gap-2">
-                {MOOD_OPTIONS.map((option) => (
+                {moodOptions.map((option) => (
                   <button
                     key={option.value}
                     onClick={() =>
@@ -856,9 +640,7 @@ export default function TreeJournalClient({
                     }`}
                   >
                     <span className="text-xl">{option.emoji}</span>
-                    <span className="text-sm">
-                      {option.label[locale as "en" | "es"]}
-                    </span>
+                    <span className="text-sm">{option.label}</span>
                   </button>
                 ))}
               </div>
@@ -951,15 +733,11 @@ export default function TreeJournalClient({
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
               <div className="bg-card rounded-2xl p-8 max-w-sm text-center animate-bounce-in">
                 <div className="text-6xl mb-4">
-                  {BADGES.find((b) => b.id === newBadge)?.emoji}
+                  {badges.find((b) => b.id === newBadge)?.emoji}
                 </div>
                 <h3 className="text-xl font-bold mb-2">{t.congratsNewBadge}</h3>
                 <p className="text-lg font-medium text-primary">
-                  {
-                    BADGES.find((b) => b.id === newBadge)?.name[
-                      locale as "en" | "es"
-                    ]
-                  }
+                  {badges.find((b) => b.id === newBadge)?.name}
                 </p>
                 <button
                   onClick={() => {
@@ -967,7 +745,7 @@ export default function TreeJournalClient({
                   }}
                   className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-lg"
                 >
-                  {locale === "es" ? "¡Genial!" : "Awesome!"}
+                  {t.awesome}
                 </button>
               </div>
             </div>
@@ -1016,12 +794,12 @@ export default function TreeJournalClient({
               <div className="mt-4 pt-4 border-t border-border">
                 <div className="flex items-center gap-2">
                   {adoptedTree.badges.slice(0, 5).map((badgeId) => {
-                    const badge = BADGES.find((b) => b.id === badgeId);
+                    const badge = badges.find((b) => b.id === badgeId);
                     return badge ? (
                       <span
                         key={badgeId}
                         className="text-2xl"
-                        title={badge.name[locale as "en" | "es"]}
+                        title={badge.name}
                       >
                         {badge.emoji}
                       </span>
@@ -1119,14 +897,14 @@ export default function TreeJournalClient({
                         <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
                           <span>
                             {
-                              WEATHER_OPTIONS.find(
+                              weatherOptions.find(
                                 (w) => w.value === entry.weather
                               )?.emoji
                             }
                           </span>
                           <span>
                             {
-                              LEAF_STATUS_OPTIONS.find(
+                              leafStatusOptions.find(
                                 (l) => l.value === entry.leafStatus
                               )?.emoji
                             }
@@ -1136,10 +914,7 @@ export default function TreeJournalClient({
                         </div>
                       </div>
                       <span className="text-2xl">
-                        {
-                          MOOD_OPTIONS.find((m) => m.value === entry.mood)
-                            ?.emoji
-                        }
+                        {moodOptions.find((m) => m.value === entry.mood)?.emoji}
                       </span>
                     </div>
 
@@ -1155,12 +930,12 @@ export default function TreeJournalClient({
                             className="px-2 py-1 bg-primary/10 rounded text-sm"
                           >
                             {
-                              WILDLIFE_OPTIONS.find((opt) => opt.value === w)
+                              wildlifeOptions.find((opt) => opt.value === w)
                                 ?.emoji
                             }{" "}
                             {
-                              WILDLIFE_OPTIONS.find((opt) => opt.value === w)
-                                ?.label[locale as "en" | "es"]
+                              wildlifeOptions.find((opt) => opt.value === w)
+                                ?.label
                             }
                           </span>
                         ))}
@@ -1191,11 +966,7 @@ export default function TreeJournalClient({
 
               {adoptedTree.entries.length < 2 ? (
                 <div className="text-center py-8 text-muted-foreground">
-                  <p>
-                    {locale === "es"
-                      ? "Necesitas al menos 2 entradas para ver la línea de tiempo"
-                      : "You need at least 2 entries to see the timeline"}
-                  </p>
+                  <p>{t.timelineMinEntries}</p>
                 </div>
               ) : (
                 <div className="relative">
@@ -1210,14 +981,14 @@ export default function TreeJournalClient({
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-xl">
                             {
-                              WEATHER_OPTIONS.find(
+                              weatherOptions.find(
                                 (w) => w.value === entry.weather
                               )?.emoji
                             }
                           </span>
                           <span className="text-xl">
                             {
-                              LEAF_STATUS_OPTIONS.find(
+                              leafStatusOptions.find(
                                 (l) => l.value === entry.leafStatus
                               )?.emoji
                             }
@@ -1231,7 +1002,7 @@ export default function TreeJournalClient({
                           {entry.wildlife.map((w) => (
                             <span key={w} className="text-xl">
                               {
-                                WILDLIFE_OPTIONS.find((opt) => opt.value === w)
+                                wildlifeOptions.find((opt) => opt.value === w)
                                   ?.emoji
                               }
                             </span>
@@ -1239,9 +1010,7 @@ export default function TreeJournalClient({
                         </div>
                         {index === 0 && adoptedTree.entries.length > 1 && (
                           <div className="mt-2 text-sm text-green-600 dark:text-green-400">
-                            {locale === "es"
-                              ? "↑ Más reciente"
-                              : "↑ Most recent"}
+                            {t.mostRecent}
                           </div>
                         )}
                       </div>
@@ -1257,7 +1026,7 @@ export default function TreeJournalClient({
             <div className="bg-card rounded-xl p-6 border border-border">
               <h2 className="text-xl font-semibold mb-6">{t.badges}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {BADGES.map((badge) => {
+                {badges.map((badge) => {
                   const unlocked = adoptedTree.badges.includes(badge.id);
                   return (
                     <div
@@ -1273,9 +1042,7 @@ export default function TreeJournalClient({
                       >
                         {badge.emoji}
                       </div>
-                      <p className="font-medium text-sm">
-                        {badge.name[locale as "en" | "es"]}
-                      </p>
+                      <p className="font-medium text-sm">{badge.name}</p>
                       <p className="text-xs text-muted-foreground mt-1">
                         {unlocked
                           ? t.unlocked

@@ -254,19 +254,21 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] Includes tree common name, scientific name, family tag, conservation status badge
 - [x] Generates dynamically from frontmatter data
 
-#### P3.3: JSON-LD Enhancement for Tree Pages
+#### P3.3: JSON-LD Enhancement for Tree Pages — ✅ Complete
 
-**Status:** Partial — tree detail pages have some structured data
+**Status:** Complete — tree detail pages use Taxon schema with full metadata
 
-- [ ] Audit existing JSON-LD on tree detail pages
-- [ ] Add `Species` or `BiologicalTaxon` schema where missing
-- [ ] Include conservation status, distribution, images in structured data
+- [x] Audit existing JSON-LD on tree detail pages
+- [x] Add `Taxon` schema with `taxonRank`, `parentTaxon` (family)
+- [x] Include conservation status (human-readable labels), distribution (`spatialCoverage`), multi-image array
 
-#### P3.4: Sitemap Enhancements
+#### P3.4: Sitemap Enhancements — ✅ Complete
 
-- [ ] Verify sitemap includes all 175 species × 2 locales
-- [ ] Add `<lastmod>` dates from `updatedAt` frontmatter
-- [ ] Add comparison and glossary pages to sitemap
+**Status:** Complete — all pages already included with lastmod
+
+- [x] Verify sitemap includes all 175 species × 2 locales
+- [x] Add `<lastmod>` dates from `updatedAt` frontmatter
+- [x] Add comparison and glossary pages to sitemap
 - [ ] Submit updated sitemap to Google Search Console
 
 #### P3.5: Meta Description Optimization
@@ -318,23 +320,23 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] Primary links: `--primary` lightened #5a9653→#65a85e → 5.15:1 on muted backgrounds
 - [x] Card secondary text: `--secondary` #c9a06f → text-secondary/70 passes 4.6:1 on footer bg
 
-#### P4.2: SSR Refactor Remaining Education Pages
+#### P4.2: SSR Refactor Remaining Education Pages — ✅ Complete
 
-**Status:** 4/6 done; 2 remaining
+**Status:** 6/6 done — all education pages refactored
 **Impact:** Medium — reduces client JS bundle for education section
 **Pattern:** See `NEXT_AGENT_HANDOFF.md` "Established Patterns" section
 
-- [ ] Refactor `ScavengerHuntClient` (1,491 lines) — create `scavenger-hunt-data.ts`, pass `lessonData` prop
-- [ ] Refactor `TreeJournalClient` (1,305 lines) — create `tree-journal-data.ts`, pass `lessonData` prop
+- [x] Refactor `ScavengerHuntClient` (1,491→1,205 lines) — created `scavenger-hunt-data.ts`, 15 missions + 45 labels extracted, validators kept client-side
+- [x] Refactor `TreeJournalClient` (1,306→1,096 lines) — created `tree-journal-data.ts`, 5 option arrays + 8 badges + 10 prompts + 50 labels extracted
 
 #### P4.3: Split Large Client Components
 
 **Status:** Not started
 **Impact:** Medium — improves maintainability and bundle splitting
 
-- [ ] `ScavengerHuntClient` (1,491 lines) — break into sub-components
+- [ ] `ScavengerHuntClient` (1,205 lines) — break into sub-components
 - [ ] `TreeMapClient` (1,387 lines) — break into sub-components
-- [ ] `TreeJournalClient` (1,305 lines) — break into sub-components
+- [ ] `TreeJournalClient` (1,096 lines) — break into sub-components
 
 #### P4.4: Database Query Optimization
 

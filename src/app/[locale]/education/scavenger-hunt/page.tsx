@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
 import ScavengerHuntClient from "./ScavengerHuntClient";
+import { getScavengerHuntLessonData } from "./scavenger-hunt-data";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -58,7 +59,17 @@ async function ScavengerHuntContent({
       uses: t.uses || undefined,
     }));
 
-  return <ScavengerHuntClient trees={trees} locale={locale} />;
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getScavengerHuntLessonData(locale);
+
+  return (
+    <ScavengerHuntClient
+      trees={trees}
+      locale={locale}
+      lessonData={lessonData}
+    />
+  );
 }
 
 function ScavengerHuntLoading() {
