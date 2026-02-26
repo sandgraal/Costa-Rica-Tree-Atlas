@@ -39,10 +39,10 @@ export function QuickSearch() {
     const loadTrees = async () => {
       setIsLoadingTrees(true);
       try {
-        const res = await fetch("/api/trees/search-index");
+        const res = await fetch(`/api/trees/search-index?locale=${locale}`);
         if (!res.ok) throw new Error("Failed to fetch search index");
-        const index: Record<string, TreeSearchResult[]> = await res.json();
-        setAllTrees(index[locale] ?? []);
+        const index: TreeSearchResult[] = await res.json();
+        setAllTrees(index);
       } catch (error) {
         console.error("Failed to load trees:", error);
       } finally {
