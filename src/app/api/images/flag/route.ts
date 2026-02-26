@@ -191,7 +191,10 @@ export async function POST(request: NextRequest) {
         WHERE id = ${existingVote.id}
       `;
 
-      return NextResponse.json({ data: { status: "updated_existing_vote_to_flag" } }, { status: 200 });
+      return NextResponse.json(
+        { data: { status: "updated_existing_vote_to_flag" } },
+        { status: 200 }
+      );
     }
 
     // Create the flag vote

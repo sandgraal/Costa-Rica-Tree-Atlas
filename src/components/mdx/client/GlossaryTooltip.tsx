@@ -39,7 +39,10 @@ export function GlossaryTooltip({
         >
           <span className="font-semibold block mb-1">{term}</span>
           <span className="text-xs">{definition}</span>
-          <span aria-hidden="true" className="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+          <span
+            aria-hidden="true"
+            className="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-popover border-r border-b border-border rotate-45"
+          />
         </span>
       )}
     </span>

@@ -13,7 +13,7 @@ export function Tabs({ tabs }: TabsProps) {
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
-    currentTabId: string,
+    currentTabId: string
   ) => {
     if (!tabs.length) return;
 

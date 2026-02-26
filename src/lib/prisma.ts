@@ -77,4 +77,3 @@ try {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 export default prisma;
-
