@@ -42,8 +42,16 @@ export function CollectionCard({
   return (
     <div
       className={cardClass}
+      role="button"
+      tabIndex={0}
       onClick={() => {
         onSelect(collection);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect(collection);
+        }
       }}
     >
       <div className={paddingClass}>
