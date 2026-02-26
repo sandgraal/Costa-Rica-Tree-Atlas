@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/lib/ratelimit";
+import { captureApiError } from "@/lib/error-tracking";
 
 /**
  * CSP Violation Report Handler
@@ -44,7 +45,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("[CSP Report] Error processing report:", error);
+    captureApiError(error, "/api/csp-report", "POST");
     return NextResponse.json(
       { error: "Invalid report format" },
       { status: 400 }

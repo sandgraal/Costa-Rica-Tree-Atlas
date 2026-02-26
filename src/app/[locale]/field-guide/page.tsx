@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
@@ -30,14 +30,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "fieldGuide" });
 
   return {
-    title:
-      locale === "es" ? "Generador de Guía de Campo" : "Field Guide Generator",
-    description:
-      locale === "es"
-        ? "Crea tu propia guía de campo personalizada de árboles de Costa Rica"
-        : "Create your own custom field guide of Costa Rican trees",
+    title: t("title"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/field-guide",

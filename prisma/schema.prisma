@@ -94,6 +94,7 @@ model Account {
   session_state     String?
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map("accounts")
 }
 
@@ -191,6 +192,7 @@ model ImageProposal {
   @@index([status])
   @@index([source])
   @@index([createdAt])
+  @@index([status, createdAt])
   @@map("image_proposals")
 }
 
@@ -359,5 +361,6 @@ model Contribution {
   @@index([treeSlug])
   @@index([sessionId])
   @@index([createdAt])
+  @@index([status, createdAt])
   @@map("contributions")
 }

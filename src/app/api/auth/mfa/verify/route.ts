@@ -18,6 +18,7 @@ import { TOTP } from "@otplib/totp";
 import { verify } from "argon2";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
+import { captureApiError } from "@/lib/error-tracking";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { decryptTotpSecret } from "@/lib/auth/mfa-crypto";
 
@@ -217,7 +218,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   } catch (error) {
-    console.error("MFA verification error:", error);
+    captureApiError(error, "/api/auth/mfa/verify", "POST");
     return NextResponse.json(
       {
         error: "Verification failed",

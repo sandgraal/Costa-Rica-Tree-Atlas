@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import TreeJournalClient from "./TreeJournalClient";
+import { getTreeJournalLessonData } from "./tree-journal-data";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -17,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Tree Journal - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Adopta un árbol y documenta sus cambios durante todo el año escolar."
-        : "Adopt a tree and document its changes throughout the school year.",
+        ? "Adopta un árbol de Costa Rica y documenta sus cambios durante el año escolar. Diario fenológico con insignias y certificados."
+        : "Adopt a Costa Rican tree and document its changes through the school year. Phenology journal with badges and certificates.",
   };
 }
 
@@ -40,5 +41,11 @@ export default async function TreeJournalPage({ params }: Props) {
       maxHeight: t.maxHeight || undefined,
     }));
 
-  return <TreeJournalClient trees={trees} locale={locale} />;
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getTreeJournalLessonData(locale);
+
+  return (
+    <TreeJournalClient trees={trees} locale={locale} lessonData={lessonData} />
+  );
 }

@@ -81,6 +81,7 @@
     "@vercel/postgres": "^0.10.0",
     "argon2": "^0.44.0",
     "botid": "^1.5.10",
+    "cloudinary": "^2.9.0",
     "contentlayer2": "^0.5.8",
     "date-fns": "^4.1.0",
     "dotenv": "^17.3.1",
@@ -126,7 +127,7 @@
     "prettier": "^3.8.1",
     "prisma": "^7.4.0",
     "tailwindcss": "^4",
-    "typescript": "^5",
+    "typescript": "5.9.3",
     "vitest": "^4.0.16"
   }
 }

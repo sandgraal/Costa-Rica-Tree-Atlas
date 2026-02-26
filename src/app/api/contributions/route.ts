@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { captureApiError } from "@/lib/error-tracking";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { createHash, randomBytes } from "crypto";
@@ -215,7 +216,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("Error creating contribution:", error);
+    captureApiError(error, "/api/contributions", "POST");
 
     // Check if it's a database connection error
     if (
@@ -365,7 +366,7 @@ export async function GET(request: NextRequest) {
       hasMore: offset + contributions.length < total,
     });
   } catch (error) {
-    console.error("Error listing contributions:", error);
+    captureApiError(error, "/api/contributions", "GET");
 
     // Check if it's a database connection error
     if (

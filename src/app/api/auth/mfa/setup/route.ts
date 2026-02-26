@@ -18,6 +18,7 @@ import QRCode from "qrcode";
 import { hash } from "argon2";
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { captureApiError } from "@/lib/error-tracking";
 import { encryptTotpSecret, generateBackupCodes } from "@/lib/auth/mfa-crypto";
 
 export async function POST(request: NextRequest) {
@@ -128,7 +129,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("MFA setup error:", error);
+    captureApiError(error, "/api/auth/mfa/setup", "POST");
     return NextResponse.json(
       {
         error: "Setup failed",

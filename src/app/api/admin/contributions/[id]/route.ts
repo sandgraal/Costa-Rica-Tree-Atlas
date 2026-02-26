@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { captureApiError } from "@/lib/error-tracking";
 import type {
   ContributionStatus,
   ContributionPriority,
@@ -93,7 +94,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ contribution });
   } catch (error) {
-    console.error("Error fetching contribution:", error);
+    captureApiError(error, "/api/admin/contributions/[id]", "GET");
     return NextResponse.json(
       { error: "Failed to fetch contribution" },
       { status: 500 }
@@ -160,7 +161,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       status: newStatus,
     });
   } catch (error) {
-    console.error("Error updating contribution:", error);
+    captureApiError(error, "/api/admin/contributions/[id]", "PATCH");
     return NextResponse.json(
       { error: "Failed to update contribution" },
       { status: 500 }
@@ -189,7 +190,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       message: "Contribution deleted successfully",
     });
   } catch (error) {
-    console.error("Error deleting contribution:", error);
+    captureApiError(error, "/api/admin/contributions/[id]", "DELETE");
     return NextResponse.json(
       { error: "Failed to delete contribution" },
       { status: 500 }

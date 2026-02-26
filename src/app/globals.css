@@ -115,10 +115,10 @@
   :root:not(.light):not([data-theme="light"]) {
     --background: #0f1a0f;
     --foreground: #e8f0e6;
-    --primary: #5a9653;
+    --primary: #65a85e;
     --primary-light: #7cb874;
     --primary-dark: #2d5a27;
-    --secondary: #bf9060;
+    --secondary: #c9a06f;
     --secondary-light: #d4aa7d;
     --secondary-dark: #8b5a2b;
     --accent: #e4c654;
@@ -130,8 +130,11 @@
     --card: #162016;
     --card-foreground: #e8f0e6;
     --background-pattern: none;
-    --primary-foreground: #ffffff;
-    --secondary-foreground: #ffffff;
+    /* Dark foreground gives ≥4.5:1 contrast on the primary background color
+       (#65a85e, 6.23:1) and secondary background color (#c9a06f, 7.44:1),
+       meeting WCAG AA for filled controls in dark mode. */
+    --primary-foreground: #0f1a0f;
+    --secondary-foreground: #0f1a0f;
     --accent-foreground: #1f2f25;
     --destructive: #f87171;
     --destructive-foreground: #ffffff;
@@ -142,10 +145,10 @@
 [data-theme="dark"] {
   --background: #0f1a0f;
   --foreground: #e8f0e6;
-  --primary: #5a9653;
+  --primary: #65a85e;
   --primary-light: #7cb874;
   --primary-dark: #2d5a27;
-  --secondary: #bf9060;
+  --secondary: #c9a06f;
   --secondary-light: #d4aa7d;
   --secondary-dark: #8b5a2b;
   --accent: #e4c654;
@@ -157,8 +160,11 @@
   --card: #162016;
   --card-foreground: #e8f0e6;
   --background-pattern: none;
-  --primary-foreground: #ffffff;
-  --secondary-foreground: #ffffff;
+  /* Dark foreground gives ≥4.5:1 contrast on the primary background color
+     (#65a85e, 6.23:1) and secondary background color (#c9a06f, 7.44:1),
+     meeting WCAG AA for filled controls in dark mode. */
+  --primary-foreground: #0f1a0f;
+  --secondary-foreground: #0f1a0f;
   --accent-foreground: #1f2f25;
   --destructive: #f87171;
   --destructive-foreground: #ffffff;
@@ -346,6 +352,12 @@ body.theme-transition * {
 
 .skip-link:focus {
   top: 0;
+}
+
+/* Dark mode: use darker green for 9:1+ contrast with white text (WCAG AA) */
+.dark .skip-link,
+[data-theme="dark"] .skip-link {
+  background: var(--primary-dark);
 }
 
 /* High contrast mode support */

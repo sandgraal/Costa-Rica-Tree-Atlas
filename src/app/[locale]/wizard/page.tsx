@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Tree Selection Wizard - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Encuentra el árbol perfecto para tu espacio con recomendaciones personalizadas."
-        : "Find the perfect tree for your space with personalized recommendations.",
+        ? "Encuentra el árbol costarricense perfecto para tu espacio. Recomendaciones personalizadas según clima, suelo y uso."
+        : "Find the perfect Costa Rican tree for your space. Personalized recommendations based on climate, soil, and intended use.",
     alternates: {
       languages: {
         en: "/en/wizard",

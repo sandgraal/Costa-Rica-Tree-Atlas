@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees, type Tree } from "contentlayer/generated";
+import { captureApiError } from "@/lib/error-tracking";
 import type {
   TreeAPIResponse,
   PaginatedResponse,
@@ -280,7 +281,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response, { headers });
   } catch (error) {
-    console.error("API error:", error);
+    captureApiError(error, "/api/v1/trees", "GET");
     return NextResponse.json(
       {
         error: {

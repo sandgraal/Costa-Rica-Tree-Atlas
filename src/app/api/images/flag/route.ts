@@ -14,6 +14,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
+import { captureApiError } from "@/lib/error-tracking";
 import prisma from "@/lib/prisma";
 import {
   type ImageType,
@@ -191,7 +192,10 @@ export async function POST(request: NextRequest) {
         WHERE id = ${existingVote.id}
       `;
 
-      return NextResponse.json({ data: { status: "updated_existing_vote_to_flag" } }, { status: 200 });
+      return NextResponse.json(
+        { data: { status: "updated_existing_vote_to_flag" } },
+        { status: 200 }
+      );
     }
 
     // Create the flag vote
@@ -361,7 +365,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("Error submitting flag:", error);
+    captureApiError(error, "/api/images/flag", "POST");
     return NextResponse.json(
       { error: "Failed to submit flag" },
       { status: 500 }

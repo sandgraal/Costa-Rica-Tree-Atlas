@@ -58,6 +58,7 @@
   "trees": {
     "title": "Directorio de Árboles",
     "subtitle": "Explora nuestra colección de árboles costarricenses",
+    "metaDescription": "Explora los árboles de Costa Rica con fichas detalladas, fotos, mapas de distribución y guías de cuidado. Filtrable por familia, región y usos.",
     "stats": "Presenta {species} especies de {families} familias botánicas",
     "searchPlaceholder": "Buscar árboles...",
     "noResults": "No se encontraron árboles que coincidan con tu búsqueda.",
@@ -244,7 +245,8 @@
   },
   "comparison": {
     "title": "Comparación de Árboles",
-    "subtitle": "Compare características de diferentes especies de árboles lado a lado",
+    "subtitle": "Compara características de diferentes especies de árboles lado a lado",
+    "metaDescription": "Compara especies de árboles de Costa Rica lado a lado. Guías de comparación y herramienta interactiva para distinguir especies parecidas.",
     "selectTree": "Seleccionar un árbol",
     "selectPlaceholder": "Añadir un árbol para comparar...",
     "addTree": "Añadir árbol",
@@ -258,7 +260,7 @@
     "keyDifference": "Diferencia Clave",
     "comparingSpecies": "Comparando",
     "toolTitle": "Herramienta Interactiva de Comparación",
-    "toolSubtitle": "O compare cualquier árbol lado a lado usando nuestra herramienta interactiva",
+    "toolSubtitle": "O compara cualquier árbol lado a lado usando nuestra herramienta interactiva",
     "compareWith": "Comparar con",
     "backToComparisons": "Volver a Comparaciones",
     "properties": {
@@ -272,6 +274,10 @@
       "uses": "Usos",
       "tags": "Características"
     }
+  },
+  "fieldGuide": {
+    "title": "Generador de Guía de Campo",
+    "metaDescription": "Genera una guía de campo personalizada e imprimible de árboles de Costa Rica. Elige especies con fotos y datos clave de identificación."
   },
   "identify": {
     "title": "Identificar un árbol",
@@ -761,7 +767,7 @@
   "api": {
     "title": "API para Desarrolladores",
     "subtitle": "API REST pública para investigadores y desarrolladores",
-    "description": "Accede a los datos del Atlas de Árboles de Costa Rica programáticamente. Nuestra API gratuita proporciona datos completos de árboles para investigación, educación y desarrollo de aplicaciones.",
+    "description": "Accede a datos de árboles de Costa Rica programáticamente. API gratuita con datos completos para investigación y desarrollo.",
     "gettingStarted": "Comenzar",
     "gettingStartedDesc": "La API es gratuita y no requiere autenticación para uso básico. Se aplica un límite de 100 solicitudes por minuto a todos los endpoints.",
     "baseUrl": "URL Base",

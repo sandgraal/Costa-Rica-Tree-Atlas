@@ -12,6 +12,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
+import { captureApiError } from "@/lib/error-tracking";
 import {
   type ImageProposalStatus,
   IMAGE_PROPOSAL_STATUSES,
@@ -132,7 +133,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       },
     });
   } catch (error) {
-    console.error("Error fetching proposal:", error);
+    captureApiError(error, "/api/admin/images/proposals/[id]", "GET");
     return NextResponse.json(
       { error: "Failed to fetch proposal" },
       { status: 500 }
@@ -274,7 +275,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       message: `Proposal ${status.toLowerCase()}`,
     });
   } catch (error) {
-    console.error("Error updating proposal:", error);
+    captureApiError(error, "/api/admin/images/proposals/[id]", "PATCH");
     return NextResponse.json(
       { error: "Failed to update proposal" },
       { status: 500 }
@@ -365,7 +366,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ message: "Proposal deleted" });
   } catch (error) {
-    console.error("Error deleting proposal:", error);
+    captureApiError(error, "/api/admin/images/proposals/[id]", "DELETE");
     return NextResponse.json(
       { error: "Failed to delete proposal" },
       { status: 500 }

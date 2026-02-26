@@ -10,6 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { captureApiError } from "@/lib/error-tracking";
 import { createHash } from "crypto";
 import prisma from "@/lib/prisma";
 import {
@@ -300,7 +301,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("Error submitting vote:", error);
+    captureApiError(error, "/api/images/vote", "POST");
     return NextResponse.json(
       { error: "Failed to submit vote" },
       { status: 500 }
@@ -389,7 +390,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching vote stats:", error);
+    captureApiError(error, "/api/images/vote", "GET");
     return NextResponse.json(
       { error: "Failed to fetch vote stats" },
       { status: 500 }

@@ -18,6 +18,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hash } from "argon2";
 import prisma from "@/lib/prisma";
+import { captureApiError } from "@/lib/error-tracking";
 import { z } from "zod";
 
 const setupSchema = z.object({
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Admin setup error:", error);
+    captureApiError(error, "/api/admin/setup", "POST");
     return NextResponse.json(
       {
         error: "Setup failed",

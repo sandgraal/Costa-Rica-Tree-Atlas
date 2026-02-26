@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
@@ -41,13 +41,11 @@ function getTreesForLocale(locale: string) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "trees" });
 
   return {
-    title: locale === "es" ? "Directorio de Árboles" : "Tree Directory",
-    description:
-      locale === "es"
-        ? "Explora nuestra colección de árboles costarricenses"
-        : "Browse our collection of Costa Rican trees",
+    title: t("title"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/trees",

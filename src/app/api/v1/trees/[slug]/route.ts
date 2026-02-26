@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees, type Tree } from "contentlayer/generated";
+import { captureApiError } from "@/lib/error-tracking";
 import type { TreeAPIResponse } from "@/types/api";
 
 // Rate limiting (shared with parent route)
@@ -198,7 +199,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       { headers }
     );
   } catch (error) {
-    console.error("API error:", error);
+    captureApiError(error, "/api/v1/trees/[slug]", "GET");
     return NextResponse.json(
       {
         error: {

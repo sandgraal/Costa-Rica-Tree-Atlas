@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { fetchBiodiversityData } from "@/lib/api/biodiversity";
 import { validateScientificName } from "@/lib/validation";
 import { rateLimit } from "@/lib/ratelimit";
+import { captureApiError } from "@/lib/error-tracking";
 
 export async function GET(request: NextRequest) {
   // Apply rate limiting
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Biodiversity API error:", error);
+    captureApiError(error, "/api/species", "GET");
 
     // Return partial/empty data instead of error to prevent page breaks
     return NextResponse.json(

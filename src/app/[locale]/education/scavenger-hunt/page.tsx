@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
 import ScavengerHuntClient from "./ScavengerHuntClient";
+import { getScavengerHuntLessonData } from "./scavenger-hunt-data";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -19,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Tree Scavenger Hunt - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Una búsqueda del tesoro interactiva para encontrar árboles con características específicas."
-        : "An interactive scavenger hunt to find trees with specific characteristics.",
+        ? "Búsqueda del tesoro interactiva para encontrar árboles de Costa Rica con características específicas. Ideal para estudiantes."
+        : "Interactive scavenger hunt to find Costa Rican trees with specific characteristics. Great for students and nature lovers.",
   };
 }
 
@@ -58,7 +59,17 @@ async function ScavengerHuntContent({
       uses: t.uses || undefined,
     }));
 
-  return <ScavengerHuntClient trees={trees} locale={locale} />;
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getScavengerHuntLessonData(locale);
+
+  return (
+    <ScavengerHuntClient
+      trees={trees}
+      locale={locale}
+      lessonData={lessonData}
+    />
+  );
 }
 
 function ScavengerHuntLoading() {

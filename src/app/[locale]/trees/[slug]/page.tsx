@@ -24,7 +24,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TableOfContents } from "@/components/TableOfContents";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
-import type { Locale } from "@/types/tree";
+import { getConservationLabel } from "@/lib/i18n/translations";
+import type { Locale, ConservationCategory } from "@/types/tree";
 
 // Dynamic imports for heavy below-fold components
 // DistributionMap renders static SVG from props, so SSR is beneficial for SEO
@@ -110,7 +111,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TreePage({ params }: Props) {
-  const { locale, slug } = await params;
+  const { locale: localeStr, slug } = await params;
+  const locale = localeStr as Locale;
   setRequestLocale(locale);
 
   const tree = allTrees.find((t) => t.locale === locale && t.slug === slug);
@@ -128,7 +130,25 @@ export default async function TreePage({ params }: Props) {
     (t) => t.locale === otherLocale && t.slug === slug
   );
 
-  // Generate structured data (JSON-LD) for SEO
+  const baseUrl = "https://costaricatreeatlas.com";
+  const pageUrl = `${baseUrl}/${locale}/trees/${slug}`;
+
+  // Build images array for structured data
+  const structuredImages: string[] = [];
+  if (tree.featuredImage) {
+    structuredImages.push(
+      tree.featuredImage.startsWith("http")
+        ? tree.featuredImage
+        : `${baseUrl}${tree.featuredImage}`
+    );
+  }
+  if (tree.images?.length) {
+    for (const img of tree.images) {
+      structuredImages.push(img.startsWith("http") ? img : `${baseUrl}${img}`);
+    }
+  }
+
+  // Generate structured data (JSON-LD) for SEO — Article wrapping a Taxon
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -136,21 +156,36 @@ export default async function TreePage({ params }: Props) {
     headline: tree.title,
     description: tree.description,
     about: {
-      "@type": "Thing",
+      "@type": "Taxon",
       name: tree.scientificName,
-      description: `${tree.title} (${tree.scientificName}) - ${tree.family}`,
+      alternateName: tree.title,
+      taxonRank: "species",
+      parentTaxon: {
+        "@type": "Taxon",
+        name: tree.family,
+        taxonRank: "family",
+      },
+      ...(tree.conservationStatus && {
+        conservationStatus: getConservationLabel(
+          tree.conservationStatus as ConservationCategory,
+          locale
+        ),
+      }),
+      ...(tree.nativeRegion && {
+        description: tree.nativeRegion,
+      }),
     },
     author: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
-      url: "https://costaricatreeatlas.com",
+      url: baseUrl,
     },
     publisher: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
     },
     inLanguage: locale === "es" ? "es-CR" : "en-US",
-    ...(tree.featuredImage && { image: tree.featuredImage }),
+    ...(structuredImages.length > 0 && { image: structuredImages }),
     ...(tree.publishedAt && { datePublished: tree.publishedAt }),
     ...(tree.updatedAt && { dateModified: tree.updatedAt }),
     keywords: [
@@ -161,10 +196,18 @@ export default async function TreePage({ params }: Props) {
       "tree",
       "botany",
       ...(tree.tags || []),
+      ...(tree.distribution || []),
     ].join(", "),
+    ...(tree.distribution?.length && {
+      spatialCoverage: {
+        "@type": "Place",
+        name: "Costa Rica",
+        description: tree.distribution.join(", "),
+      },
+    }),
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://costaricatreeatlas.com/${locale}/trees/${slug}`,
+      "@id": pageUrl,
     },
   };
 
@@ -177,19 +220,19 @@ export default async function TreePage({ params }: Props) {
         "@type": "ListItem",
         position: 1,
         name: locale === "es" ? "Inicio" : "Home",
-        item: `https://costaricatreeatlas.com/${locale}`,
+        item: `${baseUrl}/${locale}`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: locale === "es" ? "Árboles" : "Trees",
-        item: `https://costaricatreeatlas.com/${locale}/trees`,
+        item: `${baseUrl}/${locale}/trees`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: tree.title,
-        item: `https://costaricatreeatlas.com/${locale}/trees/${slug}`,
+        item: pageUrl,
       },
     ],
   };
@@ -232,7 +275,7 @@ export default async function TreePage({ params }: Props) {
         <div className="container mx-auto max-w-7xl">
           {/* Breadcrumbs */}
           <Breadcrumbs
-            locale={locale as Locale}
+            locale={locale}
             pathname={`/trees/${tree.slug}`}
             customLabels={{ [tree.slug]: tree.title }}
           />
@@ -401,7 +444,7 @@ export default async function TreePage({ params }: Props) {
               <DistributionMap
                 distribution={tree.distribution}
                 elevation={tree.elevation}
-                locale={locale as "en" | "es"}
+                locale={locale}
               />
 
               {/* Seasonal Information */}
@@ -417,7 +460,7 @@ export default async function TreePage({ params }: Props) {
               {/* Biodiversity Data from GBIF and iNaturalist */}
               <BiodiversityInfo
                 scientificName={tree.scientificName}
-                locale={locale as "en" | "es"}
+                locale={locale}
               />
 
               {/* MDX Content */}
