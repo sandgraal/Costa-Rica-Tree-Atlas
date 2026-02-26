@@ -56,7 +56,10 @@ export const MISSION_VALIDATORS: Record<string, MissionValidator> = {
     );
   },
   "fruit-tree": (trees) =>
-    trees.filter((t) => t.tags?.includes("edible-fruit")),
+    trees.filter(
+      (t) =>
+        t.tags?.includes("fruit-bearing") || t.tags?.includes("fruit-tree")
+    ),
   "endangered-tree": (trees) =>
     trees.filter((t) => {
       if (!t.conservationStatus) return false;
