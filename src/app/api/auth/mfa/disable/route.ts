@@ -18,6 +18,7 @@ import { verify } from "argon2";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { captureApiError } from "@/lib/error-tracking";
 
 const disableSchema = z.object({
   password: z.string().min(1, "Password is required"),
@@ -131,7 +132,7 @@ export async function POST(request: NextRequest) {
       mfaEnabled: false,
     });
   } catch (error) {
-    console.error("MFA disable error:", error);
+    captureApiError(error, "/api/auth/mfa/disable", "POST");
     return NextResponse.json(
       {
         error: "Disable failed",

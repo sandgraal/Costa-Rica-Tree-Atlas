@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { resolveImagePath } from "@/lib/filesystem/safe-path";
 import { validateExtension } from "@/lib/validation/slug";
 import fs from "fs/promises";
+import { captureApiError } from "@/lib/error-tracking";
 
 /**
  * Example API route for serving optimized images
@@ -58,7 +59,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
 
-    console.error("Error serving image:", error);
+    captureApiError(error, "/api/images/optimize", "GET");
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

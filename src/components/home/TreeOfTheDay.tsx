@@ -63,6 +63,8 @@ export function TreeOfTheDay({
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
               quality={70}
+              priority
+              fetchPriority="high"
               className="object-cover"
               fallback="placeholder"
             />

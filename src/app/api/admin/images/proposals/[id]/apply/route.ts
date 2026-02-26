@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
+import { captureApiError } from "@/lib/error-tracking";
 import { existsSync, createWriteStream } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -456,7 +457,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       message: "Proposal applied successfully",
     });
   } catch (error) {
-    console.error("Error applying proposal:", error);
+    captureApiError(error, "/api/admin/images/proposals/[id]/apply", "POST");
     return NextResponse.json(
       { error: "Failed to apply proposal" },
       { status: 500 }
