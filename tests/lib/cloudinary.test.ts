@@ -186,6 +186,7 @@ describe("when Cloudinary is configured", () => {
       expect(callOptions.tags).toContain("ceiba");
       expect(callOptions.tags).toContain("bark");
       expect(callOptions.tags).toContain("tree-atlas");
+      expect(callOptions.tags).toContain("community");
     });
 
     it("rejects when Cloudinary SDK returns an error", async () => {
