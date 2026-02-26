@@ -56,7 +56,12 @@ export const MISSION_VALIDATORS: Record<string, MissionValidator> = {
     );
   },
   "fruit-tree": (trees) =>
-    trees.filter((t) => t.tags?.includes("edible-fruit")),
+    trees.filter(
+      (t) =>
+        t.tags?.includes("edible") ||
+        t.tags?.includes("fruit-bearing") ||
+        t.tags?.includes("fruit-tree")
+    ),
   "endangered-tree": (trees) =>
     trees.filter((t) => {
       if (!t.conservationStatus) return false;
@@ -84,8 +89,11 @@ export const MISSION_VALIDATORS: Record<string, MissionValidator> = {
   "wildlife-tree": (trees) =>
     trees.filter(
       (t) =>
+        t.tags?.includes("wildlife-food") ||
         t.tags?.includes("wildlife-habitat") ||
-        t.tags?.includes("attracts-birds")
+        t.tags?.includes("wildlife") ||
+        t.tags?.includes("bird-habitat") ||
+        t.tags?.includes("bird-attracting")
     ),
   "compound-leaves": (trees) =>
     trees.filter((t) => t.tags?.includes("compound-leaves")),

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 let rateLimitOk = true;
@@ -89,6 +89,10 @@ describe("POST /api/contributions", () => {
     dbAvailable = true;
     vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("creates a new species contribution", async () => {
@@ -216,6 +220,10 @@ describe("GET /api/contributions", () => {
     dbAvailable = true;
     mockContributions.length = 0;
     vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("returns contributions list", async () => {
