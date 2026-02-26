@@ -34,41 +34,15 @@ export function QuickSearch() {
   // Debounce search query - only search after user stops typing
   const debouncedQuery = useDebounce(query, 300);
 
-  // Load trees on mount
+  // Load lightweight search index from API (avoids shipping full contentlayer bundle to client)
   useEffect(() => {
     const loadTrees = async () => {
       setIsLoadingTrees(true);
       try {
-        // Use dynamic import to load trees
-        const { allTrees: trees } = await import("contentlayer/generated");
-        const localeTrees = trees
-          .filter((t: { locale: string }) => t.locale === locale)
-          .map(
-            (t: {
-              slug: string;
-              title: string;
-              scientificName: string;
-              family: string;
-              description?: string;
-              uses?: string[];
-              tags?: string[];
-              nativeRegion?: string;
-              distribution?: string[];
-              conservationStatus?: string;
-            }) => ({
-              slug: t.slug,
-              title: t.title,
-              scientificName: t.scientificName,
-              family: t.family,
-              description: t.description,
-              uses: t.uses,
-              tags: t.tags,
-              nativeRegion: t.nativeRegion,
-              distribution: t.distribution,
-              conservationStatus: t.conservationStatus,
-            })
-          );
-        setAllTrees(localeTrees);
+        const res = await fetch("/api/trees/search-index");
+        if (!res.ok) throw new Error("Failed to fetch search index");
+        const index: Record<string, TreeSearchResult[]> = await res.json();
+        setAllTrees(index[locale] ?? []);
       } catch (error) {
         console.error("Failed to load trees:", error);
       } finally {

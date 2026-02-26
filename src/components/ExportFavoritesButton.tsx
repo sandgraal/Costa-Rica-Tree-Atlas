@@ -1,13 +1,28 @@
 "use client";
 
 import { useStore } from "@/lib/store";
-import { allTrees } from "contentlayer/generated";
+
+/** Minimal tree data needed for the export field guide. */
+export interface ExportableTree {
+  slug: string;
+  title: string;
+  scientificName: string;
+  family: string;
+  maxHeight?: string;
+  nativeRegion?: string;
+  uses?: string[];
+}
 
 interface ExportFavoritesButtonProps {
   locale: string;
+  /** Pre-built lookup: slug → minimal tree data (passed from server component). */
+  treeLookup: Record<string, ExportableTree>;
 }
 
-export function ExportFavoritesButton({ locale }: ExportFavoritesButtonProps) {
+export function ExportFavoritesButton({
+  locale,
+  treeLookup,
+}: ExportFavoritesButtonProps) {
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
 
@@ -26,12 +41,10 @@ export function ExportFavoritesButton({ locale }: ExportFavoritesButtonProps) {
   };
 
   const handleExport = () => {
-    // Get full tree data for favorited slugs
+    // Resolve favorited slugs against the lightweight lookup
     const favoriteTrees = (hydrated ? favorites : [])
-      .map((slug) =>
-        allTrees.find((tree) => tree.slug === slug && tree.locale === locale)
-      )
-      .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined);
+      .map((slug) => treeLookup[slug])
+      .filter((tree): tree is ExportableTree => tree !== undefined);
 
     if (favoriteTrees.length === 0) return;
 

@@ -3,20 +3,33 @@
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { useStore } from "@/lib/store";
-import { allTrees } from "contentlayer/generated";
 import { BLUR_DATA_URL } from "@/lib/image";
+
+/** Minimal tree data needed for the recently-viewed thumbnails. */
+export interface RecentlyViewedTree {
+  slug: string;
+  title: string;
+  scientificName: string;
+  featuredImage?: string;
+}
 
 interface RecentlyViewedListProps {
   locale: string;
+  /** Pre-built lookup: slug → minimal tree data (passed from server component). */
+  treeLookup: Record<string, RecentlyViewedTree>;
   limit?: number;
 }
 
 /**
  * RecentlyViewedList - Displays user's recently viewed trees
  * Shows a horizontal scrollable list of recently viewed tree thumbnails.
+ *
+ * Tree data is passed via `treeLookup` prop from a server component so the
+ * full contentlayer bundle (~30 MB) is never shipped to the client.
  */
 export function RecentlyViewedList({
   locale,
+  treeLookup,
   limit = 6,
 }: RecentlyViewedListProps) {
   const hydrated = useStore((state) => state._hydrated);
@@ -32,14 +45,12 @@ export function RecentlyViewedList({
         : "No recently viewed trees",
   };
 
-  // Get full tree data for viewed slugs (only after hydration)
+  // Resolve viewed slugs against the lightweight lookup (only after hydration)
   const viewedTrees = hydrated
     ? recentlyViewed
         .slice(0, limit)
-        .map((slug) =>
-          allTrees.find((t) => t.slug === slug && t.locale === locale)
-        )
-        .filter((tree): tree is NonNullable<typeof tree> => tree !== undefined)
+        .map((slug) => treeLookup[slug])
+        .filter((tree): tree is RecentlyViewedTree => tree !== undefined)
     : [];
 
   if (viewedTrees.length === 0) {
@@ -64,7 +75,7 @@ export function RecentlyViewedList({
       <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
         {viewedTrees.map((tree) => (
           <Link
-            key={tree._id}
+            key={tree.slug}
             href={`/trees/${tree.slug}`}
             className="flex-shrink-0 group"
           >

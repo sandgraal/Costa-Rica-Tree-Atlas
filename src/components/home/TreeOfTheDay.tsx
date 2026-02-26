@@ -103,7 +103,9 @@ export function TreeOfTheDay({
             href={`/trees/${tree.slug}`}
             className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-semibold transition-colors"
           >
-            {locale === "es" ? "Conocer más" : "Learn more"}
+            {locale === "es"
+              ? `Conocer más sobre ${tree.title}`
+              : `Learn more about ${tree.title}`}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"

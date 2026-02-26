@@ -41,7 +41,7 @@ export function LanguageSwitcher() {
                 ? "text-primary"
                 : "text-foreground/60 hover:text-foreground"
             }`}
-            aria-label={t("switchTo", { language: t(loc) })}
+            aria-label={`${localeLabels[loc]} – ${t("switchTo", { language: t(loc) })}`}
             aria-current={locale === loc ? "true" : undefined}
           >
             {localeLabels[loc]}
