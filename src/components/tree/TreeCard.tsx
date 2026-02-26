@@ -255,7 +255,7 @@ export function TreeGrid({
 
   const renderTreeCard = (tree: LightTree, index: number) => (
     <TreeCard
-      key={tree._id}
+      key={tree.slug}
       tree={tree}
       locale={locale}
       showFavorite={showFavorites}
