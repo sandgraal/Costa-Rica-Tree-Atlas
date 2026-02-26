@@ -5,6 +5,10 @@ import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
 import { useDebounce } from "@/hooks/useDebounce";
+import type {
+  ScavengerHuntLessonData,
+  MissionDisplayData,
+} from "./scavenger-hunt-data";
 
 interface Tree {
   title: string;
@@ -21,18 +25,75 @@ interface Tree {
   uses?: string[];
 }
 
-interface Mission {
-  id: string;
-  type: "find" | "count" | "compare" | "photo" | "measure" | "quiz";
-  title: { en: string; es: string };
-  description: { en: string; es: string };
-  hint: { en: string; es: string };
-  points: number;
-  difficulty: "easy" | "medium" | "hard";
-  icon: string;
-  validator: (trees: Tree[], answer?: string) => Tree[];
-  timeLimit?: number; // minutes
-}
+type MissionValidator = (trees: Tree[], answer?: string) => Tree[];
+
+/**
+ * Validator functions for each mission. These are NOT serializable and must
+ * live in the client bundle. The display data (title, description, etc.)
+ * comes from the server via lessonData prop.
+ */
+const MISSION_VALIDATORS: Record<string, MissionValidator> = {
+  "tall-tree": (trees) =>
+    trees.filter((t) => {
+      const height = parseInt(t.maxHeight || "0");
+      return height >= 30;
+    }),
+  "flowering-tree": (trees) => {
+    const month = new Date().getMonth() + 1;
+    const monthNames = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+    const currentMonth = monthNames[month - 1];
+    return trees.filter((t) =>
+      t.floweringSeason?.some((s) => s.toLowerCase().includes(currentMonth))
+    );
+  },
+  "fruit-tree": (trees) =>
+    trees.filter((t) => t.tags?.includes("edible-fruit")),
+  "endangered-tree": (trees) =>
+    trees.filter((t) =>
+      [
+        "Vulnerable",
+        "Endangered",
+        "Critically Endangered",
+        "Near Threatened",
+      ].some((status) => t.conservationStatus?.includes(status))
+    ),
+  "medicinal-tree": (trees) =>
+    trees.filter((t) => t.tags?.includes("medicinal")),
+  "three-families": (trees) => trees, // Special handling in component
+  "native-tree": (trees) => trees.filter((t) => t.tags?.includes("native")),
+  "timber-tree": (trees) => trees.filter((t) => t.tags?.includes("timber")),
+  "shade-tree": (trees) => trees.filter((t) => t.tags?.includes("shade-tree")),
+  "wildlife-tree": (trees) =>
+    trees.filter(
+      (t) =>
+        t.tags?.includes("wildlife-habitat") ||
+        t.tags?.includes("attracts-birds")
+    ),
+  "compound-leaves": (trees) =>
+    trees.filter((t) => t.tags?.includes("compound-leaves")),
+  "buttress-roots": (trees) =>
+    trees.filter((t) => t.tags?.includes("buttress-roots")),
+  "dry-forest": (trees) => trees.filter((t) => t.tags?.includes("dry-forest")),
+  "fast-growing": (trees) =>
+    trees.filter(
+      (t) => t.tags?.includes("fast-growing") || t.tags?.includes("pioneer")
+    ),
+  "nitrogen-fixer": (trees) =>
+    trees.filter((t) => t.tags?.includes("nitrogen-fixing")),
+};
 
 interface TeamMember {
   id: string;
@@ -71,6 +132,7 @@ interface HuntSession {
 interface ScavengerHuntClientProps {
   trees: Tree[];
   locale: string;
+  lessonData: ScavengerHuntLessonData;
 }
 
 const STORAGE_KEY = "costa-rica-tree-atlas-scavenger-hunt";
@@ -114,305 +176,6 @@ const TEAM_COLORS = [
     bg: "bg-purple-500",
     text: "text-purple-500",
     light: "bg-purple-50 dark:bg-purple-900/20",
-  },
-];
-
-// Mission definitions
-const MISSIONS: Mission[] = [
-  {
-    id: "tall-tree",
-    type: "find",
-    title: { en: "Giant Hunter", es: "Cazador de Gigantes" },
-    description: {
-      en: "Find a tree that grows taller than 30 meters",
-      es: "Encuentra un árbol que crezca más de 30 metros",
-    },
-    hint: {
-      en: "Look for trees like Ceiba or Almendro",
-      es: "Busca árboles como Ceiba o Almendro",
-    },
-    points: 100,
-    difficulty: "easy",
-    icon: "📏",
-    validator: (trees) =>
-      trees.filter((t) => {
-        const height = parseInt(t.maxHeight || "0");
-        return height >= 30;
-      }),
-  },
-  {
-    id: "flowering-tree",
-    type: "find",
-    title: { en: "Flower Spotter", es: "Cazador de Flores" },
-    description: {
-      en: "Find a tree that flowers in the current season",
-      es: "Encuentra un árbol que florezca en esta temporada",
-    },
-    hint: {
-      en: "Check the seasonal calendar for help",
-      es: "Consulta el calendario estacional",
-    },
-    points: 100,
-    difficulty: "easy",
-    icon: "🌸",
-    validator: (trees) => {
-      const month = new Date().getMonth() + 1;
-      const monthNames = [
-        "january",
-        "february",
-        "march",
-        "april",
-        "may",
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november",
-        "december",
-      ];
-      const currentMonth = monthNames[month - 1];
-      return trees.filter((t) =>
-        t.floweringSeason?.some((s) => s.toLowerCase().includes(currentMonth))
-      );
-    },
-  },
-  {
-    id: "fruit-tree",
-    type: "find",
-    title: { en: "Fruit Finder", es: "Buscador de Frutos" },
-    description: {
-      en: "Find a tree with edible fruits",
-      es: "Encuentra un árbol con frutos comestibles",
-    },
-    hint: {
-      en: "Look for trees tagged as having edible fruit",
-      es: "Busca árboles etiquetados con frutos comestibles",
-    },
-    points: 100,
-    difficulty: "easy",
-    icon: "🍎",
-    validator: (trees) => trees.filter((t) => t.tags?.includes("edible-fruit")),
-  },
-  {
-    id: "endangered-tree",
-    type: "find",
-    title: { en: "Conservation Hero", es: "Héroe de Conservación" },
-    description: {
-      en: "Find a tree with a threatened conservation status",
-      es: "Encuentra un árbol con estado de conservación amenazado",
-    },
-    hint: {
-      en: "Look for Vulnerable, Endangered, or Critically Endangered species",
-      es: "Busca especies Vulnerables, En Peligro o En Peligro Crítico",
-    },
-    points: 150,
-    difficulty: "medium",
-    icon: "🛡️",
-    validator: (trees) =>
-      trees.filter((t) =>
-        [
-          "Vulnerable",
-          "Endangered",
-          "Critically Endangered",
-          "Near Threatened",
-        ].some((status) => t.conservationStatus?.includes(status))
-      ),
-  },
-  {
-    id: "medicinal-tree",
-    type: "find",
-    title: { en: "Nature's Pharmacy", es: "Farmacia Natural" },
-    description: {
-      en: "Find a tree with medicinal uses",
-      es: "Encuentra un árbol con usos medicinales",
-    },
-    hint: {
-      en: "Many traditional trees have healing properties",
-      es: "Muchos árboles tradicionales tienen propiedades curativas",
-    },
-    points: 150,
-    difficulty: "medium",
-    icon: "💊",
-    validator: (trees) => trees.filter((t) => t.tags?.includes("medicinal")),
-  },
-  {
-    id: "three-families",
-    type: "count",
-    title: { en: "Family Explorer", es: "Explorador de Familias" },
-    description: {
-      en: "Find trees from 3 different botanical families",
-      es: "Encuentra árboles de 3 familias botánicas diferentes",
-    },
-    hint: {
-      en: "Each family has unique characteristics",
-      es: "Cada familia tiene características únicas",
-    },
-    points: 200,
-    difficulty: "medium",
-    icon: "🌿",
-    validator: (trees) => trees, // Special handling in component
-  },
-  {
-    id: "native-tree",
-    type: "find",
-    title: { en: "Local Legend", es: "Leyenda Local" },
-    description: {
-      en: "Find a tree native to Costa Rica",
-      es: "Encuentra un árbol nativo de Costa Rica",
-    },
-    hint: { en: "Look for the 'native' tag", es: "Busca la etiqueta 'nativo'" },
-    points: 100,
-    difficulty: "easy",
-    icon: "🇨🇷",
-    validator: (trees) => trees.filter((t) => t.tags?.includes("native")),
-  },
-  {
-    id: "timber-tree",
-    type: "find",
-    title: { en: "Timber Tracker", es: "Rastreador de Madera" },
-    description: {
-      en: "Find a tree valued for its timber",
-      es: "Encuentra un árbol valorado por su madera",
-    },
-    hint: {
-      en: "Many hardwood trees are prized for furniture",
-      es: "Muchos árboles de madera dura son preciados para muebles",
-    },
-    points: 100,
-    difficulty: "easy",
-    icon: "🪵",
-    validator: (trees) => trees.filter((t) => t.tags?.includes("timber")),
-  },
-  {
-    id: "shade-tree",
-    type: "find",
-    title: { en: "Shade Seeker", es: "Buscador de Sombra" },
-    description: {
-      en: "Find a tree used for shade",
-      es: "Encuentra un árbol usado para dar sombra",
-    },
-    hint: {
-      en: "These trees have wide spreading canopies",
-      es: "Estos árboles tienen copas amplias y extendidas",
-    },
-    points: 100,
-    difficulty: "easy",
-    icon: "☂️",
-    validator: (trees) => trees.filter((t) => t.tags?.includes("shade-tree")),
-  },
-  {
-    id: "wildlife-tree",
-    type: "find",
-    title: { en: "Wildlife Hotel", es: "Hotel de Vida Silvestre" },
-    description: {
-      en: "Find a tree that provides habitat for wildlife",
-      es: "Encuentra un árbol que proporcione hábitat para la vida silvestre",
-    },
-    hint: {
-      en: "Look for trees that attract birds and animals",
-      es: "Busca árboles que atraigan aves y animales",
-    },
-    points: 150,
-    difficulty: "medium",
-    icon: "🦜",
-    validator: (trees) =>
-      trees.filter(
-        (t) =>
-          t.tags?.includes("wildlife-habitat") ||
-          t.tags?.includes("attracts-birds")
-      ),
-  },
-  {
-    id: "compound-leaves",
-    type: "find",
-    title: { en: "Leaf Detective", es: "Detective de Hojas" },
-    description: {
-      en: "Find a tree with compound leaves",
-      es: "Encuentra un árbol con hojas compuestas",
-    },
-    hint: {
-      en: "Compound leaves have multiple leaflets",
-      es: "Las hojas compuestas tienen múltiples folíolos",
-    },
-    points: 150,
-    difficulty: "medium",
-    icon: "🍃",
-    validator: (trees) =>
-      trees.filter((t) => t.tags?.includes("compound-leaves")),
-  },
-  {
-    id: "buttress-roots",
-    type: "find",
-    title: { en: "Root Explorer", es: "Explorador de Raíces" },
-    description: {
-      en: "Find a tree with buttress roots",
-      es: "Encuentra un árbol con raíces tabulares",
-    },
-    hint: {
-      en: "Large tropical trees often have these distinctive roots",
-      es: "Los grandes árboles tropicales suelen tener estas raíces distintivas",
-    },
-    points: 200,
-    difficulty: "hard",
-    icon: "🌳",
-    validator: (trees) =>
-      trees.filter((t) => t.tags?.includes("buttress-roots")),
-  },
-  {
-    id: "dry-forest",
-    type: "find",
-    title: { en: "Dry Forest Dweller", es: "Habitante del Bosque Seco" },
-    description: {
-      en: "Find a tree adapted to dry forests",
-      es: "Encuentra un árbol adaptado a bosques secos",
-    },
-    hint: {
-      en: "These trees survive with less water",
-      es: "Estos árboles sobreviven con menos agua",
-    },
-    points: 150,
-    difficulty: "medium",
-    icon: "🏜️",
-    validator: (trees) => trees.filter((t) => t.tags?.includes("dry-forest")),
-  },
-  {
-    id: "fast-growing",
-    type: "find",
-    title: { en: "Speed Demon", es: "Demonio de Velocidad" },
-    description: {
-      en: "Find a fast-growing pioneer tree",
-      es: "Encuentra un árbol pionero de crecimiento rápido",
-    },
-    hint: {
-      en: "Pioneer species colonize open areas quickly",
-      es: "Las especies pioneras colonizan áreas abiertas rápidamente",
-    },
-    points: 150,
-    difficulty: "medium",
-    icon: "⚡",
-    validator: (trees) =>
-      trees.filter(
-        (t) => t.tags?.includes("fast-growing") || t.tags?.includes("pioneer")
-      ),
-  },
-  {
-    id: "nitrogen-fixer",
-    type: "find",
-    title: { en: "Soil Builder", es: "Constructor de Suelo" },
-    description: {
-      en: "Find a nitrogen-fixing tree",
-      es: "Encuentra un árbol fijador de nitrógeno",
-    },
-    hint: {
-      en: "These trees enrich the soil naturally",
-      es: "Estos árboles enriquecen el suelo naturalmente",
-    },
-    points: 200,
-    difficulty: "hard",
-    icon: "🧪",
-    validator: (trees) =>
-      trees.filter((t) => t.tags?.includes("nitrogen-fixing")),
   },
 ];
 
@@ -678,6 +441,7 @@ function reducer(state: AppState, action: Action): AppState {
 export default function ScavengerHuntClient({
   trees,
   locale,
+  lessonData,
 }: ScavengerHuntClientProps) {
   // Use reducer for complex state management
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -688,60 +452,8 @@ export default function ScavengerHuntClient({
   // Debounce search query
   const debouncedSearch = useDebounce(searchQuery, 300);
 
-  const t = {
-    title: locale === "es" ? "Búsqueda del Tesoro 🗺️" : "Scavenger Hunt 🗺️",
-    subtitle:
-      locale === "es"
-        ? "¡Encuentra árboles con características específicas y gana puntos!"
-        : "Find trees with specific characteristics and earn points!",
-    backToEducation:
-      locale === "es" ? "← Volver a Educación" : "← Back to Education",
-    setupTeams: locale === "es" ? "Configurar Equipos" : "Setup Teams",
-    teamCount: locale === "es" ? "Número de Equipos" : "Number of Teams",
-    teamName: locale === "es" ? "Nombre del Equipo" : "Team Name",
-    teamNamePlaceholder:
-      locale === "es" ? "Ej: Los Jaguares" : "E.g. The Jaguars",
-    addMember: locale === "es" ? "Agregar Miembro" : "Add Member",
-    memberName: locale === "es" ? "Nombre del Miembro" : "Member Name",
-    memberPlaceholder:
-      locale === "es" ? "Nombre del estudiante" : "Student name",
-    difficulty: locale === "es" ? "Dificultad" : "Difficulty",
-    easy: locale === "es" ? "Fácil" : "Easy",
-    medium: locale === "es" ? "Medio" : "Medium",
-    hard: locale === "es" ? "Difícil" : "Hard",
-    mixed: locale === "es" ? "Mixto" : "Mixed",
-    missionCount: locale === "es" ? "Número de Misiones" : "Number of Missions",
-    startHunt: locale === "es" ? "🎯 Comenzar Búsqueda" : "🎯 Start Hunt",
-    currentTeam: locale === "es" ? "Turno del Equipo" : "Current Team",
-    selectMission:
-      locale === "es" ? "Selecciona una Misión" : "Select a Mission",
-    points: locale === "es" ? "puntos" : "points",
-    completed: locale === "es" ? "completada" : "completed",
-    hint: locale === "es" ? "Pista" : "Hint",
-    showHint:
-      locale === "es" ? "Mostrar Pista (-20 pts)" : "Show Hint (-20 pts)",
-    searchTrees: locale === "es" ? "Buscar árboles..." : "Search trees...",
-    selectTree: locale === "es" ? "Seleccionar este árbol" : "Select this tree",
-    submitAnswer: locale === "es" ? "Enviar Respuesta" : "Submit Answer",
-    correct: locale === "es" ? "¡Correcto! 🎉" : "Correct! 🎉",
-    incorrect: locale === "es" ? "¡Inténtalo de nuevo!" : "Try again!",
-    skipMission: locale === "es" ? "Saltar Misión" : "Skip Mission",
-    nextTeam: locale === "es" ? "Siguiente Equipo" : "Next Team",
-    leaderboard: locale === "es" ? "Tabla de Posiciones" : "Leaderboard",
-    endHunt: locale === "es" ? "Terminar Búsqueda" : "End Hunt",
-    winner: locale === "es" ? "¡Ganador!" : "Winner!",
-    finalResults: locale === "es" ? "Resultados Finales" : "Final Results",
-    playAgain: locale === "es" ? "Jugar de Nuevo" : "Play Again",
-    streak: locale === "es" ? "Racha" : "Streak",
-    bonus: locale === "es" ? "Bonus" : "Bonus",
-    missionsCompleted:
-      locale === "es" ? "Misiones Completadas" : "Missions Completed",
-    timeLeft: locale === "es" ? "Tiempo restante" : "Time left",
-    noResults: locale === "es" ? "No se encontraron árboles" : "No trees found",
-    matchingTrees: locale === "es" ? "árboles coinciden" : "trees match",
-    remove: locale === "es" ? "Quitar" : "Remove",
-    members: locale === "es" ? "miembros" : "members",
-  };
+  // Destructure server-provided lesson data (labels + mission display data)
+  const { labels: t, missions } = lessonData;
 
   // Load saved session
   useEffect(() => {
@@ -808,7 +520,7 @@ export default function ScavengerHuntClient({
 
   const startHunt = () => {
     // Filter missions by difficulty
-    const availableMissions = MISSIONS.filter(
+    const availableMissions = missions.filter(
       (m) =>
         state.setup.difficulty === "mixed" ||
         m.difficulty === state.setup.difficulty
@@ -838,7 +550,7 @@ export default function ScavengerHuntClient({
     dispatch({ type: "START_SESSION", payload: newSession });
   };
 
-  const selectMissionHandler = (mission: Mission) => {
+  const selectMissionHandler = (mission: MissionDisplayData) => {
     dispatch({ type: "SELECT_MISSION", payload: mission.id });
     dispatch({
       type: "SET_TIMER",
@@ -849,11 +561,12 @@ export default function ScavengerHuntClient({
   const submitMissionAnswer = (treeSlug: string) => {
     if (!state.session || !state.selectedMission) return;
 
-    const mission = MISSIONS.find((m) => m.id === state.selectedMission);
+    const mission = missions.find((m) => m.id === state.selectedMission);
     if (!mission) return;
 
-    const validTrees = mission.validator(trees);
-    const isCorrect = validTrees.some((t) => t.slug === treeSlug);
+    const validator = MISSION_VALIDATORS[mission.id];
+    const validTrees = validator ? validator(trees) : [];
+    const isCorrect = validTrees.some((t: Tree) => t.slug === treeSlug);
 
     if (isCorrect) {
       dispatch({
@@ -1106,7 +819,7 @@ export default function ScavengerHuntClient({
     const currentTeam = state.session.teams[state.session.currentTeamIndex];
     const teamColor =
       TEAM_COLORS.find((c) => c.name === currentTeam.color) || TEAM_COLORS[0];
-    const availableMissions = MISSIONS.filter((m) =>
+    const availableMissions = missions.filter((m) =>
       state.session?.activeMissions.includes(m.id)
     );
 
@@ -1192,7 +905,7 @@ export default function ScavengerHuntClient({
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-semibold group-hover:text-primary transition-colors">
-                        {mission.title[locale as "en" | "es"]}
+                        {mission.title}
                       </h3>
                       <span
                         className={`px-2 py-0.5 rounded text-xs ${
@@ -1203,11 +916,11 @@ export default function ScavengerHuntClient({
                               : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
                         }`}
                       >
-                        {t[mission.difficulty]}
+                        {t[mission.difficulty as keyof typeof t]}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      {mission.description[locale as "en" | "es"]}
+                      {mission.description}
                     </p>
                     <p className="text-sm font-medium text-primary mt-2">
                       +{mission.points} {t.points}
@@ -1249,10 +962,11 @@ export default function ScavengerHuntClient({
 
   // Mission view
   if (state.view === "mission" && state.session && state.selectedMission) {
-    const mission = MISSIONS.find((m) => m.id === state.selectedMission);
+    const mission = missions.find((m) => m.id === state.selectedMission);
     if (!mission) return null;
 
-    const validTrees = mission.validator(trees);
+    const validator = MISSION_VALIDATORS[mission.id];
+    const validTrees = validator ? validator(trees) : [];
     const filteredTrees = trees.filter(
       (tree) =>
         tree.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
@@ -1270,7 +984,7 @@ export default function ScavengerHuntClient({
             }}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6"
           >
-            ← {locale === "es" ? "Volver a Misiones" : "Back to Missions"}
+            ← {t.backToMissions}
           </button>
 
           {/* Mission Header */}
@@ -1278,11 +992,9 @@ export default function ScavengerHuntClient({
             <div className="flex items-start gap-4">
               <span className="text-5xl">{mission.icon}</span>
               <div className="flex-1">
-                <h1 className="text-2xl font-bold mb-1">
-                  {mission.title[locale as "en" | "es"]}
-                </h1>
+                <h1 className="text-2xl font-bold mb-1">{mission.title}</h1>
                 <p className="text-muted-foreground mb-3">
-                  {mission.description[locale as "en" | "es"]}
+                  {mission.description}
                 </p>
                 <div className="flex items-center gap-4">
                   <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">
@@ -1316,7 +1028,7 @@ export default function ScavengerHuntClient({
             ) : (
               <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
                 <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                  💡 {mission.hint[locale as "en" | "es"]}
+                  💡 {mission.hint}
                 </p>
               </div>
             )}
@@ -1341,7 +1053,9 @@ export default function ScavengerHuntClient({
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-96 overflow-y-auto">
               {filteredTrees.map((tree) => {
-                const isValid = validTrees.some((t) => t.slug === tree.slug);
+                const isValid = validTrees.some(
+                  (vt: Tree) => vt.slug === tree.slug
+                );
                 return (
                   <button
                     key={tree.slug}

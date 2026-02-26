@@ -2,7 +2,17 @@
 
 Last updated: 2026-02-25
 
-## Latest Run Summary (2026-02-25 — Run 3)
+## Latest Run Summary (2026-02-25 — Run 4)
+
+- **Branch**: `feature/ssr-refactor-jsonld-sitemap` → PR pending
+- **Tasks completed**:
+  1. **P4.2: SSR refactor ScavengerHuntClient** — Created `scavenger-hunt-data.ts` (15 missions, ~45 labels extracted). Refactored `ScavengerHuntClient.tsx` from 1491→1205 lines. Mission display data moved to RSC payload; validator functions kept client-side (not serializable). Eliminated all bilingual `locale as "en" | "es"` patterns.
+  2. **P4.2: SSR refactor TreeJournalClient** — Created `tree-journal-data.ts` (5 option arrays, 8 badges, 10 prompts, ~50 labels extracted). Refactored `TreeJournalClient.tsx` from 1306→1096 lines. All inline locale ternaries eliminated.
+  3. **P3.3: JSON-LD enhancement** — Upgraded tree detail page structured data: `@type: Thing` → `@type: Taxon` with `taxonRank`, `parentTaxon` (family), conservation status labels, `spatialCoverage` for distribution, multi-image array support. Breadcrumbs refactored to use shared `baseUrl` constant.
+  4. **P3.4: Sitemap audit** — Confirmed already complete: all 175×2 trees, comparisons, glossary included; `lastmod` from `updatedAt` already working.
+  5. **Verified**: 324/324 tests pass, 0 lint errors, build clean.
+
+## Previous Run Summary (2026-02-25 — Run 3)
 
 - **Branch**: `content/batch-enrichment-p2` → PR pending
 - **Tasks completed**:
@@ -47,23 +57,23 @@ Last updated: 2026-02-25
 
 From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-25):
 
-| Priority | Task                                  | Status      | Notes                                                            |
-| -------- | ------------------------------------- | ----------- | ---------------------------------------------------------------- |
-| P2.1     | Photo gallery sections                | ✅ Complete | 174/175 (orey lacks iNaturalist photos)                          |
-| P2.2     | Applications/Uses body sections       | ✅ Complete | Already present in 173/175 under various headings                |
-| P2.3     | Seasonal phenology body sections      | ✅ Complete | Already present in all 174 with seasonal frontmatter             |
-| P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                        |
-| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                  |
-| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                              |
-| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added  |
-| P4.2     | SSR refactor 2 education pages        | 📋 Ready    | ScavengerHuntClient (1491 lines), TreeJournalClient (1305 lines) |
-| P5.1     | API route test coverage               | 📋 Ready    | Zero coverage currently                                          |
-| P4.3     | Split large client components         | 📋 Ready    | 3 components over 1,300 lines each                               |
-| P3.3     | JSON-LD for tree detail pages         | 📋 Ready    | Add Species/BiologicalTaxon schema                               |
-| P3.4     | Sitemap enhancements                  | 📋 Ready    | Add lastmod, verify all pages included                           |
-| P3.5     | Meta description optimization         | 📋 Ready    | Audit uniqueness, length, key terms                              |
+| Priority | Task                                  | Status      | Notes                                                               |
+| -------- | ------------------------------------- | ----------- | ------------------------------------------------------------------- |
+| P2.1     | Photo gallery sections                | ✅ Complete | 174/175 (orey lacks iNaturalist photos)                             |
+| P2.2     | Applications/Uses body sections       | ✅ Complete | Already present in 173/175 under various headings                   |
+| P2.3     | Seasonal phenology body sections      | ✅ Complete | Already present in all 174 with seasonal frontmatter                |
+| P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                           |
+| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                     |
+| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                 |
+| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
+| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
+| P5.1     | API route test coverage               | 📋 Ready    | Zero coverage currently                                             |
+| P4.3     | Split large client components         | 📋 Ready    | 3 components over 1,300 lines each                                  |
+| P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image        |
+| P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included          |
+| P3.5     | Meta description optimization         | 📋 Ready    | Audit uniqueness, length, key terms                                 |
 
-**Recommended next task**: P4.2 (SSR refactor 2 education pages) — medium effort, reduces client bundle.
+**Recommended next task**: P5.1 (API route test coverage) — zero coverage currently, high value.
 
 ## Established Patterns
 
@@ -115,19 +125,16 @@ Repository
 - Treat repository docs as authoritative, especially IMPLEMENTATION_PLAN.md and AGENTS.md
 
 Mission
-- Content Enrichment (P2): ✅ ALL COMPLETE (P2.1–P2.4). Photo galleries (174/175),
-  GBIF+IUCN links (175/175), uses sections (173/175), seasonal sections (174/174).
-- SEO (P3): OG images ✅ complete. Remaining: JSON-LD for tree detail pages (P3.3),
-  sitemap enhancements (P3.4), meta description audit (P3.5).
-- Performance (P4): Lighthouse 85/100. LCP 4.0s is network-bound. A11y contrast ✅
-  fixed. SSR refactor 2 remaining education pages: ScavengerHuntClient (1491 lines)
-  and TreeJournalClient (1305 lines). Split 3 large client components (1,300+ lines).
+- Content Enrichment (P2): ✅ ALL COMPLETE (P2.1–P2.4).
+- SEO (P3): OG images ✅, JSON-LD ✅, Sitemap ✅. Remaining: meta description audit (P3.5).
+- Performance (P4): Lighthouse 85/100. LCP 4.0s is network-bound. A11y contrast ✅.
+  SSR refactor ✅ ALL 6 education pages done. Split 3 large client components (1,300+ lines).
 - Testing (P5): API route test coverage (zero currently). Error tracking (Sentry stub).
 - Recommended execution order (pick one or more):
-  1. P4.2: SSR refactor ScavengerHuntClient and TreeJournalClient
-  2. P5.1: API route test coverage
-  3. P4.3: Split large client components
-  4. P3.3-P3.5: JSON-LD + sitemap + meta description improvements
+  1. P5.1: API route test coverage (highest value — zero coverage currently)
+  2. P4.3: Split large client components (3 files over 1,300 lines)
+  3. P3.5: Meta description optimization audit
+  4. P5.2: Error tracking / Sentry integration
 
 Required workflow
 1. Read and follow:

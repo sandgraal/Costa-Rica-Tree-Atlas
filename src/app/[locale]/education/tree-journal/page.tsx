@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import TreeJournalClient from "./TreeJournalClient";
+import { getTreeJournalLessonData } from "./tree-journal-data";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -40,5 +41,11 @@ export default async function TreeJournalPage({ params }: Props) {
       maxHeight: t.maxHeight || undefined,
     }));
 
-  return <TreeJournalClient trees={trees} locale={locale} />;
+  // Build locale-specific lesson data on the server so it ships as RSC
+  // payload (serialized data) rather than executable client JS.
+  const lessonData = getTreeJournalLessonData(locale);
+
+  return (
+    <TreeJournalClient trees={trees} locale={locale} lessonData={lessonData} />
+  );
 }
