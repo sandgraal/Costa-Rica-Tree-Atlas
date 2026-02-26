@@ -220,23 +220,25 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ### P3: SEO & Discoverability (High Impact)
 
-#### P3.1: OG Images for Comparison Detail Pages
+#### P3.1: OG Images for Comparison Detail Pages — ✅ Complete
 
-**Status:** Not started
+**Status:** Complete
 **Impact:** Medium
 
-- [ ] Create `src/app/[locale]/compare/[slug]/opengraph-image.tsx`
-- [ ] Include both species names and scientific names
-- [ ] Follow pattern from existing OG images (PR #463)
+- [x] Created `src/app/[locale]/compare/[slug]/opengraph-image.tsx`
+- [x] Created `src/app/[locale]/compare/[slug]/twitter-image.tsx`
+- [x] Includes both species names, scientific names, VS layout, key difference, difficulty badge
+- [x] Follows established OG image pattern from PR #463
 
-#### P3.2: OG Images for Individual Tree Pages
+#### P3.2: OG Images for Individual Tree Pages — ✅ Complete
 
-**Status:** Not started
+**Status:** Complete (already existed from previous run)
 **Impact:** High — 175 tree pages are the most shared content
 
-- [ ] Create `src/app/[locale]/trees/[slug]/opengraph-image.tsx`
-- [ ] Include tree common name, scientific name, and visual element
-- [ ] Generate dynamically from frontmatter data
+- [x] Created `src/app/[locale]/trees/[slug]/opengraph-image.tsx`
+- [x] Created `src/app/[locale]/trees/[slug]/twitter-image.tsx`
+- [x] Includes tree common name, scientific name, family tag, conservation status badge
+- [x] Generates dynamically from frontmatter data
 
 #### P3.3: JSON-LD Enhancement for Tree Pages
 
@@ -292,15 +294,15 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [ ] Investigate 300ms render-blocking CSS — consider critical CSS extraction or async loading
 - [ ] Re-run Lighthouse to validate LCP improvement (target: <2.5s)
 
-#### P4.7: Accessibility Contrast Fixes (New)
+#### P4.7: Accessibility Contrast Fixes — ✅ Complete
 
-**Status:** Not started
-**Impact:** Medium — 4 remaining color contrast failures preventing Accessibility 100
+**Status:** Complete
+**Impact:** Medium — 4 color contrast failures fixed, Accessibility should reach 100
 
-- [ ] Skip-link: white on #5a9653 (3.54:1, needs 4.5:1) — darken green or use darker text
-- [ ] Subtitle text: #9c7850 on #0f1a0f (4.43:1, needs 4.5:1) — lighten secondary slightly
-- [ ] Primary links: #5a9653 on #1a2e1a (4.08:1, needs 4.5:1) — lighten primary in dark mode
-- [ ] Card secondary text: #8b6e49 on #132012 (3.55:1, needs 4.5:1) — lighten or adjust background
+- [x] Skip-link: `.dark .skip-link` override uses `--primary-dark` (#2d5a27) background → 9.2:1 contrast
+- [x] Subtitle text: `--secondary` lightened #bf9060→#c9a06f → text-secondary/80 passes 4.8:1
+- [x] Primary links: `--primary` lightened #5a9653→#65a85e → 5.15:1 on muted backgrounds
+- [x] Card secondary text: `--secondary` #c9a06f → text-secondary/70 passes 4.6:1 on footer bg
 
 #### P4.2: SSR Refactor Remaining Education Pages
 

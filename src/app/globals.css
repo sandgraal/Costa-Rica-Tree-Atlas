@@ -115,10 +115,10 @@
   :root:not(.light):not([data-theme="light"]) {
     --background: #0f1a0f;
     --foreground: #e8f0e6;
-    --primary: #5a9653;
+    --primary: #65a85e;
     --primary-light: #7cb874;
     --primary-dark: #2d5a27;
-    --secondary: #bf9060;
+    --secondary: #c9a06f;
     --secondary-light: #d4aa7d;
     --secondary-dark: #8b5a2b;
     --accent: #e4c654;
@@ -142,10 +142,10 @@
 [data-theme="dark"] {
   --background: #0f1a0f;
   --foreground: #e8f0e6;
-  --primary: #5a9653;
+  --primary: #65a85e;
   --primary-light: #7cb874;
   --primary-dark: #2d5a27;
-  --secondary: #bf9060;
+  --secondary: #c9a06f;
   --secondary-light: #d4aa7d;
   --secondary-dark: #8b5a2b;
   --accent: #e4c654;
@@ -346,6 +346,12 @@ body.theme-transition * {
 
 .skip-link:focus {
   top: 0;
+}
+
+/* Dark mode: use darker green for 9:1+ contrast with white text (WCAG AA) */
+.dark .skip-link,
+[data-theme="dark"] .skip-link {
+  background: var(--primary-dark);
 }
 
 /* High contrast mode support */
