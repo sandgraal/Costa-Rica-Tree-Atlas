@@ -328,6 +328,7 @@ export const GlossaryTerm = defineDocumentType(() => ({
         "morphology",
         "reproduction",
         "general",
+        "timber",
       ],
       description: "Category of the term",
       required: true,
