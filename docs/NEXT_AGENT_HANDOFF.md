@@ -2,7 +2,16 @@
 
 Last updated: 2026-02-25
 
-## Latest Run Summary (2026-02-25)
+## Latest Run Summary (2026-02-25 — Run 2)
+
+- **Branch**: `fix/lcp-a11y-og-optimization` → PR pending
+- **Tasks completed**:
+  1. **Fixed 4 dark mode contrast failures** (WCAG AA): `--primary` #5a9653→#65a85e, `--secondary` #bf9060→#c9a06f, skip-link dark override to `--primary-dark` background. All 4 Lighthouse contrast failures now pass 4.5:1+.
+  2. **Created OG + Twitter images for 20 comparison detail pages**: `src/app/[locale]/compare/[slug]/opengraph-image.tsx` and `twitter-image.tsx` — includes species names, scientific names, VS layout, difficulty badge, key difference text.
+  3. **Confirmed tree detail OG images already exist** (P3.2 marked complete in IMPLEMENTATION_PLAN.md)
+  4. **LCP analysis**: Hero image already well-optimized (AVIF `<picture>`, preload, priority); 4.0s LCP is network-bound (Vercel TTFB + 300ms CSS), not code-fixable without infrastructure changes
+
+## Previous Run Summary (2026-02-25 — Run 1)
 
 - **Branch**: `fix/quick-wins-phase2-5` → [PR #463](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/463)
 - **Commit**: `54477d9`
@@ -30,24 +39,24 @@ Last updated: 2026-02-25
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **All pages**: 600+ lines, bilingual parity achieved
 - **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active
-- **Performance**: Major optimizations landed but Lighthouse not yet re-measured (still baseline 48/100 from Jan 18)
+- **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound, not code-fixable. A11y 96→expected 100 after contrast fix.
 
 ## Highest-Priority Remaining Work
 
 From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-25):
 
-| Priority | Task                                  | Status   | Notes                                                            |
-| -------- | ------------------------------------- | -------- | ---------------------------------------------------------------- |
-| P2.1     | Photo gallery sections                | 📋 Ready | Script exists: `scripts/add-gallery-sections.mjs`                |
-| P2.2     | Applications/Uses body sections       | 📋 Ready | 171 trees have `uses:` frontmatter, no body section              |
-| P2.3     | Seasonal phenology body sections      | 📋 Ready | 131 trees have seasons frontmatter, no body section              |
-| P2.4     | GBIF/IUCN external links              | 📋 Ready | Auto-generate from `scientificName`                              |
-| P3.2     | OG images for tree detail pages       | 📋 Ready | 175 pages, highest social sharing impact                         |
-| P3.1     | OG images for comparison detail pages | 📋 Ready | Follow existing pattern                                          |
-| P4.1     | Lighthouse re-measurement             | ⏸️ B3    | Needs production deploy first                                    |
-| P4.2     | SSR refactor 2 education pages        | 📋 Ready | ScavengerHuntClient (1491 lines), TreeJournalClient (1305 lines) |
-| P5.1     | API route test coverage               | 📋 Ready | Zero coverage currently                                          |
-| P4.3     | Split large client components         | 📋 Ready | 3 components over 1,300 lines each                               |
+| Priority | Task                                  | Status      | Notes                                                            |
+| -------- | ------------------------------------- | ----------- | ---------------------------------------------------------------- |
+| P2.1     | Photo gallery sections                | 📋 Ready    | Script exists: `scripts/add-gallery-sections.mjs`                |
+| P2.2     | Applications/Uses body sections       | 📋 Ready    | 171 trees have `uses:` frontmatter, no body section              |
+| P2.3     | Seasonal phenology body sections      | 📋 Ready    | 131 trees have seasons frontmatter, no body section              |
+| P2.4     | GBIF/IUCN external links              | 📋 Ready    | Auto-generate from `scientificName`                              |
+| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                  |
+| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                              |
+| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added  |
+| P4.2     | SSR refactor 2 education pages        | 📋 Ready    | ScavengerHuntClient (1491 lines), TreeJournalClient (1305 lines) |
+| P5.1     | API route test coverage               | 📋 Ready    | Zero coverage currently                                          |
+| P4.3     | Split large client components         | 📋 Ready    | 3 components over 1,300 lines each                               |
 
 **Recommended next task**: P2.1–P2.4 (content batch enrichment scripts) — high impact, low effort, no dependencies.
 
@@ -94,18 +103,19 @@ Mission
 - Content Enrichment (P2): Photo gallery sections (script exists), Applications/Uses
   body sections (171 trees), Seasonal phenology sections (131 trees), GBIF/IUCN links
   (~98+45 trees). All are scriptable batch operations with high impact.
-- SEO (P3): OG images for 175 individual tree pages and 20 comparison detail pages.
-  JSON-LD enhancement for tree pages.
-- Performance (P4): Lighthouse re-measurement needed (baseline 48/100, significant work
-  done). SSR refactor 2 remaining education pages (ScavengerHuntClient, TreeJournalClient).
-  Split 3 large client components (1,300+ lines each).
+- SEO (P3): OG images ✅ complete for all page types. JSON-LD enhancement for tree
+  detail pages (P3.3). Sitemap enhancements (P3.4). Meta description audit (P3.5).
+- Performance (P4): Lighthouse 85/100. LCP 4.0s is network-bound (hero image already
+  optimized with AVIF <picture> + preload). A11y contrast ✅ fixed. SSR refactor 2
+  remaining education pages (ScavengerHuntClient, TreeJournalClient). Split 3 large
+  client components (1,300+ lines each).
 - Testing (P5): API route test coverage (zero currently). Error tracking (Sentry stub).
 - Recommended execution order (pick one or more):
-  1. P2.1-P2.4: Content batch enrichment scripts
-  2. P3.2: OG images for tree detail pages
-  3. P4.2: SSR refactor ScavengerHuntClient and TreeJournalClient
-  4. P5.1: API route test coverage
-  5. P4.3: Split large client components
+  1. P2.1-P2.4: Content batch enrichment scripts (highest impact, low effort)
+  2. P4.2: SSR refactor ScavengerHuntClient and TreeJournalClient
+  3. P5.1: API route test coverage
+  4. P4.3: Split large client components
+  5. P3.3-P3.5: JSON-LD + sitemap + meta description improvements
 
 Required workflow
 1. Read and follow:
