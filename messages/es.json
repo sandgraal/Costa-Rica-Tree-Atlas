@@ -244,7 +244,8 @@
   },
   "comparison": {
     "title": "Comparación de Árboles",
-    "subtitle": "Compare características de diferentes especies de árboles lado a lado",
+    "subtitle": "Compara características de diferentes especies de árboles lado a lado",
+    "metaDescription": "Compara especies de árboles de Costa Rica lado a lado. 20 guías expertas y una herramienta interactiva con 175 especies.",
     "selectTree": "Seleccionar un árbol",
     "selectPlaceholder": "Añadir un árbol para comparar...",
     "addTree": "Añadir árbol",
@@ -258,7 +259,7 @@
     "keyDifference": "Diferencia Clave",
     "comparingSpecies": "Comparando",
     "toolTitle": "Herramienta Interactiva de Comparación",
-    "toolSubtitle": "O compare cualquier árbol lado a lado usando nuestra herramienta interactiva",
+    "toolSubtitle": "O compara cualquier árbol lado a lado usando nuestra herramienta interactiva",
     "compareWith": "Comparar con",
     "backToComparisons": "Volver a Comparaciones",
     "properties": {
@@ -761,7 +762,7 @@
   "api": {
     "title": "API para Desarrolladores",
     "subtitle": "API REST pública para investigadores y desarrolladores",
-    "description": "Accede a los datos del Atlas de Árboles de Costa Rica programáticamente. Nuestra API gratuita proporciona datos completos de árboles para investigación, educación y desarrollo de aplicaciones.",
+    "description": "Accede a datos de árboles de Costa Rica programáticamente. API gratuita con datos completos para investigación y desarrollo.",
     "gettingStarted": "Comenzar",
     "gettingStartedDesc": "La API es gratuita y no requiere autenticación para uso básico. Se aplica un límite de 100 solicitudes por minuto a todos los endpoints.",
     "baseUrl": "URL Base",

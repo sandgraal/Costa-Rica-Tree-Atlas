@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Classroom - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Crea o únete a un aula virtual para seguir el progreso de tu clase."
-        : "Create or join a virtual classroom to track your class progress.",
+        ? "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase."
+        : "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
   };
 }
 

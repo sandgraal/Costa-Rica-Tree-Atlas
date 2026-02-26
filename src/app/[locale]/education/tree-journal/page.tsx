@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Tree Journal - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Adopta un árbol y documenta sus cambios durante todo el año escolar."
-        : "Adopt a tree and document its changes throughout the school year.",
+        ? "Adopta un árbol de Costa Rica y documenta sus cambios durante el año escolar. Diario fenológico con insignias y certificados."
+        : "Adopt a Costa Rican tree and document its changes through the school year. Phenology journal with badges and certificates.",
   };
 }
 

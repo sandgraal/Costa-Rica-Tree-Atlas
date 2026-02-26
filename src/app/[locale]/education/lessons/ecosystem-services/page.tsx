@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: PageProps) {
         : "Ecosystem Services - Educational Lesson",
     description:
       locale === "es"
-        ? "Descubre los increíbles beneficios que los árboles brindan a nuestro planeta"
-        : "Discover the incredible benefits trees provide to our planet",
+        ? "Descubre los servicios ecosistémicos de los árboles de Costa Rica: purificación del aire, ciclo del agua, hábitat y más."
+        : "Discover ecosystem services provided by Costa Rican trees: air purification, water cycling, wildlife habitat, and more.",
   };
 }
 

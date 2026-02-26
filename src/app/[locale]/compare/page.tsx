@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 
   return {
     title: `${t("title")} | ${siteT("siteTitle")}`,
-    description: t("subtitle"),
+    description: t("metaDescription"),
   };
 }
 

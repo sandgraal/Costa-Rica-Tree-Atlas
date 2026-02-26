@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale === "es" ? "Generador de Guía de Campo" : "Field Guide Generator",
     description:
       locale === "es"
-        ? "Crea tu propia guía de campo personalizada de árboles de Costa Rica"
-        : "Create your own custom field guide of Costa Rican trees",
+        ? "Genera una guía de campo personalizada e imprimible de árboles de Costa Rica. Elige entre 175 especies con fotos y datos clave."
+        : "Generate a custom printable field guide of Costa Rican trees. Choose from 175 species with photos and key facts.",
     alternates: {
       languages: {
         en: "/en/field-guide",
