@@ -11,8 +11,6 @@ import { STORE_KEY } from "@/lib/store";
  * 1. The content is a static string defined at build time
  * 2. No user input is interpolated into the script
  * 3. The only variable (STORE_KEY) is a compile-time constant
- *
- * @security codacy-disable Generic Object Injection Sink
  */
 export const THEME_SCRIPT = `
 (function() {

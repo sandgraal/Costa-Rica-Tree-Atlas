@@ -48,8 +48,4 @@ next-env.d.ts
 # optimized images (can be regenerated)
 /public/images/trees/optimized/
 
-
-#Ignore vscode AI rules
-.github/instructions/codacy.instructions.md
-
 /src/generated/prisma
