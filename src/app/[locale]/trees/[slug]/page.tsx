@@ -24,7 +24,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TableOfContents } from "@/components/TableOfContents";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
-import type { Locale } from "@/types/tree";
+import { getConservationLabel } from "@/lib/i18n/translations";
+import type { Locale, ConservationCategory } from "@/types/tree";
 
 // Dynamic imports for heavy below-fold components
 // DistributionMap renders static SVG from props, so SSR is beneficial for SEO
@@ -110,7 +111,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TreePage({ params }: Props) {
-  const { locale, slug } = await params;
+  const { locale: localeStr, slug } = await params;
+  const locale = localeStr as Locale;
   setRequestLocale(locale);
 
   const tree = allTrees.find((t) => t.locale === locale && t.slug === slug);
@@ -127,19 +129,6 @@ export default async function TreePage({ params }: Props) {
   const altTree = allTrees.find(
     (t) => t.locale === otherLocale && t.slug === slug
   );
-
-  // Map IUCN conservation codes to human-readable labels
-  const conservationLabels: Record<string, string> = {
-    LC: "Least Concern",
-    NT: "Near Threatened",
-    VU: "Vulnerable",
-    EN: "Endangered",
-    CR: "Critically Endangered",
-    EW: "Extinct in the Wild",
-    EX: "Extinct",
-    DD: "Data Deficient",
-    NE: "Not Evaluated",
-  };
 
   const baseUrl = "https://costaricatreeatlas.com";
   const pageUrl = `${baseUrl}/${locale}/trees/${slug}`;
@@ -177,9 +166,10 @@ export default async function TreePage({ params }: Props) {
         taxonRank: "family",
       },
       ...(tree.conservationStatus && {
-        conservationStatus:
-          conservationLabels[tree.conservationStatus] ??
-          tree.conservationStatus,
+        conservationStatus: getConservationLabel(
+          tree.conservationStatus as ConservationCategory,
+          locale
+        ),
       }),
       ...(tree.nativeRegion && {
         description: tree.nativeRegion,
@@ -285,7 +275,7 @@ export default async function TreePage({ params }: Props) {
         <div className="container mx-auto max-w-7xl">
           {/* Breadcrumbs */}
           <Breadcrumbs
-            locale={locale as Locale}
+            locale={locale}
             pathname={`/trees/${tree.slug}`}
             customLabels={{ [tree.slug]: tree.title }}
           />
@@ -454,7 +444,7 @@ export default async function TreePage({ params }: Props) {
               <DistributionMap
                 distribution={tree.distribution}
                 elevation={tree.elevation}
-                locale={locale as "en" | "es"}
+                locale={locale}
               />
 
               {/* Seasonal Information */}
@@ -470,7 +460,7 @@ export default async function TreePage({ params }: Props) {
               {/* Biodiversity Data from GBIF and iNaturalist */}
               <BiodiversityInfo
                 scientificName={tree.scientificName}
-                locale={locale as "en" | "es"}
+                locale={locale}
               />
 
               {/* MDX Content */}
