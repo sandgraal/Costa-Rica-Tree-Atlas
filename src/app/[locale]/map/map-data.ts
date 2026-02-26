@@ -128,6 +128,7 @@ export const CONSERVATION_AREAS: ConservationArea[] = [
 
 /** Color scale for biodiversity density */
 export function getBiodiversityColor(count: number, max: number): string {
+  if (max <= 0) return "#bbf7d0";
   const intensity = Math.min(count / max, 1);
   if (intensity < 0.2) return "#bbf7d0";
   if (intensity < 0.4) return "#86efac";

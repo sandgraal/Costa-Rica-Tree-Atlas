@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 let tablesExist = true;
@@ -81,6 +81,10 @@ describe("POST /api/images/flag", () => {
     existingProposals.length = 0;
     flagCount = BigInt(1);
     vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("creates a new flag successfully", async () => {

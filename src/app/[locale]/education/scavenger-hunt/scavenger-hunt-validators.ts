@@ -87,8 +87,11 @@ export const MISSION_VALIDATORS: Record<string, MissionValidator> = {
   "wildlife-tree": (trees) =>
     trees.filter(
       (t) =>
+        t.tags?.includes("wildlife-food") ||
         t.tags?.includes("wildlife-habitat") ||
-        t.tags?.includes("attracts-birds")
+        t.tags?.includes("wildlife") ||
+        t.tags?.includes("bird-habitat") ||
+        t.tags?.includes("bird-attracting")
     ),
   "compound-leaves": (trees) =>
     trees.filter((t) => t.tags?.includes("compound-leaves")),
