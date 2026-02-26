@@ -11,18 +11,20 @@
 
 ### Active Blockers
 
-| #   | Blocker                                                                                                                             | Blocks                         | Owner |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----- |
-| B3  | **Lighthouse score not re-measured** — Baseline 48/100 from Jan 18; significant perf work landed since (PRs #446, #447, #462, #463) | Can't confirm perf goals met   | Human |
-| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                          | Community photo uploads (P6.1) | Human |
+| #   | Blocker                                                                                                                                                          | Blocks                         | Owner |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----- |
+| B3  | **PR #466 not yet deployed** — Lighthouse audit on Feb 25 confirmed pre-fix baseline (68/100 Perf); PR #466 removes 6 MB+ client bundle but needs merge & deploy | Can't confirm perf gains yet   | Human |
+| B4  | **No cloud image storage configured** — Cloudinary or S3 bucket not set up                                                                                       | Community photo uploads (P6.1) | Human |
 
 ### Manual Steps Required
 
 #### Performance Validation (B3)
 
-- [ ] Run Lighthouse audit on production URL after latest deploys (target: >90 Performance)
-- [ ] Record actual LCP and TBT from production audit
-- [ ] Update metrics in the Status Dashboard below with real numbers
+- [x] Run Lighthouse audit on production URL (Feb 25 — pre-PR #466 baseline recorded)
+- [ ] Merge PR #466 (`fix/lighthouse-performance-improvements`) and deploy to production
+- [ ] Re-run Lighthouse audit after deploy (target: >85 Performance, with 6 MB JS chunk eliminated)
+- [ ] Record post-deploy LCP and TBT
+- [ ] Update metrics in the Status Dashboard below with post-deploy numbers
 
 #### Cloud Image Storage Setup (B4 — Required for P6.1)
 
@@ -71,17 +73,24 @@
 
 ### Technical Health
 
-| Metric           | Current                     | Target | Status                                           |
-| ---------------- | --------------------------- | ------ | ------------------------------------------------ |
-| Lighthouse Score | 48/100 (Jan 18 baseline)    | >90    | ⚠️ Needs re-measurement (B3)                     |
-| LCP              | 6.0s (baseline)             | <2.5s  | 🟡 Significant work done; re-measure needed      |
-| TBT              | 440ms (baseline)            | <200ms | 🟡 JS bundle reduced ~70–90KB; re-measure needed |
-| Tests            | 324/324 passing (19 files)  | 100%   | ✅                                               |
-| Lint errors      | 0                           | 0      | ✅                                               |
-| Images optimized | 128/128                     | 100%   | ✅                                               |
-| Database         | Neon PostgreSQL deployed    | —      | ✅                                               |
-| Auth + MFA       | JWT, TOTP, backup codes     | —      | ✅                                               |
-| Safety system    | 100% coverage, filters live | —      | ✅                                               |
+| Metric           | Current (Feb 25 pre-PR #466)   | Target | Status                                                  |
+| ---------------- | ------------------------------ | ------ | ------------------------------------------------------- |
+| Lighthouse Score | **68**/100 (up from 48 Jan 18) | >90    | 🟡 PR #466 pending — eliminates 6 MB JS chunk           |
+| LCP              | **2.6 s**                      | <2.5s  | 🟢 Nearly at target; PR #466 should push below 2.5 s    |
+| TBT              | **1,940 ms**                   | <200ms | 🔴 Dominated by 6 MB contentlayer JS; PR #466 fixes     |
+| FCP              | **1.9 s**                      | <1.8s  | 🟢 Close to target                                      |
+| CLS              | **0**                          | <0.1   | ✅ Perfect                                              |
+| Speed Index      | **1.9 s**                      | <3.4s  | ✅ Excellent                                            |
+| TTI              | **35.8 s**                     | <5s    | 🔴 Caused by 6 MB JS; should drop dramatically post-466 |
+| Accessibility    | **96**/100                     | 100    | 🟡 PR #466 fixes contrast + link text a11y              |
+| Best Practices   | **100**/100                    | 100    | ✅ Perfect                                              |
+| SEO              | **92**/100                     | 100    | 🟡 PR #466 fixes descriptive link text                  |
+| Tests            | 324/324 passing (19 files)     | 100%   | ✅                                                      |
+| Lint errors      | 0                              | 0      | ✅                                                      |
+| Images optimized | 128/128                        | 100%   | ✅                                                      |
+| Database         | Neon PostgreSQL deployed       | —      | ✅                                                      |
+| Auth + MFA       | JWT, TOTP, backup codes        | —      | ✅                                                      |
+| Safety system    | 100% coverage, filters live    | —      | ✅                                                      |
 
 ---
 
@@ -103,10 +112,18 @@ Everything below has been fully implemented and merged (or in open PRs). Kept br
 - **Care guidance** for all 175 species: watering, fertilization, pruning, pest management, companion planting, seasonal calendars
 - **Short page elimination**: All pages expanded to 600+ lines with bilingual parity
 
-### Performance Work Done (Partial — needs re-measurement)
+### Performance Work Done (Partial — PR #466 pending deploy)
 
 - **PR #446 (merged)**: Removed 51 unused packages, dead code, `optimizePackageImports` (~70–90KB saved per page)
 - **PR #447 (merged)**: Fuse.js lazy-loaded (~30KB deferred), 4/6 education pages SSR-refactored
+- **PR #466 (open — pending merge/deploy)**: Eliminates 6 MB+ contentlayer client bundle:
+  - QuickSearch: fetches from new `/api/trees/search-index` static endpoint instead of importing `allTrees`
+  - RecentlyViewedList, ExportFavoritesButton, FavoritesContent: accept lightweight server-provided props instead of importing `allTrees`
+  - TreeExplorer/TreeCard: server strips `body`/`_raw` fields (~30 MB raw data removed from RSC payload)
+  - `prefetch={false}` on `/trees` homepage links (prevents 2.3 MB RSC prefetch)
+  - Dark mode contrast fix: `--primary` #4a7c43→#5a9653, `--secondary` #a67c52→#bf9060 (WCAG AA)
+  - "Learn more" → "Learn more about {tree name}" (SEO link text)
+  - LanguageSwitcher aria-label includes visible text (a11y name mismatch fix)
 - **15+ Server Component migrations**: Header, Footer, SafetyCard, HeroImage, Breadcrumbs, SafeJsonLd, QRCodeGenerator, SafetyIcon, SafetyWarning, SafetyDisclaimer, TreeOfTheDay, etc.
 - **MDX code-split**: 958-line monolithic `"use client"` module split into 8 individual files
 - **Hero image AVIF**: Re-encoded (47–64% smaller)
@@ -245,11 +262,14 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ### P4: Performance (High Impact)
 
-#### P4.1: Lighthouse Re-measurement (Blocked on B3)
+#### P4.1: Lighthouse Re-measurement (Blocked on PR #466 deploy)
 
-- [ ] Run Lighthouse on production after latest deploys
-- [ ] Identify remaining bottlenecks from audit results
-- [ ] Create targeted optimization plan based on real data
+- [x] Run Lighthouse on production (Feb 25 — recorded pre-PR #466 baseline: Perf 68, A11y 96, BP 100, SEO 92)
+- [x] Identified remaining bottlenecks: 6 MB contentlayer JS chunk, 2.3 MB RSC prefetch, dark mode contrast, link text
+- [x] Created targeted optimization plan and implemented in PR #466
+- [ ] Merge PR #466 and deploy
+- [ ] Re-run Lighthouse post-deploy to validate improvements
+- [ ] If TBT still >200 ms, investigate remaining main-thread work (3.2 s script evaluation in `edf16d24c4efe948.js`)
 
 #### P4.2: SSR Refactor Remaining Education Pages
 
@@ -411,23 +431,23 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 Prioritized by impact and feasibility:
 
-| Order | Task                                               | Effort    | Impact | Dependencies       |
-| ----- | -------------------------------------------------- | --------- | ------ | ------------------ |
-| 1     | **P2.1**: Photo gallery sections (script exists)   | Low       | High   | None               |
-| 2     | **P2.2**: Applications/Uses body sections          | Low       | High   | None               |
-| 3     | **P2.3**: Seasonal phenology body sections         | Low       | Medium | None               |
-| 4     | **P2.4**: GBIF/IUCN external links                 | Low       | Medium | None               |
-| 5     | **P4.1**: Lighthouse re-measurement                | Low       | High   | B3 (deploy)        |
-| 6     | **P3.2**: OG images for tree detail pages          | Medium    | High   | None               |
-| 7     | **P3.1**: OG images for comparison detail pages    | Low       | Medium | None               |
-| 8     | **P4.2**: SSR refactor 2 remaining education pages | Medium    | Medium | None               |
-| 9     | **P5.1**: API route test coverage                  | Medium    | Medium | None               |
-| 10    | **P4.3**: Split large client components            | Medium    | Medium | None               |
-| 11    | **P3.4**: Sitemap enhancements                     | Low       | Medium | None               |
-| 12    | **P5.2**: Error tracking (Sentry)                  | Low       | Medium | Sentry account     |
-| 13    | **P6.1**: User photo uploads                       | High      | Medium | B4 (cloud storage) |
-| 14    | **P6.3**: Public API for researchers               | High      | Medium | None               |
-| 15    | **P7.1–3**: Additional languages                   | Very High | Medium | Native speakers    |
+| Order | Task                                               | Effort    | Impact       | Dependencies       |
+| ----- | -------------------------------------------------- | --------- | ------------ | ------------------ |
+| 1     | **P4.1**: Merge PR #466 & re-test Lighthouse       | Low       | **Critical** | Human merge        |
+| 2     | **P2.1**: Photo gallery sections (script exists)   | Low       | High         | None               |
+| 3     | **P2.2**: Applications/Uses body sections          | Low       | High         | None               |
+| 4     | **P2.3**: Seasonal phenology body sections         | Low       | Medium       | None               |
+| 5     | **P2.4**: GBIF/IUCN external links                 | Low       | Medium       | None               |
+| 6     | **P3.2**: OG images for tree detail pages          | Medium    | High         | None               |
+| 7     | **P3.1**: OG images for comparison detail pages    | Low       | Medium       | None               |
+| 8     | **P4.2**: SSR refactor 2 remaining education pages | Medium    | Medium       | None               |
+| 9     | **P5.1**: API route test coverage                  | Medium    | Medium       | None               |
+| 10    | **P4.3**: Split large client components            | Medium    | Medium       | None               |
+| 11    | **P3.4**: Sitemap enhancements                     | Low       | Medium       | None               |
+| 12    | **P5.2**: Error tracking (Sentry)                  | Low       | Medium       | Sentry account     |
+| 13    | **P6.1**: User photo uploads                       | High      | Medium       | B4 (cloud storage) |
+| 14    | **P6.3**: Public API for researchers               | High      | Medium       | None               |
+| 15    | **P7.1–3**: Additional languages                   | Very High | Medium       | Native speakers    |
 
 ---
 
@@ -451,29 +471,35 @@ Prioritized by impact and feasibility:
 
 ### Performance Budgets
 
-| Resource          | Budget | Estimated Current | Status                      |
-| ----------------- | ------ | ----------------- | --------------------------- |
-| JavaScript        | <300KB | ~400KB            | ⚠️ Over (re-measure needed) |
-| CSS               | <100KB | ~80KB             | ✅ Good                     |
-| Images (Hero)     | <200KB | ~150KB (AVIF)     | ✅ Good                     |
-| Total Page Weight | <2MB   | ~2.5MB            | ⚠️ Over (re-measure needed) |
+| Resource          | Budget | Current (Feb 25) | Status                                    |
+| ----------------- | ------ | ---------------- | ----------------------------------------- |
+| JavaScript        | <300KB | ~6.2 MB (!)      | 🔴 6 MB contentlayer chunk; PR #466 fixes |
+| CSS               | <100KB | ~80KB            | ✅ Good                                   |
+| Images (Hero)     | <200KB | ~93KB (AVIF)     | ✅ Good                                   |
+| Total Page Weight | <2MB   | ~9.5 MB          | 🔴 Dominated by JS; should drop post-#466 |
 
 ### Success Metrics
 
-| Category    | Metric               | Current       | Target        |
-| ----------- | -------------------- | ------------- | ------------- |
-| Content     | Species count        | 175           | 175+          |
-| Content     | Care guidance        | 100%          | 100%          |
-| Content     | Comparison guides    | 20            | 20+           |
-| Content     | Glossary terms       | 150           | 150+          |
-| Performance | Lighthouse           | 48 (stale)    | >90           |
-| Performance | LCP                  | 6.0s (stale)  | <2.5s         |
-| Performance | TBT                  | 440ms (stale) | <200ms        |
-| Testing     | Test pass rate       | 324/324       | 100%          |
-| SEO         | Pages with JSON-LD   | ~10           | All key pages |
-| SEO         | Pages with OG images | ~8            | All key pages |
+| Category       | Metric               | Current (Feb 25)  | Target        |
+| -------------- | -------------------- | ----------------- | ------------- |
+| Content        | Species count        | 175               | 175+          |
+| Content        | Care guidance        | 100%              | 100%          |
+| Content        | Comparison guides    | 20                | 20+           |
+| Content        | Glossary terms       | 150               | 150+          |
+| Performance    | Lighthouse           | **68** (pre-#466) | >90           |
+| Performance    | LCP                  | **2.6 s**         | <2.5s         |
+| Performance    | TBT                  | **1,940 ms**      | <200ms        |
+| Performance    | FCP                  | **1.9 s**         | <1.8s         |
+| Performance    | CLS                  | **0**             | <0.1          |
+| Performance    | TTI                  | **35.8 s**        | <5s           |
+| Accessibility  | Score                | **96**            | 100           |
+| Best Practices | Score                | **100**           | 100           |
+| Testing        | Test pass rate       | 324/324           | 100%          |
+| SEO            | Score                | **92**            | 100           |
+| SEO            | Pages with JSON-LD   | ~10               | All key pages |
+| SEO            | Pages with OG images | ~8                | All key pages |
 
 ---
 
 **Last Comprehensive Review:** 2026-02-25
-**Next Milestones:** Content batch enrichment (P2.1–P2.4) → Lighthouse re-measurement (P4.1) → OG images for remaining pages (P3.1–P3.2) → Community Features (P6)
+**Next Milestones:** Merge PR #466 & re-test (P4.1) → Content batch enrichment (P2.1–P2.4) → OG images for remaining pages (P3.1–P3.2) → Community Features (P6)
