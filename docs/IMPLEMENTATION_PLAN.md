@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
 **Last Updated:** 2026-02-26
-**Status:** v1.0 Complete | All SEO tasks done (P3.1–P3.5) | Tests 479/479 | Content Enrichment P2.1-P2.4 Complete | Component splits P4.2–P4.3 Complete | Content standardization complete | Error tracking Sentry-ready | DB indexes added
+**Status:** v1.0 Complete | All SEO tasks done (P3.1–P3.5) | Tests 502/502 | Content Enrichment P2.1-P2.4 Complete | Component splits P4.2–P4.3 Complete | Content standardization complete | Error tracking Sentry-ready | DB indexes added | Cloudinary integrated
 
 ---
 
@@ -80,24 +80,24 @@ None — all blockers resolved.
 
 ### Technical Health
 
-| Metric           | Pre-PR #466 (Feb 25) | Post-PR #466 (Feb 25) | Target | Status                                                        |
-| ---------------- | -------------------- | --------------------- | ------ | ------------------------------------------------------------- |
-| Lighthouse Score | 68                   | **85**                | >90    | 🟢 +17 points; LCP now the main bottleneck to 90+             |
-| LCP              | 2.6 s                | **4.0 s** (score 49)  | <2.5s  | 🔴 Regressed — large tree card images (JPEG, not AVIF/WebP)   |
-| TBT              | 1,940 ms             | **30 ms** (score 100) | <200ms | ✅ Fixed — 6 MB JS chunk eliminated                           |
-| FCP              | 1.9 s                | **2.1 s** (score 82)  | <1.8s  | 🟡 Slight regression; render-blocking CSS (300ms)             |
-| CLS              | 0                    | **0** (score 100)     | <0.1   | ✅ Perfect                                                    |
-| Speed Index      | 1.9 s                | **2.1 s** (score 99)  | <3.4s  | ✅ Excellent                                                  |
-| TTI              | 35.8 s               | **4.2 s** (score 86)  | <5s    | ✅ Fixed — was 35.8s, now well under target                   |
-| Accessibility    | 96                   | **96**                | 100    | 🟡 4 color contrast issues remain (skip-link, subtitle, etc.) |
-| Best Practices   | 100                  | **100**               | 100    | ✅ Perfect                                                    |
-| SEO              | 92                   | **100**               | 100    | ✅ Fixed — descriptive link text resolved                     |
-| Tests            | 324/324              | 479/479               | 100%   | ✅ +107 API route tests, +48 content validation               |
-| Lint errors      | 0                    | 0                     | 0      | ✅                                                            |
-| Images optimized | 128/128              | 128/128               | 100%   | ✅                                                            |
-| Database         | —                    | Neon PostgreSQL       | —      | ✅                                                            |
-| Auth + MFA       | —                    | JWT, TOTP, backup     | —      | ✅                                                            |
-| Safety system    | —                    | 100% coverage         | —      | ✅                                                            |
+| Metric           | Pre-PR #466 (Feb 25) | Post-PR #466 (Feb 25) | Target | Status                                                          |
+| ---------------- | -------------------- | --------------------- | ------ | --------------------------------------------------------------- |
+| Lighthouse Score | 68                   | **85**                | >90    | 🟢 +17 points; LCP now the main bottleneck to 90+               |
+| LCP              | 2.6 s                | **4.0 s** (score 49)  | <2.5s  | 🔴 Regressed — large tree card images (JPEG, not AVIF/WebP)     |
+| TBT              | 1,940 ms             | **30 ms** (score 100) | <200ms | ✅ Fixed — 6 MB JS chunk eliminated                             |
+| FCP              | 1.9 s                | **2.1 s** (score 82)  | <1.8s  | 🟡 Slight regression; render-blocking CSS (300ms)               |
+| CLS              | 0                    | **0** (score 100)     | <0.1   | ✅ Perfect                                                      |
+| Speed Index      | 1.9 s                | **2.1 s** (score 99)  | <3.4s  | ✅ Excellent                                                    |
+| TTI              | 35.8 s               | **4.2 s** (score 86)  | <5s    | ✅ Fixed — was 35.8s, now well under target                     |
+| Accessibility    | 96                   | **96**                | 100    | 🟡 4 color contrast issues remain (skip-link, subtitle, etc.)   |
+| Best Practices   | 100                  | **100**               | 100    | ✅ Perfect                                                      |
+| SEO              | 92                   | **100**               | 100    | ✅ Fixed — descriptive link text resolved                       |
+| Tests            | 324/324              | 502/502               | 100%   | ✅ +107 API route tests, +48 content validation, +23 Cloudinary |
+| Lint errors      | 0                    | 0                     | 0      | ✅                                                              |
+| Images optimized | 128/128              | 128/128               | 100%   | ✅                                                              |
+| Database         | —                    | Neon PostgreSQL       | —      | ✅                                                              |
+| Auth + MFA       | —                    | JWT, TOTP, backup     | —      | ✅                                                              |
+| Safety system    | —                    | 100% coverage         | —      | ✅                                                              |
 
 ---
 
@@ -420,9 +420,9 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ### P6: Community Features (Medium Impact — Partially Blocked)
 
-#### P6.1: User Photo Upload System (Blocked on B4)
+#### P6.1: User Photo Upload System
 
-**Prerequisites:** Image Review System ✅ | DB ✅ | Cloud storage ⏸️ (B4)
+**Prerequisites:** Image Review System ✅ | DB ✅ | Cloud storage ✅ (Cloudinary)
 
 - [ ] Upload photos for existing species (tagged by tree part: bark, leaves, flowers, fruit)
 - [ ] Automatic proposal creation for admin review
@@ -531,7 +531,7 @@ Prioritized by impact and feasibility:
 | ~~2~~ | ~~**P5.3**: Content validation tests~~                 | ~~Medium~~ | ~~Medium~~   | ~~None~~            |
 | ~~3~~ | ~~**P4.4**: Database query optimization~~              | ~~Medium~~ | ~~Medium~~   | ~~Active DB usage~~ |
 | ~~4~~ | ~~**P5.4**: Content standardization~~                  | ~~Medium~~ | ~~Medium~~   | ~~None~~            |
-| 1     | **P6.1**: User photo uploads                           | High       | Medium       | B4 (cloud storage)  |
+| 1     | **P6.1**: User photo uploads                           | High       | Medium       | ~~B4~~ ✅           |
 | 2     | **P6.3**: Public API for researchers                   | High       | Medium       | None                |
 | 3     | **P7.1–3**: Additional languages                       | Very High  | Medium       | Native speakers     |
 
@@ -582,12 +582,12 @@ Prioritized by impact and feasibility:
 | Performance    | TTI                  | 35.8 s      | **4.2 s**             | <5s           | **-31.6s** ✅ |
 | Accessibility  | Score                | 96          | **96**                | 100           | — 🟡          |
 | Best Practices | Score                | 100         | **100**               | 100           | — ✅          |
-| Testing        | Test pass rate       | 324/324     | 479/479               | 100%          | **+155** ✅   |
+| Testing        | Test pass rate       | 324/324     | 502/502               | 100%          | **+178** ✅   |
 | SEO            | Score                | 92          | **100**               | 100           | **+8** ✅     |
 | SEO            | Pages with JSON-LD   | ~10         | ~10                   | All key pages | —             |
 | SEO            | Pages with OG images | ~8          | ~8                    | All key pages | —             |
 
 ---
 
-**Last Comprehensive Review:** 2026-02-26 (Run 9 — Content standardization, enum normalization, glossary fixes)
-**Next Milestones:** Community Features P6 → Public API P6.3 → Additional Languages P7
+**Last Comprehensive Review:** 2026-02-26 (Run 10 — Cloudinary integration, Codacy removal, test count 502)
+**Next Milestones:** Community Features P6 (P6.1 unblocked) → Public API P6.3 → Additional Languages P7

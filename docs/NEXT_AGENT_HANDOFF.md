@@ -2,14 +2,26 @@
 
 Last updated: 2026-02-26
 
-## Latest Run Summary (2026-02-26 — Run 9)
+## Latest Run Summary (2026-02-26 — Run 10)
 
-- **Branch**: `content/glossary-standardization-and-enum-normalization` → PR pending
+- **Branch**: `feature/cloudinary-integration` → [PR #494](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/494) (merged)
+- **Sub-PR**: [PR #495](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/495) (merged) — singleton guard + comprehensive tests
+- **Also merged**: [PR #493](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/493) (Codacy removal), [PR #496](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/496) (minimatch bump)
 - **Tasks completed**:
-  1. **Content Standardization: Enum normalization** — Normalized 111 non-standard enum values across 53 tree files (EN + ES). Fields fixed: waterNeeds (27), lightRequirements (21), growthRate (22), propagationDifficulty (26), toxicityLevel (5), skinContactRisk (5), allergenRisk (5). Spanish translations ("moderado" → "moderate", "pleno-sol" → "full-sun") and English compound values ("very-fast" → "fast", "moderate-to-high" → "high") mapped to schema-valid enums. Created `scripts/normalize-enum-values.mjs`.
-  2. **Content Standardization: Glossary exampleSpecies** — Fixed 121 glossary exampleSpecies references (common names → valid tree slugs). Removed 64 invalid entries (non-atlas species like beans, corn, dandelion). Mappings: "mahogany" → "caoba", "teak" → "teca", "cecropia" → "guarumo", "kapok" → "ceiba", etc. Created `scripts/fix-glossary-references.mjs`.
-  3. **Content Standardization: Glossary relatedTerms** — Removed 391 invalid relatedTerms references that pointed to non-existent glossary slugs. Affected 209 glossary files (EN + ES).
-  4. **Bug fix**: Fixed flaky ReDoS timing test (threshold 1ms → 5ms, was intermittently failing).
+  1. **B4 Resolved: Cloudinary integration** — Created `src/lib/cloudinary.ts` (238 lines): singleton `getCloudinary()`, `uploadTreeImage()` with automatic folder structure (`costa-rica-tree-atlas/trees/{slug}`), format/quality optimization, CDN URL generation. Refactored `src/app/api/images/upload/route.ts` from local filesystem to Cloudinary. Added `res.cloudinary.com` to `next.config.ts` remote patterns. Added env var validation (CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET).
+  2. **Cloudinary test coverage** — Created `tests/lib/cloudinary.test.ts` (439 lines, 23 tests): singleton guard, upload success/error, configuration validation, folder structure, format options.
+  3. **Codacy removal** — Deleted `.codacy/` directory, removed `codacy.instructions.md`, cleaned gitignore and security comments.
+  4. **Dependency update**: minimatch 3.1.2 → 3.1.5 (security patch).
+  5. **Verified**: 502/502 tests pass, 0 lint errors, build clean.
+
+## Previous Run Summary (2026-02-26 — Run 9)
+
+- **Branch**: `content/glossary-standardization-and-enum-normalization` → [PR #491](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/491) (merged)
+- **Tasks completed**:
+  1. **Content Standardization: Enum normalization** — Normalized 111 non-standard enum values across 53 tree files (EN + ES). Created `scripts/normalize-enum-values.mjs`.
+  2. **Content Standardization: Glossary exampleSpecies** — Fixed 121 references (common names → valid tree slugs). Created `scripts/fix-glossary-references.mjs`.
+  3. **Content Standardization: Glossary relatedTerms** — Removed 391 invalid references across 209 glossary files.
+  4. **Bug fix**: Fixed flaky ReDoS timing test (threshold 1ms → 5ms).
   5. **Verified**: 479/479 tests pass, 0 lint errors, build clean.
 
 ## Previous Run Summary (2026-06-10 — Run 8)
@@ -97,13 +109,14 @@ Last updated: 2026-02-26
 
 ## Current Project State
 
-- **Tests**: 479/479 passing (29 test files)
+- **Tests**: 502/502 passing (30 test files)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Content quality**: All enum values normalized to schema, glossary references validated
 - **Galleries**: 174/175 trees with iNaturalist photo galleries
 - **External links**: 175/175 trees with GBIF + IUCN links
 - **All pages**: 600+ lines, bilingual parity achieved
 - **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active, indexes optimized
+- **Cloud storage**: Cloudinary integrated — upload route, CDN delivery, env validation
 - **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound. A11y expected 100 after contrast fix deployed.
 - **Component sizes**: All 3 large clients split — TreeMapClient 1,027, ScavengerHuntClient 575, TreeJournalClient 672 lines
 - **SEO**: All P3 tasks complete (P3.1–P3.5). OG images, JSON-LD, sitemap, and meta descriptions all optimized.
@@ -113,28 +126,29 @@ Last updated: 2026-02-26
 
 From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 
-| Priority | Task                                  | Status      | Notes                                                               |
-| -------- | ------------------------------------- | ----------- | ------------------------------------------------------------------- |
-| P2.1     | Photo gallery sections                | ✅ Complete | 174/175 (orey lacks iNaturalist photos)                             |
-| P2.2     | Applications/Uses body sections       | ✅ Complete | Already present in 173/175 under various headings                   |
-| P2.3     | Seasonal phenology body sections      | ✅ Complete | Already present in all 174 with seasonal frontmatter                |
-| P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                           |
-| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                     |
-| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                 |
-| P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image        |
-| P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included          |
-| P3.5     | Meta description optimization         | ✅ Complete | 16 descriptions optimized across 14 files, ES i18n bugs fixed       |
-| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
-| P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%   |
-| P4.4     | Database query optimization           | ✅ Complete | 3 indexes added (Account.userId, image_proposals, contributions)    |
-| P4.6     | LCP image optimization                | ✅ Complete | Images recompressed 37%, priority props added                       |
-| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
-| P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                 |
-| P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                  |
-| P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.       |
-| P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned |
+| Priority | Task                                  | Status      | Notes                                                                |
+| -------- | ------------------------------------- | ----------- | -------------------------------------------------------------------- |
+| P2.1     | Photo gallery sections                | ✅ Complete | 174/175 (orey lacks iNaturalist photos)                              |
+| P2.2     | Applications/Uses body sections       | ✅ Complete | Already present in 173/175 under various headings                    |
+| P2.3     | Seasonal phenology body sections      | ✅ Complete | Already present in all 174 with seasonal frontmatter                 |
+| P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                            |
+| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                      |
+| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                  |
+| P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image         |
+| P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included           |
+| P3.5     | Meta description optimization         | ✅ Complete | 16 descriptions optimized across 14 files, ES i18n bugs fixed        |
+| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done  |
+| P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%    |
+| P4.4     | Database query optimization           | ✅ Complete | 3 indexes added (Account.userId, image_proposals, contributions)     |
+| P4.6     | LCP image optimization                | ✅ Complete | Images recompressed 37%, priority props added                        |
+| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added      |
+| P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                  |
+| P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                   |
+| P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.        |
+| P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned  |
+| B4       | Cloud image storage (Cloudinary)      | ✅ Complete | SDK integrated, upload route refactored, CDN delivery, env validated |
 
-**Recommended next task**: P6.1 (User photo uploads — blocked on cloud storage B4), P6.3 (Public API), or P4.5 (CSP optimization — manual sprint).
+**Recommended next task**: P6.1 (User photo uploads — B4 resolved, Cloudinary ready), P6.3 (Public API), or P4.5 (CSP optimization — manual sprint).
 
 ## Established Patterns
 
@@ -202,12 +216,13 @@ Mission
 - Performance (P4): Lighthouse 85/100. LCP optimized (images recompressed 37%, priority props added). DB indexes added ✅. A11y contrast ✅. SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
 - Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps). Content standardization ✅ (111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned).
 - Recommended execution order (pick one or more):
-  1. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint, 1-2 weeks)
-  2. P6.1: User photo uploads (blocked on cloud storage B4 — need Cloudinary/S3 setup)
-  3. P6.3: Public API for researchers — RESTful endpoints, rate limiting, OpenAPI docs
+  1. P6.1: User photo uploads — Cloudinary integrated (B4 ✅), build upload UI + proposal workflow
+  2. P6.3: Public API for researchers — RESTful endpoints, rate limiting, OpenAPI docs
+  3. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint)
   4. Apply DB migration to production (manual step — `npx prisma migrate deploy`)
   5. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
-  6. Any remaining polish from IMPLEMENTATION_PLAN.md
+  6. Add Cloudinary API keys to Vercel env vars (manual step)
+  7. Any remaining polish from IMPLEMENTATION_PLAN.md
 
 Required workflow
 1. Read and follow:
