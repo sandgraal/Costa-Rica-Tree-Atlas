@@ -58,7 +58,7 @@ export function HuntView({
 
         {/* Current Team Banner */}
         <div
-          className={`${teamColor.light} rounded-2xl p-6 mb-6 border border-${currentTeam.color}-200`}
+          className={`${teamColor.light} rounded-2xl p-6 mb-6 border`}
         >
           <div className="flex items-center justify-between">
             <div>
