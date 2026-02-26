@@ -1,8 +1,18 @@
 # Next Agent Handoff
 
-Last updated: 2026-06-10
+Last updated: 2026-02-26
 
-## Latest Run Summary (2026-06-10 — Run 8)
+## Latest Run Summary (2026-02-26 — Run 9)
+
+- **Branch**: `content/glossary-standardization-and-enum-normalization` → PR pending
+- **Tasks completed**:
+  1. **Content Standardization: Enum normalization** — Normalized 111 non-standard enum values across 53 tree files (EN + ES). Fields fixed: waterNeeds (27), lightRequirements (21), growthRate (22), propagationDifficulty (26), toxicityLevel (5), skinContactRisk (5), allergenRisk (5). Spanish translations ("moderado" → "moderate", "pleno-sol" → "full-sun") and English compound values ("very-fast" → "fast", "moderate-to-high" → "high") mapped to schema-valid enums. Created `scripts/normalize-enum-values.mjs`.
+  2. **Content Standardization: Glossary exampleSpecies** — Fixed 121 glossary exampleSpecies references (common names → valid tree slugs). Removed 64 invalid entries (non-atlas species like beans, corn, dandelion). Mappings: "mahogany" → "caoba", "teak" → "teca", "cecropia" → "guarumo", "kapok" → "ceiba", etc. Created `scripts/fix-glossary-references.mjs`.
+  3. **Content Standardization: Glossary relatedTerms** — Removed 391 invalid relatedTerms references that pointed to non-existent glossary slugs. Affected 209 glossary files (EN + ES).
+  4. **Bug fix**: Fixed flaky ReDoS timing test (threshold 1ms → 5ms, was intermittently failing).
+  5. **Verified**: 479/479 tests pass, 0 lint errors, build clean.
+
+## Previous Run Summary (2026-06-10 — Run 8)
 
 - **Branch**: `feature/p46-lcp-p52-sentry-p44-db-optimization` → PR pending
 - **Tasks completed**:
@@ -89,13 +99,15 @@ Last updated: 2026-06-10
 
 - **Tests**: 479/479 passing (29 test files)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
+- **Content quality**: All enum values normalized to schema, glossary references validated
 - **Galleries**: 174/175 trees with iNaturalist photo galleries
 - **External links**: 175/175 trees with GBIF + IUCN links
 - **All pages**: 600+ lines, bilingual parity achieved
-- **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active
+- **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active, indexes optimized
 - **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound. A11y expected 100 after contrast fix deployed.
 - **Component sizes**: All 3 large clients split — TreeMapClient 1,027, ScavengerHuntClient 575, TreeJournalClient 672 lines
 - **SEO**: All P3 tasks complete (P3.1–P3.5). OG images, JSON-LD, sitemap, and meta descriptions all optimized.
+- **Error tracking**: Sentry-ready (zero deps, graceful fallback)
 
 ## Highest-Priority Remaining Work
 
@@ -114,13 +126,15 @@ From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 | P3.5     | Meta description optimization         | ✅ Complete | 16 descriptions optimized across 14 files, ES i18n bugs fixed       |
 | P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
 | P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%   |
+| P4.4     | Database query optimization           | ✅ Complete | 3 indexes added (Account.userId, image_proposals, contributions)    |
+| P4.6     | LCP image optimization                | ✅ Complete | Images recompressed 37%, priority props added                       |
 | P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
 | P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                 |
-| P5.2     | Error tracking (Sentry)               | 📋 Ready    | Stub integration                                                    |
+| P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                  |
 | P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.       |
-| P4.4     | Database query optimization           | 📋 Ready    | Indexes, pooling, caching                                           |
+| P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned |
 
-**Recommended next task**: P5.2 (Error tracking / Sentry integration) or P4.4 (Database query optimization).
+**Recommended next task**: P6.1 (User photo uploads — blocked on cloud storage B4), P6.3 (Public API), or P4.5 (CSP optimization — manual sprint).
 
 ## Established Patterns
 
@@ -185,12 +199,12 @@ Repository
 Mission
 - Content Enrichment (P2): ✅ ALL COMPLETE (P2.1–P2.4).
 - SEO (P3): ✅ ALL COMPLETE (P3.1–P3.5). OG images, JSON-LD, Sitemap, Meta descriptions all done.
-- Performance (P4): Lighthouse 85/100. LCP optimized (images recompressed 37%, priority props added). DB indexes added. A11y contrast ✅. SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
-- Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps).
+- Performance (P4): Lighthouse 85/100. LCP optimized (images recompressed 37%, priority props added). DB indexes added ✅. A11y contrast ✅. SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
+- Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps). Content standardization ✅ (111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned).
 - Recommended execution order (pick one or more):
-  1. Content standardization: Fix glossary exampleSpecies (~185 using common names instead of tree slugs), normalize ES enum values to English schema values
-  2. Fix glossary relatedTerms (~172 referencing non-existent slugs)
-  3. Add `timber` to contentlayer glossary category schema (or rename in content)
+  1. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint, 1-2 weeks)
+  2. P6.1: User photo uploads (blocked on cloud storage B4 — need Cloudinary/S3 setup)
+  3. P6.3: Public API for researchers — RESTful endpoints, rate limiting, OpenAPI docs
   4. Apply DB migration to production (manual step — `npx prisma migrate deploy`)
   5. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
   6. Any remaining polish from IMPLEMENTATION_PLAN.md

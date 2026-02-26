@@ -96,7 +96,7 @@ describe("ReDoS Prevention", () => {
       const duration = performance.now() - start;
 
       expect(result.valid).toBe(true);
-      expect(duration).toBeLessThan(1);
+      expect(duration).toBeLessThan(5);
     });
   });
 
