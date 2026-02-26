@@ -95,7 +95,7 @@ export function SetupView({
             {Array.from({ length: setup.teamCount }).map((_, i) => (
               <div
                 key={i}
-                className={`p-4 rounded-xl border ${TEAM_COLORS[i % TEAM_COLORS.length].light} border-${TEAM_COLORS[i % TEAM_COLORS.length].name}-200`}
+                className={`p-4 rounded-xl border ${TEAM_COLORS[i % TEAM_COLORS.length].light}`}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
