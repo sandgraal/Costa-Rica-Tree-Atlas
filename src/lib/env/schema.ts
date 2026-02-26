@@ -39,6 +39,11 @@ const serverSchema = z.object({
   GOOGLE_VISION_API_KEY: z.string().min(32).optional(),
   GOOGLE_MAPS_API_KEY: z.string().min(32).optional(),
 
+  // Cloudinary (optional — required for community photo uploads)
+  CLOUDINARY_CLOUD_NAME: z.string().min(1).optional(),
+  CLOUDINARY_API_KEY: z.string().min(1).optional(),
+  CLOUDINARY_API_SECRET: z.string().min(1).optional(),
+
   // CSP Reporting (optional)
   CSP_REPORT_URI: z.string().url().optional(),
 
