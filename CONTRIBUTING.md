@@ -154,6 +154,8 @@ To enable admin access during development:
 
    ```bash
    curl -X POST http://localhost:3000/api/admin/setup
+   ```
+
 5. **Access admin routes**
 
    Visit `http://localhost:3000/{locale}/admin/login` (for example, `/en/admin/login` or `/es/admin/login`) and sign in with your database-backed credentials.

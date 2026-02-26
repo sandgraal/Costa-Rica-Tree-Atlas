@@ -126,7 +126,8 @@ export function generateBackupCodes(count: number = 10): string[] {
       for (let k = 0; k < 4; k++) {
         // Avoid modulo bias by discarding values outside the largest multiple of
         // characters.length that fits into a 32‑bit unsigned integer.
-        const maxUnbiased = Math.floor(2 ** 32 / characters.length) * characters.length;
+        const maxUnbiased =
+          Math.floor(2 ** 32 / characters.length) * characters.length;
         let randomIndex: number;
 
         // This loop is extremely unlikely to iterate more than once, since the
