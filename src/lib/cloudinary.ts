@@ -27,8 +27,13 @@ export function isCloudinaryConfigured(): boolean {
   return Boolean(CLOUD_NAME && API_KEY && API_SECRET);
 }
 
-/** Lazily configures the SDK. Throws if vars are missing. */
+/** Tracks whether the SDK has already been configured (singleton guard). */
+let _sdkConfigured = false;
+
+/** Configures the SDK once. Throws if required env vars are missing. */
 function ensureConfigured(): void {
+  if (_sdkConfigured) return;
+
   if (!CLOUD_NAME || !API_KEY || !API_SECRET) {
     throw new Error(
       "Cloudinary is not configured. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET."
@@ -41,6 +46,8 @@ function ensureConfigured(): void {
     api_secret: API_SECRET,
     secure: true,
   });
+
+  _sdkConfigured = true;
 }
 
 // ---------------------------------------------------------------------------
