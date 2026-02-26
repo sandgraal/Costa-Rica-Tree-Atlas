@@ -59,6 +59,7 @@
   "trees": {
     "title": "Tree Directory",
     "subtitle": "Browse our collection of Costa Rican trees",
+    "metaDescription": "Explore Costa Rican tree species with detailed profiles, photos, distribution maps, and care guides. Filter by family, region, and uses.",
     "stats": "Featuring {species} species from {families} botanical families",
     "searchPlaceholder": "Search trees...",
     "noResults": "No trees found matching your search.",
@@ -246,7 +247,7 @@
   "comparison": {
     "title": "Tree Comparison",
     "subtitle": "Compare characteristics of different tree species side by side",
-    "metaDescription": "Compare Costa Rican tree species side by side. 20 expert comparison guides plus an interactive tool covering 175 species.",
+    "metaDescription": "Compare Costa Rican tree species side by side with expert guides and an interactive tool for distinguishing commonly confused species.",
     "selectTree": "Select a tree",
     "selectPlaceholder": "Add a tree to compare...",
     "addTree": "Add tree",
@@ -274,6 +275,10 @@
       "uses": "Uses",
       "tags": "Characteristics"
     }
+  },
+  "fieldGuide": {
+    "title": "Field Guide Generator",
+    "metaDescription": "Generate a custom printable field guide of Costa Rican trees. Choose species with photos and key identification facts."
   },
   "identify": {
     "title": "Identify a Tree",

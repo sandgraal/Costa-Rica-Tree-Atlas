@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Printable Species Checklist - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Lista imprimible de 175 especies de árboles de Costa Rica organizada por familia botánica. Ideal para excursiones y actividades de campo."
-        : "Printable checklist of 175 Costa Rican tree species organized by botanical family. Ideal for field trips and outdoor activities.",
+        ? "Lista imprimible de especies de árboles de Costa Rica organizada por familia botánica. Ideal para excursiones y actividades de campo."
+        : "Printable checklist of Costa Rican tree species organized by botanical family. Ideal for field trips and outdoor activities.",
   };
 }
 
