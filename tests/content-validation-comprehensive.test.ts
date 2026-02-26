@@ -105,7 +105,6 @@ const VALID_TOXICITY_LEVELS = new Set([
   "alta",
   "alto",
   "severa",
-  "mild",
 ]);
 
 const VALID_ALLERGEN_RISKS = new Set([
@@ -199,7 +198,7 @@ const VALID_PROPAGATION_DIFFICULTY = new Set([
 ]);
 
 /**
- * Glossary categories from contentlayer schema + 'timber' (used in content).
+ * Glossary categories from contentlayer schema.
  */
 const VALID_GLOSSARY_CATEGORIES = new Set([
   "anatomy",
