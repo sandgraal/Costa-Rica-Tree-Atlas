@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateScientificName } from "@/lib/validation";
 import { rateLimit } from "@/lib/ratelimit";
+import { captureApiError } from "@/lib/error-tracking";
 
 const INATURALIST_API = "https://api.inaturalist.org/v1";
 
@@ -113,7 +114,7 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
-    console.error("Error fetching species images:", error);
+    captureApiError(error, "/api/species/images", "GET");
     return NextResponse.json(
       { error: "Failed to fetch images" },
       { status: 500 }

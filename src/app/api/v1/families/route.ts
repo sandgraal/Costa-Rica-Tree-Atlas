@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
+import { captureApiError } from "@/lib/error-tracking";
 import type { FamiliesResponse } from "@/types/api";
 
 // Rate limiting
@@ -119,7 +120,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response, { headers });
   } catch (error) {
-    console.error("API error:", error);
+    captureApiError(error, "/api/v1/families", "GET");
     return NextResponse.json(
       {
         error: {

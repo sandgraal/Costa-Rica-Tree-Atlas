@@ -16,6 +16,7 @@ import { join } from "path";
 import { createHash } from "crypto";
 import sharp from "sharp";
 import prisma from "@/lib/prisma";
+import { captureApiError } from "@/lib/error-tracking";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { type ImageType, IMAGE_TYPES } from "@/types/image-review";
 
@@ -286,7 +287,7 @@ export async function POST(
       message: "Photo uploaded successfully! It will be reviewed by our team.",
     });
   } catch (error) {
-    console.error("Upload error:", error);
+    captureApiError(error, "/api/images/upload", "POST");
     return NextResponse.json(
       { error: "Failed to upload photo. Please try again." },
       { status: 500 }

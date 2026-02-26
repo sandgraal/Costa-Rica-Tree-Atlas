@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
 import { rateLimit } from "@/lib/ratelimit";
 import { validateOrigin } from "@/lib/security/csrf";
+import { captureApiError } from "@/lib/error-tracking";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -246,7 +247,11 @@ export async function POST(request: NextRequest) {
       const errorText = await visionResponse
         .text()
         .catch(() => "Unknown error");
-      console.error("Vision API HTTP error:", visionResponse.status, errorText);
+      captureApiError(
+        new Error(`Vision API HTTP ${visionResponse.status}: ${errorText}`),
+        "/api/identify",
+        "POST"
+      );
       return NextResponse.json(
         { error: "Vision API request failed", code: "VISION_API_HTTP_ERROR" },
         { status: 502 }
@@ -257,7 +262,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unknown network error";
-    console.error("Vision API network error:", message);
+    captureApiError(
+      error instanceof Error ? error : new Error(message),
+      "/api/identify",
+      "POST"
+    );
     return NextResponse.json(
       {
         error: "Failed to connect to Vision API",
