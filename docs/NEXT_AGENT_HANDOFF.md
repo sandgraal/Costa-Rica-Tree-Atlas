@@ -1,8 +1,18 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-25
+Last updated: 2026-02-26
 
-## Latest Run Summary (2026-02-25 — Run 4)
+## Latest Run Summary (2026-02-26 — Run 5)
+
+- **Branch**: `feature/api-tests-component-splits-meta` → PR pending
+- **Tasks completed**:
+  1. **P5.1: API route test coverage** — Created 9 test files with 107 new tests covering all previously untested API routes: v1/trees (29), v1/trees/[slug] (10), v1/families (9), search-index (5), species/random (5), csp-report (5), images/vote (18), images/flag (13), contributions (13). Total: 431/431 passing.
+  2. **P4.3: Split TreeMapClient** — Extracted `map-data.ts` (constants, helpers), `CollectionCard.tsx`, `CollectionDetailView.tsx`. Reduced 1,388 → 1,027 lines (26% reduction).
+  3. **P4.3: Split ScavengerHuntClient** — Extracted `scavenger-hunt-validators.ts` (mission validators, constants), `SetupView.tsx`, `HuntView.tsx`, `MissionView.tsx`, `ResultsView.tsx`. Reduced 1,206 → 575 lines (52% reduction).
+  4. **P4.3: Split TreeJournalClient** — Extracted `AdoptTreeView.tsx`, `JournalEntryForm.tsx`. Reduced 1,073 → 672 lines (37% reduction).
+  5. **Verified**: 431/431 tests pass, 0 lint errors, build clean.
+
+## Previous Run Summary (2026-02-25 — Run 4)
 
 - **Branch**: `feature/ssr-refactor-jsonld-sitemap` → PR pending
 - **Tasks completed**:
@@ -45,17 +55,18 @@ Last updated: 2026-02-25
 
 ## Current Project State
 
-- **Tests**: 324/324 passing (19 test files)
+- **Tests**: 431/431 passing (28 test files)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Galleries**: 174/175 trees with iNaturalist photo galleries
 - **External links**: 175/175 trees with GBIF + IUCN links
 - **All pages**: 600+ lines, bilingual parity achieved
 - **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active
 - **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound. A11y expected 100 after contrast fix deployed.
+- **Component sizes**: All 3 large clients split — TreeMapClient 1,027, ScavengerHuntClient 575, TreeJournalClient 672 lines
 
 ## Highest-Priority Remaining Work
 
-From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-25):
+From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 
 | Priority | Task                                  | Status      | Notes                                                               |
 | -------- | ------------------------------------- | ----------- | ------------------------------------------------------------------- |
@@ -65,15 +76,16 @@ From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-25):
 | P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                           |
 | P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                     |
 | P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                 |
-| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
-| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
-| P5.1     | API route test coverage               | 📋 Ready    | Zero coverage currently                                             |
-| P4.3     | Split large client components         | 📋 Ready    | 3 components over 1,300 lines each                                  |
 | P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image        |
 | P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included          |
+| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
+| P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%   |
+| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
+| P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                 |
 | P3.5     | Meta description optimization         | 📋 Ready    | Audit uniqueness, length, key terms                                 |
+| P5.2     | Error tracking (Sentry)               | 📋 Ready    | Stub integration                                                    |
 
-**Recommended next task**: P5.1 (API route test coverage) — zero coverage currently, high value.
+**Recommended next task**: P3.5 (Meta description audit) — last remaining SEO task.
 
 ## Established Patterns
 
@@ -108,6 +120,17 @@ Used in this run for `add-external-links.mjs` and `fix-datatable-links.mjs`:
 4. Handle multiple content patterns (ExternalLinksGrid, DataTable, markdown lists)
 5. Log progress per-file, print summary
 
+### Client Component Split Pattern (P4.3)
+
+Used in Run 5 for TreeMapClient, ScavengerHuntClient, TreeJournalClient:
+
+1. **Data/constants** extracted to a co-located `*-data.ts` or `*-validators.ts` file
+2. **View components** extracted as separate `.tsx` files in the same directory
+3. **State/reducer/handlers** stay in the parent component (state owner)
+4. Props interface per extracted view — callbacks as `onAction` naming convention
+5. Each extracted view has its own `"use client"` directive and imports (Link, Image, etc.)
+6. Parent renders `<ExtractedView {...props} />` instead of inline JSX blocks
+
 ## Operator Preferences (Persistent)
 
 1. Batch depth: go as far as practical in each run, with slight safety margin to reduce regression risk.
@@ -128,13 +151,12 @@ Mission
 - Content Enrichment (P2): ✅ ALL COMPLETE (P2.1–P2.4).
 - SEO (P3): OG images ✅, JSON-LD ✅, Sitemap ✅. Remaining: meta description audit (P3.5).
 - Performance (P4): Lighthouse 85/100. LCP 4.0s is network-bound. A11y contrast ✅.
-  SSR refactor ✅ ALL 6 education pages done. Split 3 large client components (1,300+ lines).
-- Testing (P5): API route test coverage (zero currently). Error tracking (Sentry stub).
+  SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
+- Testing (P5): API route tests ✅ (107 tests, 431 total). Error tracking stub (P5.2) remaining.
 - Recommended execution order (pick one or more):
-  1. P5.1: API route test coverage (highest value — zero coverage currently)
-  2. P4.3: Split large client components (3 files over 1,300 lines)
-  3. P3.5: Meta description optimization audit
-  4. P5.2: Error tracking / Sentry integration
+  1. P3.5: Meta description optimization audit (last SEO task)
+  2. P5.2: Error tracking / Sentry integration
+  3. Any remaining polish from IMPLEMENTATION_PLAN.md
 
 Required workflow
 1. Read and follow:
