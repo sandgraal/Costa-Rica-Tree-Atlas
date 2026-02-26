@@ -14,12 +14,31 @@
  *   node scripts/normalize-enum-values.mjs           # Apply fixes
  *   node scripts/normalize-enum-values.mjs --dry-run  # Preview only
  *   node scripts/normalize-enum-values.mjs --tree=mangle-pinuela  # Single tree
+ *   node scripts/normalize-enum-values.mjs --help     # Show this help
  */
 
-import { readFileSync, writeFileSync, readdirSync } from "fs";
+import { readFile, writeFile, readdir } from "node:fs/promises";
 import { join } from "path";
 
 const args = process.argv.slice(2);
+
+if (args.includes("--help")) {
+  console.log(`
+Usage: node scripts/normalize-enum-values.mjs [options]
+
+Options:
+  --dry-run       Preview changes without modifying files
+  --tree=<slug>   Process only a single tree (by slug)
+  --help          Show this help message
+
+Examples:
+  node scripts/normalize-enum-values.mjs
+  node scripts/normalize-enum-values.mjs --dry-run
+  node scripts/normalize-enum-values.mjs --tree=mangle-pinuela
+`);
+  process.exit(0);
+}
+
 const dryRun = args.includes("--dry-run");
 const treeArg = args.find((a) => a.startsWith("--tree="));
 const targetTree = treeArg ? treeArg.split("=")[1] : null;
@@ -44,7 +63,7 @@ const NORMALIZATIONS = {
   waterNeeds: {
     // Spanish translations
     "muy-alto": "high",
-    moderado: "high", // only if it's "moderado" alone — but "moderate" is valid
+    moderado: "moderate",
     alto: "high",
     alta: "high",
     "moderada a alta": "high",
@@ -123,19 +142,12 @@ const NORMALIZATIONS = {
   },
 };
 
-// waterNeeds has a special case: "moderado" in ES means "moderate", not "high"
-// We need to handle this differently since "moderado" IS "moderate" — not wrong
-// Actually let me re-check: the schema says "low" | "moderate" | "high"
-// "moderado" in Spanish IS "moderate" — so it just needs translation, not mapping to "high"
-// Let me fix the mapping
-NORMALIZATIONS.waterNeeds.moderado = "moderate";
-
 let totalFixed = 0;
 let filesModified = 0;
 const fixDetails = [];
 
-function processFile(filePath, locale) {
-  const content = readFileSync(filePath, "utf-8");
+async function processFile(filePath) {
+  const content = await readFile(filePath, "utf-8");
 
   // Split into frontmatter and body
   const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
@@ -175,56 +187,60 @@ function processFile(filePath, locale) {
     filesModified++;
     const newContent = `---\n${frontmatter}\n---${body}`;
     if (!dryRun) {
-      writeFileSync(filePath, newContent, "utf-8");
+      await writeFile(filePath, newContent, "utf-8");
     }
   }
 }
 
-function processLocale(locale) {
+async function processLocale(locale) {
   const dir = join(CONTENT_DIR, locale);
-  const files = readdirSync(dir).filter((f) => f.endsWith(".mdx"));
+  const files = (await readdir(dir)).filter((f) => f.endsWith(".mdx"));
 
   for (const file of files) {
     const slug = file.replace(".mdx", "");
     if (targetTree && slug !== targetTree) continue;
-    processFile(join(dir, file), locale);
+    await processFile(join(dir, file));
   }
 }
 
-console.log(
-  `\n🌳 Normalizing enum values in tree MDX frontmatter${dryRun ? " (DRY RUN)" : ""}...\n`
-);
-
-processLocale("en");
-processLocale("es");
-
-if (fixDetails.length === 0) {
-  console.log("✅ All enum values already normalized. Nothing to fix.\n");
-} else {
+async function main() {
   console.log(
-    `Fixed ${totalFixed} enum values across ${filesModified} files:\n`
+    `\n🌳 Normalizing enum values in tree MDX frontmatter${dryRun ? " (DRY RUN)" : ""}...\n`
   );
 
-  // Group by field
-  const byField = {};
-  for (const fix of fixDetails) {
-    if (!byField[fix.field]) byField[fix.field] = [];
-    byField[fix.field].push(fix);
-  }
+  await processLocale("en");
+  await processLocale("es");
 
-  for (const [field, fixes] of Object.entries(byField)) {
-    console.log(`  📋 ${field} (${fixes.length} fixes):`);
-    for (const fix of fixes) {
-      console.log(`     ${fix.file}: "${fix.from}" → "${fix.to}"`);
-    }
-    console.log();
-  }
-
-  if (dryRun) {
-    console.log(
-      "  ⚠️  Dry run — no files were modified. Run without --dry-run to apply.\n"
-    );
+  if (fixDetails.length === 0) {
+    console.log("✅ All enum values already normalized. Nothing to fix.\n");
   } else {
-    console.log(`  ✅ ${filesModified} files updated successfully.\n`);
+    console.log(
+      `Fixed ${totalFixed} enum values across ${filesModified} files:\n`
+    );
+
+    // Group by field
+    const byField = {};
+    for (const fix of fixDetails) {
+      if (!byField[fix.field]) byField[fix.field] = [];
+      byField[fix.field].push(fix);
+    }
+
+    for (const [field, fixes] of Object.entries(byField)) {
+      console.log(`  📋 ${field} (${fixes.length} fixes):`);
+      for (const fix of fixes) {
+        console.log(`     ${fix.file}: "${fix.from}" → "${fix.to}"`);
+      }
+      console.log();
+    }
+
+    if (dryRun) {
+      console.log(
+        "  ⚠️  Dry run — no files were modified. Run without --dry-run to apply.\n"
+      );
+    } else {
+      console.log(`  ✅ ${filesModified} files updated successfully.\n`);
+    }
   }
 }
+
+main().catch(console.error);

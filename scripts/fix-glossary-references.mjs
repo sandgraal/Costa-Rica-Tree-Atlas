@@ -216,9 +216,11 @@ function processFile(filePath, locale) {
     }
 
     if (changed) {
+      // Deduplicate while preserving order
+      const dedupedItems = [...new Set(newItems)];
       const newValue =
-        newItems.length > 0
-          ? `exampleSpecies: [${newItems.map((i) => `"${i}"`).join(", ")}]`
+        dedupedItems.length > 0
+          ? `exampleSpecies: [${dedupedItems.map((i) => `"${i}"`).join(", ")}]`
           : "";
       if (newValue) {
         frontmatter = frontmatter.replace(esMatch[0], newValue);
