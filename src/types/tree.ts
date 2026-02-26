@@ -3,6 +3,11 @@
  * Single source of truth for tree data structure
  */
 
+import type { Tree as ContentlayerTree } from "contentlayer/generated";
+
+/** Tree data without the heavy body/_raw fields that are never used in cards/lists */
+export type LightTree = Omit<ContentlayerTree, "body" | "_raw">;
+
 export type Locale = "en" | "es";
 
 export type Month =

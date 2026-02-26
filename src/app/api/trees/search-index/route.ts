@@ -6,6 +6,7 @@
 
 import { NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
+import { routing } from "@i18n/routing";
 
 export const dynamic = "force-static";
 
@@ -25,7 +26,7 @@ interface SearchIndexEntry {
 export function GET() {
   const index: Record<string, SearchIndexEntry[]> = {};
 
-  for (const locale of ["en", "es"]) {
+  for (const locale of routing.locales) {
     index[locale] = allTrees
       .filter((t) => t.locale === locale)
       .map((t) => ({

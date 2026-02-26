@@ -1,13 +1,13 @@
 import { Link } from "@i18n/navigation";
-import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
+import type { LightTree } from "@/types/tree";
 
 export function TreeOfTheDay({
   trees,
   locale,
   treeOfTheDay,
 }: {
-  trees: typeof allTrees;
+  trees: LightTree[];
   locale: string;
   treeOfTheDay: string;
 }) {
