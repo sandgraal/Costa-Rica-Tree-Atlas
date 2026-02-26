@@ -5,15 +5,18 @@ import { useLocale } from "next-intl";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
 import { TreeGrid } from "./TreeCard";
-import type { Tree as ContentlayerTree } from "contentlayer/generated";
-import type { Tree, TreeFilter, TreeSort, Locale, TreeTag } from "@/types/tree";
+import type {
+  LightTree,
+  Tree,
+  TreeFilter,
+  TreeSort,
+  Locale,
+  TreeTag,
+} from "@/types/tree";
 
 // ============================================================================
 // Types
 // ============================================================================
-
-/** Tree data without the heavy body/_raw fields */
-type LightTree = Omit<ContentlayerTree, "body" | "_raw">;
 
 interface TreeExplorerProps {
   trees: LightTree[];

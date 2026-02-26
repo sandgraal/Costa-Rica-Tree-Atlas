@@ -9,15 +9,7 @@ import {
 } from "@/lib/i18n";
 import { SafeImage } from "@/components/SafeImage";
 import { SafetyIcon } from "@/components/safety";
-import type { Tree as ContentlayerTree } from "contentlayer/generated";
-import type { Locale, TreeTag } from "@/types/tree";
-
-// ============================================================================
-// Types
-// ============================================================================
-
-/** Tree data without the heavy body/_raw fields that are never used in cards */
-type LightTree = Omit<ContentlayerTree, "body" | "_raw">;
+import type { LightTree, Locale, TreeTag } from "@/types/tree";
 
 interface TreeCardProps {
   tree: LightTree;

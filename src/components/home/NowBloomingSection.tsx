@@ -1,10 +1,10 @@
 import { Link } from "@i18n/navigation";
-import { allTrees } from "contentlayer/generated";
 import { SafeImage } from "@/components/SafeImage";
+import type { LightTree } from "@/types/tree";
 
 interface NowBloomingSectionProps {
-  floweringNow: typeof allTrees;
-  fruitingNow: typeof allTrees;
+  floweringNow: LightTree[];
+  fruitingNow: LightTree[];
   nowBlooming: string;
   floweringSummary: string;
   fruitingSummary: string;

@@ -1,13 +1,12 @@
 import { Link } from "@i18n/navigation";
 import { TreeCard } from "@/components/tree";
-import type { Locale } from "@/types/tree";
-import type { allTrees } from "contentlayer/generated";
+import type { LightTree, Locale } from "@/types/tree";
 
 const MAX_FEATURED_TREES = 8;
 const MAX_ENDANGERED_TREES = 5;
 
 interface FeaturedTreesSectionProps {
-  trees: typeof allTrees;
+  trees: LightTree[];
   locale: Locale;
   featuredTrees: string;
   viewAll: string;
@@ -39,7 +38,7 @@ export function FeaturedTreesSection({
       {featuredTreesList.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featuredTreesList.map((tree) => (
-            <TreeCard key={tree._id} tree={tree} locale={locale} />
+            <TreeCard key={tree.slug} tree={tree} locale={locale} />
           ))}
         </div>
       ) : (
@@ -53,7 +52,7 @@ export function FeaturedTreesSection({
   );
 }
 
-function getFeaturedTreesList(trees: typeof allTrees) {
+function getFeaturedTreesList(trees: LightTree[]) {
   // Conservation status priority (most endangered first)
   const conservationPriority: Record<string, number> = {
     CR: 1, // Critically Endangered
@@ -62,7 +61,7 @@ function getFeaturedTreesList(trees: typeof allTrees) {
   };
 
   // Check if tree is emblematic of Costa Rica
-  const isEmblematic = (tree: (typeof allTrees)[number]) => {
+  const isEmblematic = (tree: LightTree) => {
     const tags = tree.tags || [];
     return (
       tags.includes("national") || // National tree of Costa Rica
@@ -87,7 +86,7 @@ function getFeaturedTreesList(trees: typeof allTrees) {
   });
 
   // Combine endangered and emblematic trees, prioritizing endangered
-  const combinedSet = new Set<(typeof allTrees)[number]>();
+  const combinedSet = new Set<LightTree>();
 
   // Add endangered trees first (up to MAX_ENDANGERED_TREES)
   sortedEndangered

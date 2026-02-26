@@ -47,8 +47,11 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "home" });
   const footerT = await getTranslations({ locale, namespace: "footer" });
 
-  // Get trees for current locale
-  const trees = allTrees.filter((tree) => tree.locale === locale);
+  // Get trees for current locale, stripping heavy body/_raw fields from the RSC payload
+  const trees = allTrees
+    .filter((tree) => tree.locale === locale)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(({ body, _raw, ...rest }) => rest);
 
   // Calculate seasonal activity for "What's Blooming Now"
   const currentMonth = new Intl.DateTimeFormat("en-US", {
