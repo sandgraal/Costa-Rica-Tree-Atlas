@@ -30,7 +30,7 @@ let _sentryChecked = false;
  * Returns null if the package is not installed or DSN is not configured.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function getSentry(): Promise<any> {
+function getSentry(): any {
   if (_sentryChecked) return _sentry;
   _sentryChecked = true;
 
@@ -85,31 +85,26 @@ export function captureException(
     );
   }
 
-  // Forward to Sentry asynchronously (fire-and-forget)
-  getSentry()
-    .then((Sentry) => {
-      if (!Sentry) return;
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      Sentry.withScope((scope: any) => {
-        if (context?.level) scope.setLevel(context.level);
-        if (context?.tags) {
-          for (const [key, value] of Object.entries(context.tags)) {
-            scope.setTag(key, value);
-          }
+  // Forward to Sentry synchronously
+  const Sentry = getSentry();
+  if (Sentry) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Sentry.withScope((scope: any) => {
+      if (context?.level) scope.setLevel(context.level);
+      if (context?.tags) {
+        for (const [key, value] of Object.entries(context.tags)) {
+          scope.setTag(key, value);
         }
-        if (context?.extra) {
-          for (const [key, value] of Object.entries(context.extra)) {
-            scope.setExtra(key, value);
-          }
+      }
+      if (context?.extra) {
+        for (const [key, value] of Object.entries(context.extra)) {
+          scope.setExtra(key, value);
         }
-        if (context?.user) scope.setUser(context.user);
-        Sentry.captureException(errorObj);
-      });
-    })
-    .catch(() => {
-      // Sentry forwarding failed — already logged to console above
+      }
+      if (context?.user) scope.setUser(context.user);
+      Sentry.captureException(errorObj);
     });
+  }
 }
 
 /**
@@ -132,28 +127,25 @@ export function captureMessage(message: string, context?: ErrorContext): void {
     );
   }
 
-  getSentry()
-    .then((Sentry) => {
-      if (!Sentry) return;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      Sentry.withScope((scope: any) => {
-        if (context?.level) scope.setLevel(context.level);
-        if (context?.tags) {
-          for (const [key, value] of Object.entries(context.tags)) {
-            scope.setTag(key, value);
-          }
+  // Forward to Sentry synchronously
+  const Sentry = getSentry();
+  if (Sentry) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Sentry.withScope((scope: any) => {
+      if (context?.level) scope.setLevel(context.level);
+      if (context?.tags) {
+        for (const [key, value] of Object.entries(context.tags)) {
+          scope.setTag(key, value);
         }
-        if (context?.extra) {
-          for (const [key, value] of Object.entries(context.extra)) {
-            scope.setExtra(key, value);
-          }
+      }
+      if (context?.extra) {
+        for (const [key, value] of Object.entries(context.extra)) {
+          scope.setExtra(key, value);
         }
-        Sentry.captureMessage(message);
-      });
-    })
-    .catch(() => {
-      // Sentry forwarding failed — already logged above
+      }
+      Sentry.captureMessage(message);
     });
+  }
 }
 
 /**

@@ -511,9 +511,11 @@ async function updateTreeFrontmatter(
       await fs.writeFile(mdxPath, updatedContent, "utf-8");
       updated = true;
     } catch (err) {
-      console.error(
-        `Failed to update frontmatter for ${treeSlug} in ${contentDir}:`,
-        err
+      captureApiError(
+        err,
+        "/api/admin/images/proposals/[id]/apply",
+        "POST",
+        { treeSlug, contentDir }
       );
     }
   }

@@ -12,9 +12,8 @@ export async function register() {
     try {
       // Dynamic require to avoid compile-time resolution —
       // @sentry/nextjs may not be installed yet
-      const sentryModule = "@sentry/nextjs";
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const Sentry = require(sentryModule) as {
+      const Sentry = require("@sentry/nextjs") as {
         init: (options: Record<string, unknown>) => void;
       };
 

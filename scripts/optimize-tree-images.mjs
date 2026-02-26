@@ -35,7 +35,7 @@ async function getImageFiles() {
   for (const entry of entries) {
     if (!entry.isFile()) continue;
     const ext = extname(entry.name).toLowerCase();
-    if (![".jpg", ".jpeg", ".png"].includes(ext)) continue;
+    if (![".jpg", ".jpeg"].includes(ext)) continue;
     if (targetTree && !entry.name.startsWith(targetTree)) continue;
     files.push(join(TREES_DIR, entry.name));
   }
@@ -50,7 +50,7 @@ async function getImageFiles() {
       const subEntries = await readdir(join(TREES_DIR, entry.name));
       for (const subFile of subEntries) {
         const ext = extname(subFile).toLowerCase();
-        if ([".jpg", ".jpeg", ".png"].includes(ext)) {
+        if ([".jpg", ".jpeg"].includes(ext)) {
           files.push(join(TREES_DIR, entry.name, subFile));
         }
       }
