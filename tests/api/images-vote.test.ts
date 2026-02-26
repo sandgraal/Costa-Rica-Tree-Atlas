@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 // Track mock DB state
@@ -78,6 +78,10 @@ describe("POST /api/images/vote", () => {
     rateLimitOk = true;
     existingVotes.length = 0;
     vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("creates a new upvote successfully", async () => {
@@ -235,6 +239,10 @@ describe("GET /api/images/vote", () => {
     tablesExist = true;
     sessionVotes.length = 0;
     vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("returns vote stats for an image", async () => {
