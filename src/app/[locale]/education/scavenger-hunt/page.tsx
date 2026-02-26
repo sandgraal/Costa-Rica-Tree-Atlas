@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Tree Scavenger Hunt - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Una búsqueda del tesoro interactiva para encontrar árboles con características específicas."
-        : "An interactive scavenger hunt to find trees with specific characteristics.",
+        ? "Búsqueda del tesoro interactiva para encontrar árboles de Costa Rica con características específicas. Ideal para estudiantes."
+        : "Interactive scavenger hunt to find Costa Rican trees with specific characteristics. Great for students and nature lovers.",
   };
 }
 

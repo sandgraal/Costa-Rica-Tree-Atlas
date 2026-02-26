@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Introduction to Biodiversity - Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Lección interactiva sobre biodiversidad y los árboles de Costa Rica."
-        : "Interactive lesson about biodiversity and Costa Rica's trees.",
+        ? "Lección interactiva sobre biodiversidad y los árboles de Costa Rica. Actividades, cuestionarios y datos para estudiantes."
+        : "Interactive lesson on biodiversity and Costa Rica's trees. Activities, quizzes, and key data for students.",
     alternates: {
       languages: {
         en: "/en/education/lessons/biodiversity-intro",

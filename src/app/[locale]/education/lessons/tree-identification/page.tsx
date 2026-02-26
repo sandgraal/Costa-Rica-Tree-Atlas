@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: PageProps) {
         : "Tree Identification Skills - Educational Lesson",
     description:
       locale === "es"
-        ? "Aprende a identificar árboles por sus hojas, corteza, flores y frutos"
-        : "Learn to identify trees by their leaves, bark, flowers and fruits",
+        ? "Aprende a identificar árboles de Costa Rica por sus hojas, corteza, flores y frutos con ejercicios interactivos."
+        : "Learn to identify Costa Rican trees by their leaves, bark, flowers, and fruits with interactive exercises.",
   };
 }
 

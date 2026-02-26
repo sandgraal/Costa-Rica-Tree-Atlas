@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: PageProps) {
         : "Conservation and Threats - Educational Lesson",
     description:
       locale === "es"
-        ? "Aprende sobre las amenazas a los bosques y cómo proteger los árboles de Costa Rica"
-        : "Learn about threats to forests and how to protect Costa Rican trees",
+        ? "Aprende sobre amenazas a los bosques de Costa Rica y estrategias de conservación. Actividades interactivas con datos UICN."
+        : "Learn about threats to Costa Rican forests and conservation strategies. Interactive activities with IUCN data.",
   };
 }
 
