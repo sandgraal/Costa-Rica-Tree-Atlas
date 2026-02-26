@@ -39,13 +39,7 @@
 - [x] `NEON_DATABASE_URL_UNPOOLED` — Direct connection for migrations
 - [x] `NEXTAUTH_SECRET` — Set (2026-02-22)
 - [x] `NEXTAUTH_URL` — Set (2026-02-22)
-- [ ] `NEXT_PUBLIC_SENTRY_DSN` — From Sentry project settings (optional but recommended)
-- [ ] `ADMIN_TOTP_SECRET_SALT` — Encryption salt for TOTP (generate a random 32-char string)
-
-#### GitHub Branch Protection
-
-- [ ] Confirm rule for `main` branch is enforced in **Settings → Branches**
-- [ ] Confirm "Security Checks" status check is required before merge
+- [x] `ADMIN_TOTP_SECRET_SALT` — Encryption salt for TOTP (set 2026-02-25)
 
 ### Human Collaborations Required
 

@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Log CSP violation
-    // In production, consider sending to a monitoring service like Sentry
     console.warn("[CSP Violation]", {
       documentUri: cspReport["document-uri"],
       violatedDirective: cspReport["violated-directive"],

@@ -173,7 +173,7 @@ Potential improvements for the CSP module:
 
 1. **Strict CSP**: Remove `'unsafe-inline'` from styles using hashed styles
 2. **Per-page CSP**: Different policies for different route groups
-3. **Report monitoring**: Integration with security monitoring services (Sentry, etc.)
+3. **Report monitoring**: Integration with security monitoring services
 4. **CSP Level 3**: Use `strict-dynamic` for better script control
 5. **Trusted Types**: Prevent DOM XSS with Trusted Types API
 

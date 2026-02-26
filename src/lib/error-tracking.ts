@@ -1,37 +1,28 @@
 /**
- * Log errors to tracking service
- * Currently logs to console, ready for Sentry/LogRocket integration
+ * Error Tracking Utility
+ *
+ * Provides centralized error capture for error boundaries and other handlers.
+ * Logs to console in all environments. Replace the body of captureException
+ * with a third-party SDK call if you add external error tracking later.
  */
-export function logError(
-  error: Error,
-  context?: {
-    componentName?: string;
-    userId?: string;
-    userAction?: string;
-    [key: string]: unknown;
-  }
-) {
-  if (process.env.NODE_ENV === "development") {
-    console.error("Error logged:", { error, context });
-    return;
-  }
-
-  // TODO: Send to error tracking service
-  // Sentry.captureException(error, { extra: context });
-
-  // TODO: Send to analytics
-  // analytics.track('error', { error: error.message, ...context });
-}
 
 /**
- * Create error with additional context
+ * Capture an exception and log it.
+ * Called by ErrorBoundary, ComponentErrorBoundary, ImageErrorBoundary,
+ * and global-error.tsx.
  */
-export class AppError extends Error {
-  constructor(
-    message: string,
-    public context?: Record<string, unknown>
-  ) {
-    super(message);
-    this.name = "AppError";
+export function captureException(
+  error: Error | unknown,
+  context?: {
+    tags?: Record<string, string>;
+    extra?: Record<string, unknown>;
+    user?: { id?: string; email?: string };
+  }
+): void {
+  if (process.env.NODE_ENV === "development") {
+    console.error("[Error Tracking] Captured exception:", error, context);
+  } else {
+    // Production: log concisely
+    console.error("[Error]", error);
   }
 }
