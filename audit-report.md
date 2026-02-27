@@ -1,6 +1,6 @@
 ## Image Quality Audit Report
 
-**Run Date:** 2026-02-22 03:51:48 UTC
+**Run Date:** 2026-02-26 22:57:38 UTC
 
 ### Featured Images
 
@@ -16,180 +16,186 @@ sips (macOS): ❌
 
 🔍 Auditing tree images...
 
-✅ acacia-mangium: local (542KB)
+✅ acacia-mangium: local (395KB)
 ✅ aceituno: local (128KB)
 ✅ achotillo: local (107KB)
-✅ aguacate: local (346KB)
+✅ aguacate: local (243KB)
 ✅ aguacatillo: local (63KB)
-✅ ajo: local (594KB)
-✅ alcornoque: local (262KB)
-✅ almendro: local (760KB)
-✅ amarillon: local (218KB)
-✅ anona-colorada: local (321KB)
-✅ anona: local (324KB)
-✅ araza: local (549KB)
-✅ arrayan: local (255KB)
-✅ balsa: local (318KB)
-✅ balsamo: local (306KB)
+✅ ajo: local (454KB)
+✅ alcornoque: local (184KB)
+✅ almendro: local (372KB)
+✅ amarillon: local (163KB)
+✅ anona-colorada: local (234KB)
+✅ anona: local (235KB)
+✅ araza: local (420KB)
+✅ arrayan: local (186KB)
+✅ balsa: local (147KB)
+✅ balsamo: local (215KB)
 ✅ bambu-gigante: local (126KB)
-✅ botarrama: local (289KB)
-✅ burio: local (417KB)
-✅ cacao: local (322KB)
-✅ cachimbo: local (246KB)
-✅ caimito: local (711KB)
+✅ botarrama: local (230KB)
+✅ burio: local (292KB)
+✅ cacao: local (214KB)
+✅ cachimbo: local (164KB)
+✅ caimito: local (359KB)
 ✅ camibar: local (53KB)
-✅ cana-agria: local (312KB)
-✅ cana-fistula: local (337KB)
-✅ cana-india: local (402KB)
-✅ caoba: local (370KB)
-✅ caobilla: local (204KB)
-✅ capulin: local (321KB)
-✅ carambola: local (390KB)
-✅ carao: local (485KB)
+✅ cana-agria: local (203KB)
+✅ cana-fistula: local (159KB)
+✅ cana-india: local (300KB)
+✅ canelo: local (68KB)
+✅ caoba: local (187KB)
+✅ caobilla: local (153KB)
+✅ capulin: local (234KB)
+✅ carambola: local (287KB)
+✅ carao: local (233KB)
 ✅ carboncillo: local (134KB)
 ✅ cas: local (126KB)
-✅ cativo: local (435KB)
-✅ cedro-amargo: local (1055KB)
-✅ cedro-dulce: local (424KB)
-✅ cedro-maria: local (223KB)
-✅ cedro-real: local (601KB)
-✅ ceiba: local (549KB)
-✅ cenizaro: local (966KB)
-✅ cerillo: local (314KB)
-✅ chancho-blanco: local (268KB)
-✅ chirraca: local (235KB)
-✅ ciprecillo: local (783KB)
-✅ cipres: local (899KB)
-✅ coco: local (346KB)
-✅ cocobolo: local (684KB)
-✅ comenegro: local (328KB)
+✅ cativo: local (328KB)
+✅ cedro-amargo: local (542KB)
+✅ cedro-dulce: local (198KB)
+✅ cedro-macho: local (79KB)
+✅ cedro-maria: local (148KB)
+✅ cedro-real: local (457KB)
+✅ ceiba: local (271KB)
+✅ cenizaro: local (513KB)
+✅ cerillo: local (220KB)
+✅ chancho-blanco: local (208KB)
+✅ chirraca: local (167KB)
+✅ ciprecillo: local (596KB)
+✅ cipres: local (460KB)
+✅ coco: local (264KB)
+✅ cocobolo: local (322KB)
+✅ comenegro: local (261KB)
 ✅ contra: local (147KB)
-✅ copey: local (248KB)
+✅ copal: local (131KB)
+✅ copey: local (169KB)
 ✅ cornizuelo: local (96KB)
-✅ corozo: local (302KB)
-✅ cortez-blanco: local (283KB)
-✅ cortez-negro: local (394KB)
-✅ corteza-amarilla: local (645KB)
-✅ coyol: local (918KB)
-✅ cristobal: local (413KB)
-✅ cristobalito: local (296KB)
-✅ espavel: local (439KB)
-✅ eucalipto: local (193KB)
-✅ flamboyan: local (612KB)
-✅ flor-de-itabo: local (417KB)
+✅ corozo: local (230KB)
+✅ cortez-blanco: local (209KB)
+✅ cortez-negro: local (305KB)
+✅ corteza-amarilla: local (249KB)
+✅ coyol: local (460KB)
+✅ cristobal: local (306KB)
+✅ cristobalito: local (228KB)
+✅ espavel: local (215KB)
+✅ eucalipto: local (188KB)
+✅ flamboyan: local (468KB)
+✅ flor-de-itabo: local (313KB)
 ✅ fruta-de-pan: local (146KB)
 ✅ fruta-dorada: local (142KB)
-✅ gallinazo: local (525KB)
-✅ gavilan: local (517KB)
-✅ granadillo: local (519KB)
-✅ guaba-bejuco: local (278KB)
-✅ guaba-machete: local (267KB)
-✅ guaba: local (653KB)
-✅ guachipelin: local (737KB)
+✅ gallinazo: local (408KB)
+✅ gavilan: local (228KB)
+✅ granadillo: local (389KB)
+✅ guaba-bejuco: local (188KB)
+✅ guaba-machete: local (200KB)
+✅ guaba: local (309KB)
+✅ guachipelin: local (554KB)
 ✅ guacimo-colorado: local (116KB)
-✅ guacimo: local (210KB)
-✅ guanabana-cimarrona: local (431KB)
-✅ guanabana: local (269KB)
-✅ guanacaste: local (452KB)
-✅ guapinol: local (277KB)
-✅ guarumbo-hembra: local (456KB)
-✅ guarumo: local (416KB)
+✅ guacimo-molenillo: local (174KB)
+✅ guacimo: local (98KB)
+✅ guanabana-cimarrona: local (317KB)
+✅ guanabana: local (207KB)
+✅ guanacaste: local (226KB)
+✅ guapinol: local (106KB)
+✅ guarumbo-hembra: local (344KB)
+✅ guarumo: local (193KB)
 ✅ guayaba-chilena: local (155KB)
-✅ guayabo: local (862KB)
-✅ guayacan-real: local (301KB)
-✅ guitite: local (283KB)
-✅ higueron: local (408KB)
-✅ hoja-santa: local (390KB)
-✅ hule: local (416KB)
+✅ guayabo: local (435KB)
+✅ guayacan-real: local (152KB)
+✅ guitite: local (193KB)
+✅ higueron: local (188KB)
+✅ hoja-santa: local (291KB)
+✅ hule: local (296KB)
 ✅ icaco: local (115KB)
-✅ indio-desnudo: local (659KB)
-✅ ira-rosa: local (257KB)
-✅ jaboncillo: local (501KB)
-✅ jacaranda: local (443KB)
-✅ javillo: local (343KB)
+✅ indio-desnudo: local (334KB)
+✅ ira-rosa: local (195KB)
+✅ jaboncillo: local (229KB)
+✅ jacaranda: local (232KB)
+✅ javillo: local (179KB)
 ✅ jicaro: local (143KB)
-✅ jobo: local (777KB)
-✅ jocote: local (504KB)
-✅ laurel-negro: local (377KB)
-✅ laurel: local (719KB)
-✅ lechoso-montanero: local (314KB)
-✅ lechoso: local (315KB)
-✅ lengua-de-vaca: local (426KB)
-✅ llama-del-bosque: local (464KB)
-✅ lorito: local (535KB)
-✅ madero-negro: local (881KB)
-✅ madrono: local (891KB)
+✅ jobo: local (378KB)
+✅ jocote: local (241KB)
+✅ laurel-negro: local (275KB)
+✅ laurel: local (342KB)
+✅ lechoso-montanero: local (222KB)
+✅ lechoso: local (236KB)
+✅ lengua-de-vaca: local (319KB)
+✅ llama-del-bosque: local (352KB)
+✅ lorito: local (415KB)
+✅ madero-negro: local (448KB)
+✅ madrono: local (451KB)
 ✅ magnolia: local (179KB)
 ✅ mamon-chino: local (144KB)
-✅ mamon: local (338KB)
+✅ mamon: local (252KB)
 ✅ manchineel: local (76KB)
-✅ mangle-blanco: local (317KB)
-✅ mangle-botoncillo: local (246KB)
-✅ mangle-negro: local (770KB)
-✅ mangle-pinuela: local (328KB)
-✅ mangle-rojo: local (278KB)
-✅ mango: local (515KB)
-✅ manu: local (217KB)
-✅ manzana-de-agua: local (915KB)
-✅ maranon: local (294KB)
-✅ mastate: local (315KB)
-✅ matapalo: local (689KB)
-✅ mayo: local (268KB)
-✅ melina: local (332KB)
-✅ mora: local (479KB)
-✅ muneco: local (468KB)
-✅ nance: local (385KB)
-✅ nazareno: local (892KB)
-✅ nim: local (498KB)
-✅ nispero: local (407KB)
-✅ ojoche: local (426KB)
-✅ olla-de-mono: local (307KB)
-✅ orey: local (239KB)
-✅ palma-cacho-de-venado: local (634KB)
-✅ palma-de-escoba: local (704KB)
-✅ palma-suita: local (558KB)
-✅ palma-yolillo: local (386KB)
-✅ palmera-real: local (369KB)
-✅ panama: local (228KB)
-✅ papaturro: local (330KB)
-✅ papaya: local (568KB)
-✅ papayillo: local (388KB)
-✅ peine-de-mico: local (136KB)
-✅ pejibaye: local (477KB)
-✅ pilon: local (595KB)
-✅ pino-caribeno: local (459KB)
-✅ pitahaya: local (658KB)
-✅ pochote: local (325KB)
-✅ pomarrosa: local (431KB)
-✅ poro: local (375KB)
-✅ quebracho: local (271KB)
-✅ quina: local (443KB)
-✅ quizarra: local (285KB)
-✅ rambutan: local (585KB)
+✅ mangle-blanco: local (227KB)
+✅ mangle-botoncillo: local (174KB)
+✅ mangle-negro: local (584KB)
+✅ mangle-pinuela: local (274KB)
+✅ mangle-rojo: local (214KB)
+✅ mango: local (236KB)
+✅ manu: local (144KB)
+✅ manzana-de-agua: local (467KB)
+✅ maranon: local (136KB)
+✅ mastate: local (236KB)
+✅ matapalo: local (295KB)
+✅ mayo: local (208KB)
+✅ melina: local (239KB)
+✅ mora: local (208KB)
+✅ muneco: local (356KB)
+✅ nance: local (146KB)
+✅ nazareno: local (435KB)
+✅ nim: local (355KB)
+✅ nispero: local (185KB)
+✅ ojoche: local (203KB)
+✅ olla-de-mono: local (232KB)
+✅ orey: local (171KB)
+✅ palma-cacho-de-venado: local (498KB)
+✅ palma-de-escoba: local (547KB)
+✅ palma-suita: local (422KB)
+✅ palma-yolillo: local (293KB)
+✅ palmera-real: local (270KB)
+✅ panama: local (176KB)
+✅ papaturro: local (154KB)
+✅ papaya: local (432KB)
+✅ papayillo: local (291KB)
+✅ peine-de-mico: local (132KB)
+✅ pejibaye: local (363KB)
+✅ pilon: local (276KB)
+✅ pino-caribeno: local (327KB)
+✅ pitahaya: local (511KB)
+✅ pochote-de-agua: local (57KB)
+✅ pochote: local (102KB)
+✅ pomarrosa: local (320KB)
+✅ poro: local (149KB)
+✅ quebracho: local (212KB)
+✅ quina: local (293KB)
+✅ quizarra: local (200KB)
+✅ rambutan: local (450KB)
 ✅ roble-de-sabana: local (171KB)
-✅ roble-encino: local (595KB)
-✅ ron-ron: local (739KB)
-✅ sangrillo: local (466KB)
-✅ sardinillo: local (587KB)
-✅ sigua: local (255KB)
-✅ sotacaballo: local (339KB)
-✅ sura: local (574KB)
-✅ tamarindo-dulce: local (391KB)
-✅ tamarindo: local (580KB)
-✅ targua: local (409KB)
-✅ teca: local (496KB)
-✅ tempisque: local (297KB)
-✅ tirra: local (567KB)
-✅ yellow-oleander: local (303KB)
-✅ yos: local (473KB)
-✅ zapatero: local (324KB)
-✅ zapote: local (640KB)
-✅ zorrillo: local (214KB)
+✅ roble-encino: local (141KB)
+✅ ron-ron: local (357KB)
+✅ sangrillo: local (350KB)
+✅ sardinillo: local (461KB)
+✅ sigua: local (176KB)
+✅ sota: local (112KB)
+✅ sotacaballo: local (246KB)
+✅ sura: local (268KB)
+✅ tamarindo-dulce: local (292KB)
+✅ tamarindo: local (278KB)
+✅ targua: local (310KB)
+✅ teca: local (373KB)
+✅ tempisque: local (143KB)
+✅ tirra: local (446KB)
+✅ yellow-oleander: local (214KB)
+✅ yos: local (184KB)
+✅ zapatero: local (228KB)
+✅ zapote: local (298KB)
+✅ zorrillo: local (61KB)
 
 ==================================================
 📊 AUDIT SUMMARY
 ==================================================
-✅ Valid local images: 169
+✅ Valid local images: 175
 📡 External URLs: 0
 ⚠️ Placeholders: 0
 ⚠️ Low resolution: 0
@@ -199,9 +205,9 @@ sips (macOS): ❌
 ==================================================
 📈 QUALITY METRICS
 ==================================================
-Total trees: 169
-Image health: 100% (169/169)
-Average image size: 412KB
+Total trees: 175
+Image health: 100% (175/175)
+Average image size: 257KB
 
 ### Gallery Images
 
@@ -242,6 +248,7 @@ sips (macOS): ❌
 ⚠️ cana-agria: limited diversity (2 categories)
 ✅ cana-fistula: 5 images OK
 ✅ cana-india: 5 images OK
+❌ canelo: 3/5 broken
 ⚠️ caoba: limited diversity (2 categories)
 ⚠️ caobilla: limited diversity (2 categories)
 ✅ capulin: 5 images OK
@@ -252,23 +259,25 @@ sips (macOS): ❌
 ✅ cativo: 5 images OK
 ⚠️ cedro-amargo: limited diversity (2 categories)
 ✅ cedro-dulce: 5 images OK
+❌ cedro-macho: 2/4 broken
 ⚠️ cedro-maria: limited diversity (2 categories)
 ⚠️ cedro-real: limited diversity (2 categories)
 ✅ ceiba: 5 images OK
 ✅ cenizaro: 5 images OK
 ✅ cerillo: 5 images OK
 ✅ chancho-blanco: 5 images OK
-📭 chirraca: no gallery section
+⚠️ chirraca: limited diversity (1 categories)
 ✅ ciprecillo: 5 images OK
 ⚠️ cipres: limited diversity (2 categories)
 ⚠️ coco: limited diversity (2 categories)
 ❌ cocobolo: 3/5 broken
-📭 comenegro: no gallery section
+⚠️ comenegro: limited diversity (0 categories)
 ⚠️ contra: limited diversity (2 categories)
+❌ copal: 2/4 broken
 ✅ copey: 5 images OK
 ⚠️ cornizuelo: limited diversity (2 categories)
-📭 corozo: no gallery section
-📭 cortez-blanco: no gallery section
+⚠️ corozo: limited diversity (0 categories)
+⚠️ cortez-blanco: limited diversity (0 categories)
 ✅ cortez-negro: 5 images OK
 ⚠️ corteza-amarilla: limited diversity (2 categories)
 ✅ coyol: 5 images OK
@@ -277,7 +286,7 @@ sips (macOS): ❌
 ⚠️ espavel: limited diversity (2 categories)
 ❌ eucalipto: 4/5 broken
 ✅ flamboyan: 5 images OK
-📭 flor-de-itabo: no gallery section
+⚠️ flor-de-itabo: limited diversity (0 categories)
 ⚠️ fruta-de-pan: limited diversity (2 categories)
 ✅ fruta-dorada: 5 images OK
 ✅ gallinazo: 5 images OK
@@ -288,6 +297,7 @@ sips (macOS): ❌
 ✅ guaba: 5 images OK
 ⚠️ guachipelin: limited diversity (2 categories)
 ⚠️ guacimo-colorado: limited diversity (2 categories)
+❌ guacimo-molenillo: 3/4 broken
 ✅ guacimo: 5 images OK
 ⚠️ guanabana-cimarrona: limited diversity (2 categories)
 ⚠️ guanabana: limited diversity (2 categories)
@@ -295,7 +305,7 @@ sips (macOS): ❌
 ⚠️ guapinol: limited diversity (2 categories)
 ⚠️ guarumbo-hembra: limited diversity (2 categories)
 ✅ guarumo: 5 images OK
-📭 guayaba-chilena: no gallery section
+⚠️ guayaba-chilena: limited diversity (0 categories)
 ✅ guayabo: 5 images OK
 ⚠️ guayacan-real: limited diversity (2 categories)
 ❌ guitite: 5/5 broken
@@ -313,10 +323,10 @@ sips (macOS): ❌
 ⚠️ jocote: limited diversity (2 categories)
 ⚠️ laurel-negro: limited diversity (2 categories)
 ✅ laurel: 5 images OK
-📭 lechoso-montanero: no gallery section
+⚠️ lechoso-montanero: limited diversity (0 categories)
 ✅ lechoso: 5 images OK
-📭 lengua-de-vaca: no gallery section
-📭 llama-del-bosque: no gallery section
+⚠️ lengua-de-vaca: limited diversity (0 categories)
+⚠️ llama-del-bosque: limited diversity (0 categories)
 ✅ lorito: 5 images OK
 ⚠️ madero-negro: limited diversity (2 categories)
 ⚠️ madrono: limited diversity (2 categories)
@@ -335,7 +345,7 @@ sips (macOS): ❌
 ✅ maranon: 5 images OK
 ✅ mastate: 5 images OK
 ✅ matapalo: 5 images OK
-📭 mayo: no gallery section
+⚠️ mayo: limited diversity (0 categories)
 ✅ melina: 5 images OK
 ⚠️ mora: limited diversity (2 categories)
 ⚠️ muneco: limited diversity (2 categories)
@@ -346,20 +356,21 @@ sips (macOS): ❌
 ✅ ojoche: 5 images OK
 ✅ olla-de-mono: 5 images OK
 📭 orey: no gallery section
-📭 palma-cacho-de-venado: no gallery section
-📭 palma-de-escoba: no gallery section
-📭 palma-suita: no gallery section
-📭 palma-yolillo: no gallery section
+⚠️ palma-cacho-de-venado: limited diversity (0 categories)
+⚠️ palma-de-escoba: limited diversity (0 categories)
+⚠️ palma-suita: limited diversity (0 categories)
+⚠️ palma-yolillo: limited diversity (0 categories)
 ✅ palmera-real: 5 images OK
 ✅ panama: 5 images OK
 ⚠️ papaturro: limited diversity (2 categories)
 ⚠️ papaya: limited diversity (2 categories)
-📭 papayillo: no gallery section
+⚠️ papayillo: limited diversity (1 categories)
 ❌ peine-de-mico: 3/5 broken
 ⚠️ pejibaye: limited diversity (2 categories)
 ⚠️ pilon: limited diversity (2 categories)
 ❌ pino-caribeno: 3/5 broken
 ⚠️ pitahaya: limited diversity (2 categories)
+❌ pochote-de-agua: 4/5 broken
 ⚠️ pochote: limited diversity (2 categories)
 ⚠️ pomarrosa: limited diversity (2 categories)
 ⚠️ poro: limited diversity (2 categories)
@@ -371,16 +382,17 @@ sips (macOS): ❌
 ✅ roble-encino: 5 images OK
 ⚠️ ron-ron: limited diversity (2 categories)
 ⚠️ sangrillo: limited diversity (2 categories)
-📭 sardinillo: no gallery section
-📭 sigua: no gallery section
+⚠️ sardinillo: limited diversity (0 categories)
+⚠️ sigua: limited diversity (1 categories)
+❌ sota: 3/3 broken
 ✅ sotacaballo: 5 images OK
 ✅ sura: 5 images OK
-📭 tamarindo-dulce: no gallery section
+⚠️ tamarindo-dulce: limited diversity (0 categories)
 ⚠️ tamarindo: limited diversity (2 categories)
 ✅ targua: 5 images OK
 ⚠️ teca: limited diversity (2 categories)
 ✅ tempisque: 5 images OK
-📭 tirra: no gallery section
+⚠️ tirra: limited diversity (0 categories)
 ⚠️ yellow-oleander: limited diversity (2 categories)
 ⚠️ yos: limited diversity (2 categories)
 ⚠️ zapatero: limited diversity (2 categories)
@@ -392,22 +404,812 @@ sips (macOS): ❌
 ==================================================
 ✅ Valid galleries: 61
 ⚠️ Low quality: 0
-⚠️ Low diversity: 77
-❌ Broken images: 11
-📭 No gallery: 20
+⚠️ Low diversity: 96
+❌ Broken images: 17
+📭 No gallery: 1
 
-💡 Run 'npm run images:refresh-gallery' to fix 88 galleries
+💡 Run 'npm run images:refresh-gallery' to fix 113 galleries
 
 ### Quality Metrics
 
 - **Broken/Missing Images:** 3
 - **Placeholder Images:** 0
 - **Undersized Images:** 0
-- **Total Tree Images:** 164
+- **Total Tree Images:** 170
 - **Optimized Images:** 8
-- **Pending Optimization:** 156
+- **Pending Optimization:** 162
 
 **Status:** ⚠️ Issues detected - proposals will be generated for admin review
+
+### Automated Fixes Applied
+
+#### Downloaded Missing/Broken Images
+
+> costa-rica-tree-atlas@0.1.0 images:download
+> node scripts/manage-tree-images.mjs download
+
+# 🌳 Costa Rica Tree Atlas - Image Manager
+
+Platform: linux
+Sharp: ✅
+ImageMagick: ❌
+sips (macOS): ❌
+
+📥 Downloading tree images...
+
+⏭️ acacia-mangium: already has valid local image
+⏭️ aceituno: already has valid local image
+⏭️ achotillo: already has valid local image
+⏭️ aguacate: already has valid local image
+⏭️ aguacatillo: already has valid local image
+⏭️ ajo: already has valid local image
+⏭️ alcornoque: already has valid local image
+⏭️ almendro: already has valid local image
+⏭️ amarillon: already has valid local image
+⏭️ anona-colorada: already has valid local image
+⏭️ anona: already has valid local image
+⏭️ araza: already has valid local image
+⏭️ arrayan: already has valid local image
+⏭️ balsa: already has valid local image
+⏭️ balsamo: already has valid local image
+⏭️ bambu-gigante: already has valid local image
+⏭️ botarrama: already has valid local image
+⏭️ burio: already has valid local image
+⏭️ cacao: already has valid local image
+⏭️ cachimbo: already has valid local image
+⏭️ caimito: already has valid local image
+⏭️ camibar: already has valid local image
+⏭️ cana-agria: already has valid local image
+⏭️ cana-fistula: already has valid local image
+⏭️ cana-india: already has valid local image
+⏭️ canelo: already has valid local image
+⏭️ caoba: already has valid local image
+⏭️ caobilla: already has valid local image
+⏭️ capulin: already has valid local image
+⏭️ carambola: already has valid local image
+⏭️ carao: already has valid local image
+⏭️ carboncillo: already has valid local image
+⏭️ cas: already has valid local image
+⏭️ cativo: already has valid local image
+⏭️ cedro-amargo: already has valid local image
+⏭️ cedro-dulce: already has valid local image
+⏭️ cedro-macho: already has valid local image
+⏭️ cedro-maria: already has valid local image
+⏭️ cedro-real: already has valid local image
+⏭️ ceiba: already has valid local image
+⏭️ cenizaro: already has valid local image
+⏭️ cerillo: already has valid local image
+⏭️ chancho-blanco: already has valid local image
+⏭️ chirraca: already has valid local image
+⏭️ ciprecillo: already has valid local image
+⏭️ cipres: already has valid local image
+⏭️ coco: already has valid local image
+⏭️ cocobolo: already has valid local image
+⏭️ comenegro: already has valid local image
+⏭️ contra: already has valid local image
+⏭️ copal: already has valid local image
+⏭️ copey: already has valid local image
+⏭️ cornizuelo: already has valid local image
+⏭️ corozo: already has valid local image
+⏭️ cortez-blanco: already has valid local image
+⏭️ cortez-negro: already has valid local image
+⏭️ corteza-amarilla: already has valid local image
+⏭️ coyol: already has valid local image
+⏭️ cristobal: already has valid local image
+⏭️ cristobalito: already has valid local image
+⏭️ espavel: already has valid local image
+⏭️ eucalipto: already has valid local image
+⏭️ flamboyan: already has valid local image
+⏭️ flor-de-itabo: already has valid local image
+⏭️ fruta-de-pan: already has valid local image
+⏭️ fruta-dorada: already has valid local image
+⏭️ gallinazo: already has valid local image
+⏭️ gavilan: already has valid local image
+⏭️ granadillo: already has valid local image
+⏭️ guaba-bejuco: already has valid local image
+⏭️ guaba-machete: already has valid local image
+⏭️ guaba: already has valid local image
+⏭️ guachipelin: already has valid local image
+⏭️ guacimo-colorado: already has valid local image
+⏭️ guacimo-molenillo: already has valid local image
+⏭️ guacimo: already has valid local image
+⏭️ guanabana-cimarrona: already has valid local image
+⏭️ guanabana: already has valid local image
+⏭️ guanacaste: already has valid local image
+⏭️ guapinol: already has valid local image
+⏭️ guarumbo-hembra: already has valid local image
+⏭️ guarumo: already has valid local image
+⏭️ guayaba-chilena: already has valid local image
+⏭️ guayabo: already has valid local image
+⏭️ guayacan-real: already has valid local image
+⏭️ guitite: already has valid local image
+⏭️ higueron: already has valid local image
+⏭️ hoja-santa: already has valid local image
+⏭️ hule: already has valid local image
+⏭️ icaco: already has valid local image
+⏭️ indio-desnudo: already has valid local image
+⏭️ ira-rosa: already has valid local image
+⏭️ jaboncillo: already has valid local image
+⏭️ jacaranda: already has valid local image
+⏭️ javillo: already has valid local image
+⏭️ jicaro: already has valid local image
+⏭️ jobo: already has valid local image
+⏭️ jocote: already has valid local image
+⏭️ laurel-negro: already has valid local image
+⏭️ laurel: already has valid local image
+⏭️ lechoso-montanero: already has valid local image
+⏭️ lechoso: already has valid local image
+⏭️ lengua-de-vaca: already has valid local image
+⏭️ llama-del-bosque: already has valid local image
+⏭️ lorito: already has valid local image
+⏭️ madero-negro: already has valid local image
+⏭️ madrono: already has valid local image
+⏭️ magnolia: already has valid local image
+⏭️ mamon-chino: already has valid local image
+⏭️ mamon: already has valid local image
+⏭️ manchineel: already has valid local image
+⏭️ mangle-blanco: already has valid local image
+⏭️ mangle-botoncillo: already has valid local image
+⏭️ mangle-negro: already has valid local image
+⏭️ mangle-pinuela: already has valid local image
+⏭️ mangle-rojo: already has valid local image
+⏭️ mango: already has valid local image
+⏭️ manu: already has valid local image
+⏭️ manzana-de-agua: already has valid local image
+⏭️ maranon: already has valid local image
+⏭️ mastate: already has valid local image
+⏭️ matapalo: already has valid local image
+⏭️ mayo: already has valid local image
+⏭️ melina: already has valid local image
+⏭️ mora: already has valid local image
+⏭️ muneco: already has valid local image
+⏭️ nance: already has valid local image
+⏭️ nazareno: already has valid local image
+⏭️ nim: already has valid local image
+⏭️ nispero: already has valid local image
+⏭️ ojoche: already has valid local image
+⏭️ olla-de-mono: already has valid local image
+⏭️ orey: already has valid local image
+⏭️ palma-cacho-de-venado: already has valid local image
+⏭️ palma-de-escoba: already has valid local image
+⏭️ palma-suita: already has valid local image
+⏭️ palma-yolillo: already has valid local image
+⏭️ palmera-real: already has valid local image
+⏭️ panama: already has valid local image
+⏭️ papaturro: already has valid local image
+⏭️ papaya: already has valid local image
+⏭️ papayillo: already has valid local image
+⏭️ peine-de-mico: already has valid local image
+⏭️ pejibaye: already has valid local image
+⏭️ pilon: already has valid local image
+⏭️ pino-caribeno: already has valid local image
+⏭️ pitahaya: already has valid local image
+⏭️ pochote-de-agua: already has valid local image
+⏭️ pochote: already has valid local image
+⏭️ pomarrosa: already has valid local image
+⏭️ poro: already has valid local image
+⏭️ quebracho: already has valid local image
+⏭️ quina: already has valid local image
+⏭️ quizarra: already has valid local image
+⏭️ rambutan: already has valid local image
+⏭️ roble-de-sabana: already has valid local image
+⏭️ roble-encino: already has valid local image
+⏭️ ron-ron: already has valid local image
+⏭️ sangrillo: already has valid local image
+⏭️ sardinillo: already has valid local image
+⏭️ sigua: already has valid local image
+⏭️ sota: already has valid local image
+⏭️ sotacaballo: already has valid local image
+⏭️ sura: already has valid local image
+⏭️ tamarindo-dulce: already has valid local image
+⏭️ tamarindo: already has valid local image
+⏭️ targua: already has valid local image
+⏭️ teca: already has valid local image
+⏭️ tempisque: already has valid local image
+⏭️ tirra: already has valid local image
+⏭️ yellow-oleander: already has valid local image
+⏭️ yos: already has valid local image
+⏭️ zapatero: already has valid local image
+⏭️ zapote: already has valid local image
+⏭️ zorrillo: already has valid local image
+
+==================================================
+📊 DOWNLOAD SUMMARY
+==================================================
+✅ Downloaded: 0
+⏭️ Skipped: 175
+❌ Failed: 0
+
+#### Refreshed Featured Images
+
+> costa-rica-tree-atlas@0.1.0 images:refresh
+> node scripts/manage-tree-images.mjs refresh
+
+# 🌳 Costa Rica Tree Atlas - Image Manager
+
+Platform: linux
+Sharp: ✅
+ImageMagick: ❌
+sips (macOS): ❌
+
+🔄 Checking for better quality images...
+
+⏭️ acacia-mangium: no better photo found
+⏭️ aceituno: no better photo found
+⏭️ achotillo: no better photo found
+⏭️ aguacate: no better photo found
+⏭️ aguacatillo: no better photo found
+⏭️ ajo: no better photo found
+⏭️ alcornoque: no better photo found
+⏭️ almendro: no better photo found
+⏭️ amarillon: no better photo found
+⏭️ anona-colorada: no better photo found
+⏭️ anona: no better photo found
+⏭️ araza: no better photo found
+⏭️ arrayan: no better photo found
+⏭️ balsa: no better photo found
+⏭️ balsamo: no better photo found
+⏭️ bambu-gigante: no better photo found
+⏭️ botarrama: no better photo found
+⏭️ burio: no better photo found
+⏭️ cacao: no better photo found
+⏭️ cachimbo: no better photo found
+⏭️ caimito: no better photo found
+⏭️ camibar: no better photo found
+⏭️ cana-agria: no better photo found
+⏭️ cana-fistula: no better photo found
+⏭️ cana-india: no better photo found
+⏭️ canelo: no better photo found
+⏭️ caoba: no better photo found
+⏭️ caobilla: no better photo found
+⏭️ capulin: no better photo found
+⏭️ carambola: no better photo found
+⏭️ carao: no better photo found
+⏭️ carboncillo: no better photo found
+⏭️ cas: no better photo found
+⏭️ cativo: no better photo found
+❌ cedro-amargo: Taxon not found on iNaturalist
+❌ cedro-dulce: Taxon not found on iNaturalist
+❌ cedro-macho: Taxon not found on iNaturalist
+❌ cedro-maria: Taxon not found on iNaturalist
+⏭️ cedro-real: no better photo found
+⏭️ ceiba: no better photo found
+⏭️ cenizaro: no better photo found
+❌ cerillo: Taxon not found on iNaturalist
+⏭️ chancho-blanco: no better photo found
+⏭️ chirraca: no better photo found
+❌ ciprecillo: Taxon not found on iNaturalist
+❌ cipres: Taxon not found on iNaturalist
+❌ coco: Taxon not found on iNaturalist
+❌ cocobolo: Taxon not found on iNaturalist
+❌ comenegro: Taxon not found on iNaturalist
+⏭️ contra: no better photo found
+⏭️ copal: no better photo found
+❌ copey: Taxon not found on iNaturalist
+❌ cornizuelo: Taxon not found on iNaturalist
+❌ corozo: Taxon not found on iNaturalist
+❌ cortez-blanco: Taxon not found on iNaturalist
+❌ cortez-negro: Taxon not found on iNaturalist
+⏭️ corteza-amarilla: no better photo found
+⏭️ coyol: no better photo found
+❌ cristobal: Taxon not found on iNaturalist
+❌ cristobalito: Taxon not found on iNaturalist
+❌ espavel: Taxon not found on iNaturalist
+⏭️ eucalipto: no better photo found
+⏭️ flamboyan: no better photo found
+⏭️ flor-de-itabo: no better photo found
+❌ fruta-de-pan: Taxon not found on iNaturalist
+❌ fruta-dorada: Taxon not found on iNaturalist
+❌ gallinazo: Taxon not found on iNaturalist
+⏭️ gavilan: no better photo found
+⏭️ granadillo: no better photo found
+⏭️ guaba-bejuco: no better photo found
+❌ guaba-machete: Taxon not found on iNaturalist
+⏭️ guaba: no better photo found
+⏭️ guachipelin: no better photo found
+❌ guacimo-colorado: Taxon not found on iNaturalist
+❌ guacimo-molenillo: Taxon not found on iNaturalist
+❌ guacimo: Taxon not found on iNaturalist
+⏭️ guanabana-cimarrona: no better photo found
+❌ guanabana: Taxon not found on iNaturalist
+❌ guanacaste: Taxon not found on iNaturalist
+❌ guapinol: Taxon not found on iNaturalist
+📗 guarumbo-hembra: refreshing featured image (8 votes vs 1)
+✅ guarumbo-hembra: featured image updated
+⏭️ guarumo: no better photo found
+⏭️ guayaba-chilena: no better photo found
+❌ guayabo: Taxon not found on iNaturalist
+❌ guayacan-real: Taxon not found on iNaturalist
+❌ guitite: Taxon not found on iNaturalist
+❌ higueron: Taxon not found on iNaturalist
+⏭️ hoja-santa: no better photo found
+⏭️ hule: no better photo found
+❌ icaco: Taxon not found on iNaturalist
+❌ indio-desnudo: Taxon not found on iNaturalist
+❌ ira-rosa: Taxon not found on iNaturalist
+⏭️ jaboncillo: no better photo found
+⏭️ jacaranda: no better photo found
+⏭️ javillo: no better photo found
+❌ jicaro: Taxon not found on iNaturalist
+❌ jobo: Taxon not found on iNaturalist
+❌ jocote: Taxon not found on iNaturalist
+⏭️ laurel-negro: no better photo found
+⏭️ laurel: no better photo found
+⏭️ lechoso-montanero: no better photo found
+❌ lechoso: Taxon not found on iNaturalist
+❌ lengua-de-vaca: Taxon not found on iNaturalist
+❌ llama-del-bosque: Taxon not found on iNaturalist
+❌ lorito: Taxon not found on iNaturalist
+⏭️ madero-negro: no better photo found
+❌ madrono: Taxon not found on iNaturalist
+❌ magnolia: Taxon not found on iNaturalist
+⏭️ mamon-chino: no better photo found
+⏭️ mamon: no better photo found
+❌ manchineel: Taxon not found on iNaturalist
+❌ mangle-blanco: Taxon not found on iNaturalist
+⏭️ mangle-botoncillo: no better photo found
+❌ mangle-negro: Taxon not found on iNaturalist
+❌ mangle-pinuela: Taxon not found on iNaturalist
+⏭️ mangle-rojo: no better photo found
+⏭️ mango: no better photo found
+⏭️ manu: no better photo found
+⏭️ manzana-de-agua: no better photo found
+⏭️ maranon: no better photo found
+❌ mastate: Taxon not found on iNaturalist
+❌ matapalo: Taxon not found on iNaturalist
+❌ mayo: Taxon not found on iNaturalist
+❌ melina: Taxon not found on iNaturalist
+❌ mora: Taxon not found on iNaturalist
+❌ muneco: Taxon not found on iNaturalist
+❌ nance: Taxon not found on iNaturalist
+⏭️ nazareno: no better photo found
+❌ nim: Taxon not found on iNaturalist
+❌ nispero: Taxon not found on iNaturalist
+⏭️ ojoche: no better photo found
+⏭️ olla-de-mono: no better photo found
+❌ orey: Taxon not found on iNaturalist
+⏭️ palma-cacho-de-venado: no better photo found
+⏭️ palma-de-escoba: no better photo found
+⏭️ palma-suita: no better photo found
+⏭️ palma-yolillo: no better photo found
+⏭️ palmera-real: no better photo found
+❌ panama: Taxon not found on iNaturalist
+❌ papaturro: Taxon not found on iNaturalist
+⏭️ papaya: no better photo found
+❌ papayillo: Taxon not found on iNaturalist
+❌ peine-de-mico: Taxon not found on iNaturalist
+⏭️ pejibaye: no better photo found
+⏭️ pilon: no better photo found
+❌ pino-caribeno: Taxon not found on iNaturalist
+❌ pitahaya: Taxon not found on iNaturalist
+❌ pochote-de-agua: Taxon not found on iNaturalist
+⏭️ pochote: no better photo found
+⏭️ pomarrosa: no better photo found
+⏭️ poro: no better photo found
+❌ quebracho: Taxon not found on iNaturalist
+❌ quina: Taxon not found on iNaturalist
+⏭️ quizarra: no better photo found
+⏭️ rambutan: no better photo found
+⏭️ roble-de-sabana: no better photo found
+⏭️ roble-encino: no better photo found
+❌ ron-ron: Taxon not found on iNaturalist
+❌ sangrillo: Taxon not found on iNaturalist
+❌ sardinillo: Taxon not found on iNaturalist
+⏭️ sigua: no better photo found
+⏭️ sota: no better photo found
+⏭️ sotacaballo: no better photo found
+⏭️ sura: no better photo found
+❌ tamarindo-dulce: Taxon not found on iNaturalist
+❌ tamarindo: Taxon not found on iNaturalist
+⏭️ targua: no better photo found
+⏭️ teca: no better photo found
+⏭️ tempisque: no better photo found
+❌ tirra: Taxon not found on iNaturalist
+❌ yellow-oleander: Taxon not found on iNaturalist
+❌ yos: Taxon not found on iNaturalist
+❌ zapatero: Taxon not found on iNaturalist
+⏭️ zapote: no better photo found
+⏭️ zorrillo: no better photo found
+
+==================================================
+📊 REFRESH SUMMARY
+==================================================
+✅ Updated: 1
+⏭️ Skipped: 98
+❌ Failed: 76
+
+Failed trees:
+
+- cedro-amargo: Taxon not found on iNaturalist
+- cedro-dulce: Taxon not found on iNaturalist
+- cedro-macho: Taxon not found on iNaturalist
+- cedro-maria: Taxon not found on iNaturalist
+- cerillo: Taxon not found on iNaturalist
+- ciprecillo: Taxon not found on iNaturalist
+- cipres: Taxon not found on iNaturalist
+- coco: Taxon not found on iNaturalist
+- cocobolo: Taxon not found on iNaturalist
+- comenegro: Taxon not found on iNaturalist
+- copey: Taxon not found on iNaturalist
+- cornizuelo: Taxon not found on iNaturalist
+- corozo: Taxon not found on iNaturalist
+- cortez-blanco: Taxon not found on iNaturalist
+- cortez-negro: Taxon not found on iNaturalist
+- cristobal: Taxon not found on iNaturalist
+- cristobalito: Taxon not found on iNaturalist
+- espavel: Taxon not found on iNaturalist
+- fruta-de-pan: Taxon not found on iNaturalist
+- fruta-dorada: Taxon not found on iNaturalist
+- gallinazo: Taxon not found on iNaturalist
+- guaba-machete: Taxon not found on iNaturalist
+- guacimo-colorado: Taxon not found on iNaturalist
+- guacimo-molenillo: Taxon not found on iNaturalist
+- guacimo: Taxon not found on iNaturalist
+- guanabana: Taxon not found on iNaturalist
+- guanacaste: Taxon not found on iNaturalist
+- guapinol: Taxon not found on iNaturalist
+- guayabo: Taxon not found on iNaturalist
+- guayacan-real: Taxon not found on iNaturalist
+- guitite: Taxon not found on iNaturalist
+- higueron: Taxon not found on iNaturalist
+- icaco: Taxon not found on iNaturalist
+- indio-desnudo: Taxon not found on iNaturalist
+- ira-rosa: Taxon not found on iNaturalist
+- jicaro: Taxon not found on iNaturalist
+- jobo: Taxon not found on iNaturalist
+- jocote: Taxon not found on iNaturalist
+- lechoso: Taxon not found on iNaturalist
+- lengua-de-vaca: Taxon not found on iNaturalist
+- llama-del-bosque: Taxon not found on iNaturalist
+- lorito: Taxon not found on iNaturalist
+- madrono: Taxon not found on iNaturalist
+- magnolia: Taxon not found on iNaturalist
+- manchineel: Taxon not found on iNaturalist
+- mangle-blanco: Taxon not found on iNaturalist
+- mangle-negro: Taxon not found on iNaturalist
+- mangle-pinuela: Taxon not found on iNaturalist
+- mastate: Taxon not found on iNaturalist
+- matapalo: Taxon not found on iNaturalist
+- mayo: Taxon not found on iNaturalist
+- melina: Taxon not found on iNaturalist
+- mora: Taxon not found on iNaturalist
+- muneco: Taxon not found on iNaturalist
+- nance: Taxon not found on iNaturalist
+- nim: Taxon not found on iNaturalist
+- nispero: Taxon not found on iNaturalist
+- orey: Taxon not found on iNaturalist
+- panama: Taxon not found on iNaturalist
+- papaturro: Taxon not found on iNaturalist
+- papayillo: Taxon not found on iNaturalist
+- peine-de-mico: Taxon not found on iNaturalist
+- pino-caribeno: Taxon not found on iNaturalist
+- pitahaya: Taxon not found on iNaturalist
+- pochote-de-agua: Taxon not found on iNaturalist
+- quebracho: Taxon not found on iNaturalist
+- quina: Taxon not found on iNaturalist
+- ron-ron: Taxon not found on iNaturalist
+- sangrillo: Taxon not found on iNaturalist
+- sardinillo: Taxon not found on iNaturalist
+- tamarindo-dulce: Taxon not found on iNaturalist
+- tamarindo: Taxon not found on iNaturalist
+- tirra: Taxon not found on iNaturalist
+- yellow-oleander: Taxon not found on iNaturalist
+- yos: Taxon not found on iNaturalist
+- zapatero: Taxon not found on iNaturalist
+
+#### Refreshed Gallery Images
+
+> costa-rica-tree-atlas@0.1.0 images:refresh:gallery
+> node scripts/manage-tree-images.mjs refresh-gallery
+
+# 🌳 Costa Rica Tree Atlas - Image Manager
+
+Platform: linux
+Sharp: ✅
+ImageMagick: ❌
+sips (macOS): ❌
+
+🔄 Refreshing photo gallery images...
+
+📗 acacia-mangium: refreshing gallery (Acacia mangium)
+✅ acacia-mangium: updated with 5 high-quality photos
+📗 aceituno: refreshing gallery (Simarouba amara)
+✅ aceituno: updated with 5 high-quality photos
+📗 achotillo: refreshing gallery (Brosimum costaricanum)
+✅ achotillo: updated with 5 high-quality photos
+📗 aguacate: refreshing gallery (Persea americana)
+✅ aguacate: updated with 5 high-quality photos
+⏭️ aguacatillo: gallery already valid
+⏭️ ajo: gallery already valid
+⏭️ alcornoque: gallery already valid
+📗 almendro: refreshing gallery (Dipteryx panamensis)
+✅ almendro: updated with 5 high-quality photos
+⏭️ amarillon: gallery already valid
+📗 anona-colorada: refreshing gallery (Annona purpurea)
+✅ anona-colorada: updated with 5 high-quality photos
+📗 anona: refreshing gallery (Annona reticulata)
+✅ anona: updated with 5 high-quality photos
+📗 araza: refreshing gallery (Eugenia stipitata)
+✅ araza: updated with 5 high-quality photos
+📗 arrayan: refreshing gallery (Weinmannia pinnata)
+✅ arrayan: updated with 5 high-quality photos
+⏭️ balsa: gallery already valid
+📗 balsamo: refreshing gallery (Myroxylon balsamum)
+✅ balsamo: updated with 5 high-quality photos
+📗 bambu-gigante: refreshing gallery (Guadua angustifolia)
+✅ bambu-gigante: updated with 5 high-quality photos
+⏭️ botarrama: gallery already valid
+📗 burio: refreshing gallery (Heliocarpus appendiculatus)
+✅ burio: updated with 5 high-quality photos
+⏭️ cacao: gallery already valid
+📗 cachimbo: refreshing gallery (Couratari guianensis)
+✅ cachimbo: updated with 5 high-quality photos
+⏭️ caimito: gallery already valid
+📗 camibar: refreshing gallery (Copaifera aromatica)
+✅ camibar: updated with 5 high-quality photos
+📗 cana-agria: refreshing gallery (Costus spicatus)
+✅ cana-agria: updated with 5 high-quality photos
+⏭️ cana-fistula: gallery already valid
+⏭️ cana-india: gallery already valid
+📗 canelo: refreshing gallery (Ocotea tenera)
+✅ canelo: updated with 5 high-quality photos
+📗 caoba: refreshing gallery (Swietenia macrophylla)
+✅ caoba: updated with 5 high-quality photos
+📗 caobilla: refreshing gallery (Carapa guianensis)
+✅ caobilla: updated with 5 high-quality photos
+⏭️ capulin: gallery already valid
+⏭️ carambola: gallery already valid
+📗 carao: refreshing gallery (Cassia grandis)
+✅ carao: updated with 5 high-quality photos
+⏭️ carboncillo: gallery already valid
+📗 cas: refreshing gallery (Psidium friedrichsthalianum)
+✅ cas: updated with 5 high-quality photos
+⏭️ cativo: gallery already valid
+📗 cedro-amargo: refreshing gallery (Cedrela odorata)
+✅ cedro-amargo: updated with 5 high-quality photos
+⏭️ cedro-dulce: gallery already valid
+📗 cedro-macho: refreshing gallery (Carapa guianensis)
+✅ cedro-macho: updated with 5 high-quality photos
+📗 cedro-maria: refreshing gallery (Calophyllum brasiliense)
+✅ cedro-maria: updated with 5 high-quality photos
+📗 cedro-real: refreshing gallery (Cedrela fissilis)
+✅ cedro-real: updated with 5 high-quality photos
+⏭️ ceiba: gallery already valid
+⏭️ cenizaro: gallery already valid
+⏭️ cerillo: gallery already valid
+⏭️ chancho-blanco: gallery already valid
+📗 chirraca: refreshing gallery (Lonchocarpus minimiflorus)
+✅ chirraca: updated with 5 high-quality photos
+⏭️ ciprecillo: gallery already valid
+📗 cipres: refreshing gallery (Cupressus lusitanica)
+✅ cipres: updated with 5 high-quality photos
+📗 coco: refreshing gallery (Cocos nucifera)
+✅ coco: updated with 5 high-quality photos
+📗 cocobolo: refreshing gallery (Dalbergia retusa)
+✅ cocobolo: updated with 5 high-quality photos
+📗 comenegro: refreshing gallery (Simarouba glauca)
+✅ comenegro: updated with 5 high-quality photos
+📗 contra: refreshing gallery (Rauvolfia tetraphylla)
+✅ contra: updated with 5 high-quality photos
+📗 copal: refreshing gallery (Protium costaricense)
+✅ copal: updated with 5 high-quality photos
+⏭️ copey: gallery already valid
+📗 cornizuelo: refreshing gallery (Vachellia collinsii)
+✅ cornizuelo: updated with 5 high-quality photos
+📗 corozo: refreshing gallery (Elaeis oleifera)
+✅ corozo: updated with 5 high-quality photos
+📗 cortez-blanco: refreshing gallery (Roseodendron donnell-smithii)
+✅ cortez-blanco: updated with 5 high-quality photos
+⏭️ cortez-negro: gallery already valid
+📗 corteza-amarilla: refreshing gallery (Handroanthus ochraceus)
+✅ corteza-amarilla: updated with 5 high-quality photos
+⏭️ coyol: gallery already valid
+📗 cristobal: refreshing gallery (Platymiscium pinnatum)
+✅ cristobal: updated with 5 high-quality photos
+⏭️ cristobalito: gallery already valid
+📗 espavel: refreshing gallery (Anacardium excelsum)
+✅ espavel: updated with 5 high-quality photos
+📗 eucalipto: refreshing gallery (Eucalyptus deglupta)
+✅ eucalipto: updated with 5 high-quality photos
+⏭️ flamboyan: gallery already valid
+📗 flor-de-itabo: refreshing gallery (Yucca guatemalensis)
+✅ flor-de-itabo: updated with 5 high-quality photos
+📗 fruta-de-pan: refreshing gallery (Artocarpus altilis)
+✅ fruta-de-pan: updated with 5 high-quality photos
+⏭️ fruta-dorada: gallery already valid
+⏭️ gallinazo: gallery already valid
+⏭️ gavilan: gallery already valid
+📗 granadillo: refreshing gallery (Dalbergia tucurensis)
+❌ granadillo: no quality photos found
+📗 guaba-bejuco: refreshing gallery (Inga vera)
+✅ guaba-bejuco: updated with 5 high-quality photos
+📗 guaba-machete: refreshing gallery (Inga spectabilis)
+✅ guaba-machete: updated with 5 high-quality photos
+⏭️ guaba: gallery already valid
+📗 guachipelin: refreshing gallery (Diphysa americana)
+✅ guachipelin: updated with 5 high-quality photos
+📗 guacimo-colorado: refreshing gallery (Luehea seemannii)
+✅ guacimo-colorado: updated with 5 high-quality photos
+📗 guacimo-molenillo: refreshing gallery (Luehea candida)
+✅ guacimo-molenillo: updated with 5 high-quality photos
+⏭️ guacimo: gallery already valid
+📗 guanabana-cimarrona: refreshing gallery (Annona montana)
+✅ guanabana-cimarrona: updated with 5 high-quality photos
+📗 guanabana: refreshing gallery (Annona muricata)
+✅ guanabana: updated with 5 high-quality photos
+📗 guanacaste: refreshing gallery (Enterolobium cyclocarpum)
+✅ guanacaste: updated with 5 high-quality photos
+📗 guapinol: refreshing gallery (Hymenaea courbaril)
+✅ guapinol: updated with 5 high-quality photos
+📗 guarumbo-hembra: refreshing gallery (Cecropia peltata)
+✅ guarumbo-hembra: updated with 5 high-quality photos
+⏭️ guarumo: gallery already valid
+📗 guayaba-chilena: refreshing gallery (Acca sellowiana)
+✅ guayaba-chilena: updated with 5 high-quality photos
+⏭️ guayabo: gallery already valid
+📗 guayacan-real: refreshing gallery (Guaiacum sanctum)
+✅ guayacan-real: updated with 5 high-quality photos
+📗 guitite: refreshing gallery (Acnistus arborescens)
+✅ guitite: updated with 5 high-quality photos
+📗 higueron: refreshing gallery (Ficus insipida)
+✅ higueron: updated with 5 high-quality photos
+📗 hoja-santa: refreshing gallery (Piper auritum)
+✅ hoja-santa: updated with 5 high-quality photos
+📗 hule: refreshing gallery (Castilla elastica)
+✅ hule: updated with 5 high-quality photos
+⏭️ icaco: gallery already valid
+⏭️ indio-desnudo: gallery already valid
+📗 ira-rosa: refreshing gallery (Brownea macrophylla)
+✅ ira-rosa: updated with 5 high-quality photos
+⏭️ jaboncillo: gallery already valid
+⏭️ jacaranda: gallery already valid
+📗 javillo: refreshing gallery (Hura crepitans)
+✅ javillo: updated with 5 high-quality photos
+📗 jicaro: refreshing gallery (Crescentia alata)
+✅ jicaro: updated with 5 high-quality photos
+⏭️ jobo: gallery already valid
+📗 jocote: refreshing gallery (Spondias purpurea)
+✅ jocote: updated with 5 high-quality photos
+📗 laurel-negro: refreshing gallery (Cordia megalantha)
+✅ laurel-negro: updated with 5 high-quality photos
+⏭️ laurel: gallery already valid
+📗 lechoso-montanero: refreshing gallery (Brosimum lactescens)
+✅ lechoso-montanero: updated with 5 high-quality photos
+⏭️ lechoso: gallery already valid
+📗 lengua-de-vaca: refreshing gallery (Miconia argentea)
+✅ lengua-de-vaca: updated with 5 high-quality photos
+📗 llama-del-bosque: refreshing gallery (Spathodea campanulata)
+✅ llama-del-bosque: updated with 5 high-quality photos
+⏭️ lorito: gallery already valid
+📗 madero-negro: refreshing gallery (Gliricidia sepium)
+✅ madero-negro: updated with 5 high-quality photos
+📗 madrono: refreshing gallery (Calycophyllum candidissimum)
+✅ madrono: updated with 5 high-quality photos
+📗 magnolia: refreshing gallery (Magnolia poasana)
+✅ magnolia: updated with 5 high-quality photos
+⏭️ mamon-chino: gallery already valid
+📗 mamon: refreshing gallery (Melicoccus bijugatus)
+✅ mamon: updated with 5 high-quality photos
+📗 manchineel: refreshing gallery (Hippomane mancinella)
+✅ manchineel: updated with 5 high-quality photos
+📗 mangle-blanco: refreshing gallery (Laguncularia racemosa)
+✅ mangle-blanco: updated with 5 high-quality photos
+⏭️ mangle-botoncillo: gallery already valid
+📗 mangle-negro: refreshing gallery (Avicennia germinans)
+✅ mangle-negro: updated with 5 high-quality photos
+⏭️ mangle-pinuela: gallery already valid
+⏭️ mangle-rojo: gallery already valid
+📗 mango: refreshing gallery (Mangifera indica)
+✅ mango: updated with 5 high-quality photos
+⏭️ manu: gallery already valid
+📗 manzana-de-agua: refreshing gallery (Syzygium malaccense)
+✅ manzana-de-agua: updated with 5 high-quality photos
+⏭️ maranon: gallery already valid
+⏭️ mastate: gallery already valid
+⏭️ matapalo: gallery already valid
+📗 mayo: refreshing gallery (Vochysia hondurensis)
+✅ mayo: updated with 5 high-quality photos
+⏭️ melina: gallery already valid
+📗 mora: refreshing gallery (Maclura tinctoria)
+✅ mora: updated with 5 high-quality photos
+📗 muneco: refreshing gallery (Cordia collococca)
+✅ muneco: updated with 5 high-quality photos
+⏭️ nance: gallery already valid
+📗 nazareno: refreshing gallery (Peltogyne purpurea)
+✅ nazareno: updated with 5 high-quality photos
+📗 nim: refreshing gallery (Azadirachta indica)
+✅ nim: updated with 5 high-quality photos
+📗 nispero: refreshing gallery (Manilkara zapota)
+✅ nispero: updated with 5 high-quality photos
+⏭️ ojoche: gallery already valid
+⏭️ olla-de-mono: gallery already valid
+⏭️ orey: no gallery section
+📗 palma-cacho-de-venado: refreshing gallery (Oenocarpus bataua)
+✅ palma-cacho-de-venado: updated with 5 high-quality photos
+📗 palma-de-escoba: refreshing gallery (Cryosophila albida)
+✅ palma-de-escoba: updated with 5 high-quality photos
+📗 palma-suita: refreshing gallery (Geonoma congesta)
+✅ palma-suita: updated with 5 high-quality photos
+📗 palma-yolillo: refreshing gallery (Raphia taedigera)
+✅ palma-yolillo: updated with 5 high-quality photos
+⏭️ palmera-real: gallery already valid
+⏭️ panama: gallery already valid
+📗 papaturro: refreshing gallery (Coccoloba caracasana)
+✅ papaturro: updated with 5 high-quality photos
+📗 papaya: refreshing gallery (Carica papaya)
+✅ papaya: updated with 5 high-quality photos
+📗 papayillo: refreshing gallery (Vasconcellea cauliflora)
+✅ papayillo: updated with 5 high-quality photos
+📗 peine-de-mico: refreshing gallery (Apeiba tibourbou)
+✅ peine-de-mico: updated with 5 high-quality photos
+📗 pejibaye: refreshing gallery (Bactris gasipaes)
+✅ pejibaye: updated with 5 high-quality photos
+📗 pilon: refreshing gallery (Hyeronima alchorneoides)
+✅ pilon: updated with 5 high-quality photos
+📗 pino-caribeno: refreshing gallery (Pinus caribaea)
+✅ pino-caribeno: updated with 5 high-quality photos
+📗 pitahaya: refreshing gallery (Hylocereus costaricensis)
+✅ pitahaya: updated with 5 high-quality photos
+📗 pochote-de-agua: refreshing gallery (Pachira aquatica)
+✅ pochote-de-agua: updated with 5 high-quality photos
+📗 pochote: refreshing gallery (Pachira quinata)
+✅ pochote: updated with 5 high-quality photos
+📗 pomarrosa: refreshing gallery (Syzygium jambos)
+✅ pomarrosa: updated with 5 high-quality photos
+📗 poro: refreshing gallery (Erythrina poeppigiana)
+✅ poro: updated with 5 high-quality photos
+📗 quebracho: refreshing gallery (Lysiloma divaricatum)
+✅ quebracho: updated with 5 high-quality photos
+📗 quina: refreshing gallery (Cinchona pubescens)
+✅ quina: updated with 5 high-quality photos
+📗 quizarra: refreshing gallery (Nectandra salicina)
+✅ quizarra: updated with 3 high-quality photos
+⏭️ rambutan: gallery already valid
+⏭️ roble-de-sabana: gallery already valid
+⏭️ roble-encino: gallery already valid
+📗 ron-ron: refreshing gallery (Astronium graveolens)
+✅ ron-ron: updated with 5 high-quality photos
+📗 sangrillo: refreshing gallery (Pterocarpus officinalis)
+✅ sangrillo: updated with 5 high-quality photos
+📗 sardinillo: refreshing gallery (Tecoma stans)
+✅ sardinillo: updated with 5 high-quality photos
+📗 sigua: refreshing gallery (Nectandra cissiflora)
+✅ sigua: updated with 5 high-quality photos
+📗 sota: refreshing gallery (Mora oleifera)
+✅ sota: updated with 5 high-quality photos
+⏭️ sotacaballo: gallery already valid
+⏭️ sura: gallery already valid
+📗 tamarindo-dulce: refreshing gallery (Tamarindus indica)
+✅ tamarindo-dulce: updated with 5 high-quality photos
+📗 tamarindo: refreshing gallery (Tamarindus indica)
+✅ tamarindo: updated with 5 high-quality photos
+⏭️ targua: gallery already valid
+📗 teca: refreshing gallery (Tectona grandis)
+✅ teca: updated with 5 high-quality photos
+⏭️ tempisque: gallery already valid
+📗 tirra: refreshing gallery (Ulmus mexicana)
+✅ tirra: updated with 5 high-quality photos
+📗 yellow-oleander: refreshing gallery (Thevetia peruviana)
+✅ yellow-oleander: updated with 5 high-quality photos
+📗 yos: refreshing gallery (Sapium glandulosum)
+✅ yos: updated with 5 high-quality photos
+📗 zapatero: refreshing gallery (Hieronyma oblonga)
+✅ zapatero: updated with 5 high-quality photos
+📗 zapote: refreshing gallery (Pouteria sapota)
+✅ zapote: updated with 5 high-quality photos
+📗 zorrillo: refreshing gallery (Senna reticulata)
+✅ zorrillo: updated with 5 high-quality photos
+
+==================================================
+📊 GALLERY REFRESH SUMMARY
+==================================================
+✅ Updated: 112
+⏭️ Skipped: 62
+❌ Failed: 1
+
+Failed trees:
+
+- granadillo: No quality photos found
 
 ### Image Proposal Generation
 
@@ -428,21 +1230,21 @@ Output: public/images/trees/optimized
 Mode: Optimize new/changed only
 ==================================================
 
-Found 164 image(s) to process
+Found 170 image(s) to process
 
 ▶ Optimizing: acacia-mangium
-Original: 1200x1600 (541.8 KB)
-WEBP 400w: 400x533 55.99 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 86.17 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 60.24 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 169.27 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 249.84 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 202.43 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 296.23 KB ✓
-AVIF 1200w: 1200x1600 406.01 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 396.36 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.88 MB combined)
-Best JPG: 396.36 KB (26.8% smaller than original)
+Original: 1200x1600 (394.97 KB)
+WEBP 400w: 400x533 55.27 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 84.51 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 60.03 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 166.09 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 246.3 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 200.37 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 290.72 KB ✓
+AVIF 1200w: 1200x1600 363.47 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 395.48 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.82 MB combined)
+Best JPG: 395.48 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/acacia-mangium/metadata.json
 ⊘ aceituno: Already optimized (use --force to re-optimize)
 ⊘ aguacate: Already optimized (use --force to re-optimize)
@@ -452,183 +1254,183 @@ Best JPG: 396.36 KB (26.8% smaller than original)
 ⊘ almendro: Already optimized (use --force to re-optimize)
 
 ▶ Optimizing: amarillon
-Original: 1200x900 (217.7 KB)
-WEBP 400w: 400x300 23.88 KB ✓
-AVIF 400w: 400x300 41.09 KB ✓
-JPG 400w: 400x300 30.41 KB ✓
-WEBP 800w: 800x600 60.54 KB ✓
-AVIF 800w: 800x600 93.97 KB ✓
-JPG 800w: 800x600 88.95 KB ✓
-WEBP 1200w: 1200x900 100.33 KB ✓
-AVIF 1200w: 1200x900 146.76 KB ✓
-JPG 1200w: 1200x900 163.37 KB ✓
-Total variants: 9 files (749.31 KB combined)
-Best JPG: 163.37 KB (25.0% smaller than original)
+Original: 1200x900 (162.7 KB)
+WEBP 400w: 400x300 23.61 KB ✓
+AVIF 400w: 400x300 39.79 KB ✓
+JPG 400w: 400x300 30.19 KB ✓
+WEBP 800w: 800x600 58.48 KB ✓
+AVIF 800w: 800x600 90.19 KB ✓
+JPG 800w: 800x600 87.13 KB ✓
+WEBP 1200w: 1200x900 97.42 KB ✓
+AVIF 1200w: 1200x900 139.65 KB ✓
+JPG 1200w: 1200x900 162.55 KB ✓
+Total variants: 9 files (729 KB combined)
+Best JPG: 162.55 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/amarillon/metadata.json
 
 ▶ Optimizing: anona-colorada
-Original: 1200x1600 (321.27 KB)
-WEBP 400w: 400x533 36.24 KB ✓
-AVIF 400w: 400x533 57.25 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 46.8 KB ✓
-WEBP 800w: 800x1067 87.64 KB ✓
-AVIF 800w: 800x1067 126.67 KB ✓
-JPG 800w: 800x1067 134.18 KB ✓
-WEBP 1200w: 1200x1600 139.33 KB ✓
-AVIF 1200w: 1200x1600 192.27 KB ✓
-JPG 1200w: 1200x1600 235.85 KB ✓
-Total variants: 9 files (1.03 MB combined)
-Best JPG: 235.85 KB (26.6% smaller than original)
+Original: 1200x1600 (234.46 KB)
+WEBP 400w: 400x533 36.14 KB ✓
+AVIF 400w: 400x533 56.32 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 46.62 KB ✓
+WEBP 800w: 800x1067 84.43 KB ✓
+AVIF 800w: 800x1067 121.65 KB ✓
+JPG 800w: 800x1067 131.98 KB ✓
+WEBP 1200w: 1200x1600 136.17 KB ✓
+AVIF 1200w: 1200x1600 191.93 KB ✓
+JPG 1200w: 1200x1600 234.97 KB ✓
+Total variants: 9 files (1.02 MB combined)
+Best JPG: 234.97 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/anona-colorada/metadata.json
 
 ▶ Optimizing: anona
-Original: 1200x1600 (323.82 KB)
-WEBP 400w: 400x533 37.7 KB ✓
-AVIF 400w: 400x533 56.2 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 47.18 KB ✓
-WEBP 800w: 800x1067 90.89 KB ✓
-AVIF 800w: 800x1067 123.94 KB ✓
-JPG 800w: 800x1067 136.08 KB ✓
-WEBP 1200w: 1200x1600 142.61 KB ✓
-AVIF 1200w: 1200x1600 188.72 KB ✓
-JPG 1200w: 1200x1600 236.46 KB ✓
+Original: 1200x1600 (235.31 KB)
+WEBP 400w: 400x533 37.5 KB ✓
+AVIF 400w: 400x533 55.97 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 47.13 KB ✓
+WEBP 800w: 800x1067 89.21 KB ✓
+AVIF 800w: 800x1067 121.71 KB ✓
+JPG 800w: 800x1067 134.71 KB ✓
+WEBP 1200w: 1200x1600 141.39 KB ✓
+AVIF 1200w: 1200x1600 189.92 KB ✓
+JPG 1200w: 1200x1600 235.96 KB ✓
 Total variants: 9 files (1.03 MB combined)
-Best JPG: 236.46 KB (27.0% smaller than original)
+Best JPG: 235.96 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/anona/metadata.json
 
 ▶ Optimizing: araza
-Original: 1200x1600 (549.44 KB)
-WEBP 400w: 400x533 56.97 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 85.86 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 61 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 182.31 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 269.03 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 208.84 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 337.29 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 442.89 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 421.82 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.02 MB combined)
-Best JPG: 421.82 KB (23.2% smaller than original)
+Original: 1200x1600 (419.65 KB)
+WEBP 400w: 400x533 56.4 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 84.4 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 60.8 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 179.99 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 265.77 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 207 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 325.74 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 391.26 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 420.2 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.94 MB combined)
+Best JPG: 420.2 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/araza/metadata.json
 
 ▶ Optimizing: arrayan
-Original: 1200x1236 (255.2 KB)
-WEBP 400w: 400x412 28.66 KB ✓
-AVIF 400w: 400x412 43.67 KB ✓
-JPG 400w: 400x412 35.93 KB ✓
-WEBP 800w: 800x824 71.86 KB ✓
-AVIF 800w: 800x824 94.71 KB ✓
-JPG 800w: 800x824 101.28 KB ✓
-WEBP 1200w: 1200x1236 119.85 KB ✓
-AVIF 1200w: 1200x1236 154.45 KB ✓
-JPG 1200w: 1200x1236 186.99 KB ✓
-Total variants: 9 files (837.4 KB combined)
-Best JPG: 186.99 KB (26.7% smaller than original)
+Original: 1200x1236 (186.32 KB)
+WEBP 400w: 400x412 28.49 KB ✓
+AVIF 400w: 400x412 42.55 KB ✓
+JPG 400w: 400x412 35.85 KB ✓
+WEBP 800w: 800x824 70.32 KB ✓
+AVIF 800w: 800x824 91.24 KB ✓
+JPG 800w: 800x824 100 KB ✓
+WEBP 1200w: 1200x1236 116.74 KB ✓
+AVIF 1200w: 1200x1236 148.99 KB ✓
+JPG 1200w: 1200x1236 186.26 KB ✓
+Total variants: 9 files (820.44 KB combined)
+Best JPG: 186.26 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/arrayan/metadata.json
 
 ▶ Optimizing: balsa
-Original: 1200x900 (317.99 KB)
-WEBP 400w: 400x300 17.17 KB ✓
-AVIF 400w: 400x300 31.92 KB ✓
-JPG 400w: 400x300 23.33 KB ✓
-WEBP 800w: 800x600 49.62 KB ✓
-AVIF 800w: 800x600 86.24 KB ✓
-JPG 800w: 800x600 74.48 KB ✓
-WEBP 1200w: 1200x900 92.03 KB ✓
-AVIF 1200w: 1200x900 153.28 KB ✓
-JPG 1200w: 1200x900 147.96 KB ✓
-Total variants: 9 files (676.03 KB combined)
-Best JPG: 147.96 KB (53.5% smaller than original)
+Original: 1200x900 (147.26 KB)
+WEBP 400w: 400x300 16.9 KB ✓
+AVIF 400w: 400x300 30.56 KB ✓
+JPG 400w: 400x300 23.19 KB ✓
+WEBP 800w: 800x600 48.14 KB ✓
+AVIF 800w: 800x600 80.53 KB ✓
+JPG 800w: 800x600 73.24 KB ✓
+WEBP 1200w: 1200x900 85.54 KB ✓
+AVIF 1200w: 1200x900 125.68 KB ✓
+JPG 1200w: 1200x900 146.92 KB ✓
+Total variants: 9 files (630.7 KB combined)
+Best JPG: 146.92 KB (0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/balsa/metadata.json
 
 ▶ Optimizing: balsamo
-Original: 1200x900 (306 KB)
-WEBP 400w: 400x300 28.5 KB ✓
-AVIF 400w: 400x300 52.01 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 33.65 KB ✓
-WEBP 800w: 800x600 77.37 KB ✓
-AVIF 800w: 800x600 141.33 KB ✓
-JPG 800w: 800x600 99.93 KB ✓
-WEBP 1200w: 1200x900 169.72 KB ✓
-AVIF 1200w: 1200x900 232.6 KB ✓
-JPG 1200w: 1200x900 216.68 KB ✓
-Total variants: 9 files (1.03 MB combined)
-Best JPG: 216.68 KB (29.2% smaller than original)
+Original: 1200x900 (214.74 KB)
+WEBP 400w: 400x300 28.18 KB ✓
+AVIF 400w: 400x300 48.16 KB ✓
+JPG 400w: 400x300 33.39 KB ✓
+WEBP 800w: 800x600 77.94 KB ✓
+AVIF 800w: 800x600 135.19 KB ✓
+JPG 800w: 800x600 97.81 KB ✓
+WEBP 1200w: 1200x900 160 KB ✓
+AVIF 1200w: 1200x900 200.25 KB ✓
+JPG 1200w: 1200x900 214.96 KB ✓
+Total variants: 9 files (995.87 KB combined)
+Best JPG: 214.96 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/balsamo/metadata.json
 
 ▶ Optimizing: botarrama
-Original: 1200x800 (289.27 KB)
-WEBP 400w: 400x267 31.09 KB ✓
-AVIF 400w: 400x267 51.35 KB ⚠ (target: 50 KB)
-JPG 400w: 400x267 31.33 KB ✓
-WEBP 800w: 800x533 108.39 KB ✓
-AVIF 800w: 800x533 157.09 KB ⚠ (target: 150 KB)
-JPG 800w: 800x533 115.35 KB ✓
-WEBP 1200w: 1200x800 192.43 KB ✓
-AVIF 1200w: 1200x800 233.86 KB ✓
-JPG 1200w: 1200x800 231.31 KB ✓
-Total variants: 9 files (1.13 MB combined)
-Best JPG: 231.31 KB (20.0% smaller than original)
+Original: 1200x800 (229.97 KB)
+WEBP 400w: 400x267 31.08 KB ✓
+AVIF 400w: 400x267 48.74 KB ✓
+JPG 400w: 400x267 31.18 KB ✓
+WEBP 800w: 800x533 107.39 KB ✓
+AVIF 800w: 800x533 152.94 KB ⚠ (target: 150 KB)
+JPG 800w: 800x533 113.78 KB ✓
+WEBP 1200w: 1200x800 189.65 KB ✓
+AVIF 1200w: 1200x800 215.29 KB ✓
+JPG 1200w: 1200x800 230.45 KB ✓
+Total variants: 9 files (1.09 MB combined)
+Best JPG: 230.45 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/botarrama/metadata.json
 
 ▶ Optimizing: burio
-Original: 1200x900 (417.22 KB)
-WEBP 400w: 400x300 40.05 KB ✓
-AVIF 400w: 400x300 68.38 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 41.33 KB ✓
-WEBP 800w: 800x600 133.28 KB ✓
-AVIF 800w: 800x600 203.91 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 142.52 KB ✓
-WEBP 1200w: 1200x900 269.48 KB ✓
-AVIF 1200w: 1200x900 350.74 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x900 295.35 KB ✓
-Total variants: 9 files (1.51 MB combined)
-Best JPG: 295.35 KB (29.2% smaller than original)
+Original: 1200x900 (291.95 KB)
+WEBP 400w: 400x300 39.69 KB ✓
+AVIF 400w: 400x300 63.49 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 40.97 KB ✓
+WEBP 800w: 800x600 130.42 KB ✓
+AVIF 800w: 800x600 193.3 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 139.75 KB ✓
+WEBP 1200w: 1200x900 248.99 KB ✓
+AVIF 1200w: 1200x900 286.54 KB ✓
+JPG 1200w: 1200x900 291.92 KB ✓
+Total variants: 9 files (1.4 MB combined)
+Best JPG: 291.92 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/burio/metadata.json
 
 ▶ Optimizing: cacao
-Original: 1200x1812 (322.47 KB)
-WEBP 400w: 400x604 21.47 KB ✓
-AVIF 400w: 400x604 37.54 KB ✓
-JPG 400w: 400x604 34.19 KB ✓
-WEBP 800w: 800x1208 56.03 KB ✓
-AVIF 800w: 800x1208 91.81 KB ✓
-JPG 800w: 800x1208 101.62 KB ✓
-WEBP 1200w: 1200x1812 109.67 KB ✓
-AVIF 1200w: 1200x1812 191.98 KB ✓
-JPG 1200w: 1200x1812 215.56 KB ✓
-Total variants: 9 files (859.87 KB combined)
-Best JPG: 215.56 KB (33.2% smaller than original)
+Original: 1200x1812 (214.22 KB)
+WEBP 400w: 400x604 21.28 KB ✓
+AVIF 400w: 400x604 35.44 KB ✓
+JPG 400w: 400x604 34.08 KB ✓
+WEBP 800w: 800x1208 55.7 KB ✓
+AVIF 800w: 800x1208 87.22 KB ✓
+JPG 800w: 800x1208 100.09 KB ✓
+WEBP 1200w: 1200x1812 110.58 KB ✓
+AVIF 1200w: 1200x1812 169.42 KB ✓
+JPG 1200w: 1200x1812 214.71 KB ✓
+Total variants: 9 files (828.52 KB combined)
+Best JPG: 214.71 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cacao/metadata.json
 
 ▶ Optimizing: cachimbo
-Original: 1200x1452 (245.51 KB)
-WEBP 400w: 400x484 9.25 KB ✓
-AVIF 400w: 400x484 15.74 KB ✓
-JPG 400w: 400x484 17.34 KB ✓
-WEBP 800w: 800x968 36.84 KB ✓
-AVIF 800w: 800x968 74.67 KB ✓
-JPG 800w: 800x968 67.24 KB ✓
-WEBP 1200w: 1200x1452 87.61 KB ✓
-AVIF 1200w: 1200x1452 154.19 KB ✓
-JPG 1200w: 1200x1452 164.21 KB ✓
-Total variants: 9 files (627.08 KB combined)
-Best JPG: 164.21 KB (33.1% smaller than original)
+Original: 1200x1452 (163.54 KB)
+WEBP 400w: 400x484 9.19 KB ✓
+AVIF 400w: 400x484 15.55 KB ✓
+JPG 400w: 400x484 17.36 KB ✓
+WEBP 800w: 800x968 36.45 KB ✓
+AVIF 800w: 800x968 74.02 KB ✓
+JPG 800w: 800x968 66.82 KB ✓
+WEBP 1200w: 1200x1452 90.25 KB ✓
+AVIF 1200w: 1200x1452 137.21 KB ✓
+JPG 1200w: 1200x1452 163.71 KB ✓
+Total variants: 9 files (610.56 KB combined)
+Best JPG: 163.71 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cachimbo/metadata.json
 
 ▶ Optimizing: caimito
-Original: 1200x1595 (710.84 KB)
-WEBP 400w: 400x531 55.51 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x531 84 KB ⚠ (target: 50 KB)
-JPG 400w: 400x531 61.55 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1063 157.59 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1063 222.64 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1063 194.84 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1595 259.38 KB ✓
-AVIF 1200w: 1200x1595 361.49 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1595 361.31 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.72 MB combined)
-Best JPG: 361.31 KB (49.2% smaller than original)
+Original: 1200x1595 (359.34 KB)
+WEBP 400w: 400x531 55.54 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x531 83.2 KB ⚠ (target: 50 KB)
+JPG 400w: 400x531 61.28 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1063 153.08 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1063 216.64 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1063 192.63 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1595 251.45 KB ✓
+AVIF 1200w: 1200x1595 319.05 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1595 359.81 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.65 MB combined)
+Best JPG: 359.81 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/caimito/metadata.json
 
 ▶ Optimizing: camibar
@@ -647,123 +1449,132 @@ Best JPG: 38 KB (28.8% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/camibar/metadata.json
 
 ▶ Optimizing: cana-agria
-Original: 1200x1798 (312.05 KB)
-WEBP 400w: 400x599 19.66 KB ✓
-AVIF 400w: 400x599 33.31 KB ✓
-JPG 400w: 400x599 31.87 KB ✓
-WEBP 800w: 800x1199 50.85 KB ✓
-AVIF 800w: 800x1199 84.47 KB ✓
-JPG 800w: 800x1199 96.6 KB ✓
-WEBP 1200w: 1200x1798 99.54 KB ✓
-AVIF 1200w: 1200x1798 181.98 KB ✓
-JPG 1200w: 1200x1798 203.8 KB ✓
-Total variants: 9 files (802.08 KB combined)
-Best JPG: 203.8 KB (34.7% smaller than original)
+Original: 1200x1798 (202.84 KB)
+WEBP 400w: 400x599 19.46 KB ✓
+AVIF 400w: 400x599 32.96 KB ✓
+JPG 400w: 400x599 31.79 KB ✓
+WEBP 800w: 800x1199 50.18 KB ✓
+AVIF 800w: 800x1199 82.87 KB ✓
+JPG 800w: 800x1199 95.69 KB ✓
+WEBP 1200w: 1200x1798 100.09 KB ✓
+AVIF 1200w: 1200x1798 162.82 KB ✓
+JPG 1200w: 1200x1798 203.48 KB ✓
+Total variants: 9 files (779.35 KB combined)
+Best JPG: 203.48 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cana-agria/metadata.json
 
 ▶ Optimizing: cana-fistula
-Original: 1200x900 (336.72 KB)
-WEBP 400w: 400x300 21.28 KB ✓
-AVIF 400w: 400x300 33.84 KB ✓
-JPG 400w: 400x300 26.09 KB ✓
-WEBP 800w: 800x600 63.93 KB ✓
-AVIF 800w: 800x600 96.58 KB ✓
-JPG 800w: 800x600 83.89 KB ✓
-WEBP 1200w: 1200x900 110.61 KB ✓
-AVIF 1200w: 1200x900 157.64 KB ✓
-JPG 1200w: 1200x900 159.52 KB ✓
-Total variants: 9 files (753.4 KB combined)
-Best JPG: 159.52 KB (52.6% smaller than original)
+Original: 1200x900 (158.88 KB)
+WEBP 400w: 400x300 21.15 KB ✓
+AVIF 400w: 400x300 33.82 KB ✓
+JPG 400w: 400x300 26.04 KB ✓
+WEBP 800w: 800x600 62.68 KB ✓
+AVIF 800w: 800x600 92.86 KB ✓
+JPG 800w: 800x600 83.16 KB ✓
+WEBP 1200w: 1200x900 105.05 KB ✓
+AVIF 1200w: 1200x900 137.17 KB ✓
+JPG 1200w: 1200x900 159.18 KB ✓
+Total variants: 9 files (721.1 KB combined)
+Best JPG: 159.18 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cana-fistula/metadata.json
 
 ▶ Optimizing: cana-india
-Original: 1200x1600 (401.9 KB)
-WEBP 400w: 400x533 35.35 KB ✓
-AVIF 400w: 400x533 56.37 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 46.07 KB ✓
-WEBP 800w: 800x1067 106.16 KB ✓
-AVIF 800w: 800x1067 162.94 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 149.62 KB ✓
-WEBP 1200w: 1200x1600 194.82 KB ✓
-AVIF 1200w: 1200x1600 281.63 KB ✓
-JPG 1200w: 1200x1600 301.54 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.3 MB combined)
-Best JPG: 301.54 KB (25.0% smaller than original)
+Original: 1200x1600 (300.34 KB)
+WEBP 400w: 400x533 35.09 KB ✓
+AVIF 400w: 400x533 54.78 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 45.83 KB ✓
+WEBP 800w: 800x1067 104.96 KB ✓
+AVIF 800w: 800x1067 160.99 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 147.74 KB ✓
+WEBP 1200w: 1200x1600 195.14 KB ✓
+AVIF 1200w: 1200x1600 263.47 KB ✓
+JPG 1200w: 1200x1600 300.83 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.28 MB combined)
+Best JPG: 300.83 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cana-india/metadata.json
 
+▶ Optimizing: canelo
+Original: 313x418 (67.57 KB)
+WEBP 313w: 313x418 16.72 KB
+AVIF 313w: 313x418 29.55 KB
+JPG 313w: 313x418 24.67 KB
+Total variants: 3 files (70.94 KB combined)
+Best JPG: 24.67 KB (63.5% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/canelo/metadata.json
+
 ▶ Optimizing: caoba
-Original: 1200x900 (370.19 KB)
-WEBP 400w: 400x300 26.24 KB ✓
-AVIF 400w: 400x300 42.6 KB ✓
-JPG 400w: 400x300 31.51 KB ✓
-WEBP 800w: 800x600 75.21 KB ✓
-AVIF 800w: 800x600 114.1 KB ✓
-JPG 800w: 800x600 99.93 KB ✓
-WEBP 1200w: 1200x900 125.92 KB ✓
-AVIF 1200w: 1200x900 176.49 KB ✓
-JPG 1200w: 1200x900 187.32 KB ✓
-Total variants: 9 files (879.32 KB combined)
-Best JPG: 187.32 KB (49.4% smaller than original)
+Original: 1200x900 (186.62 KB)
+WEBP 400w: 400x300 26.07 KB ✓
+AVIF 400w: 400x300 41.85 KB ✓
+JPG 400w: 400x300 31.32 KB ✓
+WEBP 800w: 800x600 73.25 KB ✓
+AVIF 800w: 800x600 111.05 KB ✓
+JPG 800w: 800x600 98.61 KB ✓
+WEBP 1200w: 1200x900 122.07 KB ✓
+AVIF 1200w: 1200x900 163.79 KB ✓
+JPG 1200w: 1200x900 186.58 KB ✓
+Total variants: 9 files (854.59 KB combined)
+Best JPG: 186.58 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/caoba/metadata.json
 
 ▶ Optimizing: caobilla
-Original: 1200x800 (204.3 KB)
-WEBP 400w: 400x267 15.61 KB ✓
-AVIF 400w: 400x267 27.85 KB ✓
-JPG 400w: 400x267 20.35 KB ✓
-WEBP 800w: 800x533 54.72 KB ✓
-AVIF 800w: 800x533 90.71 KB ✓
-JPG 800w: 800x533 70.84 KB ✓
-WEBP 1200w: 1200x800 109.73 KB ✓
-AVIF 1200w: 1200x800 151.58 KB ✓
-JPG 1200w: 1200x800 153.28 KB ✓
-Total variants: 9 files (694.68 KB combined)
-Best JPG: 153.28 KB (25.0% smaller than original)
+Original: 1200x800 (152.59 KB)
+WEBP 400w: 400x267 15.59 KB ✓
+AVIF 400w: 400x267 27.41 KB ✓
+JPG 400w: 400x267 20.28 KB ✓
+WEBP 800w: 800x533 54.76 KB ✓
+AVIF 800w: 800x533 90 KB ✓
+JPG 800w: 800x533 69.72 KB ✓
+WEBP 1200w: 1200x800 108.78 KB ✓
+AVIF 1200w: 1200x800 137.47 KB ✓
+JPG 1200w: 1200x800 153.2 KB ✓
+Total variants: 9 files (677.22 KB combined)
+Best JPG: 153.2 KB (-0.4% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/caobilla/metadata.json
 
 ▶ Optimizing: capulin
-Original: 1200x1600 (320.77 KB)
-WEBP 400w: 400x533 30.5 KB ✓
-AVIF 400w: 400x533 46.98 KB ✓
-JPG 400w: 400x533 40.58 KB ✓
-WEBP 800w: 800x1067 81.07 KB ✓
-AVIF 800w: 800x1067 120.97 KB ✓
-JPG 800w: 800x1067 121.5 KB ✓
-WEBP 1200w: 1200x1600 141.72 KB ✓
-AVIF 1200w: 1200x1600 199.64 KB ✓
-JPG 1200w: 1200x1600 234.75 KB ✓
-Total variants: 9 files (1017.71 KB combined)
-Best JPG: 234.75 KB (26.8% smaller than original)
+Original: 1200x1600 (233.8 KB)
+WEBP 400w: 400x533 30.31 KB ✓
+AVIF 400w: 400x533 46.77 KB ✓
+JPG 400w: 400x533 40.56 KB ✓
+WEBP 800w: 800x1067 80.44 KB ✓
+AVIF 800w: 800x1067 119.23 KB ✓
+JPG 800w: 800x1067 120.46 KB ✓
+WEBP 1200w: 1200x1600 141.87 KB ✓
+AVIF 1200w: 1200x1600 191.74 KB ✓
+JPG 1200w: 1200x1600 234.44 KB ✓
+Total variants: 9 files (1005.82 KB combined)
+Best JPG: 234.44 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/capulin/metadata.json
 
 ▶ Optimizing: carambola
-Original: 1200x1600 (389.73 KB)
-WEBP 400w: 400x533 42.64 KB ✓
-AVIF 400w: 400x533 69.33 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 52.3 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 111.06 KB ✓
-AVIF 800w: 800x1067 165.59 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 155.58 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 183.26 KB ✓
-AVIF 1200w: 1200x1600 266.76 KB ✓
-JPG 1200w: 1200x1600 288 KB ✓
-Total variants: 9 files (1.3 MB combined)
-Best JPG: 288 KB (26.1% smaller than original)
+Original: 1200x1600 (286.65 KB)
+WEBP 400w: 400x533 42.25 KB ✓
+AVIF 400w: 400x533 67.77 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 52.05 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 108.49 KB ✓
+AVIF 800w: 800x1067 158.72 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 152.74 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 179.6 KB ✓
+AVIF 1200w: 1200x1600 245.3 KB ✓
+JPG 1200w: 1200x1600 287.16 KB ✓
+Total variants: 9 files (1.26 MB combined)
+Best JPG: 287.16 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/carambola/metadata.json
 
 ▶ Optimizing: carao
-Original: 1200x900 (485.49 KB)
-WEBP 400w: 400x300 24.62 KB ✓
-AVIF 400w: 400x300 42.55 KB ✓
-JPG 400w: 400x300 27.07 KB ✓
-WEBP 800w: 800x600 97.59 KB ✓
-AVIF 800w: 800x600 152.98 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 105.58 KB ✓
-WEBP 1200w: 1200x900 210.43 KB ✓
-AVIF 1200w: 1200x900 312.08 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x900 234.57 KB ✓
-Total variants: 9 files (1.18 MB combined)
-Best JPG: 234.57 KB (51.7% smaller than original)
+Original: 1200x900 (233.21 KB)
+WEBP 400w: 400x300 24.54 KB ✓
+AVIF 400w: 400x300 40.83 KB ✓
+JPG 400w: 400x300 26.91 KB ✓
+WEBP 800w: 800x600 96.23 KB ✓
+AVIF 800w: 800x600 144.29 KB ✓
+JPG 800w: 800x600 104.47 KB ✓
+WEBP 1200w: 1200x900 190.56 KB ✓
+AVIF 1200w: 1200x900 220.46 KB ✓
+JPG 1200w: 1200x900 233.78 KB ✓
+Total variants: 9 files (1.06 MB combined)
+Best JPG: 233.78 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/carao/metadata.json
 
 ▶ Optimizing: carboncillo
@@ -797,243 +1608,273 @@ Best JPG: 87.59 KB (30.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cas/metadata.json
 
 ▶ Optimizing: cativo
-Original: 1200x1600 (435.33 KB)
-WEBP 400w: 400x533 42.39 KB ✓
-AVIF 400w: 400x533 62.45 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 48.8 KB ✓
-WEBP 800w: 800x1067 130.33 KB ✓
-AVIF 800w: 800x1067 195.05 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 160.55 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 237.01 KB ✓
-AVIF 1200w: 1200x1600 328.49 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 328.8 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.5 MB combined)
-Best JPG: 328.8 KB (24.5% smaller than original)
+Original: 1200x1600 (327.67 KB)
+WEBP 400w: 400x533 42.69 KB ✓
+AVIF 400w: 400x533 62.26 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 48.77 KB ✓
+WEBP 800w: 800x1067 130.92 KB ✓
+AVIF 800w: 800x1067 194.3 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 159.54 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 235.44 KB ✓
+AVIF 1200w: 1200x1600 293.9 KB ✓
+JPG 1200w: 1200x1600 328.28 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.46 MB combined)
+Best JPG: 328.28 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cativo/metadata.json
 
 ▶ Optimizing: cedro-amargo
-Original: 1200x1600 (1.03 MB)
-WEBP 400w: 400x533 66.5 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 101.75 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 64.38 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 265.49 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 373.98 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 253.9 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 542.19 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 746.59 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 545.79 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.89 MB combined)
-Best JPG: 545.79 KB (48.3% smaller than original)
+Original: 1200x1600 (542.16 KB)
+WEBP 400w: 400x533 65.85 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 98.38 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 63.91 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 258.3 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 355.69 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 251.12 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 500.22 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 526.95 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 542.38 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.6 MB combined)
+Best JPG: 542.38 KB (-0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cedro-amargo/metadata.json
 
+▶ Optimizing: cedro-macho
+Original: 1024x854 (78.72 KB)
+WEBP 400w: 400x334 11.66 KB ✓
+AVIF 400w: 400x334 17.8 KB ✓
+JPG 400w: 400x334 17.58 KB ✓
+WEBP 800w: 800x667 29.23 KB ✓
+AVIF 800w: 800x667 40.75 KB ✓
+JPG 800w: 800x667 49.37 KB ✓
+WEBP 1024w: 1024x854 42.05 KB
+AVIF 1024w: 1024x854 58.01 KB
+JPG 1024w: 1024x854 78.73 KB
+Total variants: 9 files (345.19 KB combined)
+Best JPG: 78.73 KB (-0.0% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/cedro-macho/metadata.json
+
 ▶ Optimizing: cedro-maria
-Original: 1200x1600 (223.1 KB)
-WEBP 400w: 400x533 15.04 KB ✓
-AVIF 400w: 400x533 21.39 KB ✓
-JPG 400w: 400x533 25.67 KB ✓
-WEBP 800w: 800x1067 39.64 KB ✓
-AVIF 800w: 800x1067 55.03 KB ✓
-JPG 800w: 800x1067 74.84 KB ✓
-WEBP 1200w: 1200x1600 73.15 KB ✓
-AVIF 1200w: 1200x1600 100.59 KB ✓
-JPG 1200w: 1200x1600 148.29 KB ✓
-Total variants: 9 files (553.65 KB combined)
-Best JPG: 148.29 KB (33.5% smaller than original)
+Original: 1200x1600 (147.62 KB)
+WEBP 400w: 400x533 14.91 KB ✓
+AVIF 400w: 400x533 21.68 KB ✓
+JPG 400w: 400x533 25.73 KB ✓
+WEBP 800w: 800x1067 39.86 KB ✓
+AVIF 800w: 800x1067 54.68 KB ✓
+JPG 800w: 800x1067 74.17 KB ✓
+WEBP 1200w: 1200x1600 73.23 KB ✓
+AVIF 1200w: 1200x1600 99.58 KB ✓
+JPG 1200w: 1200x1600 148.2 KB ✓
+Total variants: 9 files (552.04 KB combined)
+Best JPG: 148.2 KB (-0.4% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cedro-maria/metadata.json
 
 ▶ Optimizing: cedro-real
-Original: 1200x1594 (601 KB)
-WEBP 400w: 400x531 60.1 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x531 84.55 KB ⚠ (target: 50 KB)
-JPG 400w: 400x531 59.58 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1063 218.19 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1063 295.6 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1063 227.19 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1594 411.37 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1594 518.88 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1594 460.75 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.28 MB combined)
-Best JPG: 460.75 KB (23.3% smaller than original)
+Original: 1200x1594 (456.99 KB)
+WEBP 400w: 400x531 59.61 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x531 83.6 KB ⚠ (target: 50 KB)
+JPG 400w: 400x531 59.23 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1063 214.46 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1063 292.73 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1063 225.15 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1594 393.55 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1594 441.76 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1594 457.36 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.18 MB combined)
+Best JPG: 457.36 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cedro-real/metadata.json
 
 ▶ Optimizing: ceiba
-Original: 1200x900 (549.35 KB)
-WEBP 400w: 400x300 38.78 KB ✓
-AVIF 400w: 400x300 54.09 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 37.34 KB ✓
-WEBP 800w: 800x600 136.22 KB ✓
-AVIF 800w: 800x600 184.15 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 134.08 KB ✓
-WEBP 1200w: 1200x900 263.7 KB ✓
-AVIF 1200w: 1200x900 353.45 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x900 272.96 KB ✓
-Total variants: 9 files (1.44 MB combined)
-Best JPG: 272.96 KB (50.3% smaller than original)
+Original: 1200x900 (270.86 KB)
+WEBP 400w: 400x300 39.26 KB ✓
+AVIF 400w: 400x300 53.25 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 37.2 KB ✓
+WEBP 800w: 800x600 132.78 KB ✓
+AVIF 800w: 800x600 178.06 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 132.58 KB ✓
+WEBP 1200w: 1200x900 238.95 KB ✓
+AVIF 1200w: 1200x900 256.6 KB ✓
+JPG 1200w: 1200x900 271.25 KB ✓
+Total variants: 9 files (1.31 MB combined)
+Best JPG: 271.25 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/ceiba/metadata.json
 
 ▶ Optimizing: cenizaro
-Original: 1200x1600 (965.79 KB)
-WEBP 400w: 400x533 81.88 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 121.24 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 78.83 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 264.1 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 366.55 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 275 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 452.99 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 616.94 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 519.85 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.71 MB combined)
-Best JPG: 519.85 KB (46.2% smaller than original)
+Original: 1200x1600 (512.7 KB)
+WEBP 400w: 400x533 81.54 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 118.37 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 78.28 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 257.72 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 350.44 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 270.68 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 430.12 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 489.89 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 512.33 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.53 MB combined)
+Best JPG: 512.33 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cenizaro/metadata.json
 
 ▶ Optimizing: cerillo
-Original: 1200x1600 (313.93 KB)
-WEBP 400w: 400x533 30.73 KB ✓
-AVIF 400w: 400x533 45.53 KB ✓
-JPG 400w: 400x533 40.47 KB ✓
-WEBP 800w: 800x1067 78.45 KB ✓
-AVIF 800w: 800x1067 108.11 KB ✓
-JPG 800w: 800x1067 116.32 KB ✓
-WEBP 1200w: 1200x1600 135.99 KB ✓
-AVIF 1200w: 1200x1600 191.93 KB ✓
-JPG 1200w: 1200x1600 221.06 KB ✓
-Total variants: 9 files (968.59 KB combined)
-Best JPG: 221.06 KB (29.6% smaller than original)
+Original: 1200x1600 (220.04 KB)
+WEBP 400w: 400x533 30.67 KB ✓
+AVIF 400w: 400x533 44.95 KB ✓
+JPG 400w: 400x533 40.45 KB ✓
+WEBP 800w: 800x1067 77.38 KB ✓
+AVIF 800w: 800x1067 104.47 KB ✓
+JPG 800w: 800x1067 115.35 KB ✓
+WEBP 1200w: 1200x1600 133.87 KB ✓
+AVIF 1200w: 1200x1600 176.6 KB ✓
+JPG 1200w: 1200x1600 220.7 KB ✓
+Total variants: 9 files (944.45 KB combined)
+Best JPG: 220.7 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cerillo/metadata.json
 
 ▶ Optimizing: chancho-blanco
-Original: 1200x800 (267.57 KB)
-WEBP 400w: 400x267 32.01 KB ✓
-AVIF 400w: 400x267 51.54 KB ⚠ (target: 50 KB)
-JPG 400w: 400x267 32.43 KB ✓
-WEBP 800w: 800x533 96.49 KB ✓
-AVIF 800w: 800x533 144.29 KB ✓
-JPG 800w: 800x533 106.77 KB ✓
-WEBP 1200w: 1200x800 168.4 KB ✓
-AVIF 1200w: 1200x800 215.4 KB ✓
-JPG 1200w: 1200x800 209.88 KB ✓
-Total variants: 9 files (1.03 MB combined)
-Best JPG: 209.88 KB (21.6% smaller than original)
+Original: 1200x800 (208.05 KB)
+WEBP 400w: 400x267 31.68 KB ✓
+AVIF 400w: 400x267 48.77 KB ✓
+JPG 400w: 400x267 32.3 KB ✓
+WEBP 800w: 800x533 95.55 KB ✓
+AVIF 800w: 800x533 137.64 KB ✓
+JPG 800w: 800x533 105.29 KB ✓
+WEBP 1200w: 1200x800 164.64 KB ✓
+AVIF 1200w: 1200x800 193.25 KB ✓
+JPG 1200w: 1200x800 208.41 KB ✓
+Total variants: 9 files (1017.52 KB combined)
+Best JPG: 208.41 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/chancho-blanco/metadata.json
 
 ▶ Optimizing: chilamate
-Original: 1200x1594 (269.31 KB)
-WEBP 400w: 400x531 27.69 KB ✓
-AVIF 400w: 400x531 41.22 KB ✓
-JPG 400w: 400x531 38.74 KB ✓
-WEBP 800w: 800x1063 65.87 KB ✓
-AVIF 800w: 800x1063 87.71 KB ✓
-JPG 800w: 800x1063 107.69 KB ✓
-WEBP 1200w: 1200x1594 109.68 KB ✓
-AVIF 1200w: 1200x1594 137.64 KB ✓
-JPG 1200w: 1200x1594 194.1 KB ✓
-Total variants: 9 files (810.35 KB combined)
-Best JPG: 194.1 KB (27.9% smaller than original)
+Original: 1200x1594 (193.43 KB)
+WEBP 400w: 400x531 27.5 KB ✓
+AVIF 400w: 400x531 40.63 KB ✓
+JPG 400w: 400x531 38.65 KB ✓
+WEBP 800w: 800x1063 64.99 KB ✓
+AVIF 800w: 800x1063 85.4 KB ✓
+JPG 800w: 800x1063 106.33 KB ✓
+WEBP 1200w: 1200x1594 109.09 KB ✓
+AVIF 1200w: 1200x1594 139.31 KB ✓
+JPG 1200w: 1200x1594 193.82 KB ✓
+Total variants: 9 files (805.72 KB combined)
+Best JPG: 193.82 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/chilamate/metadata.json
 
 ▶ Optimizing: chirraca
-Original: 1200x1163 (234.73 KB)
-WEBP 400w: 400x387 24.19 KB ✓
-AVIF 400w: 400x387 36.95 KB ✓
+Original: 1200x1163 (166.78 KB)
+WEBP 400w: 400x387 23.93 KB ✓
+AVIF 400w: 400x387 36.6 KB ✓
 JPG 400w: 400x387 32.05 KB ✓
-WEBP 800w: 800x775 56.93 KB ✓
-AVIF 800w: 800x775 84.21 KB ✓
-JPG 800w: 800x775 88.75 KB ✓
-WEBP 1200w: 1200x1163 95.46 KB ✓
-AVIF 1200w: 1200x1163 150.06 KB ✓
-JPG 1200w: 1200x1163 167.45 KB ✓
-Total variants: 9 files (736.05 KB combined)
-Best JPG: 167.45 KB (28.7% smaller than original)
+WEBP 800w: 800x775 55.86 KB ✓
+AVIF 800w: 800x775 81.09 KB ✓
+JPG 800w: 800x775 87.92 KB ✓
+WEBP 1200w: 1200x1163 95.5 KB ✓
+AVIF 1200w: 1200x1163 135.75 KB ✓
+JPG 1200w: 1200x1163 167.12 KB ✓
+Total variants: 9 files (715.82 KB combined)
+Best JPG: 167.12 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/chirraca/metadata.json
 
 ▶ Optimizing: ciprecillo
-Original: 1200x1600 (783.12 KB)
-WEBP 400w: 400x533 76.16 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 111.4 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 70.89 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 301.55 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 401.71 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 279.93 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 623.32 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 702.2 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 599.55 KB ⚠ (target: 300 KB)
-Total variants: 9 files (3.09 MB combined)
-Best JPG: 599.55 KB (23.4% smaller than original)
+Original: 1200x1600 (596.37 KB)
+WEBP 400w: 400x533 75.6 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 108.31 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 70.64 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 292.87 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 391.42 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 277.34 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 573.26 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 587.04 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 596.4 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.9 MB combined)
+Best JPG: 596.4 KB (-0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/ciprecillo/metadata.json
 
 ▶ Optimizing: cipres
-Original: 1200x1600 (898.7 KB)
-WEBP 400w: 400x533 75.1 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 108.3 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 71.49 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 235.64 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 323.96 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 244.01 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 402.36 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 548.92 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 463.98 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.42 MB combined)
-Best JPG: 463.98 KB (48.4% smaller than original)
+Original: 1200x1600 (460.08 KB)
+WEBP 400w: 400x533 74.75 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 105.96 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 71.13 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 232 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 306.9 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 240.79 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 379.75 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 425.39 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 460.59 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.24 MB combined)
+Best JPG: 460.59 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cipres/metadata.json
 
 ▶ Optimizing: coco
-Original: 1200x1599 (346.37 KB)
-WEBP 400w: 400x533 30.85 KB ✓
-AVIF 400w: 400x533 44.23 KB ✓
-JPG 400w: 400x533 38.04 KB ✓
-WEBP 800w: 800x1066 103.75 KB ✓
-AVIF 800w: 800x1066 137.99 KB ✓
-JPG 800w: 800x1066 132.82 KB ✓
-WEBP 1200w: 1200x1599 186.47 KB ✓
-AVIF 1200w: 1200x1599 236.07 KB ✓
-JPG 1200w: 1200x1599 264.75 KB ✓
-Total variants: 9 files (1.15 MB combined)
-Best JPG: 264.75 KB (23.6% smaller than original)
+Original: 1200x1599 (263.6 KB)
+WEBP 400w: 400x533 30.84 KB ✓
+AVIF 400w: 400x533 44.18 KB ✓
+JPG 400w: 400x533 37.99 KB ✓
+WEBP 800w: 800x1066 103.13 KB ✓
+AVIF 800w: 800x1066 138.39 KB ✓
+JPG 800w: 800x1066 132.36 KB ✓
+WEBP 1200w: 1200x1599 184.56 KB ✓
+AVIF 1200w: 1200x1599 224.62 KB ✓
+JPG 1200w: 1200x1599 264.26 KB ✓
+Total variants: 9 files (1.13 MB combined)
+Best JPG: 264.26 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/coco/metadata.json
 
 ▶ Optimizing: cocobolo
-Original: 1200x1600 (684.46 KB)
-WEBP 400w: 400x533 43.19 KB ✓
-AVIF 400w: 400x533 67.01 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 52.3 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 127.3 KB ✓
-AVIF 800w: 800x1067 194.4 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 164.8 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 232.54 KB ✓
-AVIF 1200w: 1200x1600 355.63 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 323.76 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.52 MB combined)
-Best JPG: 323.76 KB (52.7% smaller than original)
+Original: 1200x1600 (322.21 KB)
+WEBP 400w: 400x533 43.36 KB ✓
+AVIF 400w: 400x533 66.31 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 52.07 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 122.21 KB ✓
+AVIF 800w: 800x1067 185.92 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 163.08 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 217.43 KB ✓
+AVIF 1200w: 1200x1600 283.3 KB ✓
+JPG 1200w: 1200x1600 322.82 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.42 MB combined)
+Best JPG: 322.82 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cocobolo/metadata.json
 
 ▶ Optimizing: comenegro
-Original: 1200x900 (328.19 KB)
-WEBP 400w: 400x300 41.33 KB ✓
-AVIF 400w: 400x300 64.3 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 40.95 KB ✓
-WEBP 800w: 800x600 136.09 KB ✓
-AVIF 800w: 800x600 183.61 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 143.23 KB ✓
-WEBP 1200w: 1200x900 220.49 KB ✓
-AVIF 1200w: 1200x900 262.71 KB ✓
-JPG 1200w: 1200x900 263.21 KB ✓
-Total variants: 9 files (1.32 MB combined)
-Best JPG: 263.21 KB (19.8% smaller than original)
+Original: 1200x900 (261.29 KB)
+WEBP 400w: 400x300 40.88 KB ✓
+AVIF 400w: 400x300 62.69 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 40.72 KB ✓
+WEBP 800w: 800x600 134.54 KB ✓
+AVIF 800w: 800x600 179.19 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 141.31 KB ✓
+WEBP 1200w: 1200x900 215.64 KB ✓
+AVIF 1200w: 1200x900 243.31 KB ✓
+JPG 1200w: 1200x900 261.79 KB ✓
+Total variants: 9 files (1.29 MB combined)
+Best JPG: 261.79 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/comenegro/metadata.json
 
+▶ Optimizing: copal
+Original: 1024x768 (131.27 KB)
+WEBP 400w: 400x300 23.83 KB ✓
+AVIF 400w: 400x300 35 KB ✓
+JPG 400w: 400x300 28.17 KB ✓
+WEBP 800w: 800x600 64.78 KB ✓
+AVIF 800w: 800x600 91 KB ✓
+JPG 800w: 800x600 86.21 KB ✓
+WEBP 1024w: 1024x768 91.52 KB
+AVIF 1024w: 1024x768 113.76 KB
+JPG 1024w: 1024x768 131.45 KB
+Total variants: 9 files (665.72 KB combined)
+Best JPG: 131.45 KB (-0.1% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/copal/metadata.json
+
 ▶ Optimizing: copey
-Original: 1200x1600 (247.66 KB)
-WEBP 400w: 400x533 18.62 KB ✓
-AVIF 400w: 400x533 26.55 KB ✓
-JPG 400w: 400x533 29.66 KB ✓
-WEBP 800w: 800x1067 49.97 KB ✓
-AVIF 800w: 800x1067 70.44 KB ✓
-JPG 800w: 800x1067 88.57 KB ✓
-WEBP 1200w: 1200x1600 87.34 KB ✓
-AVIF 1200w: 1200x1600 123.96 KB ✓
-JPG 1200w: 1200x1600 170.13 KB ✓
-Total variants: 9 files (665.25 KB combined)
-Best JPG: 170.13 KB (31.3% smaller than original)
+Original: 1200x1600 (169.46 KB)
+WEBP 400w: 400x533 18.55 KB ✓
+AVIF 400w: 400x533 26.6 KB ✓
+JPG 400w: 400x533 29.73 KB ✓
+WEBP 800w: 800x1067 49.23 KB ✓
+AVIF 800w: 800x1067 68.86 KB ✓
+JPG 800w: 800x1067 87.49 KB ✓
+WEBP 1200w: 1200x1600 86.12 KB ✓
+AVIF 1200w: 1200x1600 122.42 KB ✓
+JPG 1200w: 1200x1600 169.85 KB ✓
+Total variants: 9 files (658.86 KB combined)
+Best JPG: 169.85 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/copey/metadata.json
 
 ▶ Optimizing: cornizuelo
@@ -1052,127 +1893,127 @@ Best JPG: 68.56 KB (28.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cornizuelo/metadata.json
 
 ▶ Optimizing: corozo
-Original: 1200x900 (302.28 KB)
-WEBP 400w: 400x300 28.64 KB ✓
-AVIF 400w: 400x300 50.07 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 32.38 KB ✓
-WEBP 800w: 800x600 95.01 KB ✓
-AVIF 800w: 800x600 149.47 KB ✓
-JPG 800w: 800x600 110.39 KB ✓
-WEBP 1200w: 1200x900 186.91 KB ✓
-AVIF 1200w: 1200x900 247.35 KB ✓
-JPG 1200w: 1200x900 232.13 KB ✓
-Total variants: 9 files (1.11 MB combined)
-Best JPG: 232.13 KB (23.2% smaller than original)
+Original: 1200x900 (230.31 KB)
+WEBP 400w: 400x300 28.56 KB ✓
+AVIF 400w: 400x300 47.4 KB ✓
+JPG 400w: 400x300 32.2 KB ✓
+WEBP 800w: 800x600 93.33 KB ✓
+AVIF 800w: 800x600 143.98 KB ✓
+JPG 800w: 800x600 108.72 KB ✓
+WEBP 1200w: 1200x900 180.03 KB ✓
+AVIF 1200w: 1200x900 215.63 KB ✓
+JPG 1200w: 1200x900 230.6 KB ✓
+Total variants: 9 files (1.06 MB combined)
+Best JPG: 230.6 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/corozo/metadata.json
 
 ▶ Optimizing: cortez-blanco
-Original: 1200x900 (283.36 KB)
-WEBP 400w: 400x300 20.74 KB ✓
-AVIF 400w: 400x300 39.16 KB ✓
-JPG 400w: 400x300 24.67 KB ✓
-WEBP 800w: 800x600 79.6 KB ✓
-AVIF 800w: 800x600 128.94 KB ✓
-JPG 800w: 800x600 90.5 KB ✓
-WEBP 1200w: 1200x900 182.87 KB ✓
-AVIF 1200w: 1200x900 250.38 KB ✓
-JPG 1200w: 1200x900 211.01 KB ✓
-Total variants: 9 files (1 MB combined)
-Best JPG: 211.01 KB (25.5% smaller than original)
+Original: 1200x900 (208.82 KB)
+WEBP 400w: 400x300 20.47 KB ✓
+AVIF 400w: 400x300 36.55 KB ✓
+JPG 400w: 400x300 24.5 KB ✓
+WEBP 800w: 800x600 78.15 KB ✓
+AVIF 800w: 800x600 123.3 KB ✓
+JPG 800w: 800x600 89.41 KB ✓
+WEBP 1200w: 1200x900 173.12 KB ✓
+AVIF 1200w: 1200x900 206.93 KB ✓
+JPG 1200w: 1200x900 208.94 KB ✓
+Total variants: 9 files (961.36 KB combined)
+Best JPG: 208.94 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cortez-blanco/metadata.json
 
 ▶ Optimizing: cortez-negro
-Original: 1200x1314 (393.67 KB)
-WEBP 400w: 400x438 34.36 KB ✓
-AVIF 400w: 400x438 66.89 KB ⚠ (target: 50 KB)
-JPG 400w: 400x438 39.65 KB ✓
-WEBP 800w: 800x876 123.07 KB ✓
-AVIF 800w: 800x876 199.19 KB ⚠ (target: 150 KB)
-JPG 800w: 800x876 145.75 KB ✓
-WEBP 1200w: 1200x1314 239.92 KB ✓
-AVIF 1200w: 1200x1314 318.31 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1314 308.65 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.44 MB combined)
-Best JPG: 308.65 KB (21.6% smaller than original)
+Original: 1200x1314 (305.13 KB)
+WEBP 400w: 400x438 33.91 KB ✓
+AVIF 400w: 400x438 60.83 KB ⚠ (target: 50 KB)
+JPG 400w: 400x438 39.25 KB ✓
+WEBP 800w: 800x876 120 KB ✓
+AVIF 800w: 800x876 187.63 KB ⚠ (target: 150 KB)
+JPG 800w: 800x876 143.27 KB ✓
+WEBP 1200w: 1200x1314 229.78 KB ✓
+AVIF 1200w: 1200x1314 282.27 KB ✓
+JPG 1200w: 1200x1314 304.91 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.37 MB combined)
+Best JPG: 304.91 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cortez-negro/metadata.json
 
 ▶ Optimizing: corteza-amarilla
-Original: 1153x2048 (645 KB)
-WEBP 400w: 400x710 36.32 KB ✓
-AVIF 400w: 400x710 54.36 KB ⚠ (target: 50 KB)
-JPG 400w: 400x710 53.08 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1421 85.31 KB ✓
-AVIF 800w: 800x1421 114.67 KB ✓
-JPG 800w: 800x1421 143.46 KB ✓
-WEBP 1153w: 1153x2048 138.81 KB
-AVIF 1153w: 1153x2048 202.34 KB
-JPG 1153w: 1153x2048 250.11 KB
-Total variants: 9 files (1.05 MB combined)
-Best JPG: 250.11 KB (61.2% smaller than original)
+Original: 1153x2048 (248.62 KB)
+WEBP 400w: 400x710 35.85 KB ✓
+AVIF 400w: 400x710 53.63 KB ⚠ (target: 50 KB)
+JPG 400w: 400x710 52.64 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1421 82.65 KB ✓
+AVIF 800w: 800x1421 110.2 KB ✓
+JPG 800w: 800x1421 140.75 KB ✓
+WEBP 1153w: 1153x2048 133.5 KB
+AVIF 1153w: 1153x2048 182.9 KB
+JPG 1153w: 1153x2048 249.06 KB
+Total variants: 9 files (1.02 MB combined)
+Best JPG: 249.06 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/corteza-amarilla/metadata.json
 
 ▶ Optimizing: coyol
-Original: 1200x1600 (918.46 KB)
-WEBP 400w: 400x533 47.66 KB ✓
-AVIF 400w: 400x533 73.48 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 49.79 KB ✓
-WEBP 800w: 800x1067 205.42 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 285.52 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 206.21 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 446.19 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 593.24 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 462.72 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.31 MB combined)
-Best JPG: 462.72 KB (49.6% smaller than original)
+Original: 1200x1600 (460.02 KB)
+WEBP 400w: 400x533 47.15 KB ✓
+AVIF 400w: 400x533 72.03 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 49.62 KB ✓
+WEBP 800w: 800x1067 202.08 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 275.55 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 204.22 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 409.05 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 438.65 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 460.33 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.11 MB combined)
+Best JPG: 460.33 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/coyol/metadata.json
 
 ▶ Optimizing: cristobal
-Original: 1200x1600 (413.29 KB)
-WEBP 400w: 400x533 39.29 KB ✓
-AVIF 400w: 400x533 61.95 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 47.9 KB ✓
-WEBP 800w: 800x1067 116.79 KB ✓
-AVIF 800w: 800x1067 177.35 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 153.52 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 213.04 KB ✓
-AVIF 1200w: 1200x1600 302.95 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 307.63 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.39 MB combined)
-Best JPG: 307.63 KB (25.6% smaller than original)
+Original: 1200x1600 (306.19 KB)
+WEBP 400w: 400x533 38.88 KB ✓
+AVIF 400w: 400x533 61.09 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 47.8 KB ✓
+WEBP 800w: 800x1067 115.14 KB ✓
+AVIF 800w: 800x1067 175.05 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 152.01 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 211.77 KB ✓
+AVIF 1200w: 1200x1600 272.44 KB ✓
+JPG 1200w: 1200x1600 306.7 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.35 MB combined)
+Best JPG: 306.7 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cristobal/metadata.json
 
 ▶ Optimizing: cristobalito
-Original: 1200x900 (296.29 KB)
-WEBP 400w: 400x300 31.99 KB ✓
-AVIF 400w: 400x300 51.53 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 34.04 KB ✓
-WEBP 800w: 800x600 102.94 KB ✓
-AVIF 800w: 800x600 150.77 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 115.9 KB ✓
-WEBP 1200w: 1200x900 182.95 KB ✓
-AVIF 1200w: 1200x900 238.27 KB ✓
-JPG 1200w: 1200x900 229.01 KB ✓
-Total variants: 9 files (1.11 MB combined)
-Best JPG: 229.01 KB (22.7% smaller than original)
+Original: 1200x900 (227.69 KB)
+WEBP 400w: 400x300 31.64 KB ✓
+AVIF 400w: 400x300 49.83 KB ✓
+JPG 400w: 400x300 33.86 KB ✓
+WEBP 800w: 800x600 101.1 KB ✓
+AVIF 800w: 800x600 146.11 KB ✓
+JPG 800w: 800x600 114.58 KB ✓
+WEBP 1200w: 1200x900 175.94 KB ✓
+AVIF 1200w: 1200x900 210.93 KB ✓
+JPG 1200w: 1200x900 228.16 KB ✓
+Total variants: 9 files (1.07 MB combined)
+Best JPG: 228.16 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/cristobalito/metadata.json
 
 ▶ Optimizing: espavel
-Original: 1200x1127 (439.24 KB)
-WEBP 400w: 400x375 36.08 KB ✓
-AVIF 400w: 400x375 57.41 KB ⚠ (target: 50 KB)
-JPG 400w: 400x375 40.65 KB ✓
-WEBP 800w: 800x751 90.96 KB ✓
-AVIF 800w: 800x751 132.75 KB ✓
-JPG 800w: 800x751 120.64 KB ✓
-WEBP 1200w: 1200x1127 146.96 KB ✓
-AVIF 1200w: 1200x1127 205.59 KB ✓
-JPG 1200w: 1200x1127 215.94 KB ✓
-Total variants: 9 files (1.02 MB combined)
-Best JPG: 215.94 KB (50.8% smaller than original)
+Original: 1200x1127 (214.71 KB)
+WEBP 400w: 400x375 36.11 KB ✓
+AVIF 400w: 400x375 56.05 KB ⚠ (target: 50 KB)
+JPG 400w: 400x375 40.58 KB ✓
+WEBP 800w: 800x751 89.85 KB ✓
+AVIF 800w: 800x751 127.24 KB ✓
+JPG 800w: 800x751 118.89 KB ✓
+WEBP 1200w: 1200x1127 141.67 KB ✓
+AVIF 1200w: 1200x1127 185.42 KB ✓
+JPG 1200w: 1200x1127 215.27 KB ✓
+Total variants: 9 files (1011.08 KB combined)
+Best JPG: 215.27 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/espavel/metadata.json
 
 ▶ Optimizing: eucalipto
-Original: 1200x1161 (192.93 KB)
+Original: 1200x1161 (187.73 KB)
 WEBP 400w: 400x387 11.95 KB ✓
 AVIF 400w: 400x387 16.54 KB ✓
 JPG 400w: 400x387 20.93 KB ✓
@@ -1183,37 +2024,37 @@ WEBP 1200w: 1200x1161 57.63 KB ✓
 AVIF 1200w: 1200x1161 97.83 KB ✓
 JPG 1200w: 1200x1161 128.64 KB ✓
 Total variants: 9 files (472.96 KB combined)
-Best JPG: 128.64 KB (33.3% smaller than original)
+Best JPG: 128.64 KB (31.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/eucalipto/metadata.json
 
 ▶ Optimizing: flamboyan
-Original: 956x2048 (612.25 KB)
-WEBP 400w: 400x857 90.62 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x857 129.02 KB ⚠ (target: 50 KB)
-JPG 400w: 400x857 95.27 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1714 298.43 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1714 411.18 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1714 337.03 KB ⚠ (target: 150 KB)
-WEBP 956w: 956x2048 395.11 KB
-AVIF 956w: 956x2048 500.67 KB
-JPG 956w: 956x2048 470.53 KB
-Total variants: 9 files (2.66 MB combined)
-Best JPG: 470.53 KB (23.1% smaller than original)
+Original: 956x2048 (468.41 KB)
+WEBP 400w: 400x857 90.76 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x857 127.96 KB ⚠ (target: 50 KB)
+JPG 400w: 400x857 94.8 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1714 293.5 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1714 410.52 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1714 333.96 KB ⚠ (target: 150 KB)
+WEBP 956w: 956x2048 384.5 KB
+AVIF 956w: 956x2048 443.08 KB
+JPG 956w: 956x2048 468.83 KB
+Total variants: 9 files (2.59 MB combined)
+Best JPG: 468.83 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/flamboyan/metadata.json
 
 ▶ Optimizing: flor-de-itabo
-Original: 1200x1600 (417.26 KB)
-WEBP 400w: 400x533 42.43 KB ✓
-AVIF 400w: 400x533 59.21 KB ⚠ (target: 50 KB)
+Original: 1200x1600 (312.73 KB)
+WEBP 400w: 400x533 42.55 KB ✓
+AVIF 400w: 400x533 59.24 KB ⚠ (target: 50 KB)
 JPG 400w: 400x533 48.87 KB ✓
-WEBP 800w: 800x1067 139.54 KB ✓
-AVIF 800w: 800x1067 183.55 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 169.24 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 231.19 KB ✓
-AVIF 1200w: 1200x1600 298.42 KB ✓
-JPG 1200w: 1200x1600 313.76 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.45 MB combined)
-Best JPG: 313.76 KB (24.8% smaller than original)
+WEBP 800w: 800x1067 137.52 KB ✓
+AVIF 800w: 800x1067 180.56 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 168.09 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 228.62 KB ✓
+AVIF 1200w: 1200x1600 275.66 KB ✓
+JPG 1200w: 1200x1600 313.44 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.42 MB combined)
+Best JPG: 313.44 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/flor-de-itabo/metadata.json
 
 ▶ Optimizing: fruta-de-pan
@@ -1247,108 +2088,108 @@ Best JPG: 93.39 KB (34.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/fruta-dorada/metadata.json
 
 ▶ Optimizing: gallinazo
-Original: 1200x1600 (524.8 KB)
-WEBP 400w: 400x533 59.94 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 105.22 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 64.07 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 181.74 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 281.71 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 211.66 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 317.6 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 427.55 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 411.96 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.01 MB combined)
-Best JPG: 411.96 KB (21.5% smaller than original)
+Original: 1200x1600 (407.69 KB)
+WEBP 400w: 400x533 59.64 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 97.41 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 63.62 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 177.44 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 264.84 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 208 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 302.28 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 381.68 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 407.14 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.92 MB combined)
+Best JPG: 407.14 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/gallinazo/metadata.json
 
 ▶ Optimizing: gavilan
-Original: 1200x1600 (516.8 KB)
-WEBP 400w: 400x533 29.34 KB ✓
-AVIF 400w: 400x533 45 KB ✓
-JPG 400w: 400x533 39.24 KB ✓
-WEBP 800w: 800x1067 82.78 KB ✓
-AVIF 800w: 800x1067 119.31 KB ✓
-JPG 800w: 800x1067 119.69 KB ✓
-WEBP 1200w: 1200x1600 146.8 KB ✓
-AVIF 1200w: 1200x1600 209.7 KB ✓
-JPG 1200w: 1200x1600 229.03 KB ✓
-Total variants: 9 files (1020.9 KB combined)
-Best JPG: 229.03 KB (55.7% smaller than original)
+Original: 1200x1600 (227.97 KB)
+WEBP 400w: 400x533 29.02 KB ✓
+AVIF 400w: 400x533 44.76 KB ✓
+JPG 400w: 400x533 39.11 KB ✓
+WEBP 800w: 800x1067 81.23 KB ✓
+AVIF 800w: 800x1067 113.72 KB ✓
+JPG 800w: 800x1067 118.37 KB ✓
+WEBP 1200w: 1200x1600 142.5 KB ✓
+AVIF 1200w: 1200x1600 184.88 KB ✓
+JPG 1200w: 1200x1600 228.59 KB ✓
+Total variants: 9 files (982.18 KB combined)
+Best JPG: 228.59 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/gavilan/metadata.json
 
 ▶ Optimizing: granadillo
-Original: 1200x1600 (519.1 KB)
-WEBP 400w: 400x533 53.89 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 76.66 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 55.53 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 175.26 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 250.47 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 191.01 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 324.97 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 418.87 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 390.82 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.89 MB combined)
-Best JPG: 390.82 KB (24.7% smaller than original)
+Original: 1200x1600 (389.25 KB)
+WEBP 400w: 400x533 53.56 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 76.19 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 55.47 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 173.76 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 246.82 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 189.99 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 312.88 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 360.66 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 389.8 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.82 MB combined)
+Best JPG: 389.8 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/granadillo/metadata.json
 
 ▶ Optimizing: guaba-bejuco
-Original: 1200x1600 (278.47 KB)
-WEBP 400w: 400x533 21.4 KB ✓
-AVIF 400w: 400x533 30.47 KB ✓
-JPG 400w: 400x533 32.54 KB ✓
-WEBP 800w: 800x1067 53.69 KB ✓
-AVIF 800w: 800x1067 74.16 KB ✓
-JPG 800w: 800x1067 89.88 KB ✓
-WEBP 1200w: 1200x1600 106.95 KB ✓
-AVIF 1200w: 1200x1600 161.18 KB ✓
-JPG 1200w: 1200x1600 188.75 KB ✓
-Total variants: 9 files (759.03 KB combined)
-Best JPG: 188.75 KB (32.2% smaller than original)
+Original: 1200x1600 (188.08 KB)
+WEBP 400w: 400x533 21.24 KB ✓
+AVIF 400w: 400x533 29.94 KB ✓
+JPG 400w: 400x533 32.52 KB ✓
+WEBP 800w: 800x1067 53.05 KB ✓
+AVIF 800w: 800x1067 74.53 KB ✓
+JPG 800w: 800x1067 89.43 KB ✓
+WEBP 1200w: 1200x1600 108.24 KB ✓
+AVIF 1200w: 1200x1600 142.42 KB ✓
+JPG 1200w: 1200x1600 188.35 KB ✓
+Total variants: 9 files (739.72 KB combined)
+Best JPG: 188.35 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guaba-bejuco/metadata.json
 
 ▶ Optimizing: guaba-machete
-Original: 1200x900 (266.69 KB)
-WEBP 400w: 400x300 24.47 KB ✓
-AVIF 400w: 400x300 41.57 KB ✓
-JPG 400w: 400x300 28.08 KB ✓
-WEBP 800w: 800x600 79.48 KB ✓
-AVIF 800w: 800x600 127.3 KB ✓
-JPG 800w: 800x600 96.56 KB ✓
-WEBP 1200w: 1200x900 153.8 KB ✓
-AVIF 1200w: 1200x900 209.59 KB ✓
-JPG 1200w: 1200x900 201.22 KB ✓
-Total variants: 9 files (962.07 KB combined)
-Best JPG: 201.22 KB (24.5% smaller than original)
+Original: 1200x900 (199.71 KB)
+WEBP 400w: 400x300 24.32 KB ✓
+AVIF 400w: 400x300 40.22 KB ✓
+JPG 400w: 400x300 27.98 KB ✓
+WEBP 800w: 800x600 78.25 KB ✓
+AVIF 800w: 800x600 124.53 KB ✓
+JPG 800w: 800x600 95.28 KB ✓
+WEBP 1200w: 1200x900 149.96 KB ✓
+AVIF 1200w: 1200x900 184.12 KB ✓
+JPG 1200w: 1200x900 200.25 KB ✓
+Total variants: 9 files (924.91 KB combined)
+Best JPG: 200.25 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guaba-machete/metadata.json
 
 ▶ Optimizing: guaba
-Original: 1152x2048 (652.9 KB)
-WEBP 400w: 400x711 61.77 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x711 85.74 KB ⚠ (target: 50 KB)
-JPG 400w: 400x711 69.69 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1422 133.38 KB ✓
-AVIF 800w: 800x1422 176.58 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1422 188.92 KB ⚠ (target: 150 KB)
-WEBP 1152w: 1152x2048 197.6 KB
-AVIF 1152w: 1152x2048 241.19 KB
-JPG 1152w: 1152x2048 310.72 KB
+Original: 1152x2048 (309.45 KB)
+WEBP 400w: 400x711 61.58 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x711 85.07 KB ⚠ (target: 50 KB)
+JPG 400w: 400x711 69.6 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1422 131.18 KB ✓
+AVIF 800w: 800x1422 170.38 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1422 186.95 KB ⚠ (target: 150 KB)
+WEBP 1152w: 1152x2048 197.19 KB
+AVIF 1152w: 1152x2048 252.28 KB
+JPG 1152w: 1152x2048 310.1 KB
 Total variants: 9 files (1.43 MB combined)
-Best JPG: 310.72 KB (52.4% smaller than original)
+Best JPG: 310.1 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guaba/metadata.json
 
 ▶ Optimizing: guachipelin
-Original: 1200x1594 (736.65 KB)
-WEBP 400w: 400x531 58.84 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x531 92.31 KB ⚠ (target: 50 KB)
-JPG 400w: 400x531 59.74 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1063 242.02 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1063 336.41 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1063 241.64 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1594 553.38 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1594 661.93 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1594 557.55 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.74 MB combined)
-Best JPG: 557.55 KB (24.3% smaller than original)
+Original: 1200x1594 (554.1 KB)
+WEBP 400w: 400x531 58.41 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x531 89.39 KB ⚠ (target: 50 KB)
+JPG 400w: 400x531 59.38 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1063 239.17 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1063 329.48 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1063 238.77 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1594 519.08 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1594 553.81 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1594 554.28 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.58 MB combined)
+Best JPG: 554.28 KB (-0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guachipelin/metadata.json
 
 ▶ Optimizing: guacimo-colorado
@@ -1366,109 +2207,121 @@ Total variants: 9 files (313.42 KB combined)
 Best JPG: 79.98 KB (31.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guacimo-colorado/metadata.json
 
+▶ Optimizing: guacimo-molenillo
+Original: 683x1024 (173.62 KB)
+WEBP 400w: 400x600 19.15 KB ✓
+AVIF 400w: 400x600 27.01 KB ✓
+JPG 400w: 400x600 29.12 KB ✓
+WEBP 683w: 683x1024 39.09 KB
+AVIF 683w: 683x1024 53.71 KB
+JPG 683w: 683x1024 65.54 KB
+Total variants: 6 files (233.62 KB combined)
+Best JPG: 65.54 KB (62.2% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/guacimo-molenillo/metadata.json
+
 ▶ Optimizing: guacimo
-Original: 1200x973 (210.1 KB)
-WEBP 400w: 400x324 14.58 KB ✓
-AVIF 400w: 400x324 21.01 KB ✓
-JPG 400w: 400x324 21.35 KB ✓
-WEBP 800w: 800x649 33.74 KB ✓
-AVIF 800w: 800x649 43.58 KB ✓
-JPG 800w: 800x649 56.12 KB ✓
-WEBP 1200w: 1200x973 54.17 KB ✓
-AVIF 1200w: 1200x973 66.01 KB ✓
-JPG 1200w: 1200x973 98.35 KB ✓
-Total variants: 9 files (408.92 KB combined)
-Best JPG: 98.35 KB (53.2% smaller than original)
+Original: 1200x973 (97.71 KB)
+WEBP 400w: 400x324 14.55 KB ✓
+AVIF 400w: 400x324 20.63 KB ✓
+JPG 400w: 400x324 21.31 KB ✓
+WEBP 800w: 800x649 33.39 KB ✓
+AVIF 800w: 800x649 42.39 KB ✓
+JPG 800w: 800x649 55.43 KB ✓
+WEBP 1200w: 1200x973 53.78 KB ✓
+AVIF 1200w: 1200x973 64.86 KB ✓
+JPG 1200w: 1200x973 98.03 KB ✓
+Total variants: 9 files (404.36 KB combined)
+Best JPG: 98.03 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guacimo/metadata.json
 
 ▶ Optimizing: guanabana-cimarrona
-Original: 1200x1600 (430.71 KB)
-WEBP 400w: 400x533 39.63 KB ✓
-AVIF 400w: 400x533 55.23 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 44.54 KB ✓
-WEBP 800w: 800x1067 133.05 KB ✓
-AVIF 800w: 800x1067 178.59 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 152.9 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 259.32 KB ✓
-AVIF 1200w: 1200x1600 319.44 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 317.9 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.47 MB combined)
-Best JPG: 317.9 KB (26.2% smaller than original)
+Original: 1200x1600 (317.05 KB)
+WEBP 400w: 400x533 39.41 KB ✓
+AVIF 400w: 400x533 55.27 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 44.57 KB ✓
+WEBP 800w: 800x1067 129.76 KB ✓
+AVIF 800w: 800x1067 174.98 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 152.07 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 248.59 KB ✓
+AVIF 1200w: 1200x1600 281.41 KB ✓
+JPG 1200w: 1200x1600 317.72 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.41 MB combined)
+Best JPG: 317.72 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guanabana-cimarrona/metadata.json
 
 ▶ Optimizing: guanabana
-Original: 1200x1075 (269.13 KB)
-WEBP 400w: 400x358 26.76 KB ✓
-AVIF 400w: 400x358 49.19 KB ✓
-JPG 400w: 400x358 32.47 KB ✓
-WEBP 800w: 800x717 81.67 KB ✓
-AVIF 800w: 800x717 125.86 KB ✓
-JPG 800w: 800x717 106.19 KB ✓
-WEBP 1200w: 1200x1075 148.49 KB ✓
-AVIF 1200w: 1200x1075 191.6 KB ✓
-JPG 1200w: 1200x1075 208.99 KB ✓
-Total variants: 9 files (971.22 KB combined)
-Best JPG: 208.99 KB (22.3% smaller than original)
+Original: 1200x1075 (207.35 KB)
+WEBP 400w: 400x358 26.45 KB ✓
+AVIF 400w: 400x358 46.03 KB ✓
+JPG 400w: 400x358 32.29 KB ✓
+WEBP 800w: 800x717 80.22 KB ✓
+AVIF 800w: 800x717 119.76 KB ✓
+JPG 800w: 800x717 104.3 KB ✓
+WEBP 1200w: 1200x1075 145.57 KB ✓
+AVIF 1200w: 1200x1075 180.9 KB ✓
+JPG 1200w: 1200x1075 207.69 KB ✓
+Total variants: 9 files (943.2 KB combined)
+Best JPG: 207.69 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guanabana/metadata.json
 
 ▶ Optimizing: guanacaste
-Original: 1200x900 (452.27 KB)
-WEBP 400w: 400x300 24.92 KB ✓
-AVIF 400w: 400x300 38.14 KB ✓
-JPG 400w: 400x300 26.91 KB ✓
-WEBP 800w: 800x600 101.07 KB ✓
-AVIF 800w: 800x600 143.06 KB ✓
-JPG 800w: 800x600 105.62 KB ✓
-WEBP 1200w: 1200x900 206.92 KB ✓
-AVIF 1200w: 1200x900 286.69 KB ✓
-JPG 1200w: 1200x900 227.38 KB ✓
-Total variants: 9 files (1.13 MB combined)
-Best JPG: 227.38 KB (49.7% smaller than original)
+Original: 1200x900 (225.92 KB)
+WEBP 400w: 400x300 24.89 KB ✓
+AVIF 400w: 400x300 37.93 KB ✓
+JPG 400w: 400x300 26.78 KB ✓
+WEBP 800w: 800x600 99.39 KB ✓
+AVIF 800w: 800x600 137.47 KB ✓
+JPG 800w: 800x600 104.79 KB ✓
+WEBP 1200w: 1200x900 192.52 KB ✓
+AVIF 1200w: 1200x900 213.64 KB ✓
+JPG 1200w: 1200x900 226.46 KB ✓
+Total variants: 9 files (1.04 MB combined)
+Best JPG: 226.46 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guanacaste/metadata.json
 
 ▶ Optimizing: guapinol
-Original: 1200x1600 (276.65 KB)
-WEBP 400w: 400x533 12.66 KB ✓
-AVIF 400w: 400x533 15.45 KB ✓
-JPG 400w: 400x533 22.25 KB ✓
-WEBP 800w: 800x1067 29.42 KB ✓
-AVIF 800w: 800x1067 32.6 KB ✓
-JPG 800w: 800x1067 58.42 KB ✓
-WEBP 1200w: 1200x1600 49.9 KB ✓
-AVIF 1200w: 1200x1600 54.75 KB ✓
-JPG 1200w: 1200x1600 106.69 KB ✓
-Total variants: 9 files (382.15 KB combined)
-Best JPG: 106.69 KB (61.4% smaller than original)
+Original: 1200x1600 (105.98 KB)
+WEBP 400w: 400x533 12.64 KB ✓
+AVIF 400w: 400x533 15.49 KB ✓
+JPG 400w: 400x533 22.2 KB ✓
+WEBP 800w: 800x1067 29.28 KB ✓
+AVIF 800w: 800x1067 32.44 KB ✓
+JPG 800w: 800x1067 58 KB ✓
+WEBP 1200w: 1200x1600 49.74 KB ✓
+AVIF 1200w: 1200x1600 56.67 KB ✓
+JPG 1200w: 1200x1600 106.51 KB ✓
+Total variants: 9 files (382.98 KB combined)
+Best JPG: 106.51 KB (-0.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guapinol/metadata.json
 
 ▶ Optimizing: guarumbo-hembra
-Original: 1200x1600 (455.97 KB)
-WEBP 400w: 400x533 52.16 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 81.27 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 58.14 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 143.88 KB ✓
-AVIF 800w: 800x1067 212.66 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 181.79 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 247.66 KB ✓
-AVIF 1200w: 1200x1600 339.71 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 345.34 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.62 MB combined)
-Best JPG: 345.34 KB (24.3% smaller than original)
+Original: 1200x800 (98.77 KB)
+WEBP 400w: 400x267 7.58 KB ✓
+AVIF 400w: 400x267 11.91 KB ✓
+JPG 400w: 400x267 10.52 KB ✓
+WEBP 800w: 800x533 25.47 KB ✓
+AVIF 800w: 800x533 38.72 KB ✓
+JPG 800w: 800x533 33.61 KB ✓
+WEBP 1200w: 1200x800 51.37 KB ✓
+AVIF 1200w: 1200x800 68.59 KB ✓
+JPG 1200w: 1200x800 69.3 KB ✓
+Total variants: 9 files (317.08 KB combined)
+Best JPG: 69.3 KB (29.8% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guarumbo-hembra/metadata.json
 
 ▶ Optimizing: guarumo
-Original: 1200x900 (416.42 KB)
-WEBP 400w: 400x300 25.64 KB ✓
-AVIF 400w: 400x300 42.78 KB ✓
-JPG 400w: 400x300 31.54 KB ✓
-WEBP 800w: 800x600 72.85 KB ✓
-AVIF 800w: 800x600 111.89 KB ✓
-JPG 800w: 800x600 98.8 KB ✓
-WEBP 1200w: 1200x900 132.49 KB ✓
-AVIF 1200w: 1200x900 205.07 KB ✓
-JPG 1200w: 1200x900 193.99 KB ✓
-Total variants: 9 files (915.06 KB combined)
-Best JPG: 193.99 KB (53.4% smaller than original)
+Original: 1200x900 (193.34 KB)
+WEBP 400w: 400x300 25.63 KB ✓
+AVIF 400w: 400x300 41.4 KB ✓
+JPG 400w: 400x300 31.41 KB ✓
+WEBP 800w: 800x600 70.69 KB ✓
+AVIF 800w: 800x600 106.51 KB ✓
+JPG 800w: 800x600 97 KB ✓
+WEBP 1200w: 1200x900 122.7 KB ✓
+AVIF 1200w: 1200x900 172.18 KB ✓
+JPG 1200w: 1200x900 192.71 KB ✓
+Total variants: 9 files (860.22 KB combined)
+Best JPG: 192.71 KB (0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guarumo/metadata.json
 
 ▶ Optimizing: guayaba-chilena
@@ -1487,93 +2340,93 @@ Best JPG: 114.16 KB (26.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guayaba-chilena/metadata.json
 
 ▶ Optimizing: guayabo
-Original: 1200x1600 (862.17 KB)
-WEBP 400w: 400x533 62.16 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 96.16 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 63.72 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 205.46 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 297.08 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 224.08 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 372.3 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 524.51 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 437.95 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.23 MB combined)
-Best JPG: 437.95 KB (49.2% smaller than original)
+Original: 1200x1600 (434.87 KB)
+WEBP 400w: 400x533 61.59 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 93.1 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 63.29 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 201.44 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 282.74 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 220.89 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 348.58 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 402.47 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 435.13 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.06 MB combined)
+Best JPG: 435.13 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guayabo/metadata.json
 
 ▶ Optimizing: guayacan-real
-Original: 1200x540 (300.64 KB)
-WEBP 400w: 400x180 18.33 KB ✓
-AVIF 400w: 400x180 27.03 KB ✓
-JPG 400w: 400x180 19.91 KB ✓
-WEBP 800w: 800x360 68.29 KB ✓
-AVIF 800w: 800x360 91.6 KB ✓
-JPG 800w: 800x360 72 KB ✓
-WEBP 1200w: 1200x540 140.34 KB ✓
-AVIF 1200w: 1200x540 185.64 KB ✓
-JPG 1200w: 1200x540 152.62 KB ✓
-Total variants: 9 files (775.76 KB combined)
-Best JPG: 152.62 KB (49.2% smaller than original)
+Original: 1200x540 (151.92 KB)
+WEBP 400w: 400x180 18.27 KB ✓
+AVIF 400w: 400x180 26.58 KB ✓
+JPG 400w: 400x180 19.83 KB ✓
+WEBP 800w: 800x360 67.43 KB ✓
+AVIF 800w: 800x360 89.04 KB ✓
+JPG 800w: 800x360 71.33 KB ✓
+WEBP 1200w: 1200x540 131.93 KB ✓
+AVIF 1200w: 1200x540 143.93 KB ✓
+JPG 1200w: 1200x540 151.94 KB ✓
+Total variants: 9 files (720.28 KB combined)
+Best JPG: 151.94 KB (-0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guayacan-real/metadata.json
 
 ▶ Optimizing: guitite
-Original: 1200x1600 (283.17 KB)
-WEBP 400w: 400x533 26.15 KB ✓
-AVIF 400w: 400x533 38.1 KB ✓
-JPG 400w: 400x533 36.07 KB ✓
-WEBP 800w: 800x1067 64.57 KB ✓
-AVIF 800w: 800x1067 88.78 KB ✓
-JPG 800w: 800x1067 102.65 KB ✓
-WEBP 1200w: 1200x1600 110.79 KB ✓
-AVIF 1200w: 1200x1600 151.18 KB ✓
-JPG 1200w: 1200x1600 193.26 KB ✓
-Total variants: 9 files (811.55 KB combined)
-Best JPG: 193.26 KB (31.8% smaller than original)
+Original: 1200x1600 (192.61 KB)
+WEBP 400w: 400x533 26 KB ✓
+AVIF 400w: 400x533 37.82 KB ✓
+JPG 400w: 400x533 36.03 KB ✓
+WEBP 800w: 800x1067 63.78 KB ✓
+AVIF 800w: 800x1067 87.47 KB ✓
+JPG 800w: 800x1067 101.72 KB ✓
+WEBP 1200w: 1200x1600 109.53 KB ✓
+AVIF 1200w: 1200x1600 146.6 KB ✓
+JPG 1200w: 1200x1600 192.98 KB ✓
+Total variants: 9 files (801.94 KB combined)
+Best JPG: 192.98 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/guitite/metadata.json
 
 ▶ Optimizing: higueron
-Original: 1200x1594 (407.52 KB)
-WEBP 400w: 400x531 27.98 KB ✓
-AVIF 400w: 400x531 40.19 KB ✓
-JPG 400w: 400x531 38.58 KB ✓
-WEBP 800w: 800x1063 64.78 KB ✓
-AVIF 800w: 800x1063 84 KB ✓
-JPG 800w: 800x1063 106.39 KB ✓
-WEBP 1200w: 1200x1594 106.6 KB ✓
-AVIF 1200w: 1200x1594 127.12 KB ✓
-JPG 1200w: 1200x1594 188.55 KB ✓
-Total variants: 9 files (784.2 KB combined)
-Best JPG: 188.55 KB (53.7% smaller than original)
+Original: 1200x1594 (187.84 KB)
+WEBP 400w: 400x531 27.91 KB ✓
+AVIF 400w: 400x531 39.85 KB ✓
+JPG 400w: 400x531 38.46 KB ✓
+WEBP 800w: 800x1063 64.11 KB ✓
+AVIF 800w: 800x1063 81.31 KB ✓
+JPG 800w: 800x1063 105.23 KB ✓
+WEBP 1200w: 1200x1594 105.25 KB ✓
+AVIF 1200w: 1200x1594 133.31 KB ✓
+JPG 1200w: 1200x1594 188.15 KB ✓
+Total variants: 9 files (783.57 KB combined)
+Best JPG: 188.15 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/higueron/metadata.json
 
 ▶ Optimizing: hoja-santa
-Original: 1200x1600 (390.33 KB)
-WEBP 400w: 400x533 43.14 KB ✓
-AVIF 400w: 400x533 63.95 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 51.44 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 116.51 KB ✓
-AVIF 800w: 800x1067 169.79 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 160.76 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 187.81 KB ✓
-AVIF 1200w: 1200x1600 265.52 KB ✓
-JPG 1200w: 1200x1600 292.94 KB ✓
-Total variants: 9 files (1.32 MB combined)
-Best JPG: 292.94 KB (25.0% smaller than original)
+Original: 1200x1600 (291.07 KB)
+WEBP 400w: 400x533 42.97 KB ✓
+AVIF 400w: 400x533 63.07 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 51.24 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 114.1 KB ✓
+AVIF 800w: 800x1067 166.07 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 158.46 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 186.04 KB ✓
+AVIF 1200w: 1200x1600 247.15 KB ✓
+JPG 1200w: 1200x1600 291.51 KB ✓
+Total variants: 9 files (1.29 MB combined)
+Best JPG: 291.51 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/hoja-santa/metadata.json
 
 ▶ Optimizing: hule
-Original: 1200x900 (416.37 KB)
-WEBP 400w: 400x300 42.2 KB ✓
-AVIF 400w: 400x300 67.15 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 41.43 KB ✓
-WEBP 800w: 800x600 139.95 KB ✓
-AVIF 800w: 800x600 207.31 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 144.9 KB ✓
-WEBP 1200w: 1200x900 274.48 KB ✓
-AVIF 1200w: 1200x900 342.13 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x900 298.14 KB ✓
-Total variants: 9 files (1.52 MB combined)
-Best JPG: 298.14 KB (28.4% smaller than original)
+Original: 1200x900 (295.68 KB)
+WEBP 400w: 400x300 41.66 KB ✓
+AVIF 400w: 400x300 63.73 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 41.18 KB ✓
+WEBP 800w: 800x600 137.28 KB ✓
+AVIF 800w: 800x600 198.87 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 142.61 KB ✓
+WEBP 1200w: 1200x900 255.85 KB ✓
+AVIF 1200w: 1200x900 286.84 KB ✓
+JPG 1200w: 1200x900 295.86 KB ✓
+Total variants: 9 files (1.43 MB combined)
+Best JPG: 295.86 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/hule/metadata.json
 
 ▶ Optimizing: icaco
@@ -1592,78 +2445,78 @@ Best JPG: 82.1 KB (28.7% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/icaco/metadata.json
 
 ▶ Optimizing: indio-desnudo
-Original: 1200x1600 (659.03 KB)
-WEBP 400w: 400x533 54.22 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 79.53 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 56.79 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 152.83 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 215.7 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 184.62 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 246.1 KB ✓
-AVIF 1200w: 1200x1600 324.37 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 335.29 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.61 MB combined)
-Best JPG: 335.29 KB (49.1% smaller than original)
+Original: 1200x1600 (334.05 KB)
+WEBP 400w: 400x533 53.82 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 78.57 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 56.7 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 150.2 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 207.24 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 182.47 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 241.81 KB ✓
+AVIF 1200w: 1200x1600 290.22 KB ✓
+JPG 1200w: 1200x1600 334.72 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.56 MB combined)
+Best JPG: 334.72 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/indio-desnudo/metadata.json
 
 ▶ Optimizing: ira-rosa
-Original: 1200x900 (256.64 KB)
-WEBP 400w: 400x300 30.12 KB ✓
-AVIF 400w: 400x300 53.21 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 34.4 KB ✓
-WEBP 800w: 800x600 80.51 KB ✓
-AVIF 800w: 800x600 124.99 KB ✓
-JPG 800w: 800x600 103.79 KB ✓
-WEBP 1200w: 1200x900 138.38 KB ✓
-AVIF 1200w: 1200x900 196.23 KB ✓
-JPG 1200w: 1200x900 195.86 KB ✓
-Total variants: 9 files (957.5 KB combined)
-Best JPG: 195.86 KB (23.7% smaller than original)
+Original: 1200x900 (195.19 KB)
+WEBP 400w: 400x300 29.83 KB ✓
+AVIF 400w: 400x300 50.63 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 34.18 KB ✓
+WEBP 800w: 800x600 78.48 KB ✓
+AVIF 800w: 800x600 119.04 KB ✓
+JPG 800w: 800x600 101.94 KB ✓
+WEBP 1200w: 1200x900 132.49 KB ✓
+AVIF 1200w: 1200x900 177.24 KB ✓
+JPG 1200w: 1200x900 193.78 KB ✓
+Total variants: 9 files (917.61 KB combined)
+Best JPG: 193.78 KB (0.7% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/ira-rosa/metadata.json
 
 ▶ Optimizing: jaboncillo
-Original: 1200x1600 (500.65 KB)
-WEBP 400w: 400x533 32.11 KB ✓
-AVIF 400w: 400x533 50.19 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 43.74 KB ✓
-WEBP 800w: 800x1067 80.14 KB ✓
-AVIF 800w: 800x1067 117.6 KB ✓
-JPG 800w: 800x1067 129.11 KB ✓
-WEBP 1200w: 1200x1600 127.25 KB ✓
-AVIF 1200w: 1200x1600 182.03 KB ✓
-JPG 1200w: 1200x1600 229.75 KB ✓
-Total variants: 9 files (991.92 KB combined)
-Best JPG: 229.75 KB (54.1% smaller than original)
+Original: 1200x1600 (228.68 KB)
+WEBP 400w: 400x533 32.33 KB ✓
+AVIF 400w: 400x533 50.03 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 43.61 KB ✓
+WEBP 800w: 800x1067 78.67 KB ✓
+AVIF 800w: 800x1067 115.02 KB ✓
+JPG 800w: 800x1067 127.59 KB ✓
+WEBP 1200w: 1200x1600 127.55 KB ✓
+AVIF 1200w: 1200x1600 185.68 KB ✓
+JPG 1200w: 1200x1600 229.35 KB ✓
+Total variants: 9 files (989.84 KB combined)
+Best JPG: 229.35 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/jaboncillo/metadata.json
 
 ▶ Optimizing: jacaranda
-Original: 1200x900 (443.09 KB)
-WEBP 400w: 400x300 33.53 KB ✓
-AVIF 400w: 400x300 57.74 KB ⚠ (target: 50 KB)
-JPG 400w: 400x300 36.25 KB ✓
-WEBP 800w: 800x600 108.19 KB ✓
-AVIF 800w: 800x600 158.92 KB ⚠ (target: 150 KB)
-JPG 800w: 800x600 121.11 KB ✓
-WEBP 1200w: 1200x900 187.96 KB ✓
-AVIF 1200w: 1200x900 264.79 KB ✓
-JPG 1200w: 1200x900 233.62 KB ✓
-Total variants: 9 files (1.17 MB combined)
-Best JPG: 233.62 KB (47.3% smaller than original)
+Original: 1200x900 (232 KB)
+WEBP 400w: 400x300 33.25 KB ✓
+AVIF 400w: 400x300 55.46 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 36.07 KB ✓
+WEBP 800w: 800x600 104 KB ✓
+AVIF 800w: 800x600 152.12 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 119.41 KB ✓
+WEBP 1200w: 1200x900 175.47 KB ✓
+AVIF 1200w: 1200x900 215.38 KB ✓
+JPG 1200w: 1200x900 232.41 KB ✓
+Total variants: 9 files (1.1 MB combined)
+Best JPG: 232.41 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/jacaranda/metadata.json
 
 ▶ Optimizing: javillo
-Original: 1200x801 (342.68 KB)
-WEBP 400w: 400x267 31.87 KB ✓
-AVIF 400w: 400x267 48.55 KB ✓
-JPG 400w: 400x267 33 KB ✓
-WEBP 800w: 800x534 84.27 KB ✓
-AVIF 800w: 800x534 115.8 KB ✓
-JPG 800w: 800x534 98.85 KB ✓
-WEBP 1200w: 1200x801 139.35 KB ✓
-AVIF 1200w: 1200x801 180.1 KB ✓
-JPG 1200w: 1200x801 179.45 KB ✓
-Total variants: 9 files (911.23 KB combined)
-Best JPG: 179.45 KB (47.6% smaller than original)
+Original: 1200x801 (178.8 KB)
+WEBP 400w: 400x267 32.14 KB ✓
+AVIF 400w: 400x267 47.03 KB ✓
+JPG 400w: 400x267 32.9 KB ✓
+WEBP 800w: 800x534 82.78 KB ✓
+AVIF 800w: 800x534 110.56 KB ✓
+JPG 800w: 800x534 97.51 KB ✓
+WEBP 1200w: 1200x801 132.86 KB ✓
+AVIF 1200w: 1200x801 158.23 KB ✓
+JPG 1200w: 1200x801 178.17 KB ✓
+Total variants: 9 files (872.19 KB combined)
+Best JPG: 178.17 KB (0.4% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/javillo/metadata.json
 
 ▶ Optimizing: jicaro
@@ -1682,168 +2535,168 @@ Best JPG: 104.64 KB (27.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/jicaro/metadata.json
 
 ▶ Optimizing: jobo
-Original: 1200x1600 (776.87 KB)
-WEBP 400w: 400x533 55.72 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 75.79 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 56.66 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 180.84 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 243.24 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 192.82 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 325.51 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 439.95 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 379.34 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.9 MB combined)
-Best JPG: 379.34 KB (51.2% smaller than original)
+Original: 1200x1600 (378.02 KB)
+WEBP 400w: 400x533 55.93 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 75.28 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 56.57 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 177.4 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 235 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 191.48 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 303.83 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 340.5 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 378.62 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.77 MB combined)
+Best JPG: 378.62 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/jobo/metadata.json
 
 ▶ Optimizing: jocote
-Original: 1200x1600 (503.58 KB)
+Original: 1200x1600 (241.1 KB)
 WEBP 400w: 400x533 37.8 KB ✓
-AVIF 400w: 400x533 57.57 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 48.21 KB ✓
-WEBP 800w: 800x1067 89.35 KB ✓
-AVIF 800w: 800x1067 126.21 KB ✓
-JPG 800w: 800x1067 138.46 KB ✓
-WEBP 1200w: 1200x1600 138.66 KB ✓
-AVIF 1200w: 1200x1600 185.96 KB ✓
-JPG 1200w: 1200x1600 242.52 KB ✓
+AVIF 400w: 400x533 57.21 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 48.14 KB ✓
+WEBP 800w: 800x1067 88.36 KB ✓
+AVIF 800w: 800x1067 123.63 KB ✓
+JPG 800w: 800x1067 136.94 KB ✓
+WEBP 1200w: 1200x1600 137.47 KB ✓
+AVIF 1200w: 1200x1600 194.3 KB ✓
+JPG 1200w: 1200x1600 241.69 KB ✓
 Total variants: 9 files (1.04 MB combined)
-Best JPG: 242.52 KB (51.8% smaller than original)
+Best JPG: 241.69 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/jocote/metadata.json
 
 ▶ Optimizing: laurel-negro
-Original: 1200x1600 (377.14 KB)
-WEBP 400w: 400x533 34.77 KB ✓
-AVIF 400w: 400x533 53.76 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 44.24 KB ✓
-WEBP 800w: 800x1067 101.48 KB ✓
-AVIF 800w: 800x1067 152.15 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 137.12 KB ✓
-WEBP 1200w: 1200x1600 188.83 KB ✓
-AVIF 1200w: 1200x1600 261.92 KB ✓
-JPG 1200w: 1200x1600 275.85 KB ✓
-Total variants: 9 files (1.22 MB combined)
-Best JPG: 275.85 KB (26.9% smaller than original)
+Original: 1200x1600 (274.73 KB)
+WEBP 400w: 400x533 34.65 KB ✓
+AVIF 400w: 400x533 52.82 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 44.07 KB ✓
+WEBP 800w: 800x1067 100.78 KB ✓
+AVIF 800w: 800x1067 149.17 KB ✓
+JPG 800w: 800x1067 135.62 KB ✓
+WEBP 1200w: 1200x1600 186.29 KB ✓
+AVIF 1200w: 1200x1600 238.94 KB ✓
+JPG 1200w: 1200x1600 275.3 KB ✓
+Total variants: 9 files (1.19 MB combined)
+Best JPG: 275.3 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/laurel-negro/metadata.json
 
 ▶ Optimizing: laurel
-Original: 1200x1600 (719.11 KB)
-WEBP 400w: 400x533 45.19 KB ✓
-AVIF 400w: 400x533 67.32 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 52 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 143.04 KB ✓
-AVIF 800w: 800x1067 207.12 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 172.3 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 271.45 KB ✓
-AVIF 1200w: 1200x1600 392.25 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 343.32 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.65 MB combined)
-Best JPG: 343.32 KB (52.3% smaller than original)
+Original: 1200x1600 (341.93 KB)
+WEBP 400w: 400x533 45.27 KB ✓
+AVIF 400w: 400x533 66.44 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 51.79 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 141.48 KB ✓
+AVIF 800w: 800x1067 198.69 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 170.96 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 254.4 KB ✓
+AVIF 1200w: 1200x1600 304.65 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 342.51 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.54 MB combined)
+Best JPG: 342.51 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/laurel/metadata.json
 
 ▶ Optimizing: lechoso-montanero
-Original: 1200x1600 (314.36 KB)
-WEBP 400w: 400x533 26.34 KB ✓
-AVIF 400w: 400x533 41.41 KB ✓
-JPG 400w: 400x533 35.96 KB ✓
-WEBP 800w: 800x1067 75.42 KB ✓
-AVIF 800w: 800x1067 116.76 KB ✓
-JPG 800w: 800x1067 114.5 KB ✓
-WEBP 1200w: 1200x1600 132.84 KB ✓
-AVIF 1200w: 1200x1600 200.22 KB ✓
-JPG 1200w: 1200x1600 222.4 KB ✓
-Total variants: 9 files (965.84 KB combined)
-Best JPG: 222.4 KB (29.3% smaller than original)
+Original: 1200x1600 (221.66 KB)
+WEBP 400w: 400x533 26.14 KB ✓
+AVIF 400w: 400x533 41.1 KB ✓
+JPG 400w: 400x533 35.92 KB ✓
+WEBP 800w: 800x1067 74.59 KB ✓
+AVIF 800w: 800x1067 116.46 KB ✓
+JPG 800w: 800x1067 113.53 KB ✓
+WEBP 1200w: 1200x1600 133.73 KB ✓
+AVIF 1200w: 1200x1600 186.38 KB ✓
+JPG 1200w: 1200x1600 222.31 KB ✓
+Total variants: 9 files (950.16 KB combined)
+Best JPG: 222.31 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/lechoso-montanero/metadata.json
 
 ▶ Optimizing: lechoso
-Original: 1200x900 (315.11 KB)
-WEBP 400w: 400x300 28.85 KB ✓
-AVIF 400w: 400x300 44.11 KB ✓
-JPG 400w: 400x300 31.37 KB ✓
-WEBP 800w: 800x600 99.7 KB ✓
-AVIF 800w: 800x600 148.67 KB ✓
-JPG 800w: 800x600 110.95 KB ✓
-WEBP 1200w: 1200x900 198.12 KB ✓
-AVIF 1200w: 1200x900 262.02 KB ✓
-JPG 1200w: 1200x900 237.98 KB ✓
-Total variants: 9 files (1.13 MB combined)
-Best JPG: 237.98 KB (24.5% smaller than original)
+Original: 1200x900 (236.36 KB)
+WEBP 400w: 400x300 28.52 KB ✓
+AVIF 400w: 400x300 43.4 KB ✓
+JPG 400w: 400x300 31.19 KB ✓
+WEBP 800w: 800x600 98.64 KB ✓
+AVIF 800w: 800x600 147.8 KB ✓
+JPG 800w: 800x600 110.05 KB ✓
+WEBP 1200w: 1200x900 193.37 KB ✓
+AVIF 1200w: 1200x900 225.01 KB ✓
+JPG 1200w: 1200x900 236.88 KB ✓
+Total variants: 9 files (1.09 MB combined)
+Best JPG: 236.88 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/lechoso/metadata.json
 
 ▶ Optimizing: lengua-de-vaca
-Original: 1200x1600 (426.01 KB)
-WEBP 400w: 400x533 44.57 KB ✓
-AVIF 400w: 400x533 65.56 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 51.85 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 129.46 KB ✓
-AVIF 800w: 800x1067 183.11 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 167.48 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 218.27 KB ✓
-AVIF 1200w: 1200x1600 307.8 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 320.61 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.45 MB combined)
-Best JPG: 320.61 KB (24.7% smaller than original)
+Original: 1200x1600 (319.28 KB)
+WEBP 400w: 400x533 44.83 KB ✓
+AVIF 400w: 400x533 65.1 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 51.74 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 128.09 KB ✓
+AVIF 800w: 800x1067 182.18 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 166.1 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 216 KB ✓
+AVIF 1200w: 1200x1600 283.05 KB ✓
+JPG 1200w: 1200x1600 319.87 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.42 MB combined)
+Best JPG: 319.87 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/lengua-de-vaca/metadata.json
 
 ▶ Optimizing: llama-del-bosque
-Original: 1200x1600 (464.08 KB)
-WEBP 400w: 400x533 54.47 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 81.61 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 59.08 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 156.29 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 226.93 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 192.69 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 253.53 KB ✓
-AVIF 1200w: 1200x1600 347.36 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 353.93 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.69 MB combined)
-Best JPG: 353.93 KB (23.7% smaller than original)
+Original: 1200x1600 (352.27 KB)
+WEBP 400w: 400x533 54.3 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 80.98 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 59.02 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 155 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 223.45 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 190.83 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 250.06 KB ✓
+AVIF 1200w: 1200x1600 315.35 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 352.82 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.64 MB combined)
+Best JPG: 352.82 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/llama-del-bosque/metadata.json
 
 ▶ Optimizing: lorito
-Original: 1200x1600 (534.78 KB)
-WEBP 400w: 400x533 65.13 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 99.16 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 66.73 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 197.15 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 280.63 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 222.34 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 329.73 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 425.43 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 417.16 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.05 MB combined)
-Best JPG: 417.16 KB (22.0% smaller than original)
+Original: 1200x1600 (415.35 KB)
+WEBP 400w: 400x533 64.81 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 97.14 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 66.47 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 193.53 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 273.97 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 219.9 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 321.54 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 383.28 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 415.82 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.99 MB combined)
+Best JPG: 415.82 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/lorito/metadata.json
 
 ▶ Optimizing: madero-negro
-Original: 1200x1600 (880.84 KB)
-WEBP 400w: 400x533 58.27 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 85.06 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 57.79 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 216.96 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 305.19 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 225.28 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 394.61 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 536.46 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 450.48 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.28 MB combined)
-Best JPG: 450.48 KB (48.9% smaller than original)
+Original: 1200x1600 (448.36 KB)
+WEBP 400w: 400x533 58.23 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 84.5 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 57.58 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 214.99 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 296.19 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 223.05 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 374.79 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 417.04 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 448.97 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.12 MB combined)
+Best JPG: 448.97 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/madero-negro/metadata.json
 
 ▶ Optimizing: madrono
-Original: 1200x1600 (890.82 KB)
-WEBP 400w: 400x533 60.16 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 90.57 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 59.52 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 220.6 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 309.33 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 224.3 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 414.3 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 561.17 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 453.73 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.34 MB combined)
-Best JPG: 453.73 KB (49.1% smaller than original)
+Original: 1200x1600 (451.39 KB)
+WEBP 400w: 400x533 59.71 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 88.31 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 59.24 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 213.11 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 296.56 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 221.6 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 380.08 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 422.92 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 451.7 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.14 MB combined)
+Best JPG: 451.7 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/madrono/metadata.json
 
 ▶ Optimizing: magnolia
@@ -1877,18 +2730,18 @@ Best JPG: 105.57 KB (26.7% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mamon-chino/metadata.json
 
 ▶ Optimizing: mamon
-Original: 979x2048 (338.1 KB)
-WEBP 400w: 400x837 44.63 KB ✓
-AVIF 400w: 400x837 68.27 KB ⚠ (target: 50 KB)
-JPG 400w: 400x837 64.28 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1674 110.24 KB ✓
-AVIF 800w: 800x1674 162.49 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1674 181.39 KB ⚠ (target: 150 KB)
-WEBP 979w: 979x2048 148.45 KB
-AVIF 979w: 979x2048 208.68 KB
-JPG 979w: 979x2048 253.79 KB
-Total variants: 9 files (1.21 MB combined)
-Best JPG: 253.79 KB (24.9% smaller than original)
+Original: 979x2048 (252.43 KB)
+WEBP 400w: 400x837 44.2 KB ✓
+AVIF 400w: 400x837 67.18 KB ⚠ (target: 50 KB)
+JPG 400w: 400x837 63.83 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1674 109.92 KB ✓
+AVIF 800w: 800x1674 161.53 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1674 179.65 KB ⚠ (target: 150 KB)
+WEBP 979w: 979x2048 149.17 KB
+AVIF 979w: 979x2048 203.41 KB
+JPG 979w: 979x2048 252.96 KB
+Total variants: 9 files (1.2 MB combined)
+Best JPG: 252.96 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mamon/metadata.json
 
 ▶ Optimizing: manchineel
@@ -1907,472 +2760,472 @@ Best JPG: 54.6 KB (28.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/manchineel/metadata.json
 
 ▶ Optimizing: mangle-blanco
-Original: 1200x1600 (317.2 KB)
-WEBP 400w: 400x533 28.06 KB ✓
-AVIF 400w: 400x533 42.94 KB ✓
-JPG 400w: 400x533 39.28 KB ✓
-WEBP 800w: 800x1067 76.73 KB ✓
-AVIF 800w: 800x1067 113.8 KB ✓
-JPG 800w: 800x1067 117.11 KB ✓
-WEBP 1200w: 1200x1600 136.54 KB ✓
-AVIF 1200w: 1200x1600 190.46 KB ✓
-JPG 1200w: 1200x1600 227.94 KB ✓
-Total variants: 9 files (972.87 KB combined)
-Best JPG: 227.94 KB (28.1% smaller than original)
+Original: 1200x1600 (227.1 KB)
+WEBP 400w: 400x533 27.98 KB ✓
+AVIF 400w: 400x533 42.44 KB ✓
+JPG 400w: 400x533 39.25 KB ✓
+WEBP 800w: 800x1067 75.97 KB ✓
+AVIF 800w: 800x1067 111.68 KB ✓
+JPG 800w: 800x1067 116.15 KB ✓
+WEBP 1200w: 1200x1600 137.87 KB ✓
+AVIF 1200w: 1200x1600 181.66 KB ✓
+JPG 1200w: 1200x1600 227.75 KB ✓
+Total variants: 9 files (960.75 KB combined)
+Best JPG: 227.75 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mangle-blanco/metadata.json
 
 ▶ Optimizing: mangle-botoncillo
-Original: 1200x1600 (245.78 KB)
-WEBP 400w: 400x533 22.71 KB ✓
-AVIF 400w: 400x533 34.06 KB ✓
-JPG 400w: 400x533 34.72 KB ✓
-WEBP 800w: 800x1067 54.94 KB ✓
-AVIF 800w: 800x1067 74.56 KB ✓
-JPG 800w: 800x1067 95.94 KB ✓
-WEBP 1200w: 1200x1600 92.08 KB ✓
-AVIF 1200w: 1200x1600 121.22 KB ✓
-JPG 1200w: 1200x1600 174.41 KB ✓
-Total variants: 9 files (704.64 KB combined)
-Best JPG: 174.41 KB (29.0% smaller than original)
+Original: 1200x1600 (173.74 KB)
+WEBP 400w: 400x533 22.53 KB ✓
+AVIF 400w: 400x533 33.76 KB ✓
+JPG 400w: 400x533 34.71 KB ✓
+WEBP 800w: 800x1067 54.71 KB ✓
+AVIF 800w: 800x1067 73.17 KB ✓
+JPG 800w: 800x1067 94.96 KB ✓
+WEBP 1200w: 1200x1600 93.42 KB ✓
+AVIF 1200w: 1200x1600 121.45 KB ✓
+JPG 1200w: 1200x1600 174.24 KB ✓
+Total variants: 9 files (702.97 KB combined)
+Best JPG: 174.24 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mangle-botoncillo/metadata.json
 
 ▶ Optimizing: mangle-negro
-Original: 1200x1600 (770.38 KB)
-WEBP 400w: 400x533 76.4 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 119.53 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 73.18 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 283.81 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 396.51 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 280.38 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 582.15 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 704.33 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 590.2 KB ⚠ (target: 300 KB)
-Total variants: 9 files (3.03 MB combined)
-Best JPG: 590.2 KB (23.4% smaller than original)
+Original: 1200x1600 (584.38 KB)
+WEBP 400w: 400x533 75.67 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 113.62 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 72.61 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 278.48 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 382.51 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 276.15 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 535.57 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 579.77 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 583.99 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.83 MB combined)
+Best JPG: 583.99 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mangle-negro/metadata.json
 
 ▶ Optimizing: mangle-pinuela
-Original: 1080x720 (327.87 KB)
-WEBP 400w: 400x267 32.27 KB ✓
-AVIF 400w: 400x267 48.25 KB ✓
-JPG 400w: 400x267 31.64 KB ✓
-WEBP 800w: 800x533 150.12 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x533 207.99 KB ⚠ (target: 150 KB)
-JPG 800w: 800x533 137.25 KB ✓
-WEBP 1080w: 1080x720 306.94 KB
-AVIF 1080w: 1080x720 334.19 KB
-JPG 1080w: 1080x720 278.35 KB
-Total variants: 9 files (1.49 MB combined)
-Best JPG: 278.35 KB (15.1% smaller than original)
+Original: 1080x720 (274.31 KB)
+WEBP 400w: 400x267 31.44 KB ✓
+AVIF 400w: 400x267 46.13 KB ✓
+JPG 400w: 400x267 31.29 KB ✓
+WEBP 800w: 800x533 142.87 KB ✓
+AVIF 800w: 800x533 195.29 KB ⚠ (target: 150 KB)
+JPG 800w: 800x533 134 KB ✓
+WEBP 1080w: 1080x720 281.35 KB
+AVIF 1080w: 1080x720 290.8 KB
+JPG 1080w: 1080x720 274.28 KB
+Total variants: 9 files (1.39 MB combined)
+Best JPG: 274.28 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mangle-pinuela/metadata.json
 
 ▶ Optimizing: mangle-rojo
-Original: 1200x800 (277.86 KB)
-WEBP 400w: 400x267 27.26 KB ✓
-AVIF 400w: 400x267 45.02 KB ✓
-JPG 400w: 400x267 28.91 KB ✓
-WEBP 800w: 800x533 91.58 KB ✓
-AVIF 800w: 800x533 135.35 KB ✓
-JPG 800w: 800x533 104.46 KB ✓
-WEBP 1200w: 1200x800 175.91 KB ✓
-AVIF 1200w: 1200x800 222.3 KB ✓
-JPG 1200w: 1200x800 215.64 KB ✓
-Total variants: 9 files (1.02 MB combined)
-Best JPG: 215.64 KB (22.4% smaller than original)
+Original: 1200x800 (214.18 KB)
+WEBP 400w: 400x267 27.03 KB ✓
+AVIF 400w: 400x267 42.48 KB ✓
+JPG 400w: 400x267 28.77 KB ✓
+WEBP 800w: 800x533 90.2 KB ✓
+AVIF 800w: 800x533 130.66 KB ✓
+JPG 800w: 800x533 103.08 KB ✓
+WEBP 1200w: 1200x800 168.35 KB ✓
+AVIF 1200w: 1200x800 197.63 KB ✓
+JPG 1200w: 1200x800 214.64 KB ✓
+Total variants: 9 files (1002.83 KB combined)
+Best JPG: 214.64 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mangle-rojo/metadata.json
 
 ▶ Optimizing: mango
-Original: 1200x1600 (515.41 KB)
-WEBP 400w: 400x533 24.96 KB ✓
-AVIF 400w: 400x533 40.73 KB ✓
-JPG 400w: 400x533 37.27 KB ✓
-WEBP 800w: 800x1067 75.99 KB ✓
-AVIF 800w: 800x1067 126.06 KB ✓
-JPG 800w: 800x1067 120.28 KB ✓
-WEBP 1200w: 1200x1600 136.74 KB ✓
-AVIF 1200w: 1200x1600 208.68 KB ✓
-JPG 1200w: 1200x1600 237.19 KB ✓
-Total variants: 9 files (1007.9 KB combined)
-Best JPG: 237.19 KB (54.0% smaller than original)
+Original: 1200x1600 (235.79 KB)
+WEBP 400w: 400x533 24.91 KB ✓
+AVIF 400w: 400x533 40.48 KB ✓
+JPG 400w: 400x533 37.11 KB ✓
+WEBP 800w: 800x1067 74.33 KB ✓
+AVIF 800w: 800x1067 118.41 KB ✓
+JPG 800w: 800x1067 118.58 KB ✓
+WEBP 1200w: 1200x1600 134.43 KB ✓
+AVIF 1200w: 1200x1600 190.73 KB ✓
+JPG 1200w: 1200x1600 236.45 KB ✓
+Total variants: 9 files (975.44 KB combined)
+Best JPG: 236.45 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mango/metadata.json
 
 ▶ Optimizing: manu
-Original: 1200x1600 (217.29 KB)
-WEBP 400w: 400x533 17.93 KB ✓
-AVIF 400w: 400x533 24.58 KB ✓
-JPG 400w: 400x533 28.93 KB ✓
-WEBP 800w: 800x1067 41.38 KB ✓
-AVIF 800w: 800x1067 51.3 KB ✓
-JPG 800w: 800x1067 77.14 KB ✓
-WEBP 1200w: 1200x1600 68.62 KB ✓
-AVIF 1200w: 1200x1600 93.09 KB ✓
-JPG 1200w: 1200x1600 144.17 KB ✓
-Total variants: 9 files (547.14 KB combined)
-Best JPG: 144.17 KB (33.7% smaller than original)
+Original: 1200x1600 (143.5 KB)
+WEBP 400w: 400x533 17.86 KB ✓
+AVIF 400w: 400x533 24.55 KB ✓
+JPG 400w: 400x533 28.92 KB ✓
+WEBP 800w: 800x1067 41.12 KB ✓
+AVIF 800w: 800x1067 51.39 KB ✓
+JPG 800w: 800x1067 76.92 KB ✓
+WEBP 1200w: 1200x1600 69.26 KB ✓
+AVIF 1200w: 1200x1600 92.61 KB ✓
+JPG 1200w: 1200x1600 143.96 KB ✓
+Total variants: 9 files (546.57 KB combined)
+Best JPG: 143.96 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/manu/metadata.json
 
 ▶ Optimizing: manzana-de-agua
-Original: 1200x1594 (914.54 KB)
-WEBP 400w: 400x531 63.56 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x531 97.68 KB ⚠ (target: 50 KB)
-JPG 400w: 400x531 63.37 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1063 225.01 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1063 317.03 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1063 233.08 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1594 414.59 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1594 564.43 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1594 469.13 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.39 MB combined)
-Best JPG: 469.13 KB (48.7% smaller than original)
+Original: 1200x1594 (467.49 KB)
+WEBP 400w: 400x531 63.6 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x531 95.56 KB ⚠ (target: 50 KB)
+JPG 400w: 400x531 63.1 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1063 222.76 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1063 305.82 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1063 230.44 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1594 385.88 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1594 435.55 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1594 467.62 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.22 MB combined)
+Best JPG: 467.62 KB (-0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/manzana-de-agua/metadata.json
 
 ▶ Optimizing: maranon
-Original: 1200x900 (294.22 KB)
-WEBP 400w: 400x300 19.88 KB ✓
-AVIF 400w: 400x300 34.52 KB ✓
-JPG 400w: 400x300 27.58 KB ✓
-WEBP 800w: 800x600 49.62 KB ✓
-AVIF 800w: 800x600 74.61 KB ✓
-JPG 800w: 800x600 75.73 KB ✓
-WEBP 1200w: 1200x900 82.75 KB ✓
-AVIF 1200w: 1200x900 117.7 KB ✓
-JPG 1200w: 1200x900 137.92 KB ✓
-Total variants: 9 files (620.31 KB combined)
-Best JPG: 137.92 KB (53.1% smaller than original)
+Original: 1200x900 (136.47 KB)
+WEBP 400w: 400x300 19.26 KB ✓
+AVIF 400w: 400x300 33.11 KB ✓
+JPG 400w: 400x300 26.66 KB ✓
+WEBP 800w: 800x600 46.89 KB ✓
+AVIF 800w: 800x600 69.47 KB ✓
+JPG 800w: 800x600 73.56 KB ✓
+WEBP 1200w: 1200x900 80.04 KB ✓
+AVIF 1200w: 1200x900 109.83 KB ✓
+JPG 1200w: 1200x900 136.66 KB ✓
+Total variants: 9 files (595.48 KB combined)
+Best JPG: 136.66 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/maranon/metadata.json
 
 ▶ Optimizing: mastate
-Original: 1200x900 (315.11 KB)
-WEBP 400w: 400x300 28.85 KB ✓
-AVIF 400w: 400x300 44.11 KB ✓
-JPG 400w: 400x300 31.37 KB ✓
-WEBP 800w: 800x600 99.7 KB ✓
-AVIF 800w: 800x600 148.67 KB ✓
-JPG 800w: 800x600 110.95 KB ✓
-WEBP 1200w: 1200x900 198.12 KB ✓
-AVIF 1200w: 1200x900 262.02 KB ✓
-JPG 1200w: 1200x900 237.98 KB ✓
-Total variants: 9 files (1.13 MB combined)
-Best JPG: 237.98 KB (24.5% smaller than original)
+Original: 1200x900 (236.36 KB)
+WEBP 400w: 400x300 28.52 KB ✓
+AVIF 400w: 400x300 43.4 KB ✓
+JPG 400w: 400x300 31.19 KB ✓
+WEBP 800w: 800x600 98.64 KB ✓
+AVIF 800w: 800x600 147.8 KB ✓
+JPG 800w: 800x600 110.05 KB ✓
+WEBP 1200w: 1200x900 193.37 KB ✓
+AVIF 1200w: 1200x900 225.01 KB ✓
+JPG 1200w: 1200x900 236.88 KB ✓
+Total variants: 9 files (1.09 MB combined)
+Best JPG: 236.88 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mastate/metadata.json
 
 ▶ Optimizing: matapalo
-Original: 1200x1600 (689.02 KB)
-WEBP 400w: 400x533 34.26 KB ✓
-AVIF 400w: 400x533 55.98 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 42.38 KB ✓
-WEBP 800w: 800x1067 110.49 KB ✓
-AVIF 800w: 800x1067 184.43 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 142.44 KB ✓
-WEBP 1200w: 1200x1600 217.77 KB ✓
-AVIF 1200w: 1200x1600 362.09 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 295.87 KB ✓
-Total variants: 9 files (1.41 MB combined)
-Best JPG: 295.87 KB (57.1% smaller than original)
+Original: 1200x1600 (294.89 KB)
+WEBP 400w: 400x533 34.13 KB ✓
+AVIF 400w: 400x533 54.92 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 42.32 KB ✓
+WEBP 800w: 800x1067 105.79 KB ✓
+AVIF 800w: 800x1067 171.04 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 141.18 KB ✓
+WEBP 1200w: 1200x1600 196.52 KB ✓
+AVIF 1200w: 1200x1600 254.26 KB ✓
+JPG 1200w: 1200x1600 295.51 KB ✓
+Total variants: 9 files (1.27 MB combined)
+Best JPG: 295.51 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/matapalo/metadata.json
 
 ▶ Optimizing: mayo
-Original: 1200x800 (267.57 KB)
-WEBP 400w: 400x267 32.01 KB ✓
-AVIF 400w: 400x267 51.54 KB ⚠ (target: 50 KB)
-JPG 400w: 400x267 32.43 KB ✓
-WEBP 800w: 800x533 96.49 KB ✓
-AVIF 800w: 800x533 144.29 KB ✓
-JPG 800w: 800x533 106.77 KB ✓
-WEBP 1200w: 1200x800 168.4 KB ✓
-AVIF 1200w: 1200x800 215.4 KB ✓
-JPG 1200w: 1200x800 209.88 KB ✓
-Total variants: 9 files (1.03 MB combined)
-Best JPG: 209.88 KB (21.6% smaller than original)
+Original: 1200x800 (208.05 KB)
+WEBP 400w: 400x267 31.68 KB ✓
+AVIF 400w: 400x267 48.77 KB ✓
+JPG 400w: 400x267 32.3 KB ✓
+WEBP 800w: 800x533 95.55 KB ✓
+AVIF 800w: 800x533 137.64 KB ✓
+JPG 800w: 800x533 105.29 KB ✓
+WEBP 1200w: 1200x800 164.64 KB ✓
+AVIF 1200w: 1200x800 193.25 KB ✓
+JPG 1200w: 1200x800 208.41 KB ✓
+Total variants: 9 files (1017.52 KB combined)
+Best JPG: 208.41 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mayo/metadata.json
 
 ▶ Optimizing: melina
-Original: 1200x1600 (332.11 KB)
-WEBP 400w: 400x533 32.15 KB ✓
-AVIF 400w: 400x533 56.86 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 43.69 KB ✓
-WEBP 800w: 800x1067 83.82 KB ✓
-AVIF 800w: 800x1067 129.66 KB ✓
-JPG 800w: 800x1067 129.5 KB ✓
-WEBP 1200w: 1200x1600 143.24 KB ✓
-AVIF 1200w: 1200x1600 210.72 KB ✓
-JPG 1200w: 1200x1600 240 KB ✓
-Total variants: 9 files (1.04 MB combined)
-Best JPG: 240 KB (27.7% smaller than original)
+Original: 1200x1600 (238.63 KB)
+WEBP 400w: 400x533 31.96 KB ✓
+AVIF 400w: 400x533 54.93 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 43.47 KB ✓
+WEBP 800w: 800x1067 81.37 KB ✓
+AVIF 800w: 800x1067 123.08 KB ✓
+JPG 800w: 800x1067 127.11 KB ✓
+WEBP 1200w: 1200x1600 139.79 KB ✓
+AVIF 1200w: 1200x1600 196.62 KB ✓
+JPG 1200w: 1200x1600 239.08 KB ✓
+Total variants: 9 files (1.01 MB combined)
+Best JPG: 239.08 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/melina/metadata.json
 
 ▶ Optimizing: mora
-Original: 1200x1600 (479.22 KB)
-WEBP 400w: 400x533 16.82 KB ✓
-AVIF 400w: 400x533 27.93 KB ✓
-JPG 400w: 400x533 25.79 KB ✓
-WEBP 800w: 800x1067 74.65 KB ✓
-AVIF 800w: 800x1067 110.87 KB ✓
-JPG 800w: 800x1067 97.99 KB ✓
-WEBP 1200w: 1200x1600 150.5 KB ✓
-AVIF 1200w: 1200x1600 212.91 KB ✓
-JPG 1200w: 1200x1600 208.92 KB ✓
-Total variants: 9 files (926.37 KB combined)
-Best JPG: 208.92 KB (56.4% smaller than original)
+Original: 1200x1600 (208.04 KB)
+WEBP 400w: 400x533 16.94 KB ✓
+AVIF 400w: 400x533 28.1 KB ✓
+JPG 400w: 400x533 25.81 KB ✓
+WEBP 800w: 800x1067 73.08 KB ✓
+AVIF 800w: 800x1067 107.54 KB ✓
+JPG 800w: 800x1067 97.4 KB ✓
+WEBP 1200w: 1200x1600 141.25 KB ✓
+AVIF 1200w: 1200x1600 173.28 KB ✓
+JPG 1200w: 1200x1600 208.71 KB ✓
+Total variants: 9 files (872.11 KB combined)
+Best JPG: 208.71 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/mora/metadata.json
 
 ▶ Optimizing: muneco
-Original: 1200x1600 (468.12 KB)
-WEBP 400w: 400x533 49.12 KB ✓
-AVIF 400w: 400x533 77.04 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 56.3 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 143.49 KB ✓
-AVIF 800w: 800x1067 214.59 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 179.97 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 260.17 KB ✓
-AVIF 1200w: 1200x1600 353.74 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 356.82 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.65 MB combined)
-Best JPG: 356.82 KB (23.8% smaller than original)
+Original: 1200x1600 (355.61 KB)
+WEBP 400w: 400x533 48.84 KB ✓
+AVIF 400w: 400x533 75.38 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 56.09 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 142.75 KB ✓
+AVIF 800w: 800x1067 211.38 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 177.96 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 259.03 KB ✓
+AVIF 1200w: 1200x1600 321.68 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 356.13 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.61 MB combined)
+Best JPG: 356.13 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/muneco/metadata.json
 
 ▶ Optimizing: nance
-Original: 1200x1600 (385.05 KB)
-WEBP 400w: 400x533 19.03 KB ✓
-AVIF 400w: 400x533 26.86 KB ✓
-JPG 400w: 400x533 29.24 KB ✓
-WEBP 800w: 800x1067 45.51 KB ✓
-AVIF 800w: 800x1067 59.94 KB ✓
-JPG 800w: 800x1067 79.35 KB ✓
-WEBP 1200w: 1200x1600 76.39 KB ✓
-AVIF 1200w: 1200x1600 100.9 KB ✓
-JPG 1200w: 1200x1600 146.75 KB ✓
-Total variants: 9 files (583.97 KB combined)
-Best JPG: 146.75 KB (61.9% smaller than original)
+Original: 1200x1600 (146.1 KB)
+WEBP 400w: 400x533 18.91 KB ✓
+AVIF 400w: 400x533 26.79 KB ✓
+JPG 400w: 400x533 29.15 KB ✓
+WEBP 800w: 800x1067 44.84 KB ✓
+AVIF 800w: 800x1067 58.9 KB ✓
+JPG 800w: 800x1067 78.63 KB ✓
+WEBP 1200w: 1200x1600 75.45 KB ✓
+AVIF 1200w: 1200x1600 101.56 KB ✓
+JPG 1200w: 1200x1600 146.49 KB ✓
+Total variants: 9 files (580.72 KB combined)
+Best JPG: 146.49 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/nance/metadata.json
 
 ▶ Optimizing: nazareno
-Original: 1200x1798 (892.12 KB)
-WEBP 400w: 400x599 56.87 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x599 94.84 KB ⚠ (target: 50 KB)
-JPG 400w: 400x599 62.29 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1199 187.01 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1199 292.29 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1199 218.77 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1798 333.66 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1798 506.94 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1798 436.91 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.14 MB combined)
-Best JPG: 436.91 KB (51.0% smaller than original)
+Original: 1200x1798 (435.06 KB)
+WEBP 400w: 400x599 56.79 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x599 91.61 KB ⚠ (target: 50 KB)
+JPG 400w: 400x599 61.91 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1199 178.88 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1199 275.9 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1199 215.42 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1798 312.93 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1798 392.09 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1798 435.56 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.97 MB combined)
+Best JPG: 435.56 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/nazareno/metadata.json
 
 ▶ Optimizing: nim
-Original: 1200x1600 (497.63 KB)
-WEBP 400w: 400x533 53.29 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 80.2 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 59.23 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 145.58 KB ✓
-AVIF 800w: 800x1067 214.95 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 186.32 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 249.5 KB ✓
-AVIF 1200w: 1200x1600 355.85 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 356.82 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.66 MB combined)
-Best JPG: 356.82 KB (28.3% smaller than original)
+Original: 1200x1600 (355.44 KB)
+WEBP 400w: 400x533 52.5 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 78.35 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 59.06 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 143.32 KB ✓
+AVIF 800w: 800x1067 210.43 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 184.21 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 245.8 KB ✓
+AVIF 1200w: 1200x1600 319.97 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 355.97 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.61 MB combined)
+Best JPG: 355.97 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/nim/metadata.json
 
 ▶ Optimizing: nispero
-Original: 1200x1600 (406.92 KB)
-WEBP 400w: 400x533 24.24 KB ✓
-AVIF 400w: 400x533 34.43 KB ✓
-JPG 400w: 400x533 35.92 KB ✓
-WEBP 800w: 800x1067 62.94 KB ✓
-AVIF 800w: 800x1067 81.07 KB ✓
-JPG 800w: 800x1067 101.23 KB ✓
-WEBP 1200w: 1200x1600 105.41 KB ✓
-AVIF 1200w: 1200x1600 131.64 KB ✓
-JPG 1200w: 1200x1600 185.27 KB ✓
-Total variants: 9 files (762.16 KB combined)
-Best JPG: 185.27 KB (54.5% smaller than original)
+Original: 1200x1600 (184.55 KB)
+WEBP 400w: 400x533 24.08 KB ✓
+AVIF 400w: 400x533 34.31 KB ✓
+JPG 400w: 400x533 35.84 KB ✓
+WEBP 800w: 800x1067 61.64 KB ✓
+AVIF 800w: 800x1067 79.24 KB ✓
+JPG 800w: 800x1067 100.34 KB ✓
+WEBP 1200w: 1200x1600 104.16 KB ✓
+AVIF 1200w: 1200x1600 128.72 KB ✓
+JPG 1200w: 1200x1600 184.87 KB ✓
+Total variants: 9 files (753.2 KB combined)
+Best JPG: 184.87 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/nispero/metadata.json
 
 ▶ Optimizing: ojoche
-Original: 1200x1600 (426.42 KB)
-WEBP 400w: 400x533 30.61 KB ✓
-AVIF 400w: 400x533 51.5 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 42.34 KB ✓
-WEBP 800w: 800x1067 71.54 KB ✓
-AVIF 800w: 800x1067 103.73 KB ✓
-JPG 800w: 800x1067 114.02 KB ✓
-WEBP 1200w: 1200x1600 119.06 KB ✓
-AVIF 1200w: 1200x1600 159.68 KB ✓
-JPG 1200w: 1200x1600 204.65 KB ✓
-Total variants: 9 files (897.12 KB combined)
-Best JPG: 204.65 KB (52.0% smaller than original)
+Original: 1200x1600 (203.16 KB)
+WEBP 400w: 400x533 30.34 KB ✓
+AVIF 400w: 400x533 49.56 KB ✓
+JPG 400w: 400x533 42.03 KB ✓
+WEBP 800w: 800x1067 69.87 KB ✓
+AVIF 800w: 800x1067 96.58 KB ✓
+JPG 800w: 800x1067 112.2 KB ✓
+WEBP 1200w: 1200x1600 115.48 KB ✓
+AVIF 1200w: 1200x1600 155.4 KB ✓
+JPG 1200w: 1200x1600 203.6 KB ✓
+Total variants: 9 files (875.07 KB combined)
+Best JPG: 203.6 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/ojoche/metadata.json
 
 ▶ Optimizing: olla-de-mono
-Original: 1200x900 (307 KB)
-WEBP 400w: 400x300 31.02 KB ✓
-AVIF 400w: 400x300 45.99 KB ✓
-JPG 400w: 400x300 33.59 KB ✓
-WEBP 800w: 800x600 99.36 KB ✓
-AVIF 800w: 800x600 143.86 KB ✓
-JPG 800w: 800x600 114.24 KB ✓
-WEBP 1200w: 1200x900 190.17 KB ✓
-AVIF 1200w: 1200x900 250.18 KB ✓
-JPG 1200w: 1200x900 234.03 KB ✓
-Total variants: 9 files (1.12 MB combined)
-Best JPG: 234.03 KB (23.8% smaller than original)
+Original: 1200x900 (232.45 KB)
+WEBP 400w: 400x300 31.05 KB ✓
+AVIF 400w: 400x300 45.39 KB ✓
+JPG 400w: 400x300 33.52 KB ✓
+WEBP 800w: 800x600 99.18 KB ✓
+AVIF 800w: 800x600 142.49 KB ✓
+JPG 800w: 800x600 113.35 KB ✓
+WEBP 1200w: 1200x900 182.41 KB ✓
+AVIF 1200w: 1200x900 217.36 KB ✓
+JPG 1200w: 1200x900 233.01 KB ✓
+Total variants: 9 files (1.07 MB combined)
+Best JPG: 233.01 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/olla-de-mono/metadata.json
 
 ▶ Optimizing: orey
-Original: 1200x1631 (239.16 KB)
-WEBP 400w: 400x543 15.11 KB ✓
-AVIF 400w: 400x543 21.8 KB ✓
-JPG 400w: 400x543 24.25 KB ✓
-WEBP 800w: 800x1087 47.3 KB ✓
-AVIF 800w: 800x1087 72.04 KB ✓
-JPG 800w: 800x1087 77.71 KB ✓
-WEBP 1200w: 1200x1631 97.09 KB ✓
-AVIF 1200w: 1200x1631 138.73 KB ✓
-JPG 1200w: 1200x1631 172.15 KB ✓
-Total variants: 9 files (666.17 KB combined)
-Best JPG: 172.15 KB (28.0% smaller than original)
+Original: 1200x1631 (171.48 KB)
+WEBP 400w: 400x543 15.07 KB ✓
+AVIF 400w: 400x543 21.72 KB ✓
+JPG 400w: 400x543 24.26 KB ✓
+WEBP 800w: 800x1087 47.14 KB ✓
+AVIF 800w: 800x1087 72.92 KB ✓
+JPG 800w: 800x1087 77.72 KB ✓
+WEBP 1200w: 1200x1631 96.92 KB ✓
+AVIF 1200w: 1200x1631 130.25 KB ✓
+JPG 1200w: 1200x1631 171.38 KB ✓
+Total variants: 9 files (657.39 KB combined)
+Best JPG: 171.38 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/orey/metadata.json
 
 ▶ Optimizing: palma-cacho-de-venado
-Original: 1200x1612 (634.25 KB)
-WEBP 400w: 400x537 68.38 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x537 99.12 KB ⚠ (target: 50 KB)
-JPG 400w: 400x537 67.02 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1075 244.37 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1075 335.36 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1075 247.97 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1612 446.21 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1612 529.64 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1612 500.11 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.48 MB combined)
-Best JPG: 500.11 KB (21.1% smaller than original)
+Original: 1200x1612 (497.81 KB)
+WEBP 400w: 400x537 69.07 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x537 97.82 KB ⚠ (target: 50 KB)
+JPG 400w: 400x537 66.94 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1075 242.66 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1075 329.8 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1075 246.25 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1612 432.18 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1612 471.79 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1612 498.31 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.4 MB combined)
+Best JPG: 498.31 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/palma-cacho-de-venado/metadata.json
 
 ▶ Optimizing: palma-de-escoba
-Original: 1200x1594 (704.09 KB)
-WEBP 400w: 400x531 74.06 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x531 113.05 KB ⚠ (target: 50 KB)
-JPG 400w: 400x531 70.67 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1063 272.21 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1063 378.87 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1063 265.68 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1594 526.24 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1594 614.22 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1594 551.38 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.8 MB combined)
-Best JPG: 551.38 KB (21.7% smaller than original)
+Original: 1200x1594 (546.94 KB)
+WEBP 400w: 400x531 73.68 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x531 108.12 KB ⚠ (target: 50 KB)
+JPG 400w: 400x531 70.17 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1063 267.3 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1063 365.46 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1063 262.3 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1594 487.37 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1594 527.32 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1594 547.11 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.65 MB combined)
+Best JPG: 547.11 KB (-0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/palma-de-escoba/metadata.json
 
 ▶ Optimizing: palma-suita
-Original: 1200x1600 (557.88 KB)
-WEBP 400w: 400x533 45.64 KB ✓
-AVIF 400w: 400x533 81.32 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 53.6 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 169.95 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 257.33 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 192.22 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 352.32 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 462.78 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 425 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.99 MB combined)
-Best JPG: 425 KB (23.8% smaller than original)
+Original: 1200x1600 (422.28 KB)
+WEBP 400w: 400x533 44.63 KB ✓
+AVIF 400w: 400x533 77.17 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 53.06 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 166.32 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 250.54 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 189 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 335.57 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 399.76 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 422.16 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.89 MB combined)
+Best JPG: 422.16 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/palma-suita/metadata.json
 
 ▶ Optimizing: palma-yolillo
-Original: 1200x799 (385.54 KB)
-WEBP 400w: 400x266 39.48 KB ✓
-AVIF 400w: 400x266 65.4 KB ⚠ (target: 50 KB)
-JPG 400w: 400x266 37.55 KB ✓
-WEBP 800w: 800x533 142.35 KB ✓
-AVIF 800w: 800x533 204.48 KB ⚠ (target: 150 KB)
-JPG 800w: 800x533 140.68 KB ✓
-WEBP 1200w: 1200x799 287.72 KB ✓
-AVIF 1200w: 1200x799 347.74 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x799 297.63 KB ✓
-Total variants: 9 files (1.53 MB combined)
-Best JPG: 297.63 KB (22.8% smaller than original)
+Original: 1200x799 (292.85 KB)
+WEBP 400w: 400x266 38.77 KB ✓
+AVIF 400w: 400x266 59.46 KB ⚠ (target: 50 KB)
+JPG 400w: 400x266 37.11 KB ✓
+WEBP 800w: 800x533 136.79 KB ✓
+AVIF 800w: 800x533 190.44 KB ⚠ (target: 150 KB)
+JPG 800w: 800x533 137.66 KB ✓
+WEBP 1200w: 1200x799 260.55 KB ✓
+AVIF 1200w: 1200x799 286.53 KB ✓
+JPG 1200w: 1200x799 292.6 KB ✓
+Total variants: 9 files (1.41 MB combined)
+Best JPG: 292.6 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/palma-yolillo/metadata.json
 
 ▶ Optimizing: palmera-real
-Original: 1200x1594 (368.98 KB)
-WEBP 400w: 400x531 27.67 KB ✓
-AVIF 400w: 400x531 40 KB ✓
-JPG 400w: 400x531 33.93 KB ✓
-WEBP 800w: 800x1063 109.7 KB ✓
-AVIF 800w: 800x1063 147.71 KB ✓
-JPG 800w: 800x1063 132.92 KB ✓
-WEBP 1200w: 1200x1594 207.05 KB ✓
-AVIF 1200w: 1200x1594 269.58 KB ✓
-JPG 1200w: 1200x1594 271.58 KB ✓
-Total variants: 9 files (1.21 MB combined)
-Best JPG: 271.58 KB (26.4% smaller than original)
+Original: 1200x1594 (269.62 KB)
+WEBP 400w: 400x531 27.68 KB ✓
+AVIF 400w: 400x531 39.88 KB ✓
+JPG 400w: 400x531 33.89 KB ✓
+WEBP 800w: 800x1063 108.78 KB ✓
+AVIF 800w: 800x1063 146.83 KB ✓
+JPG 800w: 800x1063 132.33 KB ✓
+WEBP 1200w: 1200x1594 201.96 KB ✓
+AVIF 1200w: 1200x1594 240.7 KB ✓
+JPG 1200w: 1200x1594 270.22 KB ✓
+Total variants: 9 files (1.17 MB combined)
+Best JPG: 270.22 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/palmera-real/metadata.json
 
 ▶ Optimizing: panama
-Original: 1200x800 (227.88 KB)
-WEBP 400w: 400x267 24.96 KB ✓
-AVIF 400w: 400x267 43.25 KB ✓
-JPG 400w: 400x267 27.78 KB ✓
-WEBP 800w: 800x533 77.04 KB ✓
-AVIF 800w: 800x533 114.98 KB ✓
-JPG 800w: 800x533 91.92 KB ✓
-WEBP 1200w: 1200x800 130.26 KB ✓
-AVIF 1200w: 1200x800 171.13 KB ✓
-JPG 1200w: 1200x800 177.03 KB ✓
-Total variants: 9 files (858.36 KB combined)
-Best JPG: 177.03 KB (22.3% smaller than original)
+Original: 1200x800 (176.36 KB)
+WEBP 400w: 400x267 25.05 KB ✓
+AVIF 400w: 400x267 40.81 KB ✓
+JPG 400w: 400x267 27.66 KB ✓
+WEBP 800w: 800x533 74.78 KB ✓
+AVIF 800w: 800x533 109.48 KB ✓
+JPG 800w: 800x533 90.48 KB ✓
+WEBP 1200w: 1200x800 127.04 KB ✓
+AVIF 1200w: 1200x800 158.07 KB ✓
+JPG 1200w: 1200x800 176.01 KB ✓
+Total variants: 9 files (829.38 KB combined)
+Best JPG: 176.01 KB (0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/panama/metadata.json
 
 ▶ Optimizing: papaturro
-Original: 1200x900 (329.92 KB)
-WEBP 400w: 400x300 20.81 KB ✓
-AVIF 400w: 400x300 31.85 KB ✓
-JPG 400w: 400x300 25.12 KB ✓
-WEBP 800w: 800x600 61.9 KB ✓
-AVIF 800w: 800x600 90.57 KB ✓
-JPG 800w: 800x600 80.8 KB ✓
-WEBP 1200w: 1200x900 106.73 KB ✓
-AVIF 1200w: 1200x900 150.25 KB ✓
-JPG 1200w: 1200x900 154.3 KB ✓
-Total variants: 9 files (722.33 KB combined)
-Best JPG: 154.3 KB (53.2% smaller than original)
+Original: 1200x900 (153.63 KB)
+WEBP 400w: 400x300 20.69 KB ✓
+AVIF 400w: 400x300 31.76 KB ✓
+JPG 400w: 400x300 25.08 KB ✓
+WEBP 800w: 800x600 60.66 KB ✓
+AVIF 800w: 800x600 87.18 KB ✓
+JPG 800w: 800x600 80 KB ✓
+WEBP 1200w: 1200x900 102.9 KB ✓
+AVIF 1200w: 1200x900 131.07 KB ✓
+JPG 1200w: 1200x900 154.08 KB ✓
+Total variants: 9 files (693.41 KB combined)
+Best JPG: 154.08 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/papaturro/metadata.json
 
 ▶ Optimizing: papaya
-Original: 1200x1387 (568.04 KB)
-WEBP 400w: 400x462 55.25 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x462 86.21 KB ⚠ (target: 50 KB)
-JPG 400w: 400x462 55.63 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x925 196.02 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x925 282.86 KB ⚠ (target: 150 KB)
-JPG 800w: 800x925 207.57 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1387 389.79 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1387 492.69 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1387 434.88 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.15 MB combined)
-Best JPG: 434.88 KB (23.4% smaller than original)
+Original: 1200x1387 (431.62 KB)
+WEBP 400w: 400x462 54.85 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x462 83.38 KB ⚠ (target: 50 KB)
+JPG 400w: 400x462 55.29 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x925 194.18 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x925 277.92 KB ⚠ (target: 150 KB)
+JPG 800w: 800x925 205.09 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1387 364.34 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1387 417.67 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1387 431.93 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.04 MB combined)
+Best JPG: 431.93 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/papaya/metadata.json
 
 ▶ Optimizing: papayillo
-Original: 1200x1600 (387.71 KB)
-WEBP 400w: 400x533 43.92 KB ✓
-AVIF 400w: 400x533 72.17 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 52.59 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 115.63 KB ✓
-AVIF 800w: 800x1067 174.76 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 157.47 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 190.26 KB ✓
-AVIF 1200w: 1200x1600 274.75 KB ✓
-JPG 1200w: 1200x1600 292.69 KB ✓
-Total variants: 9 files (1.34 MB combined)
-Best JPG: 292.69 KB (24.5% smaller than original)
+Original: 1200x1600 (291.28 KB)
+WEBP 400w: 400x533 44.15 KB ✓
+AVIF 400w: 400x533 70.32 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 52.38 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 113.09 KB ✓
+AVIF 800w: 800x1067 168.84 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 155.44 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 188.54 KB ✓
+AVIF 1200w: 1200x1600 253.81 KB ✓
+JPG 1200w: 1200x1600 291.78 KB ✓
+Total variants: 9 files (1.31 MB combined)
+Best JPG: 291.78 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/papayillo/metadata.json
 
 ▶ Optimizing: peine-de-mico
-Original: 1200x900 (135.9 KB)
+Original: 1200x900 (132.2 KB)
 WEBP 400w: 400x300 13.01 KB ✓
 AVIF 400w: 400x300 18.31 KB ✓
 JPG 400w: 400x300 17.95 KB ✓
@@ -2383,157 +3236,169 @@ WEBP 1200w: 1200x900 54.61 KB ✓
 AVIF 1200w: 1200x900 66.3 KB ✓
 JPG 1200w: 1200x900 94.36 KB ✓
 Total variants: 9 files (388.82 KB combined)
-Best JPG: 94.36 KB (30.6% smaller than original)
+Best JPG: 94.36 KB (28.6% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/peine-de-mico/metadata.json
 
 ▶ Optimizing: pejibaye
-Original: 1200x1600 (477.05 KB)
-WEBP 400w: 400x533 41.64 KB ✓
-AVIF 400w: 400x533 64.23 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 47.51 KB ✓
-WEBP 800w: 800x1067 153.53 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 213.73 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 176.31 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 299.81 KB ✓
-AVIF 1200w: 1200x1600 382.41 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 365.6 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.7 MB combined)
-Best JPG: 365.6 KB (23.4% smaller than original)
+Original: 1200x1600 (363.39 KB)
+WEBP 400w: 400x533 41.34 KB ✓
+AVIF 400w: 400x533 62.74 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 47.34 KB ✓
+WEBP 800w: 800x1067 150.05 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 210.72 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 174.71 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 288.08 KB ✓
+AVIF 1200w: 1200x1600 338.42 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 363.89 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.64 MB combined)
+Best JPG: 363.89 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pejibaye/metadata.json
 
 ▶ Optimizing: pilon
-Original: 1200x1600 (594.74 KB)
-WEBP 400w: 400x533 41.93 KB ✓
-AVIF 400w: 400x533 63.93 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 51.4 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 107.63 KB ✓
-AVIF 800w: 800x1067 158.63 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 151 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 184 KB ✓
-AVIF 1200w: 1200x1600 278.88 KB ✓
-JPG 1200w: 1200x1600 277.79 KB ✓
-Total variants: 9 files (1.28 MB combined)
-Best JPG: 277.79 KB (53.3% smaller than original)
+Original: 1200x1600 (276.44 KB)
+WEBP 400w: 400x533 42.09 KB ✓
+AVIF 400w: 400x533 63.31 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 51.29 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 105.52 KB ✓
+AVIF 800w: 800x1067 150.58 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 149.36 KB ✓
+WEBP 1200w: 1200x1600 174.78 KB ✓
+AVIF 1200w: 1200x1600 231.86 KB ✓
+JPG 1200w: 1200x1600 276.95 KB ✓
+Total variants: 9 files (1.22 MB combined)
+Best JPG: 276.95 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pilon/metadata.json
 
 ▶ Optimizing: pino-caribeno
-Original: 1200x1600 (458.61 KB)
-WEBP 400w: 400x533 60.28 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 79.48 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 63.25 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 148.14 KB ✓
-AVIF 800w: 800x1067 200.17 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 180.64 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 233.77 KB ✓
-AVIF 1200w: 1200x1600 309.34 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 329.34 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.57 MB combined)
-Best JPG: 329.34 KB (28.2% smaller than original)
+Original: 1200x1600 (326.87 KB)
+WEBP 400w: 400x533 60.19 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 79.53 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 63.27 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 145.62 KB ✓
+AVIF 800w: 800x1067 195.32 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 179.22 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 228.42 KB ✓
+AVIF 1200w: 1200x1600 285.86 KB ✓
+JPG 1200w: 1200x1600 327.45 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.53 MB combined)
+Best JPG: 327.45 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pino-caribeno/metadata.json
 
 ▶ Optimizing: pitahaya
-Original: 956x2048 (658.38 KB)
-WEBP 400w: 400x857 110.39 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x857 169.43 KB ⚠ (target: 50 KB)
-JPG 400w: 400x857 113.74 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1714 343.41 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1714 499.93 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1714 379.03 KB ⚠ (target: 150 KB)
-WEBP 956w: 956x2048 452.67 KB
-AVIF 956w: 956x2048 575.13 KB
-JPG 956w: 956x2048 516.99 KB
-Total variants: 9 files (3.09 MB combined)
-Best JPG: 516.99 KB (21.5% smaller than original)
+Original: 956x2048 (511.2 KB)
+WEBP 400w: 400x857 109.16 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x857 160.14 KB ⚠ (target: 50 KB)
+JPG 400w: 400x857 112.33 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1714 335.5 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1714 462.32 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1714 369.71 KB ⚠ (target: 150 KB)
+WEBP 956w: 956x2048 425.19 KB
+AVIF 956w: 956x2048 486 KB
+JPG 956w: 956x2048 510.49 KB
+Total variants: 9 files (2.9 MB combined)
+Best JPG: 510.49 KB (0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pitahaya/metadata.json
 
+▶ Optimizing: pochote-de-agua
+Original: 749x1024 (57.08 KB)
+WEBP 400w: 400x547 12.9 KB ✓
+AVIF 400w: 400x547 21.13 KB ✓
+JPG 400w: 400x547 21.38 KB ✓
+WEBP 749w: 749x1024 30.47 KB
+AVIF 749w: 749x1024 44.89 KB
+JPG 749w: 749x1024 57.41 KB
+Total variants: 6 files (188.19 KB combined)
+Best JPG: 57.41 KB (-0.6% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/pochote-de-agua/metadata.json
+
 ▶ Optimizing: pochote
-Original: 1024x819 (324.63 KB)
-WEBP 400w: 400x320 18.06 KB ✓
-AVIF 400w: 400x320 28.72 KB ✓
-JPG 400w: 400x320 24.65 KB ✓
-WEBP 800w: 800x640 46.34 KB ✓
-AVIF 800w: 800x640 72.26 KB ✓
-JPG 800w: 800x640 69.08 KB ✓
-WEBP 1024w: 1024x819 68.68 KB
-AVIF 1024w: 1024x819 118.35 KB
-JPG 1024w: 1024x819 102.53 KB
-Total variants: 9 files (548.68 KB combined)
-Best JPG: 102.53 KB (68.4% smaller than original)
+Original: 1024x819 (101.88 KB)
+WEBP 400w: 400x320 17.89 KB ✓
+AVIF 400w: 400x320 27.28 KB ✓
+JPG 400w: 400x320 24.46 KB ✓
+WEBP 800w: 800x640 44.1 KB ✓
+AVIF 800w: 800x640 62.05 KB ✓
+JPG 800w: 800x640 67.15 KB ✓
+WEBP 1024w: 1024x819 62.05 KB
+AVIF 1024w: 1024x819 83.02 KB
+JPG 1024w: 1024x819 101.36 KB
+Total variants: 9 files (489.35 KB combined)
+Best JPG: 101.36 KB (0.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pochote/metadata.json
 
 ▶ Optimizing: pomarrosa
-Original: 1200x1600 (431 KB)
-WEBP 400w: 400x533 45.25 KB ✓
-AVIF 400w: 400x533 68.22 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 52.94 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 126.33 KB ✓
-AVIF 800w: 800x1067 187.29 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 163.9 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 231.35 KB ✓
-AVIF 1200w: 1200x1600 317.88 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 321.74 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.48 MB combined)
-Best JPG: 321.74 KB (25.4% smaller than original)
+Original: 1200x1600 (319.91 KB)
+WEBP 400w: 400x533 45.24 KB ✓
+AVIF 400w: 400x533 67.6 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 52.82 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 124.96 KB ✓
+AVIF 800w: 800x1067 183.44 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 162.38 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 226.43 KB ✓
+AVIF 1200w: 1200x1600 283.73 KB ✓
+JPG 1200w: 1200x1600 320.52 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.43 MB combined)
+Best JPG: 320.52 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pomarrosa/metadata.json
 
 ▶ Optimizing: poro
-Original: 1200x1600 (375.26 KB)
-WEBP 400w: 400x533 15.64 KB ✓
-AVIF 400w: 400x533 19.25 KB ✓
+Original: 1200x1600 (148.73 KB)
+WEBP 400w: 400x533 15.54 KB ✓
+AVIF 400w: 400x533 19.41 KB ✓
 JPG 400w: 400x533 25.54 KB ✓
-WEBP 800w: 800x1067 40.5 KB ✓
-AVIF 800w: 800x1067 54.48 KB ✓
-JPG 800w: 800x1067 74.52 KB ✓
-WEBP 1200w: 1200x1600 73.35 KB ✓
-AVIF 1200w: 1200x1600 101.49 KB ✓
-JPG 1200w: 1200x1600 149.42 KB ✓
-Total variants: 9 files (554.2 KB combined)
-Best JPG: 149.42 KB (60.2% smaller than original)
+WEBP 800w: 800x1067 39.49 KB ✓
+AVIF 800w: 800x1067 51.86 KB ✓
+JPG 800w: 800x1067 73.38 KB ✓
+WEBP 1200w: 1200x1600 71.91 KB ✓
+AVIF 1200w: 1200x1600 103.5 KB ✓
+JPG 1200w: 1200x1600 149.2 KB ✓
+Total variants: 9 files (549.82 KB combined)
+Best JPG: 149.2 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/poro/metadata.json
 
 ▶ Optimizing: quebracho
-Original: 1200x800 (271.36 KB)
-WEBP 400w: 400x267 29 KB ✓
-AVIF 400w: 400x267 51.5 KB ⚠ (target: 50 KB)
-JPG 400w: 400x267 30.45 KB ✓
-WEBP 800w: 800x533 95.9 KB ✓
-AVIF 800w: 800x533 151.86 KB ⚠ (target: 150 KB)
-JPG 800w: 800x533 106.51 KB ✓
-WEBP 1200w: 1200x800 173.15 KB ✓
-AVIF 1200w: 1200x800 222.78 KB ✓
-JPG 1200w: 1200x800 214.73 KB ✓
-Total variants: 9 files (1.05 MB combined)
-Best JPG: 214.73 KB (20.9% smaller than original)
+Original: 1200x800 (212.04 KB)
+WEBP 400w: 400x267 29.03 KB ✓
+AVIF 400w: 400x267 47.34 KB ✓
+JPG 400w: 400x267 30.27 KB ✓
+WEBP 800w: 800x533 93.18 KB ✓
+AVIF 800w: 800x533 142.37 KB ✓
+JPG 800w: 800x533 104.63 KB ✓
+WEBP 1200w: 1200x800 167.25 KB ✓
+AVIF 1200w: 1200x800 199.21 KB ✓
+JPG 1200w: 1200x800 212.01 KB ✓
+Total variants: 9 files (1 MB combined)
+Best JPG: 212.01 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/quebracho/metadata.json
 
 ▶ Optimizing: quizarra
-Original: 1200x1600 (285.3 KB)
-WEBP 400w: 400x533 27.37 KB ✓
-AVIF 400w: 400x533 41.36 KB ✓
-JPG 400w: 400x533 40.03 KB ✓
-WEBP 800w: 800x1067 64.75 KB ✓
-AVIF 800w: 800x1067 92.03 KB ✓
-JPG 800w: 800x1067 108.54 KB ✓
-WEBP 1200w: 1200x1600 110.54 KB ✓
-AVIF 1200w: 1200x1600 161.8 KB ✓
-JPG 1200w: 1200x1600 201.72 KB ✓
-Total variants: 9 files (848.13 KB combined)
-Best JPG: 201.72 KB (29.3% smaller than original)
+Original: 1200x1600 (200.29 KB)
+WEBP 400w: 400x533 27.05 KB ✓
+AVIF 400w: 400x533 40.58 KB ✓
+JPG 400w: 400x533 39.87 KB ✓
+WEBP 800w: 800x1067 63.77 KB ✓
+AVIF 800w: 800x1067 89.75 KB ✓
+JPG 800w: 800x1067 107.43 KB ✓
+WEBP 1200w: 1200x1600 108.43 KB ✓
+AVIF 1200w: 1200x1600 154.49 KB ✓
+JPG 1200w: 1200x1600 200.84 KB ✓
+Total variants: 9 files (832.22 KB combined)
+Best JPG: 200.84 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/quizarra/metadata.json
 
 ▶ Optimizing: rambutan
-Original: 1200x1594 (584.97 KB)
-WEBP 400w: 400x531 59.05 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x531 90.6 KB ⚠ (target: 50 KB)
-JPG 400w: 400x531 61.08 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1063 202.44 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1063 290.41 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1063 222.71 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1594 377.33 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1594 488.72 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1594 452.25 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.19 MB combined)
-Best JPG: 452.25 KB (22.7% smaller than original)
+Original: 1200x1594 (449.98 KB)
+WEBP 400w: 400x531 58.17 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x531 88.74 KB ⚠ (target: 50 KB)
+JPG 400w: 400x531 60.82 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1063 199.9 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1063 288.24 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1063 220.57 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1594 367.42 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1594 427.61 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1594 450.38 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.11 MB combined)
+Best JPG: 450.38 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/rambutan/metadata.json
 
 ▶ Optimizing: roble-de-sabana
@@ -2552,278 +3417,976 @@ Best JPG: 62.88 KB (63.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/roble-de-sabana/metadata.json
 
 ▶ Optimizing: roble-encino
-Original: 768x1024 (594.79 KB)
-WEBP 400w: 400x533 43.17 KB ✓
-AVIF 400w: 400x533 64.17 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 49.72 KB ✓
-WEBP 768w: 768x1024 107.69 KB
-AVIF 768w: 768x1024 156.69 KB
-JPG 768w: 768x1024 141.43 KB
-Total variants: 6 files (562.88 KB combined)
-Best JPG: 141.43 KB (76.2% smaller than original)
+Original: 768x1024 (140.76 KB)
+WEBP 400w: 400x533 43.18 KB ✓
+AVIF 400w: 400x533 61.88 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 49.33 KB ✓
+WEBP 768w: 768x1024 100.57 KB
+AVIF 768w: 768x1024 123.81 KB
+JPG 768w: 768x1024 141.29 KB
+Total variants: 6 files (520.05 KB combined)
+Best JPG: 141.29 KB (-0.4% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/roble-encino/metadata.json
 
 ▶ Optimizing: ron-ron
-Original: 1200x1600 (739.34 KB)
-WEBP 400w: 400x533 57.33 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 82.45 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 58.59 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 165.89 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 233.27 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 190.02 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 282.54 KB ✓
-AVIF 1200w: 1200x1600 398.93 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 359.44 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.79 MB combined)
-Best JPG: 359.44 KB (51.4% smaller than original)
+Original: 1200x1600 (356.64 KB)
+WEBP 400w: 400x533 57.16 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 81.17 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 58.35 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 161.53 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 223.85 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 187.49 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 265.04 KB ✓
+AVIF 1200w: 1200x1600 318.74 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 357.08 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.67 MB combined)
+Best JPG: 357.08 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/ron-ron/metadata.json
 
 ▶ Optimizing: sangrillo
-Original: 1200x1600 (466.01 KB)
-WEBP 400w: 400x533 33.45 KB ✓
-AVIF 400w: 400x533 54.85 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 41.12 KB ✓
-WEBP 800w: 800x1067 128.97 KB ✓
-AVIF 800w: 800x1067 202.95 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 156.63 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 268.75 KB ✓
-AVIF 1200w: 1200x1600 361.53 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 351.1 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.56 MB combined)
-Best JPG: 351.1 KB (24.7% smaller than original)
+Original: 1200x1600 (349.97 KB)
+WEBP 400w: 400x533 33.21 KB ✓
+AVIF 400w: 400x533 54.01 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 41.05 KB ✓
+WEBP 800w: 800x1067 131.64 KB ✓
+AVIF 800w: 800x1067 203.89 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 155.64 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 268.32 KB ✓
+AVIF 1200w: 1200x1600 324.27 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 350.48 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.53 MB combined)
+Best JPG: 350.48 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/sangrillo/metadata.json
 
 ▶ Optimizing: sardinillo
-Original: 1200x1600 (586.59 KB)
-WEBP 400w: 400x533 63.24 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 103.89 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 65.29 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 224.65 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 327.18 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 239.28 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 396.94 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 507.22 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 464.42 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.34 MB combined)
-Best JPG: 464.42 KB (20.8% smaller than original)
+Original: 1200x1600 (460.69 KB)
+WEBP 400w: 400x533 62.54 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 100.51 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 64.59 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 219.39 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 313.67 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 235.44 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 379.77 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 442.88 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 460.53 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.23 MB combined)
+Best JPG: 460.53 KB (0.0% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/sardinillo/metadata.json
 
 ▶ Optimizing: sigua
-Original: 1200x1600 (254.6 KB)
-WEBP 400w: 400x533 24.72 KB ✓
-AVIF 400w: 400x533 35.42 KB ✓
-JPG 400w: 400x533 36.61 KB ✓
-WEBP 800w: 800x1067 56.99 KB ✓
-AVIF 800w: 800x1067 78.58 KB ✓
-JPG 800w: 800x1067 98.83 KB ✓
-WEBP 1200w: 1200x1600 93.25 KB ✓
-AVIF 1200w: 1200x1600 128.01 KB ✓
-JPG 1200w: 1200x1600 177.08 KB ✓
-Total variants: 9 files (729.51 KB combined)
-Best JPG: 177.08 KB (30.4% smaller than original)
+Original: 1200x1600 (176.42 KB)
+WEBP 400w: 400x533 24.75 KB ✓
+AVIF 400w: 400x533 35.46 KB ✓
+JPG 400w: 400x533 36.59 KB ✓
+WEBP 800w: 800x1067 55.8 KB ✓
+AVIF 800w: 800x1067 76.75 KB ✓
+JPG 800w: 800x1067 98.01 KB ✓
+WEBP 1200w: 1200x1600 92.57 KB ✓
+AVIF 1200w: 1200x1600 130.45 KB ✓
+JPG 1200w: 1200x1600 176.74 KB ✓
+Total variants: 9 files (727.12 KB combined)
+Best JPG: 176.74 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/sigua/metadata.json
 
+▶ Optimizing: sota
+Original: 1024x768 (112.04 KB)
+WEBP 400w: 400x300 4.16 KB ✓
+AVIF 400w: 400x300 4.66 KB ✓
+JPG 400w: 400x300 7.88 KB ✓
+WEBP 800w: 800x600 9.58 KB ✓
+AVIF 800w: 800x600 9.67 KB ✓
+JPG 800w: 800x600 19.92 KB ✓
+WEBP 1024w: 1024x768 13.02 KB
+AVIF 1024w: 1024x768 12.48 KB
+JPG 1024w: 1024x768 27.88 KB
+Total variants: 9 files (109.25 KB combined)
+Best JPG: 27.88 KB (75.1% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/sota/metadata.json
+
 ▶ Optimizing: sotacaballo
-Original: 1200x1600 (339.15 KB)
-WEBP 400w: 400x533 33.57 KB ✓
-AVIF 400w: 400x533 50.78 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 43.09 KB ✓
-WEBP 800w: 800x1067 87.31 KB ✓
-AVIF 800w: 800x1067 130.6 KB ✓
-JPG 800w: 800x1067 127.07 KB ✓
-WEBP 1200w: 1200x1600 154.5 KB ✓
-AVIF 1200w: 1200x1600 221.5 KB ✓
-JPG 1200w: 1200x1600 246.84 KB ✓
-Total variants: 9 files (1.07 MB combined)
-Best JPG: 246.84 KB (27.2% smaller than original)
+Original: 1200x1600 (245.8 KB)
+WEBP 400w: 400x533 33.59 KB ✓
+AVIF 400w: 400x533 50.26 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 43 KB ✓
+WEBP 800w: 800x1067 86.23 KB ✓
+AVIF 800w: 800x1067 127.23 KB ✓
+JPG 800w: 800x1067 125.75 KB ✓
+WEBP 1200w: 1200x1600 153.13 KB ✓
+AVIF 1200w: 1200x1600 204.88 KB ✓
+JPG 1200w: 1200x1600 246.39 KB ✓
+Total variants: 9 files (1.05 MB combined)
+Best JPG: 246.39 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/sotacaballo/metadata.json
 
 ▶ Optimizing: sura
-Original: 1200x1600 (574.22 KB)
-WEBP 400w: 400x533 33.58 KB ✓
-AVIF 400w: 400x533 55.68 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 43.91 KB ✓
-WEBP 800w: 800x1067 99.61 KB ✓
-AVIF 800w: 800x1067 151.72 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 137.47 KB ✓
-WEBP 1200w: 1200x1600 181.96 KB ✓
-AVIF 1200w: 1200x1600 266.14 KB ✓
-JPG 1200w: 1200x1600 269.52 KB ✓
-Total variants: 9 files (1.21 MB combined)
-Best JPG: 269.52 KB (53.1% smaller than original)
+Original: 1200x1600 (268.4 KB)
+WEBP 400w: 400x533 33.42 KB ✓
+AVIF 400w: 400x533 54.41 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 43.72 KB ✓
+WEBP 800w: 800x1067 96.14 KB ✓
+AVIF 800w: 800x1067 144.87 KB ✓
+JPG 800w: 800x1067 135.84 KB ✓
+WEBP 1200w: 1200x1600 174.07 KB ✓
+AVIF 1200w: 1200x1600 226.34 KB ✓
+JPG 1200w: 1200x1600 268.95 KB ✓
+Total variants: 9 files (1.15 MB combined)
+Best JPG: 268.95 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/sura/metadata.json
 
 ▶ Optimizing: tamarindo-dulce
-Original: 1200x1600 (391.38 KB)
-WEBP 400w: 400x533 46.13 KB ✓
-AVIF 400w: 400x533 72.39 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 54.38 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 115.46 KB ✓
-AVIF 800w: 800x1067 171.38 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 157.47 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 200.53 KB ✓
-AVIF 1200w: 1200x1600 277.06 KB ✓
-JPG 1200w: 1200x1600 293.27 KB ✓
-Total variants: 9 files (1.36 MB combined)
-Best JPG: 293.27 KB (25.1% smaller than original)
+Original: 1200x1600 (291.91 KB)
+WEBP 400w: 400x533 46.67 KB ✓
+AVIF 400w: 400x533 71.07 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 54.19 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 114.17 KB ✓
+AVIF 800w: 800x1067 166.89 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 155.56 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 192.27 KB ✓
+AVIF 1200w: 1200x1600 255.96 KB ✓
+JPG 1200w: 1200x1600 292.47 KB ✓
+Total variants: 9 files (1.32 MB combined)
+Best JPG: 292.47 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/tamarindo-dulce/metadata.json
 
 ▶ Optimizing: tamarindo
-Original: 1200x1600 (580.22 KB)
-WEBP 400w: 400x533 45.86 KB ✓
-AVIF 400w: 400x533 70.81 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 54.14 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 112.98 KB ✓
-AVIF 800w: 800x1067 162.66 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 154.98 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 187.31 KB ✓
-AVIF 1200w: 1200x1600 265.05 KB ✓
-JPG 1200w: 1200x1600 279.62 KB ✓
-Total variants: 9 files (1.3 MB combined)
-Best JPG: 279.62 KB (51.8% smaller than original)
+Original: 1200x1600 (278.3 KB)
+WEBP 400w: 400x533 45.83 KB ✓
+AVIF 400w: 400x533 69.78 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 53.92 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 110.08 KB ✓
+AVIF 800w: 800x1067 156.54 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 153.37 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 177.52 KB ✓
+AVIF 1200w: 1200x1600 237.22 KB ✓
+JPG 1200w: 1200x1600 278.9 KB ✓
+Total variants: 9 files (1.25 MB combined)
+Best JPG: 278.9 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/tamarindo/metadata.json
 
 ▶ Optimizing: targua
-Original: 1200x1600 (408.95 KB)
-WEBP 400w: 400x533 35.35 KB ✓
-AVIF 400w: 400x533 56.7 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 44.48 KB ✓
-WEBP 800w: 800x1067 117.86 KB ✓
-AVIF 800w: 800x1067 178.47 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 150.78 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 227.92 KB ✓
-AVIF 1200w: 1200x1600 300.39 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 311.05 KB ⚠ (target: 300 KB)
-Total variants: 9 files (1.39 MB combined)
-Best JPG: 311.05 KB (23.9% smaller than original)
+Original: 1200x1600 (310.03 KB)
+WEBP 400w: 400x533 35.21 KB ✓
+AVIF 400w: 400x533 56.22 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 44.41 KB ✓
+WEBP 800w: 800x1067 117.69 KB ✓
+AVIF 800w: 800x1067 177.13 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 149.82 KB ✓
+WEBP 1200w: 1200x1600 224.96 KB ✓
+AVIF 1200w: 1200x1600 276.43 KB ✓
+JPG 1200w: 1200x1600 310.67 KB ⚠ (target: 300 KB)
+Total variants: 9 files (1.36 MB combined)
+Best JPG: 310.67 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/targua/metadata.json
 
 ▶ Optimizing: teca
-Original: 917x2048 (495.83 KB)
-WEBP 400w: 400x893 62.52 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x893 100.81 KB ⚠ (target: 50 KB)
-JPG 400w: 400x893 75.08 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1787 220.58 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1787 336.02 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1787 273.65 KB ⚠ (target: 150 KB)
-WEBP 917w: 917x2048 289.17 KB
-AVIF 917w: 917x2048 391.72 KB
-JPG 917w: 917x2048 374.29 KB
-Total variants: 9 files (2.07 MB combined)
-Best JPG: 374.29 KB (24.5% smaller than original)
+Original: 917x2048 (373.11 KB)
+WEBP 400w: 400x893 61.35 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x893 100.01 KB ⚠ (target: 50 KB)
+JPG 400w: 400x893 74.64 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1787 222.66 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1787 338.72 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1787 273.63 KB ⚠ (target: 150 KB)
+WEBP 917w: 917x2048 288.33 KB
+AVIF 917w: 917x2048 352.96 KB
+JPG 917w: 917x2048 373.62 KB
+Total variants: 9 files (2.04 MB combined)
+Best JPG: 373.62 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/teca/metadata.json
 
 ▶ Optimizing: tempisque
-Original: 1200x900 (297 KB)
-WEBP 400w: 400x300 22.7 KB ✓
-AVIF 400w: 400x300 33.55 KB ✓
-JPG 400w: 400x300 28.03 KB ✓
-WEBP 800w: 800x600 57.73 KB ✓
-AVIF 800w: 800x600 79.56 KB ✓
-JPG 800w: 800x600 80.65 KB ✓
-WEBP 1200w: 1200x900 92.91 KB ✓
-AVIF 1200w: 1200x900 126.32 KB ✓
-JPG 1200w: 1200x900 143.94 KB ✓
-Total variants: 9 files (665.39 KB combined)
-Best JPG: 143.94 KB (51.5% smaller than original)
+Original: 1200x900 (143.29 KB)
+WEBP 400w: 400x300 22.66 KB ✓
+AVIF 400w: 400x300 32.71 KB ✓
+JPG 400w: 400x300 27.97 KB ✓
+WEBP 800w: 800x600 56.2 KB ✓
+AVIF 800w: 800x600 77.62 KB ✓
+JPG 800w: 800x600 79.53 KB ✓
+WEBP 1200w: 1200x900 88.91 KB ✓
+AVIF 1200w: 1200x900 121.94 KB ✓
+JPG 1200w: 1200x900 142.47 KB ✓
+Total variants: 9 files (650 KB combined)
+Best JPG: 142.47 KB (0.6% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/tempisque/metadata.json
 
 ▶ Optimizing: tirra
-Original: 1200x1600 (567.09 KB)
-WEBP 400w: 400x533 51.65 KB ⚠ (target: 50 KB)
-AVIF 400w: 400x533 79.06 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 53.04 KB ⚠ (target: 50 KB)
-WEBP 800w: 800x1067 207.72 KB ⚠ (target: 150 KB)
-AVIF 800w: 800x1067 290.74 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 214.62 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 401.81 KB ⚠ (target: 300 KB)
-AVIF 1200w: 1200x1600 475.18 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 447.58 KB ⚠ (target: 300 KB)
-Total variants: 9 files (2.17 MB combined)
-Best JPG: 447.58 KB (21.1% smaller than original)
+Original: 1200x1600 (445.88 KB)
+WEBP 400w: 400x533 51.49 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 77.77 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 52.88 KB ⚠ (target: 50 KB)
+WEBP 800w: 800x1067 205.64 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x1067 286.02 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 213.09 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 386.32 KB ⚠ (target: 300 KB)
+AVIF 1200w: 1200x1600 422.9 KB ⚠ (target: 300 KB)
+JPG 1200w: 1200x1600 446.38 KB ⚠ (target: 300 KB)
+Total variants: 9 files (2.09 MB combined)
+Best JPG: 446.38 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/tirra/metadata.json
 
 ▶ Optimizing: yellow-oleander
-Original: 1200x1600 (303.44 KB)
-WEBP 400w: 400x533 30.55 KB ✓
-AVIF 400w: 400x533 46.29 KB ✓
-JPG 400w: 400x533 42.1 KB ✓
-WEBP 800w: 800x1067 72.59 KB ✓
-AVIF 800w: 800x1067 101.51 KB ✓
-JPG 800w: 800x1067 118.4 KB ✓
-WEBP 1200w: 1200x1600 120.11 KB ✓
-AVIF 1200w: 1200x1600 171.58 KB ✓
-JPG 1200w: 1200x1600 215.33 KB ✓
-Total variants: 9 files (918.46 KB combined)
-Best JPG: 215.33 KB (29.0% smaller than original)
+Original: 1200x1600 (214.26 KB)
+WEBP 400w: 400x533 30.41 KB ✓
+AVIF 400w: 400x533 45.49 KB ✓
+JPG 400w: 400x533 42.04 KB ✓
+WEBP 800w: 800x1067 70.44 KB ✓
+AVIF 800w: 800x1067 97.58 KB ✓
+JPG 800w: 800x1067 116.59 KB ✓
+WEBP 1200w: 1200x1600 117.88 KB ✓
+AVIF 1200w: 1200x1600 168.47 KB ✓
+JPG 1200w: 1200x1600 214.85 KB ✓
+Total variants: 9 files (903.72 KB combined)
+Best JPG: 214.85 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/yellow-oleander/metadata.json
 
 ▶ Optimizing: yos
-Original: 1200x1600 (473.11 KB)
-WEBP 400w: 400x533 25.33 KB ✓
-AVIF 400w: 400x533 35.38 KB ✓
-JPG 400w: 400x533 36.27 KB ✓
-WEBP 800w: 800x1067 60.34 KB ✓
-AVIF 800w: 800x1067 81.92 KB ✓
-JPG 800w: 800x1067 99.4 KB ✓
-WEBP 1200w: 1200x1600 102.8 KB ✓
-AVIF 1200w: 1200x1600 155.86 KB ✓
-JPG 1200w: 1200x1600 184.24 KB ✓
-Total variants: 9 files (781.55 KB combined)
-Best JPG: 184.24 KB (61.1% smaller than original)
+Original: 1200x1600 (183.6 KB)
+WEBP 400w: 400x533 25.25 KB ✓
+AVIF 400w: 400x533 35.32 KB ✓
+JPG 400w: 400x533 36.25 KB ✓
+WEBP 800w: 800x1067 59.28 KB ✓
+AVIF 800w: 800x1067 79.3 KB ✓
+JPG 800w: 800x1067 98.69 KB ✓
+WEBP 1200w: 1200x1600 99.99 KB ✓
+AVIF 1200w: 1200x1600 139.86 KB ✓
+JPG 1200w: 1200x1600 184 KB ✓
+Total variants: 9 files (757.93 KB combined)
+Best JPG: 184 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/yos/metadata.json
 
 ▶ Optimizing: zapatero
-Original: 1200x1600 (323.86 KB)
-WEBP 400w: 400x533 32.63 KB ✓
-AVIF 400w: 400x533 46.76 KB ✓
-JPG 400w: 400x533 43.29 KB ✓
-WEBP 800w: 800x1067 79.39 KB ✓
-AVIF 800w: 800x1067 114.29 KB ✓
-JPG 800w: 800x1067 119.98 KB ✓
-WEBP 1200w: 1200x1600 137.75 KB ✓
-AVIF 1200w: 1200x1600 206.7 KB ✓
-JPG 1200w: 1200x1600 229.35 KB ✓
-Total variants: 9 files (1010.15 KB combined)
-Best JPG: 229.35 KB (29.2% smaller than original)
+Original: 1200x1600 (228.33 KB)
+WEBP 400w: 400x533 32.59 KB ✓
+AVIF 400w: 400x533 46.65 KB ✓
+JPG 400w: 400x533 43.25 KB ✓
+WEBP 800w: 800x1067 77.74 KB ✓
+AVIF 800w: 800x1067 110.42 KB ✓
+JPG 800w: 800x1067 118.74 KB ✓
+WEBP 1200w: 1200x1600 134.35 KB ✓
+AVIF 1200w: 1200x1600 188.4 KB ✓
+JPG 1200w: 1200x1600 228.97 KB ✓
+Total variants: 9 files (981.12 KB combined)
+Best JPG: 228.97 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/zapatero/metadata.json
 
 ▶ Optimizing: zapote
-Original: 1200x1600 (640.12 KB)
-WEBP 400w: 400x533 43.67 KB ✓
-AVIF 400w: 400x533 57.96 KB ⚠ (target: 50 KB)
-JPG 400w: 400x533 46.78 KB ✓
-WEBP 800w: 800x1067 137.7 KB ✓
-AVIF 800w: 800x1067 176.54 KB ⚠ (target: 150 KB)
-JPG 800w: 800x1067 157.27 KB ⚠ (target: 150 KB)
-WEBP 1200w: 1200x1600 235.09 KB ✓
-AVIF 1200w: 1200x1600 304.76 KB ⚠ (target: 300 KB)
-JPG 1200w: 1200x1600 299.35 KB ✓
-Total variants: 9 files (1.42 MB combined)
-Best JPG: 299.35 KB (53.2% smaller than original)
+Original: 1200x1600 (298.13 KB)
+WEBP 400w: 400x533 43.44 KB ✓
+AVIF 400w: 400x533 58.17 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 46.7 KB ✓
+WEBP 800w: 800x1067 134.58 KB ✓
+AVIF 800w: 800x1067 167.37 KB ⚠ (target: 150 KB)
+JPG 800w: 800x1067 156.14 KB ⚠ (target: 150 KB)
+WEBP 1200w: 1200x1600 222.08 KB ✓
+AVIF 1200w: 1200x1600 257.59 KB ✓
+JPG 1200w: 1200x1600 298.96 KB ✓
+Total variants: 9 files (1.35 MB combined)
+Best JPG: 298.96 KB (-0.3% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/zapote/metadata.json
 
 ==================================================
 📊 Optimization Summary
 ==================================================
-Total images: 164
-Optimized: 158
+Total images: 170
+Optimized: 164
 Skipped: 6
 Errors: 0
-Variants generated: 1419
+Variants generated: 1461
 
-Original images total: 64.79 MB
-All variants total: 195.69 MB
+Original images total: 41.52 MB
+All variants total: 187.72 MB
 
 Note: Each image generates 3 formats × 5 sizes
 Modern formats (WebP/AVIF) typically save 25-50% vs JPEG
 
 ✅ Image optimization complete!
 
-✅ Total optimized: 165 trees
+✅ Total optimized: 171 trees
+
+#### Hero Image Optimization
+
+> costa-rica-tree-atlas@0.1.0 images:optimize:hero
+> node scripts/optimize-hero-image.mjs
+
+🎨 Optimizing hero image for LCP performance...
+
+📸 Original image: 1200x900
+Format: jpeg, Size: NaN KB
+
+📏 Processing 640w (mobile)...
+✓ AVIF (best compression) → 128.72 KB
+✓ WebP (good compression) → 89.11 KB
+✓ JPEG (fallback) → 79.28 KB
+
+📏 Processing 828w (mobile-lg)...
+✓ AVIF (best compression) → 205.89 KB
+✓ WebP (good compression) → 146.23 KB
+✓ JPEG (fallback) → 130.48 KB
+
+📏 Processing 1200w (tablet)...
+✓ AVIF (best compression) → 268.18 KB
+✓ WebP (good compression) → 266.42 KB
+✓ JPEG (fallback) → 239.41 KB
+
+📏 Processing 1920w (desktop)...
+✓ AVIF (best compression) → 268.18 KB
+✓ WebP (good compression) → 266.42 KB
+✓ JPEG (fallback) → 239.41 KB
+
+📏 Processing 2560w (desktop-2x)...
+✓ AVIF (best compression) → 268.18 KB
+✓ WebP (good compression) → 266.42 KB
+✓ JPEG (fallback) → 239.41 KB
+
+📏 Creating full-size optimized versions...
+✓ AVIF (best compression) → 268.18 KB
+✓ WebP (good compression) → 266.42 KB
+✓ JPEG (fallback) → 239.41 KB
+
+✅ Hero image optimization complete!
+
+💾 Total savings: NaN KB
+📊 Compression ratio: NaN%
+
+📁 Optimized images saved to: /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/public/images/hero
+
+📋 Next steps:
+
+1. Update SafeImage component to use picture element with srcset
+2. Update preload link to use srcset with all sizes
+3. Test with Lighthouse to verify LCP improvement
+
+#### Updated iNaturalist Links
+
+> costa-rica-tree-atlas@0.1.0 images:cleanup:force
+> node scripts/cleanup-tree-images.mjs --write --force
+
+Processing 350 files...
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/acacia-mangium.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/aceituno.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/achotillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/aguacate.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/aguacatillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/ajo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/alcornoque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/almendro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/amarillon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/anona-colorada.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/anona.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/araza.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/arrayan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/balsa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/balsamo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/bambu-gigante.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/botarrama.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/burio.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cacao.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cachimbo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/caimito.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/camibar.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cana-agria.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cana-fistula.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cana-india.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/canelo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/caoba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/caobilla.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/capulin.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/carambola.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/carao.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/carboncillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cas.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cativo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cedro-amargo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cedro-dulce.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cedro-macho.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cedro-maria.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cedro-real.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/ceiba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cenizaro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cerillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/chancho-blanco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/chirraca.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/ciprecillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cipres.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/coco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cocobolo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/comenegro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/contra.mdx
+No replacement photo left for /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/copal.mdx. Keeping https://inaturalist-open-data.s3.amazonaws.com/photos/173299800/medium.jpeg.
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/copal.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/copey.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cornizuelo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/corozo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cortez-blanco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cortez-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/corteza-amarilla.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/coyol.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cristobal.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/cristobalito.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/espavel.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/eucalipto.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/flamboyan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/flor-de-itabo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/fruta-de-pan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/fruta-dorada.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/gallinazo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/gavilan.mdx
+No iNaturalist photos for Dalbergia tucurensis (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/granadillo.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guaba-bejuco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guaba-machete.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guaba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guachipelin.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guacimo-colorado.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guacimo-molenillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guacimo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guanabana-cimarrona.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guanabana.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guanacaste.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guapinol.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guarumbo-hembra.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guarumo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guayaba-chilena.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guayabo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guayacan-real.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/guitite.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/higueron.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/hoja-santa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/hule.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/icaco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/indio-desnudo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/ira-rosa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/jaboncillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/jacaranda.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/javillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/jicaro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/jobo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/jocote.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/laurel-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/laurel.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/lechoso-montanero.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/lechoso.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/lengua-de-vaca.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/llama-del-bosque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/lorito.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/madero-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/madrono.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/magnolia.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mamon-chino.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mamon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/manchineel.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-blanco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-botoncillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-pinuela.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mangle-rojo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mango.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/manu.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/manzana-de-agua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/maranon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mastate.mdx
+No iNaturalist taxon for Ficus spp. (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/matapalo.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mayo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/melina.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/mora.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/muneco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/nance.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/nazareno.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/nim.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/nispero.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/ojoche.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/olla-de-mono.mdx
+No iNaturalist photos for Campnosperma panamense (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/orey.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/palma-cacho-de-venado.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/palma-de-escoba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/palma-suita.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/palma-yolillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/palmera-real.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/panama.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/papaturro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/papaya.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/papayillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/peine-de-mico.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pejibaye.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pilon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pino-caribeno.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pitahaya.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pochote-de-agua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pochote.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/pomarrosa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/poro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quebracho.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quina.mdx
+No replacement photo left for /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quizarra.mdx. Keeping https://inaturalist-open-data.s3.amazonaws.com/photos/44210839/medium.jpg.
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/quizarra.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/rambutan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/roble-de-sabana.mdx
+No iNaturalist taxon for Quercus spp. (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/roble-encino.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/ron-ron.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/sangrillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/sardinillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/sigua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/sota.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/sotacaballo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/sura.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/tamarindo-dulce.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/tamarindo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/targua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/teca.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/tempisque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/tirra.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/yellow-oleander.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/yos.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/zapatero.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/zapote.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/en/zorrillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/acacia-mangium.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/aceituno.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/achotillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/aguacate.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/aguacatillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/ajo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/alcornoque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/almendro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/amarillon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/anona-colorada.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/anona.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/araza.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/arrayan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/balsa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/balsamo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/bambu-gigante.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/botarrama.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/burio.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cacao.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cachimbo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/caimito.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/camibar.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cana-agria.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cana-fistula.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cana-india.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/canelo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/caoba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/caobilla.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/capulin.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/carambola.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/carao.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/carboncillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cas.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cativo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cedro-amargo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cedro-dulce.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cedro-macho.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cedro-maria.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cedro-real.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/ceiba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cenizaro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cerillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/chancho-blanco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/chirraca.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/ciprecillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cipres.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/coco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cocobolo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/comenegro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/contra.mdx
+No replacement photo left for /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/copal.mdx. Keeping https://inaturalist-open-data.s3.amazonaws.com/photos/173299800/medium.jpeg.
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/copal.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/copey.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cornizuelo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/corozo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cortez-blanco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cortez-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/corteza-amarilla.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/coyol.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cristobal.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/cristobalito.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/espavel.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/eucalipto.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/flamboyan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/flor-de-itabo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/fruta-de-pan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/fruta-dorada.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/gallinazo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/gavilan.mdx
+No iNaturalist photos for Dalbergia tucurensis (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/granadillo.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guaba-bejuco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guaba-machete.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guaba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guachipelin.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guacimo-colorado.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guacimo-molenillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guacimo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guanabana-cimarrona.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guanabana.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guanacaste.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guapinol.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guarumbo-hembra.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guarumo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guayaba-chilena.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guayabo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guayacan-real.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/guitite.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/higueron.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/hoja-santa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/hule.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/icaco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/indio-desnudo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/ira-rosa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/jaboncillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/jacaranda.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/javillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/jicaro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/jobo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/jocote.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/laurel-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/laurel.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/lechoso-montanero.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/lechoso.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/lengua-de-vaca.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/llama-del-bosque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/lorito.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/madero-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/madrono.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/magnolia.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mamon-chino.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mamon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/manchineel.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-blanco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-botoncillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-negro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-pinuela.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mangle-rojo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mango.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/manu.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/manzana-de-agua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/maranon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mastate.mdx
+No iNaturalist taxon for Ficus spp. (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/matapalo.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mayo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/melina.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/mora.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/muneco.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/nance.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/nazareno.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/nim.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/nispero.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/ojoche.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/olla-de-mono.mdx
+No iNaturalist photos for Campnosperma panamense (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/orey.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/palma-cacho-de-venado.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/palma-de-escoba.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/palma-suita.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/palma-yolillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/palmera-real.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/panama.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/papaturro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/papaya.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/papayillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/peine-de-mico.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pejibaye.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pilon.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pino-caribeno.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pitahaya.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pochote-de-agua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pochote.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/pomarrosa.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/poro.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quebracho.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quina.mdx
+No replacement photo left for /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quizarra.mdx. Keeping https://inaturalist-open-data.s3.amazonaws.com/photos/44210839/medium.jpg.
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/quizarra.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/rambutan.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/roble-de-sabana.mdx
+No iNaturalist taxon for Quercus spp. (/home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/roble-encino.mdx).
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/ron-ron.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/sangrillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/sardinillo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/sigua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/sota.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/sotacaballo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/sura.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/tamarindo-dulce.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/tamarindo.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/targua.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/teca.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/tempisque.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/tirra.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/yellow-oleander.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/yos.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/zapatero.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/zapote.mdx
+Updated /home/runner/work/Costa-Rica-Tree-Atlas/Costa-Rica-Tree-Atlas/content/trees/es/zorrillo.mdx
+
+Processing complete:
+
+- Files processed: 350
+- Files updated: 342
+- Issues found: 8
+- Issues remaining: 8
+  Remaining image issues: 8
 
 ### Files Modified
 
 ```
  M audit-report.md
+ M content/trees/en/acacia-mangium.mdx
+ M content/trees/en/aceituno.mdx
+ M content/trees/en/aguacate.mdx
+ M content/trees/en/aguacatillo.mdx
+ M content/trees/en/ajo.mdx
+ M content/trees/en/alcornoque.mdx
+ M content/trees/en/almendro.mdx
+ M content/trees/en/amarillon.mdx
+ M content/trees/en/anona-colorada.mdx
+ M content/trees/en/anona.mdx
+ M content/trees/en/arrayan.mdx
+ M content/trees/en/balsamo.mdx
+ M content/trees/en/burio.mdx
+ M content/trees/en/cana-fistula.mdx
+ M content/trees/en/cana-india.mdx
+ M content/trees/en/canelo.mdx
+ M content/trees/en/caoba.mdx
+ M content/trees/en/capulin.mdx
+ M content/trees/en/carambola.mdx
+ M content/trees/en/carao.mdx
+ M content/trees/en/cas.mdx
+ M content/trees/en/cativo.mdx
+ M content/trees/en/cedro-amargo.mdx
+ M content/trees/en/cedro-macho.mdx
+ M content/trees/en/cedro-maria.mdx
+ M content/trees/en/cedro-real.mdx
+ M content/trees/en/cenizaro.mdx
+ M content/trees/en/chirraca.mdx
+ M content/trees/en/cipres.mdx
+ M content/trees/en/coco.mdx
+ M content/trees/en/cocobolo.mdx
+ M content/trees/en/comenegro.mdx
+ M content/trees/en/contra.mdx
+ M content/trees/en/copal.mdx
+ M content/trees/en/copey.mdx
+ M content/trees/en/corozo.mdx
+ M content/trees/en/cortez-blanco.mdx
+ M content/trees/en/cortez-negro.mdx
+ M content/trees/en/corteza-amarilla.mdx
+ M content/trees/en/espavel.mdx
+ M content/trees/en/eucalipto.mdx
+ M content/trees/en/flamboyan.mdx
+ M content/trees/en/flor-de-itabo.mdx
+ M content/trees/en/fruta-de-pan.mdx
+ M content/trees/en/fruta-dorada.mdx
+ M content/trees/en/gallinazo.mdx
+ M content/trees/en/gavilan.mdx
+ M content/trees/en/guaba-bejuco.mdx
+ M content/trees/en/guaba-machete.mdx
+ M content/trees/en/guachipelin.mdx
+ M content/trees/en/guacimo-colorado.mdx
+ M content/trees/en/guacimo-molenillo.mdx
+ M content/trees/en/guanabana-cimarrona.mdx
+ M content/trees/en/guanabana.mdx
+ M content/trees/en/guanacaste.mdx
+ M content/trees/en/guapinol.mdx
+ M content/trees/en/guarumbo-hembra.mdx
+ M content/trees/en/guarumo.mdx
+ M content/trees/en/guayaba-chilena.mdx
+ M content/trees/en/guitite.mdx
+ M content/trees/en/higueron.mdx
+ M content/trees/en/hoja-santa.mdx
+ M content/trees/en/hule.mdx
+ M content/trees/en/icaco.mdx
+ M content/trees/en/ira-rosa.mdx
+ M content/trees/en/jaboncillo.mdx
+ M content/trees/en/javillo.mdx
+ M content/trees/en/jicaro.mdx
+ M content/trees/en/jocote.mdx
+ M content/trees/en/laurel.mdx
+ M content/trees/en/lechoso-montanero.mdx
+ M content/trees/en/lengua-de-vaca.mdx
+ M content/trees/en/llama-del-bosque.mdx
+ M content/trees/en/lorito.mdx
+ M content/trees/en/madrono.mdx
+ M content/trees/en/magnolia.mdx
+ M content/trees/en/mangle-blanco.mdx
+ M content/trees/en/mangle-negro.mdx
+ M content/trees/en/mangle-pinuela.mdx
+ M content/trees/en/mango.mdx
+ M content/trees/en/manzana-de-agua.mdx
+ M content/trees/en/maranon.mdx
+ M content/trees/en/mayo.mdx
+ M content/trees/en/melina.mdx
+ M content/trees/en/muneco.mdx
+ M content/trees/en/nance.mdx
+ M content/trees/en/nim.mdx
+ M content/trees/en/olla-de-mono.mdx
+ M content/trees/en/palma-cacho-de-venado.mdx
+ M content/trees/en/palma-de-escoba.mdx
+ M content/trees/en/palma-suita.mdx
+ M content/trees/en/palma-yolillo.mdx
+ M content/trees/en/panama.mdx
+ M content/trees/en/papaturro.mdx
+ M content/trees/en/papaya.mdx
+ M content/trees/en/papayillo.mdx
+ M content/trees/en/peine-de-mico.mdx
+ M content/trees/en/pejibaye.mdx
+ M content/trees/en/pino-caribeno.mdx
+ M content/trees/en/pochote-de-agua.mdx
+ M content/trees/en/pochote.mdx
+ M content/trees/en/pomarrosa.mdx
+ M content/trees/en/poro.mdx
+ M content/trees/en/quina.mdx
+ M content/trees/en/sangrillo.mdx
+ M content/trees/en/sardinillo.mdx
+ M content/trees/en/sigua.mdx
+ M content/trees/en/sota.mdx
+ M content/trees/en/sotacaballo.mdx
+ M content/trees/en/tamarindo-dulce.mdx
+ M content/trees/en/tamarindo.mdx
+ M content/trees/en/targua.mdx
+ M content/trees/en/teca.mdx
+ M content/trees/en/tirra.mdx
+ M content/trees/en/yellow-oleander.mdx
+ M content/trees/en/yos.mdx
+ M content/trees/en/zapatero.mdx
+ M content/trees/en/zapote.mdx
+ M content/trees/en/zorrillo.mdx
+ M content/trees/es/acacia-mangium.mdx
+ M content/trees/es/aceituno.mdx
+ M content/trees/es/aguacate.mdx
+ M content/trees/es/aguacatillo.mdx
+ M content/trees/es/ajo.mdx
+ M content/trees/es/alcornoque.mdx
+ M content/trees/es/almendro.mdx
+ M content/trees/es/amarillon.mdx
+ M content/trees/es/anona-colorada.mdx
+ M content/trees/es/anona.mdx
+ M content/trees/es/arrayan.mdx
+ M content/trees/es/balsamo.mdx
+ M content/trees/es/burio.mdx
+ M content/trees/es/cana-fistula.mdx
+ M content/trees/es/cana-india.mdx
+ M content/trees/es/canelo.mdx
+ M content/trees/es/caoba.mdx
+ M content/trees/es/capulin.mdx
+ M content/trees/es/carambola.mdx
+ M content/trees/es/carao.mdx
+ M content/trees/es/cas.mdx
+ M content/trees/es/cativo.mdx
+ M content/trees/es/cedro-amargo.mdx
+ M content/trees/es/cedro-macho.mdx
+ M content/trees/es/cedro-maria.mdx
+ M content/trees/es/cedro-real.mdx
+ M content/trees/es/cenizaro.mdx
+ M content/trees/es/chirraca.mdx
+ M content/trees/es/cipres.mdx
+ M content/trees/es/coco.mdx
+ M content/trees/es/cocobolo.mdx
+ M content/trees/es/comenegro.mdx
+ M content/trees/es/contra.mdx
+ M content/trees/es/copal.mdx
+ M content/trees/es/copey.mdx
+ M content/trees/es/corozo.mdx
+ M content/trees/es/cortez-blanco.mdx
+ M content/trees/es/cortez-negro.mdx
+ M content/trees/es/corteza-amarilla.mdx
+ M content/trees/es/espavel.mdx
+ M content/trees/es/eucalipto.mdx
+ M content/trees/es/flamboyan.mdx
+ M content/trees/es/flor-de-itabo.mdx
+ M content/trees/es/fruta-de-pan.mdx
+ M content/trees/es/fruta-dorada.mdx
+ M content/trees/es/gallinazo.mdx
+ M content/trees/es/gavilan.mdx
+ M content/trees/es/guaba-bejuco.mdx
+ M content/trees/es/guaba-machete.mdx
+ M content/trees/es/guachipelin.mdx
+ M content/trees/es/guacimo-colorado.mdx
+ M content/trees/es/guacimo-molenillo.mdx
+ M content/trees/es/guanabana-cimarrona.mdx
+ M content/trees/es/guanabana.mdx
+ M content/trees/es/guanacaste.mdx
+ M content/trees/es/guapinol.mdx
+ M content/trees/es/guarumbo-hembra.mdx
+ M content/trees/es/guarumo.mdx
+ M content/trees/es/guayaba-chilena.mdx
+ M content/trees/es/guitite.mdx
+ M content/trees/es/higueron.mdx
+ M content/trees/es/hoja-santa.mdx
+ M content/trees/es/hule.mdx
+ M content/trees/es/icaco.mdx
+ M content/trees/es/ira-rosa.mdx
+ M content/trees/es/jaboncillo.mdx
+ M content/trees/es/javillo.mdx
+ M content/trees/es/jicaro.mdx
+ M content/trees/es/jocote.mdx
+ M content/trees/es/laurel.mdx
+ M content/trees/es/lechoso-montanero.mdx
+ M content/trees/es/lengua-de-vaca.mdx
+ M content/trees/es/llama-del-bosque.mdx
+ M content/trees/es/lorito.mdx
+ M content/trees/es/madrono.mdx
+ M content/trees/es/magnolia.mdx
+ M content/trees/es/mangle-blanco.mdx
+ M content/trees/es/mangle-negro.mdx
+ M content/trees/es/mangle-pinuela.mdx
+ M content/trees/es/mango.mdx
+ M content/trees/es/manzana-de-agua.mdx
+ M content/trees/es/maranon.mdx
+ M content/trees/es/mayo.mdx
+ M content/trees/es/melina.mdx
+ M content/trees/es/muneco.mdx
+ M content/trees/es/nance.mdx
+ M content/trees/es/nim.mdx
+ M content/trees/es/olla-de-mono.mdx
+ M content/trees/es/palma-cacho-de-venado.mdx
+ M content/trees/es/palma-de-escoba.mdx
+ M content/trees/es/palma-suita.mdx
+ M content/trees/es/palma-yolillo.mdx
+ M content/trees/es/panama.mdx
+ M content/trees/es/papaturro.mdx
+ M content/trees/es/papaya.mdx
+ M content/trees/es/papayillo.mdx
+ M content/trees/es/peine-de-mico.mdx
+ M content/trees/es/pejibaye.mdx
+ M content/trees/es/pino-caribeno.mdx
+ M content/trees/es/pochote-de-agua.mdx
+ M content/trees/es/pochote.mdx
+ M content/trees/es/pomarrosa.mdx
+ M content/trees/es/poro.mdx
+ M content/trees/es/quina.mdx
+ M content/trees/es/sangrillo.mdx
+ M content/trees/es/sardinillo.mdx
+ M content/trees/es/sigua.mdx
+ M content/trees/es/sota.mdx
+ M content/trees/es/sotacaballo.mdx
+ M content/trees/es/tamarindo-dulce.mdx
+ M content/trees/es/tamarindo.mdx
+ M content/trees/es/targua.mdx
+ M content/trees/es/teca.mdx
+ M content/trees/es/tirra.mdx
+ M content/trees/es/yellow-oleander.mdx
+ M content/trees/es/yos.mdx
+ M content/trees/es/zapatero.mdx
+ M content/trees/es/zapote.mdx
+ M content/trees/es/zorrillo.mdx
+ M public/images/hero/guanacaste-desktop-2x.avif
+ M public/images/hero/guanacaste-desktop-2x.jpg
+ M public/images/hero/guanacaste-desktop-2x.webp
+ M public/images/hero/guanacaste-desktop.avif
+ M public/images/hero/guanacaste-desktop.jpg
+ M public/images/hero/guanacaste-desktop.webp
+ M public/images/hero/guanacaste-mobile-lg.avif
+ M public/images/hero/guanacaste-mobile-lg.jpg
+ M public/images/hero/guanacaste-mobile-lg.webp
+ M public/images/hero/guanacaste-mobile.avif
+ M public/images/hero/guanacaste-mobile.jpg
+ M public/images/hero/guanacaste-mobile.webp
+ M public/images/hero/guanacaste-original.avif
+ M public/images/hero/guanacaste-original.jpg
+ M public/images/hero/guanacaste-original.webp
+ M public/images/hero/guanacaste-tablet.avif
+ M public/images/hero/guanacaste-tablet.jpg
+ M public/images/hero/guanacaste-tablet.webp
+ M public/images/trees/attributions.json
+ M public/images/trees/guarumbo-hembra.jpg
+ M public/images/trees/optimized/amarillon/400w.avif
+ M public/images/trees/optimized/amarillon/400w.jpg
+ M public/images/trees/optimized/amarillon/400w.webp
 ```
