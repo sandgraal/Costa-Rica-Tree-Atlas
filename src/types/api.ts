@@ -217,3 +217,94 @@ export const VALID_SORT_FIELDS = [
   "family",
   "updatedAt",
 ] as const;
+
+// ---------------------------------------------------------------------------
+// Comparison types
+// ---------------------------------------------------------------------------
+
+/**
+ * Comparison data returned by the API
+ */
+export interface ComparisonAPIResponse {
+  slug: string;
+  locale: string;
+  title: string;
+  species: string[];
+  keyDifference: string;
+  description: string;
+  difficulty?: string;
+  confusionRating?: number;
+  comparisonTags?: string[];
+  seasonalNote?: string;
+  publishedAt?: string;
+  _links: {
+    self: string;
+    html: string;
+    species: { slug: string; url: string }[];
+  };
+}
+
+/**
+ * Filter options for comparison listing
+ */
+export interface ComparisonFilterOptions {
+  locale?: "en" | "es";
+  species?: string;
+  difficulty?: string;
+  tag?: string;
+  search?: string;
+  page?: number;
+  pageSize?: number;
+  sort?: "title" | "difficulty" | "confusionRating";
+  order?: "asc" | "desc";
+}
+
+// ---------------------------------------------------------------------------
+// Glossary types
+// ---------------------------------------------------------------------------
+
+/**
+ * Glossary term data returned by the API
+ */
+export interface GlossaryAPIResponse {
+  slug: string;
+  locale: string;
+  term: string;
+  simpleDefinition: string;
+  technicalDefinition?: string;
+  category: string;
+  pronunciation?: string;
+  etymology?: string;
+  exampleSpecies?: string[];
+  relatedTerms?: string[];
+  image?: string;
+  publishedAt?: string;
+  _links: {
+    self: string;
+    html: string;
+    relatedTerms?: { slug: string; url: string }[];
+    exampleSpecies?: { slug: string; url: string }[];
+  };
+}
+
+/**
+ * Filter options for glossary listing
+ */
+export interface GlossaryFilterOptions {
+  locale?: "en" | "es";
+  category?: string;
+  search?: string;
+  page?: number;
+  pageSize?: number;
+  sort?: "term" | "category";
+  order?: "asc" | "desc";
+}
+
+/**
+ * Glossary categories response
+ */
+export interface GlossaryCategoriesResponse {
+  data: { name: string; termCount: number; _links: { terms: string } }[];
+  meta: { totalCategories: number; totalTerms: number; locale: string };
+  _links: { self: string; glossary: string };
+}

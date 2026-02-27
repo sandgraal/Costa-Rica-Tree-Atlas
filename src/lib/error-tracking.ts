@@ -25,6 +25,10 @@ interface ErrorContext {
 let _sentry: any = null;
 let _sentryChecked = false;
 
+// Module name in a variable to prevent Turbopack from statically
+// resolving the optional dependency and emitting build warnings.
+const SENTRY_MODULE = ["@sentry", "nextjs"].join("/");
+
 /**
  * Attempt to load @sentry/nextjs dynamically.
  * Returns null if the package is not installed or DSN is not configured.
@@ -38,7 +42,7 @@ function getSentry(): any {
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    _sentry = require("@sentry/nextjs");
+    _sentry = require(SENTRY_MODULE);
     return _sentry;
   } catch {
     // @sentry/nextjs not installed — that's fine, fall back to console
