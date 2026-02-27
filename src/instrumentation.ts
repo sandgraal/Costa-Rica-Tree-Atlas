@@ -10,10 +10,11 @@ export async function register() {
   // Initialize Sentry on the server side when DSN is configured
   if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     try {
-      // Dynamic require to avoid compile-time resolution —
-      // @sentry/nextjs may not be installed yet
+      // Module name in a variable to prevent Turbopack from statically
+      // resolving the optional dependency and emitting build warnings.
+      const sentryModule = ["@sentry", "nextjs"].join("/");
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const Sentry = require("@sentry/nextjs") as {
+      const Sentry = require(sentryModule) as {
         init: (options: Record<string, unknown>) => void;
       };
 
