@@ -1,8 +1,20 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-26
+Last updated: 2026-02-27
 
-## Latest Run Summary (2026-02-26 — Run 9)
+## Latest Run Summary (2026-02-27 — Run 11)
+
+- **Branch**: `feature/p6-community-features-and-fixes` → push pending (network down)
+- **Tasks completed**:
+  1. **P6.3: Public API — Comparisons endpoints** — Created `/api/v1/comparisons` (list with filtering by species, difficulty, tag, search, pagination) and `/api/v1/comparisons/[slug]` (detail with embedded species data). 19 new tests.
+  2. **P6.3: Public API — Glossary endpoints** — Created `/api/v1/glossary` (list with filtering by category, search, pagination) and `/api/v1/glossary/[slug]` (detail with embedded related terms and example species). 15 new tests.
+  3. **P6.3: Public API — OpenAPI specification** — Created `/api/v1/openapi.json` with full OpenAPI 3.1 spec documenting all 7 v1 endpoints (trees, trees/[slug], families, comparisons, comparisons/[slug], glossary, glossary/[slug]). 5 new tests.
+  4. **Shared rate limiter extraction** — Created `src/lib/api-rate-limit.ts` replacing duplicated inline rate-limiting code in trees, trees/[slug], and families routes. Adds periodic cleanup for memory leak prevention. All new endpoints use shared limiter.
+  5. **API types expansion** — Added `ComparisonAPIResponse`, `ComparisonFilterOptions`, `GlossaryAPIResponse`, `GlossaryFilterOptions` to `src/types/api.ts`.
+  6. **Fix: @sentry/nextjs Turbopack build warnings** — Used runtime string concatenation (`["@sentry", "nextjs"].join("/")`) in `src/lib/error-tracking.ts` and `src/instrumentation.ts` to prevent Turbopack static analysis from resolving the optional module.
+  7. **Verified**: 541/541 tests pass (39 new), 0 lint errors.
+
+## Previous Run Summary (2026-02-26 — Run 9)
 
 - **Branch**: `content/glossary-standardization-and-enum-normalization` → PR pending
 - **Tasks completed**:
@@ -97,7 +109,7 @@ Last updated: 2026-02-26
 
 ## Current Project State
 
-- **Tests**: 479/479 passing (29 test files)
+- **Tests**: 541/541 passing (34 test files)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Content quality**: All enum values normalized to schema, glossary references validated
 - **Galleries**: 174/175 trees with iNaturalist photo galleries
@@ -107,7 +119,8 @@ Last updated: 2026-02-26
 - **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound. A11y expected 100 after contrast fix deployed.
 - **Component sizes**: All 3 large clients split — TreeMapClient 1,027, ScavengerHuntClient 575, TreeJournalClient 672 lines
 - **SEO**: All P3 tasks complete (P3.1–P3.5). OG images, JSON-LD, sitemap, and meta descriptions all optimized.
-- **Error tracking**: Sentry-ready (zero deps, graceful fallback)
+- **Error tracking**: Sentry-ready (zero deps, graceful fallback), Turbopack build warnings fixed
+- **Public API (P6.3)**: 7 v1 endpoints — trees (list/detail), families, comparisons (list/detail), glossary (list/detail), OpenAPI 3.1 spec. Shared rate limiter, pagination, HAL-style links.
 
 ## Highest-Priority Remaining Work
 
@@ -133,8 +146,9 @@ From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 | P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                  |
 | P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.       |
 | P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned |
+| P6.3     | Public API for researchers            | ✅ Complete | 7 endpoints, OpenAPI spec, shared rate limiter, 39 tests            |
 
-**Recommended next task**: P6.1 (User photo uploads — blocked on cloud storage B4), P6.3 (Public API), or P4.5 (CSP optimization — manual sprint).
+**Recommended next task**: P6.1 (User photo uploads — infrastructure exists, needs final testing), P4.5 (CSP optimization — manual sprint), or polish remaining items.
 
 ## Established Patterns
 
@@ -203,8 +217,8 @@ Mission
 - Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps). Content standardization ✅ (111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned).
 - Recommended execution order (pick one or more):
   1. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint, 1-2 weeks)
-  2. P6.1: User photo uploads (blocked on cloud storage B4 — need Cloudinary/S3 setup)
-  3. P6.3: Public API for researchers — RESTful endpoints, rate limiting, OpenAPI docs
+  2. P6.1: User photo uploads — infrastructure exists (upload UI, API, Cloudinary integration), needs final testing and deployment validation
+  3. Push pending branch `feature/p6-community-features-and-fixes` and open PR (network was down during Run 11)
   4. Apply DB migration to production (manual step — `npx prisma migrate deploy`)
   5. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
   6. Any remaining polish from IMPLEMENTATION_PLAN.md

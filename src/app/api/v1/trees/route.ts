@@ -1,79 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees, type Tree } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
+import {
+  getClientId,
+  checkRateLimit,
+  addRateLimitHeaders,
+} from "@/lib/api-rate-limit";
 import type {
   TreeAPIResponse,
   PaginatedResponse,
   TreeFilterOptions,
 } from "@/types/api";
-
-// Rate limiting: simple in-memory store (use Redis/Upstash in production)
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 100; // requests per window
-const RATE_WINDOW = 60 * 1000; // 1 minute
-
-/**
- * Get client identifier for rate limiting
- */
-function getClientId(request: NextRequest): string {
-  // Check for API key first
-  const apiKey = request.headers.get("X-API-Key");
-  if (apiKey) {
-    return `key:${apiKey}`;
-  }
-
-  // Fall back to IP
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "anonymous";
-  return `ip:${ip}`;
-}
-
-/**
- * Check rate limit
- */
-function checkRateLimit(clientId: string): {
-  allowed: boolean;
-  remaining: number;
-  resetAt: number;
-} {
-  const now = Date.now();
-  const record = rateLimitStore.get(clientId);
-
-  if (!record || record.resetAt < now) {
-    // New window
-    rateLimitStore.set(clientId, { count: 1, resetAt: now + RATE_WINDOW });
-    return {
-      allowed: true,
-      remaining: RATE_LIMIT - 1,
-      resetAt: now + RATE_WINDOW,
-    };
-  }
-
-  if (record.count >= RATE_LIMIT) {
-    return { allowed: false, remaining: 0, resetAt: record.resetAt };
-  }
-
-  record.count++;
-  return {
-    allowed: true,
-    remaining: RATE_LIMIT - record.count,
-    resetAt: record.resetAt,
-  };
-}
-
-/**
- * Add rate limit headers to response
- */
-function addRateLimitHeaders(
-  headers: Headers,
-  rateLimit: { remaining: number; resetAt: number }
-): void {
-  headers.set("X-RateLimit-Limit", String(RATE_LIMIT));
-  headers.set("X-RateLimit-Remaining", String(rateLimit.remaining));
-  headers.set("X-RateLimit-Reset", String(Math.ceil(rateLimit.resetAt / 1000)));
-}
 
 /**
  * Transform tree to API response format

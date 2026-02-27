@@ -1,57 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
+import {
+  getClientId,
+  checkRateLimit,
+  addRateLimitHeaders,
+} from "@/lib/api-rate-limit";
 import type { FamiliesResponse } from "@/types/api";
-
-// Rate limiting
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 100;
-const RATE_WINDOW = 60 * 1000;
-
-function getClientId(request: NextRequest): string {
-  const apiKey = request.headers.get("X-API-Key");
-  if (apiKey) return `key:${apiKey}`;
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "anonymous";
-  return `ip:${ip}`;
-}
-
-function checkRateLimit(clientId: string): {
-  allowed: boolean;
-  remaining: number;
-  resetAt: number;
-} {
-  const now = Date.now();
-  const record = rateLimitStore.get(clientId);
-  if (!record || record.resetAt < now) {
-    rateLimitStore.set(clientId, { count: 1, resetAt: now + RATE_WINDOW });
-    return {
-      allowed: true,
-      remaining: RATE_LIMIT - 1,
-      resetAt: now + RATE_WINDOW,
-    };
-  }
-  if (record.count >= RATE_LIMIT) {
-    return { allowed: false, remaining: 0, resetAt: record.resetAt };
-  }
-  record.count++;
-  return {
-    allowed: true,
-    remaining: RATE_LIMIT - record.count,
-    resetAt: record.resetAt,
-  };
-}
-
-function addRateLimitHeaders(
-  headers: Headers,
-  rateLimit: { remaining: number; resetAt: number }
-): void {
-  headers.set("X-RateLimit-Limit", String(RATE_LIMIT));
-  headers.set("X-RateLimit-Remaining", String(rateLimit.remaining));
-  headers.set("X-RateLimit-Reset", String(Math.ceil(rateLimit.resetAt / 1000)));
-}
 
 /**
  * GET /api/v1/families - Get all tree families with species count
