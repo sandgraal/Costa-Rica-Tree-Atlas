@@ -8,7 +8,7 @@ Last updated: 2026-02-26
 - **Sub-PR**: [PR #495](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/495) (merged) — singleton guard + comprehensive tests
 - **Also merged**: [PR #493](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/493) (Codacy removal), [PR #496](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/496) (minimatch bump)
 - **Tasks completed**:
-  1. **B4 Resolved: Cloudinary integration** — Created `src/lib/cloudinary.ts` (238 lines): singleton `getCloudinary()`, `uploadTreeImage()` with automatic folder structure (`costa-rica-tree-atlas/trees/{slug}`), format/quality optimization, CDN URL generation. Refactored `src/app/api/images/upload/route.ts` from local filesystem to Cloudinary. Added `res.cloudinary.com` to `next.config.ts` remote patterns. Added env var validation (CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET).
+  1. **B4 Resolved: Cloudinary integration** — Created `src/lib/cloudinary.ts` (239 lines): singleton `getCloudinary()`, `uploadTreeImage()` with automatic folder structure (`costa-rica-tree-atlas/trees/{slug}`), format/quality optimization, CDN URL generation. Refactored `src/app/api/images/upload/route.ts` from local filesystem to Cloudinary. Added `res.cloudinary.com` to `next.config.ts` remote patterns. Added env var validation (CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET).
   2. **Cloudinary test coverage** — Created `tests/lib/cloudinary.test.ts` (439 lines, 23 tests): singleton guard, upload success/error, configuration validation, folder structure, format options.
   3. **Codacy removal** — Deleted `.codacy/` directory, removed `codacy.instructions.md`, cleaned gitignore and security comments.
   4. **Dependency update**: minimatch 3.1.2 → 3.1.5 (security patch).
