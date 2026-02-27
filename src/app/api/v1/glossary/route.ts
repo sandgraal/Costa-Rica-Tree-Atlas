@@ -10,7 +10,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { allGlossaryTerms, type GlossaryTerm } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
 import {
-  rateLimitOrNull,
   getClientId,
   checkRateLimit,
   addRateLimitHeaders,
@@ -66,8 +65,26 @@ function transformGlossaryTerm(
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
-  const blocked = rateLimitOrNull(request);
-  if (blocked) return blocked;
+  const clientId = getClientId(request);
+  const rateLimit = checkRateLimit(clientId);
+
+  if (!rateLimit.allowed) {
+    const headers = new Headers();
+    addRateLimitHeaders(headers, rateLimit);
+    return NextResponse.json(
+      {
+        error: {
+          code: "RATE_LIMIT_EXCEEDED",
+          message: "Too many requests. Please try again later.",
+          details: {
+            retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000),
+          },
+        },
+        _links: { documentation: "/api/docs" },
+      },
+      { status: 429, headers }
+    );
+  }
 
   try {
     const { searchParams } = new URL(request.url);
@@ -155,10 +172,8 @@ export async function GET(request: NextRequest) {
       },
     };
 
-    const clientId = getClientId(request);
-    const rl = checkRateLimit(clientId);
     const headers = new Headers();
-    addRateLimitHeaders(headers, rl);
+    addRateLimitHeaders(headers, rateLimit);
     headers.set("Cache-Control", "public, max-age=300, s-maxage=600");
 
     return NextResponse.json(response, { headers });
