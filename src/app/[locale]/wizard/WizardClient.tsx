@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Link } from "@i18n/navigation";
+import { ProgressBar } from "@/components/ProgressBar";
 import Image from "next/image";
 
 interface Tree {
@@ -654,10 +655,11 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
               {t("step")} {step + 1} {t("of")} 6
             </span>
           </div>
-          <div className="w-full max-w-md mx-auto h-2 bg-muted rounded-full overflow-hidden">
-            <div
-              className="h-full bg-primary transition-all duration-300"
-              style={{ width: `${((step + 1) / 6) * 100}%` }}
+          <div className="w-full max-w-md mx-auto">
+            <ProgressBar
+              value={((step + 1) / 6) * 100}
+              barClassName="bg-primary"
+              label="Wizard progress"
             />
           </div>
         </div>

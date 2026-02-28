@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { Link } from "@i18n/navigation";
+import { ProgressBar } from "@/components/ProgressBar";
 import Image from "next/image";
 
 interface Tree {
@@ -373,12 +374,11 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
               {t("score")}: {score}
             </span>
           </div>
-          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-            <div
-              className="h-full bg-primary transition-all duration-300"
-              style={{
-                width: `${((currentQuestion + 1) / questions.length) * 100}%`,
-              }}
+          <div className="w-full">
+            <ProgressBar
+              value={((currentQuestion + 1) / questions.length) * 100}
+              barClassName="bg-primary"
+              label="Quiz progress"
             />
           </div>
         </div>

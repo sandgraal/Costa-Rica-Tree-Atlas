@@ -34,11 +34,17 @@ export function SafeImage({
     // Show placeholder with tree icon
     return (
       <div
-        className="flex items-center justify-center bg-muted rounded-lg"
-        style={{
-          width: props.width || "100%",
-          height: props.height || "100%",
-        }}
+        className={`flex items-center justify-center bg-muted rounded-lg ${
+          props.width ? "" : "w-full"
+        } ${props.height ? "" : "h-full"}`}
+        {...(props.width || props.height
+          ? {
+              style: {
+                ...(props.width ? { width: props.width } : {}),
+                ...(props.height ? { height: props.height } : {}),
+              },
+            }
+          : {})}
       >
         <TreeIcon className="h-12 w-12 text-muted-foreground opacity-50" />
       </div>
@@ -69,11 +75,10 @@ export function SafeImage({
         onLoad={() => {
           setLoading(false);
         }}
-        style={{
-          ...props.style,
-          opacity: loading ? 0 : 1,
-          transition: "opacity 0.2s ease-in-out",
-        }}
+        className={`transition-opacity duration-200 ease-in-out ${
+          loading ? "opacity-0" : "opacity-100"
+        } ${props.className || ""}`}
+        style={props.style}
         {...props}
       />
     </>

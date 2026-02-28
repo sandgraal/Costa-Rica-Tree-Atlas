@@ -16,7 +16,7 @@ export function QRCodeGenerator({ url, size = 100 }: QRCodeGeneratorProps) {
   return (
     <div
       className="bg-white p-2 rounded inline-block"
-      style={{ width: size + 16, height: size + 16 }}
+      style={{ width: `${size + 16}px`, height: `${size + 16}px` }}
     >
       <Image
         src={qrCodeUrl}

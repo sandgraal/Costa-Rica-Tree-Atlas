@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";
+import { ProgressBar } from "@/components/ProgressBar";
 import Image from "next/image";
 
 interface Tree {
@@ -555,12 +556,11 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
           </div>
 
           {/* Progress Bar */}
-          <div className="h-2 bg-muted rounded-full mb-8 overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-300"
-              style={{
-                width: `${((currentQuestion + 1) / questions.length) * 100}%`,
-              }}
+          <div className="mb-8">
+            <ProgressBar
+              value={((currentQuestion + 1) / questions.length) * 100}
+              barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
+              label="Quiz progress"
             />
           </div>
 

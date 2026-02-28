@@ -196,11 +196,9 @@ export function buildMDXCSP(): string {
     ],
     "style-src": [
       "'self'",
-      // NOTE: Nonce removed because it causes 'unsafe-inline' to be ignored per CSP spec
-      // This would break all inline styles in React components
-      // When nonce is present, only nonce-approved styles work
+      // Nonce omitted: per CSP spec, it causes 'unsafe-inline' to be ignored.
+      // 'unsafe-inline' is required for ~30 remaining dynamic runtime styles.
       "https://fonts.googleapis.com",
-      // TODO: Extract critical CSS to remove unsafe-inline
       "'unsafe-inline'",
     ],
     "img-src": COMMON_IMG_SOURCES,
@@ -272,9 +270,8 @@ export function buildRelaxedCSP(): string {
     ],
     "style-src": [
       "'self'",
-      // NOTE: Nonce removed because it causes 'unsafe-inline' to be ignored per CSP spec
-      // This would break all inline styles in React components
-      // When nonce is present, only nonce-approved styles work
+      // Nonce omitted: per CSP spec, it causes 'unsafe-inline' to be ignored.
+      // 'unsafe-inline' is required for dynamic runtime styles.
       "https://fonts.googleapis.com",
       "'unsafe-inline'",
     ],

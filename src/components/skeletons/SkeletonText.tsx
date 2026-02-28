@@ -9,8 +9,9 @@ export function SkeletonText({ lines = 3, className = "" }: SkeletonTextProps) {
       {Array.from({ length: lines }, (_, i) => (
         <div
           key={i}
-          className="h-4 bg-muted rounded animate-pulse"
-          style={{ width: i === lines - 1 ? "60%" : "100%" }}
+          className={`h-4 bg-muted rounded animate-pulse ${
+            i === lines - 1 ? "w-3/5" : "w-full"
+          }`}
         />
       ))}
     </div>
