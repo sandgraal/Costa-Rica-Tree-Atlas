@@ -71,9 +71,7 @@ export function OptimizedImage({
   };
 
   if (fill) {
-    return (
-      <Image {...imageProps} alt={alt} fill style={{ objectFit: "cover" }} />
-    );
+    return <Image {...imageProps} alt={alt} fill className="object-cover" />;
   }
 
   return (
@@ -82,7 +80,7 @@ export function OptimizedImage({
       alt={alt}
       width={width || 800}
       height={height || 600}
-      style={{ objectFit: "cover" }}
+      className="object-cover"
     />
   );
 }

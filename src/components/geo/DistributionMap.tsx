@@ -202,11 +202,10 @@ export function DistributionMap({
                     d={province.path}
                     stroke="#57534e"
                     strokeWidth="1.5"
-                    className="cursor-pointer dark:stroke-stone-400"
+                    className="cursor-pointer dark:stroke-stone-400 transition-all duration-200 ease-in-out"
                     style={{
                       fill: fillValue,
                       opacity: isHighlighted ? 0.9 : isHovered ? 0.5 : 1,
-                      transition: "all 0.2s ease-in-out",
                     }}
                     onMouseEnter={() =>
                       interactive && setHoveredProvince(key as Province)
@@ -223,10 +222,7 @@ export function DistributionMap({
                     textAnchor="middle"
                     fontSize="8"
                     fontWeight="600"
-                    className="pointer-events-none select-none fill-stone-700 dark:fill-stone-200"
-                    style={{
-                      textShadow: "0 0 3px rgba(255,255,255,0.8)",
-                    }}
+                    className="pointer-events-none select-none fill-stone-700 dark:fill-stone-200 [text-shadow:0_0_3px_rgba(255,255,255,0.8)]"
                   >
                     {province.name[locale]}
                   </text>
@@ -243,7 +239,6 @@ export function DistributionMap({
                 textAnchor="middle"
                 fontSize="9"
                 className="pointer-events-none select-none italic fill-blue-300 dark:fill-blue-400"
-                style={{ fontStyle: "italic" }}
               >
                 {neighbor.name[locale]}
               </text>
@@ -260,22 +255,11 @@ export function DistributionMap({
             </h4>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <div
-                  className="w-4 h-4 rounded border border-green-600"
-                  style={{
-                    background:
-                      "linear-gradient(to bottom, #4ade80, #22c55e, #16a34a)",
-                  }}
-                />
+                <div className="w-4 h-4 rounded border border-green-600 bg-gradient-to-b from-green-400 via-green-500 to-green-600" />
                 <span className="text-sm">{labels.present}</span>
               </div>
               <div className="flex items-center gap-2">
-                <div
-                  className="w-4 h-4 rounded border border-stone-400"
-                  style={{
-                    background: "linear-gradient(to bottom, #f5f5f4, #e7e5e4)",
-                  }}
-                />
+                <div className="w-4 h-4 rounded border border-stone-400 bg-gradient-to-b from-stone-100 to-stone-200" />
                 <span className="text-sm">{labels.notRecorded}</span>
               </div>
             </div>

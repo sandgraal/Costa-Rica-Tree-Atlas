@@ -406,7 +406,7 @@ export async function GET(request: NextRequest) {
       ${whereClause}`;
 
     const total = Number(countResult[0]?.count || 0);
-    const transformedContributions = contributions.map((c) =>
+    const transformedContributions = contributions.map((c: ContributionRow) =>
       transformContribution(c, isAdmin)
     );
 

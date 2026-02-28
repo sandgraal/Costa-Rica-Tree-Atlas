@@ -351,14 +351,7 @@ export function SafetyPageClient({ trees, locale }: SafetyPageClientProps) {
                       />
                     )}
                     {tree.toxicityDetails && (
-                      <p
-                        className="text-xs text-muted-foreground mt-2 overflow-hidden"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                        }}
-                      >
+                      <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
                         {tree.toxicityDetails}
                       </p>
                     )}

@@ -177,11 +177,7 @@ export function ColoringPagesClient({
                       src={tree.featuredImage}
                       alt={tree.title}
                       fill
-                      className="object-contain"
-                      style={{
-                        filter:
-                          "grayscale(100%) contrast(150%) brightness(120%)",
-                      }}
+                      className="object-contain grayscale contrast-150 brightness-[1.2]"
                       sizes="400px"
                       unoptimized={tree.featuredImage.startsWith("http")}
                     />

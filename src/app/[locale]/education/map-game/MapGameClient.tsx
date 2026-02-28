@@ -379,8 +379,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
             </p>
             <svg
               viewBox="0 0 420 400"
-              className="w-full max-w-lg mx-auto"
-              style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.1))" }}
+              className="w-full max-w-lg mx-auto drop-shadow-md"
             >
               {/* Costa Rica outline shape (simplified) */}
               <path
@@ -424,8 +423,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                     x={cx}
                     y={cy}
                     textAnchor="middle"
-                    className="pointer-events-none text-xs font-medium fill-white"
-                    style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
+                    className="pointer-events-none text-xs font-medium fill-white [text-shadow:1px_1px_2px_rgba(0,0,0,0.5)]"
                   >
                     {region.icon}
                   </text>
