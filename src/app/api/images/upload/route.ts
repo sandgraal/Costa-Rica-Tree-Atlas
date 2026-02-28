@@ -55,10 +55,11 @@ async function checkRateLimit(userId: string): Promise<boolean> {
     }
   ).$queryRaw`
     SELECT COUNT(*) as count
-    FROM image_proposals
-    WHERE submitted_by = ${userId}
-      AND source = 'USER_UPLOAD'
-      AND created_at > ${oneHourAgo}
+    FROM image_proposals ip
+    INNER JOIN image_audits ia ON ia.proposal_id = ip.id
+    WHERE ia.actor_id = ${userId}
+      AND ip.source = 'USER_UPLOAD'
+      AND ip.created_at > ${oneHourAgo}
   `;
 
   return Number(counts[0]?.count ?? 0) < 5;
@@ -237,15 +238,15 @@ export async function POST(
         id, tree_slug, image_type,
         proposed_url, proposed_source, proposed_alt,
         quality_score, resolution, file_size,
-        source, reason, submitted_by,
-        status, upvotes, downvotes, flags,
+        source, reason,
+        status, upvotes, downvotes, flag_count,
         created_at, updated_at
       ) VALUES (
-        ${proposalId}, ${treeSlug}, ${imageType},
+        ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         ${imageUrl}, ${attributionText}, ${`${imageType} image of ${treeSlug}`},
         ${qualityScore}, ${resolution}, ${fileSize},
-        'USER_UPLOAD', ${notes || "User uploaded photo"}, ${userId},
-        'PENDING', 0, 0, 0,
+        'USER_UPLOAD'::"ImageProposalSource", ${notes || "User uploaded photo"},
+        'PENDING'::"ImageProposalStatus", 0, 0, 0,
         NOW(), NOW()
       )
     `;
@@ -261,9 +262,11 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_audits (
-        id, proposal_id, action, performed_by, notes, created_at
+        id, proposal_id, tree_slug, image_type,
+        action, actor_id, notes, created_at
       ) VALUES (
-        ${auditId}, ${proposalId}, 'PROPOSAL_CREATED', ${userId},
+        ${auditId}, ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
+        'PROPOSAL_CREATED'::"ImageAuditAction", ${userId},
         ${`User uploaded ${imageType} image for ${treeSlug} (Cloudinary: ${uploadResult.publicId})`}, NOW()
       )
     `;
