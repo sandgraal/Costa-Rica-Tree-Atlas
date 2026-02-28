@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Link } from "@i18n/navigation";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export default function Error({
   error,
@@ -11,18 +11,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const locale = useLocale();
-
-  const t = {
-    title: locale === "es" ? "Algo salió mal" : "Something went wrong",
-    description:
-      locale === "es"
-        ? "Encontramos un error inesperado. Por favor intenta de nuevo o regresa a la página principal."
-        : "We encountered an unexpected error. Please try again or return to the homepage.",
-    tryAgain: locale === "es" ? "Intentar de nuevo" : "Try Again",
-    goHome: locale === "es" ? "Ir al Inicio" : "Go Home",
-    errorId: locale === "es" ? "ID del error" : "Error ID",
-  };
+  const t = useTranslations("error");
 
   useEffect(() => {
     // Log the error to console in development
@@ -52,10 +41,10 @@ export default function Error({
           </svg>
         </div>
         <h1 className="text-3xl font-bold text-primary-dark dark:text-primary-light mb-4">
-          {t.title}
+          {t("title")}
         </h1>
         <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-          {t.description}
+          {t("description")}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <button
@@ -76,18 +65,18 @@ export default function Error({
                 clipRule="evenodd"
               />
             </svg>
-            {t.tryAgain}
+            {t("tryAgain")}
           </button>
           <Link
             href="/"
             className="inline-flex items-center gap-2 bg-card hover:bg-muted text-foreground border border-border font-semibold py-3 px-6 rounded-lg transition-colors"
           >
-            {t.goHome}
+            {t("goHome")}
           </Link>
         </div>
         {error.digest && (
           <p className="text-xs text-muted-foreground mt-8">
-            {t.errorId}: {error.digest}
+            {t("errorId")}: {error.digest}
           </p>
         )}
         {/* Debug info - remove in production */}

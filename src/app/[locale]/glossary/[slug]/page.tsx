@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allGlossaryTerms, allTrees } from "contentlayer/generated";
 import { ServerMDXContent } from "@/components/ServerMDXContent";
 import { ShareLink } from "@/components/ShareLink";
@@ -24,18 +24,19 @@ export async function generateMetadata({
   params,
 }: GlossaryTermPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "glossary" });
   const term = allGlossaryTerms.find(
     (t) => t.slug === slug && t.locale === locale
   );
 
   if (!term) {
     return {
-      title: "Term Not Found",
+      title: t("termNotFound"),
     };
   }
 
   return {
-    title: `${term.term} - Glossary`,
+    title: `${term.term} - ${t("glossarySuffix")}`,
     description: term.simpleDefinition,
   };
 }
@@ -45,6 +46,7 @@ export default async function GlossaryTermPage({
 }: GlossaryTermPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "glossary" });
 
   const term = allGlossaryTerms.find(
     (t) => t.slug === slug && t.locale === locale
@@ -77,7 +79,7 @@ export default async function GlossaryTermPage({
             href="/glossary"
             className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
           >
-            <span>←</span> Back to Glossary
+            <span>←</span> {t("backToGlossary")}
           </Link>
         </nav>
 
@@ -91,7 +93,7 @@ export default async function GlossaryTermPage({
               <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium capitalize">
                 {term.category}
               </span>
-              <ShareLink title="Copy Link" />
+              <ShareLink title={t("copyLink")} />
             </div>
           </div>
 
@@ -104,7 +106,7 @@ export default async function GlossaryTermPage({
           {/* Simple Definition */}
           <div className="bg-primary/5 border-l-4 border-primary rounded-r-lg p-4 shadow-sm">
             <h2 className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">
-              Simple Definition
+              {t("simpleDefinition")}
             </h2>
             <p className="text-base text-foreground leading-relaxed">
               {term.simpleDefinition}
@@ -115,7 +117,7 @@ export default async function GlossaryTermPage({
           {term.technicalDefinition && (
             <div className="mt-4 bg-muted/40 border border-border rounded-lg p-4 shadow-sm">
               <h2 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-2">
-                Technical Definition
+                {t("technicalDefinition")}
               </h2>
               <p className="text-sm text-foreground/90 leading-relaxed">
                 {term.technicalDefinition}
@@ -127,7 +129,7 @@ export default async function GlossaryTermPage({
           {term.etymology && (
             <div className="mt-4 border-l-4 border-secondary/30 bg-secondary/5 rounded-r-lg pl-4 pr-4 py-3">
               <h3 className="text-xs font-semibold text-secondary-dark dark:text-secondary-light mb-1.5 flex items-center gap-1.5">
-                <span>📚</span> Etymology
+                <span>📚</span> {t("etymology")}
               </h3>
               <p className="text-sm text-foreground/80 leading-relaxed">
                 {term.etymology}
@@ -150,7 +152,7 @@ export default async function GlossaryTermPage({
         {exampleSpecies.length > 0 && (
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4 flex items-center gap-2">
-              <span className="text-2xl">🌳</span> Example Species
+              <span className="text-2xl">🌳</span> {t("exampleSpecies")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {exampleSpecies.map((species) => (
@@ -178,7 +180,7 @@ export default async function GlossaryTermPage({
         {relatedTerms.length > 0 && (
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4 flex items-center gap-2">
-              <span className="text-2xl">🔗</span> Related Terms
+              <span className="text-2xl">🔗</span> {t("relatedTerms")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {relatedTerms.map((related) => (
@@ -205,7 +207,7 @@ export default async function GlossaryTermPage({
             href="/glossary"
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all hover:shadow-md font-medium text-sm"
           >
-            <span className="text-lg">📖</span> Back to Full Glossary
+            <span className="text-lg">📖</span> {t("backToFullGlossary")}
           </Link>
         </div>
       </div>

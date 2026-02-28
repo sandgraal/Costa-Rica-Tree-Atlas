@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-26
-**Status:** v1.0 Complete | All SEO tasks done (P3.1–P3.5) | Tests 502/502 | Content Enrichment P2.1-P2.4 Complete | Component splits P4.2–P4.3 Complete | CSP inline styles optimized (P4.5) | Content standardization complete | Error tracking Sentry-ready | DB indexes added | Cloudinary integrated
+**Last Updated:** 2026-06-12
+**Status:** v1.0 Complete | All SEO tasks done (P3.1–P3.5) | Tests 577/577 | Content Enrichment P2.1-P2.4 Complete | Component splits P4.2–P4.3 Complete | CSP inline styles optimized (P4.5) | Content standardization complete | Error tracking Sentry-ready | DB indexes deployed | Cloudinary integrated | P9 Navigation/Footer/i18n in progress
 
 ---
 
@@ -39,7 +39,7 @@ None — all blockers resolved.
 - [x] Refactor upload route to use Cloudinary instead of local filesystem
 - [x] Add `res.cloudinary.com` to `next.config.ts` remote patterns
 - [x] Add env var validation schema (CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET)
-- [ ] Add API keys to Vercel environment variables
+- [x] Add API keys to Vercel environment variables
 
 #### Environment Variables (Vercel Dashboard)
 
@@ -79,24 +79,24 @@ None — all blockers resolved.
 
 ### Technical Health
 
-| Metric           | Pre-PR #466 (Feb 25) | Post-PR #466 (Feb 25) | Target | Status                                                          |
-| ---------------- | -------------------- | --------------------- | ------ | --------------------------------------------------------------- |
-| Lighthouse Score | 68                   | **85**                | >90    | 🟢 +17 points; LCP now the main bottleneck to 90+               |
-| LCP              | 2.6 s                | **4.0 s** (score 49)  | <2.5s  | 🔴 Regressed — large tree card images (JPEG, not AVIF/WebP)     |
-| TBT              | 1,940 ms             | **30 ms** (score 100) | <200ms | ✅ Fixed — 6 MB JS chunk eliminated                             |
-| FCP              | 1.9 s                | **2.1 s** (score 82)  | <1.8s  | 🟡 Slight regression; render-blocking CSS (300ms)               |
-| CLS              | 0                    | **0** (score 100)     | <0.1   | ✅ Perfect                                                      |
-| Speed Index      | 1.9 s                | **2.1 s** (score 99)  | <3.4s  | ✅ Excellent                                                    |
-| TTI              | 35.8 s               | **4.2 s** (score 86)  | <5s    | ✅ Fixed — was 35.8s, now well under target                     |
-| Accessibility    | 96                   | **96**                | 100    | 🟡 4 color contrast issues remain (skip-link, subtitle, etc.)   |
-| Best Practices   | 100                  | **100**               | 100    | ✅ Perfect                                                      |
-| SEO              | 92                   | **100**               | 100    | ✅ Fixed — descriptive link text resolved                       |
-| Tests            | 324/324              | 502/502               | 100%   | ✅ +107 API route tests, +48 content validation, +23 Cloudinary |
-| Lint errors      | 0                    | 0                     | 0      | ✅                                                              |
-| Images optimized | 128/128              | 128/128               | 100%   | ✅                                                              |
-| Database         | —                    | Neon PostgreSQL       | —      | ✅                                                              |
-| Auth + MFA       | —                    | JWT, TOTP, backup     | —      | ✅                                                              |
-| Safety system    | —                    | 100% coverage         | —      | ✅                                                              |
+| Metric           | Pre-PR #466 (Feb 25) | Post-PR #466 (Feb 25) | Target | Status                                                                          |
+| ---------------- | -------------------- | --------------------- | ------ | ------------------------------------------------------------------------------- |
+| Lighthouse Score | 68                   | **85**                | >90    | 🟢 +17 points; LCP now the main bottleneck to 90+                               |
+| LCP              | 2.6 s                | **4.0 s** (score 49)  | <2.5s  | 🔴 Regressed — large tree card images (JPEG, not AVIF/WebP)                     |
+| TBT              | 1,940 ms             | **30 ms** (score 100) | <200ms | ✅ Fixed — 6 MB JS chunk eliminated                                             |
+| FCP              | 1.9 s                | **2.1 s** (score 82)  | <1.8s  | 🟡 Slight regression; render-blocking CSS (300ms)                               |
+| CLS              | 0                    | **0** (score 100)     | <0.1   | ✅ Perfect                                                                      |
+| Speed Index      | 1.9 s                | **2.1 s** (score 99)  | <3.4s  | ✅ Excellent                                                                    |
+| TTI              | 35.8 s               | **4.2 s** (score 86)  | <5s    | ✅ Fixed — was 35.8s, now well under target                                     |
+| Accessibility    | 96                   | **96**                | 100    | 🟡 4 color contrast issues remain (skip-link, subtitle, etc.)                   |
+| Best Practices   | 100                  | **100**               | 100    | ✅ Perfect                                                                      |
+| SEO              | 92                   | **100**               | 100    | ✅ Fixed — descriptive link text resolved                                       |
+| Tests            | 324/324              | 577/577               | 100%   | ✅ +107 API route tests, +48 content validation, +23 Cloudinary, +75 additional |
+| Lint errors      | 0                    | 0                     | 0      | ✅                                                                              |
+| Images optimized | 128/128              | 128/128               | 100%   | ✅                                                                              |
+| Database         | —                    | Neon PostgreSQL       | —      | ✅                                                                              |
+| Auth + MFA       | —                    | JWT, TOTP, backup     | —      | ✅                                                                              |
+| Safety system    | —                    | 100% coverage         | —      | ✅                                                                              |
 
 ---
 
@@ -269,7 +269,7 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] Verify sitemap includes all 175 species × 2 locales
 - [x] Add `<lastmod>` dates from `updatedAt` frontmatter
 - [x] Add comparison and glossary pages to sitemap
-- [ ] Submit updated sitemap to Google Search Console
+- [x] Submit updated sitemap to Google Search Console
 
 #### P3.5: Meta Description Optimization — ✅ Complete
 
@@ -354,7 +354,7 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] Added compound `(status, createdAt)` index on `image_proposals` (admin listing)
 - [x] Added compound `(status, createdAt)` index on `contributions` (admin listing)
 - [x] Created migration `20260610000000_add_query_optimization_indexes`
-- [ ] **Manual:** Apply migration to production (`npx prisma migrate deploy`)
+- [x] **Manual:** Applied migration to production (`npx prisma migrate deploy`) — fixed column name mismatch (`created_at` → `createdAt`)
 
 #### P4.5: CSP Inline Style Optimization — ✅ Complete
 
@@ -439,12 +439,12 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [x] 23 upload API tests covering all paths (success, auth, rate limit, validation, errors)
 - [x] SQL column mismatches fixed (3 critical bugs in INSERT statements)
 
-#### P6.2: Community Contributions Workflow
+#### P6.2: Community Contributions Workflow — Partially Complete
 
-- [ ] Submit new species for review
-- [ ] Suggest corrections to existing content
+- [x] Submit new species for review (`/contribute` page with form)
+- [x] Suggest corrections to existing content (`/contribute` page)
 - [ ] Share local knowledge and traditional uses
-- [ ] Rate and review tree species
+- [x] Rate and review tree species (`TreeRating` component on every tree page)
 - [ ] User reputation system
 
 #### P6.3: Public API for Researchers ✅ Complete
@@ -516,6 +516,80 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ---
 
+### P9: Site Navigation, Footer & i18n Polish (High Impact)
+
+**Status:** In progress (feature branch `feature/p9-nav-footer-i18n-audit-cleanup`)
+**Impact:** High — fixes broken discoverability (8 orphaned pages), i18n correctness, and empty footer
+
+#### P9.1: Fix Glossary Detail i18n — ✅ Complete
+
+- [x] Replaced 10 hardcoded English strings with `getTranslations` calls
+- [x] Added `glossary.*` translation keys to both `en.json` and `es.json`
+
+#### P9.2: Desktop Navigation Dropdowns — ✅ Complete
+
+- [x] Created `NavDropdown` client component with hover, keyboard, click-outside, Escape, ARIA support
+- [x] Reorganized 10 flat links into 4 top-level links + 4 dropdown groups (Explore, Learn, Community, Tools)
+- [x] All dropdown items use `nav.*` translation keys
+
+#### P9.3: Mobile Navigation Groupings — ✅ Complete
+
+- [x] Created collapsible `MobileNavGroup` sub-component with expand/collapse
+- [x] Reorganized 12 flat links into 4 top-level links + 4 collapsible groups matching desktop
+- [x] Replaced 5 hardcoded `locale === "es"` ternaries with `useTranslations` calls in Quick Actions
+
+#### P9.4: Footer Rebuild — ✅ Complete
+
+- [x] Expanded footer from copyright-only to 4-column link groups (Explore, Learn, Community, About & Legal)
+- [x] Added tagline, proper navigation links using next-intl Link
+- [x] Replaced hardcoded subtitle with `tNav("subtitle")` translation
+
+#### P9.5: Minor i18n Fixes — ✅ Complete
+
+- [x] `RecentlyViewedList`: Replaced inline `locale === "es"` ternaries with `useTranslations("recentlyViewed")`
+- [x] `error.tsx`: Replaced inline `locale === "es"` ternaries with `useTranslations("error")`
+- [x] `Header.tsx`: Fixed subtitle to use `t("subtitle")` translation key
+
+#### P9.6: Contribute CTA on Tree Pages — ✅ Complete
+
+- [x] Created `ContributeCTA` server component with `contributeCta.*` translation keys
+- [x] Added to tree detail page after `TreeRating` section
+- [x] Links to `/contribute?tree={slug}` and `/contribute/photo?tree={slug}`
+
+#### P9.7: Search Autocomplete Enhancement
+
+**Status:** Not started
+
+- [ ] Add search suggestions dropdown to QuickSearch
+- [ ] Show top 5 matching trees with scientific names
+- [ ] Keyboard navigation for suggestions (ArrowUp/Down, Enter)
+
+#### P9.8: Region/Province Filter
+
+**Status:** Not started
+
+- [ ] Add province/region filter to tree directory
+- [ ] Filter by Costa Rican provinces (San José, Alajuela, Cartago, Heredia, Guanacaste, Puntarenas, Limón)
+- [ ] Cross-reference with tree distribution data
+
+#### P9.9: User Reputation System
+
+**Status:** Not started
+
+- [ ] Track user contributions (photos, corrections, ratings)
+- [ ] Display reputation badges on user profiles
+- [ ] Tiered trust levels for contribution approval
+
+#### P9.10: Advanced Search & Filtering
+
+**Status:** Not started
+
+- [ ] Filter by bloom time, size, uses, conservation status
+- [ ] Combine multiple filters with AND/OR logic
+- [ ] Save search preferences
+
+---
+
 ## Recommended Execution Order
 
 Prioritized by impact and feasibility:
@@ -541,8 +615,15 @@ Prioritized by impact and feasibility:
 | ~~3~~ | ~~**P4.4**: Database query optimization~~              | ~~Medium~~ | ~~Medium~~   | ~~Active DB usage~~ |
 | ~~4~~ | ~~**P5.4**: Content standardization~~                  | ~~Medium~~ | ~~Medium~~   | ~~None~~            |
 | 1     | **P6.1**: User photo uploads                           | High       | ✅ Complete  | B4 resolved         |
-| 2     | **P6.3**: Public API for researchers                   | High       | Medium       | None                |
-| 3     | **P7.1–3**: Additional languages                       | Very High  | Medium       | Native speakers     |
+| 2     | **P6.3**: Public API for researchers                   | High       | ✅ Complete  | None                |
+| 3     | **P9.1–P9.6**: Nav, footer, i18n polish                | Medium     | ✅ Complete  | None                |
+| 4     | **P4.6**: LCP image optimization                       | Low        | Critical     | None                |
+| 5     | **P9.7**: Search autocomplete                          | Medium     | High         | None                |
+| 6     | **P9.8**: Region/province filter                       | Medium     | Medium       | None                |
+| 7     | **P6.2**: Community contributions (remaining)          | High       | Medium       | None                |
+| 8     | **P9.9**: User reputation system                       | High       | Medium       | P6.2                |
+| 9     | **P9.10**: Advanced search & filtering                 | Medium     | Medium       | None                |
+| 10    | **P7.1–3**: Additional languages                       | Very High  | Medium       | Native speakers     |
 
 ---
 
@@ -591,12 +672,12 @@ Prioritized by impact and feasibility:
 | Performance    | TTI                  | 35.8 s      | **4.2 s**             | <5s           | **-31.6s** ✅ |
 | Accessibility  | Score                | 96          | **96**                | 100           | — 🟡          |
 | Best Practices | Score                | 100         | **100**               | 100           | — ✅          |
-| Testing        | Test pass rate       | 324/324     | 502/502               | 100%          | **+178** ✅   |
+| Testing        | Test pass rate       | 324/324     | 577/577               | 100%          | **+253** ✅   |
 | SEO            | Score                | 92          | **100**               | 100           | **+8** ✅     |
 | SEO            | Pages with JSON-LD   | ~10         | ~10                   | All key pages | —             |
 | SEO            | Pages with OG images | ~8          | ~8                    | All key pages | —             |
 
 ---
 
-**Last Comprehensive Review:** 2026-02-26 (Run 10 — Cloudinary integration, Codacy removal, test count 502)
-**Next Milestones:** Community Features P6 (P6.1 unblocked) → Public API P6.3 → Additional Languages P7
+**Last Comprehensive Review:** 2026-06-12 (Run 11 — Navigation dropdowns, footer rebuild, i18n polish, contribute CTA, audit cleanup, test count 577)
+**Next Milestones:** LCP optimization P4.6 → Search autocomplete P9.7 → Region filter P9.8 → User reputation P9.9 → Additional Languages P7

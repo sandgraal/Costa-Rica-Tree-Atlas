@@ -6,6 +6,73 @@ import { Link } from "@i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
+interface NavGroup {
+  label: string;
+  links: { href: string; label: string }[];
+}
+
+function MobileNavGroup({
+  group,
+  locale,
+  pathname,
+}: {
+  group: NavGroup;
+  locale: string;
+  pathname: string;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <li>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center justify-between w-full px-4 py-3 rounded-lg text-lg font-medium text-foreground hover:bg-muted transition-colors"
+        aria-expanded={expanded}
+      >
+        {group.label}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className={`h-5 w-5 transition-transform ${expanded ? "rotate-180" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+      {expanded && (
+        <ul className="ml-4 space-y-1 mt-1">
+          {group.links.map((link) => {
+            const isActive =
+              pathname === `/${locale}${link.href}` ||
+              (link.href !== "/" &&
+                pathname.startsWith(`/${locale}${link.href}`));
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary font-medium"
+                      : "text-foreground/80 hover:bg-muted"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </li>
+  );
+}
+
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -20,19 +87,50 @@ export function MobileNav() {
     setIsOpen(false);
   }, [pathname]);
 
-  const navLinks = [
+  const topLinks = [
     { href: "/", label: t("home") },
     { href: "/trees", label: t("trees") },
-    { href: "/map", label: t("map") },
-    { href: "/favorites", label: t("favorites") },
-    { href: "/compare", label: t("compare") },
     { href: "/identify", label: t("identify") },
-    { href: "/seasonal", label: t("seasonal") },
-    { href: "/field-guide", label: t("fieldGuide") },
-    { href: "/education", label: t("education") },
-    { href: "/glossary", label: t("glossary") },
-    { href: "/safety", label: t("safety") },
-    { href: "/about", label: t("about") },
+    { href: "/compare", label: t("compare") },
+  ];
+
+  const navGroups: NavGroup[] = [
+    {
+      label: t("explore"),
+      links: [
+        { href: "/map", label: t("map") },
+        { href: "/seasonal", label: t("seasonal") },
+        { href: "/conservation", label: t("conservation") },
+        { href: "/field-guide", label: t("fieldGuide") },
+      ],
+    },
+    {
+      label: t("learn"),
+      links: [
+        { href: "/education", label: t("education") },
+        { href: "/glossary", label: t("glossary") },
+        { href: "/safety", label: t("safety") },
+        { href: "/quiz", label: t("quiz") },
+        { href: "/diagnose", label: t("diagnose") },
+      ],
+    },
+    {
+      label: t("community"),
+      links: [
+        { href: "/contribute", label: t("contribute") },
+        { href: "/contribute/photo", label: t("photoUpload") },
+        { href: "/about", label: t("about") },
+      ],
+    },
+    {
+      label: t("tools"),
+      links: [
+        { href: "/wizard", label: t("wizard") },
+        { href: "/use-cases", label: t("useCases") },
+        { href: "/favorites", label: t("favorites") },
+        { href: "/api-docs", label: t("apiDocs") },
+      ],
+    },
   ];
 
   return (
@@ -83,9 +181,9 @@ export function MobileNav() {
       {isOpen && (
         <div className="fixed inset-x-0 top-0 bottom-0 z-[60] bg-background/95 backdrop-blur-md pt-[5rem]">
           <nav className="flex flex-col h-full px-6 pb-6 overflow-y-auto">
-            {/* Navigation Links */}
+            {/* Top-level Links */}
             <ul className="space-y-1">
-              {navLinks.map((link) => {
+              {topLinks.map((link) => {
                 const isActive =
                   pathname === `/${locale}${link.href}` ||
                   (link.href !== "/" &&
@@ -108,10 +206,22 @@ export function MobileNav() {
               })}
             </ul>
 
+            {/* Grouped Sections */}
+            <ul className="space-y-1 mt-2 border-t border-border pt-2">
+              {navGroups.map((group) => (
+                <MobileNavGroup
+                  key={group.label}
+                  group={group}
+                  locale={locale}
+                  pathname={pathname}
+                />
+              ))}
+            </ul>
+
             {/* Quick Actions */}
             <div className="mt-auto pb-8 pt-6 border-t border-border">
               <p className="text-sm text-muted-foreground mb-3 px-4">
-                {locale === "es" ? "Acciones rápidas" : "Quick actions"}
+                {t("quickActions")}
               </p>
               <div className="space-y-2">
                 <button
@@ -129,28 +239,28 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground w-full text-left"
                 >
                   <span className="text-xl">🔍</span>
-                  {locale === "es" ? "Buscar árboles" : "Search trees"}
+                  {t("searchTrees")}
                 </button>
                 <Link
                   href="/trees"
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white font-medium"
                 >
                   <span className="text-xl">🌳</span>
-                  {locale === "es" ? "Explorar árboles" : "Explore trees"}
+                  {t("exploreTrees")}
                 </Link>
                 <Link
                   href="/favorites"
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground"
                 >
                   <span className="text-xl">❤️</span>
-                  {locale === "es" ? "Mis favoritos" : "My favorites"}
+                  {t("myFavorites")}
                 </Link>
                 <Link
                   href="/identify"
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground"
                 >
                   <span className="text-xl">📷</span>
-                  {locale === "es" ? "Identificar árbol" : "Identify a tree"}
+                  {t("identifyTree")}
                 </Link>
               </div>
             </div>

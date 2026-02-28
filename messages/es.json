@@ -9,6 +9,7 @@
   },
   "nav": {
     "title": "Atlas de Árboles de Costa Rica",
+    "subtitle": "Atlas de Árboles",
     "home": "Inicio",
     "trees": "Árboles",
     "map": "Regiones",
@@ -24,6 +25,20 @@
     "about": "Acerca de",
     "glossary": "Glosario",
     "safety": "Seguridad",
+    "conservation": "Conservación",
+    "contribute": "Contribuir",
+    "photoUpload": "Subir Fotos",
+    "useCases": "Casos de Uso",
+    "apiDocs": "API Docs",
+    "explore": "Explorar",
+    "learn": "Aprender",
+    "community": "Comunidad",
+    "tools": "Herramientas",
+    "quickActions": "Acciones rápidas",
+    "searchTrees": "Buscar árboles",
+    "exploreTrees": "Explorar árboles",
+    "myFavorites": "Mis favoritos",
+    "identifyTree": "Identificar árbol",
     "noJsBanner": "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles."
   },
   "home": {
@@ -101,7 +116,25 @@
     "madeWith": "Hecho con ❤️ para los bosques de Costa Rica",
     "keyboardShortcuts": "Atajos de teclado",
     "copyrightProject": "Atlas de Árboles de Costa Rica",
-    "copyrightLicense": "Código: AGPL-3.0 | Contenido: CC BY-NC-SA 4.0"
+    "copyrightLicense": "Código: AGPL-3.0 | Contenido: CC BY-NC-SA 4.0",
+    "tagline": "Creado para entusiastas de árboles en Costa Rica",
+    "exploreSection": "Explorar",
+    "learnSection": "Aprender",
+    "communitySection": "Comunidad",
+    "legalSection": "Acerca de & Legal",
+    "trees": "Árboles",
+    "map": "Regiones",
+    "seasonalCalendar": "Calendario",
+    "compare": "Comparar",
+    "glossary": "Glosario",
+    "fieldGuide": "Guía de Campo",
+    "safety": "Seguridad",
+    "conservation": "Conservación",
+    "contributeData": "Contribuir",
+    "uploadPhotos": "Subir Fotos",
+    "apiDocs": "API Docs",
+    "about": "Acerca de",
+    "license": "Licencia"
   },
   "language": {
     "en": "Inglés",
@@ -578,6 +611,16 @@
     "alphabetNav": "Saltar a letra",
     "noResults": "No se encontraron términos que coincidan con tus criterios",
     "backToTop": "Volver Arriba",
+    "backToGlossary": "Volver al Glosario",
+    "backToFullGlossary": "Volver al Glosario Completo",
+    "simpleDefinition": "Definición Simple",
+    "technicalDefinition": "Definición Técnica",
+    "etymology": "Etimología",
+    "exampleSpecies": "Especies de Ejemplo",
+    "relatedTerms": "Términos Relacionados",
+    "copyLink": "Copiar Enlace",
+    "termNotFound": "Término No Encontrado",
+    "glossarySuffix": "Glosario",
     "categories": {
       "all": "Todas las Categorías",
       "anatomy": "Anatomía del Árbol",
@@ -831,5 +874,23 @@
       "4": "Muy Bueno",
       "5": "Excelente"
     }
+  },
+  "error": {
+    "title": "Algo salió mal",
+    "description": "Encontramos un error inesperado. Por favor intenta de nuevo o regresa a la página principal.",
+    "tryAgain": "Intentar de nuevo",
+    "goHome": "Ir al Inicio",
+    "errorId": "ID del error"
+  },
+  "recentlyViewed": {
+    "title": "Vistos Recientemente",
+    "clear": "Limpiar",
+    "empty": "No has visto árboles recientemente"
+  },
+  "contributeCta": {
+    "title": "Ayuda a mejorar esta página",
+    "suggestCorrection": "Sugerir una corrección",
+    "uploadPhoto": "Subir una foto",
+    "shareKnowledge": "Compartir conocimiento local"
   }
 }
