@@ -76,9 +76,9 @@ export function SafeImage({
           setError(true);
           setLoading(false);
         }}
-        onLoad={() => {
+        onLoad={(event) => {
           setLoading(false);
-          onLoadProp?.();
+          onLoadProp?.(event);
         }}
         className={`transition-opacity duration-200 ease-in-out ${
           loading ? "opacity-0" : "opacity-100"
