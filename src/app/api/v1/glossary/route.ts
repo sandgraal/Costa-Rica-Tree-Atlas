@@ -66,8 +66,23 @@ function transformGlossaryTerm(
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
-  const blocked = rateLimitOrNull(request);
-  if (blocked) return blocked;
+  // Perform rate limiting once and reuse the result for both blocking logic and headers.
+  const clientId = getClientId(request);
+  const rateLimitResult = await checkRateLimit(clientId);
+  if (!rateLimitResult.success) {
+    const response = NextResponse.json(
+      {
+        error: {
+          code: "RATE_LIMIT_EXCEEDED",
+          message: "Too many requests. Please try again later.",
+        },
+        _links: { documentation: "/api/docs" },
+      },
+      { status: 429 }
+    );
+    addRateLimitHeaders(response, rateLimitResult);
+    return response;
+  }
 
   try {
     const { searchParams } = new URL(request.url);
