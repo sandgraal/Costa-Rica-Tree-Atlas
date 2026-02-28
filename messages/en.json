@@ -9,6 +9,7 @@
   },
   "nav": {
     "title": "Costa Rica Tree Atlas",
+    "subtitle": "Tree Atlas",
     "home": "Home",
     "trees": "Trees",
     "map": "Regions",
@@ -24,6 +25,20 @@
     "about": "About",
     "glossary": "Glossary",
     "safety": "Safety",
+    "conservation": "Conservation",
+    "contribute": "Contribute",
+    "photoUpload": "Upload Photos",
+    "useCases": "Use Cases",
+    "apiDocs": "API Docs",
+    "explore": "Explore",
+    "learn": "Learn",
+    "community": "Community",
+    "tools": "Tools",
+    "quickActions": "Quick actions",
+    "searchTrees": "Search trees",
+    "exploreTrees": "Explore trees",
+    "myFavorites": "My favorites",
+    "identifyTree": "Identify a tree",
     "noJsBanner": "This site works best with JavaScript enabled. Navigation and core content remain available."
   },
   "home": {
@@ -102,7 +117,25 @@
     "madeWith": "Made with ❤️ for Costa Rica's forests",
     "keyboardShortcuts": "Keyboard shortcuts",
     "copyrightProject": "Costa Rica Tree Atlas",
-    "copyrightLicense": "Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0"
+    "copyrightLicense": "Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0",
+    "tagline": "Built for tree enthusiasts in Costa Rica",
+    "exploreSection": "Explore",
+    "learnSection": "Learn",
+    "communitySection": "Community",
+    "legalSection": "About & Legal",
+    "trees": "Trees",
+    "map": "Regions",
+    "seasonalCalendar": "Calendar",
+    "compare": "Compare",
+    "glossary": "Glossary",
+    "fieldGuide": "Field Guide",
+    "safety": "Safety",
+    "conservation": "Conservation",
+    "contributeData": "Contribute",
+    "uploadPhotos": "Upload Photos",
+    "apiDocs": "API Docs",
+    "about": "About",
+    "license": "License"
   },
   "language": {
     "en": "English",
@@ -579,6 +612,16 @@
     "alphabetNav": "Jump to letter",
     "noResults": "No terms found matching your criteria",
     "backToTop": "Back to Top",
+    "backToGlossary": "Back to Glossary",
+    "backToFullGlossary": "Back to Full Glossary",
+    "simpleDefinition": "Simple Definition",
+    "technicalDefinition": "Technical Definition",
+    "etymology": "Etymology",
+    "exampleSpecies": "Example Species",
+    "relatedTerms": "Related Terms",
+    "copyLink": "Copy Link",
+    "termNotFound": "Term Not Found",
+    "glossarySuffix": "Glossary",
     "categories": {
       "all": "All Categories",
       "anatomy": "Tree Anatomy",
@@ -832,5 +875,23 @@
       "4": "Very Good",
       "5": "Excellent"
     }
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "We encountered an unexpected error. Please try again or return to the homepage.",
+    "tryAgain": "Try Again",
+    "goHome": "Go Home",
+    "errorId": "Error ID"
+  },
+  "recentlyViewed": {
+    "title": "Recently Viewed",
+    "clear": "Clear",
+    "empty": "No recently viewed trees"
+  },
+  "contributeCta": {
+    "title": "Help improve this page",
+    "suggestCorrection": "Suggest a correction",
+    "uploadPhoto": "Upload a photo",
+    "shareKnowledge": "Share local knowledge"
   }
 }

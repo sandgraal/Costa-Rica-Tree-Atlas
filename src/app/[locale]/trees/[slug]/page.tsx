@@ -20,6 +20,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { ImageErrorBoundary } from "@/components/ImageErrorBoundary";
 import { SafetyCard } from "@/components/safety";
 import { SafetyDisclaimer } from "@/components/safety/SafetyDisclaimer";
+import { ContributeCTA } from "@/components/ContributeCTA";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TableOfContents } from "@/components/TableOfContents";
 import { resolveImageSource } from "@/lib/image/image-resolver";
@@ -492,6 +493,9 @@ export default async function TreePage({ params }: Props) {
 
               {/* Community Rating */}
               <TreeRating slug={tree.slug} />
+
+              {/* Contribute CTA */}
+              <ContributeCTA locale={locale} treeSlug={tree.slug} />
 
               {/* Comparison Links */}
               <ComparisonLinks currentTree={tree} locale={locale} />

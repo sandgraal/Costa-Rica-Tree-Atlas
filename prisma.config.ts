@@ -2,6 +2,7 @@
  * Prisma 7 Configuration
  * https://pris.ly/d/config-datasource
  */
+import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
 export default defineConfig({

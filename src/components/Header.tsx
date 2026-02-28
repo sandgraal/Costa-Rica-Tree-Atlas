@@ -4,6 +4,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { MobileNav } from "./MobileNav";
 import { FavoritesLink } from "./FavoritesLink";
+import { NavDropdown } from "./NavDropdown";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
@@ -49,7 +50,7 @@ export async function Header() {
             />
             <span className="flex flex-col leading-none">
               <span className="text-[0.55rem] sm:text-[0.65rem] uppercase tracking-[0.25em] text-secondary/80">
-                {locale === "es" ? "Atlas de Árboles" : "Tree Atlas"}
+                {t("subtitle")}
               </span>
               <span className="text-lg sm:text-xl font-semibold text-primary group-hover:text-primary-dark transition-colors">
                 Costa Rica
@@ -58,7 +59,7 @@ export async function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5">
             <Link
               href="/"
               className="text-foreground/80 hover:text-primary transition-colors"
@@ -72,22 +73,10 @@ export async function Header() {
               {t("trees")}
             </Link>
             <Link
-              href="/map"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("map")}
-            </Link>
-            <Link
               href="/identify"
               className="text-foreground/80 hover:text-primary transition-colors"
             >
               {t("identify")}
-            </Link>
-            <Link
-              href="/seasonal"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("seasonal")}
             </Link>
             <Link
               href="/compare"
@@ -95,30 +84,46 @@ export async function Header() {
             >
               {t("compare")}
             </Link>
-            <Link
-              href="/education"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("education")}
-            </Link>
-            <Link
-              href="/glossary"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("glossary")}
-            </Link>
-            <Link
-              href="/safety"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("safety")}
-            </Link>
-            <Link
-              href="/about"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("about")}
-            </Link>
+            <NavDropdown
+              label={t("explore")}
+              locale={locale}
+              items={[
+                { href: "/map", label: t("map") },
+                { href: "/seasonal", label: t("seasonal") },
+                { href: "/conservation", label: t("conservation") },
+                { href: "/field-guide", label: t("fieldGuide") },
+              ]}
+            />
+            <NavDropdown
+              label={t("learn")}
+              locale={locale}
+              items={[
+                { href: "/education", label: t("education") },
+                { href: "/glossary", label: t("glossary") },
+                { href: "/safety", label: t("safety") },
+                { href: "/quiz", label: t("quiz") },
+                { href: "/diagnose", label: t("diagnose") },
+              ]}
+            />
+            <NavDropdown
+              label={t("community")}
+              locale={locale}
+              items={[
+                { href: "/contribute", label: t("contribute") },
+                { href: "/contribute/photo", label: t("photoUpload") },
+                { href: "/about", label: t("about") },
+              ]}
+            />
+            <NavDropdown
+              label={t("tools")}
+              locale={locale}
+              items={[
+                { href: "/wizard", label: t("wizard") },
+                { href: "/use-cases", label: t("useCases") },
+                { href: "/favorites", label: t("favorites") },
+                { href: "/api-docs", label: t("apiDocs") },
+              ]}
+            />
           </div>
 
           {/* Right side controls */}

@@ -3,6 +3,7 @@
 import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { useStore } from "@/lib/store";
+import { useTranslations } from "next-intl";
 import { BLUR_DATA_URL } from "@/lib/image";
 
 /** Minimal tree data needed for the recently-viewed thumbnails. */
@@ -36,14 +37,7 @@ export function RecentlyViewedList({
   const recentlyViewed = useStore((state) => state.recentlyViewed);
   const clearRecentlyViewed = useStore((state) => state.clearRecentlyViewed);
 
-  const t = {
-    title: locale === "es" ? "Vistos Recientemente" : "Recently Viewed",
-    clear: locale === "es" ? "Limpiar" : "Clear",
-    empty:
-      locale === "es"
-        ? "No has visto árboles recientemente"
-        : "No recently viewed trees",
-  };
+  const t = useTranslations("recentlyViewed");
 
   // Resolve viewed slugs against the lightweight lookup (only after hydration)
   const viewedTrees = hydrated
@@ -62,13 +56,13 @@ export function RecentlyViewedList({
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
           <ClockIcon className="h-5 w-5 text-muted-foreground" />
-          {t.title}
+          {t("title")}
         </h3>
         <button
           onClick={clearRecentlyViewed}
           className="text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
-          {t.clear}
+          {t("clear")}
         </button>
       </div>
 
