@@ -9,15 +9,15 @@
 
 ### Content Coverage
 
-| Metric             | Count         | Status      |
-| ------------------ | ------------- | ----------- |
-| Species documented | 175 (EN + ES) | ✅ Complete |
-| Comparison guides  | 20 (EN + ES)  | ✅ Complete |
-| Glossary terms     | 150 (EN + ES) | ✅ Complete |
-| Care guidance      | 175/175       | ✅ Complete |
-| Photo galleries    | 174/175       | ✅ Complete |
-| GBIF + IUCN links  | 175/175       | ✅ Complete |
-| Bilingual parity   | 100%          | ✅ Complete |
+| Metric             | Count                                                  | Status      |
+| ------------------ | ------------------------------------------------------ | ----------- |
+| Species documented | 175 (EN + ES)                                          | ✅ Complete |
+| Comparison guides  | 20 (EN + ES)                                           | ✅ Complete |
+| Glossary terms     | 150 (EN + ES)                                          | ✅ Complete |
+| Care guidance      | 175/175                                                | ✅ Complete |
+| Photo galleries    | 174/175 (1 intentionally excluded; no photos available) | ✅ Complete |
+| GBIF + IUCN links  | 175/175                                                | ✅ Complete |
+| Bilingual parity   | 100%                                                   | ✅ Complete |
 
 ### Technical Health
 
