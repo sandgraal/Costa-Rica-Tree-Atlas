@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 
 interface TreeRatingProps {
@@ -16,6 +16,7 @@ export function TreeRating({ slug }: TreeRatingProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchRating = useCallback(async () => {
     try {
@@ -25,8 +26,9 @@ export function TreeRating({ slug }: TreeRatingProps) {
       setAverageRating(data.averageRating);
       setTotalRatings(data.totalRatings);
       setUserRating(data.userRating);
-      setLoaded(true);
     } catch {
+      // errors are handled in finally
+    } finally {
       setLoaded(true);
     }
   }, [slug]);
@@ -34,6 +36,12 @@ export function TreeRating({ slug }: TreeRatingProps) {
   useEffect(() => {
     void fetchRating();
   }, [fetchRating]);
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
+    };
+  }, []);
 
   const handleRate = async (rating: number) => {
     if (isSubmitting) return;
@@ -60,7 +68,8 @@ export function TreeRating({ slug }: TreeRatingProps) {
       setFeedback(userRating ? t("updated") : t("thankYou"));
 
       // Clear feedback after 3 seconds
-      setTimeout(() => setFeedback(null), 3000);
+      if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
+      feedbackTimerRef.current = setTimeout(() => setFeedback(null), 3000);
     } catch {
       setFeedback(t("error"));
     } finally {
