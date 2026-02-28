@@ -7,7 +7,7 @@
  * Supports X-API-Key header for client identification.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 // ---------------------------------------------------------------------------
 // Configuration
@@ -94,41 +94,3 @@ export function addRateLimitHeaders(
   headers.set("X-RateLimit-Reset", String(Math.ceil(result.resetAt / 1000)));
 }
 
-/**
- * Convenience: if rate-limited, return a 429 response; otherwise null.
- * Usage:
- *   const blocked = rateLimitOrNull(request);
- *   if (blocked) return blocked;
- */
-export function rateLimitOrNull(request: NextRequest): NextResponse | null {
-  const clientId = getClientId(request);
-  const rl = checkRateLimit(clientId);
-
-  if (!rl.allowed) {
-    const headers = new Headers();
-    addRateLimitHeaders(headers, rl);
-    return NextResponse.json(
-      {
-        error: {
-          code: "RATE_LIMIT_EXCEEDED",
-          message: "Too many requests. Please try again later.",
-          details: {
-            retryAfter: Math.ceil((rl.resetAt - Date.now()) / 1000),
-          },
-        },
-        _links: { documentation: "/api/docs" },
-      },
-      { status: 429, headers }
-    );
-  }
-
-  return null;
-}
-
-/**
- * Get rate-limit result for adding headers to successful responses.
- */
-export function getRateLimitResult(request: NextRequest): RateLimitResult {
-  const clientId = getClientId(request);
-  return checkRateLimit(clientId);
-}
