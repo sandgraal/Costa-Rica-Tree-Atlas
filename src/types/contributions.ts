@@ -107,6 +107,9 @@ export interface Contribution {
   family: string | null;
   proposedImages: string[];
 
+  // Location context
+  region: string | null;
+
   // Contributor info
   contributorName: string | null;
   contributorEmail: string | null;
@@ -126,6 +129,10 @@ export interface Contribution {
   locale: string;
   createdAt: Date;
   updatedAt: Date;
+
+  // Reputation (populated for admin views)
+  contributorTrustLevel?: string | null;
+  contributorReputationScore?: number | null;
 }
 
 /**

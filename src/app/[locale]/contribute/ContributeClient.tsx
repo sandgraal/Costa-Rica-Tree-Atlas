@@ -51,21 +51,47 @@ interface Translations {
   };
   fields: Record<string, string>;
   knowledgeTypes: Record<string, string>;
-  success: { title: string; message: string; another: string };
+  success: {
+    title: string;
+    message: string;
+    another: string;
+    viewProfile: string;
+  };
   error: { title: string; tryAgain: string };
 }
 
 interface ContributeClientProps {
   trees: TreeOption[];
   translations: Translations;
+  initialType?: string;
+  initialTree?: string;
 }
 
 export function ContributeClient({
   trees,
   translations: t,
+  initialType,
+  initialTree,
 }: ContributeClientProps) {
+  // Resolve initial type from URL query param
+  const validTypes: ContributionType[] = [
+    "NEW_SPECIES",
+    "CORRECTION",
+    "LOCAL_KNOWLEDGE",
+  ];
+  const resolvedInitialType = validTypes.includes(
+    initialType as ContributionType
+  )
+    ? (initialType as ContributionType)
+    : null;
+
+  // Resolve initial tree from URL query param
+  const resolvedInitialTree = initialTree
+    ? trees.find((tree) => tree.slug === initialTree)
+    : null;
+
   const [selectedType, setSelectedType] = useState<ContributionType | null>(
-    null
+    resolvedInitialType
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
@@ -75,7 +101,7 @@ export function ContributeClient({
 
   // Form state
   const [formData, setFormData] = useState({
-    treeSlug: "",
+    treeSlug: resolvedInitialTree?.slug || "",
     targetField: "description",
     knowledgeType: "traditional_uses",
     title: "",
@@ -91,7 +117,11 @@ export function ContributeClient({
     contributorEmail: "",
   });
 
-  const [treeSearch, setTreeSearch] = useState("");
+  const [treeSearch, setTreeSearch] = useState(
+    resolvedInitialTree
+      ? `${resolvedInitialTree.title} (${resolvedInitialTree.scientificName})`
+      : ""
+  );
 
   const filteredTrees = trees.filter(
     (tree) =>
@@ -133,6 +163,12 @@ export function ContributeClient({
         commonNameEs:
           selectedType === "NEW_SPECIES" ? formData.commonNameEs : null,
         family: selectedType === "NEW_SPECIES" ? formData.family : null,
+        region:
+          selectedType === "LOCAL_KNOWLEDGE"
+            ? formData.region || null
+            : selectedType === "NEW_SPECIES"
+              ? formData.whereFound || null
+              : null,
         contributorName: formData.contributorName || null,
         contributorEmail: formData.contributorEmail || null,
       };
@@ -189,12 +225,20 @@ export function ContributeClient({
         <div className="text-6xl mb-4">🎉</div>
         <h2 className="text-2xl font-bold mb-4">{t.success.title}</h2>
         <p className="text-muted-foreground mb-8">{t.success.message}</p>
-        <button
-          onClick={resetForm}
-          className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition"
-        >
-          {t.success.another}
-        </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button
+            onClick={resetForm}
+            className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition"
+          >
+            {t.success.another}
+          </button>
+          <Link
+            href="/contribute/profile"
+            className="px-6 py-3 border border-border rounded-lg hover:bg-muted transition text-sm"
+          >
+            {t.success.viewProfile}
+          </Link>
+        </div>
       </div>
     );
   }

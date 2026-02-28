@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { captureApiError } from "@/lib/error-tracking";
+import { calculateReputation, type ContributorStats } from "@/lib/reputation";
 import type {
   ContributionStatus,
   ContributionPriority,
@@ -36,6 +37,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       common_name_en: string | null;
       common_name_es: string | null;
       family: string | null;
+      region: string | null;
       proposed_images: string[];
       contributor_name: string | null;
       contributor_email: string | null;
@@ -76,6 +78,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       commonNameEn: c.common_name_en,
       commonNameEs: c.common_name_es,
       family: c.family,
+      region: c.region,
       proposedImages: c.proposed_images,
       contributorName: c.contributor_name,
       contributorEmail: c.contributor_email,
@@ -155,6 +158,16 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       WHERE id = ${id}
     `;
 
+    // Recalculate contributor reputation on status changes that affect scoring
+    if (["approve", "reject", "implement"].includes(action)) {
+      try {
+        await recalculateContributorReputation(id);
+      } catch (reputationError) {
+        // Non-blocking — log but don't fail the review action
+        console.warn("Failed to recalculate reputation:", reputationError);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: `Contribution ${action}ed successfully`,
@@ -196,4 +209,153 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       { status: 500 }
     );
   }
+}
+
+// ---------------------------------------------------------------------------
+// Reputation recalculation helper
+// ---------------------------------------------------------------------------
+
+interface ContributionCountRow {
+  type: string;
+  status: string;
+  count: bigint;
+}
+
+interface CountRow {
+  count: bigint;
+}
+
+/**
+ * Recalculate a contributor's reputation after a review action.
+ * Looks up the contribution's sessionId, aggregates all their stats,
+ * and upserts the ContributorProfile.
+ */
+async function recalculateContributorReputation(
+  contributionId: string
+): Promise<void> {
+  // Get the session ID for this contribution
+  const contributions = await prisma.$queryRaw<
+    [{ session_id: string }]
+  >`SELECT session_id FROM contributions WHERE id = ${contributionId}`;
+
+  if (contributions.length === 0) return;
+  const sessionId = contributions[0].session_id;
+
+  // Aggregate contribution stats
+  const contributionCounts = await prisma.$queryRaw<ContributionCountRow[]>`
+    SELECT type, status, COUNT(*) as count
+    FROM contributions
+    WHERE session_id = ${sessionId}
+    GROUP BY type, status
+  `;
+
+  // Count ratings
+  const ratingCounts = await prisma.$queryRaw<CountRow[]>`
+    SELECT COUNT(*) as count FROM tree_ratings WHERE session_id = ${sessionId}
+  `;
+
+  // Count approved photos
+  let photoCounts: CountRow[] = [{ count: BigInt(0) }];
+  try {
+    photoCounts = await prisma.$queryRaw<CountRow[]>`
+      SELECT COUNT(*) as count
+      FROM image_proposals
+      WHERE source = 'USER_UPLOAD'::"ImageProposalSource"
+      AND status IN ('APPROVED'::"ImageProposalStatus", 'APPLIED'::"ImageProposalStatus")
+      AND id IN (
+        SELECT proposal_id FROM image_audits
+        WHERE actor_session = ${sessionId}
+        AND action = 'PROPOSAL_CREATED'::"ImageAuditAction"
+      )
+    `;
+  } catch {
+    // image tables may not exist
+  }
+
+  // Check if already EXPERT (preserve admin-granted level)
+  const existingProfiles = await prisma.$queryRaw<
+    [{ trust_level: string }]
+  >`SELECT trust_level FROM contributor_profiles WHERE session_id = ${sessionId}`;
+  const isExpert =
+    existingProfiles.length > 0 && existingProfiles[0].trust_level === "EXPERT";
+
+  // Build stats
+  const stats: ContributorStats = {
+    totalContributions: contributionCounts.reduce(
+      (sum: number, r: ContributionCountRow) => sum + Number(r.count),
+      0
+    ),
+    approvedContributions: contributionCounts
+      .filter(
+        (r: ContributionCountRow) =>
+          r.status === "APPROVED" || r.status === "IMPLEMENTED"
+      )
+      .reduce(
+        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
+        0
+      ),
+    rejectedContributions: contributionCounts
+      .filter((r: ContributionCountRow) => r.status === "REJECTED")
+      .reduce(
+        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
+        0
+      ),
+    approvedKnowledge: contributionCounts
+      .filter(
+        (r: ContributionCountRow) =>
+          r.type === "LOCAL_KNOWLEDGE" &&
+          (r.status === "APPROVED" || r.status === "IMPLEMENTED")
+      )
+      .reduce(
+        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
+        0
+      ),
+    approvedCorrections: contributionCounts
+      .filter(
+        (r: ContributionCountRow) =>
+          r.type === "CORRECTION" &&
+          (r.status === "APPROVED" || r.status === "IMPLEMENTED")
+      )
+      .reduce(
+        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
+        0
+      ),
+    totalRatings: Number(ratingCounts[0]?.count || 0),
+    totalPhotos: Number(photoCounts[0]?.count || 0),
+    isExpert,
+  };
+
+  const result = calculateReputation(stats);
+
+  // Upsert the profile
+  await prisma.$executeRaw`
+    INSERT INTO contributor_profiles (
+      id, session_id, total_contributions, approved_contributions,
+      rejected_contributions, total_ratings, total_photos,
+      reputation_score, trust_level, badges, created_at, updated_at
+    ) VALUES (
+      gen_random_uuid()::text,
+      ${sessionId},
+      ${stats.totalContributions},
+      ${stats.approvedContributions},
+      ${stats.rejectedContributions},
+      ${stats.totalRatings},
+      ${stats.totalPhotos},
+      ${result.reputationScore},
+      ${result.trustLevel}::"TrustLevel",
+      ${result.badges}::text[],
+      NOW(),
+      NOW()
+    )
+    ON CONFLICT (session_id) DO UPDATE SET
+      total_contributions = EXCLUDED.total_contributions,
+      approved_contributions = EXCLUDED.approved_contributions,
+      rejected_contributions = EXCLUDED.rejected_contributions,
+      total_ratings = EXCLUDED.total_ratings,
+      total_photos = EXCLUDED.total_photos,
+      reputation_score = EXCLUDED.reputation_score,
+      trust_level = EXCLUDED.trust_level,
+      badges = EXCLUDED.badges,
+      updated_at = NOW()
+  `;
 }

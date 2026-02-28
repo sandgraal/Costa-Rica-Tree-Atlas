@@ -760,7 +760,8 @@
     "success": {
       "title": "Thank You!",
       "message": "Your contribution has been submitted and will be reviewed by our team.",
-      "another": "Submit Another Contribution"
+      "another": "Submit Another Contribution",
+      "viewProfile": "View Your Contributions"
     },
     "error": {
       "title": "Submission Failed",
@@ -894,5 +895,64 @@
     "suggestCorrection": "Suggest a correction",
     "uploadPhoto": "Upload a photo",
     "shareKnowledge": "Share local knowledge"
+  },
+  "reputation": {
+    "title": "Your Contributions",
+    "description": "Track your contributions, earn badges, and build your reputation in the Costa Rica Tree Atlas community.",
+    "memberSince": "Member since",
+    "trustLevel": {
+      "title": "Trust Level",
+      "NEW": "New Contributor",
+      "CONTRIBUTOR": "Contributor",
+      "TRUSTED": "Trusted Contributor",
+      "EXPERT": "Expert",
+      "NEW_description": "Welcome! Your contributions will be reviewed by moderators.",
+      "CONTRIBUTOR_description": "An active community member with verified contributions.",
+      "TRUSTED_description": "A reliable contributor with a strong track record.",
+      "EXPERT_description": "Recognized expert — granted by administrators."
+    },
+    "stats": {
+      "title": "Statistics",
+      "totalContributions": "Total Contributions",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "ratings": "Ratings Given",
+      "photos": "Photos Uploaded",
+      "score": "Reputation Score"
+    },
+    "badges": {
+      "title": "Badges",
+      "earned": "Earned",
+      "locked": "Locked",
+      "nextBadge": "Next badge",
+      "progress": "{current} of {target}",
+      "allEarned": "All badges earned!",
+      "first_contribution": "First Steps",
+      "first_contribution_desc": "Submitted your first approved contribution",
+      "naturalist_5": "Naturalist",
+      "naturalist_5_desc": "5 approved contributions",
+      "naturalist_10": "Expert Naturalist",
+      "naturalist_10_desc": "10 approved contributions",
+      "naturalist_25": "Master Naturalist",
+      "naturalist_25_desc": "25 approved contributions",
+      "knowledge_keeper": "Knowledge Keeper",
+      "knowledge_keeper_desc": "3 approved local knowledge contributions",
+      "corrector": "Fact Checker",
+      "corrector_desc": "5 approved corrections",
+      "photographer": "Photographer",
+      "photographer_desc": "3 approved photo uploads",
+      "active_rater": "Active Reviewer",
+      "active_rater_desc": "Rated 10 or more trees",
+      "explorer": "Explorer",
+      "explorer_desc": "Rated 25 or more trees"
+    },
+    "contributions": {
+      "title": "Your Contributions",
+      "empty": "You haven't submitted any contributions yet.",
+      "startContributing": "Start contributing"
+    },
+    "noProfile": "You haven't contributed yet. Start contributing to build your reputation!",
+    "viewProfile": "Your Contributions",
+    "loading": "Loading your profile..."
   }
 }

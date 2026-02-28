@@ -31,6 +31,13 @@ export async function ContributeCTA({ locale, treeSlug }: ContributeCTAProps) {
           <span aria-hidden="true">📷</span>
           {t("uploadPhoto")}
         </Link>
+        <Link
+          href={`/contribute?type=LOCAL_KNOWLEDGE&tree=${treeSlug}`}
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+        >
+          <span aria-hidden="true">🧠</span>
+          {t("shareKnowledge")}
+        </Link>
       </div>
     </div>
   );

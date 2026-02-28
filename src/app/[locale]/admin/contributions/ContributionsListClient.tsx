@@ -44,6 +44,22 @@ const STATUS_COLORS: Record<ContributionStatus, string> = {
     "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
 };
 
+const TRUST_LEVEL_LABELS: Record<string, string> = {
+  NEW: "🌱 New",
+  CONTRIBUTOR: "🌿 Contributor",
+  TRUSTED: "🌳 Trusted",
+  EXPERT: "🏆 Expert",
+};
+
+const TRUST_LEVEL_COLORS: Record<string, string> = {
+  NEW: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
+  CONTRIBUTOR:
+    "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+  TRUSTED:
+    "bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-400",
+  EXPERT: "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400",
+};
+
 export function ContributionsListClient() {
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
@@ -266,6 +282,15 @@ export function ContributionsListClient() {
                     {contribution.contributorName && (
                       <span>By: {contribution.contributorName}</span>
                     )}
+                    {contribution.contributorTrustLevel && (
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${TRUST_LEVEL_COLORS[contribution.contributorTrustLevel] || TRUST_LEVEL_COLORS.NEW}`}
+                      >
+                        {TRUST_LEVEL_LABELS[
+                          contribution.contributorTrustLevel
+                        ] || contribution.contributorTrustLevel}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="text-2xl">→</div>
@@ -357,6 +382,15 @@ export function ContributionsListClient() {
                   </div>
                 )}
 
+                {selectedContribution.region && (
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      Region
+                    </label>
+                    <p className="mt-1">{selectedContribution.region}</p>
+                  </div>
+                )}
+
                 {/* New species specific fields */}
                 {selectedContribution.type === "NEW_SPECIES" && (
                   <div className="grid grid-cols-2 gap-4">
@@ -411,6 +445,22 @@ export function ContributionsListClient() {
                     {selectedContribution.contributorEmail && (
                       <span className="ml-2 text-muted-foreground">
                         ({selectedContribution.contributorEmail})
+                      </span>
+                    )}
+                    {selectedContribution.contributorTrustLevel && (
+                      <span
+                        className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${TRUST_LEVEL_COLORS[selectedContribution.contributorTrustLevel] || TRUST_LEVEL_COLORS.NEW}`}
+                      >
+                        {TRUST_LEVEL_LABELS[
+                          selectedContribution.contributorTrustLevel
+                        ] || selectedContribution.contributorTrustLevel}
+                        {selectedContribution.contributorReputationScore !=
+                          null && (
+                          <span className="ml-1 opacity-75">
+                            ({selectedContribution.contributorReputationScore}{" "}
+                            pts)
+                          </span>
+                        )}
                       </span>
                     )}
                   </div>
