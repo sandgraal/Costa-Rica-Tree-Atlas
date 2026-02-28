@@ -56,10 +56,10 @@ async function checkRateLimit(userId: string): Promise<boolean> {
   ).$queryRaw`
     SELECT COUNT(*) as count
     FROM image_proposals ip
-    INNER JOIN image_audits ia ON ia.proposal_id = ip.id
-    WHERE ia.actor_id = ${userId}
+    INNER JOIN image_audits ia ON ia."proposalId" = ip.id
+    WHERE ia."actorId" = ${userId}
       AND ip.source = 'USER_UPLOAD'
-      AND ip.created_at > ${oneHourAgo}
+      AND ip."createdAt" > ${oneHourAgo}
   `;
 
   return Number(counts[0]?.count ?? 0) < 5;
