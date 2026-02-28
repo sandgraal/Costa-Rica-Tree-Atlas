@@ -620,10 +620,7 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                             textAnchor="middle"
                             fontSize="9"
                             fontWeight="600"
-                            className="pointer-events-none select-none fill-stone-700 dark:fill-stone-100"
-                            style={{
-                              textShadow: "0 0 4px rgba(255,255,255,0.9)",
-                            }}
+                            className="pointer-events-none select-none fill-stone-700 dark:fill-stone-100 [text-shadow:0_0_4px_rgba(255,255,255,0.9)]"
                           >
                             {province.name[typedLocale]}
                           </text>
@@ -672,7 +669,6 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
                         textAnchor="middle"
                         fontSize="10"
                         className="pointer-events-none select-none italic fill-blue-400 dark:fill-blue-300"
-                        style={{ fontStyle: "italic" }}
                       >
                         {neighbor.name[typedLocale]}
                       </text>

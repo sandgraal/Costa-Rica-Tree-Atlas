@@ -35,30 +35,18 @@ export function VirtualizedTreeList({
   });
 
   return (
-    <div
-      ref={parentRef}
-      className="overflow-auto h-full"
-      style={{ height: "calc(100vh - 200px)" }}
-    >
+    <div ref={parentRef} className="overflow-auto h-[calc(100vh-200px)]">
       <div
-        style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
-          width: "100%",
-          position: "relative",
-        }}
+        className="w-full relative"
+        style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualItem) => {
           const tree = trees[virtualItem.index];
           return (
             <div
               key={virtualItem.key}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                transform: `translateY(${virtualItem.start}px)`,
-              }}
+              className="absolute top-0 left-0 w-full"
+              style={{ transform: `translateY(${virtualItem.start}px)` }}
             >
               <TreeCard
                 tree={tree}

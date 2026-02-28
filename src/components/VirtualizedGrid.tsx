@@ -45,17 +45,10 @@ export function VirtualizedGrid<T>({
   });
 
   return (
-    <div
-      ref={parentRef}
-      className={`overflow-auto ${className}`}
-      style={{ height: "100%", width: "100%" }}
-    >
+    <div ref={parentRef} className={`overflow-auto h-full w-full ${className}`}>
       <div
-        style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
-          width: "100%",
-          position: "relative",
-        }}
+        className="w-full relative"
+        style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
           const startIndex = virtualRow.index * columns;
@@ -64,11 +57,8 @@ export function VirtualizedGrid<T>({
           return (
             <div
               key={virtualRow.key}
+              className="absolute top-0 left-0 w-full"
               style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
                 height: `${itemHeight}px`,
                 transform: `translateY(${virtualRow.start}px)`,
               }}

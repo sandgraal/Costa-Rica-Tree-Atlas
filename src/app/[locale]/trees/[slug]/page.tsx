@@ -387,7 +387,7 @@ export default async function TreePage({ params }: Props) {
                       priority
                       quality={80}
                       fallback="placeholder"
-                      style={{ objectFit: "contain" }}
+                      className="object-contain"
                     />
                   </div>
                 </ImageErrorBoundary>
