@@ -6,6 +6,7 @@ import {
   useEducationProgress,
   BadgeDisplay,
 } from "@/components/EducationProgress";
+import { ProgressBar } from "@/components/ProgressBar";
 
 interface LessonPlan {
   id: string;
@@ -96,12 +97,12 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
             </div>
             {/* Progress Bar */}
             <div className="mt-4">
-              <div className="h-3 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-500"
-                  style={{ width: `${(completedLessons / 4) * 100}%` }}
-                />
-              </div>
+              <ProgressBar
+                value={(completedLessons / 4) * 100}
+                trackClassName="h-3 bg-muted rounded-full overflow-hidden"
+                barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
+                label="Lesson progress"
+              />
             </div>
           </div>
 

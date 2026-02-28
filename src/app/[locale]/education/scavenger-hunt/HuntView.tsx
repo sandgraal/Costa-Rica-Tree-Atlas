@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@i18n/navigation";
+import { ProgressBar } from "@/components/ProgressBar";
 import type {
   MissionDisplayData,
   ScavengerHuntLessonData,
@@ -166,12 +167,16 @@ export function HuntView({
               {t.endHunt}
             </button>
           </div>
-          <div className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all"
-              style={{
-                width: `${(session.completedMissions.length / (session.activeMissions.length + session.completedMissions.length)) * 100}%`,
-              }}
+          <div className="mt-2">
+            <ProgressBar
+              value={
+                (session.completedMissions.length /
+                  (session.activeMissions.length +
+                    session.completedMissions.length)) *
+                100
+              }
+              barClassName="bg-gradient-to-r from-amber-500 to-orange-500"
+              label="Hunt progress"
             />
           </div>
         </div>

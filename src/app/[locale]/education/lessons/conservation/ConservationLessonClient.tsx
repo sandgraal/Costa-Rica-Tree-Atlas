@@ -7,6 +7,7 @@ import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
+import { ProgressBar } from "@/components/ProgressBar";
 import {
   triggerConfetti,
   injectEducationStyles,
@@ -276,14 +277,11 @@ function ConservationLessonContent({
             </button>
           ))}
         </div>
-        <div className="h-2 bg-muted rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-500"
-            style={{
-              width: `${((state.currentStep + 1) / steps.length) * 100}%`,
-            }}
-          />
-        </div>
+        <ProgressBar
+          value={((state.currentStep + 1) / steps.length) * 100}
+          barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
+          label="Step progress"
+        />
       </div>
 
       {/* Content */}
