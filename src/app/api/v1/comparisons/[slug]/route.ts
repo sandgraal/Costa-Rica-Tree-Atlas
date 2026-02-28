@@ -10,6 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { allSpeciesComparisons, allTrees } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
 import {
+  rateLimitOrNull,
   getClientId,
   checkRateLimit,
   addRateLimitHeaders,
@@ -20,26 +21,8 @@ interface RouteParams {
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const clientId = getClientId(request);
-  const rateLimit = checkRateLimit(clientId);
-
-  if (!rateLimit.allowed) {
-    const headers = new Headers();
-    addRateLimitHeaders(headers, rateLimit);
-    return NextResponse.json(
-      {
-        error: {
-          code: "RATE_LIMIT_EXCEEDED",
-          message: "Too many requests. Please try again later.",
-          details: {
-            retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000),
-          },
-        },
-        _links: { documentation: "/api/docs" },
-      },
-      { status: 429, headers }
-    );
-  }
+  const blocked = rateLimitOrNull(request);
+  if (blocked) return blocked;
 
   try {
     const { slug } = await params;
@@ -55,8 +38,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       // Check if it exists in another locale
       const any = allSpeciesComparisons.find((c) => c.slug === slug);
       if (any) {
+        const clientId = getClientId(request);
+        const rl = checkRateLimit(clientId);
         const headers = new Headers();
-        addRateLimitHeaders(headers, rateLimit);
+        addRateLimitHeaders(headers, rl);
         return NextResponse.json(
           {
             error: {
@@ -80,8 +65,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         );
       }
 
+      const clientId = getClientId(request);
+      const rl = checkRateLimit(clientId);
       const headers = new Headers();
-      addRateLimitHeaders(headers, rateLimit);
+      addRateLimitHeaders(headers, rl);
       return NextResponse.json(
         {
           error: {
@@ -131,8 +118,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       _embedded: { species: speciesDetails },
     };
 
+    const clientId = getClientId(request);
+    const rl = checkRateLimit(clientId);
     const headers = new Headers();
-    addRateLimitHeaders(headers, rateLimit);
+    addRateLimitHeaders(headers, rl);
     headers.set("Cache-Control", "public, max-age=300, s-maxage=600");
 
     return NextResponse.json({ data }, { headers });

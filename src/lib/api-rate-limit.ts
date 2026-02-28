@@ -7,7 +7,7 @@
  * Supports X-API-Key header for client identification.
  */
 
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // ---------------------------------------------------------------------------
 // Configuration
@@ -94,3 +94,73 @@ export function addRateLimitHeaders(
   headers.set("X-RateLimit-Reset", String(Math.ceil(result.resetAt / 1000)));
 }
 
+/**
+ * Convenience: if rate-limited, return a 429 response; otherwise null.
+ * Usage:
+ *   const blocked = rateLimitOrNull(request);
+ *   if (blocked) return blocked;
+ */
+export function rateLimitOrNull(request: NextRequest): NextResponse | null {
+  const clientId = getClientId(request);
+  const rl = checkRateLimit(clientId);
+
+  if (!rl.allowed) {
+    const headers = new Headers();
+    addRateLimitHeaders(headers, rl);
+    return NextResponse.json(
+      {
+        error: {
+          code: "RATE_LIMIT_EXCEEDED",
+          message: "Too many requests. Please try again later.",
+          details: {
+            retryAfter: Math.ceil((rl.resetAt - Date.now()) / 1000),
+          },
+        },
+        _links: { documentation: "/api/docs" },
+      },
+      { status: 429, headers }
+    );
+  }
+
+  return null;
+}
+
+/**
+ * Internal helper to read current rate-limit state without consuming a request.
+ */
+function peekRateLimit(clientId: string): RateLimitResult {
+  cleanupExpired();
+  const now = Date.now();
+  const record = store.get(clientId);
+
+  if (!record || record.resetAt < now) {
+    // No active window yet: report full remaining without creating one.
+    return {
+      allowed: true,
+      remaining: RATE_LIMIT,
+      resetAt: now + RATE_WINDOW,
+    };
+  }
+
+  if (record.count >= RATE_LIMIT) {
+    return { allowed: false, remaining: 0, resetAt: record.resetAt };
+  }
+
+  return {
+    allowed: true,
+    remaining: RATE_LIMIT - record.count,
+    resetAt: record.resetAt,
+  };
+}
+
+/**
+ * Get rate-limit result for adding headers to successful responses.
+ *
+ * This reads the current state without consuming another request, so it can be
+ * safely used in combination with {@link rateLimitOrNull} or direct calls to
+ * {@link checkRateLimit} without double-counting.
+ */
+export function getRateLimitResult(request: NextRequest): RateLimitResult {
+  const clientId = getClientId(request);
+  return peekRateLimit(clientId);
+}

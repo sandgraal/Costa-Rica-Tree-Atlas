@@ -420,15 +420,19 @@ Batch operations that can be scripted to dramatically improve page richness acro
 
 ### P6: Community Features (Medium Impact — Partially Blocked)
 
-#### P6.1: User Photo Upload System
+#### P6.1: User Photo Upload System ✅ Complete
 
-**Prerequisites:** Image Review System ✅ | DB ✅ | Cloud storage ✅ (Cloudinary)
+**Prerequisites:** Image Review System ✅ | DB ✅ | Cloud storage ✅ (B4 resolved)
 
-- [ ] Upload photos for existing species (tagged by tree part: bark, leaves, flowers, fruit)
-- [ ] Automatic proposal creation for admin review
-- [ ] User attribution and credits
-- [ ] Image optimization pipeline integration
-- [ ] Spam/abuse prevention
+- [x] Upload photos for existing species (tagged by tree part: bark, leaves, flowers, fruit)
+- [x] Automatic proposal creation for admin review
+- [x] User attribution and credits
+- [x] Image optimization pipeline integration (Cloudinary auto-format/quality)
+- [x] Spam/abuse prevention (rate limiting: 5 uploads/hour, min dimensions 800×600)
+- [x] Full upload UI with drag-drop, preview, tree search, image type selection (PhotoUploadClient)
+- [x] Upload API with validation, sharp metadata extraction, Cloudinary upload, audit logging
+- [x] 23 upload API tests covering all paths (success, auth, rate limit, validation, errors)
+- [x] SQL column mismatches fixed (3 critical bugs in INSERT statements)
 
 #### P6.2: Community Contributions Workflow
 
@@ -438,12 +442,12 @@ Batch operations that can be scripted to dramatically improve page richness acro
 - [ ] Rate and review tree species
 - [ ] User reputation system
 
-#### P6.3: Public API for Researchers
+#### P6.3: Public API for Researchers ✅ Complete
 
-- [ ] RESTful endpoints for tree data
-- [ ] Search and filtering capabilities
-- [ ] Rate limiting and API keys (Upstash/Redis)
-- [ ] OpenAPI/Swagger documentation
+- [x] RESTful endpoints for tree data (7 v1 endpoints)
+- [x] Search and filtering capabilities
+- [x] Rate limiting and API keys (Upstash/Redis)
+- [x] OpenAPI/Swagger documentation
 
 ---
 
@@ -531,7 +535,7 @@ Prioritized by impact and feasibility:
 | ~~2~~ | ~~**P5.3**: Content validation tests~~                 | ~~Medium~~ | ~~Medium~~   | ~~None~~            |
 | ~~3~~ | ~~**P4.4**: Database query optimization~~              | ~~Medium~~ | ~~Medium~~   | ~~Active DB usage~~ |
 | ~~4~~ | ~~**P5.4**: Content standardization~~                  | ~~Medium~~ | ~~Medium~~   | ~~None~~            |
-| 1     | **P6.1**: User photo uploads                           | High       | Medium       | ~~B4~~ ✅           |
+| 1     | **P6.1**: User photo uploads                           | High       | ✅ Complete  | B4 resolved         |
 | 2     | **P6.3**: Public API for researchers                   | High       | Medium       | None                |
 | 3     | **P7.1–3**: Additional languages                       | Very High  | Medium       | Native speakers     |
 

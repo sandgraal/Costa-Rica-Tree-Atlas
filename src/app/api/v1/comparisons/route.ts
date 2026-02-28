@@ -14,6 +14,7 @@ import {
 } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
 import {
+  rateLimitOrNull,
   getClientId,
   checkRateLimit,
   addRateLimitHeaders,
@@ -60,26 +61,9 @@ function transformComparison(
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
-  const clientId = getClientId(request);
-  const rateLimit = checkRateLimit(clientId);
-
-  if (!rateLimit.allowed) {
-    const headers = new Headers();
-    addRateLimitHeaders(headers, rateLimit);
-    return NextResponse.json(
-      {
-        error: {
-          code: "RATE_LIMIT_EXCEEDED",
-          message: "Too many requests. Please try again later.",
-          details: {
-            retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000),
-          },
-        },
-        _links: { documentation: "/api/docs" },
-      },
-      { status: 429, headers }
-    );
-  }
+  // Rate limit
+  const blocked = rateLimitOrNull(request);
+  if (blocked) return blocked;
 
   try {
     const { searchParams } = new URL(request.url);
@@ -194,8 +178,10 @@ export async function GET(request: NextRequest) {
     };
 
     // Add rate limit + cache headers
+    const clientId = getClientId(request);
+    const rl = checkRateLimit(clientId);
     const headers = new Headers();
-    addRateLimitHeaders(headers, rateLimit);
+    addRateLimitHeaders(headers, rl);
     headers.set("Cache-Control", "public, max-age=300, s-maxage=600");
 
     return NextResponse.json(response, { headers });

@@ -1,8 +1,20 @@
 # Next Agent Handoff
 
-Last updated: 2026-02-27
+Last updated: 2026-02-28
 
-## Latest Run Summary (2026-02-27 — Run 11)
+## Latest Run Summary (2026-02-28 — Run 12)
+
+- **Branch**: `feature/p6-community-features-and-fixes`
+- **Tasks completed**:
+  1. **P6.1: User Photo Upload — Critical SQL bug fixes** — Found and fixed 3 runtime-breaking SQL column mismatches in `/api/images/upload` route:
+     - Rate limit query: replaced nonexistent `submitted_by` column with JOIN on `image_audits.actor_id`
+     - Proposal INSERT: `flags` → `flag_count`, removed nonexistent `submitted_by` column, added PostgreSQL enum casts (`::\"ImageType\"`, `::\"ImageProposalSource\"`, `::\"ImageProposalStatus\"`)
+     - Audit INSERT: `performed_by` → `actor_id`, added required `tree_slug` and `image_type` columns
+  2. **P6.1: Upload API test suite** — Created `tests/api/images-upload.test.ts` with 23 comprehensive tests: successful upload, proposal+audit creation, 503 (tables missing), 401 (unauth), 429 (rate limit), 400 (no file, no slug, invalid type, invalid mime, too large, too small dimensions), 503 (Cloudinary unconfigured), all image types, attribution, GET endpoint (limits/guidelines). All 23 pass.
+  3. **P6.1 infrastructure audit** — Verified complete upload system: PhotoUploadClient (434 lines with drag-drop, preview, tree search, image type selection), contribute/photo page (SSR with tree list), i18n translations (EN + ES complete), Cloudinary integration, admin review APIs.
+  4. **Verified**: 564/564 tests pass (23 new), 0 TypeScript errors. Build blocked by transient Google Fonts network issue (not code-related).
+
+## Previous Run Summary (2026-02-27 — Run 11)
 
 - **Branch**: `feature/p6-community-features-and-fixes` → push pending (network down)
 - **Tasks completed**:
@@ -109,7 +121,7 @@ Last updated: 2026-02-27
 
 ## Current Project State
 
-- **Tests**: 541/541 passing (34 test files)
+- **Tests**: 564/564 passing (35 test files)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Content quality**: All enum values normalized to schema, glossary references validated
 - **Galleries**: 174/175 trees with iNaturalist photo galleries
@@ -121,6 +133,7 @@ Last updated: 2026-02-27
 - **SEO**: All P3 tasks complete (P3.1–P3.5). OG images, JSON-LD, sitemap, and meta descriptions all optimized.
 - **Error tracking**: Sentry-ready (zero deps, graceful fallback), Turbopack build warnings fixed
 - **Public API (P6.3)**: 7 v1 endpoints — trees (list/detail), families, comparisons (list/detail), glossary (list/detail), OpenAPI 3.1 spec. Shared rate limiter, pagination, HAL-style links.
+- **Photo uploads (P6.1)**: Complete upload system — UI (drag-drop, preview, tree search), API (validation, Cloudinary, audit logging), 23 tests. 3 critical SQL bugs fixed.
 
 ## Highest-Priority Remaining Work
 
@@ -146,9 +159,10 @@ From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 | P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                  |
 | P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.       |
 | P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned |
+| P6.1     | User photo upload system              | ✅ Complete | Upload UI, API, Cloudinary, 23 tests, 3 SQL bugs fixed              |
 | P6.3     | Public API for researchers            | ✅ Complete | 7 endpoints, OpenAPI spec, shared rate limiter, 39 tests            |
 
-**Recommended next task**: P6.1 (User photo uploads — infrastructure exists, needs final testing), P4.5 (CSP optimization — manual sprint), or polish remaining items.
+**Recommended next task**: P6.2 (Community contributions workflow — forms + admin review), P4.5 (CSP optimization — manual sprint), or polish remaining items.
 
 ## Established Patterns
 
@@ -215,10 +229,11 @@ Mission
 - SEO (P3): ✅ ALL COMPLETE (P3.1–P3.5). OG images, JSON-LD, Sitemap, Meta descriptions all done.
 - Performance (P4): Lighthouse 85/100. LCP optimized (images recompressed 37%, priority props added). DB indexes added ✅. A11y contrast ✅. SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
 - Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps). Content standardization ✅ (111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned).
+- Community (P6): P6.1 User photo uploads ✅ (upload UI, API, Cloudinary, 23 tests, 3 SQL bugs fixed). P6.3 Public API ✅ (7 endpoints, OpenAPI spec, 39 tests).
 - Recommended execution order (pick one or more):
-  1. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint, 1-2 weeks)
-  2. P6.1: User photo uploads — infrastructure exists (upload UI, API, Cloudinary integration), needs final testing and deployment validation
-  3. Push pending branch `feature/p6-community-features-and-fixes` and open PR (network was down during Run 11)
+  1. P6.2: Community contributions workflow — forms for new species, corrections, local knowledge, rating
+  2. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint, 1-2 weeks)
+  3. Push pending branch `feature/p6-community-features-and-fixes` and open PR
   4. Apply DB migration to production (manual step — `npx prisma migrate deploy`)
   5. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
   6. Any remaining polish from IMPLEMENTATION_PLAN.md
