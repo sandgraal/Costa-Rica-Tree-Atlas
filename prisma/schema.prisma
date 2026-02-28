@@ -364,3 +364,29 @@ model Contribution {
   @@index([status, createdAt])
   @@map("contributions")
 }
+
+// ============================================================================
+// TREE RATING SYSTEM
+// Allow community members to rate and review tree species
+// ============================================================================
+
+// Community tree rating — one rating per session per tree
+model TreeRating {
+  id        String @id @default(cuid())
+  treeSlug  String @db.VarChar(100) // Tree being rated
+  rating    Int // 1-5 star rating
+
+  // Rater identity (anonymous or authenticated)
+  sessionId String  @db.VarChar(64) // Anonymous session hash
+  ipHash    String? @db.VarChar(64) // Hashed IP for abuse prevention
+  userId    String? // If logged in
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([treeSlug, sessionId]) // One rating per session per tree
+  @@index([treeSlug])
+  @@index([sessionId])
+  @@map("tree_ratings")
+}

@@ -685,7 +685,8 @@
       "submit": "Submit Contribution",
       "submitting": "Submitting...",
       "cancel": "Cancel",
-      "back": "Back"
+      "back": "Back",
+      "contactInfoNote": "Your contact info is optional but helps us follow up if needed."
     },
     "fields": {
       "title": "Title/Common Name",
@@ -813,5 +814,23 @@
     "supportDesc": "For questions or issues, please open an issue on our GitHub repository.",
     "license": "Data License",
     "licenseDesc": "API data is available under CC BY-NC-SA 4.0. Please cite Costa Rica Tree Atlas in your research or application."
+  },
+  "rating": {
+    "title": "Community Rating",
+    "rateThis": "Rate this tree",
+    "yourRating": "Your rating",
+    "averageRating": "{rating} out of 5",
+    "totalRatings": "{count, plural, =0 {No ratings yet} =1 {1 rating} other {# ratings}}",
+    "thankYou": "Thank you for your rating!",
+    "updated": "Rating updated!",
+    "error": "Failed to submit rating. Please try again.",
+    "loginPrompt": "Rate this species to help others learn about it.",
+    "stars": {
+      "1": "Poor",
+      "2": "Fair",
+      "3": "Good",
+      "4": "Very Good",
+      "5": "Excellent"
+    }
   }
 }

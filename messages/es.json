@@ -684,7 +684,8 @@
       "submit": "Enviar Contribución",
       "submitting": "Enviando...",
       "cancel": "Cancelar",
-      "back": "Volver"
+      "back": "Volver",
+      "contactInfoNote": "Tu información de contacto es opcional pero nos ayuda a dar seguimiento si es necesario."
     },
     "fields": {
       "title": "Título/Nombre Común",
@@ -812,5 +813,23 @@
     "supportDesc": "Para preguntas o problemas, por favor abre un issue en nuestro repositorio de GitHub.",
     "license": "Licencia de Datos",
     "licenseDesc": "Los datos de la API están disponibles bajo CC BY-NC-SA 4.0. Por favor cita el Atlas de Árboles de Costa Rica en tu investigación o aplicación."
+  },
+  "rating": {
+    "title": "Calificación de la Comunidad",
+    "rateThis": "Califica este árbol",
+    "yourRating": "Tu calificación",
+    "averageRating": "{rating} de 5",
+    "totalRatings": "{count, plural, =0 {Sin calificaciones aún} =1 {1 calificación} other {# calificaciones}}",
+    "thankYou": "¡Gracias por tu calificación!",
+    "updated": "¡Calificación actualizada!",
+    "error": "Error al enviar calificación. Por favor intenta de nuevo.",
+    "loginPrompt": "Califica esta especie para ayudar a otros a conocerla.",
+    "stars": {
+      "1": "Muy Malo",
+      "2": "Regular",
+      "3": "Bueno",
+      "4": "Muy Bueno",
+      "5": "Excelente"
+    }
   }
 }

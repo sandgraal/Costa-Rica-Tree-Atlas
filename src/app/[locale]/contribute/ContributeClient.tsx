@@ -42,6 +42,7 @@ interface Translations {
     contributorNamePlaceholder: string;
     contributorEmail: string;
     contributorEmailPlaceholder: string;
+    contactInfoNote: string;
     optional: string;
     submit: string;
     submitting: string;
@@ -541,7 +542,7 @@ export function ContributeClient({
         {/* Contributor info */}
         <div className="border-t border-border pt-6 space-y-4">
           <p className="text-sm text-muted-foreground">
-            Your contact info is optional but helps us follow up if needed.
+            {t.form.contactInfoNote}
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">

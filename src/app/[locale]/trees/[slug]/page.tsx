@@ -50,6 +50,16 @@ const BiodiversityInfo = dynamic(
   }
 );
 
+// TreeRating: community star rating system (fetches data client-side)
+const TreeRating = dynamic(
+  () => import("@/components/TreeRating").then((mod) => mod.TreeRating),
+  {
+    loading: () => (
+      <div className="bg-muted rounded-xl p-6 mb-8 animate-pulse h-24" />
+    ),
+  }
+);
+
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
@@ -479,6 +489,9 @@ export default async function TreePage({ params }: Props) {
 
               {/* Safety Disclaimer */}
               <SafetyDisclaimer />
+
+              {/* Community Rating */}
+              <TreeRating slug={tree.slug} />
 
               {/* Comparison Links */}
               <ComparisonLinks currentTree={tree} locale={locale} />

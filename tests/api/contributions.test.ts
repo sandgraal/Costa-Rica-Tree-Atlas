@@ -8,7 +8,7 @@ const mockContributions: Record<string, unknown>[] = [];
 const queryRawMock = vi.fn(async (strings: TemplateStringsArray) => {
   const sql = strings.join(" ");
 
-  if (!dbAvailable) throw new Error("DB not available");
+  if (!dbAvailable) throw new Error('relation "contributions" does not exist');
 
   // Rate limit check
   if (
