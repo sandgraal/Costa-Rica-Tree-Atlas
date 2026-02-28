@@ -16,18 +16,22 @@ export function TreeRating({ slug }: TreeRatingProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [unavailable, setUnavailable] = useState(false);
   const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchRating = useCallback(async () => {
     try {
       const res = await fetch(`/api/trees/${slug}/rating`);
-      if (!res.ok) return;
+      if (!res.ok) {
+        setUnavailable(true);
+        return;
+      }
       const data = await res.json();
       setAverageRating(data.averageRating);
       setTotalRatings(data.totalRatings);
       setUserRating(data.userRating);
     } catch {
-      // errors are handled in finally
+      setUnavailable(true);
     } finally {
       setLoaded(true);
     }
@@ -79,6 +83,10 @@ export function TreeRating({ slug }: TreeRatingProps) {
 
   if (!loaded) {
     return <div className="bg-muted rounded-xl p-6 mb-8 animate-pulse h-24" />;
+  }
+
+  if (unavailable) {
+    return null;
   }
 
   const displayRating = hoveredStar ?? userRating ?? 0;
