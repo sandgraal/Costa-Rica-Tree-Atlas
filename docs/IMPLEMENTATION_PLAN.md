@@ -37,12 +37,12 @@
 
 ### Performance Budgets
 
-| Resource          | Budget | Current            | Status                                          |
-| ----------------- | ------ | ------------------ | ----------------------------------------------- |
-| JavaScript        | <300KB | ~553KB (main page) | 🟡 23KB unused JS remains                       |
-| CSS               | <100KB | ~80KB              | ✅ (300ms render-blocking chunk to investigate) |
-| Images (Cards)    | <100KB | ~270KB largest     | 🔴 Not using AVIF/WebP                          |
-| Total Page Weight | <2MB   | ~1.6 MB            | ✅                                              |
+| Resource          | Budget | Current                      | Status                                                              |
+| ----------------- | ------ | ---------------------------- | ------------------------------------------------------------------- |
+| JavaScript        | <300KB | ~553KB (uncompressed, main)  | 🔴 Over budget (~553KB > 300KB). 23KB unused JS remains to be pruned |
+| CSS               | <100KB | ~80KB                        | ✅ (300ms render-blocking chunk to investigate)                     |
+| Images (Cards)    | <100KB | ~270KB largest               | 🔴 Not using AVIF/WebP                                              |
+| Total Page Weight | <2MB   | ~1.6 MB                      | ✅                                                                  |
 
 ---
 
