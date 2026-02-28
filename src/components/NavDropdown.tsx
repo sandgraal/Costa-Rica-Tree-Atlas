@@ -110,7 +110,7 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
             : "text-foreground/80 hover:text-primary"
         }`}
         aria-expanded={isOpen}
-        aria-haspopup="listbox"
+        aria-haspopup="true"
       >
         {label}
         <svg
