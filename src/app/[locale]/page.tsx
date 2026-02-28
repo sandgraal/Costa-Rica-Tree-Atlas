@@ -214,7 +214,7 @@ export default async function HomePage({ params }: Props) {
         {/* Recently Viewed (client-side, only shows if user has history) */}
         <section className="px-4 section-offscreen">
           <div className="container mx-auto max-w-6xl">
-            <RecentlyViewedList locale={locale} treeLookup={treeLookup} />
+            <RecentlyViewedList treeLookup={treeLookup} />
           </div>
         </section>
 

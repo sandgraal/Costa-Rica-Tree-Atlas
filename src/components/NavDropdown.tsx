@@ -28,7 +28,15 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
   );
 
   const close = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsOpen(false);
+  }, []);
+
+  // Clear pending timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   // Close on route change
@@ -102,7 +110,7 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
             : "text-foreground/80 hover:text-primary"
         }`}
         aria-expanded={isOpen}
-        aria-haspopup="true"
+        aria-haspopup="listbox"
       >
         {label}
         <svg
@@ -121,31 +129,28 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
       </button>
 
       {isOpen && (
-        <div
-          className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-border bg-background shadow-lg py-1 z-50"
-          role="menu"
-        >
+        <ul className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-border bg-background shadow-lg py-1 z-50 list-none">
           {items.map((item) => {
             const itemActive =
               pathname === `/${locale}${item.href}` ||
               pathname.startsWith(`/${locale}${item.href}/`);
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                role="menuitem"
-                className={`block px-4 py-2 text-sm transition-colors ${
-                  itemActive
-                    ? "bg-primary/10 text-primary font-medium"
-                    : "text-foreground/80 hover:bg-muted hover:text-primary"
-                }`}
-                onClick={close}
-              >
-                {item.label}
-              </Link>
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`block px-4 py-2 text-sm transition-colors ${
+                    itemActive
+                      ? "bg-primary/10 text-primary font-medium"
+                      : "text-foreground/80 hover:bg-muted hover:text-primary"
+                  }`}
+                  onClick={close}
+                >
+                  {item.label}
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
     </div>
   );

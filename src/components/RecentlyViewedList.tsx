@@ -15,7 +15,6 @@ export interface RecentlyViewedTree {
 }
 
 interface RecentlyViewedListProps {
-  locale: string;
   /** Pre-built lookup: slug → minimal tree data (passed from server component). */
   treeLookup: Record<string, RecentlyViewedTree>;
   limit?: number;
@@ -29,7 +28,6 @@ interface RecentlyViewedListProps {
  * full contentlayer bundle (~30 MB) is never shipped to the client.
  */
 export function RecentlyViewedList({
-  locale,
   treeLookup,
   limit = 6,
 }: RecentlyViewedListProps) {
