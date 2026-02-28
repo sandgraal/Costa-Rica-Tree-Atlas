@@ -21,6 +21,9 @@ export function SafeImage({
   fallback = "placeholder",
   priority = false,
   fetchPriority,
+  className,
+  style,
+  onLoad: onLoadProp,
   ...props
 }: SafeImageProps) {
   const [error, setError] = useState(false);
@@ -63,6 +66,7 @@ export function SafeImage({
         />
       )}
       <Image
+        {...props}
         src={src}
         alt={alt}
         priority={priority}
@@ -74,12 +78,12 @@ export function SafeImage({
         }}
         onLoad={() => {
           setLoading(false);
+          onLoadProp?.();
         }}
         className={`transition-opacity duration-200 ease-in-out ${
           loading ? "opacity-0" : "opacity-100"
-        } ${props.className || ""}`}
-        style={props.style}
-        {...props}
+        } ${className || ""}`}
+        style={style}
       />
     </>
   );
