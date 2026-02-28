@@ -58,6 +58,22 @@ vi.mock("@/app/api/auth/[...nextauth]/route", () => ({
 
 const { POST, GET } = await import("@/app/api/contributions/route");
 
+/**
+ * Recursively extracts all leaf (non-object) values from a Prisma.Sql argument.
+ * Prisma.sql fragments are objects with a `values` array that may contain nested
+ * Prisma.Sql fragments. Walking this tree lets us assert that a specific filter
+ * value (e.g. "HIGH") was actually interpolated into the query.
+ */
+function extractSqlValues(arg: unknown): unknown[] {
+  if (arg === null || arg === undefined) return [];
+  if (typeof arg !== "object") return [arg];
+  const maybeSQL = arg as { values?: unknown[] };
+  if (Array.isArray(maybeSQL.values)) {
+    return maybeSQL.values.flatMap(extractSqlValues);
+  }
+  return [];
+}
+
 function createPostRequest(body: Record<string, unknown>): NextRequest {
   return new NextRequest(
     new URL("/api/contributions", "http://localhost:3000"),
@@ -266,8 +282,11 @@ describe("GET /api/contributions", () => {
     const res = await GET(req);
 
     expect(res.status).toBe(200);
-    // Verify the query was executed (mock was called for SELECT + COUNT)
-    expect(queryRawMock).toHaveBeenCalled();
+    // Verify "HIGH" was interpolated as a parameterised value in the query
+    const interpolatedValues = queryRawMock.mock.calls.flatMap((args) =>
+      args.slice(1).flatMap(extractSqlValues)
+    );
+    expect(interpolatedValues).toContain("HIGH");
     const body = await res.json();
     expect(body.contributions).toBeDefined();
   });
@@ -277,8 +296,12 @@ describe("GET /api/contributions", () => {
     const res = await GET(req);
 
     expect(res.status).toBe(200);
-    // Verify the query was executed and returned valid response
-    expect(queryRawMock).toHaveBeenCalled();
+    // Verify both filter values were interpolated as parameterised values in the query
+    const interpolatedValues = queryRawMock.mock.calls.flatMap((args) =>
+      args.slice(1).flatMap(extractSqlValues)
+    );
+    expect(interpolatedValues).toContain("NEW_SPECIES");
+    expect(interpolatedValues).toContain("HIGH");
     const body = await res.json();
     expect(body.contributions).toBeDefined();
   });

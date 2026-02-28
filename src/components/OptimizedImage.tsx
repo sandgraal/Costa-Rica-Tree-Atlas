@@ -56,7 +56,7 @@ export function OptimizedImage({
   const imageProps = {
     src,
     alt,
-    className: `${className} ${isLoading ? "scale-110 blur-sm opacity-0" : "scale-100 blur-0 opacity-100"} transition-all duration-300`,
+    className: `object-cover ${className} ${isLoading ? "scale-110 blur-sm opacity-0" : "scale-100 blur-0 opacity-100"} transition-all duration-300`,
     priority,
     sizes,
     placeholder: placeholder as "blur" | "empty",
@@ -71,7 +71,7 @@ export function OptimizedImage({
   };
 
   if (fill) {
-    return <Image {...imageProps} alt={alt} fill className="object-cover" />;
+    return <Image {...imageProps} alt={alt} fill />;
   }
 
   return (
@@ -80,7 +80,6 @@ export function OptimizedImage({
       alt={alt}
       width={width || 800}
       height={height || 600}
-      className="object-cover"
     />
   );
 }
