@@ -132,9 +132,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
               <div className="flex flex-col md:flex-row gap-6">
                 {/* Icon and Grades */}
                 <div className="flex md:flex-col items-center gap-4 md:gap-2">
-                  <div
-                    className={`text-5xl md:text-6xl ${isCompleted ? "" : ""}`}
-                  >
+                  <div className="text-5xl md:text-6xl">
                     {isCompleted ? "🏆" : lesson.icon}
                   </div>
                   <div className="bg-background/50 backdrop-blur rounded-lg px-3 py-1.5 text-center">

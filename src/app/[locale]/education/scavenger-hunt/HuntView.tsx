@@ -170,10 +170,14 @@ export function HuntView({
           <div className="mt-2">
             <ProgressBar
               value={
-                (session.completedMissions.length /
-                  (session.activeMissions.length +
-                    session.completedMissions.length)) *
-                100
+                session.activeMissions.length +
+                  session.completedMissions.length >
+                0
+                  ? (session.completedMissions.length /
+                      (session.activeMissions.length +
+                        session.completedMissions.length)) *
+                    100
+                  : 0
               }
               barClassName="bg-gradient-to-r from-amber-500 to-orange-500"
               label="Hunt progress"
