@@ -126,9 +126,41 @@ export function rateLimitOrNull(request: NextRequest): NextResponse | null {
 }
 
 /**
+ * Internal helper to read current rate-limit state without consuming a request.
+ */
+function peekRateLimit(clientId: string): RateLimitResult {
+  cleanupExpired();
+  const now = Date.now();
+  const record = store.get(clientId);
+
+  if (!record || record.resetAt < now) {
+    // No active window yet: report full remaining without creating one.
+    return {
+      allowed: true,
+      remaining: RATE_LIMIT,
+      resetAt: now + RATE_WINDOW,
+    };
+  }
+
+  if (record.count >= RATE_LIMIT) {
+    return { allowed: false, remaining: 0, resetAt: record.resetAt };
+  }
+
+  return {
+    allowed: true,
+    remaining: RATE_LIMIT - record.count,
+    resetAt: record.resetAt,
+  };
+}
+
+/**
  * Get rate-limit result for adding headers to successful responses.
+ *
+ * This reads the current state without consuming another request, so it can be
+ * safely used in combination with {@link rateLimitOrNull} or direct calls to
+ * {@link checkRateLimit} without double-counting.
  */
 export function getRateLimitResult(request: NextRequest): RateLimitResult {
   const clientId = getClientId(request);
-  return checkRateLimit(clientId);
+  return peekRateLimit(clientId);
 }
