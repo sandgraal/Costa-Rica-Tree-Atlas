@@ -23,6 +23,9 @@
 # contentlayer
 /.contentlayer
 
+# editor
+.vscode/
+
 # misc
 .DS_Store
 *.pem

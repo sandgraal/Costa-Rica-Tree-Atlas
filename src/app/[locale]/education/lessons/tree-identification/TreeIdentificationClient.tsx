@@ -40,7 +40,6 @@ function TreeIdentificationContent({
 }: TreeIdentificationClientProps) {
   const { labels: t, features } = lessonData;
   const { markLessonComplete } = useEducationProgress();
-  const [_currentStep, _setCurrentStep] = useState(0);
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "match">("learn");
   const [currentQuizTree, setCurrentQuizTree] = useState<LessonTreeData | null>(
     null
@@ -65,7 +64,6 @@ function TreeIdentificationContent({
   >([]);
   const [matchFirst, setMatchFirst] = useState<string | null>(null);
   const [matchMoves, setMatchMoves] = useState(0);
-  const [_matchComplete, setMatchComplete] = useState(false);
   const [learnedTrees, setLearnedTrees] = useState<Set<string>>(new Set());
   const [showResults, setShowResults] = useState(false);
   const [selectedLearnTree, setSelectedLearnTree] =
@@ -164,7 +162,6 @@ function TreeIdentificationContent({
     setMatchCards(cards.sort(() => Math.random() - 0.5));
     setMatchFirst(null);
     setMatchMoves(0);
-    setMatchComplete(false);
   }, [trees]);
 
   const handleCardClick = (cardId: string) => {
@@ -201,7 +198,6 @@ function TreeIdentificationContent({
             (c) => !c.matched && c.tree.slug !== card.tree.slug
           ).length;
           if (unmatchedCount === 0) {
-            setMatchComplete(true);
             triggerConfetti();
           }
         }, 500);
@@ -242,7 +238,6 @@ function TreeIdentificationContent({
     setQuizScore(0);
     setQuizStreak(0);
     setQuizRound(0);
-    setMatchComplete(false);
     setMatchMoves(0);
   };
 
@@ -541,13 +536,11 @@ function TreeIdentificationContent({
                 {learnedTrees.size}/{trees.length}
               </span>
             </div>
-            <div className="h-2 bg-muted rounded-full overflow-hidden">
-              <ProgressBar
-                value={(learnedTrees.size / trees.length) * 100}
-                barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
-                label="Trees learned progress"
-              />
-            </div>
+            <ProgressBar
+              value={(learnedTrees.size / trees.length) * 100}
+              barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
+              label="Trees learned progress"
+            />
           </div>
         </div>
       )}
