@@ -10,7 +10,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { allGlossaryTerms, allTrees } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
 import {
-  rateLimitOrNull,
   getClientId,
   checkRateLimit,
   addRateLimitHeaders,
@@ -21,8 +20,26 @@ interface RouteParams {
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const blocked = rateLimitOrNull(request);
-  if (blocked) return blocked;
+  const clientId = getClientId(request);
+  const rateLimit = checkRateLimit(clientId);
+
+  if (!rateLimit.allowed) {
+    const headers = new Headers();
+    addRateLimitHeaders(headers, rateLimit);
+    return NextResponse.json(
+      {
+        error: {
+          code: "RATE_LIMIT_EXCEEDED",
+          message: "Too many requests. Please try again later.",
+          details: {
+            retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000),
+          },
+        },
+        _links: { documentation: "/api/docs" },
+      },
+      { status: 429, headers }
+    );
+  }
 
   try {
     const { slug } = await params;
@@ -37,10 +54,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     if (!term) {
       const any = allGlossaryTerms.find((t) => t.slug === slug);
       if (any) {
-        const clientId = getClientId(request);
-        const rl = checkRateLimit(clientId);
         const headers = new Headers();
-        addRateLimitHeaders(headers, rl);
+        addRateLimitHeaders(headers, rateLimit);
         return NextResponse.json(
           {
             error: {
@@ -63,10 +78,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         );
       }
 
-      const clientId = getClientId(request);
-      const rl = checkRateLimit(clientId);
       const headers = new Headers();
-      addRateLimitHeaders(headers, rl);
+      addRateLimitHeaders(headers, rateLimit);
       return NextResponse.json(
         {
           error: {
@@ -148,10 +161,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       },
     };
 
-    const clientId = getClientId(request);
-    const rl = checkRateLimit(clientId);
     const headers = new Headers();
-    addRateLimitHeaders(headers, rl);
+    addRateLimitHeaders(headers, rateLimit);
     headers.set("Cache-Control", "public, max-age=300, s-maxage=600");
 
     return NextResponse.json({ data }, { headers });

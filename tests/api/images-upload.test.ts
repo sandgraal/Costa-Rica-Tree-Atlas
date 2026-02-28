@@ -21,7 +21,7 @@ const queryRawMock = vi.fn(async (strings: TemplateStringsArray) => {
   }
 
   // checkRateLimit
-  if (sql.includes("SELECT COUNT(*) as count") && sql.includes("actor_id")) {
+  if (sql.includes("SELECT COUNT(*) as count") && sql.includes("actorId")) {
     return [{ count: rateLimitOk ? BigInt(0) : BigInt(5) }];
   }
 
