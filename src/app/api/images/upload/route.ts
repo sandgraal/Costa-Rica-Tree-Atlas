@@ -235,12 +235,12 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_proposals (
-        id, tree_slug, image_type,
-        proposed_url, proposed_source, proposed_alt,
-        quality_score, resolution, file_size,
+        id, "treeSlug", "imageType",
+        "proposedUrl", "proposedSource", "proposedAlt",
+        "qualityScore", resolution, "fileSize",
         source, reason,
-        status, upvotes, downvotes, flag_count,
-        created_at, updated_at
+        status, upvotes, downvotes, "flagCount",
+        "createdAt", "updatedAt"
       ) VALUES (
         ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         ${imageUrl}, ${attributionText}, ${`${imageType} image of ${treeSlug}`},
@@ -262,8 +262,8 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_audits (
-        id, proposal_id, tree_slug, image_type,
-        action, actor_id, notes, created_at
+        id, "proposalId", "treeSlug", "imageType",
+        action, "actorId", notes, "createdAt"
       ) VALUES (
         ${auditId}, ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         'PROPOSAL_CREATED'::"ImageAuditAction", ${userId},
