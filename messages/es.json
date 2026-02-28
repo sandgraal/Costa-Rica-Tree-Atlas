@@ -889,6 +889,7 @@
   },
   "contributeCta": {
     "title": "Ayuda a mejorar esta página",
+    "description": "¿Sabes algo sobre este árbol? Comparte tu conocimiento, sugiere una corrección o contribuye con una foto para ayudar a otros amantes de la naturaleza.",
     "suggestCorrection": "Sugerir una corrección",
     "uploadPhoto": "Subir una foto",
     "shareKnowledge": "Compartir conocimiento local"
