@@ -152,12 +152,13 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     const ipHash = hashIp(ip);
     const sessionId = getSessionId(request);
 
-    // Rate limiting: max 50 ratings per hour per IP
+    // Rate limiting: max 50 rating actions per hour per IP.
+    // Uses updated_at so that upserts (re-ratings) are counted, not just new inserts.
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
     const rateCheck = await prisma.$queryRaw<[{ count: bigint }]>`
       SELECT COUNT(*) as count FROM tree_ratings
       WHERE ip_hash = ${ipHash}
-      AND created_at > ${oneHourAgo}
+      AND updated_at > ${oneHourAgo}
     `;
     const recentCount = Number(rateCheck[0]?.count || 0);
     if (recentCount >= 50) {

@@ -388,5 +388,6 @@ model TreeRating {
   @@unique([treeSlug, sessionId]) // One rating per session per tree
   @@index([treeSlug])
   @@index([sessionId])
+  @@index([ipHash, updatedAt]) // Supports rate-limit query: ip_hash + updated_at
   @@map("tree_ratings")
 }

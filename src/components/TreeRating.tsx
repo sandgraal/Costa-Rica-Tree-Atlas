@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 
 interface TreeRatingProps {
@@ -16,17 +16,23 @@ export function TreeRating({ slug }: TreeRatingProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [unavailable, setUnavailable] = useState(false);
+  const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchRating = useCallback(async () => {
     try {
       const res = await fetch(`/api/trees/${slug}/rating`);
-      if (!res.ok) return;
+      if (!res.ok) {
+        setUnavailable(true);
+        return;
+      }
       const data = await res.json();
       setAverageRating(data.averageRating);
       setTotalRatings(data.totalRatings);
       setUserRating(data.userRating);
-      setLoaded(true);
     } catch {
+      setUnavailable(true);
+    } finally {
       setLoaded(true);
     }
   }, [slug]);
@@ -34,6 +40,12 @@ export function TreeRating({ slug }: TreeRatingProps) {
   useEffect(() => {
     void fetchRating();
   }, [fetchRating]);
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
+    };
+  }, []);
 
   const handleRate = async (rating: number) => {
     if (isSubmitting) return;
@@ -60,7 +72,8 @@ export function TreeRating({ slug }: TreeRatingProps) {
       setFeedback(userRating ? t("updated") : t("thankYou"));
 
       // Clear feedback after 3 seconds
-      setTimeout(() => setFeedback(null), 3000);
+      if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
+      feedbackTimerRef.current = setTimeout(() => setFeedback(null), 3000);
     } catch {
       setFeedback(t("error"));
     } finally {
@@ -70,6 +83,10 @@ export function TreeRating({ slug }: TreeRatingProps) {
 
   if (!loaded) {
     return <div className="bg-muted rounded-xl p-6 mb-8 animate-pulse h-24" />;
+  }
+
+  if (unavailable) {
+    return null;
   }
 
   const displayRating = hoveredStar ?? userRating ?? 0;

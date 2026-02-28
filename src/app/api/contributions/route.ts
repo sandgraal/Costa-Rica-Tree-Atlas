@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { captureApiError } from "@/lib/error-tracking";
 import { getServerSession } from "next-auth";
@@ -373,112 +374,36 @@ export async function GET(request: NextRequest) {
     );
     const offset = (page - 1) * pageSize;
 
-    // Use parameterized queries (Prisma tagged template literals) to prevent SQL injection.
-    // We build separate queries based on filter combos to keep them fully parameterized.
-    let contributions: ContributionRow[];
-    let countResult: [{ count: bigint }];
+    // Build WHERE conditions dynamically using Prisma.sql fragments so that any
+    // combination of filters is supported without a combinatorial if/else tree.
+    // All values are validated above, so enum casts are safe.
+    const conditions: Prisma.Sql[] = [];
+    if (!isAdmin) conditions.push(Prisma.sql`session_id = ${sessionId}`);
+    if (typeFilter)
+      conditions.push(Prisma.sql`type = ${typeFilter}::"ContributionType"`);
+    if (statusFilter)
+      conditions.push(
+        Prisma.sql`status = ${statusFilter}::"ContributionStatus"`
+      );
+    if (priorityFilter)
+      conditions.push(
+        Prisma.sql`priority = ${priorityFilter}::"ContributionPriority"`
+      );
+    if (treeSlugFilter)
+      conditions.push(Prisma.sql`tree_slug = ${treeSlugFilter}`);
 
-    if (isAdmin) {
-      // Admin: show all contributions with filters
-      if (typeFilter && statusFilter && treeSlugFilter && priorityFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE type = ${typeFilter}::"ContributionType"
-            AND status = ${statusFilter}::"ContributionStatus"
-            AND tree_slug = ${treeSlugFilter}
-            AND priority = ${priorityFilter}::"ContributionPriority"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE type = ${typeFilter}::"ContributionType"
-            AND status = ${statusFilter}::"ContributionStatus"
-            AND tree_slug = ${treeSlugFilter}
-            AND priority = ${priorityFilter}::"ContributionPriority"`;
-      } else if (typeFilter && statusFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE type = ${typeFilter}::"ContributionType"
-            AND status = ${statusFilter}::"ContributionStatus"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE type = ${typeFilter}::"ContributionType"
-            AND status = ${statusFilter}::"ContributionStatus"`;
-      } else if (typeFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE type = ${typeFilter}::"ContributionType"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE type = ${typeFilter}::"ContributionType"`;
-      } else if (statusFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE status = ${statusFilter}::"ContributionStatus"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE status = ${statusFilter}::"ContributionStatus"`;
-      } else if (treeSlugFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE tree_slug = ${treeSlugFilter}
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE tree_slug = ${treeSlugFilter}`;
-      } else {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions`;
-      }
-    } else {
-      // Non-admin: only own contributions (by session ID)
-      if (typeFilter && statusFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE session_id = ${sessionId}
-            AND type = ${typeFilter}::"ContributionType"
-            AND status = ${statusFilter}::"ContributionStatus"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE session_id = ${sessionId}
-            AND type = ${typeFilter}::"ContributionType"
-            AND status = ${statusFilter}::"ContributionStatus"`;
-      } else if (typeFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE session_id = ${sessionId}
-            AND type = ${typeFilter}::"ContributionType"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE session_id = ${sessionId}
-            AND type = ${typeFilter}::"ContributionType"`;
-      } else if (statusFilter) {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE session_id = ${sessionId}
-            AND status = ${statusFilter}::"ContributionStatus"
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE session_id = ${sessionId}
-            AND status = ${statusFilter}::"ContributionStatus"`;
-      } else {
-        contributions = await prisma.$queryRaw<ContributionRow[]>`
-          SELECT * FROM contributions
-          WHERE session_id = ${sessionId}
-          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
-        countResult = await prisma.$queryRaw`
-          SELECT COUNT(*) as count FROM contributions
-          WHERE session_id = ${sessionId}`;
-      }
-    }
+    const whereClause =
+      conditions.length > 0
+        ? Prisma.sql`WHERE ${Prisma.join(conditions, " AND ")}`
+        : Prisma.empty;
+
+    const contributions = await prisma.$queryRaw<ContributionRow[]>`
+      SELECT * FROM contributions
+      ${whereClause}
+      ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+    const countResult = await prisma.$queryRaw<[{ count: bigint }]>`
+      SELECT COUNT(*) as count FROM contributions
+      ${whereClause}`;
 
     const total = Number(countResult[0]?.count || 0);
     const transformedContributions = contributions.map((c) =>

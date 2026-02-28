@@ -260,4 +260,39 @@ describe("GET /api/contributions", () => {
     // Should return 200 with empty data or 503 - not 500
     expect([200, 503]).toContain(res.status);
   });
+
+  it("applies priority filter in SQL when used alone", async () => {
+    const req = createGetRequest({ priority: "HIGH" });
+    const res = await GET(req);
+
+    expect(res.status).toBe(200);
+    // The whereClause Sql object is passed as the second arg to $queryRaw.
+    // Its .strings array contains the static SQL parts including enum casts.
+    const whereClause = queryRawMock.mock.calls
+      .map((c) => c[1] as { strings?: string[] })
+      .find((w) => w?.strings?.join(" ").includes("ContributionPriority"));
+    expect(whereClause).toBeDefined();
+  });
+
+  it("applies both type and priority filters together in SQL", async () => {
+    const req = createGetRequest({ type: "NEW_SPECIES", priority: "HIGH" });
+    const res = await GET(req);
+
+    expect(res.status).toBe(200);
+    const whereClause = queryRawMock.mock.calls
+      .map((c) => c[1] as { strings?: string[] })
+      .find(
+        (w) =>
+          w?.strings?.join(" ").includes("ContributionType") &&
+          w?.strings?.join(" ").includes("ContributionPriority")
+      );
+    expect(whereClause).toBeDefined();
+  });
+
+  it("returns 400 for invalid priority filter", async () => {
+    const req = createGetRequest({ priority: "INVALID" });
+    const res = await GET(req);
+
+    expect(res.status).toBe(400);
+  });
 });
