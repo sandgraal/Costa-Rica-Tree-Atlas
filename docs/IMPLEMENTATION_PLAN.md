@@ -23,7 +23,7 @@
 
 | Metric          | Current (Feb 28) | Target | Status                                                |
 | --------------- | ---------------- | ------ | ----------------------------------------------------- |
-| Lighthouse Perf | **85**           | >90    | 🟢 LCP (4.0s) is the remaining bottleneck             |
+| Lighthouse Perf | **85**           | >90    | 🟡 Below target; LCP (4.0s) is the remaining bottleneck |
 | LCP             | **4.0 s**        | <2.5s  | 🔴 Homepage tree card images served as JPEG, not AVIF |
 | TBT             | **30 ms**        | <200ms | ✅ Fixed                                              |
 | FCP             | **2.1 s**        | <1.8s  | 🟡 300ms render-blocking CSS                          |
