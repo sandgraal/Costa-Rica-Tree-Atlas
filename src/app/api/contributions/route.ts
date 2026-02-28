@@ -8,7 +8,6 @@ import type {
   ContributionType,
   ContributionStatus,
   ContributionPriority,
-  ContributionFilters,
 } from "@/types/contributions";
 
 /**
@@ -243,8 +242,91 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// Valid enum values for input validation
+const VALID_TYPES: ContributionType[] = [
+  "NEW_SPECIES",
+  "CORRECTION",
+  "LOCAL_KNOWLEDGE",
+  "TRANSLATION",
+];
+const VALID_STATUSES: ContributionStatus[] = [
+  "PENDING",
+  "UNDER_REVIEW",
+  "APPROVED",
+  "IMPLEMENTED",
+  "REJECTED",
+  "DUPLICATE",
+];
+const VALID_PRIORITIES: ContributionPriority[] = [
+  "LOW",
+  "MEDIUM",
+  "HIGH",
+  "CRITICAL",
+];
+
+interface ContributionRow {
+  id: string;
+  type: string;
+  tree_slug: string | null;
+  target_field: string | null;
+  title: string;
+  description: string;
+  evidence: string | null;
+  scientific_name: string | null;
+  common_name_en: string | null;
+  common_name_es: string | null;
+  family: string | null;
+  proposed_images: string[];
+  contributor_name: string | null;
+  contributor_email: string | null;
+  session_id: string;
+  user_id: string | null;
+  status: string;
+  priority: string;
+  reviewed_by: string | null;
+  reviewed_at: Date | null;
+  review_notes: string | null;
+  resolved_pr_id: string | null;
+  locale: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+function transformContribution(c: ContributionRow, isAdmin: boolean) {
+  return {
+    id: c.id,
+    type: c.type,
+    treeSlug: c.tree_slug,
+    targetField: c.target_field,
+    title: c.title,
+    description: c.description,
+    evidence: c.evidence,
+    scientificName: c.scientific_name,
+    commonNameEn: c.common_name_en,
+    commonNameEs: c.common_name_es,
+    family: c.family,
+    proposedImages: c.proposed_images,
+    contributorName: isAdmin ? c.contributor_name : null,
+    contributorEmail: isAdmin ? c.contributor_email : null,
+    sessionId: c.session_id,
+    userId: c.user_id,
+    status: c.status,
+    priority: c.priority,
+    reviewedBy: c.reviewed_by,
+    reviewedAt: c.reviewed_at,
+    reviewNotes: c.review_notes,
+    resolvedPrId: c.resolved_pr_id,
+    locale: c.locale,
+    createdAt: c.created_at,
+    updatedAt: c.updated_at,
+  };
+}
+
 /**
  * GET /api/contributions - List contributions (public: own contributions only, admin: all)
+ *
+ * Uses parameterized queries to prevent SQL injection. All filter values are
+ * validated against known enum values before use.
  */
 export async function GET(request: NextRequest) {
   try {
@@ -254,115 +336,160 @@ export async function GET(request: NextRequest) {
 
     // Parse query parameters
     const { searchParams } = new URL(request.url);
-    const filters: ContributionFilters = {
-      type: searchParams.get("type") as ContributionType | undefined,
-      status: searchParams.get("status") as ContributionStatus | undefined,
-      treeSlug: searchParams.get("treeSlug") || undefined,
-      priority: searchParams.get("priority") as
-        | ContributionPriority
-        | undefined,
-      page: parseInt(searchParams.get("page") || "1", 10),
-      pageSize: Math.min(
-        parseInt(searchParams.get("pageSize") || "20", 10),
-        100
-      ),
-    };
 
-    const offset = ((filters.page || 1) - 1) * (filters.pageSize || 20);
-    const limit = filters.pageSize || 20;
+    // Validate filter values against known enums (prevent injection via enum cast)
+    const typeFilter = searchParams.get("type") as ContributionType | null;
+    const statusFilter = searchParams.get(
+      "status"
+    ) as ContributionStatus | null;
+    const priorityFilter = searchParams.get(
+      "priority"
+    ) as ContributionPriority | null;
+    const treeSlugFilter = searchParams.get("treeSlug")?.trim() || null;
 
-    // Build query conditions
-    // For non-admin users, only show their own contributions
-    let whereClause = isAdmin ? "1=1" : `session_id = '${sessionId}'`;
-
-    if (filters.type) {
-      whereClause += ` AND type = '${filters.type}'`;
+    if (typeFilter && !VALID_TYPES.includes(typeFilter)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid type filter" },
+        { status: 400 }
+      );
     }
-    if (filters.status) {
-      whereClause += ` AND status = '${filters.status}'`;
+    if (statusFilter && !VALID_STATUSES.includes(statusFilter)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid status filter" },
+        { status: 400 }
+      );
     }
-    if (filters.treeSlug) {
-      whereClause += ` AND tree_slug = '${filters.treeSlug}'`;
-    }
-    if (filters.priority) {
-      whereClause += ` AND priority = '${filters.priority}'`;
+    if (priorityFilter && !VALID_PRIORITIES.includes(priorityFilter)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid priority filter" },
+        { status: 400 }
+      );
     }
 
-    // Query contributions
-    interface ContributionRow {
-      id: string;
-      type: string;
-      tree_slug: string | null;
-      target_field: string | null;
-      title: string;
-      description: string;
-      evidence: string | null;
-      scientific_name: string | null;
-      common_name_en: string | null;
-      common_name_es: string | null;
-      family: string | null;
-      proposed_images: string[];
-      contributor_name: string | null;
-      contributor_email: string | null;
-      session_id: string;
-      user_id: string | null;
-      status: string;
-      priority: string;
-      reviewed_by: string | null;
-      reviewed_at: Date | null;
-      review_notes: string | null;
-      resolved_pr_id: string | null;
-      locale: string;
-      created_at: Date;
-      updated_at: Date;
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+    const pageSize = Math.min(
+      Math.max(1, parseInt(searchParams.get("pageSize") || "20", 10)),
+      100
+    );
+    const offset = (page - 1) * pageSize;
+
+    // Use parameterized queries (Prisma tagged template literals) to prevent SQL injection.
+    // We build separate queries based on filter combos to keep them fully parameterized.
+    let contributions: ContributionRow[];
+    let countResult: [{ count: bigint }];
+
+    if (isAdmin) {
+      // Admin: show all contributions with filters
+      if (typeFilter && statusFilter && treeSlugFilter && priorityFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE type = ${typeFilter}::"ContributionType"
+            AND status = ${statusFilter}::"ContributionStatus"
+            AND tree_slug = ${treeSlugFilter}
+            AND priority = ${priorityFilter}::"ContributionPriority"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE type = ${typeFilter}::"ContributionType"
+            AND status = ${statusFilter}::"ContributionStatus"
+            AND tree_slug = ${treeSlugFilter}
+            AND priority = ${priorityFilter}::"ContributionPriority"`;
+      } else if (typeFilter && statusFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE type = ${typeFilter}::"ContributionType"
+            AND status = ${statusFilter}::"ContributionStatus"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE type = ${typeFilter}::"ContributionType"
+            AND status = ${statusFilter}::"ContributionStatus"`;
+      } else if (typeFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE type = ${typeFilter}::"ContributionType"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE type = ${typeFilter}::"ContributionType"`;
+      } else if (statusFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE status = ${statusFilter}::"ContributionStatus"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE status = ${statusFilter}::"ContributionStatus"`;
+      } else if (treeSlugFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE tree_slug = ${treeSlugFilter}
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE tree_slug = ${treeSlugFilter}`;
+      } else {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions`;
+      }
+    } else {
+      // Non-admin: only own contributions (by session ID)
+      if (typeFilter && statusFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE session_id = ${sessionId}
+            AND type = ${typeFilter}::"ContributionType"
+            AND status = ${statusFilter}::"ContributionStatus"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE session_id = ${sessionId}
+            AND type = ${typeFilter}::"ContributionType"
+            AND status = ${statusFilter}::"ContributionStatus"`;
+      } else if (typeFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE session_id = ${sessionId}
+            AND type = ${typeFilter}::"ContributionType"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE session_id = ${sessionId}
+            AND type = ${typeFilter}::"ContributionType"`;
+      } else if (statusFilter) {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE session_id = ${sessionId}
+            AND status = ${statusFilter}::"ContributionStatus"
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE session_id = ${sessionId}
+            AND status = ${statusFilter}::"ContributionStatus"`;
+      } else {
+        contributions = await prisma.$queryRaw<ContributionRow[]>`
+          SELECT * FROM contributions
+          WHERE session_id = ${sessionId}
+          ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+        countResult = await prisma.$queryRaw`
+          SELECT COUNT(*) as count FROM contributions
+          WHERE session_id = ${sessionId}`;
+      }
     }
 
-    const contributions = (await prisma.$queryRawUnsafe(
-      `SELECT * FROM contributions WHERE ${whereClause} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`
-    )) as ContributionRow[];
-
-    // Get total count
-    const countResult = (await prisma.$queryRawUnsafe(
-      `SELECT COUNT(*) as count FROM contributions WHERE ${whereClause}`
-    )) as [{ count: bigint }];
     const total = Number(countResult[0]?.count || 0);
-
-    // Transform to camelCase
-    const transformedContributions = contributions.map(
-      (c: ContributionRow) => ({
-        id: c.id,
-        type: c.type,
-        treeSlug: c.tree_slug,
-        targetField: c.target_field,
-        title: c.title,
-        description: c.description,
-        evidence: c.evidence,
-        scientificName: c.scientific_name,
-        commonNameEn: c.common_name_en,
-        commonNameEs: c.common_name_es,
-        family: c.family,
-        proposedImages: c.proposed_images,
-        contributorName: isAdmin ? c.contributor_name : null, // Hide from non-admins
-        contributorEmail: isAdmin ? c.contributor_email : null, // Hide from non-admins
-        sessionId: c.session_id,
-        userId: c.user_id,
-        status: c.status,
-        priority: c.priority,
-        reviewedBy: c.reviewed_by,
-        reviewedAt: c.reviewed_at,
-        reviewNotes: c.review_notes,
-        resolvedPrId: c.resolved_pr_id,
-        locale: c.locale,
-        createdAt: c.created_at,
-        updatedAt: c.updated_at,
-      })
+    const transformedContributions = contributions.map((c) =>
+      transformContribution(c, isAdmin)
     );
 
     return NextResponse.json({
       contributions: transformedContributions,
       total,
-      page: filters.page || 1,
-      pageSize: filters.pageSize || 20,
+      page,
+      pageSize,
       hasMore: offset + contributions.length < total,
     });
   } catch (error) {

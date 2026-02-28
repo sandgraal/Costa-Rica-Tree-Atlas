@@ -96,6 +96,7 @@ export default async function ContributePage({ params }: PageProps) {
               contributorEmailPlaceholder: t(
                 "form.contributorEmailPlaceholder"
               ),
+              contactInfoNote: t("form.contactInfoNote"),
               optional: t("form.optional"),
               submit: t("form.submit"),
               submitting: t("form.submitting"),

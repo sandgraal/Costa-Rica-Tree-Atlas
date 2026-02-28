@@ -2,7 +2,24 @@
 
 Last updated: 2026-02-28
 
-## Latest Run Summary (2026-02-28 — Run 12)
+## Latest Run Summary (2026-02-28 — Run 13)
+
+- **Branch**: `feature/p6.2-contributions-ratings-security-fixes`
+- **Tasks completed**:
+  1. **CRITICAL: SQL injection fix in `/api/contributions` GET handler** — The GET endpoint used `$queryRawUnsafe` with string-concatenated WHERE clauses. Session IDs from cookies and query params (type, status, priority) were interpolated directly into raw SQL strings. Replaced with parameterized `$queryRaw` tagged template queries with input validation against known enum arrays (`VALID_TYPES`, `VALID_STATUSES`, `VALID_PRIORITIES`). Extracted `ContributionRow` interface and `transformContribution()` helper to module scope.
+  2. **P6.2: Tree rating system — complete implementation** — Built the full rating feature:
+     - **Prisma schema**: Added `TreeRating` model (id, treeSlug, rating 1-5, sessionId, ipHash, userId, timestamps, `@@unique([treeSlug, sessionId])`)
+     - **Migration**: `prisma/migrations/20260227000000_add_tree_ratings/migration.sql`
+     - **API route**: `/api/trees/[slug]/rating` with GET (aggregate + user rating) and POST (upsert with rate limiting 50/hr per IP, tree slug validation via `allTrees`, session cookie management, 503 fallback for missing table)
+     - **UI component**: `src/components/TreeRating.tsx` — interactive star rating with hover states, feedback messages, loading skeleton, `no-print` class
+     - **Integration**: Added dynamic import and `<TreeRating slug={tree.slug} />` to tree detail page (after SafetyDisclaimer, before ComparisonLinks)
+     - **i18n**: Added complete `rating` namespace to EN + ES with ICU plurals for totalRatings
+  3. **Fix: untranslated string in ContributeClient** — Hardcoded English string "Your contact info is optional..." replaced with `{t.form.contactInfoNote}`. Added key to both locale files.
+  4. **Fix: pre-existing test failure** — Contributions test mock threw "DB not available" which didn't match the handler's error message pattern checking. Fixed to use realistic `relation "contributions" does not exist`.
+  5. **Tests**: Created `tests/api/tree-rating.test.ts` with 10 tests: GET aggregate, GET null ratings, GET 404, GET missing table, POST success, POST 404, POST validation (4 cases), POST rate limited, POST 503, POST session cookie.
+  6. **Verified**: 574/574 tests pass (10 new), 0 lint errors, build clean.
+
+## Previous Run Summary (2026-02-28 — Run 12)
 
 - **Branch**: `feature/p6-community-features-and-fixes`
 - **Tasks completed**:
@@ -121,48 +138,51 @@ Last updated: 2026-02-28
 
 ## Current Project State
 
-- **Tests**: 564/564 passing (35 test files)
+- **Tests**: 574/574 passing (36 test files)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Content quality**: All enum values normalized to schema, glossary references validated
 - **Galleries**: 174/175 trees with iNaturalist photo galleries
 - **External links**: 175/175 trees with GBIF + IUCN links
 - **All pages**: 600+ lines, bilingual parity achieved
-- **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active, indexes optimized
+- **Database**: Neon PostgreSQL deployed, Prisma 7, admin user active, indexes optimized. New `tree_ratings` table (migration pending deploy).
 - **Performance**: Lighthouse 85/100 (Perf), 100 (SEO), 100 (BP). LCP 4.0s is network-bound. A11y expected 100 after contrast fix deployed.
 - **Component sizes**: All 3 large clients split — TreeMapClient 1,027, ScavengerHuntClient 575, TreeJournalClient 672 lines
 - **SEO**: All P3 tasks complete (P3.1–P3.5). OG images, JSON-LD, sitemap, and meta descriptions all optimized.
 - **Error tracking**: Sentry-ready (zero deps, graceful fallback), Turbopack build warnings fixed
 - **Public API (P6.3)**: 7 v1 endpoints — trees (list/detail), families, comparisons (list/detail), glossary (list/detail), OpenAPI 3.1 spec. Shared rate limiter, pagination, HAL-style links.
 - **Photo uploads (P6.1)**: Complete upload system — UI (drag-drop, preview, tree search), API (validation, Cloudinary, audit logging), 23 tests. 3 critical SQL bugs fixed.
+- **Community contributions (P6.2)**: Contributions form + admin review complete. Tree rating system complete (DB, API, UI, i18n). SQL injection vulnerability in contributions GET fixed.
+- **Security**: SQL injection in `/api/contributions` GET handler fixed (was using `$queryRawUnsafe` with string concatenation).
 
 ## Highest-Priority Remaining Work
 
 From `docs/IMPLEMENTATION_PLAN.md` (updated 2026-02-26):
 
-| Priority | Task                                  | Status      | Notes                                                               |
-| -------- | ------------------------------------- | ----------- | ------------------------------------------------------------------- |
-| P2.1     | Photo gallery sections                | ✅ Complete | 174/175 (orey lacks iNaturalist photos)                             |
-| P2.2     | Applications/Uses body sections       | ✅ Complete | Already present in 173/175 under various headings                   |
-| P2.3     | Seasonal phenology body sections      | ✅ Complete | Already present in all 174 with seasonal frontmatter                |
-| P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                           |
-| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                     |
-| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                 |
-| P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image        |
-| P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included          |
-| P3.5     | Meta description optimization         | ✅ Complete | 16 descriptions optimized across 14 files, ES i18n bugs fixed       |
-| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done |
-| P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%   |
-| P4.4     | Database query optimization           | ✅ Complete | 3 indexes added (Account.userId, image_proposals, contributions)    |
-| P4.6     | LCP image optimization                | ✅ Complete | Images recompressed 37%, priority props added                       |
-| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added     |
-| P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                 |
-| P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                  |
-| P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.       |
-| P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned |
-| P6.1     | User photo upload system              | ✅ Complete | Upload UI, API, Cloudinary, 23 tests, 3 SQL bugs fixed              |
-| P6.3     | Public API for researchers            | ✅ Complete | 7 endpoints, OpenAPI spec, shared rate limiter, 39 tests            |
+| Priority | Task                                  | Status      | Notes                                                                |
+| -------- | ------------------------------------- | ----------- | -------------------------------------------------------------------- |
+| P2.1     | Photo gallery sections                | ✅ Complete | 174/175 (orey lacks iNaturalist photos)                              |
+| P2.2     | Applications/Uses body sections       | ✅ Complete | Already present in 173/175 under various headings                    |
+| P2.3     | Seasonal phenology body sections      | ✅ Complete | Already present in all 174 with seasonal frontmatter                 |
+| P2.4     | GBIF/IUCN external links              | ✅ Complete | 175/175 now have both GBIF and IUCN links                            |
+| P3.1     | OG images for comparison detail pages | ✅ Complete | Created opengraph-image.tsx + twitter-image.tsx                      |
+| P3.2     | OG images for tree detail pages       | ✅ Complete | Already existed from a previous run                                  |
+| P3.3     | JSON-LD for tree detail pages         | ✅ Complete | Taxon schema, conservation status, distribution, multi-image         |
+| P3.4     | Sitemap enhancements                  | ✅ Complete | All pages, lastmod, comparisons, glossary already included           |
+| P3.5     | Meta description optimization         | ✅ Complete | 16 descriptions optimized across 14 files, ES i18n bugs fixed        |
+| P4.2     | SSR refactor 2 education pages        | ✅ Complete | ScavengerHuntClient, TreeJournalClient — all 6 education pages done  |
+| P4.3     | Split large client components         | ✅ Complete | TreeMapClient 26%, ScavengerHuntClient 52%, TreeJournalClient 37%    |
+| P4.4     | Database query optimization           | ✅ Complete | 3 indexes added (Account.userId, image_proposals, contributions)     |
+| P4.6     | LCP image optimization                | ✅ Complete | Images recompressed 37%, priority props added                        |
+| P4.7     | A11y contrast fixes (4 issues)        | ✅ Complete | Dark mode primary/secondary lightened, skip-link override added      |
+| P5.1     | API route test coverage               | ✅ Complete | 107 new tests across 9 files, 431/431 total passing                  |
+| P5.2     | Error tracking (Sentry)               | ✅ Complete | Sentry-ready, 18 API routes updated, zero new deps                   |
+| P5.3     | Content validation tests              | ✅ Complete | 48 tests — schema, parity, images, cross-refs. 479/479 total.        |
+| P5.4     | Content standardization               | ✅ Complete | 111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned  |
+| P6.1     | User photo upload system              | ✅ Complete | Upload UI, API, Cloudinary, 23 tests, 3 SQL bugs fixed               |
+| P6.2     | Community contributions + ratings     | ✅ Complete | Forms, admin review, tree rating system, SQL injection fix, 10 tests |
+| P6.3     | Public API for researchers            | ✅ Complete | 7 endpoints, OpenAPI spec, shared rate limiter, 39 tests             |
 
-**Recommended next task**: P6.2 (Community contributions workflow — forms + admin review), P4.5 (CSP optimization — manual sprint), or polish remaining items.
+**Recommended next task**: P4.5 (CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules), or remaining polish items.
 
 ## Established Patterns
 
@@ -229,14 +249,12 @@ Mission
 - SEO (P3): ✅ ALL COMPLETE (P3.1–P3.5). OG images, JSON-LD, Sitemap, Meta descriptions all done.
 - Performance (P4): Lighthouse 85/100. LCP optimized (images recompressed 37%, priority props added). DB indexes added ✅. A11y contrast ✅. SSR refactor ✅ ALL 6 education pages done. Component splits ✅ ALL 3 done.
 - Testing (P5): API route tests ✅ (107 tests). Content validation tests ✅ (48 tests, 479 total). Error tracking ✅ (Sentry-ready, 18 API routes updated, zero new deps). Content standardization ✅ (111 enum fixes, 121 exampleSpecies mapped, 391 relatedTerms cleaned).
-- Community (P6): P6.1 User photo uploads ✅ (upload UI, API, Cloudinary, 23 tests, 3 SQL bugs fixed). P6.3 Public API ✅ (7 endpoints, OpenAPI spec, 39 tests).
+- Community (P6): ✅ ALL COMPLETE. P6.1 User photo uploads ✅. P6.2 Community contributions + tree ratings ✅ (SQL injection fix, rating system, 10 tests). P6.3 Public API ✅ (7 endpoints, OpenAPI spec, 39 tests).
 - Recommended execution order (pick one or more):
-  1. P6.2: Community contributions workflow — forms for new species, corrections, local knowledge, rating
-  2. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint, 1-2 weeks)
-  3. Push pending branch `feature/p6-community-features-and-fixes` and open PR
-  4. Apply DB migration to production (manual step — `npx prisma migrate deploy`)
-  5. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
-  6. Any remaining polish from IMPLEMENTATION_PLAN.md
+  1. P4.5: CSP optimization — refactor 30+ components with inline styles to Tailwind/CSS modules (manual sprint)
+  2. Apply DB migrations to production (manual step — `npx prisma migrate deploy`). Includes tree_ratings table.
+  3. Install @sentry/nextjs and configure DSN in Vercel env vars (manual step)
+  4. Any remaining polish from IMPLEMENTATION_PLAN.md
 
 Required workflow
 1. Read and follow:
