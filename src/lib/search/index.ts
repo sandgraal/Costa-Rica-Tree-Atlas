@@ -227,11 +227,17 @@ export function sortTrees(trees: Tree[], sort: TreeSort): Tree[] {
 // Facet Extraction
 // ============================================================================
 
+export interface SeasonalFacet {
+  floweringCount: number;
+  fruitingCount: number;
+}
+
 export interface SearchFacets {
   families: { value: string; count: number }[];
   conservationStatuses: { value: string; count: number }[];
   tags: { value: TreeTag; count: number }[];
   distributions: { value: Distribution; count: number }[];
+  seasonal: Record<Month, SeasonalFacet>;
 }
 
 export function extractFacets(trees: Tree[]): SearchFacets {
@@ -239,6 +245,12 @@ export function extractFacets(trees: Tree[]): SearchFacets {
   const statusMap = new Map<string, number>();
   const tagMap = new Map<TreeTag, number>();
   const distMap = new Map<Distribution, number>();
+
+  // Seasonal counts per month
+  const seasonal = {} as Record<Month, SeasonalFacet>;
+  for (const m of MONTHS) {
+    seasonal[m] = { floweringCount: 0, fruitingCount: 0 };
+  }
 
   for (const tree of trees) {
     // Family
@@ -263,6 +275,22 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     for (const dist of tree.distribution ?? []) {
       distMap.set(dist, (distMap.get(dist) ?? 0) + 1);
     }
+
+    // Seasonal (flowering / fruiting)
+    for (const m of tree.floweringSeason ?? []) {
+      if (m === "all-year") {
+        for (const mon of MONTHS) seasonal[mon].floweringCount++;
+      } else if (m in seasonal) {
+        seasonal[m as Month].floweringCount++;
+      }
+    }
+    for (const m of tree.fruitingSeason ?? []) {
+      if (m === "all-year") {
+        for (const mon of MONTHS) seasonal[mon].fruitingCount++;
+      } else if (m in seasonal) {
+        seasonal[m as Month].fruitingCount++;
+      }
+    }
   }
 
   return {
@@ -278,6 +306,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     distributions: Array.from(distMap.entries())
       .map(([value, count]) => ({ value, count }))
       .sort((a, b) => b.count - a.count),
+    seasonal,
   };
 }
 
