@@ -265,6 +265,24 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
 };
 
 /**
+ * Pre-compiled regex patterns for each use category keyword.
+ * Each pattern uses a leading word boundary (\b) to avoid false positives
+ * (e.g. "oil" matching "soil") while still matching plurals/suffixes.
+ * Built once at module init to avoid repeated construction in hot paths.
+ */
+const USE_CATEGORY_PATTERNS: Record<UseCategory, RegExp[]> = Object.fromEntries(
+  (Object.entries(USE_CATEGORY_KEYWORDS) as [UseCategory, string[]][]).map(
+    ([category, keywords]) => [
+      category,
+      keywords.map((kw) => {
+        const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return new RegExp(`\\b${escaped}`, "i");
+      }),
+    ]
+  )
+) as Record<UseCategory, RegExp[]>;
+
+/**
  * Classify a tree's uses into use categories.
  * Returns a deduplicated set of categories that the tree belongs to.
  */
@@ -273,20 +291,10 @@ export function classifyUses(uses: string[] | undefined): UseCategory[] {
   const categories = new Set<UseCategory>();
 
   for (const use of uses) {
-    const lower = use.toLowerCase();
-    for (const [category, keywords] of Object.entries(
-      USE_CATEGORY_KEYWORDS
-    ) as [UseCategory, string[]][]) {
-      if (
-        keywords.some((kw) => {
-          // Use a leading word-boundary to avoid false positives like "oil"
-          // matching "soil", while still matching plurals/suffixes (e.g.
-          // "handicraft" matching "Handicrafts", "musical instrument" matching
-          // "Musical instruments").
-          const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-          return new RegExp(`\\b${escaped}`, "i").test(lower);
-        })
-      ) {
+    for (const [category, patterns] of Object.entries(
+      USE_CATEGORY_PATTERNS
+    ) as [UseCategory, RegExp[]][]) {
+      if (patterns.some((re) => re.test(use))) {
         categories.add(category);
       }
     }

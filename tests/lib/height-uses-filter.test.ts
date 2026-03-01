@@ -168,6 +168,14 @@ describe("classifyUses", () => {
     const result = classifyUses(["TRADITIONAL MEDICINE"]);
     expect(result).toContain("medicine");
   });
+
+  it("does not match 'oil' keyword inside 'soil' (regression test for false positive)", () => {
+    // "Soil conservation" and "Soil rehabilitation" contain "oil" as a substring
+    // but must NOT be classified as food — only as environmental.
+    const result = classifyUses(["Soil conservation", "Soil rehabilitation"]);
+    expect(result).not.toContain("food");
+    expect(result).toContain("environmental");
+  });
 });
 
 // ============================================================================

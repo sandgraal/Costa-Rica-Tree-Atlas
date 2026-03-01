@@ -15,9 +15,10 @@ Last updated: 2026-03-01
 
 **Branch**: `copilot/sub-pr-540` — pending merge
 
-- Fixed `classifyUses` false positives: replaced `includes(kw)` with leading `\b` regex to prevent e.g. "Soil conservation" matching "oil" keyword
+- Fixed `classifyUses` false positives: precompiled `USE_CATEGORY_PATTERNS` (leading `\b` regex) replaces per-call `new RegExp`; avoids "Soil" → "oil" false positive
 - Fixed `setTimeout` without cleanup in TreeExplorer toast: `toastTimerRef` + `useEffect` cleanup
-- Added `savedSearchFilter`/`savedSearchSort` validation in Zustand `onRehydrateStorage` (type checks + enum validation)
+- Added `savedSearchFilter`/`savedSearchSort` validation in Zustand `onRehydrateStorage` (type + enum checks)
+- Added regression test: "Soil conservation" must not match `food` keyword "oil"
 
 ## Current State
 
@@ -41,7 +42,6 @@ Last updated: 2026-03-01
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `redos.test.ts` timing test is flaky (expects <1ms, sometimes takes 1.2ms)
 - `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
-- Network outage blocked push; local commits on `feature/uses-height-filters` and handoff on `main` need pushing
 
 ## What's Next
 
