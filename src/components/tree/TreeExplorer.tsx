@@ -18,6 +18,7 @@ import {
   ORDERED_MONTHS,
 } from "@/lib/i18n";
 import { PROVINCES, isProvince } from "@/lib/geo";
+import { useStore } from "@/lib/store";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
 import type {
@@ -31,6 +32,8 @@ import type {
   Province,
   Month,
   SortField,
+  HeightRange,
+  UseCategory,
 } from "@/types/tree";
 
 // ============================================================================
@@ -39,6 +42,21 @@ import type {
 
 const VALID_SORT_FIELDS: SortField[] = ["title", "scientificName", "family"];
 const VALID_VIEW_MODES = ["grid", "alphabetical"] as const;
+const VALID_HEIGHT_RANGES: HeightRange[] = [
+  "small",
+  "medium",
+  "large",
+  "very-large",
+];
+const VALID_USE_CATEGORIES: UseCategory[] = [
+  "timber",
+  "medicine",
+  "food",
+  "ornamental",
+  "environmental",
+  "agriculture",
+  "crafts",
+];
 
 const VALID_SEASONAL_FILTERS = ["flowering", "fruiting"] as const;
 
@@ -54,16 +72,13 @@ function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   }
   const tags = params.get("tags");
   if (tags) filter.tags = tags.split(",").filter(Boolean) as TreeTag[];
-  const seasonal = params.get("seasonal");
-  if (
-    seasonal &&
-    VALID_SEASONAL_FILTERS.includes(seasonal as "flowering" | "fruiting")
-  ) {
-    filter.seasonalFilter = seasonal as "flowering" | "fruiting";
+  const height = params.get("height") as HeightRange | null;
+  if (height && VALID_HEIGHT_RANGES.includes(height)) {
+    filter.heightRange = height;
   }
-  const month = params.get("month");
-  if (month && ORDERED_MONTHS.includes(month as Month)) {
-    filter.month = month as Month;
+  const use = params.get("use") as UseCategory | null;
+  if (use && VALID_USE_CATEGORIES.includes(use)) {
+    filter.useCategory = use;
   }
   return filter;
 }
@@ -128,8 +143,8 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
       searchParams.has("status") ||
       searchParams.has("province") ||
       searchParams.has("tags") ||
-      searchParams.has("seasonal") ||
-      searchParams.has("month");
+      searchParams.has("height") ||
+      searchParams.has("use");
     return hasParams;
   });
   const [displayLimit, setDisplayLimit] = useState(INITIAL_LOAD_COUNT);
@@ -156,10 +171,8 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     if (filter.distribution?.length)
       params.set("province", filter.distribution[0]);
     if (filter.tags?.length) params.set("tags", filter.tags.join(","));
-    if (filter.seasonalFilter && filter.seasonalFilter !== "all") {
-      params.set("seasonal", filter.seasonalFilter);
-      if (filter.month) params.set("month", filter.month);
-    }
+    if (filter.heightRange) params.set("height", filter.heightRange);
+    if (filter.useCategory) params.set("use", filter.useCategory);
     if (sort.field !== "title") params.set("sort", sort.field);
     if (viewMode !== "grid") params.set("view", viewMode);
 
@@ -182,6 +195,8 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
       distributions: allFacets.distributions.filter(
         (d) => d.count >= MIN_COUNT
       ),
+      heightRanges: allFacets.heightRanges,
+      useCategories: allFacets.useCategories,
     };
   }, [allFacets]);
 
@@ -322,26 +337,17 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     }));
   }, []);
 
-  const handleSeasonalChange = useCallback((value: string) => {
+  const handleHeightChange = useCallback((height: string) => {
     setFilter((prev) => ({
       ...prev,
-      seasonalFilter:
-        value === "all" ? undefined : (value as "flowering" | "fruiting"),
-      // Set month to current month when first activating seasonal filter;
-      // clear month when deactivating (prevents stale ?month= in URL)
-      month:
-        value === "all"
-          ? undefined
-          : !prev.month
-            ? getCurrentMonth()
-            : prev.month,
+      heightRange: height ? (height as HeightRange) : undefined,
     }));
   }, []);
 
-  const handleMonthChange = useCallback((value: string) => {
+  const handleUseCategoryChange = useCallback((category: string) => {
     setFilter((prev) => ({
       ...prev,
-      month: value ? (value as Month) : undefined,
+      useCategory: category ? (category as UseCategory) : undefined,
     }));
   }, []);
 
@@ -359,6 +365,37 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   const handleLoadMore = useCallback(() => {
     setDisplayLimit((prev) => prev + LOAD_MORE_COUNT);
   }, []);
+
+  // Saved search preferences
+  const {
+    savedSearchFilter,
+    savedSearchSort,
+    saveSearchPreferences,
+    clearSearchPreferences,
+    _hydrated,
+  } = useStore();
+  const [filterToast, setFilterToast] = useState<string | null>(null);
+
+  const handleSaveFilters = useCallback(() => {
+    saveSearchPreferences(filter, sort);
+    setFilterToast(t("filtersSaved"));
+    setTimeout(() => setFilterToast(null), 2000);
+  }, [filter, sort, saveSearchPreferences, t]);
+
+  const handleLoadFilters = useCallback(() => {
+    if (savedSearchFilter) {
+      setFilter(savedSearchFilter);
+      if (savedSearchSort) {
+        setSort(savedSearchSort);
+      }
+      setShowFilters(true);
+      setFilterToast(t("filtersLoaded"));
+      setTimeout(() => setFilterToast(null), 2000);
+    } else {
+      setFilterToast(t("noSavedFilters"));
+      setTimeout(() => setFilterToast(null), 2000);
+    }
+  }, [savedSearchFilter, savedSearchSort, t]);
 
   const hasActiveFilters = Object.values(filter).some(
     (v) => v !== undefined && (Array.isArray(v) ? v.length > 0 : true)
@@ -527,7 +564,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         {/* Filter panel */}
         {showFilters && (
           <div className="mb-8 p-4 bg-card rounded-xl border border-border">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {/* Family filter */}
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-1">
@@ -594,6 +631,44 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </select>
               </div>
 
+              {/* Height range filter */}
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">
+                  {t("filterByHeight")}
+                </label>
+                <select
+                  value={filter.heightRange ?? ""}
+                  onChange={(e) => handleHeightChange(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="">{t("allHeights")}</option>
+                  {displayFacets.heightRanges.map(({ value, count }) => (
+                    <option key={value} value={value}>
+                      {t(`heightRanges.${value}`)} ({count})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Use category filter */}
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">
+                  {t("filterByUse")}
+                </label>
+                <select
+                  value={filter.useCategory ?? ""}
+                  onChange={(e) => handleUseCategoryChange(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="">{t("allUses")}</option>
+                  {displayFacets.useCategories.map(({ value, count }) => (
+                    <option key={value} value={value}>
+                      {t(`useCategories.${value}`)} ({count})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               {/* Sort by */}
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-1">
@@ -629,6 +704,35 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </div>
               )}
             </div>
+
+            {/* Save/Load filter preferences */}
+            {_hydrated && (
+              <div className="mt-4 pt-4 border-t border-border flex flex-wrap items-center gap-3">
+                {hasActiveFilters && (
+                  <button
+                    onClick={handleSaveFilters}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                  >
+                    <BookmarkIcon className="w-3.5 h-3.5" />
+                    {t("saveFilters")}
+                  </button>
+                )}
+                {savedSearchFilter && (
+                  <button
+                    onClick={handleLoadFilters}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+                  >
+                    <BookmarkFilledIcon className="w-3.5 h-3.5" />
+                    {t("loadSavedFilters")}
+                  </button>
+                )}
+                {filterToast && (
+                  <span className="text-xs text-primary animate-in fade-in">
+                    {filterToast}
+                  </span>
+                )}
+              </div>
+            )}
 
             {/* Tag filters */}
             {displayFacets.tags.length > 0 && (
@@ -1026,6 +1130,36 @@ function ChevronRightIcon({ className }: { className?: string }) {
       className={className}
     >
       <polyline points="9 18 15 12 9 6" />
+    </svg>
+  );
+}
+
+function BookmarkIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={className}
+    >
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+    </svg>
+  );
+}
+
+function BookmarkFilledIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={className}
+    >
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
     </svg>
   );
 }
