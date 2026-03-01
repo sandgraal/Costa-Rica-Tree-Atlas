@@ -5,7 +5,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { TreeFilter, TreeSort } from "@/types/tree";
+import type { TreeFilter, TreeSort, TreeTag, Distribution } from "@/types/tree";
 
 // ============================================================================
 // Constants
@@ -274,7 +274,7 @@ export const useStore = create<StoreState>()(
             if (filter.tags !== undefined) {
               if (Array.isArray(filter.tags)) {
                 filter.tags = filter.tags.filter(
-                  (tag): tag is string => typeof tag === "string"
+                  (tag): tag is TreeTag => typeof tag === "string"
                 );
                 if (filter.tags.length === 0) {
                   delete filter.tags;
@@ -288,7 +288,7 @@ export const useStore = create<StoreState>()(
             if (filter.distribution !== undefined) {
               if (Array.isArray(filter.distribution)) {
                 filter.distribution = filter.distribution.filter(
-                  (value): value is string => typeof value === "string"
+                  (value): value is Distribution => typeof value === "string"
                 );
                 if (filter.distribution.length === 0) {
                   delete filter.distribution;
