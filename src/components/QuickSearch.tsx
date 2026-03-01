@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
 import { useDebounce } from "@/hooks/useDebounce";
 
@@ -28,8 +28,10 @@ export function QuickSearch() {
   const [isLoadingTrees, setIsLoadingTrees] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("search");
 
   // Debounce search query - only search after user stops typing
   const debouncedQuery = useDebounce(query, 300);
@@ -197,6 +199,16 @@ export function QuickSearch() {
     }
   };
 
+  // Auto-scroll selected result into view
+  useEffect(() => {
+    const list = resultsRef.current;
+    if (!list) return;
+    const selectedItem = list.children[selectedIndex] as
+      | HTMLElement
+      | undefined;
+    selectedItem?.scrollIntoView({ block: "nearest" });
+  }, [selectedIndex]);
+
   return (
     <ComponentErrorBoundary componentName="Quick Search">
       <div ref={containerRef} className="relative">
@@ -207,12 +219,10 @@ export function QuickSearch() {
             setTimeout(() => inputRef.current?.focus(), 0);
           }}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors text-sm"
-          aria-label="Search trees"
+          aria-label={t("button")}
         >
           <SearchIcon className="h-4 w-4" />
-          <span className="hidden sm:inline">
-            {locale === "es" ? "Buscar" : "Search"}
-          </span>
+          <span className="hidden sm:inline">{t("button")}</span>
           <kbd className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-background rounded text-xs border border-border">
             <span className="text-[10px]">⌘</span>K
           </kbd>
@@ -231,16 +241,21 @@ export function QuickSearch() {
                 <input
                   ref={inputRef}
                   type="text"
+                  role="combobox"
+                  aria-expanded={results.length > 0}
+                  aria-controls="quicksearch-results"
+                  aria-activedescendant={
+                    results.length > 0
+                      ? `quicksearch-result-${selectedIndex}`
+                      : undefined
+                  }
+                  aria-autocomplete="list"
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);
                   }}
                   onKeyDown={handleKeyDown}
-                  placeholder={
-                    locale === "es"
-                      ? "Buscar por nombre, familia, característica..."
-                      : "Search by name, family, characteristic..."
-                  }
+                  placeholder={t("placeholder")}
                   className="w-full px-3 py-2 bg-transparent border-0 outline-none text-foreground placeholder:text-muted-foreground"
                 />
               </div>
@@ -259,9 +274,19 @@ export function QuickSearch() {
                   </div>
                 </div>
               ) : results.length > 0 ? (
-                <ul className="py-2 max-h-96 overflow-auto">
+                <ul
+                  ref={resultsRef}
+                  id="quicksearch-results"
+                  role="listbox"
+                  className="py-2 max-h-96 overflow-auto"
+                >
                   {results.map((tree, index) => (
-                    <li key={tree.slug}>
+                    <li
+                      key={tree.slug}
+                      id={`quicksearch-result-${index}`}
+                      role="option"
+                      aria-selected={index === selectedIndex}
+                    >
                       <button
                         onClick={() => {
                           handleSelect(tree.slug);
@@ -313,34 +338,17 @@ export function QuickSearch() {
                 </ul>
               ) : query ? (
                 <div className="px-4 py-8 text-center text-muted-foreground">
-                  <p className="mb-2">
-                    {locale === "es"
-                      ? "No se encontraron árboles"
-                      : "No trees found"}
-                  </p>
-                  <p className="text-xs">
-                    {locale === "es"
-                      ? "Intenta buscar por nombre científico, familia, uso o región"
-                      : "Try searching by scientific name, family, use, or region"}
-                  </p>
+                  <p className="mb-2">{t("noResults")}</p>
+                  <p className="text-xs">{t("noResultsHint")}</p>
                 </div>
               ) : (
                 <div className="px-4 py-6 text-center text-muted-foreground">
-                  <p className="mb-3">
-                    {locale === "es"
-                      ? "Escribe para buscar árboles..."
-                      : "Type to search trees..."}
-                  </p>
+                  <p className="mb-3">{t("typeToSearch")}</p>
                   <div className="text-xs space-y-1">
-                    <p className="font-medium">
-                      {locale === "es"
-                        ? "Ejemplos de búsqueda:"
-                        : "Search examples:"}
-                    </p>
+                    <p className="font-medium">{t("searchExamples")}</p>
                     <p className="text-muted-foreground/80">
-                      {locale === "es"
-                        ? '"Ceiba" · "Malvaceae" · "medicinal" · "guanacaste"'
-                        : '"Ceiba" · "Malvaceae" · "medicinal" · "guanacaste"'}
+                      &quot;Ceiba&quot; · &quot;Malvaceae&quot; ·
+                      &quot;medicinal&quot; · &quot;guanacaste&quot;
                     </p>
                   </div>
                 </div>
@@ -355,13 +363,19 @@ export function QuickSearch() {
                   <kbd className="px-1 py-0.5 bg-background rounded border border-border">
                     ↓
                   </kbd>
-                  {locale === "es" ? "navegar" : "navigate"}
+                  {t("navigate")}
                 </span>
                 <span className="flex items-center gap-1">
                   <kbd className="px-1.5 py-0.5 bg-background rounded border border-border">
                     ↵
                   </kbd>
-                  {locale === "es" ? "seleccionar" : "select"}
+                  {t("select")}
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 bg-background rounded border border-border">
+                    esc
+                  </kbd>
+                  {t("close")}
                 </span>
               </div>
             </div>

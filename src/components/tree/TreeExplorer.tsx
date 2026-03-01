@@ -2,9 +2,11 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
 import { TreeGrid } from "./TreeCard";
+import { SearchSuggestions } from "./SearchSuggestions";
 import type {
   LightTree,
   Tree,
@@ -33,8 +35,12 @@ const LOAD_MORE_COUNT = 12;
 // Component
 // ============================================================================
 
+// Maximum number of suggestions in the autocomplete dropdown
+const MAX_SUGGESTIONS = 5;
+
 export function TreeExplorer({ trees }: TreeExplorerProps) {
   const locale = useLocale() as Locale;
+  const router = useRouter();
 
   // Cast trees to Tree type for search functions
   const typedTrees = trees as unknown as Tree[];
@@ -49,6 +55,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [displayLimit, setDisplayLimit] = useState(INITIAL_LOAD_COUNT);
+
+  // Autocomplete suggestions state
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   // Async search results (Fuse.js is lazy-loaded on first query)
   const [searchedTrees, setSearchedTrees] = useState<Tree[] | null>(null);
@@ -109,17 +120,81 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
   const hasMore = displayLimit < filteredTrees.length;
 
+  // Top suggestions for the autocomplete dropdown
+  const suggestions = useMemo(() => {
+    if (!searchedTrees || !searchQuery.trim()) return [];
+    return searchedTrees.slice(0, MAX_SUGGESTIONS);
+  }, [searchedTrees, searchQuery]);
+
+  // Close suggestions when clicking outside the search container
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // Handlers
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(e.target.value);
+      setShowSuggestions(true);
+      setSuggestionIndex(0);
     },
     []
   );
 
   const handleClearSearch = useCallback(() => {
     setSearchQuery("");
+    setShowSuggestions(false);
   }, []);
+
+  const handleSuggestionSelect = useCallback(
+    (slug: string) => {
+      router.push(`/${locale}/trees/${slug}`);
+      setShowSuggestions(false);
+    },
+    [router, locale]
+  );
+
+  const handleSuggestionHover = useCallback((index: number) => {
+    setSuggestionIndex(index);
+  }, []);
+
+  const handleSearchKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!showSuggestions || suggestions.length === 0) return;
+
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          setSuggestionIndex((i) => Math.min(i + 1, suggestions.length - 1));
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setSuggestionIndex((i) => Math.max(i - 1, 0));
+          break;
+        case "Enter":
+          if (suggestions[suggestionIndex]) {
+            e.preventDefault();
+            handleSuggestionSelect(suggestions[suggestionIndex].slug);
+          }
+          break;
+        case "Escape":
+          setShowSuggestions(false);
+          break;
+      }
+    },
+    [showSuggestions, suggestions, suggestionIndex, handleSuggestionSelect]
+  );
 
   const handleFilterChange = useCallback(
     (key: keyof TreeFilter, value: unknown) => {
@@ -238,12 +313,28 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
           </div>
         </div>
 
-        {/* Search bar */}
-        <div className="relative max-w-md mx-auto mb-6">
+        {/* Search bar with autocomplete suggestions */}
+        <div
+          ref={searchContainerRef}
+          className="relative max-w-md mx-auto mb-6"
+        >
           <input
             type="search"
+            role="combobox"
+            aria-expanded={showSuggestions && suggestions.length > 0}
+            aria-controls="search-suggestions"
+            aria-activedescendant={
+              showSuggestions && suggestions.length > 0
+                ? `suggestion-${suggestionIndex}`
+                : undefined
+            }
+            aria-autocomplete="list"
             value={searchQuery}
             onChange={handleSearchChange}
+            onFocus={() => {
+              if (searchQuery.trim()) setShowSuggestions(true);
+            }}
+            onKeyDown={handleSearchKeyDown}
             placeholder={labels.searchPlaceholder}
             className="w-full px-4 py-3 pl-12 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
           />
@@ -255,6 +346,17 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
             >
               <XIcon className="w-5 h-5" />
             </button>
+          )}
+
+          {/* Autocomplete suggestions dropdown */}
+          {showSuggestions && searchQuery.trim() && (
+            <SearchSuggestions
+              suggestions={suggestions}
+              selectedIndex={suggestionIndex}
+              query={searchQuery}
+              onSelect={handleSuggestionSelect}
+              onHover={handleSuggestionHover}
+            />
           )}
         </div>
 

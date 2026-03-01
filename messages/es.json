@@ -954,5 +954,19 @@
     "viewProfile": "Tus Contribuciones",
     "loading": "Cargando tu perfil...",
     "errorLoading": "Error al cargar el perfil"
+  },
+  "search": {
+    "button": "Buscar",
+    "placeholder": "Buscar por nombre, familia, característica...",
+    "noResults": "No se encontraron árboles",
+    "noResultsHint": "Intenta buscar por nombre científico, familia, uso o región",
+    "typeToSearch": "Escribe para buscar árboles...",
+    "searchExamples": "Ejemplos de búsqueda:",
+    "navigate": "navegar",
+    "select": "seleccionar",
+    "close": "cerrar",
+    "topResults": "Mejores resultados",
+    "viewAllResults": "Ver los {count} resultados",
+    "suggestionsFooter": "Presiona Enter para seleccionar, Escape para cerrar"
   }
 }

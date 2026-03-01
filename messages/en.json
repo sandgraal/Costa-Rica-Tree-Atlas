@@ -955,5 +955,19 @@
     "viewProfile": "Your Contributions",
     "loading": "Loading your profile...",
     "errorLoading": "Failed to load profile"
+  },
+  "search": {
+    "button": "Search",
+    "placeholder": "Search by name, family, characteristic...",
+    "noResults": "No trees found",
+    "noResultsHint": "Try searching by scientific name, family, use, or region",
+    "typeToSearch": "Type to search trees...",
+    "searchExamples": "Search examples:",
+    "navigate": "navigate",
+    "select": "select",
+    "close": "close",
+    "topResults": "Top results",
+    "viewAllResults": "View all {count} results",
+    "suggestionsFooter": "Press Enter to select, Escape to close"
   }
 }
