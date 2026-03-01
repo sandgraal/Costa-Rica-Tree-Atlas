@@ -39,8 +39,8 @@ export default async function MapPage({ params }: MapPageProps) {
 
   // Project only the fields TreeMapClient needs — avoids shipping the full
   // 32 MB contentlayer dataset (MDX bodies) to the client.
-  // Contentlayer generates string[] for list fields; cast to domain union types
-  // since the MDX content is validated to use valid enum values.
+  // Contentlayer generates string[] for these list fields; we narrow them to our
+  // domain union types based on editorial conventions/validation, not strict enum guarantees.
   const trees: MapTreeSummary[] = allTrees
     .filter((t) => t.locale === locale)
     .map((t) => ({
