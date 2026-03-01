@@ -155,6 +155,8 @@
       "agriculture": "Agriculture",
       "crafts": "Crafts & Industry"
     },
+    "activeFilters": "Active Filters",
+    "selectedCount": "{count} selected",
     "saveFilters": "Save Filters",
     "loadSavedFilters": "Load Saved",
     "filtersSaved": "Filters saved",
