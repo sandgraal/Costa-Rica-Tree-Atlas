@@ -15,6 +15,17 @@ A bilingual (English/Spanish) Next.js 16 application documenting Costa Rican tre
 7. **Stop and ask when uncertain** - If technical resolution isn't clear, ask the user
 8. **Leave system clearer** - Every change should improve code clarity and robustness
 
+## Agent Handoff
+
+Before starting work, read `docs/NEXT_AGENT_HANDOFF.md` for the latest project state, recent changes, and known gotchas. The full task backlog is in `docs/IMPLEMENTATION_PLAN.md`.
+
+**At the end of every PR**, update the handoff doc:
+
+- Replace "Latest Changes" with your PR's work (branch, summary bullets, key files)
+- Refresh "Current State" (test count, content count, etc.)
+- Update "In-Flight / Gotchas" and "What's Next"
+- Keep it under 60 lines — previous runs live in git history, not in this file
+
 ## 🚨 CRITICAL: Git Workflow - ALWAYS CREATE PR FIRST
 
 **NEVER push directly to main branch. ALWAYS follow this workflow:**
@@ -152,3 +163,15 @@ const trees = allTrees.filter((t) => t.locale === locale);
 - Remove accessibility features (ARIA labels, semantic HTML)
 - Break PWA functionality
 - Ignore TypeScript errors with `// @ts-ignore`
+
+## Scoped Instructions
+
+For specific file patterns, see scoped instructions:
+
+- **Internationalization**: `.github/instructions/i18n.instructions.md` - i18n guidelines (applies to all files)
+- **Content**: `.github/instructions/content.instructions.md` - MDX tree content (applies to `content/**/*.mdx`)
+- **Components**: `.github/instructions/components.instructions.md` - React components (applies to `src/components/**`)
+- **API Routes**: `.github/instructions/api.instructions.md` - API development (applies to `src/app/api/**`)
+- **Scripts**: `.github/instructions/scripts.instructions.md` - Utility scripts (applies to `scripts/**`)
+
+These scoped instructions provide detailed guidance for specific areas of the codebase and are automatically applied based on file patterns.
