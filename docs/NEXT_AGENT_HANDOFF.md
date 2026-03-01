@@ -13,7 +13,7 @@ Last updated: 2026-02-28
 
 ## Latest Changes
 
-**Branch**: `feature/province-filter` — PR #TBD
+**Branch**: `feature/province-filter` — PR #534
 
 - Added province/region filter to tree directory (`/trees` page)
 - Province dropdown in filter panel shows all 7 Costa Rican provinces with tree counts
