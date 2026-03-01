@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-02-28
-**Status:** v1.1 — Core site complete. Navigation, footer, and i18n polish shipped. Focusing on performance, search UX, and community features.
+**Last Updated:** 2026-03-01
+**Status:** v1.1 — Core site complete. LCP image optimization shipped. Focusing on search UX, community features, and remaining performance work.
 
 ---
 
@@ -21,53 +21,68 @@
 
 ### Technical Health
 
-| Metric          | Current (Feb 28) | Target | Status                                                  |
-| --------------- | ---------------- | ------ | ------------------------------------------------------- |
-| Lighthouse Perf | **85**           | >90    | 🟡 Below target; LCP (4.0s) is the remaining bottleneck |
-| LCP             | **4.0 s**        | <2.5s  | 🔴 Homepage tree card images served as JPEG, not AVIF   |
-| TBT             | **30 ms**        | <200ms | ✅ Fixed                                                |
-| FCP             | **2.1 s**        | <1.8s  | 🟡 300ms render-blocking CSS                            |
-| CLS             | **0**            | <0.1   | ✅ Perfect                                              |
-| TTI             | **4.2 s**        | <5s    | ✅ Fixed                                                |
-| Accessibility   | **96**           | 100    | 🟡 Contrast fixes shipped; needs re-measurement         |
-| SEO             | **100**          | 100    | ✅ Perfect                                              |
-| Best Practices  | **100**          | 100    | ✅ Perfect                                              |
-| Tests           | **623/623**      | 100%   | ✅ All passing                                          |
-| Lint errors     | **0**            | 0      | ✅                                                      |
+| Metric          | Current (Mar 1)                         | Target | Status                                                                        |
+| --------------- | --------------------------------------- | ------ | ----------------------------------------------------------------------------- |
+| Lighthouse Perf | **99** (desktop) / **90** (mobile)      | >90    | ✅ Desktop exceeds target; mobile meets target                                |
+| LCP             | **0.8s** (desktop) / **3.6s** (mobile)  | <2.5s  | ✅ Desktop excellent; 🟡 mobile limited by CPU throttle + render-blocking CSS |
+| TBT             | **0 ms** (desktop) / **20 ms** (mobile) | <200ms | ✅ Fixed                                                                      |
+| FCP             | **0.4s** (desktop) / **1.5s** (mobile)  | <1.8s  | ✅ Fixed                                                                      |
+| CLS             | **0**                                   | <0.1   | ✅ Perfect                                                                    |
+| TTI             | **0.8s** (desktop) / **4.4s** (mobile)  | <5s    | ✅ Fixed                                                                      |
+| Accessibility   | **96**                                  | 100    | 🟡 One contrast issue remaining (subtitle text)                               |
+| SEO             | **100**                                 | 100    | ✅ Perfect                                                                    |
+| Best Practices  | **96**                                  | 100    | 🟡 Minor                                                                      |
+| Tests           | **623/623**                             | 100%   | ✅ All passing                                                                |
+| Lint errors     | **0**                                   | 0      | ✅                                                                            |
 
 ### Performance Budgets
 
 | Resource          | Budget | Current                     | Status                                                               |
 | ----------------- | ------ | --------------------------- | -------------------------------------------------------------------- |
 | JavaScript        | <300KB | ~553KB (uncompressed, main) | 🔴 Over budget (~553KB > 300KB). 23KB unused JS remains to be pruned |
-| CSS               | <100KB | ~80KB                       | ✅ (300ms render-blocking chunk to investigate)                      |
-| Images (Cards)    | <100KB | ~270KB largest              | 🔴 Not using AVIF/WebP                                               |
-| Total Page Weight | <2MB   | ~1.6 MB                     | ✅                                                                   |
+| CSS               | <100KB | ~27KB (2 chunks)            | ✅ (560ms render-blocking on simulated mobile)                       |
+| Images (Hero)     | <100KB | ~52KB (mobile-lg AVIF)      | ✅ Re-compressed from 206KB (75% reduction)                          |
+| Images (Cards)    | <100KB | ~199KB largest              | 🟡 Served via next/image; quality lowered to 60                      |
+| Total Page Weight | <2MB   | ~1.8 MB                     | ✅                                                                   |
 
 ---
 
 ## Remaining Work — Priority Order
 
-### 1. LCP Image Optimization (P4.6) — Critical
+### 1. LCP Image Optimization (P4.6) — ✅ Complete
 
-**Impact:** Critical — LCP 4.0s (score 49) is the single biggest drag on Lighthouse Performance
+**Impact:** Critical — LCP improved from 4.0s to 0.8s (desktop) / 3.6s (mobile)
 **Effort:** Low
-**Root cause:** Homepage tree card images served as JPEG through `_next/image` instead of modern formats
+**Result:** Desktop Lighthouse Performance 85 → 99; Mobile 49 → 90
 
-| Image            | Current | Waste |
-| ---------------- | ------- | ----- |
-| ciprecillo.jpg   | 270KB   | 218KB |
-| ajo.jpg          | 185KB   | 133KB |
-| coyol.jpg        | 184KB   | 115KB |
-| cristobalito.jpg | 98KB    | 46KB  |
+| Hero Image     | Before | After | Reduction |
+| -------------- | ------ | ----- | --------- |
+| mobile.avif    | 129KB  | 31KB  | 76%       |
+| mobile-lg.avif | 206KB  | 52KB  | 75%       |
+| desktop.avif   | 268KB  | 98KB  | 63%       |
 
-- [ ] Convert homepage tree card images to AVIF/WebP with proper `sizes` and `srcSet`
-- [ ] Audit `next/image` config — ensure AVIF is prioritized in `formats` array
-- [ ] Add `priority` prop to above-the-fold LCP image (hero or first tree card)
-- [ ] Investigate 300ms render-blocking CSS — consider critical CSS extraction or async loading
-- [ ] Re-run Lighthouse to validate LCP improvement (target: <2.5s)
+- [x] Re-compress hero AVIF/WebP/JPEG images (75% average reduction)
+- [x] Fix HeroImage srcset descriptors (1920w → 1200w to match actual image dimensions)
+- [x] Remove 9 orphaned hero image files (tablet, desktop-2x, original variants)
+- [x] Lower SafeImage default quality (75 → 60) for all next/image usage
+- [x] Lower TreeOfTheDay quality (70 → 55) and HeroImage JPEG fallback (85 → 60)
+- [x] Audit `next/image` config — AVIF already prioritized in `formats` array
+- [x] Verify `priority` + `fetchpriority="high"` on hero image
+- [x] Add `optimize-hero-images-lcp.mjs` script for reproducible hero compression
+- [x] Re-run Lighthouse — desktop LCP 0.8s (score 97), mobile LCP 3.6s (score 62)
+- [ ] Investigate 560ms render-blocking CSS on mobile — consider critical CSS extraction (see P4.7 below)
 
-### 2. Search Autocomplete (P9.7) — ✅ Complete
+### 2. Render-Blocking CSS (P4.7) — Low Priority
+
+**Impact:** Low-Medium — 560ms estimated savings on simulated mobile 3G
+**Effort:** Medium
+**Root cause:** Two Tailwind CSS chunks (26KB + 1.3KB) block first render on throttled mobile connections
+
+- [ ] Evaluate critical CSS extraction (e.g., `critters` or manual above-the-fold inlining)
+- [ ] Consider splitting Tailwind into critical/deferred chunks
+- [ ] Re-run mobile Lighthouse to validate FCP/LCP improvement
+
+### 3. Search Autocomplete (P9.7) — ✅ Complete
 
 **Impact:** High — improves core UX for finding trees
 **Effort:** Medium
@@ -78,7 +93,7 @@
 - [x] Keyboard navigation for suggestions (ArrowUp/Down, Enter to select, Escape to close)
 - [x] Debounce input (200-300ms) to avoid excessive searches
 
-### 3. Region/Province Filter (P9.8) — ✅ Complete
+### 4. Region/Province Filter (P9.8) — ✅ Complete
 
 **Impact:** Medium — Costa Rican users want to find trees in their region
 **Effort:** Medium
@@ -89,7 +104,7 @@
 - [x] Cross-reference with tree `distribution` frontmatter data
 - [x] Persist filter selection in URL params for shareability
 
-### 4. Advanced Search & Filtering (P9.10) — Medium
+### 5. Advanced Search & Filtering (P9.10) — Medium
 
 **Impact:** Medium — power users and researchers need precise filtering
 **Effort:** Medium
@@ -99,7 +114,7 @@
 - [ ] Save search preferences (Zustand persist)
 - [ ] Search analytics — track common queries to improve content
 
-### 5. Community Contributions — Remaining (P6.2) — ✅ Complete
+### 6. Community Contributions — Remaining (P6.2) — ✅ Complete
 
 **Impact:** Medium — community engagement features
 **Effort:** High
@@ -112,7 +127,7 @@
   - Admin view shows contributor trust level and reputation score
   - 46 new tests (39 unit + 7 API)
 
-### 6. Offline Enhancements (P8.2) — Lower
+### 7. Offline Enhancements (P8.2) — Lower
 
 **Impact:** Medium — useful for fieldwork in areas without connectivity
 **Effort:** High
@@ -122,7 +137,7 @@
 - [ ] Offline search functionality (IndexedDB-backed)
 - [ ] Background sync for offline-created data (ratings, contributions)
 
-### 7. Performance Monitoring Dashboard (P8.3) — Lower
+### 8. Performance Monitoring Dashboard (P8.3) — Lower
 
 **Impact:** Low-Medium — developer-facing, ensures no regressions
 **Effort:** Medium
@@ -131,7 +146,7 @@
 - [ ] Bundle size tracking per route
 - [ ] Error tracking integration (Sentry — stub exists at `src/lib/error-tracking.ts`)
 
-### 8. Additional Languages (P7) — Future
+### 9. Additional Languages (P7) — Future
 
 **Impact:** Medium — expands audience beyond EN/ES
 **Effort:** Very High — requires native speaker review for each language
@@ -190,9 +205,10 @@ These items require human action and cannot be automated:
 - Meta descriptions optimized across all 39 page types
 - Cache headers on tree/compare/glossary detail pages
 
-### Performance (P4) — Complete (except P4.6 LCP)
+### Performance (P4) — ✅ Complete
 
-- Lighthouse: 68 → 85 (+17 points). TBT: 1,940ms → 30ms. TTI: 35.8s → 4.2s. SEO: 92 → 100.
+- Lighthouse: 68 → 99 desktop / 90 mobile. LCP: 4.0s → 0.8s desktop / 3.6s mobile. TBT: 1,940ms → 0ms. FCP: 2.1s → 0.4s. SEO: 92 → 100.
+- **P4.6 LCP optimization (Mar 2026):** Hero images re-compressed (75% avg reduction), srcset fixed, SafeImage quality default lowered (75→60), 9 orphaned hero files removed
 - 6 MB contentlayer client bundle eliminated (QuickSearch, RecentlyViewedList, FavoritesContent refactored)
 - 51 unused packages removed, Fuse.js lazy-loaded, 6 heavy client components dynamically imported
 - 15+ server component migrations (Header, Footer, SafetyCard, HeroImage, Breadcrumbs, etc.)
@@ -244,7 +260,7 @@ These items require human action and cannot be automated:
 - `'unsafe-inline'` in CSP `style-src` is intentional (irreducible runtime values)
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
-- 300ms render-blocking CSS is the Tailwind bundle; marginal gains from splitting not worth complexity
+- 560ms render-blocking CSS on simulated mobile (two Tailwind chunks: 26KB + 1.3KB); marginal gains from splitting may not be worth complexity — see P4.7
 
 ---
 
@@ -267,5 +283,5 @@ These items require human action and cannot be automated:
 
 ---
 
-**Last Comprehensive Review:** 2026-02-28 (Plan cleanup — consolidated completed work, reorganized remaining priorities by impact)
-**Next Milestones:** LCP optimization → Search autocomplete → Region filter → Community contributions → Offline enhancements
+**Last Comprehensive Review:** 2026-03-01 (LCP optimization completed, Lighthouse re-measured, plan updated)
+**Next Milestones:** Render-blocking CSS (P4.7) → Advanced search (P9.10) → Offline enhancements (P8.2)
