@@ -32,7 +32,7 @@
 | Accessibility   | **96**           | 100    | 🟡 Contrast fixes shipped; needs re-measurement         |
 | SEO             | **100**          | 100    | ✅ Perfect                                              |
 | Best Practices  | **100**          | 100    | ✅ Perfect                                              |
-| Tests           | **577/577**      | 100%   | ✅ All passing                                          |
+| Tests           | **623/623**      | 100%   | ✅ All passing                                          |
 | Lint errors     | **0**            | 0      | ✅                                                      |
 
 ### Performance Budgets

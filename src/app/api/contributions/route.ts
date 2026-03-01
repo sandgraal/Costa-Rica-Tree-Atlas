@@ -414,7 +414,6 @@ export async function GET(request: NextRequest) {
       ORDER BY c.created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
     const countResult = await prisma.$queryRaw<[{ count: bigint }]>`
       SELECT COUNT(*) as count FROM contributions c
-      LEFT JOIN contributor_profiles cp ON c.session_id = cp.session_id
       ${whereClause}`;
 
     const total = Number(countResult[0]?.count || 0);
