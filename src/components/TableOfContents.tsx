@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface TOCItem {
   id: string;
@@ -9,14 +10,11 @@ interface TOCItem {
 }
 
 interface TableOfContentsProps {
-  locale?: string;
   className?: string;
 }
 
-export function TableOfContents({
-  locale = "en",
-  className = "",
-}: TableOfContentsProps) {
+export function TableOfContents({ className = "" }: TableOfContentsProps) {
+  const t = useTranslations("toc");
   const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
@@ -79,7 +77,7 @@ export function TableOfContents({
     }
   };
 
-  const title = locale === "es" ? "Contenido" : "Contents";
+  const title = t("contents");
 
   return (
     <nav

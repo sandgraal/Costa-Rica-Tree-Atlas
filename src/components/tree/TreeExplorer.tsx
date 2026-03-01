@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
@@ -40,6 +40,7 @@ const MAX_SUGGESTIONS = 5;
 
 export function TreeExplorer({ trees }: TreeExplorerProps) {
   const locale = useLocale() as Locale;
+  const t = useTranslations("trees");
   const router = useRouter();
 
   // Cast trees to Tree type for search functions
@@ -228,43 +229,28 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
   // Labels
   const labels = {
-    title: locale === "es" ? "Directorio de Árboles" : "Tree Directory",
-    subtitle:
-      locale === "es"
-        ? "Explora nuestra colección de árboles costarricenses"
-        : "Browse our collection of Costa Rican trees",
-    searchPlaceholder:
-      locale === "es"
-        ? "Buscar por nombre, familia, uso, región..."
-        : "Search by name, family, use, region...",
-    gridView: locale === "es" ? "Vista de cuadrícula" : "Grid View",
-    alphabeticalView: locale === "es" ? "Vista A-Z" : "A-Z Index",
-    filters: locale === "es" ? "Filtros" : "Filters",
-    family: locale === "es" ? "Familia" : "Family",
-    allFamilies: locale === "es" ? "Todas las familias" : "All families",
-    status: locale === "es" ? "Estado de conservación" : "Conservation Status",
-    allStatuses: locale === "es" ? "Todos los estados" : "All statuses",
-    sortBy: locale === "es" ? "Ordenar por" : "Sort by",
-    sortName: locale === "es" ? "Nombre común" : "Common name",
-    sortScientific: locale === "es" ? "Nombre científico" : "Scientific name",
-    sortFamily: locale === "es" ? "Familia" : "Family",
+    title: t("title"),
+    subtitle: t("subtitle"),
+    searchPlaceholder: t("searchByNamePlaceholder"),
+    gridView: t("viewGrid"),
+    alphabeticalView: t("viewAlphabetical"),
+    filters: t("filters"),
+    family: t("family"),
+    allFamilies: t("allFamilies"),
+    status: t("filterByStatus"),
+    allStatuses: t("allStatuses"),
+    sortBy: t("sortBy"),
+    sortName: t("sortByName"),
+    sortScientific: t("sortByScientific"),
+    sortFamily: t("sortByFamily"),
     showing: (count: number, total: number) =>
-      locale === "es"
-        ? `Mostrando ${count} de ${total} árboles`
-        : `Showing ${count} of ${total} trees`,
-    matchingTrees: (count: number) =>
-      locale === "es"
-        ? `${count} ${count === 1 ? "árbol" : "árboles"} coinciden`
-        : `${count} ${count === 1 ? "tree" : "trees"} match`,
-    loadMore: locale === "es" ? "Cargar más" : "Load More",
+      t("resultsCount", { count, total }),
+    matchingTrees: (count: number) => t("matchingTrees", { count }),
+    loadMore: t("loadMore"),
     showingXofY: (showing: number, total: number) =>
-      locale === "es"
-        ? `Mostrando ${showing} de ${total}`
-        : `Showing ${showing} of ${total}`,
+      t("showingOf", { showing, total }),
     stats: (species: number, families: number) =>
-      locale === "es"
-        ? `${species} especies de ${families} familias botánicas`
-        : `${species} species from ${families} botanical families`,
+      t("stats", { species, families }),
   };
 
   return (
@@ -480,7 +466,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
             {displayFacets.tags.length > 0 && (
               <div className="mt-4 pt-4 border-t border-border">
                 <p className="text-sm font-medium text-muted-foreground mb-2">
-                  {locale === "es" ? "Características" : "Characteristics"}
+                  {t("characteristics")}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {displayFacets.tags.map(({ value, count }) => {
@@ -511,7 +497,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
             {/* Safety filters */}
             <div className="mt-4 pt-4 border-t border-border">
               <p className="text-sm font-medium text-muted-foreground mb-3">
-                {locale === "es" ? "Filtros de Seguridad" : "Safety Filters"}
+                {t("safetyFilters")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* Child Safe filter */}
@@ -527,9 +513,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                     }
                     className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
                   />
-                  <span className="text-sm">
-                    {locale === "es" ? "Seguro para niños" : "Child Safe"}
-                  </span>
+                  <span className="text-sm">{t("childSafe")}</span>
                 </label>
 
                 {/* Pet Safe filter */}
@@ -545,9 +529,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                     }
                     className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
                   />
-                  <span className="text-sm">
-                    {locale === "es" ? "Seguro para mascotas" : "Pet Safe"}
-                  </span>
+                  <span className="text-sm">{t("petSafe")}</span>
                 </label>
 
                 {/* Non-Toxic filter */}
@@ -563,9 +545,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                     }
                     className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
                   />
-                  <span className="text-sm">
-                    {locale === "es" ? "No tóxico" : "Non-Toxic"}
-                  </span>
+                  <span className="text-sm">{t("nonToxic")}</span>
                 </label>
 
                 {/* Low Risk filter */}
@@ -581,9 +561,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                     }
                     className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
                   />
-                  <span className="text-sm">
-                    {locale === "es" ? "Bajo riesgo" : "Low Risk"}
-                  </span>
+                  <span className="text-sm">{t("lowRisk")}</span>
                 </label>
               </div>
             </div>
@@ -598,11 +576,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
             </p>
           )}
           {hasActiveFilters && filteredTrees.length === 0 && (
-            <p className="text-muted-foreground">
-              {locale === "es"
-                ? "No se encontraron árboles con los filtros seleccionados"
-                : "No trees found with selected filters"}
-            </p>
+            <p className="text-muted-foreground">{t("noResultsFiltered")}</p>
           )}
         </div>
 
@@ -655,6 +629,7 @@ function AlphabeticalIndex({
   trees: LightTree[];
   locale: Locale;
 }) {
+  const t = useTranslations("trees");
   const grouped = useMemo(() => {
     const groups: Record<string, LightTree[]> = {};
     for (const tree of trees) {
@@ -670,9 +645,7 @@ function AlphabeticalIndex({
   if (trees.length === 0) {
     return (
       <div className="text-center py-16">
-        <p className="text-muted-foreground text-lg">
-          {locale === "es" ? "No se encontraron árboles" : "No trees found"}
-        </p>
+        <p className="text-muted-foreground text-lg">{t("noTreesFound")}</p>
       </div>
     );
   }

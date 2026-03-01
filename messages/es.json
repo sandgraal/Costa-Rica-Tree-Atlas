@@ -101,7 +101,20 @@
     "conservationStatus": "Estado de Conservación",
     "uses": "Usos",
     "learnMore": "Más Información",
-    "backToList": "← Volver al Directorio"
+    "backToList": "← Volver al Directorio",
+    "searchByNamePlaceholder": "Buscar por nombre, familia, uso, región...",
+    "filters": "Filtros",
+    "characteristics": "Características",
+    "safetyFilters": "Filtros de Seguridad",
+    "childSafe": "Seguro para niños",
+    "petSafe": "Seguro para mascotas",
+    "nonToxic": "No tóxico",
+    "lowRisk": "Bajo riesgo",
+    "loadMore": "Cargar más",
+    "showingOf": "Mostrando {showing} de {total}",
+    "matchingTrees": "{count, plural, =1 {1 árbol coincide} other {# árboles coinciden}}",
+    "noResultsFiltered": "No se encontraron árboles con los filtros seleccionados",
+    "noTreesFound": "No se encontraron árboles"
   },
   "footer": {
     "description": "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica.",
@@ -276,6 +289,31 @@
       "description": "El Atlas de Árboles de Costa Rica utiliza dos licencias: AGPL-3.0 para el código y CC BY-NC-SA 4.0 para el contenido educativo. Libre para educación e investigación, con atribución requerida."
     }
   },
+  "favorites": {
+    "addToFavorites": "Añadir a favoritos",
+    "removeFromFavorites": "Quitar de favoritos",
+    "favorite": "Favorito",
+    "saved": "Guardado"
+  },
+  "toc": {
+    "contents": "Contenido"
+  },
+  "keyboardShortcuts": {
+    "title": "Atajos de Teclado",
+    "navigation": "Navegación",
+    "actions": "Acciones",
+    "general": "General",
+    "close": "Cerrar",
+    "pressToShow": "Presiona \"?\" para ver atajos",
+    "search": "Abrir búsqueda rápida",
+    "escape": "Cerrar modal/búsqueda",
+    "home": "Ir a inicio",
+    "trees": "Ir a directorio de árboles",
+    "goToFavorites": "Ir a favoritos",
+    "random": "Árbol aleatorio",
+    "help": "Mostrar/ocultar ayuda",
+    "theme": "Cambiar tema"
+  },
   "comparison": {
     "title": "Comparación de Árboles",
     "subtitle": "Compara características de diferentes especies de árboles lado a lado",
@@ -306,7 +344,8 @@
       "conservationStatus": "Conservación",
       "uses": "Usos",
       "tags": "Características"
-    }
+    },
+    "confusionLevel": "Nivel de confusión:"
   },
   "fieldGuide": {
     "title": "Generador de Guía de Campo",

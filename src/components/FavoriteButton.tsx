@@ -1,11 +1,11 @@
 "use client";
 
 import { useStore } from "@/lib/store";
+import { useTranslations } from "next-intl";
 
 interface FavoriteButtonProps {
   slug: string;
   title: string;
-  locale?: string;
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
   className?: string;
@@ -18,11 +18,11 @@ interface FavoriteButtonProps {
 export function FavoriteButton({
   slug,
   title,
-  locale = "en",
   size = "md",
   showLabel = false,
   className = "",
 }: FavoriteButtonProps) {
+  const t = useTranslations("favorites");
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
@@ -31,10 +31,10 @@ export function FavoriteButton({
   const favorited = hydrated ? favorites.includes(slug) : false;
 
   const labels = {
-    add: locale === "es" ? "Añadir a favoritos" : "Add to favorites",
-    remove: locale === "es" ? "Quitar de favoritos" : "Remove from favorites",
-    addShort: locale === "es" ? "Favorito" : "Favorite",
-    removeShort: locale === "es" ? "Guardado" : "Saved",
+    add: t("addToFavorites"),
+    remove: t("removeFromFavorites"),
+    addShort: t("favorite"),
+    removeShort: t("saved"),
   };
 
   const sizeClasses = {
