@@ -152,3 +152,15 @@ const trees = allTrees.filter((t) => t.locale === locale);
 - Remove accessibility features (ARIA labels, semantic HTML)
 - Break PWA functionality
 - Ignore TypeScript errors with `// @ts-ignore`
+
+## Scoped Instructions
+
+For specific file patterns, see scoped instructions:
+
+- **Internationalization**: `.github/instructions/i18n.instructions.md` - i18n guidelines (applies to all files)
+- **Content**: `.github/instructions/content.instructions.md` - MDX tree content (applies to `content/**/*.mdx`)
+- **Components**: `.github/instructions/components.instructions.md` - React components (applies to `src/components/**`)
+- **API Routes**: `.github/instructions/api.instructions.md` - API development (applies to `src/app/api/**`)
+- **Scripts**: `.github/instructions/scripts.instructions.md` - Utility scripts (applies to `scripts/**`)
+
+These scoped instructions provide detailed guidance for specific areas of the codebase and are automatically applied based on file patterns.
