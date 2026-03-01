@@ -237,7 +237,7 @@ export interface SearchFacets {
   conservationStatuses: { value: string; count: number }[];
   tags: { value: TreeTag; count: number }[];
   distributions: { value: Distribution; count: number }[];
-  seasonal: Record<Month, SeasonalFacet>;
+  seasonal: Record<Exclude<Month, "all-year">, SeasonalFacet>;
 }
 
 export function extractFacets(trees: Tree[]): SearchFacets {
@@ -247,7 +247,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
   const distMap = new Map<Distribution, number>();
 
   // Seasonal counts per month
-  const seasonal = {} as Record<Month, SeasonalFacet>;
+  const seasonal = {} as Record<Exclude<Month, "all-year">, SeasonalFacet>;
   for (const m of MONTHS) {
     seasonal[m] = { floweringCount: 0, fruitingCount: 0 };
   }
@@ -281,14 +281,14 @@ export function extractFacets(trees: Tree[]): SearchFacets {
       if (m === "all-year") {
         for (const mon of MONTHS) seasonal[mon].floweringCount++;
       } else if (m in seasonal) {
-        seasonal[m as Month].floweringCount++;
+        seasonal[m as Exclude<Month, "all-year">].floweringCount++;
       }
     }
     for (const m of tree.fruitingSeason ?? []) {
       if (m === "all-year") {
         for (const mon of MONTHS) seasonal[mon].fruitingCount++;
       } else if (m in seasonal) {
-        seasonal[m as Month].fruitingCount++;
+        seasonal[m as Exclude<Month, "all-year">].fruitingCount++;
       }
     }
   }
@@ -314,7 +314,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
 // Utilities
 // ============================================================================
 
-const MONTHS: Month[] = [
+const MONTHS: Exclude<Month, "all-year">[] = [
   "january",
   "february",
   "march",
