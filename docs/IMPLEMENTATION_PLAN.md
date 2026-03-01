@@ -236,6 +236,18 @@ These items require human action and cannot be automated:
 
 ---
 
+## Known Gotchas
+
+> Persistent issues and context that agents should be aware of.
+
+- `orey` is the only tree without an iNaturalist gallery (no photos available — intentional)
+- `'unsafe-inline'` in CSP `style-src` is intentional (irreducible runtime values)
+- Sentry DSN not yet configured in Vercel env vars (works via console fallback)
+- `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
+- 300ms render-blocking CSS is the Tailwind bundle; marginal gains from splitting not worth complexity
+
+---
+
 ## Quick Reference
 
 ### Key Documentation

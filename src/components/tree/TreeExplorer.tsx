@@ -351,6 +351,22 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     }));
   }, []);
 
+  const handleSeasonalChange = useCallback((value: string) => {
+    setFilter((prev) => ({
+      ...prev,
+      seasonalFilter:
+        value === "all" ? undefined : (value as "flowering" | "fruiting"),
+      month: value === "all" ? undefined : prev.month,
+    }));
+  }, []);
+
+  const handleMonthChange = useCallback((value: string) => {
+    setFilter((prev) => ({
+      ...prev,
+      month: value as Month,
+    }));
+  }, []);
+
   // Province facets — only include the 7 provinces, sorted by count
   const provinceFacets = useMemo(
     () => displayFacets.distributions.filter((d) => isProvince(d.value)),

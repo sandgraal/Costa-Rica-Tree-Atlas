@@ -15,16 +15,15 @@ A bilingual (English/Spanish) Next.js 16 application documenting Costa Rican tre
 7. **Stop and ask when uncertain** - If technical resolution isn't clear, ask the user
 8. **Leave system clearer** - Every change should improve code clarity and robustness
 
-## Agent Handoff
+## Agent Context
 
-Before starting work, read `docs/NEXT_AGENT_HANDOFF.md` for the latest project state, recent changes, and known gotchas. The full task backlog is in `docs/IMPLEMENTATION_PLAN.md`.
+Before starting work, gather context from these sources (in order of freshness):
 
-**At the end of every PR**, update the handoff doc:
+1. **Git history** — Run `git log --oneline -10` and read recent PR descriptions to understand what just changed
+2. **`docs/IMPLEMENTATION_PLAN.md`** — Single source of truth for project status, remaining work, and known gotchas
+3. **`npm run build`** — Verify the project compiles before making changes
 
-- Replace "Latest Changes" with your PR's work (branch, summary bullets, key files)
-- Refresh "Current State" (test count, content count, etc.)
-- Update "In-Flight / Gotchas" and "What's Next"
-- Keep it under 60 lines — previous runs live in git history, not in this file
+Do NOT maintain a separate handoff document. Git history and PR descriptions are the handoff mechanism.
 
 ## 🚨 CRITICAL: Git Workflow - ALWAYS CREATE PR FIRST
 

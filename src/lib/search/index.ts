@@ -442,6 +442,7 @@ export interface SearchFacets {
   distributions: { value: Distribution; count: number }[];
   heightRanges: { value: HeightRange; count: number }[];
   useCategories: { value: UseCategory; count: number }[];
+  seasonal: Record<Exclude<Month, "all-year">, SeasonalFacet>;
 }
 
 export function extractFacets(trees: Tree[]): SearchFacets {
@@ -528,6 +529,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     useCategories: useCatOrder
       .filter((c) => useCatMap.has(c))
       .map((value) => ({ value, count: useCatMap.get(value)! })),
+    seasonal,
   };
 }
 
