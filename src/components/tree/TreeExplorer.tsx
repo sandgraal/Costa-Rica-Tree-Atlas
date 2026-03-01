@@ -40,7 +40,7 @@ import type {
 const VALID_SORT_FIELDS: SortField[] = ["title", "scientificName", "family"];
 const VALID_VIEW_MODES = ["grid", "alphabetical"] as const;
 
-const VALID_SEASONAL_FILTERS = ["all", "flowering", "fruiting"] as const;
+const VALID_SEASONAL_FILTERS = ["flowering", "fruiting"] as const;
 
 function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const filter: TreeFilter = {};
@@ -57,11 +57,9 @@ function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const seasonal = params.get("seasonal");
   if (
     seasonal &&
-    VALID_SEASONAL_FILTERS.includes(
-      seasonal as "all" | "flowering" | "fruiting"
-    )
+    VALID_SEASONAL_FILTERS.includes(seasonal as "flowering" | "fruiting")
   ) {
-    filter.seasonalFilter = seasonal as "all" | "flowering" | "fruiting";
+    filter.seasonalFilter = seasonal as "flowering" | "fruiting";
   }
   const month = params.get("month");
   if (month && ORDERED_MONTHS.includes(month as Month)) {
@@ -158,9 +156,10 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     if (filter.distribution?.length)
       params.set("province", filter.distribution[0]);
     if (filter.tags?.length) params.set("tags", filter.tags.join(","));
-    if (filter.seasonalFilter && filter.seasonalFilter !== "all")
+    if (filter.seasonalFilter && filter.seasonalFilter !== "all") {
       params.set("seasonal", filter.seasonalFilter);
-    if (filter.month) params.set("month", filter.month);
+      if (filter.month) params.set("month", filter.month);
+    }
     if (sort.field !== "title") params.set("sort", sort.field);
     if (viewMode !== "grid") params.set("view", viewMode);
 
@@ -328,8 +327,14 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
       ...prev,
       seasonalFilter:
         value === "all" ? undefined : (value as "flowering" | "fruiting"),
-      // Set month to current month when first activating seasonal filter
-      month: value !== "all" && !prev.month ? getCurrentMonth() : prev.month,
+      // Set month to current month when first activating seasonal filter;
+      // clear month when deactivating (prevents stale ?month= in URL)
+      month:
+        value === "all"
+          ? undefined
+          : !prev.month
+            ? getCurrentMonth()
+            : prev.month,
     }));
   }, []);
 
@@ -361,7 +366,8 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
   // Current seasonal activity for the active month
   const activeMonth = filter.month ?? getCurrentMonth();
-  const seasonalCounts = allFacets.seasonal[activeMonth];
+  const seasonalCounts =
+    allFacets.seasonal[activeMonth as Exclude<Month, "all-year">];
 
   // Labels
   const labels = {
@@ -658,13 +664,17 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
             {/* Seasonal activity filter */}
             <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-sm font-medium text-muted-foreground mb-3">
-                🌸 {labels.seasonalActivity}
-              </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {/* Activity type */}
                 <div>
+                  <label
+                    htmlFor="seasonal-activity-select"
+                    className="block text-xs font-medium text-muted-foreground mb-1"
+                  >
+                    {labels.seasonalActivity}
+                  </label>
                   <select
+                    id="seasonal-activity-select"
                     value={filter.seasonalFilter ?? "all"}
                     onChange={(e) => handleSeasonalChange(e.target.value)}
                     className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -684,13 +694,21 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 {/* Month selector (only shown when seasonal filter is active) */}
                 {filter.seasonalFilter && filter.seasonalFilter !== "all" && (
                   <div>
+                    <label
+                      htmlFor="seasonal-month-select"
+                      className="block text-xs font-medium text-muted-foreground mb-1"
+                    >
+                      {labels.month}
+                    </label>
                     <select
+                      id="seasonal-month-select"
                       value={activeMonth}
                       onChange={(e) => handleMonthChange(e.target.value)}
                       className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                     >
                       {ORDERED_MONTHS.map((m) => {
-                        const counts = allFacets.seasonal[m];
+                        const counts =
+                          allFacets.seasonal[m as Exclude<Month, "all-year">];
                         const count =
                           filter.seasonalFilter === "flowering"
                             ? (counts?.floweringCount ?? 0)
