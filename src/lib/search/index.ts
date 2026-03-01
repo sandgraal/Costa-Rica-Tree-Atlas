@@ -494,6 +494,20 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     for (const cat of cats) {
       useCatMap.set(cat, (useCatMap.get(cat) ?? 0) + 1);
     }
+
+    // Seasonal counts
+    const flowering = tree.floweringSeason ?? [];
+    const fruiting = tree.fruitingSeason ?? [];
+    const floweringAllYear = flowering.includes("all-year");
+    const fruitingAllYear = fruiting.includes("all-year");
+    for (const m of MONTHS) {
+      if (floweringAllYear || flowering.includes(m)) {
+        seasonal[m].floweringCount++;
+      }
+      if (fruitingAllYear || fruiting.includes(m)) {
+        seasonal[m].fruitingCount++;
+      }
+    }
   }
 
   // Ordered height ranges (small → very-large)

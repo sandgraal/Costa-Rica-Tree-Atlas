@@ -208,14 +208,12 @@ export function getDistributionName(
   return distribution;
 }
 
-export function isProvince(
-  distribution: Distribution
-): distribution is Province {
-  return distribution in PROVINCES;
+export function isProvince(distribution: string): distribution is Province {
+  return Object.hasOwn(PROVINCES, distribution);
 }
 
-export function isRegion(distribution: Distribution): distribution is Region {
-  return distribution in REGIONS;
+export function isRegion(distribution: string): distribution is Region {
+  return Object.hasOwn(REGIONS, distribution);
 }
 
 // ============================================================================

@@ -351,19 +351,21 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     }));
   }, []);
 
-  const handleSeasonalChange = useCallback((value: string) => {
-    setFilter((prev) => ({
-      ...prev,
-      seasonalFilter:
-        value === "all" ? undefined : (value as "flowering" | "fruiting"),
-      month: value === "all" ? undefined : prev.month,
-    }));
-  }, []);
+  const handleSeasonalChange = useCallback(
+    (value: "flowering" | "fruiting" | "all") => {
+      setFilter((prev) => ({
+        ...prev,
+        seasonalFilter: value === "all" ? undefined : value,
+        month: value === "all" ? undefined : prev.month,
+      }));
+    },
+    []
+  );
 
-  const handleMonthChange = useCallback((value: string) => {
+  const handleMonthChange = useCallback((value: Exclude<Month, "all-year">) => {
     setFilter((prev) => ({
       ...prev,
-      month: value as Month,
+      month: value,
     }));
   }, []);
 
@@ -814,7 +816,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                   <select
                     id="seasonal-activity-select"
                     value={filter.seasonalFilter ?? "all"}
-                    onChange={(e) => handleSeasonalChange(e.target.value)}
+                    onChange={(e) =>
+                      handleSeasonalChange(
+                        e.target.value as "flowering" | "fruiting" | "all"
+                      )
+                    }
                     className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                   >
                     <option value="all">{labels.allSeasons}</option>
@@ -841,7 +847,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                     <select
                       id="seasonal-month-select"
                       value={activeMonth}
-                      onChange={(e) => handleMonthChange(e.target.value)}
+                      onChange={(e) =>
+                        handleMonthChange(
+                          e.target.value as Exclude<Month, "all-year">
+                        )
+                      }
                       className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                     >
                       {ORDERED_MONTHS.map((m) => {
