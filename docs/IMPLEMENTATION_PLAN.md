@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
 **Last Updated:** 2026-03-01
-**Status:** v1.1 — Core site complete. LCP image optimization shipped. Focusing on search UX, community features, and remaining performance work.
+**Status:** v1.1 — Core site complete. LCP image optimization shipped. 32MB client bundle eliminated. Focusing on search UX, community features, and remaining performance work.
 
 ---
 
@@ -37,13 +37,13 @@
 
 ### Performance Budgets
 
-| Resource          | Budget | Current                     | Status                                                               |
-| ----------------- | ------ | --------------------------- | -------------------------------------------------------------------- |
-| JavaScript        | <300KB | ~553KB (uncompressed, main) | 🔴 Over budget (~553KB > 300KB). 23KB unused JS remains to be pruned |
-| CSS               | <100KB | ~27KB (2 chunks)            | ✅ (560ms render-blocking on simulated mobile)                       |
-| Images (Hero)     | <100KB | ~52KB (mobile-lg AVIF)      | ✅ Re-compressed from 206KB (75% reduction)                          |
-| Images (Cards)    | <100KB | ~199KB largest              | 🟡 Served via next/image; quality lowered to 60                      |
-| Total Page Weight | <2MB   | ~1.8 MB                     | ✅                                                                   |
+| Resource          | Budget | Current                       | Status                                                                                         |
+| ----------------- | ------ | ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| JavaScript        | <300KB | ~553KB (uncompressed, shared) | 🟡 Shared framework JS still over budget; 32MB contentlayer client bundle eliminated from /map |
+| CSS               | <100KB | ~27KB (2 chunks)              | ✅ (560ms render-blocking on simulated mobile)                                                 |
+| Images (Hero)     | <100KB | ~52KB (mobile-lg AVIF)        | ✅ Re-compressed from 206KB (75% reduction)                                                    |
+| Images (Cards)    | <100KB | ~199KB largest                | 🟡 Served via next/image; quality lowered to 60                                                |
+| Total Page Weight | <2MB   | ~1.8 MB                       | ✅                                                                                             |
 
 ---
 
@@ -223,6 +223,7 @@ These items require human action and cannot be automated:
 - CSP inline styles reduced from 54 to ~30 (irreducible runtime values)
 - SSR refactor: all 6 education pages, ScavengerHunt/TreeJournal/TreeMap client components split
 - Accessibility contrast fixes: 4 color contrast failures fixed (dark mode skip-link, subtitle, primary links, card text)
+- **P4.8 Map page bundle (Mar 2026):** Eliminated 32MB contentlayer client bundle from `/map` page by projecting only 10 required fields server-side instead of shipping all 175 tree MDX bodies to the client. Total client JS chunks reduced from 33MB to 2.1MB.
 
 ### Testing & Reliability (P5) — Complete
 
@@ -266,6 +267,7 @@ These items require human action and cannot be automated:
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
 - 560ms render-blocking CSS on simulated mobile (two Tailwind chunks: 26KB + 1.3KB); marginal gains from splitting may not be worth complexity — see P4.7
+- **Never import `allTrees`/`allGlossaryTerms`/`allSpeciesComparisons` in `"use client"` components** — this ships the full contentlayer dataset (32MB+) to the browser. Always pass projected data from a server component via props.
 
 ---
 

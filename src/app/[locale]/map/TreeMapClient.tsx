@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { allTrees } from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import {
   PROVINCES,
@@ -18,13 +17,7 @@ import {
   getCurrentMonth,
   type DiscoveryCollection,
 } from "@/lib/geo/collections";
-import type {
-  Locale,
-  Province,
-  Region,
-  Tree as TreeType,
-  TreeTag,
-} from "@/types/tree";
+import type { Locale, Province, Region, TreeTag } from "@/types/tree";
 import {
   CONSERVATION_AREAS,
   getBiodiversityColor,
@@ -33,11 +26,26 @@ import {
 import { CollectionCard } from "./CollectionCard";
 import { CollectionDetailView } from "./CollectionDetailView";
 
-interface TreeMapClientProps {
-  locale: string;
+/** Lightweight tree data for the map — only the fields needed for display and filtering */
+export interface MapTreeSummary {
+  slug: string;
+  title: string;
+  scientificName: string;
+  distribution?: string[];
+  tags?: string[];
+  floweringSeason?: string[];
+  fruitingSeason?: string[];
+  featuredImage?: string;
+  conservationStatus?: string;
+  maxHeight?: string;
 }
 
-export default function TreeMapClient({ locale }: TreeMapClientProps) {
+interface TreeMapClientProps {
+  locale: string;
+  trees: MapTreeSummary[];
+}
+
+export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
   const typedLocale = locale as Locale;
   const [selectedProvince, setSelectedProvince] = useState<Province | null>(
     null
@@ -51,14 +59,9 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
   const [selectedCollection, setSelectedCollection] =
     useState<DiscoveryCollection | null>(null);
 
-  // Get trees for current locale
-  const trees = useMemo(() => {
-    return allTrees.filter((tree) => tree.locale === locale) as TreeType[];
-  }, [locale]);
-
   // Get trees by province
   const treesByProvince = useMemo(() => {
-    const byProvince: Record<Province, TreeType[]> = {
+    const byProvince: Record<Province, MapTreeSummary[]> = {
       guanacaste: [],
       puntarenas: [],
       alajuela: [],
@@ -88,7 +91,7 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
 
   // Get trees by region
   const treesByRegion = useMemo(() => {
-    const byRegion: Record<Region, Set<TreeType>> = {
+    const byRegion: Record<Region, Set<MapTreeSummary>> = {
       "pacific-coast": new Set(),
       "caribbean-coast": new Set(),
       "central-valley": new Set(),
@@ -105,12 +108,12 @@ export default function TreeMapClient({ locale }: TreeMapClientProps) {
 
     return Object.fromEntries(
       Object.entries(byRegion).map(([k, v]) => [k, Array.from(v)])
-    ) as Record<Region, TreeType[]>;
+    ) as Record<Region, MapTreeSummary[]>;
   }, [treesByProvince]);
 
   // Get trees for a collection
   const getCollectionTrees = useMemo(() => {
-    return (collection: DiscoveryCollection): TreeType[] => {
+    return (collection: DiscoveryCollection): MapTreeSummary[] => {
       const currentMonth = getCurrentMonth();
 
       // Filter by province first

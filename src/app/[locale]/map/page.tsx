@@ -1,7 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
+import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 import TreeMapClient from "./TreeMapClient";
+import type { MapTreeSummary } from "./TreeMapClient";
 
 interface MapPageProps {
   params: Promise<{ locale: string }>;
@@ -34,6 +36,23 @@ export default async function MapPage({ params }: MapPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  // Project only the fields TreeMapClient needs — avoids shipping the full
+  // 32 MB contentlayer dataset (MDX bodies) to the client.
+  const trees: MapTreeSummary[] = allTrees
+    .filter((t) => t.locale === locale)
+    .map((t) => ({
+      slug: t.slug,
+      title: t.title,
+      scientificName: t.scientificName,
+      distribution: t.distribution,
+      tags: t.tags,
+      floweringSeason: t.floweringSeason,
+      fruitingSeason: t.fruitingSeason,
+      featuredImage: t.featuredImage,
+      conservationStatus: t.conservationStatus,
+      maxHeight: t.maxHeight,
+    }));
+
   // Structured data for Map page
   const structuredData = {
     "@context": "https://schema.org",
@@ -64,7 +83,7 @@ export default async function MapPage({ params }: MapPageProps) {
   return (
     <>
       <SafeJsonLd data={structuredData} />
-      <TreeMapClient locale={locale} />
+      <TreeMapClient locale={locale} trees={trees} />
     </>
   );
 }

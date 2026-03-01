@@ -5,7 +5,8 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import { ShareCollectionButton } from "@/components/ShareCollectionButton";
 import { DISCOVERY_COLLECTIONS } from "@/lib/geo/collections";
 import type { DiscoveryCollection } from "@/lib/geo/collections";
-import type { Locale, Tree as TreeType } from "@/types/tree";
+import type { Locale } from "@/types/tree";
+import type { MapTreeSummary } from "./TreeMapClient";
 import { CollectionCard } from "./CollectionCard";
 
 interface CollectionDetailViewProps {
@@ -17,7 +18,7 @@ interface CollectionDetailViewProps {
     species: string;
     viewCollection: string;
   };
-  getCollectionTrees: (collection: DiscoveryCollection) => TreeType[];
+  getCollectionTrees: (collection: DiscoveryCollection) => MapTreeSummary[];
   onBack: () => void;
   onSelectCollection: (collection: DiscoveryCollection) => void;
 }
