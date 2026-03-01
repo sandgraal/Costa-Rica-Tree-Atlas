@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import {
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+  useRef,
+  useId,
+} from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -756,7 +763,6 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
               <ActiveFilterChips
                 filter={filter}
                 locale={locale}
-                t={t}
                 onRemoveFamily={handleFamilyToggle}
                 onRemoveStatus={handleStatusToggle}
                 onRemoveProvince={handleProvinceToggle}
@@ -1150,8 +1156,10 @@ function MultiSelectDropdown({
   selected,
   onToggle,
 }: MultiSelectDropdownProps) {
+  const t = useTranslations("trees");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const listId = useId();
 
   // Close on click outside
   useEffect(() => {
@@ -1177,7 +1185,7 @@ function MultiSelectDropdown({
       ? placeholder
       : selectedCount === 1
         ? (options.find((o) => o.value === selected[0])?.label ?? selected[0])
-        : `${selectedCount} ${label.toLowerCase()}`;
+        : t("selectedCount", { count: selectedCount });
 
   return (
     <div ref={ref} className="relative">
@@ -1187,6 +1195,9 @@ function MultiSelectDropdown({
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        aria-controls={open ? listId : undefined}
         className={`w-full px-3 py-2 rounded-lg border text-left text-sm transition-colors flex items-center justify-between ${
           selectedCount > 0
             ? "border-primary/50 bg-primary/5 text-foreground"
@@ -1199,7 +1210,11 @@ function MultiSelectDropdown({
         />
       </button>
       {open && (
-        <div className="absolute z-20 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-card shadow-lg">
+        <div
+          id={listId}
+          role="listbox"
+          className="absolute z-20 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-card shadow-lg"
+        >
           {options.map((option) => {
             const isChecked = selected.includes(option.value);
             return (
@@ -1235,8 +1250,6 @@ function MultiSelectDropdown({
 interface ActiveFilterChipsProps {
   filter: TreeFilter;
   locale: Locale;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  t: (key: string, values?: Record<string, any>) => string;
   onRemoveFamily: (family: string) => void;
   onRemoveStatus: (status: string) => void;
   onRemoveProvince: (province: string) => void;
@@ -1251,7 +1264,6 @@ interface ActiveFilterChipsProps {
 function ActiveFilterChips({
   filter,
   locale,
-  t,
   onRemoveFamily,
   onRemoveStatus,
   onRemoveProvince,
@@ -1262,6 +1274,7 @@ function ActiveFilterChips({
   onRemoveSafety,
   onClearAll,
 }: ActiveFilterChipsProps) {
+  const t = useTranslations("trees");
   const chips: { key: string; label: string; onRemove: () => void }[] = [];
 
   // Family chips
