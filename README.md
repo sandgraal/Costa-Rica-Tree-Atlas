@@ -2,10 +2,9 @@
 
 Costa Rica Tree Atlas will truly never have ads, donations, sales, or other revenue
 
-A bilingual (English/Spanish) open-source web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
+A bilingual (English/Spanish) web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
-[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](LICENSE-CONTENT.md)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
@@ -120,7 +119,7 @@ Comprehensive documentation is available in the **[docs/](docs/)** directory:
 
 ## Contributing
 
-Contributions are welcome! We're building this as an open-source resource for education and conservation.
+Contributions are welcome through approved project workflows for education and conservation.
 
 See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions and how to get started.
 
@@ -214,72 +213,22 @@ These instructions help AI agents understand our architecture, maintain consiste
 
 ## License
 
-This project uses a **dual-license structure** to protect both the technical infrastructure and educational content:
+This project is released under a **proprietary, all-rights-reserved model**.
 
-### 📜 Code License: AGPL-3.0
+### 📜 Project License
 
-All software, code, and technical infrastructure is licensed under the [GNU Affero General Public License v3.0](LICENSE).
-
-**What this means:**
-
-- You can freely use, modify, and distribute the code
-- Any modifications or deployments must remain open source
-- Network use requires sharing source code of modifications
-- Ensures derivative works remain free and open
-
-**Applies to:**
-
-- TypeScript/JavaScript files (`.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`)
-- Configuration files (`next.config.ts`, `tailwind.config.js`, etc.)
-- Build scripts and utilities
-- API routes and server code
-
-### 📚 Content License: CC BY-NC-SA 4.0
-
-All educational content, tree data, and images are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0](LICENSE-CONTENT.md).
-
-**What this means:**
-
-- Free for educational, research, and non-commercial use
-- Attribution required when sharing or adapting
-- Derivative works must use the same license
-- Commercial use requires permission
-
-**Applies to:**
-
-- Tree descriptions and profiles (`.mdx` files)
-- Photographs and illustrations
-- Educational documentation
-- Multimedia content
-
-### 🌿 Why This Approach?
-
-We chose this dual-license structure to:
-
-1. **Protect the educational mission**: Prevent commercial exploitation of biodiversity data
-2. **Ensure accessibility**: Keep the resource free for education and conservation
-3. **Maintain openness**: Guarantee all improvements remain available to the community
-4. **Support conservation**: Align with ethical, sustainable use of natural history information
-
-### 💼 Commercial Licensing
-
-Interested in commercial use? We're open to discussion, especially for:
-
-- Eco-tourism educational materials
-- Conservation-focused applications
-- Environmental education platforms
-- Documentary and publishing projects
-
-Please open a [GitHub Issue](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/issues) to discuss commercial licensing.
+All source code, educational content, datasets, images, and documentation are
+privately owned and governed by [LICENSE](LICENSE).
 
 ### 📋 Usage Policy
 
-For detailed ethical usage guidelines, see [USAGE-POLICY.md](USAGE-POLICY.md).
+Allowed and prohibited uses are described in [USAGE-POLICY.md](USAGE-POLICY.md).
 
-### 📄 Full License Texts
+### 📄 Legal References
 
-- [LICENSE](LICENSE) - AGPL-3.0 for code
-- [LICENSE-CONTENT.md](LICENSE-CONTENT.md) - CC BY-NC-SA 4.0 for content
+- [LICENSE](LICENSE) - Primary proprietary license terms
+- [LICENSE-CONTENT.md](LICENSE-CONTENT.md) - Content rights notice
+- [USAGE-POLICY.md](USAGE-POLICY.md) - Usage restrictions and permissions process
 
 ## Acknowledgments
 

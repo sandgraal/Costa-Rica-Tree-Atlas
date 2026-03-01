@@ -2,7 +2,7 @@
 
 /**
  * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: LicenseRef-Proprietary
  *
  * Fix glossary exampleSpecies and relatedTerms references.
  *
