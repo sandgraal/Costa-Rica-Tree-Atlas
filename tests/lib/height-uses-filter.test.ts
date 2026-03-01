@@ -217,35 +217,35 @@ describe("filterTrees — height range", () => {
   });
 
   it("filters by small height range", () => {
-    const filter: TreeFilter = { heightRange: "small" };
+    const filter: TreeFilter = { heightRange: ["small"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
     expect(result[0].slug).toBe("small-tree");
   });
 
   it("filters by medium height range", () => {
-    const filter: TreeFilter = { heightRange: "medium" };
+    const filter: TreeFilter = { heightRange: ["medium"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
     expect(result[0].slug).toBe("medium-tree");
   });
 
   it("filters by large height range", () => {
-    const filter: TreeFilter = { heightRange: "large" };
+    const filter: TreeFilter = { heightRange: ["large"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
     expect(result[0].slug).toBe("large-tree");
   });
 
   it("filters by very-large height range", () => {
-    const filter: TreeFilter = { heightRange: "very-large" };
+    const filter: TreeFilter = { heightRange: ["very-large"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
     expect(result[0].slug).toBe("giant-tree");
   });
 
   it("excludes trees without maxHeight data", () => {
-    const filter: TreeFilter = { heightRange: "small" };
+    const filter: TreeFilter = { heightRange: ["small"] };
     const result = filterTrees(trees, filter);
     expect(result.find((t) => t.slug === "no-height")).toBeUndefined();
   });
@@ -290,7 +290,7 @@ describe("filterTrees — use category", () => {
   });
 
   it("filters by timber category", () => {
-    const filter: TreeFilter = { useCategory: "timber" };
+    const filter: TreeFilter = { useCategory: ["timber"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(2);
     expect(result.map((t) => t.slug)).toEqual(
@@ -299,7 +299,7 @@ describe("filterTrees — use category", () => {
   });
 
   it("filters by medicine category", () => {
-    const filter: TreeFilter = { useCategory: "medicine" };
+    const filter: TreeFilter = { useCategory: ["medicine"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(2);
     expect(result.map((t) => t.slug)).toEqual(
@@ -308,7 +308,7 @@ describe("filterTrees — use category", () => {
   });
 
   it("filters by food category", () => {
-    const filter: TreeFilter = { useCategory: "food" };
+    const filter: TreeFilter = { useCategory: ["food"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(2);
     expect(result.map((t) => t.slug)).toEqual(
@@ -317,7 +317,7 @@ describe("filterTrees — use category", () => {
   });
 
   it("excludes trees without uses data", () => {
-    const filter: TreeFilter = { useCategory: "timber" };
+    const filter: TreeFilter = { useCategory: ["timber"] };
     const result = filterTrees(trees, filter);
     expect(result.find((t) => t.slug === "no-uses")).toBeUndefined();
   });
@@ -357,8 +357,8 @@ describe("filterTrees — combined height + use + family", () => {
 
   it("combines height + use category", () => {
     const filter: TreeFilter = {
-      heightRange: "large",
-      useCategory: "timber",
+      heightRange: ["large"],
+      useCategory: ["timber"],
     };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
@@ -366,7 +366,7 @@ describe("filterTrees — combined height + use + family", () => {
   });
 
   it("combines family + height", () => {
-    const filter: TreeFilter = { family: "Fabaceae", heightRange: "small" };
+    const filter: TreeFilter = { family: ["Fabaceae"], heightRange: ["small"] };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
     expect(result[0].slug).toBe("small-timber");
@@ -374,9 +374,9 @@ describe("filterTrees — combined height + use + family", () => {
 
   it("combines all three filters", () => {
     const filter: TreeFilter = {
-      family: "Meliaceae",
-      heightRange: "large",
-      useCategory: "medicine",
+      family: ["Meliaceae"],
+      heightRange: ["large"],
+      useCategory: ["medicine"],
     };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);
@@ -385,8 +385,8 @@ describe("filterTrees — combined height + use + family", () => {
 
   it("returns empty when combined filters have no match", () => {
     const filter: TreeFilter = {
-      heightRange: "very-large",
-      useCategory: "food",
+      heightRange: ["very-large"],
+      useCategory: ["food"],
     };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(0);

@@ -169,7 +169,7 @@ describe("Seasonal filtering — combined with other filters", () => {
     const filter: TreeFilter = {
       seasonalFilter: "flowering",
       month: "march",
-      family: "Fabaceae",
+      family: ["Fabaceae"],
     };
     const result = filterTrees(trees, filter);
     expect(result).toHaveLength(1);

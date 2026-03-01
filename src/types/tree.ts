@@ -175,14 +175,14 @@ export interface Tree
 
 // Search and filter types
 export interface TreeFilter {
-  family?: string;
-  conservationStatus?: string;
+  family?: string[];
+  conservationStatus?: string[];
   tags?: TreeTag[];
   distribution?: Distribution[];
   seasonalFilter?: "all" | "flowering" | "fruiting";
   month?: Month;
-  heightRange?: HeightRange;
-  useCategory?: UseCategory;
+  heightRange?: HeightRange[];
+  useCategory?: UseCategory[];
   // Safety filters
   childSafe?: boolean;
   petSafe?: boolean;

@@ -3,10 +3,11 @@
  *
  * GET /api/v1/openapi.json — machine-readable API documentation.
  *
- * Part of P6.3: Public API for researchers.
+ * Internal API documentation for approved consumers.
  */
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { requireApiV1Access } from "@/lib/api-access";
 
 export const dynamic = "force-static";
 
@@ -16,10 +17,10 @@ const SPEC = {
     title: "Costa Rica Tree Atlas API",
     version: "1.0.0",
     description:
-      "Public REST API for accessing Costa Rica tree species data, species comparisons, and botanical glossary terms. Free to use for research, education, and application development.",
+      "Private REST API for approved internal or partner integrations to access Costa Rica tree species data, species comparisons, and botanical glossary terms.",
     license: {
-      name: "CC BY-NC-SA 4.0",
-      url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      name: "Private Internal Terms",
+      url: "https://costaricatreeatlas.com/usage-policy",
     },
     contact: {
       name: "Costa Rica Tree Atlas",
@@ -40,6 +41,7 @@ const SPEC = {
         description:
           "Retrieve a paginated list of tree species with optional filtering and sorting.",
         tags: ["Trees"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [
           { $ref: "#/components/parameters/locale" },
           {
@@ -124,6 +126,7 @@ const SPEC = {
               },
             },
           },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
           "500": { $ref: "#/components/responses/InternalError" },
         },
@@ -136,6 +139,7 @@ const SPEC = {
         description:
           "Retrieve detailed information about a specific tree species by its slug.",
         tags: ["Trees"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [
           {
             name: "slug",
@@ -165,6 +169,7 @@ const SPEC = {
             },
           },
           "404": { $ref: "#/components/responses/NotFound" },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
         },
       },
@@ -176,6 +181,7 @@ const SPEC = {
         description:
           "Get all botanical families with species counts for a given locale.",
         tags: ["Trees"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [{ $ref: "#/components/parameters/locale" }],
         responses: {
           "200": {
@@ -212,6 +218,7 @@ const SPEC = {
               },
             },
           },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
         },
       },
@@ -223,6 +230,7 @@ const SPEC = {
         description:
           "Retrieve a paginated list of species comparison guides with optional filtering.",
         tags: ["Comparisons"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [
           { $ref: "#/components/parameters/locale" },
           {
@@ -280,6 +288,7 @@ const SPEC = {
               },
             },
           },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
         },
       },
@@ -291,6 +300,7 @@ const SPEC = {
         description:
           "Retrieve detailed info about a species comparison including embedded species data.",
         tags: ["Comparisons"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [
           {
             name: "slug",
@@ -305,6 +315,7 @@ const SPEC = {
             description: "Comparison details with embedded species data",
           },
           "404": { $ref: "#/components/responses/NotFound" },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
         },
       },
@@ -316,6 +327,7 @@ const SPEC = {
         description:
           "Retrieve a paginated list of botanical glossary terms with optional filtering.",
         tags: ["Glossary"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [
           { $ref: "#/components/parameters/locale" },
           {
@@ -367,6 +379,7 @@ const SPEC = {
               },
             },
           },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
         },
       },
@@ -378,6 +391,7 @@ const SPEC = {
         description:
           "Retrieve detailed info about a glossary term with embedded related terms and example species.",
         tags: ["Glossary"],
+        security: [{ ApiKeyAuth: [] }],
         parameters: [
           {
             name: "slug",
@@ -392,12 +406,22 @@ const SPEC = {
             description: "Glossary term details with embedded data",
           },
           "404": { $ref: "#/components/responses/NotFound" },
+          "401": { $ref: "#/components/responses/Unauthorized" },
           "429": { $ref: "#/components/responses/RateLimited" },
         },
       },
     },
   },
   components: {
+    securitySchemes: {
+      ApiKeyAuth: {
+        type: "apiKey",
+        in: "header",
+        name: "X-API-Key",
+        description:
+          "Required unless request source IP is allowlisted by the API operator.",
+      },
+    },
     parameters: {
       locale: {
         name: "locale",
@@ -630,6 +654,14 @@ const SPEC = {
           },
         },
       },
+      Unauthorized: {
+        description: "Missing or invalid API credentials",
+        content: {
+          "application/json": {
+            schema: { $ref: "#/components/schemas/Error" },
+          },
+        },
+      },
     },
   },
   tags: [
@@ -649,11 +681,13 @@ const SPEC = {
   ],
 };
 
-export function GET() {
+export function GET(request: NextRequest) {
+  const accessDenied = requireApiV1Access(request);
+  if (accessDenied) return accessDenied;
+
   return NextResponse.json(SPEC, {
     headers: {
       "Cache-Control": "public, max-age=86400, s-maxage=86400",
-      "Access-Control-Allow-Origin": "*",
     },
   });
 }
