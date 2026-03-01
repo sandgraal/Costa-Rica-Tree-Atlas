@@ -6,6 +6,8 @@ labels: ["content", "tree-request"]
 assignees: ""
 ---
 
+> **Private repository; external contributions not accepted at this time.**
+
 ## 🌳 Tree Information
 
 ### Common Name(s)
@@ -38,7 +40,7 @@ assignees: ""
 ## 📸 Visual References
 
 <!-- Do you have photos or know where we can find good reference images? -->
-<!-- Please only link to openly licensed images or your own photos -->
+<!-- Please link any relevant references available to internal collaborators -->
 
 ## 📚 Resources
 
