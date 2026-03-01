@@ -20,7 +20,7 @@ export const ROUTES = {
   useCases: "/use-cases",
   favorites: "/favorites",
   apiDocs: "/api-docs",
-  license: "/license",
+  license: "/about#license",
 } as const;
 
 /**
