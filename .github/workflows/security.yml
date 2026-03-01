@@ -139,7 +139,7 @@ jobs:
 
   # PR summary: only depends on jobs that actually run on pull_request events
   security-summary-pr:
-    name: Security Summary
+    name: Security Summary (PR)
     runs-on: ubuntu-latest
     if: always() && github.event_name == 'pull_request'
     needs: [npm-audit, secret-scan, dependency-review]
@@ -154,11 +154,31 @@ jobs:
           echo "| Secret Scan | ${{ needs.secret-scan.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Dependency Review | ${{ needs.dependency-review.result }} |" >> $GITHUB_STEP_SUMMARY
 
-  # Full summary: only depends on jobs that actually run on schedule/workflow_dispatch events
-  security-summary-full:
-    name: Security Summary
+  # Dispatch summary: only depends on jobs that actually run on workflow_dispatch events
+  # (secret-scan runs on dispatch but not schedule, so it needs its own summary)
+  security-summary-dispatch:
+    name: Security Summary (Manual)
     runs-on: ubuntu-latest
-    if: always() && github.event_name != 'pull_request'
+    if: always() && github.event_name == 'workflow_dispatch'
+    needs: [npm-audit, secret-scan, codeql, eslint-security, license-check]
+    steps:
+      - name: Check results
+        run: |
+          echo "## Security Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| NPM Audit | ${{ needs.npm-audit.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Secret Scan | ${{ needs.secret-scan.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| CodeQL | ${{ needs.codeql.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ESLint Security | ${{ needs.eslint-security.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| License Check | ${{ needs.license-check.result }} |" >> $GITHUB_STEP_SUMMARY
+
+  # Scheduled summary: only depends on jobs that actually run on schedule events
+  security-summary-scheduled:
+    name: Security Summary (Scheduled)
+    runs-on: ubuntu-latest
+    if: always() && github.event_name == 'schedule'
     needs: [npm-audit, codeql, eslint-security, license-check]
     steps:
       - name: Check results
