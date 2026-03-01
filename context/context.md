@@ -1,30 +1,33 @@
-# Task Context: Private Repository Hardening
+# Context Scan (2026-03-01) — Exposure Review
 
 ## project_summary
 
-- Next.js 16 bilingual tree atlas project with extensive docs and CI workflows.
-- Current request focuses on repository governance/security settings rather than app runtime behavior.
+- Costa Rica Tree Atlas is a bilingual Next.js 16 app for Costa Rican tree content and education resources.
+- Canonical domain references in app code and metadata point to `https://costaricatreeatlas.com`.
+- Repository appears to have previously lived at `github.com/sandgraal/Costa-Rica-Tree-Atlas` (referenced in docs/badges), but that URL currently returns 404.
 
-## dependency_graph (high level)
+## dependency_graph (high-level)
 
-- Frontend app: Next.js + React + TypeScript.
-- Content pipeline: Contentlayer2 + MDX.
-- CI/CD: GitHub Actions workflows under `.github/workflows`.
+- Runtime: Next.js, React, next-intl, contentlayer2, Zustand, Prisma, Upstash Redis.
+- Tooling: TypeScript, ESLint, Prettier, Vitest.
 
-## commands_map (dev, test, build, lint)
+## commands_map
 
-- `npm run dev` — local development.
-- `npm run build` — production build.
-- `npm run lint` — lint checks.
-- `npm run test:run` — test execution.
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Lint: `npm run lint`
+- Type-check: `npm run type-check`
+- Security check bundle: `npm run security:check`
 
 ## key_paths_by_feature
 
-- Repository governance docs: `docs/`.
-- CI workflow behavior: `.github/workflows/`.
-- Contributor-facing guide: `README.md`.
+- App routes/UI: `src/app/**`, `src/components/**`
+- Content: `content/**`
+- Automation/workflows: `.github/workflows/**`
+- Security and env defaults: `.env.example`, `src/lib/security/**`
 
 ## known_constraints and feature_flags
 
-- No authenticated GitHub CLI context available in this environment to apply repository settings directly.
-- Repository-level controls (visibility, forking, branch protection, issues/discussions/projects) must be changed in GitHub UI by a user with admin rights.
+- Current clone has no Git remote configured (`git remote -v` empty).
+- GitHub API checks for `sandgraal/Costa-Rica-Tree-Atlas` return 404 (no public API visibility from this environment).
+- NPM package name from `package.json` is `costa-rica-tree-atlas`; package is not found in npm registry.
