@@ -1,5 +1,5 @@
 name: "Setup Node.js Environment"
-description: "Shared setup: checkout, Node 20, npm ci, optional Prisma generate"
+description: "Shared setup: Node 20, npm ci, optional Prisma generate"
 
 inputs:
   node-version:
