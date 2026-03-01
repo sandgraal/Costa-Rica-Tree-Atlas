@@ -247,21 +247,55 @@ export const useStore = create<StoreState>()(
           ) {
             state.savedSearchFilter = null;
           } else if (state.savedSearchFilter) {
+            // Narrow for easier manipulation
+            const filter = state.savedSearchFilter as TreeFilter;
+
+            // Validate heightRange against allowed values
             if (
-              state.savedSearchFilter.heightRange !== undefined &&
+              filter.heightRange !== undefined &&
               !(VALID_HEIGHT_RANGES as readonly string[]).includes(
-                state.savedSearchFilter.heightRange
+                filter.heightRange
               )
             ) {
-              delete state.savedSearchFilter.heightRange;
+              delete filter.heightRange;
             }
+
+            // Validate useCategory against allowed values
             if (
-              state.savedSearchFilter.useCategory !== undefined &&
+              filter.useCategory !== undefined &&
               !(VALID_USE_CATEGORIES as readonly string[]).includes(
-                state.savedSearchFilter.useCategory
+                filter.useCategory
               )
             ) {
-              delete state.savedSearchFilter.useCategory;
+              delete filter.useCategory;
+            }
+
+            // Ensure tags is a string array if present; otherwise remove it
+            if (filter.tags !== undefined) {
+              if (Array.isArray(filter.tags)) {
+                filter.tags = filter.tags.filter(
+                  (tag): tag is string => typeof tag === "string"
+                );
+                if (filter.tags.length === 0) {
+                  delete filter.tags;
+                }
+              } else {
+                delete filter.tags;
+              }
+            }
+
+            // Ensure distribution is a string array if present; otherwise remove it
+            if (filter.distribution !== undefined) {
+              if (Array.isArray(filter.distribution)) {
+                filter.distribution = filter.distribution.filter(
+                  (value): value is string => typeof value === "string"
+                );
+                if (filter.distribution.length === 0) {
+                  delete filter.distribution;
+                }
+              } else {
+                delete filter.distribution;
+              }
             }
           }
 
