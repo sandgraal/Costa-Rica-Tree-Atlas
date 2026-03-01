@@ -10,7 +10,7 @@
  */
 
 import sharp from "sharp";
-import { readFileSync, writeFileSync, statSync } from "node:fs";
+import { writeFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const HERO_DIR = "public/images/hero";
