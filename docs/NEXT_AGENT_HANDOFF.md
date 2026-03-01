@@ -47,11 +47,9 @@ Last updated: 2026-03-01
 ## What's Next
 
 Pick from `docs/IMPLEMENTATION_PLAN.md`. Top candidates:
-
 1. Re-run Lighthouse after P4.6 merge to validate LCP improvement
 2. Search analytics — track common queries to improve content (P9.10 stretch)
 3. Install `@sentry/nextjs` and configure DSN in Vercel (manual step)
-4. P8.2 — Offline enhancements (download species, offline search)
 
 ## Operator Preferences
 
