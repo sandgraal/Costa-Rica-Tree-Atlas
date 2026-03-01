@@ -9,17 +9,16 @@
 > with your PR's work, refresh "Current State" and "In-Flight / Gotchas",
 > and update "What's Next". Previous changes live in git history.
 
-Last updated: 2026-02-28
+Last updated: 2026-03-01
 
 ## Latest Changes
 
-**Branch**: `feature/i18n-cleanup-inline-ternaries` — PR #532
+**Branch**: `copilot/sub-pr-532` — follow-up to PR #532
 
-- Migrated ~47 inline `locale === "es"` ternaries to `useTranslations()` across 5 components
-- TreeExplorer (25+), KeyboardShortcuts (15), FavoriteButton (4), ConfusionRatingBadge (2), TableOfContents (1)
-- Added 4 new i18n namespaces: `favorites`, `toc`, `keyboardShortcuts`, plus 15 new `trees` keys and 1 `comparison` key
-- Removed `locale` prop from `FavoriteButton` and `TableOfContents` (callers updated)
-- Added `confusionLevelLabel` to `ConfusionRatingConfig` interface
+- Removed `confusionLevelLabel` field from `ConfusionRatingConfig` interface and `getConfusionRatingConfig` return value
+- `ConfusionRatingBadge` now uses `useTranslations("comparison")` + `t("confusionLevel")` (consuming the existing translation key)
+- Added `"use client"` directive to `ConfusionRatingBadge.tsx`
+- Keeps `getConfusionRatingConfig` focused on rating-specific labels/colors only
 
 ## Current State
 
