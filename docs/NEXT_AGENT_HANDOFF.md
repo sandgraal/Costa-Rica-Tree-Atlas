@@ -9,19 +9,15 @@
 > with your PR's work, refresh "Current State" and "In-Flight / Gotchas",
 > and update "What's Next". Previous changes live in git history.
 
-Last updated: 2026-02-28
+Last updated: 2026-03-01
 
 ## Latest Changes
 
-**Branch**: `feature/province-filter` — PR #534
+**Branch**: `copilot/sub-pr-532` — follow-up to PR #532
 
-- Added province/region filter to tree directory (`/trees` page)
-- Province dropdown in filter panel shows all 7 Costa Rican provinces with tree counts
-- URL parameter persistence for all filters (`?province=guanacaste&family=Fabaceae&q=ceiba&sort=family&view=alphabetical`)
-- Filters auto-open when URL contains filter parameters (shareable links)
-- Added i18n keys for province names and filter labels (both `en.json` and `es.json`)
-- 7 new tests for distribution filtering and facet extraction
-- Filter panel grid updated to 5 columns on XL screens to accommodate province dropdown
+- Removed `confusionLevelLabel` field from `ConfusionRatingConfig` interface and `getConfusionRatingConfig` return value
+- `ConfusionRatingBadge` is an `async` Server Component using `getTranslations({ locale, namespace: "comparison" })` — both `config` and `t` now use the same `locale` prop, eliminating the dual-source issue
+- Keeps `getConfusionRatingConfig` focused on rating-specific labels/colors only
 
 ## Current State
 
