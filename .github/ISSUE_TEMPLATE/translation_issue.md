@@ -6,6 +6,8 @@ labels: ["translation", "content"]
 assignees: ""
 ---
 
+> **Private repository; external contributions not accepted at this time.**
+
 ## 🌐 Translation Issue
 
 ### Affected Language
