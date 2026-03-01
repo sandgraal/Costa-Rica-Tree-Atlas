@@ -224,6 +224,30 @@ export const useStore = create<StoreState>()(
             state.theme = "system";
           }
 
+          // Validate savedSearchFilter — must be null or a plain (non-array) object
+          if (
+            state.savedSearchFilter !== null &&
+            (typeof state.savedSearchFilter !== "object" ||
+              Array.isArray(state.savedSearchFilter))
+          ) {
+            state.savedSearchFilter = null;
+          }
+
+          // Validate savedSearchSort — must be null or have valid field + direction
+          const VALID_SORT_FIELDS = ["title", "scientificName", "family"];
+          const VALID_SORT_DIRS = ["asc", "desc"];
+          if (state.savedSearchSort !== null) {
+            const ss = state.savedSearchSort;
+            if (
+              typeof ss !== "object" ||
+              Array.isArray(ss) ||
+              !VALID_SORT_FIELDS.includes(ss.field) ||
+              !VALID_SORT_DIRS.includes(ss.direction)
+            ) {
+              state.savedSearchSort = null;
+            }
+          }
+
           // Sync with DOM theme set by blocking script
           if (typeof document !== "undefined") {
             const dataTheme = document.documentElement.getAttribute(

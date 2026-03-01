@@ -159,10 +159,13 @@ export function classifyHeight(
 
 /**
  * Keyword map: each use category → keywords to match against (lowercase).
- * A use string matches a category if any keyword is found as a substring.
+ * Includes both English and Spanish keywords.
+ * Matching uses word boundaries (\b) to prevent false positives
+ * (e.g., "oil" must not match inside "soil").
  */
 const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
   timber: [
+    // English
     "timber",
     "construction",
     "flooring",
@@ -182,9 +185,34 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "boxes",
     "crates",
     "tool handle",
+    // Spanish
+    "madera",
+    "construcción",
+    "ebanistería",
+    "carpintería",
+    "muebles",
+    "postes",
+    "vigas",
+    "pisos",
+    "cajas",
+    "mangos de herramienta",
   ],
-  medicine: ["medicine", "medicinal", "pharmaceutical", "essential oil"],
+  medicine: [
+    // English
+    "medicine",
+    "medicinal",
+    "pharmaceutical",
+    "essential oil",
+    // Spanish
+    "medicina",
+    "medicinal",
+    "farmacéutico",
+    "aceite esencial",
+    "medicina tradicional",
+    "uso medicinal",
+  ],
   food: [
+    // English
     "fruit",
     "edible",
     "beverage",
@@ -195,14 +223,31 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "dessert",
     "jam",
     "preserve",
-    "oil",
+    "seed oil",
+    "cooking oil",
+    "palm oil",
     "spice",
     "cooking",
     "chocolate",
     "cacao",
     "coffee", // only as food product, not shade
+    // Spanish
+    "fruta",
+    "comestible",
+    "bebida",
+    "jugo",
+    "nuez",
+    "alimento",
+    "helado",
+    "postre",
+    "mermelada",
+    "aceite de palma",
+    "aceite de semilla",
+    "especia",
+    "cocina",
   ],
   ornamental: [
+    // English
     "ornamental",
     "landscaping",
     "urban shade",
@@ -210,8 +255,15 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "bonsai",
     "garden",
     "avenue tree",
+    // Spanish
+    "jardinería",
+    "sombra urbana",
+    "decorativo",
+    "jardín",
+    "árbol de avenida",
   ],
   environmental: [
+    // English
     "reforestation",
     "erosion control",
     "watershed",
@@ -222,7 +274,9 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "wildlife food",
     "pollinator",
     "restoration",
-    "soil",
+    "soil conservation",
+    "soil stabilization",
+    "soil rehabilitation",
     "conservation",
     "coastal protection",
     "riparian",
@@ -230,8 +284,21 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "pioneer",
     "shade tree for coffee",
     "shade tree for cacao",
+    // Spanish
+    "reforestación",
+    "control de erosión",
+    "cuenca",
+    "fijación de nitrógeno",
+    "secuestro de carbono",
+    "hábitat de vida silvestre",
+    "restauración",
+    "conservación",
+    "protección costera",
+    "ribereño",
+    "conservación del suelo",
   ],
   agriculture: [
+    // English
     "agroforestry",
     "living fence",
     "livestock fodder",
@@ -246,8 +313,19 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "charcoal",
     "pulpwood",
     "thatching",
+    // Spanish
+    "agroforestería",
+    "cerca viva",
+    "forraje",
+    "cortina rompevientos",
+    "miel",
+    "apicultura",
+    "sombreador",
+    "leña",
+    "carbón vegetal",
   ],
   crafts: [
+    // English
     "musical instrument",
     "handicraft",
     "craft",
@@ -261,23 +339,45 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
     "skincare",
     "rope",
     "basket",
+    // Spanish
+    "instrumento musical",
+    "artesanía",
+    "tintura",
+    "tanino",
+    "resina",
+    "fibra",
+    "tallado",
+    "cosmético",
+    "cuerda",
+    "canasta",
   ],
 };
 
 /**
+ * Build a word-boundary regex for a keyword.
+ * Uses a leading \b so "oil" won't match inside "soil",
+ * but does NOT require a trailing boundary so plural forms
+ * (e.g. "instruments") are still matched by "instrument".
+ */
+function kwRegex(kw: string): RegExp {
+  const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b${escaped}`, "i");
+}
+
+/**
  * Classify a tree's uses into use categories.
  * Returns a deduplicated set of categories that the tree belongs to.
+ * Uses word-boundary matching to avoid false positives (e.g., "soil" ≠ "oil").
  */
 export function classifyUses(uses: string[] | undefined): UseCategory[] {
   if (!uses || uses.length === 0) return [];
   const categories = new Set<UseCategory>();
 
   for (const use of uses) {
-    const lower = use.toLowerCase();
     for (const [category, keywords] of Object.entries(
       USE_CATEGORY_KEYWORDS
     ) as [UseCategory, string[]][]) {
-      if (keywords.some((kw) => lower.includes(kw))) {
+      if (keywords.some((kw) => kwRegex(kw).test(use))) {
         categories.add(category);
       }
     }
@@ -423,6 +523,7 @@ export interface SearchFacets {
   conservationStatuses: { value: string; count: number }[];
   tags: { value: TreeTag; count: number }[];
   distributions: { value: Distribution; count: number }[];
+  seasonal: Record<Exclude<Month, "all-year">, SeasonalFacet>;
   heightRanges: { value: HeightRange; count: number }[];
   useCategories: { value: UseCategory; count: number }[];
 }
@@ -476,6 +577,22 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     for (const cat of cats) {
       useCatMap.set(cat, (useCatMap.get(cat) ?? 0) + 1);
     }
+
+    // Seasonal (flowering / fruiting)
+    for (const m of tree.floweringSeason ?? []) {
+      if (m === "all-year") {
+        for (const mon of MONTHS) seasonal[mon].floweringCount++;
+      } else if (m in seasonal) {
+        seasonal[m as Exclude<Month, "all-year">].floweringCount++;
+      }
+    }
+    for (const m of tree.fruitingSeason ?? []) {
+      if (m === "all-year") {
+        for (const mon of MONTHS) seasonal[mon].fruitingCount++;
+      } else if (m in seasonal) {
+        seasonal[m as Exclude<Month, "all-year">].fruitingCount++;
+      }
+    }
   }
 
   // Ordered height ranges (small → very-large)
@@ -505,6 +622,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     distributions: Array.from(distMap.entries())
       .map(([value, count]) => ({ value, count }))
       .sort((a, b) => b.count - a.count),
+    seasonal,
     heightRanges: heightOrder
       .filter((h) => heightMap.has(h))
       .map((value) => ({ value, count: heightMap.get(value)! })),

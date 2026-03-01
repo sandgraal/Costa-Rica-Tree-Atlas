@@ -375,12 +375,26 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     _hydrated,
   } = useStore();
   const [filterToast, setFilterToast] = useState<string | null>(null);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clear any pending toast timer on unmount to avoid state updates on
+  // an unmounted component (e.g. on route change within the 2-second window)
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current !== null) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
+
+  const showToast = useCallback((message: string) => {
+    setFilterToast(message);
+    if (toastTimerRef.current !== null) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setFilterToast(null), 2000);
+  }, []);
 
   const handleSaveFilters = useCallback(() => {
     saveSearchPreferences(filter, sort);
-    setFilterToast(t("filtersSaved"));
-    setTimeout(() => setFilterToast(null), 2000);
-  }, [filter, sort, saveSearchPreferences, t]);
+    showToast(t("filtersSaved"));
+  }, [filter, sort, saveSearchPreferences, t, showToast]);
 
   const handleLoadFilters = useCallback(() => {
     if (savedSearchFilter) {
@@ -389,13 +403,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         setSort(savedSearchSort);
       }
       setShowFilters(true);
-      setFilterToast(t("filtersLoaded"));
-      setTimeout(() => setFilterToast(null), 2000);
+      showToast(t("filtersLoaded"));
     } else {
-      setFilterToast(t("noSavedFilters"));
-      setTimeout(() => setFilterToast(null), 2000);
+      showToast(t("noSavedFilters"));
     }
-  }, [savedSearchFilter, savedSearchSort, t]);
+  }, [savedSearchFilter, savedSearchSort, t, showToast]);
 
   const hasActiveFilters = Object.values(filter).some(
     (v) => v !== undefined && (Array.isArray(v) ? v.length > 0 : true)

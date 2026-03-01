@@ -13,22 +13,17 @@ Last updated: 2026-03-01
 
 ## Latest Changes
 
-**Branch**: `feature/uses-height-filters` — pending merge
+**Branch**: `copilot/codex-review-suggestions` — code review fixes for PR #540
 
-- Added height range filter (small/medium/large/very-large) to tree directory
-- Added use category filter (timber/medicine/food/ornamental/environmental/agriculture/crafts)
-- `parseMaxHeightMeters()` parses first number from free-text maxHeight strings
-- `classifyHeight()` maps height to range buckets; `classifyUses()` categorizes uses via keyword matching
-- `extractFacets()` now returns `heightRanges` and `useCategories` with counts
-- Height + use dropdowns in TreeExplorer filter panel with URL param persistence (`?height=large&use=timber`)
-- Zustand store: `savedSearchFilter` + `savedSearchSort` with persist middleware
-- Save/Load filter preference buttons in filter panel (bookmark icon)
-- 20 new i18n keys in both `en.json` and `es.json`
-- 47 new tests (parsing, classification, filtering, facets, combined)
+- Fixed `classifyUses`: word-boundary matching (`\b`) prevents false positives (e.g. "soil" no longer matches "oil")
+- Added Spanish keywords to all 7 use categories (covers localized `uses` frontmatter)
+- `onRehydrateStorage` now validates `savedSearchFilter`/`savedSearchSort` (resets to null if corrupted/invalid)
+- Toast timer in TreeExplorer now uses `useRef` + `useEffect` cleanup (prevents state update on unmounted component)
+- Removed bare "soil"/"oil" keywords; replaced with specific phrases ("soil conservation", "seed oil", etc.)
 
 ## Current State
 
-- **Tests**: 677/677 passing (646 + 31 new)
+- **Tests**: 677/677 passing (646 + 31 new from PR #540)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Database**: Neon PostgreSQL, Prisma 7, all migrations applied
 - **Search**: Autocomplete dropdown on `/trees`, QuickSearch modal in nav — both with keyboard nav
@@ -48,7 +43,6 @@ Last updated: 2026-03-01
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `redos.test.ts` timing test is flaky (expects <1ms, sometimes takes 1.2ms)
 - `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
-- Network outage blocked push; local commits on `feature/uses-height-filters` and handoff on `main` need pushing
 
 ## What's Next
 
