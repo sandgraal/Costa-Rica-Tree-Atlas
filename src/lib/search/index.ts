@@ -13,6 +13,8 @@ import type {
   TreeTag,
   Month,
   Distribution,
+  HeightRange,
+  UseCategory,
 } from "@/types/tree";
 
 // ============================================================================
@@ -117,6 +119,174 @@ export async function search(
 }
 
 // ============================================================================
+// Height & Uses Utilities
+// ============================================================================
+
+/** Height range thresholds in meters */
+const HEIGHT_RANGES: Record<HeightRange, { min: number; max: number }> = {
+  small: { min: 0, max: 10 },
+  medium: { min: 10, max: 25 },
+  large: { min: 25, max: 40 },
+  "very-large": { min: 40, max: Infinity },
+};
+
+/**
+ * Parse the first number from a maxHeight string.
+ * Handles formats like "20-30 meters", "15-25 meters (50-80 feet)", "5m"
+ * Returns NaN if no number found.
+ */
+export function parseMaxHeightMeters(maxHeight: string | undefined): number {
+  if (!maxHeight) return NaN;
+  // eslint-disable-next-line security/detect-unsafe-regex
+  const match = maxHeight.match(/(\d+(?:\.\d+)?)/);
+  return match ? parseFloat(match[1]) : NaN;
+}
+
+/**
+ * Classify a tree into a height range based on its maxHeight string.
+ * Uses the first number found (lower bound) to classify.
+ */
+export function classifyHeight(
+  maxHeight: string | undefined
+): HeightRange | null {
+  const meters = parseMaxHeightMeters(maxHeight);
+  if (isNaN(meters)) return null;
+  if (meters < HEIGHT_RANGES.small.max) return "small";
+  if (meters < HEIGHT_RANGES.medium.max) return "medium";
+  if (meters < HEIGHT_RANGES.large.max) return "large";
+  return "very-large";
+}
+
+/**
+ * Keyword map: each use category → keywords to match against (lowercase).
+ * A use string matches a category if any keyword is found as a substring.
+ */
+const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
+  timber: [
+    "timber",
+    "construction",
+    "flooring",
+    "furniture",
+    "cabinetry",
+    "plywood",
+    "veneer",
+    "boat building",
+    "shipbuilding",
+    "door",
+    "window frame",
+    "lumber",
+    "woodwork",
+    "railroad",
+    "post",
+    "framing",
+    "boxes",
+    "crates",
+    "tool handle",
+  ],
+  medicine: ["medicine", "medicinal", "pharmaceutical", "essential oil"],
+  food: [
+    "fruit",
+    "edible",
+    "beverage",
+    "juice",
+    "nut",
+    "food",
+    "ice cream",
+    "dessert",
+    "jam",
+    "preserve",
+    "oil",
+    "spice",
+    "cooking",
+    "chocolate",
+    "cacao",
+    "coffee", // only as food product, not shade
+  ],
+  ornamental: [
+    "ornamental",
+    "landscaping",
+    "urban shade",
+    "decorative",
+    "bonsai",
+    "garden",
+    "avenue tree",
+  ],
+  environmental: [
+    "reforestation",
+    "erosion control",
+    "watershed",
+    "nitrogen fixation",
+    "nitrogen-fixing",
+    "carbon sequestration",
+    "wildlife habitat",
+    "wildlife food",
+    "pollinator",
+    "restoration",
+    "soil",
+    "conservation",
+    "coastal protection",
+    "riparian",
+    "wetland",
+    "pioneer",
+    "shade tree for coffee",
+    "shade tree for cacao",
+  ],
+  agriculture: [
+    "agroforestry",
+    "living fence",
+    "livestock fodder",
+    "fodder",
+    "windbreak",
+    "honey",
+    "bee forage",
+    "apiculture",
+    "shade tree",
+    "firewood",
+    "fuelwood",
+    "charcoal",
+    "pulpwood",
+    "thatching",
+  ],
+  crafts: [
+    "musical instrument",
+    "handicraft",
+    "craft",
+    "dye",
+    "tannin",
+    "resin",
+    "fiber",
+    "kapok",
+    "carving",
+    "cosmetic",
+    "skincare",
+    "rope",
+    "basket",
+  ],
+};
+
+/**
+ * Classify a tree's uses into use categories.
+ * Returns a deduplicated set of categories that the tree belongs to.
+ */
+export function classifyUses(uses: string[] | undefined): UseCategory[] {
+  if (!uses || uses.length === 0) return [];
+  const categories = new Set<UseCategory>();
+
+  for (const use of uses) {
+    const lower = use.toLowerCase();
+    for (const [category, keywords] of Object.entries(
+      USE_CATEGORY_KEYWORDS
+    ) as [UseCategory, string[]][]) {
+      if (keywords.some((kw) => lower.includes(kw))) {
+        categories.add(category);
+      }
+    }
+  }
+
+  return Array.from(categories);
+}
+
+// ============================================================================
 // Filter Functions
 // ============================================================================
 
@@ -176,6 +346,22 @@ export function filterTrees(trees: Tree[], filter: TreeFilter): Tree[] {
       }
     }
 
+    // Height range filter
+    if (filter.heightRange) {
+      const treeHeight = classifyHeight(tree.maxHeight);
+      if (treeHeight !== filter.heightRange) {
+        return false;
+      }
+    }
+
+    // Use category filter
+    if (filter.useCategory) {
+      const treeCategories = classifyUses(tree.uses);
+      if (!treeCategories.includes(filter.useCategory)) {
+        return false;
+      }
+    }
+
     // Safety filters
     if (filter.childSafe !== undefined && tree.childSafe !== filter.childSafe) {
       return false;
@@ -232,6 +418,8 @@ export interface SearchFacets {
   conservationStatuses: { value: string; count: number }[];
   tags: { value: TreeTag; count: number }[];
   distributions: { value: Distribution; count: number }[];
+  heightRanges: { value: HeightRange; count: number }[];
+  useCategories: { value: UseCategory; count: number }[];
 }
 
 export function extractFacets(trees: Tree[]): SearchFacets {
@@ -239,6 +427,8 @@ export function extractFacets(trees: Tree[]): SearchFacets {
   const statusMap = new Map<string, number>();
   const tagMap = new Map<TreeTag, number>();
   const distMap = new Map<Distribution, number>();
+  const heightMap = new Map<HeightRange, number>();
+  const useCatMap = new Map<UseCategory, number>();
 
   for (const tree of trees) {
     // Family
@@ -263,7 +453,33 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     for (const dist of tree.distribution ?? []) {
       distMap.set(dist, (distMap.get(dist) ?? 0) + 1);
     }
+
+    // Height range
+    const hr = classifyHeight(tree.maxHeight);
+    if (hr) {
+      heightMap.set(hr, (heightMap.get(hr) ?? 0) + 1);
+    }
+
+    // Use categories
+    const cats = classifyUses(tree.uses);
+    for (const cat of cats) {
+      useCatMap.set(cat, (useCatMap.get(cat) ?? 0) + 1);
+    }
   }
+
+  // Ordered height ranges (small → very-large)
+  const heightOrder: HeightRange[] = ["small", "medium", "large", "very-large"];
+
+  // Ordered use categories
+  const useCatOrder: UseCategory[] = [
+    "timber",
+    "medicine",
+    "food",
+    "ornamental",
+    "environmental",
+    "agriculture",
+    "crafts",
+  ];
 
   return {
     families: Array.from(familyMap.entries())
@@ -278,6 +494,12 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     distributions: Array.from(distMap.entries())
       .map(([value, count]) => ({ value, count }))
       .sort((a, b) => b.count - a.count),
+    heightRanges: heightOrder
+      .filter((h) => heightMap.has(h))
+      .map((value) => ({ value, count: heightMap.get(value)! })),
+    useCategories: useCatOrder
+      .filter((c) => useCatMap.has(c))
+      .map((value) => ({ value, count: useCatMap.get(value)! })),
   };
 }
 

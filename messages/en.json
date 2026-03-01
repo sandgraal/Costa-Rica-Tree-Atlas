@@ -126,7 +126,31 @@
       "san-jose": "San José",
       "cartago": "Cartago",
       "limon": "Limón"
-    }
+    },
+    "filterByHeight": "Height",
+    "allHeights": "All Heights",
+    "heightRanges": {
+      "small": "Small (< 10m)",
+      "medium": "Medium (10–25m)",
+      "large": "Large (25–40m)",
+      "very-large": "Very Large (> 40m)"
+    },
+    "filterByUse": "Use",
+    "allUses": "All Uses",
+    "useCategories": {
+      "timber": "Timber & Construction",
+      "medicine": "Medicine",
+      "food": "Food & Beverage",
+      "ornamental": "Ornamental",
+      "environmental": "Environmental",
+      "agriculture": "Agriculture",
+      "crafts": "Crafts & Industry"
+    },
+    "saveFilters": "Save Filters",
+    "loadSavedFilters": "Load Saved",
+    "filtersSaved": "Filters saved",
+    "filtersLoaded": "Saved filters loaded",
+    "noSavedFilters": "No saved filters"
   },
   "footer": {
     "description": "An open-source project dedicated to documenting the trees of Costa Rica.",

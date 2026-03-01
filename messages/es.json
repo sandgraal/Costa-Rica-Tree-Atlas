@@ -125,7 +125,31 @@
       "san-jose": "San José",
       "cartago": "Cartago",
       "limon": "Limón"
-    }
+    },
+    "filterByHeight": "Altura",
+    "allHeights": "Todas las Alturas",
+    "heightRanges": {
+      "small": "Pequeño (< 10m)",
+      "medium": "Mediano (10–25m)",
+      "large": "Grande (25–40m)",
+      "very-large": "Muy Grande (> 40m)"
+    },
+    "filterByUse": "Uso",
+    "allUses": "Todos los Usos",
+    "useCategories": {
+      "timber": "Madera y Construcción",
+      "medicine": "Medicina",
+      "food": "Alimento y Bebida",
+      "ornamental": "Ornamental",
+      "environmental": "Ambiental",
+      "agriculture": "Agricultura",
+      "crafts": "Artesanía e Industria"
+    },
+    "saveFilters": "Guardar Filtros",
+    "loadSavedFilters": "Cargar Guardados",
+    "filtersSaved": "Filtros guardados",
+    "filtersLoaded": "Filtros guardados cargados",
+    "noSavedFilters": "No hay filtros guardados"
   },
   "footer": {
     "description": "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica.",

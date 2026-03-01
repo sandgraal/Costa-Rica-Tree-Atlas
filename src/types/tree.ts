@@ -25,6 +25,17 @@ export type Month =
   | "december"
   | "all-year";
 
+export type HeightRange = "small" | "medium" | "large" | "very-large";
+
+export type UseCategory =
+  | "timber"
+  | "medicine"
+  | "food"
+  | "ornamental"
+  | "environmental"
+  | "agriculture"
+  | "crafts";
+
 export type ConservationCategory =
   | "EX"
   | "EW"
@@ -170,6 +181,8 @@ export interface TreeFilter {
   distribution?: Distribution[];
   seasonalFilter?: "all" | "flowering" | "fruiting";
   month?: Month;
+  heightRange?: HeightRange;
+  useCategory?: UseCategory;
   // Safety filters
   childSafe?: boolean;
   petSafe?: boolean;
