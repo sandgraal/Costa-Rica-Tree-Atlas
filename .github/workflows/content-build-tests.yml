@@ -9,11 +9,18 @@ on:
       - "contentlayer.config.ts"
       - "src/**/*.tsx"
       - "src/**/*.ts"
-  push:
-    branches: [main]
-    paths:
-      - "content/**/*.mdx"
-      - "src/components/mdx/**"
+      - "messages/**"
+      - "i18n/**"
+      - ".github/workflows/content-build-tests.yml"
+      - ".github/actions/setup-node/**"
+
+  workflow_dispatch:
+concurrency:
+  group: content-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   content-validation:
@@ -24,20 +31,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
         with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate Prisma Client (for types)
-        run: npx prisma generate
-        env:
-          # Use dummy URL for type generation - not actually connecting to a database
-          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy?schema=public"
+          prisma: "true"
 
       - name: Build Contentlayer
         run: npm run contentlayer

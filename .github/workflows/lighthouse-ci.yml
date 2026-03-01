@@ -1,14 +1,15 @@
 name: Lighthouse CI
 
+# Manual-only — trigger from Actions tab or via `gh workflow run lighthouse-ci.yml`
+# This avoids a full build + 3 Lighthouse runs on every PR.
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "src/**"
-      - "public/**"
-      - "next.config.ts"
-      - "middleware.ts"
-      - "package.json"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch or PR ref to audit (defaults to main)"
+        required: false
+        default: "main"
+        type: string
 
 concurrency:
   group: lighthouse-${{ github.ref }}
@@ -16,7 +17,6 @@ concurrency:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   lighthouse:
@@ -27,20 +27,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
         with:
-          node-version: "20"
-          cache: "npm"
+          ref: ${{ inputs.ref || github.ref }}
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
+        with:
+          prisma: "true"
 
       - name: Build application
         run: npm run build
-        env:
-          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy?schema=public"
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
@@ -50,8 +46,8 @@ jobs:
           uploadArtifacts: true
           temporaryPublicStorage: true
 
-      - name: Comment PR with results
-        if: github.event_name == 'pull_request'
+      - name: Post summary
+        if: always()
         uses: actions/github-script@v8
         with:
           script: |
@@ -59,7 +55,8 @@ jobs:
             const links = ${{ steps.lighthouse.outputs.links }};
 
             if (!results || results.length === 0) {
-              console.log('No Lighthouse results found');
+              core.summary.addRaw('No Lighthouse results found.');
+              await core.summary.write();
               return;
             }
 
@@ -70,48 +67,24 @@ jobs:
               return `${emoji} ${pct}`;
             };
 
-            let comment = '## ⚡ Lighthouse Performance Report\n\n';
-            comment += '| URL | Performance | Accessibility | Best Practices | SEO |\n';
-            comment += '|-----|------------|--------------|----------------|-----|\n';
+            let md = '## ⚡ Lighthouse Performance Report\n\n';
+            md += '| URL | Performance | Accessibility | Best Practices | SEO |\n';
+            md += '|-----|------------|--------------|----------------|-----|\n';
 
             for (const result of results) {
               const url = new URL(result.url).pathname;
               const summary = result.summary;
-              comment += `| \`${url}\` | ${formatScore(summary.performance)} | ${formatScore(summary.accessibility)} | ${formatScore(summary['best-practices'])} | ${formatScore(summary.seo)} |\n`;
+              md += `| \`${url}\` | ${formatScore(summary.performance)} | ${formatScore(summary.accessibility)} | ${formatScore(summary['best-practices'])} | ${formatScore(summary.seo)} |\n`;
             }
 
             if (links) {
-              comment += '\n**Full reports:** ';
+              md += '\n**Full reports:** ';
               const linkEntries = Object.entries(links);
-              comment += linkEntries.map(([url, link]) => `[${new URL(url).pathname}](${link})`).join(' | ');
+              md += linkEntries.map(([url, link]) => `[${new URL(url).pathname}](${link})`).join(' | ');
             }
 
-            comment += '\n\n---\n';
-            comment += '*Performance budgets (warn): LCP <4.0s, TBT <500ms, CLS <0.1*';
+            md += '\n\n---\n';
+            md += '*Performance budgets: LCP <2.5s, TBT <300ms, CLS <0.1*';
 
-            // Find existing comment
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-
-            const botComment = comments.find(c => 
-              c.user.type === 'Bot' && c.body.includes('Lighthouse Performance Report')
-            );
-
-            if (botComment) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: comment,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: comment,
-              });
-            }
+            core.summary.addRaw(md);
+            await core.summary.write();
