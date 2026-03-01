@@ -8,6 +8,7 @@ import {
   MAP_VIEWBOX,
   COUNTRY_OUTLINE,
   NEIGHBORS,
+  isProvince,
 } from "@/lib/geo";
 import {
   DISCOVERY_COLLECTIONS,
@@ -17,7 +18,7 @@ import {
   getCurrentMonth,
   type DiscoveryCollection,
 } from "@/lib/geo/collections";
-import type { Locale, Province, Region, TreeTag } from "@/types/tree";
+import type { Locale, Province, Region, TreeTag, Distribution, Month } from "@/types/tree";
 import {
   CONSERVATION_AREAS,
   getBiodiversityColor,
@@ -31,10 +32,10 @@ export interface MapTreeSummary {
   slug: string;
   title: string;
   scientificName: string;
-  distribution?: string[];
-  tags?: string[];
-  floweringSeason?: string[];
-  fruitingSeason?: string[];
+  distribution?: Distribution[];
+  tags?: TreeTag[];
+  floweringSeason?: Month[];
+  fruitingSeason?: Month[];
   featuredImage?: string;
   conservationStatus?: string;
   maxHeight?: string;
@@ -74,8 +75,8 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
     trees.forEach((tree) => {
       if (tree.distribution) {
         tree.distribution.forEach((dist) => {
-          if (dist in byProvince) {
-            byProvince[dist as Province].push(tree);
+          if (isProvince(dist)) {
+            byProvince[dist].push(tree);
           }
         });
       }
@@ -119,8 +120,8 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
       // Filter by province first
       let filtered = trees.filter((tree) => {
         if (!tree.distribution) return false;
-        return tree.distribution.some((d) =>
-          collection.provinces.includes(d as Province)
+        return tree.distribution.some(
+          (d) => isProvince(d) && collection.provinces.includes(d)
         );
       });
 
@@ -128,9 +129,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
       if (collection.tags && collection.tags.length > 0) {
         filtered = filtered.filter((tree) => {
           if (!tree.tags) return false;
-          return collection.tags?.some((tag) =>
-            tree.tags?.includes(tag as TreeTag)
-          );
+          return collection.tags?.some((tag) => tree.tags?.includes(tag));
         });
       }
 

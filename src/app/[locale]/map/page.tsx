@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
+import type { Distribution, TreeTag, Month } from "@/types/tree";
 import TreeMapClient from "./TreeMapClient";
 import type { MapTreeSummary } from "./TreeMapClient";
 
@@ -38,16 +39,18 @@ export default async function MapPage({ params }: MapPageProps) {
 
   // Project only the fields TreeMapClient needs — avoids shipping the full
   // 32 MB contentlayer dataset (MDX bodies) to the client.
+  // Contentlayer generates string[] for list fields; cast to domain union types
+  // since the MDX content is validated to use valid enum values.
   const trees: MapTreeSummary[] = allTrees
     .filter((t) => t.locale === locale)
     .map((t) => ({
       slug: t.slug,
       title: t.title,
       scientificName: t.scientificName,
-      distribution: t.distribution,
-      tags: t.tags,
-      floweringSeason: t.floweringSeason,
-      fruitingSeason: t.fruitingSeason,
+      distribution: t.distribution as Distribution[] | undefined,
+      tags: t.tags as TreeTag[] | undefined,
+      floweringSeason: t.floweringSeason as Month[] | undefined,
+      fruitingSeason: t.fruitingSeason as Month[] | undefined,
       featuredImage: t.featuredImage,
       conservationStatus: t.conservationStatus,
       maxHeight: t.maxHeight,
