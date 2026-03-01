@@ -22,12 +22,13 @@ Last updated: 2026-03-01
 
 ## Current State
 
-- **Tests**: 623/623 passing
+- **Tests**: 630/630 passing (623 + 7 new)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Database**: Neon PostgreSQL, Prisma 7, all migrations applied
 - **Search**: Autocomplete dropdown on `/trees`, QuickSearch modal in nav — both with keyboard nav
-- **i18n**: All major client components now use `useTranslations()` — no more inline ternaries in core UI
-- **All P2–P6 + P9.7 tasks complete** — see `docs/IMPLEMENTATION_PLAN.md` for full status
+- **Filters**: Family, conservation status, province, tags, safety — all with URL param persistence
+- **i18n**: All major client components use `useTranslations()` — no inline ternaries in core UI
+- **All P2–P6 + P9.7–P9.8 tasks complete** — see `docs/IMPLEMENTATION_PLAN.md`
 - **Error tracking**: Sentry-ready (zero deps, console fallback)
 - **Public API**: 7 v1 endpoints with OpenAPI 3.1 spec
 
@@ -39,15 +40,16 @@ Last updated: 2026-03-01
 - `'unsafe-inline'` in CSP `style-src` is intentional (irreducible runtime values)
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `redos.test.ts` timing test is flaky (expects <1ms, sometimes takes 1.2ms)
+- `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
 
 ## What's Next
 
 Pick from `docs/IMPLEMENTATION_PLAN.md`. Top candidates:
 
 1. Re-run Lighthouse after P4.6 merge to validate LCP improvement
-2. P9.8 — Region/province filter for tree directory
-3. P9.10 — Advanced search & filtering (bloom time, size, uses, conservation)
-4. Install `@sentry/nextjs` and configure DSN in Vercel (manual step)
+2. P9.10 — Advanced search & filtering (bloom time, size, uses, conservation)
+3. Install `@sentry/nextjs` and configure DSN in Vercel (manual step)
+4. P8.2 — Offline enhancements (download species, offline search)
 
 ## Operator Preferences
 

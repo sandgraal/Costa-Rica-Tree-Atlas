@@ -78,15 +78,16 @@
 - [x] Keyboard navigation for suggestions (ArrowUp/Down, Enter to select, Escape to close)
 - [x] Debounce input (200-300ms) to avoid excessive searches
 
-### 3. Region/Province Filter (P9.8) — Medium
+### 3. Region/Province Filter (P9.8) — ✅ Complete
 
 **Impact:** Medium — Costa Rican users want to find trees in their region
 **Effort:** Medium
+**Current:** Province dropdown filter on `/trees` page, URL param persistence for all filters
 
-- [ ] Add province/region filter to tree directory (`/trees` page)
-- [ ] Filter by Costa Rican provinces: San José, Alajuela, Cartago, Heredia, Guanacaste, Puntarenas, Limón
-- [ ] Cross-reference with tree `distribution` frontmatter data
-- [ ] Persist filter selection in URL params for shareability
+- [x] Add province/region filter to tree directory (`/trees` page)
+- [x] Filter by Costa Rican provinces: San José, Alajuela, Cartago, Heredia, Guanacaste, Puntarenas, Limón
+- [x] Cross-reference with tree `distribution` frontmatter data
+- [x] Persist filter selection in URL params for shareability
 
 ### 4. Advanced Search & Filtering (P9.10) — Medium
 
