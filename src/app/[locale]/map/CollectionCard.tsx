@@ -2,7 +2,8 @@
 
 import { ShareCollectionButton } from "@/components/ShareCollectionButton";
 import type { DiscoveryCollection } from "@/lib/geo/collections";
-import type { Locale, Tree as TreeType } from "@/types/tree";
+import type { Locale } from "@/types/tree";
+import type { MapTreeSummary } from "./TreeMapClient";
 
 interface CollectionCardProps {
   collection: DiscoveryCollection;
@@ -10,7 +11,7 @@ interface CollectionCardProps {
   locale: Locale;
   speciesLabel: string;
   viewCollectionLabel: string;
-  getCollectionTrees: (collection: DiscoveryCollection) => TreeType[];
+  getCollectionTrees: (collection: DiscoveryCollection) => MapTreeSummary[];
   onSelect: (collection: DiscoveryCollection) => void;
 }
 
