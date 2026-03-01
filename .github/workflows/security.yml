@@ -60,6 +60,8 @@ jobs:
           extra_args: --only-verified
 
   # Dependency Review - Analyze dependency changes in PRs
+  # Note: Requires Dependency Graph + GitHub Advanced Security enabled in repo settings.
+  # On private repos without GHAS, this step may fail, but continue-on-error ensures it does not block the workflow.
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest

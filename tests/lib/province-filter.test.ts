@@ -98,7 +98,7 @@ describe("Province/Distribution filtering", () => {
     ];
     const filter: TreeFilter = {
       distribution: ["guanacaste"],
-      family: "Fabaceae",
+      family: ["Fabaceae"],
     };
     const result = filterTrees(treesWithFamilies, filter);
     expect(result).toHaveLength(1);
