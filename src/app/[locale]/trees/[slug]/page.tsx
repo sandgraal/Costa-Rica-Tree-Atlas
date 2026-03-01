@@ -296,12 +296,7 @@ export default async function TreePage({ params }: Props) {
             <div className="min-w-0">
               {/* Actions Bar */}
               <div className="mb-8 flex justify-end items-center gap-2 no-print">
-                <FavoriteButton
-                  slug={tree.slug}
-                  title={tree.title}
-                  locale={locale}
-                  showLabel
-                />
+                <FavoriteButton slug={tree.slug} title={tree.title} showLabel />
                 <ShareButton
                   title={tree.title}
                   scientificName={tree.scientificName}
@@ -506,7 +501,7 @@ export default async function TreePage({ params }: Props) {
 
             {/* Sidebar with Table of Contents - Hidden on mobile */}
             <aside className="hidden lg:block">
-              <TableOfContents locale={locale} />
+              <TableOfContents />
             </aside>
           </div>
         </div>

@@ -14,6 +14,7 @@ export interface ConfusionRatingConfig {
   rating: number;
   label: string;
   shortLabel: string;
+  confusionLevelLabel: string;
   colorClass: string;
   bgColorClass: string;
   textColorClass: string;
@@ -90,6 +91,8 @@ export function getConfusionRatingConfig(
     rating: normalizedRating,
     label: localeLabels[normalizedRating - 1].full,
     shortLabel: localeLabels[normalizedRating - 1].short,
+    confusionLevelLabel:
+      locale === "es" ? "Nivel de confusión:" : "Confusion level:",
     colorClass: colors[normalizedRating - 1],
     bgColorClass: bgColors[normalizedRating - 1],
     textColorClass: textColors[normalizedRating - 1],

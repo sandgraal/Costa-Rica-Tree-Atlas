@@ -13,15 +13,13 @@ Last updated: 2026-02-28
 
 ## Latest Changes
 
-**Branch**: `feature/search-autocomplete` — PR #530
+**Branch**: `feature/i18n-cleanup-inline-ternaries` — PR #532
 
-- P9.7 Search Autocomplete: added `SearchSuggestions` component with match highlighting, ARIA listbox, auto-scroll
-- Integrated autocomplete dropdown into TreeExplorer search bar on `/trees` — top 5 results shown as user types
-- Keyboard navigation: ArrowUp/Down, Enter to select (navigates to tree detail), Escape to dismiss
-- ARIA combobox pattern added to both TreeExplorer and QuickSearch inputs
-- QuickSearch i18n: converted 8 hardcoded locale ternaries to `useTranslations("search")`
-- Added `search` i18n namespace (12 keys) to both `en.json` and `es.json`
-- Added auto-scroll and "close" keyboard hint to QuickSearch
+- Migrated ~47 inline `locale === "es"` ternaries to `useTranslations()` across 5 components
+- TreeExplorer (25+), KeyboardShortcuts (15), FavoriteButton (4), ConfusionRatingBadge (2), TableOfContents (1)
+- Added 4 new i18n namespaces: `favorites`, `toc`, `keyboardShortcuts`, plus 15 new `trees` keys and 1 `comparison` key
+- Removed `locale` prop from `FavoriteButton` and `TableOfContents` (callers updated)
+- Added `confusionLevelLabel` to `ConfusionRatingConfig` interface
 
 ## Current State
 
@@ -29,6 +27,7 @@ Last updated: 2026-02-28
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Database**: Neon PostgreSQL, Prisma 7, all migrations applied
 - **Search**: Autocomplete dropdown on `/trees`, QuickSearch modal in nav — both with keyboard nav
+- **i18n**: All major client components now use `useTranslations()` — no more inline ternaries in core UI
 - **All P2–P6 + P9.7 tasks complete** — see `docs/IMPLEMENTATION_PLAN.md` for full status
 - **Error tracking**: Sentry-ready (zero deps, console fallback)
 - **Public API**: 7 v1 endpoints with OpenAPI 3.1 spec
@@ -41,7 +40,6 @@ Last updated: 2026-02-28
 - `'unsafe-inline'` in CSP `style-src` is intentional (irreducible runtime values)
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `redos.test.ts` timing test is flaky (expects <1ms, sometimes takes 1.2ms)
-- TreeExplorer still uses inline `locale === "es"` labels (not yet migrated to `useTranslations`)
 
 ## What's Next
 
@@ -50,8 +48,7 @@ Pick from `docs/IMPLEMENTATION_PLAN.md`. Top candidates:
 1. Re-run Lighthouse after P4.6 merge to validate LCP improvement
 2. P9.8 — Region/province filter for tree directory
 3. P9.10 — Advanced search & filtering (bloom time, size, uses, conservation)
-4. TreeExplorer i18n cleanup — migrate remaining labels to `useTranslations("trees")`
-5. Install `@sentry/nextjs` and configure DSN in Vercel (manual step)
+4. Install `@sentry/nextjs` and configure DSN in Vercel (manual step)
 
 ## Operator Preferences
 

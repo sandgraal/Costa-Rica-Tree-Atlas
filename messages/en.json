@@ -102,7 +102,20 @@
     "conservationStatus": "Conservation Status",
     "uses": "Uses",
     "learnMore": "Learn More",
-    "backToList": "← Back to Tree Directory"
+    "backToList": "← Back to Tree Directory",
+    "searchByNamePlaceholder": "Search by name, family, use, region...",
+    "filters": "Filters",
+    "characteristics": "Characteristics",
+    "safetyFilters": "Safety Filters",
+    "childSafe": "Child Safe",
+    "petSafe": "Pet Safe",
+    "nonToxic": "Non-Toxic",
+    "lowRisk": "Low Risk",
+    "loadMore": "Load More",
+    "showingOf": "Showing {showing} of {total}",
+    "matchingTrees": "{count, plural, =1 {1 tree matches} other {# trees match}}",
+    "noResultsFiltered": "No trees found with selected filters",
+    "noTreesFound": "No trees found"
   },
   "footer": {
     "description": "An open-source project dedicated to documenting the trees of Costa Rica.",
@@ -277,6 +290,30 @@
       "description": "Costa Rica Tree Atlas uses two licenses: AGPL-3.0 for code and CC BY-NC-SA 4.0 for educational content. Free for education and research, with attribution required."
     }
   },
+  "favorites": {
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "favorite": "Favorite",
+    "saved": "Saved"
+  },
+  "toc": {
+    "contents": "Contents"
+  },
+  "keyboardShortcuts": {
+    "title": "Keyboard Shortcuts",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "general": "General",
+    "close": "Close",
+    "search": "Open quick search",
+    "escape": "Close modal/search",
+    "home": "Go to home",
+    "trees": "Go to tree directory",
+    "goToFavorites": "Go to favorites",
+    "random": "Random tree",
+    "help": "Show/hide help",
+    "theme": "Toggle theme"
+  },
   "comparison": {
     "title": "Tree Comparison",
     "subtitle": "Compare characteristics of different tree species side by side",
@@ -307,7 +344,8 @@
       "conservationStatus": "Conservation",
       "uses": "Uses",
       "tags": "Characteristics"
-    }
+    },
+    "confusionLevel": "Confusion level:"
   },
   "fieldGuide": {
     "title": "Field Guide Generator",

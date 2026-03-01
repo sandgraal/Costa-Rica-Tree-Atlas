@@ -1,34 +1,23 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { validateSlug } from "@/lib/validation";
 
 export function KeyboardShortcuts() {
   const [isOpen, setIsOpen] = useState(false);
   const locale = useLocale();
+  const t = useTranslations("keyboardShortcuts");
 
-  const t = {
-    title: locale === "es" ? "Atajos de Teclado" : "Keyboard Shortcuts",
-    navigation: locale === "es" ? "Navegación" : "Navigation",
-    actions: locale === "es" ? "Acciones" : "Actions",
-    general: locale === "es" ? "General" : "General",
-    close: locale === "es" ? "Cerrar" : "Close",
-    pressToShow:
-      locale === "es"
-        ? 'Presiona "?" para ver atajos'
-        : 'Press "?" to show shortcuts',
-    shortcuts: {
-      search: locale === "es" ? "Abrir búsqueda rápida" : "Open quick search",
-      escape: locale === "es" ? "Cerrar modal/búsqueda" : "Close modal/search",
-      home: locale === "es" ? "Ir a inicio" : "Go to home",
-      trees:
-        locale === "es" ? "Ir a directorio de árboles" : "Go to tree directory",
-      favorites: locale === "es" ? "Ir a favoritos" : "Go to favorites",
-      random: locale === "es" ? "Árbol aleatorio" : "Random tree",
-      help: locale === "es" ? "Mostrar/ocultar ayuda" : "Show/hide help",
-      theme: locale === "es" ? "Cambiar tema" : "Toggle theme",
-    },
+  const shortcuts = {
+    search: t("search"),
+    escape: t("escape"),
+    home: t("home"),
+    trees: t("trees"),
+    favorites: t("goToFavorites"),
+    random: t("random"),
+    help: t("help"),
+    theme: t("theme"),
   };
 
   const handleKeyDown = useCallback(
@@ -134,12 +123,12 @@ export function KeyboardShortcuts() {
             className="text-xl font-bold text-foreground flex items-center gap-2"
           >
             <KeyboardIcon className="w-5 h-5 text-primary" />
-            {t.title}
+            {t("title")}
           </h2>
           <button
             onClick={() => setIsOpen(false)}
             className="p-2 rounded-lg hover:bg-muted transition-colors"
-            aria-label={t.close}
+            aria-label={t("close")}
           >
             <CloseIcon className="w-5 h-5" />
           </button>
@@ -148,35 +137,35 @@ export function KeyboardShortcuts() {
         {/* Navigation Section */}
         <div className="mb-6">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-            {t.navigation}
+            {t("navigation")}
           </h3>
           <div className="space-y-2">
-            <ShortcutRow keys={["H"]} description={t.shortcuts.home} />
-            <ShortcutRow keys={["T"]} description={t.shortcuts.trees} />
-            <ShortcutRow keys={["F"]} description={t.shortcuts.favorites} />
-            <ShortcutRow keys={["R"]} description={t.shortcuts.random} />
+            <ShortcutRow keys={["H"]} description={shortcuts.home} />
+            <ShortcutRow keys={["T"]} description={shortcuts.trees} />
+            <ShortcutRow keys={["F"]} description={shortcuts.favorites} />
+            <ShortcutRow keys={["R"]} description={shortcuts.random} />
           </div>
         </div>
 
         {/* Actions Section */}
         <div className="mb-6">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-            {t.actions}
+            {t("actions")}
           </h3>
           <div className="space-y-2">
-            <ShortcutRow keys={["⌘", "K"]} description={t.shortcuts.search} />
-            <ShortcutRow keys={["D"]} description={t.shortcuts.theme} />
+            <ShortcutRow keys={["⌘", "K"]} description={shortcuts.search} />
+            <ShortcutRow keys={["D"]} description={shortcuts.theme} />
           </div>
         </div>
 
         {/* General Section */}
         <div>
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-            {t.general}
+            {t("general")}
           </h3>
           <div className="space-y-2">
-            <ShortcutRow keys={["?"]} description={t.shortcuts.help} />
-            <ShortcutRow keys={["Esc"]} description={t.shortcuts.escape} />
+            <ShortcutRow keys={["?"]} description={shortcuts.help} />
+            <ShortcutRow keys={["Esc"]} description={shortcuts.escape} />
           </div>
         </div>
       </div>
