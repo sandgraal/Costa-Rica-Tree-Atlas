@@ -1,6 +1,6 @@
 {
   "siteTitle": "Atlas de Árboles de Costa Rica",
-  "siteDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe impulsada por la comunidad sobre la flora costarricense.",
+  "siteDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe de la flora costarricense.",
   "notFound": {
     "title": "Página No Encontrada",
     "description": "La página que buscas puede haber sido eliminada, cambiado de nombre o estar temporalmente no disponible.",
@@ -44,7 +44,7 @@
   "home": {
     "title": "Descubre los Árboles de Costa Rica",
     "subtitle": "Descubre los magníficos árboles de Costa Rica",
-    "description": "Explora la rica herencia botánica de este paraíso tropical—desde el icónico Guanacaste hasta la imponente Ceiba. Una guía bilingüe gratuita en español e inglés.",
+    "description": "Explora la rica herencia botánica de este paraíso tropical—desde el icónico Guanacaste hasta la imponente Ceiba. Una guía bilingüe en español e inglés.",
     "exploreButton": "Explorar Árboles",
     "adminButton": "Portal de Admin",
     "featuredTrees": "Árboles Destacados",
@@ -170,11 +170,11 @@
     "seasonal": "Calendario",
     "aboutUs": "Sobre Nosotros",
     "openSource": "Código Abierto",
-    "contribute": "Ayuda a mejorar el Atlas de Árboles de Costa Rica compartiendo correcciones, conocimiento local o fotos.",
+    "contribute": "¿Te interesa colaborar? Contáctanos a través de GitHub.",
     "madeWith": "Hecho con ❤️ para los bosques de Costa Rica",
     "keyboardShortcuts": "Atajos de teclado",
     "copyrightProject": "Atlas de Árboles de Costa Rica",
-    "copyrightLicense": "El contenido educativo y el código fuente se comparten para aprendizaje e investigación.",
+    "copyrightLicense": "Todos los derechos reservados | Propietario",
     "tagline": "Creado para entusiastas de árboles en Costa Rica",
     "exploreSection": "Explorar",
     "learnSection": "Aprender",
@@ -233,8 +233,8 @@
         "description": "El contenido se investiga de fuentes autorizadas incluyendo literatura científica, instituciones botánicas y observaciones de campo."
       },
       "openSource": {
-        "title": "Impulsado por la Comunidad",
-        "description": "El Atlas de Árboles de Costa Rica crece con colaboración comunitaria. Botánicos, educadores, naturalistas y desarrolladores pueden sugerir actualizaciones, traducciones, fotos y mejoras."
+        "title": "Código Abierto",
+        "description": "La colaboración se coordina mediante flujos de contribución y revisión aprobados."
       }
     },
     "whyCostaRica": {
@@ -273,13 +273,13 @@
         "description": "Escribimos perfiles bilingües completos con fotos e información ecológica"
       },
       "step4": {
-        "title": "Compartir Abiertamente",
-        "description": "Publicamos libremente bajo licencias abiertas para educación y conservación"
+        "title": "Compartir con Responsabilidad",
+        "description": "Publica y reutiliza materiales solo mediante permisos aprobados y flujos de colaboración autorizados"
       }
     },
     "contributing": {
       "title": "Cómo Contribuir",
-      "description": "Damos la bienvenida a contribuciones de botánicos, naturalistas, fotógrafos, educadores, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica. Comparte correcciones, conocimiento local, traducciones y material visual para mantener el atlas útil y preciso.",
+      "description": "Damos la bienvenida a la colaboración de botánicos, naturalistas, fotógrafos, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica mediante flujos de contribución aprobados.",
       "github": "Ver en GitHub",
       "explore": "Explorar Árboles"
     },
@@ -330,8 +330,8 @@
       }
     },
     "license": {
-      "title": "Uso de Contenido y Datos",
-      "description": "El contenido y los datos del Atlas de Árboles de Costa Rica se ofrecen para educación e investigación con atribución. Contacta al equipo del proyecto para consultas sobre reutilización comercial o redistribución."
+      "title": "Licenciamiento",
+      "description": "El Atlas de Árboles de Costa Rica es de propiedad privada. El código, contenido y datos están reservados y se rigen por los documentos legales del repositorio."
     }
   },
   "favorites": {
@@ -937,9 +937,9 @@
     },
     "codeExamples": "Ejemplos de Código",
     "support": "Soporte",
-    "supportDesc": "Para preguntas o problemas, contacta al equipo del Atlas de Árboles de Costa Rica por nuestros canales de soporte.",
-    "license": "Licencia de Datos",
-    "licenseDesc": "Los datos de la API se ofrecen para educación e investigación con atribución al Atlas de Árboles de Costa Rica. Contacta al equipo para uso comercial o redistribución."
+    "supportDesc": "Para preguntas o problemas, por favor abre un issue en nuestro repositorio de GitHub.",
+    "license": "Términos de uso",
+    "licenseDesc": "Las respuestas de la API y el contenido relacionado son propietarios y tienen todos los derechos reservados, salvo acuerdo escrito por separado."
   },
   "rating": {
     "title": "Calificación de la Comunidad",

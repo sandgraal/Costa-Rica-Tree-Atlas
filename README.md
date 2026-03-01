@@ -2,6 +2,9 @@
 
 A bilingual (English/Spanish) web application and private reference project documenting the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
+A bilingual (English/Spanish) web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
+
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
