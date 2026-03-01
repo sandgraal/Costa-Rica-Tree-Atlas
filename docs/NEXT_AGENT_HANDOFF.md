@@ -18,7 +18,6 @@ Last updated: 2026-03-01
 - Fixed `classifyUses` false positives: replaced `includes(kw)` with leading `\b` regex to prevent e.g. "Soil conservation" matching "oil" keyword
 - Fixed `setTimeout` without cleanup in TreeExplorer toast: `toastTimerRef` + `useEffect` cleanup
 - Added `savedSearchFilter`/`savedSearchSort` validation in Zustand `onRehydrateStorage` (type checks + enum validation)
-- Fixed handoff doc test count inconsistency (47→31 to match 646+31=677)
 
 ## Current State
 
