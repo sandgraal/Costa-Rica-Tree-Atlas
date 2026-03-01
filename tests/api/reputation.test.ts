@@ -67,9 +67,9 @@ vi.mock("@/lib/error-tracking", () => ({
 vi.mock("@/lib/api-rate-limit", () => ({
   rateLimitOrNull: vi.fn(() => null),
   getRateLimitResult: vi.fn(() => ({
-    success: true,
+    allowed: true,
     remaining: 10,
-    limit: 20,
+    resetAt: Date.now() + 60_000,
   })),
   addRateLimitHeaders: vi.fn(),
 }));

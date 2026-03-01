@@ -54,7 +54,7 @@ export function ContributorProfileClient() {
   const t = useTranslations("reputation");
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -66,7 +66,7 @@ export function ContributorProfileClient() {
         const data: ApiResponse = await res.json();
         setProfile(data.profile);
       } catch {
-        setError("Failed to load profile");
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -88,7 +88,7 @@ export function ContributorProfileClient() {
   if (error) {
     return (
       <div className="text-center py-16">
-        <p className="text-destructive mb-4">{error}</p>
+        <p className="text-destructive mb-4">{t("errorLoading")}</p>
         <Link href="/contribute" className="text-primary hover:underline">
           {t("contributions.startContributing")}
         </Link>

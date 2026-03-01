@@ -192,8 +192,8 @@ export interface ReputationResult {
  *
  * Trust level thresholds:
  * - NEW: default
- * - CONTRIBUTOR: 3+ approved, <50% rejection rate
- * - TRUSTED: 10+ approved, <20% rejection rate
+ * - CONTRIBUTOR: 3+ approved, <=50% rejection rate
+ * - TRUSTED: 10+ approved, <=20% rejection rate
  * - EXPERT: admin-granted only (preserved if isExpert=true)
  */
 export function calculateReputation(stats: ContributorStats): ReputationResult {
