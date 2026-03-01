@@ -9,6 +9,8 @@ interface SafeImageProps extends Omit<ImageProps, "onError" | "src"> {
   priority?: boolean;
   /** High priority for LCP images - sets fetchPriority="high" */
   fetchPriority?: "high" | "low" | "auto";
+  /** Image quality (1-100). Defaults to 60 for better compression vs Next.js default of 75 */
+  quality?: number;
 }
 
 /**
@@ -21,6 +23,7 @@ export function SafeImage({
   fallback = "placeholder",
   priority = false,
   fetchPriority,
+  quality = 60,
   className,
   style,
   onLoad: onLoadProp,
@@ -69,6 +72,7 @@ export function SafeImage({
         {...props}
         src={src}
         alt={alt}
+        quality={quality}
         priority={priority}
         loading={priority ? undefined : "lazy"}
         fetchPriority={effectiveFetchPriority}
