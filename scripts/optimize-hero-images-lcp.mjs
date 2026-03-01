@@ -7,11 +7,18 @@
  * AVIF/WebP quality (40-45) is visually acceptable and significantly
  * reduces download size — the biggest lever for improving simulated
  * LCP on throttled mobile connections.
+ *
+ * Usage:
+ *   node scripts/optimize-hero-images-lcp.mjs            # optimize all
+ *   node scripts/optimize-hero-images-lcp.mjs --dry-run  # preview changes
  */
 
 import sharp from "sharp";
 import { writeFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+
+const args = process.argv.slice(2);
+const dryRun = args.includes("--dry-run");
 
 const HERO_DIR = "public/images/hero";
 const AVIF_QUALITY = 40;
@@ -39,7 +46,7 @@ const configs = [
 async function main() {
   console.log("🖼️  Hero Image LCP Optimizer");
   console.log(
-    `   AVIF quality: ${AVIF_QUALITY} | WebP quality: ${WEBP_QUALITY} | JPEG quality: ${JPEG_QUALITY}\n`
+    `   AVIF quality: ${AVIF_QUALITY} | WebP quality: ${WEBP_QUALITY} | JPEG quality: ${JPEG_QUALITY} | Mode: ${dryRun ? "DRY RUN" : "LIVE"}\n`
   );
 
   let totalSaved = 0;
@@ -54,11 +61,11 @@ async function main() {
     const avifBuf = await sharp(srcPath)
       .avif({ quality: AVIF_QUALITY, effort: 6 })
       .toBuffer();
-    writeFileSync(avifPath, avifBuf);
+    if (!dryRun) writeFileSync(avifPath, avifBuf);
     const avifSaved = origAvifSize - avifBuf.length;
     totalSaved += Math.max(0, avifSaved);
     console.log(
-      `  ${cfg.avif}: ${Math.round(origAvifSize / 1024)}KB → ${Math.round(avifBuf.length / 1024)}KB (${meta.width}x${meta.height}) ${avifSaved > 0 ? `saved ${Math.round(avifSaved / 1024)}KB` : "no change"}`
+      `  ${cfg.avif}: ${Math.round(origAvifSize / 1024)}KB → ${Math.round(avifBuf.length / 1024)}KB (${meta.width}x${meta.height}) ${avifSaved > 0 ? `saved ${Math.round(avifSaved / 1024)}KB` : "no change"}${dryRun ? " (dry run)" : ""}`
     );
 
     // Re-encode WebP
@@ -67,11 +74,11 @@ async function main() {
     const webpBuf = await sharp(srcPath)
       .webp({ quality: WEBP_QUALITY })
       .toBuffer();
-    writeFileSync(webpPath, webpBuf);
+    if (!dryRun) writeFileSync(webpPath, webpBuf);
     const webpSaved = origWebpSize - webpBuf.length;
     totalSaved += Math.max(0, webpSaved);
     console.log(
-      `  ${cfg.webp}: ${Math.round(origWebpSize / 1024)}KB → ${Math.round(webpBuf.length / 1024)}KB ${webpSaved > 0 ? `saved ${Math.round(webpSaved / 1024)}KB` : "no change"}`
+      `  ${cfg.webp}: ${Math.round(origWebpSize / 1024)}KB → ${Math.round(webpBuf.length / 1024)}KB ${webpSaved > 0 ? `saved ${Math.round(webpSaved / 1024)}KB` : "no change"}${dryRun ? " (dry run)" : ""}`
     );
 
     // Re-compress JPEG fallback with mozjpeg
@@ -79,18 +86,18 @@ async function main() {
     const jpgBuf = await sharp(srcPath)
       .jpeg({ quality: JPEG_QUALITY, mozjpeg: true })
       .toBuffer();
-    writeFileSync(srcPath, jpgBuf);
+    if (!dryRun) writeFileSync(srcPath, jpgBuf);
     const jpgSaved = origJpgSize - jpgBuf.length;
     totalSaved += Math.max(0, jpgSaved);
     console.log(
-      `  ${cfg.src}: ${Math.round(origJpgSize / 1024)}KB → ${Math.round(jpgBuf.length / 1024)}KB ${jpgSaved > 0 ? `saved ${Math.round(jpgSaved / 1024)}KB` : "no change"}`
+      `  ${cfg.src}: ${Math.round(origJpgSize / 1024)}KB → ${Math.round(jpgBuf.length / 1024)}KB ${jpgSaved > 0 ? `saved ${Math.round(jpgSaved / 1024)}KB` : "no change"}${dryRun ? " (dry run)" : ""}`
     );
 
     console.log("");
   }
 
   console.log(
-    `\nTotal saved: ${(totalSaved / 1024).toFixed(1)}KB (${(totalSaved / 1024 / 1024).toFixed(2)}MB)`
+    `\nTotal ${dryRun ? "would save" : "saved"}: ${(totalSaved / 1024).toFixed(1)}KB (${(totalSaved / 1024 / 1024).toFixed(2)}MB)`
   );
 }
 
