@@ -169,7 +169,6 @@
     "education": "Education",
     "seasonal": "Calendar",
     "aboutUs": "About Us",
-    "openSource": "Open Source",
     "contribute": "Interested in collaborating? Contact us through GitHub.",
     "madeWith": "Made with ❤️ for Costa Rica's forests",
     "keyboardShortcuts": "Keyboard shortcuts",
@@ -233,7 +232,7 @@
         "description": "Content is researched from authoritative sources including scientific literature, botanical institutions, and field observations."
       },
       "openSource": {
-        "title": "Open Source",
+        "title": "Community Collaboration",
         "description": "Collaboration is coordinated through approved contribution and review workflows."
       }
     },

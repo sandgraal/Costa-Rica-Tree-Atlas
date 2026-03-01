@@ -169,7 +169,6 @@
     "education": "Educación",
     "seasonal": "Calendario",
     "aboutUs": "Sobre Nosotros",
-    "openSource": "Código Abierto",
     "contribute": "¿Te interesa colaborar? Contáctanos a través de GitHub.",
     "madeWith": "Hecho con ❤️ para los bosques de Costa Rica",
     "keyboardShortcuts": "Atajos de teclado",
@@ -233,7 +232,7 @@
         "description": "El contenido se investiga de fuentes autorizadas incluyendo literatura científica, instituciones botánicas y observaciones de campo."
       },
       "openSource": {
-        "title": "Código Abierto",
+        "title": "Colaboración Comunitaria",
         "description": "La colaboración se coordina mediante flujos de contribución y revisión aprobados."
       }
     },
