@@ -1,8 +1,8 @@
 export function AboutSection({
-  openSource,
+  title,
   description,
 }: {
-  openSource: string;
+  title: string;
   description: string;
 }) {
   return (
@@ -20,7 +20,7 @@ export function AboutSection({
         </svg>
       </div>
       <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-4">
-        {openSource}
+        {title}
       </h2>
       <p className="text-muted-foreground text-lg">{description}</p>
     </>
