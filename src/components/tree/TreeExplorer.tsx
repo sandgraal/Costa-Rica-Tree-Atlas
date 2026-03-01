@@ -39,7 +39,7 @@ function isProvince(dist: Distribution): dist is Province {
 // ============================================================================
 
 const VALID_SORT_FIELDS: SortField[] = ["title", "scientificName", "family"];
-const VALID_VIEW_MODES: ViewMode[] = ["grid", "alphabetical"];
+const VALID_VIEW_MODES = ["grid", "alphabetical"] as const;
 
 function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const filter: TreeFilter = {};
