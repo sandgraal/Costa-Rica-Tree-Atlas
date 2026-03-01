@@ -13,18 +13,12 @@ Last updated: 2026-03-01
 
 ## Latest Changes
 
-**Branch**: `feature/uses-height-filters` — pending merge
+**Branch**: `copilot/sub-pr-540` — pending merge
 
-- Added height range filter (small/medium/large/very-large) to tree directory
-- Added use category filter (timber/medicine/food/ornamental/environmental/agriculture/crafts)
-- `parseMaxHeightMeters()` parses first number from free-text maxHeight strings
-- `classifyHeight()` maps height to range buckets; `classifyUses()` categorizes uses via keyword matching
-- `extractFacets()` now returns `heightRanges` and `useCategories` with counts
-- Height + use dropdowns in TreeExplorer filter panel with URL param persistence (`?height=large&use=timber`)
-- Zustand store: `savedSearchFilter` + `savedSearchSort` with persist middleware
-- Save/Load filter preference buttons in filter panel (bookmark icon)
-- 20 new i18n keys in both `en.json` and `es.json`
-- 47 new tests (parsing, classification, filtering, facets, combined)
+- Fixed `classifyUses` false positives: precompiled `USE_CATEGORY_PATTERNS` (leading `\b` regex) replaces per-call `new RegExp`; avoids "Soil" → "oil" false positive
+- Fixed `setTimeout` without cleanup in TreeExplorer toast: `toastTimerRef` + `useEffect` cleanup
+- Added `savedSearchFilter`/`savedSearchSort` validation in Zustand `onRehydrateStorage` (type + enum checks)
+- Added regression test: "Soil conservation" must not match `food` keyword "oil"
 
 ## Current State
 
@@ -48,7 +42,6 @@ Last updated: 2026-03-01
 - Sentry DSN not yet configured in Vercel env vars (works via console fallback)
 - `redos.test.ts` timing test is flaky (expects <1ms, sometimes takes 1.2ms)
 - `useSearchParams()` in TreeExplorer requires Suspense boundary — provided by `next/dynamic` loading fallback
-- Network outage blocked push; local commits on `feature/uses-height-filters` and handoff on `main` need pushing
 
 ## What's Next
 
