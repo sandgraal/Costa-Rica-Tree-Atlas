@@ -2,14 +2,56 @@
 
 Last updated: 2026-02-28
 
-## Latest Run Summary (2026-02-28 — Run 14)
+## Latest Run Summary (2026-02-28 — Run 15)
 
-- **Branch**: `feature/p4.5-csp-inline-style-refactor`
+- **Branch**: `feature/p6.2-reputation-system`
 - **Tasks completed**:
-  1. **P4.5: CSP inline style optimization — complete** — Previously marked as "Manual Sprint — Requires Human" in the implementation plan. Assessed all 54 inline `style={{}}` occurrences across components (excluding 88 in OG/Twitter images which require them). Converted 4 components fully to Tailwind classes (SkeletonText, SkeletonGrid, SafeImage opacity, QRCodeGenerator). Created reusable `ProgressBar` component (`src/components/ProgressBar.tsx`) with proper ARIA attributes that centralizes the single dynamic-width inline style. Replaced 9 duplicated inline progress bar implementations across 9 files. Updated CSP `style-src` comments in all 3 policy variants — removed stale TODO. Remaining ~30 inline styles are genuinely irreducible dynamic runtime values (virtualizer positions, data-driven IUCN colors, SVG fills, animation delays, slider positions). `'unsafe-inline'` in `style-src` is industry standard and will remain.
-  2. **Verified**: 577/577 tests pass, 0 lint errors, build clean.
+  1. **P6.2: User Reputation System — full implementation** — Built the complete contributor reputation system with badges and tiered trust levels:
+     - **Prisma schema**: Added `ContributorProfile` model (sessionId, displayName, stats, reputationScore, trustLevel, badges[]), `TrustLevel` enum (NEW/CONTRIBUTOR/TRUSTED/EXPERT), added `region` column to `Contribution`
+     - **Migration**: `prisma/migrations/20260228000000_add_contributor_profiles/migration.sql`
+     - **Pure logic module**: `src/lib/reputation.ts` — `calculateReputation()` (scoring: +10/approved, -3/rejected, +2/rating, +5/photo, +15/knowledge), `getNextBadge()`, 4 trust levels with threshold configs, 9 badge definitions
+     - **API route**: `GET /api/reputation` — fetches/computes contributor profile with badges and nextBadge progress, session cookie auth, rate limited, 503 fallback
+     - **Admin integration**: Reputation recalculation on approve/reject/implement in PATCH `/api/admin/contributions/[id]`, trust level + reputation score visible in admin contribution list and detail modal
+     - **Profile page**: `/contribute/profile` with trust level badge, stats grid, full badge display with earned/unearned states and progress bar for next badge
+     - **BadgeDisplay component**: `src/components/BadgeDisplay.tsx` — compact (inline) and expanded (full grid) variants with progress tracking
+     - **i18n**: Complete `reputation` namespace in EN + ES (~60 keys each) covering trust levels, stats, 9 badges, UI strings
+  2. **Bug fix: region field silently dropped** — `ContributeClient` collected region/whereFound but payload construction omitted them. Fixed mapping for both LOCAL_KNOWLEDGE and NEW_SPECIES types. Added `region` column to schema + API.
+  3. **Bug fix: unused "Share local knowledge" CTA** — Translation keys existed but no link was rendered in `ContributeCTA`. Added third CTA link pointing to `/contribute?type=LOCAL_KNOWLEDGE&tree={slug}`.
+  4. **Bug fix: no URL param pre-selection** — Added `searchParams` handling in contribute page, `initialType`/`initialTree` props in `ContributeClient` for deep-linking from tree detail CTAs.
+  5. **Bug fix: region not shown in admin** — Added region display in admin contribution detail modal.
+  6. **Contributions API improvement**: LEFT JOIN with `contributor_profiles` to include trust level + reputation score in admin contribution listings. Table-aliased WHERE conditions for unambiguous queries.
+  7. **Profile link in success state**: Added "View Your Contributions" link on contribution submission success screen.
+  8. **Tests**: 46 new tests — `tests/lib/reputation.test.ts` (39 tests: scoring formula, trust level determination, all 9 badges, edge cases, getNextBadge), `tests/api/reputation.test.ts` (7 tests: no session, existing profile, nextBadge, computed profile, no activity, 503, 500)
+  9. **Verified**: 623/623 tests pass (+46 new), 0 lint errors, build clean.
 
-## Previous Run Summary (2026-02-28 — Run 13)
+## Created/Modified Files
+
+### Created
+
+- `prisma/migrations/20260228000000_add_contributor_profiles/migration.sql`
+- `src/lib/reputation.ts`
+- `src/app/api/reputation/route.ts`
+- `src/components/BadgeDisplay.tsx`
+- `src/app/[locale]/contribute/profile/page.tsx`
+- `src/app/[locale]/contribute/profile/ContributorProfileClient.tsx`
+- `tests/lib/reputation.test.ts`
+- `tests/api/reputation.test.ts`
+
+### Modified
+
+- `prisma/schema.prisma` — Added ContributorProfile model, TrustLevel enum, region column
+- `src/types/contributions.ts` — Added region, contributorTrustLevel, contributorReputationScore fields
+- `src/app/api/contributions/route.ts` — Region in POST, LEFT JOIN for trust level in GET
+- `src/app/api/admin/contributions/[id]/route.ts` — Region in GET, reputation recalculation in PATCH
+- `src/app/[locale]/contribute/ContributeClient.tsx` — Region in payload, initialType/initialTree, viewProfile link
+- `src/app/[locale]/contribute/page.tsx` — searchParams handling, viewProfile translation
+- `src/components/ContributeCTA.tsx` — Third "Share local knowledge" CTA link
+- `src/app/[locale]/admin/contributions/ContributionsListClient.tsx` — Trust level display, region display
+- `messages/en.json` — reputation namespace, success.viewProfile
+- `messages/es.json` — reputation namespace, success.viewProfile
+- `docs/IMPLEMENTATION_PLAN.md` — P6.2 marked complete
+
+## Previous Run Summary (2026-02-28 — Run 14)
 
 - **Branch**: `feature/p6.2-contributions-ratings-security-fixes`
 - **Tasks completed**:

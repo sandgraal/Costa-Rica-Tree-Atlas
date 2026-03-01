@@ -9,40 +9,40 @@
 
 ### Content Coverage
 
-| Metric             | Count                                                  | Status      |
-| ------------------ | ------------------------------------------------------ | ----------- |
-| Species documented | 175 (EN + ES)                                          | ✅ Complete |
-| Comparison guides  | 20 (EN + ES)                                           | ✅ Complete |
-| Glossary terms     | 150 (EN + ES)                                          | ✅ Complete |
-| Care guidance      | 175/175                                                | ✅ Complete |
+| Metric             | Count                                                   | Status      |
+| ------------------ | ------------------------------------------------------- | ----------- |
+| Species documented | 175 (EN + ES)                                           | ✅ Complete |
+| Comparison guides  | 20 (EN + ES)                                            | ✅ Complete |
+| Glossary terms     | 150 (EN + ES)                                           | ✅ Complete |
+| Care guidance      | 175/175                                                 | ✅ Complete |
 | Photo galleries    | 174/175 (1 intentionally excluded; no photos available) | ✅ Complete |
-| GBIF + IUCN links  | 175/175                                                | ✅ Complete |
-| Bilingual parity   | 100%                                                   | ✅ Complete |
+| GBIF + IUCN links  | 175/175                                                 | ✅ Complete |
+| Bilingual parity   | 100%                                                    | ✅ Complete |
 
 ### Technical Health
 
-| Metric          | Current (Feb 28) | Target | Status                                                |
-| --------------- | ---------------- | ------ | ----------------------------------------------------- |
+| Metric          | Current (Feb 28) | Target | Status                                                  |
+| --------------- | ---------------- | ------ | ------------------------------------------------------- |
 | Lighthouse Perf | **85**           | >90    | 🟡 Below target; LCP (4.0s) is the remaining bottleneck |
-| LCP             | **4.0 s**        | <2.5s  | 🔴 Homepage tree card images served as JPEG, not AVIF |
-| TBT             | **30 ms**        | <200ms | ✅ Fixed                                              |
-| FCP             | **2.1 s**        | <1.8s  | 🟡 300ms render-blocking CSS                          |
-| CLS             | **0**            | <0.1   | ✅ Perfect                                            |
-| TTI             | **4.2 s**        | <5s    | ✅ Fixed                                              |
-| Accessibility   | **96**           | 100    | 🟡 Contrast fixes shipped; needs re-measurement       |
-| SEO             | **100**          | 100    | ✅ Perfect                                            |
-| Best Practices  | **100**          | 100    | ✅ Perfect                                            |
-| Tests           | **577/577**      | 100%   | ✅ All passing                                        |
-| Lint errors     | **0**            | 0      | ✅                                                    |
+| LCP             | **4.0 s**        | <2.5s  | 🔴 Homepage tree card images served as JPEG, not AVIF   |
+| TBT             | **30 ms**        | <200ms | ✅ Fixed                                                |
+| FCP             | **2.1 s**        | <1.8s  | 🟡 300ms render-blocking CSS                            |
+| CLS             | **0**            | <0.1   | ✅ Perfect                                              |
+| TTI             | **4.2 s**        | <5s    | ✅ Fixed                                                |
+| Accessibility   | **96**           | 100    | 🟡 Contrast fixes shipped; needs re-measurement         |
+| SEO             | **100**          | 100    | ✅ Perfect                                              |
+| Best Practices  | **100**          | 100    | ✅ Perfect                                              |
+| Tests           | **577/577**      | 100%   | ✅ All passing                                          |
+| Lint errors     | **0**            | 0      | ✅                                                      |
 
 ### Performance Budgets
 
-| Resource          | Budget | Current                      | Status                                                              |
-| ----------------- | ------ | ---------------------------- | ------------------------------------------------------------------- |
-| JavaScript        | <300KB | ~553KB (uncompressed, main)  | 🔴 Over budget (~553KB > 300KB). 23KB unused JS remains to be pruned |
-| CSS               | <100KB | ~80KB                        | ✅ (300ms render-blocking chunk to investigate)                     |
-| Images (Cards)    | <100KB | ~270KB largest               | 🔴 Not using AVIF/WebP                                              |
-| Total Page Weight | <2MB   | ~1.6 MB                      | ✅                                                                  |
+| Resource          | Budget | Current                     | Status                                                               |
+| ----------------- | ------ | --------------------------- | -------------------------------------------------------------------- |
+| JavaScript        | <300KB | ~553KB (uncompressed, main) | 🔴 Over budget (~553KB > 300KB). 23KB unused JS remains to be pruned |
+| CSS               | <100KB | ~80KB                       | ✅ (300ms render-blocking chunk to investigate)                      |
+| Images (Cards)    | <100KB | ~270KB largest              | 🔴 Not using AVIF/WebP                                               |
+| Total Page Weight | <2MB   | ~1.6 MB                     | ✅                                                                   |
 
 ---
 
@@ -98,14 +98,18 @@
 - [ ] Save search preferences (Zustand persist)
 - [ ] Search analytics — track common queries to improve content
 
-### 5. Community Contributions — Remaining (P6.2) — Medium
+### 5. Community Contributions — Remaining (P6.2) — ✅ Complete
 
 **Impact:** Medium — community engagement features
 **Effort:** High
 **Already done:** Submit species/corrections (`/contribute`), rate trees (`TreeRating`), photo upload (`/contribute/photo`)
 
-- [ ] Share local knowledge and traditional uses (form + admin review workflow)
-- [ ] User reputation system (track contributions, display badges, tiered trust levels)
+- [x] Share local knowledge and traditional uses (form + admin review workflow)
+  - Fixed: region field now saved to DB, "Share local knowledge" CTA rendered on tree pages, URL params pre-select type/tree
+- [x] User reputation system (track contributions, display badges, tiered trust levels)
+  - ContributorProfile model, reputation API, 9 badges, 4 trust levels, profile page, BadgeDisplay component
+  - Admin view shows contributor trust level and reputation score
+  - 46 new tests (39 unit + 7 API)
 
 ### 6. Offline Enhancements (P8.2) — Lower
 

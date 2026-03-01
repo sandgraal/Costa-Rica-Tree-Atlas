@@ -5,6 +5,7 @@ import { allTrees, type Tree } from "contentlayer/generated";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ type?: string; tree?: string }>;
 }
 
 export async function generateMetadata({
@@ -19,8 +20,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function ContributePage({ params }: PageProps) {
+export default async function ContributePage({
+  params,
+  searchParams,
+}: PageProps) {
   const { locale } = await params;
+  const { type: initialType, tree: initialTree } = await searchParams;
   const t = await getTranslations({ locale, namespace: "contribute" });
 
   // Get list of trees for the current locale (for correction/knowledge forms)
@@ -47,6 +52,8 @@ export default async function ContributePage({ params }: PageProps) {
         {/* Contribution options */}
         <ContributeClient
           trees={trees}
+          initialType={initialType}
+          initialTree={initialTree}
           translations={{
             chooseType: t("chooseType"),
             newSpecies: {
@@ -133,6 +140,7 @@ export default async function ContributePage({ params }: PageProps) {
               title: t("success.title"),
               message: t("success.message"),
               another: t("success.another"),
+              viewProfile: t("success.viewProfile"),
             },
             error: {
               title: t("error.title"),

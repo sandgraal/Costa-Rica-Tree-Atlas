@@ -343,6 +343,9 @@ model Contribution {
   ipHash           String? @db.VarChar(64) // Hashed IP for rate limiting
   userId           String? // If logged in
 
+  // Location context (for LOCAL_KNOWLEDGE region or NEW_SPECIES location)
+  region String? @db.VarChar(255)
+
   // Review workflow
   status       ContributionStatus   @default(PENDING)
   priority     ContributionPriority @default(MEDIUM)
@@ -390,4 +393,46 @@ model TreeRating {
   @@index([sessionId])
   @@index([ipHash, updatedAt]) // Supports rate-limit query: ip_hash + updated_at
   @@map("tree_ratings")
+}
+
+// ============================================================================
+// CONTRIBUTOR REPUTATION SYSTEM
+// Track contribution history, badges, and trust levels for community members
+// ============================================================================
+
+// Trust levels for contributors
+enum TrustLevel {
+  NEW // Default for all new contributors
+  CONTRIBUTOR // 3+ approved contributions
+  TRUSTED // 10+ approved contributions, <20% rejection rate
+  EXPERT // Admin-granted only
+}
+
+// Contributor profile — aggregated stats and earned badges
+model ContributorProfile {
+  id        String @id @default(cuid())
+  sessionId String @unique @db.VarChar(64) // Links to contribution_session cookie
+
+  // Optional display info
+  displayName String? @db.VarChar(255)
+
+  // Contribution stats (denormalized for performance)
+  totalContributions    Int @default(0)
+  approvedContributions Int @default(0)
+  rejectedContributions Int @default(0)
+  totalRatings          Int @default(0)
+  totalPhotos           Int @default(0)
+
+  // Reputation
+  reputationScore Int        @default(0)
+  trustLevel      TrustLevel @default(NEW)
+  badges          String[]   @default([]) // Array of earned badge IDs
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([trustLevel])
+  @@index([reputationScore])
+  @@map("contributor_profiles")
 }

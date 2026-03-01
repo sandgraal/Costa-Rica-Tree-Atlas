@@ -146,6 +146,7 @@ export async function POST(request: NextRequest) {
       commonNameEn: body.commonNameEn?.trim().substring(0, 255) || null,
       commonNameEs: body.commonNameEs?.trim().substring(0, 255) || null,
       family: body.family?.trim().substring(0, 100) || null,
+      region: body.region?.trim().substring(0, 255) || null,
       proposedImages: Array.isArray(body.proposedImages)
         ? body.proposedImages.slice(0, 10).map((url: string) => url.trim())
         : [],
@@ -161,9 +162,9 @@ export async function POST(request: NextRequest) {
     const result = await prisma.$queryRaw<[{ id: string }]>`
       INSERT INTO contributions (
         id, type, tree_slug, target_field, title, description, evidence,
-        scientific_name, common_name_en, common_name_es, family, proposed_images,
-        contributor_name, contributor_email, session_id, ip_hash, user_id,
-        status, priority, locale, created_at, updated_at
+        scientific_name, common_name_en, common_name_es, family, region,
+        proposed_images, contributor_name, contributor_email, session_id,
+        ip_hash, user_id, status, priority, locale, created_at, updated_at
       ) VALUES (
         gen_random_uuid()::text,
         ${contributionData.type}::"ContributionType",
@@ -176,6 +177,7 @@ export async function POST(request: NextRequest) {
         ${contributionData.commonNameEn},
         ${contributionData.commonNameEs},
         ${contributionData.family},
+        ${contributionData.region},
         ${contributionData.proposedImages}::text[],
         ${contributionData.contributorName},
         ${contributionData.contributorEmail},
@@ -277,6 +279,7 @@ interface ContributionRow {
   common_name_en: string | null;
   common_name_es: string | null;
   family: string | null;
+  region: string | null;
   proposed_images: string[];
   contributor_name: string | null;
   contributor_email: string | null;
@@ -291,6 +294,9 @@ interface ContributionRow {
   locale: string;
   created_at: Date;
   updated_at: Date;
+  // Joined from contributor_profiles (admin only)
+  trust_level: string | null;
+  reputation_score: number | null;
 }
 
 function transformContribution(c: ContributionRow, isAdmin: boolean) {
@@ -306,6 +312,7 @@ function transformContribution(c: ContributionRow, isAdmin: boolean) {
     commonNameEn: c.common_name_en,
     commonNameEs: c.common_name_es,
     family: c.family,
+    region: c.region,
     proposedImages: c.proposed_images,
     contributorName: isAdmin ? c.contributor_name : null,
     contributorEmail: isAdmin ? c.contributor_email : null,
@@ -313,6 +320,8 @@ function transformContribution(c: ContributionRow, isAdmin: boolean) {
     userId: c.user_id,
     status: c.status,
     priority: c.priority,
+    contributorTrustLevel: isAdmin ? c.trust_level : null,
+    contributorReputationScore: isAdmin ? c.reputation_score : null,
     reviewedBy: c.reviewed_by,
     reviewedAt: c.reviewed_at,
     reviewNotes: c.review_notes,
@@ -378,19 +387,19 @@ export async function GET(request: NextRequest) {
     // combination of filters is supported without a combinatorial if/else tree.
     // All values are validated above, so enum casts are safe.
     const conditions: Prisma.Sql[] = [];
-    if (!isAdmin) conditions.push(Prisma.sql`session_id = ${sessionId}`);
+    if (!isAdmin) conditions.push(Prisma.sql`c.session_id = ${sessionId}`);
     if (typeFilter)
-      conditions.push(Prisma.sql`type = ${typeFilter}::"ContributionType"`);
+      conditions.push(Prisma.sql`c.type = ${typeFilter}::"ContributionType"`);
     if (statusFilter)
       conditions.push(
-        Prisma.sql`status = ${statusFilter}::"ContributionStatus"`
+        Prisma.sql`c.status = ${statusFilter}::"ContributionStatus"`
       );
     if (priorityFilter)
       conditions.push(
-        Prisma.sql`priority = ${priorityFilter}::"ContributionPriority"`
+        Prisma.sql`c.priority = ${priorityFilter}::"ContributionPriority"`
       );
     if (treeSlugFilter)
-      conditions.push(Prisma.sql`tree_slug = ${treeSlugFilter}`);
+      conditions.push(Prisma.sql`c.tree_slug = ${treeSlugFilter}`);
 
     const whereClause =
       conditions.length > 0
@@ -398,11 +407,14 @@ export async function GET(request: NextRequest) {
         : Prisma.empty;
 
     const contributions = await prisma.$queryRaw<ContributionRow[]>`
-      SELECT * FROM contributions
+      SELECT c.*, cp.trust_level, cp.reputation_score
+      FROM contributions c
+      LEFT JOIN contributor_profiles cp ON c.session_id = cp.session_id
       ${whereClause}
-      ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
+      ORDER BY c.created_at DESC LIMIT ${pageSize} OFFSET ${offset}`;
     const countResult = await prisma.$queryRaw<[{ count: bigint }]>`
-      SELECT COUNT(*) as count FROM contributions
+      SELECT COUNT(*) as count FROM contributions c
+      LEFT JOIN contributor_profiles cp ON c.session_id = cp.session_id
       ${whereClause}`;
 
     const total = Number(countResult[0]?.count || 0);

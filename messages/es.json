@@ -759,7 +759,8 @@
     "success": {
       "title": "¡Gracias!",
       "message": "Tu contribución ha sido enviada y será revisada por nuestro equipo.",
-      "another": "Enviar Otra Contribución"
+      "another": "Enviar Otra Contribución",
+      "viewProfile": "Ver Tus Contribuciones"
     },
     "error": {
       "title": "Error al Enviar",
@@ -893,5 +894,64 @@
     "suggestCorrection": "Sugerir una corrección",
     "uploadPhoto": "Subir una foto",
     "shareKnowledge": "Compartir conocimiento local"
+  },
+  "reputation": {
+    "title": "Tus Contribuciones",
+    "description": "Sigue tus contribuciones, gana insignias y construye tu reputación en la comunidad del Atlas de Árboles de Costa Rica.",
+    "memberSince": "Miembro desde",
+    "trustLevel": {
+      "title": "Nivel de Confianza",
+      "NEW": "Nuevo Colaborador",
+      "CONTRIBUTOR": "Colaborador",
+      "TRUSTED": "Colaborador de Confianza",
+      "EXPERT": "Experto",
+      "NEW_description": "¡Bienvenido! Tus contribuciones serán revisadas por moderadores.",
+      "CONTRIBUTOR_description": "Un miembro activo de la comunidad con contribuciones verificadas.",
+      "TRUSTED_description": "Un colaborador confiable con un sólido historial.",
+      "EXPERT_description": "Experto reconocido — otorgado por administradores."
+    },
+    "stats": {
+      "title": "Estadísticas",
+      "totalContributions": "Contribuciones Totales",
+      "approved": "Aprobadas",
+      "rejected": "Rechazadas",
+      "ratings": "Calificaciones Dadas",
+      "photos": "Fotos Subidas",
+      "score": "Puntuación de Reputación"
+    },
+    "badges": {
+      "title": "Insignias",
+      "earned": "Obtenida",
+      "locked": "Bloqueada",
+      "nextBadge": "Próxima insignia",
+      "progress": "{current} de {target}",
+      "allEarned": "¡Todas las insignias obtenidas!",
+      "first_contribution": "Primeros Pasos",
+      "first_contribution_desc": "Enviaste tu primera contribución aprobada",
+      "naturalist_5": "Naturalista",
+      "naturalist_5_desc": "5 contribuciones aprobadas",
+      "naturalist_10": "Naturalista Experto",
+      "naturalist_10_desc": "10 contribuciones aprobadas",
+      "naturalist_25": "Naturalista Maestro",
+      "naturalist_25_desc": "25 contribuciones aprobadas",
+      "knowledge_keeper": "Guardián del Conocimiento",
+      "knowledge_keeper_desc": "3 contribuciones de conocimiento local aprobadas",
+      "corrector": "Verificador de Datos",
+      "corrector_desc": "5 correcciones aprobadas",
+      "photographer": "Fotógrafo",
+      "photographer_desc": "3 fotos subidas aprobadas",
+      "active_rater": "Revisor Activo",
+      "active_rater_desc": "Calificaste 10 o más árboles",
+      "explorer": "Explorador",
+      "explorer_desc": "Calificaste 25 o más árboles"
+    },
+    "contributions": {
+      "title": "Tus Contribuciones",
+      "empty": "Aún no has enviado ninguna contribución.",
+      "startContributing": "Empieza a contribuir"
+    },
+    "noProfile": "Aún no has contribuido. ¡Empieza a contribuir para construir tu reputación!",
+    "viewProfile": "Tus Contribuciones",
+    "loading": "Cargando tu perfil..."
   }
 }
