@@ -309,17 +309,21 @@ export function classifyUses(uses: string[] | undefined): UseCategory[] {
 
 export function filterTrees(trees: Tree[], filter: TreeFilter): Tree[] {
   return trees.filter((tree) => {
-    // Family filter
-    if (filter.family && tree.family !== filter.family) {
-      return false;
+    // Family filter (OR logic — match ANY selected family)
+    if (filter.family && filter.family.length > 0) {
+      if (!filter.family.includes(tree.family)) {
+        return false;
+      }
     }
 
-    // Conservation status filter
-    if (
-      filter.conservationStatus &&
-      tree.conservationStatus !== filter.conservationStatus
-    ) {
-      return false;
+    // Conservation status filter (OR logic — match ANY selected status)
+    if (filter.conservationStatus && filter.conservationStatus.length > 0) {
+      if (
+        !tree.conservationStatus ||
+        !filter.conservationStatus.includes(tree.conservationStatus)
+      ) {
+        return false;
+      }
     }
 
     // Tags filter (AND logic - must have ALL selected tags)
@@ -363,18 +367,18 @@ export function filterTrees(trees: Tree[], filter: TreeFilter): Tree[] {
       }
     }
 
-    // Height range filter
-    if (filter.heightRange) {
+    // Height range filter (OR logic — match ANY selected height range)
+    if (filter.heightRange && filter.heightRange.length > 0) {
       const treeHeight = classifyHeight(tree.maxHeight);
-      if (treeHeight !== filter.heightRange) {
+      if (!treeHeight || !filter.heightRange.includes(treeHeight)) {
         return false;
       }
     }
 
-    // Use category filter
-    if (filter.useCategory) {
+    // Use category filter (OR logic — match ANY selected use category)
+    if (filter.useCategory && filter.useCategory.length > 0) {
       const treeCategories = classifyUses(tree.uses);
-      if (!treeCategories.includes(filter.useCategory)) {
+      if (!filter.useCategory.some((cat) => treeCategories.includes(cat))) {
         return false;
       }
     }

@@ -6,6 +6,8 @@ labels: ["bug", "needs-triage"]
 assignees: ""
 ---
 
+> **Private repository; external contributions not accepted at this time.**
+
 ## 🐛 Bug Description
 
 <!-- A clear and concise description of what the bug is -->

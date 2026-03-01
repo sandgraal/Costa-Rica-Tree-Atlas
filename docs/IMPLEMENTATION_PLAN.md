@@ -109,9 +109,14 @@
 **Impact:** Medium — power users and researchers need precise filtering
 **Effort:** Medium
 
-- [ ] Filter by bloom time, size, uses, conservation status
-- [ ] Combine multiple filters with AND/OR logic
-- [ ] Save search preferences (Zustand persist)
+- [x] Filter by bloom time, size, uses, conservation status
+- [x] Combine multiple filters with AND/OR logic
+  - Multi-select dropdowns for family, conservation status, province, height range, and use category
+  - OR logic within each filter category, AND logic across categories
+  - Active filter chips with individual removal and "Clear All"
+  - Backward-compatible localStorage migration for existing users
+  - URL params support comma-separated multi-values
+- [x] Save search preferences (Zustand persist)
 - [ ] Search analytics — track common queries to improve content
 
 ### 6. Community Contributions — Remaining (P6.2) — ✅ Complete
