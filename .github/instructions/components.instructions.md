@@ -92,3 +92,36 @@ export function FavoriteButton({ slug }: { slug: string }) {
 - Follow the design system colors: `primary`, `secondary`, `background`, `foreground`
 - Mobile-first responsive design
 - Support dark mode with Tailwind dark: variants
+
+## Established Patterns
+
+### SSR Data Extraction (Education Lessons)
+
+Used for all 6 education pages. Moves static locale data from client JS bundle to RSC payload:
+
+1. Create `{lesson-name}-data.ts` in the lesson directory
+2. Export `get{LessonName}LessonData(locale: string)` returning typed data
+3. Data includes: labels, quiz questions, steps, categories — anything locale-dependent and purely static
+4. `page.tsx` (server component) calls the data function, passes result as `lessonData` prop
+5. Client component receives `lessonData`, removes inline data definitions
+
+### Client Component Split
+
+Used for TreeMapClient, ScavengerHuntClient, TreeJournalClient:
+
+1. **Data/constants** → co-located `*-data.ts` or `*-validators.ts`
+2. **View components** → separate `.tsx` files in the same directory
+3. **State/reducer/handlers** stay in the parent component (state owner)
+4. Props interface per extracted view — callbacks use `onAction` naming
+5. Each extracted view has its own `"use client"` directive
+6. Parent renders `<ExtractedView {...props} />` instead of inline JSX
+
+### OG Image Routes
+
+Used for section and comparison pages:
+
+1. Create `opengraph-image.tsx` in the route directory
+2. Export `runtime = 'edge'`, `alt`, `size`, `contentType`
+3. Use `ImageResponse` from `next/og`
+4. Include bilingual text based on locale param
+5. Use gradient backgrounds (green for nature, blue for education, brown for comparisons)
