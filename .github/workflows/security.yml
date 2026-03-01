@@ -59,22 +59,6 @@ jobs:
           head: HEAD
           extra_args: --only-verified
 
-  # Dependency Review - Analyze dependency changes in PRs
-  # Note: Requires Dependency Graph + GitHub Advanced Security enabled in repo settings.
-  # On private repos without GHAS, this step may fail, but continue-on-error ensures it does not block the workflow.
-  dependency-review:
-    name: Dependency Review
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Dependency Review
-        uses: actions/dependency-review-action@v4
-        with:
-          fail-on-severity: moderate
-          deny-licenses: GPL-2.0, GPL-3.0, AGPL-3.0
-
   # ──────────────────────────────────────────────
   # HEAVY JOBS — schedule + manual only (skip PRs)
   # ──────────────────────────────────────────────
@@ -144,7 +128,7 @@ jobs:
     name: Security Summary (PR)
     runs-on: ubuntu-latest
     if: always() && github.event_name == 'pull_request'
-    needs: [npm-audit, secret-scan, dependency-review]
+    needs: [npm-audit, secret-scan]
     steps:
       - name: Check results
         run: |
@@ -154,7 +138,6 @@ jobs:
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| NPM Audit | ${{ needs.npm-audit.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Secret Scan | ${{ needs.secret-scan.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Dependency Review | ${{ needs.dependency-review.result }} |" >> $GITHUB_STEP_SUMMARY
 
   # Dispatch summary: only depends on jobs that actually run on workflow_dispatch events
   # (secret-scan runs on dispatch but not schedule, so it needs its own summary)
