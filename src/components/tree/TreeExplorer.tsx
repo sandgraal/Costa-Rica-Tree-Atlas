@@ -1388,7 +1388,7 @@ function ActiveFilterChips({
             <button
               onClick={chip.onRemove}
               className="ml-0.5 hover:text-primary-dark"
-              aria-label={`Remove ${chip.label}`}
+              aria-label={t("removeFilter", { label: chip.label })}
             >
               <XIcon className="w-3 h-3" />
             </button>
