@@ -34,14 +34,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
 
       # Note: Sharp (image optimization) is included in dependencies
       # ImageMagick removed - not used by our scripts
@@ -172,13 +166,10 @@ jobs:
 
       - name: Generate image review proposals
         if: steps.mode.outputs.mode == 'propose' || steps.mode.outputs.mode == 'auto' || steps.mode.outputs.mode == 'full'
-        env:
-          API_BASE_URL: ${{ secrets.IMAGE_PROPOSALS_API_BASE_URL }}
-          WORKFLOW_TOKEN: ${{ secrets.IMAGE_PROPOSALS_WORKFLOW_TOKEN }}
         run: |
           echo "" >> audit-report.md
           echo "### Image Proposal Generation" >> audit-report.md
-          if [ -z "$API_BASE_URL" ]; then
+          if [ -z "$IMAGE_PROPOSALS_API_BASE_URL" ]; then
             echo "⚠️ Skipped: IMAGE_PROPOSALS_API_BASE_URL secret is not configured." >> audit-report.md
             echo "Set it to your deployed endpoint, e.g. https://example.com/api/admin/images/proposals" >> audit-report.md
           else
