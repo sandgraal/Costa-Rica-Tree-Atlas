@@ -1196,7 +1196,6 @@ function MultiSelectDropdown({
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-haspopup="true"
         aria-controls={open ? listId : undefined}
         aria-label={
           typeof label === "string" ? `${label}: ${buttonLabel}` : buttonLabel
