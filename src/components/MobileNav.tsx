@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { usePathname } from "next/navigation";
 import { Link } from "@i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useScrollLock } from "@/hooks/useScrollLock";
+import { TOP_NAV_ITEMS, NAV_GROUP_ITEMS, ROUTES } from "@/lib/nav-config";
 
 interface NavGroup {
   label: string;
@@ -21,6 +22,8 @@ function MobileNavGroup({
   pathname: string;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const uid = useId();
+  const menuId = `mobile-nav-group-${uid}`;
 
   return (
     <li>
@@ -28,6 +31,7 @@ function MobileNavGroup({
         onClick={() => setExpanded(!expanded)}
         className="flex items-center justify-between w-full px-4 py-3 rounded-lg text-lg font-medium text-foreground hover:bg-muted transition-colors"
         aria-expanded={expanded}
+        aria-controls={menuId}
       >
         {group.label}
         <svg
@@ -45,30 +49,28 @@ function MobileNavGroup({
           />
         </svg>
       </button>
-      {expanded && (
-        <ul className="ml-4 space-y-1 mt-1">
-          {group.links.map((link) => {
-            const isActive =
-              pathname === `/${locale}${link.href}` ||
-              (link.href !== "/" &&
-                pathname.startsWith(`/${locale}${link.href}`));
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
-                    isActive
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-foreground/80 hover:bg-muted"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <ul id={menuId} hidden={!expanded} className="ml-4 space-y-1 mt-1">
+        {group.links.map((link) => {
+          const isActive =
+            pathname === `/${locale}${link.href}` ||
+            (link.href !== "/" &&
+              pathname.startsWith(`/${locale}${link.href}`));
+          return (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
+                  isActive
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-foreground/80 hover:bg-muted"
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </li>
   );
 }
@@ -87,51 +89,18 @@ export function MobileNav() {
     setIsOpen(false);
   }, [pathname]);
 
-  const topLinks = [
-    { href: "/", label: t("home") },
-    { href: "/trees", label: t("trees") },
-    { href: "/identify", label: t("identify") },
-    { href: "/compare", label: t("compare") },
-  ];
+  const topLinks = TOP_NAV_ITEMS.map((item) => ({
+    href: item.href,
+    label: t(item.tKey),
+  }));
 
-  const navGroups: NavGroup[] = [
-    {
-      label: t("explore"),
-      links: [
-        { href: "/map", label: t("map") },
-        { href: "/seasonal", label: t("seasonal") },
-        { href: "/conservation", label: t("conservation") },
-        { href: "/field-guide", label: t("fieldGuide") },
-      ],
-    },
-    {
-      label: t("learn"),
-      links: [
-        { href: "/education", label: t("education") },
-        { href: "/glossary", label: t("glossary") },
-        { href: "/safety", label: t("safety") },
-        { href: "/quiz", label: t("quiz") },
-        { href: "/diagnose", label: t("diagnose") },
-      ],
-    },
-    {
-      label: t("community"),
-      links: [
-        { href: "/contribute", label: t("contribute") },
-        { href: "/contribute/photo", label: t("photoUpload") },
-        { href: "/about", label: t("about") },
-      ],
-    },
-    {
-      label: t("tools"),
-      links: [
-        { href: "/wizard", label: t("wizard") },
-        { href: "/use-cases", label: t("useCases") },
-        { href: "/favorites", label: t("favorites") },
-        { href: "/api-docs", label: t("apiDocs") },
-      ],
-    },
-  ];
+  const navGroups: NavGroup[] = NAV_GROUP_ITEMS.map((group) => ({
+    label: t(group.tKey),
+    links: group.links.map((link) => ({
+      href: link.href,
+      label: t(link.tKey),
+    })),
+  }));
 
   return (
     <div className="lg:hidden">
@@ -242,21 +211,21 @@ export function MobileNav() {
                   {t("searchTrees")}
                 </button>
                 <Link
-                  href="/trees"
+                  href={ROUTES.trees}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white font-medium"
                 >
                   <span className="text-xl">🌳</span>
                   {t("exploreTrees")}
                 </Link>
                 <Link
-                  href="/favorites"
+                  href={ROUTES.favorites}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground"
                 >
                   <span className="text-xl">❤️</span>
                   {t("myFavorites")}
                 </Link>
                 <Link
-                  href="/identify"
+                  href={ROUTES.identify}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground"
                 >
                   <span className="text-xl">📷</span>

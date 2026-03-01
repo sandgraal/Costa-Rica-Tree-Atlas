@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Locale } from "@i18n/routing";
 import { Link } from "@i18n/navigation";
 import { CurrentYear } from "./CurrentYear";
+import { ROUTES } from "@/lib/nav-config";
 
 interface FooterProps {
   locale: Locale;
@@ -16,35 +17,35 @@ export async function Footer({ locale }: FooterProps) {
     {
       title: t("exploreSection"),
       links: [
-        { href: "/trees", label: t("trees") },
-        { href: "/map", label: t("map") },
-        { href: "/seasonal", label: t("seasonalCalendar") },
-        { href: "/compare", label: t("compare") },
-        { href: "/field-guide", label: t("fieldGuide") },
+        { href: ROUTES.trees, label: t("trees") },
+        { href: ROUTES.map, label: t("map") },
+        { href: ROUTES.seasonal, label: t("seasonalCalendar") },
+        { href: ROUTES.compare, label: t("compare") },
+        { href: ROUTES.fieldGuide, label: t("fieldGuide") },
       ],
     },
     {
       title: t("learnSection"),
       links: [
-        { href: "/education", label: tNav("education") },
-        { href: "/glossary", label: t("glossary") },
-        { href: "/safety", label: t("safety") },
-        { href: "/conservation", label: t("conservation") },
+        { href: ROUTES.education, label: tNav("education") },
+        { href: ROUTES.glossary, label: t("glossary") },
+        { href: ROUTES.safety, label: t("safety") },
+        { href: ROUTES.conservation, label: t("conservation") },
       ],
     },
     {
       title: t("communitySection"),
       links: [
-        { href: "/contribute", label: t("contributeData") },
-        { href: "/contribute/photo", label: t("uploadPhotos") },
-        { href: "/api-docs", label: t("apiDocs") },
+        { href: ROUTES.contribute, label: t("contributeData") },
+        { href: ROUTES.contributePhoto, label: t("uploadPhotos") },
+        { href: ROUTES.apiDocs, label: t("apiDocs") },
       ],
     },
     {
       title: t("legalSection"),
       links: [
-        { href: "/about", label: t("about") },
-        { href: "/license", label: t("license") },
+        { href: ROUTES.about, label: t("about") },
+        { href: ROUTES.about, label: t("license") },
       ],
     },
   ];
