@@ -1,72 +1,63 @@
 name: Update Implementation Metrics
 
 on:
-    push:
-        branches:
-            - main
-        paths:
-            - "docs/IMPLEMENTATION_PLAN.md"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/IMPLEMENTATION_PLAN.md"
+  workflow_dispatch:
 
-# Rate limit: only run once per hour to prevent spam
 concurrency:
-    group: update-metrics
-    cancel-in-progress: true
+  group: update-metrics
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-    update-metrics:
-        runs-on: ubuntu-latest
+  update-metrics:
+    runs-on: ubuntu-latest
 
-        # Skip if commit message contains [skip ci] or [skip-metrics]
-        if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[skip-metrics]')"
+    # Skip if commit message contains [skip ci] or [skip-metrics]
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[skip-metrics]')"
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v6
-              with:
-                  fetch-depth: 1
-                  token: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v6
-              with:
-                  node-version: "20"
-                  cache: "npm"
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
 
-            - name: Install dependencies (if needed)
-              run: npm ci --only=production || true
+      - name: Run metrics update script
+        run: node scripts/update-implementation-metrics.mjs
 
-            - name: Run metrics update script
-              run: node scripts/update-implementation-metrics.mjs
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet docs/IMPLEMENTATION_PLAN.md; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
-            - name: Check for changes
-              id: check_changes
-              run: |
-                  if git diff --quiet docs/IMPLEMENTATION_PLAN.md; then
-                    echo "changed=false" >> $GITHUB_OUTPUT
-                  else
-                    echo "changed=true" >> $GITHUB_OUTPUT
-                  fi
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: auto-update implementation metrics"
+          branch: automated/update-metrics
+          delete-branch: true
+          title: "📊 Auto-update implementation metrics"
+          body: |
+            Automated update of implementation metrics in `docs/IMPLEMENTATION_PLAN.md`.
 
-            - name: Commit and push metrics update
-              if: steps.check_changes.outputs.changed == 'true'
-              run: |
-                  git config --local user.email "github-actions[bot]@users.noreply.github.com"
-                  git config --local user.name "github-actions[bot]"
-                  git add docs/IMPLEMENTATION_PLAN.md
-                  git commit -m "chore: auto-update implementation metrics [skip ci]"
-                  git push
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Comment on commit (optional)
-              if: steps.check_changes.outputs.changed == 'true'
-              uses: actions/github-script@v8
-              with:
-                  script: |
-                      const sha = context.sha;
-                      await github.rest.repos.createCommitComment({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        commit_sha: sha,
-                        body: '✅ Implementation metrics auto-updated successfully!'
-                      });
+            This PR was created automatically by the metrics update workflow.
+          labels: |
+            automated
+            documentation
+          assignees: sandgraal

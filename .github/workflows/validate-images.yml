@@ -19,14 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
 
       - name: Validate image references
         id: validate
@@ -37,7 +31,7 @@ jobs:
           echo "**Run Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> validation-report.md
           echo "**Triggered by:** ${{ github.event_name }}" >> validation-report.md
           echo "" >> validation-report.md
-          
+
           if npm run images:validate >> validation-report.md 2>&1; then
             echo "validation_passed=true" >> $GITHUB_OUTPUT
             echo "" >> validation-report.md
@@ -55,21 +49,21 @@ jobs:
           script: |
             const fs = require('fs');
             const report = fs.readFileSync('validation-report.md', 'utf8');
-            
+
             // Find existing comment
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
             });
-            
+
             const botComment = comments.find(comment => 
               comment.user.type === 'Bot' && 
               comment.body.includes('Image Reference Validation')
             );
-            
+
             const commentBody = `${report}\n\n---\n*This comment is automatically updated on each push.*`;
-            
+
             if (botComment) {
               // Update existing comment
               await github.rest.issues.updateComment({

@@ -40,3 +40,7 @@ updates:
     labels:
       - "github-actions"
       - "dependencies"
+    reviewers:
+      - "sandgraal"
+    commit-message:
+      prefix: "chore(actions):"
