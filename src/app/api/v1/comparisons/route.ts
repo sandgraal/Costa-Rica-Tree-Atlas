@@ -1,10 +1,10 @@
 /**
- * Public API — List Comparisons
+ * Private API — List Comparisons
  *
  * GET /api/v1/comparisons — paginated list with filtering by species,
  *     difficulty, tag, and free-text search.
  *
- * Part of P6.3: Public API for researchers.
+ * Internal private API for approved consumers.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -18,6 +18,7 @@ import {
   checkRateLimit,
   addRateLimitHeaders,
 } from "@/lib/api-rate-limit";
+import { requireApiV1Access } from "@/lib/api-access";
 import type {
   ComparisonAPIResponse,
   ComparisonFilterOptions,
@@ -60,6 +61,9 @@ function transformComparison(
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
+  const accessDenied = requireApiV1Access(request);
+  if (accessDenied) return accessDenied;
+
   const clientId = getClientId(request);
   const rateLimit = checkRateLimit(clientId);
 

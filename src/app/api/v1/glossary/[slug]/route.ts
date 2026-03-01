@@ -1,9 +1,9 @@
 /**
- * Public API — Get Single Glossary Term
+ * Private API — Get Single Glossary Term
  *
  * GET /api/v1/glossary/[slug] — term with related terms and example species.
  *
- * Part of P6.3: Public API for researchers.
+ * Internal private API for approved consumers.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -14,12 +14,15 @@ import {
   checkRateLimit,
   addRateLimitHeaders,
 } from "@/lib/api-rate-limit";
+import { requireApiV1Access } from "@/lib/api-access";
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
+  const accessDenied = requireApiV1Access(request);
+  if (accessDenied) return accessDenied;
   const clientId = getClientId(request);
   const rateLimit = checkRateLimit(clientId);
 

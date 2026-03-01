@@ -894,13 +894,13 @@
   },
   "api": {
     "title": "Developer API",
-    "subtitle": "Public REST API for researchers and developers",
-    "description": "Access Costa Rica Tree Atlas data programmatically. Our free API provides comprehensive tree data for research, education, and application development.",
+    "subtitle": "Private REST API for approved integrations",
+    "description": "Access Costa Rica Tree Atlas data programmatically for approved internal and partner workflows.",
     "gettingStarted": "Getting Started",
-    "gettingStartedDesc": "The API is free to use and requires no authentication for basic usage. Rate limiting of 100 requests per minute applies to all endpoints.",
+    "gettingStartedDesc": "This API is private. Requests require a valid X-API-Key or an allowlisted IP address. Standard rate limiting still applies.",
     "baseUrl": "Base URL",
     "authentication": "Authentication",
-    "authDesc": "No authentication required for public endpoints. For higher rate limits, include an X-API-Key header.",
+    "authDesc": "Send an X-API-Key header issued by the maintainers, or call from an allowlisted IP. Unauthorized requests are rejected with HTTP 401.",
     "rateLimit": "Rate Limiting",
     "rateLimitDesc": "100 requests per minute per IP address. Rate limit headers are included in all responses.",
     "endpoints": "Endpoints",
@@ -938,8 +938,8 @@
     "codeExamples": "Code Examples",
     "support": "Support",
     "supportDesc": "For questions or issues, please open an issue on our GitHub repository.",
-    "license": "Data License",
-    "licenseDesc": "API data is available under CC BY-NC-SA 4.0. Please cite Costa Rica Tree Atlas in your research or application."
+    "license": "Access Terms",
+    "licenseDesc": "API data is not publicly licensed for open reuse. Usage is restricted to approved internal/partner purposes under the project usage policy."
   },
   "rating": {
     "title": "Community Rating",

@@ -893,13 +893,13 @@
   },
   "api": {
     "title": "API para Desarrolladores",
-    "subtitle": "API REST pública para investigadores y desarrolladores",
-    "description": "Accede a datos de árboles de Costa Rica programáticamente. API gratuita con datos completos para investigación y desarrollo.",
+    "subtitle": "API REST privada para integraciones aprobadas",
+    "description": "Accede a los datos del Atlas de Árboles de Costa Rica de forma programática para flujos internos y de socios aprobados.",
     "gettingStarted": "Comenzar",
-    "gettingStartedDesc": "La API es gratuita y no requiere autenticación para uso básico. Se aplica un límite de 100 solicitudes por minuto a todos los endpoints.",
+    "gettingStartedDesc": "Esta API es privada. Las solicitudes requieren un header X-API-Key válido o una dirección IP en allowlist. El rate limiting estándar sigue aplicando.",
     "baseUrl": "URL Base",
     "authentication": "Autenticación",
-    "authDesc": "No se requiere autenticación para endpoints públicos. Para límites más altos, incluye un header X-API-Key.",
+    "authDesc": "Envía un header X-API-Key emitido por el equipo mantenedor, o llama desde una IP en allowlist. Las solicitudes no autorizadas se rechazan con HTTP 401.",
     "rateLimit": "Límite de Solicitudes",
     "rateLimitDesc": "100 solicitudes por minuto por dirección IP. Los headers de límite se incluyen en todas las respuestas.",
     "endpoints": "Endpoints",
@@ -937,8 +937,8 @@
     "codeExamples": "Ejemplos de Código",
     "support": "Soporte",
     "supportDesc": "Para preguntas o problemas, por favor abre un issue en nuestro repositorio de GitHub.",
-    "license": "Licencia de Datos",
-    "licenseDesc": "Los datos de la API están disponibles bajo CC BY-NC-SA 4.0. Por favor cita el Atlas de Árboles de Costa Rica en tu investigación o aplicación."
+    "license": "Términos de Acceso",
+    "licenseDesc": "Los datos de la API no tienen licencia pública para reutilización abierta. El uso está restringido a fines internos/de socios aprobados según la política de uso del proyecto."
   },
   "rating": {
     "title": "Calificación de la Comunidad",
