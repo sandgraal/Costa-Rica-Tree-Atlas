@@ -413,6 +413,11 @@ export function sortTrees(trees: Tree[], sort: TreeSort): Tree[] {
 // Facet Extraction
 // ============================================================================
 
+export interface SeasonalFacet {
+  floweringCount: number;
+  fruitingCount: number;
+}
+
 export interface SearchFacets {
   families: { value: string; count: number }[];
   conservationStatuses: { value: string; count: number }[];
@@ -429,6 +434,12 @@ export function extractFacets(trees: Tree[]): SearchFacets {
   const distMap = new Map<Distribution, number>();
   const heightMap = new Map<HeightRange, number>();
   const useCatMap = new Map<UseCategory, number>();
+
+  // Seasonal counts per month
+  const seasonal = {} as Record<Exclude<Month, "all-year">, SeasonalFacet>;
+  for (const m of MONTHS) {
+    seasonal[m] = { floweringCount: 0, fruitingCount: 0 };
+  }
 
   for (const tree of trees) {
     // Family
@@ -507,7 +518,7 @@ export function extractFacets(trees: Tree[]): SearchFacets {
 // Utilities
 // ============================================================================
 
-const MONTHS: Month[] = [
+const MONTHS: Exclude<Month, "all-year">[] = [
   "january",
   "february",
   "march",
