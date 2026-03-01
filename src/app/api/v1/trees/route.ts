@@ -6,6 +6,7 @@ import {
   checkRateLimit,
   addRateLimitHeaders,
 } from "@/lib/api-rate-limit";
+import { requireApiV1Access } from "@/lib/api-access";
 import type {
   TreeAPIResponse,
   PaginatedResponse,
@@ -53,6 +54,9 @@ function transformTree(tree: Tree, baseUrl: string): TreeAPIResponse {
  * GET /api/v1/trees - List all trees with filtering and pagination
  */
 export async function GET(request: NextRequest) {
+  const accessDenied = requireApiV1Access(request);
+  if (accessDenied) return accessDenied;
+
   const clientId = getClientId(request);
   const rateLimit = checkRateLimit(clientId);
 

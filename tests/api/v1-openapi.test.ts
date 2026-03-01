@@ -1,10 +1,30 @@
-import { describe, expect, it } from "vitest";
+import { NextRequest } from "next/server";
+import { beforeEach, describe, expect, it } from "vitest";
 
 const { GET } = await import("@/app/api/v1/openapi.json/route");
 
+function createRequest(headers: Record<string, string> = {}): NextRequest {
+  return new NextRequest("https://costaricatreeatlas.com/api/v1/openapi.json", {
+    headers,
+  });
+}
+
 describe("GET /api/v1/openapi.json", () => {
-  it("returns a valid OpenAPI 3.1 spec", async () => {
-    const res = GET();
+  beforeEach(() => {
+    process.env.API_V1_KEY = "test-private-key";
+    delete process.env.API_V1_ALLOWLIST;
+  });
+
+  it("rejects unauthenticated requests", async () => {
+    const res = GET(createRequest());
+    const body = await res.json();
+
+    expect(res.status).toBe(401);
+    expect(body.error.code).toBe("UNAUTHORIZED");
+  });
+
+  it("returns a valid OpenAPI 3.1 spec for authorized requests", async () => {
+    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
     const body = await res.json();
 
     expect(res.status).toBe(200);
@@ -15,7 +35,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("documents all v1 endpoints", async () => {
-    const res = GET();
+    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
     const body = await res.json();
 
     const paths = Object.keys(body.paths);
@@ -29,7 +49,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("includes component schemas", async () => {
-    const res = GET();
+    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
     const body = await res.json();
 
     const schemas = Object.keys(body.components.schemas);
@@ -40,13 +60,8 @@ describe("GET /api/v1/openapi.json", () => {
     expect(schemas).toContain("Error");
   });
 
-  it("includes CORS header", async () => {
-    const res = GET();
-    expect(res.headers.get("Access-Control-Allow-Origin")).toBe("*");
-  });
-
   it("includes cache header", async () => {
-    const res = GET();
+    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
     expect(res.headers.get("Cache-Control")).toContain("max-age");
   });
 });

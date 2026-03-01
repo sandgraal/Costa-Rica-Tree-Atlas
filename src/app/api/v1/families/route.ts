@@ -6,12 +6,16 @@ import {
   checkRateLimit,
   addRateLimitHeaders,
 } from "@/lib/api-rate-limit";
+import { requireApiV1Access } from "@/lib/api-access";
 import type { FamiliesResponse } from "@/types/api";
 
 /**
  * GET /api/v1/families - Get all tree families with species count
  */
 export async function GET(request: NextRequest) {
+  const accessDenied = requireApiV1Access(request);
+  if (accessDenied) return accessDenied;
+
   const clientId = getClientId(request);
   const rateLimit = checkRateLimit(clientId);
 

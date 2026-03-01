@@ -1,48 +1,73 @@
-# Costa Rica Tree Atlas - Usage Policy
+# Costa Rica Tree Atlas Usage Policy
 
-## Overview
+## Purpose
 
-This project is privately owned and all rights are reserved.
+This policy defines permitted use of Costa Rica Tree Atlas code, content, and API services.
 
-This policy clarifies acceptable access and use of repository materials in
-alignment with the proprietary terms defined in [LICENSE](LICENSE).
+The API and related datasets are **private resources** intended for approved internal teams and explicitly authorized partners.
 
-## Permitted Uses
+## Scope
 
-Unless a separate written agreement is provided by the project owner, use is
-limited to:
+This policy applies to:
 
-1. Viewing the repository and website for personal reference.
-2. Internal evaluation by authorized collaborators.
-3. Temporary local copies strictly required for review workflows.
+- Website and API content served by Costa Rica Tree Atlas
+- Programmatic access to `/api/v1/*`
+- Derived exports or datasets shared by maintainers
 
-## Prohibited Uses
+## Access Requirements for API v1
 
-Without explicit written authorization, you may not:
+API v1 is not publicly consumable.
 
-1. Copy, redistribute, republish, or mirror project materials.
-2. Modify or create derivative works from code or content.
-3. Use project data, text, or media in commercial or non-commercial products.
-4. Train, fine-tune, or benchmark machine-learning systems on project assets.
-5. Remove attribution, ownership, or legal notices.
-6. Misrepresent project materials as your own.
+Requests are authorized only when at least one of the following is true:
 
-## Attribution and Ownership
+1. A valid `X-API-Key` issued by project maintainers is provided.
+2. The request originates from an IP address explicitly allowlisted by project maintainers.
 
-All intellectual property remains the exclusive property of the rights holder.
-Any approved use must preserve copyright and ownership notices exactly as
-instructed in writing by the project owner.
+Unauthorized requests are denied.
+
+## Permitted Use
+
+Approved users may use API responses and content for:
+
+- Internal product features and operational workflows
+- Partner integrations approved in writing by maintainers
+- Internal analysis, reporting, and conservation planning
+
+Use is limited to the approved purpose and duration of access.
+
+## Prohibited Use
+
+The following are prohibited unless separately authorized in writing:
+
+- Republishing API data for unrestricted third-party access
+- Reselling or sublicensing datasets or API responses
+- Training external/public AI models on exported datasets
+- Sharing credentials or bypassing access controls
+- Any usage that conflicts with conservation, legal, or ethical obligations
+
+## Security & Data Handling
+
+Authorized consumers must:
+
+- Store API keys as secrets (never in client-side code or public repos)
+- Rotate keys immediately if exposure is suspected
+- Apply least-privilege access and internal retention controls
+- Report suspected misuse or credential compromise promptly
+
+## Attribution & Branding
+
+Use of project name, logo, and branding in external-facing materials requires maintainer approval unless separately agreed.
 
 ## Enforcement
 
-Unauthorized use may result in access revocation, takedown requests, and legal
-action.
+Maintainers may suspend or revoke API access for policy violations, abuse, security risk, or operational concerns.
 
-## Questions
+## Policy Updates
 
-If you need permission for any use not explicitly allowed above, contact the
-repository owner through official project channels before proceeding.
+This policy may be updated at any time. Continued access after updates constitutes acceptance of the latest version.
 
 ---
 
 **Last Updated**: March 2026
+
+**Contact**: Use GitHub Issues or Discussions in this repository for access requests and policy questions.
