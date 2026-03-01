@@ -30,11 +30,6 @@ const configs = [
     webp: "guanacaste-mobile-lg.webp",
   },
   {
-    src: "guanacaste-tablet.jpg",
-    avif: "guanacaste-tablet.avif",
-    webp: "guanacaste-tablet.webp",
-  },
-  {
     src: "guanacaste-desktop.jpg",
     avif: "guanacaste-desktop.avif",
     webp: "guanacaste-desktop.webp",
