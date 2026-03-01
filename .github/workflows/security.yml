@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   # ──────────────────────────────────────────────
-  # LIGHTWEIGHT JOBS — run on PRs + schedule
+  # LIGHTWEIGHT JOBS — always on PRs; some also run on schedule/manual
   # ──────────────────────────────────────────────
 
   # NPM Audit - Check for vulnerable dependencies
