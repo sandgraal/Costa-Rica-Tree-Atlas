@@ -6,6 +6,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { TreeFilter, TreeSort, TreeTag, Distribution } from "@/types/tree";
+import { isProvince, isRegion } from "@/lib/geo";
 
 // ============================================================================
 // Constants
@@ -31,6 +32,27 @@ const VALID_USE_CATEGORIES = [
 ] as const;
 const VALID_SORT_FIELDS = ["title", "scientificName", "family"] as const;
 const VALID_SORT_DIRECTIONS = ["asc", "desc"] as const;
+// Mirrors the TreeTag union in types/tree.ts
+const VALID_TREE_TAGS = new Set<string>([
+  "native",
+  "endemic",
+  "introduced",
+  "deciduous",
+  "evergreen",
+  "flowering",
+  "fruit-bearing",
+  "endangered",
+  "national",
+  "nitrogen-fixing",
+  "shade-tree",
+  "wildlife-food",
+  "dry-forest",
+  "rainforest",
+  "cloud-forest",
+  "timber",
+  "medicinal",
+  "ornamental",
+]);
 
 // ============================================================================
 // Types
@@ -274,7 +296,8 @@ export const useStore = create<StoreState>()(
             if (filter.tags !== undefined) {
               if (Array.isArray(filter.tags)) {
                 filter.tags = filter.tags.filter(
-                  (tag): tag is TreeTag => typeof tag === "string"
+                  (tag): tag is TreeTag =>
+                    typeof tag === "string" && VALID_TREE_TAGS.has(tag)
                 );
                 if (filter.tags.length === 0) {
                   delete filter.tags;
@@ -288,7 +311,10 @@ export const useStore = create<StoreState>()(
             if (filter.distribution !== undefined) {
               if (Array.isArray(filter.distribution)) {
                 filter.distribution = filter.distribution.filter(
-                  (value): value is Distribution => typeof value === "string"
+                  (value): value is Distribution =>
+                    typeof value === "string" &&
+                    (isProvince(value as Distribution) ||
+                      isRegion(value as Distribution))
                 );
                 if (filter.distribution.length === 0) {
                   delete filter.distribution;
