@@ -5,6 +5,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import type { TreeFilter, TreeSort } from "@/types/tree";
 
 // ============================================================================
 // Constants
@@ -69,6 +70,12 @@ interface StoreState {
   setSearchQuery: (query: string) => void;
   setSearchOpen: (open: boolean) => void;
   setMobileNavOpen: (open: boolean) => void;
+
+  // Saved search preferences
+  savedSearchFilter: TreeFilter | null;
+  savedSearchSort: TreeSort | null;
+  saveSearchPreferences: (filter: TreeFilter, sort: TreeSort) => void;
+  clearSearchPreferences: () => void;
 }
 
 const MAX_RECENT_ITEMS = 10;
@@ -162,6 +169,18 @@ export const useStore = create<StoreState>()(
         set((state) => ({
           ui: { ...state.ui, isMobileNavOpen: open },
         })),
+
+      // Saved search preferences
+      savedSearchFilter: null,
+      savedSearchSort: null,
+
+      saveSearchPreferences: (filter, sort) => {
+        set({ savedSearchFilter: filter, savedSearchSort: sort });
+      },
+
+      clearSearchPreferences: () => {
+        set({ savedSearchFilter: null, savedSearchSort: null });
+      },
     }),
     {
       name: STORE_KEY,
@@ -232,6 +251,8 @@ export const useStore = create<StoreState>()(
         theme: state.theme,
         favorites: state.favorites,
         recentlyViewed: state.recentlyViewed,
+        savedSearchFilter: state.savedSearchFilter,
+        savedSearchSort: state.savedSearchSort,
         // Explicitly exclude _hydrated from persistence
       }),
     }
