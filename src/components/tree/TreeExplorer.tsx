@@ -1155,14 +1155,21 @@ function MultiSelectDropdown({
 
   // Close on click outside
   useEffect(() => {
+    if (!open) {
+      return;
+    }
+
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [open]);
 
   const selectedCount = selected.length;
   const buttonLabel =
