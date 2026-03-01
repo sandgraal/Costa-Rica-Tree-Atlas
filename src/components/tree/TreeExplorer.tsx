@@ -3,8 +3,20 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
-import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
+import {
+  search,
+  filterTrees,
+  sortTrees,
+  extractFacets,
+  getCurrentMonth,
+} from "@/lib/search";
+import {
+  TAG_DEFINITIONS,
+  getTagLabel,
+  getUILabel,
+  getMonthLabel,
+  ORDERED_MONTHS,
+} from "@/lib/i18n";
 import { PROVINCES, isProvince } from "@/lib/geo";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
@@ -17,6 +29,7 @@ import type {
   TreeTag,
   Distribution,
   Province,
+  Month,
   SortField,
 } from "@/types/tree";
 
@@ -26,6 +39,8 @@ import type {
 
 const VALID_SORT_FIELDS: SortField[] = ["title", "scientificName", "family"];
 const VALID_VIEW_MODES = ["grid", "alphabetical"] as const;
+
+const VALID_SEASONAL_FILTERS = ["all", "flowering", "fruiting"] as const;
 
 function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const filter: TreeFilter = {};
@@ -39,6 +54,19 @@ function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   }
   const tags = params.get("tags");
   if (tags) filter.tags = tags.split(",").filter(Boolean) as TreeTag[];
+  const seasonal = params.get("seasonal");
+  if (
+    seasonal &&
+    VALID_SEASONAL_FILTERS.includes(
+      seasonal as "all" | "flowering" | "fruiting"
+    )
+  ) {
+    filter.seasonalFilter = seasonal as "all" | "flowering" | "fruiting";
+  }
+  const month = params.get("month");
+  if (month && ORDERED_MONTHS.includes(month as Month)) {
+    filter.month = month as Month;
+  }
   return filter;
 }
 
@@ -101,7 +129,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
       searchParams.has("family") ||
       searchParams.has("status") ||
       searchParams.has("province") ||
-      searchParams.has("tags");
+      searchParams.has("tags") ||
+      searchParams.has("seasonal") ||
+      searchParams.has("month");
     return hasParams;
   });
   const [displayLimit, setDisplayLimit] = useState(INITIAL_LOAD_COUNT);
@@ -128,6 +158,9 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     if (filter.distribution?.length)
       params.set("province", filter.distribution[0]);
     if (filter.tags?.length) params.set("tags", filter.tags.join(","));
+    if (filter.seasonalFilter && filter.seasonalFilter !== "all")
+      params.set("seasonal", filter.seasonalFilter);
+    if (filter.month) params.set("month", filter.month);
     if (sort.field !== "title") params.set("sort", sort.field);
     if (viewMode !== "grid") params.set("view", viewMode);
 
@@ -290,6 +323,23 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     }));
   }, []);
 
+  const handleSeasonalChange = useCallback((value: string) => {
+    setFilter((prev) => ({
+      ...prev,
+      seasonalFilter:
+        value === "all" ? undefined : (value as "flowering" | "fruiting"),
+      // Set month to current month when first activating seasonal filter
+      month: value !== "all" && !prev.month ? getCurrentMonth() : prev.month,
+    }));
+  }, []);
+
+  const handleMonthChange = useCallback((value: string) => {
+    setFilter((prev) => ({
+      ...prev,
+      month: value ? (value as Month) : undefined,
+    }));
+  }, []);
+
   // Province facets — only include the 7 provinces, sorted by count
   const provinceFacets = useMemo(
     () => displayFacets.distributions.filter((d) => isProvince(d.value)),
@@ -309,6 +359,10 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     (v) => v !== undefined && (Array.isArray(v) ? v.length > 0 : true)
   );
 
+  // Current seasonal activity for the active month
+  const activeMonth = filter.month ?? getCurrentMonth();
+  const seasonalCounts = allFacets.seasonal[activeMonth];
+
   // Labels
   const labels = {
     title: t("title"),
@@ -323,6 +377,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     allStatuses: t("allStatuses"),
     province: t("filterByProvince"),
     allProvinces: t("allProvinces"),
+    seasonalActivity: t("seasonalActivity"),
+    allSeasons: t("allSeasons"),
+    flowering: t("flowering"),
+    fruiting: t("fruiting"),
+    month: t("month"),
     sortBy: t("sortBy"),
     sortName: t("sortByName"),
     sortScientific: t("sortByScientific"),
@@ -596,6 +655,74 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </div>
               </div>
             )}
+
+            {/* Seasonal activity filter */}
+            <div className="mt-4 pt-4 border-t border-border">
+              <p className="text-sm font-medium text-muted-foreground mb-3">
+                🌸 {labels.seasonalActivity}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* Activity type */}
+                <div>
+                  <select
+                    value={filter.seasonalFilter ?? "all"}
+                    onChange={(e) => handleSeasonalChange(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  >
+                    <option value="all">{labels.allSeasons}</option>
+                    <option value="flowering">
+                      🌸 {labels.flowering} (
+                      {seasonalCounts?.floweringCount ?? 0})
+                    </option>
+                    <option value="fruiting">
+                      🍎 {labels.fruiting} ({seasonalCounts?.fruitingCount ?? 0}
+                      )
+                    </option>
+                  </select>
+                </div>
+
+                {/* Month selector (only shown when seasonal filter is active) */}
+                {filter.seasonalFilter && filter.seasonalFilter !== "all" && (
+                  <div>
+                    <select
+                      value={activeMonth}
+                      onChange={(e) => handleMonthChange(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    >
+                      {ORDERED_MONTHS.map((m) => {
+                        const counts = allFacets.seasonal[m];
+                        const count =
+                          filter.seasonalFilter === "flowering"
+                            ? (counts?.floweringCount ?? 0)
+                            : (counts?.fruitingCount ?? 0);
+                        return (
+                          <option key={m} value={m}>
+                            {getMonthLabel(m, locale, "full")} ({count})
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                )}
+
+                {/* Seasonal activity summary */}
+                {filter.seasonalFilter &&
+                  filter.seasonalFilter !== "all" &&
+                  seasonalCounts && (
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <span>
+                        {filter.seasonalFilter === "flowering"
+                          ? t("floweringNow", {
+                              month: getMonthLabel(activeMonth, locale, "full"),
+                            })
+                          : t("fruitingNow", {
+                              month: getMonthLabel(activeMonth, locale, "full"),
+                            })}
+                      </span>
+                    </div>
+                  )}
+              </div>
+            </div>
 
             {/* Safety filters */}
             <div className="mt-4 pt-4 border-t border-border">
