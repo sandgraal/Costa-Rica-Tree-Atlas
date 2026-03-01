@@ -114,7 +114,18 @@
     "showingOf": "Mostrando {showing} de {total}",
     "matchingTrees": "{count, plural, =1 {1 árbol coincide} other {# árboles coinciden}}",
     "noResultsFiltered": "No se encontraron árboles con los filtros seleccionados",
-    "noTreesFound": "No se encontraron árboles"
+    "noTreesFound": "No se encontraron árboles",
+    "filterByProvince": "Provincia",
+    "allProvinces": "Todas las Provincias",
+    "provinces": {
+      "guanacaste": "Guanacaste",
+      "puntarenas": "Puntarenas",
+      "alajuela": "Alajuela",
+      "heredia": "Heredia",
+      "san-jose": "San José",
+      "cartago": "Cartago",
+      "limon": "Limón"
+    }
   },
   "footer": {
     "description": "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica.",
