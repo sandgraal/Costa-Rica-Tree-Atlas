@@ -1196,7 +1196,6 @@ function MultiSelectDropdown({
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-haspopup="listbox"
         aria-controls={open ? listId : undefined}
         aria-label={
           typeof label === "string" ? `${label}: ${buttonLabel}` : buttonLabel
@@ -1215,7 +1214,8 @@ function MultiSelectDropdown({
       {open && (
         <div
           id={listId}
-          role="listbox"
+          role="group"
+          aria-label={label}
           className="absolute z-20 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-card shadow-lg"
         >
           {options.map((option) => {
