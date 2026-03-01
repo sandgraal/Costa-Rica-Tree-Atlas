@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
+import { PROVINCES, isProvince } from "@/lib/geo";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
 import type {
@@ -18,21 +19,6 @@ import type {
   Province,
   SortField,
 } from "@/types/tree";
-
-// Costa Rica provinces — used to separate province facets from region facets
-const PROVINCES: Province[] = [
-  "guanacaste",
-  "puntarenas",
-  "alajuela",
-  "heredia",
-  "san-jose",
-  "cartago",
-  "limon",
-];
-
-function isProvince(dist: Distribution): dist is Province {
-  return (PROVINCES as string[]).includes(dist);
-}
 
 // ============================================================================
 // URL Param Helpers
@@ -48,7 +34,7 @@ function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const status = params.get("status");
   if (status) filter.conservationStatus = status;
   const province = params.get("province");
-  if (province && (PROVINCES as string[]).includes(province)) {
+  if (province && isProvince(province as Distribution)) {
     filter.distribution = [province as Distribution];
   }
   const tags = params.get("tags");
