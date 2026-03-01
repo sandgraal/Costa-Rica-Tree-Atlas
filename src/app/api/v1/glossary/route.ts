@@ -1,9 +1,9 @@
 /**
- * Public API — List Glossary Terms
+ * Private API — List Glossary Terms
  *
  * GET /api/v1/glossary — paginated list with filtering by category and search.
  *
- * Part of P6.3: Public API for researchers.
+ * Internal private API for approved consumers.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -14,6 +14,7 @@ import {
   checkRateLimit,
   addRateLimitHeaders,
 } from "@/lib/api-rate-limit";
+import { requireApiV1Access } from "@/lib/api-access";
 import type {
   GlossaryAPIResponse,
   GlossaryFilterOptions,
@@ -65,6 +66,9 @@ function transformGlossaryTerm(
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
+  const accessDenied = requireApiV1Access(request);
+  if (accessDenied) return accessDenied;
+
   const clientId = getClientId(request);
   const rateLimit = checkRateLimit(clientId);
 

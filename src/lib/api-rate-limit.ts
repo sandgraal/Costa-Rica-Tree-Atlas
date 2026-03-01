@@ -1,7 +1,7 @@
 /**
- * Shared Rate Limiter for Public API v1 Routes
+ * Shared Rate Limiter for Private API v1 Routes
  *
- * Simple in-memory rate limiter for the public API.
+ * Simple in-memory rate limiter for the private API.
  * For production scale, replace with Redis/Upstash (see @/lib/ratelimit).
  *
  * Supports X-API-Key header for client identification.
