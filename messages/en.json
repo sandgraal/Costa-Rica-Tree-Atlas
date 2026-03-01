@@ -1,6 +1,6 @@
 {
   "siteTitle": "Costa Rica Tree Atlas",
-  "siteDescription": "Discover the magnificent trees of Costa Rica. An open-source bilingual guide to Costa Rican flora.",
+  "siteDescription": "Discover the magnificent trees of Costa Rica. A community-powered bilingual guide to Costa Rican flora.",
   "notFound": {
     "title": "Page Not Found",
     "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
@@ -44,7 +44,7 @@
   "home": {
     "title": "Discover Costa Rica's Trees",
     "subtitle": "Discover the magnificent trees of Costa Rica",
-    "description": "Explore the rich botanical heritage of this tropical paradise—from the iconic Guanacaste to the towering Ceiba. A free, open-source guide in English and Spanish.",
+    "description": "Explore the rich botanical heritage of this tropical paradise—from the iconic Guanacaste to the towering Ceiba. A free bilingual guide in English and Spanish.",
     "exploreButton": "Explore Trees",
     "adminButton": "Admin Portal",
     "featuredTrees": "Featured Trees",
@@ -162,7 +162,7 @@
     "noSavedFilters": "No saved filters"
   },
   "footer": {
-    "description": "An open-source project dedicated to documenting the trees of Costa Rica.",
+    "description": "An educational initiative dedicated to documenting the trees of Costa Rica.",
     "quickLinks": "Quick Links",
     "home": "Home",
     "allTrees": "All Trees",
@@ -170,11 +170,11 @@
     "seasonal": "Calendar",
     "aboutUs": "About Us",
     "openSource": "Open Source",
-    "contribute": "This project is open source. Contribute on GitHub!",
+    "contribute": "Help improve Costa Rica Tree Atlas by sharing corrections, local knowledge, or photos.",
     "madeWith": "Made with ❤️ for Costa Rica's forests",
     "keyboardShortcuts": "Keyboard shortcuts",
     "copyrightProject": "Costa Rica Tree Atlas",
-    "copyrightLicense": "Code: AGPL-3.0 | Content: CC BY-NC-SA 4.0",
+    "copyrightLicense": "Educational content and source code are shared for learning and research use.",
     "tagline": "Built for tree enthusiasts in Costa Rica",
     "exploreSection": "Explore",
     "learnSection": "Learn",
@@ -213,7 +213,7 @@
   },
   "about": {
     "title": "About Costa Rica Tree Atlas",
-    "subtitle": "An open-source project documenting the magnificent trees of Costa Rica",
+    "subtitle": "An educational initiative documenting the magnificent trees of Costa Rica",
     "mission": {
       "title": "Our Mission",
       "description": "The Costa Rica Tree Atlas is dedicated to creating a comprehensive, accessible, and bilingual resource documenting the remarkable trees found throughout Costa Rica. We believe that knowledge about native flora is essential for conservation, education, and fostering a deeper appreciation for the natural world."
@@ -233,8 +233,8 @@
         "description": "Content is researched from authoritative sources including scientific literature, botanical institutions, and field observations."
       },
       "openSource": {
-        "title": "Open Source",
-        "description": "This project is fully open source. Anyone can contribute new tree profiles, corrections, translations, or code improvements."
+        "title": "Community-Driven",
+        "description": "Costa Rica Tree Atlas grows through community collaboration. Botanists, educators, naturalists, and developers can suggest updates, translations, photos, and improvements."
       }
     },
     "whyCostaRica": {
@@ -253,7 +253,7 @@
       "speciesCount": "50+",
       "observations": "Combined Observations",
       "observationsCount": "10,000+",
-      "openSource": "Open Source & Free",
+      "openSource": "Community-Powered",
       "openSourceValue": "100%",
       "languages": "Languages",
       "languagesCount": "2"
@@ -279,7 +279,7 @@
     },
     "contributing": {
       "title": "How to Contribute",
-      "description": "We welcome contributions from botanists, naturalists, photographers, developers, and anyone passionate about Costa Rica's trees. Whether you want to add a new tree profile, improve existing content, translate material, or enhance the website, your help is valued.",
+      "description": "We welcome contributions from botanists, naturalists, photographers, educators, developers, and anyone passionate about Costa Rica's trees. Share corrections, local insights, translations, and media to keep the atlas accurate and useful.",
       "github": "View on GitHub",
       "explore": "Explore Trees"
     },
@@ -330,8 +330,8 @@
       }
     },
     "license": {
-      "title": "Dual-License Structure",
-      "description": "Costa Rica Tree Atlas uses two licenses: AGPL-3.0 for code and CC BY-NC-SA 4.0 for educational content. Free for education and research, with attribution required."
+      "title": "Content & Data Use",
+      "description": "Costa Rica Tree Atlas content and data are provided for education and research with attribution. Contact the project team for commercial reuse or redistribution questions."
     }
   },
   "favorites": {
@@ -884,7 +884,7 @@
       "notesPlaceholder": "e.g., Location, date, or any helpful details...",
       "uploading": "Uploading...",
       "submit": "Submit Photo",
-      "termsNote": "By submitting, you confirm this is your photo and agree to share it under CC BY-NC-SA 4.0 license.",
+      "termsNote": "By submitting, you confirm this is your photo and grant Costa Rica Tree Atlas permission to publish it with attribution.",
       "success": "Photo uploaded successfully!",
       "successNote": "Your photo will be reviewed by our team. Thank you for contributing!",
       "errorInvalidType": "Invalid file type. Please use JPEG, PNG, or WebP.",
@@ -937,9 +937,9 @@
     },
     "codeExamples": "Code Examples",
     "support": "Support",
-    "supportDesc": "For questions or issues, please open an issue on our GitHub repository.",
+    "supportDesc": "For questions or issues, contact the Costa Rica Tree Atlas team through our support channels.",
     "license": "Data License",
-    "licenseDesc": "API data is available under CC BY-NC-SA 4.0. Please cite Costa Rica Tree Atlas in your research or application."
+    "licenseDesc": "API data is provided for education and research with attribution to Costa Rica Tree Atlas. Contact the project team for commercial or redistribution use."
   },
   "rating": {
     "title": "Community Rating",
@@ -973,7 +973,7 @@
   },
   "contributeCta": {
     "title": "Help improve this page",
-    "description": "Know something about this tree? Share your knowledge, suggest a correction, or contribute a photo to help other nature lovers.",
+    "description": "Know something about this tree? Share local knowledge, suggest a correction, or submit a photo to improve this guide for everyone.",
     "suggestCorrection": "Suggest a correction",
     "uploadPhoto": "Upload a photo",
     "shareKnowledge": "Share local knowledge"
