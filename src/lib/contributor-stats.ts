@@ -61,7 +61,10 @@ export async function computeContributorStats(
       0
     );
 
-    if (totalContributions === 0 && Number(ratingCounts[0]?.count || 0) === 0) {
+    const totalRatings = Number(ratingCounts[0]?.count || 0);
+    const totalPhotos = Number(photoCounts[0]?.count || 0);
+
+    if (totalContributions === 0 && totalRatings === 0 && totalPhotos === 0) {
       return null; // No activity at all
     }
 
