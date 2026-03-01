@@ -4,6 +4,15 @@ set -euo pipefail
 
 echo "🧠 Evaluating whether this commit needs a Vercel build..."
 
+# Skip builds for bot/automated branches entirely
+BRANCH="${VERCEL_GIT_COMMIT_REF:-}"
+case "$BRANCH" in
+  dependabot/*|automated/*)
+    echo "⏭️ Skipping build for bot/automated branch: $BRANCH"
+    exit 0
+    ;;
+esac
+
 CURRENT_SHA="${VERCEL_GIT_COMMIT_SHA:-}"
 PREVIOUS_SHA="${VERCEL_GIT_PREVIOUS_SHA:-}"
 
