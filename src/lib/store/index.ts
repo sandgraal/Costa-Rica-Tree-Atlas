@@ -17,6 +17,21 @@ import type { TreeFilter, TreeSort } from "@/types/tree";
  */
 export const STORE_KEY = "cr-tree-atlas";
 
+// Allowed values for persisted search preference fields — mirrors the
+// HeightRange / UseCategory / SortField / SortDirection unions in types/tree.ts
+const VALID_HEIGHT_RANGES = ["small", "medium", "large", "very-large"] as const;
+const VALID_USE_CATEGORIES = [
+  "timber",
+  "medicine",
+  "food",
+  "ornamental",
+  "environmental",
+  "agriculture",
+  "crafts",
+] as const;
+const VALID_SORT_FIELDS = ["title", "scientificName", "family"] as const;
+const VALID_SORT_DIRECTIONS = ["asc", "desc"] as const;
+
 // ============================================================================
 // Types
 // ============================================================================
@@ -222,6 +237,52 @@ export const useStore = create<StoreState>()(
           // Validate theme
           if (!["light", "dark", "system"].includes(state.theme)) {
             state.theme = "system";
+          }
+
+          // Validate savedSearchFilter: must be a plain object (or null)
+          if (
+            state.savedSearchFilter !== null &&
+            (typeof state.savedSearchFilter !== "object" ||
+              Array.isArray(state.savedSearchFilter))
+          ) {
+            state.savedSearchFilter = null;
+          } else if (state.savedSearchFilter) {
+            if (
+              state.savedSearchFilter.heightRange !== undefined &&
+              !(VALID_HEIGHT_RANGES as readonly string[]).includes(
+                state.savedSearchFilter.heightRange
+              )
+            ) {
+              delete state.savedSearchFilter.heightRange;
+            }
+            if (
+              state.savedSearchFilter.useCategory !== undefined &&
+              !(VALID_USE_CATEGORIES as readonly string[]).includes(
+                state.savedSearchFilter.useCategory
+              )
+            ) {
+              delete state.savedSearchFilter.useCategory;
+            }
+          }
+
+          // Validate savedSearchSort: must be a plain object (or null)
+          if (
+            state.savedSearchSort !== null &&
+            (typeof state.savedSearchSort !== "object" ||
+              Array.isArray(state.savedSearchSort))
+          ) {
+            state.savedSearchSort = null;
+          } else if (state.savedSearchSort) {
+            if (
+              !(VALID_SORT_FIELDS as readonly string[]).includes(
+                state.savedSearchSort.field
+              ) ||
+              !(VALID_SORT_DIRECTIONS as readonly string[]).includes(
+                state.savedSearchSort.direction
+              )
+            ) {
+              state.savedSearchSort = null;
+            }
           }
 
           // Sync with DOM theme set by blocking script

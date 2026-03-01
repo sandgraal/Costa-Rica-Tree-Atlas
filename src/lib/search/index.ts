@@ -277,7 +277,16 @@ export function classifyUses(uses: string[] | undefined): UseCategory[] {
     for (const [category, keywords] of Object.entries(
       USE_CATEGORY_KEYWORDS
     ) as [UseCategory, string[]][]) {
-      if (keywords.some((kw) => lower.includes(kw))) {
+      if (
+        keywords.some((kw) => {
+          // Use a leading word-boundary to avoid false positives like "oil"
+          // matching "soil", while still matching plurals/suffixes (e.g.
+          // "handicraft" matching "Handicrafts", "musical instrument" matching
+          // "Musical instruments").
+          const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          return new RegExp(`\\b${escaped}`, "i").test(lower);
+        })
+      ) {
         categories.add(category);
       }
     }
