@@ -243,7 +243,9 @@ export function QuickSearch() {
                   type="text"
                   role="combobox"
                   aria-expanded={results.length > 0}
-                  aria-controls="quicksearch-results"
+                  aria-controls={
+                    results.length > 0 ? "quicksearch-results" : undefined
+                  }
                   aria-activedescendant={
                     results.length > 0
                       ? `quicksearch-result-${selectedIndex}`

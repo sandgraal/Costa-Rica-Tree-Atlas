@@ -322,7 +322,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
             type="search"
             role="combobox"
             aria-expanded={showSuggestions && suggestions.length > 0}
-            aria-controls="search-suggestions"
+            aria-controls={
+              showSuggestions && suggestions.length > 0
+                ? "search-suggestions"
+                : undefined
+            }
             aria-activedescendant={
               showSuggestions && suggestions.length > 0
                 ? `suggestion-${suggestionIndex}`

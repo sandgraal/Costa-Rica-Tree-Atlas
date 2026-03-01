@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 
 // ============================================================================
@@ -40,23 +40,18 @@ export function SearchSuggestions({
   onHover,
 }: SearchSuggestionsProps) {
   const t = useTranslations("search");
-  const listRef = useRef<HTMLUListElement>(null);
 
-  // Auto-scroll selected item into view
+  // Auto-scroll selected item into view (use id to skip header/footer rows)
   useEffect(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const selectedItem = list.children[selectedIndex] as
-      | HTMLElement
-      | undefined;
-    selectedItem?.scrollIntoView({ block: "nearest" });
+    document
+      .getElementById(`suggestion-${selectedIndex}`)
+      ?.scrollIntoView({ block: "nearest" });
   }, [selectedIndex]);
 
   if (suggestions.length === 0) return null;
 
   return (
     <ul
-      ref={listRef}
       role="listbox"
       id="search-suggestions"
       className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-xl shadow-lg overflow-auto max-h-80 z-50"
@@ -162,12 +157,13 @@ function highlightMatch(text: string, query: string): ReactNode {
   if (terms.length === 0) return text;
 
   const regex = new RegExp(`(${terms.join("|")})`, "gi");
+  const testRegex = new RegExp(`(${terms.join("|")})`, "i");
   const parts = text.split(regex);
 
   if (parts.length <= 1) return text;
 
   return parts.map((part, i) =>
-    regex.test(part) ? (
+    testRegex.test(part) ? (
       <mark key={i} className="bg-primary/20 text-foreground rounded-sm px-0.5">
         {part}
       </mark>
