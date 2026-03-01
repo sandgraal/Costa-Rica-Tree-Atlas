@@ -67,16 +67,16 @@
 - [ ] Investigate 300ms render-blocking CSS — consider critical CSS extraction or async loading
 - [ ] Re-run Lighthouse to validate LCP improvement (target: <2.5s)
 
-### 2. Search Autocomplete (P9.7) — High
+### 2. Search Autocomplete (P9.7) — ✅ Complete
 
 **Impact:** High — improves core UX for finding trees
 **Effort:** Medium
-**Current:** Fuse.js fuzzy search (lazy-loaded), no suggestions dropdown
+**Current:** Fuse.js fuzzy search (lazy-loaded), autocomplete dropdown on `/trees` page
 
-- [ ] Add search suggestions dropdown to QuickSearch component
-- [ ] Show top 5 matching trees with scientific names as user types
-- [ ] Keyboard navigation for suggestions (ArrowUp/Down, Enter to select, Escape to close)
-- [ ] Debounce input (200-300ms) to avoid excessive searches
+- [x] Add search suggestions dropdown to QuickSearch component
+- [x] Show top 5 matching trees with scientific names as user types
+- [x] Keyboard navigation for suggestions (ArrowUp/Down, Enter to select, Escape to close)
+- [x] Debounce input (200-300ms) to avoid excessive searches
 
 ### 3. Region/Province Filter (P9.8) — Medium
 
