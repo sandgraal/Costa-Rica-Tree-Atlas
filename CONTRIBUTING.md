@@ -1,39 +1,24 @@
 # Contributing to Costa Rica Tree Atlas
 
-First off, thank you for considering contributing to the Costa Rica Tree Atlas! 🌳 This project aims to be a comprehensive, bilingual resource documenting the beautiful trees of Costa Rica, and we couldn't do it without contributors like you.
+Thanks for your interest in the Costa Rica Tree Atlas.
 
-## 📚 Documentation
+> **Private repository; external contributions not accepted at this time.**
 
-For comprehensive project documentation, see the **[Documentation Index](docs/README.md)** which includes:
+This repository is currently maintained by internal collaborators only.
 
-- Technical guides for developers
-- Content creation standards
-- Testing procedures
-- Security guidelines
+## Public Contribution Status
 
-## Table of Contents
+- We are **not** accepting public pull requests, fork-based contributions, or external patch submissions.
+- Previous guidance about public fork/PR workflows is archived and no longer applies.
+- Previous contributor license agreement assumptions for public contributors are archived and no longer apply to this private workflow.
 
-- [Code of Conduct](#code-of-conduct)
-- [Contributor License Agreement](#contributor-license-agreement)
-- [Getting Started](#getting-started)
-- [Development Workflow](#development-workflow)
-- [Contributing Content](#contributing-content)
-- [Contributing Code](#contributing-code)
-- [Style Guidelines](#style-guidelines)
-- [Commit Messages](#commit-messages)
-- [Pull Request Process](#pull-request-process)
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Features](#suggesting-features)
-- [Questions](#questions)
+## Internal Collaborators
 
-## Code of Conduct
+If you are an approved collaborator with repository access, follow the internal process document:
 
-This project and everyone participating in it is governed by our commitment to creating a welcoming, inclusive environment. By participating, you agree to:
+- [Internal Collaboration Process](.github/INTERNAL_COLLABORATION.md)
 
-- Be respectful and considerate in all interactions
-- Welcome newcomers and help them learn
-- Focus on what is best for the community and the project
-- Show empathy towards other community members
+## Reporting Issues
 
 ## Contributor Rights & Assignment
 

@@ -1,6 +1,6 @@
 # Costa Rica Tree Atlas
 
-Costa Rica Tree Atlas will truly never have ads, donations, sales, or other revenue
+A bilingual (English/Spanish) web application and private reference project documenting the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
 A bilingual (English/Spanish) web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
@@ -96,7 +96,9 @@ API endpoints are protected with persistent rate limiting using Upstash Redis:
 | `/api/species/images` | 30 requests  | 1 minute |
 | `/api/species/random` | 100 requests | 1 minute |
 
-See **[Contributing Guide](CONTRIBUTING.md)** for development setup instructions.
+See **[Development Notes](CONTRIBUTING.md)** for development setup instructions.
+
+For private/internal deployments, apply the hardening checklist in **[docs/PRIVATE_REPOSITORY_HARDENING.md](docs/PRIVATE_REPOSITORY_HARDENING.md)**.
 
 ## Roadmap
 
@@ -112,24 +114,17 @@ See **[Contributing Guide](CONTRIBUTING.md)** for development setup instructions
 Comprehensive documentation is available in the **[docs/](docs/)** directory:
 
 - **[Documentation Index](docs/README.md)** - Complete guide to all documentation
-- **[Contributing Guide](CONTRIBUTING.md)** - Setup and contribution instructions
+- **[Development Notes](CONTRIBUTING.md)** - Setup notes for project owner/collaborators
 - **[Content Standards](docs/CONTENT_STANDARDIZATION_GUIDE.md)** - Tree profile standards
 - **[Project Roadmap](docs/improvement-roadmap.md)** - Feature status and roadmap
 - **[AI Agent Instructions](AGENTS.md)** - Coding conventions and patterns
 
 ## Contributing
 
-Contributions are welcome through approved project workflows for education and conservation.
+This repository is maintained as a private project.
 
-See our **[Contributing Guidelines](CONTRIBUTING.md)** for setup instructions and how to get started.
-
-### Ways to Contribute
-
-- **Add Tree Profiles**: Document new species with descriptions and images
-- **Improve Translations**: Enhance Spanish content or add new languages
-- **Fix Bugs**: Report issues or submit fixes
-- **Add Features**: Implement items from the roadmap
-- **Contribute Photography**: Share high-quality tree photographs (with proper licensing)
+Public contributions and external pull requests are currently closed.
+If you're an approved collaborator, use **[Development Notes](CONTRIBUTING.md)** for local setup and workflow details.
 
 ### Automated Quality Assurance
 
@@ -211,24 +206,13 @@ This repository is optimized for AI-assisted development with comprehensive agen
 
 These instructions help AI agents understand our architecture, maintain consistency, and follow project best practices when making contributions.
 
-## License
+## Rights & Usage
 
-This project is released under a **proprietary, all-rights-reserved model**.
+This project and its contents are private and maintained by the owner.
 
-### 📜 Project License
+Unless explicitly permitted in writing by the owner, all rights are reserved and public reuse, redistribution, or derivative publication is not authorized.
 
-All source code, educational content, datasets, images, and documentation are
-privately owned and governed by [LICENSE](LICENSE).
-
-### 📋 Usage Policy
-
-Allowed and prohibited uses are described in [USAGE-POLICY.md](USAGE-POLICY.md).
-
-### 📄 Legal References
-
-- [LICENSE](LICENSE) - Primary proprietary license terms
-- [LICENSE-CONTENT.md](LICENSE-CONTENT.md) - Content rights notice
-- [USAGE-POLICY.md](USAGE-POLICY.md) - Usage restrictions and permissions process
+For internal guidance, see [USAGE-POLICY.md](USAGE-POLICY.md).
 
 ## Acknowledgments
 
@@ -236,7 +220,7 @@ Allowed and prohibited uses are described in [USAGE-POLICY.md](USAGE-POLICY.md).
 - [SINAC](https://www.sinac.go.cr/) - Costa Rica's National System of Conservation Areas
 - [INBio](https://inbio.ac.cr/) - Costa Rica's National Biodiversity Institute
 - The conservation organizations working to protect Costa Rica's forests
-- The open-source community for the amazing tools that made this project possible
+- The maintainers and collaborators supporting this project
 
 ## Contact & Support
 

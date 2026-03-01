@@ -253,7 +253,7 @@
       "speciesCount": "50+",
       "observations": "Combined Observations",
       "observationsCount": "10,000+",
-      "openSource": "Open Source & Free",
+      "openSource": "Community-Powered",
       "openSourceValue": "100%",
       "languages": "Languages",
       "languagesCount": "2"
@@ -884,7 +884,7 @@
       "notesPlaceholder": "e.g., Location, date, or any helpful details...",
       "uploading": "Uploading...",
       "submit": "Submit Photo",
-      "termsNote": "By submitting, you confirm this is your photo and you grant the project owner permission to use it under repository terms.",
+      "termsNote": "By submitting, you confirm this is your photo and grant Costa Rica Tree Atlas permission to publish it with attribution.",
       "success": "Photo uploaded successfully!",
       "successNote": "Your photo will be reviewed by our team. Thank you for contributing!",
       "errorInvalidType": "Invalid file type. Please use JPEG, PNG, or WebP.",
@@ -973,7 +973,7 @@
   },
   "contributeCta": {
     "title": "Help improve this page",
-    "description": "Know something about this tree? Share your knowledge, suggest a correction, or contribute a photo to help other nature lovers.",
+    "description": "Know something about this tree? Share local knowledge, suggest a correction, or submit a photo to improve this guide for everyone.",
     "suggestCorrection": "Suggest a correction",
     "uploadPhoto": "Upload a photo",
     "shareKnowledge": "Share local knowledge"
