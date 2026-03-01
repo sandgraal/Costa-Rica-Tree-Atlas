@@ -129,7 +129,10 @@ export function BadgeDisplay({
                   />
                 </div>
                 <span className="text-xs text-muted-foreground whitespace-nowrap">
-                  {nextBadge.progress}/{nextBadge.target}
+                  {t("progress", {
+                    current: nextBadge.progress,
+                    target: nextBadge.target,
+                  })}
                 </span>
               </div>
             </div>

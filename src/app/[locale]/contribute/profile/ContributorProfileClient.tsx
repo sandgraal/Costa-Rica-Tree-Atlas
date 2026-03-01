@@ -66,7 +66,7 @@ export function ContributorProfileClient() {
         const data: ApiResponse = await res.json();
         setProfile(data.profile);
       } catch {
-        setError("Failed to load profile");
+        setError(t("errorLoading"));
       } finally {
         setLoading(false);
       }

@@ -953,6 +953,7 @@
     },
     "noProfile": "You haven't contributed yet. Start contributing to build your reputation!",
     "viewProfile": "Your Contributions",
-    "loading": "Loading your profile..."
+    "loading": "Loading your profile...",
+    "errorLoading": "Failed to load profile"
   }
 }

@@ -19,8 +19,8 @@ export async function generateMetadata({
 }
 
 export default async function ContributorProfilePage({ params }: PageProps) {
-  await params; // ensure locale is resolved
-  const t = await getTranslations("reputation");
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "reputation" });
 
   return (
     <main className="container mx-auto px-4 py-8">

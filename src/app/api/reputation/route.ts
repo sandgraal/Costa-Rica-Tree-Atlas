@@ -11,22 +11,11 @@ import {
   getNextBadge,
   BADGE_MAP,
   TRUST_LEVEL_CONFIG,
-  type ContributorStats,
 } from "@/lib/reputation";
-
-interface ContributionCountRow {
-  type: string;
-  status: string;
-  count: bigint;
-}
-
-interface RatingCountRow {
-  count: bigint;
-}
-
-interface PhotoCountRow {
-  count: bigint;
-}
+import {
+  computeContributorStats,
+  upsertContributorProfile,
+} from "@/lib/contributor-stats";
 
 interface ProfileRow {
   id: string;
@@ -82,17 +71,18 @@ export async function GET(request: NextRequest) {
     if (profiles.length > 0) {
       const p = profiles[0];
 
-      // Compute nextBadge from stored stats
-      const storedStats: ContributorStats = {
+      // Fetch full stats from DB for accurate nextBadge progress
+      // (approvedKnowledge and approvedCorrections are not stored in the profile row)
+      const fullStats = await computeContributorStats(sessionId);
+      const nextBadge = getNextBadge(fullStats ?? {
         totalContributions: p.total_contributions,
         approvedContributions: p.approved_contributions,
         rejectedContributions: p.rejected_contributions,
-        approvedKnowledge: 0, // Not stored separately, but getNextBadge handles gracefully
+        approvedKnowledge: 0,
         approvedCorrections: 0,
         totalRatings: p.total_ratings,
         totalPhotos: p.total_photos,
-      };
-      const nextBadge = getNextBadge(storedStats, p.badges);
+      }, p.badges);
 
       const rl = getRateLimitResult(request);
       const headers = new Headers();
@@ -138,7 +128,7 @@ export async function GET(request: NextRequest) {
     }
 
     // No profile yet — compute from raw data
-    const stats = await computeStatsFromDb(sessionId);
+    const stats = await computeContributorStats(sessionId);
     if (!stats) {
       const rl = getRateLimitResult(request);
       const headers = new Headers();
@@ -158,36 +148,7 @@ export async function GET(request: NextRequest) {
     const result = calculateReputation(stats);
     const nextBadge = getNextBadge(stats, result.badges);
 
-    await prisma.$executeRaw`
-      INSERT INTO contributor_profiles (
-        id, session_id, total_contributions, approved_contributions,
-        rejected_contributions, total_ratings, total_photos,
-        reputation_score, trust_level, badges, created_at, updated_at
-      ) VALUES (
-        gen_random_uuid()::text,
-        ${sessionId},
-        ${stats.totalContributions},
-        ${stats.approvedContributions},
-        ${stats.rejectedContributions},
-        ${stats.totalRatings},
-        ${stats.totalPhotos},
-        ${result.reputationScore},
-        ${result.trustLevel}::"TrustLevel",
-        ${result.badges}::text[],
-        NOW(),
-        NOW()
-      )
-      ON CONFLICT (session_id) DO UPDATE SET
-        total_contributions = EXCLUDED.total_contributions,
-        approved_contributions = EXCLUDED.approved_contributions,
-        rejected_contributions = EXCLUDED.rejected_contributions,
-        total_ratings = EXCLUDED.total_ratings,
-        total_photos = EXCLUDED.total_photos,
-        reputation_score = EXCLUDED.reputation_score,
-        trust_level = EXCLUDED.trust_level,
-        badges = EXCLUDED.badges,
-        updated_at = NOW()
-    `;
+    await upsertContributorProfile(sessionId, stats, result);
 
     const rl = getRateLimitResult(request);
     const headers = new Headers();
@@ -249,108 +210,5 @@ export async function GET(request: NextRequest) {
       { error: "Failed to fetch reputation profile." },
       { status: 500 }
     );
-  }
-}
-
-/**
- * Compute contributor stats from raw database records.
- * Used when no pre-computed profile exists yet.
- */
-async function computeStatsFromDb(
-  sessionId: string
-): Promise<ContributorStats | null> {
-  try {
-    // Get contribution counts by type and status
-    const contributionCounts = await prisma.$queryRaw<ContributionCountRow[]>`
-      SELECT type, status, COUNT(*) as count
-      FROM contributions
-      WHERE session_id = ${sessionId}
-      GROUP BY type, status
-    `;
-
-    // Get rating count
-    const ratingCounts = await prisma.$queryRaw<RatingCountRow[]>`
-      SELECT COUNT(*) as count
-      FROM tree_ratings
-      WHERE session_id = ${sessionId}
-    `;
-
-    // Get photo count (approved image proposals from this session)
-    let photoCounts: PhotoCountRow[] = [{ count: BigInt(0) }];
-    try {
-      photoCounts = await prisma.$queryRaw<PhotoCountRow[]>`
-        SELECT COUNT(*) as count
-        FROM image_proposals
-        WHERE source = 'USER_UPLOAD'::"ImageProposalSource"
-        AND status IN ('APPROVED'::"ImageProposalStatus", 'APPLIED'::"ImageProposalStatus")
-        AND id IN (
-          SELECT proposal_id FROM image_audits
-          WHERE actor_session = ${sessionId}
-          AND action = 'PROPOSAL_CREATED'::"ImageAuditAction"
-        )
-      `;
-    } catch {
-      // image_proposals table may not exist; default to 0
-    }
-
-    const totalContributions = contributionCounts.reduce(
-      (sum: number, r: ContributionCountRow) => sum + Number(r.count),
-      0
-    );
-
-    if (totalContributions === 0 && Number(ratingCounts[0]?.count || 0) === 0) {
-      return null; // No activity at all
-    }
-
-    const approvedContributions = contributionCounts
-      .filter(
-        (r: ContributionCountRow) =>
-          r.status === "APPROVED" || r.status === "IMPLEMENTED"
-      )
-      .reduce(
-        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
-        0
-      );
-
-    const rejectedContributions = contributionCounts
-      .filter((r: ContributionCountRow) => r.status === "REJECTED")
-      .reduce(
-        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
-        0
-      );
-
-    const approvedKnowledge = contributionCounts
-      .filter(
-        (r: ContributionCountRow) =>
-          r.type === "LOCAL_KNOWLEDGE" &&
-          (r.status === "APPROVED" || r.status === "IMPLEMENTED")
-      )
-      .reduce(
-        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
-        0
-      );
-
-    const approvedCorrections = contributionCounts
-      .filter(
-        (r: ContributionCountRow) =>
-          r.type === "CORRECTION" &&
-          (r.status === "APPROVED" || r.status === "IMPLEMENTED")
-      )
-      .reduce(
-        (sum: number, r: ContributionCountRow) => sum + Number(r.count),
-        0
-      );
-
-    return {
-      totalContributions,
-      approvedContributions,
-      rejectedContributions,
-      approvedKnowledge,
-      approvedCorrections,
-      totalRatings: Number(ratingCounts[0]?.count || 0),
-      totalPhotos: Number(photoCounts[0]?.count || 0),
-    };
-  } catch {
-    return null;
   }
 }

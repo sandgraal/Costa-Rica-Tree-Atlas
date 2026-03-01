@@ -952,6 +952,7 @@
     },
     "noProfile": "Aún no has contribuido. ¡Empieza a contribuir para construir tu reputación!",
     "viewProfile": "Tus Contribuciones",
-    "loading": "Cargando tu perfil..."
+    "loading": "Cargando tu perfil...",
+    "errorLoading": "Error al cargar el perfil"
   }
 }
