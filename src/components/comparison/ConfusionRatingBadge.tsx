@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { getConfusionRatingConfig } from "@/lib/comparison";
 import type { Locale } from "@/types/tree";
 
@@ -12,13 +13,14 @@ interface ConfusionRatingBadgeProps {
  * Unified confusion rating badge component
  * Used across comparison list, detail pages, and MDX content
  */
-export function ConfusionRatingBadge({
+export async function ConfusionRatingBadge({
   rating,
   locale,
   variant = "default",
   showLabel = true,
 }: ConfusionRatingBadgeProps) {
   const config = getConfusionRatingConfig(rating, locale);
+  const t = await getTranslations({ locale, namespace: "comparison" });
 
   // Compact variant for list views
   if (variant === "compact") {
@@ -46,7 +48,7 @@ export function ConfusionRatingBadge({
     return (
       <div className="flex items-center gap-3">
         <span className="text-sm text-muted-foreground">
-          {config.confusionLevelLabel}
+          {t("confusionLevel")}
         </span>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((level) => (
@@ -70,7 +72,7 @@ export function ConfusionRatingBadge({
     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted rounded-full not-prose">
       {showLabel && (
         <span className="text-xs font-medium text-muted-foreground">
-          {config.confusionLevelLabel}
+          {t("confusionLevel")}
         </span>
       )}
       <div className="flex gap-0.5">
