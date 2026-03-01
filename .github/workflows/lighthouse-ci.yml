@@ -43,8 +43,8 @@ jobs:
         id: lighthouse
         with:
           configPath: ".lighthouserc.json"
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+          uploadArtifacts: false
+          temporaryPublicStorage: false
 
       - name: Post summary
         if: always()

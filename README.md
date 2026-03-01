@@ -95,6 +95,8 @@ API endpoints are protected with persistent rate limiting using Upstash Redis:
 
 See **[Development Notes](CONTRIBUTING.md)** for development setup instructions.
 
+For private/internal deployments, apply the hardening checklist in **[docs/PRIVATE_REPOSITORY_HARDENING.md](docs/PRIVATE_REPOSITORY_HARDENING.md)**.
+
 ## Roadmap
 
 ### Future Ideas
