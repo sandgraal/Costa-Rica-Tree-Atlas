@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { search, filterTrees, sortTrees, extractFacets } from "@/lib/search";
 import { TAG_DEFINITIONS, getTagLabel, getUILabel } from "@/lib/i18n";
 import { TreeGrid } from "./TreeCard";
@@ -14,7 +14,55 @@ import type {
   TreeSort,
   Locale,
   TreeTag,
+  Distribution,
+  Province,
+  SortField,
 } from "@/types/tree";
+
+// Costa Rica provinces — used to separate province facets from region facets
+const PROVINCES: Province[] = [
+  "guanacaste",
+  "puntarenas",
+  "alajuela",
+  "heredia",
+  "san-jose",
+  "cartago",
+  "limon",
+];
+
+function isProvince(dist: Distribution): dist is Province {
+  return (PROVINCES as string[]).includes(dist);
+}
+
+// ============================================================================
+// URL Param Helpers
+// ============================================================================
+
+const VALID_SORT_FIELDS: SortField[] = ["title", "scientificName", "family"];
+const VALID_VIEW_MODES: ViewMode[] = ["grid", "alphabetical"];
+
+function parseFilterFromParams(params: URLSearchParams): TreeFilter {
+  const filter: TreeFilter = {};
+  const family = params.get("family");
+  if (family) filter.family = family;
+  const status = params.get("status");
+  if (status) filter.conservationStatus = status;
+  const province = params.get("province");
+  if (province && (PROVINCES as string[]).includes(province)) {
+    filter.distribution = [province as Distribution];
+  }
+  const tags = params.get("tags");
+  if (tags) filter.tags = tags.split(",").filter(Boolean) as TreeTag[];
+  return filter;
+}
+
+function parseSortFromParams(params: URLSearchParams): TreeSort {
+  const field = params.get("sort") as SortField | null;
+  return {
+    field: field && VALID_SORT_FIELDS.includes(field) ? field : "title",
+    direction: "asc",
+  };
+}
 
 // ============================================================================
 // Types
@@ -42,19 +90,34 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("trees");
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Cast trees to Tree type for search functions
   const typedTrees = trees as unknown as Tree[];
 
-  // State
-  const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
-  const [filter, setFilter] = useState<TreeFilter>({});
-  const [sort, setSort] = useState<TreeSort>({
-    field: "title",
-    direction: "asc",
+  // Initialize state from URL params
+  const [searchQuery, setSearchQuery] = useState(
+    () => searchParams.get("q") ?? ""
+  );
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    const v = searchParams.get("view") as ViewMode | null;
+    return v && VALID_VIEW_MODES.includes(v) ? v : "grid";
   });
-  const [showFilters, setShowFilters] = useState(false);
+  const [filter, setFilter] = useState<TreeFilter>(() =>
+    parseFilterFromParams(searchParams)
+  );
+  const [sort, setSort] = useState<TreeSort>(() =>
+    parseSortFromParams(searchParams)
+  );
+  const [showFilters, setShowFilters] = useState(() => {
+    // Auto-open filters if any filter param is present
+    const hasParams =
+      searchParams.has("family") ||
+      searchParams.has("status") ||
+      searchParams.has("province") ||
+      searchParams.has("tags");
+    return hasParams;
+  });
   const [displayLimit, setDisplayLimit] = useState(INITIAL_LOAD_COUNT);
 
   // Autocomplete suggestions state
@@ -68,6 +131,26 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
   // Facets from all trees
   const allFacets = useMemo(() => extractFacets(typedTrees), [typedTrees]);
+
+  // Sync filter/search/sort/view state to URL params (shallow — no navigation)
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set("q", searchQuery.trim());
+    if (filter.family) params.set("family", filter.family);
+    if (filter.conservationStatus)
+      params.set("status", filter.conservationStatus);
+    if (filter.distribution?.length)
+      params.set("province", filter.distribution[0]);
+    if (filter.tags?.length) params.set("tags", filter.tags.join(","));
+    if (sort.field !== "title") params.set("sort", sort.field);
+    if (viewMode !== "grid") params.set("view", viewMode);
+
+    const qs = params.toString();
+    const newUrl = qs
+      ? `${window.location.pathname}?${qs}`
+      : window.location.pathname;
+    window.history.replaceState(null, "", newUrl);
+  }, [searchQuery, filter, sort.field, viewMode]);
 
   // Filter facets to only show options with meaningful counts (>= 2)
   const displayFacets = useMemo(() => {
@@ -214,6 +297,19 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     });
   }, []);
 
+  const handleProvinceChange = useCallback((province: string) => {
+    setFilter((prev) => ({
+      ...prev,
+      distribution: province ? [province as Distribution] : undefined,
+    }));
+  }, []);
+
+  // Province facets — only include the 7 provinces, sorted by count
+  const provinceFacets = useMemo(
+    () => displayFacets.distributions.filter((d) => isProvince(d.value)),
+    [displayFacets.distributions]
+  );
+
   const handleClearFilters = useCallback(() => {
     setFilter({});
     setSearchQuery("");
@@ -239,6 +335,8 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     allFamilies: t("allFamilies"),
     status: t("filterByStatus"),
     allStatuses: t("allStatuses"),
+    province: t("filterByProvince"),
+    allProvinces: t("allProvinces"),
     sortBy: t("sortBy"),
     sortName: t("sortByName"),
     sortScientific: t("sortByScientific"),
@@ -378,7 +476,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         {/* Filter panel */}
         {showFilters && (
           <div className="mb-8 p-4 bg-card rounded-xl border border-border">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {/* Family filter */}
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-1">
@@ -423,6 +521,25 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                       </option>
                     )
                   )}
+                </select>
+              </div>
+
+              {/* Province filter */}
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">
+                  {labels.province}
+                </label>
+                <select
+                  value={filter.distribution?.[0] ?? ""}
+                  onChange={(e) => handleProvinceChange(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="">{labels.allProvinces}</option>
+                  {provinceFacets.map(({ value, count }) => (
+                    <option key={value} value={value}>
+                      {t(`provinces.${value}`)} ({count})
+                    </option>
+                  ))}
                 </select>
               </div>
 
