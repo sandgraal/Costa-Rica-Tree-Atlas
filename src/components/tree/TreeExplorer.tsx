@@ -1198,6 +1198,9 @@ function MultiSelectDropdown({
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-controls={open ? listId : undefined}
+        aria-label={
+          typeof label === "string" ? `${label}: ${buttonLabel}` : buttonLabel
+        }
         className={`w-full px-3 py-2 rounded-lg border text-left text-sm transition-colors flex items-center justify-between ${
           selectedCount > 0
             ? "border-primary/50 bg-primary/5 text-foreground"
