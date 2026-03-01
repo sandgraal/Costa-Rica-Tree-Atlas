@@ -313,8 +313,7 @@ export const useStore = create<StoreState>()(
                 filter.distribution = filter.distribution.filter(
                   (value): value is Distribution =>
                     typeof value === "string" &&
-                    (isProvince(value as Distribution) ||
-                      isRegion(value as Distribution))
+                    (isProvince(value) || isRegion(value))
                 );
                 if (filter.distribution.length === 0) {
                   delete filter.distribution;
