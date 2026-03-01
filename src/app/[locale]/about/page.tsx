@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: locale === "es" ? "Sobre Nosotros" : "About Us",
     description:
       locale === "es"
-        ? "Conoce más sobre el Atlas de Árboles de Costa Rica, un proyecto de código abierto dedicado a documentar la flora arbórea costarricense."
-        : "Learn more about the Costa Rica Tree Atlas, an open-source project dedicated to documenting Costa Rican trees.",
+        ? "Conoce más sobre el Atlas de Árboles de Costa Rica, una iniciativa educativa dedicada a documentar la flora arbórea costarricense."
+        : "Learn more about Costa Rica Tree Atlas, an educational initiative dedicated to documenting Costa Rican trees.",
     alternates: {
       languages: {
         en: "/en/about",
@@ -44,8 +44,8 @@ export default async function AboutPage({ params }: Props) {
         : "About Costa Rica Tree Atlas",
     description:
       locale === "es"
-        ? "Un proyecto de código abierto dedicado a documentar la flora arbórea costarricense."
-        : "An open-source project dedicated to documenting Costa Rican trees.",
+        ? "Una iniciativa educativa dedicada a documentar la flora arbórea costarricense."
+        : "An educational initiative dedicated to documenting Costa Rican trees.",
     url: `https://costaricatreeatlas.com/${locale}/about`,
     mainEntity: {
       "@type": "Organization",
@@ -54,9 +54,8 @@ export default async function AboutPage({ params }: Props) {
       logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
       description:
         locale === "es"
-          ? "Una guía bilingüe de código abierto para los árboles de Costa Rica."
-          : "An open-source bilingual guide to Costa Rica's trees.",
-      sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
+          ? "Una guía bilingüe impulsada por la comunidad para los árboles de Costa Rica."
+          : "A community-powered bilingual guide to Costa Rica's trees.",
     },
   };
 

@@ -2,6 +2,8 @@
 
 <!-- Describe your changes in detail -->
 
+> **Note:** This is a private repository. External contributions are not accepted at this time.
+
 ## 🎯 Related Issue
 
 <!-- Link to the issue this PR addresses -->
@@ -41,25 +43,23 @@ Fixes #
 - [ ] I have read the [Contributing Guidelines](CONTRIBUTING.md)
 - [ ] My code follows the project's style guidelines
 - [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings or errors
-- [ ] The build (`npm run build`) succeeds
+- [ ] The build (`npm run build`) succeeds or documented known environment limitation applies
 
 ### For Code Changes
 
 - [ ] I have run `npm run lint` and fixed any issues
 - [ ] I have run `npm run format` to format my code
-- [ ] I have tested my changes in both English (`/en`) and Spanish (`/es`) routes
-- [ ] I have tested on mobile viewport sizes
-- [ ] I have tested in both light and dark modes
+- [ ] I have tested my changes in both English (`/en`) and Spanish (`/es`) routes when relevant
+- [ ] I have tested on mobile viewport sizes when relevant
+- [ ] I have tested in both light and dark modes when relevant
 
 ### For Content Changes
 
-- [ ] I have added/updated both English AND Spanish versions
+- [ ] I have added/updated both English AND Spanish versions (if content changed)
 - [ ] Both language files have the same slug/filename
 - [ ] Frontmatter is complete and accurate
 - [ ] Scientific information is accurate and sourced
-- [ ] Images are properly licensed (noted in PR description)
 
 ## 🧪 How Has This Been Tested?
 
@@ -69,7 +69,7 @@ Fixes #
 - [ ] Chrome (Desktop)
 - [ ] Firefox (Desktop)
 - [ ] Safari (Desktop)
-- [ ] Mobile browser: \***\*\_\_\_\*\***
+- [ ] Mobile browser: ****\_\_\_\_****
 
 ## 📝 Additional Notes
 

@@ -103,8 +103,8 @@ export default async function HomePage({ params }: Props) {
     url: "https://costaricatreeatlas.com",
     description:
       locale === "es"
-        ? "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe de código abierto de la flora arbórea costarricense."
-        : "Discover the magnificent trees of Costa Rica. An open-source bilingual guide to Costa Rican tree flora.",
+        ? "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe impulsada por la comunidad sobre la flora arbórea costarricense."
+        : "Discover the magnificent trees of Costa Rica. A community-powered bilingual guide to Costa Rican tree flora.",
     inLanguage: [locale === "es" ? "es-CR" : "en-US"],
     potentialAction: {
       "@type": "SearchAction",
@@ -134,9 +134,8 @@ export default async function HomePage({ params }: Props) {
     logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
     description:
       locale === "es"
-        ? "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica."
-        : "An open-source project dedicated to documenting Costa Rica's trees.",
-    sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
+        ? "Una iniciativa educativa dedicada a documentar los árboles de Costa Rica."
+        : "An educational initiative dedicated to documenting Costa Rica's trees.",
     knowsAbout: [
       "Costa Rica trees",
       "Tropical botany",

@@ -6,6 +6,8 @@ labels: ["enhancement", "needs-triage"]
 assignees: ""
 ---
 
+> **Private repository; external contributions not accepted at this time.**
+
 ## 💡 Feature Description
 
 <!-- A clear and concise description of the feature you'd like -->
