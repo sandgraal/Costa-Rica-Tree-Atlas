@@ -233,7 +233,7 @@ export default async function HomePage({ params }: Props) {
         <section className="py-16 px-4 section-offscreen">
           <div className="container mx-auto max-w-4xl text-center">
             <AboutSection
-              openSource={footerT("openSource")}
+              title={footerT("about")}
               description={footerT("description")}
             />
           </div>
