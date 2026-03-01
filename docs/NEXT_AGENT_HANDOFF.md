@@ -13,21 +13,26 @@ Last updated: 2026-03-01
 
 ## Latest Changes
 
-**Branch**: `copilot/sub-pr-532` — follow-up to PR #532
+**Branch**: `feature/seasonal-filter` — merged
 
-- Removed `confusionLevelLabel` field from `ConfusionRatingConfig` interface and `getConfusionRatingConfig` return value
-- `ConfusionRatingBadge` is an `async` Server Component using `getTranslations({ locale, namespace: "comparison" })` — both `config` and `t` now use the same `locale` prop, eliminating the dual-source issue
-- Keeps `getConfusionRatingConfig` focused on rating-specific labels/colors only
+- Added seasonal activity filter (flowering/fruiting by month) to tree directory filter panel
+- Activity type dropdown (All Seasons / Flowering / Fruiting) with per-month counts
+- Month selector with counts per month; defaults to current month when first activated
+- `SeasonalFacet` interface added to `SearchFacets`; `extractFacets()` computes per-month flowering/fruiting counts
+- `all-year` trees expanded across all 12 months in facet counts
+- URL parameter persistence: `?seasonal=flowering&month=march`; auto-opens filters
+- i18n keys added to both `en.json` and `es.json` (seasonalActivity, flowering, fruiting, etc.)
+- 16 new tests (filtering, facets, combined filters, getCurrentMonth)
 
 ## Current State
 
-- **Tests**: 630/630 passing (623 + 7 new)
+- **Tests**: 646/646 passing (630 + 16 new)
 - **Content**: 175 trees × 2 locales, 20 comparisons × 2, 150 glossary × 2
 - **Database**: Neon PostgreSQL, Prisma 7, all migrations applied
 - **Search**: Autocomplete dropdown on `/trees`, QuickSearch modal in nav — both with keyboard nav
-- **Filters**: Family, conservation status, province, tags, safety — all with URL param persistence
+- **Filters**: Family, conservation status, province, tags, safety, **seasonal (flowering/fruiting by month)** — all with URL param persistence
 - **i18n**: All major client components use `useTranslations()` — no inline ternaries in core UI
-- **All P2–P6 + P9.7–P9.8 tasks complete** — see `docs/IMPLEMENTATION_PLAN.md`
+- **All P2–P6 + P9.7–P9.8 tasks complete; P9.10 partially complete (seasonal filter done)**
 - **Error tracking**: Sentry-ready (zero deps, console fallback)
 - **Public API**: 7 v1 endpoints with OpenAPI 3.1 spec
 
@@ -46,7 +51,7 @@ Last updated: 2026-03-01
 Pick from `docs/IMPLEMENTATION_PLAN.md`. Top candidates:
 
 1. Re-run Lighthouse after P4.6 merge to validate LCP improvement
-2. P9.10 — Advanced search & filtering (bloom time, size, uses, conservation)
+2. P9.10 remaining — size/height filter, uses filter, save search preferences
 3. Install `@sentry/nextjs` and configure DSN in Vercel (manual step)
 4. P8.2 — Offline enhancements (download species, offline search)
 
