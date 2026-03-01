@@ -355,13 +355,13 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
 
 /**
  * Build a word-boundary regex for a keyword.
- * Uses a leading \b so "oil" won't match inside "soil",
+ * Uses a Unicode-aware leading boundary so "oil" won't match inside "soil",
  * but does NOT require a trailing boundary so plural forms
  * (e.g. "instruments") are still matched by "instrument".
  */
 function kwRegex(kw: string): RegExp {
   const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`\\b${escaped}`, "i");
+  return new RegExp(`(?<![\\p{L}\\p{N}_])${escaped}`, "iu");
 }
 
 /**
