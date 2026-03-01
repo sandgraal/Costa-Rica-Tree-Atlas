@@ -155,6 +155,8 @@
       "agriculture": "Agricultura",
       "crafts": "Artesanía e Industria"
     },
+    "activeFilters": "Filtros Activos",
+    "selectedCount": "{count} seleccionados",
     "saveFilters": "Guardar Filtros",
     "loadSavedFilters": "Cargar Guardados",
     "filtersSaved": "Filtros guardados",

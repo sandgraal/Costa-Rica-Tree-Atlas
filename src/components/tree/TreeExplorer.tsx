@@ -63,22 +63,35 @@ const VALID_SEASONAL_FILTERS = ["flowering", "fruiting"] as const;
 function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const filter: TreeFilter = {};
   const family = params.get("family");
-  if (family) filter.family = family;
+  if (family) filter.family = family.split(",").filter(Boolean);
   const status = params.get("status");
-  if (status) filter.conservationStatus = status;
+  if (status) filter.conservationStatus = status.split(",").filter(Boolean);
   const province = params.get("province");
-  if (province && isProvince(province as Distribution)) {
-    filter.distribution = [province as Distribution];
+  if (province) {
+    const provinces = province
+      .split(",")
+      .filter((p) => isProvince(p as Distribution)) as Distribution[];
+    if (provinces.length > 0) filter.distribution = provinces;
   }
   const tags = params.get("tags");
   if (tags) filter.tags = tags.split(",").filter(Boolean) as TreeTag[];
-  const height = params.get("height") as HeightRange | null;
-  if (height && VALID_HEIGHT_RANGES.includes(height)) {
-    filter.heightRange = height;
+  const height = params.get("height");
+  if (height) {
+    const heights = height
+      .split(",")
+      .filter((h) =>
+        VALID_HEIGHT_RANGES.includes(h as HeightRange)
+      ) as HeightRange[];
+    if (heights.length > 0) filter.heightRange = heights;
   }
-  const use = params.get("use") as UseCategory | null;
-  if (use && VALID_USE_CATEGORIES.includes(use)) {
-    filter.useCategory = use;
+  const use = params.get("use");
+  if (use) {
+    const uses = use
+      .split(",")
+      .filter((u) =>
+        VALID_USE_CATEGORIES.includes(u as UseCategory)
+      ) as UseCategory[];
+    if (uses.length > 0) filter.useCategory = uses;
   }
   return filter;
 }
@@ -165,14 +178,16 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
   useEffect(() => {
     const params = new URLSearchParams();
     if (searchQuery.trim()) params.set("q", searchQuery.trim());
-    if (filter.family) params.set("family", filter.family);
-    if (filter.conservationStatus)
-      params.set("status", filter.conservationStatus);
+    if (filter.family?.length) params.set("family", filter.family.join(","));
+    if (filter.conservationStatus?.length)
+      params.set("status", filter.conservationStatus.join(","));
     if (filter.distribution?.length)
-      params.set("province", filter.distribution[0]);
+      params.set("province", filter.distribution.join(","));
     if (filter.tags?.length) params.set("tags", filter.tags.join(","));
-    if (filter.heightRange) params.set("height", filter.heightRange);
-    if (filter.useCategory) params.set("use", filter.useCategory);
+    if (filter.heightRange?.length)
+      params.set("height", filter.heightRange.join(","));
+    if (filter.useCategory?.length)
+      params.set("use", filter.useCategory.join(","));
     if (sort.field !== "title") params.set("sort", sort.field);
     if (viewMode !== "grid") params.set("view", viewMode);
 
@@ -330,25 +345,60 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     });
   }, []);
 
-  const handleProvinceChange = useCallback((province: string) => {
-    setFilter((prev) => ({
-      ...prev,
-      distribution: province ? [province as Distribution] : undefined,
-    }));
+  const handleFamilyToggle = useCallback((family: string) => {
+    setFilter((prev) => {
+      const current = prev.family ?? [];
+      const next = current.includes(family)
+        ? current.filter((f) => f !== family)
+        : [...current, family];
+      return { ...prev, family: next.length > 0 ? next : undefined };
+    });
   }, []);
 
-  const handleHeightChange = useCallback((height: string) => {
-    setFilter((prev) => ({
-      ...prev,
-      heightRange: height ? (height as HeightRange) : undefined,
-    }));
+  const handleStatusToggle = useCallback((status: string) => {
+    setFilter((prev) => {
+      const current = prev.conservationStatus ?? [];
+      const next = current.includes(status)
+        ? current.filter((s) => s !== status)
+        : [...current, status];
+      return {
+        ...prev,
+        conservationStatus: next.length > 0 ? next : undefined,
+      };
+    });
   }, []);
 
-  const handleUseCategoryChange = useCallback((category: string) => {
-    setFilter((prev) => ({
-      ...prev,
-      useCategory: category ? (category as UseCategory) : undefined,
-    }));
+  const handleProvinceToggle = useCallback((province: string) => {
+    setFilter((prev) => {
+      const current = prev.distribution ?? [];
+      const dist = province as Distribution;
+      const next = current.includes(dist)
+        ? current.filter((d) => d !== dist)
+        : [...current, dist];
+      return { ...prev, distribution: next.length > 0 ? next : undefined };
+    });
+  }, []);
+
+  const handleHeightToggle = useCallback((height: string) => {
+    setFilter((prev) => {
+      const current = prev.heightRange ?? [];
+      const h = height as HeightRange;
+      const next = current.includes(h)
+        ? current.filter((v) => v !== h)
+        : [...current, h];
+      return { ...prev, heightRange: next.length > 0 ? next : undefined };
+    });
+  }, []);
+
+  const handleUseCategoryToggle = useCallback((category: string) => {
+    setFilter((prev) => {
+      const current = prev.useCategory ?? [];
+      const c = category as UseCategory;
+      const next = current.includes(c)
+        ? current.filter((v) => v !== c)
+        : [...current, c];
+      return { ...prev, useCategory: next.length > 0 ? next : undefined };
+    });
   }, []);
 
   const handleSeasonalChange = useCallback(
@@ -601,109 +651,69 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         {showFilters && (
           <div className="mb-8 p-4 bg-card rounded-xl border border-border">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {/* Family filter */}
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-1">
-                  {labels.family}
-                </label>
-                <select
-                  value={filter.family ?? ""}
-                  onChange={(e) => {
-                    handleFilterChange("family", e.target.value || undefined);
-                  }}
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                >
-                  <option value="">{labels.allFamilies}</option>
-                  {displayFacets.families.map(({ value, count }) => (
-                    <option key={value} value={value}>
-                      {value} ({count})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Family filter (multi-select) */}
+              <MultiSelectDropdown
+                label={labels.family}
+                placeholder={labels.allFamilies}
+                options={displayFacets.families.map(({ value, count }) => ({
+                  value,
+                  label: `${value} (${count})`,
+                }))}
+                selected={filter.family ?? []}
+                onToggle={handleFamilyToggle}
+              />
 
-              {/* Conservation status filter */}
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-1">
-                  {labels.status}
-                </label>
-                <select
-                  value={filter.conservationStatus ?? ""}
-                  onChange={(e) =>
-                    handleFilterChange(
-                      "conservationStatus",
-                      e.target.value || undefined
-                    )
-                  }
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                >
-                  <option value="">{labels.allStatuses}</option>
-                  {displayFacets.conservationStatuses.map(
-                    ({ value, count }) => (
-                      <option key={value} value={value}>
-                        {value} ({count})
-                      </option>
-                    )
-                  )}
-                </select>
-              </div>
+              {/* Conservation status filter (multi-select) */}
+              <MultiSelectDropdown
+                label={labels.status}
+                placeholder={labels.allStatuses}
+                options={displayFacets.conservationStatuses.map(
+                  ({ value, count }) => ({
+                    value,
+                    label: `${value} (${count})`,
+                  })
+                )}
+                selected={filter.conservationStatus ?? []}
+                onToggle={handleStatusToggle}
+              />
 
-              {/* Province filter */}
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-1">
-                  {labels.province}
-                </label>
-                <select
-                  value={filter.distribution?.[0] ?? ""}
-                  onChange={(e) => handleProvinceChange(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                >
-                  <option value="">{labels.allProvinces}</option>
-                  {provinceFacets.map(({ value, count }) => (
-                    <option key={value} value={value}>
-                      {t(`provinces.${value}`)} ({count})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Province filter (multi-select) */}
+              <MultiSelectDropdown
+                label={labels.province}
+                placeholder={labels.allProvinces}
+                options={provinceFacets.map(({ value, count }) => ({
+                  value,
+                  label: `${t(`provinces.${value}`)} (${count})`,
+                }))}
+                selected={(filter.distribution ?? []) as string[]}
+                onToggle={handleProvinceToggle}
+              />
 
-              {/* Height range filter */}
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-1">
-                  {t("filterByHeight")}
-                </label>
-                <select
-                  value={filter.heightRange ?? ""}
-                  onChange={(e) => handleHeightChange(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                >
-                  <option value="">{t("allHeights")}</option>
-                  {displayFacets.heightRanges.map(({ value, count }) => (
-                    <option key={value} value={value}>
-                      {t(`heightRanges.${value}`)} ({count})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Height range filter (multi-select) */}
+              <MultiSelectDropdown
+                label={t("filterByHeight")}
+                placeholder={t("allHeights")}
+                options={displayFacets.heightRanges.map(({ value, count }) => ({
+                  value,
+                  label: `${t(`heightRanges.${value}`)} (${count})`,
+                }))}
+                selected={(filter.heightRange ?? []) as string[]}
+                onToggle={handleHeightToggle}
+              />
 
-              {/* Use category filter */}
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-1">
-                  {t("filterByUse")}
-                </label>
-                <select
-                  value={filter.useCategory ?? ""}
-                  onChange={(e) => handleUseCategoryChange(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                >
-                  <option value="">{t("allUses")}</option>
-                  {displayFacets.useCategories.map(({ value, count }) => (
-                    <option key={value} value={value}>
-                      {t(`useCategories.${value}`)} ({count})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Use category filter (multi-select) */}
+              <MultiSelectDropdown
+                label={t("filterByUse")}
+                placeholder={t("allUses")}
+                options={displayFacets.useCategories.map(
+                  ({ value, count }) => ({
+                    value,
+                    label: `${t(`useCategories.${value}`)} (${count})`,
+                  })
+                )}
+                selected={(filter.useCategory ?? []) as string[]}
+                onToggle={handleUseCategoryToggle}
+              />
 
               {/* Sort by */}
               <div>
@@ -740,6 +750,24 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </div>
               )}
             </div>
+
+            {/* Active filter chips */}
+            {hasActiveFilters && (
+              <ActiveFilterChips
+                filter={filter}
+                locale={locale}
+                t={t}
+                onRemoveFamily={handleFamilyToggle}
+                onRemoveStatus={handleStatusToggle}
+                onRemoveProvince={handleProvinceToggle}
+                onRemoveHeight={handleHeightToggle}
+                onRemoveUseCategory={handleUseCategoryToggle}
+                onRemoveTag={handleTagToggle}
+                onRemoveSeasonal={() => handleSeasonalChange("all")}
+                onRemoveSafety={(key) => handleFilterChange(key, undefined)}
+                onClearAll={handleClearFilters}
+              />
+            )}
 
             {/* Save/Load filter preferences */}
             {_hydrated && (
@@ -1092,6 +1120,279 @@ function AlphabeticalIndex({
               ))}
             </div>
           </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// MultiSelectDropdown Component
+// ============================================================================
+
+interface MultiSelectOption {
+  value: string;
+  label: string;
+}
+
+interface MultiSelectDropdownProps {
+  label: string;
+  placeholder: string;
+  options: MultiSelectOption[];
+  selected: string[];
+  onToggle: (value: string) => void;
+}
+
+function MultiSelectDropdown({
+  label,
+  placeholder,
+  options,
+  selected,
+  onToggle,
+}: MultiSelectDropdownProps) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Close on click outside
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [open]);
+
+  const selectedCount = selected.length;
+  const buttonLabel =
+    selectedCount === 0
+      ? placeholder
+      : selectedCount === 1
+        ? (options.find((o) => o.value === selected[0])?.label ?? selected[0])
+        : `${selectedCount} ${label.toLowerCase()}`;
+
+  return (
+    <div ref={ref} className="relative">
+      <label className="block text-sm font-medium text-muted-foreground mb-1">
+        {label}
+      </label>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className={`w-full px-3 py-2 rounded-lg border text-left text-sm transition-colors flex items-center justify-between ${
+          selectedCount > 0
+            ? "border-primary/50 bg-primary/5 text-foreground"
+            : "border-border bg-background text-foreground"
+        } focus:outline-none focus:ring-2 focus:ring-primary/50`}
+      >
+        <span className="truncate">{buttonLabel}</span>
+        <ChevronIcon
+          className={`w-4 h-4 flex-shrink-0 ml-2 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <div className="absolute z-20 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-card shadow-lg">
+          {options.map((option) => {
+            const isChecked = selected.includes(option.value);
+            return (
+              <label
+                key={option.value}
+                className="flex items-center gap-2 px-3 py-2 hover:bg-muted/50 cursor-pointer text-sm"
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => onToggle(option.value)}
+                  className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50"
+                />
+                <span className={isChecked ? "font-medium" : ""}>
+                  {option.label}
+                </span>
+              </label>
+            );
+          })}
+          {options.length === 0 && (
+            <p className="px-3 py-2 text-sm text-muted-foreground">—</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================================
+// ActiveFilterChips Component
+// ============================================================================
+
+interface ActiveFilterChipsProps {
+  filter: TreeFilter;
+  locale: Locale;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: (key: string, values?: Record<string, any>) => string;
+  onRemoveFamily: (family: string) => void;
+  onRemoveStatus: (status: string) => void;
+  onRemoveProvince: (province: string) => void;
+  onRemoveHeight: (height: string) => void;
+  onRemoveUseCategory: (category: string) => void;
+  onRemoveTag: (tag: TreeTag) => void;
+  onRemoveSeasonal: () => void;
+  onRemoveSafety: (key: keyof TreeFilter) => void;
+  onClearAll: () => void;
+}
+
+function ActiveFilterChips({
+  filter,
+  locale,
+  t,
+  onRemoveFamily,
+  onRemoveStatus,
+  onRemoveProvince,
+  onRemoveHeight,
+  onRemoveUseCategory,
+  onRemoveTag,
+  onRemoveSeasonal,
+  onRemoveSafety,
+  onClearAll,
+}: ActiveFilterChipsProps) {
+  const chips: { key: string; label: string; onRemove: () => void }[] = [];
+
+  // Family chips
+  for (const family of filter.family ?? []) {
+    chips.push({
+      key: `family-${family}`,
+      label: family,
+      onRemove: () => onRemoveFamily(family),
+    });
+  }
+
+  // Conservation status chips
+  for (const status of filter.conservationStatus ?? []) {
+    chips.push({
+      key: `status-${status}`,
+      label: status,
+      onRemove: () => onRemoveStatus(status),
+    });
+  }
+
+  // Province chips
+  for (const dist of filter.distribution ?? []) {
+    chips.push({
+      key: `province-${dist}`,
+      label: t(`provinces.${dist}`),
+      onRemove: () => onRemoveProvince(dist),
+    });
+  }
+
+  // Height chips
+  for (const height of filter.heightRange ?? []) {
+    chips.push({
+      key: `height-${height}`,
+      label: t(`heightRanges.${height}`),
+      onRemove: () => onRemoveHeight(height),
+    });
+  }
+
+  // Use category chips
+  for (const category of filter.useCategory ?? []) {
+    chips.push({
+      key: `use-${category}`,
+      label: t(`useCategories.${category}`),
+      onRemove: () => onRemoveUseCategory(category),
+    });
+  }
+
+  // Tag chips
+  for (const tag of filter.tags ?? []) {
+    chips.push({
+      key: `tag-${tag}`,
+      label: getTagLabel(tag, locale),
+      onRemove: () => onRemoveTag(tag),
+    });
+  }
+
+  // Seasonal chip
+  if (filter.seasonalFilter && filter.seasonalFilter !== "all") {
+    const seasonLabel =
+      filter.seasonalFilter === "flowering"
+        ? `🌸 ${t("flowering")}`
+        : `🍎 ${t("fruiting")}`;
+    chips.push({
+      key: "seasonal",
+      label: seasonLabel,
+      onRemove: onRemoveSeasonal,
+    });
+  }
+
+  // Safety chips
+  if (filter.childSafe) {
+    chips.push({
+      key: "childSafe",
+      label: t("childSafe"),
+      onRemove: () => onRemoveSafety("childSafe"),
+    });
+  }
+  if (filter.petSafe) {
+    chips.push({
+      key: "petSafe",
+      label: t("petSafe"),
+      onRemove: () => onRemoveSafety("petSafe"),
+    });
+  }
+  if (filter.nonToxic) {
+    chips.push({
+      key: "nonToxic",
+      label: t("nonToxic"),
+      onRemove: () => onRemoveSafety("nonToxic"),
+    });
+  }
+  if (filter.lowRisk) {
+    chips.push({
+      key: "lowRisk",
+      label: t("lowRisk"),
+      onRemove: () => onRemoveSafety("lowRisk"),
+    });
+  }
+
+  if (chips.length === 0) return null;
+
+  return (
+    <div className="mt-4 pt-4 border-t border-border">
+      <div className="flex items-center gap-2 mb-2">
+        <p className="text-xs font-medium text-muted-foreground">
+          {t("activeFilters")}
+        </p>
+        {chips.length > 1 && (
+          <button
+            onClick={onClearAll}
+            className="text-xs text-primary hover:text-primary-dark transition-colors"
+          >
+            {getUILabel("clearFilters", locale)}
+          </button>
+        )}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {chips.map((chip) => (
+          <span
+            key={chip.key}
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
+          >
+            {chip.label}
+            <button
+              onClick={chip.onRemove}
+              className="ml-0.5 hover:text-primary-dark"
+              aria-label={t("removeFilter", { label: chip.label })}
+            >
+              <XIcon className="w-3 h-3" />
+            </button>
+          </span>
         ))}
       </div>
     </div>

@@ -5,7 +5,14 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { TreeFilter, TreeSort, TreeTag, Distribution } from "@/types/tree";
+import type {
+  TreeFilter,
+  TreeSort,
+  TreeTag,
+  Distribution,
+  HeightRange,
+  UseCategory,
+} from "@/types/tree";
 import { isProvince, isRegion } from "@/lib/geo";
 
 // ============================================================================
@@ -272,24 +279,94 @@ export const useStore = create<StoreState>()(
             // Narrow for easier manipulation
             const filter = state.savedSearchFilter as TreeFilter;
 
-            // Validate heightRange against allowed values
-            if (
-              filter.heightRange !== undefined &&
-              !(VALID_HEIGHT_RANGES as readonly string[]).includes(
-                filter.heightRange
-              )
-            ) {
-              delete filter.heightRange;
+            // Validate heightRange: must be an array of valid values (or undefined)
+            if (filter.heightRange !== undefined) {
+              if (Array.isArray(filter.heightRange)) {
+                filter.heightRange = filter.heightRange.filter(
+                  (h): h is HeightRange =>
+                    typeof h === "string" &&
+                    (VALID_HEIGHT_RANGES as readonly string[]).includes(h)
+                );
+                if (filter.heightRange.length === 0) {
+                  delete filter.heightRange;
+                }
+              } else {
+                // Migrate old scalar value to array
+                const val = filter.heightRange as unknown as string;
+                if (
+                  typeof val === "string" &&
+                  (VALID_HEIGHT_RANGES as readonly string[]).includes(val)
+                ) {
+                  filter.heightRange = [val as HeightRange];
+                } else {
+                  delete filter.heightRange;
+                }
+              }
             }
 
-            // Validate useCategory against allowed values
-            if (
-              filter.useCategory !== undefined &&
-              !(VALID_USE_CATEGORIES as readonly string[]).includes(
-                filter.useCategory
-              )
-            ) {
-              delete filter.useCategory;
+            // Validate useCategory: must be an array of valid values (or undefined)
+            if (filter.useCategory !== undefined) {
+              if (Array.isArray(filter.useCategory)) {
+                filter.useCategory = filter.useCategory.filter(
+                  (c): c is UseCategory =>
+                    typeof c === "string" &&
+                    (VALID_USE_CATEGORIES as readonly string[]).includes(c)
+                );
+                if (filter.useCategory.length === 0) {
+                  delete filter.useCategory;
+                }
+              } else {
+                // Migrate old scalar value to array
+                const val = filter.useCategory as unknown as string;
+                if (
+                  typeof val === "string" &&
+                  (VALID_USE_CATEGORIES as readonly string[]).includes(val)
+                ) {
+                  filter.useCategory = [val as UseCategory];
+                } else {
+                  delete filter.useCategory;
+                }
+              }
+            }
+
+            // Validate family: must be an array of strings (or undefined)
+            if (filter.family !== undefined) {
+              if (Array.isArray(filter.family)) {
+                filter.family = filter.family.filter(
+                  (f): f is string => typeof f === "string" && f.length > 0
+                );
+                if (filter.family.length === 0) {
+                  delete filter.family;
+                }
+              } else {
+                // Migrate old scalar value to array
+                const val = filter.family as unknown as string;
+                if (typeof val === "string" && val.length > 0) {
+                  filter.family = [val];
+                } else {
+                  delete filter.family;
+                }
+              }
+            }
+
+            // Validate conservationStatus: must be an array of strings (or undefined)
+            if (filter.conservationStatus !== undefined) {
+              if (Array.isArray(filter.conservationStatus)) {
+                filter.conservationStatus = filter.conservationStatus.filter(
+                  (s): s is string => typeof s === "string" && s.length > 0
+                );
+                if (filter.conservationStatus.length === 0) {
+                  delete filter.conservationStatus;
+                }
+              } else {
+                // Migrate old scalar value to array
+                const val = filter.conservationStatus as unknown as string;
+                if (typeof val === "string" && val.length > 0) {
+                  filter.conservationStatus = [val];
+                } else {
+                  delete filter.conservationStatus;
+                }
+              }
             }
 
             // Ensure tags is a string array if present; otherwise remove it
