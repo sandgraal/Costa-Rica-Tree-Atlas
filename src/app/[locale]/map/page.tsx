@@ -3,8 +3,50 @@ import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 import type { Distribution, TreeTag, Month } from "@/types/tree";
+import { isProvince, isRegion } from "@/lib/geo";
 import TreeMapClient from "./TreeMapClient";
 import type { MapTreeSummary } from "./TreeMapClient";
+
+// Mirrors the TreeTag union in @/types/tree — used to filter non-canonical
+// ES MDX tag strings (e.g. "nativo") at the contentlayer boundary.
+const VALID_TAGS = new Set<string>([
+  "native",
+  "endemic",
+  "introduced",
+  "deciduous",
+  "evergreen",
+  "flowering",
+  "fruit-bearing",
+  "endangered",
+  "national",
+  "nitrogen-fixing",
+  "shade-tree",
+  "wildlife-food",
+  "dry-forest",
+  "rainforest",
+  "cloud-forest",
+  "timber",
+  "medicinal",
+  "ornamental",
+]);
+
+// Mirrors the Month union in @/types/tree (including "all-year") — used to filter
+// non-canonical ES month strings (e.g. "todo-el-ano") at the contentlayer boundary.
+const VALID_MONTH_STRINGS = new Set<string>([
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+  "all-year",
+]);
 
 interface MapPageProps {
   params: Promise<{ locale: string }>;
@@ -39,18 +81,25 @@ export default async function MapPage({ params }: MapPageProps) {
 
   // Project only the fields TreeMapClient needs — avoids shipping the full
   // 32 MB contentlayer dataset (MDX bodies) to the client.
-  // Contentlayer generates string[] for these list fields; we narrow them to our
-  // domain union types based on editorial conventions/validation, not strict enum guarantees.
+  // Contentlayer generates string[] for list fields; filter to known-valid union
+  // values so MapTreeSummary types are accurate at runtime (ES MDX files contain
+  // non-canonical strings like "nativo", "todo-el-ano" that are outside the unions).
   const trees: MapTreeSummary[] = allTrees
     .filter((t) => t.locale === locale)
     .map((t) => ({
       slug: t.slug,
       title: t.title,
       scientificName: t.scientificName,
-      distribution: t.distribution as Distribution[] | undefined,
-      tags: t.tags as TreeTag[] | undefined,
-      floweringSeason: t.floweringSeason as Month[] | undefined,
-      fruitingSeason: t.fruitingSeason as Month[] | undefined,
+      distribution: t.distribution?.filter(
+        (d): d is Distribution => isProvince(d) || isRegion(d)
+      ),
+      tags: t.tags?.filter((tag): tag is TreeTag => VALID_TAGS.has(tag)),
+      floweringSeason: t.floweringSeason?.filter(
+        (m): m is Month => VALID_MONTH_STRINGS.has(m)
+      ),
+      fruitingSeason: t.fruitingSeason?.filter(
+        (m): m is Month => VALID_MONTH_STRINGS.has(m)
+      ),
       featuredImage: t.featuredImage,
       conservationStatus: t.conservationStatus,
       maxHeight: t.maxHeight,
