@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { getConfusionRatingConfig } from "@/lib/comparison";
 import type { Locale } from "@/types/tree";
 
@@ -15,14 +13,14 @@ interface ConfusionRatingBadgeProps {
  * Unified confusion rating badge component
  * Used across comparison list, detail pages, and MDX content
  */
-export function ConfusionRatingBadge({
+export async function ConfusionRatingBadge({
   rating,
   locale,
   variant = "default",
   showLabel = true,
 }: ConfusionRatingBadgeProps) {
   const config = getConfusionRatingConfig(rating, locale);
-  const t = useTranslations("comparison");
+  const t = await getTranslations({ locale, namespace: "comparison" });
 
   // Compact variant for list views
   if (variant === "compact") {

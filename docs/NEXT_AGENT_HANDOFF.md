@@ -16,8 +16,7 @@ Last updated: 2026-03-01
 **Branch**: `copilot/sub-pr-532` — follow-up to PR #532
 
 - Removed `confusionLevelLabel` field from `ConfusionRatingConfig` interface and `getConfusionRatingConfig` return value
-- `ConfusionRatingBadge` now uses `useTranslations("comparison")` + `t("confusionLevel")` (consuming the existing translation key)
-- Added `"use client"` directive to `ConfusionRatingBadge.tsx`
+- `ConfusionRatingBadge` is an `async` Server Component using `getTranslations({ locale, namespace: "comparison" })` — both `config` and `t` now use the same `locale` prop, eliminating the dual-source issue
 - Keeps `getConfusionRatingConfig` focused on rating-specific labels/colors only
 
 ## Current State
