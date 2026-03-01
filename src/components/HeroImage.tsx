@@ -25,8 +25,7 @@ export function HeroImage({
         srcSet="
           /images/hero/guanacaste-mobile.avif 640w,
           /images/hero/guanacaste-mobile-lg.avif 828w,
-          /images/hero/guanacaste-tablet.avif 1200w,
-          /images/hero/guanacaste-desktop.avif 1920w
+          /images/hero/guanacaste-desktop.avif 1200w
         "
         sizes="100vw"
       />
@@ -37,8 +36,7 @@ export function HeroImage({
         srcSet="
           /images/hero/guanacaste-mobile.webp 640w,
           /images/hero/guanacaste-mobile-lg.webp 828w,
-          /images/hero/guanacaste-tablet.webp 1200w,
-          /images/hero/guanacaste-desktop.webp 1920w
+          /images/hero/guanacaste-desktop.webp 1200w
         "
         sizes="100vw"
       />
@@ -52,7 +50,7 @@ export function HeroImage({
         fetchPriority={fetchPriority}
         sizes="100vw"
         className="object-cover object-center"
-        quality={85}
+        quality={60}
       />
     </picture>
   );

@@ -62,7 +62,7 @@ export function TreeOfTheDay({
               alt={tree.title}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
-              quality={70}
+              quality={55}
               className="object-cover"
               fallback="placeholder"
             />

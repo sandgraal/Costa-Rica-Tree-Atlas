@@ -39,7 +39,7 @@ export default async function HomePage({ params }: Props) {
     fetchPriority: "high",
     type: "image/avif",
     imageSrcSet:
-      "/images/hero/guanacaste-mobile.avif 640w, /images/hero/guanacaste-mobile-lg.avif 828w, /images/hero/guanacaste-tablet.avif 1200w, /images/hero/guanacaste-desktop.avif 1920w",
+      "/images/hero/guanacaste-mobile.avif 640w, /images/hero/guanacaste-mobile-lg.avif 828w, /images/hero/guanacaste-desktop.avif 1200w",
     imageSizes: "100vw",
   });
 
