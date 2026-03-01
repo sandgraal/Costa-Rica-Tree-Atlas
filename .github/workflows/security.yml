@@ -11,6 +11,8 @@ on:
       - "next.config.ts"
       - "prisma/**"
       - "contentlayer.config.ts"
+      - ".github/workflows/security.yml"
+      - ".github/actions/**"
   schedule:
     # Full security sweep every Monday at 9am UTC
     - cron: "0 9 * * 1"
