@@ -137,19 +137,12 @@ jobs:
   # SUMMARY
   # ──────────────────────────────────────────────
 
-  security-summary:
+  # PR summary: only depends on jobs that actually run on pull_request events
+  security-summary-pr:
     name: Security Summary
     runs-on: ubuntu-latest
-    needs:
-      [
-        npm-audit,
-        secret-scan,
-        dependency-review,
-        codeql,
-        eslint-security,
-        license-check,
-      ]
-    if: always()
+    if: always() && github.event_name == 'pull_request'
+    needs: [npm-audit, secret-scan, dependency-review]
     steps:
       - name: Check results
         run: |
@@ -160,6 +153,21 @@ jobs:
           echo "| NPM Audit | ${{ needs.npm-audit.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Secret Scan | ${{ needs.secret-scan.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Dependency Review | ${{ needs.dependency-review.result }} |" >> $GITHUB_STEP_SUMMARY
+
+  # Full summary: only depends on jobs that actually run on schedule/workflow_dispatch events
+  security-summary-full:
+    name: Security Summary
+    runs-on: ubuntu-latest
+    if: always() && github.event_name != 'pull_request'
+    needs: [npm-audit, codeql, eslint-security, license-check]
+    steps:
+      - name: Check results
+        run: |
+          echo "## Security Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| NPM Audit | ${{ needs.npm-audit.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| CodeQL | ${{ needs.codeql.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| ESLint Security | ${{ needs.eslint-security.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| License Check | ${{ needs.license-check.result }} |" >> $GITHUB_STEP_SUMMARY
