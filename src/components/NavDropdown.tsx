@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useId } from "react";
 import { Link } from "@i18n/navigation";
 import { usePathname } from "next/navigation";
 
@@ -17,9 +17,12 @@ interface NavDropdownProps {
 
 export function NavDropdown({ label, items, locale }: NavDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [focusFirst, setFocusFirst] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
   const pathname = usePathname();
+  const uid = useId();
+  const menuId = `nav-menu-${uid}`;
 
   const isActive = items.some(
     (item) =>
@@ -34,6 +37,14 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
     }
     setIsOpen(false);
   }, []);
+
+  // Focus first menu item when requested (after dropdown opens)
+  useEffect(() => {
+    if (isOpen && focusFirst) {
+      dropdownRef.current?.querySelector<HTMLElement>("a")?.focus();
+      setFocusFirst(false);
+    }
+  }, [isOpen, focusFirst]);
 
   // Clear pending timeout on unmount
   useEffect(() => {
@@ -93,9 +104,12 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setIsOpen(!isOpen);
-    } else if (e.key === "ArrowDown" && !isOpen) {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      setIsOpen(true);
+      if (!isOpen) {
+        setIsOpen(true);
+      }
+      setFocusFirst(true);
     }
   }
 
@@ -117,6 +131,7 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
         }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
+        aria-controls={menuId}
       >
         {label}
         <svg
@@ -134,30 +149,32 @@ export function NavDropdown({ label, items, locale }: NavDropdownProps) {
         </svg>
       </button>
 
-      {isOpen && (
-        <ul className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-border bg-background shadow-lg py-1 z-50 list-none">
-          {items.map((item) => {
-            const itemActive =
-              pathname === `/${locale}${item.href}` ||
-              pathname.startsWith(`/${locale}${item.href}/`);
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`block px-4 py-2 text-sm transition-colors ${
-                    itemActive
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-foreground/80 hover:bg-muted hover:text-primary"
-                  }`}
-                  onClick={close}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <ul
+        id={menuId}
+        hidden={!isOpen}
+        className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-border bg-background shadow-lg py-1 z-50 list-none"
+      >
+        {items.map((item) => {
+          const itemActive =
+            pathname === `/${locale}${item.href}` ||
+            pathname.startsWith(`/${locale}${item.href}/`);
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={`block px-4 py-2 text-sm transition-colors ${
+                  itemActive
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-foreground/80 hover:bg-muted hover:text-primary"
+                }`}
+                onClick={close}
+              >
+                {item.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

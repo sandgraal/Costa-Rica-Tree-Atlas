@@ -7,6 +7,7 @@ import { FavoritesLink } from "./FavoritesLink";
 import { NavDropdown } from "./NavDropdown";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { TOP_NAV_ITEMS, NAV_GROUP_ITEMS } from "@/lib/nav-config";
 
 // Lazy load QuickSearch — 417-line client component deferred from the initial bundle but rendered in the header
 const QuickSearch = dynamic(
@@ -60,70 +61,26 @@ export async function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-5">
-            <Link
-              href="/"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("home")}
-            </Link>
-            <Link
-              href="/trees"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("trees")}
-            </Link>
-            <Link
-              href="/identify"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("identify")}
-            </Link>
-            <Link
-              href="/compare"
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
-              {t("compare")}
-            </Link>
-            <NavDropdown
-              label={t("explore")}
-              locale={locale}
-              items={[
-                { href: "/map", label: t("map") },
-                { href: "/seasonal", label: t("seasonal") },
-                { href: "/conservation", label: t("conservation") },
-                { href: "/field-guide", label: t("fieldGuide") },
-              ]}
-            />
-            <NavDropdown
-              label={t("learn")}
-              locale={locale}
-              items={[
-                { href: "/education", label: t("education") },
-                { href: "/glossary", label: t("glossary") },
-                { href: "/safety", label: t("safety") },
-                { href: "/quiz", label: t("quiz") },
-                { href: "/diagnose", label: t("diagnose") },
-              ]}
-            />
-            <NavDropdown
-              label={t("community")}
-              locale={locale}
-              items={[
-                { href: "/contribute", label: t("contribute") },
-                { href: "/contribute/photo", label: t("photoUpload") },
-                { href: "/about", label: t("about") },
-              ]}
-            />
-            <NavDropdown
-              label={t("tools")}
-              locale={locale}
-              items={[
-                { href: "/wizard", label: t("wizard") },
-                { href: "/use-cases", label: t("useCases") },
-                { href: "/favorites", label: t("favorites") },
-                { href: "/api-docs", label: t("apiDocs") },
-              ]}
-            />
+            {TOP_NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-foreground/80 hover:text-primary transition-colors"
+              >
+                {t(item.tKey)}
+              </Link>
+            ))}
+            {NAV_GROUP_ITEMS.map((group) => (
+              <NavDropdown
+                key={group.tKey}
+                label={t(group.tKey)}
+                locale={locale}
+                items={group.links.map((link) => ({
+                  href: link.href,
+                  label: t(link.tKey),
+                }))}
+              />
+            ))}
           </div>
 
           {/* Right side controls */}
