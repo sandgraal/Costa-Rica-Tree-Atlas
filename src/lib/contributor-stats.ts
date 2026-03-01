@@ -116,8 +116,9 @@ export async function computeContributorStats(
       totalRatings: Number(ratingCounts[0]?.count || 0),
       totalPhotos: Number(photoCounts[0]?.count || 0),
     };
-  } catch {
-    return null;
+  } catch (error) {
+    console.error("Failed to compute contributor stats:", error);
+    throw error;
   }
 }
 
