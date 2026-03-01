@@ -11,7 +11,10 @@ on:
       - "src/**/*.ts"
       - "messages/**"
       - "i18n/**"
+      - ".github/workflows/content-build-tests.yml"
+      - ".github/actions/setup-node/**"
 
+  workflow_dispatch:
 concurrency:
   group: content-tests-${{ github.ref }}
   cancel-in-progress: true
