@@ -74,3 +74,13 @@ async function main() {
 
 main().catch(console.error);
 ```
+
+## Content Enrichment Script Pattern
+
+Used for `add-external-links.mjs`, `fix-datatable-links.mjs`, `fix-glossary-references.mjs`, etc.:
+
+1. `.mjs` extension, `#!/usr/bin/env node`
+2. Support `--dry-run` and `--tree=<name>` flags
+3. Process both EN and ES locales
+4. Handle multiple content patterns (ExternalLinksGrid, DataTable, markdown lists)
+5. Log progress per-file, print summary at end
