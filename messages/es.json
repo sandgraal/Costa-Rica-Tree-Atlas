@@ -1,6 +1,6 @@
 {
   "siteTitle": "Atlas de Árboles de Costa Rica",
-  "siteDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe de código abierto de la flora costarricense.",
+  "siteDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe impulsada por la comunidad sobre la flora costarricense.",
   "notFound": {
     "title": "Página No Encontrada",
     "description": "La página que buscas puede haber sido eliminada, cambiado de nombre o estar temporalmente no disponible.",
@@ -44,7 +44,7 @@
   "home": {
     "title": "Descubre los Árboles de Costa Rica",
     "subtitle": "Descubre los magníficos árboles de Costa Rica",
-    "description": "Explora la rica herencia botánica de este paraíso tropical—desde el icónico Guanacaste hasta la imponente Ceiba. Una guía gratuita y de código abierto en español e inglés.",
+    "description": "Explora la rica herencia botánica de este paraíso tropical—desde el icónico Guanacaste hasta la imponente Ceiba. Una guía bilingüe gratuita en español e inglés.",
     "exploreButton": "Explorar Árboles",
     "adminButton": "Portal de Admin",
     "featuredTrees": "Árboles Destacados",
@@ -68,7 +68,8 @@
       "botanicalFamilies": "Familias Botánicas",
       "conservationStatuses": "Estados de Conservación",
       "languages": "Idiomas"
-    }
+    },
+    "showingCount": "Mostrando {count} de {total}"
   },
   "trees": {
     "title": "Directorio de Árboles",
@@ -161,7 +162,7 @@
     "noSavedFilters": "No hay filtros guardados"
   },
   "footer": {
-    "description": "Un proyecto de código abierto dedicado a documentar los árboles de Costa Rica.",
+    "description": "Una iniciativa educativa dedicada a documentar los árboles de Costa Rica.",
     "quickLinks": "Enlaces Rápidos",
     "home": "Inicio",
     "allTrees": "Todos los Árboles",
@@ -169,11 +170,11 @@
     "seasonal": "Calendario",
     "aboutUs": "Sobre Nosotros",
     "openSource": "Código Abierto",
-    "contribute": "Este proyecto es de código abierto. ¡Contribuye en GitHub!",
+    "contribute": "Ayuda a mejorar el Atlas de Árboles de Costa Rica compartiendo correcciones, conocimiento local o fotos.",
     "madeWith": "Hecho con ❤️ para los bosques de Costa Rica",
     "keyboardShortcuts": "Atajos de teclado",
     "copyrightProject": "Atlas de Árboles de Costa Rica",
-    "copyrightLicense": "Código: AGPL-3.0 | Contenido: CC BY-NC-SA 4.0",
+    "copyrightLicense": "El contenido educativo y el código fuente se comparten para aprendizaje e investigación.",
     "tagline": "Creado para entusiastas de árboles en Costa Rica",
     "exploreSection": "Explorar",
     "learnSection": "Aprender",
@@ -212,7 +213,7 @@
   },
   "about": {
     "title": "Acerca del Atlas de Árboles de Costa Rica",
-    "subtitle": "Un proyecto de código abierto documentando los magníficos árboles de Costa Rica",
+    "subtitle": "Una iniciativa educativa que documenta los magníficos árboles de Costa Rica",
     "mission": {
       "title": "Nuestra Misión",
       "description": "El Atlas de Árboles de Costa Rica está dedicado a crear un recurso integral, accesible y bilingüe que documenta los notables árboles encontrados en toda Costa Rica. Creemos que el conocimiento sobre la flora nativa es esencial para la conservación, la educación y fomentar una apreciación más profunda del mundo natural."
@@ -232,8 +233,8 @@
         "description": "El contenido se investiga de fuentes autorizadas incluyendo literatura científica, instituciones botánicas y observaciones de campo."
       },
       "openSource": {
-        "title": "Código Abierto",
-        "description": "Este proyecto es completamente de código abierto. Cualquiera puede contribuir nuevos perfiles de árboles, correcciones, traducciones o mejoras de código."
+        "title": "Impulsado por la Comunidad",
+        "description": "El Atlas de Árboles de Costa Rica crece con colaboración comunitaria. Botánicos, educadores, naturalistas y desarrolladores pueden sugerir actualizaciones, traducciones, fotos y mejoras."
       }
     },
     "whyCostaRica": {
@@ -252,7 +253,7 @@
       "speciesCount": "50+",
       "observations": "Observaciones Combinadas",
       "observationsCount": "10,000+",
-      "openSource": "Código Abierto y Gratuito",
+      "openSource": "Impulsado por la Comunidad",
       "openSourceValue": "100%",
       "languages": "Idiomas",
       "languagesCount": "2"
@@ -278,7 +279,7 @@
     },
     "contributing": {
       "title": "Cómo Contribuir",
-      "description": "Damos la bienvenida a contribuciones de botánicos, naturalistas, fotógrafos, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica. Ya sea que quieras agregar un nuevo perfil de árbol, mejorar el contenido existente, traducir material o mejorar el sitio web, tu ayuda es valorada.",
+      "description": "Damos la bienvenida a contribuciones de botánicos, naturalistas, fotógrafos, educadores, desarrolladores y cualquier persona apasionada por los árboles de Costa Rica. Comparte correcciones, conocimiento local, traducciones y material visual para mantener el atlas útil y preciso.",
       "github": "Ver en GitHub",
       "explore": "Explorar Árboles"
     },
@@ -329,8 +330,8 @@
       }
     },
     "license": {
-      "title": "Estructura de Licencia Dual",
-      "description": "El Atlas de Árboles de Costa Rica utiliza dos licencias: AGPL-3.0 para el código y CC BY-NC-SA 4.0 para el contenido educativo. Libre para educación e investigación, con atribución requerida."
+      "title": "Uso de Contenido y Datos",
+      "description": "El contenido y los datos del Atlas de Árboles de Costa Rica se ofrecen para educación e investigación con atribución. Contacta al equipo del proyecto para consultas sobre reutilización comercial o redistribución."
     }
   },
   "favorites": {
@@ -883,7 +884,7 @@
       "notesPlaceholder": "ej., Ubicación, fecha, o detalles útiles...",
       "uploading": "Subiendo...",
       "submit": "Enviar Foto",
-      "termsNote": "Al enviar, confirmas que esta es tu foto y aceptas compartirla bajo licencia CC BY-NC-SA 4.0.",
+      "termsNote": "Al enviar, confirmas que esta es tu foto y autorizas al Atlas de Árboles de Costa Rica a publicarla con atribución.",
       "success": "¡Foto subida exitosamente!",
       "successNote": "Tu foto será revisada por nuestro equipo. ¡Gracias por contribuir!",
       "errorInvalidType": "Tipo de archivo inválido. Por favor usa JPEG, PNG o WebP.",
@@ -936,9 +937,9 @@
     },
     "codeExamples": "Ejemplos de Código",
     "support": "Soporte",
-    "supportDesc": "Para preguntas o problemas, por favor abre un issue en nuestro repositorio de GitHub.",
+    "supportDesc": "Para preguntas o problemas, contacta al equipo del Atlas de Árboles de Costa Rica por nuestros canales de soporte.",
     "license": "Licencia de Datos",
-    "licenseDesc": "Los datos de la API están disponibles bajo CC BY-NC-SA 4.0. Por favor cita el Atlas de Árboles de Costa Rica en tu investigación o aplicación."
+    "licenseDesc": "Los datos de la API se ofrecen para educación e investigación con atribución al Atlas de Árboles de Costa Rica. Contacta al equipo para uso comercial o redistribución."
   },
   "rating": {
     "title": "Calificación de la Comunidad",
@@ -972,7 +973,7 @@
   },
   "contributeCta": {
     "title": "Ayuda a mejorar esta página",
-    "description": "¿Sabes algo sobre este árbol? Comparte tu conocimiento, sugiere una corrección o contribuye con una foto para ayudar a otros amantes de la naturaleza.",
+    "description": "¿Sabes algo sobre este árbol? Comparte conocimiento local, sugiere una corrección o envía una foto para mejorar esta guía para todas las personas.",
     "suggestCorrection": "Sugerir una corrección",
     "uploadPhoto": "Subir una foto",
     "shareKnowledge": "Compartir conocimiento local"
