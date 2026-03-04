@@ -104,7 +104,6 @@ vi.mock("@/lib/auth/mfa-crypto", () => ({
 
 // Mock CSP module
 vi.mock("@/lib/security/csp", () => ({
-  generateNonce: vi.fn().mockReturnValue("test-nonce-123"),
   buildCSP: vi.fn().mockReturnValue("default-src 'self'"),
   buildMDXCSP: vi.fn().mockReturnValue("default-src 'self' 'unsafe-eval'"),
   buildRelaxedCSP: vi

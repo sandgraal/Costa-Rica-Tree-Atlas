@@ -1,7 +1,3 @@
-// In-memory nonce tracking with timestamps (cleared every 5 minutes)
-const recentNonces = new Map<string, number>();
-let lastCleanup = Date.now();
-
 /**
  * Common image sources allowed across all CSP policies
  * Includes a wildcard for HTTPS to ensure reliable image loading
@@ -22,166 +18,32 @@ const COMMON_IMG_SOURCES = [
   "https:",
 ] as const;
 
-/**
- * Generate a cryptographic nonce for CSP using Web Crypto API
- * Compatible with Edge Runtime
- *
- * Includes collision detection to ensure nonce uniqueness.
- * Nonces are tracked in-memory with timestamps and automatically cleaned up.
- *
- * @returns Base64-encoded random nonce
- */
-export function generateNonce(): string {
-  const now = Date.now();
-
-  // Cleanup old nonces every 5 minutes
-  if (now - lastCleanup > 300000) {
-    recentNonces.clear();
-    lastCleanup = now;
-  }
-
-  // Also cleanup nonces older than 1 minute
-  for (const [nonce, timestamp] of recentNonces.entries()) {
-    if (now - timestamp > 60000) {
-      recentNonces.delete(nonce);
-    }
-  }
-
-  let attempts = 0;
-  let nonce: string;
-
-  do {
-    const bytes = new Uint8Array(16);
-    crypto.getRandomValues(bytes);
-    nonce = btoa(
-      Array.from(bytes, (byte) => String.fromCharCode(byte)).join("")
-    );
-    attempts++;
-
-    if (attempts > 3) {
-      // Extremely unlikely - log for monitoring
-      // In production, this should be sent to a monitoring service
-      console.error(
-        "⚠️ Multiple nonce collisions detected - possible PRNG issue"
-      );
-      break;
-    }
-  } while (recentNonces.has(nonce));
-
-  recentNonces.set(nonce, now);
-
-  return nonce;
+/** Optional per-directive overrides for building variant CSP policies */
+interface CSPOverrides {
+  /** Extra entries appended to script-src */
+  extraScriptSrc?: string[];
+  /** Extra entries appended to img-src */
+  extraImgSrc?: string[];
+  /** Extra entries appended to connect-src */
+  extraConnectSrc?: string[];
 }
 
 /**
- * Build Content Security Policy header value
+ * Build the base CSP directives shared by all policy tiers.
  *
  * Uses 'unsafe-inline' for script-src to support Next.js App Router inline
- * hydration scripts (RSC payload). This is intentional: the layout does not
- * call headers() so pages remain eligible for static generation / edge caching.
- * Per CSP spec, 'unsafe-inline' is ignored when any nonce or hash source is
- * present — so we intentionally omit both.
- *
- * @returns CSP header value string
+ * hydration scripts (RSC payload). Per CSP spec, 'unsafe-inline' is ignored
+ * when any nonce or hash source is present — so we intentionally omit both.
  */
-export function buildCSP(): string {
+function buildBaseDirectives(
+  overrides: CSPOverrides = {}
+): Record<string, readonly string[]> {
   const isDev = process.env.NODE_ENV === "development";
 
-  const directives = {
+  const directives: Record<string, readonly string[]> = {
     "default-src": ["'self'"],
     "script-src": [
       "'self'",
-      // Allow inline scripts (required for Next.js RSC hydration payload).
-      // NOTE: 'unsafe-inline' is ignored by browsers when any nonce or
-      // hash source is present, so we intentionally omit both here.
-      "'unsafe-inline'",
-      // Privacy-friendly analytics (no eval needed)
-      "https://plausible.io",
-      "https://scripts.simpleanalyticscdn.com",
-      // Vercel Analytics & Speed Insights
-      "https://va.vercel-scripts.com",
-      "https://vitals.vercel-insights.com",
-      // ONLY in development
-      ...(isDev ? ["'unsafe-eval'"] : []),
-    ],
-    "style-src": [
-      "'self'",
-      // NOTE: Nonce removed because it causes 'unsafe-inline' to be ignored per CSP spec
-      // This would break all inline styles in React components
-      // When nonce is present, only nonce-approved styles work
-      "https://fonts.googleapis.com",
-      // TODO: Extract critical CSS to remove unsafe-inline
-      "'unsafe-inline'",
-    ],
-    "img-src": COMMON_IMG_SOURCES,
-    "font-src": ["'self'", "https://fonts.gstatic.com"],
-    "connect-src": [
-      "'self'",
-      "https://api.gbif.org",
-      "https://api.inaturalist.org",
-      "https://plausible.io",
-      "https://queue.simpleanalyticscdn.com",
-    ],
-    "frame-src": [
-      "'self'",
-      // Allow Vercel Toolbar on all Vercel deployments (dev, preview, production)
-      ...(isDev || process.env.VERCEL ? ["https://vercel.live"] : []),
-    ],
-    "object-src": ["'none'"],
-    "base-uri": ["'self'"],
-    "form-action": ["'self'"],
-    "frame-ancestors": ["'self'"],
-    "upgrade-insecure-requests": [],
-  };
-
-  // Add CSP reporting if configured
-  if (process.env.CSP_REPORT_URI) {
-    Object.assign(directives, {
-      "report-uri": [process.env.CSP_REPORT_URI],
-    });
-  }
-
-  return Object.entries(directives)
-    .map(([key, values]) => {
-      if (values.length === 0) {
-        return key;
-      }
-      return `${key} ${values.join(" ")}`;
-    })
-    .join("; ");
-}
-
-/**
- * Build CSP for pages with MDX content rendering
- *
- * NOTE: This policy NO LONGER requires 'unsafe-eval' thanks to server-side MDX rendering.
- *
- * Previous issue:
- * - The mdx-bundler library used `new Function()` to evaluate compiled MDX code on the client
- * - This required 'unsafe-eval' in CSP, which is a security weakness
- *
- * Current solution (as of 2025):
- * - MDX content is now rendered server-side using `@mdx-js/mdx` evaluate()
- * - The ServerMDXContent component runs on the server where CSP doesn't apply
- * - Only the rendered React elements are sent to the client
- * - No client-side eval is needed, allowing a strict CSP
- *
- * This policy is now identical to buildCSP() but kept separate for:
- * - Route-based policy selection in middleware
- * - Future flexibility if MDX pages need different permissions
- *
- * @returns CSP header value string (strict, no unsafe-eval)
- */
-export function buildMDXCSP(): string {
-  const isDev = process.env.NODE_ENV === "development";
-
-  const directives = {
-    "default-src": ["'self'"],
-    "script-src": [
-      "'self'",
-      // Allow inline scripts (required for Next.js RSC hydration payload).
-      // NOTE: 'unsafe-inline' is ignored by browsers when any nonce or
-      // hash source is present, so we intentionally omit both here.
       "'unsafe-inline'",
       // Privacy-friendly analytics
       "https://plausible.io",
@@ -191,17 +53,15 @@ export function buildMDXCSP(): string {
       "https://vitals.vercel-insights.com",
       // ONLY in development
       ...(isDev ? ["'unsafe-eval'"] : []),
-      // In development, allow other HTTPS scripts as a fallback
-      ...(isDev ? ["https:"] : []),
+      ...(overrides.extraScriptSrc ?? []),
     ],
     "style-src": [
       "'self'",
-      // Nonce omitted: per CSP spec, it causes 'unsafe-inline' to be ignored.
-      // 'unsafe-inline' is required for ~30 remaining dynamic runtime styles.
       "https://fonts.googleapis.com",
+      // TODO: Extract critical CSS to remove unsafe-inline
       "'unsafe-inline'",
     ],
-    "img-src": COMMON_IMG_SOURCES,
+    "img-src": [...COMMON_IMG_SOURCES, ...(overrides.extraImgSrc ?? [])],
     "font-src": ["'self'", "https://fonts.gstatic.com"],
     "connect-src": [
       "'self'",
@@ -209,6 +69,7 @@ export function buildMDXCSP(): string {
       "https://api.inaturalist.org",
       "https://plausible.io",
       "https://queue.simpleanalyticscdn.com",
+      ...(overrides.extraConnectSrc ?? []),
     ],
     "frame-src": [
       "'self'",
@@ -224,92 +85,73 @@ export function buildMDXCSP(): string {
 
   // Add CSP reporting if configured
   if (process.env.CSP_REPORT_URI) {
-    Object.assign(directives, {
-      "report-uri": [process.env.CSP_REPORT_URI],
-    });
+    (directives as Record<string, string[]>)["report-uri"] = [
+      process.env.CSP_REPORT_URI,
+    ];
   }
 
-  return Object.entries(directives)
-    .map(([key, values]) => {
-      if (values.length === 0) {
-        return key;
-      }
-      return `${key} ${values.join(" ")}`;
-    })
-    .join("; ");
+  return directives;
 }
 
-/**
- * Build a relaxed CSP for pages that MUST use Google Tag Manager
- *
- * WARNING: This policy includes 'unsafe-eval' which weakens security.
- * Only use this for specific marketing/analytics pages where GTM is required.
- *
- * Should only be used on routes like /marketing/* or specific landing pages.
- *
- * @returns Relaxed CSP header value string
- */
-export function buildRelaxedCSP(): string {
-  const isDev = process.env.NODE_ENV === "development";
-
-  const directives = {
-    "default-src": ["'self'"],
-    "script-src": [
-      "'self'",
-      // Allow inline scripts (required for Next.js RSC hydration payload).
-      "'unsafe-inline'",
-      "https://www.googletagmanager.com",
-      "https://www.google-analytics.com",
-      // GTM requires unsafe-eval :(
-      "'unsafe-eval'",
-      // Vercel Analytics & Speed Insights
-      "https://va.vercel-scripts.com",
-      "https://vitals.vercel-insights.com",
-      // In development, allow other HTTPS scripts as a fallback
-      ...(isDev ? ["https:"] : []),
-    ],
-    "style-src": [
-      "'self'",
-      // Nonce omitted: per CSP spec, it causes 'unsafe-inline' to be ignored.
-      // 'unsafe-inline' is required for dynamic runtime styles.
-      "https://fonts.googleapis.com",
-      "'unsafe-inline'",
-    ],
-    "img-src": [
-      ...COMMON_IMG_SOURCES,
-      "https://www.google-analytics.com",
-      "https://www.googletagmanager.com",
-    ],
-    "font-src": ["'self'", "https://fonts.gstatic.com"],
-    "connect-src": [
-      "'self'",
-      "https://api.gbif.org",
-      "https://api.inaturalist.org",
-      "https://www.google-analytics.com",
-      "https://www.googletagmanager.com",
-    ],
-    "frame-src": [
-      "'self'",
-      // Allow Vercel Toolbar on all Vercel deployments (dev, preview, production)
-      ...(isDev || process.env.VERCEL ? ["https://vercel.live"] : []),
-    ],
-    "object-src": ["'none'"],
-    "base-uri": ["'self'"],
-    "form-action": ["'self'"],
-    "frame-ancestors": ["'self'"],
-    "upgrade-insecure-requests": [],
-  };
-
-  // Add CSP reporting if configured
-  if (process.env.CSP_REPORT_URI) {
-    Object.assign(directives, {
-      "report-uri": [process.env.CSP_REPORT_URI],
-    });
-  }
-
+/** Serialize a directives map into a CSP header string */
+function serializeCSP(directives: Record<string, readonly string[]>): string {
   return Object.entries(directives)
     .map(([key, values]) =>
       values.length === 0 ? key : `${key} ${values.join(" ")}`
     )
     .join("; ");
+}
+
+/**
+ * Build Content Security Policy header value (strict).
+ *
+ * Used for most pages. No 'unsafe-eval' in production.
+ *
+ * @returns CSP header value string
+ */
+export function buildCSP(): string {
+  return serializeCSP(buildBaseDirectives());
+}
+
+/**
+ * Build CSP for pages with MDX content rendering.
+ *
+ * Server-side MDX rendering eliminated the need for 'unsafe-eval'.
+ * Kept separate from buildCSP() for route-based policy selection
+ * and future flexibility if MDX pages need different permissions.
+ *
+ * @returns CSP header value string (strict, no unsafe-eval in production)
+ */
+export function buildMDXCSP(): string {
+  return serializeCSP(buildBaseDirectives());
+}
+
+/**
+ * Build a relaxed CSP for pages that MUST use Google Tag Manager.
+ *
+ * WARNING: This policy includes 'unsafe-eval' which weakens security.
+ * Only use this for specific marketing/analytics pages where GTM is required.
+ *
+ * @returns Relaxed CSP header value string
+ */
+export function buildRelaxedCSP(): string {
+  return serializeCSP(
+    buildBaseDirectives({
+      extraScriptSrc: [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        // GTM requires unsafe-eval in production. In development, buildBaseDirectives()
+        // already adds 'unsafe-eval', so we avoid duplicating it here.
+        ...(process.env.NODE_ENV === "production" ? ["'unsafe-eval'"] : []),
+      ],
+      extraImgSrc: [
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com",
+      ],
+      extraConnectSrc: [
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com",
+      ],
+    })
+  );
 }

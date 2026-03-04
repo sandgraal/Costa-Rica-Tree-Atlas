@@ -61,7 +61,7 @@ const eslintConfig = defineConfig([
       "security/detect-possible-timing-attacks": "warn",
       "security/detect-pseudoRandomBytes": "error",
       // Secret detection
-      "no-secrets/no-secrets": ["error", { "tolerance": 5.0 }],
+      "no-secrets/no-secrets": ["error", { tolerance: 5.0 }],
       // TypeScript security
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-unsafe-assignment": "off", // Too strict for Next.js
@@ -69,6 +69,33 @@ const eslintConfig = defineConfig([
       // React security
       "react/no-danger": "warn",
       "react/no-danger-with-children": "error",
+    },
+  },
+  // Prevent contentlayer imports in components — they pull ~32 MB of
+  // generated data into the client bundle. Components should receive
+  // tree/content data as props from server pages.
+  {
+    files: ["src/components/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "contentlayer/generated",
+              message:
+                "Do not import contentlayer in components — pass data as props from server pages to avoid shipping ~32 MB to the client.",
+            },
+          ],
+          patterns: [
+            {
+              group: ["contentlayer/*"],
+              message:
+                "Do not import contentlayer in components — pass data as props from server pages.",
+            },
+          ],
+        },
+      ],
     },
   },
 ]);
