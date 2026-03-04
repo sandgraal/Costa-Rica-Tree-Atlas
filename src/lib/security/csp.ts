@@ -140,8 +140,9 @@ export function buildRelaxedCSP(): string {
       extraScriptSrc: [
         "https://www.googletagmanager.com",
         "https://www.google-analytics.com",
-        // GTM requires unsafe-eval :(
-        "'unsafe-eval'",
+        // GTM requires unsafe-eval in production. In development, buildBaseDirectives()
+        // already adds 'unsafe-eval', so we avoid duplicating it here.
+        ...(process.env.NODE_ENV === "production" ? ["'unsafe-eval'"] : []),
       ],
       extraImgSrc: [
         "https://www.google-analytics.com",
