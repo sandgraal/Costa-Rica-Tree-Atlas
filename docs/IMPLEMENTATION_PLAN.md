@@ -291,4 +291,4 @@ These items require human action and cannot be automated:
 ---
 
 **Last Comprehensive Review:** 2026-03-01 (LCP optimization completed, Lighthouse re-measured, plan updated)
-**Next Milestones:** Render-blocking CSS (P4.7) → Advanced search (P9.10) → Offline enhancements (P8.2)
+**Next Milestones:** Render-blocking CSS (P4.7) → Search analytics (P9.10 remaining) → Offline enhancements (P8.2)
