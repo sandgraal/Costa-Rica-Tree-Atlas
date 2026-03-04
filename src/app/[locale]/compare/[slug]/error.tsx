@@ -35,7 +35,7 @@ export default function CompareError({
             {t("tryAgain")}
           </button>
           <Link
-            href="/compare"
+            href="/"
             className="inline-flex items-center gap-2 bg-card hover:bg-muted text-foreground border border-border font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             {t("goHome")}
