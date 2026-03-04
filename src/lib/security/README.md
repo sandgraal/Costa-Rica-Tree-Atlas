@@ -133,7 +133,7 @@ The CSP implementation has been tested with:
 
 ### Security Considerations
 
-1. **Inline scripts allowed**: `'unsafe-inline'` and `'unsafe-eval'` required for Next.js and third-party analytics
+1. **Inline scripts policy**: Production strict and MDX CSP variants avoid `'unsafe-eval'` and minimize `'unsafe-inline'` where possible. `'unsafe-inline'` is still allowed for certain Next.js runtime scripts, and `'unsafe-eval'` is only enabled in development and in the optional relaxed policy for specific third-party analytics that require it.
 2. **Style exceptions**: `'unsafe-inline'` is required for inline styles from Next.js and React components
 3. **Image sources**: HTTPS-only policy enforced via `upgrade-insecure-requests` directive
 4. **Domain allowlist**: Specific third-party domains are explicitly allowed (analytics, maps, APIs)
