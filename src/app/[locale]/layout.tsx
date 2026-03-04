@@ -137,10 +137,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Only ship namespaces that client components actually use via useTranslations.
   // Server components use getTranslations() which reads from the server bundle
   // and does NOT need messages in the client-side provider.
-  // Client namespaces: nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
-  //   safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation),
-  //   identify (IdentifyClient), contribute (PhotoUploadClient),
-  //   imageVoting (VotingClient)
+  // Client namespaces: all namespaces used by client components via useTranslations().
+  // nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
+  // safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation),
+  // identify (IdentifyClient), contribute (PhotoUploadClient, ContributorProfileClient),
+  // imageVoting (VotingClient), trees (TreeExplorer), search (QuickSearch, SearchSuggestions),
+  // toc (TableOfContents), favorites (FavoriteButton), recentlyViewed (RecentlyViewedList),
+  // keyboardShortcuts (KeyboardShortcuts), rating (TreeRating), reputation (BadgeDisplay,
+  // ContributorProfileClient), education (EducationPage), error (ErrorPage),
+  // comparison (ComparePage), about (AboutPage)
   const CLIENT_NAMESPACES = [
     "nav",
     "theme",
@@ -151,6 +156,18 @@ export default async function LocaleLayout({ children, params }: Props) {
     "identify",
     "contribute",
     "imageVoting",
+    "trees",
+    "search",
+    "toc",
+    "favorites",
+    "recentlyViewed",
+    "keyboardShortcuts",
+    "rating",
+    "reputation",
+    "education",
+    "error",
+    "comparison",
+    "about",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];
