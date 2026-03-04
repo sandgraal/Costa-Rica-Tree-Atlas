@@ -781,37 +781,31 @@ Used only on `/en/marketing/*` and `/es/marketing/*` routes.
 - **frame-ancestors**: `'self'` - Can only be embedded by same origin
 - **upgrade-insecure-requests** - Automatically upgrade HTTP to HTTPS
 
-#### Nonce-Based CSP Implementation
+#### Route-Based CSP Policies
 
-The application generates cryptographically secure nonces for every request with collision detection:
+The middleware applies different CSP policies based on the route:
 
 ```typescript
-// In middleware (generates nonce per request)
-import { generateNonce, buildCSP, buildRelaxedCSP } from "@/lib/security/csp";
-
-const nonce = generateNonce(); // Unique 16-byte base64 nonce with collision detection
+// In middleware
+import { buildCSP, buildMDXCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 // Use appropriate CSP based on route
-const csp = pathname.match(/^\/(en|es)\/marketing\//)
-  ? buildRelaxedCSP(nonce) // Marketing pages: allows GTM
-  : buildCSP(nonce); // Default: strict, no unsafe-eval
+if (isMarketingPage) {
+  csp = buildRelaxedCSP(); // Marketing pages: allows GTM + unsafe-eval
+} else if (isMDXPage) {
+  csp = buildMDXCSP(); // Tree/glossary detail pages (currently identical to strict)
+} else {
+  csp = buildCSP(); // Default: strict CSP
+}
 
 response.headers.set("Content-Security-Policy", csp);
-response.headers.set("X-Nonce", nonce); // Pass to pages
 ```
 
-Components receive nonces from the middleware via headers:
+Three CSP tiers are available:
 
-```typescript
-// In server components
-import { headers } from "next/headers";
-
-const headersList = await headers();
-const nonce = headersList.get("x-nonce") || undefined;
-
-// Use nonce in inline scripts
-<script nonce={nonce}>...</script>
-```
+- **`buildCSP()`** — Strict policy for most pages. `'unsafe-inline'` for scripts (required by Next.js RSC hydration), no `'unsafe-eval'` in production.
+- **`buildMDXCSP()`** — For tree/glossary detail pages with MDX content. Currently identical to `buildCSP()` but kept separate for route-based policy selection and future flexibility.
+- **`buildRelaxedCSP()`** — For marketing pages requiring Google Tag Manager. Adds GTM/GA domains and `'unsafe-eval'`.
 
 #### CSP Violation Reporting
 
@@ -830,39 +824,6 @@ Violations will be sent to the configured endpoint with:
 - Blocked URI
 - Source file and line number
 - Timestamp
-
-#### Nonce Collision Detection
-
-The nonce generation system includes collision detection and automatic cleanup:
-
-**Collision Detection:**
-
-- Each nonce is checked against recently used nonces before being returned
-- If a collision is detected (extremely rare), up to 3 attempts are made to generate a unique nonce
-- Multiple collisions trigger a warning log (indicates possible PRNG issues)
-
-**Automatic Cleanup:**
-
-- Recent nonces are tracked in-memory with timestamps for collision detection
-- Nonces older than 1 minute are cleaned up on each generateNonce() call
-- Full cleanup of the nonce map occurs every 5 minutes to prevent memory leaks
-- No setTimeout in serverless environment - cleanup happens during next request
-- No persistent storage - all tracking is in-memory only
-
-**Monitoring:**
-
-Watch application logs for nonce collision warnings:
-
-```
-⚠️ Multiple nonce collisions detected - possible PRNG issue
-```
-
-If this warning appears:
-
-1. Check server entropy sources
-2. Verify Web Crypto API is functioning correctly
-3. Consider investigating potential PRNG compromise
-4. Monitor frequency - single occurrences can be ignored, repeated warnings require investigation
 
 #### Development vs Production
 
@@ -894,8 +855,7 @@ curl -I https://costaricatreeatlas.com/en | grep -i content-security-policy
 
 Should show:
 
-- ✅ `'nonce-{random}'` in script-src
-- ✅ `'strict-dynamic'` in script-src
+- ✅ `'unsafe-inline'` in script-src (required for Next.js RSC hydration)
 - ✅ NO `'unsafe-eval'` in script-src (strict policy)
 - ✅ Specific domain names (no wildcards like `*.plausible.io`)
 - ✅ Privacy-friendly analytics only (Plausible, Simple Analytics)

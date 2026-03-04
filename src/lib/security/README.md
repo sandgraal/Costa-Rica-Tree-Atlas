@@ -10,37 +10,34 @@ The CSP module (`csp.ts`) provides utilities for generating and managing Content
 
 ### Functions
 
-#### `generateNonce()`
+#### `buildCSP()`
 
-Generates a cryptographically secure random nonce for use in CSP headers.
-
-```typescript
-import { generateNonce } from "@/lib/security/csp";
-
-const nonce = generateNonce();
-// Returns: Base64-encoded 16-byte random string (e.g., "mPpdj+xX0CfKcPRSvldgqg==")
-```
-
-**Use case**: Include nonces in inline script tags for stronger CSP:
-
-```tsx
-const nonce = generateNonce();
-return <script nonce={nonce}>// Inline script code</script>;
-```
-
-#### `buildCSP(nonce?)`
-
-Builds a complete CSP header value with support for nonces and environment-specific policies.
+Builds a complete CSP header value with environment-specific policies.
 
 ```typescript
 import { buildCSP } from "@/lib/security/csp";
 
-// Basic usage (no nonce)
 const csp = buildCSP();
+```
 
-// With nonce for inline scripts
-const nonce = generateNonce();
-const csp = buildCSP(nonce);
+#### `buildMDXCSP()`
+
+Builds a CSP tailored for pages with MDX content. Currently delegates to `buildCSP()` but kept separate for route-based policy selection and future flexibility.
+
+```typescript
+import { buildMDXCSP } from "@/lib/security/csp";
+
+const csp = buildMDXCSP();
+```
+
+#### `buildRelaxedCSP()`
+
+Builds a relaxed CSP for pages requiring Google Tag Manager. Adds GTM/GA domains and `'unsafe-eval'`.
+
+```typescript
+import { buildRelaxedCSP } from "@/lib/security/csp";
+
+const csp = buildRelaxedCSP();
 ```
 
 ### CSP Directives
@@ -137,11 +134,10 @@ The CSP implementation has been tested with:
 ### Security Considerations
 
 1. **Inline scripts allowed**: `'unsafe-inline'` and `'unsafe-eval'` required for Next.js and third-party analytics
-2. **Nonce-based inline scripts**: Use `generateNonce()` for additional security on first-party inline scripts
-3. **Style exceptions**: `'unsafe-inline'` is required for inline styles from Next.js and React components
-4. **Image sources**: HTTPS-only policy enforced via `upgrade-insecure-requests` directive
-5. **Domain allowlist**: Specific third-party domains are explicitly allowed (analytics, maps, APIs)
-6. **CSP reporting**: Uses `report-uri` directive (modern `report-to` requires additional Report-To header)
+2. **Style exceptions**: `'unsafe-inline'` is required for inline styles from Next.js and React components
+3. **Image sources**: HTTPS-only policy enforced via `upgrade-insecure-requests` directive
+4. **Domain allowlist**: Specific third-party domains are explicitly allowed (analytics, maps, APIs)
+5. **CSP reporting**: Uses `report-uri` directive (modern `report-to` requires additional Report-To header)
 
 ### Migration from Inline CSP
 
