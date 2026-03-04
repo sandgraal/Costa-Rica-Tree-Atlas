@@ -790,6 +790,7 @@ The middleware applies different CSP policies based on the route:
 import { buildCSP, buildMDXCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 // Use appropriate CSP based on route
+let csp: string;
 if (isMarketingPage) {
   csp = buildRelaxedCSP(); // Marketing pages: allows GTM + unsafe-eval
 } else if (isMDXPage) {
