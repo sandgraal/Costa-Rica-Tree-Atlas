@@ -102,7 +102,9 @@ vi.mock("contentlayer/generated", () => ({
 }));
 
 function createRequest(path: string): NextRequest {
-  return new NextRequest(new URL(path, "http://localhost:3000"));
+  return new NextRequest(new URL(path, "http://localhost:3000"), {
+    headers: { "X-API-Key": "test-api-key" },
+  });
 }
 
 // ---- List route ----
@@ -111,6 +113,7 @@ const listRoute = await import("@/app/api/v1/glossary/route");
 
 describe("GET /api/v1/glossary", () => {
   beforeEach(() => {
+    process.env.API_V1_KEY = "test-api-key";
     vi.clearAllMocks();
   });
 
@@ -197,6 +200,7 @@ function createParams(slug: string): { params: Promise<{ slug: string }> } {
 
 describe("GET /api/v1/glossary/[slug]", () => {
   beforeEach(() => {
+    process.env.API_V1_KEY = "test-api-key";
     vi.clearAllMocks();
   });
 

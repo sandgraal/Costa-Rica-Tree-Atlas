@@ -75,11 +75,14 @@ vi.mock("contentlayer/generated", () => ({
 const { GET } = await import("@/app/api/v1/trees/[slug]/route");
 
 function createRequest(url: string): NextRequest {
-  return new NextRequest(new URL(url, "http://localhost:3000"));
+  return new NextRequest(new URL(url, "http://localhost:3000"), {
+    headers: { "X-API-Key": "test-api-key" },
+  });
 }
 
 describe("GET /api/v1/trees/[slug]", () => {
   beforeEach(() => {
+    process.env.API_V1_KEY = "test-api-key";
     vi.clearAllMocks();
   });
 

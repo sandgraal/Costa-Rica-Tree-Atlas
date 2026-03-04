@@ -143,13 +143,14 @@ function createRequest(
   headers?: Record<string, string>
 ): NextRequest {
   const req = new NextRequest(new URL(url, "http://localhost:3000"), {
-    headers: headers ? new Headers(headers) : undefined,
+    headers: new Headers({ "X-API-Key": "test-api-key", ...headers }),
   });
   return req;
 }
 
 describe("GET /api/v1/trees", () => {
   beforeEach(() => {
+    process.env.API_V1_KEY = "test-api-key";
     vi.clearAllMocks();
   });
 

@@ -44,36 +44,26 @@ All accepted contributions are governed by [LICENSE](LICENSE) and
 
 ### Setting Up Your Development Environment
 
-1. **Fork the repository**
-
-   Click the "Fork" button at the top right of the [repository page](https://github.com/sandgraal/Costa-Rica-Tree-Atlas).
-
-2. **Clone your fork**
+1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR-USERNAME/Costa-Rica-Tree-Atlas.git
+   git clone https://github.com/sandgraal/Costa-Rica-Tree-Atlas.git
    cd Costa-Rica-Tree-Atlas
    ```
 
-3. **Add the upstream remote**
-
-   ```bash
-   git remote add upstream https://github.com/sandgraal/Costa-Rica-Tree-Atlas.git
-   ```
-
-4. **Install dependencies**
+2. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-5. **Start the development server**
+3. **Start the development server**
 
    ```bash
    npm run dev
    ```
 
-6. **Open [http://localhost:3000](http://localhost:3000)** to see the site.
+4. **Open [http://localhost:3000](http://localhost:3000)** to see the site.
 
 ### Admin Access
 
@@ -120,15 +110,13 @@ To enable admin access during development:
 
 ## Development Workflow
 
-### Keeping Your Fork Updated
+### Staying Up to Date
 
-Before starting new work, sync your fork with the upstream repository:
+Before starting new work, pull the latest from main:
 
 ```bash
 git checkout main
-git fetch upstream
-git merge upstream/main
-git push origin main
+git pull origin main
 ```
 
 ### Creating a Branch
@@ -395,17 +383,17 @@ style: format components with prettier
 1. **Update your branch** with the latest from `main`:
 
    ```bash
-   git fetch upstream
-   git rebase upstream/main
+   git fetch origin
+   git rebase origin/main
    ```
 
-2. **Push your branch** to your fork:
+2. **Push your branch**:
 
    ```bash
    git push origin your-branch-name
    ```
 
-3. **Create a Pull Request** from your branch to `sandgraal/Costa-Rica-Tree-Atlas:main`
+3. **Create a Pull Request** to `main`
 
 4. **Fill out the PR template** with:
    - Clear description of changes
