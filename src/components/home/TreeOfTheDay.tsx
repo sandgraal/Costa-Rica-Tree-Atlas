@@ -17,7 +17,7 @@ export function TreeOfTheDay({
   const diff = now.getTime() - startOfYear.getTime();
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
   const treeIndex = dayOfYear % trees.length;
-  const tree = trees.find((_, index) => index === treeIndex);
+  const tree = trees.at(treeIndex);
 
   if (!tree) return null;
 

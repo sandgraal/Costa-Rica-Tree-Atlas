@@ -128,8 +128,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function SeasonalPage({ params }: SeasonalPageProps) {
+export default async function SeasonalPage({
+  params,
+  searchParams,
+}: SeasonalPageProps) {
   const { locale } = await params;
+  const { month: initialMonth } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "seasonal" });
@@ -224,7 +228,11 @@ export default async function SeasonalPage({ params }: SeasonalPageProps) {
           <p className="text-muted-foreground">{t("pageDescription")}</p>
         </div>
 
-        <SeasonalCalendar trees={trees} locale={locale} />
+        <SeasonalCalendar
+          trees={trees}
+          locale={locale}
+          initialMonth={initialMonth}
+        />
 
         {/* Progressive enhancement: fallback list when JS is disabled */}
         <noscript>

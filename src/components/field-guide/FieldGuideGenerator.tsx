@@ -164,7 +164,6 @@ export function FieldGuideGenerator({
           trees={filteredTrees}
           selectedSlugs={selectedSlugs}
           onToggle={handleToggleTree}
-          locale={locale}
         />
 
         {/* Generate Button */}

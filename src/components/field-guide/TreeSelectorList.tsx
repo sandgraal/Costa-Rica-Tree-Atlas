@@ -7,14 +7,12 @@ interface TreeSelectorListProps {
   trees: Tree[];
   selectedSlugs: string[];
   onToggle: (slug: string) => void;
-  locale: string;
 }
 
 export function TreeSelectorList({
   trees,
   selectedSlugs,
   onToggle,
-  locale: _locale,
 }: TreeSelectorListProps) {
   if (trees.length === 0) return null;
 

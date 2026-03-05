@@ -131,14 +131,12 @@ const LOAD_MORE_COUNT = 12;
 const MAX_SUGGESTIONS = 5;
 
 function getSuggestionByIndex(items: Tree[], index: number): Tree | undefined {
-  return items.find((_, currentIndex) => currentIndex === index);
+  return items.at(index);
 }
 
 function getTagDefinition(tag: string) {
-  for (const [key, definition] of Object.entries(TAG_DEFINITIONS)) {
-    if (key === tag) {
-      return definition;
-    }
+  if (Object.hasOwn(TAG_DEFINITIONS, tag)) {
+    return TAG_DEFINITIONS[tag as keyof typeof TAG_DEFINITIONS];
   }
 
   return undefined;
@@ -148,10 +146,9 @@ function getGroupByLetter(
   groups: Record<string, LightTree[]>,
   letter: string
 ): LightTree[] {
-  for (const [groupLetter, groupTrees] of Object.entries(groups)) {
-    if (groupLetter === letter) {
-      return groupTrees;
-    }
+  if (Object.hasOwn(groups, letter)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return groups[letter] ?? [];
   }
 
   return [];

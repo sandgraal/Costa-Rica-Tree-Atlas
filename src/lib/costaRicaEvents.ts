@@ -1691,18 +1691,9 @@ export function getEventTranslation(
   eventId: string,
   locale: string
 ): LocalizedEventInfo | undefined {
-  let eventTranslations:
-    | { en: LocalizedEventInfo; es: LocalizedEventInfo }
-    | undefined;
-
-  for (const [id, translation] of Object.entries(EVENT_TRANSLATIONS)) {
-    if (id === eventId) {
-      eventTranslations = translation;
-      break;
-    }
-  }
-
-  if (!eventTranslations) return undefined;
+  if (!Object.hasOwn(EVENT_TRANSLATIONS, eventId)) return undefined;
+  const eventTranslations =
+    EVENT_TRANSLATIONS[eventId as keyof typeof EVENT_TRANSLATIONS];
   return locale === "es" ? eventTranslations.es : eventTranslations.en;
 }
 
