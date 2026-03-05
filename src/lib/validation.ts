@@ -22,9 +22,6 @@ const LOCALE_REGEX = /^(en|es)$/;
 // eslint-disable-next-line security/detect-unsafe-regex
 const SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
-// Detect suspicious Unicode (potential homograph attack)
-const CONTROL_CHAR_REGEX = /[\x00-\x1F\x7F-\x9F]/; // Control characters
-
 // Email validation regex (simplified and safe from ReDoS)
 // Using strict character limits on all parts
 const EMAIL_REGEX =

@@ -11,7 +11,7 @@ import {
   classifyHeight,
   classifyUses,
 } from "@/lib/search";
-import type { Tree, TreeFilter, HeightRange, UseCategory } from "@/types/tree";
+import type { Tree, TreeFilter } from "@/types/tree";
 
 // Minimal tree factory for testing
 function mockTree(overrides: Partial<Tree> = {}): Tree {

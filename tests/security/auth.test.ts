@@ -373,8 +373,6 @@ describe("Authentication System", () => {
     it("should encrypt and decrypt TOTP secret", async () => {
       // This test requires MFA_ENCRYPTION_KEY environment variable
       // In a real test environment, this would be mocked or set
-      const mockKey = "0".repeat(64); // 32 bytes in hex
-
       // Mock the serverEnv
       vi.mock("@/lib/env/schema", () => ({
         serverEnv: {

@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-03-05T02:23:01.274Z",
+  "mode": {
+    "singleTree": "almendro",
+    "maxApi": 60,
+    "skipExternal": false,
+    "dryRun": false
+  },
+  "inventory": {
+    "treesEn": 175,
+    "treesEs": 175,
+    "comparisonsEn": 20,
+    "comparisonsEs": 20,
+    "glossaryEn": 150,
+    "glossaryEs": 150
+  },
+  "summary": {
+    "treesAudited": 1,
+    "externalTreesChecked": 1,
+    "errors": 1,
+    "warnings": 0
+  },
+  "findings": {
+    "localeParity": [
+      {
+        "type": "frontmatter_mismatch",
+        "severity": "error",
+        "slug": "almendro",
+        "field": "conservationStatus",
+        "enValue": "NE",
+        "esValue": "LC",
+        "enFilePath": "content/trees/en/almendro.mdx",
+        "esFilePath": "content/trees/es/almendro.mdx"
+      }
+    ],
+    "externalDrift": [],
+    "citationCoverage": [],
+    "schemaFlags": []
+  }
+}

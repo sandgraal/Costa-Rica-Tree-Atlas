@@ -49,7 +49,12 @@
     "images:setup-all": "npm run images:download && npm run images:optimize && npm run images:migrate",
     "content:audit": "node scripts/audit-content-quality.mjs",
     "content:audit:verbose": "node scripts/audit-content-quality.mjs --verbose",
-    "content:audit:json": "node scripts/audit-content-quality.mjs --json"
+    "content:audit:json": "node scripts/audit-content-quality.mjs --json",
+    "content:fact-audit": "node scripts/audit-factual-accuracy.mjs",
+    "content:fact-audit:verbose": "node scripts/audit-factual-accuracy.mjs --verbose",
+    "content:fact-audit:json": "node scripts/audit-factual-accuracy.mjs --json",
+    "content:fact-queue": "node scripts/generate-factual-remediation-queue.mjs",
+    "content:fact-queue:top100": "node scripts/generate-factual-remediation-queue.mjs --top=100"
   },
   "browserslist": [
     "defaults and supports es6-module"

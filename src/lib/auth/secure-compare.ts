@@ -46,8 +46,11 @@ export async function secureCompare(a: string, b: string): Promise<boolean> {
 
   // Constant-time comparison
   let result = 0;
-  for (let i = 0; i < arrayA.length; i++) {
-    result |= arrayA[i] ^ arrayB[i];
+  const bIterator = arrayB.values();
+  for (const aValue of arrayA.values()) {
+    const nextB = bIterator.next();
+    const bValue = nextB.done ? 0 : nextB.value;
+    result |= aValue ^ bValue;
   }
 
   return result === 0;

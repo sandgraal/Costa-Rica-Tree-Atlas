@@ -164,6 +164,38 @@ export const REGIONS: Record<Region, RegionData> = {
   },
 };
 
+function getProvinceData(province: Province): ProvinceData {
+  switch (province) {
+    case "guanacaste":
+      return PROVINCES.guanacaste;
+    case "alajuela":
+      return PROVINCES.alajuela;
+    case "heredia":
+      return PROVINCES.heredia;
+    case "san-jose":
+      return PROVINCES["san-jose"];
+    case "cartago":
+      return PROVINCES.cartago;
+    case "limon":
+      return PROVINCES.limon;
+    case "puntarenas":
+      return PROVINCES.puntarenas;
+  }
+}
+
+function getRegionData(region: Region): RegionData {
+  switch (region) {
+    case "pacific-coast":
+      return REGIONS["pacific-coast"];
+    case "caribbean-coast":
+      return REGIONS["caribbean-coast"];
+    case "central-valley":
+      return REGIONS["central-valley"];
+    case "northern-zone":
+      return REGIONS["northern-zone"];
+  }
+}
+
 // ============================================================================
 // Utility Functions
 // ============================================================================
@@ -172,10 +204,10 @@ export function expandDistribution(distribution: Distribution[]): Province[] {
   const provinces = new Set<Province>();
 
   for (const item of distribution) {
-    if (PROVINCES[item as Province]) {
-      provinces.add(item as Province);
-    } else if (REGIONS[item as Region]) {
-      for (const province of REGIONS[item as Region].provinces) {
+    if (isProvince(item)) {
+      provinces.add(item);
+    } else if (isRegion(item)) {
+      for (const province of getRegionData(item).provinces) {
         provinces.add(province);
       }
     }
@@ -188,22 +220,24 @@ export function getProvinceName(
   province: Province,
   locale: Locale = "en"
 ): string {
-  return PROVINCES[province]?.name[locale] ?? province;
+  const data = getProvinceData(province);
+  return locale === "es" ? data.name.es : data.name.en;
 }
 
 export function getRegionName(region: Region, locale: Locale = "en"): string {
-  return REGIONS[region]?.name[locale] ?? region;
+  const data = getRegionData(region);
+  return locale === "es" ? data.name.es : data.name.en;
 }
 
 export function getDistributionName(
   distribution: Distribution,
   locale: Locale = "en"
 ): string {
-  if (PROVINCES[distribution as Province]) {
-    return getProvinceName(distribution as Province, locale);
+  if (isProvince(distribution)) {
+    return getProvinceName(distribution, locale);
   }
-  if (REGIONS[distribution as Region]) {
-    return getRegionName(distribution as Region, locale);
+  if (isRegion(distribution)) {
+    return getRegionName(distribution, locale);
   }
   return distribution;
 }

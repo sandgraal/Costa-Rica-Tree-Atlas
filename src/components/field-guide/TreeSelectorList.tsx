@@ -14,7 +14,7 @@ export function TreeSelectorList({
   trees,
   selectedSlugs,
   onToggle,
-  locale,
+  locale: _locale,
 }: TreeSelectorListProps) {
   if (trees.length === 0) return null;
 

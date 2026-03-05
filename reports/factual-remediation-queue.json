@@ -1,0 +1,9 @@
+{
+  "generatedAt": "2026-03-05T02:33:56.190Z",
+  "input": "reports/factual-audit.full.json",
+  "counts": {
+    "treesWithFindings": 0,
+    "totalFindings": 0
+  },
+  "queue": []
+}

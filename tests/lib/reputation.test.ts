@@ -379,7 +379,11 @@ describe("constants", () => {
   it("TRUST_LEVEL_CONFIG has entries for all levels", () => {
     for (const level of TRUST_LEVELS) {
       expect(TRUST_LEVEL_CONFIG).toHaveProperty(level);
-      expect(TRUST_LEVEL_CONFIG[level].level).toBe(level);
+      const configEntry = Object.values(TRUST_LEVEL_CONFIG).find(
+        (config) => config.level === level
+      );
+      expect(configEntry).toBeDefined();
+      expect(configEntry?.level).toBe(level);
     }
   });
 

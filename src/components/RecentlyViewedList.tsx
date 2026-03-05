@@ -20,6 +20,19 @@ interface RecentlyViewedListProps {
   limit?: number;
 }
 
+function getTreeBySlug(
+  treeLookup: Record<string, RecentlyViewedTree>,
+  slug: string
+): RecentlyViewedTree | undefined {
+  for (const [key, tree] of Object.entries(treeLookup)) {
+    if (key === slug) {
+      return tree;
+    }
+  }
+
+  return undefined;
+}
+
 /**
  * RecentlyViewedList - Displays user's recently viewed trees
  * Shows a horizontal scrollable list of recently viewed tree thumbnails.
@@ -41,7 +54,7 @@ export function RecentlyViewedList({
   const viewedTrees = hydrated
     ? recentlyViewed
         .slice(0, limit)
-        .map((slug) => treeLookup[slug])
+        .map((slug) => getTreeBySlug(treeLookup, slug))
         .filter((tree): tree is RecentlyViewedTree => tree !== undefined)
     : [];
 

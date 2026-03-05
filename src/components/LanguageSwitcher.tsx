@@ -4,6 +4,16 @@ import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@i18n/navigation";
 import { routing } from "@i18n/routing";
 
+function getLocaleLabel(locale: string): string {
+  switch (locale) {
+    case "es":
+      return "ES";
+    case "en":
+    default:
+      return "EN";
+  }
+}
+
 export function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();
@@ -12,11 +22,6 @@ export function LanguageSwitcher() {
 
   const switchLocale = (newLocale: string) => {
     router.replace(pathname, { locale: newLocale });
-  };
-
-  const localeLabels: Record<string, string> = {
-    en: "EN",
-    es: "ES",
   };
 
   return (
@@ -41,10 +46,10 @@ export function LanguageSwitcher() {
                 ? "text-primary"
                 : "text-foreground/60 hover:text-foreground"
             }`}
-            aria-label={`${localeLabels[loc]} – ${t("switchTo", { language: t(loc) })}`}
+            aria-label={`${getLocaleLabel(loc)} – ${t("switchTo", { language: t(loc) })}`}
             aria-current={locale === loc ? "true" : undefined}
           >
-            {localeLabels[loc]}
+            {getLocaleLabel(loc)}
           </button>
         </span>
       ))}

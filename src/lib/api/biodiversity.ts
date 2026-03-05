@@ -277,18 +277,28 @@ export async function fetchIUCNData(
 
 // Map GBIF's full category names to short codes
 function mapCategoryToCode(category: string): string {
-  const mapping: Record<string, string> = {
-    EXTINCT: "EX",
-    EXTINCT_IN_THE_WILD: "EW",
-    CRITICALLY_ENDANGERED: "CR",
-    ENDANGERED: "EN",
-    VULNERABLE: "VU",
-    NEAR_THREATENED: "NT",
-    LEAST_CONCERN: "LC",
-    DATA_DEFICIENT: "DD",
-    NOT_EVALUATED: "NE",
-  };
-  return mapping[category] || "NE";
+  switch (category) {
+    case "EXTINCT":
+      return "EX";
+    case "EXTINCT_IN_THE_WILD":
+      return "EW";
+    case "CRITICALLY_ENDANGERED":
+      return "CR";
+    case "ENDANGERED":
+      return "EN";
+    case "VULNERABLE":
+      return "VU";
+    case "NEAR_THREATENED":
+      return "NT";
+    case "LEAST_CONCERN":
+      return "LC";
+    case "DATA_DEFICIENT":
+      return "DD";
+    case "NOT_EVALUATED":
+      return "NE";
+    default:
+      return "NE";
+  }
 }
 
 // ============================================================================

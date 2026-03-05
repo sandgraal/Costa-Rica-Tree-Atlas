@@ -23,6 +23,23 @@ interface DistributionMapProps {
   interactive?: boolean;
 }
 
+function getLocalizedName(
+  value: { en: string; es: string },
+  locale: Locale
+): string {
+  return locale === "es" ? value.es : value.en;
+}
+
+function getProvinceByKey(provinceKey: Province) {
+  for (const [key, province] of Object.entries(PROVINCES)) {
+    if (key === provinceKey) {
+      return province;
+    }
+  }
+
+  return null;
+}
+
 // ============================================================================
 // Component
 // ============================================================================
@@ -213,7 +230,7 @@ export function DistributionMap({
                     onMouseLeave={() => interactive && setHoveredProvince(null)}
                     tabIndex={interactive ? 0 : -1}
                     role={interactive ? "button" : undefined}
-                    aria-label={`${province.name[locale]}: ${isHighlighted ? labels.present : labels.notRecorded}`}
+                    aria-label={`${getLocalizedName(province.name, locale)}: ${isHighlighted ? labels.present : labels.notRecorded}`}
                   />
                   {/* Province labels */}
                   <text
@@ -224,7 +241,7 @@ export function DistributionMap({
                     fontWeight="600"
                     className="pointer-events-none select-none fill-stone-700 dark:fill-stone-200 [text-shadow:0_0_3px_rgba(255,255,255,0.8)]"
                   >
-                    {province.name[locale]}
+                    {getLocalizedName(province.name, locale)}
                   </text>
                 </g>
               );
@@ -240,7 +257,7 @@ export function DistributionMap({
                 fontSize="9"
                 className="pointer-events-none select-none italic fill-blue-300 dark:fill-blue-400"
               >
-                {neighbor.name[locale]}
+                {getLocalizedName(neighbor.name, locale)}
               </text>
             ))}
           </svg>
@@ -278,14 +295,25 @@ export function DistributionMap({
           {/* Hovered province info */}
           {hoveredProvince && (
             <div className="p-3 bg-background rounded-lg border border-border">
-              <p className="font-medium">
-                {PROVINCES[hoveredProvince].name[locale]}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {expandedDistribution.includes(hoveredProvince)
-                  ? labels.present
-                  : labels.notRecorded}
-              </p>
+              {(() => {
+                const hoveredProvinceData = getProvinceByKey(hoveredProvince);
+                if (!hoveredProvinceData) {
+                  return null;
+                }
+
+                return (
+                  <>
+                    <p className="font-medium">
+                      {getLocalizedName(hoveredProvinceData.name, locale)}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {expandedDistribution.includes(hoveredProvince)
+                        ? labels.present
+                        : labels.notRecorded}
+                    </p>
+                  </>
+                );
+              })()}
             </div>
           )}
 

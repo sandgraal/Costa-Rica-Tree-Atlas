@@ -8,6 +8,25 @@
 import { describe, it, expect } from "vitest";
 import { allTrees } from "contentlayer/generated";
 import type { TreeBase } from "@/types/tree";
+
+function getRequiredFieldValue(tree: TreeBase, field: keyof TreeBase) {
+  switch (field) {
+    case "title":
+      return tree.title;
+    case "scientificName":
+      return tree.scientificName;
+    case "family":
+      return tree.family;
+    case "locale":
+      return tree.locale;
+    case "slug":
+      return tree.slug;
+    case "description":
+      return tree.description;
+    default:
+      return undefined;
+  }
+}
 import fs from "fs";
 import path from "path";
 
@@ -54,12 +73,13 @@ describe("Tree Content Validation", () => {
 
     allTrees.forEach((tree) => {
       requiredFields.forEach((field) => {
+        const value = getRequiredFieldValue(tree, field);
         expect(
-          tree[field],
+          value,
           `Tree ${tree.slug} (${tree.locale}) missing required field: ${field}`
         ).toBeDefined();
         expect(
-          tree[field],
+          value,
           `Tree ${tree.slug} (${tree.locale}) has empty ${field}`
         ).not.toBe("");
       });

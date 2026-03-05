@@ -1,0 +1,3179 @@
+{
+  "generatedAt": "2026-03-05T01:32:24.628Z",
+  "input": "reports/factual-audit.full.json",
+  "counts": {
+    "treesWithFindings": 104,
+    "totalFindings": 144
+  },
+  "queue": [
+    {
+      "slug": "cornizuelo",
+      "score": 210,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cornizuelo",
+          "locale": "en",
+          "heading": "## Conservation",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cornizuelo.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cornizuelo",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cornizuelo.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cornizuelo",
+          "locale": "es",
+          "heading": "## Conservación",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/es/cornizuelo.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cornizuelo",
+          "locale": "en",
+          "heading": "## Uses and Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cornizuelo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 4,
+        "citationGaps": 4,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "cachimbo",
+      "score": 189,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cachimbo",
+          "scientificName": "Couratari guianensis",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 3083111,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cachimbo",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 9,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cachimbo.mdx",
+          "_score": 63
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cachimbo",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cachimbo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 3,
+        "citationGaps": 2,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": [
+        "iucn_status_mismatch",
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "manu",
+      "score": 181,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "manu",
+          "scientificName": "Minquartia guianensis",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 3686157,
+          "_score": 75
+        },
+        {
+          "type": "gbif_family_mismatch",
+          "severity": "warning",
+          "slug": "manu",
+          "scientificName": "Minquartia guianensis",
+          "localFamily": "Olacaceae",
+          "gbifFamily": "Coulaceae",
+          "_score": 55
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "manu",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/manu.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 3,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 1
+      },
+      "priority": "P1-high",
+      "topIssues": [
+        "iucn_status_mismatch",
+        "gbif_family_mismatch",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "camibar",
+      "score": 179,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "camibar",
+          "scientificName": "Copaifera aromatica",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 2978137,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "camibar",
+          "locale": "en",
+          "heading": "## Cultural & Economic Importance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/camibar.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "camibar",
+          "locale": "en",
+          "heading": "## Safety Information",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/camibar.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 3,
+        "citationGaps": 2,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": [
+        "iucn_status_mismatch",
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "comenegro",
+      "score": 179,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "comenegro",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 11,
+          "citationCount": 0,
+          "filePath": "content/trees/en/comenegro.mdx",
+          "_score": 67
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "comenegro",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 6,
+          "citationCount": 0,
+          "filePath": "content/trees/en/comenegro.mdx",
+          "_score": 57
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "comenegro",
+          "locale": "en",
+          "heading": "## Cultural & Historical Significance",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/comenegro.mdx",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 3,
+        "citationGaps": 3,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "pochote-de-agua",
+      "score": 163,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "pochote-de-agua",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 8,
+          "citationCount": 0,
+          "filePath": "content/trees/en/pochote-de-agua.mdx",
+          "_score": 61
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "pochote-de-agua",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/pochote-de-agua.mdx",
+          "_score": 51
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "pochote-de-agua",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/pochote-de-agua.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 3,
+        "citationGaps": 3,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "carambola",
+      "score": 130,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "carambola",
+          "scientificName": "Averrhoa carambola",
+          "localIucn": "LC",
+          "externalIucn": "DD",
+          "gbifTaxonKey": 2891641,
+          "_score": 65
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "carambola",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 10,
+          "citationCount": 0,
+          "filePath": "content/trees/en/carambola.mdx",
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "eucalipto",
+      "score": 128,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "eucalipto",
+          "scientificName": "Eucalyptus deglupta",
+          "localIucn": "LC",
+          "externalIucn": "VU",
+          "gbifTaxonKey": 3176325,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "eucalipto",
+          "locale": "en",
+          "heading": "## Cultural & Economic Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/eucalipto.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "flamboyan",
+      "score": 128,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "flamboyan",
+          "scientificName": "Delonix regia",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 2956176,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "flamboyan",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/flamboyan.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "palma-de-escoba",
+      "score": 128,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "palma-de-escoba",
+          "scientificName": "Cryosophila albida",
+          "localIucn": "VU",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 2731935,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "palma-de-escoba",
+          "locale": "en",
+          "heading": "## Uses and Applications",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/palma-de-escoba.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "araza",
+      "score": 126,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "araza",
+          "scientificName": "Eugenia stipitata",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 10503673,
+          "_score": 65
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "araza",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 8,
+          "citationCount": 0,
+          "filePath": "content/trees/en/araza.mdx",
+          "_score": 61
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "cocobolo",
+      "score": 126,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cocobolo",
+          "scientificName": "Dalbergia retusa",
+          "localIucn": "VU",
+          "externalIucn": "CR",
+          "gbifTaxonKey": 2968539,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cocobolo",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cocobolo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "corozo",
+      "score": 126,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "corozo",
+          "scientificName": "Elaeis oleifera",
+          "localIucn": "VU",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 8791596,
+          "_score": 75
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "corozo",
+          "locale": "en",
+          "heading": "## Uses and Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/corozo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "flor-de-itabo",
+      "score": 124,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "flor-de-itabo",
+          "scientificName": "Yucca guatemalensis",
+          "localIucn": "LC",
+          "externalIucn": "DD",
+          "gbifTaxonKey": 2775728,
+          "_score": 65
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "flor-de-itabo",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/flor-de-itabo.mdx",
+          "_score": 59
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "ciprecillo",
+      "score": 122,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "ciprecillo",
+          "locale": "en",
+          "heading": "## Cultural & Historical Significance",
+          "claimEstimate": 9,
+          "citationCount": 0,
+          "filePath": "content/trees/en/ciprecillo.mdx",
+          "_score": 63
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "ciprecillo",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/ciprecillo.mdx",
+          "_score": 59
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "llama-del-bosque",
+      "score": 120,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "llama-del-bosque",
+          "locale": "en",
+          "heading": "## Conservation Status & Invasive Species Information",
+          "claimEstimate": 12,
+          "citationCount": 0,
+          "filePath": "content/trees/en/llama-del-bosque.mdx",
+          "_score": 69
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "llama-del-bosque",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/llama-del-bosque.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "papayillo",
+      "score": 118,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "papayillo",
+          "scientificName": "Vasconcellea cauliflora",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 3838758,
+          "_score": 65
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "papayillo",
+          "locale": "en",
+          "heading": "## Uses and Applications",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/papayillo.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 1,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch", "missing_citations_high_risk"]
+    },
+    {
+      "slug": "lechoso-montanero",
+      "score": 116,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "lechoso-montanero",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/lechoso-montanero.mdx",
+          "_score": 59
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "lechoso-montanero",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 6,
+          "citationCount": 0,
+          "filePath": "content/trees/en/lechoso-montanero.mdx",
+          "_score": 57
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "balsamo",
+      "score": 112,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "balsamo",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/balsamo.mdx",
+          "_score": 59
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "balsamo",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/balsamo.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "ira-rosa",
+      "score": 112,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "ira-rosa",
+          "locale": "es",
+          "heading": "## Conservacion: analisis ampliado",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/es/ira-rosa.mdx",
+          "_score": 59
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "ira-rosa",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/ira-rosa.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "mayo",
+      "score": 112,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "mayo",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 8,
+          "citationCount": 0,
+          "filePath": "content/trees/en/mayo.mdx",
+          "_score": 61
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "mayo",
+          "locale": "en",
+          "heading": "## Cultural & Historical Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/mayo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "copal",
+      "score": 108,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "copal",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/copal.mdx",
+          "_score": 55
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "copal",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/copal.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "copey",
+      "score": 108,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "copey",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 6,
+          "citationCount": 0,
+          "filePath": "content/trees/en/copey.mdx",
+          "_score": 57
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "copey",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/copey.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "mamon",
+      "score": 108,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "mamon",
+          "locale": "en",
+          "heading": "## Cultural & Historical Significance",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/mamon.mdx",
+          "_score": 55
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "mamon",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/mamon.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "quizarra",
+      "score": 106,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "quizarra",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/quizarra.mdx",
+          "_score": 55
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "quizarra",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/quizarra.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "sotacaballo",
+      "score": 106,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "sotacaballo",
+          "locale": "en",
+          "heading": "## Conservation and Threats",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/sotacaballo.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "sotacaballo",
+          "locale": "es",
+          "heading": "## Conservación y Amenazas",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/es/sotacaballo.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "anona-colorada",
+      "score": 104,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "anona-colorada",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/anona-colorada.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "anona-colorada",
+          "locale": "en",
+          "heading": "## Cultural Significance and Traditional Knowledge",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/anona-colorada.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "lorito",
+      "score": 104,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "lorito",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/lorito.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "lorito",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/lorito.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "palmera-real",
+      "score": 104,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "palmera-real",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/palmera-real.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "palmera-real",
+          "locale": "en",
+          "heading": "## Safety Information",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/palmera-real.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "sardinillo",
+      "score": 104,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "sardinillo",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/sardinillo.mdx",
+          "_score": 53
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "sardinillo",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/sardinillo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "cedro-real",
+      "score": 102,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cedro-real",
+          "locale": "en",
+          "heading": "## Cultural & Economic Importance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cedro-real.mdx",
+          "_score": 51
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cedro-real",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cedro-real.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "mamon-chino",
+      "score": 102,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "mamon-chino",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/mamon-chino.mdx",
+          "_score": 51
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "mamon-chino",
+          "locale": "es",
+          "heading": "## Historia en Costa Rica",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/es/mamon-chino.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "targua",
+      "score": 102,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "targua",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/targua.mdx",
+          "_score": 51
+        },
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "targua",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/targua.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "citationGaps": 2,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P2-medium",
+      "topIssues": [
+        "missing_citations_high_risk",
+        "missing_citations_high_risk"
+      ]
+    },
+    {
+      "slug": "canelo",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "canelo",
+          "scientificName": "Ocotea tenera",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 4181736,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "cortez-blanco",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cortez-blanco",
+          "scientificName": "Roseodendron donnell-smithii",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 3172541,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "cristobalito",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cristobalito",
+          "scientificName": "Platymiscium parviflorum",
+          "localIucn": "EN",
+          "externalIucn": "CR",
+          "gbifTaxonKey": 2944746,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "fruta-dorada",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "fruta-dorada",
+          "scientificName": "Virola koschnyi",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 3743287,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "granadillo",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "granadillo",
+          "scientificName": "Dalbergia tucurensis",
+          "localIucn": "VU",
+          "externalIucn": "EN",
+          "gbifTaxonKey": 2968487,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "guayacan-real",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "guayacan-real",
+          "scientificName": "Guaiacum sanctum",
+          "localIucn": "EN",
+          "externalIucn": "NT",
+          "gbifTaxonKey": 3189908,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "jacaranda",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "jacaranda",
+          "scientificName": "Jacaranda mimosifolia",
+          "localIucn": "LC",
+          "externalIucn": "VU",
+          "gbifTaxonKey": 3172499,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "lechoso",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "lechoso",
+          "scientificName": "Brosimum utile",
+          "localIucn": "VU",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 8042591,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "olla-de-mono",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "olla-de-mono",
+          "scientificName": "Lecythis ampla",
+          "localIucn": "EN",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 3082427,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "pochote",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "pochote",
+          "scientificName": "Pachira quinata",
+          "localIucn": "EN",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 6685,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "sangrillo",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "sangrillo",
+          "scientificName": "Pterocarpus officinalis",
+          "localIucn": "VU",
+          "externalIucn": "NT",
+          "gbifTaxonKey": 5349333,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "sota",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "sota",
+          "scientificName": "Mora oleifera",
+          "localIucn": "EN",
+          "externalIucn": "VU",
+          "gbifTaxonKey": 5355420,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "sura",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "sura",
+          "scientificName": "Terminalia oblonga",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 3189396,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "tirra",
+      "score": 75,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "tirra",
+          "scientificName": "Ulmus mexicana",
+          "localIucn": "VU",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 5680327,
+          "_score": 75
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "almendro",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "almendro",
+          "scientificName": "Dipteryx panamensis",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 2947127,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "cacao",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cacao",
+          "scientificName": "Theobroma cacao",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 3152205,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "cana-agria",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cana-agria",
+          "scientificName": "Costus spicatus",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 2756925,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "coco",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "coco",
+          "scientificName": "Cocos nucifera",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 2735117,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "cortez-negro",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cortez-negro",
+          "scientificName": "Tabebuia impetiginosa",
+          "localIucn": "LC",
+          "externalIucn": "NT",
+          "gbifTaxonKey": 10778380,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "cristobal",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "cristobal",
+          "scientificName": "Platymiscium pinnatum",
+          "localIucn": "NT",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 2944742,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "fruta-de-pan",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "fruta-de-pan",
+          "scientificName": "Artocarpus altilis",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 2984573,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "jobo",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "jobo",
+          "scientificName": "Spondias mombin",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 8185571,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "madero-negro",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "madero-negro",
+          "scientificName": "Gliricidia sepium",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 8082978,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "mango",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "mango",
+          "scientificName": "Mangifera indica",
+          "localIucn": "NE",
+          "externalIucn": "DD",
+          "gbifTaxonKey": 3190638,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "maranon",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "maranon",
+          "scientificName": "Anacardium occidentale",
+          "localIucn": "NE",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 5421368,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "mastate",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "mastate",
+          "scientificName": "Brosimum utile",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 8042591,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "papaya",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "papaya",
+          "scientificName": "Carica papaya",
+          "localIucn": "NE",
+          "externalIucn": "DD",
+          "gbifTaxonKey": 2874484,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "tempisque",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "tempisque",
+          "scientificName": "Sideroxylon capiri",
+          "localIucn": "NT",
+          "externalIucn": "LC",
+          "gbifTaxonKey": 2887255,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "yellow-oleander",
+      "score": 65,
+      "findings": [
+        {
+          "type": "iucn_status_mismatch",
+          "severity": "warning",
+          "slug": "yellow-oleander",
+          "scientificName": "Thevetia peruviana",
+          "localIucn": "LC",
+          "externalIucn": "NE",
+          "gbifTaxonKey": 5414405,
+          "_score": 65
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 1,
+        "familyMismatches": 0
+      },
+      "priority": "P1-high",
+      "topIssues": ["iucn_status_mismatch"]
+    },
+    {
+      "slug": "quebracho",
+      "score": 63,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "quebracho",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 9,
+          "citationCount": 0,
+          "filePath": "content/trees/en/quebracho.mdx",
+          "_score": 63
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "cas",
+      "score": 61,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cas",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 8,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cas.mdx",
+          "_score": 61
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "anona",
+      "score": 59,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "anona",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/anona.mdx",
+          "_score": 59
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "coyol",
+      "score": 59,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "coyol",
+          "locale": "en",
+          "heading": "## Cultural Significance: Vino de Coyol",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/coyol.mdx",
+          "_score": 59
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "guanabana",
+      "score": 59,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guanabana",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 7,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guanabana.mdx",
+          "_score": 59
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "guaba-machete",
+      "score": 57,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guaba-machete",
+          "locale": "en",
+          "heading": "## Uses and Applications",
+          "claimEstimate": 6,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guaba-machete.mdx",
+          "_score": 57
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "nance",
+      "score": 57,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "nance",
+          "locale": "en",
+          "heading": "## Uses and Products",
+          "claimEstimate": 6,
+          "citationCount": 0,
+          "filePath": "content/trees/en/nance.mdx",
+          "_score": 57
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "sigua",
+      "score": 57,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "sigua",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 6,
+          "citationCount": 0,
+          "filePath": "content/trees/en/sigua.mdx",
+          "_score": 57
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "laurel",
+      "score": 55,
+      "findings": [
+        {
+          "type": "gbif_family_mismatch",
+          "severity": "warning",
+          "slug": "laurel",
+          "scientificName": "Cordia alliodora",
+          "localFamily": "Boraginaceae",
+          "gbifFamily": "Cordiaceae",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 0,
+        "familyMismatches": 1
+      },
+      "priority": "P1-high",
+      "topIssues": ["gbif_family_mismatch"]
+    },
+    {
+      "slug": "laurel-negro",
+      "score": 55,
+      "findings": [
+        {
+          "type": "gbif_family_mismatch",
+          "severity": "warning",
+          "slug": "laurel-negro",
+          "scientificName": "Cordia megalantha",
+          "localFamily": "Boraginaceae",
+          "gbifFamily": "Cordiaceae",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 0,
+        "familyMismatches": 1
+      },
+      "priority": "P1-high",
+      "topIssues": ["gbif_family_mismatch"]
+    },
+    {
+      "slug": "muneco",
+      "score": 55,
+      "findings": [
+        {
+          "type": "gbif_family_mismatch",
+          "severity": "warning",
+          "slug": "muneco",
+          "scientificName": "Cordia collococca",
+          "localFamily": "Boraginaceae",
+          "gbifFamily": "Cordiaceae",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 0,
+        "iucnMismatches": 0,
+        "familyMismatches": 1
+      },
+      "priority": "P1-high",
+      "topIssues": ["gbif_family_mismatch"]
+    },
+    {
+      "slug": "guacimo-molenillo",
+      "score": 55,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guacimo-molenillo",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guacimo-molenillo.mdx",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "javillo",
+      "score": 55,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "javillo",
+          "locale": "en",
+          "heading": "## Ethnobotanical Uses",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/javillo.mdx",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "jocote",
+      "score": 55,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "jocote",
+          "locale": "en",
+          "heading": "## Uses and Products",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/jocote.mdx",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "tamarindo",
+      "score": 55,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "tamarindo",
+          "locale": "en",
+          "heading": "## Uses and Products",
+          "claimEstimate": 5,
+          "citationCount": 0,
+          "filePath": "content/trees/en/tamarindo.mdx",
+          "_score": 55
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "aguacatillo",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "aguacatillo",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/aguacatillo.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "arrayan",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "arrayan",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/arrayan.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "carboncillo",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "carboncillo",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/carboncillo.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "guaba-bejuco",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guaba-bejuco",
+          "locale": "en",
+          "heading": "## Uses and Applications",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guaba-bejuco.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "guacimo-colorado",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guacimo-colorado",
+          "locale": "en",
+          "heading": "## Cultural & Economic Importance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guacimo-colorado.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "lengua-de-vaca",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "lengua-de-vaca",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/lengua-de-vaca.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "manchineel",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "manchineel",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/manchineel.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "nazareno",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "nazareno",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/nazareno.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "peine-de-mico",
+      "score": 53,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "peine-de-mico",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 4,
+          "citationCount": 0,
+          "filePath": "content/trees/en/peine-de-mico.mdx",
+          "_score": 53
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "acacia-mangium",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "acacia-mangium",
+          "locale": "en",
+          "heading": "## Cultural & Economic Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/acacia-mangium.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "achotillo",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "achotillo",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/achotillo.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "burio",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "burio",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/burio.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "caoba",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "caoba",
+          "locale": "en",
+          "heading": "## Cultural & Economic Importance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/caoba.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "capulin",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "capulin",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/capulin.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "cedro-macho",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "cedro-macho",
+          "locale": "en",
+          "heading": "## Cultural Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/cedro-macho.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "ceiba",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "ceiba",
+          "locale": "en",
+          "heading": "## Cultural & Spiritual Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/ceiba.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "chancho-blanco",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "chancho-blanco",
+          "locale": "en",
+          "heading": "## Uses",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/chancho-blanco.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "chirraca",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "chirraca",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/chirraca.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "contra",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "contra",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/contra.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "guarumbo-hembra",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guarumbo-hembra",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guarumbo-hembra.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "guayaba-chilena",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "guayaba-chilena",
+          "locale": "en",
+          "heading": "## Cultural and Historical Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/guayaba-chilena.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "hule",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "hule",
+          "locale": "en",
+          "heading": "## Uses & Applications",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/hule.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "nispero",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "nispero",
+          "locale": "en",
+          "heading": "## Uses and Products",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/nispero.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "papaturro",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "papaturro",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/papaturro.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "pino-caribeno",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "pino-caribeno",
+          "locale": "en",
+          "heading": "## Cultural & Economic Significance",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/pino-caribeno.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "roble-de-sabana",
+      "score": 51,
+      "findings": [
+        {
+          "type": "missing_citations_high_risk",
+          "severity": "warning",
+          "slug": "roble-de-sabana",
+          "locale": "en",
+          "heading": "## Conservation Status",
+          "claimEstimate": 3,
+          "citationCount": 0,
+          "filePath": "content/trees/en/roble-de-sabana.mdx",
+          "_score": 51
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "citationGaps": 1,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["missing_citations_high_risk"]
+    },
+    {
+      "slug": "matapalo",
+      "score": 20,
+      "findings": [
+        {
+          "type": "gbif_no_match",
+          "severity": "info",
+          "slug": "matapalo",
+          "scientificName": "Ficus spp.",
+          "_score": 20
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "citationGaps": 0,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["gbif_no_match"]
+    }
+  ]
+}

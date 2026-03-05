@@ -377,28 +377,155 @@ export const UI_LABELS: Record<string, Record<Locale, string>> = {
 // Helper Functions
 // ============================================================================
 
+function getLocalizedText(
+  label: Record<Locale, string>,
+  locale: Locale
+): string {
+  return locale === "es" ? label.es : label.en;
+}
+
+function getMonthFromDictionary(
+  dict: Record<Month, string>,
+  month: Month
+): string {
+  switch (month) {
+    case "january":
+      return dict.january;
+    case "february":
+      return dict.february;
+    case "march":
+      return dict.march;
+    case "april":
+      return dict.april;
+    case "may":
+      return dict.may;
+    case "june":
+      return dict.june;
+    case "july":
+      return dict.july;
+    case "august":
+      return dict.august;
+    case "september":
+      return dict.september;
+    case "october":
+      return dict.october;
+    case "november":
+      return dict.november;
+    case "december":
+      return dict.december;
+    case "all-year":
+      return dict["all-year"];
+  }
+}
+
+function getTagDefinition(tag: TreeTag): TagDefinition {
+  switch (tag) {
+    case "native":
+      return TAG_DEFINITIONS.native;
+    case "endemic":
+      return TAG_DEFINITIONS.endemic;
+    case "introduced":
+      return TAG_DEFINITIONS.introduced;
+    case "deciduous":
+      return TAG_DEFINITIONS.deciduous;
+    case "evergreen":
+      return TAG_DEFINITIONS.evergreen;
+    case "flowering":
+      return TAG_DEFINITIONS.flowering;
+    case "fruit-bearing":
+      return TAG_DEFINITIONS["fruit-bearing"];
+    case "endangered":
+      return TAG_DEFINITIONS.endangered;
+    case "national":
+      return TAG_DEFINITIONS.national;
+    case "nitrogen-fixing":
+      return TAG_DEFINITIONS["nitrogen-fixing"];
+    case "shade-tree":
+      return TAG_DEFINITIONS["shade-tree"];
+    case "wildlife-food":
+      return TAG_DEFINITIONS["wildlife-food"];
+    case "dry-forest":
+      return TAG_DEFINITIONS["dry-forest"];
+    case "rainforest":
+      return TAG_DEFINITIONS.rainforest;
+    case "cloud-forest":
+      return TAG_DEFINITIONS["cloud-forest"];
+    case "timber":
+      return TAG_DEFINITIONS.timber;
+    case "medicinal":
+      return TAG_DEFINITIONS.medicinal;
+    case "ornamental":
+      return TAG_DEFINITIONS.ornamental;
+  }
+}
+
+function getConservationDefinition(
+  category: ConservationCategory
+): ConservationDefinition {
+  switch (category) {
+    case "EX":
+      return CONSERVATION_CATEGORIES.EX;
+    case "EW":
+      return CONSERVATION_CATEGORIES.EW;
+    case "CR":
+      return CONSERVATION_CATEGORIES.CR;
+    case "EN":
+      return CONSERVATION_CATEGORIES.EN;
+    case "VU":
+      return CONSERVATION_CATEGORIES.VU;
+    case "NT":
+      return CONSERVATION_CATEGORIES.NT;
+    case "LC":
+      return CONSERVATION_CATEGORIES.LC;
+    case "DD":
+      return CONSERVATION_CATEGORIES.DD;
+    case "NE":
+      return CONSERVATION_CATEGORIES.NE;
+  }
+}
+
+function getUILabelEntry(key: string): Record<Locale, string> | null {
+  for (const [labelKey, labelValue] of Object.entries(UI_LABELS)) {
+    if (labelKey === key) {
+      return labelValue;
+    }
+  }
+
+  return null;
+}
+
 export function getMonthLabel(
   month: Month,
   locale: Locale,
   format: "short" | "full" = "short"
 ): string {
-  const dict = format === "short" ? MONTH_SHORT : MONTH_FULL;
-  return dict[locale][month] ?? month;
+  const localeDict =
+    format === "short"
+      ? locale === "es"
+        ? MONTH_SHORT.es
+        : MONTH_SHORT.en
+      : locale === "es"
+        ? MONTH_FULL.es
+        : MONTH_FULL.en;
+
+  return getMonthFromDictionary(localeDict, month);
 }
 
 export function getTagLabel(tag: TreeTag, locale: Locale): string {
-  return TAG_DEFINITIONS[tag]?.label[locale] ?? tag;
+  return getLocalizedText(getTagDefinition(tag).label, locale);
 }
 
 export function getConservationLabel(
   category: ConservationCategory,
   locale: Locale
 ): string {
-  return CONSERVATION_CATEGORIES[category]?.label[locale] ?? category;
+  return getLocalizedText(getConservationDefinition(category).label, locale);
 }
 
 export function getUILabel(key: string, locale: Locale): string {
-  return UI_LABELS[key]?.[locale] ?? key;
+  const label = getUILabelEntry(key);
+  if (!label) return key;
+  return getLocalizedText(label, locale);
 }
 
 // Legacy IUCN_CATEGORIES format for backwards compatibility

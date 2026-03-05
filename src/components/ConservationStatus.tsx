@@ -15,6 +15,74 @@ interface ConservationStatusProps {
   compact?: boolean;
 }
 
+function getCategoryData(category: string) {
+  switch (category) {
+    case "EX":
+      return IUCN_CATEGORIES.EX;
+    case "EW":
+      return IUCN_CATEGORIES.EW;
+    case "CR":
+      return IUCN_CATEGORIES.CR;
+    case "EN":
+      return IUCN_CATEGORIES.EN;
+    case "VU":
+      return IUCN_CATEGORIES.VU;
+    case "NT":
+      return IUCN_CATEGORIES.NT;
+    case "LC":
+      return IUCN_CATEGORIES.LC;
+    case "DD":
+      return IUCN_CATEGORIES.DD;
+    case "NE":
+      return IUCN_CATEGORIES.NE;
+    default:
+      return IUCN_CATEGORIES.NE;
+  }
+}
+
+function getTrendData(trend: string) {
+  switch (trend) {
+    case "decreasing":
+      return POPULATION_TRENDS.decreasing;
+    case "stable":
+      return POPULATION_TRENDS.stable;
+    case "increasing":
+      return POPULATION_TRENDS.increasing;
+    case "unknown":
+    default:
+      return POPULATION_TRENDS.unknown;
+  }
+}
+
+function getLocalizedCategoryLabel(
+  categories: Record<string, string>,
+  category: string,
+  fallback: string
+): string {
+  switch (category) {
+    case "EX":
+      return categories.EX ?? fallback;
+    case "EW":
+      return categories.EW ?? fallback;
+    case "CR":
+      return categories.CR ?? fallback;
+    case "EN":
+      return categories.EN ?? fallback;
+    case "VU":
+      return categories.VU ?? fallback;
+    case "NT":
+      return categories.NT ?? fallback;
+    case "LC":
+      return categories.LC ?? fallback;
+    case "DD":
+      return categories.DD ?? fallback;
+    case "NE":
+      return categories.NE ?? fallback;
+    default:
+      return fallback;
+  }
+}
+
 export function ConservationStatus({
   category,
   populationTrend,
@@ -24,10 +92,14 @@ export function ConservationStatus({
   compact = false,
 }: ConservationStatusProps) {
   const labels = getIUCNLabels(locale);
-  const categoryData = IUCN_CATEGORIES[category] || IUCN_CATEGORIES["NE"];
+  const categoryData = getCategoryData(category);
   const trend = (populationTrend || "unknown") as PopulationTrend;
-  const trendData = POPULATION_TRENDS[trend] || POPULATION_TRENDS.unknown;
-  const localizedCategory = labels.categories[category] || categoryData.name;
+  const trendData = getTrendData(trend);
+  const localizedCategory = getLocalizedCategoryLabel(
+    labels.categories,
+    category,
+    categoryData.name
+  );
 
   // Get localized trend label
   const getTrendLabel = (trend: string): string => {
@@ -165,14 +237,18 @@ export function ConservationScale({
     <div className="mt-4">
       <div className="flex items-stretch h-3 rounded-full overflow-hidden">
         {categories.map((cat) => {
-          const catData = IUCN_CATEGORIES[cat];
+          const catData = getCategoryData(cat);
           const isCurrent = cat === currentCategory;
           return (
             <div
               key={cat}
               className={`flex-1 relative ${isCurrent ? "ring-2 ring-foreground ring-offset-1" : ""}`}
               style={{ backgroundColor: catData.color }}
-              title={labels.categories[cat] || catData.name}
+              title={getLocalizedCategoryLabel(
+                labels.categories,
+                cat,
+                catData.name
+              )}
             >
               {isCurrent && (
                 <div className="absolute inset-0 flex items-center justify-center">

@@ -101,7 +101,7 @@ const getRating = (key: MetricKey, value: number | null): Rating => {
 
   // Derive thresholds from METRICS to avoid duplication and drift.
   const metric = METRICS.find((m) => m.key === key);
-  const thresholds = metric && (metric as any).thresholds;
+  const thresholds = metric?.thresholds;
 
   if (!thresholds) {
     // Fallback if METRICS is misconfigured for this key.

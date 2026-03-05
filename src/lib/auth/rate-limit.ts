@@ -114,7 +114,7 @@ function getTrustedClientIP(request: NextRequest): string {
       : 2; // Default: Cloudflare + Vercel
 
     const clientIndex = Math.max(0, ips.length - trustedProxyCount - 1);
-    const clientIP = ips[clientIndex];
+    const [clientIP = ""] = ips.slice(clientIndex, clientIndex + 1);
 
     if (isValidIP(clientIP)) {
       return normalizeIP(clientIP);

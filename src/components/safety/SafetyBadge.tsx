@@ -40,7 +40,14 @@ function normalizeLevel(
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
     .trim();
-  return LEVEL_ALIASES[key] ?? "unknown";
+
+  for (const [alias, normalized] of Object.entries(LEVEL_ALIASES)) {
+    if (alias === key) {
+      return normalized;
+    }
+  }
+
+  return "unknown";
 }
 
 function humanizeToken(value: string): string {

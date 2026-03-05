@@ -124,16 +124,24 @@ function ipv6InRange(ip: string, cidr: string): boolean {
   const ipGroups = normalizedIP.split(":");
   const rangeGroups = normalizedRange.split(":");
 
-  for (let i = 0; i < groupsToCompare; i++) {
-    if (ipGroups[i] !== rangeGroups[i]) {
-      return false;
-    }
+  const ipPrefix = ipGroups.slice(0, groupsToCompare).join(":");
+  const rangePrefix = rangeGroups.slice(0, groupsToCompare).join(":");
+  if (ipPrefix !== rangePrefix) {
+    return false;
   }
 
   // Compare remaining bits in the partial group
   if (remainingBits > 0) {
-    const ipGroupVal = parseInt(ipGroups[groupsToCompare], 16);
-    const rangeGroupVal = parseInt(rangeGroups[groupsToCompare], 16);
+    const [ipPartialGroup = "0"] = ipGroups.slice(
+      groupsToCompare,
+      groupsToCompare + 1
+    );
+    const [rangePartialGroup = "0"] = rangeGroups.slice(
+      groupsToCompare,
+      groupsToCompare + 1
+    );
+    const ipGroupVal = parseInt(ipPartialGroup, 16);
+    const rangeGroupVal = parseInt(rangePartialGroup, 16);
     const mask = (0xffff << (bitsPerGroup - remainingBits)) & 0xffff;
 
     if ((ipGroupVal & mask) !== (rangeGroupVal & mask)) {

@@ -37,6 +37,18 @@ export function TreeCard({
 }: TreeCardProps) {
   const { isFavorite, toggle } = useFavorite(tree.slug);
 
+  const conservationDefinition = (() => {
+    if (!tree.conservationStatus) return null;
+
+    for (const [key, definition] of Object.entries(CONSERVATION_CATEGORIES)) {
+      if (key === tree.conservationStatus) {
+        return definition;
+      }
+    }
+
+    return null;
+  })();
+
   return (
     <article className="group relative bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-border hover:border-primary/30">
       {/* Favorite button */}
@@ -74,9 +86,11 @@ export function TreeCard({
           {/* Conservation status badge */}
           {tree.conservationStatus && (
             <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-secondary/90 text-white rounded">
-              {CONSERVATION_CATEGORIES[
-                tree.conservationStatus as keyof typeof CONSERVATION_CATEGORIES
-              ]?.label[locale] || tree.conservationStatus}
+              {conservationDefinition
+                ? locale === "es"
+                  ? conservationDefinition.label.es
+                  : conservationDefinition.label.en
+                : tree.conservationStatus}
             </span>
           )}
 
@@ -144,7 +158,15 @@ export function TreeCard({
 // ============================================================================
 
 function TagBadge({ tag, locale }: { tag: TreeTag; locale: Locale }) {
-  const def = TAG_DEFINITIONS[tag];
+  let def: (typeof TAG_DEFINITIONS)[keyof typeof TAG_DEFINITIONS] | undefined;
+
+  for (const [key, value] of Object.entries(TAG_DEFINITIONS)) {
+    if (key === tag) {
+      def = value;
+      break;
+    }
+  }
+
   if (!def) return null;
 
   return (

@@ -24,7 +24,7 @@ import {
   getMonthLabel,
   ORDERED_MONTHS,
 } from "@/lib/i18n";
-import { PROVINCES, isProvince } from "@/lib/geo";
+import { isProvince } from "@/lib/geo";
 import { useStore } from "@/lib/store";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
@@ -36,7 +36,6 @@ import type {
   Locale,
   TreeTag,
   Distribution,
-  Province,
   Month,
   SortField,
   HeightRange,
@@ -64,8 +63,6 @@ const VALID_USE_CATEGORIES: UseCategory[] = [
   "agriculture",
   "crafts",
 ];
-
-const VALID_SEASONAL_FILTERS = ["flowering", "fruiting"] as const;
 
 function parseFilterFromParams(params: URLSearchParams): TreeFilter {
   const filter: TreeFilter = {};
@@ -132,6 +129,33 @@ const LOAD_MORE_COUNT = 12;
 
 // Maximum number of suggestions in the autocomplete dropdown
 const MAX_SUGGESTIONS = 5;
+
+function getSuggestionByIndex(items: Tree[], index: number): Tree | undefined {
+  return items.find((_, currentIndex) => currentIndex === index);
+}
+
+function getTagDefinition(tag: string) {
+  for (const [key, definition] of Object.entries(TAG_DEFINITIONS)) {
+    if (key === tag) {
+      return definition;
+    }
+  }
+
+  return undefined;
+}
+
+function getGroupByLetter(
+  groups: Record<string, LightTree[]>,
+  letter: string
+): LightTree[] {
+  for (const [groupLetter, groupTrees] of Object.entries(groups)) {
+    if (groupLetter === letter) {
+      return groupTrees;
+    }
+  }
+
+  return [];
+}
 
 export function TreeExplorer({ trees }: TreeExplorerProps) {
   const locale = useLocale() as Locale;
@@ -322,9 +346,17 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
           setSuggestionIndex((i) => Math.max(i - 1, 0));
           break;
         case "Enter":
-          if (suggestions[suggestionIndex]) {
+          {
+            const selectedSuggestion = getSuggestionByIndex(
+              suggestions,
+              suggestionIndex
+            );
+            if (!selectedSuggestion) {
+              break;
+            }
+
             e.preventDefault();
-            handleSuggestionSelect(suggestions[suggestionIndex].slug);
+            handleSuggestionSelect(selectedSuggestion.slug);
           }
           break;
         case "Escape":
@@ -446,7 +478,6 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     savedSearchFilter,
     savedSearchSort,
     saveSearchPreferences,
-    clearSearchPreferences,
     _hydrated,
   } = useStore();
   const [filterToast, setFilterToast] = useState<string | null>(null);
@@ -812,7 +843,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {displayFacets.tags.map(({ value, count }) => {
-                    const def = TAG_DEFINITIONS[value];
+                    const def = getTagDefinition(value);
                     const isSelected = filter.tags?.includes(value);
                     return (
                       <button
@@ -1061,13 +1092,18 @@ function AlphabeticalIndex({
 }) {
   const t = useTranslations("trees");
   const grouped = useMemo(() => {
-    const groups: Record<string, LightTree[]> = {};
+    const groupsMap = new Map<string, LightTree[]>();
     for (const tree of trees) {
       const letter = tree.title.charAt(0).toUpperCase();
-      if (!groups[letter]) groups[letter] = [];
-      groups[letter].push(tree);
+      const groupTrees = groupsMap.get(letter);
+      if (groupTrees) {
+        groupTrees.push(tree);
+      } else {
+        groupsMap.set(letter, [tree]);
+      }
     }
-    return groups;
+
+    return Object.fromEntries(groupsMap) as Record<string, LightTree[]>;
   }, [trees]);
 
   const letters = Object.keys(grouped).sort();
@@ -1100,33 +1136,37 @@ function AlphabeticalIndex({
 
       {/* Grouped trees */}
       <div className="space-y-12">
-        {letters.map((letter) => (
-          <section key={letter} id={`letter-${letter}`}>
-            <h2 className="text-3xl font-bold text-primary-dark dark:text-primary-light mb-4 sticky top-16 bg-background/90 backdrop-blur-sm py-2 -mx-2 px-2">
-              {letter}
-              <span className="ml-2 text-sm font-normal text-muted-foreground">
-                ({grouped[letter].length})
-              </span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {grouped[letter].map((tree) => (
-                <a
-                  key={tree.slug}
-                  href={`/${locale}/trees/${tree.slug}`}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-border hover:border-primary/30 hover:bg-muted/50 transition-colors"
-                >
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{tree.title}</p>
-                    <p className="text-sm text-muted-foreground italic truncate">
-                      {tree.scientificName}
-                    </p>
-                  </div>
-                  <ChevronRightIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                </a>
-              ))}
-            </div>
-          </section>
-        ))}
+        {letters.map((letter) => {
+          const treesForLetter = getGroupByLetter(grouped, letter);
+
+          return (
+            <section key={letter} id={`letter-${letter}`}>
+              <h2 className="text-3xl font-bold text-primary-dark dark:text-primary-light mb-4 sticky top-16 bg-background/90 backdrop-blur-sm py-2 -mx-2 px-2">
+                {letter}
+                <span className="ml-2 text-sm font-normal text-muted-foreground">
+                  ({treesForLetter.length})
+                </span>
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {treesForLetter.map((tree) => (
+                  <a
+                    key={tree.slug}
+                    href={`/${locale}/trees/${tree.slug}`}
+                    className="flex items-center gap-3 p-3 rounded-lg border border-border hover:border-primary/30 hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{tree.title}</p>
+                      <p className="text-sm text-muted-foreground italic truncate">
+                        {tree.scientificName}
+                      </p>
+                    </div>
+                    <ChevronRightIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  </a>
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );

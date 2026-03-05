@@ -265,6 +265,7 @@ describe("GET /api/contributions", () => {
     const body = await res.json();
 
     expect(res.status).toBe(200);
+    expect(body.contributions).toEqual([]);
   });
 
   it("handles database not ready gracefully", async () => {

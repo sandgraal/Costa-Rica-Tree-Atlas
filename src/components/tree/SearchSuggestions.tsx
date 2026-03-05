@@ -138,11 +138,6 @@ export function SearchSuggestions({
 // Helpers
 // ============================================================================
 
-/** Escape special regex characters */
-function escapeRegex(str: string): string {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 /** Highlight matching substrings with a <mark> tag */
 function highlightMatch(text: string, query: string): ReactNode {
   if (!query.trim()) return text;
@@ -152,23 +147,54 @@ function highlightMatch(text: string, query: string): ReactNode {
     .trim()
     .split(/\s+/)
     .filter((t) => t.length > 0)
-    .map(escapeRegex);
+    .map((term) => term.toLowerCase());
 
   if (terms.length === 0) return text;
 
-  const regex = new RegExp(`(${terms.join("|")})`, "gi");
-  const testRegex = new RegExp(`(${terms.join("|")})`, "i");
-  const parts = text.split(regex);
+  const lowerText = text.toLowerCase();
+  const parts: ReactNode[] = [];
+  let cursor = 0;
+  let partIndex = 0;
 
-  if (parts.length <= 1) return text;
+  while (cursor < text.length) {
+    let nextIndex = -1;
+    let matchedTerm = "";
 
-  return parts.map((part, i) =>
-    testRegex.test(part) ? (
-      <mark key={i} className="bg-primary/20 text-foreground rounded-sm px-0.5">
-        {part}
+    for (const term of terms) {
+      const termIndex = lowerText.indexOf(term, cursor);
+      if (termIndex === -1) continue;
+
+      if (
+        nextIndex === -1 ||
+        termIndex < nextIndex ||
+        (termIndex === nextIndex && term.length > matchedTerm.length)
+      ) {
+        nextIndex = termIndex;
+        matchedTerm = term;
+      }
+    }
+
+    if (nextIndex === -1) {
+      parts.push(text.slice(cursor));
+      break;
+    }
+
+    if (nextIndex > cursor) {
+      parts.push(text.slice(cursor, nextIndex));
+    }
+
+    const endIndex = nextIndex + matchedTerm.length;
+    parts.push(
+      <mark
+        key={`match-${partIndex++}`}
+        className="bg-primary/20 text-foreground rounded-sm px-0.5"
+      >
+        {text.slice(nextIndex, endIndex)}
       </mark>
-    ) : (
-      part
-    )
-  );
+    );
+
+    cursor = endIndex;
+  }
+
+  return parts.length > 0 ? parts : text;
 }

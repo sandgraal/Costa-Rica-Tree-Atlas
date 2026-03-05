@@ -480,12 +480,6 @@ export default function ScavengerHuntClient({
     dispatch({ type: "RESET" });
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
   // Setup view
   if (state.view === "setup") {
     return (
