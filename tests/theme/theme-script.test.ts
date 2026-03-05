@@ -11,6 +11,14 @@
 import { describe, it, expect } from "vitest";
 import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 
+type MockThemeDocument = {
+  documentElement: {
+    classList: { add: (cls: string) => void };
+    setAttribute: (attr: string, value: string) => void;
+    style: Record<string, unknown>;
+  };
+};
+
 describe("Theme Script", () => {
   describe("Script Generation", () => {
     it("should generate a non-empty script", () => {
@@ -61,7 +69,7 @@ describe("Theme Script", () => {
   describe("Script Execution Simulation", () => {
     it("should apply dark theme when stored", () => {
       const script = THEME_SCRIPT;
-      const mockDOM: any = {
+      const mockDOM: MockThemeDocument = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("dark") },
           setAttribute: (attr: string, value: string) => {
@@ -98,7 +106,7 @@ describe("Theme Script", () => {
 
     it("should apply light theme when stored", () => {
       const script = THEME_SCRIPT;
-      const mockDOM: any = {
+      const mockDOM: MockThemeDocument = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("light") },
           setAttribute: (attr: string, value: string) => {
@@ -135,7 +143,7 @@ describe("Theme Script", () => {
 
     it('should use system preference when theme is "system"', () => {
       const script = THEME_SCRIPT;
-      const mockDOM: any = {
+      const mockDOM: MockThemeDocument = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("dark") },
           setAttribute: (attr: string, value: string) => {
@@ -172,7 +180,7 @@ describe("Theme Script", () => {
 
     it("should default to system preference when no stored theme", () => {
       const script = THEME_SCRIPT;
-      const mockDOM: any = {
+      const mockDOM: MockThemeDocument = {
         documentElement: {
           classList: { add: (cls: string) => expect(cls).toBe("light") },
           setAttribute: (attr: string, value: string) => {
@@ -210,7 +218,7 @@ describe("Theme Script", () => {
     it("should handle corrupted localStorage gracefully", () => {
       const script = THEME_SCRIPT;
       let themeApplied = "";
-      const mockDOM: any = {
+      const mockDOM: MockThemeDocument = {
         documentElement: {
           classList: {
             add: (cls: string) => {

@@ -27,6 +27,10 @@ export function FeatureAnnotation({
     null
   );
   const isRemote = image.startsWith("http");
+  const activePoint =
+    activeAnnotation === null
+      ? null
+      : (annotations.find((_, index) => index === activeAnnotation) ?? null);
 
   return (
     <figure className="my-8 not-prose">
@@ -61,12 +65,12 @@ export function FeatureAnnotation({
         ))}
 
         {/* Active Annotation Tooltip */}
-        {activeAnnotation !== null && (
+        {activePoint && (
           <div
             className="absolute z-30 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 max-w-xs border border-border"
             style={{
-              left: `${Math.min(Math.max(annotations[activeAnnotation].x, 20), 80)}%`,
-              top: `${annotations[activeAnnotation].y + 8}%`,
+              left: `${Math.min(Math.max(activePoint.x, 20), 80)}%`,
+              top: `${activePoint.y + 8}%`,
               transform: "translateX(-50%)",
             }}
           >
@@ -78,11 +82,9 @@ export function FeatureAnnotation({
             >
               <span aria-hidden="true">✕</span>
             </button>
-            <h4 className="font-semibold text-sm mb-1">
-              {annotations[activeAnnotation].label}
-            </h4>
+            <h4 className="font-semibold text-sm mb-1">{activePoint.label}</h4>
             <p className="text-xs text-muted-foreground">
-              {annotations[activeAnnotation].description}
+              {activePoint.description}
             </p>
           </div>
         )}

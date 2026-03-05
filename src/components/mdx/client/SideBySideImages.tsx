@@ -47,6 +47,8 @@ export function SideBySideImages({
       credit: rightCredit,
     },
   ];
+  const activeImage =
+    images.find((_, index) => index === activeIndex) ?? images[0];
 
   const isLeftRemote = leftImage.startsWith("http");
   const isRightRemote = rightImage.startsWith("http");
@@ -150,7 +152,7 @@ export function SideBySideImages({
           onClick={() => setLightboxOpen(false)}
           role="dialog"
           aria-modal="true"
-          aria-label={`Image lightbox: ${images[activeIndex].label}`}
+          aria-label={`Image lightbox: ${activeImage?.label ?? "Image"}`}
         >
           <button
             onClick={() => setLightboxOpen(false)}
@@ -211,22 +213,20 @@ export function SideBySideImages({
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={images[activeIndex].src}
-              alt={images[activeIndex].alt}
+              src={activeImage?.src ?? ""}
+              alt={activeImage?.alt ?? ""}
               width={1200}
               height={800}
               className="max-h-[75vh] w-auto object-contain"
               priority
               quality={85}
-              unoptimized={images[activeIndex].src.startsWith("http")}
+              unoptimized={Boolean(activeImage?.src?.startsWith("http"))}
             />
             <div className="mt-4 text-center text-white">
-              <h3 className="text-lg font-semibold">
-                {images[activeIndex].label}
-              </h3>
-              {images[activeIndex].credit && (
+              <h3 className="text-lg font-semibold">{activeImage?.label}</h3>
+              {activeImage?.credit && (
                 <p className="text-sm text-white/70 mt-1">
-                  📷 {images[activeIndex].credit}
+                  📷 {activeImage.credit}
                 </p>
               )}
             </div>

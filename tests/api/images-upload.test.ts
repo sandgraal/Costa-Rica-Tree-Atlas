@@ -81,6 +81,11 @@ vi.mock("@/lib/error-tracking", () => ({
 
 const { GET, POST } = await import("@/app/api/images/upload/route");
 
+type ExecuteRawCall = [
+  { join?: (separator?: string) => string }?,
+  ...unknown[],
+];
+
 // ---------- Helpers ----------
 
 /**
@@ -183,13 +188,12 @@ describe("POST /api/images/upload", () => {
 
     // Verify INSERT into image_proposals was called
     expect(executeRawMock).toHaveBeenCalled();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const proposalInsertCall = (executeRawMock.mock.calls as any[]).find(
-      (call: any) => {
-        const sql = call[0]?.join?.(" ") || "";
-        return sql.includes("INSERT INTO image_proposals");
-      }
-    );
+    const proposalInsertCall = (
+      executeRawMock.mock.calls as ExecuteRawCall[]
+    ).find((call) => {
+      const sql = call[0]?.join?.(" ") ?? "";
+      return sql.includes("INSERT INTO image_proposals");
+    });
     expect(proposalInsertCall).toBeTruthy();
   });
 
@@ -202,13 +206,12 @@ describe("POST /api/images/upload", () => {
     await POST(req);
 
     // Verify INSERT into image_audits was called
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const auditInsertCall = (executeRawMock.mock.calls as any[]).find(
-      (call: any) => {
-        const sql = call[0]?.join?.(" ") || "";
-        return sql.includes("INSERT INTO image_audits");
-      }
-    );
+    const auditInsertCall = (
+      executeRawMock.mock.calls as ExecuteRawCall[]
+    ).find((call) => {
+      const sql = call[0]?.join?.(" ") ?? "";
+      return sql.includes("INSERT INTO image_audits");
+    });
     expect(auditInsertCall).toBeTruthy();
   });
 

@@ -488,7 +488,13 @@ describe("E2E Authentication Flows", () => {
 
       // Override TOTP.verify mock to return invalid result
       const totpModule = await import("@otplib/totp");
-      const mockVerify = (totpModule as any).__mockVerify;
+      const mockVerify = (
+        totpModule as unknown as {
+          __mockVerify: {
+            mockResolvedValueOnce: (value: { valid: boolean }) => void;
+          };
+        }
+      ).__mockVerify;
       mockVerify.mockResolvedValueOnce({ valid: false });
 
       vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser as never);

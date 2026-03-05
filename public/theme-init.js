@@ -35,7 +35,7 @@
     document.documentElement.classList.add(theme);
     document.documentElement.setAttribute("data-theme", theme);
     document.documentElement.style.colorScheme = theme;
-  } catch (e) {
+  } catch (_e) {
     document.documentElement.classList.add("light");
     document.documentElement.setAttribute("data-theme", "light");
     document.documentElement.style.colorScheme = "light";

@@ -57,6 +57,20 @@ function humanizeToken(value: string): string {
   return value.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function getAliasValue(
+  map: Record<string, string>,
+  key: string
+): string | null {
+  const normalizedKey = key.trim();
+  for (const [entryKey, entryValue] of Object.entries(map)) {
+    if (entryKey === normalizedKey) {
+      return entryValue;
+    }
+  }
+
+  return null;
+}
+
 export async function SafetyCard({ tree, className = "" }: SafetyCardProps) {
   const t = await getTranslations("safety");
   const translate = (key: string) =>
@@ -71,12 +85,14 @@ export async function SafetyCard({ tree, className = "" }: SafetyCardProps) {
     const normalized = normalizeLookupToken(raw);
     const slug = slugifyLookupToken(raw);
     const aliasMap = group === "parts" ? PART_ALIASES : STRUCTURAL_ALIASES;
+    const normalizedAlias = getAliasValue(aliasMap, normalized);
+    const slugAlias = getAliasValue(aliasMap, slug);
     const candidates = [
       raw,
       raw.toLowerCase(),
       slug,
-      aliasMap[normalized],
-      aliasMap[slug],
+      normalizedAlias,
+      slugAlias,
     ].filter((candidate): candidate is string => Boolean(candidate));
 
     for (const candidate of candidates) {

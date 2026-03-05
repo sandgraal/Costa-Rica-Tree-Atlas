@@ -9,6 +9,13 @@ interface ShareCollectionButtonProps {
   treeCount?: number;
 }
 
+function getLocalizedValue(
+  value: { en: string; es: string },
+  locale: "en" | "es"
+): string {
+  return locale === "es" ? value.es : value.en;
+}
+
 export function ShareCollectionButton({
   collection,
   locale,
@@ -22,8 +29,8 @@ export function ShareCollectionButton({
       ? `${window.location.origin}/${locale}/map/collection/${collection.id}`
       : "";
 
-  const shareText = collection.shareText[locale];
-  const title = collection.title[locale];
+  const shareText = getLocalizedValue(collection.shareText, locale);
+  const title = getLocalizedValue(collection.title, locale);
 
   const handleShare = async (platform: string) => {
     const encodedUrl = encodeURIComponent(shareUrl);

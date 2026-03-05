@@ -47,41 +47,38 @@ describe("SafetyCard Component i18n", () => {
   });
 
   it("should localize all safety levels in English", () => {
-    const levels: Array<"safe" | "caution" | "warning" | "danger"> = [
-      "safe",
-      "caution",
-      "warning",
-      "danger",
+    const englishCases: Array<
+      ["safe" | "caution" | "warning" | "danger", string]
+    > = [
+      ["safe", "Safe"],
+      ["caution", "Caution"],
+      ["warning", "Warning"],
+      ["danger", "High Risk"],
     ];
-    const englishLabels = ["Safe", "Caution", "Warning", "High Risk"];
 
-    levels.forEach((level, index) => {
+    englishCases.forEach(([level, label]) => {
       const { container } = render(
         <SafetyCard safetyLevel={level} locale="en" />
       );
-      expect(container.textContent).toContain(englishLabels[index]);
+      expect(container.textContent).toContain(label);
     });
   });
 
   it("should localize all safety levels in Spanish", () => {
-    const levels: Array<"safe" | "caution" | "warning" | "danger"> = [
-      "safe",
-      "caution",
-      "warning",
-      "danger",
-    ];
-    const spanishLabels = [
-      "Seguro",
-      "Precaución",
-      "Advertencia",
-      "Alto Riesgo",
+    const spanishCases: Array<
+      ["safe" | "caution" | "warning" | "danger", string]
+    > = [
+      ["safe", "Seguro"],
+      ["caution", "Precaución"],
+      ["warning", "Advertencia"],
+      ["danger", "Alto Riesgo"],
     ];
 
-    levels.forEach((level, index) => {
+    spanishCases.forEach(([level, label]) => {
       const { container } = render(
         <SafetyCard safetyLevel={level} locale="es" />
       );
-      expect(container.textContent).toContain(spanishLabels[index]);
+      expect(container.textContent).toContain(label);
     });
   });
 

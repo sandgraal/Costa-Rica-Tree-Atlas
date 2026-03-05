@@ -20,14 +20,14 @@ export function ComparisonTagPill({
   const icon = getComparisonTagIcon(tag);
   const label = getComparisonTagLabel(tag, locale);
 
-  const variantStyles = {
-    primary: "bg-primary/10 text-primary",
-    muted: "bg-muted text-muted-foreground",
-  };
+  const variantStyle =
+    variant === "muted"
+      ? "bg-muted text-muted-foreground"
+      : "bg-primary/10 text-primary";
 
   return (
     <span
-      className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-full ${variantStyles[variant]}`}
+      className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-full ${variantStyle}`}
     >
       {icon && <span>{icon}</span>}
       <span>{label}</span>

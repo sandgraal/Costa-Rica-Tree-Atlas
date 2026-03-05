@@ -65,7 +65,7 @@ export function measurePerformance(
       console.log(
         `[Performance] ${measureName}: ${measure.duration.toFixed(2)}ms`
       );
-    } catch (e) {
+    } catch (_e) {
       // Marks might not exist, ignore
     }
   }

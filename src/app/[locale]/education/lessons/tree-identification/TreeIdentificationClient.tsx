@@ -35,7 +35,6 @@ export default function TreeIdentificationClient(
 
 function TreeIdentificationContent({
   trees,
-  locale,
   lessonData,
 }: TreeIdentificationClientProps) {
   const { labels: t, features } = lessonData;

@@ -8,6 +8,63 @@ interface BreadcrumbsProps {
   customLabels?: Record<string, string>;
 }
 
+function getCustomLabel(
+  customLabels: Record<string, string>,
+  segment: string
+): string | undefined {
+  for (const [key, value] of Object.entries(customLabels)) {
+    if (key === segment) {
+      return value;
+    }
+  }
+  return undefined;
+}
+
+function getDefaultLabel(segment: string, locale: Locale): string | undefined {
+  switch (segment) {
+    case "trees":
+      return locale === "es" ? "Árboles" : "Trees";
+    case "glossary":
+      return locale === "es" ? "Glosario" : "Glossary";
+    case "education":
+      return locale === "es" ? "Educación" : "Education";
+    case "seasonal":
+      return locale === "es" ? "Temporada" : "Seasonal";
+    case "safety":
+      return locale === "es" ? "Seguridad" : "Safety";
+    case "conservation":
+      return locale === "es" ? "Conservación" : "Conservation";
+    case "map":
+      return locale === "es" ? "Mapa" : "Map";
+    case "identify":
+      return locale === "es" ? "Identificar" : "Identify";
+    case "compare":
+      return locale === "es" ? "Comparar" : "Compare";
+    case "favorites":
+      return locale === "es" ? "Favoritos" : "Favorites";
+    case "quiz":
+      return locale === "es" ? "Cuestionario" : "Quiz";
+    case "diagnose":
+      return locale === "es" ? "Diagnosticar" : "Diagnose";
+    case "wizard":
+      return locale === "es" ? "Asistente" : "Selection Wizard";
+    case "use-cases":
+      return locale === "es" ? "Casos de Uso" : "Use Cases";
+    case "about":
+      return locale === "es" ? "Acerca de" : "About";
+    case "lessons":
+      return locale === "es" ? "Lecciones" : "Lessons";
+    case "printables":
+      return locale === "es" ? "Imprimibles" : "Printables";
+    case "classroom":
+      return locale === "es" ? "Aula" : "Classroom";
+    case "teacher":
+      return locale === "es" ? "Recursos para Maestros" : "Teacher Resources";
+    default:
+      return undefined;
+  }
+}
+
 export function Breadcrumbs({
   locale,
   pathname,
@@ -16,29 +73,6 @@ export function Breadcrumbs({
   const breadcrumbs = (() => {
     // Split path into segments (pathname is already without locale prefix)
     const segments = pathname.split("/").filter(Boolean);
-
-    // Default labels for common paths
-    const defaultLabels: Record<string, { en: string; es: string }> = {
-      trees: { en: "Trees", es: "Árboles" },
-      glossary: { en: "Glossary", es: "Glosario" },
-      education: { en: "Education", es: "Educación" },
-      seasonal: { en: "Seasonal", es: "Temporada" },
-      safety: { en: "Safety", es: "Seguridad" },
-      conservation: { en: "Conservation", es: "Conservación" },
-      map: { en: "Map", es: "Mapa" },
-      identify: { en: "Identify", es: "Identificar" },
-      compare: { en: "Compare", es: "Comparar" },
-      favorites: { en: "Favorites", es: "Favoritos" },
-      quiz: { en: "Quiz", es: "Cuestionario" },
-      diagnose: { en: "Diagnose", es: "Diagnosticar" },
-      wizard: { en: "Selection Wizard", es: "Asistente" },
-      "use-cases": { en: "Use Cases", es: "Casos de Uso" },
-      about: { en: "About", es: "Acerca de" },
-      lessons: { en: "Lessons", es: "Lecciones" },
-      printables: { en: "Printables", es: "Imprimibles" },
-      classroom: { en: "Classroom", es: "Aula" },
-      teacher: { en: "Teacher Resources", es: "Recursos para Maestros" },
-    };
 
     const crumbs: Array<{ label: string; href?: string }> = [
       {
@@ -52,9 +86,9 @@ export function Breadcrumbs({
       currentPath += `/${segment}`;
 
       // Use custom label if provided, otherwise use default, otherwise format segment
-      let label = customLabels[segment];
-      if (!label && defaultLabels[segment]) {
-        label = defaultLabels[segment][locale];
+      let label = getCustomLabel(customLabels, segment);
+      if (!label) {
+        label = getDefaultLabel(segment, locale);
       }
       if (!label) {
         // Format slug: convert dashes to spaces and capitalize

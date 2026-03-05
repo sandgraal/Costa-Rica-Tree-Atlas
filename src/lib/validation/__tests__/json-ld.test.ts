@@ -189,7 +189,8 @@ describe("JSON-LD XSS Prevention", () => {
       };
 
       const sanitized = sanitizeJsonLd(malicious);
-      expect((sanitized.author as any).name).not.toContain("<script>");
+      const sanitizedAuthor = sanitized.author as { name?: string } | undefined;
+      expect(sanitizedAuthor?.name).not.toContain("<script>");
     });
 
     it("should remove fullwidth characters", () => {
@@ -228,8 +229,9 @@ describe("JSON-LD XSS Prevention", () => {
       };
 
       const sanitized = sanitizeJsonLd(malicious);
-      expect((sanitized.items as any[])[0]).toBe("Safe");
-      expect((sanitized.items as any[])[1]).not.toContain("<script>");
+      const sanitizedItems = sanitized.items as string[] | undefined;
+      expect(sanitizedItems?.[0]).toBe("Safe");
+      expect(sanitizedItems?.[1]).not.toContain("<script>");
     });
 
     it("should skip dangerous keys", () => {

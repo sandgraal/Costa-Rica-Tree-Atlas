@@ -11,6 +11,30 @@ interface FavoriteButtonProps {
   className?: string;
 }
 
+function getButtonSizeClass(size: "sm" | "md" | "lg"): string {
+  switch (size) {
+    case "sm":
+      return "p-1.5";
+    case "lg":
+      return "p-2.5";
+    case "md":
+    default:
+      return "p-2";
+  }
+}
+
+function getIconSizeClass(size: "sm" | "md" | "lg"): string {
+  switch (size) {
+    case "sm":
+      return "h-4 w-4";
+    case "lg":
+      return "h-6 w-6";
+    case "md":
+    default:
+      return "h-5 w-5";
+  }
+}
+
 /**
  * FavoriteButton - Add/remove trees from favorites list
  * Uses localStorage for persistence without requiring authentication.
@@ -37,17 +61,8 @@ export function FavoriteButton({
     removeShort: t("saved"),
   };
 
-  const sizeClasses = {
-    sm: "p-1.5",
-    md: "p-2",
-    lg: "p-2.5",
-  };
-
-  const iconSizes = {
-    sm: "h-4 w-4",
-    md: "h-5 w-5",
-    lg: "h-6 w-6",
-  };
+  const sizeClass = getButtonSizeClass(size);
+  const iconSizeClass = getIconSizeClass(size);
 
   const ariaLabel = favorited
     ? `${labels.remove}: ${title}`
@@ -70,12 +85,12 @@ export function FavoriteButton({
         favorited
           ? "text-red-500 hover:text-red-600"
           : "text-muted-foreground hover:text-red-400"
-      } ${sizeClasses[size]} ${className}`}
+      } ${sizeClass} ${className}`}
     >
       {favorited ? (
-        <HeartFilledIcon className={iconSizes[size]} />
+        <HeartFilledIcon className={iconSizeClass} />
       ) : (
-        <HeartOutlineIcon className={iconSizes[size]} />
+        <HeartOutlineIcon className={iconSizeClass} />
       )}
       {showLabel && (
         <span className="text-sm font-medium">

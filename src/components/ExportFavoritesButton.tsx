@@ -19,6 +19,19 @@ interface ExportFavoritesButtonProps {
   treeLookup: Record<string, ExportableTree>;
 }
 
+function getTreeBySlug(
+  treeLookup: Record<string, ExportableTree>,
+  slug: string
+): ExportableTree | undefined {
+  for (const [key, tree] of Object.entries(treeLookup)) {
+    if (key === slug) {
+      return tree;
+    }
+  }
+
+  return undefined;
+}
+
 export function ExportFavoritesButton({
   locale,
   treeLookup,
@@ -43,7 +56,7 @@ export function ExportFavoritesButton({
   const handleExport = () => {
     // Resolve favorited slugs against the lightweight lookup
     const favoriteTrees = (hydrated ? favorites : [])
-      .map((slug) => treeLookup[slug])
+      .map((slug) => getTreeBySlug(treeLookup, slug))
       .filter((tree): tree is ExportableTree => tree !== undefined);
 
     if (favoriteTrees.length === 0) return;

@@ -41,13 +41,11 @@ export async function verifyBackupCode(
     // Check each backup code (they're stored as hashes)
     const usedIndices = mfaSecret.backupCodesUsed || [];
 
-    for (let i = 0; i < mfaSecret.backupCodes.length; i++) {
+    for (const [i, hashedCode] of mfaSecret.backupCodes.entries()) {
       // Skip already used codes
       if (usedIndices.includes(i)) {
         continue;
       }
-
-      const hashedCode = mfaSecret.backupCodes[i];
 
       try {
         // Verify against the hash

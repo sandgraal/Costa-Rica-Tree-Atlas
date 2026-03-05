@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-03-05T02:10:57.358Z",
+  "mode": {
+    "singleTree": "burio",
+    "maxApi": 60,
+    "skipExternal": true,
+    "dryRun": false
+  },
+  "inventory": {
+    "treesEn": 175,
+    "treesEs": 175,
+    "comparisonsEn": 20,
+    "comparisonsEs": 20,
+    "glossaryEn": 150,
+    "glossaryEs": 150
+  },
+  "summary": {
+    "treesAudited": 1,
+    "externalTreesChecked": 0,
+    "errors": 0,
+    "warnings": 0
+  },
+  "findings": {
+    "localeParity": [],
+    "externalDrift": [],
+    "citationCoverage": [],
+    "schemaFlags": []
+  }
+}

@@ -35,7 +35,7 @@ export function AutoGlossaryLink({
   const params = useParams();
   const locale = params.locale as string;
 
-  // Filter terms for current locale and create regex patterns
+  // Filter terms for current locale
   const termPatterns = useMemo(() => {
     if (!glossaryTerms || glossaryTerms.length === 0) return [];
 
@@ -45,9 +45,6 @@ export function AutoGlossaryLink({
         term: t.term,
         slug: t.slug,
         simpleDefinition: t.simpleDefinition || "",
-        // Create word boundary regex for whole-word matching
-        // Use case-insensitive flag
-        pattern: new RegExp(`\\b(${escapeRegex(t.term)})\\b`, "i"),
       }))
       .sort((a, b) => b.term.length - a.term.length); // Sort by length (longest first) to match longer terms before shorter ones
   }, [glossaryTerms, locale]);
@@ -66,18 +63,21 @@ export function AutoGlossaryLink({
       let matched = false;
 
       // Try to find a glossary term in the remaining text
-      for (const { term, slug, pattern, simpleDefinition } of termPatterns) {
-        const match = pattern.exec(remainingText);
+      for (const { term, slug, simpleDefinition } of termPatterns) {
+        const matchIndex = findWholeWordMatchIndex(remainingText, term);
 
-        if (match && match.index !== undefined) {
-          const matchedText = match[1];
+        if (matchIndex !== -1) {
+          const matchedText = remainingText.substring(
+            matchIndex,
+            matchIndex + term.length
+          );
           const termLower = term.toLowerCase();
 
           // Only link if we haven't already linked this term in this text
           if (!linkedTerms.has(termLower)) {
             // Add text before the match
-            if (match.index > 0) {
-              result.push(remainingText.substring(0, match.index));
+            if (matchIndex > 0) {
+              result.push(remainingText.substring(0, matchIndex));
             }
 
             // Add the linked term with tooltip (if enabled and definition available)
@@ -106,7 +106,7 @@ export function AutoGlossaryLink({
 
             linkedTerms.add(termLower);
             remainingText = remainingText.substring(
-              match.index + matchedText.length
+              matchIndex + matchedText.length
             );
             matched = true;
             break;
@@ -139,8 +139,8 @@ export function AutoGlossaryLink({
 
     // If it's a React element, recurse into its children
     // But skip certain elements where we don't want to add links
-    if (React.isValidElement(node)) {
-      const element = node as React.ReactElement;
+    if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+      const element = node;
 
       // Don't process children of these elements
       const skipElements = [
@@ -169,12 +169,14 @@ export function AutoGlossaryLink({
         typeof element.props === "object" &&
         "children" in element.props
       ) {
-        const { children: originalChildren, ...restProps } =
-          element.props as any;
-        return React.cloneElement(element as React.ReactElement<any>, {
-          ...restProps,
-          children: processNode(originalChildren),
-        });
+        const { children: originalChildren, ...restProps } = element.props as {
+          children?: React.ReactNode;
+        };
+        return React.cloneElement(
+          element,
+          restProps,
+          processNode(originalChildren)
+        );
       }
     }
 
@@ -184,7 +186,34 @@ export function AutoGlossaryLink({
   return <>{processNode(children)}</>;
 }
 
-// Helper function to escape special regex characters
-function escapeRegex(text: string): string {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function isWordChar(char: string): boolean {
+  return /^[A-Za-z0-9_]$/.test(char);
+}
+
+function findWholeWordMatchIndex(text: string, term: string): number {
+  if (!text || !term) return -1;
+
+  const textLower = text.toLowerCase();
+  const termLower = term.toLowerCase();
+
+  let fromIndex = 0;
+  while (fromIndex < text.length) {
+    const index = textLower.indexOf(termLower, fromIndex);
+    if (index === -1) return -1;
+
+    const before = index > 0 ? text[index - 1] : "";
+    const afterIndex = index + term.length;
+    const after = afterIndex < text.length ? text[afterIndex] : "";
+
+    const startsOnBoundary = index === 0 || !isWordChar(before);
+    const endsOnBoundary = afterIndex === text.length || !isWordChar(after);
+
+    if (startsOnBoundary && endsOnBoundary) {
+      return index;
+    }
+
+    fromIndex = index + 1;
+  }
+
+  return -1;
 }

@@ -128,12 +128,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function SeasonalPage({
-  params,
-  searchParams,
-}: SeasonalPageProps) {
+export default async function SeasonalPage({ params }: SeasonalPageProps) {
   const { locale } = await params;
-  const { month: initialMonth, event: initialEvent } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "seasonal" });
@@ -164,7 +160,7 @@ export default async function SeasonalPage({
 
   // Get events for the current month
   const currentMonthEvents = getEventsForMonth(currentMonth);
-  const eventItems = currentMonthEvents.slice(0, 5).map((event, index) => {
+  const eventItems = currentMonthEvents.slice(0, 5).map((event) => {
     const eventInfo = getEventTranslation(event.id, locale);
     return {
       "@type": "Event",

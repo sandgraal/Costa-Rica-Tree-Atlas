@@ -19,23 +19,49 @@ import { buildCSP, buildMDXCSP, buildRelaxedCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
-// Build regex pattern from routing.locales for consistent locale matching
-const localePattern = routing.locales.join("|");
+const SUPPORTED_LOCALES = routing.locales;
 
 // Regex for matching static file extensions - compiled once at module level for performance
 const STATIC_FILE_REGEX =
   /\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico|map)$/;
 
-// Regex patterns for route matching - compiled once at module level for performance
-// Note: (/|$) matches both /en/admin (no trailing slash) and /en/admin/ or /en/admin/...
-const ADMIN_ROUTE_REGEX = new RegExp(`^/(${localePattern})/admin(/|$)`);
-const MARKETING_ROUTE_REGEX = new RegExp(`^/(${localePattern})/marketing/`);
-const TREE_DETAIL_ROUTE_REGEX = new RegExp(
-  `^/(${localePattern})/trees/[^/]+/?$`
-);
-const GLOSSARY_DETAIL_ROUTE_REGEX = new RegExp(
-  `^/(${localePattern})/glossary/[^/]+/?$`
-);
+function getLocaleFromPath(pathname: string): string | null {
+  const locale = pathname.split("/")[1];
+  return SUPPORTED_LOCALES.includes(
+    locale as (typeof SUPPORTED_LOCALES)[number]
+  )
+    ? locale
+    : null;
+}
+
+function isAdminRoute(pathname: string): boolean {
+  return SUPPORTED_LOCALES.some(
+    (locale) =>
+      pathname === `/${locale}/admin` ||
+      pathname.startsWith(`/${locale}/admin/`)
+  );
+}
+
+function isMarketingRoute(pathname: string): boolean {
+  return SUPPORTED_LOCALES.some((locale) =>
+    pathname.startsWith(`/${locale}/marketing/`)
+  );
+}
+
+function isLocalizedDetailRoute(
+  pathname: string,
+  baseSegment: "trees" | "glossary"
+): boolean {
+  return SUPPORTED_LOCALES.some((locale) => {
+    const prefix = `/${locale}/${baseSegment}/`;
+    if (!pathname.startsWith(prefix)) {
+      return false;
+    }
+
+    const remainder = pathname.slice(prefix.length).replace(/\/$/, "");
+    return remainder.length > 0 && !remainder.includes("/");
+  });
+}
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -54,7 +80,7 @@ export default async function middleware(request: NextRequest) {
 
   // Check if this is an admin route
   // Note: Locale pattern matches routing.locales from i18n/routing.ts
-  if (ADMIN_ROUTE_REGEX.test(pathname)) {
+  if (isAdminRoute(pathname)) {
     // Skip authentication for login page
     if (pathname.includes("/admin/login")) {
       const response = intlMiddleware(request);
@@ -90,8 +116,7 @@ export default async function middleware(request: NextRequest) {
     }
 
     // 3. No valid session - redirect to login page
-    const localeMatch = pathname.match(/^\/(en|es)\//);
-    const locale = localeMatch ? localeMatch[1] : "en";
+    const locale = getLocaleFromPath(pathname) ?? "en";
     const loginUrl = new URL(`/${locale}/admin/login`, request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
@@ -104,9 +129,9 @@ export default async function middleware(request: NextRequest) {
   let csp: string;
 
   // Determine which CSP policy to use based on route
-  const isTreeDetailPage = TREE_DETAIL_ROUTE_REGEX.test(pathname);
-  const isGlossaryDetailPage = GLOSSARY_DETAIL_ROUTE_REGEX.test(pathname);
-  const isMarketingPage = MARKETING_ROUTE_REGEX.test(pathname);
+  const isTreeDetailPage = isLocalizedDetailRoute(pathname, "trees");
+  const isGlossaryDetailPage = isLocalizedDetailRoute(pathname, "glossary");
+  const isMarketingPage = isMarketingRoute(pathname);
   const isMDXPage = isTreeDetailPage || isGlossaryDetailPage;
 
   if (isMarketingPage) {

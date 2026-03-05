@@ -27,14 +27,18 @@ export function generateBlurDataURL(
 export function calculateImageSizes(
   layout: "full" | "half" | "third" | "quarter"
 ): string {
-  const sizeMap = {
-    full: "100vw",
-    half: "(max-width: 768px) 100vw, 50vw",
-    third: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw",
-    quarter:
-      "(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw",
-  };
-  return sizeMap[layout];
+  switch (layout) {
+    case "full":
+      return "100vw";
+    case "half":
+      return "(max-width: 768px) 100vw, 50vw";
+    case "third":
+      return "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw";
+    case "quarter":
+      return "(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw";
+    default:
+      return "100vw";
+  }
 }
 
 /**

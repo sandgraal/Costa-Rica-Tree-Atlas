@@ -15,7 +15,24 @@ const GRID_COLS: Record<number, string> = {
 };
 
 export function SkeletonGrid({ count = 8, columns = 4 }: SkeletonGridProps) {
-  const colClass = GRID_COLS[columns] || "grid-cols-4";
+  const colClass = (() => {
+    switch (columns) {
+      case 1:
+        return GRID_COLS[1];
+      case 2:
+        return GRID_COLS[2];
+      case 3:
+        return GRID_COLS[3];
+      case 4:
+        return GRID_COLS[4];
+      case 5:
+        return GRID_COLS[5];
+      case 6:
+        return GRID_COLS[6];
+      default:
+        return "grid-cols-4";
+    }
+  })();
 
   return (
     <div className={`grid gap-4 ${colClass}`}>

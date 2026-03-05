@@ -52,12 +52,49 @@ const MONTHS_ORDER = [
   "december",
 ];
 
+function getSeasonLabels(locale: string): Record<string, string> {
+  return locale === "es" ? MONTH_LABELS.es : MONTH_LABELS.en;
+}
+
+function getMonthLabel(labels: Record<string, string>, month: string): string {
+  switch (month) {
+    case "january":
+      return labels.january;
+    case "february":
+      return labels.february;
+    case "march":
+      return labels.march;
+    case "april":
+      return labels.april;
+    case "may":
+      return labels.may;
+    case "june":
+      return labels.june;
+    case "july":
+      return labels.july;
+    case "august":
+      return labels.august;
+    case "september":
+      return labels.september;
+    case "october":
+      return labels.october;
+    case "november":
+      return labels.november;
+    case "december":
+      return labels.december;
+    case "all-year":
+      return labels["all-year"];
+    default:
+      return month;
+  }
+}
+
 export function SeasonalInfo({
   floweringSeason,
   fruitingSeason,
   locale,
 }: SeasonalInfoProps) {
-  const labels = MONTH_LABELS[locale] || MONTH_LABELS.en;
+  const labels = getSeasonLabels(locale);
 
   const hasFlowering = floweringSeason && floweringSeason.length > 0;
   const hasFruiting = fruitingSeason && fruitingSeason.length > 0;
@@ -68,7 +105,7 @@ export function SeasonalInfo({
 
   const formatSeason = (months: string[]): string => {
     if (months.includes("all-year")) {
-      return labels["all-year"];
+      return getMonthLabel(labels, "all-year");
     }
 
     // Sort months by calendar order
@@ -79,14 +116,12 @@ export function SeasonalInfo({
     // Group consecutive months
     const groups: string[][] = [];
     let currentGroup: string[] = [];
+    let previousMonth: string | undefined;
 
-    for (let i = 0; i < sorted.length; i++) {
-      const month = sorted[i];
-      const prevMonth = sorted[i - 1];
-
+    for (const month of sorted) {
       if (
-        prevMonth &&
-        MONTHS_ORDER.indexOf(month) - MONTHS_ORDER.indexOf(prevMonth) === 1
+        previousMonth &&
+        MONTHS_ORDER.indexOf(month) - MONTHS_ORDER.indexOf(previousMonth) === 1
       ) {
         currentGroup.push(month);
       } else {
@@ -95,6 +130,7 @@ export function SeasonalInfo({
         }
         currentGroup = [month];
       }
+      previousMonth = month;
     }
     if (currentGroup.length > 0) {
       groups.push(currentGroup);
@@ -104,9 +140,12 @@ export function SeasonalInfo({
     return groups
       .map((group) => {
         if (group.length === 1) {
-          return labels[group[0]];
+          return getMonthLabel(labels, group[0]);
         }
-        return `${labels[group[0]]}-${labels[group[group.length - 1]]}`;
+        return `${getMonthLabel(labels, group[0])}-${getMonthLabel(
+          labels,
+          group[group.length - 1]
+        )}`;
       })
       .join(", ");
   };
@@ -170,7 +209,7 @@ export function SeasonalInfo({
             return (
               <div key={month} className="flex-1 text-center">
                 <div className="text-[9px] text-muted-foreground mb-1">
-                  {labels[month]}
+                  {getMonthLabel(labels, month)}
                 </div>
                 <div className="space-y-0.5">
                   <div

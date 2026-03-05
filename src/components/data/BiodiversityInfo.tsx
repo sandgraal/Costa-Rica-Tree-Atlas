@@ -25,6 +25,48 @@ interface BiodiversityInfoProps {
   locale: Locale;
 }
 
+function getConservationCategoryDefinition(category: ConservationCategory) {
+  switch (category) {
+    case "EX":
+      return CONSERVATION_CATEGORIES.EX;
+    case "EW":
+      return CONSERVATION_CATEGORIES.EW;
+    case "CR":
+      return CONSERVATION_CATEGORIES.CR;
+    case "EN":
+      return CONSERVATION_CATEGORIES.EN;
+    case "VU":
+      return CONSERVATION_CATEGORIES.VU;
+    case "NT":
+      return CONSERVATION_CATEGORIES.NT;
+    case "LC":
+      return CONSERVATION_CATEGORIES.LC;
+    case "DD":
+      return CONSERVATION_CATEGORIES.DD;
+    case "NE":
+    default:
+      return CONSERVATION_CATEGORIES.NE;
+  }
+}
+
+function getPopulationTrendDefinition(trend: PopulationTrend | undefined) {
+  if (!trend || trend === "unknown") {
+    return null;
+  }
+
+  for (const [key, definition] of Object.entries(POPULATION_TRENDS)) {
+    if (key === trend) {
+      return definition;
+    }
+  }
+
+  return null;
+}
+
+function getLocalizedLabel(value: { en: string; es: string }, locale: Locale) {
+  return locale === "es" ? value.es : value.en;
+}
+
 // ============================================================================
 // Component
 // ============================================================================
@@ -204,13 +246,9 @@ function ConservationStatus({
   locale,
 }: ConservationStatusProps) {
   // Fallback to NE (Not Evaluated) if category is not recognized
-  const catDef =
-    CONSERVATION_CATEGORIES[category] ?? CONSERVATION_CATEGORIES.NE;
+  const catDef = getConservationCategoryDefinition(category);
   // Only show population trend if it's a known value (not "unknown" or undefined)
-  const trendDef =
-    populationTrend && populationTrend !== "unknown"
-      ? (POPULATION_TRENDS[populationTrend] ?? null)
-      : null;
+  const trendDef = getPopulationTrendDefinition(populationTrend);
 
   const labels = {
     title:
@@ -250,7 +288,7 @@ function ConservationStatus({
               {labels.populationTrend}:
             </span>
             <span className="font-medium">
-              {trendDef.icon} {trendDef.label[locale]}
+              {trendDef.icon} {getLocalizedLabel(trendDef.label, locale)}
             </span>
           </div>
         )}
@@ -309,7 +347,7 @@ function ConservationScale({
   return (
     <div className="flex items-center gap-1">
       {categories.map((cat) => {
-        const def = CONSERVATION_CATEGORIES[cat] ?? CONSERVATION_CATEGORIES.NE;
+        const def = getConservationCategoryDefinition(cat);
         const isActive = cat === currentCategory;
 
         return (

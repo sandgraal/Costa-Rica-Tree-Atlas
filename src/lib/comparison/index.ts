@@ -119,20 +119,30 @@ export type ComparisonTag =
  * @returns Icon emoji string or undefined if tag not found
  */
 export function getComparisonTagIcon(tag: string): string | undefined {
-  const tagIcons: Record<string, string> = {
-    leaves: "🍃",
-    bark: "🪵",
-    fruit: "🍎",
-    flowers: "🌸",
-    size: "📏",
-    habitat: "🏞️",
-    trunk: "🌳",
-    seeds: "🌰",
-    crown: "👑",
-    roots: "🌱",
-  };
-
-  return tagIcons[tag.toLowerCase()];
+  switch (tag.toLowerCase()) {
+    case "leaves":
+      return "🍃";
+    case "bark":
+      return "🪵";
+    case "fruit":
+      return "🍎";
+    case "flowers":
+      return "🌸";
+    case "size":
+      return "📏";
+    case "habitat":
+      return "🏞️";
+    case "trunk":
+      return "🌳";
+    case "seeds":
+      return "🌰";
+    case "crown":
+      return "👑";
+    case "roots":
+      return "🌱";
+    default:
+      return undefined;
+  }
 }
 
 /**
@@ -152,6 +162,35 @@ const TAG_LABELS: Record<string, { en: string; es: string }> = {
   roots: { en: "Roots", es: "Raíces" },
 };
 
+function getComparisonTagLabels(
+  tagKey: string
+): { en: string; es: string } | null {
+  switch (tagKey) {
+    case "leaves":
+      return TAG_LABELS.leaves;
+    case "bark":
+      return TAG_LABELS.bark;
+    case "fruit":
+      return TAG_LABELS.fruit;
+    case "flowers":
+      return TAG_LABELS.flowers;
+    case "size":
+      return TAG_LABELS.size;
+    case "habitat":
+      return TAG_LABELS.habitat;
+    case "trunk":
+      return TAG_LABELS.trunk;
+    case "seeds":
+      return TAG_LABELS.seeds;
+    case "crown":
+      return TAG_LABELS.crown;
+    case "roots":
+      return TAG_LABELS.roots;
+    default:
+      return null;
+  }
+}
+
 /**
  * Get localized label for a comparison tag
  * @param tag - Tag name (case-insensitive)
@@ -160,7 +199,7 @@ const TAG_LABELS: Record<string, { en: string; es: string }> = {
  */
 export function getComparisonTagLabel(tag: string, locale: Locale): string {
   const tagKey = tag.toLowerCase();
-  const labels = TAG_LABELS[tagKey];
+  const labels = getComparisonTagLabels(tagKey);
 
   if (!labels) {
     // Fallback: capitalize first letter if tag not found
@@ -202,8 +241,11 @@ export function getSpeciesImageUrl(
   }
 
   // First try featuredImages array at given index
-  if (tree.featuredImages && tree.featuredImages[index]) {
-    return tree.featuredImages[index];
+  if (tree.featuredImages) {
+    const [imageAtIndex] = tree.featuredImages.slice(index, index + 1);
+    if (imageAtIndex) {
+      return imageAtIndex;
+    }
   }
 
   // Fallback to featuredImage

@@ -175,9 +175,7 @@ function getTrustedClientIP(request: NextRequest): string {
     const ips = forwarded.split(",").map((ip) => ip.trim());
 
     // Validate from right to left (most recent proxy first)
-    for (let i = ips.length - 1; i >= 0; i--) {
-      const ip = ips[i];
-
+    for (const ip of [...ips].reverse()) {
       if (!isValidIP(ip)) continue;
 
       // If this is a trusted proxy, skip it and check the previous IP
@@ -233,6 +231,22 @@ function parseWindow(window: string): number {
         `Unknown time unit in window: "${window}". Using default ${DEFAULT_WINDOW_SECONDS} seconds.`
       );
       return DEFAULT_WINDOW_SECONDS;
+  }
+}
+
+function getRateLimitConfig(type: ApiRateLimitType) {
+  switch (type) {
+    case "identify":
+      return RATE_LIMITS.identify;
+    case "species":
+      return RATE_LIMITS.species;
+    case "images":
+      return RATE_LIMITS.images;
+    case "random":
+      return RATE_LIMITS.random;
+    case "default":
+    default:
+      return RATE_LIMITS.default;
   }
 }
 
@@ -294,7 +308,7 @@ export async function rateLimit(
   }
 
   const identifier = getTrustedClientIP(request);
-  const config = RATE_LIMITS[type];
+  const config = getRateLimitConfig(type);
   const windowSeconds = parseWindow(config.window);
 
   // Use circuit breaker with fallback
@@ -328,7 +342,11 @@ export async function rateLimit(
 
   if (!result.success) {
     const retryAfter = Math.ceil((result.reset - Date.now()) / 1000);
-    headers["Retry-After"] = retryAfter.toString();
+    const errorHeaders = {
+      ...headers,
+      "Retry-After": retryAfter.toString(),
+      "Content-Type": "application/json",
+    };
 
     return {
       response: new NextResponse(
@@ -339,10 +357,7 @@ export async function rateLimit(
         }),
         {
           status: 429,
-          headers: {
-            ...headers,
-            "Content-Type": "application/json",
-          },
+          headers: errorHeaders,
         }
       ),
     };

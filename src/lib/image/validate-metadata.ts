@@ -42,7 +42,7 @@ export function validateImageMetadata(slug: string): boolean {
     }
 
     // Check for suspicious paths (prevent directory traversal)
-    for (const [key, variant] of Object.entries(metadata.variants)) {
+    for (const key of Object.keys(metadata.variants)) {
       if (key.includes("..") || key.includes("/")) {
         console.error(`Suspicious variant key: ${key}`);
         return false;

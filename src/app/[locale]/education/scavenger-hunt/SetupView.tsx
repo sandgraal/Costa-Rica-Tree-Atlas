@@ -1,10 +1,7 @@
 "use client";
 
 import { Link } from "@i18n/navigation";
-import type {
-  MissionDisplayData,
-  ScavengerHuntLessonData,
-} from "./scavenger-hunt-data";
+import type { ScavengerHuntLessonData } from "./scavenger-hunt-data";
 import { TEAM_COLORS } from "./scavenger-hunt-validators";
 
 interface TeamMember {

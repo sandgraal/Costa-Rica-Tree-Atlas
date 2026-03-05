@@ -4,18 +4,18 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 // Mock localStorage for Node environment
 const localStorageMock = (() => {
-  let store: Record<string, string> = {};
+  let store = new Map<string, string>();
 
   return {
-    getItem: (key: string) => store[key] || null,
+    getItem: (key: string) => store.get(key) ?? null,
     setItem: (key: string, value: string) => {
-      store[key] = value.toString();
+      store.set(key, value.toString());
     },
     removeItem: (key: string) => {
-      delete store[key];
+      store.delete(key);
     },
     clear: () => {
-      store = {};
+      store = new Map<string, string>();
     },
   };
 })();
@@ -39,7 +39,7 @@ describe("Store Hydration", () => {
 
     const useTestStore = create<TestStore>()(
       persist(
-        (set) => ({
+        (_set) => ({
           _hydrated: false,
           favorites: [],
         }),
@@ -78,7 +78,7 @@ describe("Store Hydration", () => {
 
     const useTestStore = create<TestStore>()(
       persist(
-        (set) => ({
+        (_set) => ({
           _hydrated: false,
           favorites: [],
         }),
@@ -119,7 +119,7 @@ describe("Store Hydration", () => {
 
     const useTestStore = create<TestStore>()(
       persist(
-        (set) => ({
+        (_set) => ({
           _hydrated: false,
           favorites: [],
         }),

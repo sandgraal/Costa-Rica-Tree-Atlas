@@ -12,14 +12,17 @@ export function ThemeToggle() {
   const t = useTranslations("theme");
 
   const cycleTheme = useCallback(() => {
-    const themes: Array<"light" | "dark" | "system"> = [
-      "light",
-      "dark",
-      "system",
-    ];
-    const currentIndex = themes.indexOf(theme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    setTheme(themes[nextIndex]);
+    switch (theme) {
+      case "light":
+        setTheme("dark");
+        break;
+      case "dark":
+        setTheme("system");
+        break;
+      default:
+        setTheme("light");
+        break;
+    }
   }, [theme, setTheme]);
 
   // Listen for keyboard shortcut toggle event

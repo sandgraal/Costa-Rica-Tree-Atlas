@@ -280,7 +280,7 @@ function sanitizeString(value: string): string {
 export function sanitizeJsonLd(
   data: Record<string, unknown>
 ): Record<string, unknown> {
-  const sanitized: Record<string, unknown> = {};
+  const sanitizedEntries: Array<[string, unknown]> = [];
 
   for (const [key, value] of Object.entries(data)) {
     // Skip keys with dangerous names - only exact matches or obvious XSS vectors
@@ -291,22 +291,28 @@ export function sanitizeJsonLd(
     }
 
     if (typeof value === "string") {
-      sanitized[key] = sanitizeString(value);
+      sanitizedEntries.push([key, sanitizeString(value)]);
     } else if (Array.isArray(value)) {
-      sanitized[key] = value.map((item) => {
-        if (typeof item === "string") {
-          return sanitizeString(item);
-        } else if (typeof item === "object" && item !== null) {
-          return sanitizeJsonLd(item as Record<string, unknown>);
-        }
-        return item;
-      });
+      sanitizedEntries.push([
+        key,
+        value.map((item) => {
+          if (typeof item === "string") {
+            return sanitizeString(item);
+          } else if (typeof item === "object" && item !== null) {
+            return sanitizeJsonLd(item as Record<string, unknown>);
+          }
+          return item;
+        }),
+      ]);
     } else if (typeof value === "object" && value !== null) {
-      sanitized[key] = sanitizeJsonLd(value as Record<string, unknown>);
+      sanitizedEntries.push([
+        key,
+        sanitizeJsonLd(value as Record<string, unknown>),
+      ]);
     } else {
-      sanitized[key] = value;
+      sanitizedEntries.push([key, value]);
     }
   }
 
-  return sanitized;
+  return Object.fromEntries(sanitizedEntries);
 }

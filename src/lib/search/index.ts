@@ -264,23 +264,32 @@ const USE_CATEGORY_KEYWORDS: Record<UseCategory, string[]> = {
   ],
 };
 
+function isWordChar(char: string): boolean {
+  return /^[A-Za-z0-9_]$/.test(char);
+}
+
 /**
- * Pre-compiled regex patterns for each use category keyword.
- * Each pattern uses a leading word boundary (\b) to avoid false positives
- * (e.g. "oil" matching "soil") while still matching plurals/suffixes.
- * Built once at module init to avoid repeated construction in hot paths.
+ * Check if a keyword exists with a leading word boundary.
+ * This avoids false positives like "oil" matching "soil".
  */
-const USE_CATEGORY_PATTERNS: Record<UseCategory, RegExp[]> = Object.fromEntries(
-  (Object.entries(USE_CATEGORY_KEYWORDS) as [UseCategory, string[]][]).map(
-    ([category, keywords]) => [
-      category,
-      keywords.map((kw) => {
-        const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        return new RegExp(`\\b${escaped}`, "i");
-      }),
-    ]
-  )
-) as Record<UseCategory, RegExp[]>;
+function hasLeadingBoundaryMatch(haystack: string, keyword: string): boolean {
+  if (!haystack || !keyword) return false;
+
+  let fromIndex = 0;
+  while (fromIndex < haystack.length) {
+    const index = haystack.indexOf(keyword, fromIndex);
+    if (index === -1) return false;
+
+    const before = index > 0 ? haystack[index - 1] : "";
+    if (index === 0 || !isWordChar(before)) {
+      return true;
+    }
+
+    fromIndex = index + 1;
+  }
+
+  return false;
+}
 
 /**
  * Classify a tree's uses into use categories.
@@ -291,10 +300,15 @@ export function classifyUses(uses: string[] | undefined): UseCategory[] {
   const categories = new Set<UseCategory>();
 
   for (const use of uses) {
+    const normalizedUse = use.toLowerCase();
     for (const [category, patterns] of Object.entries(
-      USE_CATEGORY_PATTERNS
-    ) as [UseCategory, RegExp[]][]) {
-      if (patterns.some((re) => re.test(use))) {
+      USE_CATEGORY_KEYWORDS
+    ) as [UseCategory, string[]][]) {
+      if (
+        patterns.some((keyword) =>
+          hasLeadingBoundaryMatch(normalizedUse, keyword)
+        )
+      ) {
         categories.add(category);
       }
     }
@@ -420,9 +434,25 @@ export function sortTrees(trees: Tree[], sort: TreeSort): Tree[] {
   const sorted = [...trees];
   const { field, direction } = sort;
 
+  const getSortableValue = (
+    tree: Tree,
+    sortField: TreeSort["field"]
+  ): string => {
+    switch (sortField) {
+      case "title":
+        return tree.title ?? "";
+      case "scientificName":
+        return tree.scientificName ?? "";
+      case "family":
+        return tree.family ?? "";
+      default:
+        return "";
+    }
+  };
+
   sorted.sort((a, b) => {
-    const aValue = a[field] ?? "";
-    const bValue = b[field] ?? "";
+    const aValue = getSortableValue(a, field);
+    const bValue = getSortableValue(b, field);
     const comparison = aValue.localeCompare(bValue);
     return direction === "asc" ? comparison : -comparison;
   });
@@ -458,9 +488,9 @@ export function extractFacets(trees: Tree[]): SearchFacets {
   const useCatMap = new Map<UseCategory, number>();
 
   // Seasonal counts per month
-  const seasonal = {} as Record<Exclude<Month, "all-year">, SeasonalFacet>;
+  const seasonal = new Map<Exclude<Month, "all-year">, SeasonalFacet>();
   for (const m of MONTHS) {
-    seasonal[m] = { floweringCount: 0, fruitingCount: 0 };
+    seasonal.set(m, { floweringCount: 0, fruitingCount: 0 });
   }
 
   for (const tree of trees) {
@@ -505,11 +535,14 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     const floweringAllYear = flowering.includes("all-year");
     const fruitingAllYear = fruiting.includes("all-year");
     for (const m of MONTHS) {
+      const monthCounts = seasonal.get(m);
+      if (!monthCounts) continue;
+
       if (floweringAllYear || flowering.includes(m)) {
-        seasonal[m].floweringCount++;
+        monthCounts.floweringCount++;
       }
       if (fruitingAllYear || fruiting.includes(m)) {
-        seasonal[m].fruitingCount++;
+        monthCounts.fruitingCount++;
       }
     }
   }
@@ -547,7 +580,12 @@ export function extractFacets(trees: Tree[]): SearchFacets {
     useCategories: useCatOrder
       .filter((c) => useCatMap.has(c))
       .map((value) => ({ value, count: useCatMap.get(value)! })),
-    seasonal,
+    seasonal: Object.fromEntries(
+      MONTHS.map((month) => [
+        month,
+        seasonal.get(month) ?? { floweringCount: 0, fruitingCount: 0 },
+      ])
+    ) as Record<Exclude<Month, "all-year">, SeasonalFacet>,
   };
 }
 
@@ -594,15 +632,16 @@ export function getTreesActiveInMonth(
 export function getMonthCounts(
   trees: Tree[]
 ): Record<Month, { flowering: number; fruiting: number }> {
-  const counts = {} as Record<Month, { flowering: number; fruiting: number }>;
-
-  for (const month of MONTHS) {
-    const active = getTreesActiveInMonth(trees, month);
-    counts[month] = {
-      flowering: active.flowering.length,
-      fruiting: active.fruiting.length,
-    };
-  }
-
-  return counts;
+  return Object.fromEntries(
+    MONTHS.map((month) => {
+      const active = getTreesActiveInMonth(trees, month);
+      return [
+        month,
+        {
+          flowering: active.flowering.length,
+          fruiting: active.fruiting.length,
+        },
+      ];
+    })
+  ) as Record<Month, { flowering: number; fruiting: number }>;
 }
