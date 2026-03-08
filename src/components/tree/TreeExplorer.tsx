@@ -136,6 +136,7 @@ function getSuggestionByIndex(items: Tree[], index: number): Tree | undefined {
 
 function getTagDefinition(tag: string) {
   if (Object.hasOwn(TAG_DEFINITIONS, tag)) {
+    // eslint-disable-next-line security/detect-object-injection
     return TAG_DEFINITIONS[tag as keyof typeof TAG_DEFINITIONS];
   }
 
