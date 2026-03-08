@@ -47,8 +47,7 @@ export function SideBySideImages({
       credit: rightCredit,
     },
   ];
-  const activeImage =
-    images.find((_, index) => index === activeIndex) ?? images[0];
+  const activeImage = images.at(activeIndex) ?? images[0];
 
   const isLeftRemote = leftImage.startsWith("http");
   const isRightRemote = rightImage.startsWith("http");

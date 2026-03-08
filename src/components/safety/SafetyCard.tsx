@@ -62,10 +62,9 @@ function getAliasValue(
   key: string
 ): string | null {
   const normalizedKey = key.trim();
-  for (const [entryKey, entryValue] of Object.entries(map)) {
-    if (entryKey === normalizedKey) {
-      return entryValue;
-    }
+  if (Object.hasOwn(map, normalizedKey)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return map[normalizedKey] ?? null;
   }
 
   return null;

@@ -7,7 +7,7 @@ interface TabsProps {
 }
 
 export function Tabs({ tabs }: TabsProps) {
-  const firstTab = tabs.find((_, index) => index === 0);
+  const firstTab = tabs.at(0);
   const [activeTab, setActiveTab] = React.useState(firstTab?.id || "");
 
   const activeTabData = tabs.find((tab) => tab.id === activeTab);
@@ -48,7 +48,7 @@ export function Tabs({ tabs }: TabsProps) {
         return;
     }
 
-    const nextTab = tabs.find((_, index) => index === nextIndex);
+    const nextTab = tabs.at(nextIndex);
     if (!nextTab) return;
 
     setActiveTab(nextTab.id);

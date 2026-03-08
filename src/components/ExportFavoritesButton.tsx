@@ -23,10 +23,9 @@ function getTreeBySlug(
   treeLookup: Record<string, ExportableTree>,
   slug: string
 ): ExportableTree | undefined {
-  for (const [key, tree] of Object.entries(treeLookup)) {
-    if (key === slug) {
-      return tree;
-    }
+  if (Object.hasOwn(treeLookup, slug)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return treeLookup[slug];
   }
 
   return undefined;

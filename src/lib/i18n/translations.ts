@@ -485,10 +485,9 @@ function getConservationDefinition(
 }
 
 function getUILabelEntry(key: string): Record<Locale, string> | null {
-  for (const [labelKey, labelValue] of Object.entries(UI_LABELS)) {
-    if (labelKey === key) {
-      return labelValue;
-    }
+  if (Object.hasOwn(UI_LABELS, key)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return UI_LABELS[key] ?? null;
   }
 
   return null;

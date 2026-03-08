@@ -65,7 +65,7 @@ export default async function TreesPage({ params }: Props) {
   // Strip heavy body/_raw fields before sending to the client component
   // These fields contain the full MDX source (~30 MB total) which TreeExplorer
   // never reads — removing them shrinks the RSC payload dramatically.
-  const trees = fullTrees.map(({ _raw, ...rest }) => rest);
+  const trees = fullTrees.map(({ body: _body, _raw, ...rest }) => rest);
 
   // Generate ItemList structured data for SEO
   const structuredData = {

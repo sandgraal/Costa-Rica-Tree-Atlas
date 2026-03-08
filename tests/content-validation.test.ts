@@ -8,6 +8,8 @@
 import { describe, it, expect } from "vitest";
 import { allTrees } from "contentlayer/generated";
 import type { TreeBase } from "@/types/tree";
+import fs from "fs";
+import path from "path";
 
 function getRequiredFieldValue(tree: TreeBase, field: keyof TreeBase) {
   switch (field) {
@@ -27,8 +29,6 @@ function getRequiredFieldValue(tree: TreeBase, field: keyof TreeBase) {
       return undefined;
   }
 }
-import fs from "fs";
-import path from "path";
 
 describe("Tree Content Validation", () => {
   it("should have successfully loaded all tree files", () => {

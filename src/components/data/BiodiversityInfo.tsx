@@ -54,10 +54,9 @@ function getPopulationTrendDefinition(trend: PopulationTrend | undefined) {
     return null;
   }
 
-  for (const [key, definition] of Object.entries(POPULATION_TRENDS)) {
-    if (key === trend) {
-      return definition;
-    }
+  if (Object.hasOwn(POPULATION_TRENDS, trend)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return POPULATION_TRENDS[trend] ?? null;
   }
 
   return null;

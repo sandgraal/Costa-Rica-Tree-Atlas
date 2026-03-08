@@ -22,6 +22,7 @@ interface TreeSeasonData {
 interface SeasonalCalendarProps {
   trees: TreeSeasonData[];
   locale: string;
+  initialMonth?: string;
 }
 
 const MONTHS = [
@@ -104,9 +105,15 @@ const FULL_MONTH_LABELS: Record<string, Record<string, string>> = {
 type ViewMode = "calendar" | "list";
 type FilterType = "all" | "flowering" | "fruiting";
 
-export function SeasonalCalendar({ trees, locale }: SeasonalCalendarProps) {
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(
-    () => MONTHS[new Date().getMonth()]
+export function SeasonalCalendar({
+  trees,
+  locale,
+  initialMonth,
+}: SeasonalCalendarProps) {
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(() =>
+    initialMonth && MONTHS.includes(initialMonth)
+      ? initialMonth
+      : MONTHS[new Date().getMonth()]
   );
   const [viewMode, setViewMode] = useState<ViewMode>("calendar");
   const [filterType, setFilterType] = useState<FilterType>("all");

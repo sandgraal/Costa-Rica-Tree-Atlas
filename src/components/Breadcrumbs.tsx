@@ -12,10 +12,9 @@ function getCustomLabel(
   customLabels: Record<string, string>,
   segment: string
 ): string | undefined {
-  for (const [key, value] of Object.entries(customLabels)) {
-    if (key === segment) {
-      return value;
-    }
+  if (Object.hasOwn(customLabels, segment)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return customLabels[segment];
   }
   return undefined;
 }

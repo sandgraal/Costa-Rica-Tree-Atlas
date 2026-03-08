@@ -30,7 +30,7 @@ export function FeatureAnnotation({
   const activePoint =
     activeAnnotation === null
       ? null
-      : (annotations.find((_, index) => index === activeAnnotation) ?? null);
+      : (annotations.at(activeAnnotation) ?? null);
 
   return (
     <figure className="my-8 not-prose">

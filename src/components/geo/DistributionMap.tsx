@@ -31,10 +31,9 @@ function getLocalizedName(
 }
 
 function getProvinceByKey(provinceKey: Province) {
-  for (const [key, province] of Object.entries(PROVINCES)) {
-    if (key === provinceKey) {
-      return province;
-    }
+  if (Object.hasOwn(PROVINCES, provinceKey)) {
+    // eslint-disable-next-line security/detect-object-injection
+    return PROVINCES[provinceKey] ?? null;
   }
 
   return null;
