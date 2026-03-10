@@ -7,8 +7,8 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { AdminLayoutWrapper } from "./admin-layout-wrapper";
 import { AdminNav } from "./AdminNav";
-import { AdminLayoutWrapper } from "./AdminLayoutWrapper";
 
 export default async function AdminLayout({
   children,

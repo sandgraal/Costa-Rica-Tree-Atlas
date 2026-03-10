@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { SearchAnalyticsClient } from "./SearchAnalyticsClient";
+import { SearchAnalyticsClient } from "./search-analytics-client";
 
 export const dynamic = "force-dynamic";
 

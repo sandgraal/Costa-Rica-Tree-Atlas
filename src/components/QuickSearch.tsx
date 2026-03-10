@@ -200,7 +200,7 @@ export function QuickSearch() {
 
     // Track search analytics (fire-and-forget)
     trackSearch(debouncedQuery, locale, filtered.length);
-  }, [debouncedQuery, allTrees]);
+  }, [debouncedQuery, allTrees, locale]);
 
   // Handle keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {

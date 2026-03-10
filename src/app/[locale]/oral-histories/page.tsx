@@ -1,10 +1,28 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { allOralHistories, allTrees } from "contentlayer/generated";
+import * as contentlayerGenerated from "contentlayer/generated";
 import { Link } from "@i18n/navigation";
 import type { Locale } from "@/types";
+import type { Tree } from "@/types/tree";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import type { OralHistory, Tree } from "contentlayer/generated";
+
+interface OralHistory {
+  locale: string;
+  slug: string;
+  title: string;
+  description: string;
+  narrator: string;
+  community: string;
+  region?: string;
+  relatedTrees?: string[];
+  themes?: string[];
+  publishedAt?: string;
+}
+
+const allOralHistories =
+  (contentlayerGenerated as { allOralHistories?: OralHistory[] })
+    .allOralHistories ?? [];
+const allTrees = contentlayerGenerated.allTrees as Tree[];
 
 interface OralHistoriesPageProps {
   params: Promise<{ locale: Locale }>;

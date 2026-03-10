@@ -196,7 +196,6 @@ function getSuggestionByIndex(items: Tree[], index: number): Tree | undefined {
 
 function getTagDefinition(tag: string) {
   if (Object.hasOwn(TAG_DEFINITIONS, tag)) {
-    // eslint-disable-next-line security/detect-object-injection
     return TAG_DEFINITIONS[tag as keyof typeof TAG_DEFINITIONS];
   }
 
@@ -323,7 +322,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
         trackExplorerSearch(searchQuery, locale, mapped.length);
       }
     });
-  }, [searchQuery, typedTrees]);
+  }, [searchQuery, typedTrees, locale]);
 
   // Filter and sort pipeline (synchronous — operates on already-searched results)
   const filteredTrees = useMemo(() => {
