@@ -5,6 +5,14 @@
 
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 
+/** Indigenous name entry for a tree species */
+export interface IndigenousName {
+  language: string;
+  name: string;
+  meaning?: string;
+  source?: string;
+}
+
 /** Tree data without the heavy body/_raw fields that are never used in cards/lists */
 export type LightTree = Omit<ContentlayerTree, "body" | "_raw">;
 

@@ -23,10 +23,15 @@ import { SafetyDisclaimer } from "@/components/safety/SafetyDisclaimer";
 import { ContributeCTA } from "@/components/ContributeCTA";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TableOfContents } from "@/components/TableOfContents";
+import { IndigenousNames } from "@/components/IndigenousNames";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
 import { getConservationLabel } from "@/lib/i18n/translations";
-import type { Locale, ConservationCategory } from "@/types/tree";
+import type {
+  Locale,
+  ConservationCategory,
+  IndigenousName,
+} from "@/types/tree";
 
 // Dynamic imports for heavy below-fold components
 // DistributionMap renders static SVG from props, so SSR is beneficial for SEO
@@ -426,6 +431,15 @@ export default async function TreePage({ params }: Props) {
                   </div>
                 )}
               </div>
+
+              {/* Indigenous Names */}
+              <IndigenousNames
+                names={
+                  (tree as Record<string, unknown>).indigenousNames as
+                    | IndigenousName[]
+                    | undefined
+                }
+              />
 
               {/* Uses */}
               {tree.uses && tree.uses.length > 0 && (

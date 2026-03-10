@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface TreeImageData {
   slug: string;
@@ -21,8 +22,6 @@ interface ImageReviewClientProps {
 interface ImageVote {
   slug: string;
   vote: "up" | "down";
-  imageUrl: string;
-  timestamp: number;
 }
 
 type FilterType =
@@ -42,57 +41,96 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
     Array<{ url: string; attribution: string }>
   >([]);
   const [loadingAlternates, setLoadingAlternates] = useState(false);
+  const [loadingVotes, setLoadingVotes] = useState(true);
+  const [savingVote, setSavingVote] = useState<string | null>(null);
+  const t = useTranslations("admin.images");
 
-  // Load votes from localStorage
+  // Load votes from server
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    try {
-      const savedVotes = localStorage.getItem("tree-image-votes");
-      if (savedVotes) {
-        setVotes(JSON.parse(savedVotes));
+    const fetchVotes = async () => {
+      try {
+        const response = await fetch("/api/admin/image-votes");
+        if (response.ok) {
+          const data = await response.json();
+          const serverVotes: Record<string, ImageVote> = {};
+          for (const [slug, v] of Object.entries(
+            data.data.votes as Record<string, { vote: "up" | "down" }>
+          )) {
+            serverVotes[slug] = { slug, vote: v.vote };
+          }
+          setVotes(serverVotes);
+        }
+      } catch (e) {
+        console.error("Failed to load votes:", e);
+      } finally {
+        setLoadingVotes(false);
       }
-    } catch (e) {
-      console.error("Failed to parse image votes:", e);
-    }
+    };
+
+    void fetchVotes();
   }, []);
 
-  // Save votes to localStorage
-  const saveVote = (
-    slug: string,
-    voteType: "up" | "down",
-    imageUrl: string
-  ) => {
-    setVotes((prevVotes) => {
-      const newVotes = {
-        ...prevVotes,
-        [slug]: {
-          slug,
-          vote: voteType,
-          imageUrl,
-          timestamp: performance.now(),
-        },
-      };
-      try {
-        localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));
-      } catch (e) {
-        console.error("Failed to save vote:", e);
-      }
-      return newVotes;
-    });
-  };
+  // Save vote to server
+  const saveVote = useCallback(
+    async (slug: string, voteType: "up" | "down") => {
+      setSavingVote(slug);
+      // Optimistic update
+      setVotes((prev) => ({
+        ...prev,
+        [slug]: { slug, vote: voteType },
+      }));
 
-  const removeVote = (slug: string) => {
-    if (!Object.hasOwn(votes, slug)) return;
-    // Use destructuring to safely remove property without triggering object injection warning
-    const { [slug]: _removed, ...newVotes } = votes;
-    setVotes(newVotes);
+      try {
+        const response = await fetch("/api/admin/image-votes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ treeSlug: slug, vote: voteType }),
+        });
+
+        if (!response.ok) {
+          // Revert on failure
+          setVotes((prev) => {
+            const { [slug]: _removed, ...rest } = prev;
+            return rest;
+          });
+          console.error("Failed to save vote:", response.statusText);
+        }
+      } catch (e) {
+        // Revert on error
+        setVotes((prev) => {
+          const { [slug]: _removed, ...rest } = prev;
+          return rest;
+        });
+        console.error("Failed to save vote:", e);
+      } finally {
+        setSavingVote(null);
+      }
+    },
+    []
+  );
+
+  // Remove vote from server
+  const removeVote = useCallback(async (slug: string) => {
+    // Optimistic update
+    setVotes((prev) => {
+      const { [slug]: _removed, ...rest } = prev;
+      return rest;
+    });
+
     try {
-      localStorage.setItem("tree-image-votes", JSON.stringify(newVotes));
+      const response = await fetch("/api/admin/image-votes", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ treeSlug: slug }),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to remove vote:", response.statusText);
+      }
     } catch (e) {
-      console.error("Failed to save votes after removal:", e);
+      console.error("Failed to remove vote:", e);
     }
-  };
+  }, []);
 
   // Filter trees
   const filteredTrees = trees.filter((tree) => {
@@ -145,28 +183,6 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
     setLoadingAlternates(false);
   };
 
-  // Export votes for processing
-  const exportVotes = () => {
-    const upvoted = Object.values(votes).filter((v) => v.vote === "up");
-    const downvoted = Object.values(votes).filter((v) => v.vote === "down");
-
-    const exportData = {
-      upvoted,
-      downvoted,
-      exportedAt: new Date().toISOString(),
-    };
-
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `tree-image-votes-${new Date().toISOString().split("T")[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   const voteCounts = {
     up: Object.values(votes).filter((v) => v.vote === "up").length,
     down: Object.values(votes).filter((v) => v.vote === "down").length,
@@ -174,13 +190,21 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
 
   return (
     <div>
+      {/* Loading indicator */}
+      {loadingVotes && (
+        <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
+          <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full"></div>
+          {t("loadingVotes")}
+        </div>
+      )}
+
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-4 mb-6">
         {/* Search */}
         <div className="flex-1 min-w-[200px]">
           <input
             type="text"
-            placeholder="Search trees..."
+            placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -197,40 +221,47 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
           }}
           className="rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
-          <option value="all">All Trees ({trees.length})</option>
+          <option value="all">{t("filterAll", { count: trees.length })}</option>
           <option value="placeholder">
-            🔴 Need Photos ({trees.filter((t) => t.hasPlaceholder).length})
+            {t("filterNeedPhotos", {
+              count: trees.filter((tr) => tr.hasPlaceholder).length,
+            })}
           </option>
           <option value="external">
-            🟡 External URLs (
-            {
-              trees.filter(
-                (t) => !t.hasPlaceholder && !t.hasLocalImage && t.featuredImage
-              ).length
-            }
-            )
+            {t("filterExternal", {
+              count: trees.filter(
+                (tr) =>
+                  !tr.hasPlaceholder && !tr.hasLocalImage && tr.featuredImage
+              ).length,
+            })}
           </option>
           <option value="local">
-            🟢 Local Images ({trees.filter((t) => t.hasLocalImage).length})
+            {t("filterLocal", {
+              count: trees.filter((tr) => tr.hasLocalImage).length,
+            })}
           </option>
-          <option value="voted-up">👍 Voted Up ({voteCounts.up})</option>
-          <option value="voted-down">👎 Voted Down ({voteCounts.down})</option>
+          <option value="voted-up">
+            {t("filterVotedUp", { count: voteCounts.up })}
+          </option>
+          <option value="voted-down">
+            {t("filterVotedDown", { count: voteCounts.down })}
+          </option>
         </select>
 
-        {/* Export */}
+        {/* Vote summary */}
         {(voteCounts.up > 0 || voteCounts.down > 0) && (
-          <button
-            onClick={exportVotes}
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Export Votes ({voteCounts.up + voteCounts.down})
-          </button>
+          <span className="text-sm text-muted-foreground">
+            👍 {voteCounts.up} · 👎 {voteCounts.down}
+          </span>
         )}
       </div>
 
       {/* Results count */}
       <p className="text-sm text-muted-foreground mb-4">
-        Showing {filteredTrees.length} of {trees.length} trees
+        {t("showingResults", {
+          shown: filteredTrees.length,
+          total: trees.length,
+        })}
       </p>
 
       {/* Tree Grid */}
@@ -241,12 +272,11 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
             tree={tree}
             vote={votes[tree.slug]}
             onVote={(voteValue) => {
-              if (tree.featuredImage) {
-                saveVote(tree.slug, voteValue, tree.featuredImage);
-              }
+              void saveVote(tree.slug, voteValue);
             }}
+            isSaving={savingVote === tree.slug}
             onRemoveVote={() => {
-              removeVote(tree.slug);
+              void removeVote(tree.slug);
             }}
             onSelectForAlternates={() => {
               setSelectedTree(tree);
@@ -285,7 +315,7 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
               {/* Current Image */}
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                  Current Image
+                  {t("currentImage")}
                 </h3>
                 {selectedTree.featuredImage && !selectedTree.hasPlaceholder ? (
                   <div className="relative aspect-video w-full max-w-md rounded-xl overflow-hidden bg-muted">
@@ -310,7 +340,7 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
               {/* Alternate Images from iNaturalist */}
               <div>
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                  iNaturalist Images (Costa Rica)
+                  {t("iNaturalistImages")}
                 </h3>
                 {loadingAlternates ? (
                   <div className="flex items-center justify-center py-8">
@@ -337,25 +367,25 @@ export default function ImageReviewClient({ trees }: ImageReviewClientProps) {
                           onClick={() => {
                             // Copy URL to clipboard
                             void navigator.clipboard.writeText(img.url);
-                            alert("Image URL copied to clipboard!");
+                            alert(t("urlCopied"));
                           }}
                           className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-lg px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                         >
-                          Copy URL
+                          {t("copyUrl")}
                         </button>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <p className="text-muted-foreground text-sm py-4">
-                    No alternate images found. Try searching on{" "}
+                    {t("noAlternates")}{" "}
                     <a
                       href={`https://www.inaturalist.org/taxa/search?q=${encodeURIComponent(selectedTree.scientificName)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
                     >
-                      iNaturalist
+                      {t("iNaturalist")}
                     </a>
                   </p>
                 )}
@@ -375,30 +405,33 @@ function TreeImageCard({
   onVote,
   onRemoveVote,
   onSelectForAlternates,
+  isSaving,
 }: {
   tree: TreeImageData;
   vote?: ImageVote;
   onVote: (vote: "up" | "down") => void;
   onRemoveVote: () => void;
   onSelectForAlternates: () => void;
+  isSaving?: boolean;
 }) {
   const [imageError, setImageError] = useState(false);
+  const t = useTranslations("admin.images");
 
   const statusBadge = tree.hasPlaceholder
     ? {
         color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
-        label: "Needs Photo",
+        label: t("badgeNeedsPhoto"),
       }
     : tree.hasLocalImage
       ? {
           color:
             "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-          label: "Local",
+          label: t("badgeLocal"),
         }
       : {
           color:
             "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-          label: "External",
+          label: t("badgeExternal"),
         };
 
   return (
@@ -444,6 +477,13 @@ function TreeImageCard({
           </span>
         )}
 
+        {/* Saving indicator */}
+        {isSaving && (
+          <div className="absolute top-2 right-2">
+            <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div>
+          </div>
+        )}
+
         {/* Hover overlay with actions */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
           <button
@@ -455,7 +495,7 @@ function TreeImageCard({
                 ? "bg-green-500 text-white"
                 : "bg-white/20 hover:bg-green-500/80 text-white"
             }`}
-            title="Good image - save locally"
+            title={t("tooltipGoodImage")}
           >
             👍
           </button>
@@ -468,14 +508,14 @@ function TreeImageCard({
                 ? "bg-red-500 text-white"
                 : "bg-white/20 hover:bg-red-500/80 text-white"
             }`}
-            title="Bad image - needs replacement"
+            title={t("tooltipBadImage")}
           >
             👎
           </button>
           <button
             onClick={onSelectForAlternates}
             className="p-3 rounded-full bg-white/20 hover:bg-blue-500/80 text-white transition"
-            title="Find alternate images"
+            title={t("tooltipFindAlternates")}
           >
             🔍
           </button>
@@ -483,7 +523,7 @@ function TreeImageCard({
             <button
               onClick={onRemoveVote}
               className="p-3 rounded-full bg-white/20 hover:bg-gray-500/80 text-white transition"
-              title="Clear vote"
+              title={t("tooltipClearVote")}
             >
               ✕
             </button>

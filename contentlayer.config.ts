@@ -279,6 +279,13 @@ export const Tree = defineDocumentType(() => ({
       description: "Common problems and issues",
       required: false,
     },
+    // Indigenous & Cultural Names
+    indigenousNames: {
+      type: "json",
+      description:
+        "Indigenous names from Costa Rican peoples. JSON array of objects with fields: language (e.g., 'Bribri', 'Cabécar', 'Maleku', 'Boruca', 'Ngäbe'), name, meaning (optional), source (optional)",
+      required: false,
+    },
   },
   computedFields: {
     url: {
@@ -460,9 +467,90 @@ export const SpeciesComparison = defineDocumentType(() => ({
   },
 }));
 
+export const OralHistory = defineDocumentType(() => ({
+  name: "OralHistory",
+  filePathPattern: `oral-histories/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      description: "Title of the oral history entry",
+      required: true,
+    },
+    locale: {
+      type: "enum",
+      options: ["en", "es"],
+      description: "The language of the content",
+      required: true,
+    },
+    slug: {
+      type: "string",
+      description: "URL-friendly identifier",
+      required: true,
+    },
+    description: {
+      type: "string",
+      description: "Brief description for SEO and previews",
+      required: true,
+    },
+    narrator: {
+      type: "string",
+      description:
+        "Name of the person sharing the story (or 'Community Elder' etc.)",
+      required: true,
+    },
+    community: {
+      type: "string",
+      description:
+        "Indigenous community or region (e.g., 'Bribri', 'Cabécar', 'Maleku', 'Boruca')",
+      required: true,
+    },
+    region: {
+      type: "string",
+      description:
+        "Geographic region in Costa Rica (e.g., 'Talamanca', 'San Carlos')",
+      required: false,
+    },
+    relatedTrees: {
+      type: "list",
+      of: { type: "string" },
+      description: "Tree slugs mentioned in this oral history",
+      required: false,
+    },
+    themes: {
+      type: "list",
+      of: { type: "string" },
+      description:
+        "Thematic tags (e.g., 'medicine', 'ceremony', 'food', 'construction', 'mythology')",
+      required: false,
+    },
+    recordedDate: {
+      type: "string",
+      description: "When the story was recorded (approximate or exact)",
+      required: false,
+    },
+    featuredImage: {
+      type: "string",
+      description: "Featured image path for the entry",
+      required: false,
+    },
+    publishedAt: {
+      type: "date",
+      description: "Publication date",
+      required: false,
+    },
+  },
+  computedFields: {
+    url: {
+      type: "string",
+      resolve: (entry) => `/${entry.locale}/oral-histories/${entry.slug}`,
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Tree, GlossaryTerm, SpeciesComparison],
+  documentTypes: [Tree, GlossaryTerm, SpeciesComparison, OralHistory],
   disableImportAliasWarning: true,
   mdx: {
     remarkPlugins: [],

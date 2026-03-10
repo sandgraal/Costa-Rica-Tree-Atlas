@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@i18n/*": ["./i18n/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "contentlayer/generated": ["./.contentlayer/generated/index"]
     }
   },
   "include": [

@@ -244,6 +244,8 @@ function getRateLimitConfig(type: ApiRateLimitType) {
       return RATE_LIMITS.images;
     case "random":
       return RATE_LIMITS.random;
+    case "search":
+      return RATE_LIMITS.search;
     case "default":
     default:
       return RATE_LIMITS.default;
