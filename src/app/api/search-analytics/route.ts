@@ -52,7 +52,10 @@ type PrismaWithSearchQuery = {
       distinct?: string[];
     }) => Promise<Array<Record<string, unknown>>>;
   };
-  $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
+  $queryRaw: <T = unknown>(
+    query: TemplateStringsArray,
+    ...values: unknown[]
+  ) => Promise<T>;
 };
 
 /** Check if search_queries table exists */
@@ -186,7 +189,7 @@ export async function GET(request: NextRequest) {
     const [
       totalSearches,
       topQueries,
-      uniqueQueriesData,
+      uniqueQueryCount,
       zeroResultQueries,
       localeBreakdown,
       recentSearches,
@@ -206,12 +209,13 @@ export async function GET(request: NextRequest) {
         take: limit,
       }),
 
-      // Distinct query count — separate groupBy without take for accuracy
-      db.searchQuery.groupBy({
-        by: ["normalizedQuery"],
-        _count: { normalizedQuery: true },
-        where: { createdAt: { gte: since } },
-      }),
+      // Distinct query count — COUNT(DISTINCT) at the DB level so only a
+      // scalar is returned, regardless of window size or limit value.
+      db.$queryRaw<[{ count: bigint }]>`
+        SELECT COUNT(DISTINCT normalized_query)::bigint AS count
+        FROM search_queries
+        WHERE created_at >= ${since}
+      `,
 
       // Zero-result queries
       db.searchQuery.groupBy({
@@ -250,7 +254,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       data: {
         totalSearches,
-        uniqueQueries: uniqueQueriesData.length,
+        uniqueQueries: Number(uniqueQueryCount[0]?.count ?? 0),
         topQueries: topQueries.map((q) => ({
           query: q.normalizedQuery,
           count: q._count.normalizedQuery,
