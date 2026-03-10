@@ -12,6 +12,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -20,6 +21,14 @@ export default function AdminLoginPage() {
   const [showMfa, setShowMfa] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("admin.login");
+
+  // Extract locale from URL path for proper i18n redirects
+  const getLocale = () => {
+    if (typeof window === "undefined") return "en";
+    const match = window.location.pathname.match(/^\/(en|es)\//);
+    return match ? match[1] : "en";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,28 +42,30 @@ export default function AdminLoginPage() {
         password,
         ...(showMfa && totpCode ? { totpCode } : {}),
         redirect: false, // Handle redirect manually to show errors
-        callbackUrl: "/en/admin/images",
+        callbackUrl: `/${getLocale()}/admin/images`,
       });
 
       if (result?.error) {
         if (result.error === "MFA_REQUIRED") {
           setShowMfa(true);
-          setError("Please enter your 2FA code");
+          setError(t("totpRequired"));
         } else {
-          setError(`Authentication failed: ${result.error}`);
+          setError(t("authFailed", { error: result.error }));
         }
         setLoading(false);
       } else if (result?.ok) {
         // Success - redirect using Next.js router for proper navigation
-        window.location.href = "/en/admin/images";
+        window.location.href = `/${getLocale()}/admin/images`;
       } else {
-        setError("Login failed. Please try again.");
+        setError(t("loginFailed"));
         setLoading(false);
       }
     } catch (err) {
       console.error("Login exception:", err);
       setError(
-        `An error occurred: ${err instanceof Error ? err.message : "Unknown error"}`
+        t("errorOccurred", {
+          error: err instanceof Error ? err.message : "Unknown error",
+        })
       );
       setLoading(false);
     }
@@ -65,10 +76,10 @@ export default function AdminLoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h1 className="text-center text-3xl font-bold text-gray-900 dark:text-white">
-            Admin Login
+            {t("title")}
           </h1>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Costa Rica Tree Atlas Administration
+            {t("subtitle")}
           </p>
         </div>
 
@@ -80,7 +91,7 @@ export default function AdminLoginPage() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Email Address
+                {t("emailLabel")}
               </label>
               <input
                 id="email"
@@ -94,7 +105,7 @@ export default function AdminLoginPage() {
                   setEmail(e.target.value);
                 }}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="admin@example.com"
+                placeholder={t("emailPlaceholder")}
               />
             </div>
 
@@ -104,7 +115,7 @@ export default function AdminLoginPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Password
+                {t("passwordLabel")}
               </label>
               <input
                 id="password"
@@ -118,7 +129,7 @@ export default function AdminLoginPage() {
                   setPassword(e.target.value);
                 }}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="••••••••••••"
+                placeholder={t("passwordPlaceholder")}
               />
             </div>
 
@@ -129,7 +140,7 @@ export default function AdminLoginPage() {
                   htmlFor="totpCode"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                 >
-                  Two-Factor Authentication Code
+                  {t("totpLabel")}
                 </label>
                 <input
                   id="totpCode"
@@ -143,11 +154,11 @@ export default function AdminLoginPage() {
                   }}
                   maxLength={6}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white text-center text-2xl tracking-widest font-mono"
-                  placeholder="000000"
+                  placeholder={t("totpPlaceholder")}
                   autoFocus
                 />
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  Enter the 6-digit code from your authenticator app
+                  {t("totpHelp")}
                 </p>
               </div>
             )}
@@ -207,12 +218,12 @@ export default function AdminLoginPage() {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Signing in...
+                    {t("signingIn")}
                   </span>
                 ) : showMfa ? (
-                  "Verify Code"
+                  t("verifyCode")
                 ) : (
-                  "Sign In"
+                  t("signIn")
                 )}
               </button>
             </div>
@@ -228,7 +239,7 @@ export default function AdminLoginPage() {
                 }}
                 className="w-full text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
-                ← Back to login
+                {t("backToLogin")}
               </button>
             )}
           </div>
@@ -236,8 +247,8 @@ export default function AdminLoginPage() {
 
         {/* Security Notice */}
         <div className="text-center text-xs text-gray-500 dark:text-gray-400">
-          <p>This is a secure admin area.</p>
-          <p>All login attempts are logged and monitored.</p>
+          <p>{t("securityNotice")}</p>
+          <p>{t("securityMonitored")}</p>
         </div>
       </div>
     </div>

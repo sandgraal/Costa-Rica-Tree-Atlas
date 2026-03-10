@@ -11,6 +11,7 @@
 
 import { useState } from "react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 interface User {
   id: string;
@@ -61,6 +62,7 @@ export function UserManagementClient({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const t = useTranslations("admin.account");
 
   // Setup MFA
   const handleMfaSetup = async () => {
@@ -82,9 +84,7 @@ export function UserManagementClient({
 
       setMfaData(data.data);
       setShowMfaSetup(true);
-      setSuccess(
-        "MFA setup initiated. Please scan the QR code with your authenticator app."
-      );
+      setSuccess(t("mfaSetupInitiated"));
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -95,7 +95,7 @@ export function UserManagementClient({
   // Verify MFA code
   const handleMfaVerify = async () => {
     if (!verifyCode) {
-      setError("Please enter a verification code");
+      setError(t("mfaEnterCode"));
       return;
     }
 
@@ -115,7 +115,7 @@ export function UserManagementClient({
         throw new Error(data.message || "Verification failed");
       }
 
-      setSuccess("MFA enabled successfully! Redirecting...");
+      setSuccess(t("mfaEnabledSuccess"));
       setTimeout(() => {
         window.location.reload();
       }, 2000);
@@ -129,7 +129,7 @@ export function UserManagementClient({
   // Disable MFA
   const handleMfaDisable = async () => {
     if (!disablePassword) {
-      setError("Please enter your password");
+      setError(t("mfaEnterPassword"));
       return;
     }
 
@@ -149,7 +149,7 @@ export function UserManagementClient({
         throw new Error(data.message || "Failed to disable MFA");
       }
 
-      setSuccess("MFA disabled successfully! Redirecting...");
+      setSuccess(t("mfaDisabledSuccess"));
       setTimeout(() => window.location.reload(), 2000);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to disable MFA");
@@ -188,12 +188,12 @@ export function UserManagementClient({
       {/* User Information Card */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          Account Information
+          {t("accountInfo")}
         </h2>
         <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Email
+              {t("email")}
             </dt>
             <dd className="mt-1 text-sm text-gray-900 dark:text-white">
               {user.email}
@@ -201,15 +201,15 @@ export function UserManagementClient({
           </div>
           <div>
             <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Name
+              {t("name")}
             </dt>
             <dd className="mt-1 text-sm text-gray-900 dark:text-white">
-              {user.name || "N/A"}
+              {user.name || t("nameNotAvailable")}
             </dd>
           </div>
           <div>
             <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Account Created
+              {t("accountCreated")}
             </dt>
             <dd className="mt-1 text-sm text-gray-900 dark:text-white">
               {formatDate(user.createdAt)}
@@ -217,12 +217,12 @@ export function UserManagementClient({
           </div>
           <div>
             <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Email Verified
+              {t("emailVerified")}
             </dt>
             <dd className="mt-1 text-sm text-gray-900 dark:text-white">
               {user.emailVerified
                 ? formatDate(user.emailVerified)
-                : "Not verified"}
+                : t("notVerified")}
             </dd>
           </div>
         </dl>
@@ -231,21 +231,20 @@ export function UserManagementClient({
       {/* MFA Management Card */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          Two-Factor Authentication
+          {t("mfaHeading")}
         </h2>
 
         {!user.mfaEnabled ? (
           <div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              Add an extra layer of security to your account by enabling
-              two-factor authentication.
+              {t("mfaDescription")}
             </p>
             <button
               onClick={handleMfaSetup}
               disabled={loading}
               className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
             >
-              {loading ? "Setting up..." : "Enable MFA"}
+              {loading ? t("mfaSettingUp") : t("mfaEnable")}
             </button>
           </div>
         ) : (
@@ -263,11 +262,11 @@ export function UserManagementClient({
                 />
               </svg>
               <span className="text-sm text-gray-900 dark:text-white font-medium">
-                MFA is enabled
+                {t("mfaEnabled")}
               </span>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-              Backup codes remaining: {user.backupCodesRemaining}
+              {t("mfaBackupCodes", { count: user.backupCodesRemaining })}
             </p>
             <div className="mt-4">
               <input
@@ -276,7 +275,7 @@ export function UserManagementClient({
                 onChange={(e) => {
                   setDisablePassword(e.target.value);
                 }}
-                placeholder="Enter password to disable MFA"
+                placeholder={t("mfaDisablePasswordPlaceholder")}
                 className="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:text-white"
               />
               <button
@@ -284,7 +283,7 @@ export function UserManagementClient({
                 disabled={loading}
                 className="mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50"
               >
-                {loading ? "Disabling..." : "Disable MFA"}
+                {loading ? t("mfaDisabling") : t("mfaDisable")}
               </button>
             </div>
           </div>
@@ -294,18 +293,18 @@ export function UserManagementClient({
         {showMfaSetup && mfaData && (
           <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              Scan QR Code
+              {t("mfaScanQr")}
             </h3>
             <div className="flex flex-col items-center space-y-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={mfaData.qrCodeDataUrl}
-                alt="MFA QR Code"
+                alt={t("mfaQrAlt")}
                 className="w-64 h-64 border-4 border-gray-200 dark:border-gray-700 rounded-lg"
               />
               <div className="text-center">
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                  Or enter this code manually:
+                  {t("mfaManualEntry")}
                 </p>
                 <code className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">
                   {mfaData.secret}
@@ -314,7 +313,7 @@ export function UserManagementClient({
 
               <div className="w-full max-w-md">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Enter verification code from your app:
+                  {t("mfaVerificationPrompt")}
                 </label>
                 <input
                   type="text"
@@ -331,17 +330,16 @@ export function UserManagementClient({
                   disabled={loading || verifyCode.length !== 6}
                   className="mt-2 w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
                 >
-                  {loading ? "Verifying..." : "Verify & Enable"}
+                  {loading ? t("mfaVerifying") : t("mfaVerifyEnable")}
                 </button>
               </div>
 
               <div className="w-full max-w-md bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-md">
                 <h4 className="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-2">
-                  ⚠️ Save Your Backup Codes
+                  {t("mfaSaveBackupCodes")}
                 </h4>
                 <p className="text-xs text-yellow-700 dark:text-yellow-300 mb-2">
-                  Save these codes in a secure location. You&apos;ll need them
-                  if you lose access to your authenticator app.
+                  {t("mfaSaveBackupCodesDescription")}
                 </p>
                 <div className="grid grid-cols-2 gap-2 font-mono text-xs">
                   {mfaData.backupCodes.map((code, idx) => (
@@ -362,11 +360,11 @@ export function UserManagementClient({
       {/* Active Sessions Card */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          Active Sessions ({activeSessions.length})
+          {t("activeSessions", { count: activeSessions.length })}
         </h2>
         {activeSessions.length === 0 ? (
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            No active sessions
+            {t("noSessions")}
           </p>
         ) : (
           <div className="space-y-3">
@@ -378,16 +376,18 @@ export function UserManagementClient({
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      {session.userAgent || "Unknown device"}
+                      {session.userAgent || t("unknownDevice")}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      IP: {session.ipAddress || "Unknown"}
+                      {t("ipLabel", {
+                        ip: session.ipAddress || t("unknownIp"),
+                      })}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Created: {formatDate(session.createdAt)}
+                      {t("created", { date: formatDate(session.createdAt) })}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Expires: {formatDate(session.expires)}
+                      {t("expires", { date: formatDate(session.expires) })}
                     </p>
                   </div>
                 </div>
@@ -396,21 +396,25 @@ export function UserManagementClient({
           </div>
         )}
         <button
-          onClick={() => signOut({ callbackUrl: "/admin/login" })}
+          onClick={() => {
+            const match = window.location.pathname.match(/^\/(en|es)\//);
+            const locale = match ? match[1] : "en";
+            signOut({ callbackUrl: `/${locale}/admin/login` });
+          }}
           className="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
         >
-          Sign Out All Sessions
+          {t("signOutAll")}
         </button>
       </div>
 
       {/* Audit Log Card */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          Recent Activity
+          {t("recentActivity")}
         </h2>
         {auditLogs.length === 0 ? (
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            No activity logged
+            {t("noActivity")}
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -418,13 +422,13 @@ export function UserManagementClient({
               <thead>
                 <tr>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Event
+                    {t("eventHeader")}
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    IP Address
+                    {t("ipHeader")}
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Date
+                    {t("dateHeader")}
                   </th>
                 </tr>
               </thead>

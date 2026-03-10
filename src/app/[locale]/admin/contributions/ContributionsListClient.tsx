@@ -1,18 +1,12 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import type {
   Contribution,
   ContributionType,
   ContributionStatus,
 } from "@/types/contributions";
-
-const TYPE_LABELS: Record<ContributionType, string> = {
-  NEW_SPECIES: "New Species",
-  CORRECTION: "Correction",
-  LOCAL_KNOWLEDGE: "Local Knowledge",
-  TRANSLATION: "Translation",
-};
 
 const TYPE_COLORS: Record<ContributionType, string> = {
   NEW_SPECIES:
@@ -24,13 +18,20 @@ const TYPE_COLORS: Record<ContributionType, string> = {
   TRANSLATION: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
 };
 
-const STATUS_LABELS: Record<ContributionStatus, string> = {
-  PENDING: "Pending",
-  UNDER_REVIEW: "Under Review",
-  APPROVED: "Approved",
-  IMPLEMENTED: "Implemented",
-  REJECTED: "Rejected",
-  DUPLICATE: "Duplicate",
+const TYPE_LABEL_KEYS: Record<ContributionType, string> = {
+  NEW_SPECIES: "typeNewSpecies",
+  CORRECTION: "typeCorrection",
+  LOCAL_KNOWLEDGE: "typeLocalKnowledge",
+  TRANSLATION: "typeTranslation",
+};
+
+const STATUS_LABEL_KEYS: Record<ContributionStatus, string> = {
+  PENDING: "statusPending",
+  UNDER_REVIEW: "statusUnderReview",
+  APPROVED: "statusApproved",
+  IMPLEMENTED: "statusImplemented",
+  REJECTED: "statusRejected",
+  DUPLICATE: "statusDuplicate",
 };
 
 const STATUS_COLORS: Record<ContributionStatus, string> = {
@@ -44,11 +45,11 @@ const STATUS_COLORS: Record<ContributionStatus, string> = {
     "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
 };
 
-const TRUST_LEVEL_LABELS: Record<string, string> = {
-  NEW: "🌱 New",
-  CONTRIBUTOR: "🌿 Contributor",
-  TRUSTED: "🌳 Trusted",
-  EXPERT: "🏆 Expert",
+const TRUST_LEVEL_LABEL_KEYS: Record<string, string> = {
+  NEW: "trustNew",
+  CONTRIBUTOR: "trustContributor",
+  TRUSTED: "trustTrusted",
+  EXPERT: "trustExpert",
 };
 
 const TRUST_LEVEL_COLORS: Record<string, string> = {
@@ -61,6 +62,7 @@ const TRUST_LEVEL_COLORS: Record<string, string> = {
 };
 
 export function ContributionsListClient() {
+  const t = useTranslations("admin.contributions");
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -137,7 +139,7 @@ export function ContributionsListClient() {
 
   const handleDelete = async () => {
     if (!selectedContribution) return;
-    if (!confirm("Are you sure you want to delete this contribution?")) return;
+    if (!confirm(t("confirmDelete"))) return;
 
     setActionLoading(true);
     try {
@@ -167,7 +169,7 @@ export function ContributionsListClient() {
       {/* Filters */}
       <div className="flex flex-wrap gap-4 p-4 bg-card rounded-lg border border-border">
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium">Type:</label>
+          <label className="text-sm font-medium">{t("filterType")}</label>
           <select
             value={filter.type}
             onChange={(e) =>
@@ -178,17 +180,17 @@ export function ContributionsListClient() {
             }
             className="px-3 py-1.5 rounded border border-border bg-background text-sm"
           >
-            <option value="ALL">All Types</option>
-            {Object.entries(TYPE_LABELS).map(([key, label]) => (
+            <option value="ALL">{t("filterAllTypes")}</option>
+            {Object.entries(TYPE_LABEL_KEYS).map(([key, labelKey]) => (
               <option key={key} value={key}>
-                {label}
+                {t(labelKey)}
               </option>
             ))}
           </select>
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium">Status:</label>
+          <label className="text-sm font-medium">{t("filterStatus")}</label>
           <select
             value={filter.status}
             onChange={(e) =>
@@ -199,10 +201,10 @@ export function ContributionsListClient() {
             }
             className="px-3 py-1.5 rounded border border-border bg-background text-sm"
           >
-            <option value="ALL">All Statuses</option>
-            {Object.entries(STATUS_LABELS).map(([key, label]) => (
+            <option value="ALL">{t("filterAllStatuses")}</option>
+            {Object.entries(STATUS_LABEL_KEYS).map(([key, labelKey]) => (
               <option key={key} value={key}>
-                {label}
+                {t(labelKey)}
               </option>
             ))}
           </select>
@@ -212,7 +214,7 @@ export function ContributionsListClient() {
           onClick={fetchContributions}
           className="px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded hover:opacity-90 transition"
         >
-          Refresh
+          {t("refresh")}
         </button>
       </div>
 
@@ -226,7 +228,7 @@ export function ContributionsListClient() {
       {/* Loading */}
       {loading && (
         <div className="text-center py-12 text-muted-foreground">
-          Loading contributions...
+          {t("loading")}
         </div>
       )}
 
@@ -234,10 +236,8 @@ export function ContributionsListClient() {
       {!loading && contributions.length === 0 && (
         <div className="text-center py-12">
           <div className="text-6xl mb-4">📭</div>
-          <h3 className="text-xl font-semibold mb-2">No contributions found</h3>
-          <p className="text-muted-foreground">
-            No contributions match your current filters.
-          </p>
+          <h3 className="text-xl font-semibold mb-2">{t("noResults")}</h3>
+          <p className="text-muted-foreground">{t("noMatchingResults")}</p>
         </div>
       )}
 
@@ -258,12 +258,18 @@ export function ContributionsListClient() {
                     <span
                       className={`px-2 py-0.5 text-xs font-medium rounded ${TYPE_COLORS[contribution.type as ContributionType]}`}
                     >
-                      {TYPE_LABELS[contribution.type as ContributionType]}
+                      {t(
+                        TYPE_LABEL_KEYS[contribution.type as ContributionType]
+                      )}
                     </span>
                     <span
                       className={`px-2 py-0.5 text-xs font-medium rounded ${STATUS_COLORS[contribution.status as ContributionStatus]}`}
                     >
-                      {STATUS_LABELS[contribution.status as ContributionStatus]}
+                      {t(
+                        STATUS_LABEL_KEYS[
+                          contribution.status as ContributionStatus
+                        ]
+                      )}
                     </span>
                   </div>
                   <h3 className="font-semibold truncate">
@@ -274,21 +280,27 @@ export function ContributionsListClient() {
                   </p>
                   <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                     {contribution.treeSlug && (
-                      <span>Tree: {contribution.treeSlug}</span>
+                      <span>
+                        {t("treeLabel", { slug: contribution.treeSlug })}
+                      </span>
                     )}
                     <span>
                       {new Date(contribution.createdAt).toLocaleDateString()}
                     </span>
                     {contribution.contributorName && (
-                      <span>By: {contribution.contributorName}</span>
+                      <span>
+                        {t("byLabel", { name: contribution.contributorName })}
+                      </span>
                     )}
                     {contribution.contributorTrustLevel && (
                       <span
                         className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${TRUST_LEVEL_COLORS[contribution.contributorTrustLevel] || TRUST_LEVEL_COLORS.NEW}`}
                       >
-                        {TRUST_LEVEL_LABELS[
-                          contribution.contributorTrustLevel
-                        ] || contribution.contributorTrustLevel}
+                        {t(
+                          TRUST_LEVEL_LABEL_KEYS[
+                            contribution.contributorTrustLevel
+                          ] || "trustNew"
+                        )}
                       </span>
                     )}
                   </div>
@@ -312,20 +324,20 @@ export function ContributionsListClient() {
                     <span
                       className={`px-2 py-0.5 text-xs font-medium rounded ${TYPE_COLORS[selectedContribution.type as ContributionType]}`}
                     >
-                      {
-                        TYPE_LABELS[
+                      {t(
+                        TYPE_LABEL_KEYS[
                           selectedContribution.type as ContributionType
                         ]
-                      }
+                      )}
                     </span>
                     <span
                       className={`px-2 py-0.5 text-xs font-medium rounded ${STATUS_COLORS[selectedContribution.status as ContributionStatus]}`}
                     >
-                      {
-                        STATUS_LABELS[
+                      {t(
+                        STATUS_LABEL_KEYS[
                           selectedContribution.status as ContributionStatus
                         ]
-                      }
+                      )}
                     </span>
                   </div>
                   <h2 className="text-xl font-bold">
@@ -347,7 +359,7 @@ export function ContributionsListClient() {
                 {selectedContribution.treeSlug && (
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">
-                      Target Tree
+                      {t("targetTree")}
                     </label>
                     <p className="mt-1">{selectedContribution.treeSlug}</p>
                   </div>
@@ -356,7 +368,7 @@ export function ContributionsListClient() {
                 {selectedContribution.targetField && (
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">
-                      Target Field
+                      {t("targetField")}
                     </label>
                     <p className="mt-1">{selectedContribution.targetField}</p>
                   </div>
@@ -364,7 +376,7 @@ export function ContributionsListClient() {
 
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">
-                    Description
+                    {t("descriptionLabel")}
                   </label>
                   <p className="mt-1 whitespace-pre-wrap">
                     {selectedContribution.description}
@@ -374,7 +386,7 @@ export function ContributionsListClient() {
                 {selectedContribution.evidence && (
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">
-                      Evidence/Sources
+                      {t("evidenceLabel")}
                     </label>
                     <p className="mt-1 whitespace-pre-wrap">
                       {selectedContribution.evidence}
@@ -385,7 +397,7 @@ export function ContributionsListClient() {
                 {selectedContribution.region && (
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">
-                      Region
+                      {t("regionLabel")}
                     </label>
                     <p className="mt-1">{selectedContribution.region}</p>
                   </div>
@@ -397,7 +409,7 @@ export function ContributionsListClient() {
                     {selectedContribution.scientificName && (
                       <div>
                         <label className="text-sm font-medium text-muted-foreground">
-                          Scientific Name
+                          {t("scientificNameLabel")}
                         </label>
                         <p className="mt-1 italic">
                           {selectedContribution.scientificName}
@@ -407,7 +419,7 @@ export function ContributionsListClient() {
                     {selectedContribution.family && (
                       <div>
                         <label className="text-sm font-medium text-muted-foreground">
-                          Family
+                          {t("familyLabel")}
                         </label>
                         <p className="mt-1">{selectedContribution.family}</p>
                       </div>
@@ -415,7 +427,7 @@ export function ContributionsListClient() {
                     {selectedContribution.commonNameEn && (
                       <div>
                         <label className="text-sm font-medium text-muted-foreground">
-                          Common Name (EN)
+                          {t("commonNameEn")}
                         </label>
                         <p className="mt-1">
                           {selectedContribution.commonNameEn}
@@ -425,7 +437,7 @@ export function ContributionsListClient() {
                     {selectedContribution.commonNameEs && (
                       <div>
                         <label className="text-sm font-medium text-muted-foreground">
-                          Common Name (ES)
+                          {t("commonNameEs")}
                         </label>
                         <p className="mt-1">
                           {selectedContribution.commonNameEs}
@@ -438,10 +450,10 @@ export function ContributionsListClient() {
                 {/* Contributor info */}
                 <div className="border-t border-border pt-4">
                   <label className="text-sm font-medium text-muted-foreground">
-                    Contributor
+                    {t("contributorLabel")}
                   </label>
                   <div className="mt-1 text-sm">
-                    {selectedContribution.contributorName || "Anonymous"}
+                    {selectedContribution.contributorName || t("anonymous")}
                     {selectedContribution.contributorEmail && (
                       <span className="ml-2 text-muted-foreground">
                         ({selectedContribution.contributorEmail})
@@ -451,9 +463,11 @@ export function ContributionsListClient() {
                       <span
                         className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${TRUST_LEVEL_COLORS[selectedContribution.contributorTrustLevel] || TRUST_LEVEL_COLORS.NEW}`}
                       >
-                        {TRUST_LEVEL_LABELS[
-                          selectedContribution.contributorTrustLevel
-                        ] || selectedContribution.contributorTrustLevel}
+                        {t(
+                          TRUST_LEVEL_LABEL_KEYS[
+                            selectedContribution.contributorTrustLevel
+                          ] || "trustNew"
+                        )}
                         {selectedContribution.contributorReputationScore !=
                           null && (
                           <span className="ml-1 opacity-75">
@@ -465,23 +479,27 @@ export function ContributionsListClient() {
                     )}
                   </div>
                   <div className="text-xs text-muted-foreground mt-1">
-                    Submitted:{" "}
-                    {new Date(selectedContribution.createdAt).toLocaleString()}
+                    {t("submitted", {
+                      date: new Date(
+                        selectedContribution.createdAt
+                      ).toLocaleString(),
+                    })}
                   </div>
                 </div>
 
                 {/* Review notes */}
-                {selectedContribution.status === "PENDING" && (
+                {(selectedContribution.status === "PENDING" ||
+                  selectedContribution.status === "UNDER_REVIEW") && (
                   <div className="border-t border-border pt-4">
                     <label className="text-sm font-medium">
-                      Review Notes (optional)
+                      {t("reviewNotesLabel")}
                     </label>
                     <textarea
                       value={reviewNotes}
                       onChange={(e) => {
                         setReviewNotes(e.target.value);
                       }}
-                      placeholder="Add notes about your decision..."
+                      placeholder={t("reviewNotesPlaceholder")}
                       rows={3}
                       className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-background resize-y"
                     />
@@ -490,42 +508,45 @@ export function ContributionsListClient() {
               </div>
 
               {/* Actions */}
-              {selectedContribution.status === "PENDING" && (
+              {(selectedContribution.status === "PENDING" ||
+                selectedContribution.status === "UNDER_REVIEW") && (
                 <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
                   <button
                     onClick={() => handleAction("approve")}
                     disabled={actionLoading}
                     className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition"
                   >
-                    ✓ Approve
+                    {t("approve")}
                   </button>
-                  <button
-                    onClick={() => handleAction("review")}
-                    disabled={actionLoading}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition"
-                  >
-                    📋 Mark for Review
-                  </button>
+                  {selectedContribution.status === "PENDING" && (
+                    <button
+                      onClick={() => handleAction("review")}
+                      disabled={actionLoading}
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition"
+                    >
+                      {t("markForReview")}
+                    </button>
+                  )}
                   <button
                     onClick={() => handleAction("duplicate")}
                     disabled={actionLoading}
                     className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:opacity-50 transition"
                   >
-                    📄 Duplicate
+                    {t("duplicate")}
                   </button>
                   <button
                     onClick={() => handleAction("reject")}
                     disabled={actionLoading}
                     className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 transition"
                   >
-                    ✗ Reject
+                    {t("reject")}
                   </button>
                   <button
                     onClick={handleDelete}
                     disabled={actionLoading}
                     className="px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 disabled:opacity-50 transition"
                   >
-                    🗑️ Delete
+                    {t("delete")}
                   </button>
                 </div>
               )}
@@ -537,7 +558,7 @@ export function ContributionsListClient() {
                     disabled={actionLoading}
                     className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition"
                   >
-                    ✓ Mark as Implemented
+                    {t("markImplemented")}
                   </button>
                 </div>
               )}
@@ -548,7 +569,7 @@ export function ContributionsListClient() {
                   onClick={() => setSelectedContribution(null)}
                   className="px-4 py-2 border border-border rounded-lg hover:bg-muted transition"
                 >
-                  Close
+                  {t("close")}
                 </button>
               </div>
             </div>

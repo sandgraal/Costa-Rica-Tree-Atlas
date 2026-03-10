@@ -396,6 +396,29 @@ model TreeRating {
 }
 
 // ============================================================================
+// SEARCH ANALYTICS SYSTEM
+// Track anonymous search queries for content gap analysis and UX improvement
+// ============================================================================
+
+model SearchQuery {
+  id             String   @id @default(cuid())
+  query          String   @db.VarChar(500) // The search text entered
+  normalizedQuery String  @db.VarChar(500) // Lowercased, trimmed for aggregation
+  locale         String   @db.VarChar(5)   // "en" or "es"
+  resultsCount   Int                       // Number of results returned
+  selectedResult String?  @db.VarChar(255) // Slug of the tree the user clicked
+  sessionId      String   @db.VarChar(64)  // Anonymous session hash
+  createdAt      DateTime @default(now())
+
+  @@index([normalizedQuery])
+  @@index([locale])
+  @@index([createdAt])
+  @@index([resultsCount])                   // Fast filter for zero-result queries
+  @@index([normalizedQuery, locale])        // Aggregation by query+locale
+  @@map("search_queries")
+}
+
+// ============================================================================
 // CONTRIBUTOR REPUTATION SYSTEM
 // Track contribution history, badges, and trust levels for community members
 // ============================================================================

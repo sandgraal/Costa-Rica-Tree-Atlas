@@ -10,16 +10,22 @@
 
 import { getServerSession } from "next-auth";
 import { redirect as nextRedirect } from "next/navigation";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { UserManagementClient } from "./UserManagementClient";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "User Management | Admin",
-  description: "Manage your account, security settings, and view audit logs",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("admin.account");
+  return {
+    title: t("pageTitle"),
+    description: t("pageDescription"),
+    robots: { index: false, follow: false },
+  };
+}
 
 export default async function AdminUsersPage({
   params,
@@ -27,6 +33,7 @@ export default async function AdminUsersPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getTranslations("admin.account");
 
   // Check authentication
   const session = await getServerSession(authOptions);
@@ -77,14 +84,14 @@ export default async function AdminUsersPage({
     : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            User Management
+            {t("heading")}
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Manage your account security and view activity logs
+            {t("description")}
           </p>
         </div>
 

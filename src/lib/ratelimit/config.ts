@@ -40,6 +40,15 @@ export const RATE_LIMITS = {
     description: "Random tree selection",
   },
   /**
+   * Search analytics recording
+   * Generous limit — lightweight writes, one per search action
+   */
+  search: {
+    requests: 60,
+    window: "1 m",
+    description: "Search analytics recording",
+  },
+  /**
    * Default rate limit for general API endpoints
    * Applied to endpoints without specific rate limits
    */
