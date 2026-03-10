@@ -139,6 +139,12 @@ export async function POST(request: NextRequest) {
  * Query params:
  *   days  — lookback window (default 30)
  *   limit — top-N queries (default 50)
+ *
+ * NOTE: Auth checks that the caller is any authenticated user. This app uses a
+ * single-credentials provider, so in practice only the one registered admin
+ * account can log in.  If multi-user accounts are ever introduced, add an
+ * explicit role or email allowlist check here (consistent with other
+ * /api/admin/* routes in this codebase).
  */
 export async function GET(request: NextRequest) {
   try {
@@ -180,6 +186,7 @@ export async function GET(request: NextRequest) {
     const [
       totalSearches,
       topQueries,
+      uniqueQueriesData,
       zeroResultQueries,
       localeBreakdown,
       recentSearches,
@@ -197,6 +204,13 @@ export async function GET(request: NextRequest) {
         where: { createdAt: { gte: since } },
         orderBy: { _count: { normalizedQuery: "desc" } },
         take: limit,
+      }),
+
+      // Distinct query count — separate groupBy without take for accuracy
+      db.searchQuery.groupBy({
+        by: ["normalizedQuery"],
+        _count: { normalizedQuery: true },
+        where: { createdAt: { gte: since } },
       }),
 
       // Zero-result queries
@@ -236,7 +250,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       data: {
         totalSearches,
-        uniqueQueries: topQueries.length,
+        uniqueQueries: uniqueQueriesData.length,
         topQueries: topQueries.map((q) => ({
           query: q.normalizedQuery,
           count: q._count.normalizedQuery,

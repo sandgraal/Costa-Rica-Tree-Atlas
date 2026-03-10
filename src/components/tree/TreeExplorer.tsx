@@ -26,6 +26,7 @@ import {
 } from "@/lib/i18n";
 import { isProvince } from "@/lib/geo";
 import { useStore } from "@/lib/store";
+import { getSearchSessionId } from "@/lib/analytics/search-session";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
 import type {
@@ -45,19 +46,6 @@ import type {
 // ---------------------------------------------------------------------------
 // Search analytics helpers — fire-and-forget, never block UI
 // ---------------------------------------------------------------------------
-
-function getSearchSessionId(): string {
-  const KEY = "search_session_id";
-  if (typeof window === "undefined") return "ssr";
-  let id = sessionStorage.getItem(KEY);
-  if (!id) {
-    const arr = new Uint8Array(32);
-    crypto.getRandomValues(arr);
-    id = Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
-    sessionStorage.setItem(KEY, id);
-  }
-  return id;
-}
 
 function trackExplorerSearch(
   query: string,
@@ -85,6 +73,7 @@ function trackExplorerClick(
   resultsCount: number,
   selectedResult: string
 ) {
+  if (!query.trim()) return;
   fetch("/api/search-analytics", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
