@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- setup view indexes typed team arrays/colors with bounded indices */
 
 import { Link } from "@i18n/navigation";
 import type { ScavengerHuntLessonData } from "./scavenger-hunt-data";

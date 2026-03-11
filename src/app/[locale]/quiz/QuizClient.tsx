@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- quiz uses constrained locale/mode/index lookups over local in-memory dictionaries. */
 
 import { useState, useCallback } from "react";
 import { Link } from "@i18n/navigation";

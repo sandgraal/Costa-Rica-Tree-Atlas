@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- map UI relies on typed geo/content dictionaries and enum-key lookups */
 
 import { useState, useMemo } from "react";
 import { Link } from "@i18n/navigation";
@@ -18,12 +19,20 @@ import {
   getCurrentMonth,
   type DiscoveryCollection,
 } from "@/lib/geo/collections";
-import type { Locale, Province, Region, TreeTag, Distribution, Month } from "@/types/tree";
+import type {
+  Locale,
+  Province,
+  Region,
+  TreeTag,
+  Distribution,
+  Month,
+} from "@/types/tree";
 import {
   CONSERVATION_AREAS,
   getBiodiversityColor,
   getEcosystemLabel,
 } from "./map-data";
+import { buildTreesProvinceHref } from "@/lib/query-contracts";
 import { CollectionCard } from "./CollectionCard";
 import { CollectionDetailView } from "./CollectionDetailView";
 
@@ -831,11 +840,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                     </ul>
                     {selectedTrees.length > 15 && (
                       <Link
-                        href={
-                          selectedProvince
-                            ? `/trees?distribution=${selectedProvince}`
-                            : `/trees`
-                        }
+                        href={buildTreesProvinceHref(selectedProvince)}
                         className="block mt-4 text-sm text-primary hover:underline text-center"
                       >
                         {labels.viewAll} ({selectedTrees.length}) →
@@ -1007,7 +1012,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                         </div>
                       )}
                       <Link
-                        href={`/trees?distribution=${key}`}
+                        href={buildTreesProvinceHref(key)}
                         className="block w-full text-center py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors text-sm font-medium"
                       >
                         {labels.viewAll} →

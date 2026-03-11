@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- collection text uses typed locale-key dictionaries */
 
 import { ShareCollectionButton } from "@/components/ShareCollectionButton";
 import type { DiscoveryCollection } from "@/lib/geo/collections";

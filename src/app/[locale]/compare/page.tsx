@@ -8,7 +8,8 @@ import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBad
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
 import dynamic from "next/dynamic";
-import type { Locale } from "@/types/tree";
+import type { ComparisonTreeSummary, Locale } from "@/types/tree";
+import type { Metadata } from "next";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 
 // Lazy load TreeComparison — 426-line client component with interactive tree selector
@@ -29,7 +30,11 @@ const TreeComparison = dynamic(
 
 type Params = Promise<{ locale: string }>;
 
-export async function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "comparison" });
   const siteT = await getTranslations({ locale });
@@ -48,6 +53,21 @@ export default async function ComparePage({ params }: { params: Params }) {
   const trees = allTrees
     .filter((tree) => tree.locale === locale)
     .sort((a, b) => a.title.localeCompare(b.title));
+
+  // Project only fields needed by client-side comparison UI and cards.
+  // Avoid passing heavy contentlayer fields (body/_raw) to client components.
+  const treeSummaries: ComparisonTreeSummary[] = trees.map((tree) => ({
+    slug: tree.slug,
+    title: tree.title,
+    scientificName: tree.scientificName,
+    family: tree.family,
+    featuredImage: tree.featuredImage,
+    maxHeight: tree.maxHeight,
+    nativeRegion: tree.nativeRegion,
+    conservationStatus: tree.conservationStatus,
+    uses: tree.uses,
+    tags: tree.tags,
+  }));
 
   // Get all comparison guides for the current locale
   const comparisons = allSpeciesComparisons
@@ -76,7 +96,7 @@ export default async function ComparePage({ params }: { params: Params }) {
       <SafeJsonLd data={structuredData} />
       <ComparePageClient
         locale={locale}
-        trees={trees}
+        trees={treeSummaries}
         comparisons={comparisons}
       />
     </>
@@ -89,7 +109,7 @@ function ComparePageClient({
   comparisons,
 }: {
   locale: string;
-  trees: (typeof allTrees)[number][];
+  trees: ComparisonTreeSummary[];
   comparisons: (typeof allSpeciesComparisons)[number][];
 }) {
   const t = useTranslations("comparison");

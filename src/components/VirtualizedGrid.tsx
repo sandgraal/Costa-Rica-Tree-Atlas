@@ -37,6 +37,7 @@ export function VirtualizedGrid<T>({
   // Calculate rows needed
   const rows = Math.ceil(items.length / columns);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rows,
     getScrollElement: () => parentRef.current,

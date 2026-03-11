@@ -9,10 +9,11 @@ import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminRootPage({
+export default async function AdminRootPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  redirect(`/${params.locale}/admin/images`);
+  const { locale } = await params;
+  redirect(`/${locale}/admin/images`);
 }

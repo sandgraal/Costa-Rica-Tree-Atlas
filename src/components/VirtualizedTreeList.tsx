@@ -2,12 +2,11 @@
 
 import { useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import type { Tree } from "contentlayer/generated";
 import { TreeCard } from "./tree/TreeCard";
-import type { Locale } from "@/types/tree";
+import type { LightTree, Locale } from "@/types/tree";
 
 interface VirtualizedTreeListProps {
-  trees: Tree[];
+  trees: LightTree[];
   locale: Locale;
   showFavorites?: boolean;
 }
@@ -27,6 +26,7 @@ export function VirtualizedTreeList({
 }: VirtualizedTreeListProps) {
   const parentRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: trees.length,
     getScrollElement: () => parentRef.current,

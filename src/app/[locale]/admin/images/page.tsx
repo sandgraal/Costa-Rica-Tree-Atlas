@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
@@ -10,22 +10,24 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "admin.images" });
   return {
-    title: "Image Review - Admin",
+    title: t("pageTitle"),
     robots: { index: false, follow: false },
   };
 }
 
 /**
  * Admin page for reviewing tree images.
- * Protected by HTTP Basic Authentication (see middleware.ts).
- * Requires ADMIN_PASSWORD environment variable to be set.
- * Votes are stored in localStorage and must be processed manually.
+ * Protected by session authentication.
+ * Votes are stored in the database via /api/admin/image-votes.
  */
 export default async function ImageReviewPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "admin.images" });
 
   // Get all trees with their image info
   const trees = allTrees
@@ -63,19 +65,8 @@ export default async function ImageReviewPage({ params }: Props) {
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-8">
-          <Link
-            href="/trees"
-            className="text-sm text-muted-foreground hover:text-primary mb-4 inline-block"
-          >
-            ← Back to Trees
-          </Link>
-          <h1 className="text-3xl font-bold text-foreground">
-            🖼️ Tree Image Review
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Review and manage featured images for each tree species. Vote on
-            images to mark them for local storage.
-          </p>
+          <h1 className="text-3xl font-bold text-foreground">{t("heading")}</h1>
+          <p className="text-muted-foreground mt-2">{t("description")}</p>
         </div>
 
         {/* Admin Navigation */}
@@ -85,9 +76,9 @@ export default async function ImageReviewPage({ params }: Props) {
               href="/admin/images/proposals"
               className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
-              📋 Manage Proposals
+              📋 {t("manageProposals").replace("📋 ", "")}
               <span className="bg-primary-foreground/20 px-2 py-0.5 rounded text-xs">
-                New
+                {t("newBadge")}
               </span>
             </Link>
           </div>
@@ -99,31 +90,33 @@ export default async function ImageReviewPage({ params }: Props) {
             <div className="text-2xl font-bold text-foreground">
               {stats.total}
             </div>
-            <div className="text-sm text-muted-foreground">Total Trees</div>
+            <div className="text-sm text-muted-foreground">
+              {t("totalTrees")}
+            </div>
           </div>
           <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-red-600">
               {stats.placeholder}
             </div>
-            <div className="text-sm text-red-600/80">Need Photos</div>
+            <div className="text-sm text-red-600/80">{t("needPhotos")}</div>
           </div>
           <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-amber-600">
               {stats.external}
             </div>
-            <div className="text-sm text-amber-600/80">External URLs</div>
+            <div className="text-sm text-amber-600/80">{t("externalUrls")}</div>
           </div>
           <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-green-600">
               {stats.local}
             </div>
-            <div className="text-sm text-green-600/80">Local Images</div>
+            <div className="text-sm text-green-600/80">{t("localImages")}</div>
           </div>
           <div className="bg-gray-50 dark:bg-gray-950/30 border border-gray-200 dark:border-gray-800 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-gray-600">
               {stats.missing}
             </div>
-            <div className="text-sm text-gray-600/80">No Image</div>
+            <div className="text-sm text-gray-600/80">{t("noImage")}</div>
           </div>
         </div>
 

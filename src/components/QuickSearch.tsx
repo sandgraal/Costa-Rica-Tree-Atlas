@@ -1,10 +1,59 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- quick-search uses bounded result indices and typed search-result dictionaries from trusted API schema. */
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
 import { useDebounce } from "@/hooks/useDebounce";
+import { getSearchSessionId } from "@/lib/analytics/search-session";
+import { getLocaleSearchIndex } from "@/lib/query-contracts";
+
+// ---------------------------------------------------------------------------
+// Lightweight search analytics — fire-and-forget, never blocks UI
+// ---------------------------------------------------------------------------
+
+/** Record a search event (query executed). Best-effort, no await needed. */
+function trackSearch(query: string, locale: string, resultsCount: number) {
+  if (!query.trim()) return;
+  fetch("/api/search-analytics", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: query.trim(),
+      locale,
+      resultsCount,
+      sessionId: getSearchSessionId(),
+    }),
+  }).catch(() => {
+    /* silent — analytics must never break UX */
+  });
+}
+
+/** Record which result was clicked. Separate event so we capture the slug. */
+function trackResultClick(
+  query: string,
+  locale: string,
+  resultsCount: number,
+  selectedResult: string
+) {
+  if (!query.trim()) return;
+  fetch("/api/search-analytics", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: query.trim(),
+      locale,
+      resultsCount,
+      selectedResult,
+      sessionId: getSearchSessionId(),
+    }),
+  }).catch(() => {
+    /* silent */
+  });
+}
+
+// ---------------------------------------------------------------------------
 
 interface TreeSearchResult {
   slug: string;
@@ -18,6 +67,10 @@ interface TreeSearchResult {
   distribution?: string[];
   conservationStatus?: string;
 }
+
+type SearchIndexResponse =
+  | TreeSearchResult[]
+  | Record<string, TreeSearchResult[]>;
 
 export function QuickSearch() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,8 +96,8 @@ export function QuickSearch() {
       try {
         const res = await fetch(`/api/trees/search-index?locale=${locale}`);
         if (!res.ok) throw new Error("Failed to fetch search index");
-        const index: TreeSearchResult[] = await res.json();
-        setAllTrees(index);
+        const payload = (await res.json()) as SearchIndexResponse;
+        setAllTrees(getLocaleSearchIndex(payload, locale));
       } catch (error) {
         console.error("Failed to load trees:", error);
       } finally {
@@ -138,7 +191,10 @@ export function QuickSearch() {
     const filtered = searchTrees(debouncedQuery, allTrees).slice(0, 8); // Increased to 8 results
     setResults(filtered);
     setSelectedIndex(0);
-  }, [debouncedQuery, allTrees]);
+
+    // Track search analytics (fire-and-forget)
+    trackSearch(debouncedQuery, locale, filtered.length);
+  }, [debouncedQuery, allTrees, locale]);
 
   // Handle keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {
@@ -179,11 +235,13 @@ export function QuickSearch() {
 
   const handleSelect = useCallback(
     (slug: string) => {
+      // Track which result was clicked
+      trackResultClick(debouncedQuery || query, locale, results.length, slug);
       router.push(`/${locale}/trees/${slug}`);
       setIsOpen(false);
       setQuery("");
     },
-    [router, locale]
+    [router, locale, debouncedQuery, query, results.length]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
