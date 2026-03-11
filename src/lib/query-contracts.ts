@@ -11,11 +11,13 @@ export function getLocaleSearchIndex<T>(
     return payload;
   }
 
-  const localeResults = Object.entries(payload).find(
-    ([key]) => key === locale
-  )?.[1];
-  if (Array.isArray(localeResults)) {
-    return localeResults;
+  if (Object.hasOwn(payload, locale)) {
+    // Object.hasOwn guard above ensures locale is a safe own-property key.
+    // eslint-disable-next-line security/detect-object-injection
+    const localeResults = (payload as Record<string, T[]>)[locale];
+    if (Array.isArray(localeResults)) {
+      return localeResults;
+    }
   }
 
   return [];
@@ -26,9 +28,9 @@ export function buildTreesProvinceHref(province?: string | null): string {
     return "/trees";
   }
 
-  return `/trees?province=${province}`;
+  return `/trees?${new URLSearchParams({ province }).toString()}`;
 }
 
 export function buildCompareToolHref(species: string[]): string {
-  return `/compare?trees=${species.join(",")}`;
+  return `/compare?trees=${species.map(encodeURIComponent).join(",")}`;
 }
