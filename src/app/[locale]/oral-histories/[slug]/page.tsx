@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+/* eslint-disable security/detect-object-injection -- oral-history theme lookups use curated theme ids from content schema. */
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import * as contentlayerGenerated from "contentlayer/generated";
 import { Link } from "@i18n/navigation";

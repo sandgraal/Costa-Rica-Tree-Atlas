@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection -- language grouping map is local and keyed by content-defined language labels. */
 import { getTranslations } from "next-intl/server";
 import type { IndigenousName } from "@/types/tree";
 

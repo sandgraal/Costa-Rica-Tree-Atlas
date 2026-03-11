@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection -- server-only status count aggregation indexes a bounded status dictionary */
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";

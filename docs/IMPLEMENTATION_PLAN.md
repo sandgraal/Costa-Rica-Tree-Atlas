@@ -1,6 +1,6 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-03-01
+**Last Updated:** 2026-03-11
 **Status:** v1.1 — Core site complete. LCP image optimization shipped. 32MB client bundle eliminated. Focusing on search UX, community features, and remaining performance work.
 
 ---
@@ -117,7 +117,8 @@
   - Backward-compatible localStorage migration for existing users
   - URL params support comma-separated multi-values
 - [x] Save search preferences (Zustand persist)
-- [ ] Search analytics — track common queries to improve content
+- [x] Search analytics — track common queries to improve content
+  - `/api/search-analytics` events + admin dashboard at `/[locale]/admin/search-analytics`
 
 ### 6. Community Contributions — Remaining (P6.2) — ✅ Complete
 
@@ -248,6 +249,13 @@ These items require human action and cannot be automated:
 - Glossary detail page: 10 hardcoded English strings fixed with `getTranslations`
 - error.tsx, RecentlyViewedList, Header subtitle: all inline locale ternaries → `useTranslations`
 - ~60 new i18n keys added to both `en.json` and `es.json`
+
+### Contract Reliability Hotfixes (Mar 2026) — Complete
+
+- Fixed QuickSearch API response-shape handling (`/api/trees/search-index` grouped payload)
+- Fixed map → tree explorer deep links to use `province` query param consistently
+- Fixed comparison detail CTA to use interactive compare query key `trees`
+- Wired admin proposal "Apply Image" action to `/api/admin/images/proposals/[id]/apply`
 
 ### Infrastructure — Complete
 

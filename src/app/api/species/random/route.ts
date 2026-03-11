@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+/* eslint-disable security/detect-object-injection -- random index is bounded by array length and used for in-memory selection only. */
 import { allTrees } from "contentlayer/generated";
 import { validateLocale } from "@/lib/validation";
 import { rateLimit } from "@/lib/ratelimit";

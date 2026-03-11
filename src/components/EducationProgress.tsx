@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- progress/badge maps are keyed by known lesson ids and controlled state keys. */
 
 import {
   createContext,

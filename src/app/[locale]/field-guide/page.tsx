@@ -3,6 +3,7 @@ import { allTrees } from "contentlayer/generated";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import type { FieldGuideTreeSummary } from "@/types/tree";
 
 // Lazy load FieldGuideGenerator — 225-line client component + 267-line FieldGuidePreview child
 const FieldGuideGenerator = dynamic(
@@ -49,7 +50,20 @@ export default async function FieldGuidePage({ params }: Props) {
   setRequestLocale(locale);
 
   // Get trees for current locale
-  const trees = allTrees.filter((tree) => tree.locale === locale);
+  const trees: FieldGuideTreeSummary[] = allTrees
+    .filter((tree) => tree.locale === locale)
+    .map((tree) => ({
+      slug: tree.slug,
+      title: tree.title,
+      scientificName: tree.scientificName,
+      family: tree.family,
+      description: tree.description,
+      featuredImage: tree.featuredImage,
+      maxHeight: tree.maxHeight,
+      toxicityLevel: tree.toxicityLevel,
+      uses: tree.uses,
+      conservationStatus: tree.conservationStatus,
+    }));
 
   const structuredData = {
     "@context": "https://schema.org",

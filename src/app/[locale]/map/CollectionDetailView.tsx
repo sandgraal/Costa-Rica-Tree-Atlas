@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- detail view uses typed locale/region dictionary access */
 
 import { Link } from "@i18n/navigation";
 import { OptimizedImage } from "@/components/OptimizedImage";

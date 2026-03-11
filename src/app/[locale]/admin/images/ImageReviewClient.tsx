@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- admin image-review maps are keyed by controlled tree slugs and filter enums. */
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";

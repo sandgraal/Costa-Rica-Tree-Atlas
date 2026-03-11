@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- voting state maps are keyed by internal tree slugs from controlled dataset, not arbitrary user object paths. */
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
