@@ -3,12 +3,12 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import type { Tree } from "contentlayer/generated";
 import { TreeTags } from "./TreeTags";
 import { BLUR_DATA_URL } from "@/lib/image";
+import type { ComparisonTreeSummary } from "@/types/tree";
 
 interface TreeComparisonProps {
-  trees: Tree[];
+  trees: ComparisonTreeSummary[];
   locale: string;
   translations: {
     title: string;
@@ -64,7 +64,7 @@ export function TreeComparison({
   const selectedTrees = useMemo(() => {
     return selectedSlugs
       .map((slug) => trees.find((tree) => tree.slug === slug))
-      .filter((tree): tree is Tree => tree !== undefined);
+      .filter((tree): tree is ComparisonTreeSummary => tree !== undefined);
   }, [trees, selectedSlugs]);
 
   const addTree = (slug: string) => {
@@ -350,7 +350,7 @@ export function TreeComparison({
                   {translations.properties.tags}
                 </td>
                 {selectedTrees.map((tree) => {
-                  const tags = (tree as Tree & { tags?: string[] }).tags;
+                  const tags = tree.tags;
                   return (
                     <td
                       key={tree.slug}

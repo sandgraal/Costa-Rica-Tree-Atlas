@@ -94,7 +94,13 @@ export default function ProposalDetailClient({
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update proposal");
+        const payload = (await response.json().catch(() => null)) as {
+          error?: string;
+          message?: string;
+        } | null;
+        throw new Error(
+          payload?.error || payload?.message || "Failed to update proposal"
+        );
       }
 
       // Refresh the proposal
@@ -106,6 +112,42 @@ export default function ProposalDetailClient({
       setReviewNotes("");
     } catch (err) {
       alert(err instanceof Error ? err.message : "Failed to update proposal");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleApplyImage = async () => {
+    if (!proposal) return;
+    setActionLoading(true);
+
+    try {
+      const response = await fetch(
+        `/api/admin/images/proposals/${proposalId}/apply`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as {
+          error?: string;
+          message?: string;
+        } | null;
+        throw new Error(
+          payload?.error || payload?.message || "Failed to apply proposal"
+        );
+      }
+
+      const refreshResponse = await fetch(
+        `/api/admin/images/proposals/${proposalId}`
+      );
+      const data: ProposalDetailResponse = await refreshResponse.json();
+      setProposal(data.data);
+      setReviewNotes("");
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to apply proposal");
     } finally {
       setActionLoading(false);
     }
@@ -406,7 +448,7 @@ export default function ProposalDetailClient({
 
             {proposal.status === "APPROVED" && (
               <button
-                onClick={() => handleStatusChange("APPLIED")}
+                onClick={handleApplyImage}
                 disabled={actionLoading}
                 className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
               >

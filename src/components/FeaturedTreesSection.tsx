@@ -1,4 +1,5 @@
 import { Link } from "@i18n/navigation";
+/* eslint-disable security/detect-object-injection -- featured-tree ranking uses fixed conservation code maps and typed tree data. */
 import { TreeCard } from "@/components/tree";
 import type { LightTree, Locale } from "@/types/tree";
 

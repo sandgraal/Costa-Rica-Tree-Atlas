@@ -1,10 +1,12 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- quick-search uses bounded result indices and typed search-result dictionaries from trusted API schema. */
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
 import { useDebounce } from "@/hooks/useDebounce";
+import { getLocaleSearchIndex } from "@/lib/query-contracts";
 
 // ---------------------------------------------------------------------------
 // Lightweight search analytics — fire-and-forget, never blocks UI
@@ -78,6 +80,10 @@ interface TreeSearchResult {
   conservationStatus?: string;
 }
 
+type SearchIndexResponse =
+  | TreeSearchResult[]
+  | Record<string, TreeSearchResult[]>;
+
 export function QuickSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -102,8 +108,8 @@ export function QuickSearch() {
       try {
         const res = await fetch(`/api/trees/search-index?locale=${locale}`);
         if (!res.ok) throw new Error("Failed to fetch search index");
-        const index: TreeSearchResult[] = await res.json();
-        setAllTrees(index);
+        const payload = (await res.json()) as SearchIndexResponse;
+        setAllTrees(getLocaleSearchIndex(payload, locale));
       } catch (error) {
         console.error("Failed to load trees:", error);
       } finally {

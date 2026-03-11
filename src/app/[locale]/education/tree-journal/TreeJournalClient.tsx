@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- journal state and option lookups use controlled ids/values and typed lesson data. */
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "@i18n/navigation";

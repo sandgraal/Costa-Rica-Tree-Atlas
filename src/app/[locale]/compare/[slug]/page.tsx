@@ -12,6 +12,7 @@ import Image from "next/image";
 import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
+import { buildCompareToolHref } from "@/lib/query-contracts";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -265,7 +266,7 @@ export default async function ComparisonPage({ params }: Props) {
                   : "Use our interactive tool to compare these species side by side."}
               </p>
               <Link
-                href={`/compare?species=${comparison.species.join(",")}`}
+                href={buildCompareToolHref(comparison.species)}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md hover:shadow-lg"
               >
                 <svg

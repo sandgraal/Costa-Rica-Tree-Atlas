@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- scavenger-hunt uses constrained ids/keys in typed mission and team dictionaries */
 
 import { useEffect, useReducer, useState } from "react";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";

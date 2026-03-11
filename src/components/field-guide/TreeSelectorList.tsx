@@ -1,10 +1,10 @@
 "use client";
 
-import { Tree } from "contentlayer/generated";
 import Image from "next/image";
+import type { FieldGuideTreeSummary } from "@/types/tree";
 
 interface TreeSelectorListProps {
-  trees: Tree[];
+  trees: FieldGuideTreeSummary[];
   selectedSlugs: string[];
   onToggle: (slug: string) => void;
 }

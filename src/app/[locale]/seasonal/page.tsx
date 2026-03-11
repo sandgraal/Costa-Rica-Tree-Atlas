@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+/* eslint-disable security/detect-object-injection -- month/locale lookups are constrained to known month names and supported locales. */
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { allTrees } from "contentlayer/generated";

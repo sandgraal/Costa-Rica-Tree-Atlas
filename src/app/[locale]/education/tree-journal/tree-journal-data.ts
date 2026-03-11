@@ -5,6 +5,7 @@
  * the data is serialized in the RSC payload rather than shipped as
  * executable JavaScript in the client bundle.
  */
+/* eslint-disable security/detect-object-injection -- locale/lang lookups are constrained to known bilingual keys. */
 
 // ============================================================================
 // Types (re-exported for the client component)

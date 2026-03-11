@@ -1,4 +1,5 @@
 import type { Locale } from "@/types/tree";
+/* eslint-disable security/detect-object-injection -- typed ecosystem label lookup table with constrained keys */
 
 // Conservation area ecosystem types
 export type ConservationAreaType =
