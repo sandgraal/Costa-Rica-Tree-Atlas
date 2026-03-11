@@ -12,20 +12,6 @@ import { getLocaleSearchIndex } from "@/lib/query-contracts";
 // Lightweight search analytics — fire-and-forget, never blocks UI
 // ---------------------------------------------------------------------------
 
-/** Lazy-initialised anonymous session ID (persisted in sessionStorage) */
-function getSearchSessionId(): string {
-  const KEY = "search_session_id";
-  if (typeof window === "undefined") return "ssr";
-  let id = sessionStorage.getItem(KEY);
-  if (!id) {
-    const arr = new Uint8Array(32);
-    crypto.getRandomValues(arr);
-    id = Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
-    sessionStorage.setItem(KEY, id);
-  }
-  return id;
-}
-
 /** Record a search event (query executed). Best-effort, no await needed. */
 function trackSearch(query: string, locale: string, resultsCount: number) {
   if (!query.trim()) return;
@@ -50,6 +36,7 @@ function trackResultClick(
   resultsCount: number,
   selectedResult: string
 ) {
+  if (!query.trim()) return;
   fetch("/api/search-analytics", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
