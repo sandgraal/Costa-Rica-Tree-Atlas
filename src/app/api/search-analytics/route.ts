@@ -52,7 +52,10 @@ type PrismaWithSearchQuery = {
       distinct?: string[];
     }) => Promise<Array<Record<string, unknown>>>;
   };
-  $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
+  $queryRaw: <T = unknown>(
+    query: TemplateStringsArray,
+    ...values: unknown[]
+  ) => Promise<T>;
 };
 
 /** Check if search_queries table exists */
@@ -139,6 +142,12 @@ export async function POST(request: NextRequest) {
  * Query params:
  *   days  — lookback window (default 30)
  *   limit — top-N queries (default 50)
+ *
+ * NOTE: Auth checks that the caller is any authenticated user. This app uses a
+ * single-credentials provider, so in practice only the one registered admin
+ * account can log in.  If multi-user accounts are ever introduced, add an
+ * explicit role or email allowlist check here (consistent with other
+ * /api/admin/* routes in this codebase).
  */
 export async function GET(request: NextRequest) {
   try {
@@ -180,6 +189,7 @@ export async function GET(request: NextRequest) {
     const [
       totalSearches,
       topQueries,
+      uniqueQueryCount,
       zeroResultQueries,
       localeBreakdown,
       recentSearches,
@@ -198,6 +208,14 @@ export async function GET(request: NextRequest) {
         orderBy: { _count: { normalizedQuery: "desc" } },
         take: limit,
       }),
+
+      // Distinct query count — COUNT(DISTINCT) at the DB level so only a
+      // scalar is returned, regardless of window size or limit value.
+      db.$queryRaw<[{ count: bigint }]>`
+        SELECT COUNT(DISTINCT normalized_query)::bigint AS count
+        FROM search_queries
+        WHERE created_at >= ${since}
+      `,
 
       // Zero-result queries
       db.searchQuery.groupBy({
@@ -236,7 +254,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       data: {
         totalSearches,
-        uniqueQueries: topQueries.length,
+        uniqueQueries: Number(uniqueQueryCount[0]?.count ?? 0),
         topQueries: topQueries.map((q) => ({
           query: q.normalizedQuery,
           count: q._count.normalizedQuery,
