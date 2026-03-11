@@ -203,7 +203,7 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
               {t("uploadPhoto.loginRequired")}
             </p>
             <Link
-              href={`/${locale}/admin/login?callbackUrl=/${locale}/contribute/photo`}
+              href={{ pathname: "/admin/login", query: { callbackUrl: "/contribute/photo" } }}
               className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               {t("uploadPhoto.signIn")}
