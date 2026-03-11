@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- favorites lookups are keyed by stored slugs from trusted app state and local dictionaries. */
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useStore } from "@/lib/store";

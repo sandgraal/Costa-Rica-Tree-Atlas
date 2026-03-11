@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Tree } from "contentlayer/generated";
 import { useStore } from "@/lib/store";
 import { FieldGuidePreview } from "./FieldGuidePreview";
 import { TreeSelectorList } from "./TreeSelectorList";
+import type { FieldGuideTreeSummary } from "@/types/tree";
 
 interface FieldGuideGeneratorProps {
-  trees: Tree[];
+  trees: FieldGuideTreeSummary[];
   locale: string;
 }
 

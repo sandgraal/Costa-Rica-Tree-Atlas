@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- auto-linking uses locale-filtered glossary entries and local React node traversal with bounded keys. */
 
 import React, { useMemo } from "react";
 import { useParams } from "next/navigation";

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+/* eslint-disable security/detect-object-injection -- sort field is validated from constrained API options before indexed access. */
 import { allTrees, type Tree } from "contentlayer/generated";
 import { captureApiError } from "@/lib/error-tracking";
 import {

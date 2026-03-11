@@ -1,4 +1,6 @@
+/* eslint-disable security/detect-object-injection -- server-only status count aggregation indexes a bounded status dictionary */
 import { setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import ConservationLessonClient from "./ConservationLessonClient";
 import { getConservationLessonData } from "./conservation-data";
@@ -7,7 +9,9 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
 
   return {

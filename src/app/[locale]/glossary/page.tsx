@@ -81,9 +81,12 @@ export default async function GlossaryPage({
   const groupedTerms = terms.reduce(
     (acc, term) => {
       const firstLetter = term.term[0].toUpperCase();
+      // eslint-disable-next-line security/detect-object-injection -- `firstLetter` is derived from normalized A-Z term initials used only for local grouping.
       if (!acc[firstLetter]) {
+        // eslint-disable-next-line security/detect-object-injection -- Safe write into local, server-side grouped dictionary.
         acc[firstLetter] = [];
       }
+      // eslint-disable-next-line security/detect-object-injection -- Safe push into local grouped bucket.
       acc[firstLetter].push(term);
       return acc;
     },
@@ -150,6 +153,7 @@ export default async function GlossaryPage({
                     </span>
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* eslint-disable-next-line security/detect-object-injection -- `letter` comes from Object.keys(groupedTerms) */}
                     {groupedTerms[letter].map((term) => (
                       <a
                         key={term._id}

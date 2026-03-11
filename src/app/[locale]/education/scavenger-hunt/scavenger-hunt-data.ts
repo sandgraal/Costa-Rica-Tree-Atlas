@@ -9,6 +9,7 @@
  * in the client component. Only display data (labels, mission text,
  * configuration) is extracted here.
  */
+/* eslint-disable security/detect-object-injection -- locale lookups are constrained to known bilingual keys */
 
 // ============================================================================
 // Types (re-exported for the client component)

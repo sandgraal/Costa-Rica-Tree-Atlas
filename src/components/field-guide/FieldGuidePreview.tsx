@@ -1,11 +1,11 @@
 "use client";
 
-import { Tree } from "contentlayer/generated";
 import Image from "next/image";
 import { QRCodeGenerator } from "./QRCodeGenerator";
+import type { FieldGuideTreeSummary } from "@/types/tree";
 
 interface FieldGuidePreviewProps {
-  trees: Tree[];
+  trees: FieldGuideTreeSummary[];
   locale: string;
   onBack: () => void;
 }

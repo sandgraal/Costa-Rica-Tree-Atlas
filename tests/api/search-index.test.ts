@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { NextRequest } from "next/server";
 
 const mockTrees = [
   {
@@ -56,7 +57,9 @@ const { GET } = await import("@/app/api/trees/search-index/route");
 
 describe("GET /api/trees/search-index", () => {
   it("returns search index grouped by locale", async () => {
-    const res = GET();
+    const res = GET(
+      new NextRequest("http://localhost:3000/api/trees/search-index")
+    );
     const body = await res.json();
 
     expect(body.en).toBeDefined();
@@ -64,7 +67,9 @@ describe("GET /api/trees/search-index", () => {
   });
 
   it("includes correct fields for search", async () => {
-    const res = GET();
+    const res = GET(
+      new NextRequest("http://localhost:3000/api/trees/search-index")
+    );
     const body = await res.json();
 
     const ceiba = body.en.find((t: { slug: string }) => t.slug === "ceiba");
@@ -81,7 +86,9 @@ describe("GET /api/trees/search-index", () => {
   });
 
   it("does not include body/raw content", async () => {
-    const res = GET();
+    const res = GET(
+      new NextRequest("http://localhost:3000/api/trees/search-index")
+    );
     const body = await res.json();
 
     const ceiba = body.en.find((t: { slug: string }) => t.slug === "ceiba");
@@ -91,7 +98,9 @@ describe("GET /api/trees/search-index", () => {
   });
 
   it("groups correctly per locale", async () => {
-    const res = GET();
+    const res = GET(
+      new NextRequest("http://localhost:3000/api/trees/search-index")
+    );
     const body = await res.json();
 
     // 2 English trees
@@ -101,10 +110,24 @@ describe("GET /api/trees/search-index", () => {
   });
 
   it("returns proper cache headers", async () => {
-    const res = GET();
+    const res = GET(
+      new NextRequest("http://localhost:3000/api/trees/search-index")
+    );
 
     expect(res.headers.get("Cache-Control")).toBe(
       "public, s-maxage=86400, stale-while-revalidate=604800"
     );
+  });
+
+  it("returns locale-specific array when locale query param is provided", async () => {
+    const res = GET(
+      new NextRequest("http://localhost:3000/api/trees/search-index?locale=es")
+    );
+    const body = await res.json();
+
+    expect(Array.isArray(body)).toBe(true);
+    expect(body).toHaveLength(1);
+    expect(body[0].locale).toBeUndefined();
+    expect(body[0].slug).toBe("ceiba");
   });
 });

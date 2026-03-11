@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- lesson interactions rely on constrained category/question lookup tables */
 
 import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";

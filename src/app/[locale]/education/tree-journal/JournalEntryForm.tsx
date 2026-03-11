@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- form option/prompt access uses bounded indices and server-provided typed arrays. */
 
 import type { TreeJournalLessonData } from "./tree-journal-data";
 

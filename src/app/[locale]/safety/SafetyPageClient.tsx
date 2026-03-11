@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- safety page groups/filters by bounded toxicity category keys in typed local dictionaries. */
 
 import { useMemo, useState } from "react";
 import { Link } from "@i18n/navigation";

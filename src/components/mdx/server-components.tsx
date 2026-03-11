@@ -115,6 +115,7 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
     },
   };
 
+  // eslint-disable-next-line security/detect-object-injection -- `type` is constrained by `CalloutProps["type"]` union.
   const style = styles[type];
 
   return (
@@ -215,6 +216,7 @@ export function SafetyCard({
 }: SafetyCardProps) {
   const safeWarnings = asArray(warnings);
   const safePrecautions = asArray(precautions);
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to "en" | "es".
   const t = translations[locale].safety;
 
   const levelConfig = {
@@ -240,6 +242,7 @@ export function SafetyCard({
     },
   };
 
+  // eslint-disable-next-line security/detect-object-injection -- `safetyLevel` is constrained by `SafetyCardProps` union.
   const config = levelConfig[safetyLevel];
 
   return (
@@ -308,6 +311,7 @@ export function ConservationStatus({
 }: LegacyConservationStatusProps) {
   const category = status || code || "NE";
   const threatList = asArray(threats);
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to "en" | "es".
   const t = translations[locale].conservation;
 
   return (
@@ -908,8 +912,11 @@ export function FeatureBox({
     warning: "bg-warning/10 border-warning/20",
   };
 
+  // eslint-disable-next-line security/detect-object-injection -- `variant` is constrained by `FeatureBoxProps["variant"]` union.
+  const variantClasses = variants[variant];
+
   return (
-    <div className={`rounded-xl border p-5 my-6 ${variants[variant]}`}>
+    <div className={`rounded-xl border p-5 my-6 ${variantClasses}`}>
       <div className="flex items-center gap-3 mb-3">
         <span className="text-2xl">{icon}</span>
         <h4 className="font-semibold text-lg text-foreground">{title}</h4>
@@ -986,6 +993,7 @@ export function ConservationStatusBox({
   criteria,
   assessmentYear,
 }: ConservationStatusBoxProps) {
+  // eslint-disable-next-line security/detect-object-injection -- Fallback to known key ensures safe read from static IUCN map.
   const config = IUCN_STATUS_CONFIG[status] || IUCN_STATUS_CONFIG.NE;
 
   return (

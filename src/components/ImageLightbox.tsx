@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- lightbox index is bounded and guarded before reading from the images array. */
 
 import { useState, useEffect, useCallback } from "react";
 import { SafeImage } from "@/components/SafeImage";

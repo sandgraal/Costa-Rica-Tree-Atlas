@@ -26,6 +26,7 @@ import {
 } from "@/lib/i18n";
 import { isProvince } from "@/lib/geo";
 import { useStore } from "@/lib/store";
+import { getSearchSessionId } from "@/lib/analytics/search-session";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
 import type {
@@ -41,6 +42,54 @@ import type {
   HeightRange,
   UseCategory,
 } from "@/types/tree";
+
+// ---------------------------------------------------------------------------
+// Search analytics helpers — fire-and-forget, never block UI
+// ---------------------------------------------------------------------------
+
+function trackExplorerSearch(
+  query: string,
+  locale: string,
+  resultsCount: number
+) {
+  if (!query.trim()) return;
+  fetch("/api/search-analytics", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: query.trim(),
+      locale,
+      resultsCount,
+      sessionId: getSearchSessionId(),
+    }),
+  }).catch(() => {
+    /* silent */
+  });
+}
+
+function trackExplorerClick(
+  query: string,
+  locale: string,
+  resultsCount: number,
+  selectedResult: string
+) {
+  if (!query.trim()) return;
+  fetch("/api/search-analytics", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: query.trim(),
+      locale,
+      resultsCount,
+      selectedResult,
+      sessionId: getSearchSessionId(),
+    }),
+  }).catch(() => {
+    /* silent */
+  });
+}
+
+// ---------------------------------------------------------------------------
 
 // ============================================================================
 // URL Param Helpers
@@ -136,7 +185,6 @@ function getSuggestionByIndex(items: Tree[], index: number): Tree | undefined {
 
 function getTagDefinition(tag: string) {
   if (Object.hasOwn(TAG_DEFINITIONS, tag)) {
-    // eslint-disable-next-line security/detect-object-injection
     return TAG_DEFINITIONS[tag as keyof typeof TAG_DEFINITIONS];
   }
 
@@ -256,10 +304,14 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     search(searchQuery, typedTrees).then((results) => {
       // Only apply if this is still the latest search
       if (id === searchAbortRef.current) {
-        setSearchedTrees(results.map((r) => r.tree));
+        const mapped = results.map((r) => r.tree);
+        setSearchedTrees(mapped);
+
+        // Track search analytics (fire-and-forget)
+        trackExplorerSearch(searchQuery, locale, mapped.length);
       }
     });
-  }, [searchQuery, typedTrees]);
+  }, [searchQuery, typedTrees, locale]);
 
   // Filter and sort pipeline (synchronous — operates on already-searched results)
   const filteredTrees = useMemo(() => {
@@ -320,10 +372,12 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 
   const handleSuggestionSelect = useCallback(
     (slug: string) => {
+      // Track which result was clicked
+      trackExplorerClick(searchQuery, locale, filteredTrees.length, slug);
       router.push(`/${locale}/trees/${slug}`);
       setShowSuggestions(false);
     },
-    [router, locale]
+    [router, locale, searchQuery, filteredTrees.length]
   );
 
   const handleSuggestionHover = useCallback((index: number) => {
