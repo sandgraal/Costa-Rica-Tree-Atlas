@@ -4,7 +4,8 @@
   "private": true,
   "license": "UNLICENSED",
   "overrides": {
-    "hono": "4.11.8",
+    "hono": "4.12.7",
+    "@hono/node-server": "1.19.11",
     "lodash": "4.17.23"
   },
   "scripts": {
