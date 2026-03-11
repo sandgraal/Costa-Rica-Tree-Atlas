@@ -203,7 +203,6 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
             <Link
               href={{
                 pathname: "/admin/login",
-                query: { callbackUrl: "/contribute/photo" },
               }}
               className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
