@@ -37,7 +37,7 @@ export async function register() {
         globalThis.__CRTA_SENTRY__ = {
           withScope: (callback) => {
             Sentry.withScope?.((scope) => {
-              callback(scope as never);
+              callback(scope as unknown as Parameters<typeof callback>[0]);
             });
           },
           captureException: (error) => {
