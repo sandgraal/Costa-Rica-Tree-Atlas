@@ -1,11 +1,10 @@
 import { getTranslations } from "next-intl/server";
-import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import { SafetyBadge } from "./SafetyBadge";
 import { SafetyWarning } from "./SafetyWarning";
-import type { ToxicityLevel, RiskLevel } from "@/types/tree";
+import type { LightTree, ToxicityLevel, RiskLevel } from "@/types/tree";
 
 interface SafetyCardProps {
-  tree: ContentlayerTree;
+  tree: LightTree;
   className?: string;
 }
 

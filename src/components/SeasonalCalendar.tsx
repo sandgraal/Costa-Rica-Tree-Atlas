@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- seasonal UI uses constrained month/event/type dictionaries and typed lookups */
 
 import { useState, useMemo, useCallback } from "react";
 import { Link } from "@i18n/navigation";

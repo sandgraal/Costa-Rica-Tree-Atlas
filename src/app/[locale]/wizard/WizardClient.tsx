@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- wizard uses constrained locale keys, enum-like options, and controlled answer maps. */
 
 import { useState } from "react";
 import { Link } from "@i18n/navigation";

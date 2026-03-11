@@ -1,4 +1,5 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+/* eslint-disable security/detect-object-injection -- namespace/locale lookups are constrained by static routing and fixed namespace arrays. */
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@i18n/routing";
 import {

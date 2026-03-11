@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { type ImageType, IMAGE_TYPES } from "@/types/image-review";
 
 interface TreeOption {
@@ -39,6 +39,7 @@ const IMAGE_TYPE_LABELS: Record<ImageType, string> = {
 
 export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
   const t = useTranslations("contribute");
+  const locale = useLocale();
   const { data: session, status } = useSession();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -202,7 +203,7 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
               {t("uploadPhoto.loginRequired")}
             </p>
             <Link
-              href="/admin/login"
+              href={{ pathname: "/admin/login", query: { callbackUrl: "/contribute/photo" } }}
               className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               {t("uploadPhoto.signIn")}

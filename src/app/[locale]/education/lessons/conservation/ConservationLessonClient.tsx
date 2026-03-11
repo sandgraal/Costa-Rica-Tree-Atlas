@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- lesson state/quiz dictionaries are keyed by bounded indices and typed ids */
 
 import { useEffect } from "react";
 import { Link } from "@i18n/navigation";

@@ -3,6 +3,7 @@ import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import { PrintButton } from "../PrintButton";
+/* eslint-disable security/detect-object-injection -- printable family guide uses bounded family-key lookups over static metadata dictionaries. */
 
 type Props = {
   params: Promise<{ locale: string }>;

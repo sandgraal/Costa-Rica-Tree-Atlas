@@ -67,9 +67,12 @@ export default async function ConservationPage({
   const treesByStatus = trees.reduce(
     (acc, tree) => {
       const status = (tree.conservationStatus || "NE") as ConservationStatus;
+      // eslint-disable-next-line security/detect-object-injection -- `status` is a constrained union (`ConservationStatus`), not user input.
       if (!acc[status]) {
+        // eslint-disable-next-line security/detect-object-injection -- Safe write to typed status-indexed record.
         acc[status] = [];
       }
+      // eslint-disable-next-line security/detect-object-injection -- Safe push into typed status bucket.
       acc[status].push(tree);
       return acc;
     },
@@ -180,10 +183,13 @@ export default async function ConservationPage({
 
           <div className="space-y-4">
             {statusOrder.map((status) => {
+              // eslint-disable-next-line security/detect-object-injection -- `status` is from `statusOrder` typed as `ConservationStatus`.
               const speciesInStatus = treesByStatus[status] || [];
               if (speciesInStatus.length === 0) return null;
 
+              // eslint-disable-next-line security/detect-object-injection -- Safe lookup in typed labels map by constrained status key.
               const label = statusLabels[status][locale];
+              // eslint-disable-next-line security/detect-object-injection -- Safe lookup in typed colors map by constrained status key.
               const color = STATUS_COLORS[status];
               const percentage = (
                 (speciesInStatus.length / totalTrees) *

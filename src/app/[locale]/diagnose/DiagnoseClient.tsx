@@ -80,6 +80,7 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
         exploretrees: "Explorar Directorio de Árboles",
       },
     };
+    // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained by app routing; fallback to key for unknown tokens.
     return translations[locale][key] || key;
   };
 
@@ -215,6 +216,7 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
               "Visible pest infestation",
             ],
     };
+    // eslint-disable-next-line security/detect-object-injection -- `category` is a strict `SymptomCategory` union from controlled UI state.
     return symptoms[category] || [];
   };
 

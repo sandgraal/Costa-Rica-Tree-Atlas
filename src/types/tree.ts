@@ -181,6 +181,34 @@ export interface Tree
   url: string;
 }
 
+/** Lightweight tree shape for interactive comparison UI in client components */
+export interface ComparisonTreeSummary {
+  slug: string;
+  title: string;
+  scientificName: string;
+  family: string;
+  featuredImage?: string;
+  maxHeight?: string;
+  nativeRegion?: string;
+  conservationStatus?: string;
+  uses?: string[];
+  tags?: string[];
+}
+
+/** Lightweight tree shape for field-guide generator + preview client UI */
+export interface FieldGuideTreeSummary {
+  slug: string;
+  title: string;
+  scientificName: string;
+  family: string;
+  description: string;
+  featuredImage?: string;
+  maxHeight?: string;
+  toxicityLevel?: ToxicityLevel;
+  uses?: string[];
+  conservationStatus?: ConservationCategory | string;
+}
+
 // Search and filter types
 export interface TreeFilter {
   family?: string[];

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+/* eslint-disable security/detect-object-injection -- identify scoring uses normalized labels against static characteristic maps and bounded tree fields. */
 import { allTrees } from "contentlayer/generated";
 import { rateLimit } from "@/lib/ratelimit";
 import { validateOrigin } from "@/lib/security/csrf";

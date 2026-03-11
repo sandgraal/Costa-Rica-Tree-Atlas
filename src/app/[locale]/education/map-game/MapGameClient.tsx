@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable security/detect-object-injection -- map-game uses constrained region/locale lookup tables */
 
 import { useState, useEffect } from "react";
 import { Link } from "@i18n/navigation";
