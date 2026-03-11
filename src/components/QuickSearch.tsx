@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
 import { useDebounce } from "@/hooks/useDebounce";
+import { getSearchSessionId } from "@/lib/analytics/search-session";
 import { getLocaleSearchIndex } from "@/lib/query-contracts";
 
 // ---------------------------------------------------------------------------
