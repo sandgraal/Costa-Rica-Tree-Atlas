@@ -18,36 +18,32 @@ interface ErrorContext {
   level?: ErrorSeverity;
 }
 
-// Sentry SDK reference (lazily loaded if available)
-// Uses `any` to avoid requiring @sentry/nextjs as a dependency.
-// When Sentry is installed, this will hold the actual SDK module.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let _sentry: any = null;
-let _sentryChecked = false;
+interface SentryScopeLike {
+  setLevel?: (level: ErrorSeverity) => void;
+  setTag?: (key: string, value: string) => void;
+  setExtra?: (key: string, value: unknown) => void;
+  setUser?: (user: { id?: string; email?: string }) => void;
+}
 
-// Module name in a variable to prevent Turbopack from statically
-// resolving the optional dependency and emitting build warnings.
-const SENTRY_MODULE = ["@sentry", "nextjs"].join("/");
+interface SentryLike {
+  withScope: (callback: (scope: SentryScopeLike) => void) => void;
+  captureException: (error: Error) => void;
+  captureMessage: (message: string) => void;
+}
+
+declare global {
+  var __CRTA_SENTRY__: SentryLike | undefined;
+}
 
 /**
- * Attempt to load @sentry/nextjs dynamically.
- * Returns null if the package is not installed or DSN is not configured.
+ * Read the optional Sentry adapter from the global runtime.
+ * The server instrumentation hook can register it when the package exists.
+ * This avoids bundler resolution failures in shared modules.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getSentry(): any {
-  if (_sentryChecked) return _sentry;
-  _sentryChecked = true;
-
+function getSentry(): SentryLike | null {
   if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return null;
 
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    _sentry = require(SENTRY_MODULE);
-    return _sentry;
-  } catch {
-    // @sentry/nextjs not installed — that's fine, fall back to console
-    return null;
-  }
+  return globalThis.__CRTA_SENTRY__ ?? null;
 }
 
 /**
@@ -92,20 +88,19 @@ export function captureException(
   // Forward to Sentry synchronously
   const Sentry = getSentry();
   if (Sentry) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Sentry.withScope((scope: any) => {
-      if (context?.level) scope.setLevel(context.level);
+    Sentry.withScope((scope) => {
+      if (context?.level) scope.setLevel?.(context.level);
       if (context?.tags) {
         for (const [key, value] of Object.entries(context.tags)) {
-          scope.setTag(key, value);
+          scope.setTag?.(key, value);
         }
       }
       if (context?.extra) {
         for (const [key, value] of Object.entries(context.extra)) {
-          scope.setExtra(key, value);
+          scope.setExtra?.(key, value);
         }
       }
-      if (context?.user) scope.setUser(context.user);
+      if (context?.user) scope.setUser?.(context.user);
       Sentry.captureException(errorObj);
     });
   }
@@ -134,17 +129,16 @@ export function captureMessage(message: string, context?: ErrorContext): void {
   // Forward to Sentry synchronously
   const Sentry = getSentry();
   if (Sentry) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Sentry.withScope((scope: any) => {
-      if (context?.level) scope.setLevel(context.level);
+    Sentry.withScope((scope) => {
+      if (context?.level) scope.setLevel?.(context.level);
       if (context?.tags) {
         for (const [key, value] of Object.entries(context.tags)) {
-          scope.setTag(key, value);
+          scope.setTag?.(key, value);
         }
       }
       if (context?.extra) {
         for (const [key, value] of Object.entries(context.extra)) {
-          scope.setExtra(key, value);
+          scope.setExtra?.(key, value);
         }
       }
       Sentry.captureMessage(message);

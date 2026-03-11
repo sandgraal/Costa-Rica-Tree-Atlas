@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@i18n/navigation";
 import { useSession } from "next-auth/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { type ImageType, IMAGE_TYPES } from "@/types/image-review";
 
 interface TreeOption {
@@ -39,7 +39,6 @@ const IMAGE_TYPE_LABELS: Record<ImageType, string> = {
 
 export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
   const t = useTranslations("contribute");
-  const locale = useLocale();
   const { data: session, status } = useSession();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -55,15 +54,14 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
   const [limits, setLimits] = useState<UploadLimits | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch upload limits on mount
-  useState(() => {
+  useEffect(() => {
     fetch("/api/images/upload")
       .then((res) => res.json())
       .then((data) => {
         setLimits(data.data?.limits);
       })
       .catch(() => {});
-  });
+  }, []);
 
   const filteredTrees = trees.filter(
     (tree) =>
@@ -203,7 +201,10 @@ export default function PhotoUploadClient({ trees }: PhotoUploadClientProps) {
               {t("uploadPhoto.loginRequired")}
             </p>
             <Link
-              href={{ pathname: "/admin/login", query: { callbackUrl: "/contribute/photo" } }}
+              href={{
+                pathname: "/admin/login",
+                query: { callbackUrl: "/contribute/photo" },
+              }}
               className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               {t("uploadPhoto.signIn")}
