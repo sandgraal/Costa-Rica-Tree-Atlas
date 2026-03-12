@@ -3,6 +3,11 @@
 /* Nature-inspired color palette for Costa Rica Tree Atlas */
 :root,
 [data-theme="light"] {
+  --font-geist-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-geist-mono:
+    "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+
   /* Light theme colors */
   --background: #f7f4ec;
   --foreground: #1f2f25;

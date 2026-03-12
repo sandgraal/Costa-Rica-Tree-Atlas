@@ -89,12 +89,12 @@ export function captureException(
       if (context?.level) scope.setLevel(context.level);
       if (context?.tags) {
         for (const [key, value] of Object.entries(context.tags)) {
-          scope.setTag(key, value);
+          scope.setTag?.(key, value);
         }
       }
       if (context?.extra) {
         for (const [key, value] of Object.entries(context.extra)) {
-          scope.setExtra(key, value);
+          scope.setExtra?.(key, value);
         }
       }
       if (context?.user) scope.setUser(context.user);
@@ -130,12 +130,12 @@ export function captureMessage(message: string, context?: ErrorContext): void {
       if (context?.level) scope.setLevel(context.level);
       if (context?.tags) {
         for (const [key, value] of Object.entries(context.tags)) {
-          scope.setTag(key, value);
+          scope.setTag?.(key, value);
         }
       }
       if (context?.extra) {
         for (const [key, value] of Object.entries(context.extra)) {
-          scope.setExtra(key, value);
+          scope.setExtra?.(key, value);
         }
       }
       adapter.captureMessage(message);

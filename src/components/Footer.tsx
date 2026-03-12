@@ -62,7 +62,7 @@ export async function Footer({ locale }: FooterProps) {
               </h3>
               <ul className="space-y-2">
                 {group.links.map((link) => (
-                  <li key={`${group.title}-${link.href}-${link.label}`}>
+                  <li key={link.href}>
                     <Link
                       href={link.href}
                       className="text-sm text-foreground/60 hover:text-primary transition-colors"

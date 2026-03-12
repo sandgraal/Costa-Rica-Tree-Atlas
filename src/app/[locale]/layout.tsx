@@ -7,7 +7,6 @@ import {
   getTranslations,
   setRequestLocale,
 } from "next-intl/server";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
@@ -34,22 +33,6 @@ const Analytics = dynamic(() =>
 const ScrollToTop = dynamic(() =>
   import("@/components/ScrollToTop").then((m) => ({ default: m.ScrollToTop }))
 );
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  adjustFontFallback: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false, // Only preload primary font
-  adjustFontFallback: true,
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -244,12 +227,6 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
 
         {/* Resource hints for faster loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         <link
           rel="preconnect"
           href="https://inaturalist-open-data.s3.amazonaws.com"
@@ -270,9 +247,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-      >
+      <body className="antialiased min-h-screen flex flex-col">
         <NextIntlClientProvider messages={clientMessages}>
           <PageErrorBoundary>
             <noscript>
