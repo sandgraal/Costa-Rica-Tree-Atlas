@@ -2,14 +2,27 @@
  * Error Tracking Utility
  *
  * Provides centralized error capture for error boundaries, API routes,
- * and other handlers. Supports optional Sentry integration when
- * @sentry/nextjs is installed and NEXT_PUBLIC_SENTRY_DSN is set.
+ * and other handlers. Supports an optional error-tracking adapter when
+ * one is registered by the runtime.
  *
- * Without Sentry: logs errors to console with structured context.
- * With Sentry: forwards to Sentry while still logging locally.
+ * Without an adapter: logs errors to console with structured context.
+ * With an adapter: forwards events while still logging locally.
  */
 
 type ErrorSeverity = "fatal" | "error" | "warning" | "info";
+
+type ErrorTrackingScope = {
+  setLevel: (level: ErrorSeverity) => void;
+  setTag: (key: string, value: string) => void;
+  setExtra: (key: string, value: unknown) => void;
+  setUser: (user: { id?: string; email?: string }) => void;
+};
+
+type ErrorTrackingAdapter = {
+  withScope: (callback: (scope: ErrorTrackingScope) => void) => void;
+  captureException: (error: Error) => void;
+  captureMessage: (message: string) => void;
+};
 
 interface ErrorContext {
   tags?: Record<string, string>;
@@ -18,32 +31,16 @@ interface ErrorContext {
   level?: ErrorSeverity;
 }
 
-interface SentryScopeLike {
-  setLevel?: (level: ErrorSeverity) => void;
-  setTag?: (key: string, value: string) => void;
-  setExtra?: (key: string, value: unknown) => void;
-  setUser?: (user: { id?: string; email?: string }) => void;
-}
-
-interface SentryLike {
-  withScope: (callback: (scope: SentryScopeLike) => void) => void;
-  captureException: (error: Error) => void;
-  captureMessage: (message: string) => void;
-}
-
-declare global {
-  var __CRTA_SENTRY__: SentryLike | undefined;
-}
+const errorTrackingGlobal = globalThis as typeof globalThis & {
+  __CRTA_ERROR_TRACKING_ADAPTER__?: ErrorTrackingAdapter;
+};
 
 /**
- * Read the optional Sentry adapter from the global runtime.
- * The server instrumentation hook can register it when the package exists.
- * This avoids bundler resolution failures in shared modules.
+ * Resolve the optional error-tracking adapter registered by the runtime.
+ * Returns null when no adapter is installed.
  */
-function getSentry(): SentryLike | null {
-  if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return null;
-
-  return globalThis.__CRTA_SENTRY__ ?? null;
+function getErrorTrackingAdapter(): ErrorTrackingAdapter | null {
+  return errorTrackingGlobal.__CRTA_ERROR_TRACKING_ADAPTER__ ?? null;
 }
 
 /**
@@ -51,7 +48,7 @@ function getSentry(): SentryLike | null {
  * Called by ErrorBoundary, ComponentErrorBoundary, ImageErrorBoundary,
  * global-error.tsx, and API route catch blocks.
  *
- * When Sentry is configured, the error is forwarded to Sentry with
+ * When an adapter is configured, the error is forwarded with
  * full context. Otherwise, it's logged to the console.
  */
 export function captureException(
@@ -85,11 +82,11 @@ export function captureException(
     );
   }
 
-  // Forward to Sentry synchronously
-  const Sentry = getSentry();
-  if (Sentry) {
-    Sentry.withScope((scope) => {
-      if (context?.level) scope.setLevel?.(context.level);
+  // Forward to an optional adapter synchronously
+  const adapter = getErrorTrackingAdapter();
+  if (adapter) {
+    adapter.withScope((scope) => {
+      if (context?.level) scope.setLevel(context.level);
       if (context?.tags) {
         for (const [key, value] of Object.entries(context.tags)) {
           scope.setTag?.(key, value);
@@ -100,8 +97,8 @@ export function captureException(
           scope.setExtra?.(key, value);
         }
       }
-      if (context?.user) scope.setUser?.(context.user);
-      Sentry.captureException(errorObj);
+      if (context?.user) scope.setUser(context.user);
+      adapter.captureException(errorObj);
     });
   }
 }
@@ -126,11 +123,11 @@ export function captureMessage(message: string, context?: ErrorContext): void {
     );
   }
 
-  // Forward to Sentry synchronously
-  const Sentry = getSentry();
-  if (Sentry) {
-    Sentry.withScope((scope) => {
-      if (context?.level) scope.setLevel?.(context.level);
+  // Forward to an optional adapter synchronously
+  const adapter = getErrorTrackingAdapter();
+  if (adapter) {
+    adapter.withScope((scope) => {
+      if (context?.level) scope.setLevel(context.level);
       if (context?.tags) {
         for (const [key, value] of Object.entries(context.tags)) {
           scope.setTag?.(key, value);
@@ -141,7 +138,7 @@ export function captureMessage(message: string, context?: ErrorContext): void {
           scope.setExtra?.(key, value);
         }
       }
-      Sentry.captureMessage(message);
+      adapter.captureMessage(message);
     });
   }
 }
