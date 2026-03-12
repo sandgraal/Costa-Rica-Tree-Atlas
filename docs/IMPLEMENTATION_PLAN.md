@@ -17,7 +17,7 @@ However, the repository is not currently in a world-class operating state. As of
 - the first implementation slice shipped the footer legal-link fix, compare share-link fix, compare title fix, shared control-label localization, and the `PhotoUploadClient` effect/lint cleanup
 - `npm run build` is still **not considered green** for plan purposes because P0 build hardening remains open, especially self-hosted font work
 - audited browser sessions still show **runtime console errors/warnings** on core routes
-- Spanish UI parity is improved, but not yet complete across all high-traffic surfaces
+- Spanish UI parity is improved, including MDX-rendered tree/glossary chrome, but not yet complete across all high-traffic surfaces
 - factual remediation work remains materially unfinished
 
 ### Recent implementation progress
@@ -35,6 +35,7 @@ Completed on 2026-03-12 in the follow-up implementation slices:
 
 - replaced the fragile optional error-tracking probe with a bundler-safe adapter boundary, removing the Turbopack warning triggered by `src/lib/error-tracking.ts`
 - added the actual `next/image` quality allowlist in `next.config.ts` to match the quality values already used across cards, galleries, and shared image components
+- passed the active locale into `ServerMDXContent` where it was missing and localized shared MDX chrome (`INaturalistEmbed`, `ImageCard`, `Reference`, `ReferencesSection`) so Spanish tree/glossary routes stop falling back to English wrapper text
 
 ### Major strengths
 

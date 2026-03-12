@@ -10,6 +10,7 @@ export interface ImageCardProps {
   credit?: string;
   license?: string;
   sourceUrl?: string;
+  locale?: "en" | "es";
   slug?: string;
   index?: number;
   onClick?: () => void;
@@ -22,11 +23,13 @@ export function ImageCard({
   credit,
   license,
   sourceUrl,
+  locale = "en",
   slug: _slug,
   index: _index,
   onClick,
 }: ImageCardProps) {
   const isRemote = src.startsWith("http");
+  const sourceLabel = locale === "es" ? "Ver fuente ↗" : "View source ↗";
 
   const imageArea = (
     <div className="aspect-[4/3] bg-muted relative">
@@ -90,7 +93,7 @@ export function ImageCard({
             rel="noopener noreferrer"
             className="text-xs text-primary hover:underline mt-1 inline-block"
           >
-            View source ↗
+            {sourceLabel}
           </a>
         )}
       </figcaption>

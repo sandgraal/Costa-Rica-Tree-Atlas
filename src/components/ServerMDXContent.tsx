@@ -29,7 +29,7 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxServerComponents } from "@/components/mdx/server-components";
 import { AccordionItem } from "@/components/mdx/client/AccordionItem";
-import { ImageCard } from "@/components/mdx/client/ImageCard";
+import { ImageCard as BaseImageCard } from "@/components/mdx/client/ImageCard";
 import { ImageGallery } from "@/components/mdx/client/ImageGallery";
 import { Tabs } from "@/components/mdx/client/Tabs";
 import { GlossaryTooltip } from "@/components/mdx/client/GlossaryTooltip";
@@ -38,6 +38,7 @@ import { SideBySideImages } from "@/components/mdx/client/SideBySideImages";
 import { FeatureAnnotation } from "@/components/mdx/client/FeatureAnnotation";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 import { TreeGallery } from "@/components/TreeGallery";
+import type { Locale } from "@/types/tree";
 
 interface GlossaryTerm {
   term: string;
@@ -122,6 +123,7 @@ export async function ServerMDXContent({
   enableGlossaryLinks = false,
 }: ServerMDXContentProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
+  const resolvedLocale = locale as Locale;
 
   // Create locale-aware wrappers for legacy components that need localization
   // These components are imported from server-components and have a locale prop
@@ -145,7 +147,28 @@ export async function ServerMDXContent({
     ) =>
       mdxServerComponents.CareCalendar({
         ...props,
-        locale: locale as "en" | "es",
+        locale: resolvedLocale,
+      }),
+    INaturalistEmbed: (
+      props: React.ComponentProps<typeof mdxServerComponents.INaturalistEmbed>
+    ) =>
+      mdxServerComponents.INaturalistEmbed({
+        ...props,
+        locale: resolvedLocale,
+      }),
+    Reference: (
+      props: React.ComponentProps<typeof mdxServerComponents.Reference>
+    ) =>
+      mdxServerComponents.Reference({
+        ...props,
+        locale: resolvedLocale,
+      }),
+    ReferencesSection: (
+      props: React.ComponentProps<typeof mdxServerComponents.ReferencesSection>
+    ) =>
+      mdxServerComponents.ReferencesSection({
+        ...props,
+        locale: resolvedLocale,
       }),
   };
 
@@ -155,7 +178,9 @@ export async function ServerMDXContent({
     ...mdxServerComponents,
     ...localizedComponents,
     AccordionItem,
-    ImageCard,
+    ImageCard: (props: React.ComponentProps<typeof BaseImageCard>) => (
+      <BaseImageCard {...props} locale={resolvedLocale} />
+    ),
     ImageGallery,
     Tabs,
     GlossaryTooltip,

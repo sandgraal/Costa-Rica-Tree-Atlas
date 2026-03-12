@@ -145,7 +145,7 @@ export default async function GlossaryTermPage({
           prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl
           prose-p:leading-relaxed prose-li:leading-relaxed"
         >
-          <ServerMDXContent source={term.body.raw} />
+          <ServerMDXContent source={term.body.raw} locale={locale} />
         </article>
 
         {/* Example Species */}

@@ -28,6 +28,17 @@ const translations = {
       populationTrend: "Population trend",
       threats: "Threats",
     },
+    mdxChrome: {
+      iNaturalistTitle: "iNaturalist Observations",
+      iNaturalistDescription: "Community-powered species data",
+      observations: "Observations",
+      observers: "Observers",
+      viewSpeciesPage: "View Species Page ↗",
+      browsePhotos: "Browse Photos ↗",
+      costaRicaOnly: "🇨🇷 Costa Rica Only ↗",
+      referenceLink: "[Link ↗]",
+      referencesHeading: "📚 Scientific References & Further Reading",
+    },
   },
   es: {
     safety: {
@@ -44,6 +55,17 @@ const translations = {
       assessed: "Evaluado",
       populationTrend: "Tendencia poblacional",
       threats: "Amenazas",
+    },
+    mdxChrome: {
+      iNaturalistTitle: "Observaciones de iNaturalist",
+      iNaturalistDescription: "Datos de especies impulsados por la comunidad",
+      observations: "Observaciones",
+      observers: "Observadores",
+      viewSpeciesPage: "Ver página de la especie ↗",
+      browsePhotos: "Explorar fotos ↗",
+      costaRicaOnly: "🇨🇷 Solo Costa Rica ↗",
+      referenceLink: "[Enlace ↗]",
+      referencesHeading: "📚 Referencias científicas y lecturas adicionales",
     },
   },
 } as const;
@@ -773,12 +795,17 @@ interface INaturalistEmbedProps {
   taxonId: string;
   taxonName: string;
   observationCount?: number;
+  locale?: Locale;
 }
 
 export function INaturalistEmbed({
   taxonId,
   observationCount,
+  locale = "en",
 }: INaturalistEmbedProps) {
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to supported locales.
+  const t = translations[locale].mdxChrome;
+
   return (
     <div className="bg-gradient-to-br from-[#74AC00]/10 to-[#74AC00]/5 rounded-xl p-6 my-6 border border-[#74AC00]/20 not-prose">
       <div className="flex items-center gap-3 mb-4">
@@ -787,10 +814,10 @@ export function INaturalistEmbed({
         </div>
         <div>
           <h4 className="font-semibold text-foreground">
-            iNaturalist Observations
+            {t.iNaturalistTitle}
           </h4>
           <p className="text-sm text-muted-foreground">
-            Community-powered species data
+            {t.iNaturalistDescription}
           </p>
         </div>
       </div>
@@ -800,11 +827,11 @@ export function INaturalistEmbed({
           <p className="text-2xl font-bold text-[#74AC00]">
             {observationCount || "290+"}
           </p>
-          <p className="text-xs text-muted-foreground">Observations</p>
+          <p className="text-xs text-muted-foreground">{t.observations}</p>
         </div>
         <div className="bg-card rounded-lg p-3 text-center">
           <p className="text-2xl font-bold text-[#74AC00]">186</p>
-          <p className="text-xs text-muted-foreground">Observers</p>
+          <p className="text-xs text-muted-foreground">{t.observers}</p>
         </div>
       </div>
 
@@ -815,7 +842,7 @@ export function INaturalistEmbed({
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-3 py-2 bg-[#74AC00] text-white rounded-lg text-sm font-medium hover:bg-[#5a8a00] transition-colors"
         >
-          View Species Page ↗
+          {t.viewSpeciesPage}
         </a>
         <a
           href={`https://www.inaturalist.org/observations?taxon_id=${taxonId}`}
@@ -823,7 +850,7 @@ export function INaturalistEmbed({
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-3 py-2 bg-card border border-[#74AC00]/30 text-foreground rounded-lg text-sm font-medium hover:border-[#74AC00] transition-colors"
         >
-          Browse Photos ↗
+          {t.browsePhotos}
         </a>
         <a
           href={`https://www.inaturalist.org/observations?taxon_id=${taxonId}&place_id=6924`}
@@ -831,7 +858,7 @@ export function INaturalistEmbed({
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-3 py-2 bg-card border border-[#74AC00]/30 text-foreground rounded-lg text-sm font-medium hover:border-[#74AC00] transition-colors"
         >
-          🇨🇷 Costa Rica Only ↗
+          {t.costaRicaOnly}
         </a>
       </div>
     </div>
@@ -846,6 +873,7 @@ interface ReferenceProps {
   journal?: string;
   doi?: string;
   url?: string;
+  locale?: Locale;
 }
 
 export function Reference({
@@ -855,8 +883,11 @@ export function Reference({
   journal,
   doi,
   url,
+  locale = "en",
 }: ReferenceProps) {
   const link = doi ? `https://doi.org/${doi}` : url;
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to supported locales.
+  const t = translations[locale].mdxChrome;
 
   return (
     <div className="border-l-2 border-primary/30 pl-4 py-2 my-3 not-prose">
@@ -872,7 +903,7 @@ export function Reference({
             rel="noopener noreferrer"
             className="ml-2 text-primary hover:underline text-xs"
           >
-            [Link ↗]
+            {t.referenceLink}
           </a>
         )}
       </p>
@@ -881,11 +912,20 @@ export function Reference({
 }
 
 // References Section
-export function ReferencesSection({ children }: { children: React.ReactNode }) {
+export function ReferencesSection({
+  children,
+  locale = "en",
+}: {
+  children: React.ReactNode;
+  locale?: Locale;
+}) {
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to supported locales.
+  const t = translations[locale].mdxChrome;
+
   return (
     <div className="bg-muted/50 rounded-xl p-6 my-6 not-prose">
       <h4 className="font-semibold text-lg mb-4 text-primary-dark dark:text-primary-light">
-        📚 Scientific References & Further Reading
+        {t.referencesHeading}
       </h4>
       {children}
     </div>
