@@ -148,6 +148,12 @@ export default async function TreePage({ params }: Props) {
 
   const baseUrl = "https://costaricatreeatlas.com";
   const pageUrl = `${baseUrl}/${locale}/trees/${slug}`;
+  const localizedConservationStatus = tree.conservationStatus
+    ? `${tree.conservationStatus} — ${getConservationLabel(
+        tree.conservationStatus as ConservationCategory,
+        locale
+      )}`
+    : null;
 
   // Build images array for structured data
   const structuredImages: string[] = [];
@@ -321,9 +327,9 @@ export default async function TreePage({ params }: Props) {
                   <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
                     {tree.family}
                   </span>
-                  {tree.conservationStatus && (
+                  {localizedConservationStatus && (
                     <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
-                      {tree.conservationStatus}
+                      {localizedConservationStatus}
                     </span>
                   )}
                 </div>
@@ -427,12 +433,12 @@ export default async function TreePage({ params }: Props) {
                   </p>
                   <p className="font-medium">{tree.family}</p>
                 </div>
-                {tree.conservationStatus && (
+                {localizedConservationStatus && (
                   <div className="bg-muted rounded-lg p-4">
                     <p className="text-sm text-muted-foreground mb-1">
                       {locale === "es" ? "Conservación" : "Conservation"}
                     </p>
-                    <p className="font-medium">{tree.conservationStatus}</p>
+                    <p className="font-medium">{localizedConservationStatus}</p>
                   </div>
                 )}
               </div>
