@@ -123,7 +123,9 @@ export async function ServerMDXContent({
   enableGlossaryLinks = false,
 }: ServerMDXContentProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
-  const resolvedLocale = locale as Locale;
+  // Normalize locale at runtime: callers may still pass unexpected values even
+  // though the prop is typed as Locale, so fall back to "en" defensively.
+  const resolvedLocale: Locale = locale === "es" ? "es" : "en";
 
   // Create locale-aware wrappers for legacy components that need localization
   // These components are imported from server-components and have a locale prop
@@ -133,14 +135,14 @@ export async function ServerMDXContent({
     ) =>
       mdxServerComponents.SafetyCard({
         ...props,
-        locale: locale as "en" | "es",
+        locale: resolvedLocale,
       }),
     ConservationStatus: (
       props: React.ComponentProps<typeof mdxServerComponents.ConservationStatus>
     ) =>
       mdxServerComponents.ConservationStatus({
         ...props,
-        locale: locale as "en" | "es",
+        locale: resolvedLocale,
       }),
     CareCalendar: (
       props: React.ComponentProps<typeof mdxServerComponents.CareCalendar>
