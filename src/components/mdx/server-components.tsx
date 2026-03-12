@@ -886,8 +886,10 @@ export function Reference({
   locale = "en",
 }: ReferenceProps) {
   const link = doi ? `https://doi.org/${doi}` : url;
-  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to supported locales.
-  const t = translations[locale].mdxChrome;
+  const normalizedLocale: keyof typeof translations =
+    locale && locale in translations ? (locale as keyof typeof translations) : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
+  const t = translations[normalizedLocale].mdxChrome;
 
   return (
     <div className="border-l-2 border-primary/30 pl-4 py-2 my-3 not-prose">
