@@ -39,6 +39,8 @@
     "exploreTrees": "Explorar árboles",
     "myFavorites": "Mis favoritos",
     "identifyTree": "Identificar árbol",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
     "noJsBanner": "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles."
   },
   "home": {
@@ -199,6 +201,7 @@
     "en": "Inglés",
     "es": "Español",
     "switch": "English",
+    "selector": "Selector de idioma",
     "switchTo": "Cambiar a {language}",
     "current": "Español"
   },

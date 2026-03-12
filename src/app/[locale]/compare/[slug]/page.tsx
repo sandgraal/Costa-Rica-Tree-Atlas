@@ -196,10 +196,16 @@ export default async function ComparisonPage({ params }: Props) {
                 <div className="flex items-center gap-2 no-print">
                   <ShareButton
                     title={comparison.title}
-                    scientificName=""
-                    slug={`compare/${comparison.slug}`}
+                    path={`/compare/${comparison.slug}`}
                   />
-                  <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
+                  <PrintButton
+                    label={locale === "es" ? "Imprimir" : "Print"}
+                    ariaLabel={
+                      locale === "es"
+                        ? "Imprimir esta página"
+                        : "Print this page"
+                    }
+                  />
                 </div>
               </div>
 

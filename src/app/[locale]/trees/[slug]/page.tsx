@@ -307,7 +307,12 @@ export default async function TreePage({ params }: Props) {
                   scientificName={tree.scientificName}
                   slug={tree.slug}
                 />
-                <PrintButton label={locale === "es" ? "Imprimir" : "Print"} />
+                <PrintButton
+                  label={locale === "es" ? "Imprimir" : "Print"}
+                  ariaLabel={
+                    locale === "es" ? "Imprimir esta página" : "Print this page"
+                  }
+                />
               </div>
 
               {/* Header */}

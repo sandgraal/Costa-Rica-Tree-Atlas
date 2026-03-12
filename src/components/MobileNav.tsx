@@ -110,7 +110,7 @@ export function MobileNav() {
           setIsOpen(!isOpen);
         }}
         className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors"
-        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-label={isOpen ? t("closeMenu") : t("openMenu")}
         aria-expanded={isOpen}
       >
         {isOpen ? (
