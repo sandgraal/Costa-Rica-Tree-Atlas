@@ -506,6 +506,7 @@ export default async function TreePage({ params }: Props) {
               <div className="tree-content max-w-none">
                 <ServerMDXContent
                   source={tree.body.raw}
+                  locale={locale}
                   glossaryTerms={allGlossaryTerms.map((t) => ({
                     term: t.term,
                     slug: t.slug,
