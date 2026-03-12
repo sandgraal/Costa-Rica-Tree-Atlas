@@ -803,8 +803,8 @@ export function INaturalistEmbed({
   observationCount,
   locale = "en",
 }: INaturalistEmbedProps) {
-  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to supported locales.
-  const t = translations[locale].mdxChrome;
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  const t = translations[normalizedLocale].mdxChrome;
 
   return (
     <div className="bg-gradient-to-br from-[#74AC00]/10 to-[#74AC00]/5 rounded-xl p-6 my-6 border border-[#74AC00]/20 not-prose">
