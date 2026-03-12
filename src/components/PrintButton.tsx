@@ -2,22 +2,29 @@
 
 interface PrintButtonProps {
   label?: string;
+  ariaLabel?: string;
   className?: string;
 }
 
-export function PrintButton({ label, className = "" }: PrintButtonProps) {
+export function PrintButton({
+  label,
+  ariaLabel,
+  className = "",
+}: PrintButtonProps) {
   const handlePrint = () => {
     window.print();
   };
+
+  const buttonLabel = label || "Print";
 
   return (
     <button
       onClick={handlePrint}
       className={`inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-dark transition-colors no-print ${className}`}
-      aria-label="Print this page"
+      aria-label={ariaLabel || buttonLabel}
     >
       <PrintIcon className="w-4 h-4" />
-      <span>{label || "Print"}</span>
+      <span>{buttonLabel}</span>
     </button>
   );
 }

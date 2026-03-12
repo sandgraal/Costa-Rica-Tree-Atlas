@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-03-11  
-**Status:** Audit-driven v2.0 — strong product foundation, but not yet world-class because operational reliability, semantic quality, localization polish, and factual-governance debt still need focused work.
+**Last Updated:** 2026-03-12  
+**Status:** Audit-driven v2.1 — first quick-win implementation slice is shipped, but P0 build hardening, deeper semantic cleanup, locale-surface parity, and factual-governance work still need focused follow-through.
 
 ---
 
@@ -11,13 +11,25 @@
 
 Costa Rica Tree Atlas has a genuinely strong base: bilingual content at scale, solid route architecture with locale-prefixed URLs, good saved Lighthouse results, and a thoughtful content/data model built on Next.js 16, `next-intl`, and Contentlayer. The site already feels substantial and differentiated.
 
-However, the repository is not currently in a world-class operating state. On 2026-03-11:
+However, the repository is not currently in a world-class operating state. As of 2026-03-12:
 
-- `npm run build` **fails**
-- `npm run lint` returns **1 warning**
-- audited browser sessions show **runtime console errors/warnings** on core routes
-- Spanish UI still exposes visible English strings on key pages
+- `npm run lint` now passes with **0 warnings**
+- the first implementation slice shipped the footer legal-link fix, compare share-link fix, compare title fix, shared control-label localization, and the `PhotoUploadClient` effect/lint cleanup
+- `npm run build` is still **not considered green** for plan purposes because P0 build hardening remains open, especially self-hosted font work and the Turbopack warning around `src/lib/error-tracking.ts`
+- audited browser sessions still show **runtime console errors/warnings** on core routes
+- Spanish UI parity is improved, but not yet complete across all high-traffic surfaces
 - factual remediation work remains materially unfinished
+
+### Recent implementation progress
+
+Completed on 2026-03-12 in the first implementation slice:
+
+- fixed footer `License` navigation to use `ROUTES.license`
+- removed the duplicate-key footer rendering issue by stabilizing footer list keys
+- fixed comparison-detail sharing so share URLs use `/compare/...` instead of `/trees/compare/...`
+- removed duplicated compare page title templating
+- localized shared control labels in `MobileNav`, `LanguageSwitcher`, and `PrintButton`
+- moved upload-limit fetching in `PhotoUploadClient` to `useEffect` and removed the unused locale variable
 
 ### Major strengths
 
@@ -30,8 +42,8 @@ However, the repository is not currently in a world-class operating state. On 20
 ### Top risks
 
 1. **Build reliability is broken** — `npm run build` fails due remote Google font fetching and optional Sentry loading behavior in `src/lib/error-tracking.ts`.
-2. **Runtime quality is noisy** — duplicate React keys, hydration mismatch, image configuration warnings, and manifest/icon warnings appear on core routes.
-3. **Localization polish is incomplete** — Spanish pages still show English labels and aria text in high-traffic journeys.
+2. **Runtime quality is noisy** — hydration mismatch, image configuration warnings, and manifest/icon warnings still appear on core routes.
+3. **Localization polish is incomplete** — shared controls improved, but Spanish pages still show mixed-language content in other high-traffic journeys.
 4. **Semantic/accessibility debt is real** — nested `<main>` landmarks, multiple `h1`s on tree detail pages, and non-localized control labels weaken WCAG quality.
 5. **Content trust is not fully closed** — `reports/factual-remediation-queue.full.md` still shows `144` findings across `104` trees, including IUCN drift, family drift, and citation gaps.
 
@@ -57,12 +69,12 @@ However, the repository is not currently in a world-class operating state. On 20
 
 ### 1. Functionality
 
-| Finding                                                                                           | Evidence                                                                                                                                                                                                                                                         | Severity | User impact                                                                                        | Business impact                                                                      | Recommended action                                                                                                                         |
-| ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Production build is not currently reliable.                                                       | `npm run build` fails on 2026-03-11. Errors include failed `next/font/google` fetches for `Geist` / `Geist Mono` from `src/app/[locale]/layout.tsx` and a Turbopack module-resolution failure around `require(SENTRY_MODULE)` in `src/lib/error-tracking.ts:45`. | Critical | Users are at risk of broken deploys or blocked releases.                                           | Highest — release confidence, hosting portability, and CI trust are compromised.     | Make builds hermetic: remove network dependency for fonts, and replace the optional Sentry loading pattern with a Turbopack-safe approach. |
-| Comparison page sharing is wired to the wrong URL shape.                                          | `src/app/[locale]/compare/[slug]/page.tsx` passes `slug={"compare/${comparison.slug}"}` into `ShareButton`, while `src/components/ShareButton.tsx` always builds URLs as `/${locale}/trees/${slug}`.                                                             | High     | Shared comparison links can point to the wrong destination.                                        | High — broken sharing reduces discoverability and trust.                             | Split tree-sharing and generic-sharing behavior, or make `ShareButton` accept a full route/path instead of assuming `/trees/`.             |
-| Footer legal navigation is both wrong and unstable.                                               | `src/components/Footer.tsx` renders both “About” and “License” with `href: ROUTES.about`, keyed by `link.href`, producing the browser error `Encountered two children with the same key, /about`. `ROUTES.license` already exists in `src/lib/nav-config.ts`.    | High     | Users cannot navigate directly to the intended license anchor; React warns on every audited route. | Medium-high — legal/accessibility polish and overall app quality take a visible hit. | Point the license link to `ROUTES.license` and stop keying repeated nav items by `href` alone.                                             |
-| Photo upload client contains a side-effect in state initialization and a lint-warning regression. | `src/app/[locale]/contribute/photo/PhotoUploadClient.tsx` uses `useState(() => { fetch(...) })` for an effect-like operation, and lint reports an unused `locale` variable at line 42.                                                                           | Medium   | Potentially fragile behavior and a code-smell in a core contribution workflow.                     | Medium — makes the codebase harder to reason about and maintain.                     | Move upload-limit fetching into `useEffect`, remove dead state/unused locals, and keep the contribution path warning-free.                 |
+| Finding                                            | Evidence                                                                                                                                                                                                                                                         | Severity | User impact                                                                                   | Business impact                                                                       | Recommended action                                                                                                                         |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Production build is not currently reliable.        | `npm run build` fails on 2026-03-11. Errors include failed `next/font/google` fetches for `Geist` / `Geist Mono` from `src/app/[locale]/layout.tsx` and a Turbopack module-resolution failure around `require(SENTRY_MODULE)` in `src/lib/error-tracking.ts:45`. | Critical | Users are at risk of broken deploys or blocked releases.                                      | Highest — release confidence, hosting portability, and CI trust are compromised.      | Make builds hermetic: remove network dependency for fonts, and replace the optional Sentry loading pattern with a Turbopack-safe approach. |
+| Comparison page sharing used the wrong URL shape.  | Resolved on 2026-03-12. `ShareButton` now accepts a full route path, and `src/app/[locale]/compare/[slug]/page.tsx` now shares `/${locale}/compare/${comparison.slug}` correctly.                                                                                | Closed   | Comparison-detail shares now resolve to the intended route.                                   | High — removes a broken user-facing contract in a high-value feature.                 | Keep `ShareButton` path-based for non-tree routes and extend the same pattern anywhere else route assumptions are currently implicit.      |
+| Footer legal navigation was wrong and unstable.    | Resolved on 2026-03-12. `src/components/Footer.tsx` now links `License` to `ROUTES.license` and no longer keys repeated items by raw `href`.                                                                                                                     | Closed   | Footer legal links now point to the intended destination without the duplicate-key bug.       | Medium-high — removes visible runtime noise and fixes a trust/legal navigation issue. | Preserve centralized route usage for all legal/footer destinations and avoid raw-`href` keying when duplicates are possible.               |
+| Photo upload client had an effect/lint regression. | Resolved on 2026-03-12. `src/app/[locale]/contribute/photo/PhotoUploadClient.tsx` now fetches upload limits in `useEffect`, and the unused locale variable was removed.                                                                                          | Closed   | The contribution flow is easier to reason about and no longer carries the known lint warning. | Medium — improves code clarity in a core community workflow.                          | Apply the same hook-discipline standard to other client components that still blend initialization and side effects.                       |
 
 ### 2. Usability
 
@@ -75,12 +87,12 @@ However, the repository is not currently in a world-class operating state. On 20
 
 ### 3. Accessibility
 
-| Finding                                                       | Evidence                                                                                                                                                                                                                                               | Severity | User impact                                                                           | Business impact                                                 | Recommended action                                                                                                                               |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Nested `<main>` landmarks are present across multiple routes. | `grep` found `<main>` in `src/app/[locale]/compare/page.tsx`, `seasonal/page.tsx`, `contribute/page.tsx`, `oral-histories/page.tsx`, `api-docs/page.tsx`, etc., while `src/app/[locale]/layout.tsx` already wraps pages in `<main id="main-content">`. | High     | Screen-reader and landmark navigation become noisier and less predictable.            | High — this is a cross-template semantic defect.                | Standardize page templates to use `<section>`/`<div>` inside the layout’s single `<main>` landmark.                                              |
-| Tree detail pages show more than one `h1`.                    | Browser snapshot for `/es/trees/ceiba` shows one `h1` in the page chrome and another `h1` generated within MDX content.                                                                                                                                | High     | Heading navigation becomes confusing; semantic outline weakens.                       | High — hurts both accessibility and SEO clarity.                | Enforce one `h1` per page and downgrade MDX top-level headings inside detail content to `h2` or below.                                           |
-| Important controls have non-localized accessible names.       | Spanish snapshots still show `Open menu` on the mobile-nav button; `src/components/LanguageSwitcher.tsx` hardcodes `aria-label="Language selector"`; `src/components/PrintButton.tsx` hardcodes `aria-label="Print this page"`.                        | Medium   | Spanish assistive-technology users receive mixed-language or incorrect announcements. | Medium-high — violates the equal-surface requirement for EN/ES. | Localize control labels/aria attributes through message files and shared translation helpers.                                                    |
-| Landmark structure and semantics vary by template.            | `/es/compare` shows a nested `<main>` within the page body; several complex pages rely on generic wrappers instead of stronger sectioning/landmark patterns.                                                                                           | Medium   | Keyboard and screen-reader users lose orientation in long pages.                      | Medium                                                          | Create a template-level accessibility checklist for route pages: one main, ordered headings, localized labels, and predictable section wrappers. |
+| Finding                                                       | Evidence                                                                                                                                                                                                                                               | Severity | User impact                                                                         | Business impact                                                                      | Recommended action                                                                                                                               |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Nested `<main>` landmarks are present across multiple routes. | `grep` found `<main>` in `src/app/[locale]/compare/page.tsx`, `seasonal/page.tsx`, `contribute/page.tsx`, `oral-histories/page.tsx`, `api-docs/page.tsx`, etc., while `src/app/[locale]/layout.tsx` already wraps pages in `<main id="main-content">`. | High     | Screen-reader and landmark navigation become noisier and less predictable.          | High — this is a cross-template semantic defect.                                     | Standardize page templates to use `<section>`/`<div>` inside the layout’s single `<main>` landmark.                                              |
+| Tree detail pages show more than one `h1`.                    | Browser snapshot for `/es/trees/ceiba` shows one `h1` in the page chrome and another `h1` generated within MDX content.                                                                                                                                | High     | Heading navigation becomes confusing; semantic outline weakens.                     | High — hurts both accessibility and SEO clarity.                                     | Enforce one `h1` per page and downgrade MDX top-level headings inside detail content to `h2` or below.                                           |
+| Shared controls needed localized accessible names.            | Partially resolved on 2026-03-12. `MobileNav`, `LanguageSwitcher`, and `PrintButton` now use localized labels, but route-level audits still need to cover remaining interactive controls in high-traffic templates.                                    | Medium   | Shared navigation and print controls are improved, but parity work is not complete. | Medium-high — this remains a parity and WCAG consistency stream, not a one-file fix. | Continue route-level audits and move remaining shared labels out of inline locale conditionals where practical.                                  |
+| Landmark structure and semantics vary by template.            | `/es/compare` shows a nested `<main>` within the page body; several complex pages rely on generic wrappers instead of stronger sectioning/landmark patterns.                                                                                           | Medium   | Keyboard and screen-reader users lose orientation in long pages.                    | Medium                                                                               | Create a template-level accessibility checklist for route pages: one main, ordered headings, localized labels, and predictable section wrappers. |
 
 ### 4. Performance
 
@@ -93,21 +105,21 @@ However, the repository is not currently in a world-class operating state. On 20
 
 ### 5. SEO
 
-| Finding                                                                        | Evidence                                                                                                                                                                                                                                         | Severity | User impact                                                                 | Business impact                                                         | Recommended action                                                                                  |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Compare page titles are duplicated.                                            | Browser title for `/es/compare` is `Comparación de Árboles \| Atlas de Árboles de Costa Rica \| Atlas de Árboles de Costa Rica`. `src/app/[locale]/compare/page.tsx` appends site title manually while layout metadata template also appends it. | High     | SERP/title presentation is noisy and less professional.                     | High — weakens CTR and metadata hygiene on an important discovery page. | Remove per-page manual site-title concatenation where the layout template already handles it.       |
-| Detail-page heading semantics reduce search clarity.                           | `/es/trees/ceiba` shows two `h1`s; semantic hierarchy is split between template chrome and MDX body.                                                                                                                                             | High     | Search engines and assistive technologies receive a weaker content outline. | High                                                                    | Enforce single primary heading and consistent section depth across all MDX-backed detail pages.     |
-| License/internal-link signal is weaker than intended.                          | Footer “License” currently routes to `/about` rather than the dedicated `#license` anchor defined in route config.                                                                                                                               | Medium   | Users and crawlers get a less specific internal destination.                | Medium                                                                  | Fix the footer destination and keep internal link targets precise.                                  |
-| Locale discoverability is mostly strong but PWA metadata is English-defaulted. | Routing and alternates are in place, but `public/manifest.json` is hardcoded to `start_url: "/en"`, `lang: "en"`, and English description.                                                                                                       | Medium   | Spanish-first users get a subtly EN-biased install/share experience.        | Medium                                                                  | Decide whether to generate locale-aware manifests or document a deliberate default-locale strategy. |
+| Finding                                                                        | Evidence                                                                                                                                                                | Severity | User impact                                                                 | Business impact                                                 | Recommended action                                                                                        |
+| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Compare page titles were duplicated.                                           | Resolved on 2026-03-12. `src/app/[locale]/compare/page.tsx` now returns `title: t("title")`, allowing the layout title template to handle the site suffix exactly once. | Closed   | Compare page titles are now cleaner in browser and search contexts.         | High — removes metadata duplication on a major discovery route. | Apply the same title-template discipline to any remaining pages that manually concatenate the site title. |
+| Detail-page heading semantics reduce search clarity.                           | `/es/trees/ceiba` shows two `h1`s; semantic hierarchy is split between template chrome and MDX body.                                                                    | High     | Search engines and assistive technologies receive a weaker content outline. | High                                                            | Enforce single primary heading and consistent section depth across all MDX-backed detail pages.           |
+| License/internal-link signal is weaker than intended.                          | Footer “License” currently routes to `/about` rather than the dedicated `#license` anchor defined in route config.                                                      | Medium   | Users and crawlers get a less specific internal destination.                | Medium                                                          | Fix the footer destination and keep internal link targets precise.                                        |
+| Locale discoverability is mostly strong but PWA metadata is English-defaulted. | Routing and alternates are in place, but `public/manifest.json` is hardcoded to `start_url: "/en"`, `lang: "en"`, and English description.                              | Medium   | Spanish-first users get a subtly EN-biased install/share experience.        | Medium                                                          | Decide whether to generate locale-aware manifests or document a deliberate default-locale strategy.       |
 
 ### 6. Internationalization Quality
 
-| Finding                                                                | Evidence                                                                                                                                                                                                                       | Severity | User impact                                                                        | Business impact                                | Recommended action                                                                                                                                             |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| File parity is excellent, but experience parity is not yet complete.   | Script checks confirm EN/ES parity for trees (`175/175`), comparisons (`20/20`), glossary (`150/150`), oral histories (`2/2`), and translation keys (`1158` each). Browser audits still show English strings on Spanish pages. | High     | Spanish users get a second-tier experience in core interactions.                   | High — conflicts directly with product goals.  | Shift i18n QA from “asset parity” to “surface parity” with route-level audits for visible and assistive text.                                                  |
-| Hardcoded locale ternaries are widespread and error-prone.             | `grep` found `200+` matches for `locale === "es"` patterns across components/routes, including `Breadcrumbs`, `ShareButton`, `SeasonalCalendar`, `TreeOfTheDay`, and many others.                                              | High     | Mixed-language regressions are easy to introduce and hard to systematically catch. | High — maintainability and parity both suffer. | Consolidate repeated UI strings into translation files or shared translation helpers; reserve ternaries for truly tiny data labels only.                       |
-| Spanish tree detail pages still contain visible English strings.       | `/es/trees/ceiba` snapshot includes `Print this page`, `iNaturalist Observations`, `Community-powered species data`, `View Species Page`, `Browse Photos`, and `Conservation status and species assessment`.                   | High     | Spanish readers encounter broken immersion and inconsistent credibility.           | High                                           | Audit high-traffic templates first (`tree detail`, `compare`, `header/footer`, `safety`, `external resource modules`) and eliminate visible English leftovers. |
-| Spanish navigation and controls still expose English assistive labels. | Browser snapshots for `/es/glossary`, `/es/trees/ceiba`, and `/es/compare` still show `Open menu`; `Language selector` also stays English.                                                                                     | Medium   | Screen-reader and keyboard users are affected most.                                | Medium-high                                    | Localize aria-labels and button labels in shared navigation components first.                                                                                  |
+| Finding                                                              | Evidence                                                                                                                                                                                                                       | Severity | User impact                                                                              | Business impact                                | Recommended action                                                                                                                                             |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| File parity is excellent, but experience parity is not yet complete. | Script checks confirm EN/ES parity for trees (`175/175`), comparisons (`20/20`), glossary (`150/150`), oral histories (`2/2`), and translation keys (`1158` each). Browser audits still show English strings on Spanish pages. | High     | Spanish users get a second-tier experience in core interactions.                         | High — conflicts directly with product goals.  | Shift i18n QA from “asset parity” to “surface parity” with route-level audits for visible and assistive text.                                                  |
+| Hardcoded locale ternaries are widespread and error-prone.           | `grep` found `200+` matches for `locale === "es"` patterns across components/routes, including `Breadcrumbs`, `ShareButton`, `SeasonalCalendar`, `TreeOfTheDay`, and many others.                                              | High     | Mixed-language regressions are easy to introduce and hard to systematically catch.       | High — maintainability and parity both suffer. | Consolidate repeated UI strings into translation files or shared translation helpers; reserve ternaries for truly tiny data labels only.                       |
+| Spanish tree detail pages still contain visible English strings.     | `/es/trees/ceiba` snapshot includes `Print this page`, `iNaturalist Observations`, `Community-powered species data`, `View Species Page`, `Browse Photos`, and `Conservation status and species assessment`.                   | High     | Spanish readers encounter broken immersion and inconsistent credibility.                 | High                                           | Audit high-traffic templates first (`tree detail`, `compare`, `header/footer`, `safety`, `external resource modules`) and eliminate visible English leftovers. |
+| Spanish navigation and controls had shared English assistive labels. | Partially resolved on 2026-03-12. Shared labels for menu open/close, language selector, and print controls were localized, but broader route-surface parity still needs continued verification.                                | Medium   | Shared control parity improved immediately for Spanish keyboard and screen-reader users. | Medium-high                                    | Continue EN/ES surface audits on tree detail, comparison detail, biodiversity modules, and other route-specific UI.                                            |
 
 ### 7. Content Accuracy
 
@@ -185,12 +197,17 @@ However, the repository is not currently in a world-class operating state. On 20
 
 Items deliverable in 1 day or less:
 
-1. Fix footer “License” to use `ROUTES.license` and stop keying that list by raw `href`.
-2. Fix compare-page sharing to generate `/compare/...` links instead of `/trees/compare/...`.
-3. Remove duplicated site title on compare page metadata.
-4. Localize `Open menu`, `Language selector`, and `Print this page` labels.
-5. Remove the unused `locale` variable in `PhotoUploadClient` and clear the current lint warning.
-6. Move upload-limit fetching in `PhotoUploadClient` from a `useState` initializer into `useEffect`.
+### Completed on 2026-03-12
+
+1. ✅ Fix footer `License` to use `ROUTES.license` and stop keying that list by raw `href`.
+2. ✅ Fix compare-page sharing to generate `/compare/...` links instead of `/trees/compare/...`.
+3. ✅ Remove duplicated site title on compare page metadata.
+4. ✅ Localize `Open menu`, `Language selector`, and `Print this page` labels in shared controls.
+5. ✅ Remove the unused `locale` variable in `PhotoUploadClient` and clear the known lint warning.
+6. ✅ Move upload-limit fetching in `PhotoUploadClient` from a `useState` initializer into `useEffect`.
+
+### Still remaining quick wins
+
 7. Add/normalize supported `next/image` quality values in `next.config.ts`.
 8. Regenerate or correct manifest icon dimensions to match declared sizes.
 9. Replace raw `LC` / `EN` / etc. display in quick facts with localized human labels plus code.
@@ -208,10 +225,10 @@ Items deliverable in 1 day or less:
 
 ### 2. Mobile-first tree-detail restructuring
 
-- **Rationale:** Tree pages are the product core, and they are currently richer than they are scannable.
+- **Rationale:** Tree pages are the product core, and they must prioritize deep reference reading without sacrificing a more usable mobile first screen.
 - **Expected ROI:** Better engagement, lower bounce on mobile, more effective educational use in the field.
 - **Complexity:** Medium.
-- **Validation method:** Compare scroll depth, CTA engagement, and qualitative usability testing before/after on 5 representative species pages.
+- **Validation method:** Compare scroll depth, CTA engagement, and qualitative usability testing before/after on 5 representative species pages, with special attention to top-of-page mobile scanability.
 
 ### 3. Indigenous knowledge governance and attribution model
 
@@ -227,7 +244,7 @@ Items deliverable in 1 day or less:
 ### P0 — Restore deterministic build and release health
 
 - `npm run build` succeeds on a clean environment without manual intervention.
-- No network-dependent font fetch is required for a successful build.
+- Fonts are fully self-hosted; no network-dependent font fetch is required for a successful build.
 - Optional error-tracking code no longer triggers Turbopack resolution failures.
 
 ### P1 — Eliminate runtime console errors and contract bugs
@@ -256,13 +273,13 @@ Items deliverable in 1 day or less:
 
 ### P5 — Close P1 factual-remediation and citation gaps
 
-- All `P1-high` entries in `reports/factual-remediation-queue.full.md` are either resolved or explicitly documented with curator-approved exceptions.
-- High-risk sections (`uses`, `cultural`, `history`, `medicinal`, `safety`, `conservation`) include claim-level citations.
+- All `P1-high` entries in `reports/factual-remediation-queue.full.md` are either resolved or explicitly documented with curator-approved, source-noted exceptions.
+- High-risk sections (`uses`, `cultural`, `history`, `medicinal`, `safety`, `conservation`) include claim-level citations and meet a publishability threshold the relevant community would consider credible.
 - EN and ES frontmatter remain factually aligned after remediation.
 
 ### P6 — Improve tree-detail mobile wayfinding and scanability
 
-- Tree detail pages expose a mobile-friendly wayfinding mechanism.
+- Tree detail pages preserve deep reference reading as the primary mode while exposing a more mobile-friendly top-of-page wayfinding mechanism.
 - Primary tasks (identify, safety, compare, contribute) are reachable without excessive scrolling.
 - Mobile usability review on representative pages confirms improved scanability.
 
@@ -270,6 +287,7 @@ Items deliverable in 1 day or less:
 
 - Browser verification shows **0** `next/image` quality warnings on audited routes.
 - Browser verification shows **0** manifest/icon size warnings.
+- PWA start/install behavior is locale-aware rather than hard-defaulting to `/en`.
 - PWA assets match declared sizes exactly.
 
 ### P8 — Simplify fragile client-side patterns and shared string logic
@@ -285,27 +303,31 @@ Items deliverable in 1 day or less:
 
 ### P10 — Establish indigenous knowledge review and attribution policy
 
-- A documented review workflow exists for indigenous names, meanings, oral histories, and ceremonial claims.
+- A documented review workflow exists for indigenous names, meanings, oral histories, ceremonial claims, and other culturally sensitive assertions.
 - New culturally sensitive content cannot ship without source and reviewer metadata.
+
+### Governance
+
+- Content owns final sign-off for “world-class” quality gates.
 
 ---
 
 ## KPI Framework
 
-| Metric                                  | Baseline if known                                                                         | Target                                                                 | Measurement method                                  | Review cadence                        |
-| --------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------- |
-| Build success rate                      | **Red** on 2026-03-11 (`npm run build` fails)                                             | 100% on release branch                                                 | Run `npm run build` in clean environment / CI       | Every PR to main                      |
-| Lint warnings/errors                    | 1 warning, 0 errors (`npm run lint`)                                                      | 0 warnings, 0 errors                                                   | Run `npm run lint`                                  | Every PR                              |
-| Console errors on representative routes | 2 errors observed on `/en`, `/en/trees`, `/es/glossary`, `/es/compare`, `/es/trees/ceiba` | 0                                                                      | Browser verification of representative EN/ES routes | Weekly until stable, then per release |
-| Desktop performance score               | 99                                                                                        | Maintain ≥ 95                                                          | Saved Lighthouse desktop report                     | Monthly                               |
-| Mobile performance score                | 90                                                                                        | Maintain ≥ 90, improve CWV stability                                   | Saved Lighthouse mobile report                      | Monthly                               |
-| Accessibility score                     | 96 desktop/mobile reports                                                                 | ≥ 100 on representative marketing/content routes, ≥ 98 minimum overall | Lighthouse + manual a11y review                     | Monthly                               |
-| SEO score                               | 100                                                                                       | Maintain 100                                                           | Lighthouse + metadata spot checks                   | Monthly                               |
-| Locale asset parity                     | Trees 175/175, comparisons 20/20, glossary 150/150, oral histories 2/2                    | Maintain 100%                                                          | Scripted parity check                               | Every content batch                   |
-| Locale surface parity                   | Mixed-language strings still present on ES routes                                         | 0 visible mixed-language strings on audited routes                     | Browser verification in EN/ES                       | Weekly until resolved                 |
-| Factual remediation backlog             | 144 findings across 104 trees                                                             | 0 `P1-high`; total backlog materially reduced                          | Re-run factual audit scripts                        | Biweekly during remediation           |
-| Semantic template quality               | 11 route files with nested `<main>` matches                                               | 0                                                                      | Static search + browser verification                | Every template change                 |
-| PWA manifest/icon validity              | Browser warning present; icon sizes mismatched                                            | 0 warnings                                                             | Browser verification + file-dimension check         | Per release                           |
+| Metric                                  | Baseline if known                                                                                                                                                 | Target                                                                 | Measurement method                                  | Review cadence                        |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------- |
+| Build success rate                      | Not yet green for plan purposes; latest build still surfaces the known Turbopack warning in `src/lib/error-tracking.ts` and P0 self-hosted-font work remains open | 100% on release branch                                                 | Run `npm run build` in clean environment / CI       | Every PR to main                      |
+| Lint warnings/errors                    | 0 warnings, 0 errors (`npm run lint`) as of 2026-03-12                                                                                                            | 0 warnings, 0 errors                                                   | Run `npm run lint`                                  | Every PR                              |
+| Console errors on representative routes | 2 errors observed on `/en`, `/en/trees`, `/es/glossary`, `/es/compare`, `/es/trees/ceiba`                                                                         | 0                                                                      | Browser verification of representative EN/ES routes | Weekly until stable, then per release |
+| Desktop performance score               | 99                                                                                                                                                                | Maintain ≥ 95                                                          | Saved Lighthouse desktop report                     | Monthly                               |
+| Mobile performance score                | 90                                                                                                                                                                | Maintain ≥ 90, improve CWV stability                                   | Saved Lighthouse mobile report                      | Monthly                               |
+| Accessibility score                     | 96 desktop/mobile reports                                                                                                                                         | ≥ 100 on representative marketing/content routes, ≥ 98 minimum overall | Lighthouse + manual a11y review                     | Monthly                               |
+| SEO score                               | 100                                                                                                                                                               | Maintain 100                                                           | Lighthouse + metadata spot checks                   | Monthly                               |
+| Locale asset parity                     | Trees 175/175, comparisons 20/20, glossary 150/150, oral histories 2/2                                                                                            | Maintain 100%                                                          | Scripted parity check                               | Every content batch                   |
+| Locale surface parity                   | Mixed-language strings still present on ES routes                                                                                                                 | 0 visible mixed-language strings on audited routes                     | Browser verification in EN/ES                       | Weekly until resolved                 |
+| Factual remediation backlog             | 144 findings across 104 trees                                                                                                                                     | 0 `P1-high`; total backlog materially reduced                          | Re-run factual audit scripts                        | Biweekly during remediation           |
+| Semantic template quality               | 11 route files with nested `<main>` matches                                                                                                                       | 0                                                                      | Static search + browser verification                | Every template change                 |
+| PWA manifest/icon validity              | Browser warning present; icon sizes mismatched                                                                                                                    | 0 warnings                                                             | Browser verification + file-dimension check         | Per release                           |
 
 ---
 
@@ -327,30 +349,42 @@ Items deliverable in 1 day or less:
 
 ---
 
-## Open Questions
+## Locked Decisions
 
-1. Should fonts be fully vendored/self-hosted to guarantee hermetic builds, or is a network-dependent font strategy acceptable for this project?
-2. Should the PWA experience stay English-defaulted (`/en`) or become locale-aware at install/start time?
-3. What is the product stance when GBIF family data and editorial taxonomy disagree — automatic update, curator decision, or source-noted exception?
-4. What level of evidence is required before cultural, medicinal, and indigenous claims are considered publishable?
-5. Should tree detail pages optimize first for deep reference reading or for fast field identification on mobile?
-6. Which team role owns final sign-off on “world-class” quality gates: engineering, content, or product?
+1. **Fonts:** Fonts will be fully self-hosted to guarantee hermetic builds.
+2. **PWA locale behavior:** The PWA experience will become locale-aware rather than defaulting to `/en`.
+3. **Taxonomy conflicts:** When GBIF family data and editorial taxonomy disagree, the project will use source-noted exceptions rather than automatic overwrite.
+4. **Evidence threshold:** Cultural, medicinal, and indigenous claims must meet the level of evidence and review that the relevant community would consider publishable.
+5. **Tree detail UX priority:** Tree detail pages will prioritize deep reference reading while making the top portion of the page more mobile-friendly.
+6. **Final sign-off:** Content owns final sign-off for “world-class” quality gates.
 
 ---
 
 ## Evidence Snapshot Used For This Revision
 
 - `git log --oneline -10` reviewed on 2026-03-11
-- `npm run build` reviewed on 2026-03-11 (**failed**)
-- `npm run lint` reviewed on 2026-03-11 (**1 warning**)
+- `npm run lint` reviewed on 2026-03-12 (**passes with 0 warnings**)
+- `npm run build` re-run during the first implementation slice; P0 remains open because the known Turbopack warning in `src/lib/error-tracking.ts` is still present and self-hosted fonts are now a required decision
 - EN/ES content parity checked via filesystem for trees, comparisons, glossary, and oral histories
 - EN/ES message-key parity checked for `messages/en.json` and `messages/es.json`
+- First implementation slice completed on `fix/nav-share-contracts`, including updates to:
+  - `src/components/Footer.tsx`
+  - `src/components/ShareButton.tsx`
+  - `src/app/[locale]/compare/page.tsx`
+  - `src/app/[locale]/compare/[slug]/page.tsx`
+  - `src/components/MobileNav.tsx`
+  - `src/components/LanguageSwitcher.tsx`
+  - `src/components/PrintButton.tsx`
+  - `src/app/[locale]/contribute/photo/PhotoUploadClient.tsx`
+  - `messages/en.json`
+  - `messages/es.json`
 - Browser-verified routes included:
   - `/en`
   - `/en/trees`
   - `/es/glossary`
   - `/es/compare`
   - `/es/trees/ceiba`
+  - `/es/compare/aguacate-vs-aguacatillo`
 - Saved Lighthouse baselines read from:
   - `lighthouse-report.json`
   - `lighthouse-report-mobile.json`

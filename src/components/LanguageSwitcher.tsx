@@ -25,11 +25,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div
-      className="flex items-center"
-      role="group"
-      aria-label="Language selector"
-    >
+    <div className="flex items-center" role="group" aria-label={t("selector")}>
       {routing.locales.map((loc, index) => (
         <span key={loc} className="flex items-center">
           {index > 0 && (

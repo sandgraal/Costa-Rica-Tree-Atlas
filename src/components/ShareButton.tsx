@@ -5,24 +5,35 @@ import { useLocale } from "next-intl";
 
 interface ShareButtonProps {
   title: string;
-  scientificName: string;
-  slug: string;
+  scientificName?: string;
+  slug?: string;
+  path?: string;
 }
 
-export function ShareButton({ title, scientificName, slug }: ShareButtonProps) {
+export function ShareButton({
+  title,
+  scientificName,
+  slug,
+  path,
+}: ShareButtonProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const locale = useLocale();
+  const sharePath = path ?? (slug ? `/trees/${slug}` : "");
 
   const shareUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/${locale}/trees/${slug}`
+    typeof window !== "undefined" && sharePath
+      ? `${window.location.origin}/${locale}${sharePath}`
       : "";
+
+  const titleWithScientificName = scientificName
+    ? `${title} (${scientificName})`
+    : title;
 
   const shareText =
     locale === "es"
-      ? `Descubre el ${title} (${scientificName}) en el Atlas de Árboles de Costa Rica 🌳`
-      : `Discover the ${title} (${scientificName}) on Costa Rica Tree Atlas 🌳`;
+      ? `Descubre ${titleWithScientificName} en el Atlas de Árboles de Costa Rica 🌳`
+      : `Discover ${titleWithScientificName} on Costa Rica Tree Atlas 🌳`;
 
   const handleShare = async (platform: string) => {
     const encodedUrl = encodeURIComponent(shareUrl);

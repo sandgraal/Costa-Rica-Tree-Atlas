@@ -45,7 +45,7 @@ export async function Footer({ locale }: FooterProps) {
       title: t("legalSection"),
       links: [
         { href: ROUTES.about, label: t("about") },
-        { href: ROUTES.about, label: t("license") },
+        { href: ROUTES.license, label: t("license") },
       ],
     },
   ];
