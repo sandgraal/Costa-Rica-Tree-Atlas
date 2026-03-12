@@ -16,6 +16,9 @@ export async function register() {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const Sentry = require(sentryModule) as {
         init: (options: Record<string, unknown>) => void;
+        withScope?: (callback: (scope: unknown) => void) => void;
+        captureException?: (error: Error) => void;
+        captureMessage?: (message: string) => void;
       };
 
       Sentry.init({
@@ -26,6 +29,25 @@ export async function register() {
         // Only send errors in production
         enabled: process.env.NODE_ENV === "production",
       });
+      if (
+        Sentry.withScope &&
+        Sentry.captureException &&
+        Sentry.captureMessage
+      ) {
+        globalThis.__CRTA_SENTRY__ = {
+          withScope: (callback) => {
+            Sentry.withScope?.((scope) => {
+              callback(scope as unknown as Parameters<typeof callback>[0]);
+            });
+          },
+          captureException: (error) => {
+            Sentry.captureException?.(error);
+          },
+          captureMessage: (message) => {
+            Sentry.captureMessage?.(message);
+          },
+        };
+      }
 
       console.info("[Sentry] Initialized successfully");
     } catch {
