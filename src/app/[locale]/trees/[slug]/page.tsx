@@ -148,13 +148,21 @@ export default async function TreePage({ params }: Props) {
 
   const baseUrl = "https://costaricatreeatlas.com";
   const pageUrl = `${baseUrl}/${locale}/trees/${slug}`;
-  const localizedConservationStatus = tree.conservationStatus
-    ? `${tree.conservationStatus} — ${getConservationLabel(
-        tree.conservationStatus as ConservationCategory,
-        locale
-      )}`
-    : null;
+  let localizedConservationStatus: string | null = null;
+  if (tree.conservationStatus) {
+    const rawStatus = tree.conservationStatus;
+    let label: string | null = null;
 
+    try {
+      label = getConservationLabel(rawStatus as ConservationCategory, locale);
+    } catch {
+      label = null;
+    }
+
+    localizedConservationStatus = label
+      ? `${rawStatus} — ${label}`
+      : String(rawStatus);
+  }
   // Build images array for structured data
   const structuredImages: string[] = [];
   if (tree.featuredImage) {
