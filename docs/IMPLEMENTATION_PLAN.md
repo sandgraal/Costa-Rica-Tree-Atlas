@@ -31,10 +31,10 @@ Completed on 2026-03-12 in the first implementation slice:
 - localized shared control labels in `MobileNav`, `LanguageSwitcher`, and `PrintButton`
 - moved upload-limit fetching in `PhotoUploadClient` to `useEffect` and removed the unused locale variable
 
-Completed on 2026-03-12 in the second implementation slice:
+Completed on 2026-03-12 in the follow-up implementation slices:
 
-- replaced the fragile optional Sentry loading path with a bundler-safe adapter boundary in `src/lib/error-tracking.ts`
-- removed the Turbopack module-resolution warning caused by probing `@sentry/nextjs` from `src/instrumentation.ts`
+- replaced the fragile optional error-tracking probe with a bundler-safe adapter boundary, removing the Turbopack warning triggered by `src/lib/error-tracking.ts`
+- added the actual `next/image` quality allowlist in `next.config.ts` to match the quality values already used across cards, galleries, and shared image components
 
 ### Major strengths
 
@@ -46,8 +46,8 @@ Completed on 2026-03-12 in the second implementation slice:
 
 ### Top risks
 
-1. **Build reliability is broken** — `npm run build` fails due remote Google font fetching and optional Sentry loading behavior in `src/lib/error-tracking.ts`.
-2. **Runtime quality is noisy** — hydration mismatch, image configuration warnings, and manifest/icon warnings still appear on core routes.
+1. **Build reliability is still not fully hardened** — the optional error-tracking warning is fixed, but release health still depends on replacing remote font fetching with fully self-hosted assets.
+2. **Runtime quality is noisy** — hydration mismatch and manifest/icon warnings still appear on core routes, and image-quality warnings need a fresh browser recheck after the new config allowlist.
 3. **Localization polish is incomplete** — shared controls improved, but Spanish pages still show mixed-language content in other high-traffic journeys.
 4. **Semantic/accessibility debt is real** — nested `<main>` landmarks, multiple `h1`s on tree detail pages, and non-localized control labels weaken WCAG quality.
 5. **Content trust is not fully closed** — `reports/factual-remediation-queue.full.md` still shows `144` findings across `104` trees, including IUCN drift, family drift, and citation gaps.
@@ -210,10 +210,10 @@ Items deliverable in 1 day or less:
 4. ✅ Localize `Open menu`, `Language selector`, and `Print this page` labels in shared controls.
 5. ✅ Remove the unused `locale` variable in `PhotoUploadClient` and clear the known lint warning.
 6. ✅ Move upload-limit fetching in `PhotoUploadClient` from a `useState` initializer into `useEffect`.
+7. ✅ Add/normalize supported `next/image` quality values in `next.config.ts`.
 
 ### Still remaining quick wins
 
-7. Add/normalize supported `next/image` quality values in `next.config.ts`.
 8. Regenerate or correct manifest icon dimensions to match declared sizes.
 9. Replace raw `LC` / `EN` / etc. display in quick facts with localized human labels plus code.
 
@@ -369,7 +369,7 @@ Items deliverable in 1 day or less:
 
 - `git log --oneline -10` reviewed on 2026-03-11
 - `npm run lint` reviewed on 2026-03-12 (**passes with 0 warnings**)
-- `npm run build` re-run during the second implementation slice; the known Turbopack warning in `src/lib/error-tracking.ts` is resolved, and P0 remains open because self-hosted fonts are still required
+- `npm run build` re-run during the follow-up implementation slices; the known Turbopack warning in `src/lib/error-tracking.ts` is resolved, the `next/image` quality allowlist now matches in-repo usage, and P0 remains open because self-hosted fonts are still required
 - EN/ES content parity checked via filesystem for trees, comparisons, glossary, and oral histories
 - EN/ES message-key parity checked for `messages/en.json` and `messages/es.json`
 - First implementation slice completed on `fix/nav-share-contracts`, including updates to:
@@ -383,9 +383,9 @@ Items deliverable in 1 day or less:
   - `src/app/[locale]/contribute/photo/PhotoUploadClient.tsx`
   - `messages/en.json`
   - `messages/es.json`
-- Second implementation slice completed on `fix/sentry-adapter-boundary`, including updates to:
-  - `src/lib/error-tracking.ts`
-  - `src/instrumentation.ts`
+- Follow-up implementation slices completed on:
+  - `fix/sentry-adapter-boundary` with updates to `src/lib/error-tracking.ts` and `src/instrumentation.ts`
+  - `fix/next-image-qualities` with updates to `next.config.ts`
 - Browser-verified routes included:
   - `/en`
   - `/en/trees`
