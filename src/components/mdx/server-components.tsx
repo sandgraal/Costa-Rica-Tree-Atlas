@@ -804,6 +804,7 @@ export function INaturalistEmbed({
   locale = "en",
 }: INaturalistEmbedProps) {
   const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].mdxChrome;
 
   return (
@@ -886,10 +887,7 @@ export function Reference({
   locale = "en",
 }: ReferenceProps) {
   const link = doi ? `https://doi.org/${doi}` : url;
-  const normalizedLocale: keyof typeof translations =
-    locale && Object.hasOwn(translations, locale) ? (locale as keyof typeof translations) : "en";
-  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
-  const t = translations[normalizedLocale].mdxChrome;
+  const t = translations[locale].mdxChrome;
 
   return (
     <div className="border-l-2 border-primary/30 pl-4 py-2 my-3 not-prose">

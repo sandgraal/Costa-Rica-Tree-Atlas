@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas - Implementation Plan
 
-**Last Updated:** 2026-03-12  
-**Status:** Audit-driven v2.1 — first quick-win implementation slice is shipped, but P0 build hardening, deeper semantic cleanup, locale-surface parity, and factual-governance work still need focused follow-through.
+**Last Updated:** 2026-03-13  
+**Status:** Audit-driven v2.1 — early quick-win implementation slices are shipping, but P0 build hardening, deeper semantic cleanup, locale-surface parity, and factual-governance work still need focused follow-through.
 
 ---
 
@@ -35,6 +35,7 @@ Completed on 2026-03-12 in the follow-up implementation slices:
 
 - replaced the fragile optional error-tracking probe with a bundler-safe adapter boundary, removing the Turbopack warning triggered by `src/lib/error-tracking.ts`
 - added the actual `next/image` quality allowlist in `next.config.ts` to match the quality values already used across cards, galleries, and shared image components
+- corrected `public/manifest.json` so each declared PWA icon size matches the actual on-disk PNG dimensions, removing the misleading manifest metadata that triggered browser warnings
 - passed the active locale into `ServerMDXContent` where it was missing and localized shared MDX chrome (`INaturalistEmbed`, `ImageCard`, `Reference`, `ReferencesSection`) so Spanish tree/glossary routes stop falling back to English wrapper text
 
 ### Major strengths
@@ -212,11 +213,11 @@ Items deliverable in 1 day or less:
 5. ✅ Remove the unused `locale` variable in `PhotoUploadClient` and clear the known lint warning.
 6. ✅ Move upload-limit fetching in `PhotoUploadClient` from a `useState` initializer into `useEffect`.
 7. ✅ Add/normalize supported `next/image` quality values in `next.config.ts`.
+8. ✅ Correct manifest icon dimensions to match the actual asset sizes served in `public/icons/`.
 
 ### Still remaining quick wins
 
-8. Regenerate or correct manifest icon dimensions to match declared sizes.
-9. Replace raw `LC` / `EN` / etc. display in quick facts with localized human labels plus code.
+1. Replace raw `LC` / `EN` / etc. display in quick facts with localized human labels plus code.
 
 ---
 
@@ -387,6 +388,7 @@ Items deliverable in 1 day or less:
 - Follow-up implementation slices completed on:
   - `fix/sentry-adapter-boundary` with updates to `src/lib/error-tracking.ts` and `src/instrumentation.ts`
   - `fix/next-image-qualities` with updates to `next.config.ts`
+  - `fix/pwa-icon-manifest-sizes` with updates to `public/manifest.json`
 - Browser-verified routes included:
   - `/en`
   - `/en/trees`
