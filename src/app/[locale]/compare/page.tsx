@@ -134,7 +134,7 @@ function ComparePageClient({
   };
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       {/* Page Header */}
       <div className="mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-primary-dark dark:text-primary-light mb-2">
@@ -333,6 +333,6 @@ function ComparePageClient({
           translations={translations}
         />
       </section>
-    </main>
+    </div>
   );
 }
