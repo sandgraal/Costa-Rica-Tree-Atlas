@@ -2,6 +2,7 @@
 
 import React from "react";
 import { SafeImage } from "@/components/SafeImage";
+import type { Locale } from "@/types/tree";
 
 export interface ImageCardProps {
   src: string;
@@ -10,7 +11,7 @@ export interface ImageCardProps {
   credit?: string;
   license?: string;
   sourceUrl?: string;
-  locale?: "en" | "es";
+  locale?: Locale;
   slug?: string;
   index?: number;
   onClick?: () => void;

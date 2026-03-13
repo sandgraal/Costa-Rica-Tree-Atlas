@@ -887,7 +887,7 @@ export function Reference({
 }: ReferenceProps) {
   const link = doi ? `https://doi.org/${doi}` : url;
   const normalizedLocale: keyof typeof translations =
-    locale && locale in translations ? (locale as keyof typeof translations) : "en";
+    locale && Object.hasOwn(translations, locale) ? (locale as keyof typeof translations) : "en";
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
   const t = translations[normalizedLocale].mdxChrome;
 
@@ -921,8 +921,10 @@ export function ReferencesSection({
   children: React.ReactNode;
   locale?: Locale;
 }) {
-  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to supported locales.
-  const t = translations[locale].mdxChrome;
+  const normalizedLocale: keyof typeof translations =
+    locale && Object.hasOwn(translations, locale) ? (locale as keyof typeof translations) : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
+  const t = translations[normalizedLocale].mdxChrome;
 
   return (
     <div className="bg-muted/50 rounded-xl p-6 my-6 not-prose">
