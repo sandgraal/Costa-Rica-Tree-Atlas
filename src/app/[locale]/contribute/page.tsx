@@ -39,7 +39,7 @@ export default async function ContributePage({
     .sort((a, b) => a.title.localeCompare(b.title));
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -149,6 +149,6 @@ export default async function ContributePage({
           }}
         />
       </div>
-    </main>
+    </div>
   );
 }
