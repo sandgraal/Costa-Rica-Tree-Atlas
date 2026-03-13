@@ -213,11 +213,11 @@ Items deliverable in 1 day or less:
 5. ✅ Remove the unused `locale` variable in `PhotoUploadClient` and clear the known lint warning.
 6. ✅ Move upload-limit fetching in `PhotoUploadClient` from a `useState` initializer into `useEffect`.
 7. ✅ Add/normalize supported `next/image` quality values in `next.config.ts`.
+8. ✅ Correct manifest icon dimensions to match the actual asset sizes served in `public/icons/`.
 
 ### Still remaining quick wins
 
-8. ✅ Correct manifest icon dimensions to match the actual asset sizes served in `public/icons/`.
-9. Replace raw `LC` / `EN` / etc. display in quick facts with localized human labels plus code.
+1. Replace raw `LC` / `EN` / etc. display in quick facts with localized human labels plus code.
 
 ---
 
