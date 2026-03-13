@@ -221,7 +221,7 @@ export default async function SeasonalPage({
   return (
     <>
       <SafeJsonLd data={structuredData} />
-      <main className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
             {t("pageTitle")}
@@ -318,7 +318,7 @@ export default async function SeasonalPage({
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

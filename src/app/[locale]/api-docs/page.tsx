@@ -43,7 +43,7 @@ export default async function APIDocsPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "api" });
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center">
@@ -57,6 +57,6 @@ export default async function APIDocsPage({ params }: PageProps) {
 
         <APIDocumentation locale={locale} />
       </div>
-    </main>
+    </div>
   );
 }

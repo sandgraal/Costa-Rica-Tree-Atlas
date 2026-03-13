@@ -96,7 +96,7 @@ export default async function OralHistoryDetailPage({ params }: Props) {
     .filter((tr: Tree | undefined): tr is Tree => tr !== undefined);
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-3xl">
+    <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="mb-6">
         <Breadcrumbs
           locale={locale as Locale}
@@ -180,6 +180,6 @@ export default async function OralHistoryDetailPage({ params }: Props) {
           </Link>
         </div>
       </article>
-    </main>
+    </div>
   );
 }
