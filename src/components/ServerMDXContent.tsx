@@ -123,8 +123,8 @@ export async function ServerMDXContent({
   enableGlossaryLinks = false,
 }: ServerMDXContentProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
-  // Normalize locale at runtime: callers may still pass unexpected values even
-  // though the prop is typed as Locale, so fall back to "en" defensively.
+  // Normalize locale at runtime: the prop is typed as string so callers can
+  // pass raw route params without a cast; fall back to "en" defensively.
   const resolvedLocale: Locale = locale === "es" ? "es" : "en";
 
   // Create locale-aware wrappers for legacy components that need localization

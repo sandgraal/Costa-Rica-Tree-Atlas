@@ -887,7 +887,7 @@ export function Reference({
 }: ReferenceProps) {
   const link = doi ? `https://doi.org/${doi}` : url;
   const normalizedLocale: keyof typeof translations =
-    locale && locale in translations ? (locale as keyof typeof translations) : "en";
+    locale && Object.hasOwn(translations, locale) ? (locale as keyof typeof translations) : "en";
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
   const t = translations[normalizedLocale].mdxChrome;
 
@@ -922,7 +922,7 @@ export function ReferencesSection({
   locale?: Locale;
 }) {
   const normalizedLocale: keyof typeof translations =
-    locale && locale in translations ? (locale as keyof typeof translations) : "en";
+    locale && Object.hasOwn(translations, locale) ? (locale as keyof typeof translations) : "en";
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
   const t = translations[normalizedLocale].mdxChrome;
 
