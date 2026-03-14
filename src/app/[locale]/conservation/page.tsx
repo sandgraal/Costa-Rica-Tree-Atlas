@@ -3,7 +3,6 @@ import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
-import { getConservationLabel } from "@/lib/i18n/translations";
 import type { Locale } from "@/types";
 import type { ConservationCategory } from "@/types/tree";
 
@@ -272,10 +271,10 @@ export default async function ConservationPage({
                     >
                       {tree.conservationStatus}
                       {" — "}
-                      {getConservationLabel(
-                        tree.conservationStatus as ConservationCategory,
-                        locale as Locale
-                      )}
+                      {statusLabels[locale]?.[tree.conservationStatus] ??
+                        (locale === "es"
+                          ? "Estado de conservación desconocido"
+                          : "Unknown conservation status")}
                     </span>
                   )}
                 </Link>
