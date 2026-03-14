@@ -8,6 +8,7 @@ import { ExportFavoritesButton } from "@/components/ExportFavoritesButton";
 import type { ExportableTree } from "@/components/ExportFavoritesButton";
 import { Link, useRouter } from "@i18n/navigation";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type { Tree as ContentlayerTree } from "contentlayer/generated";
 import type { Locale } from "@/types/tree";
 
@@ -50,51 +51,11 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
     }
   }, [searchParams, addFavorite, favorites, hydrated]);
 
-  const t = {
-    title: locale === "es" ? "Mis Favoritos" : "My Favorites",
-    sharedTitle: locale === "es" ? "Lista Compartida" : "Shared List",
-    subtitle:
-      locale === "es"
-        ? "Árboles que has guardado para referencia rápida"
-        : "Trees you've saved for quick reference",
-    sharedSubtitle:
-      locale === "es"
-        ? "Árboles compartidos por un amigo"
-        : "Trees shared by a friend",
-    emptyTitle: locale === "es" ? "No hay favoritos aún" : "No favorites yet",
-    emptyDescription:
-      locale === "es"
-        ? "Comienza a explorar árboles y guarda tus favoritos tocando el ícono del corazón."
-        : "Start exploring trees and save your favorites by tapping the heart icon.",
-    exploreTrees: locale === "es" ? "Explorar Árboles" : "Explore Trees",
-    clearAll: locale === "es" ? "Limpiar todo" : "Clear all",
-    treesCount:
-      locale === "es"
-        ? `${hydrated ? favorites.length : 0} árbol${(hydrated ? favorites.length : 0) !== 1 ? "es" : ""} guardado${(hydrated ? favorites.length : 0) !== 1 ? "s" : ""}`
-        : `${hydrated ? favorites.length : 0} tree${(hydrated ? favorites.length : 0) !== 1 ? "s" : ""} saved`,
-    shareList: locale === "es" ? "Compartir lista" : "Share list",
-    copied: locale === "es" ? "¡Enlace copiado!" : "Link copied!",
-    compare: locale === "es" ? "Comparar" : "Compare",
-    selectToCompare:
-      locale === "es"
-        ? "Selecciona 2-4 árboles para comparar"
-        : "Select 2-4 trees to compare",
-    selected:
-      locale === "es"
-        ? `${selectedForCompare.length} seleccionado${selectedForCompare.length !== 1 ? "s" : ""}`
-        : `${selectedForCompare.length} selected`,
-    compareSelected:
-      locale === "es" ? "Comparar seleccionados" : "Compare selected",
-    cancelSelection: locale === "es" ? "Cancelar" : "Cancel",
-    addedToFavorites:
-      locale === "es"
-        ? "¡Árboles agregados a tus favoritos!"
-        : "Trees added to your favorites!",
-  };
+  const t = useTranslations("favorites");
 
   // Build a slug lookup for O(1) access
   const treeLookup = useMemo(
-    () => Object.fromEntries(trees.map((t) => [t.slug, t])),
+    () => Object.fromEntries(trees.map((tr) => [tr.slug, tr])),
     [trees]
   );
 
@@ -102,16 +63,16 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
   const exportLookup = useMemo<Record<string, ExportableTree>>(
     () =>
       Object.fromEntries(
-        trees.map((t) => [
-          t.slug,
+        trees.map((tr) => [
+          tr.slug,
           {
-            slug: t.slug,
-            title: t.title,
-            scientificName: t.scientificName,
-            family: t.family,
-            maxHeight: t.maxHeight,
-            nativeRegion: t.nativeRegion,
-            uses: t.uses,
+            slug: tr.slug,
+            title: tr.title,
+            scientificName: tr.scientificName,
+            family: tr.family,
+            maxHeight: tr.maxHeight,
+            nativeRegion: tr.nativeRegion,
+            uses: tr.uses,
           },
         ])
       ),
@@ -175,14 +136,14 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
             <HeartIcon className="w-10 h-10 text-red-500" />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            {isSharedList ? t.sharedTitle : t.title}
+            {isSharedList ? t("sharedTitle") : t("pageTitle")}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {isSharedList ? t.sharedSubtitle : t.subtitle}
+            {isSharedList ? t("sharedSubtitle") : t("subtitle")}
           </p>
           {isSharedList && favorites.length > 0 && (
             <p className="text-sm text-green-600 dark:text-green-400 mt-2">
-              {t.addedToFavorites}
+              {t("addedToFavorites")}
             </p>
           )}
         </div>
@@ -192,16 +153,16 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
           <div className="text-center py-16 bg-muted/30 rounded-2xl">
             <EmptyHeartIcon className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
             <h2 className="text-xl font-semibold text-foreground mb-2">
-              {t.emptyTitle}
+              {t("emptyTitle")}
             </h2>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              {t.emptyDescription}
+              {t("emptyDescription")}
             </p>
             <Link
               href="/trees"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
-              {t.exploreTrees}
+              {t("exploreTrees")}
               <ArrowRightIcon className="w-4 h-4" />
             </Link>
           </div>
@@ -210,7 +171,7 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
             {/* Actions Bar */}
             <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
               <span className="text-sm text-muted-foreground">
-                {t.treesCount}
+                {t("treesCount", { count: hydrated ? favorites.length : 0 })}
               </span>
               <div className="flex flex-wrap items-center gap-3">
                 {/* Export Button */}
@@ -225,7 +186,7 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
                   className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
                 >
                   <ShareIcon className="w-4 h-4" />
-                  {shareStatus === "copied" ? t.copied : t.shareList}
+                  {shareStatus === "copied" ? t("copied") : t("shareList")}
                 </button>
 
                 {/* Compare Toggle */}
@@ -235,28 +196,28 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
                       setSelectedForCompare([]);
                     }}
                     className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
-                    title={t.selectToCompare}
+                    title={t("selectToCompare")}
                   >
                     <CompareIcon className="w-4 h-4" />
-                    {t.compare}
+                    {t("compare")}
                   </button>
                 ) : (
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-muted-foreground">
-                      {t.selected}
+                      {t("selected", { count: selectedForCompare.length })}
                     </span>
                     <button
                       onClick={handleCompare}
                       disabled={selectedForCompare.length < 2}
                       className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {t.compareSelected}
+                      {t("compareSelected")}
                     </button>
                     <button
                       onClick={() => setSelectedForCompare([])}
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      {t.cancelSelection}
+                      {t("cancelSelection")}
                     </button>
                   </div>
                 )}
@@ -266,7 +227,7 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
                   onClick={clearFavorites}
                   className="text-sm text-muted-foreground hover:text-destructive transition-colors"
                 >
-                  {t.clearAll}
+                  {t("clearAll")}
                 </button>
               </div>
             </div>
@@ -274,7 +235,7 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
             {/* Selection Hint */}
             {selectedForCompare.length > 0 && selectedForCompare.length < 2 && (
               <p className="text-sm text-muted-foreground text-center mb-4">
-                {t.selectToCompare}
+                {t("selectToCompare")}
               </p>
             )}
 

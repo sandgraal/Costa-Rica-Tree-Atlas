@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { FavoritesContent } from "./FavoritesContent";
@@ -9,16 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "favorites" });
 
   return {
-    title:
-      locale === "es"
-        ? "Mis Favoritos - Atlas de Árboles de Costa Rica"
-        : "My Favorites - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Tus árboles favoritos guardados del Atlas de Árboles de Costa Rica."
-        : "Your saved favorite trees from the Costa Rica Tree Atlas.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/favorites",
