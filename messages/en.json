@@ -344,7 +344,26 @@
     "addToFavorites": "Add to favorites",
     "removeFromFavorites": "Remove from favorites",
     "favorite": "Favorite",
-    "saved": "Saved"
+    "saved": "Saved",
+    "pageTitle": "My Favorites",
+    "sharedTitle": "Shared List",
+    "subtitle": "Trees you've saved for quick reference",
+    "sharedSubtitle": "Trees shared by a friend",
+    "emptyTitle": "No favorites yet",
+    "emptyDescription": "Start exploring trees and save your favorites by tapping the heart icon.",
+    "exploreTrees": "Explore Trees",
+    "clearAll": "Clear all",
+    "treesCount": "{count, plural, =0 {0 trees saved} =1 {1 tree saved} other {# trees saved}}",
+    "shareList": "Share list",
+    "copied": "Link copied!",
+    "compare": "Compare",
+    "selectToCompare": "Select 2-4 trees to compare",
+    "selected": "{count, plural, =1 {1 selected} other {# selected}}",
+    "compareSelected": "Compare selected",
+    "cancelSelection": "Cancel",
+    "addedToFavorites": "Trees added to your favorites!",
+    "metaTitle": "My Favorites - Costa Rica Tree Atlas",
+    "metaDescription": "Your saved favorite trees from the Costa Rica Tree Atlas."
   },
   "toc": {
     "contents": "Contents"
