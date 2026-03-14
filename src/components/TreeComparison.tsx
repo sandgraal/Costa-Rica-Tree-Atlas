@@ -11,7 +11,7 @@ import type { ConservationCategory, Locale } from "@/types/tree";
 
 interface TreeComparisonProps {
   trees: ComparisonTreeSummary[];
-  locale: string;
+  locale: Locale;
   translations: {
     title: string;
     selectTree: string;
@@ -306,12 +306,29 @@ export function TreeComparison({
                   >
                     {tree.conservationStatus ? (
                       <span className="px-2 py-1 bg-secondary/10 text-secondary rounded text-sm">
-                        {tree.conservationStatus}
-                        {" — "}
-                        {getConservationLabel(
-                          tree.conservationStatus as ConservationCategory,
-                          locale as Locale
-                        )}
+                        {(() => {
+                          let conservationLabel: string | null = null;
+                          try {
+                            conservationLabel = getConservationLabel(
+                              tree.conservationStatus as ConservationCategory,
+                              locale
+                            );
+                          } catch {
+                            conservationLabel = null;
+                          }
+
+                          return (
+                            <>
+                              {tree.conservationStatus}
+                              {conservationLabel ? (
+                                <>
+                                  {" — "}
+                                  {conservationLabel}
+                                </>
+                              ) : null}
+                            </>
+                          );
+                        })()}
                       </span>
                     ) : (
                       "—"
