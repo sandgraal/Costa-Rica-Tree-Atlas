@@ -163,7 +163,9 @@
     "loadSavedFilters": "Cargar Guardados",
     "filtersSaved": "Filtros guardados",
     "filtersLoaded": "Filtros guardados cargados",
-    "noSavedFilters": "No hay filtros guardados"
+    "noSavedFilters": "No hay filtros guardados",
+    "structuredDataName": "Directorio de Árboles de Costa Rica",
+    "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica"
   },
   "footer": {
     "description": "Un proyecto mantenido de forma privada dedicado a documentar los árboles de Costa Rica.",
@@ -382,6 +384,17 @@
     "toolSubtitle": "O compara cualquier árbol lado a lado usando nuestra herramienta interactiva",
     "compareWith": "Comparar con",
     "backToComparisons": "Volver a Comparaciones",
+    "print": "Imprimir",
+    "printAriaLabel": "Imprimir esta página",
+    "exploreMore": "¿Quieres explorar más?",
+    "exploreMoreDescription": "Usa nuestra herramienta interactiva para comparar estas especies lado a lado.",
+    "compareInteractive": "Comparar en herramienta interactiva",
+    "comparedSpecies": "Especies Comparadas",
+    "quickSummary": "Resumen Rápido",
+    "difficultyLabel": "Dificultad",
+    "difficultyEasy": "Fácil",
+    "difficultyModerate": "Moderado",
+    "difficultyChallenging": "Desafiante",
     "properties": {
       "image": "Imagen",
       "commonName": "Nombre Común",

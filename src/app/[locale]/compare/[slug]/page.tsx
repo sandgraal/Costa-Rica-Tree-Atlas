@@ -199,12 +199,8 @@ export default async function ComparisonPage({ params }: Props) {
                     path={`/compare/${comparison.slug}`}
                   />
                   <PrintButton
-                    label={locale === "es" ? "Imprimir" : "Print"}
-                    ariaLabel={
-                      locale === "es"
-                        ? "Imprimir esta página"
-                        : "Print this page"
-                    }
+                    label={t("print")}
+                    ariaLabel={t("printAriaLabel")}
                   />
                 </div>
               </div>
@@ -261,15 +257,9 @@ export default async function ComparisonPage({ params }: Props) {
 
             {/* Interactive Tool CTA */}
             <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-6 md:p-8 text-center border border-primary/20 mb-8">
-              <h3 className="text-xl font-bold mb-2">
-                {locale === "es"
-                  ? "¿Quieres explorar más?"
-                  : "Want to explore more?"}
-              </h3>
+              <h3 className="text-xl font-bold mb-2">{t("exploreMore")}</h3>
               <p className="text-muted-foreground mb-4">
-                {locale === "es"
-                  ? "Usa nuestra herramienta interactiva para comparar estas especies lado a lado."
-                  : "Use our interactive tool to compare these species side by side."}
+                {t("exploreMoreDescription")}
               </p>
               <Link
                 href={buildCompareToolHref(comparison.species)}
@@ -287,9 +277,7 @@ export default async function ComparisonPage({ params }: Props) {
                   <rect x="3" y="14" width="7" height="7" />
                   <rect x="14" y="14" width="7" height="7" />
                 </svg>
-                {locale === "es"
-                  ? "Comparar en herramienta interactiva"
-                  : "Compare in interactive tool"}
+                {t("compareInteractive")}
                 <svg
                   className="w-4 h-4"
                   viewBox="0 0 24 24"
@@ -332,7 +320,7 @@ export default async function ComparisonPage({ params }: Props) {
               {/* Species Quick Links */}
               <div className="bg-card border border-border rounded-xl p-5">
                 <h3 className="font-bold text-sm uppercase tracking-wide text-muted-foreground mb-4">
-                  {locale === "es" ? "Especies Comparadas" : "Compared Species"}
+                  {t("comparedSpecies")}
                 </h3>
                 <div className="space-y-3">
                   {speciesTrees.map((tree) => (
@@ -375,7 +363,7 @@ export default async function ComparisonPage({ params }: Props) {
               {/* Quick Summary Card */}
               <div className="bg-gradient-to-br from-primary/5 to-secondary/5 border border-border rounded-xl p-5">
                 <h3 className="font-bold text-sm uppercase tracking-wide text-primary mb-3">
-                  {locale === "es" ? "Resumen Rápido" : "Quick Summary"}
+                  {t("quickSummary")}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {comparison.description}
@@ -386,7 +374,7 @@ export default async function ComparisonPage({ params }: Props) {
               {comparison.difficulty && (
                 <div className="bg-card border border-border rounded-xl p-5">
                   <h3 className="font-bold text-sm uppercase tracking-wide text-muted-foreground mb-3">
-                    {locale === "es" ? "Dificultad" : "Difficulty"}
+                    {t("difficultyLabel")}
                   </h3>
                   <div
                     className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm ${
@@ -405,14 +393,11 @@ export default async function ComparisonPage({ params }: Props) {
                           : "🔴"}
                     </span>
                     <span className="capitalize">
-                      {locale === "es"
-                        ? comparison.difficulty === "easy"
-                          ? "Fácil"
-                          : comparison.difficulty === "moderate"
-                            ? "Moderado"
-                            : "Desafiante"
-                        : comparison.difficulty.charAt(0).toUpperCase() +
-                          comparison.difficulty.slice(1)}
+                      {comparison.difficulty === "easy"
+                        ? t("difficultyEasy")
+                        : comparison.difficulty === "moderate"
+                          ? t("difficultyModerate")
+                          : t("difficultyChallenging")}
                     </span>
                   </div>
                 </div>

@@ -59,6 +59,8 @@ export default async function TreesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: "trees" });
+
   // Get trees for current locale, sorted alphabetically for consistent first image
   const fullTrees = getTreesForLocale(locale);
 
@@ -71,14 +73,8 @@ export default async function TreesPage({ params }: Props) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name:
-      locale === "es"
-        ? "Directorio de Árboles de Costa Rica"
-        : "Costa Rica Tree Directory",
-    description:
-      locale === "es"
-        ? "Una colección completa de árboles nativos de Costa Rica"
-        : "A comprehensive collection of native Costa Rican trees",
+    name: t("structuredDataName"),
+    description: t("structuredDataDescription"),
     numberOfItems: trees.length,
     itemListElement: trees.slice(0, 50).map((tree, index) => ({
       "@type": "ListItem",
@@ -98,9 +94,7 @@ export default async function TreesPage({ params }: Props) {
       <TreeExplorer trees={trees} />
       <noscript>
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">
-            {locale === "es" ? "Directorio de Árboles" : "Tree Directory"}
-          </h1>
+          <h1 className="text-3xl font-bold mb-6">{t("title")}</h1>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {trees.map((tree) => (
               <li key={tree.slug}>
