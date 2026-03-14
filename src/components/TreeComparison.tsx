@@ -5,7 +5,9 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { TreeTags } from "./TreeTags";
 import { BLUR_DATA_URL } from "@/lib/image";
+import { getConservationLabel } from "@/lib/i18n/translations";
 import type { ComparisonTreeSummary } from "@/types/tree";
+import type { ConservationCategory, Locale } from "@/types/tree";
 
 interface TreeComparisonProps {
   trees: ComparisonTreeSummary[];
@@ -305,6 +307,11 @@ export function TreeComparison({
                     {tree.conservationStatus ? (
                       <span className="px-2 py-1 bg-secondary/10 text-secondary rounded text-sm">
                         {tree.conservationStatus}
+                        {" — "}
+                        {getConservationLabel(
+                          tree.conservationStatus as ConservationCategory,
+                          locale as Locale
+                        )}
                       </span>
                     ) : (
                       "—"

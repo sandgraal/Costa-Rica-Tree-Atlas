@@ -3,7 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
+import { getConservationLabel } from "@/lib/i18n/translations";
 import type { Locale } from "@/types";
+import type { ConservationCategory } from "@/types/tree";
 
 interface ConservationPageProps {
   params: Promise<{ locale: Locale }>;
@@ -269,6 +271,11 @@ export default async function ConservationPage({
                       }`}
                     >
                       {tree.conservationStatus}
+                      {" — "}
+                      {getConservationLabel(
+                        tree.conservationStatus as ConservationCategory,
+                        locale as Locale
+                      )}
                     </span>
                   )}
                 </Link>
