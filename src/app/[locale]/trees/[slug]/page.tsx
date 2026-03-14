@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import {
   allTrees,
   allGlossaryTerms,
@@ -131,7 +131,9 @@ export default async function TreePage({ params }: Props) {
   const locale = localeStr as Locale;
   setRequestLocale(locale);
 
-  const tree = allTrees.find((t) => t.locale === locale && t.slug === slug);
+  const t = await getTranslations("treeDetail");
+
+  const tree = allTrees.find((t2) => t2.locale === locale && t2.slug === slug);
 
   if (!tree) {
     notFound();
@@ -143,7 +145,7 @@ export default async function TreePage({ params }: Props) {
   // Find alternate language version
   const otherLocale = locale === "en" ? "es" : "en";
   const altTree = allTrees.find(
-    (t) => t.locale === otherLocale && t.slug === slug
+    (tr) => tr.locale === otherLocale && tr.slug === slug
   );
 
   const baseUrl = "https://costaricatreeatlas.com";
@@ -322,10 +324,8 @@ export default async function TreePage({ params }: Props) {
                   slug={tree.slug}
                 />
                 <PrintButton
-                  label={locale === "es" ? "Imprimir" : "Print"}
-                  ariaLabel={
-                    locale === "es" ? "Imprimir esta página" : "Print this page"
-                  }
+                  label={t("print")}
+                  ariaLabel={t("printAriaLabel")}
                 />
               </div>
 
@@ -351,7 +351,7 @@ export default async function TreePage({ params }: Props) {
                   </p>
                   <PronunciationButton
                     text={tree.scientificName}
-                    label={locale === "es" ? "Pronunciar" : "Pronounce"}
+                    label={t("pronounce")}
                     locale={locale}
                   />
                 </div>
@@ -367,9 +367,7 @@ export default async function TreePage({ params }: Props) {
                         1,
                         Math.ceil(wordCount / 200)
                       );
-                      return locale === "es"
-                        ? `${readingTime} min de lectura`
-                        : `${readingTime} min read`;
+                      return t("readingTime", { minutes: readingTime });
                     })()}
                   </span>
                 </div>
@@ -378,18 +376,13 @@ export default async function TreePage({ params }: Props) {
                 {altTree && (
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <GlobeIcon className="h-4 w-4" />
-                    <span>
-                      {locale === "es"
-                        ? "También disponible en"
-                        : "Also available in"}
-                      :
-                    </span>
+                    <span>{t("alsoAvailableIn")}:</span>
                     <Link
                       href={`/trees/${slug}`}
                       locale={otherLocale}
                       className="text-primary hover:underline"
                     >
-                      {locale === "es" ? "English" : "Español"}
+                      {t("otherLanguage")}
                     </Link>
                   </div>
                 )}
@@ -422,7 +415,7 @@ export default async function TreePage({ params }: Props) {
                 {tree.nativeRegion && (
                   <div className="bg-muted rounded-lg p-4">
                     <p className="text-sm text-muted-foreground mb-1">
-                      {locale === "es" ? "Región Nativa" : "Native Region"}
+                      {t("nativeRegion")}
                     </p>
                     <p className="font-medium">{tree.nativeRegion}</p>
                   </div>
@@ -430,21 +423,21 @@ export default async function TreePage({ params }: Props) {
                 {tree.maxHeight && (
                   <div className="bg-muted rounded-lg p-4">
                     <p className="text-sm text-muted-foreground mb-1">
-                      {locale === "es" ? "Altura Máxima" : "Max Height"}
+                      {t("maxHeight")}
                     </p>
                     <p className="font-medium">{tree.maxHeight}</p>
                   </div>
                 )}
                 <div className="bg-muted rounded-lg p-4">
                   <p className="text-sm text-muted-foreground mb-1">
-                    {locale === "es" ? "Familia" : "Family"}
+                    {t("family")}
                   </p>
                   <p className="font-medium">{tree.family}</p>
                 </div>
                 {localizedConservationStatus && (
                   <div className="bg-muted rounded-lg p-4">
                     <p className="text-sm text-muted-foreground mb-1">
-                      {locale === "es" ? "Conservación" : "Conservation"}
+                      {t("conservation")}
                     </p>
                     <p className="font-medium">{localizedConservationStatus}</p>
                   </div>
@@ -464,7 +457,7 @@ export default async function TreePage({ params }: Props) {
               {tree.uses && tree.uses.length > 0 && (
                 <div className="mb-12">
                   <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
-                    {locale === "es" ? "Usos" : "Uses"}
+                    {t("uses")}
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {tree.uses.map((use, index) => (
@@ -507,11 +500,11 @@ export default async function TreePage({ params }: Props) {
                 <ServerMDXContent
                   source={tree.body.raw}
                   locale={locale}
-                  glossaryTerms={allGlossaryTerms.map((t) => ({
-                    term: t.term,
-                    slug: t.slug,
-                    locale: t.locale,
-                    simpleDefinition: t.simpleDefinition,
+                  glossaryTerms={allGlossaryTerms.map((gt) => ({
+                    term: gt.term,
+                    slug: gt.slug,
+                    locale: gt.locale,
+                    simpleDefinition: gt.simpleDefinition,
                   }))}
                   enableGlossaryLinks={true}
                 />
@@ -527,10 +520,25 @@ export default async function TreePage({ params }: Props) {
               <ContributeCTA locale={locale} treeSlug={tree.slug} />
 
               {/* Comparison Links */}
-              <ComparisonLinks currentTree={tree} locale={locale} />
+              <ComparisonLinks
+                currentTree={tree}
+                locale={locale}
+                labels={{
+                  comparisonGuides: t("comparisonGuides"),
+                  compareWith: t("compareWith"),
+                  readGuide: t("readGuide"),
+                }}
+              />
 
               {/* Related Trees */}
-              <RelatedTrees currentTree={tree} locale={locale} />
+              <RelatedTrees
+                currentTree={tree}
+                locale={locale}
+                labels={{
+                  relatedTrees: t("relatedTrees"),
+                  sameFamily: t("sameFamily"),
+                }}
+              />
             </div>
 
             {/* Sidebar with Table of Contents - Hidden on mobile */}
@@ -603,9 +611,11 @@ function ClockIcon({ className }: { className?: string }) {
 function RelatedTrees({
   currentTree,
   locale,
+  labels,
 }: {
   currentTree: (typeof allTrees)[0];
-  locale: string;
+  locale: Locale;
+  labels: { relatedTrees: string; sameFamily: string };
 }) {
   // Find related trees from same family or with similar tags
   const localeTrees = allTrees.filter(
@@ -656,7 +666,7 @@ function RelatedTrees({
   return (
     <div className="mt-12 pt-8 border-t border-border no-print">
       <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
-        {locale === "es" ? "Árboles Relacionados" : "Related Trees"}
+        {labels.relatedTrees}
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {relatedTrees.map((tree) => {
@@ -685,7 +695,7 @@ function RelatedTrees({
                   )}
                   {tree.family === currentTree.family && (
                     <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-primary/80 text-white text-xs rounded">
-                      {locale === "es" ? "Misma familia" : "Same family"}
+                      {labels.sameFamily}
                     </div>
                   )}
                 </div>
@@ -709,9 +719,11 @@ function RelatedTrees({
 function ComparisonLinks({
   currentTree,
   locale,
+  labels,
 }: {
   currentTree: (typeof allTrees)[0];
-  locale: string;
+  locale: Locale;
+  labels: { comparisonGuides: string; compareWith: string; readGuide: string };
 }) {
   // Find comparisons that include this tree
   const relevantComparisons = allSpeciesComparisons.filter(
@@ -723,7 +735,7 @@ function ComparisonLinks({
   return (
     <div className="mt-12 pt-8 border-t border-border no-print">
       <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
-        {locale === "es" ? "Guías de Comparación" : "Comparison Guides"}
+        {labels.comparisonGuides}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {relevantComparisons.map((comparison) => {
@@ -766,14 +778,14 @@ function ComparisonLinks({
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1 text-sm">
-                    {locale === "es" ? "Comparar con" : "Compare with"}{" "}
+                    {labels.compareWith}{" "}
                     {otherSpecies.map((t) => t.title).join(", ")}
                   </h3>
                   <p className="text-xs text-muted-foreground line-clamp-2">
                     {comparison.keyDifference}
                   </p>
                   <div className="mt-2 text-xs text-primary font-medium flex items-center gap-1">
-                    {locale === "es" ? "Leer guía" : "Read guide"}
+                    {labels.readGuide}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
