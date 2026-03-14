@@ -920,7 +920,9 @@ export function ReferencesSection({
   locale?: Locale;
 }) {
   const normalizedLocale: keyof typeof translations =
-    locale && Object.hasOwn(translations, locale) ? (locale as keyof typeof translations) : "en";
+    locale && Object.hasOwn(translations, locale)
+      ? (locale as keyof typeof translations)
+      : "en";
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to supported locales.
   const t = translations[normalizedLocale].mdxChrome;
 
@@ -1213,22 +1215,16 @@ export function SimpleList({ items, ordered = false }: SimpleListProps) {
 
 // Native HTML Element Components for beautiful typography
 
-// Styled h1-h6 components for MDX
+// Styled heading components for MDX content.
+// MDX headings are shifted down one semantic level so that `#` in MDX renders
+// as `<h2>`, `##` as `<h3>`, etc.  This enforces the single-`<h1>` rule —
+// the page template owns the sole `<h1>` (tree/comparison/glossary title)
+// while MDX body sections start at `<h2>`.  Visual sizing is preserved so the
+// rendered appearance stays the same as before the semantic correction.
 function H1({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h1
-      className="text-3xl md:text-4xl font-bold text-primary-dark dark:text-primary-light mt-10 mb-6 pb-3 border-b-2 border-primary/20"
-      {...props}
-    >
-      {children}
-    </h1>
-  );
-}
-
-function H2({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
-  return (
     <h2
-      className="text-2xl md:text-3xl font-bold text-primary-dark dark:text-primary-light mt-10 mb-5 pb-2 border-b border-border"
+      className="text-3xl md:text-4xl font-bold text-primary-dark dark:text-primary-light mt-10 mb-6 pb-3 border-b-2 border-primary/20"
       {...props}
     >
       {children}
@@ -1236,10 +1232,10 @@ function H2({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   );
 }
 
-function H3({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+function H2({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className="text-xl md:text-2xl font-semibold text-primary-dark dark:text-primary-light mt-8 mb-4"
+      className="text-2xl md:text-3xl font-bold text-primary-dark dark:text-primary-light mt-10 mb-5 pb-2 border-b border-border"
       {...props}
     >
       {children}
@@ -1247,10 +1243,10 @@ function H3({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   );
 }
 
-function H4({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+function H3({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h4
-      className="text-lg md:text-xl font-semibold text-foreground mt-6 mb-3"
+      className="text-xl md:text-2xl font-semibold text-primary-dark dark:text-primary-light mt-8 mb-4"
       {...props}
     >
       {children}
@@ -1258,14 +1254,25 @@ function H4({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   );
 }
 
-function H5({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+function H4({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h5
-      className="text-base md:text-lg font-semibold text-foreground mt-5 mb-2"
+      className="text-lg md:text-xl font-semibold text-foreground mt-6 mb-3"
       {...props}
     >
       {children}
     </h5>
+  );
+}
+
+function H5({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h6
+      className="text-base md:text-lg font-semibold text-foreground mt-5 mb-2"
+      {...props}
+    >
+      {children}
+    </h6>
   );
 }
 
