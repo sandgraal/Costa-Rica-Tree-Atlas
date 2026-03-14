@@ -163,7 +163,9 @@
     "loadSavedFilters": "Load Saved",
     "filtersSaved": "Filters saved",
     "filtersLoaded": "Saved filters loaded",
-    "noSavedFilters": "No saved filters"
+    "noSavedFilters": "No saved filters",
+    "structuredDataName": "Costa Rica Tree Directory",
+    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees"
   },
   "footer": {
     "description": "A privately maintained project dedicated to documenting the trees of Costa Rica.",
@@ -382,6 +384,17 @@
     "toolSubtitle": "Or compare any trees side-by-side using our interactive tool",
     "compareWith": "Compare with",
     "backToComparisons": "Back to Comparisons",
+    "print": "Print",
+    "printAriaLabel": "Print this page",
+    "exploreMore": "Want to explore more?",
+    "exploreMoreDescription": "Use our interactive tool to compare these species side by side.",
+    "compareInteractive": "Compare in interactive tool",
+    "comparedSpecies": "Compared Species",
+    "quickSummary": "Quick Summary",
+    "difficultyLabel": "Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyModerate": "Moderate",
+    "difficultyChallenging": "Challenging",
     "properties": {
       "image": "Image",
       "commonName": "Common Name",
