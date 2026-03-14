@@ -329,7 +329,7 @@ function ComparePageClient({
 
         <TreeComparison
           trees={trees}
-          locale={locale}
+          locale={locale as Locale}
           translations={translations}
         />
       </section>

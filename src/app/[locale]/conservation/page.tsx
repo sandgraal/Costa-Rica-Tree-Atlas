@@ -271,7 +271,9 @@ export default async function ConservationPage({
                     >
                       {tree.conservationStatus}
                       {" — "}
-                      {statusLabels[locale]?.[tree.conservationStatus] ??
+                      {statusLabels[
+                        tree.conservationStatus as ConservationStatus
+                      ]?.[locale] ??
                         (locale === "es"
                           ? "Estado de conservación desconocido"
                           : "Unknown conservation status")}
