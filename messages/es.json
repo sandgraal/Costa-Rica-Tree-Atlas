@@ -1302,5 +1302,23 @@
       "error": "Error al cargar analíticas",
       "retry": "Reintentar"
     }
+  },
+  "treeDetail": {
+    "print": "Imprimir",
+    "printAriaLabel": "Imprimir esta página",
+    "pronounce": "Pronunciar",
+    "readingTime": "{minutes} min de lectura",
+    "alsoAvailableIn": "También disponible en",
+    "otherLanguage": "English",
+    "nativeRegion": "Región Nativa",
+    "maxHeight": "Altura Máxima",
+    "family": "Familia",
+    "conservation": "Conservación",
+    "uses": "Usos",
+    "relatedTrees": "Árboles Relacionados",
+    "sameFamily": "Misma familia",
+    "comparisonGuides": "Guías de Comparación",
+    "compareWith": "Comparar con",
+    "readGuide": "Leer guía"
   }
 }
