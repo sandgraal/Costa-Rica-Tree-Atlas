@@ -5,6 +5,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
+import { getConservationLabel } from "@/lib/i18n/translations";
+import type { ConservationCategory, Locale } from "@/types/tree";
 import { useDebounce } from "@/hooks/useDebounce";
 import { getSearchSessionId } from "@/lib/analytics/search-session";
 import { getLocaleSearchIndex } from "@/lib/query-contracts";
@@ -369,7 +371,22 @@ export function QuickSearch() {
                             {tree.family}
                             {tree.conservationStatus && (
                               <span className="ml-2 px-1.5 py-0.5 rounded bg-muted text-xs">
-                                {tree.conservationStatus}
+                                {(() => {
+                                  try {
+                                    return (
+                                      <>
+                                        {tree.conservationStatus}
+                                        {" — "}
+                                        {getConservationLabel(
+                                          tree.conservationStatus as ConservationCategory,
+                                          locale as Locale
+                                        )}
+                                      </>
+                                    );
+                                  } catch {
+                                    return tree.conservationStatus;
+                                  }
+                                })()}
                               </span>
                             )}
                           </div>

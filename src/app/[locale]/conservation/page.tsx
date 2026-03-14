@@ -4,6 +4,7 @@ import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
 import type { Locale } from "@/types";
+import type { ConservationCategory } from "@/types/tree";
 
 interface ConservationPageProps {
   params: Promise<{ locale: Locale }>;
@@ -269,6 +270,11 @@ export default async function ConservationPage({
                       }`}
                     >
                       {tree.conservationStatus}
+                      {" — "}
+                      {statusLabels[locale]?.[tree.conservationStatus] ??
+                        (locale === "es"
+                          ? "Estado de conservación desconocido"
+                          : "Unknown conservation status")}
                     </span>
                   )}
                 </Link>
