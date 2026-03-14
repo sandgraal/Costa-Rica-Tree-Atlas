@@ -722,7 +722,7 @@ function ComparisonLinks({
   labels,
 }: {
   currentTree: (typeof allTrees)[0];
-  locale: string;
+  locale: Locale;
   labels: { comparisonGuides: string; compareWith: string; readGuide: string };
 }) {
   // Find comparisons that include this tree
