@@ -1289,5 +1289,23 @@
       "error": "Failed to load analytics",
       "retry": "Retry"
     }
+  },
+  "treeDetail": {
+    "print": "Print",
+    "printAriaLabel": "Print this page",
+    "pronounce": "Pronounce",
+    "readingTime": "{minutes} min read",
+    "alsoAvailableIn": "Also available in",
+    "otherLanguage": "Español",
+    "nativeRegion": "Native Region",
+    "maxHeight": "Max Height",
+    "family": "Family",
+    "conservation": "Conservation",
+    "uses": "Uses",
+    "relatedTrees": "Related Trees",
+    "sameFamily": "Same family",
+    "comparisonGuides": "Comparison Guides",
+    "compareWith": "Compare with",
+    "readGuide": "Read guide"
   }
 }
