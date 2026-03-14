@@ -614,7 +614,7 @@ function RelatedTrees({
   labels,
 }: {
   currentTree: (typeof allTrees)[0];
-  locale: string;
+  locale: Locale;
   labels: { relatedTrees: string; sameFamily: string };
 }) {
   // Find related trees from same family or with similar tags
