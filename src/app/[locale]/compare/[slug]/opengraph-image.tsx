@@ -60,16 +60,27 @@ export default async function Image({ params }: Props) {
     moderate: { en: "Moderate", es: "Moderado" },
     challenging: { en: "Challenging", es: "Desafiante" },
   };
-  const difficultyLabel = comparison.difficulty
-    ? DIFFICULTY_LABELS[comparison.difficulty]?.[locale] ||
-      DIFFICULTY_LABELS[comparison.difficulty]?.en ||
-      ""
-    : "";
+
+  const difficultyLabelsForKey =
+    comparison.difficulty &&
+    Object.hasOwn(DIFFICULTY_LABELS, comparison.difficulty)
+      ? DIFFICULTY_LABELS[comparison.difficulty]
+      : undefined;
+
+  const difficultyLabel =
+    difficultyLabelsForKey &&
+    (Object.hasOwn(difficultyLabelsForKey, locale)
+      ? difficultyLabelsForKey[locale]
+      : difficultyLabelsForKey.en ?? "");
 
   const GUIDE_LABEL: Record<string, string> = {
     en: "Comparison Guide",
     es: "Guía de Comparación",
   };
+
+  const guideLabel = Object.hasOwn(GUIDE_LABEL, locale)
+    ? GUIDE_LABEL[locale]
+    : "";
 
   return new ImageResponse(
     <div
