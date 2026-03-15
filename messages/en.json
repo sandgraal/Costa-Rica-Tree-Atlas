@@ -425,7 +425,9 @@
       "uses": "Uses",
       "tags": "Characteristics"
     },
-    "confusionLevel": "Confusion level:"
+    "confusionLevel": "Confusion level:",
+    "structuredName": "Compare Costa Rica Trees",
+    "structuredDescription": "Compare {count} species comparison guides for Costa Rican trees."
   },
   "fieldGuide": {
     "title": "Field Guide Generator",
@@ -1429,6 +1431,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
@@ -1446,7 +1449,7 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "theCorrectAnswer": "The correct answer is",
-    "nextQuestion": "Next \u2192",
+    "nextQuestion": "Next →",
     "score": "Score",
     "streak": "🔥 Streak",
     "highScore": "High Score",
