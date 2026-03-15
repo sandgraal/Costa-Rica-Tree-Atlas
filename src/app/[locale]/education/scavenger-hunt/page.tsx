@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
@@ -12,16 +12,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "education" });
 
   return {
-    title:
-      locale === "es"
-        ? "Búsqueda del Tesoro de Árboles - Atlas de Árboles de Costa Rica"
-        : "Tree Scavenger Hunt - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Búsqueda del tesoro interactiva para encontrar árboles de Costa Rica con características específicas. Ideal para estudiantes."
-        : "Interactive scavenger hunt to find Costa Rican trees with specific characteristics. Great for students and nature lovers.",
+    title: t("scavengerHuntMetaTitle"),
+    description: t("scavengerHuntMetaDescription"),
   };
 }
 
@@ -63,13 +58,7 @@ async function ScavengerHuntContent({
   // payload (serialized data) rather than executable client JS.
   const lessonData = getScavengerHuntLessonData(locale);
 
-  return (
-    <ScavengerHuntClient
-      trees={trees}
-      locale={locale}
-      lessonData={lessonData}
-    />
-  );
+  return <ScavengerHuntClient trees={trees} lessonData={lessonData} />;
 }
 
 function ScavengerHuntLoading() {

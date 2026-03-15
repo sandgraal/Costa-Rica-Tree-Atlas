@@ -596,7 +596,13 @@
       "description": "Explore our collection of Costa Rican trees or try our tree identification feature with your students.",
       "exploreTrees": "Explore Trees",
       "tryIdentify": "Try Identification"
-    }
+    },
+    "scavengerHuntMetaTitle": "Tree Scavenger Hunt - Costa Rica Tree Atlas",
+    "scavengerHuntMetaDescription": "Interactive scavenger hunt to find Costa Rican trees with specific characteristics. Great for students and nature lovers.",
+    "treeJournalMetaTitle": "Tree Journal - Costa Rica Tree Atlas",
+    "treeJournalMetaDescription": "Adopt a Costa Rican tree and document its changes through the school year. Phenology journal with badges and certificates.",
+    "treeIdentificationMetaTitle": "Tree Identification Skills - Educational Lesson",
+    "treeIdentificationMetaDescription": "Learn to identify Costa Rican trees by their leaves, bark, flowers, and fruits with interactive exercises."
   },
   "seasonal": {
     "title": "Seasonal Calendar - Costa Rica Tree Atlas",

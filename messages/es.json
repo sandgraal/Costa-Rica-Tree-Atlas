@@ -596,7 +596,13 @@
       "description": "Explora nuestra colección de árboles costarricenses o prueba nuestra función de identificación con tus estudiantes.",
       "exploreTrees": "Explorar Árboles",
       "tryIdentify": "Probar Identificación"
-    }
+    },
+    "scavengerHuntMetaTitle": "Búsqueda del Tesoro de Árboles - Atlas de Árboles de Costa Rica",
+    "scavengerHuntMetaDescription": "Búsqueda del tesoro interactiva para encontrar árboles de Costa Rica con características específicas. Ideal para estudiantes.",
+    "treeJournalMetaTitle": "Diario del Árbol - Atlas de Árboles de Costa Rica",
+    "treeJournalMetaDescription": "Adopta un árbol de Costa Rica y documenta sus cambios durante el año escolar. Diario fenológico con insignias y certificados.",
+    "treeIdentificationMetaTitle": "Habilidades de Identificación de Árboles - Lección Educativa",
+    "treeIdentificationMetaDescription": "Aprende a identificar árboles de Costa Rica por sus hojas, corteza, flores y frutos con ejercicios interactivos."
   },
   "seasonal": {
     "title": "Calendario Estacional - Atlas de Árboles de Costa Rica",

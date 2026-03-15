@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import TreeJournalClient from "./TreeJournalClient";
@@ -10,16 +10,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "education" });
 
   return {
-    title:
-      locale === "es"
-        ? "Diario del Árbol - Atlas de Árboles de Costa Rica"
-        : "Tree Journal - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Adopta un árbol de Costa Rica y documenta sus cambios durante el año escolar. Diario fenológico con insignias y certificados."
-        : "Adopt a Costa Rican tree and document its changes through the school year. Phenology journal with badges and certificates.",
+    title: t("treeJournalMetaTitle"),
+    description: t("treeJournalMetaDescription"),
   };
 }
 
