@@ -1429,6 +1429,13 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
+  "map": {
+    "metaTitle": "Explore by Region - Costa Rica Tree Atlas",
+    "metaDescription": "Explore the distribution of Costa Rican native trees by province and region. Discover the biodiversity of each area of the country.",
+    "structuredName": "Explore Costa Rica Regions",
+    "structuredDescription": "Interactive map for exploring native tree distribution by province and region in Costa Rica."
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
