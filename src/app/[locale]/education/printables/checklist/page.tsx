@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
@@ -10,16 +10,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "checklist" });
 
   return {
-    title:
-      locale === "es"
-        ? "Lista de Especies Imprimible - Atlas de Árboles de Costa Rica"
-        : "Printable Species Checklist - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Lista imprimible de especies de árboles de Costa Rica organizada por familia botánica. Ideal para excursiones y actividades de campo."
-        : "Printable checklist of Costa Rican tree species organized by botanical family. Ideal for field trips and outdoor activities.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -28,34 +23,16 @@ export default async function ChecklistPage({ params }: Props) {
   setRequestLocale(locale);
 
   const trees = allTrees
-    .filter((t) => t.locale === locale)
+    .filter((tr) => tr.locale === locale)
     .sort((a, b) => a.title.localeCompare(b.title, locale));
 
-  const families = [...new Set(trees.map((t) => t.family))].sort();
+  const families = [...new Set(trees.map((tr) => tr.family))].sort();
   const treesByFamily = families.map((family) => ({
     family,
-    trees: trees.filter((t) => t.family === family),
+    trees: trees.filter((tr) => tr.family === family),
   }));
 
-  const t = {
-    title: locale === "es" ? "Lista de Especies" : "Species Checklist",
-    subtitle:
-      locale === "es"
-        ? "Atlas de Árboles de Costa Rica"
-        : "Costa Rica Tree Atlas",
-    instructions:
-      locale === "es"
-        ? "Marca las especies que observes durante tu excursión"
-        : "Check off species as you observe them during your field trip",
-    printButton: locale === "es" ? "🖨️ Imprimir" : "🖨️ Print",
-    backLink: locale === "es" ? "← Volver" : "← Back",
-    species: locale === "es" ? "especies" : "species",
-    date: locale === "es" ? "Fecha" : "Date",
-    location: locale === "es" ? "Ubicación" : "Location",
-    observer: locale === "es" ? "Observador" : "Observer",
-    notes: locale === "es" ? "Notas" : "Notes",
-    totalSpecies: locale === "es" ? "Total de especies" : "Total species",
-  };
+  const t = await getTranslations("checklist");
 
   return (
     <>
@@ -66,14 +43,16 @@ export default async function ChecklistPage({ params }: Props) {
             href="/education/printables"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4"
           >
-            {t.backLink}
+            {t("backLink")}
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{t.title}</h1>
-              <p className="text-muted-foreground">{t.instructions}</p>
+              <h1 className="text-2xl font-bold text-foreground">
+                {t("title")}
+              </h1>
+              <p className="text-muted-foreground">{t("instructions")}</p>
             </div>
-            <PrintButton label={t.printButton} />
+            <PrintButton label={t("printButton")} />
           </div>
         </div>
       </div>
@@ -84,14 +63,14 @@ export default async function ChecklistPage({ params }: Props) {
           {/* Print header */}
           <div className="text-center mb-8 print:mb-6">
             <h1 className="text-3xl font-bold text-primary print:text-black print:text-2xl">
-              🌳 {t.title}
+              🌳 {t("title")}
             </h1>
             <p className="text-lg text-muted-foreground print:text-gray-600 print:text-base">
-              {t.subtitle}
+              {t("subtitle")}
             </p>
             <p className="text-sm text-muted-foreground mt-2 print:text-gray-500">
-              {trees.length} {t.species} • {families.length}{" "}
-              {locale === "es" ? "familias" : "families"}
+              {trees.length} {t("species")} • {families.length}{" "}
+              {t("familiesLabel")}
             </p>
           </div>
 
@@ -99,25 +78,25 @@ export default async function ChecklistPage({ params }: Props) {
           <div className="grid grid-cols-2 gap-4 mb-8 print:mb-6 print:gap-3">
             <div className="border border-border print:border-gray-300 rounded-lg p-3 print:p-2">
               <span className="text-xs text-muted-foreground print:text-gray-500 block mb-1">
-                {t.date}
+                {t("date")}
               </span>
               <div className="h-6 border-b border-dashed border-border print:border-gray-400"></div>
             </div>
             <div className="border border-border print:border-gray-300 rounded-lg p-3 print:p-2">
               <span className="text-xs text-muted-foreground print:text-gray-500 block mb-1">
-                {t.location}
+                {t("location")}
               </span>
               <div className="h-6 border-b border-dashed border-border print:border-gray-400"></div>
             </div>
             <div className="border border-border print:border-gray-300 rounded-lg p-3 print:p-2">
               <span className="text-xs text-muted-foreground print:text-gray-500 block mb-1">
-                {t.observer}
+                {t("observer")}
               </span>
               <div className="h-6 border-b border-dashed border-border print:border-gray-400"></div>
             </div>
             <div className="border border-border print:border-gray-300 rounded-lg p-3 print:p-2">
               <span className="text-xs text-muted-foreground print:text-gray-500 block mb-1">
-                {t.notes}
+                {t("notes")}
               </span>
               <div className="h-6 border-b border-dashed border-border print:border-gray-400"></div>
             </div>
@@ -159,7 +138,7 @@ export default async function ChecklistPage({ params }: Props) {
           <div className="mt-8 pt-4 border-t border-border print:border-gray-300 print:mt-6">
             <div className="flex justify-between text-sm text-muted-foreground print:text-gray-600">
               <span>
-                {t.totalSpecies}: _____ / {trees.length}
+                {t("totalSpecies")}: _____ / {trees.length}
               </span>
               <span>costaricatreeatlas.com</span>
             </div>

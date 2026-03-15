@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explore the atlas to discover trees from this region",
     "seeResults": "See Results",
     "correctCount": "Correct"
+  },
   "classroom": {
     "metaTitle": "Classroom - Costa Rica Tree Atlas",
     "metaDescription": "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "E.g. Science 5A",
     "placeholderTeacherName": "E.g. Mrs. Garcia",
     "placeholderStudentName": "Your name"
+  },
   "teacher": {
     "metaTitle": "Teacher Dashboard - Costa Rica Tree Atlas",
     "metaDescription": "Resources, guides, and materials for teachers using the Costa Rica Tree Atlas.",
@@ -1504,5 +1506,21 @@
     "plantingDesc": "Germinate and care for a native tree seedling",
     "technologyTitle": "Technology",
     "technologyDesc": "Create a digital presentation about a favorite tree"
+  },
+  "checklist": {
+    "metaTitle": "Printable Species Checklist - Costa Rica Tree Atlas",
+    "metaDescription": "Printable checklist of Costa Rican tree species organized by botanical family. Ideal for field trips and outdoor activities.",
+    "title": "Species Checklist",
+    "subtitle": "Costa Rica Tree Atlas",
+    "instructions": "Check off species as you observe them during your field trip",
+    "printButton": "\uD83D\uDDA8\uFE0F Print",
+    "backLink": "← Back",
+    "species": "species",
+    "date": "Date",
+    "location": "Location",
+    "observer": "Observer",
+    "notes": "Notes",
+    "totalSpecies": "Total species",
+    "familiesLabel": "families"
   }
 }
