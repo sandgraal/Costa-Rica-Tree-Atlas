@@ -129,7 +129,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // toc (TableOfContents), favorites (FavoriteButton), recentlyViewed (RecentlyViewedList),
   // keyboardShortcuts (KeyboardShortcuts), rating (TreeRating), reputation (BadgeDisplay,
   // ContributorProfileClient), education (EducationPage), error (ErrorPage),
-  // comparison (ComparePage), about (AboutPage)
+  // comparison (ComparePage), about (AboutPage), fieldTrip
   const CLIENT_NAMESPACES = [
     "nav",
     "theme",
