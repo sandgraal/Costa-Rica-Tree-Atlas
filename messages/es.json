@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,30 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "printablesHub": {
+    "metaTitle": "Recursos Imprimibles - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Descarga e imprime materiales educativos sobre los árboles de Costa Rica.",
+    "title": "Recursos Imprimibles",
+    "subtitle": "Materiales educativos gratuitos para descargar e imprimir",
+    "backToEducation": "← Volver a Recursos Educativos",
+    "speciesChecklist": "Lista de Especies",
+    "speciesChecklistDesc": "Lista completa de todas las especies del atlas para verificar durante excursiones.",
+    "flashcards": "Tarjetas de Estudio",
+    "flashcardsDesc": "Tarjetas con imágenes y datos clave de cada especie para memorización.",
+    "familyGuide": "Guía de Familias Botánicas",
+    "familyGuideDesc": "Referencia rápida de familias botánicas con especies representativas.",
+    "identificationKey": "Clave de Identificación",
+    "identificationKeyDesc": "Guía paso a paso para identificar árboles por sus características.",
+    "coloringPages": "Páginas para Colorear",
+    "coloringPagesDesc": "Páginas para colorear de árboles nativos. Perfectas para actividades creativas.",
+    "viewPrint": "Ver e Imprimir",
+    "species": "especies",
+    "families": "familias",
+    "printingTips": "💡 Consejos de Impresión",
+    "printTip1": "Use papel de buena calidad para mejores resultados",
+    "printTip2": "Imprima a color cuando sea posible para las imágenes",
+    "printTip3": "Plastifique las tarjetas para mayor durabilidad en campo",
+    "printTip4": "Use Ctrl/Cmd + P para abrir el diálogo de impresión"
   }
 }
