@@ -1596,6 +1596,19 @@
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
   },
+  "useCases": {
+    "metaTitle": "Casos de Uso",
+    "metaDescription": "Encuentra árboles de Costa Rica organizados por uso: sombra para café, cortavientos, control de erosión, jardines y más.",
+    "heading": "Encuentra el Árbol Perfecto",
+    "subtitle": "Explora árboles organizados por necesidades comunes. Cada categoría muestra especies específicamente adecuadas para ese propósito.",
+    "moreTools": "Más Herramientas",
+    "wizardTitle": "Asistente de Selección",
+    "wizardDesc": "Responde algunas preguntas para obtener recomendaciones personalizadas",
+    "browseTitle": "Explorar Todos los Árboles",
+    "browseDesc": "Explora el directorio completo con filtros avanzados",
+    "calendarTitle": "Calendario Estacional",
+    "calendarDesc": "Descubre qué árboles florecen y fructifican cada mes",
+    "viewTrees": "Ver árboles"
   "diagnose": {
     "metaTitle": "Herramienta de Diagnóstico de Salud de Árboles - Atlas de Árboles de Costa Rica",
     "metaDescription": "Diagnostica problemas de salud en árboles de Costa Rica según sus síntomas y recibe recomendaciones de tratamiento.",
