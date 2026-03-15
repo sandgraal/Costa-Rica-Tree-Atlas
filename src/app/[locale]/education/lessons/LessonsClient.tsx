@@ -35,7 +35,7 @@ function LessonsContent({ lessonPlans }: LessonsClientProps) {
   const getStatusBadge = (lessonId: string) => {
     if (!Object.hasOwn(progress, lessonId)) return null;
     // Safe access after Object.hasOwn check
-    // eslint-disable-next-line security/detect-object-injection
+    // eslint-disable-next-line security/detect-object-injection -- lessonId comes from trusted lessonPlans data, not user input, and is guarded by Object.hasOwn
     const lessonProgress = progress[lessonId];
     if (!lessonProgress) return null;
 
