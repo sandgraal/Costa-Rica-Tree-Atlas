@@ -55,20 +55,21 @@ export default async function Image({ params }: Props) {
       : { title: speciesSlug, scientificName: "" };
   });
 
-  const difficultyLabel =
-    comparison.difficulty === "easy"
-      ? locale === "es"
-        ? "Fácil"
-        : "Easy"
-      : comparison.difficulty === "moderate"
-        ? locale === "es"
-          ? "Moderado"
-          : "Moderate"
-        : comparison.difficulty === "challenging"
-          ? locale === "es"
-            ? "Desafiante"
-            : "Challenging"
-          : "";
+  const DIFFICULTY_LABELS: Record<string, Record<string, string>> = {
+    easy: { en: "Easy", es: "Fácil" },
+    moderate: { en: "Moderate", es: "Moderado" },
+    challenging: { en: "Challenging", es: "Desafiante" },
+  };
+  const difficultyLabel = comparison.difficulty
+    ? DIFFICULTY_LABELS[comparison.difficulty]?.[locale] ||
+      DIFFICULTY_LABELS[comparison.difficulty]?.en ||
+      ""
+    : "";
+
+  const GUIDE_LABEL: Record<string, string> = {
+    en: "Comparison Guide",
+    es: "Guía de Comparación",
+  };
 
   return new ImageResponse(
     <div
@@ -118,7 +119,7 @@ export default async function Image({ params }: Props) {
               gap: 8,
             }}
           >
-            {`🔍 ${locale === "es" ? "Guía de Comparación" : "Comparison Guide"}`}
+            {`🔍 ${GUIDE_LABEL[locale] || GUIDE_LABEL.en}`}
           </div>
           {difficultyLabel && (
             <div

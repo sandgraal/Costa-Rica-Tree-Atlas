@@ -11,12 +11,16 @@ type Props = {
 export default async function OGImage({ params }: Props) {
   const { locale } = await params;
 
-  const title =
-    locale === "es" ? "Recursos Educativos" : "Educational Resources";
-  const subtitle =
-    locale === "es"
-      ? "Planes de lecciones, actividades y materiales para aprender sobre los árboles de Costa Rica"
-      : "Lesson plans, activities, and materials to learn about Costa Rica trees";
+  const TITLES: Record<string, string> = {
+    en: "Educational Resources",
+    es: "Recursos Educativos",
+  };
+  const SUBTITLES: Record<string, string> = {
+    en: "Lesson plans, activities, and materials to learn about Costa Rica trees",
+    es: "Planes de lecciones, actividades y materiales para aprender sobre los árboles de Costa Rica",
+  };
+  const title = TITLES[locale] || TITLES.en;
+  const subtitle = SUBTITLES[locale] || SUBTITLES.en;
 
   return new ImageResponse(
     <div
