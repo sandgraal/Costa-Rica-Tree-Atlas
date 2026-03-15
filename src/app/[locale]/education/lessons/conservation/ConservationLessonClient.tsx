@@ -19,7 +19,6 @@ import { useConservationReducer } from "./useConservationReducer";
 
 interface ConservationLessonClientProps {
   trees: LessonTreeData[];
-  locale: string;
   statusCounts: Record<string, number>;
   endangeredTrees: LessonTreeData[];
   lessonData: ConservationLessonData;
@@ -36,7 +35,6 @@ export default function ConservationLessonClient(
 }
 
 function ConservationLessonContent({
-  locale,
   statusCounts,
   endangeredTrees,
   lessonData,
@@ -145,15 +143,11 @@ function ConservationLessonContent({
               <div className="text-5xl font-bold text-blue-600 mb-2">
                 {state.selectedActions.length}
               </div>
-              <div className="text-muted-foreground">
-                {locale === "es" ? "Acciones Prometidas" : "Actions Pledged"}
-              </div>
+              <div className="text-muted-foreground">{t.actionsPledged}</div>
             </div>
             <div className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-2xl p-6 border border-yellow-500/20">
               <div className="text-5xl mb-2">🏆</div>
-              <div className="text-muted-foreground">
-                {locale === "es" ? "Defensor del Bosque" : "Forest Defender"}
-              </div>
+              <div className="text-muted-foreground">{t.forestDefender}</div>
             </div>
           </div>
 
@@ -190,7 +184,7 @@ function ConservationLessonContent({
                 href={`/trees/${state.adoptedTree.slug}`}
                 className="inline-block mt-3 text-primary hover:underline text-sm"
               >
-                {locale === "es" ? "Ver en el Atlas →" : "View in Atlas →"}
+                {t.viewInAtlas}
               </Link>
             </div>
           )}
@@ -231,7 +225,7 @@ function ConservationLessonContent({
             <p className="text-muted-foreground">{t.subtitle}</p>
             <div className="flex items-center gap-4 mt-2 text-sm">
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
-                {locale === "es" ? "Grados 4-7" : "Grades 4-7"}
+                {t.gradeLevel}
               </span>
               <span className="px-3 py-1 bg-muted text-muted-foreground rounded-full">
                 ⏱️ 40 min
@@ -295,9 +289,7 @@ function ConservationLessonContent({
               {steps[0].title}
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              {locale === "es"
-                ? "Los bosques son esenciales para la vida en la Tierra. Descubre por qué debemos protegerlos."
-                : "Forests are essential for life on Earth. Discover why we must protect them."}
+              {t.forestsIntro}
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {conservationReasons.map((reason, i) => (
@@ -326,11 +318,7 @@ function ConservationLessonContent({
               <span className="text-3xl">⚠️</span>
               {steps[1].title}
             </h2>
-            <p className="text-muted-foreground mb-4">
-              {locale === "es"
-                ? "Selecciona las 3 amenazas más graves:"
-                : "Select the 3 most serious threats:"}
-            </p>
+            <p className="text-muted-foreground mb-4">{t.selectThreats}</p>
             <div className="bg-muted rounded-xl p-4 mb-6">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-primary">
@@ -384,9 +372,7 @@ function ConservationLessonContent({
 
             {/* IUCN Status Legend */}
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
-              <h3 className="font-semibold mb-3">
-                {locale === "es" ? "Categorías UICN" : "IUCN Categories"}
-              </h3>
+              <h3 className="font-semibold mb-3">{t.iucnCategories}</h3>
               <div className="space-y-2">
                 {statusInfo.map((status) => (
                   <div key={status.key} className="flex items-center gap-3">
@@ -394,8 +380,7 @@ function ConservationLessonContent({
                     <span className={`w-4 h-4 rounded-full ${status.color}`} />
                     <span className="font-medium">{status.label}</span>
                     <span className="text-sm text-muted-foreground ml-auto">
-                      {statusCounts[status.key] || 0}{" "}
-                      {locale === "es" ? "árboles" : "trees"}
+                      {statusCounts[status.key] || 0} {t.treesLabel}
                     </span>
                   </div>
                 ))}
@@ -455,8 +440,7 @@ function ConservationLessonContent({
             {endangeredTrees.length > 0 && (
               <div className="mt-6">
                 <h3 className="font-semibold mb-3 flex items-center gap-2">
-                  <span>🚨</span>{" "}
-                  {locale === "es" ? "Árboles en Peligro" : "Endangered Trees"}
+                  <span>🚨</span> {t.endangeredTrees}
                 </h3>
                 <div className="flex gap-4 overflow-x-auto pb-2">
                   {endangeredTrees.slice(0, 5).map((tree) => (
@@ -506,10 +490,7 @@ function ConservationLessonContent({
               </div>
               {state.selectedActions.length >= 3 && (
                 <div className="mt-2 text-center text-green-600 font-medium animate-bounce-in">
-                  🎉{" "}
-                  {locale === "es"
-                    ? "¡Excelente elección!"
-                    : "Excellent choices!"}
+                  🎉 {t.excellentChoices}
                 </div>
               )}
             </div>
@@ -590,9 +571,7 @@ function ConservationLessonContent({
                       {state.pledge.name}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
-                      {locale === "es"
-                        ? "¡Gracias por tu compromiso!"
-                        : "Thank you for your commitment!"}
+                      {t.thankYouPledge}
                     </p>
                   </div>
                 )}

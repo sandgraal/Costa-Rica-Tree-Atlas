@@ -255,6 +255,10 @@ export default async function ConservationPage({
                       const localizedLabel = isKnownStatus
                         ? statusLabels[status as ConservationStatus]?.[locale]
                         : undefined;
+                      const fallbackLabel =
+                        locale === "es"
+                          ? "Estado de conservación desconocido"
+                          : "Unknown conservation status";
 
                       return (
                         <span
