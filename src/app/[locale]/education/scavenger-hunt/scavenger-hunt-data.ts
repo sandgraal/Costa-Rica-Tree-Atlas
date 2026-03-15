@@ -72,6 +72,7 @@ export interface ScavengerHuntLabels {
   remove: string;
   members: string;
   teams: string;
+  defaultTeamName: string;
   backToMissions: string;
 }
 
@@ -393,6 +394,7 @@ export function getScavengerHuntLessonData(
     remove: isEs ? "Quitar" : "Remove",
     members: isEs ? "miembros" : "members",
     teams: isEs ? "Equipos" : "Teams",
+    defaultTeamName: isEs ? "Equipo" : "Team",
     backToMissions: isEs ? "Volver a Misiones" : "Back to Missions",
   };
 

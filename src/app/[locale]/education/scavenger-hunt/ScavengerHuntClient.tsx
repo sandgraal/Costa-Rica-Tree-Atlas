@@ -58,7 +58,6 @@ interface HuntSession {
 
 interface ScavengerHuntClientProps {
   trees: Tree[];
-  locale: string;
   lessonData: ScavengerHuntLessonData;
 }
 
@@ -323,7 +322,6 @@ function reducer(state: AppState, action: Action): AppState {
 
 export default function ScavengerHuntClient({
   trees,
-  locale,
   lessonData,
 }: ScavengerHuntClientProps) {
   // Use reducer for complex state management
@@ -416,7 +414,7 @@ export default function ScavengerHuntClient({
     const newSession: HuntSession = {
       teams: state.setup.teamNames.map((name, i) => ({
         id: `team-${i}`,
-        name: name || `${locale === "es" ? "Equipo" : "Team"} ${i + 1}`,
+        name: name || `${t.defaultTeamName} ${i + 1}`,
         color: TEAM_COLORS[i % TEAM_COLORS.length].name,
         members: state.setup.teamMembers[i],
         completedMissions: [],
@@ -485,7 +483,6 @@ export default function ScavengerHuntClient({
   if (state.view === "setup") {
     return (
       <SetupView
-        locale={locale}
         labels={t}
         setup={state.setup}
         onTeamCountChange={handleTeamCountChange}
