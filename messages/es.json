@@ -1429,6 +1429,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",
@@ -1620,5 +1621,36 @@
     "printTip2": "Imprima a color cuando sea posible para las imágenes",
     "printTip3": "Plastifique las tarjetas para mayor durabilidad en campo",
     "printTip4": "Use Ctrl/Cmd + P para abrir el diálogo de impresión"
+  },
+  "quiz": {
+    "metaTitle": "Cuestionario de Árboles - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Pon a prueba tu conocimiento sobre los árboles de Costa Rica con nuestros cuestionarios interactivos.",
+    "title": "Cuestionario de Identificación de Árboles",
+    "subtitle": "Pon a prueba tu conocimiento sobre los árboles de Costa Rica",
+    "selectMode": "Selecciona un Modo de Cuestionario",
+    "photoMode": "Identificación por Foto",
+    "photoModeDesc": "Identifica árboles por sus fotos",
+    "safetyMode": "Cuestionario de Seguridad",
+    "safetyModeDesc": "Aprende sobre la seguridad y toxicidad de los árboles",
+    "familyMode": "Reconocimiento de Familias",
+    "familyModeDesc": "Relaciona los árboles con sus familias botánicas",
+    "startQuiz": "Comenzar Cuestionario",
+    "question": "Pregunta",
+    "of": "de",
+    "score": "Puntuación",
+    "submit": "Enviar Respuesta",
+    "next": "Siguiente Pregunta",
+    "complete": "¡Cuestionario Completado!",
+    "finalScore": "Tu puntuación final",
+    "restart": "Intentar Otro Cuestionario",
+    "backToModes": "Volver a Modos de Cuestionario",
+    "whatTree": "¿Qué árbol es este?",
+    "whichSafe": "¿Qué árbol es seguro para niños?",
+    "whichFamily": "¿Qué árbol pertenece a la familia {family}?",
+    "correct": "¡Correcto!",
+    "incorrect": "Incorrecto. La respuesta correcta es:",
+    "loading": "Cargando cuestionario...",
+    "backToTrees": "Volver a Árboles",
+    "exploreTrees": "Explorar Árboles"
   }
 }

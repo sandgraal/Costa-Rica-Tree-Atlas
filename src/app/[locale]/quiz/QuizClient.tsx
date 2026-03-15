@@ -2,6 +2,7 @@
 /* eslint-disable security/detect-object-injection -- quiz uses constrained locale/mode/index lookups over local in-memory dictionaries. */
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { ProgressBar } from "@/components/ProgressBar";
 import Image from "next/image";
@@ -20,7 +21,6 @@ interface Tree {
 
 interface QuizClientProps {
   trees: Tree[];
-  locale: string;
 }
 
 type QuizMode = "photo" | "safety" | "family";
@@ -32,7 +32,7 @@ interface Question {
   type: "photo" | "safety" | "family";
 }
 
-export default function QuizClient({ trees, locale }: QuizClientProps) {
+export default function QuizClient({ trees }: QuizClientProps) {
   const [mode, setMode] = useState<QuizMode | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -41,66 +41,7 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
   const [showResult, setShowResult] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
 
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      en: {
-        title: "Tree Identification Quiz",
-        subtitle: "Test your knowledge of Costa Rican trees",
-        selectMode: "Select a Quiz Mode",
-        photoMode: "Photo Identification",
-        photoModeDesc: "Identify trees from their photos",
-        safetyMode: "Safety Quiz",
-        safetyModeDesc: "Learn about tree safety and toxicity",
-        familyMode: "Family Recognition",
-        familyModeDesc: "Match trees to their botanical families",
-        startQuiz: "Start Quiz",
-        question: "Question",
-        of: "of",
-        score: "Score",
-        submit: "Submit Answer",
-        next: "Next Question",
-        complete: "Quiz Complete!",
-        finalScore: "Your final score",
-        restart: "Try Another Quiz",
-        backToModes: "Back to Quiz Modes",
-        whatTree: "What tree is this?",
-        whichSafe: "Which tree is safe for children?",
-        whichFamily: "Which tree belongs to the {family} family?",
-        correct: "Correct!",
-        incorrect: "Incorrect. The correct answer is:",
-        loading: "Loading quiz...",
-      },
-      es: {
-        title: "Cuestionario de Identificación de Árboles",
-        subtitle:
-          "Pon a prueba tu conocimiento sobre los árboles de Costa Rica",
-        selectMode: "Selecciona un Modo de Cuestionario",
-        photoMode: "Identificación por Foto",
-        photoModeDesc: "Identifica árboles por sus fotos",
-        safetyMode: "Cuestionario de Seguridad",
-        safetyModeDesc: "Aprende sobre la seguridad y toxicidad de los árboles",
-        familyMode: "Reconocimiento de Familias",
-        familyModeDesc: "Relaciona los árboles con sus familias botánicas",
-        startQuiz: "Comenzar Cuestionario",
-        question: "Pregunta",
-        of: "de",
-        score: "Puntuación",
-        submit: "Enviar Respuesta",
-        next: "Siguiente Pregunta",
-        complete: "¡Cuestionario Completado!",
-        finalScore: "Tu puntuación final",
-        restart: "Intentar Otro Cuestionario",
-        backToModes: "Volver a Modos de Cuestionario",
-        whatTree: "¿Qué árbol es este?",
-        whichSafe: "¿Qué árbol es seguro para niños?",
-        whichFamily: "¿Qué árbol pertenece a la familia {family}?",
-        correct: "¡Correcto!",
-        incorrect: "Incorrecto. La respuesta correcta es:",
-        loading: "Cargando cuestionario...",
-      },
-    };
-    return translations[locale][key] || key;
-  };
+  const t = useTranslations("quiz");
 
   const generatePhotoQuestions = useCallback(() => {
     const treesWithImages = trees.filter((t) => t.featuredImage);
@@ -306,7 +247,7 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
               href="/trees"
               className="text-primary hover:text-primary-dark underline"
             >
-              ← {locale === "es" ? "Volver a Árboles" : "Back to Trees"}
+              ← {t("backToTrees")}
             </Link>
           </div>
         </div>
@@ -343,7 +284,7 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
                 href="/trees"
                 className="block w-full px-6 py-3 border-2 border-border rounded-lg hover:border-primary transition-colors"
               >
-                {locale === "es" ? "Explorar Árboles" : "Explore Trees"}
+                {t("exploreTrees")}
               </Link>
             </div>
           </div>
@@ -405,7 +346,7 @@ export default function QuizClient({ trees, locale }: QuizClientProps) {
               {mode === "photo" && t("whatTree")}
               {mode === "safety" && t("whichSafe")}
               {mode === "family" &&
-                t("whichFamily").replace("{family}", question.tree.family)}
+                t("whichFamily", { family: question.tree.family })}
             </h2>
 
             {/* Options */}
