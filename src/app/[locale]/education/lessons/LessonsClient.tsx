@@ -93,7 +93,7 @@ function LessonsContent({ lessonPlans }: LessonsClientProps) {
                 value={(completedLessons / 4) * 100}
                 trackClassName="h-3 bg-muted rounded-full overflow-hidden"
                 barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
-                label="Lesson progress"
+                label={t("progressBarLabel")}
               />
             </div>
           </div>
