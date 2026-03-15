@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
   EducationProgressProvider,
   useEducationProgress,
@@ -10,10 +11,6 @@ import {
   classroomSchema,
   studentInfoSchema,
 } from "@/lib/storage";
-
-interface ClassroomClientProps {
-  locale: string;
-}
 
 interface Student {
   id: string;
@@ -36,15 +33,15 @@ interface Classroom {
 const CLASSROOM_STORAGE_KEY = "costa-rica-tree-atlas-classroom";
 const STUDENT_STORAGE_KEY = "costa-rica-tree-atlas-student";
 
-export default function ClassroomClient({ locale }: ClassroomClientProps) {
+export default function ClassroomClient() {
   return (
     <EducationProgressProvider>
-      <ClassroomContent locale={locale} />
+      <ClassroomContent />
     </EducationProgressProvider>
   );
 }
 
-function ClassroomContent({ locale }: ClassroomClientProps) {
+function ClassroomContent() {
   const { getBadges, totalPoints, completedLessons } = useEducationProgress();
   const [mode, setMode] = useState<"select" | "create" | "join" | "classroom">(
     "select"
@@ -66,6 +63,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
   const badges = getBadges();
   const earnedBadgeIcons = badges.filter((b) => b.earned).map((b) => b.icon);
+  const t = useTranslations("classroom");
 
   // Create storage instances with error handling
   const classroomStorage = useMemo(
@@ -73,15 +71,11 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       createStorage({
         key: CLASSROOM_STORAGE_KEY,
         schema: classroomSchema,
-        onError: (_error) => {
-          setStorageError(
-            locale === "es"
-              ? "Se detectaron datos corruptos del aula y fueron eliminados"
-              : "Corrupted classroom data was detected and cleared"
-          );
+        onError: () => {
+          setStorageError(t("storageErrorClassroom"));
         },
       }),
-    [locale]
+    [t]
   );
 
   const studentInfoStorage = useMemo(
@@ -89,15 +83,11 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       createStorage({
         key: STUDENT_STORAGE_KEY,
         schema: studentInfoSchema,
-        onError: (_error) => {
-          setStorageError(
-            locale === "es"
-              ? "Se detectaron datos corruptos del estudiante y fueron eliminados"
-              : "Corrupted student data was detected and cleared"
-          );
+        onError: () => {
+          setStorageError(t("storageErrorStudent"));
         },
       }),
-    [locale]
+    [t]
   );
 
   // Load saved data on mount
@@ -144,58 +134,6 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
     });
   }, [studentInfo?.name, totalPoints, completedLessons, earnedBadgeIcons]);
 
-  const t = {
-    createClassroom: locale === "es" ? "Crear Aula" : "Create Classroom",
-    joinClassroom: locale === "es" ? "Unirse a Aula" : "Join Classroom",
-    teacherMode: locale === "es" ? "Modo Profesor" : "Teacher Mode",
-    studentMode: locale === "es" ? "Modo Estudiante" : "Student Mode",
-    classroomName: locale === "es" ? "Nombre del Aula" : "Classroom Name",
-    teacherName: locale === "es" ? "Nombre del Profesor" : "Teacher Name",
-    studentName: locale === "es" ? "Tu Nombre" : "Your Name",
-    classroomCode: locale === "es" ? "Código del Aula" : "Classroom Code",
-    create: locale === "es" ? "Crear" : "Create",
-    join: locale === "es" ? "Unirse" : "Join",
-    back: locale === "es" ? "← Volver" : "← Back",
-    leaderboard: locale === "es" ? "Tabla de Posiciones" : "Leaderboard",
-    shareCode:
-      locale === "es"
-        ? "Comparte este código con tus estudiantes:"
-        : "Share this code with your students:",
-    copyCode: locale === "es" ? "Copiar Código" : "Copy Code",
-    copied: locale === "es" ? "¡Copiado!" : "Copied!",
-    rank: locale === "es" ? "Posición" : "Rank",
-    name: locale === "es" ? "Nombre" : "Name",
-    points: locale === "es" ? "Puntos" : "Points",
-    lessons: locale === "es" ? "Lecciones" : "Lessons",
-    badges: locale === "es" ? "Insignias" : "Badges",
-    noStudents: locale === "es" ? "Aún no hay estudiantes" : "No students yet",
-    inviteStudents:
-      locale === "es"
-        ? "¡Invita a tus estudiantes usando el código!"
-        : "Invite students using the code!",
-    leaveClassroom: locale === "es" ? "Salir del Aula" : "Leave Classroom",
-    deleteClassroom: locale === "es" ? "Eliminar Aula" : "Delete Classroom",
-    you: locale === "es" ? "(Tú)" : "(You)",
-    errorClassroomNotFound:
-      locale === "es"
-        ? "Código de aula no encontrado"
-        : "Classroom code not found",
-    errorFillFields:
-      locale === "es"
-        ? "Por favor completa todos los campos"
-        : "Please fill in all fields",
-    welcomeTeacher:
-      locale === "es" ? "¡Bienvenido, Profesor!" : "Welcome, Teacher!",
-    welcomeStudent:
-      locale === "es" ? "¡Bienvenido, Estudiante!" : "Welcome, Student!",
-    classroomInfo: locale === "es" ? "Información del Aula" : "Classroom Info",
-    students: locale === "es" ? "estudiantes" : "students",
-    lastActive: locale === "es" ? "Última actividad" : "Last active",
-    today: locale === "es" ? "Hoy" : "Today",
-    yesterday: locale === "es" ? "Ayer" : "Yesterday",
-    daysAgo: locale === "es" ? "hace {n} días" : "{n} days ago",
-  };
-
   const generateCode = () => {
     // eslint-disable-next-line no-secrets/no-secrets -- Character set for code generation, not a secret
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -208,7 +146,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
   const handleCreateClassroom = () => {
     if (!formData.classroomName.trim() || !formData.teacherName.trim()) {
-      setError(t.errorFillFields);
+      setError(t("errorFillFields"));
       return;
     }
 
@@ -229,7 +167,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
 
   const handleJoinClassroom = () => {
     if (!formData.studentName.trim() || !formData.classroomCode.trim()) {
-      setError(t.errorFillFields);
+      setError(t("errorFillFields"));
       return;
     }
 
@@ -337,9 +275,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
       (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
     );
 
-    if (diffDays === 0) return t.today;
-    if (diffDays === 1) return t.yesterday;
-    return t.daysAgo.replace("{n}", diffDays.toString());
+    if (diffDays === 0) return t("today");
+    if (diffDays === 1) return t("yesterday");
+    return t("daysAgo", { n: diffDays });
   };
 
   const getRankEmoji = (rank: number) => {
@@ -361,9 +299,11 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
         >
           <div className="text-5xl mb-4">👩‍🏫</div>
           <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-            {t.teacherMode}
+            {t("teacherMode")}
           </h3>
-          <p className="text-muted-foreground text-sm">{t.createClassroom}</p>
+          <p className="text-muted-foreground text-sm">
+            {t("createClassroom")}
+          </p>
         </button>
 
         <button
@@ -374,9 +314,9 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
         >
           <div className="text-5xl mb-4">👨‍🎓</div>
           <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-            {t.studentMode}
+            {t("studentMode")}
           </h3>
-          <p className="text-muted-foreground text-sm">{t.joinClassroom}</p>
+          <p className="text-muted-foreground text-sm">{t("joinClassroom")}</p>
         </button>
       </div>
     );
@@ -392,42 +332,38 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
           }}
           className="text-sm text-muted-foreground hover:text-primary mb-6 inline-flex items-center"
         >
-          {t.back}
+          {t("back")}
         </button>
 
         <div className="bg-card border border-border rounded-2xl p-8">
           <div className="text-center mb-6">
             <div className="text-5xl mb-2">👩‍🏫</div>
-            <h2 className="text-xl font-bold">{t.createClassroom}</h2>
+            <h2 className="text-xl font-bold">{t("createClassroom")}</h2>
           </div>
 
           <div className="space-y-4">
             <label className="block">
-              <span className="text-sm font-medium">{t.classroomName}</span>
+              <span className="text-sm font-medium">{t("classroomName")}</span>
               <input
                 type="text"
                 value={formData.classroomName}
                 onChange={(e) => {
                   setFormData({ ...formData, classroomName: e.target.value });
                 }}
-                placeholder={
-                  locale === "es" ? "Ej: Ciencias 5A" : "E.g. Science 5A"
-                }
+                placeholder={t("placeholderClassroomName")}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
               />
             </label>
 
             <label className="block">
-              <span className="text-sm font-medium">{t.teacherName}</span>
+              <span className="text-sm font-medium">{t("teacherName")}</span>
               <input
                 type="text"
                 value={formData.teacherName}
                 onChange={(e) => {
                   setFormData({ ...formData, teacherName: e.target.value });
                 }}
-                placeholder={
-                  locale === "es" ? "Ej: Sra. García" : "E.g. Mrs. Garcia"
-                }
+                placeholder={t("placeholderTeacherName")}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
               />
             </label>
@@ -440,7 +376,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
               onClick={handleCreateClassroom}
               className="w-full py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
-              {t.create}
+              {t("create")}
             </button>
           </div>
         </div>
@@ -456,31 +392,31 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
           onClick={() => setMode("select")}
           className="text-sm text-muted-foreground hover:text-primary mb-6 inline-flex items-center"
         >
-          {t.back}
+          {t("back")}
         </button>
 
         <div className="bg-card border border-border rounded-2xl p-8">
           <div className="text-center mb-6">
             <div className="text-5xl mb-2">👨‍🎓</div>
-            <h2 className="text-xl font-bold">{t.joinClassroom}</h2>
+            <h2 className="text-xl font-bold">{t("joinClassroom")}</h2>
           </div>
 
           <div className="space-y-4">
             <label className="block">
-              <span className="text-sm font-medium">{t.studentName}</span>
+              <span className="text-sm font-medium">{t("studentName")}</span>
               <input
                 type="text"
                 value={formData.studentName}
                 onChange={(e) => {
                   setFormData({ ...formData, studentName: e.target.value });
                 }}
-                placeholder={locale === "es" ? "Tu nombre" : "Your name"}
+                placeholder={t("placeholderStudentName")}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
               />
             </label>
 
             <label className="block">
-              <span className="text-sm font-medium">{t.classroomCode}</span>
+              <span className="text-sm font-medium">{t("classroomCode")}</span>
               <input
                 type="text"
                 value={formData.classroomCode}
@@ -504,7 +440,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
               onClick={handleJoinClassroom}
               className="w-full py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
-              {t.join}
+              {t("join")}
             </button>
           </div>
         </div>
@@ -527,15 +463,15 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
             <div>
               <h2 className="text-2xl font-bold">{classroom.name}</h2>
               <p className="text-muted-foreground">
-                {isTeacher ? t.welcomeTeacher : t.welcomeStudent} •{" "}
-                {classroom.students.length} {t.students}
+                {isTeacher ? t("welcomeTeacher") : t("welcomeStudent")} •{" "}
+                {classroom.students.length} {t("students")}
               </p>
             </div>
 
             <div className="flex items-center gap-3">
               <div className="bg-background rounded-xl px-4 py-2 border border-border">
                 <div className="text-xs text-muted-foreground">
-                  {t.classroomCode}
+                  {t("classroomCode")}
                 </div>
                 <div className="text-2xl font-mono font-bold tracking-wider">
                   {classroom.code}
@@ -545,7 +481,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
                 onClick={handleCopyCode}
                 className="px-4 py-2 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors text-sm"
               >
-                {copied ? t.copied : t.copyCode}
+                {copied ? t("copied") : t("copyCode")}
               </button>
             </div>
           </div>
@@ -555,16 +491,16 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
         <div className="bg-card border border-border rounded-2xl overflow-hidden">
           <div className="px-6 py-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-b border-border">
             <h3 className="text-xl font-bold flex items-center gap-2">
-              <span>🏆</span> {t.leaderboard}
+              <span>🏆</span> {t("leaderboard")}
             </h3>
           </div>
 
           {sortedStudents.length === 0 ? (
             <div className="p-12 text-center">
               <div className="text-5xl mb-4">👥</div>
-              <p className="text-muted-foreground">{t.noStudents}</p>
+              <p className="text-muted-foreground">{t("noStudents")}</p>
               <p className="text-sm text-muted-foreground mt-2">
-                {t.inviteStudents}
+                {t("inviteStudents")}
               </p>
             </div>
           ) : (
@@ -573,22 +509,22 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                      {t.rank}
+                      {t("rank")}
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                      {t.name}
+                      {t("name")}
                     </th>
                     <th className="px-4 py-3 text-center text-sm font-medium text-muted-foreground">
-                      {t.points}
+                      {t("points")}
                     </th>
                     <th className="px-4 py-3 text-center text-sm font-medium text-muted-foreground">
-                      {t.lessons}
+                      {t("lessons")}
                     </th>
                     <th className="px-4 py-3 text-center text-sm font-medium text-muted-foreground">
-                      {t.badges}
+                      {t("badges")}
                     </th>
                     <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
-                      {t.lastActive}
+                      {t("lastActive")}
                     </th>
                   </tr>
                 </thead>
@@ -618,7 +554,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
                             {student.name}
                             {isCurrentUser && (
                               <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">
-                                {t.you}
+                                {t("you")}
                               </span>
                             )}
                           </span>
@@ -663,7 +599,7 @@ function ClassroomContent({ locale }: ClassroomClientProps) {
             onClick={handleLeaveClassroom}
             className="text-sm text-red-500 hover:text-red-600 transition-colors"
           >
-            {isTeacher ? t.deleteClassroom : t.leaveClassroom}
+            {isTeacher ? t("deleteClassroom") : t("leaveClassroom")}
           </button>
         </div>
       </div>
