@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FieldTripMap } from "@/components/maps";
 import type { Locale } from "@/types/tree";
 import { useFieldTripReducer } from "./useFieldTripReducer";
+import { useTranslations, useLocale } from "next-intl";
 
 interface Tree {
   title: string;
@@ -20,7 +21,6 @@ interface Tree {
 
 interface FieldTripClientProps {
   trees: Tree[];
-  locale: string;
 }
 
 interface SpottedTree {
@@ -32,11 +32,10 @@ interface SpottedTree {
 
 const FIELD_TRIP_STORAGE_KEY = "costa-rica-tree-atlas-field-trip";
 
-export default function FieldTripClient({
-  trees,
-  locale,
-}: FieldTripClientProps) {
+export default function FieldTripClient({ trees }: FieldTripClientProps) {
   const [state, dispatch] = useFieldTripReducer();
+  const t = useTranslations("fieldTrip");
+  const locale = useLocale() as Locale;
 
   // Extract unique families from trees
   const families = Array.from(
@@ -94,72 +93,7 @@ export default function FieldTripClient({
     }
   }, [state.spottedTrees, state.currentTrip]);
 
-  const t = {
-    title: locale === "es" ? "Modo Excursión" : "Field Trip Mode",
-    subtitle:
-      locale === "es"
-        ? "Lista de verificación para identificar árboles en el campo"
-        : "Checklist for identifying trees in the field",
-    backToEducation:
-      locale === "es" ? "← Volver a Educación" : "← Back to Education",
-    startTrip: locale === "es" ? "🥾 Iniciar Excursión" : "🥾 Start Field Trip",
-    endTrip: locale === "es" ? "Finalizar Excursión" : "End Field Trip",
-    tripInProgress:
-      locale === "es" ? "Excursión en Progreso" : "Trip in Progress",
-    searchPlaceholder:
-      locale === "es" ? "Buscar árboles..." : "Search trees...",
-    filterByFamily:
-      locale === "es" ? "Filtrar por Familia" : "Filter by Family",
-    allFamilies: locale === "es" ? "Todas las Familias" : "All Families",
-    showSpotted: locale === "es" ? "Solo Encontrados" : "Show Spotted Only",
-    spotted: locale === "es" ? "¡Encontrado!" : "Spotted!",
-    markAsSpotted:
-      locale === "es" ? "Marcar como Encontrado" : "Mark as Spotted",
-    removeSpotted: locale === "es" ? "Quitar Marca" : "Remove Mark",
-    addNote: locale === "es" ? "Agregar Nota" : "Add Note",
-    notes: locale === "es" ? "Notas" : "Notes",
-    notePlaceholder:
-      locale === "es" ? "Escribe una nota..." : "Write a note...",
-    save: locale === "es" ? "Guardar" : "Save",
-    cancel: locale === "es" ? "Cancelar" : "Cancel",
-    summary: locale === "es" ? "Resumen" : "Summary",
-    treesSpotted: locale === "es" ? "árboles encontrados" : "trees spotted",
-    familiesSpotted:
-      locale === "es" ? "familias encontradas" : "families spotted",
-    progress: locale === "es" ? "Progreso" : "Progress",
-    offlineMode: locale === "es" ? "Modo Sin Conexión" : "Offline Mode",
-    offlineNote:
-      locale === "es"
-        ? "Tus datos se guardarán localmente"
-        : "Your data will be saved locally",
-    tripNamePlaceholder:
-      locale === "es"
-        ? "Ej: Parque Nacional Manuel Antonio"
-        : "E.g. Manuel Antonio National Park",
-    tripNameLabel: locale === "es" ? "Nombre de la Excursión" : "Trip Name",
-    clearAll: locale === "es" ? "Borrar Todo" : "Clear All",
-    exportData: locale === "es" ? "📤 Exportar Datos" : "📤 Export Data",
-    viewDetails: locale === "es" ? "Ver Detalles" : "View Details",
-    quickTips: locale === "es" ? "Consejos Rápidos" : "Quick Tips",
-    tips:
-      locale === "es"
-        ? [
-            "Observa las hojas: forma, borde y textura",
-            "Revisa la corteza: color, textura y patrones",
-            "Busca flores o frutos si están presentes",
-            "Nota la altura y forma general del árbol",
-            "Toma fotos para referencia posterior",
-          ]
-        : [
-            "Observe leaves: shape, edge, and texture",
-            "Check bark: color, texture, and patterns",
-            "Look for flowers or fruits if present",
-            "Note the height and overall tree shape",
-            "Take photos for later reference",
-          ],
-    conservationStatus: locale === "es" ? "Estado" : "Status",
-    nativeRegion: locale === "es" ? "Región" : "Region",
-  };
+  const tips = [t("tip1"), t("tip2"), t("tip3"), t("tip4"), t("tip5")];
 
   const handleStartTrip = () => {
     if (state.setup.tripName.trim()) {
@@ -260,9 +194,7 @@ export default function FieldTripClient({
   };
 
   const handleClearAll = () => {
-    if (
-      confirm(locale === "es" ? "¿Borrar todos los datos?" : "Clear all data?")
-    ) {
+    if (confirm(t("confirmClearAll"))) {
       dispatch({ type: "CLEAR_ALL" });
     }
   };
@@ -285,7 +217,7 @@ export default function FieldTripClient({
 
   const spottedFamilies = new Set(
     state.spottedTrees
-      .map((s) => trees.find((t) => t.slug === s.slug)?.family)
+      .map((s) => trees.find((tr) => tr.slug === s.slug)?.family)
       .filter(Boolean)
   );
 
@@ -298,21 +230,23 @@ export default function FieldTripClient({
             href="/education"
             className="text-green-200 hover:text-white text-sm mb-4 inline-block"
           >
-            {t.backToEducation}
+            {t("backToEducation")}
           </Link>
 
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold flex items-center gap-3">
-                <span>🥾</span> {t.title}
+                <span>🥾</span> {t("title")}
               </h1>
-              <p className="text-green-100 mt-1">{t.subtitle}</p>
+              <p className="text-green-100 mt-1">{t("subtitle")}</p>
             </div>
 
             {state.ui.isOffline && (
               <div className="bg-yellow-500/20 border border-yellow-400/50 rounded-lg px-4 py-2 text-sm">
-                <div className="font-medium">📴 {t.offlineMode}</div>
-                <div className="text-yellow-100 text-xs">{t.offlineNote}</div>
+                <div className="font-medium">📴 {t("offlineMode")}</div>
+                <div className="text-yellow-100 text-xs">
+                  {t("offlineNote")}
+                </div>
               </div>
             )}
           </div>
@@ -323,7 +257,7 @@ export default function FieldTripClient({
               <div className="bg-white/10 rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <div className="text-sm text-green-200">
-                    {t.tripInProgress}
+                    {t("tripInProgress")}
                   </div>
                   <div className="text-xl font-bold">{state.currentTrip}</div>
                 </div>
@@ -332,13 +266,13 @@ export default function FieldTripClient({
                     onClick={handleExportData}
                     className="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors text-sm"
                   >
-                    {t.exportData}
+                    {t("exportData")}
                   </button>
                   <button
                     onClick={handleEndTrip}
                     className="px-4 py-2 bg-red-500/80 rounded-lg hover:bg-red-500 transition-colors text-sm"
                   >
-                    {t.endTrip}
+                    {t("endTrip")}
                   </button>
                 </div>
               </div>
@@ -349,7 +283,7 @@ export default function FieldTripClient({
                 }}
                 className="w-full py-4 bg-white/20 rounded-xl hover:bg-white/30 transition-colors font-semibold text-lg"
               >
-                {t.startTrip}
+                {t("startTrip")}
               </button>
             )}
           </div>
@@ -360,17 +294,19 @@ export default function FieldTripClient({
               <div className="text-3xl font-bold">
                 {state.spottedTrees.length}
               </div>
-              <div className="text-sm text-green-200">{t.treesSpotted}</div>
+              <div className="text-sm text-green-200">{t("treesSpotted")}</div>
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-3xl font-bold">{spottedFamilies.size}</div>
-              <div className="text-sm text-green-200">{t.familiesSpotted}</div>
+              <div className="text-sm text-green-200">
+                {t("familiesSpotted")}
+              </div>
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-3xl font-bold">
                 {Math.round((state.spottedTrees.length / trees.length) * 100)}%
               </div>
-              <div className="text-sm text-green-200">{t.progress}</div>
+              <div className="text-sm text-green-200">{t("progress")}</div>
             </div>
           </div>
         </div>
@@ -384,9 +320,9 @@ export default function FieldTripClient({
             <FieldTripMap
               spottedTrees={state.spottedTrees}
               trees={trees}
-              locale={locale as Locale}
+              locale={locale}
               onMarkerClick={(slug) => {
-                const tree = trees.find((t) => t.slug === slug);
+                const tree = trees.find((tr) => tr.slug === slug);
                 if (tree) {
                   const spotted = state.spottedTrees.find(
                     (s) => s.slug === slug
@@ -411,10 +347,10 @@ export default function FieldTripClient({
         {/* Quick Tips */}
         <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 mb-6 border border-yellow-200 dark:border-yellow-800">
           <h3 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2 flex items-center gap-2">
-            <span>💡</span> {t.quickTips}
+            <span>💡</span> {t("quickTips")}
           </h3>
           <ul className="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
-            {t.tips.map((tip, i) => (
+            {tips.map((tip, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span>•</span> {tip}
               </li>
@@ -430,7 +366,7 @@ export default function FieldTripClient({
             onChange={(e) => {
               dispatch({ type: "SET_SEARCH_QUERY", payload: e.target.value });
             }}
-            placeholder={t.searchPlaceholder}
+            placeholder={t("searchPlaceholder")}
             className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground"
           />
 
@@ -445,7 +381,7 @@ export default function FieldTripClient({
               }
               className="px-4 py-2 rounded-lg border border-border bg-background"
             >
-              <option value="all">{t.allFamilies}</option>
+              <option value="all">{t("allFamilies")}</option>
               {families.map((family) => (
                 <option key={family} value={family}>
                   {family}
@@ -462,7 +398,7 @@ export default function FieldTripClient({
                 }}
                 className="w-5 h-5 rounded"
               />
-              <span className="text-sm">{t.showSpotted}</span>
+              <span className="text-sm">{t("showSpotted")}</span>
             </label>
 
             {state.spottedTrees.length > 0 && (
@@ -470,7 +406,7 @@ export default function FieldTripClient({
                 onClick={handleClearAll}
                 className="text-sm text-red-500 hover:text-red-600 ml-auto"
               >
-                {t.clearAll}
+                {t("clearAll")}
               </button>
             )}
           </div>
@@ -562,14 +498,14 @@ export default function FieldTripClient({
                         }}
                         className="px-3 py-1.5 text-sm bg-muted rounded-lg hover:bg-muted/80"
                       >
-                        {t.addNote}
+                        {t("addNote")}
                       </button>
                     )}
                     <Link
                       href={`/trees/${tree.slug}`}
                       className="px-3 py-1.5 text-sm bg-primary/10 text-primary rounded-lg hover:bg-primary/20"
                     >
-                      {t.viewDetails}
+                      {t("viewDetails")}
                     </Link>
                   </div>
                 </div>
@@ -581,9 +517,7 @@ export default function FieldTripClient({
         {filteredTrees.length === 0 && (
           <div className="text-center py-12">
             <div className="text-5xl mb-4">🔍</div>
-            <p className="text-muted-foreground">
-              {locale === "es" ? "No se encontraron árboles" : "No trees found"}
-            </p>
+            <p className="text-muted-foreground">{t("noTreesFound")}</p>
           </div>
         )}
       </div>
@@ -592,16 +526,16 @@ export default function FieldTripClient({
       {state.ui.showStartModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-card rounded-2xl p-6 max-w-md w-full">
-            <h2 className="text-xl font-bold mb-4">{t.startTrip}</h2>
+            <h2 className="text-xl font-bold mb-4">{t("startTrip")}</h2>
             <label className="block mb-4">
-              <span className="text-sm font-medium">{t.tripNameLabel}</span>
+              <span className="text-sm font-medium">{t("tripNameLabel")}</span>
               <input
                 type="text"
                 value={state.setup.tripName}
                 onChange={(e) => {
                   dispatch({ type: "SET_TRIP_NAME", payload: e.target.value });
                 }}
-                placeholder={t.tripNamePlaceholder}
+                placeholder={t("tripNamePlaceholder")}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background"
                 autoFocus
               />
@@ -611,14 +545,14 @@ export default function FieldTripClient({
                 onClick={() => dispatch({ type: "TOGGLE_START_MODAL" })}
                 className="flex-1 py-2 bg-muted rounded-xl hover:bg-muted/80"
               >
-                {t.cancel}
+                {t("cancel")}
               </button>
               <button
                 onClick={handleStartTrip}
                 disabled={!state.setup.tripName.trim()}
                 className="flex-1 py-2 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 disabled:opacity-50"
               >
-                {t.startTrip}
+                {t("startTrip")}
               </button>
             </div>
           </div>
@@ -636,13 +570,13 @@ export default function FieldTripClient({
               {state.modal.selectedTree.scientificName}
             </p>
             <label className="block mb-4">
-              <span className="text-sm font-medium">{t.notes}</span>
+              <span className="text-sm font-medium">{t("notes")}</span>
               <textarea
                 value={state.modal.noteInput}
                 onChange={(e) => {
                   dispatch({ type: "SET_NOTE_INPUT", payload: e.target.value });
                 }}
-                placeholder={t.notePlaceholder}
+                placeholder={t("notePlaceholder")}
                 rows={4}
                 className="mt-1 w-full px-4 py-3 rounded-xl border border-border bg-background resize-none"
                 autoFocus
@@ -657,7 +591,7 @@ export default function FieldTripClient({
                 }}
                 className="px-4 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20"
               >
-                {t.removeSpotted}
+                {t("removeSpotted")}
               </button>
               <div className="flex-1" />
               <button
@@ -666,13 +600,13 @@ export default function FieldTripClient({
                 }}
                 className="px-4 py-2 bg-muted rounded-xl hover:bg-muted/80"
               >
-                {t.cancel}
+                {t("cancel")}
               </button>
               <button
                 onClick={handleSaveNote}
                 className="px-4 py-2 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90"
               >
-                {t.save}
+                {t("save")}
               </button>
             </div>
           </div>
