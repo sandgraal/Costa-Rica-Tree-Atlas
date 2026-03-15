@@ -395,7 +395,7 @@ export default async function TeacherDashboardPage({ params }: Props) {
                 <div>
                   <h3 className="font-semibold">{t("ngss")}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Next Generation Science Standards
+                    {t("ngssDescription")}
                   </p>
                 </div>
               </div>
