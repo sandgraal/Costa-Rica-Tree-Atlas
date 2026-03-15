@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,35 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "diagnose": {
+    "metaTitle": "Herramienta de Diagnóstico de Salud de Árboles - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Diagnostica problemas de salud en árboles de Costa Rica según sus síntomas y recibe recomendaciones de tratamiento.",
+    "title": "Herramienta de Diagnóstico de Salud de Árboles",
+    "subtitle": "Identifica problemas de árboles y recibe recomendaciones de tratamiento",
+    "selectCategory": "¿Qué parte del árbol está afectada?",
+    "leaves": "Hojas",
+    "bark": "Corteza y Tronco",
+    "branches": "Ramas",
+    "roots": "Raíces",
+    "wholeTree": "Árbol Completo",
+    "selectSymptom": "¿Qué síntomas observas?",
+    "back": "\u2190 Atrás",
+    "restart": "Comenzar de Nuevo",
+    "severityLow": "Severidad Baja",
+    "severityModerate": "Severidad Moderada",
+    "severityHigh": "Severidad Alta - Acción Inmediata Necesaria",
+    "problem": "Problema",
+    "description": "Descripción",
+    "causes": "Causas Posibles",
+    "treatments": "Tratamientos Recomendados",
+    "professional": "Cuándo Llamar a un Profesional",
+    "disclaimer": "Esta herramienta proporciona orientación general. Para árboles valiosos o problemas graves, consulta a un arborista certificado.",
+    "exploretrees": "Explorar Directorio de Árboles",
+    "categoryLeavesDesc": "Problemas con hojas: color, forma, caída",
+    "categoryBarkDesc": "Problemas de corteza y tronco",
+    "categoryBranchesDesc": "Problemas con ramas",
+    "categoryRootsDesc": "Problemas de raíces",
+    "categoryWholeTreeDesc": "Problemas generales del árbol"
   }
 }
