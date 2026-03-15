@@ -84,6 +84,7 @@ export function SafetyPageClient({ trees }: SafetyPageClientProps) {
   }> = [
     { value: "all", label: t("allTrees"), color: "bg-gray-500" },
     { value: "severe", label: t("severeToxicity"), color: "bg-red-600" },
+    { value: "high", label: t("highToxicity"), color: "bg-red-500" },
     { value: "moderate", label: t("moderateToxicity"), color: "bg-orange-500" },
     { value: "low", label: t("lowToxicity"), color: "bg-yellow-500" },
     { value: "none", label: t("nonToxic"), color: "bg-green-600" },
