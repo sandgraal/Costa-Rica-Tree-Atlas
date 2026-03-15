@@ -22,7 +22,6 @@ interface SetupState {
 }
 
 interface SetupViewProps {
-  locale: string;
   labels: ScavengerHuntLessonData["labels"];
   setup: SetupState;
   onTeamCountChange: (count: number) => void;
@@ -36,7 +35,6 @@ interface SetupViewProps {
 }
 
 export function SetupView({
-  locale,
   labels: t,
   setup,
   onTeamCountChange,
@@ -82,7 +80,7 @@ export function SetupView({
                       : "border-border hover:border-primary/50"
                   }`}
                 >
-                  {count} {locale === "es" ? "Equipos" : "Teams"}
+                  {count} {t.teams}
                 </button>
               ))}
             </div>

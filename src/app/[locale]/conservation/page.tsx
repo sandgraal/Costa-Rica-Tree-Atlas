@@ -59,18 +59,18 @@ export default async function ConservationPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "conservation" });
 
-  const trees = allTrees.filter((tree) => tree.locale === locale);
+  const trees = allTrees.filter((tr) => tr.locale === locale);
 
   const treesByStatus = trees.reduce(
-    (acc, tree) => {
-      const status = (tree.conservationStatus || "NE") as ConservationStatus;
+    (acc, tr) => {
+      const status = (tr.conservationStatus || "NE") as ConservationStatus;
       // eslint-disable-next-line security/detect-object-injection -- `status` is a constrained union (`ConservationStatus`), not user input.
       if (!acc[status]) {
         // eslint-disable-next-line security/detect-object-injection -- Safe write to typed status-indexed record.
         acc[status] = [];
       }
       // eslint-disable-next-line security/detect-object-injection -- Safe push into typed status bucket.
-      acc[status].push(tree);
+      acc[status].push(tr);
       return acc;
     },
     {} as Record<ConservationStatus, typeof trees>
@@ -88,7 +88,7 @@ export default async function ConservationPage({
     "NE",
   ];
 
-  const endemicTrees = trees.filter((tree) => tree.tags?.includes("endemic"));
+  const endemicTrees = trees.filter((tr) => tr.tags?.includes("endemic"));
 
   const totalTrees = trees.length;
   const threatened = [
@@ -197,20 +197,23 @@ export default async function ConservationPage({
                         <span className="font-medium">{label}</span>
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        {speciesInStatus.length} species ({percentage}%)
+                        {t("statusSummary.count", {
+                          count: speciesInStatus.length,
+                          percentage,
+                        })}
                       </div>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 mt-3">
-                      {speciesInStatus.map((tree) => (
+                      {speciesInStatus.map((tr) => (
                         <Link
-                          key={tree.slug}
-                          href={`/trees/${tree.slug}`}
+                          key={tr.slug}
+                          href={`/trees/${tr.slug}`}
                           className="text-sm p-2 hover:bg-background rounded transition-colors"
                         >
-                          <div className="font-medium">{tree.title}</div>
+                          <div className="font-medium">{tr.title}</div>
                           <div className="text-xs text-muted-foreground italic">
-                            {tree.scientificName}
+                            {tr.scientificName}
                           </div>
                         </Link>
                       ))}
@@ -231,19 +234,19 @@ export default async function ConservationPage({
               {t("endemicDescription")}
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {endemicTrees.map((tree) => (
+              {endemicTrees.map((tr) => (
                 <Link
-                  key={tree.slug}
-                  href={`/trees/${tree.slug}`}
+                  key={tr.slug}
+                  href={`/trees/${tr.slug}`}
                   className="bg-muted rounded-lg p-4 hover:bg-muted/80 transition-colors"
                 >
-                  <div className="font-medium">{tree.title}</div>
+                  <div className="font-medium">{tr.title}</div>
                   <div className="text-sm text-muted-foreground italic">
-                    {tree.scientificName}
+                    {tr.scientificName}
                   </div>
-                  {tree.conservationStatus &&
+                  {tr.conservationStatus &&
                     (() => {
-                      const status = tree.conservationStatus;
+                      const status = tr.conservationStatus;
                       const isKnownStatus = Object.hasOwn(
                         STATUS_COLORS,
                         status as ConservationCategory
@@ -262,7 +265,7 @@ export default async function ConservationPage({
                         >
                           {status}
                           {" — "}
-                          {localizedLabel ?? fallbackLabel}
+                          {localizedLabel ?? t("unknownStatus")}
                         </span>
                       );
                     })()}

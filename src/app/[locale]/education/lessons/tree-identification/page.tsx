@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import TreeIdentificationClient from "./TreeIdentificationClient";
@@ -12,16 +12,11 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "education" });
 
   return {
-    title:
-      locale === "es"
-        ? "Habilidades de Identificación de Árboles - Lección Educativa"
-        : "Tree Identification Skills - Educational Lesson",
-    description:
-      locale === "es"
-        ? "Aprende a identificar árboles de Costa Rica por sus hojas, corteza, flores y frutos con ejercicios interactivos."
-        : "Learn to identify Costa Rican trees by their leaves, bark, flowers, and fruits with interactive exercises.",
+    title: t("treeIdentificationMetaTitle"),
+    description: t("treeIdentificationMetaDescription"),
   };
 }
 

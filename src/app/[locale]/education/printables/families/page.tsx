@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
@@ -11,16 +11,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "familiesGuide" });
 
   return {
-    title:
-      locale === "es"
-        ? "Guía de Familias Botánicas - Atlas de Árboles de Costa Rica"
-        : "Botanical Family Guide - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Guía de referencia de familias botánicas con especies representativas de Costa Rica."
-        : "Reference guide of botanical families with representative Costa Rica species.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -28,11 +23,11 @@ export default async function FamiliesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const trees = allTrees.filter((t) => t.locale === locale);
-  const familyData = [...new Set(trees.map((t) => t.family))]
+  const trees = allTrees.filter((tr) => tr.locale === locale);
+  const familyData = [...new Set(trees.map((tr) => tr.family))]
     .sort()
     .map((family) => {
-      const familyTrees = trees.filter((t) => t.family === family);
+      const familyTrees = trees.filter((tr) => tr.family === family);
       return {
         family,
         count: familyTrees.length,
@@ -42,25 +37,7 @@ export default async function FamiliesPage({ params }: Props) {
       };
     });
 
-  const t = {
-    title:
-      locale === "es" ? "Guía de Familias Botánicas" : "Botanical Family Guide",
-    subtitle:
-      locale === "es"
-        ? "Atlas de Árboles de Costa Rica"
-        : "Costa Rica Tree Atlas",
-    instructions:
-      locale === "es"
-        ? "Referencia rápida de familias botánicas representadas en el atlas"
-        : "Quick reference of botanical families represented in the atlas",
-    printButton: locale === "es" ? "🖨️ Imprimir" : "🖨️ Print",
-    backLink: locale === "es" ? "← Volver" : "← Back",
-    species: locale === "es" ? "especies" : "species",
-    families: locale === "es" ? "familias" : "families",
-    representativeSpecies:
-      locale === "es" ? "Especies representativas" : "Representative species",
-    andMore: locale === "es" ? "y más..." : "and more...",
-  };
+  const t = await getTranslations("familiesGuide");
 
   // Family characteristics (simplified botanical info)
   const familyInfo: Record<string, { en: string; es: string }> = {
@@ -139,14 +116,16 @@ export default async function FamiliesPage({ params }: Props) {
             href="/education/printables"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4"
           >
-            {t.backLink}
+            {t("backLink")}
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{t.title}</h1>
-              <p className="text-muted-foreground">{t.instructions}</p>
+              <h1 className="text-2xl font-bold text-foreground">
+                {t("title")}
+              </h1>
+              <p className="text-muted-foreground">{t("instructions")}</p>
             </div>
-            <PrintButton label={t.printButton} />
+            <PrintButton label={t("printButton")} />
           </div>
         </div>
       </div>
@@ -157,13 +136,14 @@ export default async function FamiliesPage({ params }: Props) {
           {/* Print header */}
           <div className="text-center mb-8 print:mb-4">
             <h1 className="text-3xl font-bold text-primary print:text-black print:text-2xl">
-              🌳 {t.title}
+              🌳 {t("title")}
             </h1>
             <p className="text-lg text-muted-foreground print:text-gray-600 print:text-sm">
-              {t.subtitle}
+              {t("subtitle")}
             </p>
             <p className="text-sm text-muted-foreground mt-1 print:text-gray-500 print:text-xs">
-              {familyData.length} {t.families} • {trees.length} {t.species}
+              {familyData.length} {t("families")} • {trees.length}{" "}
+              {t("species")}
             </p>
           </div>
 
@@ -185,15 +165,13 @@ export default async function FamiliesPage({ params }: Props) {
 
                 {familyInfo[family] && (
                   <p className="text-xs text-muted-foreground print:text-gray-500 mb-3 print:mb-2 italic">
-                    {locale === "es"
-                      ? familyInfo[family].es
-                      : familyInfo[family].en}
+                    {familyInfo[family][locale as "en" | "es"]}
                   </p>
                 )}
 
                 <div>
                   <h3 className="text-xs font-semibold text-muted-foreground print:text-gray-600 uppercase tracking-wide mb-2 print:mb-1">
-                    {t.representativeSpecies}
+                    {t("representativeSpecies")}
                   </h3>
                   <ul className="space-y-1 print:space-y-0.5">
                     {familyTrees.map((tree) => (
@@ -211,7 +189,7 @@ export default async function FamiliesPage({ params }: Props) {
                     ))}
                     {count > 5 && (
                       <li className="text-xs text-muted-foreground print:text-gray-400 italic">
-                        + {count - 5} {t.andMore}
+                        + {count - 5} {t("andMore")}
                       </li>
                     )}
                   </ul>
@@ -224,7 +202,7 @@ export default async function FamiliesPage({ params }: Props) {
           <div className="mt-8 pt-4 border-t border-border print:border-gray-300 print:mt-4 print:pt-2">
             <div className="flex justify-between text-sm text-muted-foreground print:text-gray-500 print:text-xs">
               <span>
-                {familyData.length} {t.families}
+                {familyData.length} {t("families")}
               </span>
               <span>costaricatreeatlas.com</span>
             </div>
