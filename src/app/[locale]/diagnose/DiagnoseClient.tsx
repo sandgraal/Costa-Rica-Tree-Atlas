@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { Link } from "@i18n/navigation";
-
-interface DiagnoseClientProps {
-  locale: string;
-}
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import type { Locale } from "@/types/tree";
 
 type SymptomCategory = "leaves" | "bark" | "branches" | "roots" | "whole-tree";
 type Symptom = string;
@@ -19,7 +18,9 @@ interface Diagnosis {
   severity: "low" | "moderate" | "high";
 }
 
-export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
+export default function DiagnoseClient() {
+  const t = useTranslations("diagnose");
+  const locale = useLocale() as Locale;
   const [step, setStep] = useState<"category" | "symptom" | "result">(
     "category"
   );
@@ -28,196 +29,130 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
   const [_selectedSymptom, setSelectedSymptom] = useState<Symptom | null>(null);
   const [diagnosis, setDiagnosis] = useState<Diagnosis | null>(null);
 
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      en: {
-        title: "Tree Health Diagnostic Tool",
-        subtitle: "Identify tree problems and get treatment recommendations",
-        selectCategory: "What part of the tree is affected?",
-        leaves: "Leaves",
-        bark: "Bark & Trunk",
-        branches: "Branches",
-        roots: "Roots",
-        wholeTree: "Whole Tree",
-        selectSymptom: "What symptoms do you see?",
-        back: "← Back",
-        restart: "Start Over",
-        severityLow: "Low Severity",
-        severityModerate: "Moderate Severity",
-        severityHigh: "High Severity - Immediate Action Needed",
-        problem: "Problem",
-        description: "Description",
-        causes: "Possible Causes",
-        treatments: "Recommended Treatments",
-        professional: "When to Call a Professional",
-        disclaimer:
-          "This tool provides general guidance. For valuable trees or severe problems, consult a certified arborist.",
-        exploretrees: "Explore Tree Directory",
-      },
-      es: {
-        title: "Herramienta de Diagnóstico de Salud de Árboles",
-        subtitle:
-          "Identifica problemas de árboles y recibe recomendaciones de tratamiento",
-        selectCategory: "¿Qué parte del árbol está afectada?",
-        leaves: "Hojas",
-        bark: "Corteza y Tronco",
-        branches: "Ramas",
-        roots: "Raíces",
-        wholeTree: "Árbol Completo",
-        selectSymptom: "¿Qué síntomas observas?",
-        back: "← Atrás",
-        restart: "Comenzar de Nuevo",
-        severityLow: "Severidad Baja",
-        severityModerate: "Severidad Moderada",
-        severityHigh: "Severidad Alta - Acción Inmediata Necesaria",
-        problem: "Problema",
-        description: "Descripción",
-        causes: "Causas Posibles",
-        treatments: "Tratamientos Recomendados",
-        professional: "Cuándo Llamar a un Profesional",
-        disclaimer:
-          "Esta herramienta proporciona orientación general. Para árboles valiosos o problemas graves, consulta a un arborista certificado.",
-        exploretrees: "Explorar Directorio de Árboles",
-      },
-    };
-    // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained by app routing; fallback to key for unknown tokens.
-    return translations[locale][key] || key;
-  };
-
   const getCategories = () => {
     return [
       {
         id: "leaves" as SymptomCategory,
         label: t("leaves"),
         icon: "🍃",
-        description:
-          locale === "es"
-            ? "Problemas con hojas: color, forma, caída"
-            : "Leaf problems: color, shape, dropping",
+        description: t("categoryLeavesDesc"),
       },
       {
         id: "bark" as SymptomCategory,
         label: t("bark"),
         icon: "🪵",
-        description:
-          locale === "es"
-            ? "Problemas de corteza y tronco"
-            : "Bark and trunk issues",
+        description: t("categoryBarkDesc"),
       },
       {
         id: "branches" as SymptomCategory,
         label: t("branches"),
         icon: "🌿",
-        description:
-          locale === "es" ? "Problemas con ramas" : "Branch problems",
+        description: t("categoryBranchesDesc"),
       },
       {
         id: "roots" as SymptomCategory,
         label: t("roots"),
         icon: "🌱",
-        description: locale === "es" ? "Problemas de raíces" : "Root issues",
+        description: t("categoryRootsDesc"),
       },
       {
         id: "whole-tree" as SymptomCategory,
         label: t("wholeTree"),
         icon: "🌳",
-        description:
-          locale === "es"
-            ? "Problemas generales del árbol"
-            : "Overall tree health",
+        description: t("categoryWholeTreeDesc"),
       },
     ];
   };
 
   const getSymptoms = (category: SymptomCategory) => {
-    const symptoms: Record<SymptomCategory, string[]> = {
-      leaves:
-        locale === "es"
-          ? [
-              "Hojas amarillas (clorosis)",
-              "Manchas marrones o negras",
-              "Hojas marchitas o caídas",
-              "Hojas masticadas o con agujeros",
-              "Hojas enrolladas o deformadas",
-              "Caída prematura de hojas",
-            ]
-          : [
-              "Yellow leaves (chlorosis)",
-              "Brown or black spots",
-              "Wilting or drooping leaves",
-              "Chewed or holes in leaves",
-              "Curled or deformed leaves",
-              "Premature leaf drop",
-            ],
-      bark:
-        locale === "es"
-          ? [
-              "Corteza agrietada o pelada",
-              "Supuración de savia",
-              "Agujeros en la corteza",
-              "Hongos o moho en el tronco",
-              "Corteza suelta o desprendida",
-              "Manchas oscuras en la corteza",
-            ]
-          : [
-              "Cracked or peeling bark",
-              "Sap oozing",
-              "Holes in bark",
-              "Fungi or mold on trunk",
-              "Loose or falling bark",
-              "Dark patches on bark",
-            ],
-      branches:
-        locale === "es"
-          ? [
-              "Ramas muertas o secas",
-              "Ramas quebradizas",
-              "Crecimiento anormal",
-              "Ramas débiles o colgantes",
-              "Ramas con grietas",
-            ]
-          : [
-              "Dead or dry branches",
-              "Brittle branches",
-              "Abnormal growth",
-              "Weak or drooping branches",
-              "Cracked branches",
-            ],
-      roots:
-        locale === "es"
-          ? [
-              "Raíces expuestas",
-              "Pudrición de raíces",
-              "Hongos cerca de la base",
-              "Árbol inclinado",
-              "Suelo levantado",
-            ]
-          : [
-              "Exposed roots",
-              "Root rot",
-              "Fungi near base",
-              "Leaning tree",
-              "Raised soil",
-            ],
-      "whole-tree":
-        locale === "es"
-          ? [
-              "Crecimiento lento o atrofiado",
-              "Árbol inclinado",
-              "Pérdida general de vigor",
-              "Sin hojas en temporada",
-              "Infestación de plagas visible",
-            ]
-          : [
-              "Slow or stunted growth",
-              "Tree leaning",
-              "General loss of vigor",
-              "No leaves in season",
-              "Visible pest infestation",
-            ],
+    const symptoms: Record<SymptomCategory, Record<Locale, string[]>> = {
+      leaves: {
+        en: [
+          "Yellow leaves (chlorosis)",
+          "Brown or black spots",
+          "Wilting or drooping leaves",
+          "Chewed or holes in leaves",
+          "Curled or deformed leaves",
+          "Premature leaf drop",
+        ],
+        es: [
+          "Hojas amarillas (clorosis)",
+          "Manchas marrones o negras",
+          "Hojas marchitas o caídas",
+          "Hojas masticadas o con agujeros",
+          "Hojas enrolladas o deformadas",
+          "Caída prematura de hojas",
+        ],
+      },
+      bark: {
+        en: [
+          "Cracked or peeling bark",
+          "Sap oozing",
+          "Holes in bark",
+          "Fungi or mold on trunk",
+          "Loose or falling bark",
+          "Dark patches on bark",
+        ],
+        es: [
+          "Corteza agrietada o pelada",
+          "Supuración de savia",
+          "Agujeros en la corteza",
+          "Hongos o moho en el tronco",
+          "Corteza suelta o desprendida",
+          "Manchas oscuras en la corteza",
+        ],
+      },
+      branches: {
+        en: [
+          "Dead or dry branches",
+          "Brittle branches",
+          "Abnormal growth",
+          "Weak or drooping branches",
+          "Cracked branches",
+        ],
+        es: [
+          "Ramas muertas o secas",
+          "Ramas quebradizas",
+          "Crecimiento anormal",
+          "Ramas débiles o colgantes",
+          "Ramas con grietas",
+        ],
+      },
+      roots: {
+        en: [
+          "Exposed roots",
+          "Root rot",
+          "Fungi near base",
+          "Leaning tree",
+          "Raised soil",
+        ],
+        es: [
+          "Raíces expuestas",
+          "Pudrición de raíces",
+          "Hongos cerca de la base",
+          "Árbol inclinado",
+          "Suelo levantado",
+        ],
+      },
+      "whole-tree": {
+        en: [
+          "Slow or stunted growth",
+          "Tree leaning",
+          "General loss of vigor",
+          "No leaves in season",
+          "Visible pest infestation",
+        ],
+        es: [
+          "Crecimiento lento o atrofiado",
+          "Árbol inclinado",
+          "Pérdida general de vigor",
+          "Sin hojas en temporada",
+          "Infestación de plagas visible",
+        ],
+      },
     };
     // eslint-disable-next-line security/detect-object-injection -- `category` is a strict `SymptomCategory` union from controlled UI state.
-    return symptoms[category] || [];
+    return symptoms[category]?.[locale] || [];
   };
 
   const getDiagnosis = (
@@ -225,280 +160,277 @@ export default function DiagnoseClient({ locale }: DiagnoseClientProps) {
     symptom: Symptom
   ): Diagnosis => {
     // Simplified diagnosis database - in production, this would be much more comprehensive
-    const diagnoses: Record<string, Diagnosis> = {
-      "leaves-yellow":
-        locale === "es"
-          ? {
-              problem: "Clorosis (Amarillamiento de Hojas)",
-              description:
-                "Las hojas se vuelven amarillas debido a la falta de clorofila, manteniendo las venas verdes.",
-              causes: [
-                "Deficiencia de hierro o nitrógeno",
-                "pH del suelo inadecuado",
-                "Riego excesivo o drenaje pobre",
-                "Daño a las raíces",
-              ],
-              treatments: [
-                "Probar el pH del suelo (ideal 6.0-7.0)",
-                "Aplicar fertilizante con hierro quelado",
-                "Mejorar el drenaje del suelo",
-                "Reducir la frecuencia de riego",
-                "Agregar compost orgánico",
-              ],
-              whenToCallProfessional:
-                "Si el amarillamiento se extiende rápidamente, afecta todo el árbol, o persiste después del tratamiento.",
-              severity: "moderate",
-            }
-          : {
-              problem: "Chlorosis (Leaf Yellowing)",
-              description:
-                "Leaves turn yellow due to lack of chlorophyll, while veins remain green.",
-              causes: [
-                "Iron or nitrogen deficiency",
-                "Improper soil pH",
-                "Overwatering or poor drainage",
-                "Root damage",
-              ],
-              treatments: [
-                "Test soil pH (ideal 6.0-7.0)",
-                "Apply chelated iron fertilizer",
-                "Improve soil drainage",
-                "Reduce watering frequency",
-                "Add organic compost",
-              ],
-              whenToCallProfessional:
-                "If yellowing spreads rapidly, affects entire tree, or persists after treatment.",
-              severity: "moderate",
-            },
-      "leaves-spots":
-        locale === "es"
-          ? {
-              problem: "Enfermedad Fúngica de las Hojas",
-              description:
-                "Manchas marrones, negras o amarillas causadas por infecciones fúngicas.",
-              causes: [
-                "Alta humedad",
-                "Mala circulación de aire",
-                "Follaje mojado",
-                "Clima lluvioso prolongado",
-              ],
-              treatments: [
-                "Remover hojas infectadas y desecharlas",
-                "Mejorar la circulación de aire mediante poda",
-                "Evitar regar el follaje",
-                "Aplicar fungicida orgánico si es severo",
-                "Mantener el área limpia de hojarasca",
-              ],
-              whenToCallProfessional:
-                "Si la infección es extensa, se propaga rápidamente, o el árbol es valioso.",
-              severity: "moderate",
-            }
-          : {
-              problem: "Fungal Leaf Disease",
-              description:
-                "Brown, black, or yellow spots caused by fungal infections.",
-              causes: [
-                "High humidity",
-                "Poor air circulation",
-                "Wet foliage",
-                "Prolonged rainy weather",
-              ],
-              treatments: [
-                "Remove infected leaves and dispose",
-                "Improve air circulation through pruning",
-                "Avoid watering foliage",
-                "Apply organic fungicide if severe",
-                "Keep area clean of leaf litter",
-              ],
-              whenToCallProfessional:
-                "If infection is extensive, spreading rapidly, or tree is valuable.",
-              severity: "moderate",
-            },
-      "bark-cracks":
-        locale === "es"
-          ? {
-              problem: "Grietas en la Corteza",
-              description: "Grietas o hendiduras en la corteza del árbol.",
-              causes: [
-                "Cambios bruscos de temperatura",
-                "Daño por escaldadura solar",
-                "Crecimiento rápido",
-                "Daño mecánico",
-                "Estrés por sequía",
-              ],
-              treatments: [
-                "Normalmente no requiere tratamiento",
-                "Proteger del daño adicional",
-                "Mantener el riego consistente",
-                "Aplicar mantillo alrededor de la base",
-                "Monitorear infecciones",
-              ],
-              whenToCallProfessional:
-                "Si las grietas son profundas, supuran savia, o muestran signos de infección o insectos.",
-              severity: "low",
-            }
-          : {
-              problem: "Bark Cracking",
-              description: "Cracks or splits in tree bark.",
-              causes: [
-                "Sudden temperature changes",
-                "Sunscald damage",
-                "Rapid growth",
-                "Mechanical damage",
-                "Drought stress",
-              ],
-              treatments: [
-                "Usually no treatment needed",
-                "Protect from further damage",
-                "Maintain consistent watering",
-                "Apply mulch around base",
-                "Monitor for infection",
-              ],
-              whenToCallProfessional:
-                "If cracks are deep, oozing sap, or showing signs of infection or insects.",
-              severity: "low",
-            },
-      "branches-dead":
-        locale === "es"
-          ? {
-              problem: "Ramas Muertas o Moribundas",
-              description: "Ramas que han muerto o están muriendo.",
-              causes: [
-                "Envejecimiento natural",
-                "Enfermedad",
-                "Infestación de insectos",
-                "Daño por tormenta",
-                "Estrés hídrico",
-              ],
-              treatments: [
-                "Podar ramas muertas inmediatamente",
-                "Hacer cortes limpios justo fuera del collar de la rama",
-                "Desinfectar herramientas de poda entre cortes",
-                "Mejorar el cuidado general del árbol",
-                "Verificar patrones de riego",
-              ],
-              whenToCallProfessional:
-                "Si las ramas son grandes, están sobre estructuras, o si la muerte de ramas es extensa.",
-              severity: "high",
-            }
-          : {
-              problem: "Dead or Dying Branches",
-              description: "Branches that have died or are dying.",
-              causes: [
-                "Natural aging",
-                "Disease",
-                "Insect infestation",
-                "Storm damage",
-                "Water stress",
-              ],
-              treatments: [
-                "Prune dead branches immediately",
-                "Make clean cuts just outside branch collar",
-                "Disinfect pruning tools between cuts",
-                "Improve overall tree care",
-                "Check watering patterns",
-              ],
-              whenToCallProfessional:
-                "If branches are large, over structures, or if branch death is extensive.",
-              severity: "high",
-            },
-      "roots-exposed":
-        locale === "es"
-          ? {
-              problem: "Raíces Expuestas",
-              description: "Raíces visibles sobre la superficie del suelo.",
-              causes: [
-                "Erosión del suelo",
-                "Compactación del suelo",
-                "Espacio de raíz limitado",
-                "Edad del árbol",
-              ],
-              treatments: [
-                "Agregar 2-3 pulgadas de mantillo orgánico",
-                "No agregar más de 3 pulgadas de suelo",
-                "Proteger raíces de daño mecánico",
-                "Mejorar el drenaje",
-                "Evitar compactar el suelo alrededor",
-              ],
-              whenToCallProfessional:
-                "Si las raíces están dañadas, el árbol está inestable, o las raíces están levantando estructuras.",
-              severity: "moderate",
-            }
-          : {
-              problem: "Exposed Roots",
-              description: "Roots visible above soil surface.",
-              causes: [
-                "Soil erosion",
-                "Soil compaction",
-                "Limited root space",
-                "Tree age",
-              ],
-              treatments: [
-                "Add 2-3 inches of organic mulch",
-                "Do not add more than 3 inches of soil",
-                "Protect roots from mechanical damage",
-                "Improve drainage",
-                "Avoid compacting soil around roots",
-              ],
-              whenToCallProfessional:
-                "If roots are damaged, tree is unstable, or roots are lifting structures.",
-              severity: "moderate",
-            },
-      "whole-stunted":
-        locale === "es"
-          ? {
-              problem: "Crecimiento Lento o Atrofiado",
-              description: "El árbol no crece como se espera.",
-              causes: [
-                "Nutrición del suelo pobre",
-                "Compactación del suelo",
-                "pH del suelo inadecuado",
-                "Riego insuficiente",
-                "Competencia de raíces",
-              ],
-              treatments: [
-                "Hacer análisis de suelo",
-                "Aplicar fertilizante balanceado",
-                "Mejorar la estructura del suelo con compost",
-                "Verificar patrones de riego",
-                "Aflojar el suelo compactado",
-              ],
-              whenToCallProfessional:
-                "Si el atrofiamiento es severo, o si el árbol es joven y no responde al tratamiento.",
-              severity: "moderate",
-            }
-          : {
-              problem: "Slow or Stunted Growth",
-              description: "Tree not growing as expected.",
-              causes: [
-                "Poor soil nutrition",
-                "Soil compaction",
-                "Improper soil pH",
-                "Insufficient watering",
-                "Root competition",
-              ],
-              treatments: [
-                "Conduct soil test",
-                "Apply balanced fertilizer",
-                "Improve soil structure with compost",
-                "Check watering patterns",
-                "Loosen compacted soil",
-              ],
-              whenToCallProfessional:
-                "If stunting is severe, or if tree is young and not responding to treatment.",
-              severity: "moderate",
-            },
+    const diagnoses: Record<string, Record<Locale, Diagnosis>> = {
+      "leaves-yellow": {
+        en: {
+          problem: "Chlorosis (Leaf Yellowing)",
+          description:
+            "Leaves turn yellow due to lack of chlorophyll, while veins remain green.",
+          causes: [
+            "Iron or nitrogen deficiency",
+            "Improper soil pH",
+            "Overwatering or poor drainage",
+            "Root damage",
+          ],
+          treatments: [
+            "Test soil pH (ideal 6.0-7.0)",
+            "Apply chelated iron fertilizer",
+            "Improve soil drainage",
+            "Reduce watering frequency",
+            "Add organic compost",
+          ],
+          whenToCallProfessional:
+            "If yellowing spreads rapidly, affects entire tree, or persists after treatment.",
+          severity: "moderate",
+        },
+        es: {
+          problem: "Clorosis (Amarillamiento de Hojas)",
+          description:
+            "Las hojas se vuelven amarillas debido a la falta de clorofila, manteniendo las venas verdes.",
+          causes: [
+            "Deficiencia de hierro o nitrógeno",
+            "pH del suelo inadecuado",
+            "Riego excesivo o drenaje pobre",
+            "Daño a las raíces",
+          ],
+          treatments: [
+            "Probar el pH del suelo (ideal 6.0-7.0)",
+            "Aplicar fertilizante con hierro quelado",
+            "Mejorar el drenaje del suelo",
+            "Reducir la frecuencia de riego",
+            "Agregar compost orgánico",
+          ],
+          whenToCallProfessional:
+            "Si el amarillamiento se extiende rápidamente, afecta todo el árbol, o persiste después del tratamiento.",
+          severity: "moderate",
+        },
+      },
+      "leaves-spots": {
+        en: {
+          problem: "Fungal Leaf Disease",
+          description:
+            "Brown, black, or yellow spots caused by fungal infections.",
+          causes: [
+            "High humidity",
+            "Poor air circulation",
+            "Wet foliage",
+            "Prolonged rainy weather",
+          ],
+          treatments: [
+            "Remove infected leaves and dispose",
+            "Improve air circulation through pruning",
+            "Avoid watering foliage",
+            "Apply organic fungicide if severe",
+            "Keep area clean of leaf litter",
+          ],
+          whenToCallProfessional:
+            "If infection is extensive, spreading rapidly, or tree is valuable.",
+          severity: "moderate",
+        },
+        es: {
+          problem: "Enfermedad Fúngica de las Hojas",
+          description:
+            "Manchas marrones, negras o amarillas causadas por infecciones fúngicas.",
+          causes: [
+            "Alta humedad",
+            "Mala circulación de aire",
+            "Follaje mojado",
+            "Clima lluvioso prolongado",
+          ],
+          treatments: [
+            "Remover hojas infectadas y desecharlas",
+            "Mejorar la circulación de aire mediante poda",
+            "Evitar regar el follaje",
+            "Aplicar fungicida orgánico si es severo",
+            "Mantener el área limpia de hojarasca",
+          ],
+          whenToCallProfessional:
+            "Si la infección es extensa, se propaga rápidamente, o el árbol es valioso.",
+          severity: "moderate",
+        },
+      },
+      "bark-cracks": {
+        en: {
+          problem: "Bark Cracking",
+          description: "Cracks or splits in tree bark.",
+          causes: [
+            "Sudden temperature changes",
+            "Sunscald damage",
+            "Rapid growth",
+            "Mechanical damage",
+            "Drought stress",
+          ],
+          treatments: [
+            "Usually no treatment needed",
+            "Protect from further damage",
+            "Maintain consistent watering",
+            "Apply mulch around base",
+            "Monitor for infection",
+          ],
+          whenToCallProfessional:
+            "If cracks are deep, oozing sap, or showing signs of infection or insects.",
+          severity: "low",
+        },
+        es: {
+          problem: "Grietas en la Corteza",
+          description: "Grietas o hendiduras en la corteza del árbol.",
+          causes: [
+            "Cambios bruscos de temperatura",
+            "Daño por escaldadura solar",
+            "Crecimiento rápido",
+            "Daño mecánico",
+            "Estrés por sequía",
+          ],
+          treatments: [
+            "Normalmente no requiere tratamiento",
+            "Proteger del daño adicional",
+            "Mantener el riego consistente",
+            "Aplicar mantillo alrededor de la base",
+            "Monitorear infecciones",
+          ],
+          whenToCallProfessional:
+            "Si las grietas son profundas, supuran savia, o muestran signos de infección o insectos.",
+          severity: "low",
+        },
+      },
+      "branches-dead": {
+        en: {
+          problem: "Dead or Dying Branches",
+          description: "Branches that have died or are dying.",
+          causes: [
+            "Natural aging",
+            "Disease",
+            "Insect infestation",
+            "Storm damage",
+            "Water stress",
+          ],
+          treatments: [
+            "Prune dead branches immediately",
+            "Make clean cuts just outside branch collar",
+            "Disinfect pruning tools between cuts",
+            "Improve overall tree care",
+            "Check watering patterns",
+          ],
+          whenToCallProfessional:
+            "If branches are large, over structures, or if branch death is extensive.",
+          severity: "high",
+        },
+        es: {
+          problem: "Ramas Muertas o Moribundas",
+          description: "Ramas que han muerto o están muriendo.",
+          causes: [
+            "Envejecimiento natural",
+            "Enfermedad",
+            "Infestación de insectos",
+            "Daño por tormenta",
+            "Estrés hídrico",
+          ],
+          treatments: [
+            "Podar ramas muertas inmediatamente",
+            "Hacer cortes limpios justo fuera del collar de la rama",
+            "Desinfectar herramientas de poda entre cortes",
+            "Mejorar el cuidado general del árbol",
+            "Verificar patrones de riego",
+          ],
+          whenToCallProfessional:
+            "Si las ramas son grandes, están sobre estructuras, o si la muerte de ramas es extensa.",
+          severity: "high",
+        },
+      },
+      "roots-exposed": {
+        en: {
+          problem: "Exposed Roots",
+          description: "Roots visible above soil surface.",
+          causes: [
+            "Soil erosion",
+            "Soil compaction",
+            "Limited root space",
+            "Tree age",
+          ],
+          treatments: [
+            "Add 2-3 inches of organic mulch",
+            "Do not add more than 3 inches of soil",
+            "Protect roots from mechanical damage",
+            "Improve drainage",
+            "Avoid compacting soil around roots",
+          ],
+          whenToCallProfessional:
+            "If roots are damaged, tree is unstable, or roots are lifting structures.",
+          severity: "moderate",
+        },
+        es: {
+          problem: "Raíces Expuestas",
+          description: "Raíces visibles sobre la superficie del suelo.",
+          causes: [
+            "Erosión del suelo",
+            "Compactación del suelo",
+            "Espacio de raíz limitado",
+            "Edad del árbol",
+          ],
+          treatments: [
+            "Agregar 2-3 pulgadas de mantillo orgánico",
+            "No agregar más de 3 pulgadas de suelo",
+            "Proteger raíces de daño mecánico",
+            "Mejorar el drenaje",
+            "Evitar compactar el suelo alrededor",
+          ],
+          whenToCallProfessional:
+            "Si las raíces están dañadas, el árbol está inestable, o las raíces están levantando estructuras.",
+          severity: "moderate",
+        },
+      },
+      "whole-stunted": {
+        en: {
+          problem: "Slow or Stunted Growth",
+          description: "Tree not growing as expected.",
+          causes: [
+            "Poor soil nutrition",
+            "Soil compaction",
+            "Improper soil pH",
+            "Insufficient watering",
+            "Root competition",
+          ],
+          treatments: [
+            "Conduct soil test",
+            "Apply balanced fertilizer",
+            "Improve soil structure with compost",
+            "Check watering patterns",
+            "Loosen compacted soil",
+          ],
+          whenToCallProfessional:
+            "If stunting is severe, or if tree is young and not responding to treatment.",
+          severity: "moderate",
+        },
+        es: {
+          problem: "Crecimiento Lento o Atrofiado",
+          description: "El árbol no crece como se espera.",
+          causes: [
+            "Nutrición del suelo pobre",
+            "Compactación del suelo",
+            "pH del suelo inadecuado",
+            "Riego insuficiente",
+            "Competencia de raíces",
+          ],
+          treatments: [
+            "Hacer análisis de suelo",
+            "Aplicar fertilizante balanceado",
+            "Mejorar la estructura del suelo con compost",
+            "Verificar patrones de riego",
+            "Aflojar el suelo compactado",
+          ],
+          whenToCallProfessional:
+            "Si el atrofiamiento es severo, o si el árbol es joven y no responde al tratamiento.",
+          severity: "moderate",
+        },
+      },
     };
 
-    // Map symptoms to diagnosis keys
-    const symptomKey = `${category}-${symptom.toLowerCase().split(" ")[0]}`;
-    const diagnosisKey = Object.keys(diagnoses).find((key) =>
-      symptomKey.includes(key.split("-")[1])
-    );
+    // Map symptoms to diagnosis keys using stable, non-localized symptom IDs
+    const normalizedSymptomId = symptom.toLowerCase();
+    const diagnosisKey = `${category}-${normalizedSymptomId}`;
 
-    return (
-      diagnoses[diagnosisKey || "leaves-yellow"] || diagnoses["leaves-yellow"]
-    );
+    const entry = diagnoses[diagnosisKey] ?? diagnoses["leaves-yellow"];
+    return entry[locale];
   };
 
   const handleCategorySelect = (category: SymptomCategory) => {
