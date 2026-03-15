@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,18 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "familiesGuide": {
+    "metaTitle": "Guía de Familias Botánicas - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Guía de referencia de familias botánicas con especies representativas de Costa Rica.",
+    "title": "Guía de Familias Botánicas",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "instructions": "Referencia rápida de familias botánicas representadas en el atlas",
+    "printButton": "\uD83D\uDDA8\uFE0F Imprimir",
+    "backLink": "← Volver",
+    "species": "especies",
+    "families": "familias",
+    "representativeSpecies": "Especies representativas",
+    "andMore": "y más..."
   }
 }
