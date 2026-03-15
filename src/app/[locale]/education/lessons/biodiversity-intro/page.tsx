@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import BiodiversityLessonClient from "./BiodiversityLessonClient";
@@ -10,16 +10,14 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "biodiversityIntro",
+  });
 
   return {
-    title:
-      locale === "es"
-        ? "Introducción a la Biodiversidad - Atlas de Árboles de Costa Rica"
-        : "Introduction to Biodiversity - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Lección interactiva sobre biodiversidad y los árboles de Costa Rica. Actividades, cuestionarios y datos para estudiantes."
-        : "Interactive lesson on biodiversity and Costa Rica's trees. Activities, quizzes, and key data for students.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/education/lessons/biodiversity-intro",
@@ -78,7 +76,6 @@ export default async function BiodiversityLessonPage({ params }: Props) {
   return (
     <BiodiversityLessonClient
       trees={trees}
-      locale={locale}
       totalSpecies={totalSpecies}
       totalFamilies={totalFamilies}
       lessonData={lessonData}
