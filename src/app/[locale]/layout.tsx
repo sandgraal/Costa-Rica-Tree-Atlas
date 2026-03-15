@@ -129,7 +129,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // toc (TableOfContents), favorites (FavoriteButton), recentlyViewed (RecentlyViewedList),
   // keyboardShortcuts (KeyboardShortcuts), rating (TreeRating), reputation (BadgeDisplay,
   // ContributorProfileClient), education (EducationPage), error (ErrorPage),
-  // comparison (ComparePage), about (AboutPage)
+  // comparison (ComparePage), about (AboutPage), classroom (Classroom pages)
   const CLIENT_NAMESPACES = [
     "nav",
     "theme",
@@ -153,6 +153,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "comparison",
     "about",
     "mapGame",
+    "classroom",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];
