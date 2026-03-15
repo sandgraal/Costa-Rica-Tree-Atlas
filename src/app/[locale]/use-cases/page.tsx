@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 
@@ -8,13 +8,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "useCases" });
 
   return {
-    title: locale === "es" ? "Casos de Uso" : "Use Cases",
-    description:
-      locale === "es"
-        ? "Encuentra árboles de Costa Rica organizados por uso: sombra para café, cortavientos, control de erosión, jardines y más."
-        : "Find Costa Rican trees organized by use case: shade for coffee, windbreaks, erosion control, gardens, and more.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/use-cases",
@@ -96,34 +94,37 @@ export default async function UseCasesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations("useCases");
+
   return (
     <div className="py-12 px-4">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <header className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-4">
-            {locale === "es"
-              ? "Encuentra el Árbol Perfecto"
-              : "Find the Perfect Tree"}
+            {t("heading")}
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            {locale === "es"
-              ? "Explora árboles organizados por necesidades comunes. Cada categoría muestra especies específicamente adecuadas para ese propósito."
-              : "Explore trees organized by common needs. Each category shows species specifically suited for that purpose."}
+            {t("subtitle")}
           </p>
         </header>
 
         {/* Use Case Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {USE_CASES.map((useCase) => (
-            <UseCaseCard key={useCase.id} useCase={useCase} locale={locale} />
+            <UseCaseCard
+              key={useCase.id}
+              useCase={useCase}
+              locale={locale}
+              viewTreesLabel={t("viewTrees")}
+            />
           ))}
         </div>
 
         {/* Additional Tools */}
         <section className="mt-16 pt-12 border-t border-border">
           <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-6">
-            {locale === "es" ? "Más Herramientas" : "More Tools"}
+            {t("moreTools")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
@@ -132,13 +133,9 @@ export default async function UseCasesPage({ params }: Props) {
             >
               <div className="text-3xl mb-3">🧙</div>
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                {locale === "es" ? "Asistente de Selección" : "Tree Wizard"}
+                {t("wizardTitle")}
               </h3>
-              <p className="text-sm text-muted-foreground">
-                {locale === "es"
-                  ? "Responde algunas preguntas para obtener recomendaciones personalizadas"
-                  : "Answer a few questions to get personalized recommendations"}
-              </p>
+              <p className="text-sm text-muted-foreground">{t("wizardDesc")}</p>
             </Link>
 
             <Link
@@ -147,15 +144,9 @@ export default async function UseCasesPage({ params }: Props) {
             >
               <div className="text-3xl mb-3">🔍</div>
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                {locale === "es"
-                  ? "Explorar Todos los Árboles"
-                  : "Browse All Trees"}
+                {t("browseTitle")}
               </h3>
-              <p className="text-sm text-muted-foreground">
-                {locale === "es"
-                  ? "Explora el directorio completo con filtros avanzados"
-                  : "Explore the full directory with advanced filtering"}
-              </p>
+              <p className="text-sm text-muted-foreground">{t("browseDesc")}</p>
             </Link>
 
             <Link
@@ -164,14 +155,10 @@ export default async function UseCasesPage({ params }: Props) {
             >
               <div className="text-3xl mb-3">📅</div>
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                {locale === "es"
-                  ? "Calendario Estacional"
-                  : "Seasonal Calendar"}
+                {t("calendarTitle")}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {locale === "es"
-                  ? "Descubre qué árboles florecen y fructifican cada mes"
-                  : "Discover which trees flower and fruit each month"}
+                {t("calendarDesc")}
               </p>
             </Link>
           </div>
@@ -184,9 +171,11 @@ export default async function UseCasesPage({ params }: Props) {
 function UseCaseCard({
   useCase,
   locale,
+  viewTreesLabel,
 }: {
   useCase: (typeof USE_CASES)[0];
   locale: string;
+  viewTreesLabel: string;
 }) {
   // Build search URL with tags
   const searchParams = new URLSearchParams();
@@ -320,7 +309,7 @@ function UseCaseCard({
       </h3>
       <p className="text-sm text-muted-foreground mb-4">{description}</p>
       <div className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
-        <span>{locale === "es" ? "Ver árboles" : "View trees"}</span>
+        <span>{viewTreesLabel}</span>
         <ArrowRightIcon className="h-4 w-4" />
       </div>
     </Link>
