@@ -19,8 +19,11 @@ export default async function OGImage({ params }: Props) {
     en: "Lesson plans, activities, and materials to learn about Costa Rica trees",
     es: "Planes de lecciones, actividades y materiales para aprender sobre los árboles de Costa Rica",
   };
-  const title = TITLES[locale] || TITLES.en;
-  const subtitle = SUBTITLES[locale] || SUBTITLES.en;
+  const normalizedLocale = Object.prototype.hasOwnProperty.call(TITLES, locale)
+    ? locale
+    : "en";
+  const title = TITLES[normalizedLocale];
+  const subtitle = SUBTITLES[normalizedLocale];
 
   return new ImageResponse(
     <div
