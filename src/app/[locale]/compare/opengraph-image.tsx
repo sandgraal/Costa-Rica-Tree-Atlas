@@ -12,17 +12,28 @@ type Props = {
 export default async function OGImage({ params }: Props) {
   const { locale } = await params;
 
-  const TITLES: Record<string, string> = {
+  const SUPPORTED_LOCALES = ["en", "es"] as const;
+  type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+
+  const normalizedLocale: SupportedLocale = SUPPORTED_LOCALES.includes(
+    locale as SupportedLocale
+  )
+    ? (locale as SupportedLocale)
+    : "en";
+
+  const TITLES: Record<SupportedLocale, string> = {
     en: "Compare Costa Rica Trees",
     es: "Comparar Árboles de Costa Rica",
   };
-  const count = allSpeciesComparisons.filter((c) => c.locale === locale).length;
-  const SUBTITLES: Record<string, string> = {
+  const count = allSpeciesComparisons.filter(
+    (c) => c.locale === normalizedLocale
+  ).length;
+  const SUBTITLES: Record<SupportedLocale, string> = {
     en: `${count} side-by-side species comparison guides`,
     es: `${count} guías de comparación de especies lado a lado`,
   };
-  const title = TITLES[locale] || TITLES.en;
-  const subtitle = SUBTITLES[locale] || SUBTITLES.en;
+  const title = TITLES[normalizedLocale];
+  const subtitle = SUBTITLES[normalizedLocale];
 
   return new ImageResponse(
     <div
