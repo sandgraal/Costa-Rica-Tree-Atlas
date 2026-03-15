@@ -450,6 +450,11 @@
     "browseTrees": "Browse Tree Directory"
   },
   "education": {
+    "metaTitle": "Educational Resources - Costa Rica Tree Atlas",
+    "metaDescription": "Lesson plans, classroom activities, and educational materials about Costa Rica trees for teachers and students.",
+    "structuredDescription": "Lesson plans, classroom activities, and educational materials about Costa Rica trees.",
+    "courseName": "Learning About Costa Rica Trees",
+    "courseDescription": "Free educational resources to learn about Costa Rican tree flora.",
     "title": "Educational Resources",
     "subtitle": "Free lesson plans, activities, and materials for teaching about Costa Rica's trees and forest ecosystems",
     "stats": {
@@ -1429,6 +1434,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
