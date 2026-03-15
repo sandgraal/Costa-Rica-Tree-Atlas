@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import MapGameClient from "./MapGameClient";
@@ -9,16 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "mapGame" });
 
   return {
-    title:
-      locale === "es"
-        ? "Juego del Mapa - Atlas de Árboles de Costa Rica"
-        : "Map Game - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo."
-        : "Learn where Costa Rica's trees grow in this interactive game.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -27,15 +22,15 @@ export default async function MapGamePage({ params }: Props) {
   setRequestLocale(locale);
 
   const trees = allTrees
-    .filter((t) => t.locale === locale)
-    .map((t) => ({
-      title: t.title,
-      scientificName: t.scientificName,
-      slug: t.slug,
-      nativeRegion: t.nativeRegion || undefined,
-      tags: t.tags || [],
-      featuredImage: t.featuredImage || undefined,
+    .filter((tr) => tr.locale === locale)
+    .map((tr) => ({
+      title: tr.title,
+      scientificName: tr.scientificName,
+      slug: tr.slug,
+      nativeRegion: tr.nativeRegion || undefined,
+      tags: tr.tags || [],
+      featuredImage: tr.featuredImage || undefined,
     }));
 
-  return <MapGameClient trees={trees} locale={locale} />;
+  return <MapGameClient trees={trees} />;
 }
