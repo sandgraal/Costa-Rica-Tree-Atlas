@@ -889,7 +889,9 @@
       "reproduction": "Reproduction",
       "general": "General",
       "timber": "Timber & Wood"
-    }
+    },
+    "structuredName": "Costa Rica Tree Glossary",
+    "structuredDescription": "Glossary of {count} botanical terms used in the Costa Rica Tree Atlas."
   },
   "imageVoting": {
     "title": "Help Improve Tree Images",
@@ -1514,7 +1516,7 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "theCorrectAnswer": "The correct answer is",
-    "nextQuestion": "Next \u2192",
+    "nextQuestion": "Next →",
     "score": "Score",
     "streak": "🔥 Streak",
     "highScore": "High Score",
@@ -1674,7 +1676,7 @@
     "title": "Botanical Family Guide",
     "subtitle": "Costa Rica Tree Atlas",
     "instructions": "Quick reference of botanical families represented in the atlas",
-    "printButton": "\uD83D\uDDA8\uFE0F Print",
+    "printButton": "🖨️ Print",
     "backLink": "← Back",
     "species": "species",
     "families": "families",
@@ -1707,7 +1709,7 @@
     "roots": "Roots",
     "wholeTree": "Whole Tree",
     "selectSymptom": "What symptoms do you see?",
-    "back": "\u2190 Back",
+    "back": "← Back",
     "restart": "Start Over",
     "severityLow": "Low Severity",
     "severityModerate": "Moderate Severity",
@@ -1725,32 +1727,13 @@
     "categoryRootsDesc": "Root issues",
     "categoryWholeTreeDesc": "Overall tree health"
   },
-  "identificationKey": {
-    "metaTitle": "Identification Key - Costa Rica Tree Atlas",
-    "metaDescription": "Dichotomous guide to identify Costa Rica trees by observable characteristics.",
-    "title": "Identification Key",
-    "subtitle": "Costa Rica Tree Atlas",
-    "intro": "Use this simplified dichotomous key to identify trees. Start at step 1 and follow the choices until you reach a species group.",
-    "printButton": "🖨️ Print",
-    "backLink": "← Back",
-    "step": "Step",
-    "goTo": "Go to",
-    "species": "species",
-    "examples": "Examples",
-    "tips": "Field Tips",
-    "tip1": "Observe the overall tree shape first",
-    "tip2": "Examine leaves - simple or compound, alternate or opposite",
-    "tip3": "Look for flowers, fruits, or seeds if available",
-    "tip4": "Note the bark - texture, color, and if it has latex",
-    "tip5": "Consider the location and habitat"
-  },
   "checklist": {
     "metaTitle": "Printable Species Checklist - Costa Rica Tree Atlas",
     "metaDescription": "Printable checklist of Costa Rican tree species organized by botanical family. Ideal for field trips and outdoor activities.",
     "title": "Species Checklist",
     "subtitle": "Costa Rica Tree Atlas",
     "instructions": "Check off species as you observe them during your field trip",
-    "printButton": "\uD83D\uDDA8\uFE0F Print",
+    "printButton": "🖨️ Print",
     "backLink": "← Back",
     "species": "species",
     "date": "Date",
@@ -1774,7 +1757,7 @@
     "unknownStatus": "Unknown conservation status",
     "aboutIUCN": "About the IUCN Red List",
     "aboutIUCNDesc": "The IUCN Red List of Threatened Species is the world's most comprehensive inventory of the global conservation status of biological species.",
-    "visitIUCN": "Visit IUCN Red List \u2192"
+    "visitIUCN": "Visit IUCN Red List →"
   },
   "coloringPages": {
     "metaTitle": "Coloring Pages - Costa Rica Tree Atlas",
@@ -1782,14 +1765,14 @@
     "title": "Coloring Pages",
     "subtitle": "Costa Rica Tree Atlas",
     "instructions": "Print and color the trees. Learn their names while having fun.",
-    "printButton": "\ud83d\udda8\ufe0f Print",
-    "backLink": "\u2190 Back",
+    "printButton": "🖨️ Print",
+    "backLink": "← Back",
     "colorMe": "Color me!",
     "family": "Family",
     "selectAll": "Select All",
     "deselectAll": "Deselect All",
     "selected": "selected",
-    "tip": "\ud83d\udca1 Tip: Use realistic colors or your imagination. Both are great!",
+    "tip": "💡 Tip: Use realistic colors or your imagination. Both are great!",
     "writePrompt": "Write something about this tree:"
   },
   "biodiversityIntro": {

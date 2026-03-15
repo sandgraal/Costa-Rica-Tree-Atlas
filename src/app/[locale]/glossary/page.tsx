@@ -59,14 +59,8 @@ export default async function GlossaryPage({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
-    name:
-      locale === "es"
-        ? "Glosario de Árboles de Costa Rica"
-        : "Costa Rica Tree Glossary",
-    description:
-      locale === "es"
-        ? `Glosario de ${terms.length} términos botánicos utilizados en el Atlas de Árboles de Costa Rica.`
-        : `Glossary of ${terms.length} botanical terms used in the Costa Rica Tree Atlas.`,
+    name: t("structuredName"),
+    description: t("structuredDescription", { count: terms.length }),
     url: `https://costaricatreeatlas.com/${locale}/glossary`,
     inLanguage: locale,
     hasDefinedTerm: terms.slice(0, 50).map((term) => ({
