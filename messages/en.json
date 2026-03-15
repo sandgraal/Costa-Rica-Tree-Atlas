@@ -764,7 +764,22 @@
   "conservation": {
     "assessed": "Assessed",
     "populationTrend": "Population trend",
-    "threats": "Threats"
+    "threats": "Threats",
+    "metaTitle": "Conservation Dashboard - Costa Rica Tree Atlas",
+    "metaDescription": "Conservation status of Costa Rica's trees according to the IUCN Red List.",
+    "structuredDescription": "Conservation status of Costa Rica's trees",
+    "heading": "Conservation Dashboard",
+    "subtitle": "Conservation status of Costa Rica's trees according to the IUCN Red List",
+    "speciesDocumented": "Species Documented",
+    "threatenedSpecies": "Threatened Species",
+    "endemicSpecies": "Endemic Species",
+    "statusByCategory": "Conservation Status by Category",
+    "endemicHeading": "Costa Rica Endemic Species",
+    "endemicDescription": "These species are found only in Costa Rica.",
+    "unknownStatus": "Unknown conservation status",
+    "aboutIucnHeading": "About the IUCN Red List",
+    "aboutIucnDescription": "The IUCN Red List of Threatened Species is the world's most comprehensive inventory of the global conservation status of biological species.",
+    "visitIucn": "Visit IUCN Red List →"
   },
   "indigenousNames": {
     "heading": "Indigenous Names",
@@ -1429,6 +1444,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
