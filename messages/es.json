@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,23 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "coloringPages": {
+    "metaTitle": "Páginas para Colorear - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Descarga páginas para colorear de árboles de Costa Rica. Perfecto para actividades educativas.",
+    "title": "Páginas para Colorear",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "instructions": "Imprime y colorea los árboles. Aprende sus nombres mientras te diviertes.",
+    "printButton": "\ud83d\udda8\ufe0f Imprimir",
+    "printAll": "Imprimir Todo",
+    "backLink": "\u2190 Volver",
+    "colorMe": "\u00a1Color\u00e9ame!",
+    "family": "Familia",
+    "selectAll": "Seleccionar Todo",
+    "deselectAll": "Deseleccionar Todo",
+    "selected": "seleccionadas",
+    "printSelected": "Imprimir Seleccionadas",
+    "tip": "\ud83d\udca1 Consejo: Usa colores realistas o tu imaginaci\u00f3n. \u00a1Ambos est\u00e1n bien!",
+    "writePrompt": "Escribe algo sobre este \u00e1rbol:"
   }
 }

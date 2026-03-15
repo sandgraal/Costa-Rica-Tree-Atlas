@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explore the atlas to discover trees from this region",
     "seeResults": "See Results",
     "correctCount": "Correct"
+  },
   "classroom": {
     "metaTitle": "Classroom - Costa Rica Tree Atlas",
     "metaDescription": "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "E.g. Science 5A",
     "placeholderTeacherName": "E.g. Mrs. Garcia",
     "placeholderStudentName": "Your name"
+  },
   "teacher": {
     "metaTitle": "Teacher Dashboard - Costa Rica Tree Atlas",
     "metaDescription": "Resources, guides, and materials for teachers using the Costa Rica Tree Atlas.",
@@ -1504,5 +1506,23 @@
     "plantingDesc": "Germinate and care for a native tree seedling",
     "technologyTitle": "Technology",
     "technologyDesc": "Create a digital presentation about a favorite tree"
+  },
+  "coloringPages": {
+    "metaTitle": "Coloring Pages - Costa Rica Tree Atlas",
+    "metaDescription": "Download coloring pages of Costa Rica trees. Perfect for educational activities.",
+    "title": "Coloring Pages",
+    "subtitle": "Costa Rica Tree Atlas",
+    "instructions": "Print and color the trees. Learn their names while having fun.",
+    "printButton": "\ud83d\udda8\ufe0f Print",
+    "printAll": "Print All",
+    "backLink": "\u2190 Back",
+    "colorMe": "Color me!",
+    "family": "Family",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "selected": "selected",
+    "printSelected": "Print Selected",
+    "tip": "\ud83d\udca1 Tip: Use realistic colors or your imagination. Both are great!",
+    "writePrompt": "Write something about this tree:"
   }
 }
