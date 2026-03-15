@@ -60,11 +60,20 @@ export default async function Image({ params }: Props) {
     moderate: { en: "Moderate", es: "Moderado" },
     challenging: { en: "Challenging", es: "Desafiante" },
   };
-  const difficultyLabel = comparison.difficulty
-    ? DIFFICULTY_LABELS[comparison.difficulty]?.[locale] ||
-      DIFFICULTY_LABELS[comparison.difficulty]?.en ||
-      ""
-    : "";
+  const normalizedLocale = locale === "es" ? "es" : "en";
+
+  let difficultyLabel = "";
+  if (
+    comparison.difficulty &&
+    Object.hasOwn(DIFFICULTY_LABELS, comparison.difficulty)
+  ) {
+    const difficultyLocales = DIFFICULTY_LABELS[comparison.difficulty];
+    if (Object.hasOwn(difficultyLocales, normalizedLocale)) {
+      difficultyLabel = difficultyLocales[normalizedLocale];
+    } else if (Object.hasOwn(difficultyLocales, "en")) {
+      difficultyLabel = difficultyLocales.en;
+    }
+  }
 
   const GUIDE_LABEL: Record<string, string> = {
     en: "Comparison Guide",
