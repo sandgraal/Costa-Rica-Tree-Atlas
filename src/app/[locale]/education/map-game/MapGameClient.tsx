@@ -2,6 +2,7 @@
 /* eslint-disable security/detect-object-injection -- map-game uses constrained region/locale lookup tables */
 
 import { useState, useEffect } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { ProgressBar } from "@/components/ProgressBar";
 import Image from "next/image";
@@ -17,7 +18,6 @@ interface Tree {
 
 interface MapGameClientProps {
   trees: Tree[];
-  locale: string;
 }
 
 interface Region {
@@ -107,7 +107,9 @@ const REGIONS: Region[] = [
 
 const MAP_GAME_STORAGE_KEY = "costa-rica-tree-atlas-map-game";
 
-export default function MapGameClient({ trees, locale }: MapGameClientProps) {
+export default function MapGameClient({ trees }: MapGameClientProps) {
+  const t = useTranslations("mapGame");
+  const locale = useLocale() as "en" | "es";
   const [gameMode, setGameMode] = useState<"learn" | "quiz" | "results">(
     "learn"
   );
@@ -139,50 +141,6 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
     }
   }, []);
 
-  const t = {
-    title:
-      locale === "es" ? "Juego del Mapa de Costa Rica" : "Costa Rica Map Game",
-    subtitle:
-      locale === "es"
-        ? "¿Dónde crecen los árboles de Costa Rica?"
-        : "Where do Costa Rica's trees grow?",
-    backToEducation:
-      locale === "es" ? "← Volver a Educación" : "← Back to Education",
-    learnMode: locale === "es" ? "📚 Aprender Regiones" : "📚 Learn Regions",
-    quizMode: locale === "es" ? "🎯 Jugar Quiz" : "🎯 Play Quiz",
-    selectRegion:
-      locale === "es"
-        ? "Haz clic en una región para aprender más"
-        : "Click a region to learn more",
-    climate: locale === "es" ? "Clima" : "Climate",
-    treesFound:
-      locale === "es" ? "Árboles encontrados aquí" : "Trees found here",
-    close: locale === "es" ? "Cerrar" : "Close",
-    question: locale === "es" ? "Pregunta" : "Question",
-    whereGrows:
-      locale === "es"
-        ? "¿En qué región crece este árbol?"
-        : "In which region does this tree grow?",
-    correct: locale === "es" ? "¡Correcto!" : "Correct!",
-    incorrect: locale === "es" ? "Incorrecto" : "Incorrect",
-    theCorrectAnswer:
-      locale === "es" ? "La respuesta correcta es" : "The correct answer is",
-    nextQuestion: locale === "es" ? "Siguiente →" : "Next →",
-    score: locale === "es" ? "Puntuación" : "Score",
-    streak: locale === "es" ? "🔥 Racha" : "🔥 Streak",
-    highScore: locale === "es" ? "Récord" : "High Score",
-    quizComplete: locale === "es" ? "¡Quiz Completado!" : "Quiz Complete!",
-    yourScore: locale === "es" ? "Tu puntuación" : "Your score",
-    newHighScore: locale === "es" ? "🎉 ¡Nuevo Récord!" : "🎉 New High Score!",
-    playAgain: locale === "es" ? "🔄 Jugar de Nuevo" : "🔄 Play Again",
-    backToLearn: locale === "es" ? "📚 Volver a Aprender" : "📚 Back to Learn",
-    points: locale === "es" ? "puntos" : "points",
-    gamesPlayed: locale === "es" ? "partidas jugadas" : "games played",
-    hint: locale === "es" ? "Pista" : "Hint",
-    nativeRegion: locale === "es" ? "Región nativa" : "Native region",
-    commonTrees: locale === "es" ? "Árboles comunes" : "Common trees",
-  };
-
   // Map trees to regions based on their nativeRegion tag
   const getTreesForRegion = (regionId: string): Tree[] => {
     const regionKeywords: Record<string, string[]> = {
@@ -203,7 +161,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
     const keywords = regionKeywords[regionId] || [];
     return trees.filter((tree) => {
       const region = (tree.nativeRegion || "").toLowerCase();
-      const tags = (tree.tags || []).map((t) => t.toLowerCase());
+      const tags = (tree.tags || []).map((tag) => tag.toLowerCase());
       return keywords.some(
         (kw) => region.includes(kw) || tags.some((tag) => tag.includes(kw))
       );
@@ -242,7 +200,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
     // If not enough region-specific trees, add generic questions
     if (questionsData.length < 10) {
       const genericTrees = trees
-        .filter((t) => t.featuredImage)
+        .filter((tr) => tr.featuredImage)
         .sort(() => Math.random() - 0.5)
         .slice(0, 10 - questionsData.length);
 
@@ -330,14 +288,14 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
             href="/education"
             className="text-muted-foreground hover:text-primary text-sm mb-6 inline-block"
           >
-            {t.backToEducation}
+            {t("backToEducation")}
           </Link>
 
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary flex items-center justify-center gap-3">
-              <span>🗺️</span> {t.title}
+              <span>🗺️</span> {t("title")}
             </h1>
-            <p className="text-muted-foreground mt-2">{t.subtitle}</p>
+            <p className="text-muted-foreground mt-2">{t("subtitle")}</p>
           </div>
 
           {/* Stats */}
@@ -346,14 +304,16 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               <div className="text-2xl font-bold text-yellow-600">
                 {highScore}
               </div>
-              <div className="text-xs text-muted-foreground">{t.highScore}</div>
+              <div className="text-xs text-muted-foreground">
+                {t("highScore")}
+              </div>
             </div>
             <div className="bg-card rounded-xl px-6 py-3 border border-border text-center">
               <div className="text-2xl font-bold text-blue-600">
                 {totalGames}
               </div>
               <div className="text-xs text-muted-foreground">
-                {t.gamesPlayed}
+                {t("gamesPlayed")}
               </div>
             </div>
           </div>
@@ -364,20 +324,20 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold"
               disabled
             >
-              {t.learnMode}
+              {t("learnMode")}
             </button>
             <button
               onClick={startQuiz}
               className="px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-colors"
             >
-              {t.quizMode}
+              {t("quizMode")}
             </button>
           </div>
 
           {/* Map SVG */}
           <div className="bg-card rounded-2xl border border-border p-6 mb-6">
             <p className="text-center text-muted-foreground mb-4">
-              {t.selectRegion}
+              {t("selectRegion")}
             </p>
             <svg
               viewBox="0 0 420 400"
@@ -449,9 +409,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                     className="w-4 h-4 rounded-full"
                     style={{ backgroundColor: region.color }}
                   />
-                  <span className="text-sm">
-                    {locale === "es" ? region.name.es : region.name.en}
-                  </span>
+                  <span className="text-sm">{region.name[locale]}</span>
                   <span>{region.icon}</span>
                 </button>
               ))}
@@ -465,14 +423,10 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                 <div>
                   <h2 className="text-2xl font-bold flex items-center gap-2">
                     <span>{selectedRegion.icon}</span>
-                    {locale === "es"
-                      ? selectedRegion.name.es
-                      : selectedRegion.name.en}
+                    {selectedRegion.name[locale]}
                   </h2>
                   <p className="text-muted-foreground">
-                    {locale === "es"
-                      ? selectedRegion.description.es
-                      : selectedRegion.description.en}
+                    {selectedRegion.description[locale]}
                   </p>
                 </div>
                 <div
@@ -482,16 +436,16 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               </div>
 
               <div className="bg-muted/50 rounded-xl p-4 mb-4">
-                <div className="text-sm text-muted-foreground">{t.climate}</div>
+                <div className="text-sm text-muted-foreground">
+                  {t("climate")}
+                </div>
                 <div className="font-medium">
-                  {locale === "es"
-                    ? selectedRegion.climate.es
-                    : selectedRegion.climate.en}
+                  {selectedRegion.climate[locale]}
                 </div>
               </div>
 
               <div>
-                <h3 className="font-semibold mb-3">{t.commonTrees}:</h3>
+                <h3 className="font-semibold mb-3">{t("commonTrees")}:</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {getTreesForRegion(selectedRegion.id)
                     .slice(0, 6)
@@ -518,9 +472,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                 </div>
                 {getTreesForRegion(selectedRegion.id).length === 0 && (
                   <p className="text-muted-foreground text-sm">
-                    {locale === "es"
-                      ? "Explora el atlas para descubrir árboles de esta región"
-                      : "Explore the atlas to discover trees from this region"}
+                    {t("exploreAtlas")}
                   </p>
                 )}
               </div>
@@ -542,15 +494,15 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="text-sm text-muted-foreground">
-              {t.question} {currentQuestion + 1}/{questions.length}
+              {t("question")} {currentQuestion + 1}/{questions.length}
             </div>
             <div className="flex items-center gap-4">
               <div className="bg-yellow-500/20 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
-                {t.score}: {score}
+                {t("score")}: {score}
               </div>
               {streak > 0 && (
                 <div className="bg-orange-500/20 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">
-                  {t.streak} {streak}
+                  {t("streak")} {streak}
                 </div>
               )}
             </div>
@@ -568,7 +520,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
           {/* Question */}
           <div className="bg-card rounded-2xl border border-border p-6 mb-6">
             <h2 className="text-xl font-bold text-center mb-6">
-              {t.whereGrows}
+              {t("whereGrows")}
             </h2>
 
             {/* Tree Card */}
@@ -620,13 +572,9 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{region.icon}</span>
                       <div>
-                        <div className="font-medium">
-                          {locale === "es" ? region.name.es : region.name.en}
-                        </div>
+                        <div className="font-medium">{region.name[locale]}</div>
                         <div className="text-xs text-muted-foreground">
-                          {locale === "es"
-                            ? region.climate.es
-                            : region.climate.en}
+                          {region.climate[locale]}
                         </div>
                       </div>
                       {showFeedback && isCorrectAnswer && (
@@ -648,16 +596,12 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                 }`}
               >
                 <div className="font-bold mb-1">
-                  {isCorrect ? t.correct : t.incorrect}
+                  {isCorrect ? t("correct") : t("incorrect")}
                 </div>
                 {!isCorrect && (
                   <p className="text-sm">
-                    {t.theCorrectAnswer}:{" "}
-                    <strong>
-                      {locale === "es"
-                        ? currentQ.correctRegion.name.es
-                        : currentQ.correctRegion.name.en}
-                    </strong>
+                    {t("theCorrectAnswer")}:{" "}
+                    <strong>{currentQ.correctRegion.name[locale]}</strong>
                   </p>
                 )}
               </div>
@@ -671,10 +615,8 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
               {currentQuestion < questions.length - 1
-                ? t.nextQuestion
-                : locale === "es"
-                  ? "Ver Resultados"
-                  : "See Results"}
+                ? t("nextQuestion")
+                : t("seeResults")}
             </button>
           )}
         </div>
@@ -692,17 +634,17 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
           <div className="text-6xl mb-6">
             {score >= 80 ? "🏆" : score >= 50 ? "🎉" : "💪"}
           </div>
-          <h1 className="text-3xl font-bold mb-2">{t.quizComplete}</h1>
+          <h1 className="text-3xl font-bold mb-2">{t("quizComplete")}</h1>
 
           {isNewHighScore && score > 0 && (
             <div className="text-yellow-600 font-bold text-xl mb-4">
-              {t.newHighScore}
+              {t("newHighScore")}
             </div>
           )}
 
           <div className="bg-card rounded-2xl border border-border p-8 mb-6">
             <div className="text-5xl font-bold text-primary mb-2">{score}</div>
-            <div className="text-muted-foreground">{t.points}</div>
+            <div className="text-muted-foreground">{t("points")}</div>
 
             <div className="grid grid-cols-2 gap-4 mt-6">
               <div className="bg-muted/50 rounded-xl p-4">
@@ -717,13 +659,13 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
                   /{questions.length}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  {locale === "es" ? "Correctas" : "Correct"}
+                  {t("correctCount")}
                 </div>
               </div>
               <div className="bg-muted/50 rounded-xl p-4">
                 <div className="text-2xl font-bold">{highScore}</div>
                 <div className="text-xs text-muted-foreground">
-                  {t.highScore}
+                  {t("highScore")}
                 </div>
               </div>
             </div>
@@ -734,7 +676,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               onClick={startQuiz}
               className="w-full py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
-              {t.playAgain}
+              {t("playAgain")}
             </button>
             <button
               onClick={() => {
@@ -742,7 +684,7 @@ export default function MapGameClient({ trees, locale }: MapGameClientProps) {
               }}
               className="w-full py-3 bg-muted text-foreground rounded-xl font-semibold hover:bg-muted/80 transition-colors"
             >
-              {t.backToLearn}
+              {t("backToLearn")}
             </button>
           </div>
         </div>
