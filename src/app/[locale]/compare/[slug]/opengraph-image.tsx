@@ -130,7 +130,11 @@ export default async function Image({ params }: Props) {
               gap: 8,
             }}
           >
-            {`🔍 ${GUIDE_LABEL[locale] || GUIDE_LABEL.en}`}
+            {`🔍 ${
+              Object.hasOwn(GUIDE_LABEL, locale)
+                ? GUIDE_LABEL[locale as keyof typeof GUIDE_LABEL]
+                : GUIDE_LABEL.en
+            }`}
           </div>
           {difficultyLabel && (
             <div
