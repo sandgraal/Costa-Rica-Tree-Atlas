@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import { allTrees } from "contentlayer/generated";
@@ -10,16 +10,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "lessonsHub" });
 
   return {
-    title:
-      locale === "es"
-        ? "Planes de Lección - Atlas de Árboles de Costa Rica"
-        : "Lesson Plans - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Planes de lección interactivos sobre árboles y ecosistemas de Costa Rica. Biodiversidad, conservación, servicios ecosistémicos e identificación."
-        : "Interactive lesson plans about Costa Rican trees and ecosystems. Biodiversity, conservation, ecosystem services, and identification.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/education/lessons",
@@ -33,29 +28,10 @@ export default async function LessonsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const trees = allTrees.filter((t) => t.locale === locale);
+  const trees = allTrees.filter((tr) => tr.locale === locale);
   const treeCount = trees.length;
 
-  const t = {
-    title: locale === "es" ? "Planes de Lección" : "Lesson Plans",
-    subtitle:
-      locale === "es"
-        ? "Lecciones interactivas diseñadas para diferentes niveles educativos"
-        : "Interactive lessons designed for different grade levels",
-    backToEducation:
-      locale === "es"
-        ? "← Volver a Recursos Educativos"
-        : "← Back to Education",
-    startLesson: locale === "es" ? "Comenzar Lección" : "Start Lesson",
-    grades: locale === "es" ? "Grados" : "Grades",
-    duration: locale === "es" ? "Duración" : "Duration",
-    minutes: locale === "es" ? "minutos" : "minutes",
-    activities: locale === "es" ? "Actividades" : "Activities",
-    objectives: locale === "es" ? "Objetivos" : "Objectives",
-    interactive: locale === "es" ? "Interactivo" : "Interactive",
-    printable: locale === "es" ? "Imprimible" : "Printable",
-    multimedia: locale === "es" ? "Multimedia" : "Multimedia",
-  };
+  const t = await getTranslations({ locale, namespace: "lessonsHub" });
 
   const lessonPlans = [
     {
@@ -66,26 +42,13 @@ export default async function LessonsPage({ params }: Props) {
       duration: "45",
       activityCount: 4,
       features: ["interactive", "printable"],
-      title:
-        locale === "es"
-          ? "Introducción a la Biodiversidad"
-          : "Introduction to Biodiversity",
-      description:
-        locale === "es"
-          ? "Los estudiantes exploran qué significa biodiversidad y por qué Costa Rica es uno de los lugares más biodiversos de la Tierra."
-          : "Students explore what biodiversity means and why Costa Rica is one of the most biodiverse places on Earth.",
-      objectives:
-        locale === "es"
-          ? [
-              "Definir biodiversidad y explicar su importancia",
-              "Identificar al menos 5 especies de árboles nativos de Costa Rica",
-              "Crear un mapa de biodiversidad local",
-            ]
-          : [
-              "Define biodiversity and explain its importance",
-              "Identify at least 5 native Costa Rican tree species",
-              "Create a local biodiversity map",
-            ],
+      title: t("biodiversityTitle"),
+      description: t("biodiversityDescription"),
+      objectives: [
+        t("biodiversityObj1"),
+        t("biodiversityObj2"),
+        t("biodiversityObj3"),
+      ],
     },
     {
       id: "tree-identification",
@@ -95,26 +58,9 @@ export default async function LessonsPage({ params }: Props) {
       duration: "60",
       activityCount: 5,
       features: ["interactive", "printable", "multimedia"],
-      title:
-        locale === "es"
-          ? "Habilidades de Identificación de Árboles"
-          : "Tree Identification Skills",
-      description:
-        locale === "es"
-          ? "Aprende a identificar árboles usando hojas, corteza, flores y frutos mediante observación práctica."
-          : "Learn to identify trees using leaves, bark, flowers, and fruits through hands-on observation.",
-      objectives:
-        locale === "es"
-          ? [
-              "Usar una clave dicotómica para identificar especies de árboles",
-              "Describir características clave que distinguen diferentes árboles",
-              "Documentar observaciones de campo sistemáticamente",
-            ]
-          : [
-              "Use a dichotomous key to identify tree species",
-              "Describe key features that distinguish different trees",
-              "Document field observations systematically",
-            ],
+      title: t("treeIdTitle"),
+      description: t("treeIdDescription"),
+      objectives: [t("treeIdObj1"), t("treeIdObj2"), t("treeIdObj3")],
     },
     {
       id: "conservation",
@@ -124,26 +70,13 @@ export default async function LessonsPage({ params }: Props) {
       duration: "90",
       activityCount: 6,
       features: ["interactive", "multimedia"],
-      title:
-        locale === "es"
-          ? "Conservación y Amenazas"
-          : "Conservation and Threats",
-      description:
-        locale === "es"
-          ? "Comprende las amenazas que enfrentan los bosques tropicales y los esfuerzos de conservación que los protegen."
-          : "Understand the threats facing tropical forests and the conservation efforts protecting them.",
-      objectives:
-        locale === "es"
-          ? [
-              "Analizar los impactos humanos en los ecosistemas forestales tropicales",
-              "Evaluar estrategias de conservación y su efectividad",
-              "Diseñar un plan de acción de conservación local",
-            ]
-          : [
-              "Analyze human impacts on tropical forest ecosystems",
-              "Evaluate conservation strategies and their effectiveness",
-              "Design a local conservation action plan",
-            ],
+      title: t("conservationTitle"),
+      description: t("conservationDescription"),
+      objectives: [
+        t("conservationObj1"),
+        t("conservationObj2"),
+        t("conservationObj3"),
+      ],
     },
     {
       id: "ecosystem-services",
@@ -153,23 +86,9 @@ export default async function LessonsPage({ params }: Props) {
       duration: "60",
       activityCount: 4,
       features: ["interactive", "printable"],
-      title: locale === "es" ? "Servicios Ecosistémicos" : "Ecosystem Services",
-      description:
-        locale === "es"
-          ? "Descubre cómo los árboles proporcionan servicios esenciales como aire limpio, filtración de agua y hábitat."
-          : "Discover how trees provide essential services like clean air, water filtration, and habitat.",
-      objectives:
-        locale === "es"
-          ? [
-              "Listar servicios ecosistémicos proporcionados por árboles tropicales",
-              "Calcular el valor de los servicios ecosistémicos en un área determinada",
-              "Crear infografías sobre beneficios de los árboles",
-            ]
-          : [
-              "List ecosystem services provided by tropical trees",
-              "Calculate the value of ecosystem services in a given area",
-              "Create infographics about tree benefits",
-            ],
+      title: t("ecosystemTitle"),
+      description: t("ecosystemDescription"),
+      objectives: [t("ecosystemObj1"), t("ecosystemObj2"), t("ecosystemObj3")],
     },
   ];
 
@@ -181,7 +100,7 @@ export default async function LessonsPage({ params }: Props) {
           href="/education"
           className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
         >
-          {t.backToEducation}
+          {t("backToEducation")}
         </Link>
 
         {/* Header */}
@@ -192,10 +111,10 @@ export default async function LessonsPage({ params }: Props) {
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            {t.title}
+            {t("title")}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.subtitle}
+            {t("subtitle")}
           </p>
         </div>
 
@@ -206,25 +125,23 @@ export default async function LessonsPage({ params }: Props) {
               {lessonPlans.length}
             </div>
             <div className="text-sm text-muted-foreground">
-              {locale === "es" ? "Lecciones" : "Lessons"}
+              {t("lessonsStat")}
             </div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">{treeCount}</div>
-            <div className="text-sm text-muted-foreground">
-              {locale === "es" ? "Especies" : "Species"}
-            </div>
+            <div className="text-sm text-muted-foreground">{t("species")}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">K-12</div>
             <div className="text-sm text-muted-foreground">
-              {locale === "es" ? "Niveles" : "Grade Levels"}
+              {t("gradeLevels")}
             </div>
           </div>
         </div>
 
         {/* Lesson Cards */}
-        <LessonsClient lessonPlans={lessonPlans} locale={locale} t={t} />
+        <LessonsClient lessonPlans={lessonPlans} />
       </div>
     </div>
   );
