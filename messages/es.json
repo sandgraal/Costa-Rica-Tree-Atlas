@@ -449,6 +449,25 @@
     "maintenanceNote": "Mientras tanto, puedes explorar nuestro directorio de árboles o usar la función de búsqueda para encontrar árboles manualmente.",
     "browseTrees": "Explorar Directorio de Árboles"
   },
+  "identificationKey": {
+    "metaTitle": "Clave de Identificación - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Guía dicotómica para identificar árboles de Costa Rica por características observables.",
+    "title": "Clave de Identificación",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "intro": "Usa esta clave dicotómica simplificada para identificar árboles. Comienza en el paso 1 y sigue las opciones hasta llegar a un grupo de especies.",
+    "printButton": "🖨️ Imprimir",
+    "backLink": "← Volver",
+    "step": "Paso",
+    "goTo": "Ir a",
+    "species": "especies",
+    "examples": "Ejemplos",
+    "tips": "Consejos de Campo",
+    "tip1": "Observa la forma general del árbol primero",
+    "tip2": "Examina las hojas - simples o compuestas, alternas u opuestas",
+    "tip3": "Busca flores, frutos o semillas si están disponibles",
+    "tip4": "Nota la corteza - textura, color, y si tiene látex",
+    "tip5": "Considera la ubicación y el hábitat"
+  },
   "education": {
     "title": "Recursos Educativos",
     "subtitle": "Planes de lecciones, actividades y materiales gratuitos para enseñar sobre los árboles y ecosistemas forestales de Costa Rica",
@@ -1429,6 +1448,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",
