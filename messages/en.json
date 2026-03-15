@@ -71,7 +71,9 @@
       "botanicalFamilies": "Botanical Families",
       "conservationStatuses": "Conservation Statuses",
       "languages": "Languages"
-    }
+    },
+    "structuredDescription": "Discover the magnificent trees of Costa Rica. A community-powered bilingual guide to Costa Rican tree flora.",
+    "organizationDescription": "An educational initiative dedicated to documenting Costa Rica's trees."
   },
   "trees": {
     "title": "Tree Directory",
@@ -1429,6 +1431,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
@@ -1446,7 +1449,7 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "theCorrectAnswer": "The correct answer is",
-    "nextQuestion": "Next \u2192",
+    "nextQuestion": "Next →",
     "score": "Score",
     "streak": "🔥 Streak",
     "highScore": "High Score",
