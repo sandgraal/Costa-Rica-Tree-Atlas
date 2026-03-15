@@ -338,7 +338,12 @@
     "license": {
       "title": "Licenciamiento",
       "description": "El Atlas de Árboles de Costa Rica es de propiedad privada. El código, contenido y datos están reservados y se rigen por los documentos legales del repositorio."
-    }
+    },
+    "metaTitle": "Sobre Nosotros",
+    "metaDescription": "Conoce más sobre el Atlas de Árboles de Costa Rica, una iniciativa educativa dedicada a documentar la flora arbórea costarricense.",
+    "structuredName": "Sobre el Atlas de Árboles de Costa Rica",
+    "structuredDescription": "Una iniciativa educativa dedicada a documentar la flora arbórea costarricense.",
+    "structuredOrgDescription": "Una guía bilingüe impulsada por la comunidad para los árboles de Costa Rica."
   },
   "favorites": {
     "addToFavorites": "Añadir a favoritos",
@@ -1429,6 +1434,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",

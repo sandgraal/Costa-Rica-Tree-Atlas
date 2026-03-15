@@ -338,7 +338,12 @@
     "license": {
       "title": "Licensing",
       "description": "Costa Rica Tree Atlas is privately owned. Code, content, and data are all rights reserved and governed by the repository legal documents."
-    }
+    },
+    "metaTitle": "About Us",
+    "metaDescription": "Learn more about Costa Rica Tree Atlas, an educational initiative dedicated to documenting Costa Rican trees.",
+    "structuredName": "About Costa Rica Tree Atlas",
+    "structuredDescription": "An educational initiative dedicated to documenting Costa Rican trees.",
+    "structuredOrgDescription": "A community-powered bilingual guide to Costa Rica's trees."
   },
   "favorites": {
     "addToFavorites": "Add to favorites",
@@ -1429,6 +1434,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
