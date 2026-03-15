@@ -425,14 +425,11 @@ export default function DiagnoseClient() {
       },
     };
 
-    // Map symptoms to diagnosis keys
-    const symptomKey = `${category}-${symptom.toLowerCase().split(" ")[0]}`;
-    const diagnosisKey = Object.keys(diagnoses).find((key) =>
-      symptomKey.includes(key.split("-")[1])
-    );
+    // Map symptoms to diagnosis keys using stable, non-localized symptom IDs
+    const normalizedSymptomId = symptom.toLowerCase();
+    const diagnosisKey = `${category}-${normalizedSymptomId}`;
 
-    const entry =
-      diagnoses[diagnosisKey || "leaves-yellow"] || diagnoses["leaves-yellow"];
+    const entry = diagnoses[diagnosisKey] ?? diagnoses["leaves-yellow"];
     return entry[locale];
   };
 
