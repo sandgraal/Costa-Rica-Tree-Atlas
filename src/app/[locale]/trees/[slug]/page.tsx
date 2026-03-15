@@ -33,6 +33,8 @@ import type {
   IndigenousName,
 } from "@/types/tree";
 
+const OG_LOCALE: Record<string, string> = { en: "en_US", es: "es_CR" };
+
 // Dynamic imports for heavy below-fold components
 // DistributionMap renders static SVG from props, so SSR is beneficial for SEO
 const DistributionMap = dynamic(
@@ -112,7 +114,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: tree.title,
       description: tree.description,
       type: "article",
-      locale: locale === "es" ? "es_CR" : "en_US",
+      locale: OG_LOCALE[locale] || "en_US",
     },
     alternates: {
       languages: {
@@ -132,6 +134,7 @@ export default async function TreePage({ params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations("treeDetail");
+  const navT = await getTranslations("nav");
 
   const tree = allTrees.find((t2) => t2.locale === locale && t2.slug === slug);
 
@@ -216,7 +219,7 @@ export default async function TreePage({ params }: Props) {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
     },
-    inLanguage: locale === "es" ? "es-CR" : "en-US",
+    inLanguage: locale,
     ...(structuredImages.length > 0 && { image: structuredImages }),
     ...(tree.publishedAt && { datePublished: tree.publishedAt }),
     ...(tree.updatedAt && { dateModified: tree.updatedAt }),
@@ -251,13 +254,13 @@ export default async function TreePage({ params }: Props) {
       {
         "@type": "ListItem",
         position: 1,
-        name: locale === "es" ? "Inicio" : "Home",
+        name: navT("home"),
         item: `${baseUrl}/${locale}`,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: locale === "es" ? "Árboles" : "Trees",
+        name: navT("trees"),
         item: `${baseUrl}/${locale}/trees`,
       },
       {
