@@ -613,7 +613,12 @@
     "showEvents": "Mostrar eventos",
     "hideEvents": "Ocultar eventos",
     "floweringNow": "Árboles floreciendo ahora",
-    "fruitingNow": "Árboles fructificando ahora"
+    "fruitingNow": "Árboles fructificando ahora",
+    "monthDescription": "Descubre qué árboles de Costa Rica están floreciendo y fructificando en {monthName}.",
+    "structuredName": "Calendario Estacional de Árboles",
+    "structuredDescription": "Descubre cuándo florecen y fructifican los árboles de Costa Rica",
+    "treesActiveThisMonth": "Árboles activos este mes",
+    "treeFlowering": "{treeName} está floreciendo"
   },
   "safety": {
     "title": "Información de Seguridad",
