@@ -18,7 +18,6 @@ import type { EcosystemServicesLessonData } from "./ecosystem-services-data";
 
 interface EcosystemServicesClientProps {
   trees: LessonTreeData[];
-  locale: string;
   lessonData: EcosystemServicesLessonData;
 }
 
@@ -34,7 +33,6 @@ export default function EcosystemServicesClient(
 
 function EcosystemServicesContent({
   trees,
-  locale,
   lessonData,
 }: EcosystemServicesClientProps) {
   const { markLessonComplete } = useEducationProgress();
@@ -198,11 +196,7 @@ function EcosystemServicesContent({
 
           {createdPoster.length > 0 && (
             <div className="bg-card rounded-2xl p-6 border border-border mb-8">
-              <h3 className="font-semibold mb-4">
-                {locale === "es"
-                  ? "Tu Póster de Servicios Ecosistémicos"
-                  : "Your Ecosystem Services Poster"}
-              </h3>
+              <h3 className="font-semibold mb-4">{t.yourPosterTitle}</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {createdPoster.map((item, i) => (
                   <span
@@ -252,7 +246,7 @@ function EcosystemServicesContent({
             <p className="text-muted-foreground">{t.subtitle}</p>
             <div className="flex items-center gap-4 mt-2 text-sm">
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
-                {locale === "es" ? "Grados 5-8" : "Grades 5-8"}
+                {t.gradeLevel}
               </span>
               <span className="px-3 py-1 bg-muted text-muted-foreground rounded-full">
                 ⏱️ 45 min
@@ -308,43 +302,15 @@ function EcosystemServicesContent({
               {steps[0].title}
             </h2>
             <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-xl p-6 mb-6">
-              <p className="text-lg leading-relaxed">
-                {locale === "es"
-                  ? "Los servicios ecosistémicos son todos los beneficios que los humanos obtenemos de la naturaleza. Los árboles y bosques son expertos en brindarnos estos servicios esenciales para la vida."
-                  : "Ecosystem services are all the benefits that humans get from nature. Trees and forests are experts at providing these essential services for life."}
-              </p>
+              <p className="text-lg leading-relaxed">{t.introText}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                {
-                  icon: "🫁",
-                  text:
-                    locale === "es"
-                      ? "Un árbol grande produce oxígeno para 4 personas"
-                      : "A large tree produces oxygen for 4 people",
-                },
-                {
-                  icon: "💧",
-                  text:
-                    locale === "es"
-                      ? "Los bosques filtran el 75% del agua dulce"
-                      : "Forests filter 75% of fresh water",
-                },
-                {
-                  icon: "🌡️",
-                  text:
-                    locale === "es"
-                      ? "Un árbol puede enfriar como 10 aires acondicionados"
-                      : "One tree can cool like 10 air conditioners",
-                },
-                {
-                  icon: "🐝",
-                  text:
-                    locale === "es"
-                      ? "80% de nuestros alimentos depende de polinizadores"
-                      : "80% of our food depends on pollinators",
-                },
+                { icon: "🫁", text: t.fact1 },
+                { icon: "💧", text: t.fact2 },
+                { icon: "🌡️", text: t.fact3 },
+                { icon: "🐝", text: t.fact4 },
               ].map((fact, i) => (
                 <div
                   key={i}
@@ -366,11 +332,7 @@ function EcosystemServicesContent({
               <span className="text-3xl">📊</span>
               {steps[1].title}
             </h2>
-            <p className="text-muted-foreground mb-6">
-              {locale === "es"
-                ? "Haz clic en cada categoría para descubrirla:"
-                : "Click each category to discover it:"}
-            </p>
+            <p className="text-muted-foreground mb-6">{t.clickToDiscover}</p>
 
             <div className="grid md:grid-cols-2 gap-4">
               {serviceCategories.map((cat) => {
@@ -435,11 +397,7 @@ function EcosystemServicesContent({
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
               {steps[2].title}
             </h2>
-            <p className="text-muted-foreground mb-6">
-              {locale === "es"
-                ? "Arrastra cada servicio a su categoría correcta:"
-                : "Drag each service to its correct category:"}
-            </p>
+            <p className="text-muted-foreground mb-6">{t.dragInstruction}</p>
 
             <div className="grid md:grid-cols-4 gap-4 mb-6">
               {serviceCategories.map((cat) => (
@@ -612,20 +570,12 @@ function EcosystemServicesContent({
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
               {steps[4].title}
             </h2>
-            <p className="text-muted-foreground mb-6">
-              {locale === "es"
-                ? "Selecciona al menos 3 elementos para tu póster de servicios ecosistémicos:"
-                : "Select at least 3 elements for your ecosystem services poster:"}
-            </p>
+            <p className="text-muted-foreground mb-6">{t.posterInstruction}</p>
 
             <div className="grid md:grid-cols-2 gap-6">
               {/* Available Elements */}
               <div>
-                <h3 className="font-semibold mb-3">
-                  {locale === "es"
-                    ? "Elementos Disponibles"
-                    : "Available Elements"}
-                </h3>
+                <h3 className="font-semibold mb-3">{t.availableElements}</h3>
                 <div className="space-y-2 max-h-[300px] overflow-y-auto">
                   {[
                     ...serviceCategories.map((c) => ({
@@ -671,20 +621,14 @@ function EcosystemServicesContent({
 
               {/* Poster Preview */}
               <div>
-                <h3 className="font-semibold mb-3">
-                  {locale === "es" ? "Tu Póster" : "Your Poster"}
-                </h3>
+                <h3 className="font-semibold mb-3">{t.yourPoster}</h3>
                 <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-xl p-6 min-h-[300px] border-2 border-dashed border-primary/30">
                   <div className="text-center mb-4">
                     <h4 className="text-lg font-bold text-primary">
-                      {locale === "es"
-                        ? "Servicios Ecosistémicos"
-                        : "Ecosystem Services"}
+                      {t.posterHeading}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      {locale === "es"
-                        ? "Los regalos de la naturaleza"
-                        : "Nature's gifts"}
+                      {t.naturesGifts}
                     </p>
                   </div>
                   <div className="space-y-2">
@@ -699,9 +643,7 @@ function EcosystemServicesContent({
                   </div>
                   {createdPoster.length === 0 && (
                     <p className="text-center text-muted-foreground mt-12">
-                      {locale === "es"
-                        ? "Agrega elementos a tu póster"
-                        : "Add elements to your poster"}
+                      {t.addElementsPrompt}
                     </p>
                   )}
                 </div>

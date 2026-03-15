@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import { SkeletonGrid } from "@/components/skeletons/SkeletonGrid";
@@ -12,16 +12,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "fieldTrip" });
 
   return {
-    title:
-      locale === "es"
-        ? "Modo Excursión - Atlas de Árboles de Costa Rica"
-        : "Field Trip Mode - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Lista de verificación offline para excursiones de campo. Identifica y registra árboles de Costa Rica durante salidas educativas."
-        : "Offline checklist for Costa Rican tree field trips. Identify and record species during educational expeditions.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -42,22 +37,22 @@ async function FieldTripContent({
   setRequestLocale(locale);
 
   const trees = allTrees
-    .filter((t) => t.locale === locale)
+    .filter((tr) => tr.locale === locale)
     .sort((a, b) => a.title.localeCompare(b.title, locale))
-    .map((t) => ({
-      title: t.title,
-      scientificName: t.scientificName,
-      family: t.family,
-      slug: t.slug,
-      featuredImage: t.featuredImage || undefined,
-      conservationStatus: t.conservationStatus || undefined,
-      nativeRegion: t.nativeRegion || undefined,
-      tags: t.tags || undefined,
+    .map((tr) => ({
+      title: tr.title,
+      scientificName: tr.scientificName,
+      family: tr.family,
+      slug: tr.slug,
+      featuredImage: tr.featuredImage || undefined,
+      conservationStatus: tr.conservationStatus || undefined,
+      nativeRegion: tr.nativeRegion || undefined,
+      tags: tr.tags || undefined,
     }));
 
   return (
     <ComponentErrorBoundary componentName="Field Trip">
-      <FieldTripClient trees={trees} locale={locale} />
+      <FieldTripClient trees={trees} />
     </ComponentErrorBoundary>
   );
 }
