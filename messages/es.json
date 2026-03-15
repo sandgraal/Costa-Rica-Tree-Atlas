@@ -1596,6 +1596,21 @@
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
   },
+  "checklist": {
+    "metaTitle": "Lista de Especies Imprimible - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Lista imprimible de especies de árboles de Costa Rica organizada por familia botánica. Ideal para excursiones y actividades de campo.",
+    "title": "Lista de Especies",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "instructions": "Marca las especies que observes durante tu excursión",
+    "printButton": "\uD83D\uDDA8\uFE0F Imprimir",
+    "backLink": "← Volver",
+    "species": "especies",
+    "date": "Fecha",
+    "location": "Ubicación",
+    "observer": "Observador",
+    "notes": "Notas",
+    "totalSpecies": "Total de especies",
+    "familiesLabel": "familias"
   "conservationPage": {
     "metaTitle": "Dashboard de Conservación - Atlas de Árboles de Costa Rica",
     "metaDescription": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN.",
