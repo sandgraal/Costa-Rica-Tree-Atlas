@@ -3,11 +3,10 @@ import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import { PrintButton } from "../PrintButton";
-
-type Locale = "en" | "es";
+import type { Locale } from "@i18n/routing";
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -27,7 +26,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("identificationKey");
-  const l = locale as Locale;
+  const l = locale;
 
   const trees = allTrees.filter((tr) => tr.locale === locale);
 
