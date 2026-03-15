@@ -1596,6 +1596,18 @@
     "technologyTitle": "Technology",
     "technologyDesc": "Create a digital presentation about a favorite tree"
   },
+  "familiesGuide": {
+    "metaTitle": "Botanical Family Guide - Costa Rica Tree Atlas",
+    "metaDescription": "Reference guide of botanical families with representative Costa Rica species.",
+    "title": "Botanical Family Guide",
+    "subtitle": "Costa Rica Tree Atlas",
+    "instructions": "Quick reference of botanical families represented in the atlas",
+    "printButton": "\uD83D\uDDA8\uFE0F Print",
+    "backLink": "← Back",
+    "species": "species",
+    "families": "families",
+    "representativeSpecies": "Representative species",
+    "andMore": "and more..."
   "useCases": {
     "metaTitle": "Use Cases",
     "metaDescription": "Find Costa Rican trees organized by use case: shade for coffee, windbreaks, erosion control, gardens, and more.",

@@ -1596,6 +1596,18 @@
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
   },
+  "familiesGuide": {
+    "metaTitle": "Guía de Familias Botánicas - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Guía de referencia de familias botánicas con especies representativas de Costa Rica.",
+    "title": "Guía de Familias Botánicas",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "instructions": "Referencia rápida de familias botánicas representadas en el atlas",
+    "printButton": "\uD83D\uDDA8\uFE0F Imprimir",
+    "backLink": "← Volver",
+    "species": "especies",
+    "families": "familias",
+    "representativeSpecies": "Especies representativas",
+    "andMore": "y más..."
   "useCases": {
     "metaTitle": "Casos de Uso",
     "metaDescription": "Encuentra árboles de Costa Rica organizados por uso: sombra para café, cortavientos, control de erosión, jardines y más.",
