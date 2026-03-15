@@ -96,6 +96,8 @@ export default async function UseCasesPage({ params }: Props) {
 
   const t = await getTranslations("useCases");
 
+  const viewTreesLabel = t("viewTrees");
+
   return (
     <div className="py-12 px-4">
       <div className="container mx-auto max-w-7xl">
@@ -116,7 +118,7 @@ export default async function UseCasesPage({ params }: Props) {
               key={useCase.id}
               useCase={useCase}
               locale={locale}
-              viewTreesLabel={t("viewTrees")}
+              viewTreesLabel={viewTreesLabel}
             />
           ))}
         </div>
