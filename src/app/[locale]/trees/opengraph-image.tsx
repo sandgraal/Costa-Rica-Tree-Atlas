@@ -21,8 +21,9 @@ export default async function OGImage({ params }: Props) {
     en: `${count} species documented with detailed scientific information`,
     es: `${count} especies documentadas con información científica detallada`,
   };
-  const title = TITLES[locale] || TITLES.en;
-  const subtitle = SUBTITLES[locale] || SUBTITLES.en;
+  const safeLocale = (Object.hasOwn(TITLES, locale) ? locale : "en") as keyof typeof TITLES;
+  const title = TITLES[safeLocale];
+  const subtitle = SUBTITLES[safeLocale];
 
   return new ImageResponse(
     <div
