@@ -1596,6 +1596,21 @@
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
   },
+  "conservationPage": {
+    "metaTitle": "Dashboard de Conservación - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN.",
+    "title": "Dashboard de Conservación",
+    "subtitle": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN",
+    "speciesDocumented": "Especies Documentadas",
+    "threatenedSpecies": "Especies Amenazadas",
+    "endemicSpecies": "Especies Endémicas",
+    "statusByCategory": "Estado de Conservación por Categoría",
+    "endemicTitle": "Especies Endémicas de Costa Rica",
+    "endemicSubtitle": "Estas especies se encuentran solo en Costa Rica.",
+    "unknownStatus": "Estado de conservación desconocido",
+    "aboutIUCN": "Acerca de la Lista Roja de la UICN",
+    "aboutIUCNDesc": "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas.",
+    "visitIUCN": "Visitar Lista Roja de la UICN \u2192"
   "coloringPages": {
     "metaTitle": "Páginas para Colorear - Atlas de Árboles de Costa Rica",
     "metaDescription": "Descarga páginas para colorear de árboles de Costa Rica. Perfecto para actividades educativas.",
