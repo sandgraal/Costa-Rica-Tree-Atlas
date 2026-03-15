@@ -751,7 +751,7 @@
       "moderateToxicity": "Toxicidad Moderada",
       "lowToxicity": "Toxicidad Baja",
       "nonToxic": "No Tóxico",
-      "treeCount": "{count} árboles",
+      "treeCount": "{count, plural, =0 {No hay árboles} one {# árbol} other {# árboles}}",
       "safetyWarning": "⚠️ Advertencia: Algunos árboles de Costa Rica son extremadamente peligrosos",
       "printButton": "Imprimir esta guía",
       "noTreesInCategory": "No se encontraron árboles en esta categoría.",
