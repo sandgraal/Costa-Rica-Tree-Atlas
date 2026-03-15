@@ -822,7 +822,9 @@
       "reproduction": "Reproducción",
       "general": "General",
       "timber": "Madera y Carpintería"
-    }
+    },
+    "structuredName": "Glosario de Árboles de Costa Rica",
+    "structuredDescription": "Glosario de {count} términos botánicos utilizados en el Atlas de Árboles de Costa Rica."
   },
   "imageVoting": {
     "title": "Ayuda a Mejorar las Imágenes",
@@ -1429,6 +1431,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",
@@ -1446,7 +1449,7 @@
     "correct": "¡Correcto!",
     "incorrect": "Incorrecto",
     "theCorrectAnswer": "La respuesta correcta es",
-    "nextQuestion": "Siguiente \u2192",
+    "nextQuestion": "Siguiente →",
     "score": "Puntuación",
     "streak": "🔥 Racha",
     "highScore": "Récord",

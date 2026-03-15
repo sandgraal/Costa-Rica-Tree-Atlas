@@ -94,11 +94,11 @@ export default async function MapPage({ params }: MapPageProps) {
         (d): d is Distribution => isProvince(d) || isRegion(d)
       ),
       tags: t.tags?.filter((tag): tag is TreeTag => VALID_TAGS.has(tag)),
-      floweringSeason: t.floweringSeason?.filter(
-        (m): m is Month => VALID_MONTH_STRINGS.has(m)
+      floweringSeason: t.floweringSeason?.filter((m): m is Month =>
+        VALID_MONTH_STRINGS.has(m)
       ),
-      fruitingSeason: t.fruitingSeason?.filter(
-        (m): m is Month => VALID_MONTH_STRINGS.has(m)
+      fruitingSeason: t.fruitingSeason?.filter((m): m is Month =>
+        VALID_MONTH_STRINGS.has(m)
       ),
       featuredImage: t.featuredImage,
       conservationStatus: t.conservationStatus,

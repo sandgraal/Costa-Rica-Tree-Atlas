@@ -822,7 +822,9 @@
       "reproduction": "Reproduction",
       "general": "General",
       "timber": "Timber & Wood"
-    }
+    },
+    "structuredName": "Costa Rica Tree Glossary",
+    "structuredDescription": "Glossary of {count} botanical terms used in the Costa Rica Tree Atlas."
   },
   "imageVoting": {
     "title": "Help Improve Tree Images",
@@ -1429,6 +1431,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
@@ -1446,7 +1449,7 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "theCorrectAnswer": "The correct answer is",
-    "nextQuestion": "Next \u2192",
+    "nextQuestion": "Next →",
     "score": "Score",
     "streak": "🔥 Streak",
     "highScore": "High Score",
