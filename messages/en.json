@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explore the atlas to discover trees from this region",
     "seeResults": "See Results",
     "correctCount": "Correct"
+  },
   "classroom": {
     "metaTitle": "Classroom - Costa Rica Tree Atlas",
     "metaDescription": "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "E.g. Science 5A",
     "placeholderTeacherName": "E.g. Mrs. Garcia",
     "placeholderStudentName": "Your name"
+  },
   "teacher": {
     "metaTitle": "Teacher Dashboard - Costa Rica Tree Atlas",
     "metaDescription": "Resources, guides, and materials for teachers using the Costa Rica Tree Atlas.",
@@ -1504,5 +1506,31 @@
     "plantingDesc": "Germinate and care for a native tree seedling",
     "technologyTitle": "Technology",
     "technologyDesc": "Create a digital presentation about a favorite tree"
+  },
+  "certificate": {
+    "metaTitle": "Achievement Certificate - Costa Rica Tree Atlas",
+    "metaDescription": "Generate your personalized achievement certificate from Costa Rica Tree Atlas.",
+    "title": "Achievement Certificate",
+    "subtitle": "Generate your personalized certificate upon completing lessons",
+    "backToEducation": "← Back to Education",
+    "enterName": "Enter your name",
+    "namePlaceholder": "Your full name",
+    "generateCertificate": "Generate Certificate",
+    "downloadCertificate": "📥 Download Certificate",
+    "printCertificate": "🖨️ Print Certificate",
+    "newCertificate": "Create New Certificate",
+    "certificateTitle": "Certificate of Achievement",
+    "certifiedThat": "This certifies that",
+    "hasCompleted": "has successfully completed the educational program",
+    "programName": "Costa Rica Tree Atlas",
+    "points": "points",
+    "lessonsCompleted": "Lessons Completed",
+    "dateIssued": "Date issued",
+    "noProgress": "Complete at least one lesson to get your certificate!",
+    "startLearning": "Start Learning",
+    "requirements": "Requirements",
+    "currentProgress": "Your Current Progress",
+    "lessonsReq": "Complete at least 1 lesson",
+    "nameReq": "Enter your name"
   }
 }
