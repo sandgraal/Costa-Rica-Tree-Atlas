@@ -268,7 +268,8 @@ export default function TreeJournalClient({
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString(locale, {
+    const dateLocale = locale === "es" ? "es-CR" : "en-US";
+    return date.toLocaleDateString(dateLocale, {
       weekday: "long",
       year: "numeric",
       month: "long",
