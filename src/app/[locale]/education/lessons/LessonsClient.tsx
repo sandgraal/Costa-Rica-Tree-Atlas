@@ -1,6 +1,8 @@
 "use client";
 
 import { Link } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import {
   EducationProgressProvider,
   useEducationProgress,
@@ -23,21 +25,11 @@ interface LessonPlan {
 
 interface LessonsClientProps {
   lessonPlans: LessonPlan[];
-  locale: string;
-  t: {
-    startLesson: string;
-    grades: string;
-    duration: string;
-    minutes: string;
-    activities: string;
-    objectives: string;
-    interactive: string;
-    printable: string;
-    multimedia: string;
-  };
 }
 
-function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
+function LessonsContent({ lessonPlans }: LessonsClientProps) {
+  const t = useTranslations("lessonsHub");
+  const locale = useLocale();
   const { progress, totalPoints, completedLessons } = useEducationProgress();
 
   const getStatusBadge = (lessonId: string) => {
@@ -51,7 +43,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
       return (
         <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 bg-green-500/90 text-white rounded-full text-sm font-medium shadow-lg">
           <span>✓</span>
-          {locale === "es" ? "Completada" : "Completed"}
+          {t("completed")}
           <span className="text-green-200">
             ({lessonProgress.totalPoints} pts)
           </span>
@@ -61,7 +53,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
 
     return (
       <div className="absolute top-4 right-4 px-3 py-1.5 bg-yellow-500/90 text-white rounded-full text-sm font-medium shadow-lg">
-        {locale === "es" ? "En progreso" : "In progress"}
+        {t("inProgress")}
       </div>
     );
   };
@@ -75,7 +67,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
           <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <span>📊</span>
-              {locale === "es" ? "Tu Progreso" : "Your Progress"}
+              {t("yourProgress")}
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center">
@@ -83,7 +75,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                   {totalPoints}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {locale === "es" ? "Puntos" : "Points"}
+                  {t("pointsLabel")}
                 </div>
               </div>
               <div className="text-center">
@@ -91,7 +83,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                   {completedLessons}/4
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {locale === "es" ? "Lecciones" : "Lessons"}
+                  {t("lessonsLabel")}
                 </div>
               </div>
             </div>
@@ -137,7 +129,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                   </div>
                   <div className="bg-background/50 backdrop-blur rounded-lg px-3 py-1.5 text-center">
                     <div className="text-xs text-muted-foreground uppercase tracking-wide">
-                      {t.grades}
+                      {t("grades")}
                     </div>
                     <div className="font-semibold text-foreground">
                       {lesson.grades}
@@ -161,11 +153,11 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                   <div className="flex flex-wrap gap-3 mb-4">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-background/50 backdrop-blur rounded-full text-sm">
                       <span>⏱️</span>
-                      {lesson.duration} {t.minutes}
+                      {lesson.duration} {t("minutes")}
                     </span>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-background/50 backdrop-blur rounded-full text-sm">
                       <span>🎯</span>
-                      {lesson.activityCount} {t.activities}
+                      {lesson.activityCount} {t("activities")}
                     </span>
                     {lesson.features.map((feature) => (
                       <span
@@ -175,9 +167,9 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                         {feature === "interactive" && <span>🖥️</span>}
                         {feature === "printable" && <span>🖨️</span>}
                         {feature === "multimedia" && <span>🎬</span>}
-                        {feature === "interactive" && t.interactive}
-                        {feature === "printable" && t.printable}
-                        {feature === "multimedia" && t.multimedia}
+                        {feature === "interactive" && t("interactive")}
+                        {feature === "printable" && t("printable")}
+                        {feature === "multimedia" && t("multimedia")}
                       </span>
                     ))}
                   </div>
@@ -185,7 +177,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                   {/* Objectives */}
                   <div className="bg-background/30 backdrop-blur rounded-lg p-4 mb-4">
                     <h3 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
-                      <span>🎯</span> {t.objectives}
+                      <span>🎯</span> {t("objectives")}
                     </h3>
                     <ul className="space-y-1">
                       {lesson.objectives.map((objective, index) => (
@@ -215,11 +207,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
                         : "bg-primary text-primary-foreground hover:bg-primary/90"
                     }`}
                   >
-                    {isCompleted
-                      ? locale === "es"
-                        ? "Revisar Lección"
-                        : "Review Lesson"
-                      : t.startLesson}
+                    {isCompleted ? t("reviewLesson") : t("startLesson")}
                     <span>→</span>
                   </Link>
                 </div>
@@ -233,7 +221,7 @@ function LessonsContent({ lessonPlans, locale, t }: LessonsClientProps) {
       {totalPoints > 0 && (
         <div className="mt-12">
           <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
-            {locale === "es" ? "🏅 Todas las Insignias" : "🏅 All Badges"}
+            {t("allBadges")}
           </h2>
           <BadgeDisplay locale={locale} showAll={true} />
         </div>
