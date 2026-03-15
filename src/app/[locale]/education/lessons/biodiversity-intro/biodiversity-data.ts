@@ -55,6 +55,21 @@ export interface BiodiversityLabels {
   clickToExplore: string;
   viewInAtlas: string;
   close: string;
+  yourFavoriteTrees: string;
+  gradeLevel: string;
+  speciesLabel: string;
+  familiesLabel: string;
+  biodiversityLabel: string;
+  surfaceLabel: string;
+  collectionComplete: string;
+  correctFeedback: string;
+  incorrectFeedback: string;
+  creativeMission: string;
+  creativeMissionDesc: string;
+  yourSelectedTrees: string;
+  drawingArea: string;
+  printableResources: string;
+  viewActivitySheets: string;
 }
 
 export interface BiodiversityLessonData {
@@ -74,6 +89,64 @@ export function getBiodiversityLessonData(
   totalFamilies: number
 ): BiodiversityLessonData {
   const isEs = locale === "es";
+  const localeKey = isEs ? "es" : "en";
+
+  const localizedLabelExtras: Record<
+    "en" | "es",
+    Pick<
+      BiodiversityLabels,
+      | "gradeLevel"
+      | "speciesLabel"
+      | "familiesLabel"
+      | "biodiversityLabel"
+      | "surfaceLabel"
+      | "collectionComplete"
+      | "correctFeedback"
+      | "incorrectFeedback"
+      | "creativeMission"
+      | "creativeMissionDesc"
+      | "yourSelectedTrees"
+      | "drawingArea"
+      | "printableResources"
+      | "viewActivitySheets"
+    >
+  > = {
+    en: {
+      gradeLevel: "Grades 3-5",
+      speciesLabel: "Species",
+      familiesLabel: "Families",
+      biodiversityLabel: "Biodiversity",
+      surfaceLabel: "Surface",
+      collectionComplete: "Collection complete!",
+      correctFeedback: "Correct!",
+      incorrectFeedback: "The correct answer is marked in green.",
+      creativeMission: "Your Creative Mission",
+      creativeMissionDesc:
+        "Draw your favorite tree and write 3 interesting facts about it.",
+      yourSelectedTrees: "Your selected trees:",
+      drawingArea: "Drawing area - Use paper and colored pencils!",
+      printableResources: "Printable resources",
+      viewActivitySheets: "View activity sheets",
+    },
+    es: {
+      gradeLevel: "Grados 3-5",
+      speciesLabel: "Especies",
+      familiesLabel: "Familias",
+      biodiversityLabel: "Biodiversidad",
+      surfaceLabel: "Superficie",
+      collectionComplete: "¡Colección completa!",
+      correctFeedback: "¡Correcto!",
+      incorrectFeedback: "La respuesta correcta está marcada en verde.",
+      creativeMission: "Tu Misión Creativa",
+      creativeMissionDesc:
+        "Dibuja tu árbol favorito y escribe 3 datos interesantes sobre él.",
+      yourSelectedTrees: "Tus árboles seleccionados:",
+      drawingArea:
+        "Área de dibujo - ¡Usa papel y lápices de colores!",
+      printableResources: "Recursos imprimibles",
+      viewActivitySheets: "Ver hojas de actividades",
+    },
+  };
 
   const labels: BiodiversityLabels = {
     title: isEs
@@ -135,21 +208,39 @@ export function getBiodiversityLessonData(
     clickToExplore: isEs ? "Clic para explorar" : "Click to explore",
     viewInAtlas: isEs ? "Ver en Atlas" : "View in Atlas",
     close: isEs ? "Cerrar" : "Close",
+    yourFavoriteTrees: isEs ? "Tus árboles favoritos:" : "Your favorite trees:",
+    gradeLevel: localizedLabelExtras[localeKey].gradeLevel,
+    speciesLabel: localizedLabelExtras[localeKey].speciesLabel,
+    familiesLabel: localizedLabelExtras[localeKey].familiesLabel,
+    biodiversityLabel: localizedLabelExtras[localeKey].biodiversityLabel,
+    surfaceLabel: localizedLabelExtras[localeKey].surfaceLabel,
+    collectionComplete: localizedLabelExtras[localeKey].collectionComplete,
+    correctFeedback: localizedLabelExtras[localeKey].correctFeedback,
+    incorrectFeedback: localizedLabelExtras[localeKey].incorrectFeedback,
+    creativeMission: localizedLabelExtras[localeKey].creativeMission,
+    creativeMissionDesc: localizedLabelExtras[localeKey].creativeMissionDesc,
+    yourSelectedTrees: localizedLabelExtras[localeKey].yourSelectedTrees,
+    drawingArea: localizedLabelExtras[localeKey].drawingArea,
+    printableResources: localizedLabelExtras[localeKey].printableResources,
+    viewActivitySheets: localizedLabelExtras[localeKey].viewActivitySheets,
   };
 
-  const funFacts: string[] = isEs
-    ? [
-        "Costa Rica tiene más especies de aves que toda Europa junta",
-        "El 25% del territorio de Costa Rica está protegido",
-        "Los bosques de Costa Rica capturan millones de toneladas de carbono cada año",
-        "La palabra 'biodiversidad' se usó por primera vez en 1986",
-      ]
-    : [
-        "Costa Rica has more bird species than all of Europe combined",
-        "25% of Costa Rica's territory is protected",
-        "Costa Rica's forests capture millions of tons of carbon each year",
-        "The word 'biodiversity' was first used in 1986",
-      ];
+  const localizedFunFacts: Record<"en" | "es", string[]> = {
+    es: [
+      "Costa Rica tiene más especies de aves que toda Europa junta",
+      "El 25% del territorio de Costa Rica está protegido",
+      "Los bosques de Costa Rica capturan millones de toneladas de carbono cada año",
+      "La palabra 'biodiversidad' se usó por primera vez en 1986",
+    ],
+    en: [
+      "Costa Rica has more bird species than all of Europe combined",
+      "25% of Costa Rica's territory is protected",
+      "Costa Rica's forests capture millions of tons of carbon each year",
+      "The word 'biodiversity' was first used in 1986",
+    ],
+  };
+
+  const funFacts: string[] = localizedFunFacts[localeKey];
 
   const quizQuestions: QuizQuestion[] = [
     {
