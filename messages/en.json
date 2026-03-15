@@ -466,6 +466,25 @@
     "structuredName": "Costa Rica Tree Identifier",
     "structuredDescription": "AI-powered tree identification tool."
   },
+  "identificationKey": {
+    "metaTitle": "Identification Key - Costa Rica Tree Atlas",
+    "metaDescription": "Dichotomous guide to identify Costa Rica trees by observable characteristics.",
+    "title": "Identification Key",
+    "subtitle": "Costa Rica Tree Atlas",
+    "intro": "Use this simplified dichotomous key to identify trees. Start at step 1 and follow the choices until you reach a species group.",
+    "printButton": "🖨️ Print",
+    "backLink": "← Back",
+    "step": "Step",
+    "goTo": "Go to",
+    "species": "species",
+    "examples": "Examples",
+    "tips": "Field Tips",
+    "tip1": "Observe the overall tree shape first",
+    "tip2": "Examine leaves - simple or compound, alternate or opposite",
+    "tip3": "Look for flowers, fruits, or seeds if available",
+    "tip4": "Note the bark - texture, color, and if it has latex",
+    "tip5": "Consider the location and habitat"
+  },
   "education": {
     "metaTitle": "Educational Resources - Costa Rica Tree Atlas",
     "metaDescription": "Lesson plans, classroom activities, and educational materials about Costa Rica trees for teachers and students.",

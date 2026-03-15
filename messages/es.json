@@ -466,6 +466,25 @@
     "structuredName": "Identificador de Árboles de Costa Rica",
     "structuredDescription": "Herramienta de identificación de árboles mediante inteligencia artificial."
   },
+  "identificationKey": {
+    "metaTitle": "Clave de Identificación - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Guía dicotómica para identificar árboles de Costa Rica por características observables.",
+    "title": "Clave de Identificación",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "intro": "Usa esta clave dicotómica simplificada para identificar árboles. Comienza en el paso 1 y sigue las opciones hasta llegar a un grupo de especies.",
+    "printButton": "🖨️ Imprimir",
+    "backLink": "← Volver",
+    "step": "Paso",
+    "goTo": "Ir a",
+    "species": "especies",
+    "examples": "Ejemplos",
+    "tips": "Consejos de Campo",
+    "tip1": "Observa la forma general del árbol primero",
+    "tip2": "Examina las hojas - simples o compuestas, alternas u opuestas",
+    "tip3": "Busca flores, frutos o semillas si están disponibles",
+    "tip4": "Nota la corteza - textura, color, y si tiene látex",
+    "tip5": "Considera la ubicación y el hábitat"
+  },
   "education": {
     "metaTitle": "Recursos Educativos - Atlas de Árboles de Costa Rica",
     "metaDescription": "Planes de lecciones, actividades de aula y materiales educativos sobre los árboles de Costa Rica para maestros y estudiantes.",

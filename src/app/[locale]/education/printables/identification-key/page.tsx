@@ -1,4 +1,4 @@
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
@@ -11,10 +11,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({
-    locale,
-    namespace: "identificationKey",
-  });
+  const t = await getTranslations({ locale, namespace: "identificationKey" });
 
   return {
     title: t("metaTitle"),
@@ -25,8 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IdentificationKeyPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("identificationKey");
-  const l = locale;
+  const t = await getTranslations({ locale, namespace: "identificationKey" });
 
   const trees = allTrees.filter((tr) => tr.locale === locale);
 
@@ -315,7 +311,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
                 className="border-2 border-primary/20 print:border-gray-400 rounded-xl print:rounded-lg p-5 print:p-3 break-inside-avoid"
               >
                 <h3 className="text-lg print:text-base font-bold text-primary print:text-black mb-3 print:mb-2">
-                  {t("step")} {step.id}: {step.question[l]}
+                  {t("step")} {step.id}: {step.question[locale as "en" | "es"]}
                 </h3>
                 <div className="space-y-2 print:space-y-1">
                   {step.options.map((option, idx) => (
@@ -328,12 +324,12 @@ export default async function IdentificationKeyPage({ params }: Props) {
                       </span>
                       <div className="flex-1">
                         <p className="text-foreground print:text-black print:text-sm">
-                          {option.text[l]}
+                          {option.text[locale as "en" | "es"]}
                         </p>
                         <p className="text-sm print:text-xs text-primary print:text-gray-700 font-semibold mt-1">
                           {option.goTo
                             ? `→ ${t("goTo")} ${t("step")} ${option.goTo}`
-                            : `→ ${resultGroups[option.result!]?.title[l] || option.result}`}
+                            : `→ ${resultGroups[option.result!]?.title[locale as "en" | "es"] || option.result}`}
                         </p>
                       </div>
                     </div>
@@ -357,7 +353,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
                     className="bg-card border border-border print:border-gray-300 rounded-lg p-4 print:p-2 break-inside-avoid"
                   >
                     <h3 className="font-bold text-primary print:text-black text-sm print:text-xs mb-2 print:mb-1">
-                      {group.title[l]}
+                      {group.title[locale as "en" | "es"]}
                     </h3>
                     <ul className="text-sm print:text-[8pt] text-muted-foreground print:text-gray-600 space-y-0.5">
                       {group.trees.slice(0, 4).map((tree) => (
