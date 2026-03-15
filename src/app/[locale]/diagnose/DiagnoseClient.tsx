@@ -426,10 +426,40 @@ export default function DiagnoseClient() {
     };
 
     // Map symptoms to diagnosis keys
-    const symptomKey = `${category}-${symptom.toLowerCase().split(" ")[0]}`;
-    const diagnosisKey = Object.keys(diagnoses).find((key) =>
-      symptomKey.includes(key.split("-")[1])
-    );
+    const symptomText = symptom.toLowerCase();
+
+    const diagnosisKey = Object.keys(diagnoses).find((key) => {
+      const [keyCategory, token] = key.split("-");
+
+      // Only consider diagnoses for the currently selected category
+      if (keyCategory !== category) {
+        return false;
+      }
+
+      // Direct match on English token within the full symptom text
+      if (symptomText.includes(token)) {
+        return true;
+      }
+
+      // Basic support for Spanish symptom text by mapping common stems
+      if (loc === "es") {
+        const spanishStemsByToken: Record<string, string[]> = {
+          yellow: ["amarill"],
+          spots: ["mancha", "punto"],
+          wilt: ["marchit"],
+          rot: ["podrid", "podre"],
+          crack: ["grieta", "raj"],
+          stunted: ["atrofi", "lento"],
+        };
+
+        const stems = spanishStemsByToken[token] || [];
+        if (stems.some((stem) => symptomText.includes(stem))) {
+          return true;
+        }
+      }
+
+      return false;
+    });
 
     const key = diagnosisKey || "leaves-yellow";
     return diagnoses[key]?.[loc] || diagnoses["leaves-yellow"][loc];
