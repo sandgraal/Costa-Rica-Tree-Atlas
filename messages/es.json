@@ -1429,6 +1429,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",
@@ -1620,5 +1621,18 @@
     "printTip2": "Imprima a color cuando sea posible para las imágenes",
     "printTip3": "Plastifique las tarjetas para mayor durabilidad en campo",
     "printTip4": "Use Ctrl/Cmd + P para abrir el diálogo de impresión"
+  },
+  "flashcards": {
+    "metaTitle": "Tarjetas de Estudio Imprimibles - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Tarjetas de estudio imprimibles con información sobre árboles de Costa Rica.",
+    "title": "Tarjetas de Estudio",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "instructions": "Imprime y recorta las tarjetas para estudiar",
+    "printButton": "🖨️ Imprimir",
+    "backLink": "← Volver",
+    "cardsPerPage": "Tarjetas por página",
+    "family": "Familia",
+    "height": "Altura máx.",
+    "status": "Estado"
   }
 }

@@ -155,6 +155,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "mapGame",
     "classroom",
     "lessonsHub",
+    "flashcards",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];
