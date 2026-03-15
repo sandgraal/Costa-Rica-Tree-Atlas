@@ -94,7 +94,7 @@ export default async function UseCasesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("useCases");
+  const t = await getTranslations({ locale, namespace: "useCases" });
 
   const viewTreesLabel = t("viewTrees");
 
