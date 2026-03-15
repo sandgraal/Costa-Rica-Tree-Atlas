@@ -261,24 +261,35 @@ export default async function ConservationPage({
                   <div className="text-sm text-muted-foreground italic">
                     {tree.scientificName}
                   </div>
-                  {tree.conservationStatus && (
-                    <span
-                      className={`inline-block mt-2 px-2 py-1 rounded text-xs font-semibold ${
-                        STATUS_COLORS[
-                          tree.conservationStatus as ConservationStatus
-                        ]
-                      }`}
-                    >
-                      {tree.conservationStatus}
-                      {" — "}
-                      {statusLabels[
-                        tree.conservationStatus as ConservationStatus
-                      ]?.[locale] ??
-                        (locale === "es"
+                  {tree.conservationStatus &&
+                    (() => {
+                      const status = tree.conservationStatus;
+                      const isKnownStatus = Object.hasOwn(
+                        STATUS_COLORS,
+                        status as ConservationCategory,
+                      );
+                      const colorClass = isKnownStatus
+                        ? STATUS_COLORS[status as ConservationStatus]
+                        : "bg-muted text-foreground";
+                      const localizedLabel =
+                        isKnownStatus
+                          ? statusLabels[status as ConservationStatus]?.[locale]
+                          : undefined;
+                      const fallbackLabel =
+                        locale === "es"
                           ? "Estado de conservación desconocido"
-                          : "Unknown conservation status")}
-                    </span>
-                  )}
+                          : "Unknown conservation status";
+
+                      return (
+                        <span
+                          className={`inline-block mt-2 px-2 py-1 rounded text-xs font-semibold ${colorClass}`}
+                        >
+                          {status}
+                          {" — "}
+                          {localizedLabel ?? fallbackLabel}
+                        </span>
+                      );
+                    })()}
                 </Link>
               ))}
             </div>
