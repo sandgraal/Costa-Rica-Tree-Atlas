@@ -155,6 +155,8 @@ export default async function LocaleLayout({ children, params }: Props) {
     "about",
     "mapGame",
     "classroom",
+    "lessonsHub",
+    "flashcards",
     "diagnose",
     "coloringPages",
   ] as const;

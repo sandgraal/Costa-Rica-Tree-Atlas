@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import FlashcardsClient from "./FlashcardsClient";
@@ -9,16 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "flashcards" });
 
   return {
-    title:
-      locale === "es"
-        ? "Tarjetas de Estudio Imprimibles - Atlas de Árboles de Costa Rica"
-        : "Printable Study Flashcards - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Tarjetas de estudio imprimibles con información sobre árboles de Costa Rica."
-        : "Printable study flashcards with information about Costa Rica trees.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -27,18 +22,18 @@ export default async function FlashcardsPage({ params }: Props) {
   setRequestLocale(locale);
 
   const trees = allTrees
-    .filter((t) => t.locale === locale)
+    .filter((tr) => tr.locale === locale)
     .sort((a, b) => a.title.localeCompare(b.title, locale))
-    .map((t) => ({
-      title: t.title,
-      scientificName: t.scientificName,
-      family: t.family,
-      slug: t.slug,
-      description: t.description,
-      conservationStatus: t.conservationStatus || undefined,
-      maxHeight: t.maxHeight || undefined,
-      featuredImage: t.featuredImage || undefined,
+    .map((tr) => ({
+      title: tr.title,
+      scientificName: tr.scientificName,
+      family: tr.family,
+      slug: tr.slug,
+      description: tr.description,
+      conservationStatus: tr.conservationStatus || undefined,
+      maxHeight: tr.maxHeight || undefined,
+      featuredImage: tr.featuredImage || undefined,
     }));
 
-  return <FlashcardsClient trees={trees} locale={locale} />;
+  return <FlashcardsClient trees={trees} />;
 }

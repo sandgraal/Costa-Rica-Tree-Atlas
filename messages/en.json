@@ -1429,6 +1429,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
@@ -1746,5 +1747,18 @@
     "printTip2": "Print in color when possible for images",
     "printTip3": "Laminate cards for field durability",
     "printTip4": "Use Ctrl/Cmd + P to open print dialog"
+  },
+  "flashcards": {
+    "metaTitle": "Printable Study Flashcards - Costa Rica Tree Atlas",
+    "metaDescription": "Printable study flashcards with information about Costa Rica trees.",
+    "title": "Study Flashcards",
+    "subtitle": "Costa Rica Tree Atlas",
+    "instructions": "Print and cut out cards for study",
+    "printButton": "🖨️ Print",
+    "backLink": "← Back",
+    "cardsPerPage": "Cards per page",
+    "family": "Family",
+    "height": "Max height",
+    "status": "Status"
   }
 }
