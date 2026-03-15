@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,24 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "identificationKey": {
+    "metaTitle": "Clave de Identificación - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Guía dicotómica para identificar árboles de Costa Rica por características observables.",
+    "title": "Clave de Identificación",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "intro": "Usa esta clave dicotómica simplificada para identificar árboles. Comienza en el paso 1 y sigue las opciones hasta llegar a un grupo de especies.",
+    "printButton": "🖨️ Imprimir",
+    "backLink": "← Volver",
+    "step": "Paso",
+    "goTo": "Ir a",
+    "species": "especies",
+    "examples": "Ejemplos",
+    "tips": "Consejos de Campo",
+    "tip1": "Observa la forma general del árbol primero",
+    "tip2": "Examina las hojas - simples o compuestas, alternas u opuestas",
+    "tip3": "Busca flores, frutos o semillas si están disponibles",
+    "tip4": "Nota la corteza - textura, color, y si tiene látex",
+    "tip5": "Considera la ubicación y el hábitat"
   }
 }

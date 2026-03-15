@@ -1,8 +1,10 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import { PrintButton } from "../PrintButton";
+
+type Locale = "en" | "es";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -10,71 +12,32 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "identificationKey",
+  });
 
   return {
-    title:
-      locale === "es"
-        ? "Clave de Identificación - Atlas de Árboles de Costa Rica"
-        : "Identification Key - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Guía dicotómica para identificar árboles de Costa Rica por características observables."
-        : "Dichotomous guide to identify Costa Rica trees by observable characteristics.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
 export default async function IdentificationKeyPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("identificationKey");
+  const l = locale as Locale;
 
-  const trees = allTrees.filter((t) => t.locale === locale);
+  const trees = allTrees.filter((tr) => tr.locale === locale);
 
   // Group trees by observable characteristics
-  const deciduousTrees = trees.filter((t) => t.tags?.includes("deciduous"));
-  const palmTrees = trees.filter((t) => t.family === "Arecaceae");
-  const coniferTrees = trees.filter((t) => t.family === "Cupressaceae");
-  const nitrogenFixing = trees.filter((t) =>
-    t.tags?.includes("nitrogen-fixing")
+  const deciduousTrees = trees.filter((tr) => tr.tags?.includes("deciduous"));
+  const palmTrees = trees.filter((tr) => tr.family === "Arecaceae");
+  const coniferTrees = trees.filter((tr) => tr.family === "Cupressaceae");
+  const nitrogenFixing = trees.filter((tr) =>
+    tr.tags?.includes("nitrogen-fixing")
   );
-
-  const t = {
-    title: locale === "es" ? "Clave de Identificación" : "Identification Key",
-    subtitle:
-      locale === "es"
-        ? "Atlas de Árboles de Costa Rica"
-        : "Costa Rica Tree Atlas",
-    intro:
-      locale === "es"
-        ? "Usa esta clave dicotómica simplificada para identificar árboles. Comienza en el paso 1 y sigue las opciones hasta llegar a un grupo de especies."
-        : "Use this simplified dichotomous key to identify trees. Start at step 1 and follow the choices until you reach a species group.",
-    printButton: locale === "es" ? "🖨️ Imprimir" : "🖨️ Print",
-    backLink: locale === "es" ? "← Volver" : "← Back",
-    step: locale === "es" ? "Paso" : "Step",
-    goTo: locale === "es" ? "Ir a" : "Go to",
-    species: locale === "es" ? "especies" : "species",
-    examples: locale === "es" ? "Ejemplos" : "Examples",
-    tips: locale === "es" ? "Consejos de Campo" : "Field Tips",
-    tip1:
-      locale === "es"
-        ? "Observa la forma general del árbol primero"
-        : "Observe the overall tree shape first",
-    tip2:
-      locale === "es"
-        ? "Examina las hojas - simples o compuestas, alternas u opuestas"
-        : "Examine leaves - simple or compound, alternate or opposite",
-    tip3:
-      locale === "es"
-        ? "Busca flores, frutos o semillas si están disponibles"
-        : "Look for flowers, fruits, or seeds if available",
-    tip4:
-      locale === "es"
-        ? "Nota la corteza - textura, color, y si tiene látex"
-        : "Note the bark - texture, color, and if it has latex",
-    tip5:
-      locale === "es"
-        ? "Considera la ubicación y el hábitat"
-        : "Consider the location and habitat",
-  };
 
   const keySteps = [
     {
@@ -304,14 +267,16 @@ export default async function IdentificationKeyPage({ params }: Props) {
             href="/education/printables"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4"
           >
-            {t.backLink}
+            {t("backLink")}
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{t.title}</h1>
-              <p className="text-muted-foreground">{t.intro}</p>
+              <h1 className="text-2xl font-bold text-foreground">
+                {t("title")}
+              </h1>
+              <p className="text-muted-foreground">{t("intro")}</p>
             </div>
-            <PrintButton label={t.printButton} />
+            <PrintButton label={t("printButton")} />
           </div>
         </div>
       </div>
@@ -322,24 +287,24 @@ export default async function IdentificationKeyPage({ params }: Props) {
           {/* Print header */}
           <div className="text-center mb-8 print:mb-4">
             <h1 className="text-3xl font-bold text-primary print:text-black print:text-2xl">
-              🔑 {t.title}
+              🔑 {t("title")}
             </h1>
             <p className="text-lg text-muted-foreground print:text-gray-600 print:text-sm">
-              {t.subtitle}
+              {t("subtitle")}
             </p>
           </div>
 
           {/* Field Tips Box */}
           <div className="bg-primary/5 print:bg-gray-50 print:border print:border-gray-300 rounded-xl print:rounded-lg p-5 print:p-3 mb-8 print:mb-4">
             <h2 className="font-bold text-foreground print:text-black mb-3 print:mb-2 print:text-sm">
-              💡 {t.tips}
+              💡 {t("tips")}
             </h2>
             <ul className="text-sm print:text-xs text-muted-foreground print:text-gray-600 space-y-1 print:space-y-0.5">
-              <li>• {t.tip1}</li>
-              <li>• {t.tip2}</li>
-              <li>• {t.tip3}</li>
-              <li>• {t.tip4}</li>
-              <li>• {t.tip5}</li>
+              <li>• {t("tip1")}</li>
+              <li>• {t("tip2")}</li>
+              <li>• {t("tip3")}</li>
+              <li>• {t("tip4")}</li>
+              <li>• {t("tip5")}</li>
             </ul>
           </div>
 
@@ -351,8 +316,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
                 className="border-2 border-primary/20 print:border-gray-400 rounded-xl print:rounded-lg p-5 print:p-3 break-inside-avoid"
               >
                 <h3 className="text-lg print:text-base font-bold text-primary print:text-black mb-3 print:mb-2">
-                  {t.step} {step.id}:{" "}
-                  {locale === "es" ? step.question.es : step.question.en}
+                  {t("step")} {step.id}: {step.question[l]}
                 </h3>
                 <div className="space-y-2 print:space-y-1">
                   {step.options.map((option, idx) => (
@@ -365,12 +329,12 @@ export default async function IdentificationKeyPage({ params }: Props) {
                       </span>
                       <div className="flex-1">
                         <p className="text-foreground print:text-black print:text-sm">
-                          {locale === "es" ? option.text.es : option.text.en}
+                          {option.text[l]}
                         </p>
                         <p className="text-sm print:text-xs text-primary print:text-gray-700 font-semibold mt-1">
                           {option.goTo
-                            ? `→ ${t.goTo} ${t.step} ${option.goTo}`
-                            : `→ ${resultGroups[option.result!]?.title[locale === "es" ? "es" : "en"] || option.result}`}
+                            ? `→ ${t("goTo")} ${t("step")} ${option.goTo}`
+                            : `→ ${resultGroups[option.result!]?.title[l] || option.result}`}
                         </p>
                       </div>
                     </div>
@@ -383,7 +347,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
           {/* Result Groups */}
           <div className="print:break-before-page">
             <h2 className="text-2xl print:text-lg font-bold text-foreground print:text-black mb-6 print:mb-3 border-b-2 border-primary print:border-gray-800 pb-2">
-              📋 {t.examples}
+              📋 {t("examples")}
             </h2>
             <div className="grid md:grid-cols-2 gap-4 print:gap-2 print:grid-cols-2">
               {Object.entries(resultGroups).map(([key, group]) => {
@@ -394,7 +358,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
                     className="bg-card border border-border print:border-gray-300 rounded-lg p-4 print:p-2 break-inside-avoid"
                   >
                     <h3 className="font-bold text-primary print:text-black text-sm print:text-xs mb-2 print:mb-1">
-                      {locale === "es" ? group.title.es : group.title.en}
+                      {group.title[l]}
                     </h3>
                     <ul className="text-sm print:text-[8pt] text-muted-foreground print:text-gray-600 space-y-0.5">
                       {group.trees.slice(0, 4).map((tree) => (
@@ -421,7 +385,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
           <div className="mt-8 pt-4 border-t border-border print:border-gray-300 print:mt-4 print:pt-2">
             <div className="flex justify-between text-sm text-muted-foreground print:text-gray-500 print:text-xs">
               <span>
-                {trees.length} {t.species}
+                {trees.length} {t("species")}
               </span>
               <span>costaricatreeatlas.com</span>
             </div>

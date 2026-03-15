@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explore the atlas to discover trees from this region",
     "seeResults": "See Results",
     "correctCount": "Correct"
+  },
   "classroom": {
     "metaTitle": "Classroom - Costa Rica Tree Atlas",
     "metaDescription": "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "E.g. Science 5A",
     "placeholderTeacherName": "E.g. Mrs. Garcia",
     "placeholderStudentName": "Your name"
+  },
   "teacher": {
     "metaTitle": "Teacher Dashboard - Costa Rica Tree Atlas",
     "metaDescription": "Resources, guides, and materials for teachers using the Costa Rica Tree Atlas.",
@@ -1504,5 +1506,24 @@
     "plantingDesc": "Germinate and care for a native tree seedling",
     "technologyTitle": "Technology",
     "technologyDesc": "Create a digital presentation about a favorite tree"
+  },
+  "identificationKey": {
+    "metaTitle": "Identification Key - Costa Rica Tree Atlas",
+    "metaDescription": "Dichotomous guide to identify Costa Rica trees by observable characteristics.",
+    "title": "Identification Key",
+    "subtitle": "Costa Rica Tree Atlas",
+    "intro": "Use this simplified dichotomous key to identify trees. Start at step 1 and follow the choices until you reach a species group.",
+    "printButton": "🖨️ Print",
+    "backLink": "← Back",
+    "step": "Step",
+    "goTo": "Go to",
+    "species": "species",
+    "examples": "Examples",
+    "tips": "Field Tips",
+    "tip1": "Observe the overall tree shape first",
+    "tip2": "Examine leaves - simple or compound, alternate or opposite",
+    "tip3": "Look for flowers, fruits, or seeds if available",
+    "tip4": "Note the bark - texture, color, and if it has latex",
+    "tip5": "Consider the location and habitat"
   }
 }
