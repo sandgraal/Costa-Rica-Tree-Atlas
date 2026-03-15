@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { DataSourceCard } from "@/components/DataSourceCard";
@@ -14,13 +14,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
 
   return {
-    title: locale === "es" ? "Sobre Nosotros" : "About Us",
-    description:
-      locale === "es"
-        ? "Conoce más sobre el Atlas de Árboles de Costa Rica, una iniciativa educativa dedicada a documentar la flora arbórea costarricense."
-        : "Learn more about Costa Rica Tree Atlas, an educational initiative dedicated to documenting Costa Rican trees.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/about",
@@ -34,28 +32,21 @@ export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: "about" });
+
   // Structured data for About page
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name:
-      locale === "es"
-        ? "Sobre el Atlas de Árboles de Costa Rica"
-        : "About Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Una iniciativa educativa dedicada a documentar la flora arbórea costarricense."
-        : "An educational initiative dedicated to documenting Costa Rican trees.",
+    name: t("structuredName"),
+    description: t("structuredDescription"),
     url: `https://costaricatreeatlas.com/${locale}/about`,
     mainEntity: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
       url: "https://costaricatreeatlas.com",
       logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
-      description:
-        locale === "es"
-          ? "Una guía bilingüe impulsada por la comunidad para los árboles de Costa Rica."
-          : "A community-powered bilingual guide to Costa Rica's trees.",
+      description: t("structuredOrgDescription"),
     },
   };
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Link } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface Tree {
@@ -17,32 +18,11 @@ interface Tree {
 
 interface FlashcardsClientProps {
   trees: Tree[];
-  locale: string;
 }
 
-export default function FlashcardsClient({
-  trees,
-  locale,
-}: FlashcardsClientProps) {
+export default function FlashcardsClient({ trees }: FlashcardsClientProps) {
   const [cardsPerPage, setCardsPerPage] = useState(6);
-
-  const t = {
-    title: locale === "es" ? "Tarjetas de Estudio" : "Study Flashcards",
-    subtitle:
-      locale === "es"
-        ? "Atlas de Árboles de Costa Rica"
-        : "Costa Rica Tree Atlas",
-    instructions:
-      locale === "es"
-        ? "Imprime y recorta las tarjetas para estudiar"
-        : "Print and cut out cards for study",
-    printButton: locale === "es" ? "🖨️ Imprimir" : "🖨️ Print",
-    backLink: locale === "es" ? "← Volver" : "← Back",
-    cardsPerPage: locale === "es" ? "Tarjetas por página" : "Cards per page",
-    family: locale === "es" ? "Familia" : "Family",
-    height: locale === "es" ? "Altura máx." : "Max height",
-    status: locale === "es" ? "Estado" : "Status",
-  };
+  const t = useTranslations("flashcards");
 
   // Split trees into pages based on cardsPerPage
   const pages: Tree[][] = [];
@@ -59,16 +39,20 @@ export default function FlashcardsClient({
             href="/education/printables"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4"
           >
-            {t.backLink}
+            {t("backLink")}
           </Link>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{t.title}</h1>
-              <p className="text-muted-foreground">{t.instructions}</p>
+              <h1 className="text-2xl font-bold text-foreground">
+                {t("title")}
+              </h1>
+              <p className="text-muted-foreground">{t("instructions")}</p>
             </div>
             <div className="flex items-center gap-4">
               <label className="flex items-center gap-2 text-sm">
-                <span className="text-muted-foreground">{t.cardsPerPage}:</span>
+                <span className="text-muted-foreground">
+                  {t("cardsPerPage")}:
+                </span>
                 <select
                   value={cardsPerPage}
                   onChange={(e) => {
@@ -87,7 +71,7 @@ export default function FlashcardsClient({
                 }}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
               >
-                {t.printButton}
+                {t("printButton")}
               </button>
             </div>
           </div>
@@ -142,18 +126,18 @@ export default function FlashcardsClient({
 
                     <div className="mt-auto space-y-1 text-xs print:text-[9pt] text-muted-foreground print:text-gray-600">
                       <div>
-                        <span className="font-medium">{t.family}:</span>{" "}
+                        <span className="font-medium">{t("family")}:</span>{" "}
                         {tree.family}
                       </div>
                       {tree.maxHeight && (
                         <div>
-                          <span className="font-medium">{t.height}:</span>{" "}
+                          <span className="font-medium">{t("height")}:</span>{" "}
                           {tree.maxHeight}
                         </div>
                       )}
                       {tree.conservationStatus && (
                         <div>
-                          <span className="font-medium">{t.status}:</span>{" "}
+                          <span className="font-medium">{t("status")}:</span>{" "}
                           {tree.conservationStatus}
                         </div>
                       )}
