@@ -17,7 +17,6 @@ import type { BiodiversityLessonData } from "./biodiversity-data";
 
 interface BiodiversityLessonClientProps {
   trees: LessonTreeData[];
-  locale: string;
   totalSpecies: number;
   totalFamilies: number;
   lessonData: BiodiversityLessonData;
@@ -35,7 +34,6 @@ export default function BiodiversityLessonClient(
 
 function BiodiversityLessonContent({
   trees,
-  locale,
   totalSpecies,
   totalFamilies,
   lessonData,
@@ -264,13 +262,11 @@ function BiodiversityLessonContent({
           {selectedTrees.length > 0 && (
             <div className="bg-card rounded-2xl p-6 border border-border mb-8">
               <h2 className="text-xl font-semibold mb-4">
-                {locale === "es"
-                  ? "Tus árboles favoritos:"
-                  : "Your favorite trees:"}
+                {t.yourFavoriteTrees}
               </h2>
               <div className="flex flex-wrap justify-center gap-2">
                 {selectedTrees.map((slug) => {
-                  const tree = trees.find((t) => t.slug === slug);
+                  const tree = trees.find((tr) => tr.slug === slug);
                   return tree ? (
                     <Link
                       key={slug}
@@ -327,7 +323,7 @@ function BiodiversityLessonContent({
             <p className="text-muted-foreground">{t.subtitle}</p>
             <div className="flex items-center gap-4 mt-2 text-sm">
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
-                {locale === "es" ? "Grados 3-5" : "Grades 3-5"}
+                {t.gradeLevel}
               </span>
               <span className="px-3 py-1 bg-muted text-muted-foreground rounded-full">
                 ⏱️ 45 min
@@ -403,22 +399,22 @@ function BiodiversityLessonContent({
                 {
                   icon: "🌳",
                   value: animatedNumbers.species,
-                  label: locale === "es" ? "Especies" : "Species",
+                  label: t.speciesLabel,
                 },
                 {
                   icon: "🌿",
                   value: animatedNumbers.families,
-                  label: locale === "es" ? "Familias" : "Families",
+                  label: t.familiesLabel,
                 },
                 {
                   icon: "🌎",
                   value: `${animatedNumbers.biodiversity}%`,
-                  label: locale === "es" ? "Biodiversidad" : "Biodiversity",
+                  label: t.biodiversityLabel,
                 },
                 {
                   icon: "🇨🇷",
                   value: `${animatedNumbers.surface}%`,
-                  label: locale === "es" ? "Superficie" : "Surface",
+                  label: t.surfaceLabel,
                 },
               ].map((stat, i) => (
                 <div
@@ -578,10 +574,7 @@ function BiodiversityLessonContent({
               </div>
               {selectedTrees.length >= 5 && (
                 <div className="mt-2 text-center text-green-600 font-medium animate-bounce-in">
-                  🎉{" "}
-                  {locale === "es"
-                    ? "¡Colección completa!"
-                    : "Collection complete!"}
+                  🎉 {t.collectionComplete}
                 </div>
               )}
             </div>
@@ -765,12 +758,8 @@ function BiodiversityLessonContent({
                         }`}
                       >
                         {isCorrect
-                          ? locale === "es"
-                            ? `¡Correcto! +${q.points * (streakCount > 0 ? streakCount : 1)} puntos`
-                            : `Correct! +${q.points * (streakCount > 0 ? streakCount : 1)} points`
-                          : locale === "es"
-                            ? "La respuesta correcta está marcada en verde."
-                            : "The correct answer is marked in green."}
+                          ? `${t.correctFeedback} +${q.points * (streakCount > 0 ? streakCount : 1)} ${t.points}`
+                          : t.incorrectFeedback}
                       </div>
                     )}
                   </div>
@@ -789,27 +778,17 @@ function BiodiversityLessonContent({
 
             <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 mb-6">
               <h3 className="font-semibold text-lg mb-2">
-                {locale === "es"
-                  ? "Tu Misión Creativa"
-                  : "Your Creative Mission"}
+                {t.creativeMission}
               </h3>
-              <p className="text-muted-foreground">
-                {locale === "es"
-                  ? "Dibuja tu árbol favorito y escribe 3 datos interesantes sobre él."
-                  : "Draw your favorite tree and write 3 interesting facts about it."}
-              </p>
+              <p className="text-muted-foreground">{t.creativeMissionDesc}</p>
             </div>
 
             {selectedTrees.length > 0 && (
               <div className="mb-6">
-                <h3 className="font-medium mb-3">
-                  {locale === "es"
-                    ? "Tus árboles seleccionados:"
-                    : "Your selected trees:"}
-                </h3>
+                <h3 className="font-medium mb-3">{t.yourSelectedTrees}</h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedTrees.map((slug) => {
-                    const tree = trees.find((t) => t.slug === slug);
+                    const tree = trees.find((tr) => tr.slug === slug);
                     return tree ? (
                       <span
                         key={slug}
@@ -826,29 +805,21 @@ function BiodiversityLessonContent({
             {/* Drawing Activity Area */}
             <div className="border-2 border-dashed border-border rounded-xl p-8 text-center bg-muted/20 mb-6">
               <div className="text-6xl mb-4">🎨</div>
-              <p className="text-muted-foreground">
-                {locale === "es"
-                  ? "Área de dibujo - ¡Usa papel y lápices de colores!"
-                  : "Drawing area - Use paper and colored pencils!"}
-              </p>
+              <p className="text-muted-foreground">{t.drawingArea}</p>
             </div>
 
             {/* Printable Resources */}
             <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
               <h3 className="font-medium mb-2 flex items-center gap-2">
                 <span>🖨️</span>
-                {locale === "es"
-                  ? "Recursos imprimibles"
-                  : "Printable resources"}
+                {t.printableResources}
               </h3>
               <div className="flex flex-wrap gap-2">
                 <Link
                   href="/education/printables"
                   className="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
                 >
-                  {locale === "es"
-                    ? "Ver hojas de actividades"
-                    : "View activity sheets"}
+                  {t.viewActivitySheets}
                 </Link>
               </div>
             </div>

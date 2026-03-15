@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import CertificateClient from "./CertificateClient";
@@ -9,16 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "certificate" });
 
   return {
-    title:
-      locale === "es"
-        ? "Certificado de Logros - Atlas de Árboles de Costa Rica"
-        : "Achievement Certificate - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Genera tu certificado personalizado de logros en el Atlas de Árboles de Costa Rica."
-        : "Generate your personalized achievement certificate from Costa Rica Tree Atlas.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -26,18 +21,7 @@ export default async function CertificatePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = {
-    title:
-      locale === "es" ? "Certificado de Logros" : "Achievement Certificate",
-    subtitle:
-      locale === "es"
-        ? "Genera tu certificado personalizado al completar lecciones"
-        : "Generate your personalized certificate upon completing lessons",
-    backToEducation:
-      locale === "es"
-        ? "← Volver a Recursos Educativos"
-        : "← Back to Education",
-  };
+  const t = await getTranslations({ locale, namespace: "certificate" });
 
   return (
     <div className="py-12 px-4">
@@ -46,7 +30,7 @@ export default async function CertificatePage({ params }: Props) {
           href="/education"
           className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
         >
-          {t.backToEducation}
+          {t("backToEducation")}
         </Link>
 
         <div className="text-center mb-8">
@@ -56,14 +40,14 @@ export default async function CertificatePage({ params }: Props) {
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            {t.title}
+            {t("title")}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.subtitle}
+            {t("subtitle")}
           </p>
         </div>
 
-        <CertificateClient locale={locale} />
+        <CertificateClient />
       </div>
     </div>
   );

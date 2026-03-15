@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface Tree {
@@ -13,29 +14,10 @@ interface Tree {
 
 interface ColoringPagesClientProps {
   trees: Tree[];
-  locale: string;
-  t: {
-    title: string;
-    subtitle: string;
-    instructions: string;
-    printButton: string;
-    printAll: string;
-    backLink: string;
-    colorMe: string;
-    family: string;
-    selectAll: string;
-    deselectAll: string;
-    selected: string;
-    printSelected: string;
-    tip: string;
-  };
 }
 
-export function ColoringPagesClient({
-  trees,
-  locale,
-  t,
-}: ColoringPagesClientProps) {
+export function ColoringPagesClient({ trees }: ColoringPagesClientProps) {
+  const t = useTranslations("coloringPages");
   const [selectedTrees, setSelectedTrees] = useState<Set<string>>(new Set());
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +34,7 @@ export function ColoringPagesClient({
   };
 
   const selectAll = () => {
-    setSelectedTrees(new Set(trees.map((t) => t.slug)));
+    setSelectedTrees(new Set(trees.map((tr) => tr.slug)));
   };
 
   const deselectAll = () => {
@@ -80,28 +62,28 @@ export function ColoringPagesClient({
                   onClick={selectAll}
                   className="text-sm text-primary hover:text-primary/80 font-medium"
                 >
-                  {t.selectAll}
+                  {t("selectAll")}
                 </button>
                 <span className="text-muted-foreground">|</span>
                 <button
                   onClick={deselectAll}
                   className="text-sm text-primary hover:text-primary/80 font-medium"
                 >
-                  {t.deselectAll}
+                  {t("deselectAll")}
                 </button>
                 <span className="text-sm text-muted-foreground">
-                  ({selectedTrees.size} {t.selected})
+                  ({selectedTrees.size} {t("selected")})
                 </span>
               </div>
               <button
                 onClick={handlePrint}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
               >
-                {t.printButton}{" "}
+                {t("printButton")}{" "}
                 {selectedTrees.size > 0 ? `(${selectedTrees.size})` : ""}
               </button>
             </div>
-            <p className="text-sm text-muted-foreground mt-3">{t.tip}</p>
+            <p className="text-sm text-muted-foreground mt-3">{t("tip")}</p>
           </div>
 
           {/* Tree selection grid */}
@@ -164,7 +146,7 @@ export function ColoringPagesClient({
                 {tree.scientificName}
               </p>
               <p className="text-sm text-gray-500">
-                {t.family}: {tree.family}
+                {t("family")}: {tree.family}
               </p>
             </div>
 
@@ -195,15 +177,11 @@ export function ColoringPagesClient({
             {/* Footer with fun fact space */}
             <div className="mt-4 pt-4 border-t-2 border-dashed border-gray-300">
               <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-600">{t.subtitle}</div>
-                <div className="text-2xl">{t.colorMe}</div>
+                <div className="text-sm text-gray-600">{t("subtitle")}</div>
+                <div className="text-2xl">{t("colorMe")}</div>
               </div>
               <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-gray-50">
-                <p className="text-xs text-gray-500 mb-1">
-                  {locale === "es"
-                    ? "Escribe algo sobre este árbol:"
-                    : "Write something about this tree:"}
-                </p>
+                <p className="text-xs text-gray-500 mb-1">{t("writePrompt")}</p>
                 <div className="h-12 border-b border-dotted border-gray-400" />
               </div>
             </div>
