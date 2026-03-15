@@ -1595,5 +1595,31 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "certificate": {
+    "metaTitle": "Certificado de Logros - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Genera tu certificado personalizado de logros en el Atlas de Árboles de Costa Rica.",
+    "title": "Certificado de Logros",
+    "subtitle": "Genera tu certificado personalizado al completar lecciones",
+    "backToEducation": "← Volver a Recursos Educativos",
+    "enterName": "Ingresa tu nombre",
+    "namePlaceholder": "Tu nombre completo",
+    "generateCertificate": "Generar Certificado",
+    "downloadCertificate": "📥 Descargar Certificado",
+    "printCertificate": "🖨️ Imprimir Certificado",
+    "newCertificate": "Crear Nuevo Certificado",
+    "certificateTitle": "Certificado de Logros",
+    "certifiedThat": "Se certifica que",
+    "hasCompleted": "ha completado exitosamente el programa educativo",
+    "programName": "Atlas de Árboles de Costa Rica",
+    "points": "puntos",
+    "lessonsCompleted": "Lecciones Completadas",
+    "dateIssued": "Fecha de emisión",
+    "noProgress": "¡Completa al menos una lección para obtener tu certificado!",
+    "startLearning": "Comenzar a Aprender",
+    "requirements": "Requisitos",
+    "currentProgress": "Tu Progreso Actual",
+    "lessonsReq": "Completar al menos 1 lección",
+    "nameReq": "Ingresar tu nombre"
   }
 }
