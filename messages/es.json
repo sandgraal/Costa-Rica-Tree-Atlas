@@ -586,7 +586,13 @@
       "description": "Explora nuestra colección de árboles costarricenses o prueba nuestra función de identificación con tus estudiantes.",
       "exploreTrees": "Explorar Árboles",
       "tryIdentify": "Probar Identificación"
-    }
+    },
+    "metaTitle": "Recursos Educativos - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Planes de lecciones, actividades de aula y materiales educativos sobre los árboles de Costa Rica para maestros y estudiantes.",
+    "structuredName": "Recursos Educativos - Atlas de Árboles de Costa Rica",
+    "structuredDescription": "Planes de lecciones, actividades de aula y materiales educativos sobre los árboles de Costa Rica.",
+    "courseName": "Aprendiendo sobre Árboles de Costa Rica",
+    "courseDescription": "Recursos educativos gratuitos para aprender sobre la flora arbórea costarricense."
   },
   "seasonal": {
     "title": "Calendario Estacional - Atlas de Árboles de Costa Rica",
@@ -1429,6 +1435,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",

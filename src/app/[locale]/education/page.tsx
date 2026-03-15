@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@i18n/navigation";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
@@ -11,16 +11,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "education" });
 
   return {
-    title:
-      locale === "es"
-        ? "Recursos Educativos - Atlas de Árboles de Costa Rica"
-        : "Educational Resources - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Planes de lecciones, actividades de aula y materiales educativos sobre los árboles de Costa Rica para maestros y estudiantes."
-        : "Lesson plans, classroom activities, and educational materials about Costa Rica trees for teachers and students.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/education",
@@ -33,33 +28,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EducationPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "education" });
 
   // Get tree count for stats
-  const treeCount = allTrees.filter((t) => t.locale === locale).length;
+  const treeCount = allTrees.filter((tr) => tr.locale === locale).length;
 
   // Structured data for Education page
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name:
-      locale === "es"
-        ? "Recursos Educativos - Atlas de Árboles de Costa Rica"
-        : "Educational Resources - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Planes de lecciones, actividades de aula y materiales educativos sobre los árboles de Costa Rica."
-        : "Lesson plans, classroom activities, and educational materials about Costa Rica trees.",
+    name: t("structuredName"),
+    description: t("structuredDescription"),
     url: `https://costaricatreeatlas.com/${locale}/education`,
     mainEntity: {
       "@type": "Course",
-      name:
-        locale === "es"
-          ? "Aprendiendo sobre Árboles de Costa Rica"
-          : "Learning About Costa Rica Trees",
-      description:
-        locale === "es"
-          ? "Recursos educativos gratuitos para aprender sobre la flora arbórea costarricense."
-          : "Free educational resources to learn about Costa Rican tree flora.",
+      name: t("courseName"),
+      description: t("courseDescription"),
       provider: {
         "@type": "Organization",
         name: "Costa Rica Tree Atlas",
@@ -71,7 +55,7 @@ export default async function EducationPage({ params }: Props) {
         educationalRole: "teacher",
       },
       educationalLevel: "K-12",
-      inLanguage: locale === "es" ? "es" : "en",
+      inLanguage: locale,
     },
   };
 
