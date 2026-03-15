@@ -55,6 +55,21 @@ export interface BiodiversityLabels {
   clickToExplore: string;
   viewInAtlas: string;
   close: string;
+  yourFavoriteTrees: string;
+  gradeLevel: string;
+  speciesLabel: string;
+  familiesLabel: string;
+  biodiversityLabel: string;
+  surfaceLabel: string;
+  collectionComplete: string;
+  correctFeedback: string;
+  incorrectFeedback: string;
+  creativeMission: string;
+  creativeMissionDesc: string;
+  yourSelectedTrees: string;
+  drawingArea: string;
+  printableResources: string;
+  viewActivitySheets: string;
 }
 
 export interface BiodiversityLessonData {
@@ -135,6 +150,31 @@ export function getBiodiversityLessonData(
     clickToExplore: isEs ? "Clic para explorar" : "Click to explore",
     viewInAtlas: isEs ? "Ver en Atlas" : "View in Atlas",
     close: isEs ? "Cerrar" : "Close",
+    yourFavoriteTrees: isEs ? "Tus árboles favoritos:" : "Your favorite trees:",
+    gradeLevel: isEs ? "Grados 3-5" : "Grades 3-5",
+    speciesLabel: isEs ? "Especies" : "Species",
+    familiesLabel: isEs ? "Familias" : "Families",
+    biodiversityLabel: isEs ? "Biodiversidad" : "Biodiversity",
+    surfaceLabel: isEs ? "Superficie" : "Surface",
+    collectionComplete: isEs ? "¡Colección completa!" : "Collection complete!",
+    correctFeedback: isEs ? "¡Correcto!" : "Correct!",
+    incorrectFeedback: isEs
+      ? "La respuesta correcta está marcada en verde."
+      : "The correct answer is marked in green.",
+    creativeMission: isEs ? "Tu Misión Creativa" : "Your Creative Mission",
+    creativeMissionDesc: isEs
+      ? "Dibuja tu árbol favorito y escribe 3 datos interesantes sobre él."
+      : "Draw your favorite tree and write 3 interesting facts about it.",
+    yourSelectedTrees: isEs
+      ? "Tus árboles seleccionados:"
+      : "Your selected trees:",
+    drawingArea: isEs
+      ? "Área de dibujo - ¡Usa papel y lápices de colores!"
+      : "Drawing area - Use paper and colored pencils!",
+    printableResources: isEs ? "Recursos imprimibles" : "Printable resources",
+    viewActivitySheets: isEs
+      ? "Ver hojas de actividades"
+      : "View activity sheets",
   };
 
   const funFacts: string[] = isEs
