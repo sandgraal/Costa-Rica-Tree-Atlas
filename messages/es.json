@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,21 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "conservationPage": {
+    "metaTitle": "Dashboard de Conservación - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN.",
+    "title": "Dashboard de Conservación",
+    "subtitle": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN",
+    "speciesDocumented": "Especies Documentadas",
+    "threatenedSpecies": "Especies Amenazadas",
+    "endemicSpecies": "Especies Endémicas",
+    "statusByCategory": "Estado de Conservación por Categoría",
+    "endemicTitle": "Especies Endémicas de Costa Rica",
+    "endemicSubtitle": "Estas especies se encuentran solo en Costa Rica.",
+    "unknownStatus": "Estado de conservación desconocido",
+    "aboutIUCN": "Acerca de la Lista Roja de la UICN",
+    "aboutIUCNDesc": "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas.",
+    "visitIUCN": "Visitar Lista Roja de la UICN \u2192"
   }
 }

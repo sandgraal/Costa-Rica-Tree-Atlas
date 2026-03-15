@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
@@ -37,16 +37,11 @@ export async function generateMetadata({
   params,
 }: ConservationPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "conservationPage" });
 
   return {
-    title:
-      locale === "es"
-        ? "Dashboard de Conservación - Atlas de Árboles de Costa Rica"
-        : "Conservation Dashboard - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN."
-        : "Conservation status of Costa Rica's trees according to the IUCN Red List.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       canonical: `/${locale}/conservation`,
       languages: {
@@ -62,19 +57,20 @@ export default async function ConservationPage({
 }: ConservationPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("conservationPage");
 
-  const trees = allTrees.filter((tree) => tree.locale === locale);
+  const trees = allTrees.filter((tr) => tr.locale === locale);
 
   const treesByStatus = trees.reduce(
-    (acc, tree) => {
-      const status = (tree.conservationStatus || "NE") as ConservationStatus;
+    (acc, tr) => {
+      const status = (tr.conservationStatus || "NE") as ConservationStatus;
       // eslint-disable-next-line security/detect-object-injection -- `status` is a constrained union (`ConservationStatus`), not user input.
       if (!acc[status]) {
         // eslint-disable-next-line security/detect-object-injection -- Safe write to typed status-indexed record.
         acc[status] = [];
       }
       // eslint-disable-next-line security/detect-object-injection -- Safe push into typed status bucket.
-      acc[status].push(tree);
+      acc[status].push(tr);
       return acc;
     },
     {} as Record<ConservationStatus, typeof trees>
@@ -92,7 +88,7 @@ export default async function ConservationPage({
     "NE",
   ];
 
-  const endemicTrees = trees.filter((tree) => tree.tags?.includes("endemic"));
+  const endemicTrees = trees.filter((tr) => tr.tags?.includes("endemic"));
 
   const totalTrees = trees.length;
   const threatened = [
@@ -118,12 +114,8 @@ export default async function ConservationPage({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name:
-      locale === "es" ? "Dashboard de Conservación" : "Conservation Dashboard",
-    description:
-      locale === "es"
-        ? "Estado de conservación de los árboles de Costa Rica"
-        : "Conservation status of Costa Rica's trees",
+    name: t("title"),
+    description: t("subtitle"),
   };
 
   return (
@@ -132,15 +124,9 @@ export default async function ConservationPage({
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            {locale === "es"
-              ? "Dashboard de Conservación"
-              : "Conservation Dashboard"}
+            {t("title")}
           </h1>
-          <p className="text-muted-foreground">
-            {locale === "es"
-              ? "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN"
-              : "Conservation status of Costa Rica's trees according to the IUCN Red List"}
-          </p>
+          <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
 
         <section className="mb-8 grid md:grid-cols-3 gap-4">
@@ -149,7 +135,7 @@ export default async function ConservationPage({
               {totalTrees}
             </div>
             <div className="text-sm text-muted-foreground">
-              {locale === "es" ? "Especies Documentadas" : "Species Documented"}
+              {t("speciesDocumented")}
             </div>
           </div>
 
@@ -158,7 +144,7 @@ export default async function ConservationPage({
               {threatenedCount}
             </div>
             <div className="text-sm text-red-700 dark:text-red-300">
-              {locale === "es" ? "Especies Amenazadas" : "Threatened Species"}
+              {t("threatenedSpecies")}
               <span className="block text-xs opacity-70">
                 CR + EN + VU ({threatenedPercent}%)
               </span>
@@ -170,16 +156,14 @@ export default async function ConservationPage({
               {endemicTrees.length}
             </div>
             <div className="text-sm text-green-700 dark:text-green-300">
-              {locale === "es" ? "Especies Endémicas" : "Endemic Species"}
+              {t("endemicSpecies")}
             </div>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">
-            {locale === "es"
-              ? "Estado de Conservación por Categoría"
-              : "Conservation Status by Category"}
+            {t("statusByCategory")}
           </h2>
 
           <div className="space-y-4">
@@ -218,15 +202,15 @@ export default async function ConservationPage({
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 mt-3">
-                      {speciesInStatus.map((tree) => (
+                      {speciesInStatus.map((tr) => (
                         <Link
-                          key={tree.slug}
-                          href={`/trees/${tree.slug}`}
+                          key={tr.slug}
+                          href={`/trees/${tr.slug}`}
                           className="text-sm p-2 hover:bg-background rounded transition-colors"
                         >
-                          <div className="font-medium">{tree.title}</div>
+                          <div className="font-medium">{tr.title}</div>
                           <div className="text-xs text-muted-foreground italic">
-                            {tree.scientificName}
+                            {tr.scientificName}
                           </div>
                         </Link>
                       ))}
@@ -240,45 +224,34 @@ export default async function ConservationPage({
 
         {endemicTrees.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">
-              {locale === "es"
-                ? "Especies Endémicas de Costa Rica"
-                : "Costa Rica Endemic Species"}
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4">{t("endemicTitle")}</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              {locale === "es"
-                ? "Estas especies se encuentran solo en Costa Rica."
-                : "These species are found only in Costa Rica."}
+              {t("endemicSubtitle")}
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {endemicTrees.map((tree) => (
+              {endemicTrees.map((tr) => (
                 <Link
-                  key={tree.slug}
-                  href={`/trees/${tree.slug}`}
+                  key={tr.slug}
+                  href={`/trees/${tr.slug}`}
                   className="bg-muted rounded-lg p-4 hover:bg-muted/80 transition-colors"
                 >
-                  <div className="font-medium">{tree.title}</div>
+                  <div className="font-medium">{tr.title}</div>
                   <div className="text-sm text-muted-foreground italic">
-                    {tree.scientificName}
+                    {tr.scientificName}
                   </div>
-                  {tree.conservationStatus &&
+                  {tr.conservationStatus &&
                     (() => {
-                      const status = tree.conservationStatus;
+                      const status = tr.conservationStatus;
                       const isKnownStatus = Object.hasOwn(
                         STATUS_COLORS,
-                        status as ConservationCategory,
+                        status as ConservationCategory
                       );
                       const colorClass = isKnownStatus
                         ? STATUS_COLORS[status as ConservationStatus]
                         : "bg-muted text-foreground";
-                      const localizedLabel =
-                        isKnownStatus
-                          ? statusLabels[status as ConservationStatus]?.[locale]
-                          : undefined;
-                      const fallbackLabel =
-                        locale === "es"
-                          ? "Estado de conservación desconocido"
-                          : "Unknown conservation status";
+                      const localizedLabel = isKnownStatus
+                        ? statusLabels[status as ConservationStatus]?.[locale]
+                        : undefined;
 
                       return (
                         <span
@@ -286,7 +259,7 @@ export default async function ConservationPage({
                         >
                           {status}
                           {" — "}
-                          {localizedLabel ?? fallbackLabel}
+                          {localizedLabel ?? t("unknownStatus")}
                         </span>
                       );
                     })()}
@@ -297,17 +270,9 @@ export default async function ConservationPage({
         )}
 
         <section className="bg-muted rounded-xl p-6">
-          <h2 className="text-xl font-semibold mb-3">
-            {locale === "es"
-              ? "Acerca de la Lista Roja de la UICN"
-              : "About the IUCN Red List"}
-          </h2>
+          <h2 className="text-xl font-semibold mb-3">{t("aboutIUCN")}</h2>
           <div className="prose prose-sm dark:prose-invert max-w-none">
-            <p>
-              {locale === "es"
-                ? "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas."
-                : "The IUCN Red List of Threatened Species is the world's most comprehensive inventory of the global conservation status of biological species."}
-            </p>
+            <p>{t("aboutIUCNDesc")}</p>
             <div className="mt-4 space-y-2 not-prose">
               <a
                 href="https://www.iucnredlist.org/"
@@ -315,9 +280,7 @@ export default async function ConservationPage({
                 rel="noopener noreferrer"
                 className="inline-block text-sm text-primary hover:underline"
               >
-                {locale === "es"
-                  ? "Visitar Lista Roja de la UICN →"
-                  : "Visit IUCN Red List →"}
+                {t("visitIUCN")}
               </a>
             </div>
           </div>
