@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable security/detect-object-injection -- wizard uses constrained locale keys, enum-like options, and controlled answer maps. */
+/* eslint-disable security/detect-object-injection -- wizard uses enum-like options and controlled answer maps. */
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
