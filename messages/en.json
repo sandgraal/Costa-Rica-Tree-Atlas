@@ -751,7 +751,7 @@
       "moderateToxicity": "Moderate Toxicity",
       "lowToxicity": "Low Toxicity",
       "nonToxic": "Non-Toxic",
-      "treeCount": "{count} trees",
+      "treeCount": "{count, plural, =0 {No trees} =1 {1 tree} other {# trees}}",
       "safetyWarning": "⚠️ Warning: Some Costa Rican trees are extremely dangerous",
       "printButton": "Print this guide",
       "noTreesInCategory": "No trees found in this category.",
