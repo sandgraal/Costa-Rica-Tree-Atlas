@@ -59,21 +59,17 @@ function ClassroomContent() {
   });
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
-  const [_storageError, setStorageError] = useState<string | null>(null);
 
   const badges = getBadges();
   const earnedBadgeIcons = badges.filter((b) => b.earned).map((b) => b.icon);
   const t = useTranslations("classroom");
 
-  // Create storage instances with error handling
+  // Create storage instances
   const classroomStorage = useMemo(
     () =>
       createStorage({
         key: CLASSROOM_STORAGE_KEY,
         schema: classroomSchema,
-        onError: () => {
-          setStorageError(t("storageErrorClassroom"));
-        },
       }),
     [t]
   );
@@ -83,9 +79,6 @@ function ClassroomContent() {
       createStorage({
         key: STUDENT_STORAGE_KEY,
         schema: studentInfoSchema,
-        onError: () => {
-          setStorageError(t("storageErrorStudent"));
-        },
       }),
     [t]
   );
