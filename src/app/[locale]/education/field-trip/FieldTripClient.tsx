@@ -304,7 +304,10 @@ export default function FieldTripClient({ trees }: FieldTripClientProps) {
             </div>
             <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-3xl font-bold">
-                {Math.round((state.spottedTrees.length / trees.length) * 100)}%
+                {trees.length === 0
+                  ? 0
+                  : Math.round((state.spottedTrees.length / trees.length) * 100)}
+                %
               </div>
               <div className="text-sm text-green-200">{t("progress")}</div>
             </div>
