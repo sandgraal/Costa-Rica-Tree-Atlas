@@ -429,7 +429,9 @@
   },
   "fieldGuide": {
     "title": "Field Guide Generator",
-    "metaDescription": "Generate a custom printable field guide of Costa Rican trees. Choose species with photos and key identification facts."
+    "metaDescription": "Generate a custom printable field guide of Costa Rican trees. Choose species with photos and key identification facts.",
+    "structuredName": "Field Guide Generator",
+    "structuredDescription": "Create your own custom field guide of Costa Rican trees."
   },
   "identify": {
     "title": "Identify a Tree",
@@ -1429,6 +1431,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
@@ -1446,7 +1449,7 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "theCorrectAnswer": "The correct answer is",
-    "nextQuestion": "Next \u2192",
+    "nextQuestion": "Next →",
     "score": "Score",
     "streak": "🔥 Streak",
     "highScore": "High Score",

@@ -65,15 +65,13 @@ export default async function FieldGuidePage({ params }: Props) {
       conservationStatus: tree.conservationStatus,
     }));
 
+  const t = await getTranslations("fieldGuide");
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name:
-      locale === "es" ? "Generador de Guía de Campo" : "Field Guide Generator",
-    description:
-      locale === "es"
-        ? "Crea tu propia guía de campo personalizada de árboles de Costa Rica."
-        : "Create your own custom field guide of Costa Rican trees.",
+    name: t("structuredName"),
+    description: t("structuredDescription"),
     url: `https://costaricatreeatlas.com/${locale}/field-guide`,
   };
 
