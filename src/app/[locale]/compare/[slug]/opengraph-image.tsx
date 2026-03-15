@@ -55,20 +55,32 @@ export default async function Image({ params }: Props) {
       : { title: speciesSlug, scientificName: "" };
   });
 
+  const DIFFICULTY_LABELS: Record<string, Record<string, string>> = {
+    easy: { en: "Easy", es: "Fácil" },
+    moderate: { en: "Moderate", es: "Moderado" },
+    challenging: { en: "Challenging", es: "Desafiante" },
+  };
+
+  const difficultyLabelsForKey =
+    comparison.difficulty &&
+    Object.hasOwn(DIFFICULTY_LABELS, comparison.difficulty)
+      ? DIFFICULTY_LABELS[comparison.difficulty]
+      : undefined;
+
   const difficultyLabel =
-    comparison.difficulty === "easy"
-      ? locale === "es"
-        ? "Fácil"
-        : "Easy"
-      : comparison.difficulty === "moderate"
-        ? locale === "es"
-          ? "Moderado"
-          : "Moderate"
-        : comparison.difficulty === "challenging"
-          ? locale === "es"
-            ? "Desafiante"
-            : "Challenging"
-          : "";
+    difficultyLabelsForKey &&
+    (Object.hasOwn(difficultyLabelsForKey, locale)
+      ? difficultyLabelsForKey[locale]
+      : difficultyLabelsForKey.en ?? "");
+
+  const GUIDE_LABEL: Record<string, string> = {
+    en: "Comparison Guide",
+    es: "Guía de Comparación",
+  };
+
+  const guideLabel = Object.hasOwn(GUIDE_LABEL, locale)
+    ? GUIDE_LABEL[locale]
+    : "";
 
   return new ImageResponse(
     <div
@@ -118,7 +130,11 @@ export default async function Image({ params }: Props) {
               gap: 8,
             }}
           >
-            {`🔍 ${locale === "es" ? "Guía de Comparación" : "Comparison Guide"}`}
+            {`🔍 ${
+              Object.hasOwn(GUIDE_LABEL, locale)
+                ? GUIDE_LABEL[locale as keyof typeof GUIDE_LABEL]
+                : GUIDE_LABEL.en
+            }`}
           </div>
           {difficultyLabel && (
             <div

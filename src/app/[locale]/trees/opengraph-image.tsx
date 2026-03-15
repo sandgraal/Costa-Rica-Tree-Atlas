@@ -12,15 +12,18 @@ type Props = {
 export default async function OGImage({ params }: Props) {
   const { locale } = await params;
 
-  const title =
-    locale === "es"
-      ? "Explorar Árboles de Costa Rica"
-      : "Explore Costa Rica Trees";
-  const count = allTrees.filter((t) => t.locale === locale).length;
-  const subtitle =
-    locale === "es"
-      ? `${count} especies documentadas con información científica detallada`
-      : `${count} species documented with detailed scientific information`;
+  const TITLES: Record<string, string> = {
+    en: "Explore Costa Rica Trees",
+    es: "Explorar Árboles de Costa Rica",
+  };
+  const count = allTrees.filter((tr) => tr.locale === locale).length;
+  const SUBTITLES: Record<string, string> = {
+    en: `${count} species documented with detailed scientific information`,
+    es: `${count} especies documentadas con información científica detallada`,
+  };
+  const safeLocale = (Object.hasOwn(TITLES, locale) ? locale : "en") as keyof typeof TITLES;
+  const title = TITLES[safeLocale];
+  const subtitle = SUBTITLES[safeLocale];
 
   return new ImageResponse(
     <div

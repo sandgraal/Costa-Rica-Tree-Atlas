@@ -12,12 +12,21 @@ type Props = {
 export default async function OGImage({ params }: Props) {
   const { locale } = await params;
 
-  const title = locale === "es" ? "Glosario Botánico" : "Botanical Glossary";
-  const count = allGlossaryTerms.filter((t) => t.locale === locale).length;
-  const subtitle =
-    locale === "es"
-      ? `${count} términos botánicos con definiciones claras y ejemplos`
-      : `${count} botanical terms with clear definitions and examples`;
+  const TITLES: Record<string, string> = {
+    en: "Botanical Glossary",
+    es: "Glosario Botánico",
+  };
+  const count = allGlossaryTerms.filter((tr) => tr.locale === locale).length;
+  const SUBTITLES: Record<string, string> = {
+    en: `${count} botanical terms with clear definitions and examples`,
+    es: `${count} términos botánicos con definiciones claras y ejemplos`,
+  };
+  const title = Object.prototype.hasOwnProperty.call(TITLES, locale)
+    ? TITLES[locale]
+    : TITLES.en;
+  const subtitle = Object.prototype.hasOwnProperty.call(SUBTITLES, locale)
+    ? SUBTITLES[locale]
+    : SUBTITLES.en;
 
   return new ImageResponse(
     <div
