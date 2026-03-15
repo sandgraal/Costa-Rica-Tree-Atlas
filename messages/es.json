@@ -1596,6 +1596,21 @@
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
   },
+  "coloringPages": {
+    "metaTitle": "Páginas para Colorear - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Descarga páginas para colorear de árboles de Costa Rica. Perfecto para actividades educativas.",
+    "title": "Páginas para Colorear",
+    "subtitle": "Atlas de Árboles de Costa Rica",
+    "instructions": "Imprime y colorea los árboles. Aprende sus nombres mientras te diviertes.",
+    "printButton": "\ud83d\udda8\ufe0f Imprimir",
+    "backLink": "\u2190 Volver",
+    "colorMe": "\u00a1Color\u00e9ame!",
+    "family": "Familia",
+    "selectAll": "Seleccionar Todo",
+    "deselectAll": "Deseleccionar Todo",
+    "selected": "seleccionadas",
+    "tip": "\ud83d\udca1 Consejo: Usa colores realistas o tu imaginaci\u00f3n. \u00a1Ambos est\u00e1n bien!",
+    "writePrompt": "Escribe algo sobre este \u00e1rbol:"
   "biodiversityIntro": {
     "metaTitle": "Introducción a la Biodiversidad - Atlas de Árboles de Costa Rica",
     "metaDescription": "Lección interactiva sobre biodiversidad y los árboles de Costa Rica. Actividades, cuestionarios y datos para estudiantes."
