@@ -608,7 +608,12 @@
     "showEvents": "Show events",
     "hideEvents": "Hide events",
     "floweringNow": "Trees flowering now",
-    "fruitingNow": "Trees fruiting now"
+    "fruitingNow": "Trees fruiting now",
+    "monthDescription": "Discover which Costa Rican trees are flowering and fruiting in {monthName}.",
+    "structuredName": "Seasonal Tree Calendar",
+    "structuredDescription": "Discover when Costa Rica's trees flower and fruit",
+    "treesActiveThisMonth": "Trees active this month",
+    "treeFlowering": "{treeName} is flowering"
   },
   "safety": {
     "title": "Safety Information",
@@ -1429,6 +1434,7 @@
     "nativeRegion": "Region",
     "confirmClearAll": "Clear all data?",
     "noTreesFound": "No trees found"
+  },
   "mapGame": {
     "metaTitle": "Map Game - Costa Rica Tree Atlas",
     "metaDescription": "Learn where Costa Rica's trees grow in this interactive game.",
