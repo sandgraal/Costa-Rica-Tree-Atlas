@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import EcosystemServicesClient from "./EcosystemServicesClient";
@@ -12,16 +12,11 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ecosystemServices" });
 
   return {
-    title:
-      locale === "es"
-        ? "Servicios Ecosistémicos - Lección Educativa"
-        : "Ecosystem Services - Educational Lesson",
-    description:
-      locale === "es"
-        ? "Descubre los servicios ecosistémicos de los árboles de Costa Rica: purificación del aire, ciclo del agua, hábitat y más."
-        : "Discover ecosystem services provided by Costa Rican trees: air purification, water cycling, wildlife habitat, and more.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -46,11 +41,5 @@ export default async function EcosystemServicesPage({ params }: PageProps) {
   // payload (serialized data) rather than executable client JS.
   const lessonData = getEcosystemServicesLessonData(locale);
 
-  return (
-    <EcosystemServicesClient
-      trees={trees}
-      locale={locale}
-      lessonData={lessonData}
-    />
-  );
+  return <EcosystemServicesClient trees={trees} lessonData={lessonData} />;
 }
