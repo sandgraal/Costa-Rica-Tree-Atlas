@@ -1,5 +1,5 @@
 /* eslint-disable security/detect-object-injection -- server-only status count aggregation indexes a bounded status dictionary */
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import ConservationLessonClient from "./ConservationLessonClient";
@@ -13,16 +13,14 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "conservationLesson",
+  });
 
   return {
-    title:
-      locale === "es"
-        ? "Conservación y Amenazas - Lección Educativa"
-        : "Conservation and Threats - Educational Lesson",
-    description:
-      locale === "es"
-        ? "Aprende sobre amenazas a los bosques de Costa Rica y estrategias de conservación. Actividades interactivas con datos UICN."
-        : "Learn about threats to Costa Rican forests and conservation strategies. Interactive activities with IUCN data.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
@@ -73,7 +71,6 @@ export default async function ConservationPage({ params }: PageProps) {
   return (
     <ConservationLessonClient
       trees={trees}
-      locale={locale}
       statusCounts={statusCounts}
       endangeredTrees={endangeredTrees}
       lessonData={lessonData}

@@ -266,15 +266,14 @@ export default async function ConservationPage({
                       const status = tree.conservationStatus;
                       const isKnownStatus = Object.hasOwn(
                         STATUS_COLORS,
-                        status as ConservationCategory,
+                        status as ConservationCategory
                       );
                       const colorClass = isKnownStatus
                         ? STATUS_COLORS[status as ConservationStatus]
                         : "bg-muted text-foreground";
-                      const localizedLabel =
-                        isKnownStatus
-                          ? statusLabels[status as ConservationStatus]?.[locale]
-                          : undefined;
+                      const localizedLabel = isKnownStatus
+                        ? statusLabels[status as ConservationStatus]?.[locale]
+                        : undefined;
                       const fallbackLabel =
                         locale === "es"
                           ? "Estado de conservación desconocido"
