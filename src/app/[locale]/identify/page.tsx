@@ -1,5 +1,9 @@
 import { NextIntlClientProvider } from "next-intl";
-import { setRequestLocale, getMessages } from "next-intl/server";
+import {
+  getTranslations,
+  setRequestLocale,
+  getMessages,
+} from "next-intl/server";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
 import type { AbstractIntlMessages } from "next-intl";
@@ -13,16 +17,11 @@ export async function generateMetadata({
   params,
 }: IdentifyPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "identify" });
 
   return {
-    title:
-      locale === "es"
-        ? "Identificar Árboles - Atlas de Árboles de Costa Rica"
-        : "Identify Trees - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Sube una foto de un árbol y usa inteligencia artificial para identificar especies de árboles de Costa Rica."
-        : "Upload a photo of a tree and use AI to identify Costa Rican tree species.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/identify",
@@ -37,17 +36,12 @@ export default async function IdentifyPage({ params }: IdentifyPageProps) {
   setRequestLocale(locale);
 
   // Structured data for Identify page
+  const t = await getTranslations("identify");
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name:
-      locale === "es"
-        ? "Identificador de Árboles de Costa Rica"
-        : "Costa Rica Tree Identifier",
-    description:
-      locale === "es"
-        ? "Herramienta de identificación de árboles mediante inteligencia artificial."
-        : "AI-powered tree identification tool.",
+    name: t("structuredName"),
+    description: t("structuredDescription"),
     url: `https://costaricatreeatlas.com/${locale}/identify`,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "All",

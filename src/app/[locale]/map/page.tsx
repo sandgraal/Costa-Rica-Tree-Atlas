@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import type { Metadata } from "next";
@@ -56,16 +56,11 @@ export async function generateMetadata({
   params,
 }: MapPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "map" });
 
   return {
-    title:
-      locale === "es"
-        ? "Explorar por Región - Atlas de Árboles de Costa Rica"
-        : "Explore by Region - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Explora la distribución de árboles nativos de Costa Rica por provincia y región. Descubre la biodiversidad de cada zona del país."
-        : "Explore the distribution of Costa Rican native trees by province and region. Discover the biodiversity of each area of the country.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/map",
@@ -85,38 +80,33 @@ export default async function MapPage({ params }: MapPageProps) {
   // values so MapTreeSummary types are accurate at runtime (ES MDX files contain
   // non-canonical strings like "nativo", "todo-el-ano" that are outside the unions).
   const trees: MapTreeSummary[] = allTrees
-    .filter((t) => t.locale === locale)
-    .map((t) => ({
-      slug: t.slug,
-      title: t.title,
-      scientificName: t.scientificName,
-      distribution: t.distribution?.filter(
+    .filter((tr) => tr.locale === locale)
+    .map((tr) => ({
+      slug: tr.slug,
+      title: tr.title,
+      scientificName: tr.scientificName,
+      distribution: tr.distribution?.filter(
         (d): d is Distribution => isProvince(d) || isRegion(d)
       ),
-      tags: t.tags?.filter((tag): tag is TreeTag => VALID_TAGS.has(tag)),
-      floweringSeason: t.floweringSeason?.filter(
-        (m): m is Month => VALID_MONTH_STRINGS.has(m)
+      tags: tr.tags?.filter((tag): tag is TreeTag => VALID_TAGS.has(tag)),
+      floweringSeason: tr.floweringSeason?.filter((m): m is Month =>
+        VALID_MONTH_STRINGS.has(m)
       ),
-      fruitingSeason: t.fruitingSeason?.filter(
-        (m): m is Month => VALID_MONTH_STRINGS.has(m)
+      fruitingSeason: tr.fruitingSeason?.filter((m): m is Month =>
+        VALID_MONTH_STRINGS.has(m)
       ),
-      featuredImage: t.featuredImage,
-      conservationStatus: t.conservationStatus,
-      maxHeight: t.maxHeight,
+      featuredImage: tr.featuredImage,
+      conservationStatus: tr.conservationStatus,
+      maxHeight: tr.maxHeight,
     }));
 
   // Structured data for Map page
+  const t = await getTranslations("map");
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name:
-      locale === "es"
-        ? "Explorar Regiones de Costa Rica"
-        : "Explore Costa Rica Regions",
-    description:
-      locale === "es"
-        ? "Mapa interactivo para explorar la distribución de árboles nativos por provincia y región en Costa Rica."
-        : "Interactive map for exploring native tree distribution by province and region in Costa Rica.",
+    name: t("structuredName"),
+    description: t("structuredDescription"),
     url: `https://costaricatreeatlas.com/${locale}/map`,
     applicationCategory: "EducationalApplication",
     operatingSystem: "All",

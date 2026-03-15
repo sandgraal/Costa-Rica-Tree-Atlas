@@ -71,7 +71,15 @@
       "conservationStatuses": "Estados de Conservación",
       "languages": "Idiomas"
     },
-    "showingCount": "Mostrando {count} de {total}"
+    "showingCount": "Mostrando {count} de {total}",
+    "structuredDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe impulsada por la comunidad sobre la flora arbórea costarricense.",
+    "orgDescription": "Una iniciativa educativa dedicada a documentar los árboles de Costa Rica."
+  },
+  "map": {
+    "metaTitle": "Explorar por Región - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Explora la distribución de árboles nativos de Costa Rica por provincia y región. Descubre la biodiversidad de cada zona del país.",
+    "structuredName": "Explorar Regiones de Costa Rica",
+    "structuredDescription": "Mapa interactivo para explorar la distribución de árboles nativos por provincia y región en Costa Rica."
   },
   "trees": {
     "title": "Directorio de Árboles",
@@ -447,7 +455,11 @@
     "maintenanceTitle": "Función Temporalmente No Disponible",
     "maintenanceMessage": "Estamos trabajando para hacer esta función más usable y segura. La herramienta de identificación de árboles estará disponible de nuevo pronto.",
     "maintenanceNote": "Mientras tanto, puedes explorar nuestro directorio de árboles o usar la función de búsqueda para encontrar árboles manualmente.",
-    "browseTrees": "Explorar Directorio de Árboles"
+    "browseTrees": "Explorar Directorio de Árboles",
+    "metaTitle": "Identificar Árboles - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Sube una foto de un árbol y usa inteligencia artificial para identificar especies de árboles de Costa Rica.",
+    "structuredName": "Identificador de Árboles de Costa Rica",
+    "structuredDescription": "Herramienta de identificación de árboles mediante inteligencia artificial."
   },
   "education": {
     "title": "Recursos Educativos",
@@ -1429,6 +1441,7 @@
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
     "noTreesFound": "No se encontraron árboles"
+  },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
     "metaDescription": "Aprende dónde crecen los árboles de Costa Rica en este juego interactivo.",
