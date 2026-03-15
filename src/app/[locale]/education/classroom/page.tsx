@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import ClassroomClient from "./ClassroomClient";
@@ -9,34 +9,18 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "classroom" });
 
   return {
-    title:
-      locale === "es"
-        ? "Aula Virtual - Atlas de Árboles de Costa Rica"
-        : "Classroom - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase."
-        : "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
   };
 }
 
 export default async function ClassroomPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-
-  const t = {
-    title: locale === "es" ? "Aula Virtual" : "Virtual Classroom",
-    subtitle:
-      locale === "es"
-        ? "Crea o únete a un aula para competir con tus compañeros"
-        : "Create or join a classroom to compete with classmates",
-    backToEducation:
-      locale === "es"
-        ? "← Volver a Recursos Educativos"
-        : "← Back to Education",
-  };
+  const t = await getTranslations("classroom");
 
   return (
     <div className="py-12 px-4">
@@ -45,7 +29,7 @@ export default async function ClassroomPage({ params }: Props) {
           href="/education"
           className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
         >
-          {t.backToEducation}
+          {t("backToEducation")}
         </Link>
 
         <div className="text-center mb-8">
@@ -55,14 +39,14 @@ export default async function ClassroomPage({ params }: Props) {
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            {t.title}
+            {t("title")}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.subtitle}
+            {t("subtitle")}
           </p>
         </div>
 
-        <ClassroomClient locale={locale} />
+        <ClassroomClient />
       </div>
     </div>
   );
