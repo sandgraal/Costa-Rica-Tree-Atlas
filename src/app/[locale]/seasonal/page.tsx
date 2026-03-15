@@ -102,10 +102,7 @@ export async function generateMetadata({
 
     return {
       title: `${monthName} - ${t("title")}`,
-      description:
-        locale === "es"
-          ? `Descubre qué árboles de Costa Rica están floreciendo y fructificando en ${monthName}.`
-          : `Discover which Costa Rican trees are flowering and fruiting in ${monthName}.`,
+      description: t("monthDescription", { monthName }),
       alternates: {
         canonical: `/${locale}/seasonal?month=${month}`,
         languages: {
@@ -179,20 +176,11 @@ export default async function SeasonalPage({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name:
-      locale === "es"
-        ? "Calendario Estacional de Árboles"
-        : "Seasonal Tree Calendar",
-    description:
-      locale === "es"
-        ? "Descubre cuándo florecen y fructifican los árboles de Costa Rica"
-        : "Discover when Costa Rica's trees flower and fruit",
+    name: t("structuredName"),
+    description: t("structuredDescription"),
     mainEntity: {
       "@type": "ItemList",
-      name:
-        locale === "es"
-          ? "Árboles activos este mes"
-          : "Trees active this month",
+      name: t("treesActiveThisMonth"),
       numberOfItems:
         treesFloweringNow.length + treesFruitingNow.length + eventItems.length,
       itemListElement: [
@@ -202,10 +190,7 @@ export default async function SeasonalPage({
           item: {
             "@type": "Thing",
             name: tree.title,
-            description:
-              locale === "es"
-                ? `${tree.title} está floreciendo`
-                : `${tree.title} is flowering`,
+            description: t("treeFlowering", { treeName: tree.title }),
             url: `https://costaricatreeatlas.com/${locale}/trees/${tree.slug}`,
           },
         })),
