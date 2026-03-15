@@ -197,7 +197,10 @@ export default async function ConservationPage({
                         <span className="font-medium">{label}</span>
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        {speciesInStatus.length} species ({percentage}%)
+                        {t("statusSummary.count", {
+                          count: speciesInStatus.length,
+                          percentage,
+                        })}
                       </div>
                     </div>
 
