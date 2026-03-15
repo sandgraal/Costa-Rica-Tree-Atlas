@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import DiagnoseClient from "./DiagnoseClient";
 
@@ -8,16 +8,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "diagnose" });
 
   return {
-    title:
-      locale === "es"
-        ? "Herramienta de Diagnóstico de Salud de Árboles - Atlas de Árboles de Costa Rica"
-        : "Tree Health Diagnostic Tool - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Diagnostica problemas de salud en árboles de Costa Rica según sus síntomas y recibe recomendaciones de tratamiento."
-        : "Diagnose health problems in Costa Rican trees based on symptoms and receive treatment recommendations.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/diagnose",
@@ -31,5 +26,5 @@ export default async function DiagnosePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <DiagnoseClient locale={locale} />;
+  return <DiagnoseClient />;
 }
