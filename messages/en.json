@@ -71,7 +71,15 @@
       "botanicalFamilies": "Botanical Families",
       "conservationStatuses": "Conservation Statuses",
       "languages": "Languages"
-    }
+    },
+    "structuredDescription": "Discover the magnificent trees of Costa Rica. A community-powered bilingual guide to Costa Rican tree flora.",
+    "orgDescription": "An educational initiative dedicated to documenting Costa Rica's trees."
+  },
+  "map": {
+    "metaTitle": "Explore by Region - Costa Rica Tree Atlas",
+    "metaDescription": "Explore the distribution of Costa Rican native trees by province and region. Discover the biodiversity of each area of the country.",
+    "structuredName": "Explore Costa Rica Regions",
+    "structuredDescription": "Interactive map for exploring native tree distribution by province and region in Costa Rica."
   },
   "trees": {
     "title": "Tree Directory",
@@ -452,7 +460,11 @@
     "maintenanceTitle": "Feature Temporarily Unavailable",
     "maintenanceMessage": "We're working on making this feature both usable and secure. The tree identification tool will be available again soon.",
     "maintenanceNote": "In the meantime, you can browse our tree directory or use the search feature to find trees manually.",
-    "browseTrees": "Browse Tree Directory"
+    "browseTrees": "Browse Tree Directory",
+    "metaTitle": "Identify Trees - Costa Rica Tree Atlas",
+    "metaDescription": "Upload a photo of a tree and use AI to identify Costa Rican tree species.",
+    "structuredName": "Costa Rica Tree Identifier",
+    "structuredDescription": "AI-powered tree identification tool."
   },
   "education": {
     "metaTitle": "Educational Resources - Costa Rica Tree Atlas",
