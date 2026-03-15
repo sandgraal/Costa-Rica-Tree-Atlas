@@ -797,7 +797,22 @@
   "conservation": {
     "assessed": "Evaluado",
     "populationTrend": "Tendencia poblacional",
-    "threats": "Amenazas"
+    "threats": "Amenazas",
+    "metaTitle": "Dashboard de Conservación - Atlas de Árboles de Costa Rica",
+    "metaDescription": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN.",
+    "structuredDescription": "Estado de conservación de los árboles de Costa Rica",
+    "heading": "Dashboard de Conservación",
+    "subtitle": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN",
+    "speciesDocumented": "Especies Documentadas",
+    "threatenedSpecies": "Especies Amenazadas",
+    "endemicSpecies": "Especies Endémicas",
+    "statusByCategory": "Estado de Conservación por Categoría",
+    "endemicHeading": "Especies Endémicas de Costa Rica",
+    "endemicDescription": "Estas especies se encuentran solo en Costa Rica.",
+    "unknownStatus": "Estado de conservación desconocido",
+    "aboutIucnHeading": "Acerca de la Lista Roja de la UICN",
+    "aboutIucnDescription": "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas.",
+    "visitIucn": "Visitar Lista Roja de la UICN →"
   },
   "indigenousNames": {
     "heading": "Nombres Indígenas",

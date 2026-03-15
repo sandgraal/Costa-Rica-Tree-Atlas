@@ -37,7 +37,7 @@ export async function generateMetadata({
   params,
 }: ConservationPageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "conservationPage" });
+  const t = await getTranslations({ locale, namespace: "conservation" });
 
   return {
     title: t("metaTitle"),
@@ -57,7 +57,7 @@ export default async function ConservationPage({
 }: ConservationPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("conservationPage");
+  const t = await getTranslations({ locale, namespace: "conservation" });
 
   const trees = allTrees.filter((tr) => tr.locale === locale);
 
@@ -114,8 +114,8 @@ export default async function ConservationPage({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: t("title"),
-    description: t("subtitle"),
+    name: t("heading"),
+    description: t("structuredDescription"),
   };
 
   return (
@@ -124,7 +124,7 @@ export default async function ConservationPage({
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            {t("title")}
+            {t("heading")}
           </h1>
           <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
@@ -227,9 +227,11 @@ export default async function ConservationPage({
 
         {endemicTrees.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">{t("endemicTitle")}</h2>
+            <h2 className="text-2xl font-semibold mb-4">
+              {t("endemicHeading")}
+            </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              {t("endemicSubtitle")}
+              {t("endemicDescription")}
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {endemicTrees.map((tr) => (
@@ -255,10 +257,7 @@ export default async function ConservationPage({
                       const localizedLabel = isKnownStatus
                         ? statusLabels[status as ConservationStatus]?.[locale]
                         : undefined;
-                      const fallbackLabel =
-                        locale === "es"
-                          ? "Estado de conservación desconocido"
-                          : "Unknown conservation status";
+                      const fallbackLabel = t("unknownStatus");
 
                       return (
                         <span
@@ -277,9 +276,11 @@ export default async function ConservationPage({
         )}
 
         <section className="bg-muted rounded-xl p-6">
-          <h2 className="text-xl font-semibold mb-3">{t("aboutIUCN")}</h2>
+          <h2 className="text-xl font-semibold mb-3">
+            {t("aboutIucnHeading")}
+          </h2>
           <div className="prose prose-sm dark:prose-invert max-w-none">
-            <p>{t("aboutIUCNDesc")}</p>
+            <p>{t("aboutIucnDescription")}</p>
             <div className="mt-4 space-y-2 not-prose">
               <a
                 href="https://www.iucnredlist.org/"
@@ -287,7 +288,7 @@ export default async function ConservationPage({
                 rel="noopener noreferrer"
                 className="inline-block text-sm text-primary hover:underline"
               >
-                {t("visitIUCN")}
+                {t("visitIucn")}
               </a>
             </div>
           </div>
