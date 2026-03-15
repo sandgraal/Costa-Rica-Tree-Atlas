@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Link } from "@i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
+import type { Locale } from "@/types/tree";
 
-type Locale = "en" | "es";
 type SymptomCategory = "leaves" | "bark" | "branches" | "roots" | "whole-tree";
 type Symptom = string;
 
