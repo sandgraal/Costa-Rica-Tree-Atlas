@@ -1667,6 +1667,7 @@
   "conservationLesson": {
     "metaTitle": "Conservation and Threats - Educational Lesson",
     "metaDescription": "Learn about threats to Costa Rican forests and conservation strategies. Interactive activities with IUCN data."
+  },
   "familiesGuide": {
     "metaTitle": "Botanical Family Guide - Costa Rica Tree Atlas",
     "metaDescription": "Reference guide of botanical families with representative Costa Rica species.",
@@ -1679,6 +1680,7 @@
     "families": "families",
     "representativeSpecies": "Representative species",
     "andMore": "and more..."
+  },
   "useCases": {
     "metaTitle": "Use Cases",
     "metaDescription": "Find Costa Rican trees organized by use case: shade for coffee, windbreaks, erosion control, gardens, and more.",
@@ -1692,6 +1694,7 @@
     "calendarTitle": "Seasonal Calendar",
     "calendarDesc": "Discover which trees flower and fruit each month",
     "viewTrees": "View trees"
+  },
   "diagnose": {
     "metaTitle": "Tree Health Diagnostic Tool - Costa Rica Tree Atlas",
     "metaDescription": "Diagnose health problems in Costa Rican trees based on symptoms and receive treatment recommendations.",
@@ -1721,6 +1724,7 @@
     "categoryBranchesDesc": "Branch problems",
     "categoryRootsDesc": "Root issues",
     "categoryWholeTreeDesc": "Overall tree health"
+  },
   "identificationKey": {
     "metaTitle": "Identification Key - Costa Rica Tree Atlas",
     "metaDescription": "Dichotomous guide to identify Costa Rica trees by observable characteristics.",
@@ -1739,6 +1743,7 @@
     "tip3": "Look for flowers, fruits, or seeds if available",
     "tip4": "Note the bark - texture, color, and if it has latex",
     "tip5": "Consider the location and habitat"
+  },
   "checklist": {
     "metaTitle": "Printable Species Checklist - Costa Rica Tree Atlas",
     "metaDescription": "Printable checklist of Costa Rican tree species organized by botanical family. Ideal for field trips and outdoor activities.",
@@ -1754,6 +1759,7 @@
     "notes": "Notes",
     "totalSpecies": "Total species",
     "familiesLabel": "families"
+  },
   "conservationPage": {
     "metaTitle": "Conservation Dashboard - Costa Rica Tree Atlas",
     "metaDescription": "Conservation status of Costa Rica's trees according to the IUCN Red List.",
@@ -1769,6 +1775,7 @@
     "aboutIUCN": "About the IUCN Red List",
     "aboutIUCNDesc": "The IUCN Red List of Threatened Species is the world's most comprehensive inventory of the global conservation status of biological species.",
     "visitIUCN": "Visit IUCN Red List \u2192"
+  },
   "coloringPages": {
     "metaTitle": "Coloring Pages - Costa Rica Tree Atlas",
     "metaDescription": "Download coloring pages of Costa Rica trees. Perfect for educational activities.",
@@ -1784,12 +1791,15 @@
     "selected": "selected",
     "tip": "\ud83d\udca1 Tip: Use realistic colors or your imagination. Both are great!",
     "writePrompt": "Write something about this tree:"
+  },
   "biodiversityIntro": {
     "metaTitle": "Introduction to Biodiversity - Costa Rica Tree Atlas",
     "metaDescription": "Interactive lesson on biodiversity and Costa Rica's trees. Activities, quizzes, and key data for students."
+  },
   "ecosystemServices": {
     "metaTitle": "Ecosystem Services - Educational Lesson",
     "metaDescription": "Discover ecosystem services provided by Costa Rican trees: air purification, water cycling, wildlife habitat, and more."
+  },
   "printablesHub": {
     "metaTitle": "Printable Resources - Costa Rica Tree Atlas",
     "metaDescription": "Download and print educational materials about Costa Rica trees.",
@@ -1880,6 +1890,7 @@
     "whyRecommended": "Why recommended:",
     "characteristics": "Characteristics:",
     "browseAllTrees": "Browse All Trees"
+  },
   "quiz": {
     "metaTitle": "Tree Quiz - Costa Rica Tree Atlas",
     "metaDescription": "Test your knowledge of Costa Rican trees with our interactive quizzes.",
@@ -1910,6 +1921,7 @@
     "loading": "Loading quiz...",
     "backToTrees": "Back to Trees",
     "exploreTrees": "Explore Trees"
+  },
   "flashcards": {
     "metaTitle": "Printable Study Flashcards - Costa Rica Tree Atlas",
     "metaDescription": "Printable study flashcards with information about Costa Rica trees.",

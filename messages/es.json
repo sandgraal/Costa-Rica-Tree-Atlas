@@ -1667,6 +1667,7 @@
   "conservationLesson": {
     "metaTitle": "Conservación y Amenazas - Lección Educativa",
     "metaDescription": "Aprende sobre amenazas a los bosques de Costa Rica y estrategias de conservación. Actividades interactivas con datos UICN."
+  },
   "familiesGuide": {
     "metaTitle": "Guía de Familias Botánicas - Atlas de Árboles de Costa Rica",
     "metaDescription": "Guía de referencia de familias botánicas con especies representativas de Costa Rica.",
@@ -1679,6 +1680,7 @@
     "families": "familias",
     "representativeSpecies": "Especies representativas",
     "andMore": "y más..."
+  },
   "useCases": {
     "metaTitle": "Casos de Uso",
     "metaDescription": "Encuentra árboles de Costa Rica organizados por uso: sombra para café, cortavientos, control de erosión, jardines y más.",
@@ -1692,6 +1694,7 @@
     "calendarTitle": "Calendario Estacional",
     "calendarDesc": "Descubre qué árboles florecen y fructifican cada mes",
     "viewTrees": "Ver árboles"
+  },
   "diagnose": {
     "metaTitle": "Herramienta de Diagnóstico de Salud de Árboles - Atlas de Árboles de Costa Rica",
     "metaDescription": "Diagnostica problemas de salud en árboles de Costa Rica según sus síntomas y recibe recomendaciones de tratamiento.",
@@ -1721,6 +1724,7 @@
     "categoryBranchesDesc": "Problemas con ramas",
     "categoryRootsDesc": "Problemas de raíces",
     "categoryWholeTreeDesc": "Problemas generales del árbol"
+  },
   "identificationKey": {
     "metaTitle": "Clave de Identificación - Atlas de Árboles de Costa Rica",
     "metaDescription": "Guía dicotómica para identificar árboles de Costa Rica por características observables.",
@@ -1739,6 +1743,7 @@
     "tip3": "Busca flores, frutos o semillas si están disponibles",
     "tip4": "Nota la corteza - textura, color, y si tiene látex",
     "tip5": "Considera la ubicación y el hábitat"
+  },
   "checklist": {
     "metaTitle": "Lista de Especies Imprimible - Atlas de Árboles de Costa Rica",
     "metaDescription": "Lista imprimible de especies de árboles de Costa Rica organizada por familia botánica. Ideal para excursiones y actividades de campo.",
@@ -1754,6 +1759,7 @@
     "notes": "Notas",
     "totalSpecies": "Total de especies",
     "familiesLabel": "familias"
+  },
   "conservationPage": {
     "metaTitle": "Dashboard de Conservación - Atlas de Árboles de Costa Rica",
     "metaDescription": "Estado de conservación de los árboles de Costa Rica según la Lista Roja de la UICN.",
@@ -1769,6 +1775,7 @@
     "aboutIUCN": "Acerca de la Lista Roja de la UICN",
     "aboutIUCNDesc": "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas.",
     "visitIUCN": "Visitar Lista Roja de la UICN \u2192"
+  },
   "coloringPages": {
     "metaTitle": "Páginas para Colorear - Atlas de Árboles de Costa Rica",
     "metaDescription": "Descarga páginas para colorear de árboles de Costa Rica. Perfecto para actividades educativas.",
@@ -1784,12 +1791,15 @@
     "selected": "seleccionadas",
     "tip": "\ud83d\udca1 Consejo: Usa colores realistas o tu imaginaci\u00f3n. \u00a1Ambos est\u00e1n bien!",
     "writePrompt": "Escribe algo sobre este \u00e1rbol:"
+  },
   "biodiversityIntro": {
     "metaTitle": "Introducción a la Biodiversidad - Atlas de Árboles de Costa Rica",
     "metaDescription": "Lección interactiva sobre biodiversidad y los árboles de Costa Rica. Actividades, cuestionarios y datos para estudiantes."
+  },
   "ecosystemServices": {
     "metaTitle": "Servicios Ecosistémicos - Lección Educativa",
     "metaDescription": "Descubre los servicios ecosistémicos de los árboles de Costa Rica: purificación del aire, ciclo del agua, hábitat y más."
+  },
   "printablesHub": {
     "metaTitle": "Recursos Imprimibles - Atlas de Árboles de Costa Rica",
     "metaDescription": "Descarga e imprime materiales educativos sobre los árboles de Costa Rica.",
@@ -1880,6 +1890,7 @@
     "whyRecommended": "Por qué se recomienda:",
     "characteristics": "Características:",
     "browseAllTrees": "Explorar Todos los Árboles"
+  },
   "quiz": {
     "metaTitle": "Cuestionario de Árboles - Atlas de Árboles de Costa Rica",
     "metaDescription": "Pon a prueba tu conocimiento sobre los árboles de Costa Rica con nuestros cuestionarios interactivos.",
@@ -1910,6 +1921,7 @@
     "loading": "Cargando cuestionario...",
     "backToTrees": "Volver a Árboles",
     "exploreTrees": "Explorar Árboles"
+  },
   "flashcards": {
     "metaTitle": "Tarjetas de Estudio Imprimibles - Atlas de Árboles de Costa Rica",
     "metaDescription": "Tarjetas de estudio imprimibles con información sobre árboles de Costa Rica.",
