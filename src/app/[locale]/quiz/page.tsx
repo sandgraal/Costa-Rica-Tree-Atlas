@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import QuizClient from "./QuizClient";
@@ -9,16 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "quiz" });
 
   return {
-    title:
-      locale === "es"
-        ? "Cuestionario de Árboles - Atlas de Árboles de Costa Rica"
-        : "Tree Quiz - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Pon a prueba tu conocimiento sobre los árboles de Costa Rica con nuestros cuestionarios interactivos."
-        : "Test your knowledge of Costa Rican trees with our interactive quizzes.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/quiz",
@@ -48,5 +43,5 @@ export default async function QuizPage({ params }: Props) {
       petSafe: t.petSafe,
     }));
 
-  return <QuizClient trees={trees} locale={locale} />;
+  return <QuizClient trees={trees} />;
 }
