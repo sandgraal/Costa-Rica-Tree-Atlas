@@ -34,6 +34,17 @@ export interface ConservationLabels {
   signPledge: string;
   yourName: string;
   pledgeText: string;
+  actionsPledged: string;
+  forestDefender: string;
+  viewInAtlas: string;
+  gradeLevel: string;
+  forestsIntro: string;
+  selectThreats: string;
+  iucnCategories: string;
+  treesLabel: string;
+  endangeredTrees: string;
+  excellentChoices: string;
+  thankYouPledge: string;
 }
 
 export interface ConservationReason {
@@ -128,6 +139,23 @@ export function getConservationLessonData(
     pledgeText: isEs
       ? "Me comprometo a proteger los árboles y bosques de Costa Rica"
       : "I pledge to protect the trees and forests of Costa Rica",
+    actionsPledged: isEs ? "Acciones Prometidas" : "Actions Pledged",
+    forestDefender: isEs ? "Defensor del Bosque" : "Forest Defender",
+    viewInAtlas: isEs ? "Ver en el Atlas →" : "View in Atlas →",
+    gradeLevel: isEs ? "Grados 4-7" : "Grades 4-7",
+    forestsIntro: isEs
+      ? "Los bosques son esenciales para la vida en la Tierra. Descubre por qué debemos protegerlos."
+      : "Forests are essential for life on Earth. Discover why we must protect them.",
+    selectThreats: isEs
+      ? "Selecciona las 3 amenazas más graves:"
+      : "Select the 3 most serious threats:",
+    iucnCategories: isEs ? "Categorías UICN" : "IUCN Categories",
+    treesLabel: isEs ? "árboles" : "trees",
+    endangeredTrees: isEs ? "Árboles en Peligro" : "Endangered Trees",
+    excellentChoices: isEs ? "¡Excelente elección!" : "Excellent choices!",
+    thankYouPledge: isEs
+      ? "¡Gracias por tu compromiso!"
+      : "Thank you for your commitment!",
   };
 
   const conservationReasons: ConservationReason[] = isEs

@@ -66,6 +66,21 @@ export interface EcosystemServicesLabels {
   discoveredServices: string;
   printPoster: string;
   addToPoster: string;
+  yourPosterTitle: string;
+  gradeLevel: string;
+  introText: string;
+  fact1: string;
+  fact2: string;
+  fact3: string;
+  fact4: string;
+  clickToDiscover: string;
+  dragInstruction: string;
+  posterInstruction: string;
+  availableElements: string;
+  yourPoster: string;
+  posterHeading: string;
+  naturesGifts: string;
+  addElementsPrompt: string;
 }
 
 export interface EcosystemServicesLessonData {
@@ -116,6 +131,41 @@ export function getEcosystemServicesLessonData(
     discoveredServices: isEs ? "Servicios Descubiertos" : "Services Discovered",
     printPoster: isEs ? "🖨️ Imprimir Póster" : "🖨️ Print Poster",
     addToPoster: isEs ? "Agregar al Póster" : "Add to Poster",
+    yourPosterTitle: isEs
+      ? "Tu Póster de Servicios Ecosistémicos"
+      : "Your Ecosystem Services Poster",
+    gradeLevel: isEs ? "Grados 5-8" : "Grades 5-8",
+    introText: isEs
+      ? "Los servicios ecosistémicos son todos los beneficios que los humanos obtenemos de la naturaleza. Los árboles y bosques son expertos en brindarnos estos servicios esenciales para la vida."
+      : "Ecosystem services are all the benefits that humans get from nature. Trees and forests are experts at providing these essential services for life.",
+    fact1: isEs
+      ? "Un árbol grande produce oxígeno para 4 personas"
+      : "A large tree produces oxygen for 4 people",
+    fact2: isEs
+      ? "Los bosques filtran el 75% del agua dulce"
+      : "Forests filter 75% of fresh water",
+    fact3: isEs
+      ? "Un árbol puede enfriar como 10 aires acondicionados"
+      : "One tree can cool like 10 air conditioners",
+    fact4: isEs
+      ? "80% de nuestros alimentos depende de polinizadores"
+      : "80% of our food depends on pollinators",
+    clickToDiscover: isEs
+      ? "Haz clic en cada categoría para descubrirla:"
+      : "Click each category to discover it:",
+    dragInstruction: isEs
+      ? "Arrastra cada servicio a su categoría correcta:"
+      : "Drag each service to its correct category:",
+    posterInstruction: isEs
+      ? "Selecciona al menos 3 elementos para tu póster de servicios ecosistémicos:"
+      : "Select at least 3 elements for your ecosystem services poster:",
+    availableElements: isEs ? "Elementos Disponibles" : "Available Elements",
+    yourPoster: isEs ? "Tu Póster" : "Your Poster",
+    posterHeading: isEs ? "Servicios Ecosistémicos" : "Ecosystem Services",
+    naturesGifts: isEs ? "Los regalos de la naturaleza" : "Nature's gifts",
+    addElementsPrompt: isEs
+      ? "Agrega elementos a tu póster"
+      : "Add elements to your poster",
   };
 
   const serviceCategories: ServiceCategory[] = isEs

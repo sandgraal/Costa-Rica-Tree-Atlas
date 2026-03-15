@@ -95,17 +95,15 @@ export default async function HomePage({ params }: Props) {
   }
 
   // Structured data for homepage
+  const languageTag = locale === "es" ? "es-CR" : "en-US";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Costa Rica Tree Atlas",
     alternateName: "Atlas de Árboles de Costa Rica",
     url: "https://costaricatreeatlas.com",
-    description:
-      locale === "es"
-        ? "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe impulsada por la comunidad sobre la flora arbórea costarricense."
-        : "Discover the magnificent trees of Costa Rica. A community-powered bilingual guide to Costa Rican tree flora.",
-    inLanguage: [locale === "es" ? "es-CR" : "en-US"],
+    description: t("structuredDescription"),
+    inLanguage: languageTag,
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -132,10 +130,7 @@ export default async function HomePage({ params }: Props) {
     name: "Costa Rica Tree Atlas",
     url: "https://costaricatreeatlas.com",
     logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
-    description:
-      locale === "es"
-        ? "Una iniciativa educativa dedicada a documentar los árboles de Costa Rica."
-        : "An educational initiative dedicated to documenting Costa Rica's trees.",
+    description: t("orgDescription"),
     knowsAbout: [
       "Costa Rica trees",
       "Tropical botany",
