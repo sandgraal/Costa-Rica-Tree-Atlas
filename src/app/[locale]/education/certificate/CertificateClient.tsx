@@ -1,85 +1,31 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { Link } from "@i18n/navigation";
 import {
   EducationProgressProvider,
   useEducationProgress,
 } from "@/components/EducationProgress";
 
-interface CertificateClientProps {
-  locale: string;
-}
-
-export default function CertificateClient({ locale }: CertificateClientProps) {
+export default function CertificateClient() {
   return (
     <EducationProgressProvider>
-      <CertificateContent locale={locale} />
+      <CertificateContent />
     </EducationProgressProvider>
   );
 }
 
-function CertificateContent({ locale }: CertificateClientProps) {
+function CertificateContent() {
+  const t = useTranslations("certificate");
+  const locale = useLocale();
   const { getBadges, totalPoints, completedLessons } = useEducationProgress();
   const [studentName, setStudentName] = useState("");
   const [showCertificate, setShowCertificate] = useState(false);
   const certificateRef = useRef<HTMLDivElement>(null);
   const badges = getBadges();
   const earnedBadges = badges.filter((b) => b.earned);
-
-  const t = {
-    enterName: locale === "es" ? "Ingresa tu nombre" : "Enter your name",
-    namePlaceholder: locale === "es" ? "Tu nombre completo" : "Your full name",
-    generateCertificate:
-      locale === "es" ? "Generar Certificado" : "Generate Certificate",
-    downloadCertificate:
-      locale === "es" ? "📥 Descargar Certificado" : "📥 Download Certificate",
-    printCertificate:
-      locale === "es" ? "🖨️ Imprimir Certificado" : "🖨️ Print Certificate",
-    newCertificate:
-      locale === "es" ? "Crear Nuevo Certificado" : "Create New Certificate",
-    certificateTitle:
-      locale === "es" ? "Certificado de Logros" : "Certificate of Achievement",
-    certifiedThat: locale === "es" ? "Se certifica que" : "This certifies that",
-    hasCompleted:
-      locale === "es"
-        ? "ha completado exitosamente el programa educativo"
-        : "has successfully completed the educational program",
-    programName:
-      locale === "es"
-        ? "Atlas de Árboles de Costa Rica"
-        : "Costa Rica Tree Atlas",
-    withScore: locale === "es" ? "con una puntuación de" : "with a score of",
-    points: locale === "es" ? "puntos" : "points",
-    lessonsCompleted:
-      locale === "es" ? "Lecciones Completadas" : "Lessons Completed",
-    badgesEarned: locale === "es" ? "Insignias Obtenidas" : "Badges Earned",
-    dateIssued: locale === "es" ? "Fecha de emisión" : "Date issued",
-    noProgress:
-      locale === "es"
-        ? "¡Completa al menos una lección para obtener tu certificado!"
-        : "Complete at least one lesson to get your certificate!",
-    startLearning: locale === "es" ? "Comenzar a Aprender" : "Start Learning",
-    requirements: locale === "es" ? "Requisitos" : "Requirements",
-    currentProgress:
-      locale === "es" ? "Tu Progreso Actual" : "Your Current Progress",
-    lessonsReq:
-      locale === "es"
-        ? "Completar al menos 1 lección"
-        : "Complete at least 1 lesson",
-    nameReq: locale === "es" ? "Ingresar tu nombre" : "Enter your name",
-  };
-
-  const _lessonNames = {
-    "biodiversity-intro":
-      locale === "es"
-        ? "Introducción a la Biodiversidad"
-        : "Introduction to Biodiversity",
-    "tree-identification":
-      locale === "es" ? "Identificación de Árboles" : "Tree Identification",
-    conservation: locale === "es" ? "Conservación" : "Conservation",
-    "ecosystem-services":
-      locale === "es" ? "Servicios Ecosistémicos" : "Ecosystem Services",
-  };
 
   const handlePrint = () => {
     window.print();
@@ -114,32 +60,34 @@ function CertificateContent({ locale }: CertificateClientProps) {
       <div className="text-center py-12">
         <div className="bg-card border border-border rounded-2xl p-8 max-w-md mx-auto">
           <div className="text-6xl mb-4">🎓</div>
-          <p className="text-lg text-muted-foreground mb-6">{t.noProgress}</p>
+          <p className="text-lg text-muted-foreground mb-6">
+            {t("noProgress")}
+          </p>
 
           <div className="bg-muted/50 rounded-xl p-4 mb-6 text-left">
-            <h3 className="font-semibold mb-3">{t.requirements}:</h3>
+            <h3 className="font-semibold mb-3">{t("requirements")}:</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-xs">
                   1
                 </span>
-                {t.lessonsReq}
+                {t("lessonsReq")}
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-xs">
                   2
                 </span>
-                {t.nameReq}
+                {t("nameReq")}
               </li>
             </ul>
           </div>
 
-          <a
-            href={`/${locale}/education/lessons`}
+          <Link
+            href="/education/lessons"
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
           >
-            📚 {t.startLearning}
-          </a>
+            📚 {t("startLearning")}
+          </Link>
         </div>
       </div>
     );
@@ -152,7 +100,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
           {/* Current Progress */}
           <div className="mb-8">
             <h3 className="font-semibold mb-4 flex items-center gap-2">
-              <span>📊</span> {t.currentProgress}
+              <span>📊</span> {t("currentProgress")}
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-green-500/10 rounded-xl p-4 text-center">
@@ -160,14 +108,16 @@ function CertificateContent({ locale }: CertificateClientProps) {
                   {completedLessons}/4
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {t.lessonsCompleted}
+                  {t("lessonsCompleted")}
                 </div>
               </div>
               <div className="bg-yellow-500/10 rounded-xl p-4 text-center">
                 <div className="text-3xl font-bold text-yellow-600">
                   {totalPoints}
                 </div>
-                <div className="text-sm text-muted-foreground">{t.points}</div>
+                <div className="text-sm text-muted-foreground">
+                  {t("points")}
+                </div>
               </div>
             </div>
 
@@ -192,7 +142,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
           <div className="space-y-4">
             <label className="block">
               <span className="text-sm font-medium text-foreground">
-                {t.enterName}
+                {t("enterName")}
               </span>
               <input
                 type="text"
@@ -200,7 +150,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
                 onChange={(e) => {
                   setStudentName(e.target.value);
                 }}
-                placeholder={t.namePlaceholder}
+                placeholder={t("namePlaceholder")}
                 className="mt-2 w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </label>
@@ -216,7 +166,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
                   : "bg-muted text-muted-foreground cursor-not-allowed"
               }`}
             >
-              📜 {t.generateCertificate}
+              📜 {t("generateCertificate")}
             </button>
           </div>
         </div>
@@ -232,13 +182,13 @@ function CertificateContent({ locale }: CertificateClientProps) {
           onClick={handleDownload}
           className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
         >
-          {t.downloadCertificate}
+          {t("downloadCertificate")}
         </button>
         <button
           onClick={handlePrint}
           className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-xl hover:bg-secondary/90 transition-colors"
         >
-          {t.printCertificate}
+          {t("printCertificate")}
         </button>
         <button
           onClick={() => {
@@ -246,7 +196,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
           }}
           className="inline-flex items-center gap-2 px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted/80 transition-colors"
         >
-          {t.newCertificate}
+          {t("newCertificate")}
         </button>
       </div>
 
@@ -270,18 +220,18 @@ function CertificateContent({ locale }: CertificateClientProps) {
           <div className="flex-1 flex flex-col items-center justify-center text-center z-10 px-12">
             {/* Header */}
             <div className="text-green-700 text-sm uppercase tracking-[0.3em] mb-2">
-              {t.programName}
+              {t("programName")}
             </div>
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-green-800 mb-6">
-              {t.certificateTitle}
+              {t("certificateTitle")}
             </h1>
 
             {/* Certification Text */}
-            <p className="text-gray-600 text-lg mb-2">{t.certifiedThat}</p>
+            <p className="text-gray-600 text-lg mb-2">{t("certifiedThat")}</p>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 font-serif border-b-2 border-green-600 pb-2 px-8">
               {studentName}
             </h2>
-            <p className="text-gray-600 text-lg mb-6">{t.hasCompleted}</p>
+            <p className="text-gray-600 text-lg mb-6">{t("hasCompleted")}</p>
 
             {/* Stats */}
             <div className="flex items-center gap-8 mb-6">
@@ -290,7 +240,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
                   {completedLessons}/4
                 </div>
                 <div className="text-sm text-gray-500">
-                  {t.lessonsCompleted}
+                  {t("lessonsCompleted")}
                 </div>
               </div>
               <div className="text-4xl">🏆</div>
@@ -298,7 +248,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
                 <div className="text-3xl font-bold text-yellow-600">
                   {totalPoints}
                 </div>
-                <div className="text-sm text-gray-500">{t.points}</div>
+                <div className="text-sm text-gray-500">{t("points")}</div>
               </div>
             </div>
 
@@ -319,7 +269,7 @@ function CertificateContent({ locale }: CertificateClientProps) {
 
             {/* Date */}
             <div className="text-gray-500 text-sm">
-              {t.dateIssued}: {formatDate(new Date())}
+              {t("dateIssued")}: {formatDate(new Date())}
             </div>
           </div>
 
