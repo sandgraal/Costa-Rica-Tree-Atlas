@@ -133,6 +133,8 @@ function ComparePageClient({
     },
   };
 
+  const safeLocale: Locale = locale === "es" ? "es" : "en";
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Page Header */}
@@ -329,7 +331,7 @@ function ComparePageClient({
 
         <TreeComparison
           trees={trees}
-          locale={locale as Locale}
+          locale={safeLocale}
           translations={translations}
         />
       </section>
