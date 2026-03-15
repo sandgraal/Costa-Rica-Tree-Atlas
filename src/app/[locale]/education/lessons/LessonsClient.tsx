@@ -45,7 +45,7 @@ function LessonsContent({ lessonPlans }: LessonsClientProps) {
           <span>✓</span>
           {t("completed")}
           <span className="text-green-200">
-            ({lessonProgress.totalPoints} pts)
+            ({lessonProgress.totalPoints})
           </span>
         </div>
       );
