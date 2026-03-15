@@ -21,8 +21,12 @@ export default async function OGImage({ params }: Props) {
     en: `${count} botanical terms with clear definitions and examples`,
     es: `${count} términos botánicos con definiciones claras y ejemplos`,
   };
-  const title = TITLES[locale] || TITLES.en;
-  const subtitle = SUBTITLES[locale] || SUBTITLES.en;
+  const title = Object.prototype.hasOwnProperty.call(TITLES, locale)
+    ? TITLES[locale]
+    : TITLES.en;
+  const subtitle = Object.prototype.hasOwnProperty.call(SUBTITLES, locale)
+    ? SUBTITLES[locale]
+    : SUBTITLES.en;
 
   return new ImageResponse(
     <div
