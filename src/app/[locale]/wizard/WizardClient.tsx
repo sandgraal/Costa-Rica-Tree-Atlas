@@ -2,6 +2,7 @@
 /* eslint-disable security/detect-object-injection -- wizard uses constrained locale keys, enum-like options, and controlled answer maps. */
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { ProgressBar } from "@/components/ProgressBar";
 import Image from "next/image";
@@ -26,7 +27,6 @@ interface Tree {
 
 interface WizardClientProps {
   trees: Tree[];
-  locale: string;
 }
 
 interface Answers {
@@ -38,162 +38,12 @@ interface Answers {
   growthSpeed?: "slow" | "moderate" | "fast";
 }
 
-export default function WizardClient({ trees, locale }: WizardClientProps) {
+export default function WizardClient({ trees }: WizardClientProps) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [recommendations, setRecommendations] = useState<Tree[]>([]);
 
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      en: {
-        title: "Tree Selection Wizard",
-        subtitle: "Find the perfect tree for your space",
-        back: "← Back",
-        next: "Next →",
-        finish: "Get Recommendations",
-        restart: "Start Over",
-        step: "Step",
-        of: "of",
-        // Step 1
-        spaceQuestion: "How much space do you have?",
-        spaceSmall: "Small (< 15 ft)",
-        spaceSmallDesc: "Limited space, small yard or container",
-        spaceMedium: "Medium (15-30 ft)",
-        spaceMediumDesc: "Typical residential yard",
-        spaceLarge: "Large (30-50 ft)",
-        spaceLargeDesc: "Large property or park",
-        spaceVeryLarge: "Very Large (50+ ft)",
-        spaceVeryLargeDesc: "Estate, farm, or forest area",
-        // Step 2
-        sunlightQuestion: "How much sunlight does the location get?",
-        fullSun: "Full Sun",
-        fullSunDesc: "6+ hours of direct sunlight daily",
-        partialShade: "Partial Shade",
-        partialShadeDesc: "3-6 hours of sunlight daily",
-        shadeTolerant: "Shade",
-        shadeDesc: "Less than 3 hours of direct sun",
-        // Step 3
-        purposeQuestion: "What's your main purpose? (Select all that apply)",
-        purposeShade: "Shade",
-        purposeFruit: "Fruit Production",
-        purposeOrnamental: "Ornamental/Beauty",
-        purposePrivacy: "Privacy Screen",
-        purposeWildlife: "Wildlife Habitat",
-        purposeTimber: "Timber/Wood",
-        purposeWindbreak: "Windbreak",
-        purposeSoil: "Soil Improvement",
-        // Step 4
-        safetyQuestion: "Safety considerations? (Select all that apply)",
-        safetyChildren: "Safe for children",
-        safetyPets: "Safe for pets",
-        safetyNonToxic: "Non-toxic",
-        safetyLowRisk: "Low structural risk",
-        safetyNone: "No specific safety concerns",
-        // Step 5
-        maintenanceQuestion: "How much maintenance can you provide?",
-        maintenanceLow: "Low Maintenance",
-        maintenanceLowDesc: "Minimal care, drought-tolerant",
-        maintenanceModerate: "Moderate Maintenance",
-        maintenanceModerateDesc: "Regular watering and occasional pruning",
-        maintenanceHigh: "High Maintenance",
-        maintenanceHighDesc: "Frequent care and attention",
-        // Step 6
-        growthQuestion: "How quickly do you want the tree to grow?",
-        growthSlow: "Slow Growth",
-        growthSlowDesc: "Patient, long-term investment",
-        growthModerate: "Moderate Growth",
-        growthModerateDesc: "Balanced growth rate",
-        growthFast: "Fast Growth",
-        growthFastDesc: "Quick results, shade sooner",
-        // Results
-        resultsTitle: "Your Recommended Trees",
-        resultsSubtitle:
-          "Based on your preferences, here are our top recommendations",
-        resultsNone:
-          "No trees match your exact criteria. Try adjusting your requirements.",
-        learnMore: "Learn More",
-        viewProfile: "View Tree Profile",
-        matchScore: "Match",
-        whyRecommended: "Why recommended:",
-        characteristics: "Characteristics:",
-      },
-      es: {
-        title: "Asistente de Selección de Árboles",
-        subtitle: "Encuentra el árbol perfecto para tu espacio",
-        back: "← Atrás",
-        next: "Siguiente →",
-        finish: "Obtener Recomendaciones",
-        restart: "Comenzar de Nuevo",
-        step: "Paso",
-        of: "de",
-        // Step 1
-        spaceQuestion: "¿Cuánto espacio tienes disponible?",
-        spaceSmall: "Pequeño (< 4.5 m)",
-        spaceSmallDesc: "Espacio limitado, patio pequeño o contenedor",
-        spaceMedium: "Mediano (4.5-9 m)",
-        spaceMediumDesc: "Patio residencial típico",
-        spaceLarge: "Grande (9-15 m)",
-        spaceLargeDesc: "Propiedad grande o parque",
-        spaceVeryLarge: "Muy Grande (15+ m)",
-        spaceVeryLargeDesc: "Finca, granja o área forestal",
-        // Step 2
-        sunlightQuestion: "¿Cuánta luz solar recibe el lugar?",
-        fullSun: "Sol Pleno",
-        fullSunDesc: "6+ horas de sol directo al día",
-        partialShade: "Sombra Parcial",
-        partialShadeDesc: "3-6 horas de sol al día",
-        shadeTolerant: "Sombra",
-        shadeDesc: "Menos de 3 horas de sol directo",
-        // Step 3
-        purposeQuestion:
-          "¿Cuál es tu propósito principal? (Selecciona todos los que apliquen)",
-        purposeShade: "Sombra",
-        purposeFruit: "Producción de Frutas",
-        purposeOrnamental: "Ornamental/Belleza",
-        purposePrivacy: "Pantalla de Privacidad",
-        purposeWildlife: "Hábitat de Vida Silvestre",
-        purposeTimber: "Madera",
-        purposeWindbreak: "Cortavientos",
-        purposeSoil: "Mejora del Suelo",
-        // Step 4
-        safetyQuestion:
-          "¿Consideraciones de seguridad? (Selecciona todas las que apliquen)",
-        safetyChildren: "Seguro para niños",
-        safetyPets: "Seguro para mascotas",
-        safetyNonToxic: "No tóxico",
-        safetyLowRisk: "Bajo riesgo estructural",
-        safetyNone: "Sin preocupaciones específicas de seguridad",
-        // Step 5
-        maintenanceQuestion: "¿Cuánto mantenimiento puedes proporcionar?",
-        maintenanceLow: "Bajo Mantenimiento",
-        maintenanceLowDesc: "Cuidado mínimo, tolerante a la sequía",
-        maintenanceModerate: "Mantenimiento Moderado",
-        maintenanceModerateDesc: "Riego regular y poda ocasional",
-        maintenanceHigh: "Alto Mantenimiento",
-        maintenanceHighDesc: "Cuidado y atención frecuentes",
-        // Step 6
-        growthQuestion: "¿Qué tan rápido quieres que crezca el árbol?",
-        growthSlow: "Crecimiento Lento",
-        growthSlowDesc: "Paciente, inversión a largo plazo",
-        growthModerate: "Crecimiento Moderado",
-        growthModerateDesc: "Tasa de crecimiento equilibrada",
-        growthFast: "Crecimiento Rápido",
-        growthFastDesc: "Resultados rápidos, sombra más pronto",
-        // Results
-        resultsTitle: "Tus Árboles Recomendados",
-        resultsSubtitle:
-          "Basado en tus preferencias, aquí están nuestras mejores recomendaciones",
-        resultsNone:
-          "No hay árboles que coincidan exactamente con tus criterios. Intenta ajustar tus requisitos.",
-        learnMore: "Aprender Más",
-        viewProfile: "Ver Perfil del Árbol",
-        matchScore: "Coincidencia",
-        whyRecommended: "Por qué se recomienda:",
-        characteristics: "Características:",
-      },
-    };
-    return translations[locale][key] || key;
-  };
+  const t = useTranslations("wizard");
 
   const handleAnswer = (key: keyof Answers, value: unknown) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
@@ -685,10 +535,7 @@ export default function WizardClient({ trees, locale }: WizardClientProps) {
             href="/trees"
             className="text-primary hover:text-primary-dark underline"
           >
-            ←{" "}
-            {locale === "es"
-              ? "Explorar Todos los Árboles"
-              : "Browse All Trees"}
+            ← {t("browseAllTrees")}
           </Link>
         </div>
       </div>

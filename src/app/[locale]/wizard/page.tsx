@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { allTrees } from "contentlayer/generated";
 import WizardClient from "./WizardClient";
@@ -9,16 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "wizard" });
 
   return {
-    title:
-      locale === "es"
-        ? "Asistente de Selección de Árboles - Atlas de Árboles de Costa Rica"
-        : "Tree Selection Wizard - Costa Rica Tree Atlas",
-    description:
-      locale === "es"
-        ? "Encuentra el árbol costarricense perfecto para tu espacio. Recomendaciones personalizadas según clima, suelo y uso."
-        : "Find the perfect Costa Rican tree for your space. Personalized recommendations based on climate, soil, and intended use.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       languages: {
         en: "/en/wizard",
@@ -52,5 +47,5 @@ export default async function WizardPage({ params }: Props) {
       description: t.description,
     }));
 
-  return <WizardClient trees={trees} locale={locale} />;
+  return <WizardClient trees={trees} />;
 }
