@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explora el atlas para descubrir árboles de esta región",
     "seeResults": "Ver Resultados",
     "correctCount": "Correctas"
+  },
   "classroom": {
     "metaTitle": "Aula Virtual - Atlas de Árboles de Costa Rica",
     "metaDescription": "Crea o únete a un aula virtual para aprender sobre árboles de Costa Rica y seguir el progreso de tu clase.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "Ej: Ciencias 5A",
     "placeholderTeacherName": "Ej: Sra. García",
     "placeholderStudentName": "Tu nombre"
+  },
   "teacher": {
     "metaTitle": "Portal del Profesor - Atlas de Árboles de Costa Rica",
     "metaDescription": "Recursos, guías y materiales para profesores que utilizan el Atlas de Árboles de Costa Rica.",
@@ -1504,5 +1506,9 @@
     "plantingDesc": "Germinar y cuidar una plántula de árbol nativo",
     "technologyTitle": "Tecnología",
     "technologyDesc": "Crear una presentación digital sobre un árbol favorito"
+  },
+  "ecosystemServices": {
+    "metaTitle": "Servicios Ecosistémicos - Lección Educativa",
+    "metaDescription": "Descubre los servicios ecosistémicos de los árboles de Costa Rica: purificación del aire, ciclo del agua, hábitat y más."
   }
 }

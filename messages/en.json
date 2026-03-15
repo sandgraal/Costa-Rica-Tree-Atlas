@@ -1374,6 +1374,7 @@
     "exploreAtlas": "Explore the atlas to discover trees from this region",
     "seeResults": "See Results",
     "correctCount": "Correct"
+  },
   "classroom": {
     "metaTitle": "Classroom - Costa Rica Tree Atlas",
     "metaDescription": "Create or join a virtual classroom to learn about Costa Rican trees and track your class progress.",
@@ -1417,6 +1418,7 @@
     "placeholderClassroomName": "E.g. Science 5A",
     "placeholderTeacherName": "E.g. Mrs. Garcia",
     "placeholderStudentName": "Your name"
+  },
   "teacher": {
     "metaTitle": "Teacher Dashboard - Costa Rica Tree Atlas",
     "metaDescription": "Resources, guides, and materials for teachers using the Costa Rica Tree Atlas.",
@@ -1504,5 +1506,9 @@
     "plantingDesc": "Germinate and care for a native tree seedling",
     "technologyTitle": "Technology",
     "technologyDesc": "Create a digital presentation about a favorite tree"
+  },
+  "ecosystemServices": {
+    "metaTitle": "Ecosystem Services - Educational Lesson",
+    "metaDescription": "Discover ecosystem services provided by Costa Rican trees: air purification, water cycling, wildlife habitat, and more."
   }
 }
