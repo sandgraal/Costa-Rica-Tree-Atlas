@@ -128,7 +128,7 @@ export default async function Image({ params }: Props) {
               gap: 8,
             }}
           >
-            {`🔍 ${GUIDE_LABEL[locale] || GUIDE_LABEL.en}`}
+            {`🔍 ${locale === "es" ? GUIDE_LABEL.es : GUIDE_LABEL.en}`}
           </div>
           {difficultyLabel && (
             <div
