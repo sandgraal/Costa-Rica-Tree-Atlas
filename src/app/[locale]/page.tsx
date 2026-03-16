@@ -95,7 +95,6 @@ export default async function HomePage({ params }: Props) {
   }
 
   // Structured data for homepage
-  const languageTag = locale === "es" ? "es-CR" : "en-US";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -103,7 +102,7 @@ export default async function HomePage({ params }: Props) {
     alternateName: "Atlas de Árboles de Costa Rica",
     url: "https://costaricatreeatlas.com",
     description: t("structuredDescription"),
-    inLanguage: languageTag,
+    inLanguage: locale,
     potentialAction: {
       "@type": "SearchAction",
       target: {
