@@ -14,6 +14,8 @@ import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
 import { buildCompareToolHref } from "@/lib/query-contracts";
 
+const OG_LOCALE: Record<string, string> = { en: "en_US", es: "es_CR" };
+
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
@@ -50,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: comparison.title,
       description: comparison.description,
       type: "article",
-      locale: locale === "es" ? "es_CR" : "en_US",
+      locale: OG_LOCALE[locale] || "en_US",
     },
   };
 }

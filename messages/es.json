@@ -438,7 +438,9 @@
       "uses": "Usos",
       "tags": "Características"
     },
-    "confusionLevel": "Nivel de confusión:"
+    "confusionLevel": "Nivel de confusión:",
+    "structuredName": "Comparar Árboles de Costa Rica",
+    "structuredDescription": "Compara {count} guías de comparación de especies de árboles de Costa Rica."
   },
   "fieldGuide": {
     "title": "Generador de Guía de Campo",

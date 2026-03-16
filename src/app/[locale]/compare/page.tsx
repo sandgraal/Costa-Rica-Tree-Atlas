@@ -73,18 +73,14 @@ export default async function ComparePage({ params }: { params: Params }) {
     .filter((comp) => comp.locale === locale)
     .sort((a, b) => a.title.localeCompare(b.title));
 
+  const t = await getTranslations("comparison");
+
   // Structured data for comparison page
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name:
-      locale === "es"
-        ? "Comparar Árboles de Costa Rica"
-        : "Compare Costa Rica Trees",
-    description:
-      locale === "es"
-        ? `Compara ${comparisons.length} guías de comparación de especies de árboles de Costa Rica.`
-        : `Compare ${comparisons.length} species comparison guides for Costa Rican trees.`,
+    name: t("structuredName"),
+    description: t("structuredDescription", { count: comparisons.length }),
     url: `https://costaricatreeatlas.com/${locale}/compare`,
     numberOfItems: comparisons.length,
     inLanguage: locale,
