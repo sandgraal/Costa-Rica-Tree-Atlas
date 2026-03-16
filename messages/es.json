@@ -893,7 +893,9 @@
       "reproduction": "Reproducción",
       "general": "General",
       "timber": "Madera y Carpintería"
-    }
+    },
+    "structuredName": "Glosario de Árboles de Costa Rica",
+    "structuredDescription": "Glosario de {count} términos botánicos utilizados en el Atlas de Árboles de Costa Rica."
   },
   "imageVoting": {
     "title": "Ayuda a Mejorar las Imágenes",
@@ -1678,7 +1680,7 @@
     "title": "Guía de Familias Botánicas",
     "subtitle": "Atlas de Árboles de Costa Rica",
     "instructions": "Referencia rápida de familias botánicas representadas en el atlas",
-    "printButton": "\uD83D\uDDA8\uFE0F Imprimir",
+    "printButton": "🖨️ Imprimir",
     "backLink": "← Volver",
     "species": "especies",
     "families": "familias",
@@ -1711,7 +1713,7 @@
     "roots": "Raíces",
     "wholeTree": "Árbol Completo",
     "selectSymptom": "¿Qué síntomas observas?",
-    "back": "\u2190 Atrás",
+    "back": "← Atrás",
     "restart": "Comenzar de Nuevo",
     "severityLow": "Severidad Baja",
     "severityModerate": "Severidad Moderada",
@@ -1729,32 +1731,13 @@
     "categoryRootsDesc": "Problemas de raíces",
     "categoryWholeTreeDesc": "Problemas generales del árbol"
   },
-  "identificationKey": {
-    "metaTitle": "Clave de Identificación - Atlas de Árboles de Costa Rica",
-    "metaDescription": "Guía dicotómica para identificar árboles de Costa Rica por características observables.",
-    "title": "Clave de Identificación",
-    "subtitle": "Atlas de Árboles de Costa Rica",
-    "intro": "Usa esta clave dicotómica simplificada para identificar árboles. Comienza en el paso 1 y sigue las opciones hasta llegar a un grupo de especies.",
-    "printButton": "🖨️ Imprimir",
-    "backLink": "← Volver",
-    "step": "Paso",
-    "goTo": "Ir a",
-    "species": "especies",
-    "examples": "Ejemplos",
-    "tips": "Consejos de Campo",
-    "tip1": "Observa la forma general del árbol primero",
-    "tip2": "Examina las hojas - simples o compuestas, alternas u opuestas",
-    "tip3": "Busca flores, frutos o semillas si están disponibles",
-    "tip4": "Nota la corteza - textura, color, y si tiene látex",
-    "tip5": "Considera la ubicación y el hábitat"
-  },
   "checklist": {
     "metaTitle": "Lista de Especies Imprimible - Atlas de Árboles de Costa Rica",
     "metaDescription": "Lista imprimible de especies de árboles de Costa Rica organizada por familia botánica. Ideal para excursiones y actividades de campo.",
     "title": "Lista de Especies",
     "subtitle": "Atlas de Árboles de Costa Rica",
     "instructions": "Marca las especies que observes durante tu excursión",
-    "printButton": "\uD83D\uDDA8\uFE0F Imprimir",
+    "printButton": "🖨️ Imprimir",
     "backLink": "← Volver",
     "species": "especies",
     "date": "Fecha",
@@ -1778,7 +1761,7 @@
     "unknownStatus": "Estado de conservación desconocido",
     "aboutIUCN": "Acerca de la Lista Roja de la UICN",
     "aboutIUCNDesc": "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas.",
-    "visitIUCN": "Visitar Lista Roja de la UICN \u2192"
+    "visitIUCN": "Visitar Lista Roja de la UICN →"
   },
   "coloringPages": {
     "metaTitle": "Páginas para Colorear - Atlas de Árboles de Costa Rica",
@@ -1786,15 +1769,15 @@
     "title": "Páginas para Colorear",
     "subtitle": "Atlas de Árboles de Costa Rica",
     "instructions": "Imprime y colorea los árboles. Aprende sus nombres mientras te diviertes.",
-    "printButton": "\ud83d\udda8\ufe0f Imprimir",
-    "backLink": "\u2190 Volver",
-    "colorMe": "\u00a1Color\u00e9ame!",
+    "printButton": "🖨️ Imprimir",
+    "backLink": "← Volver",
+    "colorMe": "¡Coloréame!",
     "family": "Familia",
     "selectAll": "Seleccionar Todo",
     "deselectAll": "Deseleccionar Todo",
     "selected": "seleccionadas",
-    "tip": "\ud83d\udca1 Consejo: Usa colores realistas o tu imaginaci\u00f3n. \u00a1Ambos est\u00e1n bien!",
-    "writePrompt": "Escribe algo sobre este \u00e1rbol:"
+    "tip": "💡 Consejo: Usa colores realistas o tu imaginación. ¡Ambos están bien!",
+    "writePrompt": "Escribe algo sobre este árbol:"
   },
   "biodiversityIntro": {
     "metaTitle": "Introducción a la Biodiversidad - Atlas de Árboles de Costa Rica",
