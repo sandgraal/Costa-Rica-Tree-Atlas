@@ -129,7 +129,7 @@ function ComparePageClient({
     },
   };
 
-  const safeLocale = locale as Locale;
+  const safeLocale: Locale = locale === "es" ? "es" : "en";
 
   return (
     <div className="container mx-auto px-4 py-8">
