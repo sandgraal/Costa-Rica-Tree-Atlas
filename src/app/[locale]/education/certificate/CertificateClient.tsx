@@ -27,6 +27,11 @@ function CertificateContent() {
   const badges = getBadges();
   const earnedBadges = badges.filter((b) => b.earned);
 
+  const badgeName = (badge: (typeof badges)[number]) =>
+    locale === "es" ? badge.nameEs : badge.name;
+  const badgeDescription = (badge: (typeof badges)[number]) =>
+    locale === "es" ? badge.descriptionEs : badge.description;
+
   const handlePrint = () => {
     window.print();
   };
@@ -48,7 +53,7 @@ function CertificateContent() {
   };
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString(locale === "es" ? "es-CR" : "en-US", {
+    return date.toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -127,11 +132,9 @@ function CertificateContent() {
                   <span
                     key={badge.id}
                     className="px-3 py-1 bg-yellow-500/20 rounded-full text-sm flex items-center gap-1"
-                    title={
-                      locale === "es" ? badge.descriptionEs : badge.description
-                    }
+                    title={badgeDescription(badge)}
                   >
-                    {badge.icon} {locale === "es" ? badge.nameEs : badge.name}
+                    {badge.icon} {badgeName(badge)}
                   </span>
                 ))}
               </div>
@@ -259,7 +262,7 @@ function CertificateContent() {
                   <span
                     key={badge.id}
                     className="text-2xl"
-                    title={locale === "es" ? badge.nameEs : badge.name}
+                    title={badgeName(badge)}
                   >
                     {badge.icon}
                   </span>
