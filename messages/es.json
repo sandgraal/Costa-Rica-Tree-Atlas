@@ -442,7 +442,9 @@
   },
   "fieldGuide": {
     "title": "Generador de Guía de Campo",
-    "metaDescription": "Genera una guía de campo personalizada e imprimible de árboles de Costa Rica. Elige especies con fotos y datos clave de identificación."
+    "metaDescription": "Genera una guía de campo personalizada e imprimible de árboles de Costa Rica. Elige especies con fotos y datos clave de identificación.",
+    "structuredName": "Generador de Guía de Campo",
+    "structuredDescription": "Crea tu propia guía de campo personalizada de árboles de Costa Rica."
   },
   "identify": {
     "title": "Identificar un árbol",
@@ -1514,7 +1516,7 @@
     "correct": "¡Correcto!",
     "incorrect": "Incorrecto",
     "theCorrectAnswer": "La respuesta correcta es",
-    "nextQuestion": "Siguiente \u2192",
+    "nextQuestion": "Siguiente →",
     "score": "Puntuación",
     "streak": "🔥 Racha",
     "highScore": "Récord",

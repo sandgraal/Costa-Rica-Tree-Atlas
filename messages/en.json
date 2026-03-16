@@ -442,7 +442,9 @@
   },
   "fieldGuide": {
     "title": "Field Guide Generator",
-    "metaDescription": "Generate a custom printable field guide of Costa Rican trees. Choose species with photos and key identification facts."
+    "metaDescription": "Generate a custom printable field guide of Costa Rican trees. Choose species with photos and key identification facts.",
+    "structuredName": "Field Guide Generator",
+    "structuredDescription": "Create your own custom field guide of Costa Rican trees."
   },
   "identify": {
     "title": "Identify a Tree",
@@ -1514,7 +1516,7 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "theCorrectAnswer": "The correct answer is",
-    "nextQuestion": "Next \u2192",
+    "nextQuestion": "Next →",
     "score": "Score",
     "streak": "🔥 Streak",
     "highScore": "High Score",
