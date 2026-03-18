@@ -475,19 +475,23 @@
     "uses": "Usos",
     "learnMore": "Más información",
     "species": "especies",
-    "safetyLevels.none": "Seguro",
-    "safetyLevels.low": "Bajo riesgo",
-    "safetyLevels.moderate": "Riesgo moderado",
-    "safetyLevels.severe": "Peligroso",
-    "conservationLevels.LC": "Preocupación menor",
-    "conservationLevels.NT": "Casi amenazado",
-    "conservationLevels.VU": "Vulnerable",
-    "conservationLevels.EN": "En peligro",
-    "conservationLevels.CR": "En peligro crítico",
-    "conservationLevels.EW": "Extinto en estado silvestre",
-    "conservationLevels.EX": "Extinto",
-    "conservationLevels.DD": "Datos insuficientes",
-    "conservationLevels.NE": "No evaluado"
+    "safetyLevels": {
+      "none": "Seguro",
+      "low": "Bajo riesgo",
+      "moderate": "Riesgo moderado",
+      "severe": "Peligroso"
+    },
+    "conservationLevels": {
+      "LC": "Preocupación menor",
+      "NT": "Casi amenazado",
+      "VU": "Vulnerable",
+      "EN": "En peligro",
+      "CR": "En peligro crítico",
+      "EW": "Extinto en estado silvestre",
+      "EX": "Extinto",
+      "DD": "Datos insuficientes",
+      "NE": "No evaluado"
+    }
   },
   "identify": {
     "title": "Identificar un árbol",
