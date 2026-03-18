@@ -39,6 +39,21 @@ const translations = {
       referenceLink: "[Link ↗]",
       referencesHeading: "📚 Scientific References & Further Reading",
     },
+    iucn: {
+      NE: "Not Evaluated",
+      DD: "Data Deficient",
+      LC: "Least Concern",
+      NT: "Near Threatened",
+      VU: "Vulnerable",
+      EN: "Endangered",
+      CR: "Critically Endangered",
+      EW: "Extinct in the Wild",
+      EX: "Extinct",
+      redListStatus: "IUCN Red List Status",
+      criteria: "Criteria: ",
+      assessed: "Assessed: ",
+      quickReference: "Quick Reference",
+    },
   },
   es: {
     safety: {
@@ -66,6 +81,21 @@ const translations = {
       costaRicaOnly: "🇨🇷 Solo Costa Rica ↗",
       referenceLink: "[Enlace ↗]",
       referencesHeading: "📚 Referencias científicas y lecturas adicionales",
+    },
+    iucn: {
+      NE: "No Evaluado",
+      DD: "Datos Insuficientes",
+      LC: "Preocupación Menor",
+      NT: "Casi Amenazado",
+      VU: "Vulnerable",
+      EN: "En Peligro",
+      CR: "En Peligro Crítico",
+      EW: "Extinto en Estado Silvestre",
+      EX: "Extinto",
+      redListStatus: "Estado en la Lista Roja de la UICN",
+      criteria: "Criterios: ",
+      assessed: "Evaluado: ",
+      quickReference: "Referencia Rápida",
     },
   },
 } as const;
@@ -709,19 +739,20 @@ export function DistributionMap({
 interface QuickRefProps {
   title?: string;
   items?: { label: string; value: string }[];
+  locale?: "en" | "es";
 }
 
-export function QuickRef({
-  title = "Quick Reference",
-  items = [],
-}: QuickRefProps) {
+export function QuickRef({ title, items = [], locale = "en" }: QuickRefProps) {
   const safeItems = Array.isArray(items) ? items : [];
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to "en" | "es".
+  const defaultTitle = translations[locale].iucn.quickReference;
+  const displayTitle = title ?? defaultTitle;
 
   return (
     <div className="bg-card border-2 border-primary/20 rounded-xl overflow-hidden my-6 not-prose">
       <div className="bg-primary/10 px-4 py-2 border-b border-primary/20">
         <h4 className="font-semibold text-primary-dark dark:text-primary-light">
-          {title}
+          {displayTitle}
         </h4>
       </div>
       <div className="p-4">
@@ -975,6 +1006,7 @@ interface ConservationStatusBoxProps {
   status: string;
   criteria?: string;
   assessmentYear?: number;
+  locale?: "en" | "es";
 }
 
 const IUCN_STATUS_CONFIG: Record<
@@ -1036,9 +1068,14 @@ export function ConservationStatusBox({
   status,
   criteria,
   assessmentYear,
+  locale = "en",
 }: ConservationStatusBoxProps) {
   // eslint-disable-next-line security/detect-object-injection -- Fallback to known key ensures safe read from static IUCN map.
   const config = IUCN_STATUS_CONFIG[status] || IUCN_STATUS_CONFIG.NE;
+  // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to "en" | "es".
+  const t = translations[locale].iucn;
+  // eslint-disable-next-line security/detect-object-injection -- `status` is validated via fallback above.
+  const localizedName = (t as Record<string, string>)[status] || config.name;
 
   return (
     <div className="rounded-xl border border-border p-5 my-6 bg-muted/50">
@@ -1056,10 +1093,10 @@ export function ConservationStatusBox({
           <div className="flex items-center gap-2">
             <span className="text-xl">{config.icon}</span>
             <h4 className="font-semibold text-lg text-foreground">
-              {config.name}
+              {localizedName}
             </h4>
           </div>
-          <p className="text-sm text-muted-foreground">IUCN Red List Status</p>
+          <p className="text-sm text-muted-foreground">{t.redListStatus}</p>
         </div>
       </div>
 
@@ -1067,13 +1104,13 @@ export function ConservationStatusBox({
         <div className="mt-4 pt-4 border-t border-border flex flex-wrap gap-4 text-sm">
           {criteria && (
             <div>
-              <span className="text-muted-foreground">Criteria: </span>
+              <span className="text-muted-foreground">{t.criteria}</span>
               <span className="font-medium text-foreground">{criteria}</span>
             </div>
           )}
           {assessmentYear && (
             <div>
-              <span className="text-muted-foreground">Assessed: </span>
+              <span className="text-muted-foreground">{t.assessed}</span>
               <span className="font-medium text-foreground">
                 {assessmentYear}
               </span>

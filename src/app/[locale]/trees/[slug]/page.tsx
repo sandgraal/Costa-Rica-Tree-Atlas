@@ -90,8 +90,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tree = allTrees.find((t) => t.locale === locale && t.slug === slug);
 
   if (!tree) {
+    const t = await getTranslations({ locale, namespace: "treeDetail" });
     return {
-      title: "Tree Not Found",
+      title: t("treeNotFound"),
     };
   }
 
