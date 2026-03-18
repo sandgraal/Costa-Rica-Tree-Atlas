@@ -93,7 +93,7 @@ export default async function GlossaryTermPage({
               <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium capitalize">
                 {term.category}
               </span>
-              <ShareLink title={t("copyLink")} />
+              <ShareLink title={t("copyLink")} copiedText={t("linkCopied")} />
             </div>
           </div>
 

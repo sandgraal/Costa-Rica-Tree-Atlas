@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 import { allTrees } from "contentlayer/generated";
+import { getConservationLabel } from "@/lib/i18n/translations";
+import type { ConservationCategory, Locale } from "@/types/tree";
 
 export const alt = "Tree profile image";
 export const size = {
@@ -37,10 +39,25 @@ export default async function Image({ params }: Props) {
           fontSize: 48,
         }}
       >
-        Tree Not Found
+        {locale === "es" ? "Árbol No Encontrado" : "Tree Not Found"}
       </div>,
       { ...size }
     );
+  }
+
+  let conservationLabel: string | null = null;
+
+  if (tree.conservationStatus) {
+    try {
+      const label = getConservationLabel(
+        tree.conservationStatus as ConservationCategory,
+        locale as Locale
+      );
+      conservationLabel = `${tree.conservationStatus} — ${label}`;
+    } catch {
+      // Fallback to the raw conservation status code if translation fails
+      conservationLabel = tree.conservationStatus;
+    }
   }
 
   return new ImageResponse(
@@ -92,7 +109,7 @@ export default async function Image({ params }: Props) {
           >
             {tree.family}
           </div>
-          {tree.conservationStatus && (
+          {conservationLabel && (
             <div
               style={{
                 backgroundColor: "rgba(255, 255, 255, 0.15)",
@@ -102,7 +119,7 @@ export default async function Image({ params }: Props) {
                 fontSize: 20,
               }}
             >
-              {tree.conservationStatus}
+              {conservationLabel}
             </div>
           )}
         </div>

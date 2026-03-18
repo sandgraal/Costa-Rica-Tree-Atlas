@@ -4,11 +4,13 @@ import { useState } from "react";
 
 interface ShareLinkProps {
   title?: string;
+  copiedText?: string;
   className?: string;
 }
 
 export function ShareLink({
   title = "Share Link",
+  copiedText = "Copied!",
   className = "",
 }: ShareLinkProps) {
   const [copied, setCopied] = useState(false);
@@ -46,7 +48,7 @@ export function ShareLink({
               d="M5 13l4 4L19 7"
             />
           </svg>
-          <span className="text-success">Copied!</span>
+          <span className="text-success">{copiedText}</span>
         </>
       ) : (
         <>
