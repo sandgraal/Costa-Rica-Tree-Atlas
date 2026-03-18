@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { QRCodeGenerator } from "./QRCodeGenerator";
 import type { FieldGuideTreeSummary } from "@/types/tree";
 
@@ -15,45 +16,9 @@ export function FieldGuidePreview({
   locale,
   onBack,
 }: FieldGuidePreviewProps) {
-  const t = {
-    title:
-      locale === "es"
-        ? "Mi Guía de Campo de Árboles de Costa Rica"
-        : "My Costa Rica Tree Field Guide",
-    backToSelection:
-      locale === "es" ? "← Volver a Selección" : "← Back to Selection",
-    print: locale === "es" ? "Imprimir Guía" : "Print Guide",
-    export: locale === "es" ? "Exportar" : "Export",
-    generated: locale === "es" ? "Generado desde" : "Generated from",
-    site: "Costa Rica Tree Atlas",
-    family: locale === "es" ? "Familia" : "Family",
-    height: locale === "es" ? "Altura" : "Height",
-    safetyLevel: locale === "es" ? "Nivel de Seguridad" : "Safety Level",
-    conservationStatus:
-      locale === "es" ? "Estado de Conservación" : "Conservation Status",
-    identificationTips:
-      locale === "es" ? "Tips de Identificación" : "Identification Tips",
-    uses: locale === "es" ? "Usos" : "Uses",
-    learnMore: locale === "es" ? "Más información" : "Learn more",
-    safetyLevels: {
-      none: locale === "es" ? "Seguro" : "Safe",
-      low: locale === "es" ? "Bajo riesgo" : "Low risk",
-      moderate: locale === "es" ? "Riesgo moderado" : "Moderate risk",
-      severe: locale === "es" ? "Peligroso" : "Dangerous",
-    },
-    conservationLevels: {
-      LC: locale === "es" ? "Preocupación menor" : "Least Concern",
-      NT: locale === "es" ? "Casi amenazado" : "Near Threatened",
-      VU: locale === "es" ? "Vulnerable" : "Vulnerable",
-      EN: locale === "es" ? "En peligro" : "Endangered",
-      CR: locale === "es" ? "En peligro crítico" : "Critically Endangered",
-      EW:
-        locale === "es" ? "Extinto en estado silvestre" : "Extinct in the Wild",
-      EX: locale === "es" ? "Extinto" : "Extinct",
-      DD: locale === "es" ? "Datos insuficientes" : "Data Deficient",
-      NE: locale === "es" ? "No evaluado" : "Not Evaluated",
-    },
-  };
+  const t = useTranslations("fieldGuide");
+
+  const dateLocale = locale === "es" ? "es-CR" : "en-US";
 
   const handlePrint = () => {
     window.print();
@@ -68,14 +33,14 @@ export function FieldGuidePreview({
             onClick={onBack}
             className="flex items-center gap-2 text-white hover:text-green-100 transition-colors"
           >
-            {t.backToSelection}
+            {t("backToSelectionArrow")}
           </button>
           <button
             onClick={handlePrint}
             className="px-6 py-2 bg-white text-green-700 font-semibold rounded-lg hover:bg-green-50 transition-colors flex items-center gap-2"
           >
             <PrintIcon className="w-4 h-4" />
-            {t.print}
+            {t("print")}
           </button>
         </div>
       </div>
@@ -85,21 +50,17 @@ export function FieldGuidePreview({
         {/* Cover Page */}
         <div className="mb-12 text-center page-break-after print:mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-green-700 dark:text-green-500 mb-4">
-            🌳 {t.title}
+            🌳 {t("guideTitle")}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            {trees.length} {locale === "es" ? "especies" : "species"}
+            {trees.length} {t("species")}
           </p>
           <div className="text-sm text-gray-500 dark:text-gray-500">
             <p>
-              {t.generated} {t.site}
+              {t("generated")} {t("site")}
             </p>
             <p className="mt-1">costaricatreeatlas.com</p>
-            <p className="mt-1">
-              {new Date().toLocaleDateString(
-                locale === "es" ? "es-CR" : "en-US"
-              )}
-            </p>
+            <p className="mt-1">{new Date().toLocaleDateString(dateLocale)}</p>
           </div>
         </div>
 
@@ -118,9 +79,9 @@ export function FieldGuidePreview({
                 {tree.conservationStatus &&
                   tree.conservationStatus !== "LC" && (
                     <span className="conservation-status text-xs px-2 py-1 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-medium">
-                      {t.conservationLevels[
-                        tree.conservationStatus as keyof typeof t.conservationLevels
-                      ] || tree.conservationStatus}
+                      {t.has(`conservationLevels.${tree.conservationStatus}`)
+                        ? t(`conservationLevels.${tree.conservationStatus}`)
+                        : tree.conservationStatus}
                     </span>
                   )}
               </div>
@@ -128,7 +89,7 @@ export function FieldGuidePreview({
                 {tree.scientificName}
               </p>
               <p className="family-badge inline-block text-sm text-gray-700 dark:text-gray-300 bg-green-100 dark:bg-green-900/20 px-3 py-1 rounded">
-                {t.family}: {tree.family}
+                {t("family")}: {tree.family}
               </p>
             </div>
 
@@ -151,7 +112,7 @@ export function FieldGuidePreview({
               {tree.maxHeight && (
                 <div>
                   <dt className="property-label text-sm font-semibold text-gray-600 dark:text-gray-400">
-                    {t.height}
+                    {t("height")}
                   </dt>
                   <dd className="property-value text-gray-900 dark:text-gray-100">
                     {tree.maxHeight}
@@ -161,19 +122,19 @@ export function FieldGuidePreview({
               {tree.toxicityLevel && (
                 <div>
                   <dt className="property-label text-sm font-semibold text-gray-600 dark:text-gray-400">
-                    {t.safetyLevel}
+                    {t("safetyLevel")}
                   </dt>
                   <dd className="property-value text-gray-900 dark:text-gray-100">
-                    {t.safetyLevels[
-                      tree.toxicityLevel as keyof typeof t.safetyLevels
-                    ] || tree.toxicityLevel}
+                    {t.has(`safetyLevels.${tree.toxicityLevel}`)
+                      ? t(`safetyLevels.${tree.toxicityLevel}`)
+                      : tree.toxicityLevel}
                   </dd>
                 </div>
               )}
               {tree.uses && tree.uses.length > 0 && (
                 <div className="md:col-span-2">
                   <dt className="property-label text-sm font-semibold text-gray-600 dark:text-gray-400">
-                    {t.uses}
+                    {t("uses")}
                   </dt>
                   <dd className="property-value text-gray-900 dark:text-gray-100">
                     {tree.uses.join(", ")}
@@ -194,7 +155,7 @@ export function FieldGuidePreview({
             {/* QR Code - print only */}
             <div className="print-only mt-4 flex items-center gap-3">
               <div className="text-xs text-gray-600">
-                <p className="font-semibold">{t.learnMore}:</p>
+                <p className="font-semibold">{t("learnMore")}:</p>
                 <p>
                   costaricatreeatlas.com/{locale}/trees/{tree.slug}
                 </p>
@@ -210,12 +171,11 @@ export function FieldGuidePreview({
         {/* Footer */}
         <div className="mt-12 pt-6 border-t-2 border-green-700 text-center text-sm text-gray-600 dark:text-gray-400 print:mt-8">
           <p className="font-semibold text-green-700 dark:text-green-500">
-            {t.site}
+            {t("site")}
           </p>
           <p className="mt-1">costaricatreeatlas.com</p>
           <p className="mt-2 text-xs">
-            {t.generated}{" "}
-            {new Date().toLocaleDateString(locale === "es" ? "es-CR" : "en-US")}
+            {t("generated")} {new Date().toLocaleDateString(dateLocale)}
           </p>
         </div>
       </div>

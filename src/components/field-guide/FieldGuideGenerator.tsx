@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { useStore } from "@/lib/store";
 import { FieldGuidePreview } from "./FieldGuidePreview";
 import { TreeSelectorList } from "./TreeSelectorList";
@@ -21,30 +22,7 @@ export function FieldGuideGenerator({
   const favorites = useStore((state) => state.favorites);
   const hydrated = useStore((state) => state._hydrated);
 
-  const t = {
-    title:
-      locale === "es" ? "Generador de Guía de Campo" : "Field Guide Generator",
-    subtitle:
-      locale === "es"
-        ? "Crea tu propia guía de campo personalizada con los árboles que desees"
-        : "Create your own custom field guide with the trees you want",
-    selectTrees: locale === "es" ? "Seleccionar Árboles" : "Select Trees",
-    search: locale === "es" ? "Buscar árboles..." : "Search trees...",
-    selected: locale === "es" ? "Seleccionados" : "Selected",
-    addFavorites: locale === "es" ? "Agregar Favoritos" : "Add Favorites",
-    clearSelection: locale === "es" ? "Limpiar" : "Clear",
-    selectAll: locale === "es" ? "Seleccionar Todos" : "Select All",
-    preview: locale === "es" ? "Vista Previa" : "Preview",
-    generatePDF: locale === "es" ? "Generar Guía PDF" : "Generate PDF Guide",
-    print: locale === "es" ? "Imprimir" : "Print",
-    noTrees: locale === "es" ? "No se encontraron árboles" : "No trees found",
-    selectAtLeast:
-      locale === "es"
-        ? "Selecciona al menos un árbol para generar la guía"
-        : "Select at least one tree to generate the guide",
-    backToSelection:
-      locale === "es" ? "Volver a Selección" : "Back to Selection",
-  };
+  const t = useTranslations("fieldGuide");
 
   // Filter trees based on search
   const filteredTrees = useMemo(() => {
@@ -104,8 +82,8 @@ export function FieldGuideGenerator({
       {/* Header */}
       <div className="bg-gradient-to-r from-green-600 to-green-700 text-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold mb-3">{t.title}</h1>
-          <p className="text-green-100 text-lg max-w-3xl">{t.subtitle}</p>
+          <h1 className="text-4xl font-bold mb-3">{t("title")}</h1>
+          <p className="text-green-100 text-lg max-w-3xl">{t("subtitle")}</p>
         </div>
       </div>
 
@@ -115,12 +93,12 @@ export function FieldGuideGenerator({
           {/* Search */}
           <div className="flex-1 max-w-md">
             <label htmlFor="tree-search" className="sr-only">
-              {t.search}
+              {t("search")}
             </label>
             <input
               id="tree-search"
               type="text"
-              placeholder={t.search}
+              placeholder={t("search")}
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -132,28 +110,28 @@ export function FieldGuideGenerator({
           {/* Actions */}
           <div className="flex flex-wrap gap-2">
             <span className="px-3 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg text-sm font-medium">
-              {t.selected}: {selectedSlugs.length}
+              {t("selected")}: {selectedSlugs.length}
             </span>
             {hydrated && favorites.length > 0 && (
               <button
                 onClick={handleAddFavorites}
                 className="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors text-sm font-medium"
               >
-                {t.addFavorites} ({favorites.length})
+                {t("addFavorites")} ({favorites.length})
               </button>
             )}
             <button
               onClick={handleSelectAll}
               className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-sm font-medium"
             >
-              {t.selectAll}
+              {t("selectAll")}
             </button>
             {selectedSlugs.length > 0 && (
               <button
                 onClick={handleClear}
                 className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
               >
-                {t.clearSelection}
+                {t("clearSelection")}
               </button>
             )}
           </div>
@@ -172,15 +150,14 @@ export function FieldGuideGenerator({
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {selectedTrees.length}{" "}
-                  {locale === "es" ? "árboles seleccionados" : "trees selected"}
+                  {selectedTrees.length} {t("treesSelected")}
                 </p>
                 <button
                   onClick={handleGenerateFieldGuide}
                   className="w-full sm:w-auto px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <BookOpenIcon className="w-5 h-5" />
-                  {t.generatePDF}
+                  {t("generatePDF")}
                 </button>
               </div>
             </div>
@@ -190,13 +167,13 @@ export function FieldGuideGenerator({
         {selectedTrees.length === 0 && !searchQuery && (
           <div className="text-center py-12 text-gray-500 dark:text-gray-400">
             <BookOpenIcon className="w-16 h-16 mx-auto mb-4 opacity-30" />
-            <p>{t.selectAtLeast}</p>
+            <p>{t("selectAtLeast")}</p>
           </div>
         )}
 
         {filteredTrees.length === 0 && searchQuery && (
           <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-            <p>{t.noTrees}</p>
+            <p>{t("noTrees")}</p>
           </div>
         )}
       </div>
