@@ -23,7 +23,7 @@ export default async function ContributorProfilePage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "reputation" });
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <section className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
@@ -35,6 +35,6 @@ export default async function ContributorProfilePage({ params }: PageProps) {
 
         <ContributorProfileClient />
       </div>
-    </main>
+    </section>
   );
 }

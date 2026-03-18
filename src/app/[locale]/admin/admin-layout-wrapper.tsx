@@ -17,9 +17,9 @@ export function AdminLayoutWrapper({
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {nav}
-      <main className="lg:pl-64">
+      <div className="lg:pl-64">
         <div className="py-2">{children}</div>
-      </main>
+      </div>
     </div>
   );
 }
