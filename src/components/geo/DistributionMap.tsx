@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
   PROVINCES,
   MAP_VIEWBOX,
@@ -49,6 +50,7 @@ export function DistributionMap({
   locale,
   interactive = true,
 }: DistributionMapProps) {
+  const t = useTranslations("map");
   const [hoveredProvince, setHoveredProvince] = useState<Province | null>(null);
 
   const expandedDistribution = useMemo(
@@ -59,10 +61,7 @@ export function DistributionMap({
   const hasDistribution = expandedDistribution.length > 0;
 
   const labels = {
-    title:
-      locale === "es"
-        ? "Distribución en Costa Rica"
-        : "Distribution in Costa Rica",
+    title: t("distributionInCR"),
     elevation: getUILabel("elevation", locale),
     present: getUILabel("present", locale),
     notRecorded: getUILabel("notRecorded", locale),
@@ -267,7 +266,7 @@ export function DistributionMap({
           {/* Legend */}
           <div>
             <h4 className="text-sm font-medium text-muted-foreground mb-2">
-              {locale === "es" ? "Leyenda" : "Legend"}
+              {t("legend")}
             </h4>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
@@ -320,7 +319,7 @@ export function DistributionMap({
           {distribution.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-muted-foreground mb-1">
-                {locale === "es" ? "Regiones" : "Regions"}
+                {t("regions")}
               </h4>
               <ul className="text-sm space-y-1">
                 {distribution.map((dist) => (

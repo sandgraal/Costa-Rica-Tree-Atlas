@@ -54,6 +54,14 @@ const translations = {
       assessed: "Assessed: ",
       quickReference: "Quick Reference",
     },
+    mdx: {
+      careCalendar: "Care Calendar",
+      month: "Month",
+      tasks: "Tasks",
+      geographicDistribution: "Geographic Distribution",
+      elevation: "Elevation",
+      compareInteractive: "Compare in interactive tool",
+    },
   },
   es: {
     safety: {
@@ -96,6 +104,14 @@ const translations = {
       criteria: "Criterios: ",
       assessed: "Evaluado: ",
       quickReference: "Referencia Rápida",
+    },
+    mdx: {
+      careCalendar: "Calendario de Cuidados",
+      month: "Mes",
+      tasks: "Tareas",
+      geographicDistribution: "Distribución Geográfica",
+      elevation: "Elevación",
+      compareInteractive: "Comparar en herramienta interactiva",
     },
   },
 } as const;
@@ -421,23 +437,24 @@ interface CareCalendarProps {
 
 export function CareCalendar({ locale = "en", items }: CareCalendarProps) {
   const safeItems = asArray(items);
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
+  const t = translations[normalizedLocale].mdx;
 
   if (safeItems.length === 0) return null;
 
   return (
     <div className="my-6 not-prose">
-      <h4 className="font-semibold text-foreground mb-3">
-        {locale === "es" ? "Calendario de Cuidados" : "Care Calendar"}
-      </h4>
+      <h4 className="font-semibold text-foreground mb-3">{t.careCalendar}</h4>
       <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="bg-primary/10">
               <th className="p-3 text-left font-semibold border-b border-border">
-                {locale === "es" ? "Mes" : "Month"}
+                {t.month}
               </th>
               <th className="p-3 text-left font-semibold border-b border-border">
-                {locale === "es" ? "Tareas" : "Tasks"}
+                {t.tasks}
               </th>
             </tr>
           </thead>
@@ -704,15 +721,15 @@ export function DistributionMap({
   locale = "en",
 }: DistributionMapProps) {
   const items = distribution || countries || [];
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
+  const t = translations[normalizedLocale].mdx;
+
   return (
     <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 my-6 not-prose border border-border">
       <div className="text-center mb-4">
         <span className="text-4xl">🗺️</span>
-        <h4 className="font-semibold mt-2">
-          {locale === "es"
-            ? "Distribución Geográfica"
-            : "Geographic Distribution"}
-        </h4>
+        <h4 className="font-semibold mt-2">{t.geographicDistribution}</h4>
       </div>
       {items.length > 0 && (
         <div className="flex flex-wrap justify-center gap-2">
@@ -728,7 +745,7 @@ export function DistributionMap({
       )}
       {elevation && (
         <p className="text-center text-sm text-muted-foreground mt-3">
-          {locale === "es" ? "Elevación" : "Elevation"}: {elevation}
+          {t.elevation}: {elevation}
         </p>
       )}
     </div>
@@ -2031,11 +2048,10 @@ export function CompareInToolButton({
 
   const speciesParam = speciesList.join(",");
   const href = `/${locale}/compare?species=${encodeURIComponent(speciesParam)}`;
-  const buttonLabel =
-    label ||
-    (locale === "es"
-      ? "Comparar en herramienta interactiva"
-      : "Compare in interactive tool");
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
+  const t = translations[normalizedLocale].mdx;
+  const buttonLabel = label || t.compareInteractive;
 
   return (
     <a

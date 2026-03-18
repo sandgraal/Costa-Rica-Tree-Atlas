@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { SafeImage } from "@/components/SafeImage";
 import type { Locale } from "@/types/tree";
 
@@ -24,13 +25,14 @@ export function ImageCard({
   credit,
   license,
   sourceUrl,
-  locale = "en",
+  locale: _locale = "en",
   slug: _slug,
   index: _index,
   onClick,
 }: ImageCardProps) {
+  const t = useTranslations("treeDetail");
   const isRemote = src.startsWith("http");
-  const sourceLabel = locale === "es" ? "Ver fuente ↗" : "View source ↗";
+  const sourceLabel = t("viewSource");
 
   const imageArea = (
     <div className="aspect-[4/3] bg-muted relative">

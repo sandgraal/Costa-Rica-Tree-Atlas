@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { useGoogleMaps } from "./GoogleMapsProvider";
 import type { Locale } from "@/types/tree";
 
@@ -46,6 +47,7 @@ export function InteractiveMap({
   showUserLocation = false,
   restrictToCR = true,
 }: InteractiveMapProps) {
+  const t = useTranslations("map");
   const { isLoaded, loadError, google } = useGoogleMaps();
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
@@ -173,7 +175,7 @@ export function InteractiveMap({
         userMarkerRef.current = new google.maps.marker.AdvancedMarkerElement({
           map: mapInstanceRef.current,
           position: userPos,
-          title: locale === "es" ? "Tu ubicación" : "Your location",
+          title: t("yourLocation"),
           content: userPin,
         });
       },
@@ -182,7 +184,7 @@ export function InteractiveMap({
       },
       { enableHighAccuracy: true }
     );
-  }, [showUserLocation, isLoaded, google, locale]);
+  }, [showUserLocation, isLoaded, google, locale, t]);
 
   // Fly to user location
   const flyToUser = useCallback(() => {
@@ -199,9 +201,7 @@ export function InteractiveMap({
       >
         <div className="text-center p-8">
           <span className="text-4xl mb-4 block">🗺️</span>
-          <p className="text-muted-foreground">
-            {locale === "es" ? "Error al cargar el mapa" : "Error loading map"}
-          </p>
+          <p className="text-muted-foreground">{t("errorLoading")}</p>
           <p className="text-sm text-muted-foreground mt-2">{loadError}</p>
         </div>
       </div>
@@ -215,9 +215,7 @@ export function InteractiveMap({
       >
         <div className="text-center p-8">
           <span className="text-4xl mb-4 block animate-bounce">🗺️</span>
-          <p className="text-muted-foreground">
-            {locale === "es" ? "Cargando mapa..." : "Loading map..."}
-          </p>
+          <p className="text-muted-foreground">{t("loadingMap")}</p>
         </div>
       </div>
     );
@@ -232,7 +230,7 @@ export function InteractiveMap({
         <button
           onClick={flyToUser}
           className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow"
-          title={locale === "es" ? "Ir a mi ubicación" : "Go to my location"}
+          title={t("goToMyLocation")}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

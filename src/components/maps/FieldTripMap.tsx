@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
   GoogleMapsProvider,
   InteractiveMap,
@@ -67,20 +68,13 @@ export function FieldTripMap({
     };
   }, [markers]);
 
+  const ft = useTranslations("fieldTrip");
+
   const labels = {
-    title: locale === "es" ? "Mapa de Excursión" : "Field Trip Map",
-    noLocations:
-      locale === "es"
-        ? "Los árboles marcados sin ubicación GPS no aparecerán en el mapa"
-        : "Trees spotted without GPS location won't appear on the map",
-    treesOnMap:
-      locale === "es"
-        ? `${treesWithLocation} árbol(es) en el mapa`
-        : `${treesWithLocation} tree(s) on map`,
-    enableLocation:
-      locale === "es"
-        ? "Habilita tu ubicación para registrar dónde encuentras cada árbol"
-        : "Enable location to record where you find each tree",
+    title: ft("mapTitle"),
+    noLocations: ft("noLocations"),
+    treesOnMap: ft("treesOnMap", { count: treesWithLocation }),
+    enableLocation: ft("enableLocation"),
   };
 
   if (markers.length === 0) {

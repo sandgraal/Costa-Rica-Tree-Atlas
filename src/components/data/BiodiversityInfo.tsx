@@ -90,7 +90,6 @@ function BiodiversityInfoInner({
   locale,
 }: BiodiversityInfoProps) {
   const tb = useTranslations("biodiversity");
-  const tc = useTranslations("conservation");
   const { data, isLoading, isError } = useQuery<BiodiversityData>({
     queryKey: biodiversityQueryKeys.species(scientificName),
     queryFn: async () => {

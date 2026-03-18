@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface PronunciationButtonProps {
   text: string;
@@ -19,6 +20,7 @@ export function PronunciationButton({
   locale = "en",
   className = "",
 }: PronunciationButtonProps) {
+  const td = useTranslations("treeDetail");
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
 
@@ -82,11 +84,8 @@ export function PronunciationButton({
     return null;
   }
 
-  const buttonLabel = label || (locale === "es" ? "Pronunciar" : "Pronounce");
-  const ariaLabel =
-    locale === "es"
-      ? `Escuchar pronunciación de ${text}`
-      : `Listen to pronunciation of ${text}`;
+  const buttonLabel = label || td("pronounce");
+  const ariaLabel = td("listenPronunciation", { name: text });
 
   return (
     <button

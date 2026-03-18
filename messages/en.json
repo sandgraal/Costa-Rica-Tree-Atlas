@@ -123,7 +123,8 @@
     "nationalParksOfCR": "Costa Rica National Parks",
     "exploreByProvince": "Explore by Province",
     "featuredTrees": "Featured trees:",
-    "collections": "Collections:"
+    "collections": "Collections:",
+    "noTreesMatch": "No trees match this collection currently."
   },
   "trees": {
     "title": "Tree Directory",
@@ -1634,7 +1635,10 @@
     "noTreesFound": "No trees found",
     "learnMore": "Learn more about {treeName}",
     "listenPronunciation": "Listen to pronunciation of {name}",
-    "viewSource": "View source ↗"
+    "viewSource": "View source ↗",
+    "heightValue": "Height: {value}",
+    "regionValue": "Region: {value}",
+    "familyValue": "Family: {value}"
   },
   "fieldTrip": {
     "metaTitle": "Field Trip Mode - Costa Rica Tree Atlas",

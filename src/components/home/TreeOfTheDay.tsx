@@ -1,16 +1,18 @@
 import { Link } from "@i18n/navigation";
 import { SafeImage } from "@/components/SafeImage";
+import { getTranslations } from "next-intl/server";
 import type { LightTree } from "@/types/tree";
 
-export function TreeOfTheDay({
+export async function TreeOfTheDay({
   trees,
-  locale,
+  locale: _locale,
   treeOfTheDay,
 }: {
   trees: LightTree[];
   locale: string;
   treeOfTheDay: string;
 }) {
+  const t = await getTranslations("treeDetail");
   // Get a deterministic tree based on day of year
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 0);
@@ -26,24 +28,17 @@ export function TreeOfTheDay({
   if (tree.maxHeight)
     facts.push({
       icon: "📏",
-      text:
-        locale === "es"
-          ? `Altura: ${tree.maxHeight}`
-          : `Height: ${tree.maxHeight}`,
+      text: t("heightValue", { value: tree.maxHeight }),
     });
   if (tree.nativeRegion)
     facts.push({
       icon: "🌎",
-      text:
-        locale === "es"
-          ? `Región: ${tree.nativeRegion}`
-          : `Region: ${tree.nativeRegion}`,
+      text: t("regionValue", { value: tree.nativeRegion }),
     });
   if (tree.family)
     facts.push({
       icon: "🌿",
-      text:
-        locale === "es" ? `Familia: ${tree.family}` : `Family: ${tree.family}`,
+      text: t("familyValue", { value: tree.family }),
     });
   if (tree.uses && tree.uses.length > 0)
     facts.push({
@@ -103,9 +98,7 @@ export function TreeOfTheDay({
             href={`/trees/${tree.slug}`}
             className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-semibold transition-colors"
           >
-            {locale === "es"
-              ? `Conocer más sobre ${tree.title}`
-              : `Learn more about ${tree.title}`}
+            {t("learnMore", { treeName: tree.title })}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
