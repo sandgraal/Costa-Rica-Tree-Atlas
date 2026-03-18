@@ -1,7 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+
+const SHARE_MESSAGES = {
+  en: {
+    discoverTree: "Discover this tree: {treeName}",
+    failedToCopy: "Failed to copy link. Please try again.",
+  },
+  es: {
+    discoverTree: "Descubre este árbol: {treeName}",
+    failedToCopy: "No se pudo copiar el enlace. Por favor, inténtalo de nuevo.",
+  },
+} as const;
 
 type ShareButtonProps = {
   title: string;
@@ -17,7 +28,8 @@ export function ShareButton({
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const locale = useLocale();
-  const t = useTranslations("share");
+  const language = locale.startsWith("es") ? "es" : "en";
+  const messages = SHARE_MESSAGES[language];
   const rawPath = path ?? (slug ? `/trees/${slug}` : "");
   const sharePath =
     rawPath && !rawPath.startsWith("/") ? `/${rawPath}` : rawPath;
@@ -31,7 +43,10 @@ export function ShareButton({
     ? `${title} (${scientificName})`
     : title;
 
-  const shareText = t("discoverTree", { treeName: titleWithScientificName });
+  const shareText = messages.discoverTree.replace(
+    "{treeName}",
+    titleWithScientificName
+  );
 
   const handleShare = async (platform: string) => {
     if (!shareUrl) return;
@@ -87,7 +102,7 @@ export function ShareButton({
         } catch (err) {
           console.error("Failed to copy:", err);
           // Show user-facing error
-          alert(t("failedToCopy"));
+          alert(messages.failedToCopy);
         }
         break;
       case "native":
