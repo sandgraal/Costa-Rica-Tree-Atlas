@@ -311,7 +311,6 @@ export default async function TreePage({ params }: Props) {
         <div className="container mx-auto max-w-7xl">
           {/* Breadcrumbs */}
           <Breadcrumbs
-            locale={locale}
             pathname={`/trees/${tree.slug}`}
             customLabels={{ [tree.slug]: tree.title }}
           />

@@ -76,7 +76,6 @@ export default async function OralHistoriesPage({
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-6">
         <Breadcrumbs
-          locale={locale}
           pathname="/oral-histories"
           customLabels={{
             "oral-histories": t("title"),

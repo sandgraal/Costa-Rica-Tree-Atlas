@@ -1923,5 +1923,29 @@
     "family": "Family",
     "height": "Max height",
     "status": "Status"
+  },
+  "breadcrumbs": {
+    "ariaLabel": "Breadcrumb",
+    "home": "Home",
+    "trees": "Trees",
+    "glossary": "Glossary",
+    "education": "Education",
+    "seasonal": "Seasonal",
+    "safety": "Safety",
+    "conservation": "Conservation",
+    "map": "Map",
+    "identify": "Identify",
+    "compare": "Compare",
+    "favorites": "Favorites",
+    "quiz": "Quiz",
+    "diagnose": "Diagnose",
+    "wizard": "Selection Wizard",
+    "use-cases": "Use Cases",
+    "about": "About",
+    "lessons": "Lessons",
+    "printables": "Printables",
+    "classroom": "Classroom",
+    "teacher": "Teacher Resources",
+    "oral-histories": "Oral Histories"
   }
 }
