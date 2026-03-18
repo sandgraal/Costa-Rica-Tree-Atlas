@@ -2,6 +2,7 @@
 /* eslint-disable security/detect-object-injection -- seasonal UI uses constrained month/event/type dictionaries and typed lookups */
 
 import { useState, useMemo, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { SafeImage } from "@/components/SafeImage";
 import {
@@ -41,68 +42,6 @@ const MONTHS = [
   "december",
 ];
 
-const MONTH_LABELS: Record<string, Record<string, string>> = {
-  en: {
-    january: "Jan",
-    february: "Feb",
-    march: "Mar",
-    april: "Apr",
-    may: "May",
-    june: "Jun",
-    july: "Jul",
-    august: "Aug",
-    september: "Sep",
-    october: "Oct",
-    november: "Nov",
-    december: "Dec",
-  },
-  es: {
-    january: "Ene",
-    february: "Feb",
-    march: "Mar",
-    april: "Abr",
-    may: "May",
-    june: "Jun",
-    july: "Jul",
-    august: "Ago",
-    september: "Sep",
-    october: "Oct",
-    november: "Nov",
-    december: "Dic",
-  },
-};
-
-const FULL_MONTH_LABELS: Record<string, Record<string, string>> = {
-  en: {
-    january: "January",
-    february: "February",
-    march: "March",
-    april: "April",
-    may: "May",
-    june: "June",
-    july: "July",
-    august: "August",
-    september: "September",
-    october: "October",
-    november: "November",
-    december: "December",
-  },
-  es: {
-    january: "Enero",
-    february: "Febrero",
-    march: "Marzo",
-    april: "Abril",
-    may: "Mayo",
-    june: "Junio",
-    july: "Julio",
-    august: "Agosto",
-    september: "Septiembre",
-    october: "Octubre",
-    november: "Noviembre",
-    december: "Diciembre",
-  },
-};
-
 type ViewMode = "calendar" | "list";
 type FilterType = "all" | "flowering" | "fruiting";
 
@@ -121,58 +60,7 @@ export function SeasonalCalendar({
   const [showEvents, setShowEvents] = useState(true);
   const [shareTooltip, setShareTooltip] = useState<string | null>(null);
 
-  const labels = useMemo(
-    () => ({
-      title:
-        locale === "es" ? "Calendario de Costa Rica" : "Costa Rica Calendar",
-      subtitle:
-        locale === "es"
-          ? "Floración, fructificación, eventos, festivales y más - tu guía completa para planificar"
-          : "Flowering, fruiting, events, festivals & more - your complete planning guide",
-      flowering: locale === "es" ? "Floración" : "Flowering",
-      fruiting: locale === "es" ? "Fructificación" : "Fruiting",
-      all: locale === "es" ? "Todo" : "All",
-      yearRound: locale === "es" ? "Todo el año" : "Year-round",
-      treesFlowering: locale === "es" ? "árboles en flor" : "trees flowering",
-      treesFruiting: locale === "es" ? "árboles con frutos" : "trees fruiting",
-      calendarView: locale === "es" ? "Vista Calendario" : "Calendar View",
-      listView: locale === "es" ? "Vista Lista" : "List View",
-      selectMonth:
-        locale === "es"
-          ? "Selecciona un mes para ver qué árboles están activos"
-          : "Select a month to see which trees are active",
-      previousMonth: locale === "es" ? "Mes anterior" : "Previous month",
-      nextMonth: locale === "es" ? "Mes siguiente" : "Next month",
-      noTrees:
-        locale === "es"
-          ? "No hay árboles con datos de temporada disponibles"
-          : "No trees with seasonal data available",
-      showEvents: locale === "es" ? "Mostrar eventos" : "Show events",
-      hideEvents: locale === "es" ? "Ocultar eventos" : "Hide events",
-      eventsAndHolidays:
-        locale === "es" ? "Eventos y Festividades" : "Events & Holidays",
-      share: locale === "es" ? "Compartir" : "Share",
-      shareMonth: locale === "es" ? "Compartir este mes" : "Share this month",
-      shareEvent: locale === "es" ? "Compartir evento" : "Share event",
-      copied: locale === "es" ? "¡Enlace copiado!" : "Link copied!",
-      tip: locale === "es" ? "Consejo" : "Tip",
-      holiday: locale === "es" ? "Feriado" : "Holiday",
-      environmental: locale === "es" ? "Ambiental" : "Environmental",
-      cultural: locale === "es" ? "Cultural" : "Cultural",
-      festival: locale === "es" ? "Festival" : "Festival",
-      agricultural: locale === "es" ? "Agrícola" : "Agricultural",
-      tourism: locale === "es" ? "Turismo" : "Tourism",
-      school: locale === "es" ? "Escolar" : "School",
-      weather: locale === "es" ? "Clima" : "Weather",
-      planYourVisit:
-        locale === "es" ? "Planifica tu Visita" : "Plan Your Visit",
-      officialHoliday: locale === "es" ? "Feriado Oficial" : "Official Holiday",
-    }),
-    [locale]
-  );
-
-  const monthLabels = MONTH_LABELS[locale] || MONTH_LABELS.en;
-  const fullMonthLabels = FULL_MONTH_LABELS[locale] || FULL_MONTH_LABELS.en;
+  const t = useTranslations("seasonal");
 
   // Filter trees with seasonal data
   const treesWithSeasonData = useMemo(
@@ -265,11 +153,8 @@ export function SeasonalCalendar({
       const baseUrl =
         typeof window !== "undefined" ? window.location.origin : "";
       const shareUrl = `${baseUrl}/${locale}/seasonal?month=${month}`;
-      const monthName = fullMonthLabels[month];
-      const shareText =
-        locale === "es"
-          ? `Descubre qué árboles de Costa Rica están floreciendo en ${monthName} 🌳🌸`
-          : `Discover which Costa Rican trees are flowering in ${monthName} 🌳🌸`;
+      const monthName = t(`monthFull.${month}`);
+      const shareText = t("shareMonthText", { monthName });
 
       if (navigator.share) {
         try {
@@ -289,7 +174,7 @@ export function SeasonalCalendar({
         }, 2000);
       }
     },
-    [locale, fullMonthLabels]
+    [locale, t]
   );
 
   const handleShareEvent = useCallback(
@@ -298,10 +183,10 @@ export function SeasonalCalendar({
         typeof window !== "undefined" ? window.location.origin : "";
       const shareUrl = `${baseUrl}/${locale}/seasonal?month=${event.month}&event=${event.id}`;
       const eventInfo = getEventTranslation(event.id, locale);
-      const shareText =
-        locale === "es"
-          ? `${event.icon} ${eventInfo?.name || event.id} - Calendario de Árboles de Costa Rica`
-          : `${event.icon} ${eventInfo?.name || event.id} - Costa Rica Tree Atlas`;
+      const shareText = t("shareEventText", {
+        icon: event.icon ?? "",
+        eventName: eventInfo?.name || event.id,
+      });
 
       if (navigator.share) {
         try {
@@ -319,13 +204,13 @@ export function SeasonalCalendar({
         setTimeout(() => setShareTooltip(null), 2000);
       }
     },
-    [locale]
+    [locale, t]
   );
 
   if (treesWithSeasonData.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
-        {labels.noTrees}
+        {t("noTrees")}
       </div>
     );
   }
@@ -335,9 +220,9 @@ export function SeasonalCalendar({
       {/* Header */}
       <div className="text-center">
         <h2 className="text-2xl font-bold text-foreground mb-2">
-          {labels.title}
+          {t("calendarTitle")}
         </h2>
-        <p className="text-muted-foreground">{labels.subtitle}</p>
+        <p className="text-muted-foreground">{t("calendarSubtitle")}</p>
       </div>
 
       {/* Controls */}
@@ -354,7 +239,7 @@ export function SeasonalCalendar({
                 : "hover:bg-muted"
             }`}
           >
-            {labels.calendarView}
+            {t("calendarView")}
           </button>
           <button
             onClick={() => {
@@ -366,7 +251,7 @@ export function SeasonalCalendar({
                 : "hover:bg-muted"
             }`}
           >
-            {labels.listView}
+            {t("listView")}
           </button>
         </div>
 
@@ -382,7 +267,7 @@ export function SeasonalCalendar({
                 : "hover:bg-muted"
             }`}
           >
-            {labels.all}
+            {t("all")}
           </button>
           <button
             onClick={() => {
@@ -395,7 +280,7 @@ export function SeasonalCalendar({
             }`}
           >
             <FlowerIcon className="h-4 w-4" />
-            {labels.flowering}
+            {t("flowering")}
           </button>
           <button
             onClick={() => {
@@ -408,7 +293,7 @@ export function SeasonalCalendar({
             }`}
           >
             <FruitIcon className="h-4 w-4" />
-            {labels.fruiting}
+            {t("fruiting")}
           </button>
         </div>
 
@@ -424,7 +309,7 @@ export function SeasonalCalendar({
           }`}
         >
           <CalendarIcon className="h-4 w-4" />
-          {showEvents ? labels.hideEvents : labels.showEvents}
+          {showEvents ? t("hideEvents") : t("showEvents")}
         </button>
       </div>
 
@@ -451,7 +336,7 @@ export function SeasonalCalendar({
                 }`}
               >
                 <div className="text-xs font-medium mb-2 flex items-center justify-center gap-1">
-                  {monthLabels[month]}
+                  {t(`monthShort.${month}`)}
                   {showEvents && hasEvents && (
                     <span className="text-green-500">•</span>
                   )}
@@ -462,7 +347,7 @@ export function SeasonalCalendar({
                   {(filterType === "all" || filterType === "flowering") && (
                     <div
                       className="h-1.5 rounded-full bg-pink-200 dark:bg-pink-900"
-                      title={`${counts.flowering} ${labels.treesFlowering}`}
+                      title={`${counts.flowering} ${t("treesFlowering")}`}
                     >
                       <div
                         className="h-full rounded-full bg-pink-500 transition-all"
@@ -473,7 +358,7 @@ export function SeasonalCalendar({
                   {(filterType === "all" || filterType === "fruiting") && (
                     <div
                       className="h-1.5 rounded-full bg-orange-200 dark:bg-orange-900"
-                      title={`${counts.fruiting} ${labels.treesFruiting}`}
+                      title={`${counts.fruiting} ${t("treesFruiting")}`}
                     >
                       <div
                         className="h-full rounded-full bg-orange-500 transition-all"
@@ -514,7 +399,7 @@ export function SeasonalCalendar({
               setSelectedMonth(MONTHS[prevIndex]);
             }}
             className="p-2 rounded-lg border border-border hover:bg-muted transition-colors"
-            aria-label={labels.previousMonth}
+            aria-label={t("previousMonth")}
           >
             <ChevronLeftIcon className="h-5 w-5" />
           </button>
@@ -528,7 +413,7 @@ export function SeasonalCalendar({
           >
             {MONTHS.map((month) => (
               <option key={month} value={month}>
-                {fullMonthLabels[month]}
+                {t(`monthFull.${month}`)}
               </option>
             ))}
           </select>
@@ -540,7 +425,7 @@ export function SeasonalCalendar({
               setSelectedMonth(MONTHS[nextIndex]);
             }}
             className="p-2 rounded-lg border border-border hover:bg-muted transition-colors"
-            aria-label={labels.nextMonth}
+            aria-label={t("nextMonth")}
           >
             <ChevronRightIcon className="h-5 w-5" />
           </button>
@@ -552,20 +437,20 @@ export function SeasonalCalendar({
         <div className="mt-8">
           <div className="flex items-center justify-center gap-3 mb-6">
             <h3 className="text-xl font-semibold">
-              {fullMonthLabels[selectedMonth]}
+              {t(`monthFull.${selectedMonth}`)}
             </h3>
             <div className="relative">
               <button
                 onClick={() => handleShareMonth(selectedMonth)}
                 className="p-2 rounded-lg border border-border hover:bg-muted transition-colors"
-                aria-label={labels.shareMonth}
-                title={labels.shareMonth}
+                aria-label={t("shareMonth")}
+                title={t("shareMonth")}
               >
                 <ShareIcon className="h-4 w-4" />
               </button>
               {shareTooltip === selectedMonth && (
                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-foreground text-background text-xs rounded whitespace-nowrap">
-                  {labels.copied}
+                  {t("copied")}
                 </div>
               )}
             </div>
@@ -576,7 +461,7 @@ export function SeasonalCalendar({
             <div className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-5 border border-green-300 dark:border-green-800">
               <h4 className="flex items-center gap-2 text-lg font-medium text-green-900 dark:text-green-300 mb-4">
                 <CalendarIcon className="h-5 w-5" />
-                {labels.eventsAndHolidays}
+                {t("eventsAndHolidays")}
                 <span className="ml-auto text-sm font-normal">
                   {eventsInMonth.length}
                 </span>
@@ -587,7 +472,6 @@ export function SeasonalCalendar({
                     key={event.id}
                     event={event}
                     locale={locale}
-                    labels={labels}
                     shareTooltip={shareTooltip}
                     onShare={handleShareEvent}
                   />
@@ -602,7 +486,7 @@ export function SeasonalCalendar({
               <div className="bg-pink-100 dark:bg-pink-900/20 rounded-xl p-5 border border-pink-200 dark:border-pink-800">
                 <h4 className="flex items-center gap-2 text-lg font-medium text-pink-800 dark:text-pink-300 mb-4">
                   <FlowerIcon className="h-5 w-5" />
-                  {labels.flowering}
+                  {t("flowering")}
                   <span className="ml-auto text-sm font-normal">
                     {activeTreesInMonth.flowering.length}
                   </span>
@@ -612,15 +496,12 @@ export function SeasonalCalendar({
                     <TreeListItem
                       key={tree.slug}
                       tree={tree}
-                      locale={locale}
                       type="flowering"
                     />
                   ))}
                   {activeTreesInMonth.flowering.length === 0 && (
                     <p className="text-sm text-muted-foreground italic">
-                      {locale === "es"
-                        ? "Sin árboles floreciendo este mes"
-                        : "No trees flowering this month"}
+                      {t("noFloweringThisMonth")}
                     </p>
                   )}
                 </div>
@@ -632,25 +513,18 @@ export function SeasonalCalendar({
               <div className="bg-orange-100 dark:bg-orange-900/20 rounded-xl p-5 border border-orange-200 dark:border-orange-800">
                 <h4 className="flex items-center gap-2 text-lg font-medium text-orange-800 dark:text-orange-300 mb-4">
                   <FruitIcon className="h-5 w-5" />
-                  {labels.fruiting}
+                  {t("fruiting")}
                   <span className="ml-auto text-sm font-normal">
                     {activeTreesInMonth.fruiting.length}
                   </span>
                 </h4>
                 <div className="space-y-2 max-h-80 overflow-y-auto">
                   {activeTreesInMonth.fruiting.map((tree) => (
-                    <TreeListItem
-                      key={tree.slug}
-                      tree={tree}
-                      locale={locale}
-                      type="fruiting"
-                    />
+                    <TreeListItem key={tree.slug} tree={tree} type="fruiting" />
                   ))}
                   {activeTreesInMonth.fruiting.length === 0 && (
                     <p className="text-sm text-muted-foreground italic">
-                      {locale === "es"
-                        ? "Sin árboles fructificando este mes"
-                        : "No trees fruiting this month"}
+                      {t("noFruitingThisMonth")}
                     </p>
                   )}
                 </div>
@@ -664,16 +538,16 @@ export function SeasonalCalendar({
       <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground pt-4 border-t border-border">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-pink-500" />
-          <span>{labels.flowering}</span>
+          <span>{t("flowering")}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-orange-500" />
-          <span>{labels.fruiting}</span>
+          <span>{t("fruiting")}</span>
         </div>
         {showEvents && (
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-500" />
-            <span>{labels.eventsAndHolidays}</span>
+            <span>{t("eventsAndHolidays")}</span>
           </div>
         )}
       </div>
@@ -685,19 +559,18 @@ export function SeasonalCalendar({
 function EventCard({
   event,
   locale,
-  labels,
   shareTooltip,
   onShare,
 }: {
   event: CostaRicaEvent;
   locale: string;
-  labels: Record<string, string>;
   shareTooltip: string | null;
   onShare: (event: CostaRicaEvent) => void;
 }) {
+  const t = useTranslations("seasonal");
   const eventInfo = getEventTranslation(event.id, locale);
   const typeColors = EVENT_TYPE_COLORS[event.type];
-  const typeLabel = labels[event.type] || event.type;
+  const typeLabel = t(event.type);
 
   if (!eventInfo) return null;
 
@@ -719,7 +592,7 @@ function EventCard({
             </span>
             {event.isOfficial && (
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
-                {labels.officialHoliday}
+                {t("officialHoliday")}
               </span>
             )}
             {event.day && (
@@ -733,7 +606,7 @@ function EventCard({
           </p>
           {eventInfo.tip && (
             <p className="mt-2 text-xs text-green-900 dark:text-green-400 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded px-2 py-1">
-              <span className="font-medium">💡 {labels.tip}:</span>{" "}
+              <span className="font-medium">💡 {t("tip")}:</span>{" "}
               {eventInfo.tip}
             </p>
           )}
@@ -757,14 +630,14 @@ function EventCard({
               onShare(event);
             }}
             className="p-1.5 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
-            aria-label={labels.shareEvent}
-            title={labels.shareEvent}
+            aria-label={t("shareEvent")}
+            title={t("shareEvent")}
           >
             <ShareIcon className="h-4 w-4 text-muted-foreground" />
           </button>
           {shareTooltip === event.id && (
             <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-foreground text-background text-xs rounded whitespace-nowrap z-10">
-              {labels.copied}
+              {t("copied")}
             </div>
           )}
         </div>
@@ -775,13 +648,12 @@ function EventCard({
 
 function TreeListItem({
   tree,
-  locale,
   type,
 }: {
   tree: TreeSeasonData;
-  locale: string;
   type: "flowering" | "fruiting";
 }) {
+  const t = useTranslations("seasonal");
   const isYearRound =
     type === "flowering"
       ? tree.floweringSeason?.includes("all-year")
@@ -810,7 +682,7 @@ function TreeListItem({
       </div>
       {isYearRound && (
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-200 dark:bg-green-900/50 text-green-800 dark:text-green-300">
-          {locale === "es" ? "Todo el año" : "Year-round"}
+          {t("yearRound")}
         </span>
       )}
     </Link>
