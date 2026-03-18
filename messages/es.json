@@ -41,7 +41,8 @@
     "identifyTree": "Identificar árbol",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
-    "noJsBanner": "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles."
+    "noJsBanner": "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles.",
+    "backToTop": "Volver arriba"
   },
   "home": {
     "title": "Descubre los Árboles de Costa Rica",
@@ -79,7 +80,14 @@
     "metaTitle": "Explorar por Región - Atlas de Árboles de Costa Rica",
     "metaDescription": "Explora la distribución de árboles nativos de Costa Rica por provincia y región. Descubre la biodiversidad de cada zona del país.",
     "structuredName": "Explorar Regiones de Costa Rica",
-    "structuredDescription": "Mapa interactivo para explorar la distribución de árboles nativos por provincia y región en Costa Rica."
+    "structuredDescription": "Mapa interactivo para explorar la distribución de árboles nativos por provincia y región en Costa Rica.",
+    "yourLocation": "Tu ubicación",
+    "errorLoading": "Error al cargar el mapa",
+    "loadingMap": "Cargando mapa...",
+    "goToMyLocation": "Ir a mi ubicación",
+    "legend": "Leyenda",
+    "regions": "Regiones",
+    "distributionInCR": "Distribución en Costa Rica"
   },
   "trees": {
     "title": "Directorio de Árboles",
@@ -376,7 +384,8 @@
     "cancelSelection": "Cancelar",
     "addedToFavorites": "¡Árboles agregados a tus favoritos!",
     "metaTitle": "Mis Favoritos - Atlas de Árboles de Costa Rica",
-    "metaDescription": "Tus árboles favoritos guardados del Atlas de Árboles de Costa Rica."
+    "metaDescription": "Tus árboles favoritos guardados del Atlas de Árboles de Costa Rica.",
+    "favoritesLabel": "Favoritos"
   },
   "toc": {
     "contents": "Contenido"
@@ -682,7 +691,15 @@
     "treeJournalMetaTitle": "Diario del Árbol - Atlas de Árboles de Costa Rica",
     "treeJournalMetaDescription": "Adopta un árbol de Costa Rica y documenta sus cambios durante el año escolar. Diario fenológico con insignias y certificados.",
     "treeIdentificationMetaTitle": "Habilidades de Identificación de Árboles - Lección Educativa",
-    "treeIdentificationMetaDescription": "Aprende a identificar árboles de Costa Rica por sus hojas, corteza, flores y frutos con ejercicios interactivos."
+    "treeIdentificationMetaDescription": "Aprende a identificar árboles de Costa Rica por sus hojas, corteza, flores y frutos con ejercicios interactivos.",
+    "badges": {
+      "title": "Insignias",
+      "totalPoints": "Puntos Totales",
+      "lessons": "Lecciones",
+      "notStarted": "No iniciada",
+      "completed": "Completada",
+      "inProgress": "En progreso"
+    }
   },
   "seasonal": {
     "title": "Calendario Estacional - Atlas de Árboles de Costa Rica",
@@ -765,7 +782,12 @@
     "monthFull.september": "Septiembre",
     "monthFull.october": "Octubre",
     "monthFull.november": "Noviembre",
-    "monthFull.december": "Diciembre"
+    "monthFull.december": "Diciembre",
+    "seasonLabel": "Temporada",
+    "inFlower": "En flor",
+    "inFruit": "Con frutos",
+    "flowers": "Flores",
+    "fruits": "Frutos"
   },
   "safety": {
     "title": "Información de Seguridad",
@@ -936,7 +958,12 @@
     "unknownStatus": "Estado de conservación desconocido",
     "aboutIucnHeading": "Acerca de la Lista Roja de la UICN",
     "aboutIucnDescription": "La Lista Roja de Especies Amenazadas de la UICN es el inventario más completo del mundo sobre el estado de conservación global de especies biológicas.",
-    "visitIucn": "Visitar Lista Roja de la UICN →"
+    "visitIucn": "Visitar Lista Roja de la UICN →",
+    "biodiversityData": "Datos de Biodiversidad",
+    "observationsInCR": "Observaciones en Costa Rica",
+    "viewOn": "Ver en",
+    "iucnStatus": "Estado de Conservación UICN",
+    "viewIucnDetails": "Ver detalles en UICN"
   },
   "indigenousNames": {
     "heading": "Nombres Indígenas",
@@ -1561,7 +1588,11 @@
     "sameFamily": "Misma familia",
     "comparisonGuides": "Guías de Comparación",
     "compareWith": "Comparar con",
-    "readGuide": "Leer guía"
+    "readGuide": "Leer guía",
+    "noTreesFound": "No se encontraron árboles",
+    "learnMore": "Conocer más sobre {treeName}",
+    "listenPronunciation": "Escuchar pronunciación de {name}",
+    "viewSource": "Ver fuente ↗"
   },
   "fieldTrip": {
     "metaTitle": "Modo Excursión - Atlas de Árboles de Costa Rica",
@@ -1604,7 +1635,11 @@
     "conservationStatus": "Estado",
     "nativeRegion": "Región",
     "confirmClearAll": "¿Borrar todos los datos?",
-    "noTreesFound": "No se encontraron árboles"
+    "noTreesFound": "No se encontraron árboles",
+    "mapTitle": "Mapa de Excursión",
+    "noLocations": "Los árboles marcados sin ubicación GPS no aparecerán en el mapa",
+    "treesOnMap": "{count} árbol(es) en el mapa",
+    "enableLocation": "Habilita tu ubicación para registrar dónde encuentras cada árbol"
   },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
@@ -2048,5 +2083,33 @@
     "classroom": "Aula",
     "teacher": "Recursos para Maestros",
     "oral-histories": "Historias Orales"
+  },
+  "share": {
+    "share": "Compartir",
+    "copied": "¡Copiado!",
+    "copyLink": "Copiar enlace",
+    "shareOn": "Compartir en",
+    "failedToCopy": "No se pudo copiar el enlace",
+    "discoverTree": "Descubre {treeName} en el Atlas de Árboles de Costa Rica! 🌳",
+    "shareCollection": "Compartir colección",
+    "treesCount": "{count, plural, =1 {1 árbol} other {# árboles}}"
+  },
+  "exportGuide": {
+    "export": "Exportar guía",
+    "title": "Mi Guía de Árboles de Costa Rica",
+    "family": "Familia",
+    "height": "Altura",
+    "region": "Región",
+    "uses": "Usos",
+    "generatedFrom": "Generado desde",
+    "speciesCount": "{count, plural, =1 {1 especie} other {# especies}}"
+  },
+  "mdx": {
+    "careCalendar": "Calendario de Cuidados",
+    "month": "Mes",
+    "tasks": "Tareas",
+    "geographicDistribution": "Distribución Geográfica",
+    "elevation": "Elevación",
+    "compareInteractive": "Comparar en herramienta interactiva"
   }
 }
