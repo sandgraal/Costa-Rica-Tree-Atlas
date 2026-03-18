@@ -48,7 +48,7 @@ export default async function Image({ params }: Props) {
   let conservationLabel: string | null = null;
 
   if (tree.conservationStatus) {
-    let label = tree.conservationStatus;
+    let label: string = tree.conservationStatus;
 
     try {
       const translated = getConservationLabel(
