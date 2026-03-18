@@ -45,9 +45,20 @@ export default async function Image({ params }: Props) {
     );
   }
 
-  const conservationLabel = tree.conservationStatus
-    ? `${tree.conservationStatus} — ${getConservationLabel(tree.conservationStatus as ConservationCategory, locale as Locale)}`
-    : null;
+  let conservationLabel: string | null = null;
+
+  if (tree.conservationStatus) {
+    try {
+      const label = getConservationLabel(
+        tree.conservationStatus as ConservationCategory,
+        locale as Locale
+      );
+      conservationLabel = `${tree.conservationStatus} — ${label}`;
+    } catch {
+      // Fallback to the raw conservation status code if translation fails
+      conservationLabel = tree.conservationStatus;
+    }
+  }
 
   return new ImageResponse(
     <div
