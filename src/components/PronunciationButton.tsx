@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 interface PronunciationButtonProps {
   text: string;
   label?: string;
-  locale?: string;
   className?: string;
 }
 
@@ -17,7 +16,6 @@ interface PronunciationButtonProps {
 export function PronunciationButton({
   text,
   label,
-  locale = "en",
   className = "",
 }: PronunciationButtonProps) {
   const td = useTranslations("trees");
