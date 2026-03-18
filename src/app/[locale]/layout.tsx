@@ -131,7 +131,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // ContributorProfileClient), education (EducationPage), error (ErrorPage),
   // comparison (ComparePage), about (AboutPage), fieldTrip, wizard
   // comparison (ComparePage), about (AboutPage), classroom (Classroom pages),
-  // coloringPages (ColoringPages components)
+  // coloringPages (ColoringPages components), seasonal (SeasonalInfo)
   const CLIENT_NAMESPACES = [
     "nav",
     "theme",
@@ -162,6 +162,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "flashcards",
     "diagnose",
     "coloringPages",
+    "seasonal",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];
