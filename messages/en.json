@@ -762,14 +762,14 @@
           "march": "March",
           "april": "April",
           "may": "May",
-          "june": "June"
-        },
-    "monthFull.july": "July",
-    "monthFull.august": "August",
-    "monthFull.september": "September",
-    "monthFull.october": "October",
-    "monthFull.november": "November",
-    "monthFull.december": "December"
+          "june": "June",
+          "july": "July",
+          "august": "August",
+          "september": "September",
+          "october": "October",
+          "november": "November",
+          "december": "December"
+        }
   },
   "safety": {
     "title": "Safety Information",
