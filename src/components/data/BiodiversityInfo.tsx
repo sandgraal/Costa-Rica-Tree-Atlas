@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery, QueryClientProvider } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { getQueryClient } from "@/lib/query-client";
 import { biodiversityQueryKeys } from "@/lib/api/biodiversity";
 import {
@@ -88,6 +89,8 @@ function BiodiversityInfoInner({
   scientificName,
   locale,
 }: BiodiversityInfoProps) {
+  const tb = useTranslations("biodiversity");
+  const tc = useTranslations("conservation");
   const { data, isLoading, isError } = useQuery<BiodiversityData>({
     queryKey: biodiversityQueryKeys.species(scientificName),
     queryFn: async () => {
@@ -106,15 +109,12 @@ function BiodiversityInfoInner({
   });
 
   const labels = {
-    title: locale === "es" ? "Datos de Biodiversidad" : "Biodiversity Data",
-    observations:
-      locale === "es"
-        ? "Observaciones en Costa Rica"
-        : "Observations in Costa Rica",
+    title: tb("title"),
+    observations: tb("observationsInCR"),
     globalRecords: getUILabel("globalRecords", locale),
     researchGrade: getUILabel("researchGrade", locale),
     loading: getUILabel("loading", locale),
-    viewOn: locale === "es" ? "Ver en" : "View on",
+    viewOn: tb("viewOn"),
   };
 
   if (isLoading) {
@@ -244,21 +244,17 @@ function ConservationStatus({
   iucnUrl,
   locale,
 }: ConservationStatusProps) {
+  const tc = useTranslations("conservation");
   // Fallback to NE (Not Evaluated) if category is not recognized
   const catDef = getConservationCategoryDefinition(category);
   // Only show population trend if it's a known value (not "unknown" or undefined)
   const trendDef = getPopulationTrendDefinition(populationTrend);
 
   const labels = {
-    title:
-      locale === "es"
-        ? "Estado de Conservación UICN"
-        : "IUCN Conservation Status",
-    populationTrend:
-      locale === "es" ? "Tendencia poblacional" : "Population trend",
-    assessed: locale === "es" ? "Evaluado" : "Assessed",
-    viewDetails:
-      locale === "es" ? "Ver detalles en IUCN" : "View details on IUCN",
+    title: tc("title"),
+    populationTrend: tc("populationTrend"),
+    assessed: tc("assessed"),
+    viewDetails: tc("viewOnIUCN"),
   };
 
   return (

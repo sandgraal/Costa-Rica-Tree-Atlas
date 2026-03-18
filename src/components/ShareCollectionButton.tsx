@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { DiscoveryCollection } from "@/lib/geo/collections";
 
 interface ShareCollectionButtonProps {
@@ -23,6 +24,7 @@ export function ShareCollectionButton({
 }: ShareCollectionButtonProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const t = useTranslations("share");
 
   const shareUrl =
     typeof window !== "undefined"
@@ -102,10 +104,10 @@ export function ShareCollectionButton({
   };
 
   const labels = {
-    share: locale === "es" ? "Compartir" : "Share",
-    copied: locale === "es" ? "¡Copiado!" : "Copied!",
-    copyLink: locale === "es" ? "Copiar enlace" : "Copy link",
-    shareOn: locale === "es" ? "Compartir en" : "Share on",
+    share: t("share"),
+    copied: t("copied"),
+    copyLink: t("copyLink"),
+    shareOn: t("shareOn"),
   };
 
   return (
@@ -151,7 +153,7 @@ export function ShareCollectionButton({
               <p className="text-sm font-medium truncate">{title}</p>
               {treeCount !== undefined && (
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {treeCount} {locale === "es" ? "árboles" : "trees"}
+                  {t("treesCount", { count: treeCount })}
                 </p>
               )}
             </div>

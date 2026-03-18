@@ -9,6 +9,7 @@ import {
   useMemo,
   ReactNode,
 } from "react";
+import { useTranslations } from "next-intl";
 import { createStorage, educationProgressSchema } from "@/lib/storage";
 
 interface LessonProgress {
@@ -265,6 +266,7 @@ export function BadgeDisplay({
   showAll?: boolean;
 }) {
   const { getBadges, totalPoints, completedLessons } = useEducationProgress();
+  const t = useTranslations("educationProgress");
   const badges = getBadges();
   const displayBadges = showAll ? badges : badges.filter((b) => b.earned);
 
@@ -277,7 +279,7 @@ export function BadgeDisplay({
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold flex items-center gap-2">
           <span>🏅</span>
-          {locale === "es" ? "Insignias" : "Badges"}
+          {t("badges")}
         </h3>
         <div className="text-sm text-muted-foreground">
           {displayBadges.filter((b) => b.earned).length}/{badges.length}
@@ -315,16 +317,14 @@ export function BadgeDisplay({
         <div>
           <div className="text-2xl font-bold text-primary">{totalPoints}</div>
           <div className="text-xs text-muted-foreground">
-            {locale === "es" ? "Puntos Totales" : "Total Points"}
+            {t("totalPoints")}
           </div>
         </div>
         <div>
           <div className="text-2xl font-bold text-green-600">
             {completedLessons}/4
           </div>
-          <div className="text-xs text-muted-foreground">
-            {locale === "es" ? "Lecciones" : "Lessons"}
-          </div>
+          <div className="text-xs text-muted-foreground">{t("lessons")}</div>
         </div>
       </div>
     </div>
@@ -340,13 +340,12 @@ export function LessonProgressBar({
   locale: string;
 }) {
   const { progress } = useEducationProgress();
+  const t = useTranslations("educationProgress");
   const lessonProgress = progress[lessonId];
 
   if (!lessonProgress) {
     return (
-      <div className="text-xs text-muted-foreground">
-        {locale === "es" ? "No iniciada" : "Not started"}
-      </div>
+      <div className="text-xs text-muted-foreground">{t("notStarted")}</div>
     );
   }
 
@@ -354,9 +353,7 @@ export function LessonProgressBar({
     return (
       <div className="flex items-center gap-2 text-green-600">
         <span className="text-sm">✓</span>
-        <span className="text-xs font-medium">
-          {locale === "es" ? "Completada" : "Completed"}
-        </span>
+        <span className="text-xs font-medium">{t("completed")}</span>
         <span className="text-xs text-muted-foreground">
           ({lessonProgress.totalPoints} pts)
         </span>
@@ -364,9 +361,5 @@ export function LessonProgressBar({
     );
   }
 
-  return (
-    <div className="text-xs text-yellow-600">
-      {locale === "es" ? "En progreso" : "In progress"}
-    </div>
-  );
+  return <div className="text-xs text-yellow-600">{t("inProgress")}</div>;
 }
