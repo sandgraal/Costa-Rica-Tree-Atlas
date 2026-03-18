@@ -40,7 +40,7 @@ export function FieldGuidePreview({
             className="px-6 py-2 bg-white text-green-700 font-semibold rounded-lg hover:bg-green-50 transition-colors flex items-center gap-2"
           >
             <PrintIcon className="w-4 h-4" />
-            {t("print")}
+            {t("printGuide")}
           </button>
         </div>
       </div>
