@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 interface SeasonalInfoProps {
   floweringSeason?: string[];
   fruitingSeason?: string[];
@@ -94,6 +98,7 @@ export function SeasonalInfo({
   fruitingSeason,
   locale,
 }: SeasonalInfoProps) {
+  const t = useTranslations("seasonal");
   const labels = getSeasonLabels(locale);
 
   const hasFlowering = floweringSeason && floweringSeason.length > 0;
@@ -154,7 +159,7 @@ export function SeasonalInfo({
     <div className="bg-muted rounded-xl p-5 mb-8">
       <h3 className="text-lg font-semibold text-primary-dark dark:text-primary-light mb-4 flex items-center gap-2">
         <CalendarIcon className="h-5 w-5" />
-        {locale === "es" ? "Temporada" : "Season"}
+        {t("seasonLabel")}
       </h3>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -166,7 +171,7 @@ export function SeasonalInfo({
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">
-                {locale === "es" ? "Floración" : "Flowering"}
+                {t("flowering")}
               </p>
               <p className="text-sm text-muted-foreground">
                 {formatSeason(floweringSeason!)}
@@ -183,7 +188,7 @@ export function SeasonalInfo({
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">
-                {locale === "es" ? "Fructificación" : "Fruiting"}
+                {t("fruiting")}
               </p>
               <p className="text-sm text-muted-foreground">
                 {formatSeason(fruitingSeason!)}
@@ -218,13 +223,7 @@ export function SeasonalInfo({
                         ? "bg-pink-500"
                         : "bg-gray-200 dark:bg-gray-700"
                     }`}
-                    title={
-                      isFlowering
-                        ? locale === "es"
-                          ? "En flor"
-                          : "Flowering"
-                        : ""
-                    }
+                    title={isFlowering ? t("inFlower") : ""}
                   />
                   <div
                     className={`h-2 rounded-sm ${
@@ -232,13 +231,7 @@ export function SeasonalInfo({
                         ? "bg-orange-500"
                         : "bg-gray-200 dark:bg-gray-700"
                     }`}
-                    title={
-                      isFruiting
-                        ? locale === "es"
-                          ? "Con frutos"
-                          : "Fruiting"
-                        : ""
-                    }
+                    title={isFruiting ? t("inFruit") : ""}
                   />
                 </div>
               </div>
@@ -248,11 +241,11 @@ export function SeasonalInfo({
         <div className="flex justify-center gap-4 mt-2 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-sm bg-pink-500" />
-            {locale === "es" ? "Flores" : "Flowers"}
+            {t("flowers")}
           </span>
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-sm bg-orange-500" />
-            {locale === "es" ? "Frutos" : "Fruits"}
+            {t("fruits")}
           </span>
         </div>
       </div>

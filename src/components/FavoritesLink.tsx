@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useStore } from "@/lib/store";
 
 interface FavoritesLinkProps {
@@ -11,13 +12,14 @@ interface FavoritesLinkProps {
  * FavoritesLink - Navigation link to favorites page with count badge
  * Shows a heart icon with the number of saved favorites.
  */
-export function FavoritesLink({ locale = "en" }: FavoritesLinkProps) {
+export function FavoritesLink({ locale: _locale = "en" }: FavoritesLinkProps) {
+  const t = useTranslations("favorites");
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
   // Only show count after hydration to prevent mismatch
   const count = hydrated ? favorites.length : 0;
 
-  const label = locale === "es" ? "Favoritos" : "Favorites";
+  const label = t("favoritesLabel");
 
   return (
     <Link

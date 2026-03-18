@@ -21,10 +21,18 @@ interface Tree {
   slug: string;
 }
 
+interface FieldTripMapLabels {
+  title: string;
+  noLocations: string;
+  enableLocation: string;
+  treesOnMap: (count: number) => string;
+}
+
 interface FieldTripMapProps {
   spottedTrees: SpottedTree[];
   trees: Tree[];
   locale: Locale;
+  labels: FieldTripMapLabels;
   onMarkerClick?: (slug: string) => void;
 }
 
@@ -32,6 +40,7 @@ export function FieldTripMap({
   spottedTrees,
   trees,
   locale,
+  labels,
   onMarkerClick,
 }: FieldTripMapProps) {
   // Generate markers for spotted trees with locations
@@ -67,23 +76,20 @@ export function FieldTripMap({
     };
   }, [markers]);
 
-  const labels = {
-    title: locale === "es" ? "Mapa de Excursión" : "Field Trip Map",
-    noLocations:
-      locale === "es"
-        ? "Los árboles marcados sin ubicación GPS no aparecerán en el mapa"
-        : "Trees spotted without GPS location won't appear on the map",
-    treesOnMap:
-      locale === "es"
-        ? `${treesWithLocation} árbol(es) en el mapa`
-        : `${treesWithLocation} tree(s) on map`,
-    enableLocation:
-      locale === "es"
-        ? "Habilita tu ubicación para registrar dónde encuentras cada árbol"
-        : "Enable location to record where you find each tree",
-  };
-
   if (markers.length === 0) {
+    return (
+      <div className="bg-muted rounded-xl p-6 text-center">
+        <div className="text-4xl mb-4">🗺️</div>
+        <h3 className="font-semibold mb-2">{labels.title}</h3>
+        <p className="text-sm text-muted-foreground mb-2">
+          {labels.noLocations}
+        </p>
+        <p className="text-xs text-muted-foreground">{labels.enableLocation}</p>
+      </div>
+    );
+  }
+
+  return (
     return (
       <div className="bg-muted rounded-xl p-6 text-center">
         <div className="text-4xl mb-4">🗺️</div>
@@ -104,7 +110,7 @@ export function FieldTripMap({
             <span>🗺️</span> {labels.title}
           </h3>
           <span className="text-sm text-muted-foreground">
-            {labels.treesOnMap}
+            {labels.treesOnMap(treesWithLocation)}
           </span>
         </div>
         <InteractiveMap

@@ -38,19 +38,29 @@ export function ExportFavoritesButton({
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
 
-  const t = {
-    export: locale === "es" ? "Exportar guía" : "Export field guide",
-    title:
-      locale === "es"
-        ? "Mi Guía de Árboles de Costa Rica"
-        : "My Costa Rica Tree Field Guide",
-    family: locale === "es" ? "Familia" : "Family",
-    height: locale === "es" ? "Altura" : "Height",
-    region: locale === "es" ? "Región" : "Region",
-    uses: locale === "es" ? "Usos" : "Uses",
-    generated: locale === "es" ? "Generado desde" : "Generated from",
-    site: "Costa Rica Tree Atlas",
-  };
+  const isSpanish = locale.startsWith("es");
+
+  const labels = isSpanish
+    ? {
+        export: "Exportar favoritos",
+        title: "Nombre común",
+        family: "Familia",
+        height: "Altura máxima",
+        region: "Región nativa",
+        uses: "Usos",
+        generated: "Guía generada desde",
+        site: "Costa Rica Tree Atlas",
+      }
+    : {
+        export: "Export favorites",
+        title: "Common name",
+        family: "Family",
+        height: "Max height",
+        region: "Native region",
+        uses: "Uses",
+        generated: "Guide generated from",
+        site: "Costa Rica Tree Atlas",
+      };
 
   const handleExport = () => {
     // Resolve favorited slugs against the lightweight lookup
@@ -66,7 +76,7 @@ export function ExportFavoritesButton({
       <html lang="${locale}">
       <head>
         <meta charset="UTF-8">
-        <title>${t.title}</title>
+        <title>${labels.title}</title>
         <style>
           * {
             margin: 0;
@@ -166,8 +176,8 @@ export function ExportFavoritesButton({
       </head>
       <body>
         <div class="header">
-          <h1>🌳 ${t.title}</h1>
-          <p>${favoriteTrees.length} ${locale === "es" ? "especies" : "species"} • ${t.generated} ${t.site}</p>
+          <h1>🌳 ${labels.title}</h1>
+          <p>${t("speciesCount", { count: favoriteTrees.length })} • ${labels.generated} ${labels.site}</p>
         </div>
         ${favoriteTrees
           .map(
@@ -177,22 +187,22 @@ export function ExportFavoritesButton({
               <span class="tree-name">${tree.title}</span>
               <span class="tree-scientific">${tree.scientificName}</span>
             </div>
-            <div class="tree-family">${t.family}: ${tree.family}</div>
+            <div class="tree-family">${labels.family}: ${tree.family}</div>
             <div class="tree-details">
               ${
                 tree.maxHeight
-                  ? `<div class="detail-item"><span class="detail-label">${t.height}:</span> ${tree.maxHeight}</div>`
+                  ? `<div class="detail-item"><span class="detail-label">${labels.height}:</span> ${tree.maxHeight}</div>`
                   : ""
               }
               ${
                 tree.nativeRegion
-                  ? `<div class="detail-item"><span class="detail-label">${t.region}:</span> ${tree.nativeRegion}</div>`
+                  ? `<div class="detail-item"><span class="detail-label">${labels.region}:</span> ${tree.nativeRegion}</div>`
                   : ""
               }
             </div>
             ${
               tree.uses && tree.uses.length > 0
-                ? `<div class="tree-uses"><strong>${t.uses}:</strong> ${tree.uses.join(", ")}</div>`
+                ? `<div class="tree-uses"><strong>${labels.uses}:</strong> ${tree.uses.join(", ")}</div>`
                 : ""
             }
           </div>
@@ -200,7 +210,7 @@ export function ExportFavoritesButton({
           )
           .join("")}
         <div class="footer">
-          <p>${t.generated} costaricatreeatlas.com • ${new Date().toLocaleDateString(locale === "es" ? "es-CR" : "en-US")}</p>
+          <p>${labels.generated} costaricatreeatlas.com • ${new Date().toLocaleDateString(locale === "es" ? "es-CR" : "en-US")}</p>
         </div>
       </body>
       </html>
@@ -226,7 +236,7 @@ export function ExportFavoritesButton({
       className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors"
     >
       <PrintIcon className="w-4 h-4" />
-      {t.export}
+      {labels.export}
     </button>
   );
 }

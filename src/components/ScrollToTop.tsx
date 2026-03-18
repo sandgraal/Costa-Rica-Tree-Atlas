@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const locale = useLocale();
+  const t = useTranslations("nav");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +38,7 @@ export function ScrollToTop() {
     <button
       onClick={scrollToTop}
       className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-primary text-white shadow-lg hover:bg-primary-dark transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 no-print"
-      aria-label={locale === "es" ? "Volver arriba" : "Back to top"}
+      aria-label={t("backToTop")}
     >
       {/* Progress ring */}
       <svg className="absolute inset-0 w-12 h-12 -rotate-90">

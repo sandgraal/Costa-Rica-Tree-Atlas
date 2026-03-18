@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable security/detect-object-injection -- detail view uses typed locale/region dictionary access */
 
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { ShareCollectionButton } from "@/components/ShareCollectionButton";
@@ -32,6 +33,7 @@ export function CollectionDetailView({
   onBack,
   onSelectCollection,
 }: CollectionDetailViewProps) {
+  const t = useTranslations("map");
   const collectionTrees = getCollectionTrees(collection);
 
   return (
@@ -85,11 +87,7 @@ export function CollectionDetailView({
 
         {collectionTrees.length === 0 ? (
           <div className="text-center py-12 bg-card rounded-xl border border-border">
-            <p className="text-muted-foreground">
-              {locale === "es"
-                ? "No hay árboles que coincidan con esta colección actualmente."
-                : "No trees match this collection currently."}
-            </p>
+            <p className="text-muted-foreground">{t("noTreesMatch")}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -142,9 +140,7 @@ export function CollectionDetailView({
 
         <div className="mt-12">
           <h2 className="text-xl font-semibold mb-4">
-            {locale === "es"
-              ? "Colecciones Relacionadas"
-              : "Related Collections"}
+            {t("relatedCollections")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {DISCOVERY_COLLECTIONS.filter(

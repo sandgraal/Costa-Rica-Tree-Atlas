@@ -315,7 +315,7 @@ export function BadgeDisplay({
         <div>
           <div className="text-2xl font-bold text-primary">{totalPoints}</div>
           <div className="text-xs text-muted-foreground">
-            {locale === "es" ? "Puntos Totales" : "Total Points"}
+            {locale === "es" ? "Puntos totales" : "Total points"}
           </div>
         </div>
         <div>
@@ -340,13 +340,12 @@ export function LessonProgressBar({
   locale: string;
 }) {
   const { progress } = useEducationProgress();
+  const t = useTranslations("educationProgress");
   const lessonProgress = progress[lessonId];
 
   if (!lessonProgress) {
     return (
-      <div className="text-xs text-muted-foreground">
-        {locale === "es" ? "No iniciada" : "Not started"}
-      </div>
+      <div className="text-xs text-muted-foreground">{t("notStarted")}</div>
     );
   }
 
@@ -354,9 +353,7 @@ export function LessonProgressBar({
     return (
       <div className="flex items-center gap-2 text-green-600">
         <span className="text-sm">✓</span>
-        <span className="text-xs font-medium">
-          {locale === "es" ? "Completada" : "Completed"}
-        </span>
+        <span className="text-xs font-medium">{t("completed")}</span>
         <span className="text-xs text-muted-foreground">
           ({lessonProgress.totalPoints} pts)
         </span>
@@ -364,9 +361,5 @@ export function LessonProgressBar({
     );
   }
 
-  return (
-    <div className="text-xs text-yellow-600">
-      {locale === "es" ? "En progreso" : "In progress"}
-    </div>
-  );
+  return <div className="text-xs text-yellow-600">{t("inProgress")}</div>;
 }
