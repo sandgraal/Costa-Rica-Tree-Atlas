@@ -12,7 +12,7 @@ interface FavoritesLinkProps {
  * FavoritesLink - Navigation link to favorites page with count badge
  * Shows a heart icon with the number of saved favorites.
  */
-export function FavoritesLink({ locale = "en" }: FavoritesLinkProps) {
+export function FavoritesLink({ locale: _locale = "en" }: FavoritesLinkProps) {
   const t = useTranslations("favorites");
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
