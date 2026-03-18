@@ -1923,5 +1923,29 @@
     "family": "Familia",
     "height": "Altura máx.",
     "status": "Estado"
+  },
+  "breadcrumbs": {
+    "ariaLabel": "Navegación",
+    "home": "Inicio",
+    "trees": "Árboles",
+    "glossary": "Glosario",
+    "education": "Educación",
+    "seasonal": "Temporada",
+    "safety": "Seguridad",
+    "conservation": "Conservación",
+    "map": "Mapa",
+    "identify": "Identificar",
+    "compare": "Comparar",
+    "favorites": "Favoritos",
+    "quiz": "Cuestionario",
+    "diagnose": "Diagnosticar",
+    "wizard": "Asistente",
+    "use-cases": "Casos de Uso",
+    "about": "Acerca de",
+    "lessons": "Lecciones",
+    "printables": "Imprimibles",
+    "classroom": "Aula",
+    "teacher": "Recursos para Maestros",
+    "oral-histories": "Historias Orales"
   }
 }
