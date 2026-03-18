@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/lib/store";
+import { useTranslations } from "next-intl";
 
 /** Minimal tree data needed for the export field guide. */
 export interface ExportableTree {
@@ -37,30 +38,18 @@ export function ExportFavoritesButton({
 }: ExportFavoritesButtonProps) {
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
+  const t = useTranslations("exportGuide");
 
-  const isSpanish = locale.startsWith("es");
-
-  const labels = isSpanish
-    ? {
-        export: "Exportar favoritos",
-        title: "Nombre común",
-        family: "Familia",
-        height: "Altura máxima",
-        region: "Región nativa",
-        uses: "Usos",
-        generated: "Guía generada desde",
-        site: "Costa Rica Tree Atlas",
-      }
-    : {
-        export: "Export favorites",
-        title: "Common name",
-        family: "Family",
-        height: "Max height",
-        region: "Native region",
-        uses: "Uses",
-        generated: "Guide generated from",
-        site: "Costa Rica Tree Atlas",
-      };
+  const labels = {
+    export: t("exportFavorites"),
+    guideTitle: t("title"),
+    family: t("family"),
+    height: t("maxHeight"),
+    region: t("nativeRegion"),
+    uses: t("uses"),
+    generated: t("generatedFrom"),
+    site: t("siteName"),
+  };
 
   const handleExport = () => {
     // Resolve favorited slugs against the lightweight lookup
@@ -76,7 +65,7 @@ export function ExportFavoritesButton({
       <html lang="${locale}">
       <head>
         <meta charset="UTF-8">
-        <title>${labels.title}</title>
+        <title>${labels.guideTitle}</title>
         <style>
           * {
             margin: 0;
@@ -176,7 +165,7 @@ export function ExportFavoritesButton({
       </head>
       <body>
         <div class="header">
-          <h1>🌳 ${labels.title}</h1>
+          <h1>🌳 ${labels.guideTitle}</h1>
           <p>${t("speciesCount", { count: favoriteTrees.length })} • ${labels.generated} ${labels.site}</p>
         </div>
         ${favoriteTrees

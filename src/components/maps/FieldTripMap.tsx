@@ -90,19 +90,6 @@ export function FieldTripMap({
   }
 
   return (
-    return (
-      <div className="bg-muted rounded-xl p-6 text-center">
-        <div className="text-4xl mb-4">🗺️</div>
-        <h3 className="font-semibold mb-2">{labels.title}</h3>
-        <p className="text-sm text-muted-foreground mb-2">
-          {labels.noLocations}
-        </p>
-        <p className="text-xs text-muted-foreground">{labels.enableLocation}</p>
-      </div>
-    );
-  }
-
-  return (
     <GoogleMapsProvider>
       <div className="bg-card rounded-xl border border-border overflow-hidden">
         <div className="p-4 border-b border-border flex items-center justify-between">

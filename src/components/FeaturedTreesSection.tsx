@@ -11,6 +11,7 @@ interface FeaturedTreesSectionProps {
   locale: Locale;
   featuredTrees: string;
   viewAll: string;
+  noTreesAvailable: string;
 }
 
 export function FeaturedTreesSection({
@@ -18,6 +19,7 @@ export function FeaturedTreesSection({
   locale,
   featuredTrees,
   viewAll,
+  noTreesAvailable,
 }: FeaturedTreesSectionProps) {
   const featuredTreesList = getFeaturedTreesList(trees);
 
@@ -44,9 +46,7 @@ export function FeaturedTreesSection({
         </div>
       ) : (
         <p className="text-center text-muted-foreground py-12">
-          {locale === "en"
-            ? "No trees available to display."
-            : "No hay árboles disponibles para mostrar."}
+          {noTreesAvailable}
         </p>
       )}
     </>

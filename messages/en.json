@@ -74,7 +74,8 @@
       "languages": "Languages"
     },
     "structuredDescription": "Discover the magnificent trees of Costa Rica. A community-powered bilingual guide to Costa Rican tree flora.",
-    "orgDescription": "An educational initiative dedicated to documenting Costa Rica's trees."
+    "orgDescription": "An educational initiative dedicated to documenting Costa Rica's trees.",
+    "noTreesAvailable": "No trees available to display."
   },
   "map": {
     "metaTitle": "Explore by Region - Costa Rica Tree Atlas",
@@ -2144,12 +2145,17 @@
   },
   "exportGuide": {
     "export": "Export field guide",
+    "exportFavorites": "Export favorites",
     "title": "My Costa Rica Tree Field Guide",
+    "commonName": "Common name",
     "family": "Family",
     "height": "Height",
+    "maxHeight": "Max height",
     "region": "Region",
+    "nativeRegion": "Native region",
     "uses": "Uses",
     "generatedFrom": "Generated from",
+    "siteName": "Costa Rica Tree Atlas",
     "speciesCount": "{count, plural, =1 {1 species} other {# species}}"
   },
   "mdx": {

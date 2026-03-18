@@ -74,7 +74,8 @@
     },
     "showingCount": "Mostrando {count} de {total}",
     "structuredDescription": "Descubre los magníficos árboles de Costa Rica. Una guía bilingüe impulsada por la comunidad sobre la flora arbórea costarricense.",
-    "orgDescription": "Una iniciativa educativa dedicada a documentar los árboles de Costa Rica."
+    "orgDescription": "Una iniciativa educativa dedicada a documentar los árboles de Costa Rica.",
+    "noTreesAvailable": "No hay árboles disponibles para mostrar."
   },
   "map": {
     "metaTitle": "Explorar por Región - Atlas de Árboles de Costa Rica",
@@ -2140,12 +2141,17 @@
   },
   "exportGuide": {
     "export": "Exportar guía",
+    "exportFavorites": "Exportar favoritos",
     "title": "Mi Guía de Árboles de Costa Rica",
+    "commonName": "Nombre común",
     "family": "Familia",
     "height": "Altura",
+    "maxHeight": "Altura máxima",
     "region": "Región",
+    "nativeRegion": "Región nativa",
     "uses": "Usos",
     "generatedFrom": "Generado desde",
+    "siteName": "Atlas de Árboles de Costa Rica",
     "speciesCount": "{count, plural, =1 {1 especie} other {# especies}}"
   },
   "mdx": {
