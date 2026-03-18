@@ -22,7 +22,7 @@ export function FieldGuideGenerator({
   const favorites = useStore((state) => state.favorites);
   const hydrated = useStore((state) => state._hydrated);
 
-  const t = useTranslations("fieldGuide");
+  const t = useTranslations("trees");
 
   // Filter trees based on search
   const filteredTrees = useMemo(() => {
