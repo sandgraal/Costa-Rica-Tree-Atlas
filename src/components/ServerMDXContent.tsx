@@ -172,6 +172,22 @@ export async function ServerMDXContent({
         ...props,
         locale: resolvedLocale,
       }),
+    ConservationStatusBox: (
+      props: React.ComponentProps<
+        typeof mdxServerComponents.ConservationStatusBox
+      >
+    ) =>
+      mdxServerComponents.ConservationStatusBox({
+        ...props,
+        locale: resolvedLocale,
+      }),
+    QuickRef: (
+      props: React.ComponentProps<typeof mdxServerComponents.QuickRef>
+    ) =>
+      mdxServerComponents.QuickRef({
+        ...props,
+        locale: resolvedLocale,
+      }),
   };
 
   // Merge server MDX components with client components and any additional ones passed in

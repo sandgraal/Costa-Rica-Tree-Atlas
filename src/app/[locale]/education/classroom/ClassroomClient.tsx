@@ -71,7 +71,7 @@ function ClassroomContent() {
         key: CLASSROOM_STORAGE_KEY,
         schema: classroomSchema,
       }),
-    [t]
+    []
   );
 
   const studentInfoStorage = useMemo(
@@ -80,7 +80,7 @@ function ClassroomContent() {
         key: STUDENT_STORAGE_KEY,
         schema: studentInfoSchema,
       }),
-    [t]
+    []
   );
 
   // Load saved data on mount
