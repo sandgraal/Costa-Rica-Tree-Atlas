@@ -1443,6 +1443,7 @@
     }
   },
   "treeDetail": {
+    "treeNotFound": "Árbol No Encontrado",
     "print": "Imprimir",
     "printAriaLabel": "Imprimir esta página",
     "pronounce": "Pronunciar",
