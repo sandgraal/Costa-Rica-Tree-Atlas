@@ -29,12 +29,12 @@ export default async function AdminContributionsPage({
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <section className="container mx-auto px-4 py-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">{t("heading")}</h1>
         <p className="text-muted-foreground mb-8">{t("description")}</p>
         <ContributionsListClient />
       </div>
-    </main>
+    </section>
   );
 }
