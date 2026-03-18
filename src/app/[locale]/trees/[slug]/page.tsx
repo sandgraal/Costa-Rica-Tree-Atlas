@@ -33,7 +33,7 @@ import type {
   IndigenousName,
 } from "@/types/tree";
 
-const OG_LOCALE = { en: "en_US", es: "es_CR" } as const satisfies Record<Locale, string>;
+const OG_LOCALE: Record<string, string> = { en: "en_US", es: "es_CR" };
 
 // Dynamic imports for heavy below-fold components
 // DistributionMap renders static SVG from props, so SSR is beneficial for SEO
