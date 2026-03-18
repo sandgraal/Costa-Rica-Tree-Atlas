@@ -746,7 +746,7 @@ export function QuickRef({ title, items = [], locale = "en" }: QuickRefProps) {
   const safeItems = Array.isArray(items) ? items : [];
   // eslint-disable-next-line security/detect-object-injection -- `locale` is constrained to "en" | "es".
   const defaultTitle = translations[locale].iucn.quickReference;
-  const displayTitle = title || defaultTitle;
+  const displayTitle = title ?? defaultTitle;
 
   return (
     <div className="bg-card border-2 border-primary/20 rounded-xl overflow-hidden my-6 not-prose">
