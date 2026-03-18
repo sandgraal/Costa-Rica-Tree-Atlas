@@ -87,7 +87,43 @@
     "goToMyLocation": "Ir a mi ubicación",
     "legend": "Leyenda",
     "regions": "Regiones",
-    "distributionInCR": "Distribución en Costa Rica"
+    "distributionInCR": "Distribución en Costa Rica",
+    "title": "Explora Costa Rica",
+    "subtitle": "Descubre árboles por región, temporada y experiencia",
+    "discover": "Descubrir",
+    "mapTab": "Mapa",
+    "explore": "Explorar",
+    "featured": "Colecciones Destacadas",
+    "species": "especies",
+    "viewAll": "Ver todos",
+    "viewCollection": "Ver colección",
+    "conservationAreas": "Áreas Protegidas",
+    "provinces": "Provincias",
+    "biodiversity": "Biodiversidad",
+    "treesFound": "árboles documentados",
+    "clickToExplore": "Haz clic en una provincia para explorar",
+    "showAreas": "Mostrar áreas protegidas",
+    "totalTrees": "Total de especies",
+    "seasonalNow": "Ahora Mismo",
+    "byRegion": "Por Región",
+    "allCollections": "Todas las Colecciones",
+    "backToCollections": "← Volver a colecciones",
+    "treesInCollection": "Árboles en esta colección",
+    "biodiversityPowerhouse": "Costa Rica: Potencia de Biodiversidad",
+    "biodiversityDescription": "Con solo el 0.03% de la superficie terrestre, Costa Rica alberga aproximadamente el 5% de toda la biodiversidad del planeta. Más del 25% del territorio está protegido como parques nacionales y reservas.",
+    "nationalParks": "Parques Nacionales",
+    "speciesLabel": "Especies",
+    "lifeZones": "Zonas de Vida",
+    "protectedArea": "Área Protegida",
+    "clearSelection": "Limpiar selección",
+    "lower": "Menor",
+    "higher": "Mayor",
+    "population": "hab.",
+    "relatedCollections": "Colecciones Relacionadas",
+    "nationalParksOfCR": "Parques Nacionales de Costa Rica",
+    "exploreByProvince": "Explorar por Provincia",
+    "featuredTrees": "Árboles destacados:",
+    "collections": "Colecciones:"
   },
   "trees": {
     "title": "Directorio de Árboles",
@@ -963,7 +999,9 @@
     "observationsInCR": "Observaciones en Costa Rica",
     "viewOn": "Ver en",
     "iucnStatus": "Estado de Conservación UICN",
-    "viewIucnDetails": "Ver detalles en UICN"
+    "viewIucnDetails": "Ver detalles en UICN",
+    "title": "Estado de Conservación UICN",
+    "viewOnIUCN": "Ver detalles en IUCN"
   },
   "indigenousNames": {
     "heading": "Nombres Indígenas",
@@ -1597,7 +1635,7 @@
   "fieldTrip": {
     "metaTitle": "Modo Excursión - Atlas de Árboles de Costa Rica",
     "metaDescription": "Lista de verificación offline para excursiones de campo. Identifica y registra árboles de Costa Rica durante salidas educativas.",
-    "title": "Modo Excursión",
+    "title": "Planificador de Excursión",
     "subtitle": "Lista de verificación para identificar árboles en el campo",
     "backToEducation": "← Volver a Educación",
     "startTrip": "🥾 Iniciar Excursión",
@@ -1639,7 +1677,9 @@
     "mapTitle": "Mapa de Excursión",
     "noLocations": "Los árboles marcados sin ubicación GPS no aparecerán en el mapa",
     "treesOnMap": "{count} árbol(es) en el mapa",
-    "enableLocation": "Habilita tu ubicación para registrar dónde encuentras cada árbol"
+    "enableLocation": "Habilita tu ubicación para registrar dónde encuentras cada árbol",
+    "selectProvince": "Seleccionar provincia",
+    "loadingMap": "Cargando mapa..."
   },
   "mapGame": {
     "metaTitle": "Juego del Mapa - Atlas de Árboles de Costa Rica",
@@ -2111,5 +2151,18 @@
     "geographicDistribution": "Distribución Geográfica",
     "elevation": "Elevación",
     "compareInteractive": "Comparar en herramienta interactiva"
+  },
+  "biodiversity": {
+    "title": "Datos de Biodiversidad",
+    "observationsInCR": "Observaciones en Costa Rica",
+    "viewOn": "Ver en"
+  },
+  "educationProgress": {
+    "badges": "Insignias",
+    "totalPoints": "Puntos Totales",
+    "lessons": "Lecciones",
+    "notStarted": "No iniciada",
+    "completed": "Completada",
+    "inProgress": "En progreso"
   }
 }

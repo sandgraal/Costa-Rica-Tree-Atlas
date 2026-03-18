@@ -2,6 +2,7 @@
 /* eslint-disable security/detect-object-injection -- map UI relies on typed geo/content dictionaries and enum-key lookups */
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import {
   PROVINCES,
@@ -57,6 +58,7 @@ interface TreeMapClientProps {
 
 export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
   const typedLocale = locale as Locale;
+  const t = useTranslations("map");
   const [selectedProvince, setSelectedProvince] = useState<Province | null>(
     null
   );
@@ -175,45 +177,28 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
 
   // Labels
   const labels = {
-    title: typedLocale === "es" ? "Explora Costa Rica" : "Explore Costa Rica",
-    subtitle:
-      typedLocale === "es"
-        ? "Descubre árboles por región, temporada y experiencia"
-        : "Discover trees by region, season, and experience",
-    discover: typedLocale === "es" ? "Descubrir" : "Discover",
-    map: typedLocale === "es" ? "Mapa" : "Map",
-    explore: typedLocale === "es" ? "Explorar" : "Explore",
-    featured:
-      typedLocale === "es" ? "Colecciones Destacadas" : "Featured Collections",
-    species: typedLocale === "es" ? "especies" : "species",
-    viewAll: typedLocale === "es" ? "Ver todos" : "View all",
-    viewCollection: typedLocale === "es" ? "Ver colección" : "View collection",
-    conservationAreas:
-      typedLocale === "es" ? "Áreas Protegidas" : "Protected Areas",
-    regions: typedLocale === "es" ? "Regiones" : "Regions",
-    provinces: typedLocale === "es" ? "Provincias" : "Provinces",
-    biodiversity: typedLocale === "es" ? "Biodiversidad" : "Biodiversity",
-    treesFound:
-      typedLocale === "es" ? "árboles documentados" : "trees documented",
-    clickToExplore:
-      typedLocale === "es"
-        ? "Haz clic en una provincia para explorar"
-        : "Click a province to explore",
-    showAreas:
-      typedLocale === "es"
-        ? "Mostrar áreas protegidas"
-        : "Show protected areas",
-    totalTrees: typedLocale === "es" ? "Total de especies" : "Total species",
-    seasonalNow: typedLocale === "es" ? "Ahora Mismo" : "Right Now",
-    byRegion: typedLocale === "es" ? "Por Región" : "By Region",
-    allCollections:
-      typedLocale === "es" ? "Todas las Colecciones" : "All Collections",
-    backToCollections:
-      typedLocale === "es" ? "← Volver a colecciones" : "← Back to collections",
-    treesInCollection:
-      typedLocale === "es"
-        ? "Árboles en esta colección"
-        : "Trees in this collection",
+    title: t("title"),
+    subtitle: t("subtitle"),
+    discover: t("discover"),
+    map: t("mapTab"),
+    explore: t("explore"),
+    featured: t("featured"),
+    species: t("species"),
+    viewAll: t("viewAll"),
+    viewCollection: t("viewCollection"),
+    conservationAreas: t("conservationAreas"),
+    regions: t("regions"),
+    provinces: t("provinces"),
+    biodiversity: t("biodiversity"),
+    treesFound: t("treesFound"),
+    clickToExplore: t("clickToExplore"),
+    showAreas: t("showAreas"),
+    totalTrees: t("totalTrees"),
+    seasonalNow: t("seasonalNow"),
+    byRegion: t("byRegion"),
+    allCollections: t("allCollections"),
+    backToCollections: t("backToCollections"),
+    treesInCollection: t("treesInCollection"),
   };
 
   const selectedTrees = selectedProvince
@@ -298,14 +283,10 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                 <span className="text-4xl">🌿</span>
                 <div>
                   <h2 className="text-xl font-bold mb-2 text-green-900 dark:text-green-100">
-                    {typedLocale === "es"
-                      ? "Costa Rica: Potencia de Biodiversidad"
-                      : "Costa Rica: Biodiversity Powerhouse"}
+                    {t("biodiversityPowerhouse")}
                   </h2>
                   <p className="text-sm text-green-800 dark:text-green-200 mb-3">
-                    {typedLocale === "es"
-                      ? "Con solo el 0.03% de la superficie terrestre, Costa Rica alberga aproximadamente el 5% de toda la biodiversidad del planeta. Más del 25% del territorio está protegido como parques nacionales y reservas."
-                      : "With just 0.03% of Earth's land surface, Costa Rica hosts approximately 5% of all the planet's biodiversity. Over 25% of the country is protected as national parks and reserves."}
+                    {t("biodiversityDescription")}
                   </p>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                     <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
@@ -313,9 +294,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                         30+
                       </div>
                       <div className="text-green-600 dark:text-green-400">
-                        {typedLocale === "es"
-                          ? "Parques Nacionales"
-                          : "National Parks"}
+                        {t("nationalParks")}
                       </div>
                     </div>
                     <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
@@ -323,7 +302,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                         ~500,000
                       </div>
                       <div className="text-green-600 dark:text-green-400">
-                        {typedLocale === "es" ? "Especies" : "Species"}
+                        {t("speciesLabel")}
                       </div>
                     </div>
                     <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
@@ -331,7 +310,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                         12
                       </div>
                       <div className="text-green-600 dark:text-green-400">
-                        {typedLocale === "es" ? "Zonas de Vida" : "Life Zones"}
+                        {t("lifeZones")}
                       </div>
                     </div>
                     <div className="bg-white/50 dark:bg-green-900/30 rounded-lg p-2 text-center">
@@ -339,9 +318,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                         25%+
                       </div>
                       <div className="text-green-600 dark:text-green-400">
-                        {typedLocale === "es"
-                          ? "Área Protegida"
-                          : "Protected Area"}
+                        {t("protectedArea")}
                       </div>
                     </div>
                   </div>
@@ -466,10 +443,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                       }}
                       className="px-4 py-2 rounded-full bg-muted hover:bg-muted/80 text-foreground font-medium transition-colors text-sm"
                     >
-                      ✕{" "}
-                      {typedLocale === "es"
-                        ? "Limpiar selección"
-                        : "Clear selection"}
+                      ✕ {t("clearSelection")}
                     </button>
                   )}
                 </div>
@@ -693,7 +667,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                       </span>
                       <div className="flex items-center gap-1">
                         <span className="text-xs text-muted-foreground">
-                          {typedLocale === "es" ? "Menor" : "Lower"}
+                          {t("lower")}
                         </span>
                         {[
                           "#bbf7d0",
@@ -709,7 +683,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                           />
                         ))}
                         <span className="text-xs text-muted-foreground">
-                          {typedLocale === "es" ? "Mayor" : "Higher"}
+                          {t("higher")}
                         </span>
                       </div>
                     </div>
@@ -743,7 +717,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                           {PROVINCES[
                             displayProvince
                           ].population.toLocaleString()}{" "}
-                          {typedLocale === "es" ? "hab." : "pop."}
+                          {t("population")}
                         </p>
                       </div>
                     </div>
@@ -852,9 +826,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                 {selectedProvince && (
                   <div className="bg-card rounded-xl border border-border p-6">
                     <h2 className="text-lg font-semibold mb-4">
-                      {typedLocale === "es"
-                        ? "Colecciones Relacionadas"
-                        : "Related Collections"}
+                      {t("relatedCollections")}
                     </h2>
                     <div className="space-y-3">
                       {getCollectionsByProvince(selectedProvince)
@@ -882,9 +854,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                     🏞️ {labels.conservationAreas}
                   </h2>
                   <div className="text-xs text-muted-foreground mb-3">
-                    {typedLocale === "es"
-                      ? "Parques Nacionales de Costa Rica"
-                      : "Costa Rica National Parks"}
+                    {t("nationalParksOfCR")}
                   </div>
                   <ul className="space-y-2 max-h-96 overflow-y-auto">
                     {CONSERVATION_AREAS.map((area) => (
@@ -915,9 +885,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
         {activeTab === "explore" && (
           <div>
             <h2 className="text-2xl font-bold mb-6">
-              {typedLocale === "es"
-                ? "Explorar por Provincia"
-                : "Explore by Province"}
+              {t("exploreByProvince")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Object.entries(PROVINCES).map(([key, province]) => {
@@ -961,9 +929,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                       </div>
                       <div className="mb-4">
                         <p className="text-xs text-muted-foreground mb-2">
-                          {typedLocale === "es"
-                            ? "Árboles destacados:"
-                            : "Featured trees:"}
+                          {t("featuredTrees")}
                         </p>
                         <div className="flex flex-wrap gap-1">
                           {treesByProvince[key as Province]
@@ -987,9 +953,7 @@ export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
                       {provinceCollections.length > 0 && (
                         <div className="mb-4">
                           <p className="text-xs text-muted-foreground mb-2">
-                            {typedLocale === "es"
-                              ? "Colecciones:"
-                              : "Collections:"}
+                            {t("collections")}
                           </p>
                           <div className="space-y-1">
                             {provinceCollections

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type ShareButtonProps = {
   title: string;
@@ -17,8 +17,10 @@ export function ShareButton({
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const locale = useLocale();
+  const t = useTranslations("share");
   const rawPath = path ?? (slug ? `/trees/${slug}` : "");
-  const sharePath = rawPath && !rawPath.startsWith("/") ? `/${rawPath}` : rawPath;
+  const sharePath =
+    rawPath && !rawPath.startsWith("/") ? `/${rawPath}` : rawPath;
 
   const shareUrl =
     typeof window !== "undefined" && sharePath
@@ -29,10 +31,7 @@ export function ShareButton({
     ? `${title} (${scientificName})`
     : title;
 
-  const shareText =
-    locale === "es"
-      ? `Descubre ${titleWithScientificName} en el Atlas de Árboles de Costa Rica 🌳`
-      : `Discover ${titleWithScientificName} on Costa Rica Tree Atlas 🌳`;
+  const shareText = t("discoverTree", { treeName: titleWithScientificName });
 
   const handleShare = async (platform: string) => {
     if (!shareUrl) return;
@@ -88,11 +87,7 @@ export function ShareButton({
         } catch (err) {
           console.error("Failed to copy:", err);
           // Show user-facing error
-          alert(
-            locale === "es"
-              ? "No se pudo copiar el enlace"
-              : "Failed to copy link"
-          );
+          alert(t("failedToCopy"));
         }
         break;
       case "native":
@@ -126,12 +121,10 @@ export function ShareButton({
         }
         disabled={!sharePath}
         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label={locale === "es" ? "Compartir" : "Share"}
+        aria-label={t("share")}
       >
         <ShareIcon className="h-4 w-4" />
-        <span className="hidden sm:inline">
-          {locale === "es" ? "Compartir" : "Share"}
-        </span>
+        <span className="hidden sm:inline">{t("share")}</span>
       </button>
 
       {/* Dropdown Menu */}
@@ -178,15 +171,7 @@ export function ShareButton({
               className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-3"
             >
               <CopyIcon className="h-4 w-4" />
-              <span>
-                {showCopied
-                  ? locale === "es"
-                    ? "¡Copiado!"
-                    : "Copied!"
-                  : locale === "es"
-                    ? "Copiar enlace"
-                    : "Copy link"}
-              </span>
+              <span>{showCopied ? t("copied") : t("copyLink")}</span>
             </button>
           </div>
         </>
