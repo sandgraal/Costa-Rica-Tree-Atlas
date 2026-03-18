@@ -20,7 +20,7 @@ export function PronunciationButton({
   locale = "en",
   className = "",
 }: PronunciationButtonProps) {
-  const td = useTranslations("treeDetail");
+  const td = useTranslations("trees");
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
 
