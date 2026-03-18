@@ -6,7 +6,7 @@ import { Link } from "@i18n/navigation";
 import type { Metadata } from "next";
 import { ServerMDXContent } from "@/components/ServerMDXContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import type { Locale, Tree } from "@/types/tree";
+import type { Tree } from "@/types/tree";
 
 interface OralHistory {
   locale: string;
@@ -99,7 +99,6 @@ export default async function OralHistoryDetailPage({ params }: Props) {
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="mb-6">
         <Breadcrumbs
-          locale={locale as Locale}
           pathname={`/oral-histories/${entry.slug}`}
           customLabels={{
             "oral-histories": t("title"),
