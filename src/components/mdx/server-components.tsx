@@ -47,7 +47,7 @@ const translations = {
       VU: "Vulnerable",
       EN: "Endangered",
       CR: "Critically Endangered",
-      EW: "Extinct in Wild",
+      EW: "Extinct in the Wild",
       EX: "Extinct",
       redListStatus: "IUCN Red List Status",
       criteria: "Criteria: ",
