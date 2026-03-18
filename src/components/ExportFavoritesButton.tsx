@@ -1,7 +1,6 @@
 "use client";
 
 import { useStore } from "@/lib/store";
-import { useTranslations } from "next-intl";
 
 /** Minimal tree data needed for the export field guide. */
 export interface ExportableTree {
@@ -38,18 +37,30 @@ export function ExportFavoritesButton({
 }: ExportFavoritesButtonProps) {
   const hydrated = useStore((state) => state._hydrated);
   const favorites = useStore((state) => state.favorites);
-  const t = useTranslations("exportGuide");
 
-  const labels = {
-    export: t("export"),
-    title: t("title"),
-    family: t("family"),
-    height: t("height"),
-    region: t("region"),
-    uses: t("uses"),
-    generated: t("generatedFrom"),
-    site: "Costa Rica Tree Atlas",
-  };
+  const isSpanish = locale.startsWith("es");
+
+  const labels = isSpanish
+    ? {
+        export: "Exportar favoritos",
+        title: "Nombre común",
+        family: "Familia",
+        height: "Altura máxima",
+        region: "Región nativa",
+        uses: "Usos",
+        generated: "Guía generada desde",
+        site: "Costa Rica Tree Atlas",
+      }
+    : {
+        export: "Export favorites",
+        title: "Common name",
+        family: "Family",
+        height: "Max height",
+        region: "Native region",
+        uses: "Uses",
+        generated: "Guide generated from",
+        site: "Costa Rica Tree Atlas",
+      };
 
   const handleExport = () => {
     // Resolve favorited slugs against the lightweight lookup
