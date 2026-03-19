@@ -412,9 +412,13 @@ describe("Education data: no array-level locale ternaries", () => {
   });
 
   it("should not have array-level locale ternaries in data files", () => {
-    // Matches patterns like: lang === "es" ? ["Spanish", ...] : ["English", ...]
+    // Matches patterns like:
+    // - lang === "es" ? ["Spanish", ...] : ["English", ...]
+    // - locale === "es" ? ["Spanish", ...] : ["English", ...]
+    // - isEs ? ["Spanish", ...] : ["English", ...]
     // These should be converted to per-property t() calls.
-    const ARRAY_TERNARY = /lang\s*===\s*["']es["']\s*\?\s*\[/g;
+    const ARRAY_TERNARY =
+      /\b(?:lang|locale)\s*===\s*["']es["']\s*\?\s*\[|\bisEs\s*\?\s*\[/g;
 
     const violators: { file: string; count: number }[] = [];
     for (const file of dataFiles) {
