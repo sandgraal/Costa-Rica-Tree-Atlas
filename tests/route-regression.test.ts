@@ -325,7 +325,8 @@ describe("Locale ternary regression guard", () => {
   );
 
   it("should not increase the count of locale === 'es' ternaries beyond baseline", () => {
-    const LOCALE_TERNARY = /locale\s*===\s*["']es["']|lang\s*===\s*["']es["']/g;
+    const LOCALE_TERNARY =
+      /(?:locale|lang)\s*===\s*["']es["']\s*\?/g;
 
     let totalCount = 0;
     const perFile: { file: string; count: number }[] = [];
