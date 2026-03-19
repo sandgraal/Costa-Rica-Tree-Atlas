@@ -41,6 +41,14 @@ interface Badge {
   earned: boolean;
 }
 
+function badgeName(badge: Badge, locale: string): string {
+  return locale === "es" ? badge.nameEs : badge.name;
+}
+
+function badgeDescription(badge: Badge, locale: string): string {
+  return locale === "es" ? badge.descriptionEs : badge.description;
+}
+
 const EducationProgressContext = createContext<
   EducationProgressContextType | undefined
 >(undefined);
@@ -295,13 +303,13 @@ export function BadgeDisplay({
                 ? "bg-yellow-500/10 border-2 border-yellow-500/30"
                 : "bg-muted/50 border border-border opacity-50"
             }`}
-            title={locale === "es" ? badge.descriptionEs : badge.description}
+            title={badgeDescription(badge, locale)}
           >
             <div className={`text-3xl mb-1 ${badge.earned ? "" : "grayscale"}`}>
               {badge.icon}
             </div>
             <div className="text-xs font-medium truncate">
-              {locale === "es" ? badge.nameEs : badge.name}
+              {badgeName(badge, locale)}
             </div>
             {badge.earned && (
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-[10px]">

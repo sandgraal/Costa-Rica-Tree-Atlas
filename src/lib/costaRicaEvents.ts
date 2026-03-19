@@ -1694,7 +1694,8 @@ export function getEventTranslation(
   if (!Object.hasOwn(EVENT_TRANSLATIONS, eventId)) return undefined;
   const eventTranslations =
     EVENT_TRANSLATIONS[eventId as keyof typeof EVENT_TRANSLATIONS];
-  return locale === "es" ? eventTranslations.es : eventTranslations.en;
+  const loc = locale === "es" ? "es" : "en";
+  return eventTranslations[loc];
 }
 
 // Get events happening on a specific date

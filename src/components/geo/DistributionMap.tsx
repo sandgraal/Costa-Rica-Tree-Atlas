@@ -10,7 +10,7 @@ import {
   expandDistribution,
   getDistributionName,
 } from "@/lib/geo";
-import { getUILabel } from "@/lib/i18n";
+import { getUILabel, getLocalizedText } from "@/lib/i18n";
 import type { Distribution, Locale, Province } from "@/types/tree";
 
 // ============================================================================
@@ -22,13 +22,6 @@ interface DistributionMapProps {
   elevation?: string;
   locale: Locale;
   interactive?: boolean;
-}
-
-function getLocalizedName(
-  value: { en: string; es: string },
-  locale: Locale
-): string {
-  return locale === "es" ? value.es : value.en;
 }
 
 function getProvinceByKey(provinceKey: Province) {
@@ -228,7 +221,7 @@ export function DistributionMap({
                     onMouseLeave={() => interactive && setHoveredProvince(null)}
                     tabIndex={interactive ? 0 : -1}
                     role={interactive ? "button" : undefined}
-                    aria-label={`${getLocalizedName(province.name, locale)}: ${isHighlighted ? labels.present : labels.notRecorded}`}
+                    aria-label={`${getLocalizedText(province.name, locale)}: ${isHighlighted ? labels.present : labels.notRecorded}`}
                   />
                   {/* Province labels */}
                   <text
@@ -239,7 +232,7 @@ export function DistributionMap({
                     fontWeight="600"
                     className="pointer-events-none select-none fill-stone-700 dark:fill-stone-200 [text-shadow:0_0_3px_rgba(255,255,255,0.8)]"
                   >
-                    {getLocalizedName(province.name, locale)}
+                    {getLocalizedText(province.name, locale)}
                   </text>
                 </g>
               );
@@ -255,7 +248,7 @@ export function DistributionMap({
                 fontSize="9"
                 className="pointer-events-none select-none italic fill-blue-300 dark:fill-blue-400"
               >
-                {getLocalizedName(neighbor.name, locale)}
+                {getLocalizedText(neighbor.name, locale)}
               </text>
             ))}
           </svg>
@@ -302,7 +295,7 @@ export function DistributionMap({
                 return (
                   <>
                     <p className="font-medium">
-                      {getLocalizedName(hoveredProvinceData.name, locale)}
+                      {getLocalizedText(hoveredProvinceData.name, locale)}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {expandedDistribution.includes(hoveredProvince)

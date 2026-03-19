@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 import { allTrees } from "contentlayer/generated";
-import { getConservationLabel } from "@/lib/i18n/translations";
+import {
+  getConservationLabel,
+  getLocalizedText,
+} from "@/lib/i18n/translations";
 import type { ConservationCategory, Locale } from "@/types/tree";
 
 export const alt = "Tree profile image";
@@ -39,7 +42,10 @@ export default async function Image({ params }: Props) {
           fontSize: 48,
         }}
       >
-        {locale === "es" ? "Árbol No Encontrado" : "Tree Not Found"}
+        {getLocalizedText(
+          { en: "Tree Not Found", es: "Árbol No Encontrado" },
+          locale as Locale
+        )}
       </div>,
       { ...size }
     );

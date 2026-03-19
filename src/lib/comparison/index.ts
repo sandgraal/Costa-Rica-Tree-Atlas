@@ -84,7 +84,7 @@ export function getConfusionRatingConfig(
     "border-destructive/30",
   ];
 
-  const localeLabels = locale === "es" ? labels.es : labels.en;
+  const localeLabels = labels[locale];
 
   return {
     rating: normalizedRating,
@@ -212,7 +212,7 @@ export function getComparisonTagLabel(tag: string, locale: Locale): string {
     return tag.charAt(0).toUpperCase() + tag.slice(1);
   }
 
-  return locale === "es" ? labels.es : labels.en;
+  return labels[locale];
 }
 
 // ============================================================================

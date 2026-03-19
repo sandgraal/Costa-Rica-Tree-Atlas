@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { getDateLocale } from "@/lib/i18n";
 import { QRCodeGenerator } from "./QRCodeGenerator";
 import type { FieldGuideTreeSummary } from "@/types/tree";
 
@@ -18,7 +19,7 @@ export function FieldGuidePreview({
 }: FieldGuidePreviewProps) {
   const t = useTranslations("fieldGuide");
 
-  const dateLocale = locale === "es" ? "es-CR" : "en-US";
+  const dateLocale = getDateLocale(locale as "en" | "es");
 
   const handlePrint = () => {
     window.print();

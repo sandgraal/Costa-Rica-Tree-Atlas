@@ -6,6 +6,7 @@ import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { triggerConfetti, injectEducationStyles } from "@/lib/education";
 import { createStorage, adoptedTreeSchema } from "@/lib/storage";
+import { getDateLocale } from "@/lib/i18n";
 import { useDebounce } from "@/hooks/useDebounce";
 import type { TreeJournalLessonData } from "./tree-journal-data";
 import { AdoptTreeView } from "./AdoptTreeView";
@@ -268,7 +269,7 @@ export default function TreeJournalClient({
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    const dateLocale = locale === "es" ? "es-CR" : "en-US";
+    const dateLocale = getDateLocale(locale as "en" | "es");
     return date.toLocaleDateString(dateLocale, {
       weekday: "long",
       year: "numeric",
