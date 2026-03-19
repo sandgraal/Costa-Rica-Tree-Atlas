@@ -70,11 +70,12 @@ export async function generateMetadata({
 
   // If there's a specific month, customize the metadata
   if (month) {
-    const monthName = getMonthLabel(month as Month, locale as Locale, "full");
+    const resolvedMonthName =
+      getMonthLabel(month as Month, locale as Locale, "full") ?? month;
 
     return {
-      title: `${monthName} - ${t("title")}`,
-      description: t("monthDescription", { monthName }),
+      title: `${resolvedMonthName} - ${t("title")}`,
+      description: t("monthDescription", { monthName: resolvedMonthName }),
       alternates: {
         canonical: `/${locale}/seasonal?month=${month}`,
         languages: {
