@@ -183,221 +183,124 @@ export function getEcosystemServicesLessonData(
     ),
   };
 
-  const serviceCategories: ServiceCategory[] =
-    lang === "es"
-      ? [
-          {
-            id: "provisioning",
-            title: "Aprovisionamiento",
-            icon: "🍎",
-            color: "from-green-500 to-emerald-500",
-            description: "Lo que obtenemos de los ecosistemas",
-            examples: [
-              "Alimentos",
-              "Madera",
-              "Medicinas",
-              "Agua dulce",
-              "Fibras",
-            ],
-          },
-          {
-            id: "regulating",
-            title: "Regulación",
-            icon: "🌡️",
-            color: "from-blue-500 to-cyan-500",
-            description: "Beneficios de la regulación natural",
-            examples: [
-              "Clima",
-              "Purificación del aire",
-              "Control de inundaciones",
-              "Polinización",
-              "Control de plagas",
-            ],
-          },
-          {
-            id: "cultural",
-            title: "Culturales",
-            icon: "🎨",
-            color: "from-purple-500 to-pink-500",
-            description: "Beneficios no materiales",
-            examples: [
-              "Recreación",
-              "Turismo",
-              "Espiritualidad",
-              "Educación",
-              "Belleza estética",
-            ],
-          },
-          {
-            id: "supporting",
-            title: "Soporte",
-            icon: "🌱",
-            color: "from-yellow-500 to-orange-500",
-            description: "Servicios necesarios para otros servicios",
-            examples: [
-              "Ciclo de nutrientes",
-              "Formación de suelo",
-              "Fotosíntesis",
-              "Hábitat",
-              "Ciclo del agua",
-            ],
-          },
-        ]
-      : [
-          {
-            id: "provisioning",
-            title: "Provisioning",
-            icon: "🍎",
-            color: "from-green-500 to-emerald-500",
-            description: "What we get from ecosystems",
-            examples: ["Food", "Timber", "Medicines", "Fresh water", "Fibers"],
-          },
-          {
-            id: "regulating",
-            title: "Regulating",
-            icon: "🌡️",
-            color: "from-blue-500 to-cyan-500",
-            description: "Benefits from natural regulation",
-            examples: [
-              "Climate",
-              "Air purification",
-              "Flood control",
-              "Pollination",
-              "Pest control",
-            ],
-          },
-          {
-            id: "cultural",
-            title: "Cultural",
-            icon: "🎨",
-            color: "from-purple-500 to-pink-500",
-            description: "Non-material benefits",
-            examples: [
-              "Recreation",
-              "Tourism",
-              "Spirituality",
-              "Education",
-              "Aesthetic beauty",
-            ],
-          },
-          {
-            id: "supporting",
-            title: "Supporting",
-            icon: "🌱",
-            color: "from-yellow-500 to-orange-500",
-            description: "Services needed for other services",
-            examples: [
-              "Nutrient cycling",
-              "Soil formation",
-              "Photosynthesis",
-              "Habitat",
-              "Water cycle",
-            ],
-          },
-        ];
+  const serviceCategories: ServiceCategory[] = [
+    {
+      id: "provisioning",
+      title: t("Provisioning", "Aprovisionamiento"),
+      icon: "🍎",
+      color: "from-green-500 to-emerald-500",
+      description: t(
+        "What we get from ecosystems",
+        "Lo que obtenemos de los ecosistemas"
+      ),
+      examples: [
+        t("Food", "Alimentos"),
+        t("Timber", "Madera"),
+        t("Medicines", "Medicinas"),
+        t("Fresh water", "Agua dulce"),
+        t("Fibers", "Fibras"),
+      ],
+    },
+    {
+      id: "regulating",
+      title: t("Regulating", "Regulación"),
+      icon: "🌡️",
+      color: "from-blue-500 to-cyan-500",
+      description: t(
+        "Benefits from natural regulation",
+        "Beneficios de la regulación natural"
+      ),
+      examples: [
+        t("Climate", "Clima"),
+        t("Air purification", "Purificación del aire"),
+        t("Flood control", "Control de inundaciones"),
+        t("Pollination", "Polinización"),
+        t("Pest control", "Control de plagas"),
+      ],
+    },
+    {
+      id: "cultural",
+      title: t("Cultural", "Culturales"),
+      icon: "🎨",
+      color: "from-purple-500 to-pink-500",
+      description: t("Non-material benefits", "Beneficios no materiales"),
+      examples: [
+        t("Recreation", "Recreación"),
+        t("Tourism", "Turismo"),
+        t("Spirituality", "Espiritualidad"),
+        t("Education", "Educación"),
+        t("Aesthetic beauty", "Belleza estética"),
+      ],
+    },
+    {
+      id: "supporting",
+      title: t("Supporting", "Soporte"),
+      icon: "🌱",
+      color: "from-yellow-500 to-orange-500",
+      description: t(
+        "Services needed for other services",
+        "Servicios necesarios para otros servicios"
+      ),
+      examples: [
+        t("Nutrient cycling", "Ciclo de nutrientes"),
+        t("Soil formation", "Formación de suelo"),
+        t("Photosynthesis", "Fotosíntesis"),
+        t("Habitat", "Hábitat"),
+        t("Water cycle", "Ciclo del agua"),
+      ],
+    },
+  ];
 
-  const matchingItems: MatchingItem[] =
-    lang === "es"
-      ? [
-          {
-            id: "oxygen",
-            service: "Producción de oxígeno",
-            category: "supporting",
-            icon: "🌬️",
-          },
-          {
-            id: "fruit",
-            service: "Frutas y nueces",
-            category: "provisioning",
-            icon: "🥭",
-          },
-          {
-            id: "shade",
-            service: "Sombra y frescura",
-            category: "regulating",
-            icon: "☀️",
-          },
-          {
-            id: "beauty",
-            service: "Belleza del paisaje",
-            category: "cultural",
-            icon: "🏞️",
-          },
-          {
-            id: "wood",
-            service: "Madera para construcción",
-            category: "provisioning",
-            icon: "🪵",
-          },
-          {
-            id: "co2",
-            service: "Captura de CO2",
-            category: "regulating",
-            icon: "🌡️",
-          },
-          {
-            id: "habitat",
-            service: "Hogar para animales",
-            category: "supporting",
-            icon: "🐦",
-          },
-          {
-            id: "recreation",
-            service: "Espacio para recreación",
-            category: "cultural",
-            icon: "🏕️",
-          },
-        ]
-      : [
-          {
-            id: "oxygen",
-            service: "Oxygen production",
-            category: "supporting",
-            icon: "🌬️",
-          },
-          {
-            id: "fruit",
-            service: "Fruits and nuts",
-            category: "provisioning",
-            icon: "🥭",
-          },
-          {
-            id: "shade",
-            service: "Shade and cooling",
-            category: "regulating",
-            icon: "☀️",
-          },
-          {
-            id: "beauty",
-            service: "Landscape beauty",
-            category: "cultural",
-            icon: "🏞️",
-          },
-          {
-            id: "wood",
-            service: "Wood for construction",
-            category: "provisioning",
-            icon: "🪵",
-          },
-          {
-            id: "co2",
-            service: "CO2 capture",
-            category: "regulating",
-            icon: "🌡️",
-          },
-          {
-            id: "habitat",
-            service: "Home for animals",
-            category: "supporting",
-            icon: "🐦",
-          },
-          {
-            id: "recreation",
-            service: "Recreation space",
-            category: "cultural",
-            icon: "🏕️",
-          },
-        ];
+  const matchingItems: MatchingItem[] = [
+    {
+      id: "oxygen",
+      service: t("Oxygen production", "Producción de oxígeno"),
+      category: "supporting",
+      icon: "🌬️",
+    },
+    {
+      id: "fruit",
+      service: t("Fruits and nuts", "Frutas y nueces"),
+      category: "provisioning",
+      icon: "🥭",
+    },
+    {
+      id: "shade",
+      service: t("Shade and cooling", "Sombra y frescura"),
+      category: "regulating",
+      icon: "☀️",
+    },
+    {
+      id: "beauty",
+      service: t("Landscape beauty", "Belleza del paisaje"),
+      category: "cultural",
+      icon: "🏞️",
+    },
+    {
+      id: "wood",
+      service: t("Wood for construction", "Madera para construcción"),
+      category: "provisioning",
+      icon: "🪵",
+    },
+    {
+      id: "co2",
+      service: t("CO2 capture", "Captura de CO2"),
+      category: "regulating",
+      icon: "🌡️",
+    },
+    {
+      id: "habitat",
+      service: t("Home for animals", "Hogar para animales"),
+      category: "supporting",
+      icon: "🐦",
+    },
+    {
+      id: "recreation",
+      service: t("Recreation space", "Espacio para recreación"),
+      category: "cultural",
+      icon: "🏕️",
+    },
+  ];
 
   const quizQuestions: QuizQuestion[] = [
     {
@@ -405,20 +308,12 @@ export function getEcosystemServicesLessonData(
         "What is an example of a provisioning service?",
         "¿Cuál es un ejemplo de servicio de aprovisionamiento?"
       ),
-      options:
-        lang === "es"
-          ? [
-              "Belleza del paisaje",
-              "Madera y frutas",
-              "Regulación del clima",
-              "Ciclo de nutrientes",
-            ]
-          : [
-              "Landscape beauty",
-              "Timber and fruits",
-              "Climate regulation",
-              "Nutrient cycling",
-            ],
+      options: [
+        t("Landscape beauty", "Belleza del paisaje"),
+        t("Timber and fruits", "Madera y frutas"),
+        t("Climate regulation", "Regulación del clima"),
+        t("Nutrient cycling", "Ciclo de nutrientes"),
+      ],
       correct: 1,
       points: 15,
     },
@@ -427,10 +322,12 @@ export function getEcosystemServicesLessonData(
         "What type of ecosystem service is pollination?",
         "¿Qué tipo de servicio ecosistémico es la polinización?"
       ),
-      options:
-        lang === "es"
-          ? ["Cultural", "Aprovisionamiento", "Regulación", "Soporte"]
-          : ["Cultural", "Provisioning", "Regulating", "Supporting"],
+      options: [
+        "Cultural",
+        t("Provisioning", "Aprovisionamiento"),
+        t("Regulating", "Regulación"),
+        t("Supporting", "Soporte"),
+      ],
       correct: 2,
       points: 15,
     },
@@ -439,20 +336,12 @@ export function getEcosystemServicesLessonData(
         "Why are forests important for water?",
         "¿Por qué los bosques son importantes para el agua?"
       ),
-      options:
-        lang === "es"
-          ? [
-              "No afectan el agua",
-              "Filtran y almacenan agua",
-              "Solo usan agua",
-              "Secan los ríos",
-            ]
-          : [
-              "They don't affect water",
-              "They filter and store water",
-              "They only use water",
-              "They dry up rivers",
-            ],
+      options: [
+        t("They don't affect water", "No afectan el agua"),
+        t("They filter and store water", "Filtran y almacenan agua"),
+        t("They only use water", "Solo usan agua"),
+        t("They dry up rivers", "Secan los ríos"),
+      ],
       correct: 1,
       points: 20,
     },

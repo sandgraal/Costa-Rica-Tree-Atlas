@@ -281,32 +281,48 @@ export function getTreeJournalLessonData(
     ),
   };
 
-  const prompts =
-    lang === "es"
-      ? [
-          "Dibuja las hojas de tu árbol. ¿Qué forma tienen?",
-          "Cuenta cuántas ramas principales tiene tu árbol.",
-          "¿Puedes encontrar insectos viviendo en tu árbol?",
-          "Mide la sombra de tu árbol al mediodía.",
-          "Describe el sonido que hace el viento en las hojas.",
-          "¿De qué color es la corteza? ¿Es lisa o rugosa?",
-          "Busca señales de vida animal (nidos, agujeros, huellas).",
-          "¿Tu árbol tiene algún aroma especial?",
-          "Compara tu árbol con uno cercano. ¿En qué se diferencian?",
-          "¿Cómo crees que se verá tu árbol en la próxima estación?",
-        ]
-      : [
-          "Draw your tree's leaves. What shape are they?",
-          "Count how many main branches your tree has.",
-          "Can you find any insects living on your tree?",
-          "Measure your tree's shadow at noon.",
-          "Describe the sound the wind makes in the leaves.",
-          "What color is the bark? Is it smooth or rough?",
-          "Look for signs of animal life (nests, holes, tracks).",
-          "Does your tree have any special smell?",
-          "Compare your tree with a nearby one. How are they different?",
-          "How do you think your tree will look next season?",
-        ];
+  const prompts = [
+    t(
+      "Draw your tree's leaves. What shape are they?",
+      "Dibuja las hojas de tu árbol. ¿Qué forma tienen?"
+    ),
+    t(
+      "Count how many main branches your tree has.",
+      "Cuenta cuántas ramas principales tiene tu árbol."
+    ),
+    t(
+      "Can you find any insects living on your tree?",
+      "¿Puedes encontrar insectos viviendo en tu árbol?"
+    ),
+    t(
+      "Measure your tree's shadow at noon.",
+      "Mide la sombra de tu árbol al mediodía."
+    ),
+    t(
+      "Describe the sound the wind makes in the leaves.",
+      "Describe el sonido que hace el viento en las hojas."
+    ),
+    t(
+      "What color is the bark? Is it smooth or rough?",
+      "¿De qué color es la corteza? ¿Es lisa o rugosa?"
+    ),
+    t(
+      "Look for signs of animal life (nests, holes, tracks).",
+      "Busca señales de vida animal (nidos, agujeros, huellas)."
+    ),
+    t(
+      "Does your tree have any special smell?",
+      "¿Tu árbol tiene algún aroma especial?"
+    ),
+    t(
+      "Compare your tree with a nearby one. How are they different?",
+      "Compara tu árbol con uno cercano. ¿En qué se diferencian?"
+    ),
+    t(
+      "How do you think your tree will look next season?",
+      "¿Cómo crees que se verá tu árbol en la próxima estación?"
+    ),
+  ];
 
   return {
     labels,

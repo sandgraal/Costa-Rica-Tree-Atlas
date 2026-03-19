@@ -185,20 +185,21 @@ export function getBiodiversityLessonData(
     points: t("points", "puntos"),
     streak: t("🔥 Streak", "🔥 Racha"),
     didYouKnow: t("Did you know...?", "¿Sabías que...?"),
-    objectives:
-      lang === "es"
-        ? [
-            "Definir qué es biodiversidad",
-            "Explicar por qué Costa Rica es tan biodiversa",
-            "Identificar 5 árboles nativos de Costa Rica",
-            "Entender la importancia de proteger los bosques",
-          ]
-        : [
-            "Define what biodiversity is",
-            "Explain why Costa Rica is so biodiverse",
-            "Identify 5 native Costa Rican trees",
-            "Understand the importance of protecting forests",
-          ],
+    objectives: [
+      t("Define what biodiversity is", "Definir qué es biodiversidad"),
+      t(
+        "Explain why Costa Rica is so biodiverse",
+        "Explicar por qué Costa Rica es tan biodiversa"
+      ),
+      t(
+        "Identify 5 native Costa Rican trees",
+        "Identificar 5 árboles nativos de Costa Rica"
+      ),
+      t(
+        "Understand the importance of protecting forests",
+        "Entender la importancia de proteger los bosques"
+      ),
+    ],
     learningObjectives: t("Learning Objectives", "Objetivos de Aprendizaje"),
     nextLesson: t("Next Lesson →", "Siguiente Lección →"),
     exploreMoreTrees: t("Explore More Trees", "Explorar Más Árboles"),
@@ -250,20 +251,15 @@ export function getBiodiversityLessonData(
         "Why is Costa Rica so biodiverse?",
         "¿Por qué Costa Rica es tan biodiversa?"
       ),
-      options:
-        lang === "es"
-          ? [
-              "Es un país muy grande",
-              "Tiene muchos climas y hábitats diferentes",
-              "Llueve mucho",
-              "Tiene mucha tecnología",
-            ]
-          : [
-              "It's a very large country",
-              "It has many different climates and habitats",
-              "It rains a lot",
-              "It has lots of technology",
-            ],
+      options: [
+        t("It's a very large country", "Es un país muy grande"),
+        t(
+          "It has many different climates and habitats",
+          "Tiene muchos climas y hábitats diferentes"
+        ),
+        t("It rains a lot", "Llueve mucho"),
+        t("It has lots of technology", "Tiene mucha tecnología"),
+      ],
       correct: 1,
       hint: t(
         "Think about the different zones: beaches, mountains, forests...",

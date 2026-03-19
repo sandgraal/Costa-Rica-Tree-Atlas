@@ -167,254 +167,179 @@ export function getConservationLessonData(
     ),
   };
 
-  const conservationReasons: ConservationReason[] =
-    lang === "es"
-      ? [
-          {
-            icon: "🌬️",
-            title: "Aire Limpio",
-            desc: "Los árboles producen el oxígeno que respiramos",
-          },
-          {
-            icon: "💧",
-            title: "Agua Pura",
-            desc: "Los bosques filtran y protegen nuestras fuentes de agua",
-          },
-          {
-            icon: "🐦",
-            title: "Hogar Animal",
-            desc: "Millones de especies dependen de los bosques",
-          },
-          {
-            icon: "🌡️",
-            title: "Clima Estable",
-            desc: "Los árboles absorben CO2 y regulan el clima",
-          },
-          {
-            icon: "💊",
-            title: "Medicinas",
-            desc: "Muchas medicinas vienen de plantas del bosque",
-          },
-          {
-            icon: "🍎",
-            title: "Alimento",
-            desc: "Los bosques nos dan frutas, nueces y más",
-          },
-        ]
-      : [
-          {
-            icon: "🌬️",
-            title: "Clean Air",
-            desc: "Trees produce the oxygen we breathe",
-          },
-          {
-            icon: "💧",
-            title: "Pure Water",
-            desc: "Forests filter and protect our water sources",
-          },
-          {
-            icon: "🐦",
-            title: "Animal Homes",
-            desc: "Millions of species depend on forests",
-          },
-          {
-            icon: "🌡️",
-            title: "Stable Climate",
-            desc: "Trees absorb CO2 and regulate climate",
-          },
-          {
-            icon: "💊",
-            title: "Medicines",
-            desc: "Many medicines come from forest plants",
-          },
-          {
-            icon: "🍎",
-            title: "Food",
-            desc: "Forests give us fruits, nuts and more",
-          },
-        ];
+  const conservationReasons: ConservationReason[] = [
+    {
+      icon: "🌬️",
+      title: t("Clean Air", "Aire Limpio"),
+      desc: t(
+        "Trees produce the oxygen we breathe",
+        "Los árboles producen el oxígeno que respiramos"
+      ),
+    },
+    {
+      icon: "💧",
+      title: t("Pure Water", "Agua Pura"),
+      desc: t(
+        "Forests filter and protect our water sources",
+        "Los bosques filtran y protegen nuestras fuentes de agua"
+      ),
+    },
+    {
+      icon: "🐦",
+      title: t("Animal Homes", "Hogar Animal"),
+      desc: t(
+        "Millions of species depend on forests",
+        "Millones de especies dependen de los bosques"
+      ),
+    },
+    {
+      icon: "🌡️",
+      title: t("Stable Climate", "Clima Estable"),
+      desc: t(
+        "Trees absorb CO2 and regulate climate",
+        "Los árboles absorben CO2 y regulan el clima"
+      ),
+    },
+    {
+      icon: "💊",
+      title: t("Medicines", "Medicinas"),
+      desc: t(
+        "Many medicines come from forest plants",
+        "Muchas medicinas vienen de plantas del bosque"
+      ),
+    },
+    {
+      icon: "🍎",
+      title: t("Food", "Alimento"),
+      desc: t(
+        "Forests give us fruits, nuts and more",
+        "Los bosques nos dan frutas, nueces y más"
+      ),
+    },
+  ];
 
-  const threats: Threat[] =
-    lang === "es"
-      ? [
-          {
-            id: "deforestation",
-            icon: "🪓",
-            title: "Deforestación",
-            desc: "Tala de bosques para agricultura y desarrollo",
-          },
-          {
-            id: "fire",
-            icon: "🔥",
-            title: "Incendios",
-            desc: "Fuegos forestales que destruyen ecosistemas",
-          },
-          {
-            id: "pollution",
-            icon: "🏭",
-            title: "Contaminación",
-            desc: "Aire y agua contaminados dañan los árboles",
-          },
-          {
-            id: "climate",
-            icon: "🌡️",
-            title: "Cambio Climático",
-            desc: "Temperaturas extremas y sequías",
-          },
-          {
-            id: "pests",
-            icon: "🐛",
-            title: "Plagas",
-            desc: "Insectos y enfermedades invasoras",
-          },
-          {
-            id: "urbanization",
-            icon: "🏗️",
-            title: "Urbanización",
-            desc: "Construcción que destruye hábitats naturales",
-          },
-        ]
-      : [
-          {
-            id: "deforestation",
-            icon: "🪓",
-            title: "Deforestation",
-            desc: "Cutting forests for agriculture and development",
-          },
-          {
-            id: "fire",
-            icon: "🔥",
-            title: "Wildfires",
-            desc: "Forest fires that destroy ecosystems",
-          },
-          {
-            id: "pollution",
-            icon: "🏭",
-            title: "Pollution",
-            desc: "Contaminated air and water damage trees",
-          },
-          {
-            id: "climate",
-            icon: "🌡️",
-            title: "Climate Change",
-            desc: "Extreme temperatures and droughts",
-          },
-          {
-            id: "pests",
-            icon: "🐛",
-            title: "Pests",
-            desc: "Invasive insects and diseases",
-          },
-          {
-            id: "urbanization",
-            icon: "🏗️",
-            title: "Urbanization",
-            desc: "Construction destroying natural habitats",
-          },
-        ];
+  const threats: Threat[] = [
+    {
+      id: "deforestation",
+      icon: "🪓",
+      title: t("Deforestation", "Deforestación"),
+      desc: t(
+        "Cutting forests for agriculture and development",
+        "Tala de bosques para agricultura y desarrollo"
+      ),
+    },
+    {
+      id: "fire",
+      icon: "🔥",
+      title: t("Wildfires", "Incendios"),
+      desc: t(
+        "Forest fires that destroy ecosystems",
+        "Fuegos forestales que destruyen ecosistemas"
+      ),
+    },
+    {
+      id: "pollution",
+      icon: "🏭",
+      title: t("Pollution", "Contaminación"),
+      desc: t(
+        "Contaminated air and water damage trees",
+        "Aire y agua contaminados dañan los árboles"
+      ),
+    },
+    {
+      id: "climate",
+      icon: "🌡️",
+      title: t("Climate Change", "Cambio Climático"),
+      desc: t(
+        "Extreme temperatures and droughts",
+        "Temperaturas extremas y sequías"
+      ),
+    },
+    {
+      id: "pests",
+      icon: "🐛",
+      title: t("Pests", "Plagas"),
+      desc: t(
+        "Invasive insects and diseases",
+        "Insectos y enfermedades invasoras"
+      ),
+    },
+    {
+      id: "urbanization",
+      icon: "🏗️",
+      title: t("Urbanization", "Urbanización"),
+      desc: t(
+        "Construction destroying natural habitats",
+        "Construcción que destruye hábitats naturales"
+      ),
+    },
+  ];
 
-  const conservationActions: ConservationAction[] =
-    lang === "es"
-      ? [
-          {
-            id: "plant",
-            icon: "🌱",
-            title: "Plantar Árboles",
-            desc: "Siembra árboles nativos en tu comunidad",
-          },
-          {
-            id: "reduce",
-            icon: "♻️",
-            title: "Reducir y Reciclar",
-            desc: "Usa menos papel y recicla",
-          },
-          {
-            id: "educate",
-            icon: "📚",
-            title: "Educar",
-            desc: "Enseña a otros sobre la conservación",
-          },
-          {
-            id: "support",
-            icon: "🤝",
-            title: "Apoyar",
-            desc: "Apoya organizaciones de conservación",
-          },
-          {
-            id: "report",
-            icon: "📢",
-            title: "Reportar",
-            desc: "Denuncia la tala ilegal",
-          },
-          {
-            id: "visit",
-            icon: "🏕️",
-            title: "Visitar Parques",
-            desc: "Visita y apoya parques nacionales",
-          },
-          {
-            id: "water",
-            icon: "💧",
-            title: "Ahorrar Agua",
-            desc: "El agua protege los bosques",
-          },
-          {
-            id: "local",
-            icon: "🛒",
-            title: "Comprar Local",
-            desc: "Apoya productos sustentables",
-          },
-        ]
-      : [
-          {
-            id: "plant",
-            icon: "🌱",
-            title: "Plant Trees",
-            desc: "Plant native trees in your community",
-          },
-          {
-            id: "reduce",
-            icon: "♻️",
-            title: "Reduce & Recycle",
-            desc: "Use less paper and recycle",
-          },
-          {
-            id: "educate",
-            icon: "📚",
-            title: "Educate",
-            desc: "Teach others about conservation",
-          },
-          {
-            id: "support",
-            icon: "🤝",
-            title: "Support",
-            desc: "Support conservation organizations",
-          },
-          {
-            id: "report",
-            icon: "📢",
-            title: "Report",
-            desc: "Report illegal logging",
-          },
-          {
-            id: "visit",
-            icon: "🏕️",
-            title: "Visit Parks",
-            desc: "Visit and support national parks",
-          },
-          {
-            id: "water",
-            icon: "💧",
-            title: "Save Water",
-            desc: "Water conservation protects forests",
-          },
-          {
-            id: "local",
-            icon: "🛒",
-            title: "Buy Local",
-            desc: "Support sustainable products",
-          },
-        ];
+  const conservationActions: ConservationAction[] = [
+    {
+      id: "plant",
+      icon: "🌱",
+      title: t("Plant Trees", "Plantar Árboles"),
+      desc: t(
+        "Plant native trees in your community",
+        "Siembra árboles nativos en tu comunidad"
+      ),
+    },
+    {
+      id: "reduce",
+      icon: "♻️",
+      title: t("Reduce & Recycle", "Reducir y Reciclar"),
+      desc: t("Use less paper and recycle", "Usa menos papel y recicla"),
+    },
+    {
+      id: "educate",
+      icon: "📚",
+      title: t("Educate", "Educar"),
+      desc: t(
+        "Teach others about conservation",
+        "Enseña a otros sobre la conservación"
+      ),
+    },
+    {
+      id: "support",
+      icon: "🤝",
+      title: t("Support", "Apoyar"),
+      desc: t(
+        "Support conservation organizations",
+        "Apoya organizaciones de conservación"
+      ),
+    },
+    {
+      id: "report",
+      icon: "📢",
+      title: t("Report", "Reportar"),
+      desc: t("Report illegal logging", "Denuncia la tala ilegal"),
+    },
+    {
+      id: "visit",
+      icon: "🏕️",
+      title: t("Visit Parks", "Visitar Parques"),
+      desc: t(
+        "Visit and support national parks",
+        "Visita y apoya parques nacionales"
+      ),
+    },
+    {
+      id: "water",
+      icon: "💧",
+      title: t("Save Water", "Ahorrar Agua"),
+      desc: t(
+        "Water conservation protects forests",
+        "El agua protege los bosques"
+      ),
+    },
+    {
+      id: "local",
+      icon: "🛒",
+      title: t("Buy Local", "Comprar Local"),
+      desc: t("Support sustainable products", "Apoya productos sustentables"),
+    },
+  ];
 
   const statusInfo: StatusInfo[] = [
     {
@@ -455,20 +380,12 @@ export function getConservationLessonData(
         "What is the main cause of forest loss worldwide?",
         "¿Cuál es la principal causa de la pérdida de bosques en el mundo?"
       ),
-      options:
-        lang === "es"
-          ? [
-              "Incendios naturales",
-              "Deforestación para agricultura",
-              "Tormentas",
-              "Volcanes",
-            ]
-          : [
-              "Natural fires",
-              "Deforestation for agriculture",
-              "Storms",
-              "Volcanoes",
-            ],
+      options: [
+        t("Natural fires", "Incendios naturales"),
+        t("Deforestation for agriculture", "Deforestación para agricultura"),
+        t("Storms", "Tormentas"),
+        t("Volcanoes", "Volcanes"),
+      ],
       correct: 1,
       points: 15,
     },
@@ -477,20 +394,12 @@ export function getConservationLessonData(
         "What does it mean when a tree is 'Endangered'?",
         "¿Qué significa que un árbol esté 'En Peligro'?"
       ),
-      options:
-        lang === "es"
-          ? [
-              "Está completamente extinto",
-              "Tiene alto riesgo de extinción",
-              "Es muy común",
-              "Es una plaga",
-            ]
-          : [
-              "It's completely extinct",
-              "It has high extinction risk",
-              "It's very common",
-              "It's a pest",
-            ],
+      options: [
+        t("It's completely extinct", "Está completamente extinto"),
+        t("It has high extinction risk", "Tiene alto riesgo de extinción"),
+        t("It's very common", "Es muy común"),
+        t("It's a pest", "Es una plaga"),
+      ],
       correct: 1,
       points: 15,
     },
