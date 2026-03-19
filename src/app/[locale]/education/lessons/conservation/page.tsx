@@ -21,6 +21,12 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: {
+      languages: {
+        en: "/en/education/lessons/conservation",
+        es: "/es/education/lessons/conservation",
+      },
+    },
   };
 }
 

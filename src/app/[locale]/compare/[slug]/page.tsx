@@ -54,6 +54,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       locale: OG_LOCALE[locale] || "en_US",
     },
+    alternates: {
+      languages: {
+        en: `/en/compare/${slug}`,
+        es: `/es/compare/${slug}`,
+      },
+    },
   };
 }
 

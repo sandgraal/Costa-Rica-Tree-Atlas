@@ -41,6 +41,12 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("metaDescription"),
+    alternates: {
+      languages: {
+        en: "/en/compare",
+        es: "/es/compare",
+      },
+    },
   };
 }
 

@@ -64,6 +64,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: entry.description,
       type: "article",
     },
+    alternates: {
+      languages: {
+        en: `/en/oral-histories/${slug}`,
+        es: `/es/oral-histories/${slug}`,
+      },
+    },
   };
 }
 

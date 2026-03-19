@@ -14,6 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: t("pageTitle"),
     description: t("pageDescription"),
     robots: { index: false, follow: false },
+    alternates: {
+      languages: {
+        en: "/en/admin/search-analytics",
+        es: "/es/admin/search-analytics",
+      },
+    },
   };
 }
 

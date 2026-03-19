@@ -15,6 +15,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("treeJournalMetaTitle"),
     description: t("treeJournalMetaDescription"),
+    alternates: {
+      languages: {
+        en: "/en/education/tree-journal",
+        es: "/es/education/tree-journal",
+      },
+    },
   };
 }
 

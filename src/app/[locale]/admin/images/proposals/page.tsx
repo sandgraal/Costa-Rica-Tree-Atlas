@@ -13,6 +13,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Image Proposals - Admin",
     robots: { index: false, follow: false },
+    alternates: {
+      languages: {
+        en: "/en/admin/images/proposals",
+        es: "/es/admin/images/proposals",
+      },
+    },
   };
 }
 

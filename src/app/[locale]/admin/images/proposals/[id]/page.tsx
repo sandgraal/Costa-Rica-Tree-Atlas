@@ -14,6 +14,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Proposal ${id.slice(0, 8)}... - Admin`,
     robots: { index: false, follow: false },
+    alternates: {
+      languages: {
+        en: `/en/admin/images/proposals/${id}`,
+        es: `/es/admin/images/proposals/${id}`,
+      },
+    },
   };
 }
 

@@ -38,6 +38,12 @@ export async function generateMetadata({
   return {
     title: `${term.term} - ${t("glossarySuffix")}`,
     description: term.simpleDefinition,
+    alternates: {
+      languages: {
+        en: `/en/glossary/${slug}`,
+        es: `/es/glossary/${slug}`,
+      },
+    },
   };
 }
 
