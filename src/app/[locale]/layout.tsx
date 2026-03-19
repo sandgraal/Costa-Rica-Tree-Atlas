@@ -121,7 +121,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Only ship namespaces that client components actually use via useTranslations.
   // Server components use getTranslations() which reads from the server bundle
   // and does NOT need messages in the client-side provider.
-  // Client namespaces: all namespaces used by client components via useTranslations().
+  // Client namespaces (must stay in sync with CLIENT_NAMESPACES below):
   // nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
   // safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation),
   // identify (IdentifyClient), contribute (PhotoUploadClient, ContributorProfileClient),
@@ -129,8 +129,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   // toc (TableOfContents), favorites (FavoriteButton), recentlyViewed (RecentlyViewedList),
   // keyboardShortcuts (KeyboardShortcuts), rating (TreeRating), reputation (BadgeDisplay,
   // ContributorProfileClient), education (EducationPage), error (ErrorPage),
-  // comparison (ComparePage), about (AboutPage), fieldTrip, wizard
-  // comparison (ComparePage), about (AboutPage), classroom (Classroom pages),
+  // comparison (ComparePage), about (AboutPage), mapGame (MapGame client views),
+  // classroom (Classroom pages), lessonsHub (LessonsHub client views), wizard (Wizard flows),
+  // quiz (Quiz components), flashcards (Flashcard components), diagnose (Diagnosis flow),
   // coloringPages (ColoringPages components), seasonal (SeasonalInfo)
   const CLIENT_NAMESPACES = [
     "nav",
