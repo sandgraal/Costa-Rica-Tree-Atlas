@@ -8,10 +8,10 @@
 ## Quick Summary
 
 | Priority | Initiative                                  | Status      |
-| -------- | ------------------------------------------- | ----------- |
+| -------- | ------------------------------------------- | ----------- | -------------------------------------------------- |
 | **P0**   | Build reliability                           | ✅ Done     |
 | **P1**   | Runtime fixes                               | ✅ Done     |
-| **P2**   | EN/ES surface parity                        | 🟡 Partial  |
+| **P2**   | EN/ES surface parity                        | 🟡 Partial  | <!-- localized public component strings PR#TBD --> |
 | **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |
 | **P4**   | SEO & metadata                              | ✅ Done     |
 | **P5**   | Factual remediation & citations             | 🔴 Not done |
@@ -58,6 +58,10 @@
 - [x] Consolidated locale ternaries in components/libs into shared `getLocalizedText`, `getDateLocale`, `getMonthLabel` helpers
 - [x] Replaced local `getLocalizedLabel/Value/Name` functions in BiodiversityInfo, ShareCollectionButton, DistributionMap, TreeCard, SeasonalInfo, ExportFavoritesButton, FieldGuidePreview, TreeJournalClient, comparison/index, geo/index, costaRicaEvents, OG/Twitter image routes, EducationProgress
 - [x] Consolidated `isEs` ternaries in 6 education data files using `t(en, es)` helper: tree-journal-data, biodiversity-data, conservation-data, ecosystem-services-data, tree-identification-data, scavenger-hunt-data (~287 ternaries total)
+- [x] Localized public-facing component strings: TreeGallery, GlossaryTooltip, ConservationStatus (IUCN Red List label), PageErrorBoundary, HeroImage alt text
+- [x] Localized MDX care components: PlantingInstructions, MaintenanceTimeline, CommonProblems (bilingual inline translations)
+- [x] Exported Badge helpers from EducationProgress; CertificateClient reuses shared functions
+- [x] Removed hardcoded English from education loading.tsx
 
 ### 🔴 Remaining
 
@@ -116,7 +120,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] `TreeExplorer` — localized alphabet navigation aria-label
 - [x] All 13 hardcoded English aria-labels localized via `mdx` and `trees` namespaces
 - [x] `mdx` namespace added to CLIENT_NAMESPACES for client-side aria-label translations
-- [ ] Template-level accessibility checklist — not yet created
+- [x] Template-level accessibility checklist — `docs/ACCESSIBILITY_CHECKLIST.md`
 
 ---
 
@@ -215,7 +219,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Removed template-level semantic duplication (nested `<main>` verified clean — overlaps P3)
 - [x] Audited layout namespace ownership — all CLIENT_NAMESPACES are actively used, no unused entries (including newly added `mdx`)
 - [x] Added bidirectional namespace audit test (missing + unused check)
-- [ ] Introduce shared route-shell primitives for page headers, landmarks, section scaffolding
+- [x] Introduce shared route-shell primitives — `PageShell`, `PageHeader` components; use-cases page migrated
 - [x] Document the optional-dependency adapter pattern for future integrations (`docs/OPTIONAL_DEPENDENCY_ADAPTER_PATTERN.md`)
 
 ---
@@ -242,9 +246,9 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Metadata alternates regression guard (baseline updated: 0 pages missing)
 - [x] Translation message key parity (EN ↔ ES namespace and leaf key parity)
 - [x] Hardcoded aria-label regression guard (baseline: 0 remaining)
-- [ ] Route-level console-cleanliness checks (no runtime errors/warnings)
+- [x] Route-level console-cleanliness checks — console.log regression guard (baseline: 5 files)
 - [ ] Automated visual regression for key templates
-- [ ] CI integration for regression suite
+- [x] CI integration for regression suite — added to `content-build-tests.yml` workflow
 - [x] Locale ternary count regression guard (baseline: 32)
 - [x] Route family coverage test (verifies page.tsx exists for all major routes)
 - [x] Education data array-ternary regression guard (prevents re-introducing array-level ternaries)
