@@ -546,22 +546,43 @@ export const IUCN_CATEGORIES: Record<
 );
 
 // Legacy IUCN labels function
+const IUCN_UI: Record<string, Record<Locale, string>> = {
+  conservationStatus: {
+    en: "Conservation Status",
+    es: "Estado de Conservación",
+  },
+  populationTrend: {
+    en: "Population Trend",
+    es: "Tendencia Poblacional",
+  },
+  assessedBy: {
+    en: "Assessed by",
+    es: "Evaluado por",
+  },
+  viewOn: {
+    en: "View on",
+    es: "Ver en",
+  },
+  decreasing: {
+    en: "Decreasing",
+    es: "En disminución",
+  },
+  stable: {
+    en: "Stable",
+    es: "Estable",
+  },
+  increasing: {
+    en: "Increasing",
+    es: "En aumento",
+  },
+  unknown: {
+    en: "Unknown",
+    es: "Desconocida",
+  },
+};
+
 export function getIUCNLabels(locale: string) {
   const loc = (locale === "es" ? "es" : "en") as Locale;
-
-  const IUCN_UI: Record<string, Record<Locale, string>> = {
-    conservationStatus: {
-      en: "Conservation Status",
-      es: "Estado de Conservación",
-    },
-    populationTrend: { en: "Population Trend", es: "Tendencia Poblacional" },
-    assessedBy: { en: "Assessed by", es: "Evaluado por" },
-    viewOn: { en: "View on", es: "Ver en" },
-    decreasing: { en: "Decreasing", es: "En disminución" },
-    stable: { en: "Stable", es: "Estable" },
-    increasing: { en: "Increasing", es: "En aumento" },
-    unknown: { en: "Unknown", es: "Desconocida" },
-  };
 
   return {
     conservationStatus: getLocalizedText(IUCN_UI.conservationStatus, loc),
