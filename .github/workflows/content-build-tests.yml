@@ -49,6 +49,9 @@ jobs:
       - name: Validate tree MDX component registry
         run: npm run test:run -- tests/tree-mdx-component-registry.test.ts
 
+      - name: Run route-level regression tests
+        run: npm run test:run -- tests/route-regression.test.ts
+
       - name: Type check
         run: npm run type-check
 
@@ -75,5 +78,6 @@ jobs:
           echo "- ✅ Content validation tests passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ MDX component tests passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Tree MDX component registry validation passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Route-level regression tests passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Type checking passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Next.js build succeeded" >> $GITHUB_STEP_SUMMARY

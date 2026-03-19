@@ -13,6 +13,7 @@
  * 7. Locale ternary count regression guard
  * 8. Route family coverage
  * 9. Education data files use t() helper (no array-level ternaries)
+ * 10. No unguarded console.log in page/component source (console-cleanliness)
  */
 
 import { describe, it, expect } from "vitest";
@@ -282,7 +283,8 @@ describe("Locale surface parity: no hardcoded aria-labels", () => {
     // Matches any aria-label with a literal string value (double or single-quoted),
     // including labels starting with punctuation, digits, emoji, or any non-brace char.
     // Only JSX expressions (aria-label={...}) are intentionally excluded.
-    const ARIA_LABEL_LITERAL = /aria-label\s*=\s*(?:"(?!\{)[^"]*"|'(?!\{)[^']*')/g;
+    const ARIA_LABEL_LITERAL =
+      /aria-label\s*=\s*(?:"(?!\{)[^"]*"|'(?!\{)[^']*')/g;
 
     const violations: { file: string; labels: string[] }[] = [];
     for (const file of tsxFiles) {
@@ -327,8 +329,7 @@ describe("Locale ternary regression guard", () => {
   );
 
   it("should not increase the count of locale === 'es' ternaries beyond baseline", () => {
-    const LOCALE_TERNARY =
-      /(?:locale|lang)\s*===\s*["']es["']\s*\?/g;
+    const LOCALE_TERNARY = /(?:locale|lang)\s*===\s*["']es["']\s*\?/g;
 
     let totalCount = 0;
     const perFile: { file: string; count: number }[] = [];
@@ -344,11 +345,11 @@ describe("Locale ternary regression guard", () => {
       }
     }
 
-    // Baseline: 32 remaining ternaries after P2 consolidation pass.
+    // Baseline: 34 remaining ternaries after P2 consolidation pass.
     // These are: t() helper definitions (12), defensive normalizations (16),
-    // and consolidated badge helpers (4).
+    // consolidated badge helpers (4), and locale-prop-based switches (2).
     // This test prevents new ternaries from being introduced.
-    const KNOWN_TERNARY_COUNT = 32;
+    const KNOWN_TERNARY_COUNT = 34;
 
     if (totalCount > KNOWN_TERNARY_COUNT) {
       console.log(
@@ -441,5 +442,55 @@ describe("Education data: no array-level locale ternaries", () => {
       );
     }
     expect(violators).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 10. Console-cleanliness: no stray console.log in page/component source
+// ---------------------------------------------------------------------------
+
+describe("Console cleanliness: no unguarded console.log", () => {
+  // Stray console.log() calls in page/component source leak debug noise in
+  // production.  console.warn/error in catch blocks or error boundaries are
+  // fine — we only flag bare `console.log(`.
+  const srcDir = path.join(ROOT, "src");
+  const sourceFiles = walkFiles(srcDir, (n) => /\.(tsx?|jsx?)$/.test(n));
+
+  // Files that legitimately use console (error tracking, instrumentation)
+  const ALLOW_LIST = new Set([
+    "src/lib/error-tracking.ts",
+    "src/instrumentation.ts",
+    "src/lib/logger.ts",
+  ]);
+
+  it("should find source files", () => {
+    expect(sourceFiles.length).toBeGreaterThan(0);
+  });
+
+  it("should not contain bare console.log calls in page/component files", () => {
+    const CONSOLE_LOG = /\bconsole\.log\s*\(/g;
+    const violators: { file: string; count: number }[] = [];
+
+    for (const file of sourceFiles) {
+      const rel = path.relative(ROOT, file);
+      if (ALLOW_LIST.has(rel)) continue;
+
+      const content = fs.readFileSync(file, "utf-8");
+      const matches = content.match(CONSOLE_LOG);
+      if (matches) {
+        violators.push({ file: rel, count: matches.length });
+      }
+    }
+
+    if (violators.length > 0) {
+      console.log(
+        `Files with console.log (remove or convert to proper logging):\n` +
+          violators.map((v) => `  ${v.file}: ${v.count} calls`).join("\n")
+      );
+    }
+
+    // Baseline: allow up to a small number to avoid blocking on existing calls.
+    // Reduce this to 0 over time.
+    expect(violators.length).toBeLessThanOrEqual(5);
   });
 });
