@@ -58,7 +58,7 @@ interface TreeMapClientProps {
 
 export default function TreeMapClient({ locale, trees }: TreeMapClientProps) {
   const typedLocale = locale as Locale;
-  const t = useTranslations();
+  const t = useTranslations("map");
   const [selectedProvince, setSelectedProvince] = useState<Province | null>(
     null
   );

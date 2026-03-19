@@ -219,6 +219,7 @@ export default async function HomePage({ params }: Props) {
               locale={locale as Locale}
               featuredTrees={t("featuredTrees")}
               viewAll={t("viewAll")}
+              noTreesAvailable={t("noTreesAvailable")}
             />
           </div>
         </section>

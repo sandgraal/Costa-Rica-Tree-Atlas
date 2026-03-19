@@ -152,6 +152,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "rating",
     "reputation",
     "education",
+    "educationProgress",
     "error",
     "comparison",
     "about",
@@ -164,6 +165,16 @@ export default async function LocaleLayout({ children, params }: Props) {
     "diagnose",
     "coloringPages",
     "seasonal",
+    "share",
+    "exportGuide",
+    "fieldTrip",
+    "fieldGuide",
+    "treeDetail",
+    "certificate",
+    "conservation",
+    "biodiversity",
+    "map",
+    "admin",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];

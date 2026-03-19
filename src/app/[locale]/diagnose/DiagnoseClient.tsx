@@ -520,7 +520,7 @@ export default function DiagnoseClient() {
                 href="/trees"
                 className="text-primary hover:text-primary-dark underline"
               >
-                {t("exploretrees")}
+                {t("exploreTrees")}
               </Link>
             </div>
           </div>
@@ -644,7 +644,7 @@ export default function DiagnoseClient() {
                     href="/trees"
                     className="flex-1 px-6 py-3 text-center border-2 border-border rounded-lg hover:border-primary transition-colors"
                   >
-                    {t("exploretrees")}
+                    {t("exploreTrees")}
                   </Link>
                 </div>
               </div>

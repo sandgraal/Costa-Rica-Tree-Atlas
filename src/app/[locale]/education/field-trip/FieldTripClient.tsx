@@ -306,7 +306,9 @@ export default function FieldTripClient({ trees }: FieldTripClientProps) {
               <div className="text-3xl font-bold">
                 {trees.length === 0
                   ? 0
-                  : Math.round((state.spottedTrees.length / trees.length) * 100)}
+                  : Math.round(
+                      (state.spottedTrees.length / trees.length) * 100
+                    )}
                 %
               </div>
               <div className="text-sm text-green-200">{t("progress")}</div>
@@ -324,6 +326,12 @@ export default function FieldTripClient({ trees }: FieldTripClientProps) {
               spottedTrees={state.spottedTrees}
               trees={trees}
               locale={locale}
+              labels={{
+                title: t("mapTitle"),
+                noLocations: t("noLocations"),
+                enableLocation: t("enableLocation"),
+                treesOnMap: (count: number) => t("treesOnMap", { count }),
+              }}
               onMarkerClick={(slug) => {
                 const tree = trees.find((tr) => tr.slug === slug);
                 if (tree) {

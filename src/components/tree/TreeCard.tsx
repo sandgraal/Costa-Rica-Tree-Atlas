@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useFavorite } from "@/lib/store";
 import {
   TAG_DEFINITIONS,
@@ -256,12 +257,13 @@ export function TreeGrid({
   locale,
   showFavorites = true,
 }: TreeGridProps) {
+  const t = useTranslations("trees");
   if (trees.length === 0) {
     return (
       <div className="text-center py-16">
         <TreePlaceholder />
         <p className="text-muted-foreground text-lg mt-4">
-          {locale === "es" ? "No se encontraron árboles" : "No trees found"}
+          {t("noTreesFound")}
         </p>
       </div>
     );

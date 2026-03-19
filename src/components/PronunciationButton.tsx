@@ -18,7 +18,7 @@ export function PronunciationButton({
   label,
   className = "",
 }: PronunciationButtonProps) {
-  const td = useTranslations("trees");
+  const td = useTranslations("treeDetail");
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
 
