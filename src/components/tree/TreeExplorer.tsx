@@ -1173,7 +1173,7 @@ function AlphabeticalIndex({
       {/* Letter navigation */}
       <nav
         className="flex flex-wrap justify-center gap-1 mb-8"
-        aria-label={t("ariaAlphabetNavigation")}
+        aria-label={t("alphabetNav")}
       >
         {letters.map((letter) => (
           <a
