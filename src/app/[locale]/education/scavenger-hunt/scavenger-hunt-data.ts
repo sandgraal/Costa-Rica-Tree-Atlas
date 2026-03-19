@@ -387,7 +387,7 @@ export function getScavengerHuntLessonData(
     finalResults: t("Final Results", "Resultados Finales"),
     playAgain: t("Play Again", "Jugar de Nuevo"),
     streak: t("Streak", "Racha"),
-    bonus: "Bonus",
+    bonus: t("Bonus", "Bono"),
     missionsCompleted: t("Missions Completed", "Misiones Completadas"),
     timeLeft: t("Time left", "Tiempo restante"),
     noResults: t("No trees found", "No se encontraron árboles"),

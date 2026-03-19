@@ -219,8 +219,7 @@
     "filtersLoaded": "Saved filters loaded",
     "noSavedFilters": "No saved filters",
     "structuredDataName": "Costa Rica Tree Directory",
-    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees",
-    "ariaAlphabetNavigation": "Alphabet navigation"
+    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees"
   },
   "footer": {
     "description": "A privately maintained project dedicated to documenting the trees of Costa Rica.",

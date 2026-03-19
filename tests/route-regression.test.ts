@@ -276,8 +276,10 @@ describe("Locale surface parity: no hardcoded aria-labels", () => {
   });
 
   it("should not increase the number of hardcoded aria-label strings", () => {
-    // Matches aria-label="SomeEnglishText" (literal strings, not JSX expressions)
-    const ARIA_LABEL_LITERAL = /aria-label="[A-Za-z][^"]*"/g;
+    // Matches any aria-label with a literal string value (double or single-quoted),
+    // including labels starting with punctuation, digits, emoji, or any non-brace char.
+    // Only JSX expressions (aria-label={...}) are intentionally excluded.
+    const ARIA_LABEL_LITERAL = /aria-label=(?:"[^"{][^"]*"|'[^'{}][^']*')/gs;
 
     const violations: { file: string; labels: string[] }[] = [];
     for (const file of tsxFiles) {
