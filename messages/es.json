@@ -219,7 +219,8 @@
     "filtersLoaded": "Filtros guardados cargados",
     "noSavedFilters": "No hay filtros guardados",
     "structuredDataName": "Directorio de Árboles de Costa Rica",
-    "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica"
+    "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica",
+    "ariaAlphabetNavigation": "Navegación alfabética"
   },
   "footer": {
     "description": "Un proyecto mantenido de forma privada dedicado a documentar los árboles de Costa Rica.",
@@ -2164,7 +2165,18 @@
     "tasks": "Tareas",
     "geographicDistribution": "Distribución Geográfica",
     "elevation": "Elevación",
-    "compareInteractive": "Comparar en herramienta interactiva"
+    "compareInteractive": "Comparar en herramienta interactiva",
+    "ariaClose": "Cerrar",
+    "ariaCloseLightbox": "Cerrar visor",
+    "ariaCloseAnnotation": "Cerrar anotación",
+    "ariaPrevious": "Anterior",
+    "ariaNext": "Siguiente",
+    "ariaPreviousImage": "Imagen anterior",
+    "ariaNextImage": "Imagen siguiente",
+    "ariaImageLightbox": "Visor de imágenes",
+    "ariaViewFirstImage": "Ver primera imagen",
+    "ariaViewSecondImage": "Ver segunda imagen",
+    "ariaLoadingImage": "Cargando imagen"
   },
   "biodiversity": {
     "title": "Datos de Biodiversidad",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import Image, { ImageProps } from "next/image";
 
 interface SafeImageProps extends Omit<ImageProps, "onError" | "src"> {
@@ -29,6 +30,7 @@ export function SafeImage({
   onLoad: onLoadProp,
   ...props
 }: SafeImageProps) {
+  const t = useTranslations("mdx");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -65,7 +67,7 @@ export function SafeImage({
       {loading && (
         <div
           className="absolute inset-0 animate-pulse bg-muted rounded-lg"
-          aria-label="Loading image"
+          aria-label={t("ariaLoadingImage")}
         />
       )}
       <Image

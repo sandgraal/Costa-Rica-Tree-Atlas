@@ -132,7 +132,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   // comparison (ComparePage), about (AboutPage), mapGame (MapGame client views),
   // classroom (Classroom pages), lessonsHub (LessonsHub client views), wizard (Wizard flows),
   // quiz (Quiz components), flashcards (Flashcard components), diagnose (Diagnosis flow),
-  // coloringPages (ColoringPages components), seasonal (SeasonalInfo)
+  // coloringPages (ColoringPages components), seasonal (SeasonalInfo),
+  // mdx (ImageGallery, SideBySideImages, FeatureAnnotation, ImageLightbox, SafeImage aria-labels)
   const CLIENT_NAMESPACES = [
     "nav",
     "theme",
@@ -175,6 +176,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "biodiversity",
     "map",
     "admin",
+    "mdx",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];

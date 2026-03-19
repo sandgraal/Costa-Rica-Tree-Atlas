@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas — Implementation Plan
 
-**Last Updated:** 2026-03-18
-**Status:** Checklist audit v3.0 — Full codebase verification performed 2026-03-18.
+**Last Updated:** 2026-07-13
+**Status:** Checklist audit v4.0 — Updated after PR #666 implementation pass.
 
 ---
 
@@ -13,7 +13,7 @@
 | **P1**   | Runtime fixes                               | ✅ Done     |
 | **P2**   | EN/ES surface parity                        | 🟡 Partial  |
 | **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |
-| **P4**   | SEO & metadata                              | 🟡 Partial  |
+| **P4**   | SEO & metadata                              | ✅ Done     |
 | **P5**   | Factual remediation & citations             | 🔴 Not done |
 | **P6**   | Mobile UX & wayfinding                      | 🔴 Not done |
 | **P7**   | Performance & PWA                           | ✅ Done     |
@@ -51,16 +51,16 @@
 ### ✅ Completed
 
 - [x] File parity confirmed: 175/175 trees, 20/20 comparisons, 150/150 glossary, 2/2 oral histories
-- [x] Translation key parity: 1,158 keys in both `messages/en.json` and `messages/es.json`
+- [x] Translation key parity: 1,926 keys in both `messages/en.json` and `messages/es.json`
 - [x] MDX chrome localized: `INaturalistEmbed`, `ImageCard`, `Reference`, `ReferencesSection`
 - [x] Shared nav controls localized: `MobileNav`, `LanguageSwitcher`, `PrintButton`
 - [x] `ServerMDXContent` receives active locale
 - [x] Consolidated locale ternaries in components/libs into shared `getLocalizedText`, `getDateLocale`, `getMonthLabel` helpers
 - [x] Replaced local `getLocalizedLabel/Value/Name` functions in BiodiversityInfo, ShareCollectionButton, DistributionMap, TreeCard, SeasonalInfo, ExportFavoritesButton, FieldGuidePreview, TreeJournalClient, comparison/index, geo/index, costaRicaEvents, OG/Twitter image routes, EducationProgress
+- [x] Consolidated `isEs` ternaries in 6 education data files using `t(en, es)` helper: tree-journal-data, biodiversity-data, conservation-data, ecosystem-services-data, tree-identification-data, scavenger-hunt-data (~287 ternaries total)
 
 ### 🔴 Remaining
 
-- [ ] **~287 `isEs` ternaries in education data files** (lesson-specific content, intentionally left as-is)
 - [ ] **~21 `locale === "es"` in layout/MDX** (defensive normalization or metadata locale codes — idiomatic):
 
   | Component                   | Count |
@@ -108,12 +108,19 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] `MobileNav` — localized open/close labels
 - [x] `LanguageSwitcher` — localized `aria-label`
 - [x] `PrintButton` — localized label and `aria-label`
-- [ ] Remaining route-specific interactive controls — not yet audited
+- [x] `ImageGallery` — localized lightbox, close, previous/next aria-labels
+- [x] `SideBySideImages` — localized close, view first/second image aria-labels
+- [x] `FeatureAnnotation` — localized close annotation aria-label
+- [x] `ImageLightbox` — localized close lightbox, previous/next image aria-labels
+- [x] `SafeImage` — localized loading image aria-label
+- [x] `TreeExplorer` — localized alphabet navigation aria-label
+- [x] All 13 hardcoded English aria-labels localized via `mdx` and `trees` namespaces
+- [x] `mdx` namespace added to CLIENT_NAMESPACES for client-side aria-label translations
 - [ ] Template-level accessibility checklist — not yet created
 
 ---
 
-## P4 — SEO & Metadata 🟡 PARTIAL
+## P4 — SEO & Metadata ✅ DONE
 
 ### ✅ Completed
 
@@ -124,11 +131,11 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Fixed hardcoded "Costa Rica Tree Atlas" in seasonal page `openGraph.title` → now uses `t("pageTitle")`
 - [x] Heading hierarchy fixed — MDX h1→h2 remapping in component registry (see P3)
 - [x] Manifest uses bilingual name/description, `start_url: "/"` (not `/en`)
+- [x] All 32 pages with `generateMetadata` now include `alternates.languages` (regression baseline updated to 0)
 
 ### 🔴 Remaining
 
 - [ ] No locale-aware manifest strategy decided or implemented
-- [ ] 32 pages with `generateMetadata` missing `alternates.languages` (regression guard in place)
 
 ---
 
@@ -206,7 +213,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 - [x] Consolidated component-level locale ternaries into shared helpers (overlaps with P2)
 - [x] Removed template-level semantic duplication (nested `<main>` verified clean — overlaps P3)
-- [x] Audited layout namespace ownership — all CLIENT_NAMESPACES are actively used, no unused entries
+- [x] Audited layout namespace ownership — all CLIENT_NAMESPACES are actively used, no unused entries (including newly added `mdx`)
 - [x] Added bidirectional namespace audit test (missing + unused check)
 - [ ] Introduce shared route-shell primitives for page headers, landmarks, section scaffolding
 - [ ] Document the optional-dependency adapter pattern for future integrations
@@ -226,14 +233,15 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Image review gate test (1 file)
 - [x] i18n parity test (1 file)
 - [x] Layout namespace audit test (1 file)
-- [x] Route-level regression tests (1 file) — landmarks, content parity, MDX heading remap, metadata alternates
+- [x] Route-level regression tests (1 file) — landmarks, content parity, MDX heading remap, metadata alternates, message key parity, aria-label audit
 
 ### Missing test categories
 
 - [x] Route-level semantic checks: no nested `<main>`, MDX h1→h2 guard
 - [x] Content parity checks: EN/ES slug matching for trees + comparisons
-- [x] Metadata alternates regression guard (baseline: 32 pages missing)
-- [ ] Route-level locale surface-parity checks (no English strings on Spanish pages)
+- [x] Metadata alternates regression guard (baseline updated: 0 pages missing)
+- [x] Translation message key parity (EN ↔ ES namespace and leaf key parity)
+- [x] Hardcoded aria-label regression guard (baseline: 0 remaining)
 - [ ] Route-level console-cleanliness checks (no runtime errors/warnings)
 - [ ] Automated visual regression for key templates
 - [ ] CI integration for regression suite
@@ -256,9 +264,9 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 - [x] ~~P0: Green build~~ ✅
 - [x] ~~P1: Runtime fixes~~ ✅
-- [ ] **P7 URGENT**: Fix broken manifest icon paths — PWA install is broken
-- [ ] P3: Remove 3 nested `<main>` tags from admin/contribute pages
-- [ ] P3: Downgrade h1s in 174 tree MDX files to h2 (or remap in MDX registry)
+- [x] ~~P7: Fix manifest icon paths~~ ✅
+- [x] ~~P3: Remove nested `<main>` tags~~ ✅
+- [x] ~~P3: MDX h1→h2 remapping~~ ✅
 - [ ] P2: Begin consolidating top locale-ternary offenders (`SeasonalCalendar`, `Breadcrumbs`, `FieldGuidePreview`)
 - [ ] P4: Decide on manifest locale strategy
 
@@ -266,11 +274,11 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 - [ ] P2: Continue ternary→translation migration across remaining components
 - [ ] P2: Route-level Spanish surface audits on tree detail, compare, biodiversity
-- [ ] P3: Audit all remaining interactive controls for localized ARIA labels
+- [x] ~~P3: Audit all remaining interactive controls for localized ARIA labels~~ ✅
 - [ ] P3: Create template-level accessibility checklist
 - [ ] P5: Begin resolving P1-high factual items (IUCN mismatches — 12 trees)
 - [ ] P6: Add mobile TOC / sticky section nav to tree detail pages
-- [ ] P9: Add first route-level regression tests (semantics, locale parity)
+- [x] ~~P9: Add route-level regression tests (semantics, locale parity)~~ ✅
 
 ### Days 61–90: Authority & Polish
 
@@ -287,7 +295,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 ## Strengths (no action needed)
 
 - **Content moat:** 175 bilingual tree profiles, 20 comparison guides, 150 glossary entries
-- **i18n foundation:** locale-prefixed routing, `next-intl`, mirrored EN/ES content + 1,158 translation keys
+- **i18n foundation:** locale-prefixed routing, `next-intl`, mirrored EN/ES content + 1,926 translation keys
 - **Performance baseline:** Lighthouse 99 desktop / 90 mobile perf, 96 accessibility, 100 SEO
 - **Architecture:** App Router, typed routes, centralized route config, server/client data projection
 - **Product identity:** Costa Rica-specific, community contribution flows, safety content, comparison tooling

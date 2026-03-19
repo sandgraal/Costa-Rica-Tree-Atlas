@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { SafeImage } from "@/components/SafeImage";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
@@ -28,6 +29,7 @@ export function SideBySideImages({
   rightCredit,
   caption,
 }: SideBySideImagesProps) {
+  const t = useTranslations("mdx");
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
@@ -156,7 +158,7 @@ export function SideBySideImages({
           <button
             onClick={() => setLightboxOpen(false)}
             className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
-            aria-label="Close"
+            aria-label={t("ariaClose")}
           >
             <svg
               className="w-8 h-8"
@@ -176,7 +178,7 @@ export function SideBySideImages({
               setActiveIndex(0);
             }}
             className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-colors ${activeIndex === 0 ? "bg-primary text-white" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
-            aria-label="View first image"
+            aria-label={t("ariaViewFirstImage")}
           >
             <svg
               className="w-6 h-6"
@@ -194,7 +196,7 @@ export function SideBySideImages({
               setActiveIndex(1);
             }}
             className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-colors ${activeIndex === 1 ? "bg-primary text-white" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
-            aria-label="View second image"
+            aria-label={t("ariaViewSecondImage")}
           >
             <svg
               className="w-6 h-6"

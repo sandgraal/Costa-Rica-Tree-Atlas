@@ -219,7 +219,8 @@
     "filtersLoaded": "Saved filters loaded",
     "noSavedFilters": "No saved filters",
     "structuredDataName": "Costa Rica Tree Directory",
-    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees"
+    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees",
+    "ariaAlphabetNavigation": "Alphabet navigation"
   },
   "footer": {
     "description": "A privately maintained project dedicated to documenting the trees of Costa Rica.",
@@ -2168,7 +2169,18 @@
     "tasks": "Tasks",
     "geographicDistribution": "Geographic Distribution",
     "elevation": "Elevation",
-    "compareInteractive": "Compare in interactive tool"
+    "compareInteractive": "Compare in interactive tool",
+    "ariaClose": "Close",
+    "ariaCloseLightbox": "Close lightbox",
+    "ariaCloseAnnotation": "Close annotation",
+    "ariaPrevious": "Previous",
+    "ariaNext": "Next",
+    "ariaPreviousImage": "Previous image",
+    "ariaNextImage": "Next image",
+    "ariaImageLightbox": "Image lightbox",
+    "ariaViewFirstImage": "View first image",
+    "ariaViewSecondImage": "View second image",
+    "ariaLoadingImage": "Loading image"
   },
   "biodiversity": {
     "title": "Biodiversity Data",

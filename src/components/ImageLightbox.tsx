@@ -2,6 +2,7 @@
 /* eslint-disable security/detect-object-injection -- lightbox index is bounded and guarded before reading from the images array. */
 
 import { useState, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { SafeImage } from "@/components/SafeImage";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
@@ -24,6 +25,7 @@ export function ImageLightbox({
   initialIndex = 0,
   onClose,
 }: ImageLightboxProps) {
+  const t = useTranslations("mdx");
   const safeInitialIndex =
     images.length > 0 && initialIndex < images.length ? initialIndex : 0;
   const [currentIndex, setCurrentIndex] = useState(safeInitialIndex);
@@ -80,7 +82,7 @@ export function ImageLightbox({
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
-        aria-label="Close lightbox"
+        aria-label={t("ariaCloseLightbox")}
       >
         <CloseIcon className="w-8 h-8" />
       </button>
@@ -94,7 +96,7 @@ export function ImageLightbox({
               goToPrevious();
             }}
             className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all"
-            aria-label="Previous image"
+            aria-label={t("ariaPreviousImage")}
           >
             <ChevronLeftIcon className="w-6 h-6" />
           </button>
@@ -104,7 +106,7 @@ export function ImageLightbox({
               goToNext();
             }}
             className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all"
-            aria-label="Next image"
+            aria-label={t("ariaNextImage")}
           >
             <ChevronRightIcon className="w-6 h-6" />
           </button>
