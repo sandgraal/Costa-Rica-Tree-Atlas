@@ -579,6 +579,10 @@ const IUCN_UI: Record<string, Record<Locale, string>> = {
     en: "Unknown",
     es: "Desconocida",
   },
+  iucnRedList: {
+    en: "IUCN Red List",
+    es: "Lista Roja de la UICN",
+  },
 };
 
 export function getIUCNLabels(locale: string) {
@@ -589,7 +593,7 @@ export function getIUCNLabels(locale: string) {
     populationTrend: getLocalizedText(IUCN_UI.populationTrend, loc),
     assessedBy: getLocalizedText(IUCN_UI.assessedBy, loc),
     viewOn: getLocalizedText(IUCN_UI.viewOn, loc),
-    iucnRedList: "IUCN Red List",
+    iucnRedList: getLocalizedText(IUCN_UI.iucnRedList, loc),
     decreasing: getLocalizedText(IUCN_UI.decreasing, loc),
     stable: getLocalizedText(IUCN_UI.stable, loc),
     increasing: getLocalizedText(IUCN_UI.increasing, loc),

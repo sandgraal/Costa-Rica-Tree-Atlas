@@ -31,7 +31,7 @@ interface EducationProgressContextType {
   getBadges: () => Badge[];
 }
 
-interface Badge {
+export interface Badge {
   id: string;
   name: string;
   nameEs: string;
@@ -41,11 +41,11 @@ interface Badge {
   earned: boolean;
 }
 
-function badgeName(badge: Badge, locale: string): string {
+export function badgeName(badge: Badge, locale: string): string {
   return locale === "es" ? badge.nameEs : badge.name;
 }
 
-function badgeDescription(badge: Badge, locale: string): string {
+export function badgeDescription(badge: Badge, locale: string): string {
   return locale === "es" ? badge.descriptionEs : badge.description;
 }
 

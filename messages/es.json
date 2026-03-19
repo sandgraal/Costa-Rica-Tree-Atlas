@@ -219,7 +219,8 @@
     "filtersLoaded": "Filtros guardados cargados",
     "noSavedFilters": "No hay filtros guardados",
     "structuredDataName": "Directorio de Árboles de Costa Rica",
-    "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica"
+    "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica",
+    "viewAllPhotos": "Ver todas las {count} fotos →"
   },
   "footer": {
     "description": "Un proyecto mantenido de forma privada dedicado a documentar los árboles de Costa Rica.",
@@ -1067,7 +1068,8 @@
       "timber": "Madera y Carpintería"
     },
     "structuredName": "Glosario de Árboles de Costa Rica",
-    "structuredDescription": "Glosario de {count} términos botánicos utilizados en el Atlas de Árboles de Costa Rica."
+    "structuredDescription": "Glosario de {count} términos botánicos utilizados en el Atlas de Árboles de Costa Rica.",
+    "clickForDefinition": "Clic para ver la definición completa →"
   },
   "imageVoting": {
     "title": "Ayuda a Mejorar las Imágenes",
@@ -1318,7 +1320,11 @@
     "description": "Encontramos un error inesperado. Por favor intenta de nuevo o regresa a la página principal.",
     "tryAgain": "Intentar de nuevo",
     "goHome": "Ir al Inicio",
-    "errorId": "ID del error"
+    "errorId": "ID del error",
+    "somethingWentWrong": "Algo salió mal",
+    "pageError": "Error de Página",
+    "pageErrorDescription": "Encontramos un error al cargar esta página",
+    "goBack": "Volver"
   },
   "recentlyViewed": {
     "title": "Vistos Recientemente",

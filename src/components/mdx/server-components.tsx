@@ -62,6 +62,15 @@ const translations = {
       elevation: "Elevation",
       compareInteractive: "Compare in interactive tool",
     },
+    care: {
+      plantingInstructions: "Planting Instructions",
+      maintenanceSchedule: "Maintenance Schedule",
+      commonProblems: "Common Problems & Solutions",
+      tip: "Tip",
+      symptom: "Symptom",
+      cause: "Cause",
+      solution: "Solution",
+    },
   },
   es: {
     safety: {
@@ -112,6 +121,15 @@ const translations = {
       geographicDistribution: "Distribución Geográfica",
       elevation: "Elevación",
       compareInteractive: "Comparar en herramienta interactiva",
+    },
+    care: {
+      plantingInstructions: "Instrucciones de Plantación",
+      maintenanceSchedule: "Calendario de Mantenimiento",
+      commonProblems: "Problemas Comunes y Soluciones",
+      tip: "Consejo",
+      symptom: "Síntoma",
+      cause: "Causa",
+      solution: "Solución",
     },
   },
 } as const;
@@ -1554,6 +1572,7 @@ export function CareGuide({ children }: CareGuideProps) {
 }
 
 interface PlantingInstructionsProps {
+  locale?: "en" | "es";
   steps?: Array<{
     title: string;
     description: string;
@@ -1561,14 +1580,20 @@ interface PlantingInstructionsProps {
   }>;
 }
 
-export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
+export function PlantingInstructions({
+  locale = "en",
+  steps,
+}: PlantingInstructionsProps) {
   const safeSteps = asArray(steps);
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
+  const t = translations[normalizedLocale].care;
 
   return (
     <div className="my-6">
       <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
         <span>🪴</span>
-        <span>Planting Instructions</span>
+        <span>{t.plantingInstructions}</span>
       </h3>
       <ol className="space-y-4">
         {safeSteps.map((step, index) => (
@@ -1587,7 +1612,7 @@ export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
                 <p className="text-foreground/80 text-sm">{step.description}</p>
                 {step.tip && (
                   <p className="mt-2 text-xs text-primary italic">
-                    💡 Tip: {step.tip}
+                    💡 {t.tip}: {step.tip}
                   </p>
                 )}
               </div>
@@ -1600,6 +1625,7 @@ export function PlantingInstructions({ steps }: PlantingInstructionsProps) {
 }
 
 interface MaintenanceTimelineProps {
+  locale?: "en" | "es";
   stages?: Array<{
     period: string;
     tasks: string[];
@@ -1607,14 +1633,20 @@ interface MaintenanceTimelineProps {
   }>;
 }
 
-export function MaintenanceTimeline({ stages }: MaintenanceTimelineProps) {
+export function MaintenanceTimeline({
+  locale = "en",
+  stages,
+}: MaintenanceTimelineProps) {
   const safeStages = asArray(stages);
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
+  const t = translations[normalizedLocale].care;
 
   return (
     <div className="my-6">
       <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
         <span>📅</span>
-        <span>Maintenance Schedule</span>
+        <span>{t.maintenanceSchedule}</span>
       </h3>
       <div className="space-y-3">
         {safeStages.map((stage, index) => (
@@ -1681,6 +1713,7 @@ export function CareRequirements({ requirements }: CareRequirementsProps) {
 }
 
 interface CommonProblemsProps {
+  locale?: "en" | "es";
   problems?: Array<{
     symptom: string;
     cause: string;
@@ -1688,14 +1721,20 @@ interface CommonProblemsProps {
   }>;
 }
 
-export function CommonProblems({ problems }: CommonProblemsProps) {
+export function CommonProblems({
+  locale = "en",
+  problems,
+}: CommonProblemsProps) {
   const safeProblems = asArray(problems);
+  const normalizedLocale = locale === "es" ? "es" : "en";
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
+  const t = translations[normalizedLocale].care;
 
   return (
     <div className="my-6">
       <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
         <span>⚠️</span>
-        <span>Common Problems & Solutions</span>
+        <span>{t.commonProblems}</span>
       </h3>
       <div className="space-y-3">
         {safeProblems.map((problem, index) => (
@@ -1706,19 +1745,19 @@ export function CommonProblems({ problems }: CommonProblemsProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
                 <h5 className="text-xs font-semibold text-warning uppercase mb-1">
-                  Symptom
+                  {t.symptom}
                 </h5>
                 <p className="text-sm text-foreground">{problem.symptom}</p>
               </div>
               <div>
                 <h5 className="text-xs font-semibold text-info uppercase mb-1">
-                  Cause
+                  {t.cause}
                 </h5>
                 <p className="text-sm text-foreground/80">{problem.cause}</p>
               </div>
               <div>
                 <h5 className="text-xs font-semibold text-success uppercase mb-1">
-                  Solution
+                  {t.solution}
                 </h5>
                 <p className="text-sm text-foreground/80">{problem.solution}</p>
               </div>

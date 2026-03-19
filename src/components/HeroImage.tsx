@@ -3,6 +3,7 @@ import Image from "next/image";
 interface HeroImageProps {
   priority?: boolean;
   fetchPriority?: "high" | "low" | "auto";
+  locale?: "en" | "es";
 }
 
 /**
@@ -16,7 +17,12 @@ interface HeroImageProps {
 export function HeroImage({
   priority = true,
   fetchPriority = "high",
+  locale = "en",
 }: HeroImageProps) {
+  const alt =
+    locale === "es"
+      ? "Árbol de Guanacaste - Árbol Nacional de Costa Rica"
+      : "Guanacaste Tree - National Tree of Costa Rica";
   return (
     <picture className="absolute inset-0">
       {/* AVIF for best compression (newest browsers) */}
@@ -44,7 +50,7 @@ export function HeroImage({
       {/* JPEG fallback for older browsers */}
       <Image
         src="/images/hero/guanacaste-desktop.jpg"
-        alt="Guanacaste Tree - National Tree of Costa Rica"
+        alt={alt}
         fill
         priority={priority}
         fetchPriority={fetchPriority}

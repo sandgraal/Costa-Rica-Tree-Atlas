@@ -188,6 +188,31 @@ export async function ServerMDXContent({
         ...props,
         locale: resolvedLocale,
       }),
+    PlantingInstructions: (
+      props: React.ComponentProps<
+        typeof mdxServerComponents.PlantingInstructions
+      >
+    ) =>
+      mdxServerComponents.PlantingInstructions({
+        ...props,
+        locale: resolvedLocale,
+      }),
+    MaintenanceTimeline: (
+      props: React.ComponentProps<
+        typeof mdxServerComponents.MaintenanceTimeline
+      >
+    ) =>
+      mdxServerComponents.MaintenanceTimeline({
+        ...props,
+        locale: resolvedLocale,
+      }),
+    CommonProblems: (
+      props: React.ComponentProps<typeof mdxServerComponents.CommonProblems>
+    ) =>
+      mdxServerComponents.CommonProblems({
+        ...props,
+        locale: resolvedLocale,
+      }),
   };
 
   // Merge server MDX components with client components and any additional ones passed in
