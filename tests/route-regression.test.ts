@@ -58,7 +58,7 @@ describe("Landmark: no nested <main>", () => {
     const violators: string[] = [];
     for (const file of pageFiles) {
       const content = fs.readFileSync(file, "utf-8");
-      // Match <main or <main> but not inside comments or strings that reference "main-content"
+      // Match any occurrence of <main or <main> in the file contents
       if (/<main[\s>]/i.test(content)) {
         violators.push(path.relative(ROOT, file));
       }
