@@ -10,6 +10,9 @@
  * 4. MDX heading hierarchy (h1 is remapped to h2 in the component registry)
  * 5. Translation message key parity between EN and ES
  * 6. No hardcoded English aria-labels in components
+ * 7. Locale ternary count regression guard
+ * 8. Route family coverage
+ * 9. Education data files use t() helper (no array-level ternaries)
  */
 
 import { describe, it, expect } from "vitest";
@@ -309,5 +312,134 @@ describe("Locale surface parity: no hardcoded aria-labels", () => {
       );
     }
     expect(totalCount).toBeLessThanOrEqual(KNOWN_HARDCODED_COUNT);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 7. Locale ternary count regression guard
+// ---------------------------------------------------------------------------
+
+describe("Locale ternary regression guard", () => {
+  const srcDir = path.join(ROOT, "src");
+  const tsFiles = walkFiles(
+    srcDir,
+    (n) => n.endsWith(".ts") || n.endsWith(".tsx")
+  );
+
+  it("should not increase the count of locale === 'es' ternaries beyond baseline", () => {
+    const LOCALE_TERNARY =
+      /(?:locale|lang)\s*===\s*["']es["']\s*\?/g;
+
+    let totalCount = 0;
+    const perFile: { file: string; count: number }[] = [];
+    for (const file of tsFiles) {
+      const content = fs.readFileSync(file, "utf-8");
+      const matches = content.match(LOCALE_TERNARY);
+      if (matches) {
+        totalCount += matches.length;
+        perFile.push({
+          file: path.relative(ROOT, file),
+          count: matches.length,
+        });
+      }
+    }
+
+    // Baseline: 32 remaining ternaries after P2 consolidation pass.
+    // These are: t() helper definitions (12), defensive normalizations (16),
+    // and consolidated badge helpers (4).
+    // This test prevents new ternaries from being introduced.
+    const KNOWN_TERNARY_COUNT = 32;
+
+    if (totalCount > KNOWN_TERNARY_COUNT) {
+      console.log(
+        `NEW locale ternaries found (${totalCount} > baseline ${KNOWN_TERNARY_COUNT}):\n` +
+          perFile.map((f) => `  ${f.file}: ${f.count}`).join("\n")
+      );
+    }
+    expect(totalCount).toBeLessThanOrEqual(KNOWN_TERNARY_COUNT);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 8. Route family coverage
+// ---------------------------------------------------------------------------
+
+describe("Route family coverage", () => {
+  const localeDir = path.join(ROOT, "src/app/[locale]");
+
+  const EXPECTED_ROUTE_FAMILIES = [
+    "", // root page (homepage)
+    "trees",
+    "trees/[slug]",
+    "compare",
+    "compare/[slug]",
+    "education",
+    "glossary",
+    "about",
+  ];
+
+  it("should have page.tsx for all major route families", () => {
+    const missing: string[] = [];
+    for (const route of EXPECTED_ROUTE_FAMILIES) {
+      const pageFile = path.join(localeDir, route, "page.tsx");
+      if (!fs.existsSync(pageFile)) {
+        missing.push(route || "(root)");
+      }
+    }
+    if (missing.length > 0) {
+      console.log(
+        `Missing page.tsx for route families:\n` +
+          missing.map((r) => `  - [locale]/${r}`).join("\n")
+      );
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it("should have layout.tsx at the [locale] root", () => {
+    const layoutFile = path.join(localeDir, "layout.tsx");
+    expect(fs.existsSync(layoutFile)).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 9. Education data files use t() helper (no array-level ternaries)
+// ---------------------------------------------------------------------------
+
+describe("Education data: no array-level locale ternaries", () => {
+  const educationDir = path.join(ROOT, "src/app/[locale]/education");
+  const dataFiles = walkFiles(educationDir, (n) => n.endsWith("-data.ts"));
+
+  it("should find education data files", () => {
+    expect(dataFiles.length).toBeGreaterThan(0);
+  });
+
+  it("should not have array-level locale ternaries in data files", () => {
+    // Matches patterns like:
+    // - lang === "es" ? ["Spanish", ...] : ["English", ...]
+    // - locale === "es" ? ["Spanish", ...] : ["English", ...]
+    // - isEs ? ["Spanish", ...] : ["English", ...]
+    // These should be converted to per-property t() calls.
+    const ARRAY_TERNARY =
+      /\b(?:lang|locale)\s*===\s*["']es["']\s*\?\s*\[|\bisEs\s*\?\s*\[/g;
+
+    const violators: { file: string; count: number }[] = [];
+    for (const file of dataFiles) {
+      const content = fs.readFileSync(file, "utf-8");
+      const matches = content.match(ARRAY_TERNARY);
+      if (matches) {
+        violators.push({
+          file: path.relative(ROOT, file),
+          count: matches.length,
+        });
+      }
+    }
+
+    if (violators.length > 0) {
+      console.log(
+        `Education data files with array-level ternaries (should use t() helper):\n` +
+          violators.map((v) => `  ${v.file}: ${v.count} occurrences`).join("\n")
+      );
+    }
+    expect(violators).toEqual([]);
   });
 });

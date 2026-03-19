@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas — Implementation Plan
 
-**Last Updated:** 2026-07-13
-**Status:** Checklist audit v4.0 — Updated after PR #666 implementation pass.
+**Last Updated:** 2026-07-14
+**Status:** Checklist audit v4.1 — Updated after PR #667 and round 2 implementation pass.
 
 ---
 
@@ -216,7 +216,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Audited layout namespace ownership — all CLIENT_NAMESPACES are actively used, no unused entries (including newly added `mdx`)
 - [x] Added bidirectional namespace audit test (missing + unused check)
 - [ ] Introduce shared route-shell primitives for page headers, landmarks, section scaffolding
-- [ ] Document the optional-dependency adapter pattern for future integrations
+- [x] Document the optional-dependency adapter pattern for future integrations (`docs/OPTIONAL_DEPENDENCY_ADAPTER_PATTERN.md`)
 
 ---
 
@@ -245,6 +245,9 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [ ] Route-level console-cleanliness checks (no runtime errors/warnings)
 - [ ] Automated visual regression for key templates
 - [ ] CI integration for regression suite
+- [x] Locale ternary count regression guard (baseline: 32)
+- [x] Route family coverage test (verifies page.tsx exists for all major routes)
+- [x] Education data array-ternary regression guard (prevents re-introducing array-level ternaries)
 
 ---
 
@@ -287,7 +290,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [ ] P8: Introduce shared route-shell primitives
 - [ ] P8: Consolidate remaining hardcoded string logic
 - [ ] P10: Draft indigenous knowledge governance policy
-- [ ] P9: Expand regression suite to cover all major route families
+- [x] ~~P9: Expand regression suite to cover all major route families~~ ✅
 - [ ] P6: Improve compare page UX (guide/tool switching, card density)
 
 ---
