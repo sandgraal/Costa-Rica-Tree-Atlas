@@ -17,6 +17,12 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: {
+      languages: {
+        en: "/en/education/lessons/ecosystem-services",
+        es: "/es/education/lessons/ecosystem-services",
+      },
+    },
   };
 }
 

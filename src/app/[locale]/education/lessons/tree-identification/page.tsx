@@ -17,6 +17,12 @@ export async function generateMetadata({
   return {
     title: t("treeIdentificationMetaTitle"),
     description: t("treeIdentificationMetaDescription"),
+    alternates: {
+      languages: {
+        en: "/en/education/lessons/tree-identification",
+        es: "/es/education/lessons/tree-identification",
+      },
+    },
   };
 }
 

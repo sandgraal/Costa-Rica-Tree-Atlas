@@ -88,8 +88,8 @@ export function getBiodiversityLessonData(
   totalSpecies: number,
   totalFamilies: number
 ): BiodiversityLessonData {
-  const isEs = locale === "es";
-  const localeKey = isEs ? "es" : "en";
+  const lang: "en" | "es" = locale === "es" ? "es" : "en";
+  const t = (en: string, es: string): string => (lang === "es" ? es : en);
 
   const localizedLabelExtras: Record<
     "en" | "es",
@@ -141,88 +141,77 @@ export function getBiodiversityLessonData(
       creativeMissionDesc:
         "Dibuja tu árbol favorito y escribe 3 datos interesantes sobre él.",
       yourSelectedTrees: "Tus árboles seleccionados:",
-      drawingArea:
-        "Área de dibujo - ¡Usa papel y lápices de colores!",
+      drawingArea: "Área de dibujo - ¡Usa papel y lápices de colores!",
       printableResources: "Recursos imprimibles",
       viewActivitySheets: "Ver hojas de actividades",
     },
   };
 
   const labels: BiodiversityLabels = {
-    title: isEs
-      ? "Introducción a la Biodiversidad"
-      : "Introduction to Biodiversity",
-    subtitle: isEs
-      ? "Descubre la increíble diversidad de árboles en Costa Rica"
-      : "Discover the incredible diversity of trees in Costa Rica",
-    step1Title: isEs ? "¿Qué es la Biodiversidad?" : "What is Biodiversity?",
-    step1Content: isEs
-      ? "La biodiversidad es la variedad de vida en la Tierra. Costa Rica, con solo el 0.03% de la superficie terrestre, alberga cerca del 5% de la biodiversidad mundial. ¡Esto hace de Costa Rica uno de los países más diversos del planeta!"
-      : "Biodiversity is the variety of life on Earth. Costa Rica, with only 0.03% of the Earth's surface, is home to nearly 5% of the world's biodiversity. This makes Costa Rica one of the most diverse countries on the planet!",
-    step2Title: isEs ? "Árboles de Costa Rica" : "Costa Rica's Trees",
-    step2Content: isEs
-      ? `Nuestro atlas documenta ${totalSpecies} especies de árboles en ${totalFamilies} familias botánicas diferentes.`
-      : `Our atlas documents ${totalSpecies} tree species across ${totalFamilies} different botanical families.`,
-    step3Title: isEs
-      ? "🎯 Misión: Explora los Árboles"
-      : "🎯 Mission: Explore the Trees",
-    step3Content: isEs
-      ? "¡Selecciona 5 árboles para completar tu colección!"
-      : "Select 5 trees to complete your collection!",
-    step4Title: isEs ? "🧠 Desafío de Conocimiento" : "🧠 Knowledge Challenge",
-    step5Title: isEs ? "🎨 Actividad Creativa" : "🎨 Creative Activity",
-    next: isEs ? "Siguiente →" : "Next →",
-    previous: isEs ? "← Anterior" : "← Previous",
-    finish: isEs ? "🎉 Finalizar" : "🎉 Finish",
-    backToLessons: isEs ? "← Volver a Lecciones" : "← Back to Lessons",
-    selected: isEs ? "seleccionados" : "selected",
-    results: isEs ? "¡Felicidades!" : "Congratulations!",
-    correct: isEs ? "respuestas correctas" : "correct answers",
-    tryAgain: isEs ? "🔄 Intentar de nuevo" : "🔄 Try Again",
-    hint: isEs ? "💡 Pista" : "💡 Hint",
-    points: isEs ? "puntos" : "points",
-    streak: isEs ? "🔥 Racha" : "🔥 Streak",
-    didYouKnow: isEs ? "¿Sabías que...?" : "Did you know...?",
-    objectives: isEs
-      ? [
-          "Definir qué es biodiversidad",
-          "Explicar por qué Costa Rica es tan biodiversa",
-          "Identificar 5 árboles nativos de Costa Rica",
-          "Entender la importancia de proteger los bosques",
-        ]
-      : [
-          "Define what biodiversity is",
-          "Explain why Costa Rica is so biodiverse",
-          "Identify 5 native Costa Rican trees",
-          "Understand the importance of protecting forests",
-        ],
-    learningObjectives: isEs
-      ? "Objetivos de Aprendizaje"
-      : "Learning Objectives",
-    nextLesson: isEs ? "Siguiente Lección →" : "Next Lesson →",
-    exploreMoreTrees: isEs ? "Explorar Más Árboles" : "Explore More Trees",
-    treesExplored: isEs ? "Árboles Explorados" : "Trees Explored",
-    lessonComplete: isEs
-      ? "¡Has completado la lección de Biodiversidad!"
-      : "You've completed the Biodiversity lesson!",
-    clickToExplore: isEs ? "Clic para explorar" : "Click to explore",
-    viewInAtlas: isEs ? "Ver en Atlas" : "View in Atlas",
-    close: isEs ? "Cerrar" : "Close",
-    yourFavoriteTrees: isEs ? "Tus árboles favoritos:" : "Your favorite trees:",
-    gradeLevel: localizedLabelExtras[localeKey].gradeLevel,
-    speciesLabel: localizedLabelExtras[localeKey].speciesLabel,
-    familiesLabel: localizedLabelExtras[localeKey].familiesLabel,
-    biodiversityLabel: localizedLabelExtras[localeKey].biodiversityLabel,
-    surfaceLabel: localizedLabelExtras[localeKey].surfaceLabel,
-    collectionComplete: localizedLabelExtras[localeKey].collectionComplete,
-    correctFeedback: localizedLabelExtras[localeKey].correctFeedback,
-    incorrectFeedback: localizedLabelExtras[localeKey].incorrectFeedback,
-    creativeMission: localizedLabelExtras[localeKey].creativeMission,
-    creativeMissionDesc: localizedLabelExtras[localeKey].creativeMissionDesc,
-    yourSelectedTrees: localizedLabelExtras[localeKey].yourSelectedTrees,
-    drawingArea: localizedLabelExtras[localeKey].drawingArea,
-    printableResources: localizedLabelExtras[localeKey].printableResources,
-    viewActivitySheets: localizedLabelExtras[localeKey].viewActivitySheets,
+    title: t("Introduction to Biodiversity", "Introducción a la Biodiversidad"),
+    subtitle: t(
+      "Discover the incredible diversity of trees in Costa Rica",
+      "Descubre la increíble diversidad de árboles en Costa Rica"
+    ),
+    step1Title: t("What is Biodiversity?", "¿Qué es la Biodiversidad?"),
+    step1Content: t(
+      "Biodiversity is the variety of life on Earth. Costa Rica, with only 0.03% of the Earth's surface, is home to nearly 5% of the world's biodiversity. This makes Costa Rica one of the most diverse countries on the planet!",
+      "La biodiversidad es la variedad de vida en la Tierra. Costa Rica, con solo el 0.03% de la superficie terrestre, alberga cerca del 5% de la biodiversidad mundial. ¡Esto hace de Costa Rica uno de los países más diversos del planeta!"
+    ),
+    step2Title: t("Costa Rica's Trees", "Árboles de Costa Rica"),
+    step2Content: t(
+      `Our atlas documents ${totalSpecies} tree species across ${totalFamilies} different botanical families.`,
+      `Nuestro atlas documenta ${totalSpecies} especies de árboles en ${totalFamilies} familias botánicas diferentes.`
+    ),
+    step3Title: t(
+      "🎯 Mission: Explore the Trees",
+      "🎯 Misión: Explora los Árboles"
+    ),
+    step3Content: t(
+      "Select 5 trees to complete your collection!",
+      "¡Selecciona 5 árboles para completar tu colección!"
+    ),
+    step4Title: t("🧠 Knowledge Challenge", "🧠 Desafío de Conocimiento"),
+    step5Title: t("🎨 Creative Activity", "🎨 Actividad Creativa"),
+    next: t("Next →", "Siguiente →"),
+    previous: t("← Previous", "← Anterior"),
+    finish: t("🎉 Finish", "🎉 Finalizar"),
+    backToLessons: t("← Back to Lessons", "← Volver a Lecciones"),
+    selected: t("selected", "seleccionados"),
+    results: t("Congratulations!", "¡Felicidades!"),
+    correct: t("correct answers", "respuestas correctas"),
+    tryAgain: t("🔄 Try Again", "🔄 Intentar de nuevo"),
+    hint: t("💡 Hint", "💡 Pista"),
+    points: t("points", "puntos"),
+    streak: t("🔥 Streak", "🔥 Racha"),
+    didYouKnow: t("Did you know...?", "¿Sabías que...?"),
+    objectives:
+      lang === "es"
+        ? [
+            "Definir qué es biodiversidad",
+            "Explicar por qué Costa Rica es tan biodiversa",
+            "Identificar 5 árboles nativos de Costa Rica",
+            "Entender la importancia de proteger los bosques",
+          ]
+        : [
+            "Define what biodiversity is",
+            "Explain why Costa Rica is so biodiverse",
+            "Identify 5 native Costa Rican trees",
+            "Understand the importance of protecting forests",
+          ],
+    learningObjectives: t("Learning Objectives", "Objetivos de Aprendizaje"),
+    nextLesson: t("Next Lesson →", "Siguiente Lección →"),
+    exploreMoreTrees: t("Explore More Trees", "Explorar Más Árboles"),
+    treesExplored: t("Trees Explored", "Árboles Explorados"),
+    lessonComplete: t(
+      "You've completed the Biodiversity lesson!",
+      "¡Has completado la lección de Biodiversidad!"
+    ),
+    clickToExplore: t("Click to explore", "Clic para explorar"),
+    viewInAtlas: t("View in Atlas", "Ver en Atlas"),
+    close: t("Close", "Cerrar"),
+    yourFavoriteTrees: t("Your favorite trees:", "Tus árboles favoritos:"),
+    ...localizedLabelExtras[lang],
   };
 
   const localizedFunFacts: Record<"en" | "es", string[]> = {
@@ -240,47 +229,53 @@ export function getBiodiversityLessonData(
     ],
   };
 
-  const funFacts: string[] = localizedFunFacts[localeKey];
+  const funFacts: string[] = localizedFunFacts[lang];
 
   const quizQuestions: QuizQuestion[] = [
     {
-      question: isEs
-        ? "¿Qué porcentaje de la biodiversidad mundial se encuentra en Costa Rica?"
-        : "What percentage of world biodiversity is found in Costa Rica?",
+      question: t(
+        "What percentage of world biodiversity is found in Costa Rica?",
+        "¿Qué porcentaje de la biodiversidad mundial se encuentra en Costa Rica?"
+      ),
       options: ["1%", "5%", "15%", "25%"],
       correct: 1,
-      hint: isEs
-        ? "Costa Rica es uno de los países más biodiversos del mundo"
-        : "Costa Rica is one of the most biodiverse countries in the world",
+      hint: t(
+        "Costa Rica is one of the most biodiverse countries in the world",
+        "Costa Rica es uno de los países más biodiversos del mundo"
+      ),
       points: 10,
     },
     {
-      question: isEs
-        ? "¿Por qué Costa Rica es tan biodiversa?"
-        : "Why is Costa Rica so biodiverse?",
-      options: isEs
-        ? [
-            "Es un país muy grande",
-            "Tiene muchos climas y hábitats diferentes",
-            "Llueve mucho",
-            "Tiene mucha tecnología",
-          ]
-        : [
-            "It's a very large country",
-            "It has many different climates and habitats",
-            "It rains a lot",
-            "It has lots of technology",
-          ],
+      question: t(
+        "Why is Costa Rica so biodiverse?",
+        "¿Por qué Costa Rica es tan biodiversa?"
+      ),
+      options:
+        lang === "es"
+          ? [
+              "Es un país muy grande",
+              "Tiene muchos climas y hábitats diferentes",
+              "Llueve mucho",
+              "Tiene mucha tecnología",
+            ]
+          : [
+              "It's a very large country",
+              "It has many different climates and habitats",
+              "It rains a lot",
+              "It has lots of technology",
+            ],
       correct: 1,
-      hint: isEs
-        ? "Piensa en las diferentes zonas del país: playas, montañas, bosques..."
-        : "Think about the different zones: beaches, mountains, forests...",
+      hint: t(
+        "Think about the different zones: beaches, mountains, forests...",
+        "Piensa en las diferentes zonas del país: playas, montañas, bosques..."
+      ),
       points: 15,
     },
     {
-      question: isEs
-        ? "¿Cuántas familias botánicas de árboles hay documentadas en nuestro atlas?"
-        : "How many botanical tree families are documented in our atlas?",
+      question: t(
+        "How many botanical tree families are documented in our atlas?",
+        "¿Cuántas familias botánicas de árboles hay documentadas en nuestro atlas?"
+      ),
       options: [
         `${Math.round(totalFamilies * 0.5)}`,
         `${totalFamilies}`,
@@ -288,20 +283,23 @@ export function getBiodiversityLessonData(
         `${Math.round(totalFamilies * 2)}`,
       ],
       correct: 1,
-      hint: isEs
-        ? "Revisa las estadísticas que viste al principio"
-        : "Check the statistics you saw at the beginning",
+      hint: t(
+        "Check the statistics you saw at the beginning",
+        "Revisa las estadísticas que viste al principio"
+      ),
       points: 15,
     },
     {
-      question: isEs
-        ? "¿Qué porcentaje de la superficie de la Tierra ocupa Costa Rica?"
-        : "What percentage of Earth's surface does Costa Rica occupy?",
+      question: t(
+        "What percentage of Earth's surface does Costa Rica occupy?",
+        "¿Qué porcentaje de la superficie de la Tierra ocupa Costa Rica?"
+      ),
       options: ["0.03%", "1%", "5%", "10%"],
       correct: 0,
-      hint: isEs
-        ? "Es un país muy pequeño pero muy diverso"
-        : "It's a very small country but very diverse",
+      hint: t(
+        "It's a very small country but very diverse",
+        "Es un país muy pequeño pero muy diverso"
+      ),
       points: 15,
     },
   ];

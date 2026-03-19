@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import type { ImageCardProps } from "./ImageCard";
 
@@ -15,6 +16,7 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ children }: ImageGalleryProps) {
+  const t = useTranslations("mdx");
   const [lightbox, setLightbox] = React.useState<LightboxState>({
     isOpen: false,
     currentIndex: 0,
@@ -126,14 +128,14 @@ export function ImageGallery({ children }: ImageGalleryProps) {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          aria-label="Image lightbox"
+          aria-label={t("ariaImageLightbox")}
           onClick={closeLightbox}
         >
           {/* Close button */}
           <button
             onClick={closeLightbox}
             className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
-            aria-label="Close"
+            aria-label={t("ariaClose")}
           >
             <svg
               className="w-8 h-8"
@@ -155,7 +157,7 @@ export function ImageGallery({ children }: ImageGalleryProps) {
                   goToPrevious();
                 }}
                 className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20"
-                aria-label="Previous"
+                aria-label={t("ariaPrevious")}
               >
                 <svg
                   className="w-6 h-6"
@@ -173,7 +175,7 @@ export function ImageGallery({ children }: ImageGalleryProps) {
                   goToNext();
                 }}
                 className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 text-white/80 hover:bg-white/20"
-                aria-label="Next"
+                aria-label={t("ariaNext")}
               >
                 <svg
                   className="w-6 h-6"

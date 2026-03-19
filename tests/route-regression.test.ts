@@ -8,6 +8,8 @@
  * 2. Content file parity between EN and ES
  * 3. Every page.tsx that uses generateMetadata provides alternates
  * 4. MDX heading hierarchy (h1 is remapped to h2 in the component registry)
+ * 5. Translation message key parity between EN and ES
+ * 6. No hardcoded English aria-labels in components
  */
 
 import { describe, it, expect } from "vitest";
@@ -187,10 +189,10 @@ describe("Metadata: locale alternates", () => {
         missing.push(path.relative(ROOT, file));
       }
     }
-    // Baseline: 32 pages are currently missing alternates.languages.
+    // Baseline: 0 pages should be missing alternates.languages.
+    // All pages were fixed in the P4 alternates pass.
     // This test prevents new pages from being added without alternates.
-    // As pages are fixed, update the baseline downward.
-    const KNOWN_MISSING_COUNT = 32;
+    const KNOWN_MISSING_COUNT = 0;
     if (missing.length > KNOWN_MISSING_COUNT) {
       console.log(
         `NEW pages with generateMetadata missing alternates.languages ` +
@@ -199,5 +201,111 @@ describe("Metadata: locale alternates", () => {
       );
     }
     expect(missing.length).toBeLessThanOrEqual(KNOWN_MISSING_COUNT);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 5. Translation message key parity (EN ↔ ES)
+// ---------------------------------------------------------------------------
+
+describe("Locale surface parity: message keys", () => {
+  const enPath = path.join(ROOT, "messages/en.json");
+  const esPath = path.join(ROOT, "messages/es.json");
+
+  /** Recursively flatten a nested object into dot-separated key paths. */
+  function flattenKeys(obj: Record<string, unknown>, prefix = ""): string[] {
+    const keys: string[] = [];
+    for (const k of Object.keys(obj)) {
+      const full = prefix ? `${prefix}.${k}` : k;
+      const val = obj[k];
+      if (typeof val === "object" && val !== null && !Array.isArray(val)) {
+        keys.push(...flattenKeys(val as Record<string, unknown>, full));
+      } else {
+        keys.push(full);
+      }
+    }
+    return keys;
+  }
+
+  it("EN and ES message files should have identical top-level namespaces", () => {
+    const en = JSON.parse(fs.readFileSync(enPath, "utf-8"));
+    const es = JSON.parse(fs.readFileSync(esPath, "utf-8"));
+    const enNs = Object.keys(en).sort();
+    const esNs = Object.keys(es).sort();
+    expect(enNs).toEqual(esNs);
+  });
+
+  it("EN and ES message files should have identical leaf keys", () => {
+    const en = JSON.parse(fs.readFileSync(enPath, "utf-8"));
+    const es = JSON.parse(fs.readFileSync(esPath, "utf-8"));
+
+    const enKeys = flattenKeys(en).sort();
+    const esKeys = flattenKeys(es).sort();
+
+    const missingInEs = enKeys.filter((k) => !esKeys.includes(k));
+    const missingInEn = esKeys.filter((k) => !enKeys.includes(k));
+
+    if (missingInEs.length > 0) {
+      console.log(
+        `Keys in EN but missing in ES:\n` +
+          missingInEs.map((k) => `  - ${k}`).join("\n")
+      );
+    }
+    if (missingInEn.length > 0) {
+      console.log(
+        `Keys in ES but missing in EN:\n` +
+          missingInEn.map((k) => `  - ${k}`).join("\n")
+      );
+    }
+
+    expect(missingInEs).toEqual([]);
+    expect(missingInEn).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 6. No hardcoded English aria-labels in components
+// ---------------------------------------------------------------------------
+
+describe("Locale surface parity: no hardcoded aria-labels", () => {
+  const componentsDir = path.join(ROOT, "src/components");
+  const tsxFiles = walkFiles(componentsDir, (n) => n.endsWith(".tsx"));
+
+  it("should find component files to audit", () => {
+    expect(tsxFiles.length).toBeGreaterThan(0);
+  });
+
+  it("should not increase the number of hardcoded aria-label strings", () => {
+    // Matches aria-label="SomeEnglishText" (literal strings, not JSX expressions)
+    const ARIA_LABEL_LITERAL = /aria-label="[A-Za-z][^"]*"/g;
+
+    const violations: { file: string; labels: string[] }[] = [];
+    for (const file of tsxFiles) {
+      const content = fs.readFileSync(file, "utf-8");
+      const matches = content.match(ARIA_LABEL_LITERAL);
+      if (matches && matches.length > 0) {
+        violations.push({
+          file: path.relative(ROOT, file),
+          labels: matches,
+        });
+      }
+    }
+
+    // Baseline: 0 hardcoded aria-labels remain.
+    // All labels were localized in the P3 ARIA audit pass.
+    // This test prevents new hardcoded labels from being introduced.
+    const totalCount = violations.reduce((n, v) => n + v.labels.length, 0);
+    const KNOWN_HARDCODED_COUNT = 0;
+
+    if (totalCount > KNOWN_HARDCODED_COUNT) {
+      console.log(
+        `NEW hardcoded aria-label strings found ` +
+          `(${totalCount} > baseline ${KNOWN_HARDCODED_COUNT}):\n` +
+          violations
+            .map((v) => `  ${v.file}: ${v.labels.join(", ")}`)
+            .join("\n")
+      );
+    }
+    expect(totalCount).toBeLessThanOrEqual(KNOWN_HARDCODED_COUNT);
   });
 });

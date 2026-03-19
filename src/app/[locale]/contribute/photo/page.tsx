@@ -22,6 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("uploadPhoto.title"),
     description: t("uploadPhoto.description"),
+    alternates: {
+      languages: {
+        en: "/en/contribute/photo",
+        es: "/es/contribute/photo",
+      },
+    },
   };
 }
 

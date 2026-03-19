@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { SafeImage } from "@/components/SafeImage";
 
 interface AnnotationPoint {
@@ -23,6 +24,7 @@ export function FeatureAnnotation({
   annotations,
   credit,
 }: FeatureAnnotationProps) {
+  const t = useTranslations("mdx");
   const [activeAnnotation, setActiveAnnotation] = React.useState<number | null>(
     null
   );
@@ -77,7 +79,7 @@ export function FeatureAnnotation({
             <button
               type="button"
               onClick={() => setActiveAnnotation(null)}
-              aria-label="Close annotation"
+              aria-label={t("ariaCloseAnnotation")}
               className="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white rounded-full text-xs flex items-center justify-center hover:bg-primary-dark"
             >
               <span aria-hidden="true">✕</span>

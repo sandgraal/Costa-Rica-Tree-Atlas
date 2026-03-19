@@ -16,6 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("pageTitle"),
     robots: { index: false, follow: false },
+    alternates: {
+      languages: {
+        en: "/en/admin/images",
+        es: "/es/admin/images",
+      },
+    },
   };
 }
 

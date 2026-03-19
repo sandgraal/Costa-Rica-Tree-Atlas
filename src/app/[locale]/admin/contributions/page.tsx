@@ -12,6 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("pageTitle"),
     description: t("pageDescription"),
+    alternates: {
+      languages: {
+        en: "/en/admin/contributions",
+        es: "/es/admin/contributions",
+      },
+    },
   };
 }
 
