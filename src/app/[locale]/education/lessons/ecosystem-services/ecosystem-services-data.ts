@@ -323,7 +323,7 @@ export function getEcosystemServicesLessonData(
         "¿Qué tipo de servicio ecosistémico es la polinización?"
       ),
       options: [
-        "Cultural",
+        t("Cultural", "Culturales"),
         t("Provisioning", "Aprovisionamiento"),
         t("Regulating", "Regulación"),
         t("Supporting", "Soporte"),
