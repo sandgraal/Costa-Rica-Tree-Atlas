@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 import { allSpeciesComparisons, allTrees } from "contentlayer/generated";
+import { getLocalizedText } from "@/lib/i18n";
+import type { Locale } from "@/types/tree";
 
 export const alt = "Species comparison guide";
 export const size = {
@@ -75,7 +77,7 @@ export default async function Image({ params }: Props) {
     }
   }
 
-  const GUIDE_LABEL: Record<string, string> = {
+  const GUIDE_LABEL = {
     en: "Comparison Guide",
     es: "Guía de Comparación",
   };
@@ -128,7 +130,7 @@ export default async function Image({ params }: Props) {
               gap: 8,
             }}
           >
-            {`🔍 ${locale === "es" ? GUIDE_LABEL.es : GUIDE_LABEL.en}`}
+            {`🔍 ${getLocalizedText(GUIDE_LABEL, locale as Locale)}`}
           </div>
           {difficultyLabel && (
             <div
