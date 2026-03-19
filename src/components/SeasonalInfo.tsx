@@ -25,9 +25,33 @@ const MONTHS_ORDER: Month[] = [
   "december",
 ];
 
+type MonthToken = Month | "all-year";
+
+function normalizeMonthToken(raw: string): MonthToken | null {
+  // Normalize known non-canonical tokens from content
+  const value = raw === "todo-el-ano" ? "all-year" : raw;
+
+  if (value === "all-year") {
+    return "all-year";
+  }
+
+  if ((MONTHS_ORDER as string[]).includes(value)) {
+    return value as Month;
+  }
+
+  return null;
+}
+
 function getLabel(locale: string, month: string): string {
   const safeLocale = locale === "es" ? "es" : "en";
-  return getSharedMonthLabel(month as Month, safeLocale, "short");
+  const normalized = normalizeMonthToken(month);
+
+  if (!normalized) {
+    return month;
+  }
+
+  const label = getSharedMonthLabel(normalized as Month, safeLocale, "short");
+  return label ?? month;
 }
 
 export function SeasonalInfo({
@@ -45,37 +69,55 @@ export function SeasonalInfo({
   }
 
   const formatSeason = (months: string[]): string => {
-    if (months.includes("all-year")) {
+    // Handle "all year" seasons, including non-canonical tokens
+    if (months.some((month) => normalizeMonthToken(month) === "all-year")) {
       return getLabel(locale, "all-year");
     }
 
     // Sort months by calendar order
+    const getCalendarIndex = (month: string): number => {
+      const normalized = normalizeMonthToken(month);
+
+      if (!normalized || normalized === "all-year") {
+        return Number.POSITIVE_INFINITY;
+      }
+
+      return MONTHS_ORDER.indexOf(normalized as Month);
+    };
+
     const sorted = [...months].sort(
-      (a, b) =>
-        MONTHS_ORDER.indexOf(a as Month) - MONTHS_ORDER.indexOf(b as Month)
+      (a, b) => getCalendarIndex(a) - getCalendarIndex(b)
     );
 
     // Group consecutive months
     const groups: string[][] = [];
     let currentGroup: string[] = [];
-    let previousMonth: string | undefined;
+    let previousMonth: Month | undefined;
 
-    for (const month of sorted) {
+    for (const rawMonth of sorted) {
+      const normalized = normalizeMonthToken(rawMonth);
+
+      // Skip unknown tokens and "all-year" here; they are handled separately
+      if (!normalized || normalized === "all-year") {
+        continue;
+      }
+
       if (
         previousMonth &&
-        MONTHS_ORDER.indexOf(month as Month) -
-          MONTHS_ORDER.indexOf(previousMonth as Month) ===
+        MONTHS_ORDER.indexOf(normalized as Month) -
+          MONTHS_ORDER.indexOf(previousMonth) ===
           1
       ) {
-        currentGroup.push(month);
+        currentGroup.push(normalized);
       } else {
         if (currentGroup.length > 0) {
           groups.push(currentGroup);
         }
-        currentGroup = [month];
+        currentGroup = [normalized];
       }
-      previousMonth = month;
+      previousMonth = normalized as Month;
     }
+
     if (currentGroup.length > 0) {
       groups.push(currentGroup);
     }

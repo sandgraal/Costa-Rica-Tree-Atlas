@@ -209,7 +209,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ---
 
-## P8 — Maintainability & Code Cleanup � PARTIAL
+## P8 — Maintainability & Code Cleanup 🟡 Partial
 
 - [x] Consolidated component-level locale ternaries into shared helpers (overlaps with P2)
 - [x] Removed template-level semantic duplication (nested `<main>` verified clean — overlaps P3)
@@ -220,7 +220,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ---
 
-## P9 — Route-Level Regression Tests � PARTIAL
+## P9 — Route-Level Regression Tests 🟡 Partial
 
 ### Existing test coverage (47 test files)
 
