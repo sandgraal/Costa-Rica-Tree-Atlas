@@ -9,7 +9,6 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 
@@ -30,21 +29,50 @@ function extractClientNamespaces(): string[] {
 }
 
 function extractUseTranslationsNamespaces(): string[] {
-  // Find all useTranslations("namespace") calls in src/
-  const result = execSync(
-    `grep -rn 'useTranslations(' "${ROOT}/src/" --include="*.tsx" --include="*.ts" | grep -v node_modules | grep -v ".test."`,
-    { encoding: "utf-8" }
-  );
-
+  // Find all useTranslations("namespace") calls in src/ using a pure-Node directory walk
+  const srcRoot = path.join(ROOT, "src");
   const namespaces = new Set<string>();
-  for (const line of result.split("\n")) {
-    const match = line.match(/useTranslations\("([^"]+)"\)/);
-    if (match) {
-      // Get the top-level namespace (before any dot)
-      const topLevel = match[1].split(".")[0];
-      namespaces.add(topLevel);
+
+  function walk(dir: string) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const entryPath = path.join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        if (entry.name === "node_modules") {
+          continue;
+        }
+        walk(entryPath);
+        continue;
+      }
+
+      if (!entry.isFile()) {
+        continue;
+      }
+
+      const isTsFile = entry.name.endsWith(".ts") || entry.name.endsWith(".tsx");
+      const isTestFile = entry.name.includes(".test.");
+      if (!isTsFile || isTestFile) {
+        continue;
+      }
+
+      const content = fs.readFileSync(entryPath, "utf-8");
+      const regex = /useTranslations\("([^"]+)"\)/g;
+      let match: RegExpExecArray | null;
+      // Collect all occurrences in the file
+      // eslint-disable-next-line no-cond-assign
+      while ((match = regex.exec(content)) !== null) {
+        const topLevel = match[1].split(".")[0];
+        namespaces.add(topLevel);
+      }
     }
   }
+
+  if (fs.existsSync(srcRoot)) {
+    walk(srcRoot);
+  }
+
   return [...namespaces].sort();
 }
 
