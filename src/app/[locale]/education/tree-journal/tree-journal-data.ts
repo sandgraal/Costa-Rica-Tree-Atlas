@@ -206,101 +206,107 @@ function resolveOptions(
 export function getTreeJournalLessonData(
   locale: string
 ): TreeJournalLessonData {
-  const isEs = locale === "es";
-  const lang: "en" | "es" = isEs ? "es" : "en";
+  const lang: "en" | "es" = locale === "es" ? "es" : "en";
+  const t = (en: string, es: string): string => (lang === "es" ? es : en);
 
   const labels: TreeJournalLabels = {
-    title: isEs ? "Diario del Árbol 🌳" : "Tree Journal 🌳",
-    subtitle: isEs
-      ? "Adopta un árbol y observa cómo cambia durante el año"
-      : "Adopt a tree and watch it change throughout the year",
-    backToEducation: isEs ? "← Volver a Educación" : "← Back to Education",
-    adoptTree: isEs ? "Adoptar un Árbol" : "Adopt a Tree",
-    chooseTree: isEs ? "Elige tu árbol" : "Choose your tree",
-    nickname: isEs ? "Dale un nombre a tu árbol" : "Give your tree a nickname",
-    nicknamePlaceholder: isEs ? "Ej: El Gran Roble" : "E.g. The Great Oak",
-    location: isEs ? "¿Dónde está tu árbol?" : "Where is your tree?",
-    locationPlaceholder: isEs ? "Ej: Patio de la escuela" : "E.g. School yard",
-    startJournal: isEs ? "🌱 Comenzar Diario" : "🌱 Start Journal",
-    myJournal: isEs ? "Mi Diario" : "My Journal",
-    timeline: isEs ? "Línea de Tiempo" : "Timeline",
-    badges: isEs ? "Insignias" : "Badges",
-    newEntry: isEs ? "📝 Nueva Entrada" : "📝 New Entry",
-    searchTrees: isEs ? "Buscar árboles..." : "Search trees...",
-    weather: isEs ? "¿Cómo está el clima?" : "What's the weather like?",
-    leafStatus: isEs ? "Estado de las hojas" : "Leaf Status",
-    flowers: isEs ? "¿Hay flores?" : "Any flowers?",
-    fruits: isEs ? "¿Hay frutos?" : "Any fruits?",
-    wildlife: isEs ? "¿Qué animales viste?" : "What wildlife did you see?",
-    observation: isEs ? "Tu observación" : "Your observation",
-    observationPlaceholder: isEs
-      ? "Escribe lo que observaste hoy..."
-      : "Write what you observed today...",
-    mood: isEs ? "¿Cómo te sientes?" : "How do you feel?",
-    height: isEs ? "Altura estimada (metros)" : "Estimated height (meters)",
-    circumference: isEs
-      ? "Circunferencia del tronco (cm)"
-      : "Trunk circumference (cm)",
-    saveEntry: isEs ? "💾 Guardar Entrada" : "💾 Save Entry",
-    cancel: isEs ? "Cancelar" : "Cancel",
-    adoptedOn: isEs ? "Adoptado el" : "Adopted on",
-    totalEntries: isEs ? "entradas totales" : "total entries",
-    viewDetails: isEs ? "Ver en el Atlas" : "View in Atlas",
-    yes: isEs ? "Sí" : "Yes",
-    no: isEs ? "No" : "No",
-    prompt: isEs ? "💡 Sugerencia del día" : "💡 Today's prompt",
-    unlocked: isEs ? "Desbloqueada" : "Unlocked",
-    locked: isEs ? "Bloqueada" : "Locked",
-    progress: isEs ? "Progreso" : "Progress",
-    congratsNewBadge: isEs
-      ? "¡Nueva insignia desbloqueada!"
-      : "New badge unlocked!",
-    resetJournal: isEs ? "Reiniciar Diario" : "Reset Journal",
-    confirmReset: isEs
-      ? "¿Estás seguro? Esto borrará todos tus datos."
-      : "Are you sure? This will delete all your data.",
-    noEntries: isEs
-      ? "Aún no tienes entradas. ¡Haz tu primera observación!"
-      : "No entries yet. Make your first observation!",
-    seasonalTip: isEs ? "Consejo estacional" : "Seasonal tip",
-    scientificName: isEs ? "Nombre científico" : "Scientific name",
-    family: isEs ? "Familia" : "Family",
-    awesome: isEs ? "¡Genial!" : "Awesome!",
-    timelineMinEntries: isEs
-      ? "Necesitas al menos 2 entradas para ver la línea de tiempo"
-      : "You need at least 2 entries to see the timeline",
-    mostRecent: isEs ? "↑ Más reciente" : "↑ Most recent",
-    dismiss: isEs ? "Cerrar" : "Dismiss",
-    corruptedDataCleared: isEs
-      ? "Se detectaron datos corruptos y fueron eliminados"
-      : "Corrupted data was detected and cleared",
+    title: t("Tree Journal 🌳", "Diario del Árbol 🌳"),
+    subtitle: t(
+      "Adopt a tree and watch it change throughout the year",
+      "Adopta un árbol y observa cómo cambia durante el año"
+    ),
+    backToEducation: t("← Back to Education", "← Volver a Educación"),
+    adoptTree: t("Adopt a Tree", "Adoptar un Árbol"),
+    chooseTree: t("Choose your tree", "Elige tu árbol"),
+    nickname: t("Give your tree a nickname", "Dale un nombre a tu árbol"),
+    nicknamePlaceholder: t("E.g. The Great Oak", "Ej: El Gran Roble"),
+    location: t("Where is your tree?", "¿Dónde está tu árbol?"),
+    locationPlaceholder: t("E.g. School yard", "Ej: Patio de la escuela"),
+    startJournal: t("🌱 Start Journal", "🌱 Comenzar Diario"),
+    myJournal: t("My Journal", "Mi Diario"),
+    timeline: t("Timeline", "Línea de Tiempo"),
+    badges: t("Badges", "Insignias"),
+    newEntry: t("📝 New Entry", "📝 Nueva Entrada"),
+    searchTrees: t("Search trees...", "Buscar árboles..."),
+    weather: t("What's the weather like?", "¿Cómo está el clima?"),
+    leafStatus: t("Leaf Status", "Estado de las hojas"),
+    flowers: t("Any flowers?", "¿Hay flores?"),
+    fruits: t("Any fruits?", "¿Hay frutos?"),
+    wildlife: t("What wildlife did you see?", "¿Qué animales viste?"),
+    observation: t("Your observation", "Tu observación"),
+    observationPlaceholder: t(
+      "Write what you observed today...",
+      "Escribe lo que observaste hoy..."
+    ),
+    mood: t("How do you feel?", "¿Cómo te sientes?"),
+    height: t("Estimated height (meters)", "Altura estimada (metros)"),
+    circumference: t(
+      "Trunk circumference (cm)",
+      "Circunferencia del tronco (cm)"
+    ),
+    saveEntry: t("💾 Save Entry", "💾 Guardar Entrada"),
+    cancel: t("Cancel", "Cancelar"),
+    adoptedOn: t("Adopted on", "Adoptado el"),
+    totalEntries: t("total entries", "entradas totales"),
+    viewDetails: t("View in Atlas", "Ver en el Atlas"),
+    yes: t("Yes", "Sí"),
+    no: t("No", "No"),
+    prompt: t("💡 Today's prompt", "💡 Sugerencia del día"),
+    unlocked: t("Unlocked", "Desbloqueada"),
+    locked: t("Locked", "Bloqueada"),
+    progress: t("Progress", "Progreso"),
+    congratsNewBadge: t("New badge unlocked!", "¡Nueva insignia desbloqueada!"),
+    resetJournal: t("Reset Journal", "Reiniciar Diario"),
+    confirmReset: t(
+      "Are you sure? This will delete all your data.",
+      "¿Estás seguro? Esto borrará todos tus datos."
+    ),
+    noEntries: t(
+      "No entries yet. Make your first observation!",
+      "Aún no tienes entradas. ¡Haz tu primera observación!"
+    ),
+    seasonalTip: t("Seasonal tip", "Consejo estacional"),
+    scientificName: t("Scientific name", "Nombre científico"),
+    family: t("Family", "Familia"),
+    awesome: t("Awesome!", "¡Genial!"),
+    timelineMinEntries: t(
+      "You need at least 2 entries to see the timeline",
+      "Necesitas al menos 2 entradas para ver la línea de tiempo"
+    ),
+    mostRecent: t("↑ Most recent", "↑ Más reciente"),
+    dismiss: t("Dismiss", "Cerrar"),
+    corruptedDataCleared: t(
+      "Corrupted data was detected and cleared",
+      "Se detectaron datos corruptos y fueron eliminados"
+    ),
   };
 
-  const prompts = isEs
-    ? [
-        "Dibuja las hojas de tu árbol. ¿Qué forma tienen?",
-        "Cuenta cuántas ramas principales tiene tu árbol.",
-        "¿Puedes encontrar insectos viviendo en tu árbol?",
-        "Mide la sombra de tu árbol al mediodía.",
-        "Describe el sonido que hace el viento en las hojas.",
-        "¿De qué color es la corteza? ¿Es lisa o rugosa?",
-        "Busca señales de vida animal (nidos, agujeros, huellas).",
-        "¿Tu árbol tiene algún aroma especial?",
-        "Compara tu árbol con uno cercano. ¿En qué se diferencian?",
-        "¿Cómo crees que se verá tu árbol en la próxima estación?",
-      ]
-    : [
-        "Draw your tree's leaves. What shape are they?",
-        "Count how many main branches your tree has.",
-        "Can you find any insects living on your tree?",
-        "Measure your tree's shadow at noon.",
-        "Describe the sound the wind makes in the leaves.",
-        "What color is the bark? Is it smooth or rough?",
-        "Look for signs of animal life (nests, holes, tracks).",
-        "Does your tree have any special smell?",
-        "Compare your tree with a nearby one. How are they different?",
-        "How do you think your tree will look next season?",
-      ];
+  const prompts =
+    lang === "es"
+      ? [
+          "Dibuja las hojas de tu árbol. ¿Qué forma tienen?",
+          "Cuenta cuántas ramas principales tiene tu árbol.",
+          "¿Puedes encontrar insectos viviendo en tu árbol?",
+          "Mide la sombra de tu árbol al mediodía.",
+          "Describe el sonido que hace el viento en las hojas.",
+          "¿De qué color es la corteza? ¿Es lisa o rugosa?",
+          "Busca señales de vida animal (nidos, agujeros, huellas).",
+          "¿Tu árbol tiene algún aroma especial?",
+          "Compara tu árbol con uno cercano. ¿En qué se diferencian?",
+          "¿Cómo crees que se verá tu árbol en la próxima estación?",
+        ]
+      : [
+          "Draw your tree's leaves. What shape are they?",
+          "Count how many main branches your tree has.",
+          "Can you find any insects living on your tree?",
+          "Measure your tree's shadow at noon.",
+          "Describe the sound the wind makes in the leaves.",
+          "What color is the bark? Is it smooth or rough?",
+          "Look for signs of animal life (nests, holes, tracks).",
+          "Does your tree have any special smell?",
+          "Compare your tree with a nearby one. How are they different?",
+          "How do you think your tree will look next season?",
+        ];
 
   return {
     labels,

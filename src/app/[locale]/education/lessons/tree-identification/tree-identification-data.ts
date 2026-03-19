@@ -76,73 +76,77 @@ export interface TreeIdentificationLessonData {
 export function getTreeIdentificationLessonData(
   locale: string
 ): TreeIdentificationLessonData {
-  const isEs = locale === "es";
+  const lang: "en" | "es" = locale === "es" ? "es" : "en";
+  const t = (en: string, es: string): string => (lang === "es" ? es : en);
 
   const labels: TreeIdentificationLabels = {
-    title: isEs
-      ? "Habilidades de Identificación"
-      : "Tree Identification Skills",
-    subtitle: isEs
-      ? "Aprende a reconocer árboles por sus características"
-      : "Learn to recognize trees by their features",
-    backToLessons: isEs ? "← Volver a Lecciones" : "← Back to Lessons",
-    learn: isEs ? "📚 Aprender" : "📚 Learn",
-    quiz: isEs ? "🎯 Quiz" : "🎯 Quiz",
-    match: isEs ? "🃏 Memoria" : "🃏 Memory",
-    learnTitle: isEs ? "Conoce los Árboles" : "Meet the Trees",
-    learnDesc: isEs
-      ? "Explora y aprende las características de cada árbol"
-      : "Explore and learn the features of each tree",
-    quizTitle: isEs ? "Prueba tus Conocimientos" : "Test Your Knowledge",
-    quizDesc: isEs
-      ? "¿Puedes identificar el árbol por su imagen?"
-      : "Can you identify the tree from its image?",
-    matchTitle: isEs ? "Juego de Memoria" : "Memory Game",
-    matchDesc: isEs
-      ? "Encuentra los pares de árboles y sus nombres"
-      : "Match the trees with their names",
-    whichTree: isEs ? "¿Qué árbol es este?" : "Which tree is this?",
-    correct: isEs ? "¡Correcto!" : "Correct!",
-    wrong: isEs ? "¡Inténtalo de nuevo!" : "Try again!",
-    score: isEs ? "Puntuación" : "Score",
-    streak: isEs ? "🔥 Racha" : "🔥 Streak",
-    round: isEs ? "Ronda" : "Round",
-    moves: isEs ? "Movimientos" : "Moves",
-    playAgain: isEs ? "🔄 Jugar de nuevo" : "🔄 Play Again",
-    nextQuestion: isEs ? "Siguiente →" : "Next →",
-    startQuiz: isEs ? "Comenzar Quiz" : "Start Quiz",
-    startMatch: isEs ? "Comenzar Juego" : "Start Game",
-    features: isEs ? "Características" : "Features",
-    family: isEs ? "Familia" : "Family",
-    height: isEs ? "Altura" : "Height",
-    flowering: isEs ? "Floración" : "Flowering",
-    fruiting: isEs ? "Fructificación" : "Fruiting",
-    all: isEs ? "Todos" : "All",
-    treesLearned: isEs ? "Árboles Aprendidos" : "Trees Learned",
-    points: isEs ? "puntos" : "points",
-    congratulations: isEs ? "¡Felicidades!" : "Congratulations!",
-    matchComplete: isEs
-      ? "¡Completaste el juego de memoria!"
-      : "You completed the memory game!",
-    quizComplete: isEs ? "¡Completaste el quiz!" : "You completed the quiz!",
-    perfectScore: isEs ? "¡Puntuación Perfecta!" : "Perfect Score!",
-    greatJob: isEs ? "¡Excelente trabajo!" : "Great job!",
-    keepPracticing: isEs ? "¡Sigue practicando!" : "Keep practicing!",
-    viewDetails: isEs ? "Ver Detalles" : "View Details",
-    close: isEs ? "Cerrar" : "Close",
-    clickToLearn: isEs ? "Clic para aprender" : "Click to learn",
-    nextLesson: isEs ? "Siguiente Lección →" : "Next Lesson →",
-    filterByFamily: isEs ? "Filtrar por familia" : "Filter by family",
-    grades: isEs ? "Grados 4-6" : "Grades 4-6",
-    pairs: isEs ? "Pares" : "Pairs",
-    exit: isEs ? "Salir" : "Exit",
+    title: t("Tree Identification Skills", "Habilidades de Identificación"),
+    subtitle: t(
+      "Learn to recognize trees by their features",
+      "Aprende a reconocer árboles por sus características"
+    ),
+    backToLessons: t("← Back to Lessons", "← Volver a Lecciones"),
+    learn: t("📚 Learn", "📚 Aprender"),
+    quiz: "🎯 Quiz",
+    match: t("🃏 Memory", "🃏 Memoria"),
+    learnTitle: t("Meet the Trees", "Conoce los Árboles"),
+    learnDesc: t(
+      "Explore and learn the features of each tree",
+      "Explora y aprende las características de cada árbol"
+    ),
+    quizTitle: t("Test Your Knowledge", "Prueba tus Conocimientos"),
+    quizDesc: t(
+      "Can you identify the tree from its image?",
+      "¿Puedes identificar el árbol por su imagen?"
+    ),
+    matchTitle: t("Memory Game", "Juego de Memoria"),
+    matchDesc: t(
+      "Match the trees with their names",
+      "Encuentra los pares de árboles y sus nombres"
+    ),
+    whichTree: t("Which tree is this?", "¿Qué árbol es este?"),
+    correct: t("Correct!", "¡Correcto!"),
+    wrong: t("Try again!", "¡Inténtalo de nuevo!"),
+    score: t("Score", "Puntuación"),
+    streak: t("🔥 Streak", "🔥 Racha"),
+    round: t("Round", "Ronda"),
+    moves: t("Moves", "Movimientos"),
+    playAgain: t("🔄 Play Again", "🔄 Jugar de nuevo"),
+    nextQuestion: t("Next →", "Siguiente →"),
+    startQuiz: t("Start Quiz", "Comenzar Quiz"),
+    startMatch: t("Start Game", "Comenzar Juego"),
+    features: t("Features", "Características"),
+    family: t("Family", "Familia"),
+    height: t("Height", "Altura"),
+    flowering: t("Flowering", "Floración"),
+    fruiting: t("Fruiting", "Fructificación"),
+    all: t("All", "Todos"),
+    treesLearned: t("Trees Learned", "Árboles Aprendidos"),
+    points: t("points", "puntos"),
+    congratulations: t("Congratulations!", "¡Felicidades!"),
+    matchComplete: t(
+      "You completed the memory game!",
+      "¡Completaste el juego de memoria!"
+    ),
+    quizComplete: t("You completed the quiz!", "¡Completaste el quiz!"),
+    perfectScore: t("Perfect Score!", "¡Puntuación Perfecta!"),
+    greatJob: t("Great job!", "¡Excelente trabajo!"),
+    keepPracticing: t("Keep practicing!", "¡Sigue practicando!"),
+    viewDetails: t("View Details", "Ver Detalles"),
+    close: t("Close", "Cerrar"),
+    clickToLearn: t("Click to learn", "Clic para aprender"),
+    nextLesson: t("Next Lesson →", "Siguiente Lección →"),
+    filterByFamily: t("Filter by family", "Filtrar por familia"),
+    grades: t("Grades 4-6", "Grados 4-6"),
+    pairs: t("Pairs", "Pares"),
+    exit: t("Exit", "Salir"),
   };
 
   const features: FeatureDef[] = [
     { key: "all", label: labels.all, icon: "🌳" },
     { key: "flowering", label: labels.flowering, icon: "🌸" },
     { key: "fruiting", label: labels.fruiting, icon: "🍎" },
-    { key: "tall", label: isEs ? "Altos (>20m)" : "Tall (>20m)", icon: "📏" },
+    { key: "tall", label: t("Tall (>20m)", "Altos (>20m)"), icon: "📏" },
   ];
 
   return { labels, features };
