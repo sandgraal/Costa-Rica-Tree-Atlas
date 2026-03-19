@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-/* eslint-disable security/detect-object-injection -- month/locale lookups are constrained to known month names and supported locales. */
+
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { allTrees } from "contentlayer/generated";
@@ -8,6 +8,8 @@ import {
   getEventTranslation,
   COSTA_RICA_EVENTS,
 } from "@/lib/costaRicaEvents";
+import { getMonthLabel } from "@/lib/i18n";
+import type { Locale, Month } from "@/types/tree";
 import dynamic from "next/dynamic";
 
 // Lazy load SeasonalCalendar — 953-line client component with interactive calendar grid
@@ -59,7 +61,7 @@ export async function generateMetadata({
           },
         },
         openGraph: {
-          title: `${eventInfo.name} - Costa Rica Tree Atlas`,
+          title: `${eventInfo.name} - ${t("pageTitle")}`,
           description: eventInfo.description,
         },
       };
@@ -68,41 +70,12 @@ export async function generateMetadata({
 
   // If there's a specific month, customize the metadata
   if (month) {
-    const monthNames: Record<string, Record<string, string>> = {
-      en: {
-        january: "January",
-        february: "February",
-        march: "March",
-        april: "April",
-        may: "May",
-        june: "June",
-        july: "July",
-        august: "August",
-        september: "September",
-        october: "October",
-        november: "November",
-        december: "December",
-      },
-      es: {
-        january: "Enero",
-        february: "Febrero",
-        march: "Marzo",
-        april: "Abril",
-        may: "Mayo",
-        june: "Junio",
-        july: "Julio",
-        august: "Agosto",
-        september: "Septiembre",
-        october: "Octubre",
-        november: "Noviembre",
-        december: "Diciembre",
-      },
-    };
-    const monthName = monthNames[locale][month] || month;
+    const resolvedMonthName =
+      getMonthLabel(month as Month, locale as Locale, "full") ?? month;
 
     return {
-      title: `${monthName} - ${t("title")}`,
-      description: t("monthDescription", { monthName }),
+      title: `${resolvedMonthName} - ${t("title")}`,
+      description: t("monthDescription", { monthName: resolvedMonthName }),
       alternates: {
         canonical: `/${locale}/seasonal?month=${month}`,
         languages: {

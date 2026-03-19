@@ -1,6 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { getMonthLabel as getSharedMonthLabel } from "@/lib/i18n";
+import type { Month } from "@/types/tree";
 
 interface SeasonalInfoProps {
   floweringSeason?: string[];
@@ -8,40 +10,7 @@ interface SeasonalInfoProps {
   locale: string;
 }
 
-const MONTH_LABELS: Record<string, Record<string, string>> = {
-  en: {
-    january: "Jan",
-    february: "Feb",
-    march: "Mar",
-    april: "Apr",
-    may: "May",
-    june: "Jun",
-    july: "Jul",
-    august: "Aug",
-    september: "Sep",
-    october: "Oct",
-    november: "Nov",
-    december: "Dec",
-    "all-year": "Year-round",
-  },
-  es: {
-    january: "Ene",
-    february: "Feb",
-    march: "Mar",
-    april: "Abr",
-    may: "May",
-    june: "Jun",
-    july: "Jul",
-    august: "Ago",
-    september: "Sep",
-    october: "Oct",
-    november: "Nov",
-    december: "Dic",
-    "all-year": "Todo el año",
-  },
-};
-
-const MONTHS_ORDER = [
+const MONTHS_ORDER: Month[] = [
   "january",
   "february",
   "march",
@@ -56,41 +25,33 @@ const MONTHS_ORDER = [
   "december",
 ];
 
-function getSeasonLabels(locale: string): Record<string, string> {
-  return locale === "es" ? MONTH_LABELS.es : MONTH_LABELS.en;
+type MonthToken = Month | "all-year";
+
+function normalizeMonthToken(raw: string): MonthToken | null {
+  // Normalize known non-canonical tokens from content
+  const value = raw === "todo-el-ano" ? "all-year" : raw;
+
+  if (value === "all-year") {
+    return "all-year";
+  }
+
+  if ((MONTHS_ORDER as string[]).includes(value)) {
+    return value as Month;
+  }
+
+  return null;
 }
 
-function getMonthLabel(labels: Record<string, string>, month: string): string {
-  switch (month) {
-    case "january":
-      return labels.january;
-    case "february":
-      return labels.february;
-    case "march":
-      return labels.march;
-    case "april":
-      return labels.april;
-    case "may":
-      return labels.may;
-    case "june":
-      return labels.june;
-    case "july":
-      return labels.july;
-    case "august":
-      return labels.august;
-    case "september":
-      return labels.september;
-    case "october":
-      return labels.october;
-    case "november":
-      return labels.november;
-    case "december":
-      return labels.december;
-    case "all-year":
-      return labels["all-year"];
-    default:
-      return month;
+function getLabel(locale: string, month: string): string {
+  const safeLocale = locale === "es" ? "es" : "en";
+  const normalized = normalizeMonthToken(month);
+
+  if (!normalized) {
+    return month;
   }
+
+  const label = getSharedMonthLabel(normalized as Month, safeLocale, "short");
+  return label ?? month;
 }
 
 export function SeasonalInfo({
@@ -99,7 +60,6 @@ export function SeasonalInfo({
   locale,
 }: SeasonalInfoProps) {
   const t = useTranslations("seasonal");
-  const labels = getSeasonLabels(locale);
 
   const hasFlowering = floweringSeason && floweringSeason.length > 0;
   const hasFruiting = fruitingSeason && fruitingSeason.length > 0;
@@ -109,34 +69,55 @@ export function SeasonalInfo({
   }
 
   const formatSeason = (months: string[]): string => {
-    if (months.includes("all-year")) {
-      return getMonthLabel(labels, "all-year");
+    // Handle "all year" seasons, including non-canonical tokens
+    if (months.some((month) => normalizeMonthToken(month) === "all-year")) {
+      return getLabel(locale, "all-year");
     }
 
     // Sort months by calendar order
+    const getCalendarIndex = (month: string): number => {
+      const normalized = normalizeMonthToken(month);
+
+      if (!normalized || normalized === "all-year") {
+        return Number.POSITIVE_INFINITY;
+      }
+
+      return MONTHS_ORDER.indexOf(normalized as Month);
+    };
+
     const sorted = [...months].sort(
-      (a, b) => MONTHS_ORDER.indexOf(a) - MONTHS_ORDER.indexOf(b)
+      (a, b) => getCalendarIndex(a) - getCalendarIndex(b)
     );
 
     // Group consecutive months
     const groups: string[][] = [];
     let currentGroup: string[] = [];
-    let previousMonth: string | undefined;
+    let previousMonth: Month | undefined;
 
-    for (const month of sorted) {
+    for (const rawMonth of sorted) {
+      const normalized = normalizeMonthToken(rawMonth);
+
+      // Skip unknown tokens and "all-year" here; they are handled separately
+      if (!normalized || normalized === "all-year") {
+        continue;
+      }
+
       if (
         previousMonth &&
-        MONTHS_ORDER.indexOf(month) - MONTHS_ORDER.indexOf(previousMonth) === 1
+        MONTHS_ORDER.indexOf(normalized as Month) -
+          MONTHS_ORDER.indexOf(previousMonth) ===
+          1
       ) {
-        currentGroup.push(month);
+        currentGroup.push(normalized);
       } else {
         if (currentGroup.length > 0) {
           groups.push(currentGroup);
         }
-        currentGroup = [month];
+        currentGroup = [normalized];
       }
-      previousMonth = month;
+      previousMonth = normalized as Month;
     }
+
     if (currentGroup.length > 0) {
       groups.push(currentGroup);
     }
@@ -145,10 +126,10 @@ export function SeasonalInfo({
     return groups
       .map((group) => {
         if (group.length === 1) {
-          return getMonthLabel(labels, group[0]);
+          return getLabel(locale, group[0]);
         }
-        return `${getMonthLabel(labels, group[0])}-${getMonthLabel(
-          labels,
+        return `${getLabel(locale, group[0])}-${getLabel(
+          locale,
           group[group.length - 1]
         )}`;
       })
@@ -214,7 +195,7 @@ export function SeasonalInfo({
             return (
               <div key={month} className="flex-1 text-center">
                 <div className="text-[9px] text-muted-foreground mb-1">
-                  {getMonthLabel(labels, month)}
+                  {getLabel(locale, month)}
                 </div>
                 <div className="space-y-0.5">
                   <div

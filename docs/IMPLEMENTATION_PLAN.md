@@ -7,19 +7,19 @@
 
 ## Quick Summary
 
-| Priority | Initiative                                  | Status       |
-| -------- | ------------------------------------------- | ------------ |
-| **P0**   | Build reliability                           | ✅ Done      |
-| **P1**   | Runtime fixes                               | ✅ Done      |
-| **P2**   | EN/ES surface parity                        | 🟡 Partial   |
-| **P3**   | Accessibility (landmarks, headings, labels) | 🔴 Not done  |
-| **P4**   | SEO & metadata                              | 🟡 Partial   |
-| **P5**   | Factual remediation & citations             | 🔴 Not done  |
-| **P6**   | Mobile UX & wayfinding                      | 🔴 Not done  |
-| **P7**   | Performance & PWA                           | 🔴 Regressed |
-| **P8**   | Maintainability & code cleanup              | 🔴 Not done  |
-| **P9**   | Route-level regression tests                | 🔴 Not done  |
-| **P10**  | Indigenous knowledge governance             | 🔴 Not done  |
+| Priority | Initiative                                  | Status      |
+| -------- | ------------------------------------------- | ----------- |
+| **P0**   | Build reliability                           | ✅ Done     |
+| **P1**   | Runtime fixes                               | ✅ Done     |
+| **P2**   | EN/ES surface parity                        | 🟡 Partial  |
+| **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |
+| **P4**   | SEO & metadata                              | 🟡 Partial  |
+| **P5**   | Factual remediation & citations             | 🔴 Not done |
+| **P6**   | Mobile UX & wayfinding                      | 🔴 Not done |
+| **P7**   | Performance & PWA                           | ✅ Done     |
+| **P8**   | Maintainability & code cleanup              | 🟡 Partial  |
+| **P9**   | Route-level regression tests                | 🟡 Partial  |
+| **P10**  | Indigenous knowledge governance             | 🔴 Not done |
 
 **Legend:** ✅ Done — 🟡 Partial — 🔴 Not done / Blocked
 
@@ -55,10 +55,13 @@
 - [x] MDX chrome localized: `INaturalistEmbed`, `ImageCard`, `Reference`, `ReferencesSection`
 - [x] Shared nav controls localized: `MobileNav`, `LanguageSwitcher`, `PrintButton`
 - [x] `ServerMDXContent` receives active locale
+- [x] Consolidated locale ternaries in components/libs into shared `getLocalizedText`, `getDateLocale`, `getMonthLabel` helpers
+- [x] Replaced local `getLocalizedLabel/Value/Name` functions in BiodiversityInfo, ShareCollectionButton, DistributionMap, TreeCard, SeasonalInfo, ExportFavoritesButton, FieldGuidePreview, TreeJournalClient, comparison/index, geo/index, costaRicaEvents, OG/Twitter image routes, EducationProgress
 
 ### 🔴 Remaining
 
-- [ ] **~192 hardcoded `locale === "es"` ternaries** spread across components instead of using translation keys:
+- [ ] **~287 `isEs` ternaries in education data files** (lesson-specific content, intentionally left as-is)
+- [ ] **~21 `locale === "es"` in layout/MDX** (defensive normalization or metadata locale codes — idiomatic):
 
   | Component                   | Count |
   | --------------------------- | ----- |
@@ -82,23 +85,23 @@
 
 ---
 
-## P3 — Accessibility 🔴 NOT DONE
+## P3 — Accessibility ✅ DONE
 
 ### Nested `<main>` landmarks
 
-The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<main id="main-content">`. These pages add a second nested `<main>`, breaking screen-reader landmark navigation:
+The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<main id="main-content">`. All previously-reported nested `<main>` tags have been fixed:
 
-- [ ] `src/app/[locale]/contribute/profile/page.tsx` line 26 — nested `<main>`
-- [ ] `src/app/[locale]/admin/admin-layout-wrapper.tsx` line 20 — nested `<main>`
-- [ ] `src/app/[locale]/admin/contributions/page.tsx` line 32 — nested `<main>`
+- [x] `src/app/[locale]/contribute/profile/page.tsx` — uses `<section>` (verified)
+- [x] `src/app/[locale]/admin/admin-layout-wrapper.tsx` — uses `<div>` (verified)
+- [x] `src/app/[locale]/admin/contributions/page.tsx` — uses `<section>` (verified)
 - [x] `src/app/[locale]/compare/page.tsx` — clean, uses `<section>`/`<div>`
 - [x] `src/app/[locale]/trees/[slug]/page.tsx` — clean, uses `<article>`
+- [x] No page.tsx files contain `<main` tags (verified by regression test)
 
 ### Multiple `h1` per page
 
-- [ ] **174 of 175 tree MDX files** contain `#` (h1-level) headings that render alongside the page template's own h1
-  - Example: `ceiba.mdx` has `# Safety Information`, `# Care & Cultivation`, `# Ceiba` — all render as h1
-  - **Fix needed:** downgrade all MDX top-level headings to `##` (h2) or remap h1→h2 in the MDX component registry
+- [x] MDX component registry remaps `h1` → `h2` in `server-components.tsx` (H1 function renders `<h2>`)
+- [x] Regression test guards the h1→h2 remapping
 
 ### Control labels & ARIA
 
@@ -117,13 +120,15 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Compare page title duplication fixed
 - [x] Footer license link uses precise `ROUTES.license` destination
 - [x] Internal link targets corrected
+- [x] Title-template discipline verified: all 53 pages use `generateMetadata` with plain `title` strings → layout template `%s | {siteTitle}` applies correctly; no `title.absolute`, no manual site suffix in `<title>`
+- [x] Fixed hardcoded "Costa Rica Tree Atlas" in seasonal page `openGraph.title` → now uses `t("pageTitle")`
+- [x] Heading hierarchy fixed — MDX h1→h2 remapping in component registry (see P3)
+- [x] Manifest uses bilingual name/description, `start_url: "/"` (not `/en`)
 
 ### 🔴 Remaining
 
-- [ ] `public/manifest.json` hardcoded to English: `start_url: "/en"`, `lang: "en"`, English-only description
 - [ ] No locale-aware manifest strategy decided or implemented
-- [ ] Verify title-template discipline across all remaining route pages
-- [ ] Heading hierarchy hurts SEO — multiple h1s on tree detail pages (see P3)
+- [ ] 32 pages with `generateMetadata` missing `alternates.languages` (regression guard in place)
 
 ---
 
@@ -180,52 +185,37 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ---
 
-## P7 — Performance & PWA 🔴 REGRESSED
+## P7 — Performance & PWA ✅ DONE
 
 ### ✅ Completed
 
 - [x] `next/image` quality allowlist added to `next.config.ts`
-
-### ❗ Broken — PWA icons missing
-
-**All 8 manifest icon `src` paths point to files that don't exist on disk:**
-
-| Manifest references          | Actual file on disk | Actual dimensions |
-| ---------------------------- | ------------------- | ----------------- |
-| `/icons/icon-68x72.png` ❌   | `icon-72x72.png`    | 68×72             |
-| `/icons/icon-91x96.png` ❌   | `icon-96x96.png`    | 91×96             |
-| `/icons/icon-122x128.png` ❌ | `icon-128x128.png`  | 122×128           |
-| `/icons/icon-137x144.png` ❌ | `icon-137x144.png`  | 137×144           |
-| `/icons/icon-145x152.png` ❌ | `icon-152x152.png`  | 145×152           |
-| `/icons/icon-183x192.png` ❌ | `icon-192x192.png`  | 183×192           |
-| `/icons/icon-367x384.png` ❌ | `icon-384x384.png`  | 367×384           |
-| `/icons/icon-489x512.png` ❌ | `icon-512x512.png`  | 489×512           |
-
-The manifest was updated to use actual pixel dimensions, but the icon files on disk were never renamed. **PWA install cannot resolve any icons.**
+- [x] Manifest icon `src` paths match actual filenames on disk (all 8 icons: 72, 96, 128, 144, 152, 192, 384, 512)
+- [x] Actual icon pixel dimensions match their filenames (verified via `sips`)
+- [x] Manifest uses bilingual name/description and `start_url: "/"`
 
 ### 🔴 Remaining
 
-- [ ] Fix icon filenames to match manifest OR revert manifest to match filenames
-- [ ] Regenerate icons to standard sizes (ideal long-term fix)
-- [ ] Manifest still English-only (see P4)
+- [ ] Locale-aware manifest strategy (design decision needed)
 - [ ] Profile tree detail template rendering on mid-tier mobile devices
 - [ ] Verify lazy-loading and defer secondary modules more aggressively
 
 ---
 
-## P8 — Maintainability & Code Cleanup 🔴 NOT DONE
+## P8 — Maintainability & Code Cleanup 🟡 Partial
 
-- [ ] Consolidate ~192 hardcoded locale ternaries into translation files/helpers (overlaps with P2)
+- [x] Consolidated component-level locale ternaries into shared helpers (overlaps with P2)
+- [x] Removed template-level semantic duplication (nested `<main>` verified clean — overlaps P3)
+- [x] Audited layout namespace ownership — all CLIENT_NAMESPACES are actively used, no unused entries
+- [x] Added bidirectional namespace audit test (missing + unused check)
 - [ ] Introduce shared route-shell primitives for page headers, landmarks, section scaffolding
-- [ ] Remove template-level semantic duplication (nested `<main>` in admin/contribute — overlaps P3)
-- [ ] Audit layout namespace ownership in `src/app/[locale]/layout.tsx` — prune unused client namespaces
 - [ ] Document the optional-dependency adapter pattern for future integrations
 
 ---
 
-## P9 — Route-Level Regression Tests 🔴 NOT DONE
+## P9 — Route-Level Regression Tests 🟡 Partial
 
-### Existing test coverage (34 test files)
+### Existing test coverage (47 test files)
 
 - [x] Content validation tests (2 files)
 - [x] MDX component tests (3 files)
@@ -234,11 +224,16 @@ The manifest was updated to use actual pixel dimensions, but the icon files on d
 - [x] API tests — comparisons, glossary, image upload (3 files)
 - [x] Theme tests (1 file)
 - [x] Image review gate test (1 file)
+- [x] i18n parity test (1 file)
+- [x] Layout namespace audit test (1 file)
+- [x] Route-level regression tests (1 file) — landmarks, content parity, MDX heading remap, metadata alternates
 
 ### Missing test categories
 
+- [x] Route-level semantic checks: no nested `<main>`, MDX h1→h2 guard
+- [x] Content parity checks: EN/ES slug matching for trees + comparisons
+- [x] Metadata alternates regression guard (baseline: 32 pages missing)
 - [ ] Route-level locale surface-parity checks (no English strings on Spanish pages)
-- [ ] Route-level semantic checks (single `<main>`, single `h1`, ordered headings)
 - [ ] Route-level console-cleanliness checks (no runtime errors/warnings)
 - [ ] Automated visual regression for key templates
 - [ ] CI integration for regression suite

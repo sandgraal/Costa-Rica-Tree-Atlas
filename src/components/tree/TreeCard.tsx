@@ -6,6 +6,7 @@ import { useFavorite } from "@/lib/store";
 import {
   TAG_DEFINITIONS,
   getTagLabel,
+  getLocalizedText,
   CONSERVATION_CATEGORIES,
 } from "@/lib/i18n";
 import { SafeImage } from "@/components/SafeImage";
@@ -88,9 +89,7 @@ export function TreeCard({
           {tree.conservationStatus && (
             <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-secondary/90 text-white rounded">
               {conservationDefinition
-                ? locale === "es"
-                  ? conservationDefinition.label.es
-                  : conservationDefinition.label.en
+                ? getLocalizedText(conservationDefinition.label, locale)
                 : tree.conservationStatus}
             </span>
           )}

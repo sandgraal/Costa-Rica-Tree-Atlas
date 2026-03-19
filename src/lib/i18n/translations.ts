@@ -377,11 +377,19 @@ export const UI_LABELS: Record<string, Record<Locale, string>> = {
 // Helper Functions
 // ============================================================================
 
-function getLocalizedText(
+export function getLocalizedText(
   label: Record<Locale, string>,
   locale: Locale
 ): string {
-  return locale === "es" ? label.es : label.en;
+  // eslint-disable-next-line security/detect-object-injection
+  return label[locale] ?? label.en;
+}
+
+/**
+ * Get the Intl-compatible date locale string for the given app locale.
+ */
+export function getDateLocale(locale: Locale): string {
+  return locale === "es" ? "es-CR" : "en-US";
 }
 
 function getMonthFromDictionary(
@@ -499,13 +507,7 @@ export function getMonthLabel(
   format: "short" | "full" = "short"
 ): string {
   const localeDict =
-    format === "short"
-      ? locale === "es"
-        ? MONTH_SHORT.es
-        : MONTH_SHORT.en
-      : locale === "es"
-        ? MONTH_FULL.es
-        : MONTH_FULL.en;
+    format === "short" ? MONTH_SHORT[locale] : MONTH_FULL[locale];
 
   return getMonthFromDictionary(localeDict, month);
 }
@@ -544,25 +546,58 @@ export const IUCN_CATEGORIES: Record<
 );
 
 // Legacy IUCN labels function
+const IUCN_UI: Record<string, Record<Locale, string>> = {
+  conservationStatus: {
+    en: "Conservation Status",
+    es: "Estado de Conservación",
+  },
+  populationTrend: {
+    en: "Population Trend",
+    es: "Tendencia Poblacional",
+  },
+  assessedBy: {
+    en: "Assessed by",
+    es: "Evaluado por",
+  },
+  viewOn: {
+    en: "View on",
+    es: "Ver en",
+  },
+  decreasing: {
+    en: "Decreasing",
+    es: "En disminución",
+  },
+  stable: {
+    en: "Stable",
+    es: "Estable",
+  },
+  increasing: {
+    en: "Increasing",
+    es: "En aumento",
+  },
+  unknown: {
+    en: "Unknown",
+    es: "Desconocida",
+  },
+};
+
 export function getIUCNLabels(locale: string) {
-  const isSpanish = locale === "es";
+  const loc = (locale === "es" ? "es" : "en") as Locale;
 
   return {
-    conservationStatus: isSpanish
-      ? "Estado de Conservación"
-      : "Conservation Status",
-    populationTrend: isSpanish ? "Tendencia Poblacional" : "Population Trend",
-    assessedBy: isSpanish ? "Evaluado por" : "Assessed by",
-    viewOn: isSpanish ? "Ver en" : "View on",
+    conservationStatus: getLocalizedText(IUCN_UI.conservationStatus, loc),
+    populationTrend: getLocalizedText(IUCN_UI.populationTrend, loc),
+    assessedBy: getLocalizedText(IUCN_UI.assessedBy, loc),
+    viewOn: getLocalizedText(IUCN_UI.viewOn, loc),
     iucnRedList: "IUCN Red List",
-    decreasing: isSpanish ? "En disminución" : "Decreasing",
-    stable: isSpanish ? "Estable" : "Stable",
-    increasing: isSpanish ? "En aumento" : "Increasing",
-    unknown: isSpanish ? "Desconocida" : "Unknown",
+    decreasing: getLocalizedText(IUCN_UI.decreasing, loc),
+    stable: getLocalizedText(IUCN_UI.stable, loc),
+    increasing: getLocalizedText(IUCN_UI.increasing, loc),
+    unknown: getLocalizedText(IUCN_UI.unknown, loc),
     categories: Object.fromEntries(
       Object.entries(CONSERVATION_CATEGORIES).map(([key, val]) => [
         key,
-        val.label[isSpanish ? "es" : "en"],
+        val.label[loc],
       ])
     ) as Record<string, string>,
   };

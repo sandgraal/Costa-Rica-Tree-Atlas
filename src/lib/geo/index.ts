@@ -221,12 +221,12 @@ export function getProvinceName(
   locale: Locale = "en"
 ): string {
   const data = getProvinceData(province);
-  return locale === "es" ? data.name.es : data.name.en;
+  return data.name[locale];
 }
 
 export function getRegionName(region: Region, locale: Locale = "en"): string {
   const data = getRegionData(region);
-  return locale === "es" ? data.name.es : data.name.en;
+  return data.name[locale];
 }
 
 export function getDistributionName(

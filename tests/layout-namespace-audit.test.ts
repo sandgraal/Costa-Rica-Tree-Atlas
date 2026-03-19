@@ -51,7 +51,8 @@ function extractUseTranslationsNamespaces(): string[] {
         continue;
       }
 
-      const isTsFile = entry.name.endsWith(".ts") || entry.name.endsWith(".tsx");
+      const isTsFile =
+        entry.name.endsWith(".ts") || entry.name.endsWith(".tsx");
       const isTestFile = entry.name.includes(".test.");
       if (!isTsFile || isTestFile) {
         continue;
@@ -61,7 +62,7 @@ function extractUseTranslationsNamespaces(): string[] {
       const regex = /useTranslations\("([^"]+)"\)/g;
       let match: RegExpExecArray | null;
       // Collect all occurrences in the file
-      // eslint-disable-next-line no-cond-assign
+
       while ((match = regex.exec(content)) !== null) {
         const topLevel = match[1].split(".")[0];
         namespaces.add(topLevel);
@@ -89,5 +90,17 @@ describe("Layout CLIENT_NAMESPACES Audit", () => {
       );
     }
     expect(missing).toEqual([]);
+  });
+
+  it("should not ship unused namespaces in CLIENT_NAMESPACES", () => {
+    const usedSet = new Set(usedNamespaces);
+    const unused = [...clientNamespaces].filter((ns) => !usedSet.has(ns));
+    if (unused.length > 0) {
+      console.log(
+        `CLIENT_NAMESPACES entries with no useTranslations() call in source:\n` +
+          unused.map((ns) => `  - "${ns}"`).join("\n")
+      );
+    }
+    expect(unused).toEqual([]);
   });
 });

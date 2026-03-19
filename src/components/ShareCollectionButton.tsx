@@ -2,19 +2,13 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { getLocalizedText } from "@/lib/i18n";
 import type { DiscoveryCollection } from "@/lib/geo/collections";
 
 interface ShareCollectionButtonProps {
   collection: DiscoveryCollection;
   locale: "en" | "es";
   treeCount?: number;
-}
-
-function getLocalizedValue(
-  value: { en: string; es: string },
-  locale: "en" | "es"
-): string {
-  return locale === "es" ? value.es : value.en;
 }
 
 export function ShareCollectionButton({
@@ -31,8 +25,8 @@ export function ShareCollectionButton({
       ? `${window.location.origin}/${locale}/map/collection/${collection.id}`
       : "";
 
-  const shareText = getLocalizedValue(collection.shareText, locale);
-  const title = getLocalizedValue(collection.title, locale);
+  const shareText = getLocalizedText(collection.shareText, locale);
+  const title = getLocalizedText(collection.title, locale);
 
   const handleShare = async (platform: string) => {
     const encodedUrl = encodeURIComponent(shareUrl);

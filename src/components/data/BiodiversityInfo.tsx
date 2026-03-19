@@ -8,6 +8,7 @@ import {
   CONSERVATION_CATEGORIES,
   POPULATION_TRENDS,
   getConservationLabel,
+  getLocalizedText,
   getUILabel,
 } from "@/lib/i18n";
 import type {
@@ -61,10 +62,6 @@ function getPopulationTrendDefinition(trend: PopulationTrend | undefined) {
   }
 
   return null;
-}
-
-function getLocalizedLabel(value: { en: string; es: string }, locale: Locale) {
-  return locale === "es" ? value.es : value.en;
 }
 
 // ============================================================================
@@ -282,7 +279,7 @@ function ConservationStatus({
               {labels.populationTrend}:
             </span>
             <span className="font-medium">
-              {trendDef.icon} {getLocalizedLabel(trendDef.label, locale)}
+              {trendDef.icon} {getLocalizedText(trendDef.label, locale)}
             </span>
           </div>
         )}
