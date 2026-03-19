@@ -122,16 +122,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Server components use getTranslations() which reads from the server bundle
   // and does NOT need messages in the client-side provider.
   // Client namespaces: all namespaces used by client components via useTranslations().
-  // nav (MobileNav), theme (ThemeToggle), language (LanguageSwitcher),
-  // safety (SafetyBadge), glossary (GlossaryFilters), api (APIDocumentation),
-  // identify (IdentifyClient), contribute (PhotoUploadClient, ContributorProfileClient),
-  // imageVoting (VotingClient), trees (TreeExplorer), search (QuickSearch, SearchSuggestions),
-  // toc (TableOfContents), favorites (FavoriteButton), recentlyViewed (RecentlyViewedList),
-  // keyboardShortcuts (KeyboardShortcuts), rating (TreeRating), reputation (BadgeDisplay,
-  // ContributorProfileClient), education (EducationPage), error (ErrorPage),
-  // comparison (ComparePage), about (AboutPage), fieldTrip, classroom
-  // (Classroom pages), wizard, coloringPages (ColoringPages components),
-  // and seasonal (Seasonal content/components).
+  // Audited 2026-07-16 — every client useTranslations namespace in src/ is listed.
+  // Admin sub-namespaces (admin.login, admin.nav, etc.) are covered by "admin".
+  // Dot-notation sub-namespaces (safety.page, reputation.badges) are covered by parents.
   const CLIENT_NAMESPACES = [
     "nav",
     "theme",
@@ -151,6 +144,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "rating",
     "reputation",
     "education",
+    "educationProgress",
     "error",
     "comparison",
     "about",
@@ -163,6 +157,16 @@ export default async function LocaleLayout({ children, params }: Props) {
     "diagnose",
     "coloringPages",
     "seasonal",
+    "share",
+    "exportGuide",
+    "fieldTrip",
+    "fieldGuide",
+    "treeDetail",
+    "certificate",
+    "conservation",
+    "biodiversity",
+    "map",
+    "admin",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];

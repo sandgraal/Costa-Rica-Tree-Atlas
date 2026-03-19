@@ -355,7 +355,6 @@ export default async function TreePage({ params }: Props) {
                   <PronunciationButton
                     text={tree.scientificName}
                     label={t("pronounce")}
-                    locale={locale}
                   />
                 </div>
 

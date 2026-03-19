@@ -2,7 +2,7 @@
   "name": "Costa Rica Tree Atlas / Atlas de Árboles de Costa Rica",
   "short_name": "CR Trees",
   "description": "Discover the trees of Costa Rica / Descubre los árboles de Costa Rica",
-  "start_url": "/en",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#faf6f0",
   "theme_color": "#2d5a27",
