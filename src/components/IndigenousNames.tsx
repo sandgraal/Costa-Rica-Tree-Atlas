@@ -34,9 +34,6 @@ export async function IndigenousNames({ names }: IndigenousNamesProps) {
         collapse: tocT("hideSection"),
       }}
     >
-      <h3 className="sr-only" id="indigenous-names-heading">
-        {t("heading")}
-      </h3>
       <p className="text-sm text-muted-foreground mb-4">{t("description")}</p>
       <div className="grid gap-3 sm:grid-cols-2">
         {Object.entries(grouped).map(([language, entries]) => (
