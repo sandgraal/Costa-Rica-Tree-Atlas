@@ -24,6 +24,7 @@ import { ContributeCTA } from "@/components/ContributeCTA";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TableOfContents } from "@/components/TableOfContents";
 import { IndigenousNames } from "@/components/IndigenousNames";
+import { getAlternateLocale, getOpenGraphLocale } from "@/lib/i18n";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
 import { getConservationLabel } from "@/lib/i18n/translations";
@@ -32,8 +33,6 @@ import type {
   ConservationCategory,
   IndigenousName,
 } from "@/types/tree";
-
-const OG_LOCALE: Record<string, string> = { en: "en_US", es: "es_CR" };
 
 // Dynamic imports for heavy below-fold components
 // DistributionMap renders static SVG from props, so SSR is beneficial for SEO
@@ -96,7 +95,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const otherLocale = locale === "en" ? "es" : "en";
+  const otherLocale = getAlternateLocale(locale);
   const altTree = allTrees.find(
     (t) => t.locale === otherLocale && t.slug === slug
   );
@@ -115,7 +114,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: tree.title,
       description: tree.description,
       type: "article",
-      locale: OG_LOCALE[locale] || "en_US",
+      locale: getOpenGraphLocale(locale),
     },
     alternates: {
       languages: {
@@ -147,7 +146,7 @@ export default async function TreePage({ params }: Props) {
   const imageSource = resolveImageSource(slug, tree.featuredImage);
 
   // Find alternate language version
-  const otherLocale = locale === "en" ? "es" : "en";
+  const otherLocale = getAlternateLocale(locale);
   const altTree = allTrees.find(
     (tr) => tr.locale === otherLocale && tr.slug === slug
   );

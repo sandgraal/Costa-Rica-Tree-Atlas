@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
+import { normalizeLocale } from "@/lib/i18n";
 import dynamic from "next/dynamic";
 import type { ComparisonTreeSummary, Locale } from "@/types/tree";
 import type { Metadata } from "next";
@@ -135,7 +136,7 @@ function ComparePageClient({
     },
   };
 
-  const safeLocale: Locale = locale === "es" ? "es" : "en";
+  const safeLocale: Locale = normalizeLocale(locale);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -256,7 +257,7 @@ function ComparePageClient({
                       {comparison.confusionRating && (
                         <ConfusionRatingBadge
                           rating={comparison.confusionRating}
-                          locale={locale as Locale}
+                          locale={safeLocale}
                           variant="compact"
                         />
                       )}
@@ -268,7 +269,7 @@ function ComparePageClient({
                               key={tag}
                               tag={tag}
                               variant="muted"
-                              locale={locale as Locale}
+                              locale={safeLocale}
                             />
                           ))}
                     </div>

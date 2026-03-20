@@ -1,7 +1,9 @@
 import { ImageResponse } from "next/og";
 import { allSpeciesComparisons, allTrees } from "contentlayer/generated";
-import { getLocalizedText } from "@/lib/i18n";
-import type { Locale } from "@/types/tree";
+import {
+  getComparisonDifficultyLabel,
+  getComparisonGuideLabel,
+} from "@/lib/comparison-image-text";
 
 export const alt = "Species comparison guide";
 export const size = {
@@ -57,30 +59,11 @@ export default async function Image({ params }: Props) {
       : { title: speciesSlug, scientificName: "" };
   });
 
-  const DIFFICULTY_LABELS: Record<string, Record<string, string>> = {
-    easy: { en: "Easy", es: "Fácil" },
-    moderate: { en: "Moderate", es: "Moderado" },
-    challenging: { en: "Challenging", es: "Desafiante" },
-  };
-  const normalizedLocale = locale === "es" ? "es" : "en";
-
-  let difficultyLabel = "";
-  if (
-    comparison.difficulty &&
-    Object.hasOwn(DIFFICULTY_LABELS, comparison.difficulty)
-  ) {
-    const difficultyLocales = DIFFICULTY_LABELS[comparison.difficulty];
-    if (Object.hasOwn(difficultyLocales, normalizedLocale)) {
-      difficultyLabel = difficultyLocales[normalizedLocale];
-    } else if (Object.hasOwn(difficultyLocales, "en")) {
-      difficultyLabel = difficultyLocales.en;
-    }
-  }
-
-  const GUIDE_LABEL = {
-    en: "Comparison Guide",
-    es: "Guía de Comparación",
-  };
+  const difficultyLabel = getComparisonDifficultyLabel(
+    comparison.difficulty,
+    locale
+  );
+  const guideLabel = getComparisonGuideLabel(locale);
 
   return new ImageResponse(
     <div
@@ -130,7 +113,7 @@ export default async function Image({ params }: Props) {
               gap: 8,
             }}
           >
-            {`🔍 ${getLocalizedText(GUIDE_LABEL, locale as Locale)}`}
+            {`🔍 ${guideLabel}`}
           </div>
           {difficultyLabel && (
             <div

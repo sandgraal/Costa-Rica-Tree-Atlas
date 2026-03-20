@@ -11,6 +11,8 @@
  */
 /* eslint-disable security/detect-object-injection -- locale lookups are constrained to known bilingual keys */
 
+import { normalizeLocale } from "@/lib/i18n";
+
 // ============================================================================
 // Types (re-exported for the client component)
 // ============================================================================
@@ -344,8 +346,14 @@ const MISSIONS_BILINGUAL: BilingualMission[] = [
 export function getScavengerHuntLessonData(
   locale: string
 ): ScavengerHuntLessonData {
-  const lang: "en" | "es" = locale === "es" ? "es" : "en";
-  const t = (en: string, es: string): string => (lang === "es" ? es : en);
+  const lang: "en" | "es" = normalizeLocale(locale);
+  const t = (en: string, es: string): string => {
+    if (lang === "es") {
+      return es;
+    }
+
+    return en;
+  };
 
   const labels: ScavengerHuntLabels = {
     title: t("Scavenger Hunt 🗺️", "Búsqueda del Tesoro 🗺️"),

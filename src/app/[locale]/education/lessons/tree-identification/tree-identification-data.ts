@@ -6,6 +6,8 @@
  * executable JavaScript in the client bundle.
  */
 
+import { normalizeLocale } from "@/lib/i18n";
+
 // ============================================================================
 // Types (re-exported for the client component)
 // ============================================================================
@@ -76,8 +78,14 @@ export interface TreeIdentificationLessonData {
 export function getTreeIdentificationLessonData(
   locale: string
 ): TreeIdentificationLessonData {
-  const lang: "en" | "es" = locale === "es" ? "es" : "en";
-  const t = (en: string, es: string): string => (lang === "es" ? es : en);
+  const lang: "en" | "es" = normalizeLocale(locale);
+  const t = (en: string, es: string): string => {
+    if (lang === "es") {
+      return es;
+    }
+
+    return en;
+  };
 
   const labels: TreeIdentificationLabels = {
     title: t("Tree Identification Skills", "Habilidades de Identificación"),

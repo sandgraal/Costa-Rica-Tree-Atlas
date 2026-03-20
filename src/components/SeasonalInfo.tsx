@@ -1,7 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { getMonthLabel as getSharedMonthLabel } from "@/lib/i18n";
+import {
+  getMonthLabel as getSharedMonthLabel,
+  normalizeLocale,
+} from "@/lib/i18n";
 import type { Month } from "@/types/tree";
 
 interface SeasonalInfoProps {
@@ -43,7 +46,7 @@ function normalizeMonthToken(raw: string): MonthToken | null {
 }
 
 function getLabel(locale: string, month: string): string {
-  const safeLocale = locale === "es" ? "es" : "en";
+  const safeLocale = normalizeLocale(locale);
   const normalized = normalizeMonthToken(month);
 
   if (!normalized) {
