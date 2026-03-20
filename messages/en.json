@@ -219,7 +219,8 @@
     "filtersLoaded": "Saved filters loaded",
     "noSavedFilters": "No saved filters",
     "structuredDataName": "Costa Rica Tree Directory",
-    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees"
+    "structuredDataDescription": "A comprehensive collection of native Costa Rican trees",
+    "viewAllPhotos": "View all {count} photos →"
   },
   "footer": {
     "description": "A privately maintained project dedicated to documenting the trees of Costa Rica.",
@@ -1071,7 +1072,8 @@
       "timber": "Timber & Wood"
     },
     "structuredName": "Costa Rica Tree Glossary",
-    "structuredDescription": "Glossary of {count} botanical terms used in the Costa Rica Tree Atlas."
+    "structuredDescription": "Glossary of {count} botanical terms used in the Costa Rica Tree Atlas.",
+    "clickForDefinition": "Click for full definition →"
   },
   "imageVoting": {
     "title": "Help Improve Tree Images",
@@ -1322,7 +1324,11 @@
     "description": "We encountered an unexpected error. Please try again or return to the homepage.",
     "tryAgain": "Try Again",
     "goHome": "Go Home",
-    "errorId": "Error ID"
+    "errorId": "Error ID",
+    "somethingWentWrong": "Something went wrong",
+    "pageError": "Page Error",
+    "pageErrorDescription": "We encountered an error loading this page",
+    "goBack": "Go Back"
   },
   "recentlyViewed": {
     "title": "Recently Viewed",

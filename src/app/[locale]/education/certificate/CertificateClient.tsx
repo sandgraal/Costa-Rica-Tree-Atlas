@@ -7,6 +7,8 @@ import { Link } from "@i18n/navigation";
 import {
   EducationProgressProvider,
   useEducationProgress,
+  badgeName,
+  badgeDescription,
 } from "@/components/EducationProgress";
 
 export default function CertificateClient() {
@@ -26,11 +28,6 @@ function CertificateContent() {
   const certificateRef = useRef<HTMLDivElement>(null);
   const badges = getBadges();
   const earnedBadges = badges.filter((b) => b.earned);
-
-  const badgeName = (badge: (typeof badges)[number]) =>
-    locale === "es" ? badge.nameEs : badge.name;
-  const badgeDescription = (badge: (typeof badges)[number]) =>
-    locale === "es" ? badge.descriptionEs : badge.description;
 
   const handlePrint = () => {
     window.print();
@@ -132,9 +129,9 @@ function CertificateContent() {
                   <span
                     key={badge.id}
                     className="px-3 py-1 bg-yellow-500/20 rounded-full text-sm flex items-center gap-1"
-                    title={badgeDescription(badge)}
+                    title={badgeDescription(badge, locale)}
                   >
-                    {badge.icon} {badgeName(badge)}
+                    {badge.icon} {badgeName(badge, locale)}
                   </span>
                 ))}
               </div>
@@ -262,7 +259,7 @@ function CertificateContent() {
                   <span
                     key={badge.id}
                     className="text-2xl"
-                    title={badgeName(badge)}
+                    title={badgeName(badge, locale)}
                   >
                     {badge.icon}
                   </span>

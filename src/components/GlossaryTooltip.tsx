@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 
 interface GlossaryTooltipProps {
@@ -26,6 +27,7 @@ export function GlossaryTooltip({
   slug,
   children,
 }: GlossaryTooltipProps) {
+  const t = useTranslations("glossary");
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState<"top" | "bottom">("top");
   const triggerRef = useRef<HTMLAnchorElement>(null);
@@ -118,7 +120,7 @@ export function GlossaryTooltip({
               {truncatedDefinition}
             </p>
             <p className="text-xs text-primary/60 mt-2 italic">
-              Click for full definition →
+              {t("clickForDefinition")}
             </p>
           </div>
         </div>

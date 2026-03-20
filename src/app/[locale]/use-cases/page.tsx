@@ -1,5 +1,7 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@i18n/navigation";
+import { PageShell } from "@/components/PageShell";
+import { PageHeader } from "@/components/PageHeader";
 import type { Metadata } from "next";
 
 type Props = {
@@ -99,74 +101,66 @@ export default async function UseCasesPage({ params }: Props) {
   const viewTreesLabel = t("viewTrees");
 
   return (
-    <div className="py-12 px-4">
-      <div className="container mx-auto max-w-7xl">
-        {/* Header */}
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-dark dark:text-primary-light mb-4">
-            {t("heading")}
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            {t("subtitle")}
-          </p>
-        </header>
+    <PageShell maxWidth="7xl">
+      <PageHeader
+        title={t("heading")}
+        description={t("subtitle")}
+        className="mb-12"
+      />
 
-        {/* Use Case Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {USE_CASES.map((useCase) => (
-            <UseCaseCard
-              key={useCase.id}
-              useCase={useCase}
-              locale={locale}
-              viewTreesLabel={viewTreesLabel}
-            />
-          ))}
-        </div>
-
-        {/* Additional Tools */}
-        <section className="mt-16 pt-12 border-t border-border">
-          <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-6">
-            {t("moreTools")}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link
-              href="/wizard"
-              className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all"
-            >
-              <div className="text-3xl mb-3">🧙</div>
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                {t("wizardTitle")}
-              </h3>
-              <p className="text-sm text-muted-foreground">{t("wizardDesc")}</p>
-            </Link>
-
-            <Link
-              href="/trees"
-              className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all"
-            >
-              <div className="text-3xl mb-3">🔍</div>
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                {t("browseTitle")}
-              </h3>
-              <p className="text-sm text-muted-foreground">{t("browseDesc")}</p>
-            </Link>
-
-            <Link
-              href="/seasonal"
-              className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all"
-            >
-              <div className="text-3xl mb-3">📅</div>
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                {t("calendarTitle")}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {t("calendarDesc")}
-              </p>
-            </Link>
-          </div>
-        </section>
+      {/* Use Case Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {USE_CASES.map((useCase) => (
+          <UseCaseCard
+            key={useCase.id}
+            useCase={useCase}
+            locale={locale}
+            viewTreesLabel={viewTreesLabel}
+          />
+        ))}
       </div>
-    </div>
+
+      {/* Additional Tools */}
+      <section className="mt-16 pt-12 border-t border-border">
+        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-6">
+          {t("moreTools")}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Link
+            href="/wizard"
+            className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all"
+          >
+            <div className="text-3xl mb-3">🧙</div>
+            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+              {t("wizardTitle")}
+            </h3>
+            <p className="text-sm text-muted-foreground">{t("wizardDesc")}</p>
+          </Link>
+
+          <Link
+            href="/trees"
+            className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all"
+          >
+            <div className="text-3xl mb-3">🔍</div>
+            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+              {t("browseTitle")}
+            </h3>
+            <p className="text-sm text-muted-foreground">{t("browseDesc")}</p>
+          </Link>
+
+          <Link
+            href="/seasonal"
+            className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all"
+          >
+            <div className="text-3xl mb-3">📅</div>
+            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+              {t("calendarTitle")}
+            </h3>
+            <p className="text-sm text-muted-foreground">{t("calendarDesc")}</p>
+          </Link>
+        </div>
+      </section>
+    </PageShell>
   );
 }
 

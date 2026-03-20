@@ -146,7 +146,11 @@ export default async function HomePage({ params }: Props) {
         {/* Hero Section — gradient fallback if hero image fails */}
         <section className="relative overflow-hidden pt-16 pb-24 px-4 md:pt-20 md:pb-28 min-h-[600px] md:min-h-[700px] flex items-center bg-gradient-to-br from-primary-dark/80 to-secondary-dark/60">
           {/* Hero Background Image - Guanacaste Tree */}
-          <HeroImage priority fetchPriority="high" />
+          <HeroImage
+            priority
+            fetchPriority="high"
+            locale={locale as "en" | "es"}
+          />
 
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>

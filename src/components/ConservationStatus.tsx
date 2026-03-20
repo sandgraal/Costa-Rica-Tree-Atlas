@@ -165,7 +165,9 @@ export function ConservationStatus({
           </span>
           <div>
             <p className="font-medium text-foreground">{localizedCategory}</p>
-            <p className="text-xs text-muted-foreground">IUCN Red List</p>
+            <p className="text-xs text-muted-foreground">
+              {labels.iucnRedList}
+            </p>
           </div>
         </div>
 

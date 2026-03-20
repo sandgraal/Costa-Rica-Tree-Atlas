@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { SafeImage } from "@/components/SafeImage";
 import { BLUR_DATA_URL } from "@/lib/image";
 import { ComponentErrorBoundary } from "./ComponentErrorBoundary";
@@ -24,6 +25,7 @@ interface TreeGalleryProps {
 }
 
 export function TreeGallery({ images, title }: TreeGalleryProps) {
+  const t = useTranslations("trees");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -91,7 +93,7 @@ export function TreeGallery({ images, title }: TreeGalleryProps) {
               }}
               className="text-sm text-primary hover:text-primary-dark transition-colors"
             >
-              View all {images.length} photos →
+              {t("viewAllPhotos", { count: images.length })}
             </button>
           </div>
         )}
