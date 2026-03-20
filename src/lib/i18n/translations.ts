@@ -419,8 +419,8 @@ export function getLocalizedText(
 /**
  * Get the Intl-compatible date locale string for the given app locale.
  */
-export function getDateLocale(locale: Locale): string {
-  return DATE_LOCALES[locale];
+export function getDateLocale(locale: string | Locale): string {
+  return DATE_LOCALES[normalizeLocale(locale)];
 }
 
 export function getOpenGraphLocale(locale: string | Locale): string {

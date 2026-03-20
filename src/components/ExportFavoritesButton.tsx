@@ -3,7 +3,6 @@
 import { useStore } from "@/lib/store";
 import { useTranslations } from "next-intl";
 import { getDateLocale } from "@/lib/i18n";
-import type { Locale } from "@/types/tree";
 
 /** Minimal tree data needed for the export field guide. */
 export interface ExportableTree {
@@ -201,7 +200,7 @@ export function ExportFavoritesButton({
           )
           .join("")}
         <div class="footer">
-          <p>${labels.generated} costaricatreeatlas.com • ${new Date().toLocaleDateString(getDateLocale(locale as Locale))}</p>
+          <p>${labels.generated} costaricatreeatlas.com • ${new Date().toLocaleDateString(getDateLocale(locale))}</p>
         </div>
       </body>
       </html>
