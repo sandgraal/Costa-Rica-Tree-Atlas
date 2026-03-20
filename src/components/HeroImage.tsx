@@ -1,4 +1,10 @@
 import Image from "next/image";
+import { getLocalizedText, normalizeLocale } from "@/lib/i18n";
+
+const HERO_ALT: Record<"en" | "es", string> = {
+  en: "Guanacaste Tree - National Tree of Costa Rica",
+  es: "Árbol de Guanacaste - Árbol Nacional de Costa Rica",
+};
 
 interface HeroImageProps {
   priority?: boolean;
@@ -19,10 +25,7 @@ export function HeroImage({
   fetchPriority = "high",
   locale = "en",
 }: HeroImageProps) {
-  const alt =
-    locale === "es"
-      ? "Árbol de Guanacaste - Árbol Nacional de Costa Rica"
-      : "Guanacaste Tree - National Tree of Costa Rica";
+  const alt = getLocalizedText(HERO_ALT, normalizeLocale(locale));
   return (
     <picture className="absolute inset-0">
       {/* AVIF for best compression (newest browsers) */}

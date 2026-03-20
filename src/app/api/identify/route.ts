@@ -4,6 +4,7 @@ import { allTrees } from "contentlayer/generated";
 import { rateLimit } from "@/lib/ratelimit";
 import { validateOrigin } from "@/lib/security/csrf";
 import { captureApiError } from "@/lib/error-tracking";
+import { normalizeLocale } from "@/lib/i18n";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -194,7 +195,7 @@ export async function POST(request: NextRequest) {
 
   const file = formData.get("image");
   const requestedLocale = formData.get("locale")?.toString();
-  const locale = requestedLocale === "es" ? "es" : "en";
+  const locale = normalizeLocale(requestedLocale ?? "en");
 
   if (!file || !(file instanceof File)) {
     return NextResponse.json({ error: "Missing image file" }, { status: 400 });

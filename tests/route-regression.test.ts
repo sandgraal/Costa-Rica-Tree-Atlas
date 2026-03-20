@@ -345,11 +345,10 @@ describe("Locale ternary regression guard", () => {
       }
     }
 
-    // Baseline: 34 remaining ternaries after P2 consolidation pass.
-    // These are: t() helper definitions (12), defensive normalizations (16),
-    // consolidated badge helpers (4), and locale-prop-based switches (2).
-    // This test prevents new ternaries from being introduced.
-    const KNOWN_TERNARY_COUNT = 34;
+    // Baseline: 0 locale ternaries remain after the helper consolidation pass.
+    // Normalize locale via shared helpers instead of reintroducing ad-hoc
+    // `locale === "es" ? ... : ...` branches across route/component code.
+    const KNOWN_TERNARY_COUNT = 0;
 
     if (totalCount > KNOWN_TERNARY_COUNT) {
       console.log(

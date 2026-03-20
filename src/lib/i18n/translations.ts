@@ -373,9 +373,40 @@ export const UI_LABELS: Record<string, Record<Locale, string>> = {
   higherRisk: { en: "Higher risk", es: "Mayor riesgo" },
 };
 
+const DATE_LOCALES: Record<Locale, string> = {
+  en: "en-US",
+  es: "es-CR",
+};
+
+const OPEN_GRAPH_LOCALES: Record<Locale, string> = {
+  en: "en_US",
+  es: "es_CR",
+};
+
+const OPEN_GRAPH_ALTERNATE_LOCALES: Record<Locale, string> = {
+  en: "es_CR",
+  es: "en_US",
+};
+
 // ============================================================================
 // Helper Functions
 // ============================================================================
+
+export function normalizeLocale(locale: string | Locale): Locale {
+  if (locale === "es") {
+    return "es";
+  }
+
+  return "en";
+}
+
+export function getAlternateLocale(locale: string | Locale): Locale {
+  if (normalizeLocale(locale) === "es") {
+    return "en";
+  }
+
+  return "es";
+}
 
 export function getLocalizedText(
   label: Record<Locale, string>,
@@ -389,7 +420,15 @@ export function getLocalizedText(
  * Get the Intl-compatible date locale string for the given app locale.
  */
 export function getDateLocale(locale: Locale): string {
-  return locale === "es" ? "es-CR" : "en-US";
+  return DATE_LOCALES[locale];
+}
+
+export function getOpenGraphLocale(locale: string | Locale): string {
+  return OPEN_GRAPH_LOCALES[normalizeLocale(locale)];
+}
+
+export function getAlternateOpenGraphLocale(locale: string | Locale): string {
+  return OPEN_GRAPH_ALTERNATE_LOCALES[normalizeLocale(locale)];
 }
 
 function getMonthFromDictionary(
@@ -586,7 +625,7 @@ const IUCN_UI: Record<string, Record<Locale, string>> = {
 };
 
 export function getIUCNLabels(locale: string) {
-  const loc = (locale === "es" ? "es" : "en") as Locale;
+  const loc = normalizeLocale(locale);
 
   return {
     conservationStatus: getLocalizedText(IUCN_UI.conservationStatus, loc),
