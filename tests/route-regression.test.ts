@@ -383,7 +383,7 @@ describe("Locale selection helper usage", () => {
     const violators: { file: string; count: number }[] = [];
 
     for (const file of sourceFiles) {
-      const rel = path.relative(ROOT, file).replace(/\\/g, "/");
+      const rel = path.relative(ROOT, file).split(path.sep).join("/");
       if (ALLOW_LIST.has(rel)) continue;
 
       const content = fs.readFileSync(file, "utf-8");
