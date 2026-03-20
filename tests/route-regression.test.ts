@@ -318,6 +318,38 @@ describe("Locale surface parity: no hardcoded aria-labels", () => {
     }
     expect(totalCount).toBeLessThanOrEqual(KNOWN_HARDCODED_COUNT);
   });
+
+  it("should not reintroduce hardcoded English favorite button labels in tree cards", () => {
+    const treeComponentsDir = path.join(ROOT, "src/components/tree");
+    const treeComponentFiles = walkFiles(treeComponentsDir, (n) =>
+      n.endsWith(".tsx")
+    );
+    const HARDCODED_FAVORITE_LABELS = /Add to favorites|Remove from favorites/g;
+
+    const violations: { file: string; matches: string[] }[] = [];
+    for (const file of treeComponentFiles) {
+      const content = fs.readFileSync(file, "utf-8");
+      const matches = content.match(HARDCODED_FAVORITE_LABELS);
+
+      if (matches && matches.length > 0) {
+        violations.push({
+          file: path.relative(ROOT, file),
+          matches,
+        });
+      }
+    }
+
+    if (violations.length > 0) {
+      console.log(
+        `Hardcoded English favorite labels found in tree components:\n` +
+          violations
+            .map((v) => `  ${v.file}: ${v.matches.join(", ")}`)
+            .join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -520,6 +552,23 @@ describe("Tree detail mobile wayfinding", () => {
       expect(content).toContain(anchorId);
     }
   });
+
+  it("should keep secondary sections in mobile collapsibles and out of the priority jump-nav", () => {
+    const content = fs.readFileSync(treeDetailFile, "utf-8");
+
+    expect(content).toContain("<MobileCollapsibleSection");
+
+    for (const secondaryId of [
+      'id="uses"',
+      'id="comparison-guides"',
+      'id="related-trees"',
+    ]) {
+      expect(content).toContain(secondaryId);
+    }
+
+    const tertiaryTocLevels = content.match(/tocLevel=\{3\}/g) ?? [];
+    expect(tertiaryTocLevels.length).toBeGreaterThanOrEqual(3);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -543,7 +592,55 @@ describe("Compare page wayfinding", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 13. Console-cleanliness: no stray console.log in page/component source
+// 13. High-traffic Spanish surface parity regressions
+// ---------------------------------------------------------------------------
+
+describe("High-traffic Spanish surface parity", () => {
+  const paritySensitiveFiles = [
+    "src/components/data/BiodiversityInfo.tsx",
+    "src/app/[locale]/compare/[slug]/page.tsx",
+    "src/app/[locale]/compare/[slug]/opengraph-image.tsx",
+    "src/app/[locale]/compare/[slug]/twitter-image.tsx",
+  ];
+
+  it("should not reintroduce known English fallback strings on biodiversity and compare detail surfaces", () => {
+    const HARDCODED_ENGLISH_FALLBACKS = /GBIF Costa Rica|Comparison Not Found/g;
+
+    const violations: { file: string; matches: string[] }[] = [];
+    for (const relPath of paritySensitiveFiles) {
+      const file = path.join(ROOT, relPath);
+      const content = fs.readFileSync(file, "utf-8");
+      const matches = content.match(HARDCODED_ENGLISH_FALLBACKS);
+
+      if (matches && matches.length > 0) {
+        violations.push({ file: relPath, matches });
+      }
+    }
+
+    if (violations.length > 0) {
+      console.log(
+        `Known English fallback strings found on high-traffic surfaces:\n` +
+          violations
+            .map((v) => `  ${v.file}: ${v.matches.join(", ")}`)
+            .join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep the Spanish tree-detail alternate-language label localized", () => {
+    const esMessagesPath = path.join(ROOT, "messages/es.json");
+    const esMessages = JSON.parse(fs.readFileSync(esMessagesPath, "utf-8")) as {
+      treeDetail?: { otherLanguage?: string };
+    };
+
+    expect(esMessages.treeDetail?.otherLanguage).toBe("Inglés");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 14. Console-cleanliness: no stray console.log in page/component source
 // ---------------------------------------------------------------------------
 
 describe("Console cleanliness: no unguarded console.log", () => {

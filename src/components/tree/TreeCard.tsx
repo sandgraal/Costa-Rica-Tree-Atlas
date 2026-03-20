@@ -9,6 +9,7 @@ import {
   getLocalizedText,
   CONSERVATION_CATEGORIES,
 } from "@/lib/i18n";
+import { hasAmbiguousCommonName } from "@/lib/tree-display";
 import { SafeImage } from "@/components/SafeImage";
 import { SafetyIcon } from "@/components/safety";
 import type { LightTree, Locale, TreeTag } from "@/types/tree";
@@ -18,6 +19,7 @@ interface TreeCardProps {
   locale: Locale;
   showFavorite?: boolean;
   priority?: boolean;
+  ambiguousCommonNames?: ReadonlySet<string>;
 }
 
 // ============================================================================
@@ -36,8 +38,17 @@ export function TreeCard({
   locale,
   showFavorite = true,
   priority = false,
+  ambiguousCommonNames,
 }: TreeCardProps) {
+  const t = useTranslations("trees");
+  const favoritesT = useTranslations("favorites");
   const { isFavorite, toggle } = useFavorite(tree.slug);
+  const isAmbiguousTitle = ambiguousCommonNames
+    ? hasAmbiguousCommonName(tree.title, ambiguousCommonNames)
+    : false;
+  const favoriteAriaLabel = isFavorite
+    ? `${favoritesT("removeFromFavorites")}`
+    : `${favoritesT("addToFavorites")}`;
 
   const conservationDefinition = (() => {
     if (!tree.conservationStatus) return null;
@@ -62,7 +73,8 @@ export function TreeCard({
             toggle();
           }}
           className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm hover:scale-110 transition-transform"
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          aria-label={favoriteAriaLabel}
+          title={favoriteAriaLabel}
         >
           <HeartIcon filled={isFavorite} />
         </button>
@@ -108,9 +120,20 @@ export function TreeCard({
 
         {/* Content */}
         <div className="p-4">
-          <h3 className="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-1">
-            {tree.title}
-          </h3>
+          <div className="mb-2 flex items-start gap-2">
+            <h3 className="min-w-0 flex-1 text-lg font-semibold transition-colors group-hover:text-primary line-clamp-1">
+              {tree.title}
+            </h3>
+            {isAmbiguousTitle && (
+              <span
+                className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary"
+                aria-label={`${t("family")}: ${tree.family}`}
+                title={tree.family}
+              >
+                {tree.family}
+              </span>
+            )}
+          </div>
           <p className="text-sm text-foreground/60 italic mb-2 line-clamp-1">
             {tree.scientificName}
           </p>
@@ -249,12 +272,14 @@ interface TreeGridProps {
   trees: LightTree[];
   locale: Locale;
   showFavorites?: boolean;
+  ambiguousCommonNames?: ReadonlySet<string>;
 }
 
 export function TreeGrid({
   trees,
   locale,
   showFavorites = true,
+  ambiguousCommonNames,
 }: TreeGridProps) {
   const t = useTranslations("trees");
   if (trees.length === 0) {
@@ -275,6 +300,7 @@ export function TreeGrid({
       locale={locale}
       showFavorite={showFavorites}
       priority={index < 2} // Only prioritize first 2 for faster LCP
+      ambiguousCommonNames={ambiguousCommonNames}
     />
   );
 

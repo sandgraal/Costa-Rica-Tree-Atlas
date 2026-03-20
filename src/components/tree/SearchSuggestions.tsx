@@ -2,6 +2,7 @@
 
 import { useEffect, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
+import { hasAmbiguousCommonName } from "@/lib/tree-display";
 
 // ============================================================================
 // Types
@@ -20,6 +21,7 @@ interface SearchSuggestionsProps {
   query: string;
   onSelect: (slug: string) => void;
   onHover: (index: number) => void;
+  ambiguousCommonNames?: ReadonlySet<string>;
 }
 
 // ============================================================================
@@ -38,8 +40,10 @@ export function SearchSuggestions({
   query,
   onSelect,
   onHover,
+  ambiguousCommonNames,
 }: SearchSuggestionsProps) {
   const t = useTranslations("search");
+  const treeT = useTranslations("trees");
 
   // Auto-scroll selected item into view (use id to skip header/footer rows)
   useEffect(() => {
@@ -71,35 +75,54 @@ export function SearchSuggestions({
           role="option"
           aria-selected={index === selectedIndex}
         >
-          <button
-            type="button"
-            onClick={() => {
-              onSelect(tree.slug);
-            }}
-            onMouseEnter={() => {
-              onHover(index);
-            }}
-            className={`w-full px-4 py-3 text-left flex items-start gap-3 transition-colors ${
-              index === selectedIndex
-                ? "bg-primary/10 text-foreground"
-                : "text-foreground hover:bg-muted"
-            }`}
-          >
-            <span className="text-lg shrink-0" aria-hidden="true">
-              🌳
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="font-medium truncate">
-                {highlightMatch(tree.title, query)}
-              </div>
-              <div className="text-sm text-muted-foreground italic truncate">
-                {highlightMatch(tree.scientificName, query)}
-              </div>
-              <div className="text-xs text-muted-foreground truncate">
-                {tree.family}
-              </div>
-            </div>
-          </button>
+          {(() => {
+            const isAmbiguousTitle = ambiguousCommonNames
+              ? hasAmbiguousCommonName(tree.title, ambiguousCommonNames)
+              : false;
+
+            return (
+              <button
+                type="button"
+                onClick={() => {
+                  onSelect(tree.slug);
+                }}
+                onMouseEnter={() => {
+                  onHover(index);
+                }}
+                className={`w-full px-4 py-3 text-left flex items-start gap-3 transition-colors ${
+                  index === selectedIndex
+                    ? "bg-primary/10 text-foreground"
+                    : "text-foreground hover:bg-muted"
+                }`}
+              >
+                <span className="text-lg shrink-0" aria-hidden="true">
+                  🌳
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start gap-2">
+                    <div className="min-w-0 flex-1 truncate font-medium">
+                      {highlightMatch(tree.title, query)}
+                    </div>
+                    {isAmbiguousTitle && (
+                      <span
+                        className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary"
+                        aria-label={`${treeT("family")}: ${tree.family}`}
+                        title={tree.family}
+                      >
+                        {tree.family}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm text-muted-foreground italic truncate">
+                    {highlightMatch(tree.scientificName, query)}
+                  </div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    {tree.family}
+                  </div>
+                </div>
+              </button>
+            );
+          })()}
         </li>
       ))}
 

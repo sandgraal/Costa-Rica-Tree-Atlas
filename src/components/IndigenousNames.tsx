@@ -1,5 +1,6 @@
 /* eslint-disable security/detect-object-injection -- language grouping map is local and keyed by content-defined language labels. */
 import { getTranslations } from "next-intl/server";
+import { MobileCollapsibleSection } from "@/components/MobileCollapsibleSection";
 import type { IndigenousName } from "@/types/tree";
 
 interface IndigenousNamesProps {
@@ -8,6 +9,7 @@ interface IndigenousNamesProps {
 
 export async function IndigenousNames({ names }: IndigenousNamesProps) {
   const t = await getTranslations("indigenousNames");
+  const tocT = await getTranslations("toc");
 
   if (!names || names.length === 0) return null;
 
@@ -23,14 +25,18 @@ export async function IndigenousNames({ names }: IndigenousNamesProps) {
   );
 
   return (
-    <section className="mb-12" aria-labelledby="indigenous-names-heading">
-      <h2
-        id="indigenous-names-heading"
-        className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light flex items-center gap-2"
-      >
-        <span aria-hidden="true">🌿</span>
+    <MobileCollapsibleSection
+      id="indigenous-names"
+      title={t("heading")}
+      tocLevel={3}
+      toggleLabels={{
+        expand: tocT("showSection"),
+        collapse: tocT("hideSection"),
+      }}
+    >
+      <h3 className="sr-only" id="indigenous-names-heading">
         {t("heading")}
-      </h2>
+      </h3>
       <p className="text-sm text-muted-foreground mb-4">{t("description")}</p>
       <div className="grid gap-3 sm:grid-cols-2">
         {Object.entries(grouped).map(([language, entries]) => (
@@ -63,6 +69,6 @@ export async function IndigenousNames({ names }: IndigenousNamesProps) {
           </div>
         ))}
       </div>
-    </section>
+    </MobileCollapsibleSection>
   );
 }
