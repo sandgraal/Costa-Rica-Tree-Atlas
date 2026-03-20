@@ -19,7 +19,7 @@ export function FieldGuidePreview({
 }: FieldGuidePreviewProps) {
   const t = useTranslations("fieldGuide");
 
-  const dateLocale = getDateLocale(locale as "en" | "es");
+  const dateLocale = getDateLocale(locale);
 
   const handlePrint = () => {
     window.print();
