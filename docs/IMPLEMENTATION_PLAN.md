@@ -249,7 +249,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Route-level console-cleanliness checks — console.log regression guard (baseline: 5 files)
 - [ ] Automated visual regression for key templates
 - [x] CI integration for regression suite — added to `content-build-tests.yml` workflow
-- [x] Locale ternary count regression guard (baseline: 32)
+- [x] Locale ternary count regression guard (baseline: 34)
 - [x] Route family coverage test (verifies page.tsx exists for all major routes)
 - [x] Education data array-ternary regression guard (prevents re-introducing array-level ternaries)
 
