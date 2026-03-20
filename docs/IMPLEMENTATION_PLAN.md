@@ -7,19 +7,19 @@
 
 ## Quick Summary
 
-| Priority | Initiative                                  | Status      |
+| Priority | Initiative                                  | Status      | Notes                                              |
 | -------- | ------------------------------------------- | ----------- | -------------------------------------------------- |
-| **P0**   | Build reliability                           | ✅ Done     |
-| **P1**   | Runtime fixes                               | ✅ Done     |
+| **P0**   | Build reliability                           | ✅ Done     |                                                    |
+| **P1**   | Runtime fixes                               | ✅ Done     |                                                    |
 | **P2**   | EN/ES surface parity                        | 🟡 Partial  | <!-- localized public component strings PR#TBD --> |
-| **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |
-| **P4**   | SEO & metadata                              | ✅ Done     |
-| **P5**   | Factual remediation & citations             | 🔴 Not done |
-| **P6**   | Mobile UX & wayfinding                      | 🔴 Not done |
-| **P7**   | Performance & PWA                           | ✅ Done     |
-| **P8**   | Maintainability & code cleanup              | 🟡 Partial  |
-| **P9**   | Route-level regression tests                | 🟡 Partial  |
-| **P10**  | Indigenous knowledge governance             | 🔴 Not done |
+| **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |                                                    |
+| **P4**   | SEO & metadata                              | ✅ Done     |                                                    |
+| **P5**   | Factual remediation & citations             | 🔴 Not done |                                                    |
+| **P6**   | Mobile UX & wayfinding                      | 🔴 Not done |                                                    |
+| **P7**   | Performance & PWA                           | ✅ Done     |                                                    |
+| **P8**   | Maintainability & code cleanup              | 🟡 Partial  |                                                    |
+| **P9**   | Route-level regression tests                | 🟡 Partial  |                                                    |
+| **P10**  | Indigenous knowledge governance             | 🔴 Not done |                                                    |
 
 **Legend:** ✅ Done — 🟡 Partial — 🔴 Not done / Blocked
 
@@ -249,7 +249,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Route-level console-cleanliness checks — console.log regression guard (baseline: 5 files)
 - [ ] Automated visual regression for key templates
 - [x] CI integration for regression suite — added to `content-build-tests.yml` workflow
-- [x] Locale ternary count regression guard (baseline: 32)
+- [x] Locale ternary count regression guard (baseline: 34)
 - [x] Route family coverage test (verifies page.tsx exists for all major routes)
 - [x] Education data array-ternary regression guard (prevents re-introducing array-level ternaries)
 

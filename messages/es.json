@@ -220,7 +220,7 @@
     "noSavedFilters": "No hay filtros guardados",
     "structuredDataName": "Directorio de Árboles de Costa Rica",
     "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica",
-    "viewAllPhotos": "Ver todas las {count} fotos →"
+    "viewAllPhotos": "{count, plural, =1 {Ver 1 foto →} other {Ver todas las {count} fotos →}}"
   },
   "footer": {
     "description": "Un proyecto mantenido de forma privada dedicado a documentar los árboles de Costa Rica.",
