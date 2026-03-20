@@ -505,7 +505,9 @@ describe("Tree detail mobile wayfinding", () => {
   it("should keep the mobile TOC and anchor ids for priority sections", () => {
     const content = fs.readFileSync(treeDetailFile, "utf-8");
 
-    expect(content).toContain('<TableOfContents variant="mobile" />');
+    expect(content).toMatch(
+      /<TableOfContents[^>]*\bvariant\s*=\s*["']mobile["'][^>]*\/>/
+    );
 
     for (const anchorId of [
       'id="quick-facts"',
