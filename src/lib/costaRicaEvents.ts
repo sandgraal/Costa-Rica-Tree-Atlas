@@ -1,6 +1,8 @@
 // Costa Rica events and holidays - comprehensive calendar for planning
 // Includes national holidays, environmental events, festivals, tourism seasons, and more
 
+import { normalizeLocale } from "@/lib/i18n";
+
 export interface CostaRicaEvent {
   id: string;
   month: string;
@@ -1694,7 +1696,7 @@ export function getEventTranslation(
   if (!Object.hasOwn(EVENT_TRANSLATIONS, eventId)) return undefined;
   const eventTranslations =
     EVENT_TRANSLATIONS[eventId as keyof typeof EVENT_TRANSLATIONS];
-  const loc = locale === "es" ? "es" : "en";
+  const loc = normalizeLocale(locale);
   return eventTranslations[loc];
 }
 

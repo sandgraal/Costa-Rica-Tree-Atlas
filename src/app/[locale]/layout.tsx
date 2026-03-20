@@ -11,11 +11,27 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { PageErrorBoundary } from "@/components/PageErrorBoundary";
+import {
+  getAlternateOpenGraphLocale,
+  getDateLocale,
+  getLocalizedText,
+  getOpenGraphLocale,
+} from "@/lib/i18n";
 import { THEME_SCRIPT } from "@/lib/theme/theme-script";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import dynamic from "next/dynamic";
 import type { Metadata, Viewport } from "next";
 import type { AbstractIntlMessages } from "next-intl";
+
+const WEBSITE_NAME: Record<Locale, string> = {
+  en: "Costa Rica Tree Atlas",
+  es: "Atlas de Árboles de Costa Rica",
+};
+
+const WEBSITE_DESCRIPTION: Record<Locale, string> = {
+  en: "Open-source bilingual guide to Costa Rican trees",
+  es: "Guía bilingüe de código abierto de los árboles de Costa Rica",
+};
 
 // Lazy load non-critical client components — code-split to reduce initial
 // bundle size. These components are only loaded when the page hydrates.
@@ -82,8 +98,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t.siteTitle,
       description: t.siteDescription,
-      locale: locale === "es" ? "es_CR" : "en_US",
-      alternateLocale: locale === "es" ? "en_US" : "es_CR",
+      locale: getOpenGraphLocale(locale),
+      alternateLocale: getAlternateOpenGraphLocale(locale),
       type: "website",
     },
     twitter: {
@@ -218,15 +234,9 @@ export default async function LocaleLayout({ children, params }: Props) {
                 "@type": "WebSite",
                 "@id": "https://costaricatreeatlas.com/#website",
                 url: "https://costaricatreeatlas.com",
-                name:
-                  locale === "es"
-                    ? "Atlas de Árboles de Costa Rica"
-                    : "Costa Rica Tree Atlas",
-                description:
-                  locale === "es"
-                    ? "Guía bilingüe de código abierto de los árboles de Costa Rica"
-                    : "Open-source bilingual guide to Costa Rican trees",
-                inLanguage: locale === "es" ? "es-CR" : "en-US",
+                name: getLocalizedText(WEBSITE_NAME, locale),
+                description: getLocalizedText(WEBSITE_DESCRIPTION, locale),
+                inLanguage: getDateLocale(locale),
                 potentialAction: {
                   "@type": "SearchAction",
                   target: {

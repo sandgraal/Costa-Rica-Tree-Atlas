@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/lib/image";
+import { normalizeLocale } from "@/lib/i18n";
 import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import type { Locale } from "@/types/tree";
@@ -455,7 +456,7 @@ interface CareCalendarProps {
 
 export function CareCalendar({ locale = "en", items }: CareCalendarProps) {
   const safeItems = asArray(items);
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].mdx;
 
@@ -739,7 +740,7 @@ export function DistributionMap({
   locale = "en",
 }: DistributionMapProps) {
   const items = distribution || countries || [];
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].mdx;
 
@@ -869,7 +870,7 @@ export function INaturalistEmbed({
   observationCount,
   locale = "en",
 }: INaturalistEmbedProps) {
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].mdxChrome;
 
@@ -1585,7 +1586,7 @@ export function PlantingInstructions({
   steps,
 }: PlantingInstructionsProps) {
   const safeSteps = asArray(steps);
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].care;
 
@@ -1638,7 +1639,7 @@ export function MaintenanceTimeline({
   stages,
 }: MaintenanceTimelineProps) {
   const safeStages = asArray(stages);
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].care;
 
@@ -1726,7 +1727,7 @@ export function CommonProblems({
   problems,
 }: CommonProblemsProps) {
   const safeProblems = asArray(problems);
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].care;
 
@@ -2087,7 +2088,7 @@ export function CompareInToolButton({
 
   const speciesParam = speciesList.join(",");
   const href = `/${locale}/compare?species=${encodeURIComponent(speciesParam)}`;
-  const normalizedLocale = locale === "es" ? "es" : "en";
+  const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
   const t = translations[normalizedLocale].mdx;
   const buttonLabel = label || t.compareInteractive;

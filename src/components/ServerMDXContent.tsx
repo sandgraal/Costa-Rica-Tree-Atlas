@@ -38,6 +38,7 @@ import { SideBySideImages } from "@/components/mdx/client/SideBySideImages";
 import { FeatureAnnotation } from "@/components/mdx/client/FeatureAnnotation";
 import { AutoGlossaryLink } from "@/components/AutoGlossaryLink";
 import { TreeGallery } from "@/components/TreeGallery";
+import { normalizeLocale } from "@/lib/i18n";
 import type { Locale } from "@/types/tree";
 
 interface GlossaryTerm {
@@ -125,7 +126,7 @@ export async function ServerMDXContent({
   const isDevelopment = process.env.NODE_ENV === "development";
   // Normalize locale at runtime: the prop is typed as string so callers can
   // pass raw route params without a cast; fall back to "en" defensively.
-  const resolvedLocale: Locale = locale === "es" ? "es" : "en";
+  const resolvedLocale: Locale = normalizeLocale(locale);
 
   // Create locale-aware wrappers for legacy components that need localization
   // These components are imported from server-components and have a locale prop
