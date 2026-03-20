@@ -566,12 +566,13 @@ describe("Console cleanliness: no unguarded console.log", () => {
 
     for (const file of sourceFiles) {
       const rel = path.relative(ROOT, file);
-      if (ALLOW_LIST.has(rel)) continue;
+      const normalizedRel = rel.split(path.sep).join("/");
+      if (ALLOW_LIST.has(normalizedRel)) continue;
 
       const content = fs.readFileSync(file, "utf-8");
       const matches = content.match(CONSOLE_LOG);
       if (matches) {
-        violators.push({ file: rel, count: matches.length });
+        violators.push({ file: normalizedRel, count: matches.length });
       }
     }
 
