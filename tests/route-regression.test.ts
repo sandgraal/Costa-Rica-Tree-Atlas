@@ -383,7 +383,7 @@ describe("Locale selection helper usage", () => {
     const violators: { file: string; count: number }[] = [];
 
     for (const file of sourceFiles) {
-      const rel = path.relative(ROOT, file);
+      const rel = path.relative(ROOT, file).split(path.sep).join("/");
       if (ALLOW_LIST.has(rel)) continue;
 
       const content = fs.readFileSync(file, "utf-8");
@@ -532,11 +532,13 @@ describe("Compare page wayfinding", () => {
   it("should keep the guides/tool switcher and section anchors near the top", () => {
     const content = fs.readFileSync(comparePageFile, "utf-8");
 
-    expect(content).toContain('aria-label={t("comparisonModeSwitcher")}');
-    expect(content).toContain('href="#comparison-guides"');
-    expect(content).toContain('href="#interactive-tool"');
-    expect(content).toContain('id="comparison-guides"');
-    expect(content).toContain('id="interactive-tool"');
+    expect(content).toMatch(
+      /aria-label\s*=\s*\{t\(\s*["']comparisonModeSwitcher["']\s*\)\}/
+    );
+    expect(content).toMatch(/href\s*=\s*["']#comparison-guides["']/);
+    expect(content).toMatch(/href\s*=\s*["']#interactive-tool["']/);
+    expect(content).toMatch(/id\s*=\s*["']comparison-guides["']/);
+    expect(content).toMatch(/id\s*=\s*["']interactive-tool["']/);
   });
 });
 
