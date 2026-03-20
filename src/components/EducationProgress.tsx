@@ -10,7 +10,7 @@ import {
   ReactNode,
 } from "react";
 import { createStorage, educationProgressSchema } from "@/lib/storage";
-import { normalizeLocale } from "@/lib/i18n";
+import { selectLocalizedValue } from "@/lib/i18n";
 import { useTranslations } from "next-intl";
 
 interface LessonProgress {
@@ -43,19 +43,11 @@ export interface Badge {
 }
 
 export function badgeName(badge: Badge, locale: string): string {
-  if (normalizeLocale(locale) === "es") {
-    return badge.nameEs;
-  }
-
-  return badge.name;
+  return selectLocalizedValue(badge.name, badge.nameEs, locale);
 }
 
 export function badgeDescription(badge: Badge, locale: string): string {
-  if (normalizeLocale(locale) === "es") {
-    return badge.descriptionEs;
-  }
-
-  return badge.description;
+  return selectLocalizedValue(badge.description, badge.descriptionEs, locale);
 }
 
 const EducationProgressContext = createContext<

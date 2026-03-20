@@ -389,6 +389,10 @@ export default async function TreePage({ params }: Props) {
                 )}
               </header>
 
+              <div className="mb-8 lg:hidden no-print">
+                <TableOfContents variant="mobile" />
+              </div>
+
               {/* Featured Image */}
               {tree.featuredImage ? (
                 <ImageErrorBoundary>
@@ -412,38 +416,49 @@ export default async function TreePage({ params }: Props) {
               )}
 
               {/* Quick Facts */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                {tree.nativeRegion && (
+              <section
+                id="quick-facts"
+                data-toc={t("quickFacts")}
+                className="mb-12 scroll-mt-32"
+              >
+                <h2 className="text-2xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
+                  {t("quickFacts")}
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {tree.nativeRegion && (
+                    <div className="bg-muted rounded-lg p-4">
+                      <p className="text-sm text-muted-foreground mb-1">
+                        {t("nativeRegion")}
+                      </p>
+                      <p className="font-medium">{tree.nativeRegion}</p>
+                    </div>
+                  )}
+                  {tree.maxHeight && (
+                    <div className="bg-muted rounded-lg p-4">
+                      <p className="text-sm text-muted-foreground mb-1">
+                        {t("maxHeight")}
+                      </p>
+                      <p className="font-medium">{tree.maxHeight}</p>
+                    </div>
+                  )}
                   <div className="bg-muted rounded-lg p-4">
                     <p className="text-sm text-muted-foreground mb-1">
-                      {t("nativeRegion")}
+                      {t("family")}
                     </p>
-                    <p className="font-medium">{tree.nativeRegion}</p>
+                    <p className="font-medium">{tree.family}</p>
                   </div>
-                )}
-                {tree.maxHeight && (
-                  <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground mb-1">
-                      {t("maxHeight")}
-                    </p>
-                    <p className="font-medium">{tree.maxHeight}</p>
-                  </div>
-                )}
-                <div className="bg-muted rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground mb-1">
-                    {t("family")}
-                  </p>
-                  <p className="font-medium">{tree.family}</p>
+                  {localizedConservationStatus && (
+                    <div className="bg-muted rounded-lg p-4">
+                      <p className="text-sm text-muted-foreground mb-1">
+                        {t("conservation")}
+                      </p>
+                      <p className="font-medium">
+                        {localizedConservationStatus}
+                      </p>
+                    </div>
+                  )}
                 </div>
-                {localizedConservationStatus && (
-                  <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground mb-1">
-                      {t("conservation")}
-                    </p>
-                    <p className="font-medium">{localizedConservationStatus}</p>
-                  </div>
-                )}
-              </div>
+              </section>
 
               {/* Indigenous Names */}
               <IndigenousNames
@@ -456,7 +471,11 @@ export default async function TreePage({ params }: Props) {
 
               {/* Uses */}
               {tree.uses && tree.uses.length > 0 && (
-                <div className="mb-12">
+                <section
+                  id="uses"
+                  data-toc={t("uses")}
+                  className="mb-12 scroll-mt-32"
+                >
                   <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
                     {t("uses")}
                   </h2>
@@ -470,46 +489,79 @@ export default async function TreePage({ params }: Props) {
                       </span>
                     ))}
                   </div>
-                </div>
+                </section>
               )}
 
+              {/* Safety Information */}
+              <section
+                id="safety"
+                data-toc={t("safety")}
+                className="mb-12 scroll-mt-32"
+              >
+                <SafetyCard tree={tree} />
+              </section>
+
               {/* Distribution Map */}
-              <DistributionMap
-                distribution={tree.distribution}
-                elevation={tree.elevation}
-                locale={locale}
-              />
+              <section
+                id="distribution"
+                data-toc={t("distribution")}
+                className="mb-12 scroll-mt-32"
+              >
+                <DistributionMap
+                  distribution={tree.distribution}
+                  elevation={tree.elevation}
+                  locale={locale}
+                />
+              </section>
 
               {/* Seasonal Information */}
-              <SeasonalInfo
-                floweringSeason={tree.floweringSeason}
-                fruitingSeason={tree.fruitingSeason}
-                locale={locale}
-              />
-
-              {/* Safety Information */}
-              <SafetyCard tree={tree} className="mb-12" />
+              <section
+                id="seasonal-information"
+                data-toc={t("seasonalInformation")}
+                className="mb-12 scroll-mt-32"
+              >
+                <SeasonalInfo
+                  floweringSeason={tree.floweringSeason}
+                  fruitingSeason={tree.fruitingSeason}
+                  locale={locale}
+                />
+              </section>
 
               {/* Biodiversity Data from GBIF and iNaturalist */}
-              <BiodiversityInfo
-                scientificName={tree.scientificName}
-                locale={locale}
-              />
+              <section
+                id="biodiversity"
+                data-toc={t("biodiversity")}
+                className="scroll-mt-32"
+              >
+                <BiodiversityInfo
+                  scientificName={tree.scientificName}
+                  locale={locale}
+                />
+              </section>
 
               {/* MDX Content */}
-              <div className="tree-content max-w-none">
-                <ServerMDXContent
-                  source={tree.body.raw}
-                  locale={locale}
-                  glossaryTerms={allGlossaryTerms.map((gt) => ({
-                    term: gt.term,
-                    slug: gt.slug,
-                    locale: gt.locale,
-                    simpleDefinition: gt.simpleDefinition,
-                  }))}
-                  enableGlossaryLinks={true}
-                />
-              </div>
+              <section
+                id="how-to-identify"
+                data-toc={t("howToIdentify")}
+                className="mb-12 scroll-mt-32"
+              >
+                <h2 className="text-2xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
+                  {t("howToIdentify")}
+                </h2>
+                <div className="tree-content max-w-none">
+                  <ServerMDXContent
+                    source={tree.body.raw}
+                    locale={locale}
+                    glossaryTerms={allGlossaryTerms.map((gt) => ({
+                      term: gt.term,
+                      slug: gt.slug,
+                      locale: gt.locale,
+                      simpleDefinition: gt.simpleDefinition,
+                    }))}
+                    enableGlossaryLinks={true}
+                  />
+                </div>
+              </section>
 
               {/* Safety Disclaimer */}
               <SafetyDisclaimer />
@@ -665,7 +717,11 @@ function RelatedTrees({
   if (relatedTrees.length === 0) return null;
 
   return (
-    <div className="mt-12 pt-8 border-t border-border no-print">
+    <section
+      id="related-trees"
+      data-toc={labels.relatedTrees}
+      className="mt-12 pt-8 border-t border-border no-print scroll-mt-32"
+    >
       <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
         {labels.relatedTrees}
       </h2>
@@ -713,7 +769,7 @@ function RelatedTrees({
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -734,7 +790,11 @@ function ComparisonLinks({
   if (relevantComparisons.length === 0) return null;
 
   return (
-    <div className="mt-12 pt-8 border-t border-border no-print">
+    <section
+      id="comparison-guides"
+      data-toc={labels.comparisonGuides}
+      className="mt-12 pt-8 border-t border-border no-print scroll-mt-32"
+    >
       <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
         {labels.comparisonGuides}
       </h2>
@@ -807,6 +867,6 @@ function ComparisonLinks({
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

@@ -11,9 +11,12 @@
  * 5. Translation message key parity between EN and ES
  * 6. No hardcoded English aria-labels in components
  * 7. Locale ternary count regression guard
- * 8. Route family coverage
- * 9. Education data files use t() helper (no array-level ternaries)
- * 10. No unguarded console.log in page/component source (console-cleanliness)
+ * 8. No ad-hoc locale selection branches outside shared i18n helpers
+ * 9. Route family coverage
+ * 10. Education data files use t() helper (no array-level ternaries)
+ * 11. Tree detail mobile wayfinding anchors remain present
+ * 12. Compare page keeps guides/tool switcher anchors
+ * 13. No unguarded console.log in page/component source (console-cleanliness)
  */
 
 import { describe, it, expect } from "vitest";
@@ -361,7 +364,52 @@ describe("Locale ternary regression guard", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 8. Route family coverage
+// 8. Locale selection helper usage
+// ---------------------------------------------------------------------------
+
+describe("Locale selection helper usage", () => {
+  const srcDir = path.join(ROOT, "src");
+  const sourceFiles = walkFiles(
+    srcDir,
+    (n) => n.endsWith(".ts") || n.endsWith(".tsx")
+  );
+  const ALLOW_LIST = new Set(["src/lib/i18n/translations.ts"]);
+
+  it("should not contain ad-hoc locale selection branches outside shared helpers", () => {
+    const STARTS_WITH_ES = /\b(?:locale|lang)\.startsWith\(\s*["']es["']\s*\)/g;
+    const RETURN_BRANCH =
+      /if\s*\(\s*(?:lang|locale|normalizeLocale\(locale\))\s*===\s*["']es["']\s*\)\s*\{\s*return\s+/g;
+
+    const violators: { file: string; count: number }[] = [];
+
+    for (const file of sourceFiles) {
+      const rel = path.relative(ROOT, file);
+      if (ALLOW_LIST.has(rel)) continue;
+
+      const content = fs.readFileSync(file, "utf-8");
+      const count = [STARTS_WITH_ES, RETURN_BRANCH].reduce(
+        (sum, pattern) => sum + (content.match(pattern)?.length ?? 0),
+        0
+      );
+
+      if (count > 0) {
+        violators.push({ file: rel, count });
+      }
+    }
+
+    if (violators.length > 0) {
+      console.log(
+        `Files with ad-hoc locale selection branches (use shared i18n helpers instead):\n` +
+          violators.map((v) => `  ${v.file}: ${v.count} matches`).join("\n")
+      );
+    }
+
+    expect(violators).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 9. Route family coverage
 // ---------------------------------------------------------------------------
 
 describe("Route family coverage", () => {
@@ -402,7 +450,7 @@ describe("Route family coverage", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 9. Education data files use t() helper (no array-level ternaries)
+// 10. Education data files use t() helper (no array-level ternaries)
 // ---------------------------------------------------------------------------
 
 describe("Education data: no array-level locale ternaries", () => {
@@ -445,7 +493,55 @@ describe("Education data: no array-level locale ternaries", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 10. Console-cleanliness: no stray console.log in page/component source
+// 11. Tree detail mobile wayfinding anchors
+// ---------------------------------------------------------------------------
+
+describe("Tree detail mobile wayfinding", () => {
+  const treeDetailFile = path.join(
+    ROOT,
+    "src/app/[locale]/trees/[slug]/page.tsx"
+  );
+
+  it("should keep the mobile TOC and anchor ids for priority sections", () => {
+    const content = fs.readFileSync(treeDetailFile, "utf-8");
+
+    expect(content).toMatch(
+      /<TableOfContents[^>]*\bvariant\s*=\s*["']mobile["'][^>]*\/>/
+    );
+
+    for (const anchorId of [
+      'id="quick-facts"',
+      'id="safety"',
+      'id="distribution"',
+      'id="seasonal-information"',
+      'id="biodiversity"',
+      'id="how-to-identify"',
+    ]) {
+      expect(content).toContain(anchorId);
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 12. Compare page guides/tool switcher
+// ---------------------------------------------------------------------------
+
+describe("Compare page wayfinding", () => {
+  const comparePageFile = path.join(ROOT, "src/app/[locale]/compare/page.tsx");
+
+  it("should keep the guides/tool switcher and section anchors near the top", () => {
+    const content = fs.readFileSync(comparePageFile, "utf-8");
+
+    expect(content).toContain('aria-label={t("comparisonModeSwitcher")}');
+    expect(content).toContain('href="#comparison-guides"');
+    expect(content).toContain('href="#interactive-tool"');
+    expect(content).toContain('id="comparison-guides"');
+    expect(content).toContain('id="interactive-tool"');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 13. Console-cleanliness: no stray console.log in page/component source
 // ---------------------------------------------------------------------------
 
 describe("Console cleanliness: no unguarded console.log", () => {

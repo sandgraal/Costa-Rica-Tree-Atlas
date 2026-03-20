@@ -408,6 +408,14 @@ export function getAlternateLocale(locale: string | Locale): Locale {
   return "es";
 }
 
+export function selectLocalizedValue<T>(
+  en: T,
+  es: T,
+  locale: string | Locale
+): T {
+  return normalizeLocale(locale) === "es" ? es : en;
+}
+
 export function getLocalizedText(
   label: Record<Locale, string>,
   locale: Locale

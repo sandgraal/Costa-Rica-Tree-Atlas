@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { normalizeLocale } from "@/lib/i18n";
 import { useLocale, useTranslations } from "next-intl";
 
 const SHARE_MESSAGES = {
@@ -29,7 +30,7 @@ export function ShareButton({
   const [showCopied, setShowCopied] = useState(false);
   const locale = useLocale();
   const t = useTranslations("share");
-  const language = locale.startsWith("es") ? "es" : "en";
+  const language = normalizeLocale(locale);
   const messages = SHARE_MESSAGES[language];
   const rawPath = path ?? (slug ? `/trees/${slug}` : "");
   const sharePath =

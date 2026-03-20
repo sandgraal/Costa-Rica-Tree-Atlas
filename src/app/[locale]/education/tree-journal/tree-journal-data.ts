@@ -7,7 +7,7 @@
  */
 /* eslint-disable security/detect-object-injection -- locale/lang lookups are constrained to known bilingual keys. */
 
-import { normalizeLocale } from "@/lib/i18n";
+import { normalizeLocale, selectLocalizedValue } from "@/lib/i18n";
 
 // ============================================================================
 // Types (re-exported for the client component)
@@ -209,13 +209,8 @@ export function getTreeJournalLessonData(
   locale: string
 ): TreeJournalLessonData {
   const lang: "en" | "es" = normalizeLocale(locale);
-  const t = (en: string, es: string): string => {
-    if (lang === "es") {
-      return es;
-    }
-
-    return en;
-  };
+  const t = (en: string, es: string): string =>
+    selectLocalizedValue(en, es, lang);
 
   const labels: TreeJournalLabels = {
     title: t("Tree Journal 🌳", "Diario del Árbol 🌳"),
