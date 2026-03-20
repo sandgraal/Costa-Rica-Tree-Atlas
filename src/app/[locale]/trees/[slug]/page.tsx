@@ -22,6 +22,7 @@ import { SafetyCard } from "@/components/safety";
 import { SafetyDisclaimer } from "@/components/safety/SafetyDisclaimer";
 import { ContributeCTA } from "@/components/ContributeCTA";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { MobileCollapsibleSection } from "@/components/MobileCollapsibleSection";
 import { TableOfContents } from "@/components/TableOfContents";
 import { IndigenousNames } from "@/components/IndigenousNames";
 import { getAlternateLocale, getOpenGraphLocale } from "@/lib/i18n";
@@ -135,6 +136,7 @@ export default async function TreePage({ params }: Props) {
 
   const t = await getTranslations("treeDetail");
   const navT = await getTranslations("nav");
+  const tocT = await getTranslations("toc");
 
   const tree = allTrees.find((t2) => t2.locale === locale && t2.slug === slug);
 
@@ -153,6 +155,10 @@ export default async function TreePage({ params }: Props) {
 
   const baseUrl = "https://costaricatreeatlas.com";
   const pageUrl = `${baseUrl}/${locale}/trees/${slug}`;
+  const secondaryToggleLabels = {
+    expand: tocT("showSection"),
+    collapse: tocT("hideSection"),
+  };
   let localizedConservationStatus: string | null = null;
   if (tree.conservationStatus) {
     const rawStatus = tree.conservationStatus;
@@ -471,14 +477,12 @@ export default async function TreePage({ params }: Props) {
 
               {/* Uses */}
               {tree.uses && tree.uses.length > 0 && (
-                <section
+                <MobileCollapsibleSection
                   id="uses"
-                  data-toc={t("uses")}
-                  className="mb-12 scroll-mt-32"
+                  title={t("uses")}
+                  tocLevel={3}
+                  toggleLabels={secondaryToggleLabels}
                 >
-                  <h2 className="text-xl font-semibold mb-4 text-primary-dark dark:text-primary-light">
-                    {t("uses")}
-                  </h2>
                   <div className="flex flex-wrap gap-2">
                     {tree.uses.map((use, index) => (
                       <span
@@ -489,7 +493,7 @@ export default async function TreePage({ params }: Props) {
                       </span>
                     ))}
                   </div>
-                </section>
+                </MobileCollapsibleSection>
               )}
 
               {/* Safety Information */}
@@ -581,6 +585,7 @@ export default async function TreePage({ params }: Props) {
                   compareWith: t("compareWith"),
                   readGuide: t("readGuide"),
                 }}
+                toggleLabels={secondaryToggleLabels}
               />
 
               {/* Related Trees */}
@@ -591,6 +596,7 @@ export default async function TreePage({ params }: Props) {
                   relatedTrees: t("relatedTrees"),
                   sameFamily: t("sameFamily"),
                 }}
+                toggleLabels={secondaryToggleLabels}
               />
             </div>
 
@@ -665,10 +671,12 @@ function RelatedTrees({
   currentTree,
   locale,
   labels,
+  toggleLabels,
 }: {
   currentTree: (typeof allTrees)[0];
   locale: Locale;
   labels: { relatedTrees: string; sameFamily: string };
+  toggleLabels: { expand: string; collapse: string };
 }) {
   // Find related trees from same family or with similar tags
   const localeTrees = allTrees.filter(
@@ -717,14 +725,13 @@ function RelatedTrees({
   if (relatedTrees.length === 0) return null;
 
   return (
-    <section
+    <MobileCollapsibleSection
       id="related-trees"
-      data-toc={labels.relatedTrees}
-      className="mt-12 pt-8 border-t border-border no-print scroll-mt-32"
+      title={labels.relatedTrees}
+      tocLevel={3}
+      toggleLabels={toggleLabels}
+      className="mt-12 border-t border-border pt-8 no-print"
     >
-      <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
-        {labels.relatedTrees}
-      </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {relatedTrees.map((tree) => {
           const relatedImageSource = resolveImageSource(
@@ -769,7 +776,7 @@ function RelatedTrees({
           );
         })}
       </div>
-    </section>
+    </MobileCollapsibleSection>
   );
 }
 
@@ -777,10 +784,12 @@ function ComparisonLinks({
   currentTree,
   locale,
   labels,
+  toggleLabels,
 }: {
   currentTree: (typeof allTrees)[0];
   locale: Locale;
   labels: { comparisonGuides: string; compareWith: string; readGuide: string };
+  toggleLabels: { expand: string; collapse: string };
 }) {
   // Find comparisons that include this tree
   const relevantComparisons = allSpeciesComparisons.filter(
@@ -790,14 +799,13 @@ function ComparisonLinks({
   if (relevantComparisons.length === 0) return null;
 
   return (
-    <section
+    <MobileCollapsibleSection
       id="comparison-guides"
-      data-toc={labels.comparisonGuides}
-      className="mt-12 pt-8 border-t border-border no-print scroll-mt-32"
+      title={labels.comparisonGuides}
+      tocLevel={3}
+      toggleLabels={toggleLabels}
+      className="mt-12 border-t border-border pt-8 no-print"
     >
-      <h2 className="text-xl font-semibold mb-6 text-primary-dark dark:text-primary-light">
-        {labels.comparisonGuides}
-      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {relevantComparisons.map((comparison) => {
           // Get the other species in the comparison
@@ -867,6 +875,6 @@ function ComparisonLinks({
           );
         })}
       </div>
-    </section>
+    </MobileCollapsibleSection>
   );
 }

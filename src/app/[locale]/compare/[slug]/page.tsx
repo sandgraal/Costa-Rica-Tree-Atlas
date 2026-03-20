@@ -13,8 +13,7 @@ import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBad
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
 import { getSpeciesImageUrl } from "@/lib/comparison";
 import { buildCompareToolHref } from "@/lib/query-contracts";
-
-const OG_LOCALE: Record<string, string> = { en: "en_US", es: "es_CR" };
+import { getOpenGraphLocale } from "@/lib/i18n";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -35,13 +34,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "comparison" });
   const comparison = allSpeciesComparisons.find(
     (c) => c.locale === locale && c.slug === slug
   );
 
   if (!comparison) {
     return {
-      title: "Comparison Not Found",
+      title: t("notFound"),
     };
   }
 
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: comparison.title,
       description: comparison.description,
       type: "article",
-      locale: OG_LOCALE[locale] || "en_US",
+      locale: getOpenGraphLocale(locale),
     },
     alternates: {
       languages: {

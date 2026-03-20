@@ -4,6 +4,10 @@ import { SafeJsonLd } from "@/components/SafeJsonLd";
 import { Link } from "@i18n/navigation";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+import {
+  getAmbiguousCommonNameSet,
+  hasAmbiguousCommonName,
+} from "@/lib/tree-display";
 
 // Lazy load TreeExplorer — 685-line client component with search, filters, and grid
 const TreeExplorer = dynamic(
@@ -68,6 +72,7 @@ export default async function TreesPage({ params }: Props) {
   // These fields contain the full MDX source (~30 MB total) which TreeExplorer
   // never reads — removing them shrinks the RSC payload dramatically.
   const trees = fullTrees.map(({ body: _body, _raw, ...rest }) => rest);
+  const ambiguousCommonNames = getAmbiguousCommonNameSet(trees);
 
   // Generate ItemList structured data for SEO
   const structuredData = {
@@ -103,6 +108,11 @@ export default async function TreesPage({ params }: Props) {
                   className="block p-4 border rounded-lg hover:bg-muted"
                 >
                   <strong>{tree.title}</strong>
+                  {hasAmbiguousCommonName(tree.title, ambiguousCommonNames) && (
+                    <span className="text-xs text-muted-foreground">
+                      {` — ${t("family")}: ${tree.family}`}
+                    </span>
+                  )}
                   <br />
                   <em className="text-sm text-muted-foreground">
                     {tree.scientificName}

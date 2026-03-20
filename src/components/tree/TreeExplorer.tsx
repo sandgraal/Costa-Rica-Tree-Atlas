@@ -26,6 +26,10 @@ import {
 } from "@/lib/i18n";
 import { isProvince } from "@/lib/geo";
 import { useStore } from "@/lib/store";
+import {
+  getAmbiguousCommonNameSet,
+  hasAmbiguousCommonName,
+} from "@/lib/tree-display";
 import { getSearchSessionId } from "@/lib/analytics/search-session";
 import { TreeGrid } from "./TreeCard";
 import { SearchSuggestions } from "./SearchSuggestions";
@@ -291,6 +295,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
       useCategories: allFacets.useCategories,
     };
   }, [allFacets]);
+
+  const ambiguousCommonNames = useMemo(
+    () => getAmbiguousCommonNameSet(trees),
+    [trees]
+  );
 
   // Lazy-load Fuse.js and perform search asynchronously
   useEffect(() => {
@@ -708,6 +717,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
               query={searchQuery}
               onSelect={handleSuggestionSelect}
               onHover={handleSuggestionHover}
+              ambiguousCommonNames={ambiguousCommonNames}
             />
           )}
         </div>
@@ -1100,12 +1110,14 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
           <AlphabeticalIndex
             trees={filteredTrees as unknown as LightTree[]}
             locale={locale}
+            ambiguousCommonNames={ambiguousCommonNames}
           />
         ) : (
           <>
             <TreeGrid
               trees={visibleTrees as unknown as LightTree[]}
               locale={locale}
+              ambiguousCommonNames={ambiguousCommonNames}
             />
             {/* Load More button */}
             {hasMore && (
@@ -1138,9 +1150,11 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
 function AlphabeticalIndex({
   trees,
   locale,
+  ambiguousCommonNames,
 }: {
   trees: LightTree[];
   locale: Locale;
+  ambiguousCommonNames: ReadonlySet<string>;
 }) {
   const t = useTranslations("trees");
   const grouped = useMemo(() => {
@@ -1207,7 +1221,23 @@ function AlphabeticalIndex({
                     className="flex items-center gap-3 p-3 rounded-lg border border-border hover:border-primary/30 hover:bg-muted/50 transition-colors"
                   >
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{tree.title}</p>
+                      <div className="flex items-start gap-2">
+                        <p className="min-w-0 flex-1 truncate font-medium">
+                          {tree.title}
+                        </p>
+                        {hasAmbiguousCommonName(
+                          tree.title,
+                          ambiguousCommonNames
+                        ) && (
+                          <span
+                            className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary"
+                            aria-label={`${t("family")}: ${tree.family}`}
+                            title={tree.family}
+                          >
+                            {tree.family}
+                          </span>
+                        )}
+                      </div>
                       <p className="text-sm text-muted-foreground italic truncate">
                         {tree.scientificName}
                       </p>

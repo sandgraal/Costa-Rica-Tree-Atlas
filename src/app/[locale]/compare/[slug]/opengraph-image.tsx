@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getTranslations } from "next-intl/server";
 import { allSpeciesComparisons, allTrees } from "contentlayer/generated";
 import {
   getComparisonDifficultyLabel,
@@ -25,6 +26,7 @@ type Props = {
 
 export default async function Image({ params }: Props) {
   const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "comparison" });
   const comparison = allSpeciesComparisons.find(
     (c) => c.locale === locale && c.slug === slug
   );
@@ -43,7 +45,7 @@ export default async function Image({ params }: Props) {
           fontSize: 48,
         }}
       >
-        Comparison Not Found
+        {t("notFound")}
       </div>,
       { ...size }
     );

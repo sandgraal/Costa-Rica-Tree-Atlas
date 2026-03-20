@@ -107,6 +107,7 @@ function BiodiversityInfoInner({
   const labels = {
     title: tb("title"),
     observations: tb("observationsInCR"),
+    gbifCostaRica: tb("gbifCostaRica"),
     globalRecords: getUILabel("globalRecords", locale),
     researchGrade: getUILabel("researchGrade", locale),
     loading: getUILabel("loading", locale),
@@ -174,11 +175,11 @@ function BiodiversityInfoInner({
               />
             )}
 
-            {/* GBIF Costa Rica records */}
+            {/* GBIF observation records */}
             {gbifObs > 0 && (
               <StatCard
                 value={gbifObs}
-                label="GBIF Costa Rica"
+                label={labels.gbifCostaRica}
                 colorClass="text-secondary"
               />
             )}

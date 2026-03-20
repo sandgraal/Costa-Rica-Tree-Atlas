@@ -428,7 +428,9 @@
   },
   "toc": {
     "contents": "Contenido",
-    "jumpTo": "Ir a"
+    "jumpTo": "Ir a",
+    "showSection": "Mostrar sección",
+    "hideSection": "Ocultar sección"
   },
   "keyboardShortcuts": {
     "title": "Atajos de Teclado",
@@ -447,6 +449,7 @@
   },
   "comparison": {
     "title": "Comparación de Árboles",
+    "notFound": "Comparación no encontrada",
     "subtitle": "Compara características de diferentes especies de árboles lado a lado",
     "metaDescription": "Compara especies de árboles de Costa Rica lado a lado. Guías de comparación y herramienta interactiva para distinguir especies parecidas.",
     "selectTree": "Seleccionar un árbol",
@@ -1633,7 +1636,7 @@
     "pronounce": "Pronunciar",
     "readingTime": "{minutes} min de lectura",
     "alsoAvailableIn": "También disponible en",
-    "otherLanguage": "English",
+    "otherLanguage": "Inglés",
     "nativeRegion": "Región Nativa",
     "maxHeight": "Altura Máxima",
     "quickFacts": "Datos rápidos",
@@ -2198,6 +2201,7 @@
   "biodiversity": {
     "title": "Datos de Biodiversidad",
     "observationsInCR": "Observaciones en Costa Rica",
+    "gbifCostaRica": "GBIF Costa Rica",
     "viewOn": "Ver en"
   },
   "educationProgress": {

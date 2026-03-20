@@ -15,7 +15,7 @@
 | **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |                                                    |
 | **P4**   | SEO & metadata                              | ✅ Done     |                                                    |
 | **P5**   | Factual remediation & citations             | 🔴 Not done |                                                    |
-| **P6**   | Mobile UX & wayfinding                      | 🔴 Not done |                                                    |
+| **P6**   | Mobile UX & wayfinding                      | 🟡 Partial  |                                                    |
 | **P7**   | Performance & PWA                           | ✅ Done     |                                                    |
 | **P8**   | Maintainability & code cleanup              | 🟡 Partial  |                                                    |
 | **P9**   | Route-level regression tests                | 🟡 Partial  |                                                    |
@@ -63,13 +63,14 @@
 - [x] Exported Badge helpers from EducationProgress; CertificateClient reuses shared functions
 - [x] Removed hardcoded English from education loading.tsx
 - [x] Consolidated remaining ad-hoc locale selection branches into shared `selectLocalizedValue` helper across education data builders, `ShareButton`, and `EducationProgress`
+- [x] Localized remaining high-traffic parity leaks on tree-detail biodiversity stats and compare-detail not-found fallbacks (including social image fallbacks)
 
 ### 🔴 Remaining
 
 - [ ] Remaining locale-specific branches are now concentrated in shared normalization helpers and intentional locale-keyed lookups (metadata/MDX dictionaries); continue auditing high-traffic Spanish pages for visible English fallback text rather than chasing defensive helper internals
 
 - [ ] Route-level surface audits for remaining high-traffic Spanish pages
-- [ ] Verify no English-only strings remain visible on Spanish tree detail pages
+- [x] Verified high-traffic Spanish tree-detail surfaces no longer show English-only fallback text; alternate-language label now renders `Inglés` instead of `English`
 
 ---
 
@@ -169,14 +170,14 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ---
 
-## P6 — Mobile UX & Tree Detail Wayfinding 🔴 NOT DONE
+## P6 — Mobile UX & Tree Detail Wayfinding 🟡 PARTIAL
 
 - [x] `TableOfContents` now supports a mobile sticky jump-nav variant on tree detail pages
 - [x] Tree detail pages now expose anchorable high-priority sections (`Quick facts`, `Safety`, `Distribution`, `Seasonality`, `Biodiversity`, `How to identify`) for mobile wayfinding and desktop TOC parity
-- [ ] Secondary sections not collapsed by default on mobile
+- [x] Secondary sections are now collapsed by default on mobile for tree detail follow-up content (`Uses`, `Indigenous Names`, related comparison guides, related trees) while remaining fully expanded on desktop
 - [x] "Quick facts" / "How to identify" / "Safety" are now elevated in tree-detail wayfinding; safety content is surfaced earlier in the page flow
 - [x] Compare page now includes a top-level guides vs interactive-tool switcher with anchored jump links to both sections
-- [ ] Ambiguous common names not disambiguated in list UI (e.g., multiple "Alcornoque" entries)
+- [x] Ambiguous common names are disambiguated in tree-directory list UI with family badges on duplicate common-name entries (e.g., the two `Alcornoque` records)
 
 ---
 

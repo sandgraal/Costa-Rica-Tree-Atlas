@@ -428,7 +428,9 @@
   },
   "toc": {
     "contents": "Contents",
-    "jumpTo": "Jump to"
+    "jumpTo": "Jump to",
+    "showSection": "Show section",
+    "hideSection": "Hide section"
   },
   "keyboardShortcuts": {
     "title": "Keyboard Shortcuts",
@@ -447,6 +449,7 @@
   },
   "comparison": {
     "title": "Tree Comparison",
+    "notFound": "Comparison Not Found",
     "subtitle": "Compare characteristics of different tree species side by side",
     "metaDescription": "Compare Costa Rican tree species side by side with expert guides and an interactive tool for distinguishing commonly confused species.",
     "selectTree": "Select a tree",
@@ -2202,6 +2205,7 @@
   "biodiversity": {
     "title": "Biodiversity Data",
     "observationsInCR": "Observations in Costa Rica",
+    "gbifCostaRica": "GBIF Costa Rica",
     "viewOn": "View on"
   },
   "educationProgress": {
