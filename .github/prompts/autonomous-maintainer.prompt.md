@@ -1,8 +1,6 @@
 ---
-name: "Autonomous Maintainer Prompt"
+mode: agent
 description: "Launch the Autonomous Maintainer agent for Costa Rica Tree Atlas implementation work: implementation-plan execution, end-to-end fixes, cleanup, bilingual parity, validation, and PR packaging."
-argument-hint: "Describe the repo task, implementation-plan item, bug, feature, or cleanup to complete end-to-end."
-agent: "Autonomous Maintainer"
 ---
 
 # Autonomous Maintainer
