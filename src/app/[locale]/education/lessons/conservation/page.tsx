@@ -52,7 +52,7 @@ export default async function ConservationPage({ params }: PageProps) {
   // Count trees by conservation status
   const statusCounts = trees.reduce(
     (acc, tree) => {
-      const status = tree.conservationStatus || "Not Evaluated";
+      const status = tree.conservationStatus || "NE";
       acc[status] = (acc[status] || 0) + 1;
       return acc;
     },
@@ -60,14 +60,7 @@ export default async function ConservationPage({ params }: PageProps) {
   );
 
   const endangeredTrees = trees.filter((t) =>
-    [
-      "Endangered",
-      "Critically Endangered",
-      "Vulnerable",
-      "En Peligro",
-      "En Peligro Crítico",
-      "Vulnerable",
-    ].includes(t.conservationStatus || "")
+    ["CR", "EN", "VU"].includes(t.conservationStatus || "")
   );
 
   // Build locale-specific lesson data on the server so it ships as RSC

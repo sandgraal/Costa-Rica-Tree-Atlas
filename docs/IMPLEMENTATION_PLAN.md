@@ -43,6 +43,7 @@
 - [x] Compare page title uses `t("title")` — no duplicate site suffix
 - [x] `PhotoUploadClient` fetches upload limits in `useEffect`; unused locale variable removed
 - [x] Shared control labels localized: `MobileNav`, `LanguageSwitcher`, `PrintButton`
+- [x] Conservation lesson status counts and endangered-tree list now use actual IUCN codes from content data (`CR`/`EN`/`VU`/etc.) instead of mismatched English labels
 
 ---
 
@@ -64,6 +65,9 @@
 - [x] Removed hardcoded English from education loading.tsx
 - [x] Consolidated remaining ad-hoc locale selection branches into shared `selectLocalizedValue` helper across education data builders, `ShareButton`, and `EducationProgress`
 - [x] Localized remaining high-traffic parity leaks on tree-detail biodiversity stats and compare-detail not-found fallbacks (including social image fallbacks)
+- [x] Localized education landing-page CTAs and printable-resource link; regression audit now guards those Spanish surfaces against English fallback copy
+- [x] Localized oral-history detail not-found metadata and added regression coverage so missing Spanish entries do not fall back to English page titles
+- [x] Localized remaining English helper copy in the interactive compare tool (`Clear all`, max-tree cap, remove-chip aria labels, overflow copy) and added regression coverage for its Spanish surface
 
 ### 🔴 Remaining
 
@@ -238,6 +242,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Ad-hoc locale selection branch regression guard (baseline: 0 outside shared i18n helpers)
 - [x] Route family coverage test (verifies page.tsx exists for all major routes)
 - [x] Education data array-ternary regression guard (prevents re-introducing array-level ternaries)
+- [x] Conservation lesson regression guard verifies status aggregation and legend keys stay aligned with IUCN code-based content
 
 ---
 

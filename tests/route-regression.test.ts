@@ -596,13 +596,17 @@ describe("Compare page wayfinding", () => {
 describe("High-traffic Spanish surface parity", () => {
   const paritySensitiveFiles = [
     "src/components/data/BiodiversityInfo.tsx",
+    "src/components/TreeComparison.tsx",
     "src/app/[locale]/compare/[slug]/page.tsx",
     "src/app/[locale]/compare/[slug]/opengraph-image.tsx",
     "src/app/[locale]/compare/[slug]/twitter-image.tsx",
+    "src/app/[locale]/education/page.tsx",
+    "src/app/[locale]/oral-histories/[slug]/page.tsx",
   ];
 
-  it("should not reintroduce known English fallback strings on biodiversity and compare detail surfaces", () => {
-    const HARDCODED_ENGLISH_FALLBACKS = /GBIF Costa Rica|Comparison Not Found/g;
+  it("should not reintroduce known English fallback strings on audited high-traffic Spanish surfaces", () => {
+    const HARDCODED_ENGLISH_FALLBACKS =
+      /GBIF Costa Rica|Comparison Not Found|View all printable resources|Browse Trees|Try Identify|Compare Trees|title: "Not Found"|Clear all|Max \$\{maxTrees\} trees|Remove \$\{tree\.title\}|\+\{tree\.uses\.length - 5\} more/g;
 
     const violations: { file: string; matches: string[] }[] = [];
     for (const relPath of paritySensitiveFiles) {
@@ -617,7 +621,7 @@ describe("High-traffic Spanish surface parity", () => {
 
     if (violations.length > 0) {
       console.log(
-        `Known English fallback strings found on high-traffic surfaces:\n` +
+        `Known English fallback strings found on audited high-traffic surfaces:\n` +
           violations
             .map((v) => `  ${v.file}: ${v.matches.join(", ")}`)
             .join("\n")
@@ -635,10 +639,144 @@ describe("High-traffic Spanish surface parity", () => {
 
     expect(esMessages.treeDetail?.otherLanguage).toBe("Inglés");
   });
+
+  it("should provide localized education CTA labels for both locales", () => {
+    const enMessagesPath = path.join(ROOT, "messages/en.json");
+    const esMessagesPath = path.join(ROOT, "messages/es.json");
+    const enMessages = JSON.parse(fs.readFileSync(enMessagesPath, "utf-8")) as {
+      education?: {
+        tips?: {
+          explore?: { action?: string };
+          identify?: { action?: string };
+          compare?: { action?: string };
+        };
+      };
+    };
+    const esMessages = JSON.parse(fs.readFileSync(esMessagesPath, "utf-8")) as {
+      education?: {
+        tips?: {
+          explore?: { action?: string };
+          identify?: { action?: string };
+          compare?: { action?: string };
+        };
+      };
+    };
+
+    expect(enMessages.education?.tips?.explore?.action).toBe("Browse Trees");
+    expect(enMessages.education?.tips?.identify?.action).toBe(
+      "Try Identification"
+    );
+    expect(enMessages.education?.tips?.compare?.action).toBe("Compare Trees");
+
+    expect(esMessages.education?.tips?.explore?.action).toBe(
+      "Explorar Árboles"
+    );
+    expect(esMessages.education?.tips?.identify?.action).toBe(
+      "Probar Identificación"
+    );
+    expect(esMessages.education?.tips?.compare?.action).toBe(
+      "Comparar Árboles"
+    );
+  });
+
+  it("should provide localized oral-history not-found metadata for both locales", () => {
+    const enMessagesPath = path.join(ROOT, "messages/en.json");
+    const esMessagesPath = path.join(ROOT, "messages/es.json");
+    const enMessages = JSON.parse(fs.readFileSync(enMessagesPath, "utf-8")) as {
+      oralHistories?: { notFoundTitle?: string };
+    };
+    const esMessages = JSON.parse(fs.readFileSync(esMessagesPath, "utf-8")) as {
+      oralHistories?: { notFoundTitle?: string };
+    };
+
+    expect(enMessages.oralHistories?.notFoundTitle).toBe(
+      "Oral History Not Found"
+    );
+    expect(esMessages.oralHistories?.notFoundTitle).toBe(
+      "Historia Oral No Encontrada"
+    );
+  });
+
+  it("should provide localized interactive comparison helper copy for both locales", () => {
+    const enMessagesPath = path.join(ROOT, "messages/en.json");
+    const esMessagesPath = path.join(ROOT, "messages/es.json");
+    const enMessages = JSON.parse(fs.readFileSync(enMessagesPath, "utf-8")) as {
+      comparison?: {
+        clearAll?: string;
+        maxTreesReached?: string;
+        removeSelectedTree?: string;
+        moreUses?: string;
+      };
+    };
+    const esMessages = JSON.parse(fs.readFileSync(esMessagesPath, "utf-8")) as {
+      comparison?: {
+        clearAll?: string;
+        maxTreesReached?: string;
+        removeSelectedTree?: string;
+        moreUses?: string;
+      };
+    };
+
+    expect(enMessages.comparison?.clearAll).toBe("Clear all");
+    expect(enMessages.comparison?.maxTreesReached).toBe(
+      "Maximum {count} trees"
+    );
+    expect(enMessages.comparison?.removeSelectedTree).toBe(
+      "Remove {treeTitle}"
+    );
+    expect(enMessages.comparison?.moreUses).toBe("+{count} more");
+
+    expect(esMessages.comparison?.clearAll).toBe("Limpiar todo");
+    expect(esMessages.comparison?.maxTreesReached).toBe(
+      "Máximo {count} árboles"
+    );
+    expect(esMessages.comparison?.removeSelectedTree).toBe(
+      "Eliminar {treeTitle}"
+    );
+    expect(esMessages.comparison?.moreUses).toBe("+{count} más");
+  });
 });
 
 // ---------------------------------------------------------------------------
-// 14. Console-cleanliness: no stray console.log in page/component source
+// 14. Conservation lesson status normalization
+// ---------------------------------------------------------------------------
+
+describe("Conservation lesson status normalization", () => {
+  const conservationLessonPage = path.join(
+    ROOT,
+    "src/app/[locale]/education/lessons/conservation/page.tsx"
+  );
+  const conservationLessonData = path.join(
+    ROOT,
+    "src/app/[locale]/education/lessons/conservation/conservation-data.ts"
+  );
+
+  it("should count conservation statuses using IUCN codes from content data", () => {
+    const content = fs.readFileSync(conservationLessonPage, "utf-8");
+
+    expect(content).toContain('tree.conservationStatus || "NE"');
+    expect(content).toContain('["CR", "EN", "VU"]');
+    expect(content).not.toContain('"Not Evaluated"');
+    expect(content).not.toContain('"Critically Endangered"');
+  });
+
+  it("should map lesson status legend entries to IUCN codes", () => {
+    const content = fs.readFileSync(conservationLessonData, "utf-8");
+
+    for (const statusKey of [
+      'key: "CR"',
+      'key: "EN"',
+      'key: "VU"',
+      'key: "NT"',
+      'key: "LC"',
+    ]) {
+      expect(content).toContain(statusKey);
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 15. Console-cleanliness: no stray console.log in page/component source
 // ---------------------------------------------------------------------------
 
 describe("Console cleanliness: no unguarded console.log", () => {
