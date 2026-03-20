@@ -80,7 +80,7 @@ export function TableOfContents({
       {
         rootMargin:
           variant === "mobile" ? "-140px 0px -65% 0px" : "-100px 0px -80% 0px",
-        threshold: 1.0,
+        threshold: 0.1,
       }
     );
 
