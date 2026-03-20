@@ -11,27 +11,62 @@ interface TOCItem {
 
 interface TableOfContentsProps {
   className?: string;
+  variant?: "desktop" | "mobile";
 }
 
-export function TableOfContents({ className = "" }: TableOfContentsProps) {
+export function TableOfContents({
+  className = "",
+  variant = "desktop",
+}: TableOfContentsProps) {
   const t = useTranslations("toc");
   const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
-    // Find all h2 and h3 elements in the main content
-    const elements = document.querySelectorAll(
-      "main h2[id], main h3[id], article h2[id], article h3[id]"
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        "[data-toc][id], main h2[id], main h3[id], article h2[id], article h3[id]"
+      )
     );
 
-    const items: TOCItem[] = Array.from(elements).map((element) => {
-      const id = element.id;
-      const text = element.textContent || "";
-      const level = parseInt(element.tagName.charAt(1));
-      return { id, text, level };
-    });
+    const allowedLevels = new Set(variant === "mobile" ? [2] : [2, 3]);
+    const seenIds = new Set<string>();
 
-    setHeadings(items);
+    const trackedElements = elements
+      .map((element) => {
+        const id = element.id;
+        const fallbackLevel = Number.parseInt(element.tagName.charAt(1), 10);
+        const explicitLevel = Number.parseInt(
+          element.dataset.tocLevel || "",
+          10
+        );
+        const level = Number.isNaN(explicitLevel)
+          ? Number.isNaN(fallbackLevel)
+            ? 2
+            : fallbackLevel
+          : explicitLevel;
+        const text =
+          element.dataset.toc?.trim() || element.textContent?.trim() || "";
+
+        return {
+          element,
+          item: { id, text, level },
+        };
+      })
+      .filter(({ item }) => {
+        if (!item.id || !item.text || !allowedLevels.has(item.level)) {
+          return false;
+        }
+
+        if (seenIds.has(item.id)) {
+          return false;
+        }
+
+        seenIds.add(item.id);
+        return true;
+      });
+
+    setHeadings(trackedElements.map(({ item }) => item));
 
     // Set up intersection observer for active heading
     const observer = new IntersectionObserver(
@@ -43,21 +78,22 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
         });
       },
       {
-        rootMargin: "-100px 0px -80% 0px",
+        rootMargin:
+          variant === "mobile" ? "-140px 0px -65% 0px" : "-100px 0px -80% 0px",
         threshold: 1.0,
       }
     );
 
-    elements.forEach((element) => {
+    trackedElements.forEach(({ element }) => {
       observer.observe(element);
     });
 
     return () => {
-      elements.forEach((element) => {
+      trackedElements.forEach(({ element }) => {
         observer.unobserve(element);
       });
     };
-  }, []);
+  }, [variant]);
 
   if (headings.length === 0) {
     return null;
@@ -66,7 +102,7 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
   const scrollToHeading = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // Account for fixed header
+      const offset = variant === "mobile" ? 128 : 96;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - offset;
 
@@ -76,6 +112,43 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
       });
     }
   };
+
+  if (variant === "mobile") {
+    const title = t("jumpTo");
+
+    return (
+      <nav
+        className={`sticky top-16 z-30 -mx-4 border-y border-border bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/80 ${className}`}
+        aria-label={title}
+      >
+        <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          {title}
+        </div>
+        <ul className="flex gap-2 overflow-x-auto pb-1">
+          {headings.map((heading) => {
+            const isActive = activeId === heading.id;
+
+            return (
+              <li key={heading.id} className="shrink-0">
+                <button
+                  onClick={() => {
+                    scrollToHeading(heading.id);
+                  }}
+                  className={`rounded-full border px-3 py-1.5 text-sm whitespace-nowrap transition-colors ${
+                    isActive
+                      ? "border-primary bg-primary/10 text-primary font-medium"
+                      : "border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {heading.text}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
+  }
 
   const title = t("contents");
 

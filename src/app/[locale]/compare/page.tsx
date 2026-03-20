@@ -148,9 +148,63 @@ function ComparePageClient({
         <p className="text-lg text-muted-foreground">{t("subtitle")}</p>
       </div>
 
+      <nav
+        aria-label={t("comparisonModeSwitcher")}
+        className="mb-12 rounded-2xl border border-border bg-card p-4 md:p-6"
+      >
+        <div className="mb-4">
+          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            {t("comparisonModeSwitcher")}
+          </p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {t("comparisonModeSubtitle")}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <a
+            href="#comparison-guides"
+            className="group rounded-xl border border-border bg-background p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {t("guidesTitle")}
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {t("guidesSwitchDescription")}
+                </p>
+              </div>
+              <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+                {comparisons.length}
+              </span>
+            </div>
+          </a>
+
+          <a
+            href="#interactive-tool"
+            className="group rounded-xl border border-border bg-background p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {t("toolTitle")}
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {t("toolSwitchDescription")}
+                </p>
+              </div>
+              <span className="rounded-full bg-secondary/10 px-2.5 py-1 text-xs font-medium text-secondary">
+                {t("toolReady")}
+              </span>
+            </div>
+          </a>
+        </div>
+      </nav>
+
       {/* Comparison Guides Section */}
       {comparisons.length > 0 && (
-        <section className="mb-16">
+        <section id="comparison-guides" className="mb-16 scroll-mt-28">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-2">
               {t("guidesTitle")}
@@ -324,7 +378,7 @@ function ComparePageClient({
       )}
 
       {/* Interactive Comparison Tool */}
-      <section>
+      <section id="interactive-tool" className="scroll-mt-28">
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-2">
             {t("toolTitle")}

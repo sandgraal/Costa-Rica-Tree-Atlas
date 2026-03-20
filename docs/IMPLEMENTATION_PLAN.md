@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas — Implementation Plan
 
-**Last Updated:** 2026-07-14
-**Status:** Checklist audit v4.1 — Updated after PR #667 and round 2 implementation pass.
+**Last Updated:** 2026-03-20
+**Status:** Checklist audit v4.2 — Updated after shared locale-selection helper consolidation.
 
 ---
 
@@ -62,27 +62,11 @@
 - [x] Localized MDX care components: PlantingInstructions, MaintenanceTimeline, CommonProblems (bilingual inline translations)
 - [x] Exported Badge helpers from EducationProgress; CertificateClient reuses shared functions
 - [x] Removed hardcoded English from education loading.tsx
+- [x] Consolidated remaining ad-hoc locale selection branches into shared `selectLocalizedValue` helper across education data builders, `ShareButton`, and `EducationProgress`
 
 ### 🔴 Remaining
 
-- [ ] **~21 `locale === "es"` in layout/MDX** (defensive normalization or metadata locale codes — idiomatic):
-
-  | Component                   | Count |
-  | --------------------------- | ----- |
-  | `SeasonalCalendar.tsx`      | 37    |
-  | `FieldGuidePreview.tsx`     | 28    |
-  | `Breadcrumbs.tsx`           | 21    |
-  | `FieldGuideGenerator.tsx`   | 15    |
-  | `ExportFavoritesButton.tsx` | 9     |
-  | `BiodiversityInfo.tsx`      | 8     |
-  | `SeasonalInfo.tsx`          | 8     |
-  | `EducationProgress.tsx`     | 8     |
-  | `mdx/server-components.tsx` | 7     |
-  | `ShareButton.tsx`           | 6     |
-  | `ShareCollectionButton.tsx` | 6     |
-  | `InteractiveMap.tsx`        | 4     |
-  | `FieldTripMap.tsx`          | 4     |
-  | + other files               | ~31   |
+- [ ] Remaining locale-specific branches are now concentrated in shared normalization helpers and intentional locale-keyed lookups (metadata/MDX dictionaries); continue auditing high-traffic Spanish pages for visible English fallback text rather than chasing defensive helper internals
 
 - [ ] Route-level surface audits for remaining high-traffic Spanish pages
 - [ ] Verify no English-only strings remain visible on Spanish tree detail pages
@@ -187,11 +171,11 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ## P6 — Mobile UX & Tree Detail Wayfinding 🔴 NOT DONE
 
-- [ ] `TableOfContents` component exists but is **desktop-only** — no mobile variant
-- [ ] No mobile-friendly section jump links or sticky page index
+- [x] `TableOfContents` now supports a mobile sticky jump-nav variant on tree detail pages
+- [x] Tree detail pages now expose anchorable high-priority sections (`Quick facts`, `Safety`, `Distribution`, `Seasonality`, `Biodiversity`, `How to identify`) for mobile wayfinding and desktop TOC parity
 - [ ] Secondary sections not collapsed by default on mobile
-- [ ] "Quick facts" / "How to identify" / "Safety" not prioritized higher in information hierarchy
-- [ ] Compare page: no "Guides vs Interactive Tool" tab/switch near top
+- [x] "Quick facts" / "How to identify" / "Safety" are now elevated in tree-detail wayfinding; safety content is surfaced earlier in the page flow
+- [x] Compare page now includes a top-level guides vs interactive-tool switcher with anchored jump links to both sections
 - [ ] Ambiguous common names not disambiguated in list UI (e.g., multiple "Alcornoque" entries)
 
 ---
@@ -249,7 +233,8 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Route-level console-cleanliness checks — console.log regression guard (baseline: 5 files)
 - [ ] Automated visual regression for key templates
 - [x] CI integration for regression suite — added to `content-build-tests.yml` workflow
-- [x] Locale ternary count regression guard (baseline: 32)
+- [x] Locale ternary count regression guard (baseline: 0)
+- [x] Ad-hoc locale selection branch regression guard (baseline: 0 outside shared i18n helpers)
 - [x] Route family coverage test (verifies page.tsx exists for all major routes)
 - [x] Education data array-ternary regression guard (prevents re-introducing array-level ternaries)
 
