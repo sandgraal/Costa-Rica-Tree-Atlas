@@ -346,31 +346,31 @@ export function getConservationLessonData(
 
   const statusInfo: StatusInfo[] = [
     {
-      key: "Critically Endangered",
+      key: "CR",
       color: "bg-red-600",
       icon: "🔴",
       label: t("Critically Endangered", "En Peligro Crítico"),
     },
     {
-      key: "Endangered",
+      key: "EN",
       color: "bg-orange-500",
       icon: "🟠",
       label: t("Endangered", "En Peligro"),
     },
     {
-      key: "Vulnerable",
+      key: "VU",
       color: "bg-yellow-500",
       icon: "🟡",
       label: "Vulnerable",
     },
     {
-      key: "Near Threatened",
+      key: "NT",
       color: "bg-blue-400",
       icon: "🔵",
       label: t("Near Threatened", "Casi Amenazado"),
     },
     {
-      key: "Least Concern",
+      key: "LC",
       color: "bg-green-500",
       icon: "🟢",
       label: t("Least Concern", "Preocupación Menor"),

@@ -48,12 +48,13 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "oralHistories" });
   const entry = allOralHistories.find(
     (e: OralHistory) => e.locale === locale && e.slug === slug
   );
 
   if (!entry) {
-    return { title: "Not Found" };
+    return { title: t("notFoundTitle") };
   }
 
   return {

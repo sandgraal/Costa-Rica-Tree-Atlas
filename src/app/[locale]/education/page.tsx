@@ -441,7 +441,7 @@ function EducationContent({ treeCount }: { treeCount: number }) {
               href="/education/printables"
               className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium"
             >
-              {t("printables.viewAll") || "View all printable resources"} →
+              {t("printables.viewAll")} →
             </Link>
           </div>
         </div>
@@ -466,7 +466,7 @@ function EducationContent({ treeCount }: { treeCount: number }) {
               {t("tips.explore.description")}
             </p>
             <div className="mt-3 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-              Browse Trees →
+              {t("tips.explore.action")} →
             </div>
           </Link>
           <Link
@@ -481,7 +481,7 @@ function EducationContent({ treeCount }: { treeCount: number }) {
               {t("tips.identify.description")}
             </p>
             <div className="mt-3 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-              Try Identify →
+              {t("tips.identify.action")} →
             </div>
           </Link>
           <Link
@@ -496,7 +496,7 @@ function EducationContent({ treeCount }: { treeCount: number }) {
               {t("tips.compare.description")}
             </p>
             <div className="mt-3 text-primary text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-              Compare Trees →
+              {t("tips.compare.action")} →
             </div>
           </Link>
         </div>

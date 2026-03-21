@@ -122,7 +122,11 @@ function ComparePageClient({
     selectPlaceholder: t("selectPlaceholder"),
     addTree: t("addTree"),
     removeTree: t("removeTree"),
+    clearAll: t("clearAll"),
     noTreesSelected: t("noTreesSelected"),
+    maxTreesReachedTemplate: t.raw("maxTreesReached"),
+    removeSelectedTreeTemplate: t.raw("removeSelectedTree"),
+    moreUsesTemplate: t.raw("moreUses"),
     properties: {
       image: t("properties.image"),
       commonName: t("properties.commonName"),

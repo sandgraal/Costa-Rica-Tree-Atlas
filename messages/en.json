@@ -458,6 +458,9 @@
     "removeTree": "Remove",
     "noTreesSelected": "Select up to 4 trees to compare their characteristics",
     "clearAll": "Clear all",
+    "maxTreesReached": "Maximum {count} trees",
+    "removeSelectedTree": "Remove {treeTitle}",
+    "moreUses": "+{count} more",
     "navLink": "Compare",
     "comparisonModeSwitcher": "Ways to compare",
     "comparisonModeSubtitle": "Jump straight to curated guides or build your own side-by-side comparison.",
@@ -689,15 +692,18 @@
       "title": "Using the Atlas in Your Classroom",
       "explore": {
         "title": "Explore the Directory",
-        "description": "Browse trees by family, conservation status, or characteristics. Use the A-Z index for alphabetical exploration."
+        "description": "Browse trees by family, conservation status, or characteristics. Use the A-Z index for alphabetical exploration.",
+        "action": "Browse Trees"
       },
       "identify": {
         "title": "Try Tree Identification",
-        "description": "Take photos during field trips and use the identification feature to find matching species in the atlas."
+        "description": "Take photos during field trips and use the identification feature to find matching species in the atlas.",
+        "action": "Try Identification"
       },
       "compare": {
         "title": "Compare Species",
-        "description": "Use the comparison tool to display multiple trees side-by-side and analyze their differences."
+        "description": "Use the comparison tool to display multiple trees side-by-side and analyze their differences.",
+        "action": "Compare Trees"
       }
     },
     "interactive": {
@@ -1031,6 +1037,7 @@
     "title": "Oral Histories",
     "subtitle": "Traditional knowledge and stories from Costa Rica's indigenous communities",
     "description": "A collection of oral histories preserving the traditional ecological knowledge of Costa Rica's indigenous peoples about their native trees.",
+    "notFoundTitle": "Oral History Not Found",
     "narrator": "Narrator",
     "community": "Community",
     "region": "Region",

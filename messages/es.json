@@ -458,6 +458,9 @@
     "removeTree": "Eliminar",
     "noTreesSelected": "Seleccione hasta 4 árboles para comparar sus características",
     "clearAll": "Limpiar todo",
+    "maxTreesReached": "Máximo {count} árboles",
+    "removeSelectedTree": "Eliminar {treeTitle}",
+    "moreUses": "+{count} más",
     "navLink": "Comparar",
     "comparisonModeSwitcher": "Formas de comparar",
     "comparisonModeSubtitle": "Ve directo a las guías curadas o arma tu propia comparación lado a lado.",
@@ -689,15 +692,18 @@
       "title": "Usando el Atlas en tu Aula",
       "explore": {
         "title": "Explora el Directorio",
-        "description": "Navega por árboles por familia, estado de conservación o características. Usa el índice A-Z para exploración alfabética."
+        "description": "Navega por árboles por familia, estado de conservación o características. Usa el índice A-Z para exploración alfabética.",
+        "action": "Explorar Árboles"
       },
       "identify": {
         "title": "Prueba la Identificación",
-        "description": "Toma fotos durante excursiones y usa la función de identificación para encontrar especies coincidentes en el atlas."
+        "description": "Toma fotos durante excursiones y usa la función de identificación para encontrar especies coincidentes en el atlas.",
+        "action": "Probar Identificación"
       },
       "compare": {
         "title": "Compara Especies",
-        "description": "Usa la herramienta de comparación para mostrar múltiples árboles lado a lado y analizar sus diferencias."
+        "description": "Usa la herramienta de comparación para mostrar múltiples árboles lado a lado y analizar sus diferencias.",
+        "action": "Comparar Árboles"
       }
     },
     "interactive": {
@@ -1027,6 +1033,7 @@
     "title": "Historias Orales",
     "subtitle": "Conocimiento tradicional e historias de las comunidades indígenas de Costa Rica",
     "description": "Una colección de historias orales que preservan el conocimiento ecológico tradicional de los pueblos indígenas de Costa Rica sobre sus árboles nativos.",
+    "notFoundTitle": "Historia Oral No Encontrada",
     "narrator": "Narrador",
     "community": "Comunidad",
     "region": "Región",

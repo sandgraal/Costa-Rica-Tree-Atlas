@@ -18,7 +18,11 @@ interface TreeComparisonProps {
     selectPlaceholder: string;
     addTree: string;
     removeTree: string;
+    clearAll: string;
     noTreesSelected: string;
+    maxTreesReachedTemplate: string;
+    removeSelectedTreeTemplate: string;
+    moreUsesTemplate: string;
     properties: {
       image: string;
       commonName: string;
@@ -31,6 +35,24 @@ interface TreeComparisonProps {
       tags: string;
     };
   };
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function formatTranslationTemplate(
+  template: string,
+  replacements: Record<string, string | number>
+) {
+  return Object.entries(replacements).reduce(
+    (formatted, [key, value]) =>
+      formatted.replace(
+        new RegExp(`\\{${escapeRegExp(key)}\\}`, "g"),
+        String(value)
+      ),
+    template
+  );
 }
 
 export function TreeComparison({
@@ -104,7 +126,12 @@ export function TreeComparison({
             >
               <option value="" disabled>
                 {selectedSlugs.length >= maxTrees
-                  ? `Max ${maxTrees} trees`
+                  ? formatTranslationTemplate(
+                      translations.maxTreesReachedTemplate,
+                      {
+                        count: maxTrees,
+                      }
+                    )
                   : translations.selectPlaceholder}
               </option>
               {availableTrees.map((tree) => (
@@ -120,7 +147,7 @@ export function TreeComparison({
               onClick={clearAll}
               className="px-4 py-2 text-sm text-primary hover:text-primary-dark transition-colors"
             >
-              Clear all
+              {translations.clearAll}
             </button>
           )}
         </div>
@@ -139,7 +166,12 @@ export function TreeComparison({
                     removeTree(tree.slug);
                   }}
                   className="ml-1 hover:text-primary-dark"
-                  aria-label={`Remove ${tree.title}`}
+                  aria-label={formatTranslationTemplate(
+                    translations.removeSelectedTreeTemplate,
+                    {
+                      treeTitle: tree.title,
+                    }
+                  )}
                 >
                   <XIcon className="h-4 w-4" />
                 </button>
@@ -357,7 +389,12 @@ export function TreeComparison({
                         ))}
                         {tree.uses.length > 5 && (
                           <li className="text-muted-foreground text-xs">
-                            +{tree.uses.length - 5} more
+                            {formatTranslationTemplate(
+                              translations.moreUsesTemplate,
+                              {
+                                count: tree.uses.length - 5,
+                              }
+                            )}
                           </li>
                         )}
                       </ul>
