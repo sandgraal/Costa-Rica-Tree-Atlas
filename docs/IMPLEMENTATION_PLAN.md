@@ -217,6 +217,11 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Introduce shared route-shell primitives — `PageShell`, `PageHeader` components; use-cases page migrated
 - [x] Document the optional-dependency adapter pattern for future integrations (`docs/OPTIONAL_DEPENDENCY_ADAPTER_PATTERN.md`)
 - [x] Removed known baseline `console.log` debt from route/component source and tightened regression baseline to zero
+- [x] Removed stale slash-combined bilingual copy from the base `ErrorBoundary`; shared page/component wrappers now pass localized error message sets and regression coverage guards the shared boundary too
+- [x] Localized `ShareLink` default copy via the shared `share` namespace and extended the share-surface regression audit to cover translated link-copy labels
+- [x] Localized remaining API docs helper labels (rate-limit header descriptions, section labels, CTA link copy) and added regression coverage for those public developer surfaces
+- [x] Localized the admin image-proposals list/detail UI (metadata, filters, empty/error states, actions, and review labels) and added regression coverage for those locale-prefixed admin surfaces
+- [x] Localized the admin performance dashboard’s panel labels, rating chips, and metric descriptions; regression coverage now guards those locale-prefixed monitoring surfaces too
 
 ---
 

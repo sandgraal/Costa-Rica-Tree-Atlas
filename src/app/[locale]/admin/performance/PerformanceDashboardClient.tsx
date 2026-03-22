@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Rating = "good" | "needs-improvement" | "poor";
 
@@ -35,53 +36,35 @@ type InteractionEventEntry = PerformanceEntry & {
 
 const METRICS: Array<{
   key: MetricKey;
-  label: string;
   unit: string;
-  description: string;
   thresholds: { good: number; needsImprovement: number };
 }> = [
   {
     key: "lcp",
-    label: "Largest Contentful Paint",
     unit: "ms",
-    description: "Render timing for the largest element in view.",
     thresholds: { good: 2500, needsImprovement: 4000 },
   },
   {
     key: "cls",
-    label: "Cumulative Layout Shift",
     unit: "",
-    description: "Unexpected layout movement during page load.",
     thresholds: { good: 0.1, needsImprovement: 0.25 },
   },
   {
     key: "inp",
-    label: "Interaction to Next Paint",
     unit: "ms",
-    description: "Responsiveness to user interactions (estimated from events).",
     thresholds: { good: 200, needsImprovement: 500 },
   },
   {
     key: "fcp",
-    label: "First Contentful Paint",
     unit: "ms",
-    description: "Time until the first text or image is rendered.",
     thresholds: { good: 1800, needsImprovement: 3000 },
   },
   {
     key: "ttfb",
-    label: "Time to First Byte",
     unit: "ms",
-    description: "Server response latency measured on navigation.",
     thresholds: { good: 800, needsImprovement: 1800 },
   },
 ];
-
-const ratingLabels: Record<Rating, string> = {
-  good: "Good",
-  "needs-improvement": "Needs Improvement",
-  poor: "Poor",
-};
 
 const ratingClasses: Record<Rating, string> = {
   good: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300",
@@ -145,6 +128,7 @@ const getMetricValue = (
 };
 
 export default function PerformanceDashboardClient() {
+  const t = useTranslations("admin.performance");
   const [metrics, setMetrics] = useState<Record<MetricKey, number | null>>({
     lcp: null,
     cls: null,
@@ -303,6 +287,15 @@ export default function PerformanceDashboardClient() {
     };
   }, [refreshSnapshot, updateMetric]);
 
+  const ratingLabels: Record<Rating, string> = useMemo(
+    () => ({
+      good: t("rating.good"),
+      "needs-improvement": t("rating.needsImprovement"),
+      poor: t("rating.poor"),
+    }),
+    [t]
+  );
+
   const snapshots = useMemo<MetricSnapshot[]>(
     () =>
       METRICS.map((metric) => {
@@ -310,14 +303,14 @@ export default function PerformanceDashboardClient() {
 
         return {
           key: metric.key,
-          label: metric.label,
+          label: t(`metrics.${metric.key}.label`),
           value,
           unit: metric.unit,
-          description: metric.description,
+          description: t(`metrics.${metric.key}.description`),
           rating: getRating(metric.key, value),
         };
       }),
-    [metrics]
+    [metrics, t]
   );
 
   const jsonSnapshot = useMemo(
@@ -348,11 +341,10 @@ export default function PerformanceDashboardClient() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold text-foreground">
-            Live Core Web Vitals
+            {t("liveVitalsHeading")}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Metrics are captured from the current session using the browser
-            Performance APIs.
+            {t("liveVitalsDescription")}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -361,7 +353,7 @@ export default function PerformanceDashboardClient() {
             onClick={refreshSnapshot}
             className="rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-muted"
           >
-            Refresh snapshot
+            {t("refreshSnapshot")}
           </button>
           <button
             type="button"
@@ -369,10 +361,10 @@ export default function PerformanceDashboardClient() {
             className="rounded-lg border border-border bg-foreground px-3 py-2 text-sm font-medium text-background shadow-sm hover:bg-foreground/90"
           >
             {copyStatus === "copied"
-              ? "Copied"
+              ? t("copied")
               : copyStatus === "failed"
-                ? "Copy failed"
-                : "Copy JSON"}
+                ? t("copyFailed")
+                : t("copyJson")}
           </button>
         </div>
       </div>
@@ -407,36 +399,36 @@ export default function PerformanceDashboardClient() {
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-semibold text-foreground">
-            Resource Mix
+            {t("resourceMix")}
           </h3>
           <p className="text-xs text-muted-foreground">
-            Transfer size totals for this page load.
+            {t("resourceMixDescription")}
           </p>
           <div className="mt-4 space-y-2 text-sm text-foreground">
             <div className="flex justify-between">
-              <span>JavaScript</span>
+              <span>{t("resourceJavaScript")}</span>
               <span className="font-semibold">{resources.jsTransferKb} KB</span>
             </div>
             <div className="flex justify-between">
-              <span>CSS</span>
+              <span>{t("resourceCss")}</span>
               <span className="font-semibold">
                 {resources.cssTransferKb} KB
               </span>
             </div>
             <div className="flex justify-between">
-              <span>Images</span>
+              <span>{t("resourceImages")}</span>
               <span className="font-semibold">
                 {resources.imageTransferKb} KB
               </span>
             </div>
             <div className="flex justify-between border-t border-border pt-2">
-              <span>Total</span>
+              <span>{t("resourceTotal")}</span>
               <span className="font-semibold">
                 {resources.totalTransferKb} KB
               </span>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>Resources counted</span>
+              <span>{t("resourceCounted")}</span>
               <span>{resources.resourceCount}</span>
             </div>
           </div>
@@ -444,11 +436,10 @@ export default function PerformanceDashboardClient() {
 
         <div className="rounded-xl border border-border bg-card p-4 lg:col-span-2">
           <h3 className="text-sm font-semibold text-foreground">
-            Reference Targets
+            {t("referenceTargets")}
           </h3>
           <p className="text-xs text-muted-foreground">
-            Targets align with Web Vitals guidance and the project performance
-            budgets.
+            {t("referenceTargetsDescription")}
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {METRICS.map((metric) => (
@@ -460,11 +451,12 @@ export default function PerformanceDashboardClient() {
                   {metric.key}
                 </div>
                 <div className="mt-1 text-sm text-foreground">
-                  Good: {metric.thresholds.good}
+                  {t("goodTarget")}: {metric.thresholds.good}
                   {metric.unit}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Needs improvement: ≤ {metric.thresholds.needsImprovement}
+                  {t("needsImprovementTarget")}: ≤{" "}
+                  {metric.thresholds.needsImprovement}
                   {metric.unit}
                 </div>
               </div>
@@ -475,17 +467,16 @@ export default function PerformanceDashboardClient() {
 
       <div className="rounded-xl border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-semibold text-foreground">Last updated:</span>
+          <span className="font-semibold text-foreground">
+            {t("lastUpdated")}:
+          </span>
           <span>
             {lastUpdated
               ? lastUpdated.toLocaleTimeString()
-              : "Waiting for metrics..."}
+              : t("waitingForMetrics")}
           </span>
         </div>
-        <p className="mt-2">
-          Pair this dashboard with Vercel Speed Insights and Lighthouse CI for
-          historical tracking and regression alerts.
-        </p>
+        <p className="mt-2">{t("historicalTrackingHint")}</p>
       </div>
     </div>
   );

@@ -16,9 +16,16 @@ interface PageErrorBoundaryProps {
 export function PageErrorBoundary({ children }: PageErrorBoundaryProps) {
   const router = useRouter();
   const t = useTranslations("error");
+  const messages = {
+    title: t("title"),
+    description: t("description"),
+    tryAgain: t("tryAgain"),
+    developmentDetails: t("developmentDetails"),
+  };
 
   return (
     <ErrorBoundary
+      messages={messages}
       fallback={(error, reset) => (
         <div className="flex items-center justify-center min-h-screen p-8">
           <div className="text-center max-w-lg">
@@ -61,8 +68,9 @@ export function PageErrorBoundary({ children }: PageErrorBoundaryProps) {
         </div>
       )}
       onError={(error, errorInfo) => {
-        // Log to console in development
-        console.error("Page error:", error, errorInfo);
+        if (process.env.NODE_ENV === "development") {
+          console.error("Page error:", error, errorInfo);
+        }
 
         // TODO: Send to error tracking
         // trackError('page_error', { error, errorInfo });

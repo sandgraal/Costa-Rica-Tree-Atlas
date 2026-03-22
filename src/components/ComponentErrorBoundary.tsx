@@ -19,9 +19,16 @@ export function ComponentErrorBoundary({
   componentName = "Component",
 }: ComponentErrorBoundaryProps) {
   const t = useTranslations("error");
+  const messages = {
+    title: t("title"),
+    description: t("description"),
+    tryAgain: t("tryAgain"),
+    developmentDetails: t("developmentDetails"),
+  };
 
   return (
     <ErrorBoundary
+      messages={messages}
       fallback={(error, reset) => (
         <div className="border border-destructive bg-destructive/10 rounded-lg p-6">
           <div className="flex items-start gap-3">
@@ -54,7 +61,10 @@ export function ComponentErrorBoundary({
         </div>
       )}
       onError={(error) => {
-        console.error(`${componentName} error:`, error);
+        if (process.env.NODE_ENV === "development") {
+          console.error(`${componentName} error:`, error);
+        }
+
         // Log error with component context
         captureException(error, {
           tags: {
