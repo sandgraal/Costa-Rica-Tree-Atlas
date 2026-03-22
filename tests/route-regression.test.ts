@@ -216,8 +216,10 @@ describe("Metadata: locale alternates", () => {
     const layoutContent = fs.readFileSync(layoutFile, "utf-8");
 
     expect(fs.existsSync(manifestFile)).toBe(true);
-    expect(layoutContent).toContain(
-      '<link rel="manifest" href={`/${locale}/manifest.webmanifest`} />'
+    // Assert that there is a manifest <link> using the locale-aware manifest route,
+    // but allow flexible whitespace/attribute formatting.
+    expect(layoutContent).toMatch(
+      /<link[^>]+rel=["']manifest["'][^>]+href=\{?`\/\$\{locale\}\/manifest\.webmanifest`}?[^>]*\/?>/
     );
     expect(layoutContent).not.toContain('href="/manifest.json"');
   });
