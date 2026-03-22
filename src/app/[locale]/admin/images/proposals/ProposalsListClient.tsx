@@ -144,6 +144,8 @@ export default function ProposalsListClient() {
         return t("proposals.sources.workflow");
       case "USER_FLAG":
         return t("proposals.sources.userFlag");
+      case "USER_UPLOAD":
+        return t("proposals.sources.userUpload");
       case "ADMIN":
         return t("proposals.sources.admin");
       case "SCRIPT":
