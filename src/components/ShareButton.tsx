@@ -1,19 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { normalizeLocale } from "@/lib/i18n";
 import { useLocale, useTranslations } from "next-intl";
-
-const SHARE_MESSAGES = {
-  en: {
-    discoverTree: "Discover this tree: {treeName}",
-    failedToCopy: "Failed to copy link. Please try again.",
-  },
-  es: {
-    discoverTree: "Descubre este árbol: {treeName}",
-    failedToCopy: "No se pudo copiar el enlace. Por favor, inténtalo de nuevo.",
-  },
-} as const;
 
 type ShareButtonProps = {
   title: string;
@@ -30,8 +18,6 @@ export function ShareButton({
   const [showCopied, setShowCopied] = useState(false);
   const locale = useLocale();
   const t = useTranslations("share");
-  const language = normalizeLocale(locale);
-  const messages = SHARE_MESSAGES[language];
   const rawPath = path ?? (slug ? `/trees/${slug}` : "");
   const sharePath =
     rawPath && !rawPath.startsWith("/") ? `/${rawPath}` : rawPath;
@@ -45,10 +31,19 @@ export function ShareButton({
     ? `${title} (${scientificName})`
     : title;
 
-  const shareText = messages.discoverTree.replace(
-    "{treeName}",
-    titleWithScientificName
-  );
+  const labels = {
+    share: t("share"),
+    copied: t("copied"),
+    copyLink: t("copyLink"),
+    discoverTree: t("discoverTree", { treeName: titleWithScientificName }),
+    failedToCopy: t("failedToCopy"),
+    shareOnX: t("shareOnX"),
+    shareOnFacebook: t("shareOnFacebook"),
+    shareOnWhatsApp: t("shareOnWhatsApp"),
+    shareOnLinkedIn: t("shareOnLinkedIn"),
+  };
+
+  const shareText = labels.discoverTree;
 
   const handleShare = async (platform: string) => {
     if (!shareUrl) return;
@@ -104,7 +99,7 @@ export function ShareButton({
         } catch (err) {
           console.error("Failed to copy:", err);
           // Show user-facing error
-          alert(messages.failedToCopy);
+          alert(labels.failedToCopy);
         }
         break;
       case "native":
@@ -138,10 +133,10 @@ export function ShareButton({
         }
         disabled={!sharePath}
         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label={t("share")}
+        aria-label={labels.share}
       >
         <ShareIcon className="h-4 w-4" />
-        <span className="hidden sm:inline">{t("share")}</span>
+        <span className="hidden sm:inline">{labels.share}</span>
       </button>
 
       {/* Dropdown Menu */}
@@ -159,28 +154,28 @@ export function ShareButton({
               className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-3"
             >
               <XIcon className="h-4 w-4" />
-              <span>X (Twitter)</span>
+              <span>{labels.shareOnX}</span>
             </button>
             <button
               onClick={() => handleShare("facebook")}
               className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-3"
             >
               <FacebookIcon className="h-4 w-4" />
-              <span>Facebook</span>
+              <span>{labels.shareOnFacebook}</span>
             </button>
             <button
               onClick={() => handleShare("whatsapp")}
               className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-3"
             >
               <WhatsAppIcon className="h-4 w-4" />
-              <span>WhatsApp</span>
+              <span>{labels.shareOnWhatsApp}</span>
             </button>
             <button
               onClick={() => handleShare("linkedin")}
               className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-3"
             >
               <LinkedInIcon className="h-4 w-4" />
-              <span>LinkedIn</span>
+              <span>{labels.shareOnLinkedIn}</span>
             </button>
             <hr className="my-1 border-border" />
             <button
@@ -188,7 +183,7 @@ export function ShareButton({
               className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-3"
             >
               <CopyIcon className="h-4 w-4" />
-              <span>{showCopied ? t("copied") : t("copyLink")}</span>
+              <span>{showCopied ? labels.copied : labels.copyLink}</span>
             </button>
           </div>
         </>

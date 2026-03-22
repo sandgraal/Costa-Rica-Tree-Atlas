@@ -510,7 +510,7 @@ export default function WizardClient({ trees }: WizardClientProps) {
             <ProgressBar
               value={((step + 1) / 6) * 100}
               barClassName="bg-primary"
-              label="Wizard progress"
+              label={t("progressBarLabel")}
             />
           </div>
         </div>

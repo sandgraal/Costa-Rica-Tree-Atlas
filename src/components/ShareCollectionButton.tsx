@@ -101,7 +101,11 @@ export function ShareCollectionButton({
     share: t("share"),
     copied: t("copied"),
     copyLink: t("copyLink"),
-    shareOn: t("shareOn"),
+    shareNative: t("shareNative"),
+    shareOnX: t("shareOnX"),
+    shareOnFacebook: t("shareOnFacebook"),
+    shareOnWhatsApp: t("shareOnWhatsApp"),
+    shareOnPinterest: t("shareOnPinterest"),
   };
 
   return (
@@ -160,7 +164,7 @@ export function ShareCollectionButton({
                   className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
                 >
                   <span className="text-lg">📤</span>
-                  {labels.share}...
+                  {labels.shareNative}
                 </button>
               )}
 
@@ -170,7 +174,7 @@ export function ShareCollectionButton({
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
               >
                 <span className="text-lg">𝕏</span>
-                {labels.shareOn} X/Twitter
+                {labels.shareOnX}
               </button>
 
               <button
@@ -178,7 +182,7 @@ export function ShareCollectionButton({
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
               >
                 <span className="text-lg">📘</span>
-                {labels.shareOn} Facebook
+                {labels.shareOnFacebook}
               </button>
 
               <button
@@ -186,7 +190,7 @@ export function ShareCollectionButton({
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
               >
                 <span className="text-lg">💬</span>
-                {labels.shareOn} WhatsApp
+                {labels.shareOnWhatsApp}
               </button>
 
               <button
@@ -194,7 +198,7 @@ export function ShareCollectionButton({
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
               >
                 <span className="text-lg">📌</span>
-                {labels.shareOn} Pinterest
+                {labels.shareOnPinterest}
               </button>
 
               <hr className="my-2 border-border" />

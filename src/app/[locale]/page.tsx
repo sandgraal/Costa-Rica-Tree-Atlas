@@ -14,6 +14,7 @@ import { preload } from "react-dom";
 import type { Locale } from "@/types/tree";
 import type { RecentlyViewedTree } from "@/components/RecentlyViewedList";
 import { RecentlyViewedSkeleton } from "@/components/LoadingSkeletons";
+import { getCurrentMonthInCostaRica, seasonIncludesMonth } from "@/lib/i18n";
 
 // Lazy load client-only below-the-fold components to reduce TBT
 const RecentlyViewedList = dynamic(
@@ -54,16 +55,13 @@ export default async function HomePage({ params }: Props) {
     .map(({ body, _raw, ...rest }) => rest);
 
   // Calculate seasonal activity for "What's Blooming Now"
-  const currentMonth = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    timeZone: "America/Costa_Rica",
-  }).format(new Date());
+  const currentMonth = getCurrentMonthInCostaRica();
 
   const floweringNow = trees.filter((tree) =>
-    tree.floweringSeason?.includes(currentMonth)
+    seasonIncludesMonth(tree.floweringSeason, currentMonth)
   );
   const fruitingNow = trees.filter((tree) =>
-    tree.fruitingSeason?.includes(currentMonth)
+    seasonIncludesMonth(tree.fruitingSeason, currentMonth)
   );
 
   // Calculate stats

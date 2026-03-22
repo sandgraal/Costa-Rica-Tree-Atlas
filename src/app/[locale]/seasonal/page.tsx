@@ -8,7 +8,11 @@ import {
   getEventTranslation,
   COSTA_RICA_EVENTS,
 } from "@/lib/costaRicaEvents";
-import { getMonthLabel } from "@/lib/i18n";
+import {
+  getCurrentMonthInCostaRica,
+  getMonthLabel,
+  seasonIncludesMonth,
+} from "@/lib/i18n";
 import type { Locale, Month } from "@/types/tree";
 import dynamic from "next/dynamic";
 
@@ -123,14 +127,12 @@ export default async function SeasonalPage({
     .sort((a, b) => a.title.localeCompare(b.title));
 
   // Generate Event structured data for seasonal calendar
-  const currentMonth = new Date()
-    .toLocaleString("en", { month: "long" })
-    .toLowerCase();
+  const currentMonth = getCurrentMonthInCostaRica();
   const treesFloweringNow = trees.filter((tree) =>
-    tree.floweringSeason?.includes(currentMonth)
+    seasonIncludesMonth(tree.floweringSeason, currentMonth)
   );
   const treesFruitingNow = trees.filter((tree) =>
-    tree.fruitingSeason?.includes(currentMonth)
+    seasonIncludesMonth(tree.fruitingSeason, currentMonth)
   );
 
   // Get events for the current month
