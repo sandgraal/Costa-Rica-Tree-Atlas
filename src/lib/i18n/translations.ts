@@ -559,6 +559,89 @@ export function getMonthLabel(
   return getMonthFromDictionary(localeDict, month);
 }
 
+function normalizeMonthToken(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+}
+
+export function normalizeSeasonMonthValue(value: string | Month): Month | null {
+  const normalized = normalizeMonthToken(value);
+
+  switch (normalized) {
+    case "january":
+    case "enero":
+      return "january";
+    case "february":
+    case "febrero":
+      return "february";
+    case "march":
+    case "marzo":
+      return "march";
+    case "april":
+    case "abril":
+      return "april";
+    case "may":
+    case "mayo":
+      return "may";
+    case "june":
+    case "junio":
+      return "june";
+    case "july":
+    case "julio":
+      return "july";
+    case "august":
+    case "agosto":
+      return "august";
+    case "september":
+    case "septiembre":
+      return "september";
+    case "october":
+    case "octubre":
+      return "october";
+    case "november":
+    case "noviembre":
+      return "november";
+    case "december":
+    case "diciembre":
+      return "december";
+    case "all-year":
+    case "year-round":
+    case "todo-el-ano":
+      return "all-year";
+    default:
+      return null;
+  }
+}
+
+export function getCurrentMonthInCostaRica(date = new Date()): Month {
+  const monthIndex = Number.parseInt(
+    new Intl.DateTimeFormat("en-US", {
+      month: "numeric",
+      timeZone: "America/Costa_Rica",
+    }).format(date),
+    10
+  );
+
+  return ORDERED_MONTHS[Math.max(0, Math.min(11, monthIndex - 1))] ?? "january";
+}
+
+export function seasonIncludesMonth(
+  season: readonly (string | Month)[] | undefined,
+  month: Month
+): boolean {
+  if (!season || season.length === 0) {
+    return false;
+  }
+
+  return season.some((entry) => {
+    const normalized = normalizeSeasonMonthValue(entry);
+    return normalized === "all-year" || normalized === month;
+  });
+}
+
 export function getTagLabel(tag: TreeTag, locale: Locale): string {
   return getLocalizedText(getTagDefinition(tag).label, locale);
 }

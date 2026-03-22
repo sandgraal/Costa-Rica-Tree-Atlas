@@ -970,6 +970,175 @@ describe("High-traffic Spanish surface parity", () => {
     expect(violations).toEqual([]);
   });
 
+  it("should keep share menus localized across tree and collection surfaces", () => {
+    const componentChecks = [
+      {
+        file: "src/components/ShareButton.tsx",
+        forbiddenPatterns: [
+          /<span>X \(Twitter\)<\/span>/,
+          /<span>Facebook<\/span>/,
+          /<span>WhatsApp<\/span>/,
+          /<span>LinkedIn<\/span>/,
+        ],
+        requiredPatterns: [
+          /useTranslations\("share"\)/,
+          /t\("discoverTree",\s*\{\s*treeName:/,
+          /t\("failedToCopy"\)/,
+          /t\("shareOnX"\)/,
+          /t\("shareOnFacebook"\)/,
+          /t\("shareOnWhatsApp"\)/,
+          /t\("shareOnLinkedIn"\)/,
+        ],
+      },
+      {
+        file: "src/components/ShareCollectionButton.tsx",
+        forbiddenPatterns: [
+          /\{labels\.shareOn\} X\/Twitter/,
+          /\{labels\.shareOn\} Facebook/,
+          /\{labels\.shareOn\} WhatsApp/,
+          /\{labels\.shareOn\} Pinterest/,
+          /\{labels\.share\}\.\.\./,
+        ],
+        requiredPatterns: [
+          /useTranslations\("share"\)/,
+          /t\("shareNative"\)/,
+          /t\("shareOnX"\)/,
+          /t\("shareOnFacebook"\)/,
+          /t\("shareOnWhatsApp"\)/,
+          /t\("shareOnPinterest"\)/,
+        ],
+      },
+    ];
+
+    const violations: string[] = [];
+
+    for (const {
+      file,
+      forbiddenPatterns,
+      requiredPatterns,
+    } of componentChecks) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+
+      for (const pattern of forbiddenPatterns) {
+        if (pattern.test(content)) {
+          violations.push(`${file}: matched forbidden pattern ${pattern}`);
+        }
+      }
+
+      for (const pattern of requiredPatterns) {
+        if (!pattern.test(content)) {
+          violations.push(`${file}: missing required pattern ${pattern}`);
+        }
+      }
+    }
+
+    const enMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/en.json"), "utf-8")
+    ) as {
+      share?: {
+        shareNative?: string;
+        shareOnX?: string;
+        shareOnFacebook?: string;
+        shareOnWhatsApp?: string;
+        shareOnLinkedIn?: string;
+        shareOnPinterest?: string;
+      };
+    };
+    const esMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/es.json"), "utf-8")
+    ) as {
+      share?: {
+        shareNative?: string;
+        shareOnX?: string;
+        shareOnFacebook?: string;
+        shareOnWhatsApp?: string;
+        shareOnLinkedIn?: string;
+        shareOnPinterest?: string;
+      };
+    };
+
+    expect(enMessages.share?.shareNative).toBe("Share...");
+    expect(esMessages.share?.shareNative).toBe("Compartir...");
+    expect(enMessages.share?.shareOnX).toBe("Share on X / Twitter");
+    expect(esMessages.share?.shareOnX).toBe("Compartir en X / Twitter");
+    expect(enMessages.share?.shareOnFacebook).toBe("Share on Facebook");
+    expect(esMessages.share?.shareOnFacebook).toBe("Compartir en Facebook");
+    expect(enMessages.share?.shareOnWhatsApp).toBe("Share on WhatsApp");
+    expect(esMessages.share?.shareOnWhatsApp).toBe("Compartir en WhatsApp");
+    expect(enMessages.share?.shareOnLinkedIn).toBe("Share on LinkedIn");
+    expect(esMessages.share?.shareOnLinkedIn).toBe("Compartir en LinkedIn");
+    expect(enMessages.share?.shareOnPinterest).toBe("Share on Pinterest");
+    expect(esMessages.share?.shareOnPinterest).toBe("Compartir en Pinterest");
+
+    if (violations.length > 0) {
+      console.log(
+        `Share surfaces should keep localized menu labels:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep homepage and seasonal current-month matching locale-safe", () => {
+    const filesToCheck = [
+      "src/app/[locale]/page.tsx",
+      "src/app/[locale]/seasonal/page.tsx",
+    ];
+
+    const violations: string[] = [];
+
+    for (const file of filesToCheck) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+
+      if (
+        /DateTimeFormat\("en-US"/.test(content) ||
+        /toLocaleString\("en"/.test(content)
+      ) {
+        violations.push(`${file}: matched hardcoded English month formatter`);
+      }
+
+      if (!/getCurrentMonthInCostaRica\(/.test(content)) {
+        violations.push(
+          `${file}: missing getCurrentMonthInCostaRica helper usage`
+        );
+      }
+
+      if (!/seasonIncludesMonth\(/.test(content)) {
+        violations.push(`${file}: missing seasonIncludesMonth helper usage`);
+      }
+    }
+
+    const i18nContent = fs.readFileSync(
+      path.join(ROOT, "src/lib/i18n/translations.ts"),
+      "utf-8"
+    );
+
+    for (const pattern of [
+      /export function normalizeSeasonMonthValue/,
+      /case "enero":/,
+      /case "todo-el-ano":/,
+      /export function getCurrentMonthInCostaRica/,
+      /timeZone: "America\/Costa_Rica"/,
+      /export function seasonIncludesMonth/,
+    ]) {
+      if (!pattern.test(i18nContent)) {
+        violations.push(
+          `src/lib/i18n/translations.ts: missing required pattern ${pattern}`
+        );
+      }
+    }
+
+    if (violations.length > 0) {
+      console.log(
+        `Seasonal current-month matching should stay locale-safe:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
   it("should keep shared error and loading fallbacks localized", () => {
     const componentChecks = [
       {
@@ -1039,6 +1208,14 @@ describe("High-traffic Spanish surface parity", () => {
           /window\.location\.href = homeHref/,
           /\{copy\.title\}/,
           /\{copy\.description\}/,
+        ],
+      },
+      {
+        file: "src/app/[locale]/error.tsx",
+        forbiddenPatterns: [/<strong>Error:<\/strong>/],
+        requiredPatterns: [
+          /useTranslations\("error"\)/,
+          /<strong>\{t\("pageError"\)\}:<\/strong>/,
         ],
       },
     ];
@@ -1137,6 +1314,55 @@ describe("High-traffic Spanish surface parity", () => {
     if (violations.length > 0) {
       console.log(
         `Shared error and loading fallbacks should stay localized:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep the wizard progress bar localized", () => {
+    const wizardClient = fs.readFileSync(
+      path.join(ROOT, "src/app/[locale]/wizard/WizardClient.tsx"),
+      "utf-8"
+    );
+
+    const violations: string[] = [];
+
+    if (/label="Wizard progress"/.test(wizardClient)) {
+      violations.push(
+        "src/app/[locale]/wizard/WizardClient.tsx: matched forbidden hardcoded progress label"
+      );
+    }
+
+    for (const pattern of [
+      /useTranslations\("wizard"\)/,
+      /label=\{t\("progressBarLabel"\)\}/,
+    ]) {
+      if (!pattern.test(wizardClient)) {
+        violations.push(
+          `src/app/[locale]/wizard/WizardClient.tsx: missing required pattern ${pattern}`
+        );
+      }
+    }
+
+    const enMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/en.json"), "utf-8")
+    ) as {
+      wizard?: { progressBarLabel?: string };
+    };
+    const esMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/es.json"), "utf-8")
+    ) as {
+      wizard?: { progressBarLabel?: string };
+    };
+
+    expect(enMessages.wizard?.progressBarLabel).toBe("Wizard progress");
+    expect(esMessages.wizard?.progressBarLabel).toBe("Progreso del asistente");
+
+    if (violations.length > 0) {
+      console.log(
+        `Wizard progress surfaces should stay localized:\n` +
           violations.map((entry) => `  - ${entry}`).join("\n")
       );
     }
