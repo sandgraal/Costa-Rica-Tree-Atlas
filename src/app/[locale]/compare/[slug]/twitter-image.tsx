@@ -6,7 +6,7 @@ import {
   getComparisonGuideLabel,
 } from "@/lib/comparison-image-text";
 
-export const alt = "Species comparison guide";
+export const alt = "Species comparison guide / Guía de comparación de especies";
 export const size = {
   width: 1200,
   height: 630,

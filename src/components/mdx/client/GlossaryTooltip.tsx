@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface GlossaryTooltipProps {
   term: string;
@@ -13,6 +14,7 @@ export function GlossaryTooltip({
   definition,
   children,
 }: GlossaryTooltipProps) {
+  const t = useTranslations("glossary");
   const [isOpen, setIsOpen] = React.useState(false);
   const tooltipId = React.useId();
 
@@ -26,7 +28,7 @@ export function GlossaryTooltip({
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen(true)}
         className="underline decoration-dotted decoration-primary hover:text-primary transition-colors cursor-help"
-        aria-label={`Definition of ${term}`}
+        aria-label={t("definitionOf", { term })}
         aria-describedby={isOpen ? tooltipId : undefined}
       >
         {children}

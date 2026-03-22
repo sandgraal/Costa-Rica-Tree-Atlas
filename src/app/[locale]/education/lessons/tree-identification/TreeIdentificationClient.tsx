@@ -538,7 +538,7 @@ function TreeIdentificationContent({
             <ProgressBar
               value={(learnedTrees.size / trees.length) * 100}
               barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
-              label="Trees learned progress"
+              label={t.treesLearnedProgressLabel}
             />
           </div>
         </div>
@@ -556,7 +556,7 @@ function TreeIdentificationContent({
               <div className="aspect-video relative rounded-xl overflow-hidden mb-6 max-w-2xl mx-auto shadow-lg">
                 <Image
                   src={currentQuizTree.featuredImage}
-                  alt="Mystery tree"
+                  alt={t.mysteryTreeAlt}
                   fill
                   className="object-cover"
                 />

@@ -275,7 +275,7 @@ function ConservationLessonContent({
         <ProgressBar
           value={((state.currentStep + 1) / steps.length) * 100}
           barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
-          label="Step progress"
+          label={t.stepProgressLabel}
         />
       </div>
 

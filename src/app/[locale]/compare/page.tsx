@@ -124,9 +124,9 @@ function ComparePageClient({
     removeTree: t("removeTree"),
     clearAll: t("clearAll"),
     noTreesSelected: t("noTreesSelected"),
-    maxTreesReachedTemplate: t("maxTreesReached"),
-    removeSelectedTreeTemplate: t("removeSelectedTree"),
-    moreUsesTemplate: t("moreUses"),
+    maxTreesReachedTemplate: t.raw("maxTreesReached"),
+    removeSelectedTreeTemplate: t.raw("removeSelectedTree"),
+    moreUsesTemplate: t.raw("moreUses"),
     properties: {
       image: t("properties.image"),
       commonName: t("properties.commonName"),

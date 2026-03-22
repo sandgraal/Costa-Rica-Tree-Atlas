@@ -47,6 +47,7 @@ export interface ConservationLabels {
   endangeredTrees: string;
   excellentChoices: string;
   thankYouPledge: string;
+  stepProgressLabel: string;
 }
 
 export interface ConservationReason {
@@ -168,6 +169,7 @@ export function getConservationLessonData(
       "Thank you for your commitment!",
       "¡Gracias por tu compromiso!"
     ),
+    stepProgressLabel: t("Step progress", "Progreso de pasos"),
   };
 
   const conservationReasons: ConservationReason[] = [

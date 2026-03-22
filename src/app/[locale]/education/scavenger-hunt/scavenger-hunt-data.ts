@@ -76,6 +76,7 @@ export interface ScavengerHuntLabels {
   teams: string;
   defaultTeamName: string;
   backToMissions: string;
+  huntProgressLabel: string;
 }
 
 export interface ScavengerHuntLessonData {
@@ -400,6 +401,7 @@ export function getScavengerHuntLessonData(
     teams: t("Teams", "Equipos"),
     defaultTeamName: t("Team", "Equipo"),
     backToMissions: t("Back to Missions", "Volver a Misiones"),
+    huntProgressLabel: t("Hunt progress", "Progreso de la búsqueda"),
   };
 
   const missions: MissionDisplayData[] = MISSIONS_BILINGUAL.map((m) => ({

@@ -735,6 +735,414 @@ describe("High-traffic Spanish surface parity", () => {
     );
     expect(esMessages.comparison?.moreUses).toBe("+{count} más");
   });
+
+  it("should keep public social-image alt text bilingual instead of English-only", () => {
+    const socialAltExpectations: Array<{
+      file: string;
+      spanishFragment: string;
+    }> = [
+      {
+        file: "src/app/[locale]/trees/opengraph-image.tsx",
+        spanishFragment: "Directorio de árboles de Costa Rica",
+      },
+      {
+        file: "src/app/[locale]/trees/[slug]/opengraph-image.tsx",
+        spanishFragment: "Imagen del perfil del árbol",
+      },
+      {
+        file: "src/app/[locale]/trees/[slug]/twitter-image.tsx",
+        spanishFragment: "Imagen del perfil del árbol",
+      },
+      {
+        file: "src/app/[locale]/glossary/opengraph-image.tsx",
+        spanishFragment: "Glosario botánico de Costa Rica",
+      },
+      {
+        file: "src/app/[locale]/education/opengraph-image.tsx",
+        spanishFragment: "Recursos educativos sobre árboles de Costa Rica",
+      },
+      {
+        file: "src/app/[locale]/compare/opengraph-image.tsx",
+        spanishFragment: "Guías de comparación de árboles de Costa Rica",
+      },
+      {
+        file: "src/app/[locale]/compare/[slug]/opengraph-image.tsx",
+        spanishFragment: "Guía de comparación de especies",
+      },
+      {
+        file: "src/app/[locale]/compare/[slug]/twitter-image.tsx",
+        spanishFragment: "Guía de comparación de especies",
+      },
+    ];
+
+    const violations: string[] = [];
+
+    for (const { file, spanishFragment } of socialAltExpectations) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+      const altMatch = content.match(
+        /export const alt =\s*"([^"]+)"|export const alt =\s*\n\s*"([^"]+)"/
+      );
+      const altText = altMatch?.[1] ?? altMatch?.[2] ?? "";
+
+      if (!altText.includes(spanishFragment) || !altText.includes(" / ")) {
+        violations.push(`${file}: ${altText || "<missing alt export>"}`);
+      }
+    }
+
+    if (violations.length > 0) {
+      console.log(
+        `Public social image alt exports should stay bilingual:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should not reintroduce English-only dynamic aria labels in MDX glossary and lightbox components", () => {
+    const componentChecks = [
+      {
+        file: "src/components/mdx/client/GlossaryTooltip.tsx",
+        forbiddenPatterns: [/Definition of \$\{term\}/],
+        requiredPatterns: [
+          /useTranslations\("glossary"\)/,
+          /t\("definitionOf",\s*\{\s*term\s*\}\)/,
+        ],
+      },
+      {
+        file: "src/components/mdx/client/SideBySideImages.tsx",
+        forbiddenPatterns: [/Image lightbox:/, /\?\?\s*"Image"/],
+        requiredPatterns: [
+          /t\("ariaImageLightboxWithLabel"/,
+          /t\("ariaImageFallbackLabel"\)/,
+        ],
+      },
+    ];
+
+    const violations: string[] = [];
+
+    for (const {
+      file,
+      forbiddenPatterns,
+      requiredPatterns,
+    } of componentChecks) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+
+      for (const pattern of forbiddenPatterns) {
+        if (pattern.test(content)) {
+          violations.push(`${file}: matched forbidden pattern ${pattern}`);
+        }
+      }
+
+      for (const pattern of requiredPatterns) {
+        if (!pattern.test(content)) {
+          violations.push(`${file}: missing required pattern ${pattern}`);
+        }
+      }
+    }
+
+    if (violations.length > 0) {
+      console.log(
+        `MDX client components should keep translated dynamic aria labels:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep education progress labels and classroom demo fallbacks localized", () => {
+    const componentChecks = [
+      {
+        file: "src/app/[locale]/education/map-game/MapGameClient.tsx",
+        forbiddenPatterns: [/label="Quiz progress"/],
+        requiredPatterns: [/label=\{t\("quizProgress"\)\}/],
+      },
+      {
+        file: "src/app/[locale]/education/scavenger-hunt/HuntView.tsx",
+        forbiddenPatterns: [/label="Hunt progress"/],
+        requiredPatterns: [/label=\{t\.huntProgressLabel\}/],
+      },
+      {
+        file: "src/app/[locale]/education/lessons/biodiversity-intro/BiodiversityLessonClient.tsx",
+        forbiddenPatterns: [/label="Step progress"/],
+        requiredPatterns: [/label=\{t\.stepProgressLabel\}/],
+      },
+      {
+        file: "src/app/[locale]/education/lessons/conservation/ConservationLessonClient.tsx",
+        forbiddenPatterns: [/label="Step progress"/],
+        requiredPatterns: [/label=\{t\.stepProgressLabel\}/],
+      },
+      {
+        file: "src/app/[locale]/education/lessons/ecosystem-services/EcosystemServicesClient.tsx",
+        forbiddenPatterns: [/label="Step progress"/],
+        requiredPatterns: [/label=\{t\.stepProgressLabel\}/],
+      },
+      {
+        file: "src/app/[locale]/education/lessons/tree-identification/TreeIdentificationClient.tsx",
+        forbiddenPatterns: [
+          /label="Trees learned progress"/,
+          /alt="Mystery tree"/,
+        ],
+        requiredPatterns: [
+          /label=\{t\.treesLearnedProgressLabel\}/,
+          /alt=\{t\.mysteryTreeAlt\}/,
+        ],
+      },
+      {
+        file: "src/app/[locale]/education/classroom/ClassroomClient.tsx",
+        forbiddenPatterns: [/`Classroom \$\{/, /teacherName:\s*"Teacher"/],
+        requiredPatterns: [
+          /name:\s*t\("autoGeneratedClassroomName",/,
+          /teacherName:\s*t\("defaultTeacherName"\)/,
+        ],
+      },
+      {
+        file: "src/components/EducationProgress.tsx",
+        forbiddenPatterns: [/\(\{lessonProgress\.totalPoints\} pts\)/],
+        requiredPatterns: [
+          /\(\{lessonProgress\.totalPoints\} \{t\("pointsUnit"\)\}\)/,
+        ],
+      },
+    ];
+
+    const violations: string[] = [];
+
+    for (const {
+      file,
+      forbiddenPatterns,
+      requiredPatterns,
+    } of componentChecks) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+
+      for (const pattern of forbiddenPatterns) {
+        if (pattern.test(content)) {
+          violations.push(`${file}: matched forbidden pattern ${pattern}`);
+        }
+      }
+
+      for (const pattern of requiredPatterns) {
+        if (!pattern.test(content)) {
+          violations.push(`${file}: missing required pattern ${pattern}`);
+        }
+      }
+    }
+
+    const enMessagesPath = path.join(ROOT, "messages/en.json");
+    const esMessagesPath = path.join(ROOT, "messages/es.json");
+    const enMessages = JSON.parse(fs.readFileSync(enMessagesPath, "utf-8")) as {
+      mapGame?: { quizProgress?: string };
+      classroom?: {
+        autoGeneratedClassroomName?: string;
+        defaultTeacherName?: string;
+      };
+      educationProgress?: { pointsUnit?: string };
+    };
+    const esMessages = JSON.parse(fs.readFileSync(esMessagesPath, "utf-8")) as {
+      mapGame?: { quizProgress?: string };
+      classroom?: {
+        autoGeneratedClassroomName?: string;
+        defaultTeacherName?: string;
+      };
+      educationProgress?: { pointsUnit?: string };
+    };
+
+    expect(enMessages.mapGame?.quizProgress).toBe("Quiz progress");
+    expect(esMessages.mapGame?.quizProgress).toBe("Progreso del cuestionario");
+    expect(enMessages.classroom?.autoGeneratedClassroomName).toBe(
+      "Classroom {code}"
+    );
+    expect(esMessages.classroom?.autoGeneratedClassroomName).toBe(
+      "Aula {code}"
+    );
+    expect(enMessages.classroom?.defaultTeacherName).toBe("Teacher");
+    expect(esMessages.classroom?.defaultTeacherName).toBe("Profesor");
+    expect(enMessages.educationProgress?.pointsUnit).toBe("points");
+    expect(esMessages.educationProgress?.pointsUnit).toBe("puntos");
+
+    if (violations.length > 0) {
+      console.log(
+        `Education surfaces should keep localized progress labels and demo fallbacks:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep shared error and loading fallbacks localized", () => {
+    const componentChecks = [
+      {
+        file: "src/components/LoadingFallback.tsx",
+        forbiddenPatterns: [/message = "Loading\.\.\."/],
+        requiredPatterns: [
+          /useTranslations\("loading"\)/,
+          /message \?\? t\("message"\)/,
+        ],
+      },
+      {
+        file: "src/app/[locale]/loading.tsx",
+        forbiddenPatterns: [/>Loading</],
+        requiredPatterns: [
+          /useTranslations\("loading"\)/,
+          /\{t\("message"\)\}/,
+        ],
+      },
+      {
+        file: "src/components/ComponentErrorBoundary.tsx",
+        forbiddenPatterns: [
+          /\{componentName\} Error/,
+          /This component encountered an error/,
+          />\s*Retry\s*</,
+        ],
+        requiredPatterns: [
+          /useTranslations\("error"\)/,
+          /t\("componentErrorTitle"\)/,
+          /t\("componentErrorDescription"\)/,
+          /t\("tryAgain"\)/,
+          /t\("developmentDetails"\)/,
+        ],
+      },
+      {
+        file: "src/components/PageErrorBoundary.tsx",
+        forbiddenPatterns: [
+          /text-sm text-muted-foreground mb-6 font-mono bg-muted p-4 rounded/,
+          />\s*Error Details \(Development Only\)\s*</,
+        ],
+        requiredPatterns: [
+          /t\("pageErrorDescription"\)/,
+          /t\("developmentDetails"\)/,
+          /error\.stack \?\? error\.message/,
+        ],
+      },
+      {
+        file: "src/components/ServerMDXContent.tsx",
+        forbiddenPatterns: [
+          /Content Rendering Error/,
+          /We encountered an issue while rendering this content\./,
+          /Technical Details \(Development Only\)/,
+        ],
+        requiredPatterns: [
+          /getTranslations\(\{\s*locale: resolvedLocale,\s*namespace: "error"/,
+          /title=\{tError\("contentRenderingErrorTitle"\)\}/,
+          /description=\{tError\("contentRenderingErrorDescription"\)\}/,
+          /developmentDetails=\{tError\("developmentDetails"\)\}/,
+        ],
+      },
+      {
+        file: "src/app/global-error.tsx",
+        forbiddenPatterns: [],
+        requiredPatterns: [
+          /const GLOBAL_ERROR_COPY:/,
+          /pathname\.startsWith\("\/es"\)/,
+          /const homeHref = `\/\$\{locale\}`/,
+          /window\.location\.href = homeHref/,
+          /\{copy\.title\}/,
+          /\{copy\.description\}/,
+        ],
+      },
+    ];
+
+    const violations: string[] = [];
+
+    for (const {
+      file,
+      forbiddenPatterns,
+      requiredPatterns,
+    } of componentChecks) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+
+      for (const pattern of forbiddenPatterns) {
+        if (pattern.test(content)) {
+          violations.push(`${file}: matched forbidden pattern ${pattern}`);
+        }
+      }
+
+      for (const pattern of requiredPatterns) {
+        if (!pattern.test(content)) {
+          violations.push(`${file}: missing required pattern ${pattern}`);
+        }
+      }
+    }
+
+    const localeLayout = fs.readFileSync(
+      path.join(ROOT, "src/app/[locale]/layout.tsx"),
+      "utf-8"
+    );
+
+    if (!/"loading"/.test(localeLayout)) {
+      violations.push(
+        "src/app/[locale]/layout.tsx: missing loading namespace in client provider allowlist"
+      );
+    }
+
+    const enMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/en.json"), "utf-8")
+    ) as {
+      error?: {
+        componentErrorTitle?: string;
+        componentErrorDescription?: string;
+        contentRenderingErrorTitle?: string;
+        contentRenderingErrorDescription?: string;
+        developmentDetails?: string;
+      };
+      loading?: { message?: string };
+    };
+    const esMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/es.json"), "utf-8")
+    ) as {
+      error?: {
+        componentErrorTitle?: string;
+        componentErrorDescription?: string;
+        contentRenderingErrorTitle?: string;
+        contentRenderingErrorDescription?: string;
+        developmentDetails?: string;
+      };
+      loading?: { message?: string };
+    };
+
+    expect(enMessages.error?.componentErrorTitle).toBe(
+      "This section couldn't load"
+    );
+    expect(esMessages.error?.componentErrorTitle).toBe(
+      "No se pudo cargar esta sección"
+    );
+    expect(enMessages.error?.componentErrorDescription).toBe(
+      "We ran into a problem loading this part of the page."
+    );
+    expect(esMessages.error?.componentErrorDescription).toBe(
+      "Tuvimos un problema al cargar esta parte de la página."
+    );
+    expect(enMessages.error?.contentRenderingErrorTitle).toBe(
+      "Content rendering error"
+    );
+    expect(esMessages.error?.contentRenderingErrorTitle).toBe(
+      "Error al mostrar el contenido"
+    );
+    expect(enMessages.error?.contentRenderingErrorDescription).toBe(
+      "We ran into a problem rendering this content. Please refresh the page."
+    );
+    expect(esMessages.error?.contentRenderingErrorDescription).toBe(
+      "Tuvimos un problema al mostrar este contenido. Por favor recarga la página."
+    );
+    expect(enMessages.error?.developmentDetails).toBe(
+      "Technical details (development only)"
+    );
+    expect(esMessages.error?.developmentDetails).toBe(
+      "Detalles técnicos (solo en desarrollo)"
+    );
+    expect(enMessages.loading?.message).toBe("Loading...");
+    expect(esMessages.loading?.message).toBe("Cargando...");
+
+    if (violations.length > 0) {
+      console.log(
+        `Shared error and loading fallbacks should stay localized:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
 });
 
 // ---------------------------------------------------------------------------

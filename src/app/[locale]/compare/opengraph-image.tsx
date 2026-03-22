@@ -1,7 +1,8 @@
 import { allSpeciesComparisons } from "contentlayer/generated";
 import { ImageResponse } from "next/og";
 
-export const alt = "Costa Rica Tree Atlas - Compare Species";
+export const alt =
+  "Costa Rica tree comparison guides / Guías de comparación de árboles de Costa Rica";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

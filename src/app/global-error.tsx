@@ -1,7 +1,41 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { captureException } from "@/lib/error-tracking";
+
+type GlobalErrorLocale = "en" | "es";
+
+const GLOBAL_ERROR_COPY: Record<
+  GlobalErrorLocale,
+  {
+    title: string;
+    description: string;
+    tryAgain: string;
+    goHome: string;
+    errorId: string;
+  }
+> = {
+  en: {
+    title: "Something went wrong",
+    description:
+      "We encountered an unexpected error. Please try again or return to the homepage.",
+    tryAgain: "Try Again",
+    goHome: "Go Home",
+    errorId: "Error ID",
+  },
+  es: {
+    title: "Algo salió mal",
+    description:
+      "Encontramos un error inesperado. Por favor intenta de nuevo o regresa a la página principal.",
+    tryAgain: "Intentar de nuevo",
+    goHome: "Ir al Inicio",
+    errorId: "ID del error",
+  },
+};
+
+function getLocaleFromPathname(pathname: string): GlobalErrorLocale {
+  return pathname.startsWith("/es") ? "es" : "en";
+}
 
 /**
  * Global Error Handler
@@ -15,7 +49,13 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const [locale, setLocale] = useState<GlobalErrorLocale>("en");
+
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setLocale(getLocaleFromPathname(window.location.pathname));
+    }
+
     // Log error for tracking
     captureException(error, {
       tags: {
@@ -28,8 +68,11 @@ export default function GlobalError({
     });
   }, [error]);
 
+  const copy = GLOBAL_ERROR_COPY[locale];
+  const homeHref = `/${locale}`;
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
         <div
           style={{
@@ -70,7 +113,7 @@ export default function GlobalError({
                 color: "#2d5a27",
               }}
             >
-              Something went wrong
+              {copy.title}
             </h1>
             <p
               style={{
@@ -79,8 +122,7 @@ export default function GlobalError({
                 lineHeight: "1.6",
               }}
             >
-              We encountered an unexpected error. Please try again or return to
-              the homepage.
+              {copy.description}
             </p>
             <div
               style={{
@@ -104,10 +146,12 @@ export default function GlobalError({
                   cursor: "pointer",
                 }}
               >
-                Try Again
+                {copy.tryAgain}
               </button>
               <button
-                onClick={() => (window.location.href = "/en")}
+                onClick={() => {
+                  window.location.href = homeHref;
+                }}
                 style={{
                   backgroundColor: "#e5e5e5",
                   color: "#1a1a1a",
@@ -118,7 +162,7 @@ export default function GlobalError({
                   cursor: "pointer",
                 }}
               >
-                Go Home
+                {copy.goHome}
               </button>
             </div>
             {error.digest && (
@@ -129,7 +173,7 @@ export default function GlobalError({
                   color: "#999",
                 }}
               >
-                Error ID: {error.digest}
+                {copy.errorId}: {error.digest}
               </p>
             )}
           </div>

@@ -358,7 +358,7 @@ export function LessonProgressBar({ lessonId }: { lessonId: string }) {
         <span className="text-sm">✓</span>
         <span className="text-xs font-medium">{t("completed")}</span>
         <span className="text-xs text-muted-foreground">
-          ({lessonProgress.totalPoints} pts)
+          ({lessonProgress.totalPoints} {t("pointsUnit")})
         </span>
       </div>
     );

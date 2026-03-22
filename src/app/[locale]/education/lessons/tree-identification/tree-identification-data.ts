@@ -64,6 +64,8 @@ export interface TreeIdentificationLabels {
   grades: string;
   pairs: string;
   exit: string;
+  treesLearnedProgressLabel: string;
+  mysteryTreeAlt: string;
 }
 
 export interface TreeIdentificationLessonData {
@@ -143,6 +145,11 @@ export function getTreeIdentificationLessonData(
     grades: t("Grades 4-6", "Grados 4-6"),
     pairs: t("Pairs", "Pares"),
     exit: t("Exit", "Salir"),
+    treesLearnedProgressLabel: t(
+      "Trees learned progress",
+      "Progreso de árboles aprendidos"
+    ),
+    mysteryTreeAlt: t("Mystery tree", "Árbol misterioso"),
   };
 
   const features: FeatureDef[] = [

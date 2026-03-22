@@ -288,7 +288,7 @@ function EcosystemServicesContent({
         <ProgressBar
           value={((currentStep + 1) / steps.length) * 100}
           barClassName="bg-gradient-to-r from-green-500 to-blue-500"
-          label="Step progress"
+          label={t.stepProgressLabel}
         />
       </div>
 

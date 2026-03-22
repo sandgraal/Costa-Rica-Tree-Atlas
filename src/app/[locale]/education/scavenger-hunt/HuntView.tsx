@@ -180,7 +180,7 @@ export function HuntView({
                   : 0
               }
               barClassName="bg-gradient-to-r from-amber-500 to-orange-500"
-              label="Hunt progress"
+              label={t.huntProgressLabel}
             />
           </div>
         </div>

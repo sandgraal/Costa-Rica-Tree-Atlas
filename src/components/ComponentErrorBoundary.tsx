@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { captureException } from "@/lib/error-tracking";
 import type { ReactNode } from "react";
@@ -17,6 +18,8 @@ export function ComponentErrorBoundary({
   children,
   componentName = "Component",
 }: ComponentErrorBoundaryProps) {
+  const t = useTranslations("error");
+
   return (
     <ErrorBoundary
       fallback={(error, reset) => (
@@ -25,17 +28,27 @@ export function ComponentErrorBoundary({
             <div className="text-2xl">⚠️</div>
             <div className="flex-1">
               <h3 className="font-semibold text-destructive mb-1">
-                {componentName} Error
+                {t("componentErrorTitle")}
               </h3>
               <p className="text-sm text-muted-foreground mb-3">
-                {error.message || "This component encountered an error"}
+                {t("componentErrorDescription")}
               </p>
               <button
                 onClick={reset}
                 className="text-sm px-3 py-1.5 bg-primary text-primary-foreground rounded hover:bg-primary/90"
               >
-                Retry
+                {t("tryAgain")}
               </button>
+              {process.env.NODE_ENV === "development" && (
+                <details className="mt-3 text-left">
+                  <summary className="cursor-pointer text-sm font-medium mb-2">
+                    {t("developmentDetails")}
+                  </summary>
+                  <pre className="text-xs bg-background/70 p-3 rounded overflow-auto max-h-48">
+                    {error.stack ?? error.message}
+                  </pre>
+                </details>
+              )}
             </div>
           </div>
         </div>

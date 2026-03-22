@@ -1,7 +1,8 @@
 import { allGlossaryTerms } from "contentlayer/generated";
 import { ImageResponse } from "next/og";
 
-export const alt = "Costa Rica Tree Atlas - Botanical Glossary";
+export const alt =
+  "Costa Rica botanical glossary / Glosario botánico de Costa Rica";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

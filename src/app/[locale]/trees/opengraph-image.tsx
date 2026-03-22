@@ -1,7 +1,8 @@
 import { allTrees } from "contentlayer/generated";
 import { ImageResponse } from "next/og";
 
-export const alt = "Costa Rica Tree Atlas - Browse Trees";
+export const alt =
+  "Costa Rica tree directory / Directorio de árboles de Costa Rica";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -21,7 +22,9 @@ export default async function OGImage({ params }: Props) {
     en: `${count} species documented with detailed scientific information`,
     es: `${count} especies documentadas con información científica detallada`,
   };
-  const safeLocale = (Object.hasOwn(TITLES, locale) ? locale : "en") as keyof typeof TITLES;
+  const safeLocale = (
+    Object.hasOwn(TITLES, locale) ? locale : "en"
+  ) as keyof typeof TITLES;
   const title = TITLES[safeLocale];
   const subtitle = SUBTITLES[safeLocale];
 
