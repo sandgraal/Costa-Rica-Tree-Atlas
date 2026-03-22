@@ -32,6 +32,7 @@ export function measureRender(componentName: string, itemCount: number) {
 
       try {
         performance.measure(measureName, startMark, endMark);
+        performance.clearMeasures(measureName);
       } catch (_error) {
         // Marks may have been cleared or unsupported by the current runtime.
       } finally {
@@ -75,6 +76,7 @@ export function measurePerformance(
     try {
       performance.measure(measureName, startMark, endMark);
       const measure = performance.getEntriesByName(measureName)[0];
+      performance.clearMeasures(measureName);
       return measure?.duration;
     } catch (_e) {
       // Marks might not exist, ignore
