@@ -39,14 +39,6 @@ export function monitorImagePerformance(): void {
             timestamp: Date.now(),
           };
 
-          // Log metrics in development
-          if (process.env.NODE_ENV === "development") {
-            console.log("Image loaded:", {
-              ...metrics,
-              url: entry.name.substring(entry.name.lastIndexOf("/") + 1),
-            });
-          }
-
           // Send to analytics if available
           if (typeof window !== "undefined" && "gtag" in window) {
             // @ts-expect-error - gtag is injected by analytics
@@ -132,13 +124,6 @@ export function monitorLCP(): void {
         (lastEntry.element.tagName === "IMG" ||
           lastEntry.element.tagName === "IMAGE")
       ) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("LCP Image:", {
-            url: lastEntry.url,
-            loadTime: Math.round(lastEntry.startTime),
-          });
-        }
-
         // Send to analytics
         if (typeof window !== "undefined" && "gtag" in window) {
           // @ts-expect-error - gtag is injected by analytics

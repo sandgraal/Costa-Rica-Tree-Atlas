@@ -33,6 +33,11 @@ const WEBSITE_DESCRIPTION: Record<Locale, string> = {
   es: "Guía bilingüe de código abierto de los árboles de Costa Rica",
 };
 
+const APP_SHORT_NAME: Record<Locale, string> = {
+  en: "CR Trees",
+  es: "Árboles CR",
+};
+
 // Lazy load non-critical client components — code-split to reduce initial
 // bundle size. These components are only loaded when the page hydrates.
 const KeyboardShortcuts = dynamic(() =>
@@ -276,11 +281,14 @@ export default async function LocaleLayout({ children, params }: Props) {
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
 
         {/* PWA manifest */}
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href={`/${locale}/manifest.webmanifest`} />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="CR Trees" />
+        <meta
+          name="apple-mobile-web-app-title"
+          content={getLocalizedText(APP_SHORT_NAME, locale)}
+        />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
       </head>

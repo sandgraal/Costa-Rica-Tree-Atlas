@@ -16,15 +16,28 @@
  * ```
  */
 export function measureRender(componentName: string, itemCount: number) {
-  if (process.env.NODE_ENV === "development") {
-    console.log(`[Performance] ${componentName} rendering ${itemCount} items`);
+  if (
+    process.env.NODE_ENV === "development" &&
+    typeof performance !== "undefined" &&
+    typeof requestAnimationFrame !== "undefined"
+  ) {
+    const startMark = `${componentName}-render-start-${itemCount}`;
+    const endMark = `${componentName}-render-end-${itemCount}`;
+    const measureName = `${componentName}-render-duration-${itemCount}`;
 
-    const start = performance.now();
+    performance.mark(startMark);
+
     requestAnimationFrame(() => {
-      const end = performance.now();
-      console.log(
-        `[Performance] ${componentName} rendered in ${(end - start).toFixed(2)}ms`
-      );
+      performance.mark(endMark);
+
+      try {
+        performance.measure(measureName, startMark, endMark);
+      } catch (_error) {
+        // Marks may have been cleared or unsupported by the current runtime.
+      } finally {
+        performance.clearMarks(startMark);
+        performance.clearMarks(endMark);
+      }
     });
   }
 }
@@ -54,7 +67,7 @@ export function measurePerformance(
   measureName: string,
   startMark: string,
   endMark: string
-) {
+): number | undefined {
   if (
     process.env.NODE_ENV === "development" &&
     typeof performance !== "undefined"
@@ -62,11 +75,11 @@ export function measurePerformance(
     try {
       performance.measure(measureName, startMark, endMark);
       const measure = performance.getEntriesByName(measureName)[0];
-      console.log(
-        `[Performance] ${measureName}: ${measure.duration.toFixed(2)}ms`
-      );
+      return measure?.duration;
     } catch (_e) {
       // Marks might not exist, ignore
     }
   }
+
+  return undefined;
 }

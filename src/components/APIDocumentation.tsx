@@ -280,12 +280,12 @@ curl "${baseUrl}/api/v1/families?locale=${locale}"`}
               `// List all trees
 const response = await fetch('${baseUrl}/api/v1/trees?locale=${locale}');
 const { data, pagination } = await response.json();
-console.log(\`Found \${pagination.total} trees\`);
+const totalTrees = pagination.total;
 
 // Get a specific tree
 const treeResponse = await fetch('${baseUrl}/api/v1/trees/guanacaste?locale=${locale}');
 const { data: tree, _related } = await treeResponse.json();
-console.log(tree.scientificName);
+const scientificName = tree.scientificName;
 
 // Search and filter
 const searchParams = new URLSearchParams({

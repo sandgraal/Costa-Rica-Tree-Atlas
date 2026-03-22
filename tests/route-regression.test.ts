@@ -209,6 +209,18 @@ describe("Metadata: locale alternates", () => {
     }
     expect(missing.length).toBeLessThanOrEqual(KNOWN_MISSING_COUNT);
   });
+
+  it("should use a locale-aware manifest route from the locale layout", () => {
+    const layoutFile = path.join(ROOT, "src/app/[locale]/layout.tsx");
+    const manifestFile = path.join(ROOT, "src/app/[locale]/manifest.ts");
+    const layoutContent = fs.readFileSync(layoutFile, "utf-8");
+
+    expect(fs.existsSync(manifestFile)).toBe(true);
+    expect(layoutContent).toContain(
+      '<link rel="manifest" href={`/${locale}/manifest.webmanifest`} />'
+    );
+    expect(layoutContent).not.toContain('href="/manifest.json"');
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -1454,8 +1466,6 @@ describe("Console cleanliness: no unguarded console.log", () => {
       );
     }
 
-    // Baseline: allow up to a small number to avoid blocking on existing calls.
-    // Reduce this to 0 over time.
-    expect(violators.length).toBeLessThanOrEqual(5);
+    expect(violators).toEqual([]);
   });
 });

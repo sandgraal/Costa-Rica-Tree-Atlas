@@ -87,8 +87,6 @@ export function validateEnv() {
     throw new Error("Invalid client environment variables");
   }
 
-  console.log("✅ Environment variables validated successfully");
-
   return {
     server: serverEnv.data,
     client: clientEnv.data,
