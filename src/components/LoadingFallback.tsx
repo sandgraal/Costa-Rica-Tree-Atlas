@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 function Loader2Icon({ className }: { className?: string }) {
   return (
     <svg
@@ -21,9 +25,12 @@ interface LoadingFallbackProps {
 }
 
 export function LoadingFallback({
-  message = "Loading...",
+  message,
   fullScreen = false,
 }: LoadingFallbackProps) {
+  const t = useTranslations("loading");
+  const resolvedMessage = message ?? t("message");
+
   const containerClass = fullScreen
     ? "fixed inset-0 flex items-center justify-center bg-background"
     : "flex items-center justify-center min-h-[400px]";
@@ -32,7 +39,7 @@ export function LoadingFallback({
     <div className={containerClass}>
       <div className="text-center">
         <Loader2Icon className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-        <p className="text-muted-foreground">{message}</p>
+        <p className="text-muted-foreground">{resolvedMessage}</p>
       </div>
     </div>
   );

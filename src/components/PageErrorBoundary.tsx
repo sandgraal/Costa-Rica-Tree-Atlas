@@ -24,11 +24,8 @@ export function PageErrorBoundary({ children }: PageErrorBoundaryProps) {
           <div className="text-center max-w-lg">
             <div className="text-8xl mb-6">💥</div>
             <h1 className="text-4xl font-bold mb-4">{t("pageError")}</h1>
-            <p className="text-xl text-muted-foreground mb-2">
+            <p className="text-xl text-muted-foreground mb-6">
               {t("pageErrorDescription")}
-            </p>
-            <p className="text-sm text-muted-foreground mb-6 font-mono bg-muted p-4 rounded">
-              {error.message}
             </p>
             <div className="flex gap-4 justify-center">
               <button
@@ -53,10 +50,10 @@ export function PageErrorBoundary({ children }: PageErrorBoundaryProps) {
             {process.env.NODE_ENV === "development" && (
               <details className="mt-8 text-left">
                 <summary className="cursor-pointer font-semibold mb-2">
-                  Error Details (Development Only)
+                  {t("developmentDetails")}
                 </summary>
-                <pre className="text-xs bg-muted p-4 rounded overflow-auto max-h-64">
-                  {error.stack}
+                <pre className="text-xs bg-muted p-4 rounded overflow-auto max-h-64 whitespace-pre-wrap">
+                  {error.stack ?? error.message}
                 </pre>
               </details>
             )}

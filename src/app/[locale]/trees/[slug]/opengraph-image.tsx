@@ -6,7 +6,7 @@ import {
 } from "@/lib/i18n/translations";
 import type { ConservationCategory, Locale } from "@/types/tree";
 
-export const alt = "Tree profile image";
+export const alt = "Tree profile image / Imagen del perfil del árbol";
 export const size = {
   width: 1200,
   height: 630,

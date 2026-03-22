@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas — Implementation Plan
 
-**Last Updated:** 2026-03-20
-**Status:** Checklist audit v4.2 — Updated after shared locale-selection helper consolidation.
+**Last Updated:** 2026-03-21
+**Status:** Checklist audit v4.4 — Updated after shared error/loading fallback localization pass.
 
 ---
 
@@ -52,7 +52,7 @@
 ### ✅ Completed
 
 - [x] File parity confirmed: 175/175 trees, 20/20 comparisons, 150/150 glossary, 2/2 oral histories
-- [x] Translation key parity: 1,926 keys in both `messages/en.json` and `messages/es.json`
+- [x] Translation key parity: 1,979 keys in both `messages/en.json` and `messages/es.json`
 - [x] MDX chrome localized: `INaturalistEmbed`, `ImageCard`, `Reference`, `ReferencesSection`
 - [x] Shared nav controls localized: `MobileNav`, `LanguageSwitcher`, `PrintButton`
 - [x] `ServerMDXContent` receives active locale
@@ -68,6 +68,10 @@
 - [x] Localized education landing-page CTAs and printable-resource link; regression audit now guards those Spanish surfaces against English fallback copy
 - [x] Localized oral-history detail not-found metadata and added regression coverage so missing Spanish entries do not fall back to English page titles
 - [x] Localized remaining English helper copy in the interactive compare tool (`Clear all`, max-tree cap, remove-chip aria labels, overflow copy) and added regression coverage for its Spanish surface
+- [x] Replaced English-only static social-image alt exports on locale-prefixed trees, glossary, education, and compare routes with bilingual alt text; regression audit now guards those OG/Twitter routes against English-only alt regressions
+- [x] Localized dynamic MDX ARIA labels for glossary definition triggers and side-by-side image lightboxes; regression audit now guards those expression-based Spanish surfaces against English fallback copy
+- [x] Localized remaining English-only education progress labels and fallback classroom/demo copy across map game, scavenger hunt, three lesson flows, tree-identification mystery-image alt text, and `EducationProgress`; regression audit now guards those Spanish education surfaces against English progress/fallback regressions
+- [x] Localized shared error and loading fallback surfaces across `global-error`, shared error boundaries, MDX render failures, and route/loading fallbacks so Spanish public failure states no longer default to English or expose raw production error text
 
 ### 🔴 Remaining
 
@@ -226,7 +230,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Image review gate test (1 file)
 - [x] i18n parity test (1 file)
 - [x] Layout namespace audit test (1 file)
-- [x] Route-level regression tests (1 file) — landmarks, content parity, MDX heading remap, metadata alternates, message key parity, aria-label audit
+- [x] Route-level regression tests (1 file) — landmarks, content parity, MDX heading remap, metadata alternates, message key parity, aria-label audit, high-traffic Spanish parity guards, shared fallback localization guards
 
 ### Missing test categories
 

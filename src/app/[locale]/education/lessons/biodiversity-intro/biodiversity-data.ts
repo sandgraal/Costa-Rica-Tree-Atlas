@@ -72,6 +72,7 @@ export interface BiodiversityLabels {
   drawingArea: string;
   printableResources: string;
   viewActivitySheets: string;
+  stepProgressLabel: string;
 }
 
 export interface BiodiversityLessonData {
@@ -112,6 +113,7 @@ export function getBiodiversityLessonData(
       | "drawingArea"
       | "printableResources"
       | "viewActivitySheets"
+      | "stepProgressLabel"
     >
   > = {
     en: {
@@ -130,6 +132,7 @@ export function getBiodiversityLessonData(
       drawingArea: "Drawing area - Use paper and colored pencils!",
       printableResources: "Printable resources",
       viewActivitySheets: "View activity sheets",
+      stepProgressLabel: "Step progress",
     },
     es: {
       gradeLevel: "Grados 3-5",
@@ -147,6 +150,7 @@ export function getBiodiversityLessonData(
       drawingArea: "Área de dibujo - ¡Usa papel y lápices de colores!",
       printableResources: "Recursos imprimibles",
       viewActivitySheets: "Ver hojas de actividades",
+      stepProgressLabel: "Progreso de pasos",
     },
   };
 

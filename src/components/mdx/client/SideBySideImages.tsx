@@ -50,6 +50,8 @@ export function SideBySideImages({
     },
   ];
   const activeImage = images.at(activeIndex) ?? images[0];
+  const activeLightboxLabel =
+    activeImage?.label?.trim() || t("ariaImageFallbackLabel");
 
   const isLeftRemote = leftImage.startsWith("http");
   const isRightRemote = rightImage.startsWith("http");
@@ -153,7 +155,9 @@ export function SideBySideImages({
           onClick={() => setLightboxOpen(false)}
           role="dialog"
           aria-modal="true"
-          aria-label={`Image lightbox: ${activeImage?.label ?? "Image"}`}
+          aria-label={t("ariaImageLightboxWithLabel", {
+            label: activeLightboxLabel,
+          })}
         >
           <button
             onClick={() => setLightboxOpen(false)}

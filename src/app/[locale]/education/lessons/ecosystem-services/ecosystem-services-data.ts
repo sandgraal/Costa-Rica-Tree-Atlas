@@ -83,6 +83,7 @@ export interface EcosystemServicesLabels {
   posterHeading: string;
   naturesGifts: string;
   addElementsPrompt: string;
+  stepProgressLabel: string;
 }
 
 export interface EcosystemServicesLessonData {
@@ -184,6 +185,7 @@ export function getEcosystemServicesLessonData(
       "Add elements to your poster",
       "Agrega elementos a tu póster"
     ),
+    stepProgressLabel: t("Step progress", "Progreso de pasos"),
   };
 
   const serviceCategories: ServiceCategory[] = [

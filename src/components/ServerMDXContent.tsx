@@ -27,6 +27,7 @@
  */
 
 import { compileMDX } from "next-mdx-remote/rsc";
+import { getTranslations } from "next-intl/server";
 import { mdxServerComponents } from "@/components/mdx/server-components";
 import { AccordionItem } from "@/components/mdx/client/AccordionItem";
 import { ImageCard as BaseImageCard } from "@/components/mdx/client/ImageCard";
@@ -64,7 +65,17 @@ interface ServerMDXContentProps {
 /**
  * Error fallback component for MDX compilation failures
  */
-function MDXErrorFallback({ error }: { error: unknown }) {
+function MDXErrorFallback({
+  error,
+  title,
+  description,
+  developmentDetails,
+}: {
+  error: unknown;
+  title: string;
+  description: string;
+  developmentDetails: string;
+}) {
   const isDevelopment = process.env.NODE_ENV === "development";
 
   return (
@@ -72,17 +83,12 @@ function MDXErrorFallback({ error }: { error: unknown }) {
       className="rounded-lg border border-destructive/50 bg-destructive/10 p-6 my-4"
       role="alert"
     >
-      <h3 className="text-lg font-semibold text-destructive mb-2">
-        Content Rendering Error
-      </h3>
-      <p className="text-sm text-foreground/80 mb-3">
-        We encountered an issue while rendering this content. Please try
-        refreshing the page.
-      </p>
+      <h3 className="text-lg font-semibold text-destructive mb-2">{title}</h3>
+      <p className="text-sm text-foreground/80 mb-3">{description}</p>
       {isDevelopment && (
         <details className="text-xs text-muted-foreground">
           <summary className="cursor-pointer font-medium mb-2">
-            Technical Details (Development Only)
+            {developmentDetails}
           </summary>
           <pre className="bg-muted p-3 rounded overflow-x-auto">
             {error instanceof Error ? error.message : String(error)}
@@ -127,6 +133,10 @@ export async function ServerMDXContent({
   // Normalize locale at runtime: the prop is typed as string so callers can
   // pass raw route params without a cast; fall back to "en" defensively.
   const resolvedLocale: Locale = normalizeLocale(locale);
+  const tError = await getTranslations({
+    locale: resolvedLocale,
+    namespace: "error",
+  });
 
   // Create locale-aware wrappers for legacy components that need localization
   // These components are imported from server-components and have a locale prop
@@ -265,7 +275,14 @@ export async function ServerMDXContent({
         // Don't log the actual source or detailed error message
       });
     }
-    return <MDXErrorFallback error={error} />;
+    return (
+      <MDXErrorFallback
+        error={error}
+        title={tError("contentRenderingErrorTitle")}
+        description={tError("contentRenderingErrorDescription")}
+        developmentDetails={tError("developmentDetails")}
+      />
+    );
   }
 
   // Optionally wrap in AutoGlossaryLink for automatic term linking

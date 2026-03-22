@@ -513,7 +513,7 @@ export default function MapGameClient({ trees }: MapGameClientProps) {
             <ProgressBar
               value={((currentQuestion + 1) / questions.length) * 100}
               barClassName="bg-gradient-to-r from-green-500 to-emerald-500"
-              label="Quiz progress"
+              label={t("quizProgress")}
             />
           </div>
 
