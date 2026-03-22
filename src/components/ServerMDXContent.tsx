@@ -133,10 +133,6 @@ export async function ServerMDXContent({
   // Normalize locale at runtime: the prop is typed as string so callers can
   // pass raw route params without a cast; fall back to "en" defensively.
   const resolvedLocale: Locale = normalizeLocale(locale);
-  const tError = await getTranslations({
-    locale: resolvedLocale,
-    namespace: "error",
-  });
 
   // Create locale-aware wrappers for legacy components that need localization
   // These components are imported from server-components and have a locale prop
@@ -275,6 +271,10 @@ export async function ServerMDXContent({
         // Don't log the actual source or detailed error message
       });
     }
+    const tError = await getTranslations({
+      locale: resolvedLocale,
+      namespace: "error",
+    });
     return (
       <MDXErrorFallback
         error={error}
