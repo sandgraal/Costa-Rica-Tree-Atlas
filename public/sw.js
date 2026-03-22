@@ -1,8 +1,8 @@
 // Service Worker for Costa Rica Tree Atlas
 // Provides offline support for field use
 
-const STATIC_CACHE = "cr-tree-atlas-static-v2";
-const DYNAMIC_CACHE = "cr-tree-atlas-dynamic-v2";
+const STATIC_CACHE = "cr-tree-atlas-static-v3";
+const DYNAMIC_CACHE = "cr-tree-atlas-dynamic-v3";
 
 // Static assets to cache on install
 // Note: Don't cache "/" as it redirects to locale paths
@@ -15,7 +15,8 @@ const STATIC_ASSETS = [
   "/es/identify",
   "/en/compare",
   "/es/compare",
-  "/manifest.json",
+  "/en/manifest.webmanifest",
+  "/es/manifest.webmanifest",
   "/images/cr-tree-atlas-logo.png",
 ];
 

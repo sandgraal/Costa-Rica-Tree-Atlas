@@ -1,7 +1,7 @@
 # Costa Rica Tree Atlas — Implementation Plan
 
-**Last Updated:** 2026-03-21
-**Status:** Checklist audit v4.4 — Updated after shared error/loading fallback localization pass.
+**Last Updated:** 2026-03-22
+**Status:** Checklist audit v4.5 — Updated after locale-aware manifest decision, console-log cleanup pass, and factual remediation policy alignment.
 
 ---
 
@@ -132,7 +132,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ### 🔴 Remaining
 
-- [ ] No locale-aware manifest strategy decided or implemented
+- [x] Locale-aware manifest strategy decided and implemented via locale-prefixed manifest route
 
 ---
 
@@ -172,7 +172,9 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ### Process gaps
 
-- [ ] Citation standard for high-risk sections (uses, cultural, medicinal, safety, conservation) — not defined
+- [x] Source hierarchy for factual corrections adopted: IUCN → POWO → Tropicos → Manual de Plantas de Costa Rica → SINAC → peer-reviewed papers
+- [x] Citation standard for high-risk sections (uses, cultural, medicinal, safety, conservation): 2 independent sources required
+- [x] Remediation queue priority fixed: resolve the 12 P1-high IUCN mismatch trees before medium-risk citation-gap batches
 - [ ] PR acceptance criteria for content work — not formalized
 - [ ] IUCN status labels localized (`ConservationStatus.tsx` has `getLocalizedCategoryLabel()` — verify coverage)
 
@@ -200,7 +202,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ### 🔴 Remaining
 
-- [ ] Locale-aware manifest strategy (design decision needed)
+- [x] Locale-aware manifest strategy implemented with locale-prefixed manifests
 - [ ] Profile tree detail template rendering on mid-tier mobile devices
 - [ ] Verify lazy-loading and defer secondary modules more aggressively
 
@@ -214,6 +216,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Added bidirectional namespace audit test (missing + unused check)
 - [x] Introduce shared route-shell primitives — `PageShell`, `PageHeader` components; use-cases page migrated
 - [x] Document the optional-dependency adapter pattern for future integrations (`docs/OPTIONAL_DEPENDENCY_ADAPTER_PATTERN.md`)
+- [x] Removed known baseline `console.log` debt from route/component source and tightened regression baseline to zero
 
 ---
 
@@ -239,8 +242,8 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Metadata alternates regression guard (baseline updated: 0 pages missing)
 - [x] Translation message key parity (EN ↔ ES namespace and leaf key parity)
 - [x] Hardcoded aria-label regression guard (baseline: 0 remaining)
-- [x] Route-level console-cleanliness checks — console.log regression guard (baseline: 5 files)
-- [ ] Automated visual regression for key templates
+- [x] Route-level console-cleanliness checks — console.log regression guard (baseline: 0 files)
+- [ ] Automated visual regression for key templates (approved scope: homepage, tree detail, compare, glossary, education)
 - [x] CI integration for regression suite — added to `content-build-tests.yml` workflow
 - [x] Locale ternary count regression guard (baseline: 0)
 - [x] Ad-hoc locale selection branch regression guard (baseline: 0 outside shared i18n helpers)
@@ -255,7 +258,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [ ] No governance, attribution, or consent policy files exist in the repo
 - [ ] Review/approval rules for indigenous names, meanings, and ceremonial claims — not defined
 - [ ] Consent and community review process — not established
-- [ ] Sourcing standards for culturally significant content — not formalized
+- [x] Interim working rule adopted: avoid autonomous edits to indigenous/cultural claims unless the claim is explicitly sourced; expect later human review even when sourced
 - [ ] Existing repo rules mark indigenous content as human-only but no actionable policy exists
 
 ---
@@ -270,7 +273,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] ~~P3: Remove nested `<main>` tags~~ ✅
 - [x] ~~P3: MDX h1→h2 remapping~~ ✅
 - [ ] P2: Begin consolidating top locale-ternary offenders (`SeasonalCalendar`, `Breadcrumbs`, `FieldGuidePreview`)
-- [ ] P4: Decide on manifest locale strategy
+- [x] ~~P4: Decide on manifest locale strategy~~ ✅
 
 ### Days 31–60: Quality & Parity
 
@@ -281,6 +284,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [ ] P5: Begin resolving P1-high factual items (IUCN mismatches — 12 trees)
 - [ ] P6: Add mobile TOC / sticky section nav to tree detail pages
 - [x] ~~P9: Add route-level regression tests (semantics, locale parity)~~ ✅
+- [ ] P9: Add automated visual regression coverage for homepage, tree detail, compare, glossary, and education templates
 
 ### Days 61–90: Authority & Polish
 

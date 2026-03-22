@@ -241,10 +241,6 @@ export async function optimizeImage(
           size: fileSize,
           path: path.relative(path.join(process.cwd(), "public"), outputPath),
         };
-
-        console.log(
-          `  ✓ ${outputFileName}: ${outputMetadata.width}x${outputMetadata.height} (${formatBytes(fileSize)})`
-        );
       } catch (error) {
         console.error(`  ✗ Error processing ${sizeKey} in ${format}: ${error}`);
       }
