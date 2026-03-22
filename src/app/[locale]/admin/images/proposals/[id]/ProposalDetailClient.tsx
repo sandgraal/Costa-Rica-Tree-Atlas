@@ -8,6 +8,7 @@ import {
   type ImageProposal,
   type ImageProposalStatus,
   type ImageAudit,
+  type ImageAuditAction,
 } from "@/types/image-review";
 
 interface ProposalDetailResponse {
@@ -194,12 +195,39 @@ export default function ProposalDetailClient({
         return t("proposals.sources.workflow");
       case "USER_FLAG":
         return t("proposals.sources.userFlag");
+      case "USER_UPLOAD":
+        return t("proposals.sources.userUpload");
       case "ADMIN":
         return t("proposals.sources.admin");
       case "SCRIPT":
         return t("proposals.sources.script");
       default:
         return source;
+    }
+  };
+
+  const getAuditActionLabel = (action: ImageAuditAction) => {
+    switch (action) {
+      case "PROPOSAL_CREATED":
+        return t("proposalDetail.auditActions.PROPOSAL_CREATED");
+      case "PROPOSAL_APPROVED":
+        return t("proposalDetail.auditActions.PROPOSAL_APPROVED");
+      case "PROPOSAL_DENIED":
+        return t("proposalDetail.auditActions.PROPOSAL_DENIED");
+      case "PROPOSAL_APPLIED":
+        return t("proposalDetail.auditActions.PROPOSAL_APPLIED");
+      case "PROPOSAL_ARCHIVED":
+        return t("proposalDetail.auditActions.PROPOSAL_ARCHIVED");
+      case "IMAGE_REPLACED":
+        return t("proposalDetail.auditActions.IMAGE_REPLACED");
+      case "IMAGE_DELETED":
+        return t("proposalDetail.auditActions.IMAGE_DELETED");
+      case "VOTE_CAST":
+        return t("proposalDetail.auditActions.VOTE_CAST");
+      case "FLAG_SUBMITTED":
+        return t("proposalDetail.auditActions.FLAG_SUBMITTED");
+      default:
+        return (action as string).replace(/_/g, " ");
     }
   };
 
@@ -577,7 +605,7 @@ export default function ProposalDetailClient({
               >
                 <div className="flex-1">
                   <p className="font-medium text-foreground">
-                    {audit.action.replace(/_/g, " ")}
+                    {getAuditActionLabel(audit.action)}
                   </p>
                   {audit.notes && (
                     <p className="text-muted-foreground">{audit.notes}</p>

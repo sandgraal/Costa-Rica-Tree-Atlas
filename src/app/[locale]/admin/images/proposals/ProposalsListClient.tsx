@@ -180,6 +180,8 @@ export default function ProposalsListClient() {
         return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300";
       case "USER_FLAG":
         return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300";
+      case "USER_UPLOAD":
+        return "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300";
       case "ADMIN":
         return "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300";
       case "SCRIPT":
