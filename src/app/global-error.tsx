@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { captureException } from "@/lib/error-tracking";
 
 type GlobalErrorLocale = "en" | "es";
@@ -49,13 +50,10 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const [locale, setLocale] = useState<GlobalErrorLocale>("en");
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname ?? "");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setLocale(getLocaleFromPathname(window.location.pathname));
-    }
-
     // Log error for tracking
     captureException(error, {
       tags: {
