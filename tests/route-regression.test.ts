@@ -1024,6 +1024,16 @@ describe("High-traffic Spanish surface parity", () => {
           /t\("shareOnPinterest"\)/,
         ],
       },
+      {
+        file: "src/components/ShareLink.tsx",
+        forbiddenPatterns: [/title = "Share Link"/, /copiedText = "Copied!"/],
+        requiredPatterns: [
+          /useTranslations\("share"\)/,
+          /title \?\? t\("copyLink"\)/,
+          /copiedText \?\? t\("copied"\)/,
+          /t\("failedToCopy"\)/,
+        ],
+      },
     ];
 
     const violations: string[] = [];
@@ -1058,6 +1068,8 @@ describe("High-traffic Spanish surface parity", () => {
         shareOnWhatsApp?: string;
         shareOnLinkedIn?: string;
         shareOnPinterest?: string;
+        copyLink?: string;
+        copied?: string;
       };
     };
     const esMessages = JSON.parse(
@@ -1070,9 +1082,15 @@ describe("High-traffic Spanish surface parity", () => {
         shareOnWhatsApp?: string;
         shareOnLinkedIn?: string;
         shareOnPinterest?: string;
+        copyLink?: string;
+        copied?: string;
       };
     };
 
+    expect(enMessages.share?.copyLink).toBe("Copy link");
+    expect(esMessages.share?.copyLink).toBe("Copiar enlace");
+    expect(enMessages.share?.copied).toBe("Copied!");
+    expect(esMessages.share?.copied).toBe("¡Copiado!");
     expect(enMessages.share?.shareNative).toBe("Share...");
     expect(esMessages.share?.shareNative).toBe("Compartir...");
     expect(enMessages.share?.shareOnX).toBe("Share on X / Twitter");
@@ -1089,6 +1107,364 @@ describe("High-traffic Spanish surface parity", () => {
     if (violations.length > 0) {
       console.log(
         `Share surfaces should keep localized menu labels:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep API documentation helper labels localized", () => {
+    const apiDocsContent = fs.readFileSync(
+      path.join(ROOT, "src/components/APIDocumentation.tsx"),
+      "utf-8"
+    );
+
+    const violations: string[] = [];
+
+    for (const pattern of [
+      /Maximum requests per window/,
+      /Remaining requests/,
+      /Unix timestamp when limit resets/,
+      />\s*Parameters\s*</,
+      />\s*Example\s*</,
+      />\s*Try it\s*</,
+      />\s*Response\s*</,
+      />\s*GitHub Issues\s*</,
+    ]) {
+      if (pattern.test(apiDocsContent)) {
+        violations.push(
+          `src/components/APIDocumentation.tsx: matched forbidden pattern ${pattern}`
+        );
+      }
+    }
+
+    for (const pattern of [
+      /useTranslations\("api"\)/,
+      /t\("rateLimitHeaders\.limit"\)/,
+      /t\("rateLimitHeaders\.remaining"\)/,
+      /t\("rateLimitHeaders\.reset"\)/,
+      /\{t\("parameters"\)\}/,
+      /\{t\("example"\)\}/,
+      /\{t\("tryIt"\)\}/,
+      /\{t\("response"\)\}/,
+      /\{t\("githubIssues"\)\}/,
+    ]) {
+      if (!pattern.test(apiDocsContent)) {
+        violations.push(
+          `src/components/APIDocumentation.tsx: missing required pattern ${pattern}`
+        );
+      }
+    }
+
+    const enMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/en.json"), "utf-8")
+    ) as {
+      api?: {
+        rateLimitHeaders?: {
+          limit?: string;
+          remaining?: string;
+          reset?: string;
+        };
+        parameters?: string;
+        example?: string;
+        tryIt?: string;
+        response?: string;
+        githubIssues?: string;
+      };
+    };
+    const esMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/es.json"), "utf-8")
+    ) as {
+      api?: {
+        rateLimitHeaders?: {
+          limit?: string;
+          remaining?: string;
+          reset?: string;
+        };
+        parameters?: string;
+        example?: string;
+        tryIt?: string;
+        response?: string;
+        githubIssues?: string;
+      };
+    };
+
+    expect(enMessages.api?.rateLimitHeaders?.limit).toBe(
+      "Maximum requests per window"
+    );
+    expect(esMessages.api?.rateLimitHeaders?.limit).toBe(
+      "Máximo de solicitudes por ventana"
+    );
+    expect(enMessages.api?.rateLimitHeaders?.remaining).toBe(
+      "Remaining requests"
+    );
+    expect(esMessages.api?.rateLimitHeaders?.remaining).toBe(
+      "Solicitudes restantes"
+    );
+    expect(enMessages.api?.rateLimitHeaders?.reset).toBe(
+      "Unix timestamp when the limit resets"
+    );
+    expect(esMessages.api?.rateLimitHeaders?.reset).toBe(
+      "Marca de tiempo Unix cuando se reinicia el límite"
+    );
+    expect(enMessages.api?.parameters).toBe("Parameters");
+    expect(esMessages.api?.parameters).toBe("Parámetros");
+    expect(enMessages.api?.example).toBe("Example");
+    expect(esMessages.api?.example).toBe("Ejemplo");
+    expect(enMessages.api?.tryIt).toBe("Try it");
+    expect(esMessages.api?.tryIt).toBe("Probar");
+    expect(enMessages.api?.response).toBe("Response");
+    expect(esMessages.api?.response).toBe("Respuesta");
+    expect(enMessages.api?.githubIssues).toBe("GitHub Issues");
+    expect(esMessages.api?.githubIssues).toBe("Issues de GitHub");
+
+    if (violations.length > 0) {
+      console.log(
+        `API documentation labels should stay localized:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep admin image proposal surfaces localized", () => {
+    const componentChecks = [
+      {
+        file: "src/app/[locale]/admin/images/proposals/page.tsx",
+        requiredPatterns: [
+          /getTranslations\(\{ locale, namespace: "admin.images" \}\)/,
+          /t\("proposals\.pageTitle"\)/,
+          /t\("proposals\.backToImageReview"\)/,
+          /t\("proposals\.heading"\)/,
+        ],
+      },
+      {
+        file: "src/app/[locale]/admin/images/proposals/ProposalsListClient.tsx",
+        requiredPatterns: [
+          /useTranslations\("admin.images"\)/,
+          /t\("proposals\.searchByTreeSlug"\)/,
+          /t\("proposals\.allStatuses"\)/,
+          /t\("proposals\.allSources"\)/,
+          /t\("proposals\.resultsCount"/,
+          /t\("proposals\.emptyTitle"\)/,
+          /t\("proposals\.errors\.databaseNotInitialized"\)/,
+        ],
+      },
+      {
+        file: "src/app/[locale]/admin/images/proposals/[id]/page.tsx",
+        requiredPatterns: [
+          /getTranslations\(\{ locale, namespace: "admin.images" \}\)/,
+          /t\("proposalDetail\.pageTitle"/,
+          /t\("proposalDetail\.backToProposals"\)/,
+          /t\("proposalDetail\.heading"\)/,
+        ],
+      },
+      {
+        file: "src/app/[locale]/admin/images/proposals/[id]/ProposalDetailClient.tsx",
+        requiredPatterns: [
+          /useTranslations\("admin.images"\)/,
+          /t\("proposalDetail\.imageComparison"\)/,
+          /t\("proposalDetail\.proposalReason"\)/,
+          /t\("proposalDetail\.takeAction"\)/,
+          /t\("proposalDetail\.reviewInformation"\)/,
+          /t\("proposalDetail\.auditHistory"\)/,
+        ],
+      },
+    ];
+
+    const forbiddenPatterns = [
+      /Back to Image Review/,
+      /Image Proposals/,
+      /Review and manage proposed image changes from workflows and user flags\./,
+      /Search by Tree Slug/,
+      /All Statuses/,
+      /All Sources/,
+      /No proposals found/,
+      /Try adjusting your filters or run the weekly image workflow\./,
+      /Current Image/,
+      /Proposed Image/,
+      /No current image/,
+      /Proposal Details/,
+      /Proposal Reason/,
+      /Take Action/,
+      /Review Information/,
+      /Audit History/,
+      /Apply Image/,
+      /Reviewed At/,
+      /Reviewed By/,
+    ];
+
+    const violations: string[] = [];
+
+    for (const { file, requiredPatterns } of componentChecks) {
+      const content = fs.readFileSync(path.join(ROOT, file), "utf-8");
+
+      for (const pattern of forbiddenPatterns) {
+        if (pattern.test(content)) {
+          violations.push(`${file}: matched forbidden pattern ${pattern}`);
+        }
+      }
+
+      for (const pattern of requiredPatterns) {
+        if (!pattern.test(content)) {
+          violations.push(`${file}: missing required pattern ${pattern}`);
+        }
+      }
+    }
+
+    const enMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/en.json"), "utf-8")
+    ) as {
+      admin?: {
+        images?: {
+          proposals?: { heading?: string; allStatuses?: string };
+          proposalDetail?: { heading?: string; takeAction?: string };
+        };
+      };
+    };
+    const esMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/es.json"), "utf-8")
+    ) as {
+      admin?: {
+        images?: {
+          proposals?: { heading?: string; allStatuses?: string };
+          proposalDetail?: { heading?: string; takeAction?: string };
+        };
+      };
+    };
+
+    expect(enMessages.admin?.images?.proposals?.heading).toBe(
+      "📋 Image Proposals"
+    );
+    expect(esMessages.admin?.images?.proposals?.heading).toBe(
+      "📋 Propuestas de Imágenes"
+    );
+    expect(enMessages.admin?.images?.proposals?.allStatuses).toBe(
+      "All Statuses"
+    );
+    expect(esMessages.admin?.images?.proposals?.allStatuses).toBe(
+      "Todos los estados"
+    );
+    expect(enMessages.admin?.images?.proposalDetail?.heading).toBe(
+      "🔍 Proposal Details"
+    );
+    expect(esMessages.admin?.images?.proposalDetail?.heading).toBe(
+      "🔍 Detalles de la Propuesta"
+    );
+    expect(enMessages.admin?.images?.proposalDetail?.takeAction).toBe(
+      "Take Action"
+    );
+    expect(esMessages.admin?.images?.proposalDetail?.takeAction).toBe(
+      "Tomar Acción"
+    );
+
+    if (violations.length > 0) {
+      console.log(
+        `Admin image proposal surfaces should stay localized:\n` +
+          violations.map((entry) => `  - ${entry}`).join("\n")
+      );
+    }
+
+    expect(violations).toEqual([]);
+  });
+
+  it("should keep admin performance dashboard labels localized", () => {
+    const performanceClient = fs.readFileSync(
+      path.join(
+        ROOT,
+        "src/app/[locale]/admin/performance/PerformanceDashboardClient.tsx"
+      ),
+      "utf-8"
+    );
+
+    const violations: string[] = [];
+
+    for (const pattern of [
+      /Live Core Web Vitals/,
+      /Metrics are captured from the current session using the browser Performance APIs\./,
+      /Refresh snapshot/,
+      /Copy JSON/,
+      /Copy failed/,
+      /Resource Mix/,
+      /Resources counted/,
+      /Reference Targets/,
+      /Last updated/,
+      /Waiting for metrics\.\.\./,
+    ]) {
+      if (pattern.test(performanceClient)) {
+        violations.push(
+          `src/app/[locale]/admin/performance/PerformanceDashboardClient.tsx: matched forbidden pattern ${pattern}`
+        );
+      }
+    }
+
+    for (const pattern of [
+      /useTranslations\("admin.performance"\)/,
+      /t\("liveVitalsHeading"\)/,
+      /t\("refreshSnapshot"\)/,
+      /t\("copyJson"\)/,
+      /t\("resourceMix"\)/,
+      /t\("resourceCounted"\)/,
+      /t\("referenceTargets"\)/,
+      /t\("lastUpdated"\)/,
+      /t\("waitingForMetrics"\)/,
+      /t\(`metrics\.\$\{metric\.key\}\.label`\)/,
+      /t\(`metrics\.\$\{metric\.key\}\.description`\)/,
+    ]) {
+      if (!pattern.test(performanceClient)) {
+        violations.push(
+          `src/app/[locale]/admin/performance/PerformanceDashboardClient.tsx: missing required pattern ${pattern}`
+        );
+      }
+    }
+
+    const enMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/en.json"), "utf-8")
+    ) as {
+      admin?: {
+        performance?: {
+          liveVitalsHeading?: string;
+          resourceMix?: string;
+          lastUpdated?: string;
+          rating?: { good?: string };
+        };
+      };
+    };
+    const esMessages = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "messages/es.json"), "utf-8")
+    ) as {
+      admin?: {
+        performance?: {
+          liveVitalsHeading?: string;
+          resourceMix?: string;
+          lastUpdated?: string;
+          rating?: { good?: string };
+        };
+      };
+    };
+
+    expect(enMessages.admin?.performance?.liveVitalsHeading).toBe(
+      "Live Core Web Vitals"
+    );
+    expect(esMessages.admin?.performance?.liveVitalsHeading).toBe(
+      "Core Web Vitals en Vivo"
+    );
+    expect(enMessages.admin?.performance?.resourceMix).toBe("Resource Mix");
+    expect(esMessages.admin?.performance?.resourceMix).toBe(
+      "Distribución de Recursos"
+    );
+    expect(enMessages.admin?.performance?.lastUpdated).toBe("Last updated");
+    expect(esMessages.admin?.performance?.lastUpdated).toBe(
+      "Última actualización"
+    );
+    expect(enMessages.admin?.performance?.rating?.good).toBe("Good");
+    expect(esMessages.admin?.performance?.rating?.good).toBe("Bueno");
+
+    if (violations.length > 0) {
+      console.log(
+        `Admin performance dashboard labels should stay localized:\n` +
           violations.map((entry) => `  - ${entry}`).join("\n")
       );
     }
@@ -1158,6 +1534,18 @@ describe("High-traffic Spanish surface parity", () => {
   it("should keep shared error and loading fallbacks localized", () => {
     const componentChecks = [
       {
+        file: "src/components/ErrorBoundary.tsx",
+        forbiddenPatterns: [
+          /Something went wrong \/ Algo salió mal/,
+          /Try again \/ Intentar de nuevo/,
+          /Technical details \(development only\) \/ Detalles técnicos \(solo en desarrollo\)/,
+        ],
+        requiredPatterns: [
+          /FALLBACK_ERROR_BOUNDARY_MESSAGES/,
+          /this\.props\.messages \?\? FALLBACK_ERROR_BOUNDARY_MESSAGES/,
+        ],
+      },
+      {
         file: "src/components/LoadingFallback.tsx",
         forbiddenPatterns: [/message = "Loading\.\.\."/],
         requiredPatterns: [
@@ -1182,6 +1570,8 @@ describe("High-traffic Spanish surface parity", () => {
         ],
         requiredPatterns: [
           /useTranslations\("error"\)/,
+          /const messages = \{/,
+          /messages=\{messages\}/,
           /t\("componentErrorTitle"\)/,
           /t\("componentErrorDescription"\)/,
           /t\("tryAgain"\)/,
@@ -1195,6 +1585,8 @@ describe("High-traffic Spanish surface parity", () => {
           />\s*Error Details \(Development Only\)\s*</,
         ],
         requiredPatterns: [
+          /const messages = \{/,
+          /messages=\{messages\}/,
           /t\("pageErrorDescription"\)/,
           /t\("developmentDetails"\)/,
           /error\.stack \?\? error\.message/,

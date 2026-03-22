@@ -22,13 +22,12 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-const DEFAULT_ERROR_BOUNDARY_MESSAGES: ErrorBoundaryMessages = {
-  title: "Something went wrong / Algo salió mal",
+const FALLBACK_ERROR_BOUNDARY_MESSAGES: ErrorBoundaryMessages = {
+  title: "Something went wrong",
   description:
-    "An unexpected error occurred. Please try again. / Ocurrió un error inesperado. Por favor intenta de nuevo.",
-  tryAgain: "Try again / Intentar de nuevo",
-  developmentDetails:
-    "Technical details (development only) / Detalles técnicos (solo en desarrollo)",
+    "An unexpected error occurred. Please try again.",
+  tryAgain: "Try Again",
+  developmentDetails: "Technical details (development only)",
 };
 
 /**
@@ -72,7 +71,7 @@ export class ErrorBoundary extends Component<
 
   render() {
     if (this.state.hasError && this.state.error) {
-      const messages = this.props.messages ?? DEFAULT_ERROR_BOUNDARY_MESSAGES;
+      const messages = this.props.messages ?? FALLBACK_ERROR_BOUNDARY_MESSAGES;
 
       // Use custom fallback if provided
       if (this.props.fallback) {

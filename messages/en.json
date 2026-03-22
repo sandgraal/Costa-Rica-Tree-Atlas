@@ -1280,6 +1280,11 @@
     "authDesc": "Send an X-API-Key header issued by the maintainers, or call from an allowlisted IP. Unauthorized requests are rejected with HTTP 401.",
     "rateLimit": "Rate Limiting",
     "rateLimitDesc": "100 requests per minute per IP address. Rate limit headers are included in all responses.",
+    "rateLimitHeaders": {
+      "limit": "Maximum requests per window",
+      "remaining": "Remaining requests",
+      "reset": "Unix timestamp when the limit resets"
+    },
     "endpoints": "Endpoints",
     "tryIt": "Try it",
     "response": "Response",
@@ -1287,6 +1292,7 @@
     "required": "Required",
     "optional": "Optional",
     "example": "Example",
+    "githubIssues": "GitHub Issues",
     "trees": {
       "list": "List Trees",
       "listDesc": "Retrieve a paginated list of trees with optional filtering and sorting.",
@@ -1508,7 +1514,108 @@
       "tooltipClearVote": "Clear vote",
       "badgeNeedsPhoto": "Needs Photo",
       "badgeLocal": "Local",
-      "badgeExternal": "External"
+      "badgeExternal": "External",
+      "proposals": {
+        "pageTitle": "Image Proposals | Admin",
+        "heading": "📋 Image Proposals",
+        "description": "Review and manage proposed image changes from workflows and user flags.",
+        "backToImageReview": "← Back to Image Review",
+        "searchByTreeSlug": "Search by Tree Slug",
+        "searchPlaceholder": "e.g., ceiba, guanacaste",
+        "status": "Status",
+        "source": "Source",
+        "allStatuses": "All Statuses",
+        "allSources": "All Sources",
+        "quickFiltersAll": "All",
+        "loading": "Loading...",
+        "resultsCount": "{count, plural, =0 {No proposals found} =1 {# proposal found} other {# proposals found}}",
+        "errorTitle": "Error",
+        "emptyTitle": "No proposals found",
+        "emptyDescription": "Try adjusting your filters or run the weekly image workflow.",
+        "current": "Current",
+        "proposed": "Proposed",
+        "currentImageAlt": "Current image",
+        "proposedImageAlt": "Proposed image",
+        "noCurrent": "No current",
+        "imageTypeLabel": "{imageType} image",
+        "quality": "Quality",
+        "resolution": "Resolution",
+        "created": "Created",
+        "flags": "{count, plural, =1 {# flag} other {# flags}}",
+        "approve": "✓ Approve",
+        "deny": "✗ Deny",
+        "archive": "Archive",
+        "apply": "🚀 Apply",
+        "reopen": "↩ Reopen",
+        "previous": "← Previous",
+        "next": "Next →",
+        "pageOf": "Page {page} of {totalPages}",
+        "statuses": {
+          "pending": "Pending",
+          "approved": "Approved",
+          "applied": "Applied",
+          "denied": "Denied",
+          "archived": "Archived"
+        },
+        "sources": {
+          "workflow": "Workflow",
+          "userFlag": "User flag",
+          "admin": "Admin",
+          "script": "Script"
+        },
+        "errors": {
+          "databaseNotInitialized": "Database not initialized. Please run migrations first.",
+          "unauthorized": "Unauthorized. Please log in.",
+          "fetchFailed": "Failed to fetch proposals",
+          "updateFailed": "Failed to update proposal",
+          "generic": "An error occurred"
+        }
+      },
+      "proposalDetail": {
+        "pageTitle": "Proposal {idShort} · Admin",
+        "heading": "🔍 Proposal Details",
+        "backToProposals": "← Back to Proposals",
+        "errorTitle": "Error",
+        "notFound": "Proposal not found",
+        "headerMeta": "{imageType} image • {source} • Created {createdAt}",
+        "imageComparison": "Image Comparison",
+        "currentImage": "Current Image",
+        "proposedImage": "Proposed Image",
+        "currentImageAlt": "Current image",
+        "proposedImageAlt": "Proposed image",
+        "noCurrentImage": "No current image",
+        "newBadge": "NEW",
+        "sourceLabel": "Source: {source}",
+        "qualityMetrics": "Quality Metrics",
+        "qualityScore": "Quality Score",
+        "resolution": "Resolution",
+        "fileSize": "File Size",
+        "imageType": "Image Type",
+        "proposalReason": "Proposal Reason",
+        "noReasonProvided": "No reason provided",
+        "workflowRun": "Workflow Run",
+        "takeAction": "Take Action",
+        "reviewNotes": "Review Notes (optional)",
+        "reviewNotesPlaceholder": "Add notes about your decision...",
+        "approve": "✓ Approve",
+        "deny": "✗ Deny",
+        "archive": "Archive",
+        "applyImage": "🚀 Apply Image",
+        "reviewInformation": "Review Information",
+        "reviewedAt": "Reviewed At",
+        "reviewedBy": "Reviewed By",
+        "reviewNotesLabel": "Review Notes",
+        "auditHistory": "Audit History",
+        "errors": {
+          "databaseNotInitialized": "Database not initialized. Please run migrations first.",
+          "unauthorized": "Unauthorized. Please log in.",
+          "notFound": "Proposal not found.",
+          "fetchFailed": "Failed to fetch proposal",
+          "updateFailed": "Failed to update proposal",
+          "applyFailed": "Failed to apply proposal",
+          "generic": "An error occurred"
+        }
+      }
     },
     "contributions": {
       "pageTitle": "Review Contributions | Admin",
@@ -1567,6 +1674,53 @@
       "pageDescription": "Monitor Core Web Vitals and performance budgets for Costa Rica Tree Atlas.",
       "heading": "⚡ Performance Monitoring",
       "description": "Capture live Core Web Vitals for the current session and review performance budgets.",
+      "liveVitalsHeading": "Live Core Web Vitals",
+      "liveVitalsDescription": "Metrics are captured from the current session using the browser Performance APIs.",
+      "refreshSnapshot": "Refresh snapshot",
+      "copied": "Copied",
+      "copyFailed": "Copy failed",
+      "copyJson": "Copy JSON",
+      "resourceMix": "Resource Mix",
+      "resourceMixDescription": "Transfer size totals for this page load.",
+      "resourceJavaScript": "JavaScript",
+      "resourceCss": "CSS",
+      "resourceImages": "Images",
+      "resourceTotal": "Total",
+      "resourceCounted": "Resources counted",
+      "referenceTargets": "Reference Targets",
+      "referenceTargetsDescription": "Targets align with Web Vitals guidance and the project performance budgets.",
+      "goodTarget": "Good",
+      "needsImprovementTarget": "Needs improvement",
+      "lastUpdated": "Last updated",
+      "waitingForMetrics": "Waiting for metrics...",
+      "historicalTrackingHint": "Pair this dashboard with Vercel Speed Insights and Lighthouse CI for historical tracking and regression alerts.",
+      "rating": {
+        "good": "Good",
+        "needsImprovement": "Needs Improvement",
+        "poor": "Poor"
+      },
+      "metrics": {
+        "lcp": {
+          "label": "Largest Contentful Paint",
+          "description": "Render timing for the largest element in view."
+        },
+        "cls": {
+          "label": "Cumulative Layout Shift",
+          "description": "Unexpected layout movement during page load."
+        },
+        "inp": {
+          "label": "Interaction to Next Paint",
+          "description": "Responsiveness to user interactions (estimated from events)."
+        },
+        "fcp": {
+          "label": "First Contentful Paint",
+          "description": "Time until the first text or image is rendered."
+        },
+        "ttfb": {
+          "label": "Time to First Byte",
+          "description": "Server response latency measured on navigation."
+        }
+      },
       "vercelAnalytics": "Open Vercel Analytics",
       "speedInsightsDocs": "Speed Insights Docs"
     },

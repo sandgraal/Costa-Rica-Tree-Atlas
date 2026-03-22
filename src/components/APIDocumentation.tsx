@@ -56,14 +56,14 @@ export function APIDocumentation({ locale }: APIDocumentationProps) {
             <div className="rounded bg-gray-100 p-3 text-sm dark:bg-gray-700">
               <div className="grid gap-2 text-gray-700 dark:text-gray-300">
                 <div>
-                  <code>X-RateLimit-Limit</code>: Maximum requests per window
+                  <code>X-RateLimit-Limit</code>: {t("rateLimitHeaders.limit")}
                 </div>
                 <div>
-                  <code>X-RateLimit-Remaining</code>: Remaining requests
+                  <code>X-RateLimit-Remaining</code>:{" "}
+                  {t("rateLimitHeaders.remaining")}
                 </div>
                 <div>
-                  <code>X-RateLimit-Reset</code>: Unix timestamp when limit
-                  resets
+                  <code>X-RateLimit-Reset</code>: {t("rateLimitHeaders.reset")}
                 </div>
               </div>
             </div>
@@ -347,7 +347,7 @@ filtered = requests.get('${baseUrl}/api/v1/trees', params=params)`}
                 clipRule="evenodd"
               />
             </svg>
-            GitHub Issues
+            {t("githubIssues")}
           </a>
         </div>
 
@@ -388,6 +388,7 @@ function EndpointCard({
   example,
   response,
 }: EndpointCardProps) {
+  const t = useTranslations("api");
   const [showResponse, setShowResponse] = useState(false);
 
   return (
@@ -409,7 +410,7 @@ function EndpointCard({
 
       <div className="p-4">
         <h4 className="mb-2 font-medium text-gray-900 dark:text-white">
-          Parameters
+          {t("parameters")}
         </h4>
         <div className="space-y-2">
           {parameters.map((param) => (
@@ -429,7 +430,7 @@ function EndpointCard({
 
       <div className="border-t border-gray-200 p-4 dark:border-gray-700">
         <h4 className="mb-2 font-medium text-gray-900 dark:text-white">
-          Example
+          {t("example")}
         </h4>
         <div className="flex items-center gap-2">
           <code className="flex-1 overflow-x-auto rounded bg-gray-100 p-2 text-sm dark:bg-gray-700">
@@ -441,7 +442,7 @@ function EndpointCard({
             rel="noopener noreferrer"
             className="rounded bg-green-600 px-3 py-2 text-sm font-medium text-white hover:bg-green-700"
           >
-            Try it
+            {t("tryIt")}
           </a>
         </div>
       </div>
@@ -466,7 +467,7 @@ function EndpointCard({
               d="M9 5l7 7-7 7"
             />
           </svg>
-          Response
+          {t("response")}
         </button>
         {showResponse && (
           <pre className="mt-2 overflow-x-auto rounded bg-gray-900 p-4 text-sm text-gray-100">

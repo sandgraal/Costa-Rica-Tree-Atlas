@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Link } from "@i18n/navigation";
 import {
   type ImageProposal,
@@ -24,6 +25,7 @@ interface ProposalsResponse {
 type FilterStatus = ImageProposalStatus | "ALL";
 
 export default function ProposalsListClient() {
+  const t = useTranslations("admin.images");
   const [proposals, setProposals] = useState<ImageProposal[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,19 +54,19 @@ export default function ProposalsListClient() {
       const response = await fetch(`/api/admin/images/proposals?${params}`);
 
       if (response.status === 503) {
-        setError("Database not initialized. Please run migrations first.");
+        setError(t("proposals.errors.databaseNotInitialized"));
         setProposals([]);
         return;
       }
 
       if (response.status === 401) {
-        setError("Unauthorized. Please log in.");
+        setError(t("proposals.errors.unauthorized"));
         setProposals([]);
         return;
       }
 
       if (!response.ok) {
-        throw new Error("Failed to fetch proposals");
+        throw new Error(t("proposals.errors.fetchFailed"));
       }
 
       const data: ProposalsResponse = await response.json();
@@ -72,12 +74,14 @@ export default function ProposalsListClient() {
       setTotalPages(data.pagination.totalPages);
       setTotal(data.pagination.total);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof Error ? err.message : t("proposals.errors.generic")
+      );
       setProposals([]);
     } finally {
       setLoading(false);
     }
-  }, [page, filterStatus, filterSource, searchQuery]);
+  }, [filterSource, filterStatus, page, searchQuery, t]);
 
   useEffect(() => {
     void fetchProposals();
@@ -101,15 +105,55 @@ export default function ProposalsListClient() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update proposal");
+        throw new Error(t("proposals.errors.updateFailed"));
       }
 
       // Refresh the list
       await fetchProposals();
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to update proposal");
+      alert(
+        err instanceof Error ? err.message : t("proposals.errors.updateFailed")
+      );
     } finally {
       setActionLoading(null);
+    }
+  };
+
+  const getStatusLabel = (status: ImageProposalStatus | FilterStatus) => {
+    switch (status) {
+      case "PENDING":
+        return t("proposals.statuses.pending");
+      case "APPROVED":
+        return t("proposals.statuses.approved");
+      case "APPLIED":
+        return t("proposals.statuses.applied");
+      case "DENIED":
+        return t("proposals.statuses.denied");
+      case "ARCHIVED":
+        return t("proposals.statuses.archived");
+      case "ALL":
+        return t("proposals.allStatuses");
+      default:
+        return status;
+    }
+  };
+
+  const getSourceLabel = (source: ImageProposalSource | "ALL") => {
+    switch (source) {
+      case "WORKFLOW":
+        return t("proposals.sources.workflow");
+      case "USER_FLAG":
+        return t("proposals.sources.userFlag");
+      case "USER_UPLOAD":
+        return t("proposals.sources.userUpload");
+      case "ADMIN":
+        return t("proposals.sources.admin");
+      case "SCRIPT":
+        return t("proposals.sources.script");
+      case "ALL":
+        return t("proposals.allSources");
+      default:
+        return source;
     }
   };
 
@@ -166,7 +210,7 @@ export default function ProposalsListClient() {
               htmlFor="search"
               className="block text-sm font-medium text-muted-foreground mb-1"
             >
-              Search by Tree Slug
+              {t("proposals.searchByTreeSlug")}
             </label>
             <input
               id="search"
@@ -176,7 +220,7 @@ export default function ProposalsListClient() {
                 setSearchQuery(e.target.value);
                 setPage(1);
               }}
-              placeholder="e.g., ceiba, guanacaste"
+              placeholder={t("proposals.searchPlaceholder")}
               className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
@@ -187,7 +231,7 @@ export default function ProposalsListClient() {
               htmlFor="status"
               className="block text-sm font-medium text-muted-foreground mb-1"
             >
-              Status
+              {t("proposals.status")}
             </label>
             <select
               id="status"
@@ -198,10 +242,10 @@ export default function ProposalsListClient() {
               }}
               className="px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              <option value="ALL">All Statuses</option>
+              <option value="ALL">{t("proposals.allStatuses")}</option>
               {IMAGE_PROPOSAL_STATUSES.map((status) => (
                 <option key={status} value={status}>
-                  {status.charAt(0) + status.slice(1).toLowerCase()}
+                  {getStatusLabel(status)}
                 </option>
               ))}
             </select>
@@ -213,7 +257,7 @@ export default function ProposalsListClient() {
               htmlFor="source"
               className="block text-sm font-medium text-muted-foreground mb-1"
             >
-              Source
+              {t("proposals.source")}
             </label>
             <select
               id="source"
@@ -224,11 +268,10 @@ export default function ProposalsListClient() {
               }}
               className="px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              <option value="ALL">All Sources</option>
+              <option value="ALL">{t("proposals.allSources")}</option>
               {IMAGE_PROPOSAL_SOURCES.map((source) => (
                 <option key={source} value={source}>
-                  {source.charAt(0) +
-                    source.slice(1).toLowerCase().replace("_", " ")}
+                  {getSourceLabel(source)}
                 </option>
               ))}
             </select>
@@ -248,7 +291,7 @@ export default function ProposalsListClient() {
                 : "bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-300"
             }`}
           >
-            ⏳ Pending
+            ⏳ {t("proposals.statuses.pending")}
           </button>
           <button
             onClick={() => {
@@ -261,7 +304,7 @@ export default function ProposalsListClient() {
                 : "bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300"
             }`}
           >
-            ✓ Approved
+            ✓ {t("proposals.statuses.approved")}
           </button>
           <button
             onClick={() => {
@@ -274,7 +317,7 @@ export default function ProposalsListClient() {
                 : "bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-300"
             }`}
           >
-            ✅ Applied
+            ✅ {t("proposals.statuses.applied")}
           </button>
           <button
             onClick={() => {
@@ -287,7 +330,7 @@ export default function ProposalsListClient() {
                 : "bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
             }`}
           >
-            ✗ Denied
+            ✗ {t("proposals.statuses.denied")}
           </button>
           <button
             onClick={() => {
@@ -300,7 +343,7 @@ export default function ProposalsListClient() {
                 : "bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
             }`}
           >
-            All
+            {t("proposals.quickFiltersAll")}
           </button>
         </div>
       </div>
@@ -308,14 +351,14 @@ export default function ProposalsListClient() {
       {/* Results count */}
       <div className="text-sm text-muted-foreground">
         {loading
-          ? "Loading..."
-          : `${total} proposal${total !== 1 ? "s" : ""} found`}
+          ? t("proposals.loading")
+          : t("proposals.resultsCount", { count: total })}
       </div>
 
       {/* Error state */}
       {error && (
         <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-xl p-4 text-red-600">
-          <p className="font-medium">Error</p>
+          <p className="font-medium">{t("proposals.errorTitle")}</p>
           <p className="text-sm">{error}</p>
         </div>
       )}
@@ -344,9 +387,9 @@ export default function ProposalsListClient() {
       {/* Proposals list */}
       {!loading && !error && proposals.length === 0 && (
         <div className="bg-card border border-border rounded-xl p-8 text-center">
-          <p className="text-muted-foreground">No proposals found</p>
+          <p className="text-muted-foreground">{t("proposals.emptyTitle")}</p>
           <p className="text-sm text-muted-foreground mt-1">
-            Try adjusting your filters or run the weekly image workflow.
+            {t("proposals.emptyDescription")}
           </p>
         </div>
       )}
@@ -366,18 +409,18 @@ export default function ProposalsListClient() {
                     {proposal.currentUrl ? (
                       <Image
                         src={proposal.currentUrl}
-                        alt="Current"
+                        alt={t("proposals.currentImageAlt")}
                         fill
                         className="object-cover"
                         sizes="96px"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-                        No current
+                        {t("proposals.noCurrent")}
                       </div>
                     )}
                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs py-0.5 text-center">
-                      Current
+                      {t("proposals.current")}
                     </div>
                   </div>
 
@@ -390,13 +433,13 @@ export default function ProposalsListClient() {
                   <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-muted flex-shrink-0 ring-2 ring-primary">
                     <Image
                       src={proposal.proposedUrl}
-                      alt="Proposed"
+                      alt={t("proposals.proposedImageAlt")}
                       fill
                       className="object-cover"
                       sizes="96px"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-primary text-primary-foreground text-xs py-0.5 text-center">
-                      Proposed
+                      {t("proposals.proposed")}
                     </div>
                   </div>
                 </div>
@@ -414,19 +457,21 @@ export default function ProposalsListClient() {
                         </Link>
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {proposal.imageType} image
+                        {t("proposals.imageTypeLabel", {
+                          imageType: proposal.imageType,
+                        })}
                       </p>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">
                       <span
                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(proposal.status)}`}
                       >
-                        {proposal.status}
+                        {getStatusLabel(proposal.status)}
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${getSourceBadgeClass(proposal.source)}`}
                       >
-                        {proposal.source.replace("_", " ")}
+                        {getSourceLabel(proposal.source)}
                       </span>
                     </div>
                   </div>
@@ -441,12 +486,19 @@ export default function ProposalsListClient() {
                   {/* Metrics */}
                   <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
                     {proposal.qualityScore !== null && (
-                      <span>Quality: {proposal.qualityScore.toFixed(0)}%</span>
+                      <span>
+                        {t("proposals.quality")}:{" "}
+                        {proposal.qualityScore.toFixed(0)}%
+                      </span>
                     )}
                     {proposal.resolution && (
-                      <span>Resolution: {proposal.resolution}</span>
+                      <span>
+                        {t("proposals.resolution")}: {proposal.resolution}
+                      </span>
                     )}
-                    <span>Created: {formatDate(proposal.createdAt)}</span>
+                    <span>
+                      {t("proposals.created")}: {formatDate(proposal.createdAt)}
+                    </span>
                   </div>
 
                   {/* Vote counts */}
@@ -459,7 +511,7 @@ export default function ProposalsListClient() {
                     </span>
                     {proposal.flagCount > 0 && (
                       <span className="text-orange-600">
-                        🚩 {proposal.flagCount} flags
+                        🚩 {t("proposals.flags", { count: proposal.flagCount })}
                       </span>
                     )}
                   </div>
@@ -475,14 +527,18 @@ export default function ProposalsListClient() {
                       disabled={actionLoading === proposal.id}
                       className="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-colors disabled:opacity-50"
                     >
-                      {actionLoading === proposal.id ? "..." : "✓ Approve"}
+                      {actionLoading === proposal.id
+                        ? "..."
+                        : t("proposals.approve")}
                     </button>
                     <button
                       onClick={() => handleStatusChange(proposal.id, "DENIED")}
                       disabled={actionLoading === proposal.id}
                       className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition-colors disabled:opacity-50"
                     >
-                      {actionLoading === proposal.id ? "..." : "✗ Deny"}
+                      {actionLoading === proposal.id
+                        ? "..."
+                        : t("proposals.deny")}
                     </button>
                     <button
                       onClick={() =>
@@ -491,7 +547,9 @@ export default function ProposalsListClient() {
                       disabled={actionLoading === proposal.id}
                       className="px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors disabled:opacity-50"
                     >
-                      {actionLoading === proposal.id ? "..." : "Archive"}
+                      {actionLoading === proposal.id
+                        ? "..."
+                        : t("proposals.archive")}
                     </button>
                   </div>
                 )}
@@ -503,7 +561,9 @@ export default function ProposalsListClient() {
                       disabled={actionLoading === proposal.id}
                       className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-primary-foreground text-sm rounded-lg transition-colors disabled:opacity-50"
                     >
-                      {actionLoading === proposal.id ? "..." : "🚀 Apply"}
+                      {actionLoading === proposal.id
+                        ? "..."
+                        : t("proposals.apply")}
                     </button>
                   </div>
                 )}
@@ -516,7 +576,9 @@ export default function ProposalsListClient() {
                       disabled={actionLoading === proposal.id}
                       className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-sm rounded-lg transition-colors disabled:opacity-50"
                     >
-                      {actionLoading === proposal.id ? "..." : "↩ Reopen"}
+                      {actionLoading === proposal.id
+                        ? "..."
+                        : t("proposals.reopen")}
                     </button>
                   </div>
                 )}
@@ -536,10 +598,10 @@ export default function ProposalsListClient() {
             disabled={page === 1}
             className="px-4 py-2 bg-card border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            ← Previous
+            {t("proposals.previous")}
           </button>
           <span className="px-4 py-2 text-muted-foreground">
-            Page {page} of {totalPages}
+            {t("proposals.pageOf", { page, totalPages })}
           </span>
           <button
             onClick={() => {
@@ -548,7 +610,7 @@ export default function ProposalsListClient() {
             disabled={page === totalPages}
             className="px-4 py-2 bg-card border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Next →
+            {t("proposals.next")}
           </button>
         </div>
       )}

@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@i18n/navigation";
 import ProposalsListClient from "./ProposalsListClient";
@@ -9,9 +9,12 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "admin.images" });
+
   return {
-    title: "Image Proposals - Admin",
+    title: t("proposals.pageTitle"),
     robots: { index: false, follow: false },
     alternates: {
       languages: {
@@ -32,6 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProposalsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "admin.images" });
 
   return (
     <div className="py-8 px-4">
@@ -42,14 +46,13 @@ export default async function ProposalsPage({ params }: Props) {
             href="/admin/images"
             className="text-sm text-muted-foreground hover:text-primary mb-4 inline-block"
           >
-            ← Back to Image Review
+            {t("proposals.backToImageReview")}
           </Link>
           <h1 className="text-3xl font-bold text-foreground">
-            📋 Image Proposals
+            {t("proposals.heading")}
           </h1>
           <p className="text-muted-foreground mt-2">
-            Review and manage proposed image changes from workflows and user
-            flags.
+            {t("proposals.description")}
           </p>
         </div>
 

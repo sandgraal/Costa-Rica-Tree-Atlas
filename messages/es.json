@@ -1276,6 +1276,11 @@
     "authDesc": "Envía un header X-API-Key emitido por el equipo mantenedor, o llama desde una IP en allowlist. Las solicitudes no autorizadas se rechazan con HTTP 401.",
     "rateLimit": "Límite de Solicitudes",
     "rateLimitDesc": "100 solicitudes por minuto por dirección IP. Los headers de límite se incluyen en todas las respuestas.",
+    "rateLimitHeaders": {
+      "limit": "Máximo de solicitudes por ventana",
+      "remaining": "Solicitudes restantes",
+      "reset": "Marca de tiempo Unix cuando se reinicia el límite"
+    },
     "endpoints": "Endpoints",
     "tryIt": "Probar",
     "response": "Respuesta",
@@ -1283,6 +1288,7 @@
     "required": "Requerido",
     "optional": "Opcional",
     "example": "Ejemplo",
+    "githubIssues": "Issues de GitHub",
     "trees": {
       "list": "Listar Árboles",
       "listDesc": "Obtiene una lista paginada de árboles con filtrado y ordenamiento opcional.",
@@ -1504,7 +1510,108 @@
       "tooltipClearVote": "Borrar voto",
       "badgeNeedsPhoto": "Necesita Foto",
       "badgeLocal": "Local",
-      "badgeExternal": "Externa"
+      "badgeExternal": "Externa",
+      "proposals": {
+        "pageTitle": "Propuestas de Imágenes | Admin",
+        "heading": "📋 Propuestas de Imágenes",
+        "description": "Revisa y gestiona los cambios de imágenes propuestos por flujos automáticos y reportes de personas usuarias.",
+        "backToImageReview": "← Volver a Revisión de Imágenes",
+        "searchByTreeSlug": "Buscar por slug del árbol",
+        "searchPlaceholder": "p. ej., ceiba, guanacaste",
+        "status": "Estado",
+        "source": "Fuente",
+        "allStatuses": "Todos los estados",
+        "allSources": "Todas las fuentes",
+        "quickFiltersAll": "Todas",
+        "loading": "Cargando...",
+        "resultsCount": "{count, plural, =0 {No se encontraron propuestas} =1 {# propuesta encontrada} other {# propuestas encontradas}}",
+        "errorTitle": "Error",
+        "emptyTitle": "No se encontraron propuestas",
+        "emptyDescription": "Intenta ajustar tus filtros o ejecuta el flujo semanal de imágenes.",
+        "current": "Actual",
+        "proposed": "Propuesta",
+        "currentImageAlt": "Imagen actual",
+        "proposedImageAlt": "Imagen propuesta",
+        "noCurrent": "Sin actual",
+        "imageTypeLabel": "Imagen {imageType}",
+        "quality": "Calidad",
+        "resolution": "Resolución",
+        "created": "Creada",
+        "flags": "{count, plural, =1 {# reporte} other {# reportes}}",
+        "approve": "✓ Aprobar",
+        "deny": "✗ Denegar",
+        "archive": "Archivar",
+        "apply": "🚀 Aplicar",
+        "reopen": "↩ Reabrir",
+        "previous": "← Anterior",
+        "next": "Siguiente →",
+        "pageOf": "Página {page} de {totalPages}",
+        "statuses": {
+          "pending": "Pendiente",
+          "approved": "Aprobada",
+          "applied": "Aplicada",
+          "denied": "Denegada",
+          "archived": "Archivada"
+        },
+        "sources": {
+          "workflow": "Flujo automático",
+          "userFlag": "Reporte de usuario",
+          "admin": "Admin",
+          "script": "Script"
+        },
+        "errors": {
+          "databaseNotInitialized": "La base de datos no está inicializada. Ejecuta primero las migraciones.",
+          "unauthorized": "No autorizado. Inicia sesión.",
+          "fetchFailed": "No se pudieron obtener las propuestas",
+          "updateFailed": "No se pudo actualizar la propuesta",
+          "generic": "Ocurrió un error"
+        }
+      },
+      "proposalDetail": {
+        "pageTitle": "Propuesta {idShort} · Admin",
+        "heading": "🔍 Detalles de la Propuesta",
+        "backToProposals": "← Volver a Propuestas",
+        "errorTitle": "Error",
+        "notFound": "Propuesta no encontrada",
+        "headerMeta": "Imagen {imageType} • {source} • Creada {createdAt}",
+        "imageComparison": "Comparación de Imágenes",
+        "currentImage": "Imagen Actual",
+        "proposedImage": "Imagen Propuesta",
+        "currentImageAlt": "Imagen actual",
+        "proposedImageAlt": "Imagen propuesta",
+        "noCurrentImage": "No hay imagen actual",
+        "newBadge": "NUEVA",
+        "sourceLabel": "Fuente: {source}",
+        "qualityMetrics": "Métricas de Calidad",
+        "qualityScore": "Puntaje de Calidad",
+        "resolution": "Resolución",
+        "fileSize": "Tamaño del Archivo",
+        "imageType": "Tipo de Imagen",
+        "proposalReason": "Motivo de la Propuesta",
+        "noReasonProvided": "No se proporcionó motivo",
+        "workflowRun": "Ejecución del flujo",
+        "takeAction": "Tomar Acción",
+        "reviewNotes": "Notas de revisión (opcional)",
+        "reviewNotesPlaceholder": "Agrega notas sobre tu decisión...",
+        "approve": "✓ Aprobar",
+        "deny": "✗ Denegar",
+        "archive": "Archivar",
+        "applyImage": "🚀 Aplicar Imagen",
+        "reviewInformation": "Información de la Revisión",
+        "reviewedAt": "Revisada el",
+        "reviewedBy": "Revisada por",
+        "reviewNotesLabel": "Notas de revisión",
+        "auditHistory": "Historial de Auditoría",
+        "errors": {
+          "databaseNotInitialized": "La base de datos no está inicializada. Ejecuta primero las migraciones.",
+          "unauthorized": "No autorizado. Inicia sesión.",
+          "notFound": "Propuesta no encontrada.",
+          "fetchFailed": "No se pudo obtener la propuesta",
+          "updateFailed": "No se pudo actualizar la propuesta",
+          "applyFailed": "No se pudo aplicar la propuesta",
+          "generic": "Ocurrió un error"
+        }
+      }
     },
     "contributions": {
       "pageTitle": "Revisar Contribuciones | Admin",
@@ -1563,6 +1670,53 @@
       "pageDescription": "Monitorea Core Web Vitals y presupuestos de rendimiento para Atlas de Árboles de Costa Rica.",
       "heading": "⚡ Monitoreo de Rendimiento",
       "description": "Captura Core Web Vitals en vivo para la sesión actual y revisa los presupuestos de rendimiento.",
+      "liveVitalsHeading": "Core Web Vitals en Vivo",
+      "liveVitalsDescription": "Las métricas se capturan de la sesión actual usando las APIs de Performance del navegador.",
+      "refreshSnapshot": "Actualizar instantánea",
+      "copied": "Copiado",
+      "copyFailed": "Error al copiar",
+      "copyJson": "Copiar JSON",
+      "resourceMix": "Distribución de Recursos",
+      "resourceMixDescription": "Totales de tamaño de transferencia para esta carga de página.",
+      "resourceJavaScript": "JavaScript",
+      "resourceCss": "CSS",
+      "resourceImages": "Imágenes",
+      "resourceTotal": "Total",
+      "resourceCounted": "Recursos contados",
+      "referenceTargets": "Objetivos de Referencia",
+      "referenceTargetsDescription": "Los objetivos se alinean con las guías de Web Vitals y los presupuestos de rendimiento del proyecto.",
+      "goodTarget": "Bueno",
+      "needsImprovementTarget": "Necesita mejora",
+      "lastUpdated": "Última actualización",
+      "waitingForMetrics": "Esperando métricas...",
+      "historicalTrackingHint": "Combina este panel con Vercel Speed Insights y Lighthouse CI para seguimiento histórico y alertas de regresión.",
+      "rating": {
+        "good": "Bueno",
+        "needsImprovement": "Necesita mejora",
+        "poor": "Deficiente"
+      },
+      "metrics": {
+        "lcp": {
+          "label": "Largest Contentful Paint",
+          "description": "Tiempo de renderizado del elemento más grande visible."
+        },
+        "cls": {
+          "label": "Cumulative Layout Shift",
+          "description": "Movimiento inesperado del diseño durante la carga de la página."
+        },
+        "inp": {
+          "label": "Interaction to Next Paint",
+          "description": "Capacidad de respuesta a las interacciones de la persona usuaria (estimada a partir de eventos)."
+        },
+        "fcp": {
+          "label": "First Contentful Paint",
+          "description": "Tiempo hasta que se renderiza el primer texto o imagen."
+        },
+        "ttfb": {
+          "label": "Time to First Byte",
+          "description": "Latencia de respuesta del servidor medida en la navegación."
+        }
+      },
       "vercelAnalytics": "Abrir Vercel Analytics",
       "speedInsightsDocs": "Documentación de Speed Insights"
     },
