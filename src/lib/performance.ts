@@ -73,14 +73,22 @@ export function measurePerformance(
     process.env.NODE_ENV === "development" &&
     typeof performance !== "undefined"
   ) {
+    let duration: number | undefined;
     try {
       performance.measure(measureName, startMark, endMark);
-      const measure = performance.getEntriesByName(measureName)[0];
-      performance.clearMeasures(measureName);
-      return measure?.duration;
+      const entries = performance.getEntriesByName(measureName);
+      // Use the most recent entry to avoid returning a stale value when prior
+      // measures with the same name exist.
+      duration = entries[entries.length - 1]?.duration;
     } catch (_e) {
       // Marks might not exist, ignore
     }
+    try {
+      performance.clearMeasures(measureName);
+    } catch {
+      // clearMeasures may be unsupported in some runtimes; don't suppress duration
+    }
+    return duration;
   }
 
   return undefined;
