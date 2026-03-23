@@ -25,7 +25,7 @@ describe("MobileCollapsibleSection", () => {
       name: /uses.+show section/i,
     });
     const panelId = button.getAttribute("aria-controls");
-    const panel = panelId ? container.querySelector(`#${panelId}`) : null;
+    const panel = panelId ? container.querySelector(`[id="${panelId}"]`) : null;
 
     expect(section).not.toBeNull();
     expect(section).toHaveAttribute("data-toc", "Uses");
@@ -58,7 +58,7 @@ describe("MobileCollapsibleSection", () => {
       name: /field notes.+hide section/i,
     });
     const panelId = button.getAttribute("aria-controls");
-    const panel = panelId ? container.querySelector(`#${panelId}`) : null;
+    const panel = panelId ? container.querySelector(`[id="${panelId}"]`) : null;
 
     expect(button).toHaveAttribute("aria-expanded", "true");
     expect(panel?.className).toContain("block");
