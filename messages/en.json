@@ -1561,7 +1561,8 @@
           "workflow": "Workflow",
           "userFlag": "User flag",
           "admin": "Admin",
-          "script": "Script"
+          "script": "Script",
+          "userUpload": "User upload"
         },
         "errors": {
           "databaseNotInitialized": "Database not initialized. Please run migrations first.",
@@ -1614,6 +1615,17 @@
           "updateFailed": "Failed to update proposal",
           "applyFailed": "Failed to apply proposal",
           "generic": "An error occurred"
+        },
+        "auditActions": {
+          "PROPOSAL_CREATED": "Proposal created",
+          "PROPOSAL_APPROVED": "Proposal approved",
+          "PROPOSAL_DENIED": "Proposal denied",
+          "PROPOSAL_APPLIED": "Proposal applied",
+          "PROPOSAL_ARCHIVED": "Proposal archived",
+          "IMAGE_REPLACED": "Image replaced",
+          "IMAGE_DELETED": "Image deleted",
+          "VOTE_CAST": "Vote cast",
+          "FLAG_SUBMITTED": "Flag submitted"
         }
       }
     },

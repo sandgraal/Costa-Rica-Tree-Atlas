@@ -1557,7 +1557,8 @@
           "workflow": "Flujo automático",
           "userFlag": "Reporte de usuario",
           "admin": "Admin",
-          "script": "Script"
+          "script": "Script",
+          "userUpload": "Carga de usuario"
         },
         "errors": {
           "databaseNotInitialized": "La base de datos no está inicializada. Ejecuta primero las migraciones.",
@@ -1610,6 +1611,17 @@
           "updateFailed": "No se pudo actualizar la propuesta",
           "applyFailed": "No se pudo aplicar la propuesta",
           "generic": "Ocurrió un error"
+        },
+        "auditActions": {
+          "PROPOSAL_CREATED": "Propuesta creada",
+          "PROPOSAL_APPROVED": "Propuesta aprobada",
+          "PROPOSAL_DENIED": "Propuesta denegada",
+          "PROPOSAL_APPLIED": "Propuesta aplicada",
+          "PROPOSAL_ARCHIVED": "Propuesta archivada",
+          "IMAGE_REPLACED": "Imagen reemplazada",
+          "IMAGE_DELETED": "Imagen eliminada",
+          "VOTE_CAST": "Voto emitido",
+          "FLAG_SUBMITTED": "Reporte enviado"
         }
       }
     },
