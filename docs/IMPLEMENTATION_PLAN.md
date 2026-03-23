@@ -1,25 +1,25 @@
 # Costa Rica Tree Atlas — Implementation Plan
 
 **Last Updated:** 2026-03-22
-**Status:** Checklist audit v4.5 — Updated after locale-aware manifest decision, console-log cleanup pass, and factual remediation policy alignment.
+**Status:** Checklist audit v4.6 — Updated after content PR acceptance criteria, indigenous knowledge governance policy, and IUCN localization coverage verification.
 
 ---
 
 ## Quick Summary
 
-| Priority | Initiative                                  | Status      | Notes                                              |
-| -------- | ------------------------------------------- | ----------- | -------------------------------------------------- |
-| **P0**   | Build reliability                           | ✅ Done     |                                                    |
-| **P1**   | Runtime fixes                               | ✅ Done     |                                                    |
-| **P2**   | EN/ES surface parity                        | 🟡 Partial  | <!-- localized public component strings PR#TBD --> |
-| **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |                                                    |
-| **P4**   | SEO & metadata                              | ✅ Done     |                                                    |
-| **P5**   | Factual remediation & citations             | 🔴 Not done |                                                    |
-| **P6**   | Mobile UX & wayfinding                      | 🟡 Partial  |                                                    |
-| **P7**   | Performance & PWA                           | ✅ Done     |                                                    |
-| **P8**   | Maintainability & code cleanup              | 🟡 Partial  |                                                    |
-| **P9**   | Route-level regression tests                | 🟡 Partial  |                                                    |
-| **P10**  | Indigenous knowledge governance             | 🔴 Not done |                                                    |
+| Priority | Initiative                                  | Status      | Notes                                                   |
+| -------- | ------------------------------------------- | ----------- | ------------------------------------------------------- |
+| **P0**   | Build reliability                           | ✅ Done     |                                                         |
+| **P1**   | Runtime fixes                               | ✅ Done     |                                                         |
+| **P2**   | EN/ES surface parity                        | 🟡 Partial  | <!-- localized public component strings PR#TBD -->      |
+| **P3**   | Accessibility (landmarks, headings, labels) | ✅ Done     |                                                         |
+| **P4**   | SEO & metadata                              | ✅ Done     |                                                         |
+| **P5**   | Factual remediation & citations             | 🔴 Not done |                                                         |
+| **P6**   | Mobile UX & wayfinding                      | 🟡 Partial  |                                                         |
+| **P7**   | Performance & PWA                           | ✅ Done     |                                                         |
+| **P8**   | Maintainability & code cleanup              | 🟡 Partial  |                                                         |
+| **P9**   | Route-level regression tests                | 🟡 Partial  |                                                         |
+| **P10**  | Indigenous knowledge governance             | 🟡 Partial  | <!-- governance policy + review workflow documented --> |
 
 **Legend:** ✅ Done — 🟡 Partial — 🔴 Not done / Blocked
 
@@ -175,8 +175,10 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Source hierarchy for factual corrections adopted: IUCN → POWO → Tropicos → Manual de Plantas de Costa Rica → SINAC → peer-reviewed papers
 - [x] Citation standard for high-risk sections (uses, cultural, medicinal, safety, conservation): 2 independent sources required
 - [x] Remediation queue priority fixed: resolve the 12 P1-high IUCN mismatch trees before medium-risk citation-gap batches
-- [ ] PR acceptance criteria for content work — not formalized
-- [ ] IUCN status labels localized (`ConservationStatus.tsx` has `getLocalizedCategoryLabel()` — verify coverage)
+- [x] PR acceptance criteria for content work formalized in `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md`
+- [x] IUCN status labels localized and regression-covered for all supported categories in `tests/conservation-status-i18n.test.tsx`
+- [x] P1-high remediation started: `carambola` visible conservation copy now matches audited `DD` status in both locales; latest citation-gap count should be re-audited before decrementing queue totals
+- [x] Second remediation slice landed: `araza` visible conservation copy now matches existing `NE` frontmatter in both locales; latest mismatch/citation totals still require re-audit before queue counts change
 
 ---
 
@@ -258,13 +260,15 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ---
 
-## P10 — Indigenous Knowledge Governance 🔴 NOT DONE
+## P10 — Indigenous Knowledge Governance 🟡 PARTIAL
 
-- [ ] No governance, attribution, or consent policy files exist in the repo
-- [ ] Review/approval rules for indigenous names, meanings, and ceremonial claims — not defined
-- [ ] Consent and community review process — not established
+- [x] Governance, attribution, and review policy documented in `docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md`
+- [x] Review/approval rules for indigenous names, meanings, and ceremonial claims defined
+- [x] Consent-sensitive human review workflow documented for indigenous knowledge edits
 - [x] Interim working rule adopted: avoid autonomous edits to indigenous/cultural claims unless the claim is explicitly sourced; expect later human review even when sourced
-- [ ] Existing repo rules mark indigenous content as human-only but no actionable policy exists
+- [x] Existing repo rules now have actionable policy backing via linked governance and content PR criteria docs
+- [x] PR labeling convention for indigenous-content approvals documented (`needs-indigenous-review`) across policy and PR workflow docs
+- [ ] Establish external/community review relationships where feasible for sensitive claims
 
 ---
 
@@ -297,7 +301,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [ ] P5: Define and enforce citation standard for high-risk sections
 - [ ] P8: Introduce shared route-shell primitives
 - [ ] P8: Consolidate remaining hardcoded string logic
-- [ ] P10: Draft indigenous knowledge governance policy
+- [x] ~~P10: Draft indigenous knowledge governance policy~~ ✅
 - [x] ~~P9: Expand regression suite to cover all major route families~~ ✅
 - [ ] P6: Improve compare page UX (guide/tool switching, card density)
 
