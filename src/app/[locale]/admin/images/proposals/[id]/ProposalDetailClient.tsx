@@ -226,9 +226,10 @@ export default function ProposalDetailClient({
         return t("proposalDetail.auditActions.VOTE_CAST");
       case "FLAG_SUBMITTED":
         return t("proposalDetail.auditActions.FLAG_SUBMITTED");
-      default:
-        return (action as string).replace(/_/g, " ");
     }
+
+    const _exhaustiveCheck: never = action;
+    return (action as string).replace(/_/g, " ");
   };
 
   const getStatusBadgeClass = (status: ImageProposalStatus) => {
