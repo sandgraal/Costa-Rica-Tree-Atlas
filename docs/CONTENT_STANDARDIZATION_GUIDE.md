@@ -255,6 +255,15 @@ For **palms**:
 </ExternalLinksGrid>
 ```
 
+## Factual, Citation, and Cultural Governance Rules
+
+Content completeness is not enough on its own. Reviewers should apply these guardrails to all substantive content edits:
+
+- high-risk sections (`Uses`, medicinal claims, safety guidance, conservation, cultural significance) need explicit citations
+- medicinal, safety, conservation, ceremonial, and other high-risk claims require **two independent sources**
+- indigenous names, meanings, ceremonial uses, and spiritual significance must follow `docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md`
+- merge readiness for content PRs is defined in `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md`
+
 ## Section Frequency Audit
 
 **Coverage data** (December 2025 audit of 107 pages):
@@ -388,6 +397,8 @@ Before considering a page "complete":
 - [ ] Growing/cultivation information
 - [ ] External Resources section (min 3 links)
 - [ ] References section (min 2 sources)
+- [ ] High-risk claims meet citation threshold and source hierarchy
+- [ ] Indigenous/cultural claims follow governance policy when applicable
 - [ ] Consistent MDX component usage
 - [ ] No broken links or missing images
 

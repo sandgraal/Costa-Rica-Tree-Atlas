@@ -38,6 +38,16 @@ Fixes #
 
 <!-- Mark completed items with an [x] -->
 
+### 🧭 Review Routing
+
+<!-- Use this section to route sensitive content to the right reviewer path -->
+
+- [ ] No indigenous knowledge content was added or changed
+- [ ] Indigenous knowledge content was added or changed
+  - [ ] I applied the `needs-indigenous-review` label (or noted it explicitly in the PR body if labels are unavailable)
+  - [ ] I listed the affected slugs/locales in the PR description
+  - [ ] I requested internal human review before merge
+
 ### General
 
 - [ ] I have read the [Contributing Guidelines](CONTRIBUTING.md)
@@ -60,6 +70,8 @@ Fixes #
 - [ ] Both language files have the same slug/filename
 - [ ] Frontmatter is complete and accurate
 - [ ] Scientific information is accurate and sourced
+- [ ] I reviewed `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md` and met the applicable checklist
+- [ ] High-risk factual claims include the required citations
 
 ## 🧪 How Has This Been Tested?
 
@@ -69,7 +81,7 @@ Fixes #
 - [ ] Chrome (Desktop)
 - [ ] Firefox (Desktop)
 - [ ] Safari (Desktop)
-- [ ] Mobile browser: ****\_\_\_\_****
+- [ ] Mobile browser: \***\*\_\_\_\_\*\***
 
 ## 📝 Additional Notes
 

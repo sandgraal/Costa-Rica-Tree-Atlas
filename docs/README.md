@@ -18,8 +18,14 @@ For adding and maintaining tree content:
 
 - **[SPECIES_ADDITION_PROCESS.md](./SPECIES_ADDITION_PROCESS.md)** - ⭐ Complete step-by-step guide for adding new species
 - **[CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md)** - Content structure standards and quality benchmarks
-- **[MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)** - ~34 verified unique species to document next
+- **[CONTENT_PR_ACCEPTANCE_CRITERIA.md](./CONTENT_PR_ACCEPTANCE_CRITERIA.md)** - Merge checklist for factual, bilingual, and high-risk content changes
+- **[MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md)** - ~13 verified unique species to document next
 - **[FRONTMATTER_LOCALIZATION_GUIDE.md](./FRONTMATTER_LOCALIZATION_GUIDE.md)** - Frontmatter best practices and localization patterns
+
+## ⚖️ Governance & Review
+
+- **[INDIGENOUS_KNOWLEDGE_GOVERNANCE.md](./INDIGENOUS_KNOWLEDGE_GOVERNANCE.md)** - Rules for attribution, consent-sensitive handling, and human review of indigenous knowledge content
+- **[CONTENT_PR_ACCEPTANCE_CRITERIA.md](./CONTENT_PR_ACCEPTANCE_CRITERIA.md)** - Reviewer checklist for content PRs touching factual, cultural, or safety-sensitive claims
 
 ## 🛠️ Technical Guides
 
@@ -100,7 +106,7 @@ Key documents for autonomous work:
 
 ---
 
-**Last Updated:** 2026-02-12  
-**Active Documentation:** 11 core files  
+**Last Updated:** 2026-03-22  
+**Active Documentation:** 13 core files  
 **Status:** Living documents synchronized with implementation  
 **Maintained By:** Costa Rica Tree Atlas Contributors

@@ -5,15 +5,16 @@
 
 ## Quick Reference
 
-- **Current Species Count:** 160 documented (320 bilingual documents)
+- **Current Species Count:** 175 documented (350 bilingual documents)
 - **Last Major Update:** 2026-02-12 (5 species added: Zorrillo, Contra, Achotillo, Guarumbo Hembra, Bambu Gigante)
 - **Previous Major Update:** 2026-02-12 (2 species added: Quina, Cedro Dulce)
 - **Previous Major Update:** 2026-02-10 (1 species added: Granadillo)
 - **Previous Major Update:** 2026-01-15 (4 species added: Sigua, Comenegro, Mayo, Lechoso Montañero)
 - **Previous Major Update:** 2026-01-14 (2 species added)
 - **Previous Major Update:** 2026-01-12 (12 species added)
-- **Missing Species Remaining:** ~28 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
+- **Missing Species Remaining:** ~13 unique species (see [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md))
 - **Quality Standard:** All species must have **100% safety data coverage** (13 required fields)
+- **Review Standard:** Content PRs must satisfy [CONTENT_PR_ACCEPTANCE_CRITERIA.md](./CONTENT_PR_ACCEPTANCE_CRITERIA.md)
 
 ## Review Process
 
@@ -57,6 +58,16 @@ When species are added, update these files:
 2. **MISSING_SPECIES_LIST.md** - Remove documented species, update counts
 3. **docs/SPECIES_ADDITION_PROCESS.md** - Update species count in Quick Reference
 4. **docs/IMPLEMENTATION_PLAN.md** - Update any species count references
+
+### Step 4: Content Review Gate
+
+Before merging a species addition or factual correction:
+
+- [ ] Verify bilingual parity and matching slug/frontmatter expectations
+- [ ] Cite all high-risk claims (medicinal, safety, conservation, cultural)
+- [ ] Use at least two independent sources for high-risk factual claims
+- [ ] Route indigenous or ceremonial claims through `docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md`
+- [ ] Confirm the PR satisfies `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md`
 
 ## Quality Standards for New Species
 
@@ -191,7 +202,7 @@ Every species page should follow the standard structure from [CONTENT_STANDARDIZ
 - Proper attribution in frontmatter or captions
 - Show: tree form, bark, leaves, flowers, fruit (when available)
 
-### Step 4: Verify Bilingual Coverage
+### Step 5: Verify Bilingual Coverage
 
 Ensure both English and Spanish versions exist:
 
@@ -213,7 +224,7 @@ for file in content/trees/es/*.mdx; do
 done
 ```
 
-### Step 5: Build Verification
+### Step 6: Build Verification
 
 Always run a build to verify changes:
 
@@ -226,7 +237,7 @@ Expected output should show:
 - No build errors
 - Increased page count (each tree generates ~2 pages per language = 4 pages per species)
 - Contentlayer warnings are acceptable if they're just about extra fields
-- Current expected page count: ~640+ pages (160 trees × 2 languages × 2 pages/tree)
+  - Current expected page count: ~1,600 pages
 
 ## Common Issues
 
@@ -417,6 +428,12 @@ touch content/trees/es/new-species.mdx
 - [ ] Maintain same content structure and section order
 - [ ] Preserve image references (same paths)
 - [ ] Match tone and reading level across languages
+
+**Governance & sourcing requirements:**
+
+- [ ] Follow `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md` for merge readiness
+- [ ] Follow `docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md` for indigenous names, meanings, and ceremonial claims
+- [ ] Use two independent sources for medicinal, conservation, safety, and other high-risk claims
 
 ### 3. Image Management
 
@@ -713,6 +730,8 @@ updatedAt: 2026-01-19
 
 - [MISSING_SPECIES_LIST.md](./MISSING_SPECIES_LIST.md) - Complete list of species to add
 - [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md) - Content structure guide
+- [CONTENT_PR_ACCEPTANCE_CRITERIA.md](./CONTENT_PR_ACCEPTANCE_CRITERIA.md) - Merge checklist for content work
+- [INDIGENOUS_KNOWLEDGE_GOVERNANCE.md](./INDIGENOUS_KNOWLEDGE_GOVERNANCE.md) - Indigenous knowledge review and consent-sensitive handling rules
 - [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md) - Image sourcing guidelines
 - [improvement-roadmap.md](./improvement-roadmap.md) - Overall project status
 - [CONTRIBUTING.md](../CONTRIBUTING.md) - General contribution guide
