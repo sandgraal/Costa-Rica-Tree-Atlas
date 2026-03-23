@@ -279,7 +279,7 @@ curl "${baseUrl}/api/v1/families?locale=${locale}"`}
             {activeTab === "javascript" &&
               `// List all trees
 const response = await fetch('${baseUrl}/api/v1/trees?locale=${locale}');
-const { data, pagination } = await response.json();
+const { pagination } = await response.json();
 // pagination.total => total number of trees (e.g. 247)
 
 // Get a specific tree
