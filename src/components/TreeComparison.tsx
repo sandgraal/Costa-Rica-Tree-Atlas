@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { TreeTags } from "./TreeTags";
 import { BLUR_DATA_URL } from "@/lib/image";
@@ -23,6 +24,10 @@ interface TreeComparisonProps {
     maxTreesReachedTemplate: string;
     removeSelectedTreeTemplate: string;
     moreUsesTemplate: string;
+    selectedCountTemplate: string;
+    viewModeHint: string;
+    comparisonTableLabel: string;
+    comparisonCardsLabel: string;
     properties: {
       image: string;
       commonName: string;
@@ -83,6 +88,14 @@ export function TreeComparison({
       .filter((tree): tree is ComparisonTreeSummary => tree !== undefined);
   }, [trees, selectedSlugs]);
 
+  const selectedCountLabel = formatTranslationTemplate(
+    translations.selectedCountTemplate,
+    {
+      count: selectedTrees.length,
+      max: maxTrees,
+    }
+  );
+
   const addTree = (slug: string) => {
     if (selectedSlugs.length < maxTrees && !selectedSlugs.includes(slug)) {
       setSelectedSlugs([...selectedSlugs, slug]);
@@ -97,51 +110,199 @@ export function TreeComparison({
     setSelectedSlugs([]);
   };
 
+  const renderTreeImage = (
+    tree: ComparisonTreeSummary,
+    maxWidthClass = "max-w-[250px]"
+  ) => (
+    <div
+      className={`relative w-full aspect-video ${maxWidthClass} mx-auto rounded-lg overflow-hidden bg-muted`}
+    >
+      {tree.featuredImage ? (
+        <Image
+          src={tree.featuredImage}
+          alt={tree.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 250px"
+          className="object-cover"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+          quality={75}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <TreeIcon className="h-12 w-12 text-primary/30" />
+        </div>
+      )}
+    </div>
+  );
+
+  const renderConservationStatus = (tree: ComparisonTreeSummary) => {
+    if (!tree.conservationStatus) {
+      return <span className="text-muted-foreground">—</span>;
+    }
+
+    let conservationLabel: string | null = null;
+    try {
+      conservationLabel = getConservationLabel(
+        tree.conservationStatus as ConservationCategory,
+        locale
+      );
+    } catch {
+      conservationLabel = null;
+    }
+
+    return (
+      <span className="inline-flex rounded-full bg-secondary/10 px-2 py-1 text-sm text-secondary">
+        {tree.conservationStatus}
+        {conservationLabel ? ` — ${conservationLabel}` : ""}
+      </span>
+    );
+  };
+
+  const renderUses = (tree: ComparisonTreeSummary, compact = false) => {
+    if (!tree.uses || tree.uses.length === 0) {
+      return <span className="text-muted-foreground">—</span>;
+    }
+
+    return (
+      <ul className={`space-y-1 text-sm ${compact ? "" : "text-left"}`}>
+        {tree.uses.slice(0, 5).map((use) => (
+          <li key={`${tree.slug}-${use}`} className="flex items-start gap-1">
+            <span className="text-primary">•</span>
+            <span>{use}</span>
+          </li>
+        ))}
+        {tree.uses.length > 5 && (
+          <li className="text-xs text-muted-foreground">
+            {formatTranslationTemplate(translations.moreUsesTemplate, {
+              count: tree.uses.length - 5,
+            })}
+          </li>
+        )}
+      </ul>
+    );
+  };
+
+  const renderTags = (tree: ComparisonTreeSummary) => {
+    if (!tree.tags || tree.tags.length === 0) {
+      return <span className="text-muted-foreground">—</span>;
+    }
+
+    return <TreeTags tags={tree.tags} size="sm" />;
+  };
+
+  const comparisonRows = [
+    {
+      key: "commonName",
+      label: translations.properties.commonName,
+      render: (tree: ComparisonTreeSummary) => (
+        <Link
+          href={`/trees/${tree.slug}`}
+          className="font-semibold text-primary-dark transition-colors hover:text-primary hover:underline dark:text-primary-light"
+        >
+          {tree.title}
+        </Link>
+      ),
+    },
+    {
+      key: "scientificName",
+      label: translations.properties.scientificName,
+      render: (tree: ComparisonTreeSummary) => (
+        <span className="italic text-secondary">{tree.scientificName}</span>
+      ),
+    },
+    {
+      key: "family",
+      label: translations.properties.family,
+      render: (tree: ComparisonTreeSummary) => (
+        <span className="inline-flex rounded-full bg-primary/10 px-2 py-1 text-sm text-primary">
+          {tree.family}
+        </span>
+      ),
+    },
+    {
+      key: "maxHeight",
+      label: translations.properties.maxHeight,
+      render: (tree: ComparisonTreeSummary) => tree.maxHeight || "—",
+    },
+    {
+      key: "nativeRegion",
+      label: translations.properties.nativeRegion,
+      render: (tree: ComparisonTreeSummary) => tree.nativeRegion || "—",
+    },
+    {
+      key: "conservationStatus",
+      label: translations.properties.conservationStatus,
+      render: (tree: ComparisonTreeSummary) => renderConservationStatus(tree),
+    },
+    {
+      key: "uses",
+      label: translations.properties.uses,
+      render: (tree: ComparisonTreeSummary) => renderUses(tree),
+      mobileRender: (tree: ComparisonTreeSummary) => renderUses(tree, true),
+    },
+    {
+      key: "tags",
+      label: translations.properties.tags,
+      render: (tree: ComparisonTreeSummary) => renderTags(tree),
+    },
+  ];
+
   return (
     <div className="py-8">
-      {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-primary-dark dark:text-primary-light mb-2">
-          {translations.title}
-        </h2>
-
-        {/* Tree selector */}
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex-1 min-w-[200px] max-w-md">
-            <select
-              value=""
-              onChange={(e) => {
-                addTree(e.target.value);
-              }}
-              disabled={selectedSlugs.length >= maxTrees}
-              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-            >
-              <option value="" disabled>
-                {selectedSlugs.length >= maxTrees
-                  ? formatTranslationTemplate(
-                      translations.maxTreesReachedTemplate,
-                      {
-                        count: maxTrees,
-                      }
-                    )
-                  : translations.selectPlaceholder}
-              </option>
-              {availableTrees.map((tree) => (
-                <option key={tree.slug} value={tree.slug}>
-                  {tree.title} ({tree.scientificName})
-                </option>
-              ))}
-            </select>
+      <div className="mb-6 rounded-2xl border border-border bg-card p-4 md:p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="space-y-1">
+            <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              {translations.selectTree}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {selectedTrees.length > 0
+                ? selectedCountLabel
+                : translations.noTreesSelected}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {translations.viewModeHint}
+            </p>
           </div>
 
-          {selectedSlugs.length > 0 && (
-            <button
-              onClick={clearAll}
-              className="px-4 py-2 text-sm text-primary hover:text-primary-dark transition-colors"
-            >
-              {translations.clearAll}
-            </button>
-          )}
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center lg:max-w-2xl">
+            <div className="flex-1 min-w-[200px]">
+              <select
+                value=""
+                onChange={(e) => {
+                  addTree(e.target.value);
+                }}
+                disabled={selectedSlugs.length >= maxTrees}
+                className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+              >
+                <option value="" disabled>
+                  {selectedSlugs.length >= maxTrees
+                    ? formatTranslationTemplate(
+                        translations.maxTreesReachedTemplate,
+                        {
+                          count: maxTrees,
+                        }
+                      )
+                    : translations.selectPlaceholder}
+                </option>
+                {availableTrees.map((tree) => (
+                  <option key={tree.slug} value={tree.slug}>
+                    {tree.title} ({tree.scientificName})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {selectedSlugs.length > 0 && (
+              <button
+                onClick={clearAll}
+                className="shrink-0 rounded-lg border border-border px-4 py-2 text-sm font-medium text-primary transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-primary-dark"
+              >
+                {translations.clearAll}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Selected tree badges */}
@@ -180,247 +341,121 @@ export function TreeComparison({
           <p>{translations.noTreesSelected}</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr>
-                <th className="text-left p-3 bg-muted/50 border-b border-border w-32 sticky left-0 z-10 bg-background">
-                  {/* Empty header for property column */}
-                </th>
-                {selectedTrees.map((tree) => (
-                  <th
-                    key={tree.slug}
-                    className="text-center p-3 bg-muted/50 border-b border-border min-w-[200px]"
+        <>
+          <div
+            aria-label={translations.comparisonCardsLabel}
+            className="grid gap-4 md:hidden"
+          >
+            {selectedTrees.map((tree) => (
+              <article
+                key={tree.slug}
+                className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+              >
+                <div className="relative">
+                  {renderTreeImage(tree, "max-w-none")}
+                  <button
+                    onClick={() => {
+                      removeTree(tree.slug);
+                    }}
+                    className="absolute right-3 top-3 rounded-full bg-background/90 p-2 text-muted-foreground shadow-sm backdrop-blur transition-colors hover:text-foreground"
+                    aria-label={translations.removeTree}
                   >
-                    <button
-                      onClick={() => removeTree(tree.slug)}
-                      className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"
-                      aria-label={translations.removeTree}
-                    >
-                      <XIcon className="h-4 w-4" />
-                    </button>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {/* Image Row */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.image}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center"
-                  >
-                    <div className="relative w-full aspect-video max-w-[250px] mx-auto rounded-lg overflow-hidden bg-muted">
-                      {tree.featuredImage ? (
-                        <Image
-                          src={tree.featuredImage}
-                          alt={tree.title}
-                          fill
-                          sizes="250px"
-                          className="object-cover"
-                          placeholder="blur"
-                          blurDataURL={BLUR_DATA_URL}
-                          quality={75}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <TreeIcon className="h-12 w-12 text-primary/30" />
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                ))}
-              </tr>
+                    <XIcon className="h-4 w-4" />
+                  </button>
+                </div>
 
-              {/* Common Name */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.commonName}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center font-semibold text-primary-dark dark:text-primary-light"
-                  >
-                    <a
-                      href={`/${locale}/trees/${tree.slug}`}
-                      className="hover:underline"
+                <div className="space-y-4 p-4">
+                  <div className="space-y-2">
+                    <Link
+                      href={`/trees/${tree.slug}`}
+                      className="block text-lg font-semibold text-primary-dark transition-colors hover:text-primary hover:underline dark:text-primary-light"
                     >
                       {tree.title}
-                    </a>
-                  </td>
-                ))}
-              </tr>
+                    </Link>
+                    <p className="text-sm italic text-secondary">
+                      {tree.scientificName}
+                    </p>
+                  </div>
 
-              {/* Scientific Name */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.scientificName}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center italic text-secondary"
-                  >
-                    {tree.scientificName}
-                  </td>
-                ))}
-              </tr>
+                  <dl className="space-y-3">
+                    {comparisonRows
+                      .filter((row) => row.key !== "commonName")
+                      .map((row) => (
+                        <div
+                          key={`${tree.slug}-${row.key}`}
+                          className="grid gap-1 border-t border-border/60 pt-3 first:border-t-0 first:pt-0"
+                        >
+                          <dt className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                            {row.label}
+                          </dt>
+                          <dd className="text-sm text-foreground">
+                            {(row.mobileRender ?? row.render)(tree)}
+                          </dd>
+                        </div>
+                      ))}
+                  </dl>
+                </div>
+              </article>
+            ))}
+          </div>
 
-              {/* Family */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.family}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center"
-                  >
-                    <span className="px-2 py-1 bg-primary/10 text-primary rounded text-sm">
-                      {tree.family}
-                    </span>
-                  </td>
-                ))}
-              </tr>
-
-              {/* Max Height */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.maxHeight}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center"
-                  >
-                    {tree.maxHeight || "—"}
-                  </td>
-                ))}
-              </tr>
-
-              {/* Native Region */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.nativeRegion}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center text-sm"
-                  >
-                    {tree.nativeRegion || "—"}
-                  </td>
-                ))}
-              </tr>
-
-              {/* Conservation Status */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10">
-                  {translations.properties.conservationStatus}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border text-center"
-                  >
-                    {tree.conservationStatus ? (
-                      <span className="px-2 py-1 bg-secondary/10 text-secondary rounded text-sm">
-                        {(() => {
-                          let conservationLabel: string | null = null;
-                          try {
-                            conservationLabel = getConservationLabel(
-                              tree.conservationStatus as ConservationCategory,
-                              locale
-                            );
-                          } catch {
-                            conservationLabel = null;
-                          }
-
-                          return (
-                            <>
-                              {tree.conservationStatus}
-                              {conservationLabel ? (
-                                <>
-                                  {" — "}
-                                  {conservationLabel}
-                                </>
-                              ) : null}
-                            </>
-                          );
-                        })()}
-                      </span>
-                    ) : (
-                      "—"
-                    )}
-                  </td>
-                ))}
-              </tr>
-
-              {/* Uses */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10 align-top">
-                  {translations.properties.uses}
-                </td>
-                {selectedTrees.map((tree) => (
-                  <td
-                    key={tree.slug}
-                    className="p-3 border-b border-border align-top"
-                  >
-                    {tree.uses && tree.uses.length > 0 ? (
-                      <ul className="text-sm text-left space-y-1">
-                        {tree.uses.slice(0, 5).map((use, i) => (
-                          <li key={i} className="flex items-start gap-1">
-                            <span className="text-primary">•</span>
-                            <span>{use}</span>
-                          </li>
-                        ))}
-                        {tree.uses.length > 5 && (
-                          <li className="text-muted-foreground text-xs">
-                            {formatTranslationTemplate(
-                              translations.moreUsesTemplate,
-                              {
-                                count: tree.uses.length - 5,
-                              }
-                            )}
-                          </li>
-                        )}
-                      </ul>
-                    ) : (
-                      <span className="text-center block">—</span>
-                    )}
-                  </td>
-                ))}
-              </tr>
-
-              {/* Tags */}
-              <tr>
-                <td className="p-3 font-medium bg-muted/30 border-b border-border sticky left-0 z-10 align-top">
-                  {translations.properties.tags}
-                </td>
-                {selectedTrees.map((tree) => {
-                  const tags = tree.tags;
-                  return (
-                    <td
+          <div
+            aria-label={translations.comparisonTableLabel}
+            className="hidden overflow-x-auto md:block"
+          >
+            <table className="w-full border-collapse">
+              <thead>
+                <tr>
+                  <th className="sticky left-0 z-10 w-32 border-b border-border bg-background p-3 text-left">
+                    {/* Empty header for property column */}
+                  </th>
+                  {selectedTrees.map((tree) => (
+                    <th
                       key={tree.slug}
-                      className="p-3 border-b border-border align-top"
+                      className="relative min-w-[220px] border-b border-border bg-muted/50 p-3 text-center align-top"
                     >
-                      {tags && tags.length > 0 ? (
-                        <TreeTags tags={tags} size="sm" limit={6} />
-                      ) : (
-                        <span className="text-center block">—</span>
-                      )}
+                      <button
+                        onClick={() => {
+                          removeTree(tree.slug);
+                        }}
+                        className="absolute right-2 top-2 text-muted-foreground transition-colors hover:text-foreground"
+                        aria-label={translations.removeTree}
+                      >
+                        <XIcon className="h-4 w-4" />
+                      </button>
+                      <div className="space-y-3 pt-4">
+                        {renderTreeImage(tree)}
+                        <Link
+                          href={`/trees/${tree.slug}`}
+                          className="block font-semibold text-primary-dark transition-colors hover:text-primary hover:underline dark:text-primary-light"
+                        >
+                          {tree.title}
+                        </Link>
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr key={row.key}>
+                    <td className="sticky left-0 z-10 border-b border-border bg-muted/30 p-3 font-medium align-top">
+                      {row.label}
                     </td>
-                  );
-                })}
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                    {selectedTrees.map((tree) => (
+                      <td
+                        key={`${tree.slug}-${row.key}`}
+                        className="border-b border-border p-3 text-center align-top"
+                      >
+                        {row.render(tree)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
