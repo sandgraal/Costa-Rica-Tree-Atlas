@@ -113,7 +113,7 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@tailwindcss/postcss": "^4",
-    "@tanstack/react-query-devtools": "^5.95.0",
+    "@tanstack/react-query-devtools": "^5.96.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/google.maps": "^3.58.1",
@@ -122,9 +122,9 @@
     "@types/qrcode": "^1.5.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitest/ui": "^4.1.0",
-    "eslint": "^10.1.0",
-    "eslint-config-next": "16.2.1",
+    "@vitest/ui": "^4.1.2",
+    "eslint": "^10.2.0",
+    "eslint-config-next": "16.2.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-no-secrets": "^2.3.3",
     "eslint-plugin-prettier": "^5.5.5",
@@ -134,9 +134,9 @@
     "jsdom": "^29.0.1",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
-    "prisma": "^7.5.0",
+    "prisma": "^7.6.0",
     "tailwindcss": "^4",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "vitest": "^4.0.16"
   }
 }
