@@ -96,7 +96,7 @@
     "dotenv": "^17.3.1",
     "fuse.js": "^7.1.0",
     "html2canvas": "^1.4.1",
-    "next": "^16.2.1",
+    "next": "^16.2.3",
     "next-auth": "^4.24.10",
     "next-contentlayer2": "^0.5.8",
     "next-intl": "^4.8.3",
