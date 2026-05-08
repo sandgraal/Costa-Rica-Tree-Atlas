@@ -99,7 +99,7 @@
     "next": "^16.2.1",
     "next-auth": "^4.24.10",
     "next-contentlayer2": "^0.5.8",
-    "next-intl": "^4.8.3",
+    "next-intl": "^4.9.2",
     "next-mdx-remote": "^6.0.0",
     "otplib": "^13.4.0",
     "qrcode": "^1.5.4",
