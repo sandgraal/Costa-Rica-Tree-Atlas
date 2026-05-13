@@ -32,20 +32,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const DRY_RUN = (context.eventName === 'workflow_dispatch'
-              ? core.getInput('dry_run')
-              : 'false') !== 'false';
-
-            const DAYS_STALE = parseInt(
-              context.eventName === 'workflow_dispatch'
-                ? core.getInput('days_stale')
-                : '90',
-              10
-            );
+            const inputs = context.payload.inputs || {};
+            const DRY_RUN = (inputs.dry_run || 'true') !== 'false';
+            const DAYS_STALE = parseInt(inputs.days_stale || '90', 10);
 
             const cutoff = new Date();
             cutoff.setDate(cutoff.getDate() - DAYS_STALE);
-            console.log(`Closing PRs with no activity since ${cutoff.toISOString()} (dry_run=${DRY_RUN})`);
+            console.log(`Threshold: ${DAYS_STALE} days — closing PRs not updated since ${cutoff.toISOString()} (dry_run=${DRY_RUN})`);
 
             const { owner, repo } = context.repo;
             let page = 1;
@@ -63,10 +56,12 @@ jobs:
 
               if (prs.length === 0) break;
 
+              let hitWindow = false;
               for (const pr of prs) {
                 const updatedAt = new Date(pr.updated_at);
                 if (updatedAt >= cutoff) {
                   console.log(`PR #${pr.number} updated ${pr.updated_at} — within window, stopping.`);
+                  hitWindow = true;
                   break;
                 }
 
@@ -78,26 +73,23 @@ jobs:
                     issue_number: pr.number,
                     body: `This pull request has been automatically closed after ${DAYS_STALE} days of inactivity.\n\nIf this work is still relevant, please reopen the PR and leave a comment summarizing its current status. Thank you for your contribution to the Costa Rica Tree Atlas!`,
                   });
-
                   await github.rest.pulls.update({
                     owner, repo,
                     pull_number: pr.number,
                     state: 'closed',
                   });
-
-                  closed++;
-                } else {
-                  closed++;
                 }
+                closed++;
               }
 
+              if (hitWindow) break;
               const last = prs[prs.length - 1];
               if (new Date(last.updated_at) >= cutoff) break;
               page++;
             }
 
             console.log(`Done. ${DRY_RUN ? 'Would have closed' : 'Closed'} ${closed} PR(s).`);
-            core.summary
+            await core.summary
               .addHeading(`Stale PR cleanup ${DRY_RUN ? '(dry run)' : ''}`)
               .addRaw(`Threshold: ${DAYS_STALE} days (before ${cutoff.toDateString()})\n`)
               .addRaw(`${DRY_RUN ? 'Would close' : 'Closed'}: **${closed}** PR(s)`)
