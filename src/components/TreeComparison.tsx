@@ -358,7 +358,10 @@ export function TreeComparison({
                       removeTree(tree.slug);
                     }}
                     className="absolute right-3 top-3 rounded-full bg-background/90 p-2 text-muted-foreground shadow-sm backdrop-blur transition-colors hover:text-foreground"
-                    aria-label={translations.removeTree}
+                    aria-label={translations.removeSelectedTreeTemplate.replace(
+                      "{treeTitle}",
+                      tree.title,
+                    )}
                   >
                     <XIcon className="h-4 w-4" />
                   </button>
