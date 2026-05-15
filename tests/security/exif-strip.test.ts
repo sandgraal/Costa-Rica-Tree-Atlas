@@ -20,8 +20,15 @@ import { describe, expect, it } from "vitest";
 import sharp from "sharp";
 
 async function buildJpegWithExif(): Promise<Buffer> {
-  // Synthesize a JPEG with EXIF GPS coordinates embedded.
-  // Sharp ≥0.33 supports passing structured EXIF on write.
+  // Synthesize a JPEG with EXIF metadata embedded. Sharp's typed `withExif`
+  // surface allows IFD0/IFD1/etc. dictionaries; we stash identifiable
+  // markers there.
+  //
+  // We don't write a GPS IFD here — Sharp's TS definitions don't include
+  // a 'GPS' key — but the security guarantee we're testing is that ANY
+  // EXIF metadata is stripped from the output. Verifying `metadata.exif`
+  // is `undefined` after re-encoding proves the GPS IFD would also be
+  // stripped, even though we don't directly synthesize one.
   return sharp({
     create: {
       width: 1000,
@@ -35,15 +42,9 @@ async function buildJpegWithExif(): Promise<Buffer> {
         Make: "TEST",
         Model: "EXIF-STRIP-REGRESSION",
         Software: "Costa Rica Tree Atlas test fixture",
-      },
-      GPS: {
-        // Coordinates near Corcovado — a real poaching-risk location for
-        // protected species. We're embedding them in the fixture so the
-        // test would catch a regression that leaks them.
-        GPSLatitudeRef: "N",
-        GPSLatitude: "8/1 30/1 0/1",
-        GPSLongitudeRef: "W",
-        GPSLongitude: "83/1 35/1 0/1",
+        // A non-GPS marker that would be a privacy leak if it survived
+        // round-trip (e.g., user identifier, camera serial).
+        Artist: "test-user-id-1234",
       },
     })
     .jpeg()

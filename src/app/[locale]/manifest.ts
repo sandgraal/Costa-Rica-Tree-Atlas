@@ -41,12 +41,27 @@ function getManifestContent(locale: Locale) {
   }
 }
 
+// PWA spec § 6.6 allows `purpose` to be a space-separated list of values
+// (e.g. "any maskable"), but Next.js's MetadataRoute.Manifest types it as a
+// union of single tokens. We use the compound value at runtime because it's
+// the recommended PWA pattern for maximum icon flexibility. This alias
+// silences the resulting TS2820 errors without changing runtime behaviour.
+// See: https://www.w3.org/TR/appmanifest/#purpose-member
+type ManifestIconPurpose =
+  MetadataRoute.Manifest["icons"] extends Array<infer Icon>
+    ? Icon extends { purpose?: infer P }
+      ? P
+      : never
+    : never;
+
 export default async function manifest({
   params,
 }: ManifestProps): Promise<MetadataRoute.Manifest> {
   const { locale: localeParam } = await Promise.resolve(params);
   const locale = resolveLocale(localeParam);
   const manifestContent = getManifestContent(locale);
+
+  const iconPurpose = "any maskable" as ManifestIconPurpose;
 
   return {
     id: `/${locale}`,
@@ -67,49 +82,49 @@ export default async function manifest({
         src: "/icons/icon-72x72.png",
         sizes: "72x72",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-96x96.png",
         sizes: "96x96",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-128x128.png",
         sizes: "128x128",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-144x144.png",
         sizes: "144x144",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-152x152.png",
         sizes: "152x152",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-192x192.png",
         sizes: "192x192",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-384x384.png",
         sizes: "384x384",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
       {
         src: "/icons/icon-512x512.png",
         sizes: "512x512",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: iconPurpose,
       },
     ],
     related_applications: [],
