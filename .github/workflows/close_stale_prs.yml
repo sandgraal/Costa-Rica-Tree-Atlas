@@ -1,0 +1,96 @@
+name: Close Stale PRs
+
+on:
+  schedule:
+    # Every Sunday at 06:00 UTC
+    - cron: '0 6 * * 0'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — log what would be closed without actually closing'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      days_stale:
+        description: 'Days of inactivity before a PR is considered stale'
+        required: false
+        default: '90'
+        type: string
+
+jobs:
+  close-stale-prs:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Close stale PRs
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const inputs = context.payload.inputs || {};
+            const DRY_RUN = (inputs.dry_run || 'true') !== 'false';
+            const DAYS_STALE = parseInt(inputs.days_stale || '90', 10);
+
+            const cutoff = new Date();
+            cutoff.setDate(cutoff.getDate() - DAYS_STALE);
+            console.log(`Threshold: ${DAYS_STALE} days — closing PRs not updated since ${cutoff.toISOString()} (dry_run=${DRY_RUN})`);
+
+            const { owner, repo } = context.repo;
+            let page = 1;
+            let closed = 0;
+
+            while (true) {
+              const { data: prs } = await github.rest.pulls.list({
+                owner, repo,
+                state: 'open',
+                sort: 'updated',
+                direction: 'asc',
+                per_page: 100,
+                page,
+              });
+
+              if (prs.length === 0) break;
+
+              let hitWindow = false;
+              for (const pr of prs) {
+                const updatedAt = new Date(pr.updated_at);
+                if (updatedAt >= cutoff) {
+                  console.log(`PR #${pr.number} updated ${pr.updated_at} — within window, stopping.`);
+                  hitWindow = true;
+                  break;
+                }
+
+                console.log(`${DRY_RUN ? '[DRY RUN] Would close' : 'Closing'} PR #${pr.number}: "${pr.title}" (last updated ${pr.updated_at})`);
+
+                if (!DRY_RUN) {
+                  await github.rest.issues.createComment({
+                    owner, repo,
+                    issue_number: pr.number,
+                    body: `This pull request has been automatically closed after ${DAYS_STALE} days of inactivity.\n\nIf this work is still relevant, please reopen the PR and leave a comment summarizing its current status. Thank you for your contribution to the Costa Rica Tree Atlas!`,
+                  });
+                  await github.rest.pulls.update({
+                    owner, repo,
+                    pull_number: pr.number,
+                    state: 'closed',
+                  });
+                }
+                closed++;
+              }
+
+              if (hitWindow) break;
+              const last = prs[prs.length - 1];
+              if (new Date(last.updated_at) >= cutoff) break;
+              page++;
+            }
+
+            console.log(`Done. ${DRY_RUN ? 'Would have closed' : 'Closed'} ${closed} PR(s).`);
+            await core.summary
+              .addHeading(`Stale PR cleanup ${DRY_RUN ? '(dry run)' : ''}`)
+              .addRaw(`Threshold: ${DAYS_STALE} days (before ${cutoff.toDateString()})\n`)
+              .addRaw(`${DRY_RUN ? 'Would close' : 'Closed'}: **${closed}** PR(s)`)
+              .write();
