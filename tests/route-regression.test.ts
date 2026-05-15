@@ -591,6 +591,10 @@ describe("Tree detail mobile wayfinding", () => {
 
 describe("Compare page wayfinding", () => {
   const comparePageFile = path.join(ROOT, "src/app/[locale]/compare/page.tsx");
+  const treeComparisonFile = path.join(
+    ROOT,
+    "src/components/TreeComparison.tsx"
+  );
 
   it("should keep the guides/tool switcher and section anchors near the top", () => {
     const content = fs.readFileSync(comparePageFile, "utf-8");
@@ -602,6 +606,18 @@ describe("Compare page wayfinding", () => {
     expect(content).toMatch(/href\s*=\s*["']#interactive-tool["']/);
     expect(content).toMatch(/id\s*=\s*["']comparison-guides["']/);
     expect(content).toMatch(/id\s*=\s*["']interactive-tool["']/);
+    expect(content).toContain("<PageShell");
+    expect(content).toContain("<PageHeader");
+  });
+
+  it("should keep mobile card and desktop table views for the interactive comparison tool", () => {
+    const content = fs.readFileSync(treeComparisonFile, "utf-8");
+
+    expect(content).toContain('className="grid gap-4 md:hidden"');
+    expect(content).toContain('className="hidden overflow-x-auto md:block"');
+    expect(content).toContain("aria-label={translations.comparisonCardsLabel}");
+    expect(content).toContain("aria-label={translations.comparisonTableLabel}");
+    expect(content).toContain("href={`/trees/${tree.slug}`}");
   });
 });
 
@@ -722,6 +738,10 @@ describe("High-traffic Spanish surface parity", () => {
         maxTreesReached?: string;
         removeSelectedTree?: string;
         moreUses?: string;
+        selectedCount?: string;
+        viewModeHint?: string;
+        comparisonTableLabel?: string;
+        comparisonCardsLabel?: string;
       };
     };
     const esMessages = JSON.parse(fs.readFileSync(esMessagesPath, "utf-8")) as {
@@ -730,6 +750,10 @@ describe("High-traffic Spanish surface parity", () => {
         maxTreesReached?: string;
         removeSelectedTree?: string;
         moreUses?: string;
+        selectedCount?: string;
+        viewModeHint?: string;
+        comparisonTableLabel?: string;
+        comparisonCardsLabel?: string;
       };
     };
 
@@ -741,6 +765,18 @@ describe("High-traffic Spanish surface parity", () => {
       "Remove {treeTitle}"
     );
     expect(enMessages.comparison?.moreUses).toBe("+{count} more");
+    expect(enMessages.comparison?.selectedCount).toBe(
+      "{count} of {max} trees selected"
+    );
+    expect(enMessages.comparison?.viewModeHint).toBe(
+      "Cards on smaller screens, full table on larger screens."
+    );
+    expect(enMessages.comparison?.comparisonTableLabel).toBe(
+      "Comparison table"
+    );
+    expect(enMessages.comparison?.comparisonCardsLabel).toBe(
+      "Comparison cards"
+    );
 
     expect(esMessages.comparison?.clearAll).toBe("Limpiar todo");
     expect(esMessages.comparison?.maxTreesReached).toBe(
@@ -750,6 +786,18 @@ describe("High-traffic Spanish surface parity", () => {
       "Eliminar {treeTitle}"
     );
     expect(esMessages.comparison?.moreUses).toBe("+{count} más");
+    expect(esMessages.comparison?.selectedCount).toBe(
+      "{count} de {max} árboles seleccionados"
+    );
+    expect(esMessages.comparison?.viewModeHint).toBe(
+      "Tarjetas en pantallas pequeñas, tabla completa en pantallas grandes."
+    );
+    expect(esMessages.comparison?.comparisonTableLabel).toBe(
+      "Tabla de comparación"
+    );
+    expect(esMessages.comparison?.comparisonCardsLabel).toBe(
+      "Tarjetas de comparación"
+    );
   });
 
   it("should keep public social-image alt text bilingual instead of English-only", () => {

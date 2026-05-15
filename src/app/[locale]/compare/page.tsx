@@ -6,6 +6,8 @@ import { Link } from "@i18n/navigation";
 import Image from "next/image";
 import { ConfusionRatingBadge } from "@/components/comparison/ConfusionRatingBadge";
 import { ComparisonTagPill } from "@/components/comparison/ComparisonTagPill";
+import { PageHeader } from "@/components/PageHeader";
+import { PageShell } from "@/components/PageShell";
 import { getSpeciesImageUrl } from "@/lib/comparison";
 import { normalizeLocale } from "@/lib/i18n";
 import dynamic from "next/dynamic";
@@ -127,6 +129,10 @@ function ComparePageClient({
     maxTreesReachedTemplate: t.raw("maxTreesReached"),
     removeSelectedTreeTemplate: t.raw("removeSelectedTree"),
     moreUsesTemplate: t.raw("moreUses"),
+    selectedCountTemplate: t.raw("selectedCount"),
+    viewModeHint: t("viewModeHint"),
+    comparisonTableLabel: t("comparisonTableLabel"),
+    comparisonCardsLabel: t("comparisonCardsLabel"),
     properties: {
       image: t("properties.image"),
       commonName: t("properties.commonName"),
@@ -143,14 +149,12 @@ function ComparePageClient({
   const safeLocale: Locale = normalizeLocale(locale);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Page Header */}
-      <div className="mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold text-primary-dark dark:text-primary-light mb-2">
-          {t("title")}
-        </h1>
-        <p className="text-lg text-muted-foreground">{t("subtitle")}</p>
-      </div>
+    <PageShell maxWidth="7xl" className="py-8">
+      <PageHeader
+        title={t("title")}
+        description={t("subtitle")}
+        className="mb-12 text-left"
+      />
 
       <nav
         aria-label={t("comparisonModeSwitcher")}
@@ -396,6 +400,6 @@ function ComparePageClient({
           translations={translations}
         />
       </section>
-    </div>
+    </PageShell>
   );
 }

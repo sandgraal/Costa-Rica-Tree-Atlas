@@ -242,6 +242,46 @@ function normalizeIucnCode(code) {
   return map[upper] ?? null;
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function bodySupportsDirectIucnStatus(body, localIucn) {
+  if (!body || !localIucn) return false;
+  if (!/iucnredlist\.org\/species\//i.test(body)) return false;
+
+  const statusLabels = {
+    EX: ["extinct"],
+    EW: ["extinct in the wild"],
+    CR: ["critically endangered"],
+    EN: ["endangered"],
+    VU: ["vulnerable"],
+    NT: ["near threatened"],
+    LC: ["least concern"],
+    DD: ["data deficient"],
+    NE: ["not evaluated"],
+  };
+
+  return (statusLabels[localIucn] || []).some((label) =>
+    new RegExp(`\\b${escapeRegExp(label)}\\b`, "i").test(body)
+  );
+}
+
+function bodyDocumentsFamilySplit(body, localFamily, gbifFamily) {
+  if (!body || !localFamily || !gbifFamily) return false;
+
+  const lowerBody = body.toLowerCase();
+  const mentionsBothFamilies =
+    lowerBody.includes(localFamily.toLowerCase()) &&
+    lowerBody.includes(gbifFamily.toLowerCase());
+
+  if (!mentionsBothFamilies) return false;
+
+  return /(taxonom|phylogen|debated|circumscription|apg|split this family|split this clade)/i.test(
+    body
+  );
+}
+
 async function fetchJSON(url) {
   const res = await fetch(url, {
     headers: { "user-agent": "CostaRicaTreeAtlas-FactualAudit/1.0" },
@@ -470,7 +510,12 @@ async function auditTree(slug, externalAllowed, externalBudget) {
     const localFamily = (en.frontmatter.family || "").toLowerCase().trim();
     const gbifFamily = (match.family || "").toLowerCase().trim();
 
-    if (localFamily && gbifFamily && localFamily !== gbifFamily) {
+    if (
+      localFamily &&
+      gbifFamily &&
+      localFamily !== gbifFamily &&
+      !bodyDocumentsFamilySplit(en.body, localFamily, gbifFamily)
+    ) {
       addFinding("externalDrift", {
         type: "gbif_family_mismatch",
         severity: scoreSeverity("gbif_family_mismatch"),
@@ -484,7 +529,11 @@ async function auditTree(slug, externalAllowed, externalBudget) {
     const localIucn = normalizeIucnCode(en.frontmatter.conservationStatus);
     if (localIucn && match.usageKey) {
       const gbifIucn = await gbifIucnByTaxonKey(match.usageKey);
-      if (gbifIucn && gbifIucn !== localIucn) {
+      if (
+        gbifIucn &&
+        gbifIucn !== localIucn &&
+        !bodySupportsDirectIucnStatus(en.body, localIucn)
+      ) {
         addFinding("externalDrift", {
           type: "iucn_status_mismatch",
           severity: scoreSeverity("iucn_status_mismatch"),
