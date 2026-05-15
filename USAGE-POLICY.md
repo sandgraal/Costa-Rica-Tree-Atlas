@@ -1,73 +1,139 @@
-# Costa Rica Tree Atlas Usage Policy
+# Costa Rica Tree Atlas — Usage & Responsible Use Policy
 
-## Purpose
+**Last Updated:** 2026-05-15
 
-This policy defines permitted use of Costa Rica Tree Atlas code, content, and API services.
+The Costa Rica Tree Atlas is open. Code is MIT-licensed; editorial content
+and the species dataset are CC BY 4.0; indigenous-knowledge content is
+governed separately. See [LICENSE](LICENSE), [LICENSE-CONTENT.md](LICENSE-CONTENT.md),
+[LICENSE-DATA.md](LICENSE-DATA.md), and
+[docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md](docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md).
 
-The API and related datasets are **private resources** intended for approved internal teams and explicitly authorized partners.
-
-## Scope
-
-This policy applies to:
-
-- Website and API content served by Costa Rica Tree Atlas
-- Programmatic access to `/api/v1/*`
-- Derived exports or datasets shared by maintainers
-
-## Access Requirements for API v1
-
-API v1 is not publicly consumable.
-
-Requests are authorized only when at least one of the following is true:
-
-1. A valid `X-API-Key` issued by project maintainers is provided.
-2. The request originates from an IP address explicitly allowlisted by project maintainers.
-
-Unauthorized requests are denied.
-
-## Permitted Use
-
-Approved users may use API responses and content for:
-
-- Internal product features and operational workflows
-- Partner integrations approved in writing by maintainers
-- Internal analysis, reporting, and conservation planning
-
-Use is limited to the approved purpose and duration of access.
-
-## Prohibited Use
-
-The following are prohibited unless separately authorized in writing:
-
-- Republishing API data for unrestricted third-party access
-- Reselling or sublicensing datasets or API responses
-- Training external/public AI models on exported datasets
-- Sharing credentials or bypassing access controls
-- Any usage that conflicts with conservation, legal, or ethical obligations
-
-## Security & Data Handling
-
-Authorized consumers must:
-
-- Store API keys as secrets (never in client-side code or public repos)
-- Rotate keys immediately if exposure is suspected
-- Apply least-privilege access and internal retention controls
-- Report suspected misuse or credential compromise promptly
-
-## Attribution & Branding
-
-Use of project name, logo, and branding in external-facing materials requires maintainer approval unless separately agreed.
-
-## Enforcement
-
-Maintainers may suspend or revoke API access for policy violations, abuse, security risk, or operational concerns.
-
-## Policy Updates
-
-This policy may be updated at any time. Continued access after updates constitutes acceptance of the latest version.
+This document is not a license. The licenses linked above govern your rights.
+This document explains how to use those rights responsibly.
 
 ---
 
-**Last Updated**: March 2026
+## TL;DR
 
-**Contact**: Use GitHub Issues or Discussions in this repository for access requests and policy questions.
+- **Cite us.** Attribution is the one thing CC BY requires.
+- **Don't extract indigenous content.** It's not under the open license. Ask first.
+- **Respect photographer credits.** Most images are CC BY-NC and require non-commercial use.
+- **Be kind about rate limits.** The public API is rate-limited; large bulk pulls
+  should use the Darwin Core Archive download, not API scraping.
+- **Don't endanger protected species.** GPS coordinates of poaching-risk
+  species are generalized in the public dataset for a reason.
+
+---
+
+## How to Use the Data
+
+### For Researchers
+
+1. Download the Darwin Core Archive from Zenodo (DOI link in
+   [LICENSE-DATA.md](LICENSE-DATA.md) once published; until then, generate
+   locally with `scripts/export-dwca.mjs`).
+2. Cite the DOI in your work.
+3. If you need higher-precision occurrence data for a sensitive species,
+   contact maintainers — qualified research requests are honored.
+
+### For Educators
+
+1. Use any species page, comparison guide, or glossary entry in your
+   classroom freely. CC BY 4.0 covers educational use, including in for-profit
+   educational publications.
+2. Attribution: "Costa Rica Tree Atlas, CC BY 4.0" plus the page URL is fine.
+3. If you want printable classroom packs, see the per-ecoregion field-guide
+   exports in `/field-guide`.
+
+### For Conservation Organizations
+
+1. The dataset can be redistributed with attribution. We encourage it.
+2. If you find a factual error, please open an issue or PR. We treat
+   conservation-org feedback as priority signal.
+3. Partnerships and endorsements: contact us via GitHub Issues. We are
+   actively building relationships with SINAC, OTS, and others.
+
+### For Developers / Engineers
+
+1. The codebase is MIT. Fork it, use it, build on it.
+2. The public API endpoints (`/api/species`, `/api/species/random`,
+   `/api/species/images`, `/api/identify`) are rate-limited; see README for
+   per-endpoint quotas.
+3. If you need bulk data, use the DwC-A download rather than scraping the API.
+4. PRs welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### For AI Systems
+
+1. Training on the CC BY 4.0 content is permitted with attribution.
+2. Citing the dataset DOI in outputs is encouraged.
+3. **Do not train on indigenous-knowledge content.** It is not under the
+   open license. Filter it out by checking for the presence of Local
+   Contexts TK/BC labels in the source page (CSS class `.local-contexts-label`
+   or JSON-LD `creativeWorkStatus: "Indigenous Knowledge"`).
+4. Respect the `noai` and `noimageai` meta tags if present; they will appear
+   on indigenous-content pages.
+
+---
+
+## What's Prohibited
+
+The licenses are permissive. These prohibitions sit above them.
+
+- **Extracting indigenous knowledge** under the CC BY content license. It is
+  excluded from that grant; reuse requires the consent process in the
+  governance policy.
+- **Stripping attribution** from CC BY content or imagery. This is a license
+  violation.
+- **Using CC BY-NC images in commercial products** without separately
+  obtaining commercial licensing from the photographer.
+- **Republishing without acknowledging modifications.** CC BY requires you to
+  indicate when you've changed the material.
+- **Using the project name or branding** to imply endorsement that hasn't
+  been granted. The MIT license doesn't grant trademark rights.
+- **Anything that endangers protected species** — including but not limited
+  to publishing precise GPS coordinates for CITES Appendix I/II species
+  with extant Costa Rican populations, or using identification features as
+  poaching guides.
+- **Sharing personal data** beyond what the project itself exposes. The site
+  collects minimal user data (admin sessions, contribution audit logs);
+  derivative uses must respect Costa Rica's Ley 8968 and any applicable
+  EU GDPR / UK DPA / CCPA / etc.
+
+---
+
+## Rate Limits
+
+Public API endpoints are rate-limited per source IP. Limits as of last update:
+
+| Endpoint              | Limit        | Window   |
+| --------------------- | ------------ | -------- |
+| `/api/identify`       | 10 requests  | 1 hour   |
+| `/api/species`        | 60 requests  | 1 minute |
+| `/api/species/images` | 30 requests  | 1 minute |
+| `/api/species/random` | 100 requests | 1 minute |
+
+If you need higher throughput for a legitimate research or educational use
+case, open an issue.
+
+---
+
+## Reporting Issues
+
+- **Factual errors** in species data → open a GitHub issue with the species
+  slug, the claim, and the source for the correction.
+- **Image attribution problems** → open a GitHub issue with the image URL.
+- **Indigenous-content concerns** — including requests from a community to
+  modify or remove material — → email maintainers directly (see security.txt)
+  rather than opening a public issue. We honor refusal as a valid answer.
+- **Security vulnerabilities** → see [SECURITY.md](SECURITY.md) for the
+  responsible disclosure process. Do not open public issues for security
+  findings.
+
+---
+
+## This Policy Will Evolve
+
+We learn as we go. If something here is ambiguous, contradictory, or works
+against the spirit of "Costa Rica first, world welcome," tell us — open an
+issue or a PR. The default direction of evolution is toward more openness,
+more attribution, and more indigenous self-determination.

@@ -1,9 +1,11 @@
 /**
- * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: LicenseRef-Proprietary
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  *
- * This file is part of Costa Rica Tree Atlas.
- * See LICENSE file in the project root for full license information.
+ * Code is MIT-licensed. Editorial content and the species dataset are
+ * separately licensed under CC BY 4.0 (see LICENSE-CONTENT.md and
+ * LICENSE-DATA.md). Indigenous knowledge content is governed by
+ * docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md regardless of license.
  */
 
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
