@@ -193,18 +193,6 @@ export function TreeComparison({
 
   const comparisonRows = [
     {
-      key: "commonName",
-      label: translations.properties.commonName,
-      render: (tree: ComparisonTreeSummary) => (
-        <Link
-          href={`/trees/${tree.slug}`}
-          className="font-semibold text-primary-dark transition-colors hover:text-primary hover:underline dark:text-primary-light"
-        >
-          {tree.title}
-        </Link>
-      ),
-    },
-    {
       key: "scientificName",
       label: translations.properties.scientificName,
       render: (tree: ComparisonTreeSummary) => (
