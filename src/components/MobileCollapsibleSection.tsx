@@ -30,8 +30,7 @@ export function MobileCollapsibleSection({
 }: MobileCollapsibleSectionProps) {
   const [isOpen, setIsOpen] = useState(!defaultCollapsedOnMobile);
   const panelId = useId();
-  const mobileContentVisibility =
-    defaultCollapsedOnMobile && !isOpen ? "hidden" : "block";
+  const mobileContentVisibility = isOpen ? "block" : "hidden";
 
   return (
     <section

@@ -25,7 +25,7 @@ interface ErrorBoundaryState {
 const FALLBACK_ERROR_BOUNDARY_MESSAGES: ErrorBoundaryMessages = {
   title: "Something went wrong",
   description:
-    "An unexpected error occurred. Please try again or return to the homepage.",
+    "An unexpected error occurred. Please try again.",
   tryAgain: "Try Again",
   developmentDetails: "Technical details (development only)",
 };

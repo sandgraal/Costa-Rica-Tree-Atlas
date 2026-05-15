@@ -42,12 +42,20 @@ interface TreeComparisonProps {
   };
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function formatTranslationTemplate(
   template: string,
   replacements: Record<string, string | number>
 ) {
   return Object.entries(replacements).reduce(
-    (formatted, [key, value]) => formatted.replace(`{${key}}`, String(value)),
+    (formatted, [key, value]) =>
+      formatted.replace(
+        new RegExp(`\\{${escapeRegExp(key)}\\}`, "g"),
+        String(value)
+      ),
     template
   );
 }
