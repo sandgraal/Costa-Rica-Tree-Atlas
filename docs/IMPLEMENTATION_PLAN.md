@@ -138,22 +138,22 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 
 ## P5 — Factual Remediation & Citations 🔴 NOT DONE
 
-### Remediation queue: 144 findings across 104 trees — 0 resolved
+### Remediation queue: 144 findings across 104 trees — 10 P1 entries now verified clean or remediated
 
 **P1-high items (IUCN status mismatches):**
 
-- [ ] `cachimbo` — IUCN mismatch + 2 citation gaps
+- [x] `cachimbo` — fresh single-tree audit now returns 0 warnings
 - [ ] `manu` — IUCN mismatch + family mismatch + citation gap
-- [ ] `camibar` — IUCN mismatch + 2 citation gaps
-- [ ] `carambola` — IUCN mismatch + citation gap
-- [ ] `eucalipto` — IUCN mismatch + citation gap
+- [x] `camibar` — fresh single-tree audit now returns 0 warnings
+- [x] `carambola` — fresh single-tree audit now returns 0 warnings
+- [x] `eucalipto` — IUCN mismatch + citation gap
 - [ ] `flamboyan` — IUCN mismatch + citation gap
-- [ ] `palma-de-escoba` — IUCN mismatch + citation gap
-- [ ] `araza` — IUCN mismatch + citation gap
-- [ ] `cocobolo` — IUCN mismatch + citation gap
-- [ ] `corozo` — IUCN mismatch + citation gap
-- [ ] `flor-de-itabo` — IUCN mismatch + citation gap
-- [ ] `papayillo` — IUCN mismatch + citation gap
+- [x] `palma-de-escoba` — IUCN mismatch + citation gap
+- [x] `araza` — fresh single-tree audit now returns 0 warnings
+- [x] `cocobolo` — fresh single-tree audit now returns 0 warnings
+- [x] `corozo` — fresh single-tree audit now returns 0 warnings
+- [x] `flor-de-itabo` — IUCN mismatch + citation gap
+- [x] `papayillo` — IUCN mismatch + citation gap
 
 **P2-medium items (citation gaps in high-risk sections):**
 
@@ -179,6 +179,11 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] IUCN status labels localized and regression-covered for all supported categories in `tests/conservation-status-i18n.test.tsx`
 - [x] P1-high remediation started: `carambola` visible conservation copy now matches audited `DD` status in both locales; latest citation-gap count should be re-audited before decrementing queue totals
 - [x] Second remediation slice landed: `araza` visible conservation copy now matches existing `NE` frontmatter in both locales; latest mismatch/citation totals still require re-audit before queue counts change
+- [x] Third remediation slice landed: `eucalipto` now matches the audited `VU` status in both locales, and a fresh single-tree factual audit returns 0 warnings for both IUCN drift and citation coverage
+- [x] Fourth remediation slice landed: `flor-de-itabo` now matches the audited `DD` status and `papayillo` now matches the audited `NE` status in both locales; fresh single-tree factual audits return 0 warnings for both pages
+- [x] Fifth remediation slice landed: `palma-de-escoba` now matches the audited `NE` status in both locales, and a fresh single-tree factual audit returns 0 warnings for both IUCN drift and citation coverage
+- [x] Queue refresh completed for the remaining previously flagged P1 entries: fresh single-tree audits now show `cachimbo`, `camibar`, `carambola`, `araza`, `cocobolo`, and `corozo` at 0 warnings without additional edits
+- [ ] Remaining P1 blockers narrowed to `manu` and `flamboyan`, where the live GBIF-linked audit signal conflicts with direct IUCN-style content already cited on-page and needs source-of-truth reconciliation before further content edits
 
 ---
 
@@ -189,6 +194,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [x] Secondary sections are now collapsed by default on mobile for tree detail follow-up content (`Uses`, `Indigenous Names`, related comparison guides, related trees) while remaining fully expanded on desktop
 - [x] "Quick facts" / "How to identify" / "Safety" are now elevated in tree-detail wayfinding; safety content is surfaced earlier in the page flow
 - [x] Compare page now includes a top-level guides vs interactive-tool switcher with anchored jump links to both sections
+- [x] Interactive compare tool now renders mobile-friendly per-tree cards while preserving the wider-screen comparison table
 - [x] Ambiguous common names are disambiguated in tree-directory list UI with family badges on duplicate common-name entries (e.g., the two `Alcornoque` records)
 
 ---
@@ -303,7 +309,7 @@ The root layout (`src/app/[locale]/layout.tsx`) already wraps all pages in `<mai
 - [ ] P8: Consolidate remaining hardcoded string logic
 - [x] ~~P10: Draft indigenous knowledge governance policy~~ ✅
 - [x] ~~P9: Expand regression suite to cover all major route families~~ ✅
-- [ ] P6: Improve compare page UX (guide/tool switching, card density)
+- [x] P6: Improve compare page UX (guide/tool switching, card density)
 
 ---
 
