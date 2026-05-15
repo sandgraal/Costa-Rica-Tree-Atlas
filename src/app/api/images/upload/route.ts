@@ -179,8 +179,21 @@ export async function POST(
     // Read file buffer
     const rawBuffer = Buffer.from(await file.arrayBuffer());
 
-    // Get image metadata and validate dimensions
-    const metadata = await sharp(rawBuffer).metadata();
+    // SECURITY: Strip ALL metadata (including EXIF GPS) before upload.
+    // Apply EXIF orientation first so the visual result is correct, then
+    // re-encode without metadata. This is critical for protected species:
+    // a user's smartphone may embed precise GPS coordinates that, if
+    // exposed via Cloudinary's stored original, could enable poaching.
+    // See docs/IMAGE_REVIEW_SYSTEM.md and the EXIF privacy section.
+    const buffer = await sharp(rawBuffer).rotate().toBuffer();
+
+    // Validate dimensions of the POST-ROTATION buffer. Smartphones often
+    // store landscape JPEGs as portrait pixels plus an EXIF orientation
+    // tag — without re-reading after rotate(), an 800×600 source can pass
+    // the MIN_WIDTH/MIN_HEIGHT check and then end up stored as 600×800,
+    // silently violating the published minimum. The check must apply to
+    // the image that Cloudinary actually receives.
+    const metadata = await sharp(buffer).metadata();
     if (!metadata.width || !metadata.height) {
       return NextResponse.json(
         { error: "Could not read image dimensions" },
@@ -197,17 +210,10 @@ export async function POST(
       );
     }
 
-    // SECURITY: Strip ALL metadata (including EXIF GPS) before upload.
-    // Apply EXIF orientation first so the visual result is correct, then
-    // re-encode without metadata. This is critical for protected species:
-    // a user's smartphone may embed precise GPS coordinates that, if
-    // exposed via Cloudinary's stored original, could enable poaching.
-    // See docs/IMAGE_REVIEW_SYSTEM.md and the EXIF privacy section.
-    const buffer = await sharp(rawBuffer).rotate().toBuffer();
-
     // Upload to Cloudinary (handles optimisation and CDN delivery).
-    // The buffer above is already metadata-free; Cloudinary upload is
-    // also configured with strip_profile as defence in depth.
+    // The buffer above is already metadata-free; the Cloudinary stored
+    // original therefore contains no EXIF data regardless of any
+    // Cloudinary-side stripping configuration.
     const uploadResult = await uploadImage(buffer, {
       treeSlug,
       imageType,

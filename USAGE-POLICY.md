@@ -30,8 +30,12 @@ This document explains how to use those rights responsibly.
 ### For Researchers
 
 1. Download the Darwin Core Archive from Zenodo (DOI link in
-   [LICENSE-DATA.md](LICENSE-DATA.md) once published; until then, generate
-   locally with `scripts/export-dwca.mjs`).
+   [LICENSE-DATA.md](LICENSE-DATA.md) once published). The export
+   pipeline (`scripts/export-dwca.mjs`) lands in Phase 2 of the Master
+   Implementation Plan — see [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)
+   lane L4. Until then, structured species data is available by parsing
+   the `content/trees/**/*.mdx` frontmatter directly (schema in
+   `contentlayer.config.ts`).
 2. Cite the DOI in your work.
 3. If you need higher-precision occurrence data for a sensitive species,
    contact maintainers — qualified research requests are honored.
@@ -67,11 +71,18 @@ This document explains how to use those rights responsibly.
 1. Training on the CC BY 4.0 content is permitted with attribution.
 2. Citing the dataset DOI in outputs is encouraged.
 3. **Do not train on indigenous-knowledge content.** It is not under the
-   open license. Filter it out by checking for the presence of Local
-   Contexts TK/BC labels in the source page (CSS class `.local-contexts-label`
-   or JSON-LD `creativeWorkStatus: "Indigenous Knowledge"`).
-4. Respect the `noai` and `noimageai` meta tags if present; they will appear
-   on indigenous-content pages.
+   open license. Today, indigenous content is identifiable by:
+   - Files under `content/oral-histories/**/*.mdx`
+   - Species pages containing an `Indigenous Names` section header or a
+     populated `indigenousNames` frontmatter field
+   - Material attributed to a named indigenous community (Bribrí,
+     Cabécar, Maleku, Boruca, Térraba, Ngäbe, Huetar, Chorotega)
+
+   Phase 2 of the Master Implementation Plan (lane L5) will add machine-
+   readable markers — Local Contexts TK/BC labels, JSON-LD provenance
+   fields, and `noai`/`noimageai` meta tags — so respectful filtering
+   becomes a single attribute check. Until then, the file-path and
+   frontmatter signals above are the canonical detection method.
 
 ---
 
