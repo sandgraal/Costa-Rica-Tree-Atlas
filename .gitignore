@@ -52,3 +52,13 @@ next-env.d.ts
 /public/images/trees/optimized/
 
 /src/generated/prisma
+
+# Claude Code worktrees (managed by the harness, not version-controlled).
+# Note: .claude/skills/, .claude/agents/, .claude/settings.json, and the
+# root-level CLAUDE.md / scoped CLAUDE.md files ARE committed — they are
+# the agent boot configuration.
+.claude/worktrees/
+
+# Agent session state (local, not for sharing)
+.claude/sessions/
+.claude/logs/

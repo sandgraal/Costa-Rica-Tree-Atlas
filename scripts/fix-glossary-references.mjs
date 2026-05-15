@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: LicenseRef-Proprietary
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  *
  * Fix glossary exampleSpecies and relatedTerms references.
  *

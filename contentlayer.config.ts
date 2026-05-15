@@ -1,9 +1,11 @@
 /**
- * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: LicenseRef-Proprietary
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  *
- * This file is part of Costa Rica Tree Atlas.
- * See LICENSE file in the project root for full license information.
+ * Code is MIT-licensed. Editorial content and the species dataset are
+ * separately licensed under CC BY 4.0 (see LICENSE-CONTENT.md and
+ * LICENSE-DATA.md). Indigenous knowledge content is governed by
+ * docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md regardless of license.
  */
 
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
@@ -286,6 +288,91 @@ export const Tree = defineDocumentType(() => ({
         "Indigenous names from Costa Rican peoples. JSON array of objects with fields: language (e.g., 'Bribri', 'Cabécar', 'Maleku', 'Boruca', 'Ngäbe'), name, meaning (optional), source (optional)",
       required: false,
     },
+    // Taxonomic Interoperability — canonical external IDs (P11)
+    // All optional; populated via scripts/backfill-canonical-ids.mjs against POWO/WFO/GBIF/IPNI/Tropicos APIs.
+    nameAuthority: {
+      type: "string",
+      description:
+        "Author citation for the scientific name (e.g., 'Mill.', 'L.f.', '(Sw.) DC.'). Same value in both EN and ES files.",
+      required: false,
+    },
+    powoId: {
+      type: "string",
+      description:
+        "Plants of the World Online (Kew) identifier, typically an IPNI LSID (e.g., 'urn:lsid:ipni.org:names:317423-2').",
+      required: false,
+    },
+    wfoId: {
+      type: "string",
+      description: "World Flora Online identifier (e.g., 'wfo-0000642308').",
+      required: false,
+    },
+    ipniId: {
+      type: "string",
+      description:
+        "International Plant Names Index identifier (e.g., '317423-2').",
+      required: false,
+    },
+    gbifTaxonKey: {
+      type: "number",
+      description:
+        "GBIF taxon key (integer). Required for the factual-accuracy audit pipeline to resolve external IUCN/family checks.",
+      required: false,
+    },
+    tropicosId: {
+      type: "string",
+      description: "Missouri Botanical Garden Tropicos identifier.",
+      required: false,
+    },
+    synonyms: {
+      type: "json",
+      description:
+        "JSON array of historical synonyms / basionyms. Each entry: { name, authority, source (optional, e.g. 'POWO'), kind (optional: 'basionym' | 'synonym' | 'homonym') }.",
+      required: false,
+    },
+    // IUCN Red List assessment metadata (P11) — supplements the conservationStatus code field above.
+    // When present, the visible UI should render full assessment context (year, criteria, scope, rationale).
+    iucnAssessmentId: {
+      type: "string",
+      description:
+        "IUCN Red List assessment ID (the numeric ID from iucnredlist.org/species/<id>/<assessment>).",
+      required: false,
+    },
+    iucnAssessmentYear: {
+      type: "number",
+      description:
+        "Year of the cited IUCN assessment (e.g., 2019). Used to surface staleness in audits.",
+      required: false,
+    },
+    iucnCriteria: {
+      type: "string",
+      description:
+        "IUCN criteria string when the status is threatened (e.g., 'A2cd', 'B1ab(iii)'). Optional for LC/NT/DD/NE.",
+      required: false,
+    },
+    iucnScope: {
+      type: "enum",
+      options: ["global", "regional"],
+      description:
+        "Whether the cited assessment is global or regional. Default: global. If 'regional', a regional source must be cited.",
+      required: false,
+    },
+    // CITES Appendix listing — independent of IUCN status.
+    citesAppendix: {
+      type: "enum",
+      options: ["I", "II", "III", "none"],
+      description:
+        "CITES Appendix listing for international trade regulation. 'none' means not listed.",
+      required: false,
+    },
+    // Costa Rica national conservation status (Decreto 25700-MINAE / SINAC).
+    // Not all species are nationally listed; this should not be inferred from the global IUCN status.
+    sinacNationalStatus: {
+      type: "string",
+      description:
+        "Costa Rica national conservation status per SINAC / Decreto 25700-MINAE (e.g., 'En peligro de extinción', 'Con poblaciones reducidas', 'Aprovechamiento prohibido'). Source must be cited in the MDX body.",
+      required: false,
+    },
   },
   computedFields: {
     url: {
@@ -550,6 +637,10 @@ export const OralHistory = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
+  // Ignore non-MDX files like the CLAUDE.md scoped agent guide that
+  // lives at content/CLAUDE.md. Contentlayer otherwise warns
+  // "Couldn't determine the document type" for them.
+  contentDirExclude: ["CLAUDE.md", "**/CLAUDE.md"],
   documentTypes: [Tree, GlossaryTerm, SpeciesComparison, OralHistory],
   disableImportAliasWarning: true,
   mdx: {

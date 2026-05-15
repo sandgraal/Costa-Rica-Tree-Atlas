@@ -1,9 +1,6 @@
 /**
- * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: LicenseRef-Proprietary
- *
- * This file is part of Costa Rica Tree Atlas.
- * See LICENSE file in the project root for full license information.
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  */
 
 import { z } from "zod";
