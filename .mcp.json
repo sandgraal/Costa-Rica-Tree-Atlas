@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config.json",
+  "mcpServers": {
+    "gbif": {
+      "type": "http",
+      "url": "https://api.gbif.org/v1",
+      "description": "GBIF Species API for taxonomic and occurrence data. No auth required. Used by audit-factual-accuracy and backfill scripts.",
+      "documentation": "https://techdocs.gbif.org/en/openapi/v1/species"
+    },
+    "iucn": {
+      "type": "http",
+      "url": "https://apiv3.iucnredlist.org/api/v3",
+      "description": "IUCN Red List API v3. Requires IUCN_TOKEN env var. Used by iucn-verifier subagent to validate conservation status.",
+      "documentation": "https://apiv3.iucnredlist.org/api/v3/docs",
+      "env": {
+        "IUCN_TOKEN": "${IUCN_TOKEN}"
+      },
+      "enabledWhen": "IUCN_TOKEN"
+    },
+    "powo": {
+      "type": "http",
+      "url": "https://powo.science.kew.org/api/2",
+      "description": "Plants of the World Online (Kew) — authoritative plant taxonomy. No auth required.",
+      "documentation": "https://powo.science.kew.org/about-the-api"
+    },
+    "inaturalist": {
+      "type": "http",
+      "url": "https://api.inaturalist.org/v1",
+      "description": "iNaturalist API for occurrence observations, photos, and taxonomic cross-references. No auth required for read operations; OAuth for posting observations.",
+      "documentation": "https://api.inaturalist.org/v1/docs/"
+    }
+  }
+}
