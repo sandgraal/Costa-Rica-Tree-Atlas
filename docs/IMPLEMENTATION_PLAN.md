@@ -270,6 +270,55 @@ Realistic 12-month plan. Phases overlap intentionally; lanes don't.
 
 **Phase 3 exit criteria:** Camera ID is the homepage verb. Offline tiles work in Corcovado. WCAG 2.2 AA verified.
 
+## P5 — Factual Remediation & Citations 🔴 NOT DONE
+
+### Remediation queue: 144 findings across 104 trees — 10 P1 entries now verified clean or remediated
+
+**P1-high items (IUCN status mismatches):**
+
+- [x] `cachimbo` — fresh single-tree audit now returns 0 warnings
+- [ ] `manu` — IUCN mismatch + family mismatch + citation gap
+- [x] `camibar` — fresh single-tree audit now returns 0 warnings
+- [x] `carambola` — fresh single-tree audit now returns 0 warnings
+- [x] `eucalipto` — IUCN mismatch + citation gap
+- [ ] `flamboyan` — IUCN mismatch + citation gap
+- [x] `palma-de-escoba` — IUCN mismatch + citation gap
+- [x] `araza` — fresh single-tree audit now returns 0 warnings
+- [x] `cocobolo` — fresh single-tree audit now returns 0 warnings
+- [x] `corozo` — fresh single-tree audit now returns 0 warnings
+- [x] `flor-de-itabo` — IUCN mismatch + citation gap
+- [x] `papayillo` — IUCN mismatch + citation gap
+
+**P2-medium items (citation gaps in high-risk sections):**
+
+- [ ] `cornizuelo` — 4 citation gaps (highest weighted score: 210)
+- [ ] `comenegro` — 3 citation gaps
+- [ ] `pochote-de-agua` — 3 citation gaps
+- [ ] `ciprecillo` — 2 citation gaps
+- [ ] `llama-del-bosque` — 2 citation gaps
+- [ ] `balsamo` — 2 citation gaps
+- [ ] `ira-rosa` — 2 citation gaps
+- [ ] `mayo` — 2 citation gaps
+- [ ] `copal` — 2 citation gaps
+- [ ] `copey` — 2 citation gaps
+- [ ] `mamon` — 2 citation gaps
+- [ ] - ~70 more trees with 1–2 findings each
+
+### Process gaps
+
+- [x] Source hierarchy for factual corrections adopted: IUCN → POWO → Tropicos → Manual de Plantas de Costa Rica → SINAC → peer-reviewed papers
+- [x] Citation standard for high-risk sections (uses, cultural, medicinal, safety, conservation): 2 independent sources required
+- [x] Remediation queue priority fixed: resolve the 12 P1-high IUCN mismatch trees before medium-risk citation-gap batches
+- [x] PR acceptance criteria for content work formalized in `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md`
+- [x] IUCN status labels localized and regression-covered for all supported categories in `tests/conservation-status-i18n.test.tsx`
+- [x] P1-high remediation started: `carambola` visible conservation copy now matches audited `DD` status in both locales; latest citation-gap count should be re-audited before decrementing queue totals
+- [x] Second remediation slice landed: `araza` visible conservation copy now matches existing `NE` frontmatter in both locales; latest mismatch/citation totals still require re-audit before queue counts change
+- [x] Third remediation slice landed: `eucalipto` now matches the audited `VU` status in both locales, and a fresh single-tree factual audit returns 0 warnings for both IUCN drift and citation coverage
+- [x] Fourth remediation slice landed: `flor-de-itabo` now matches the audited `DD` status and `papayillo` now matches the audited `NE` status in both locales; fresh single-tree factual audits return 0 warnings for both pages
+- [x] Fifth remediation slice landed: `palma-de-escoba` now matches the audited `NE` status in both locales, and a fresh single-tree factual audit returns 0 warnings for both IUCN drift and citation coverage
+- [x] Queue refresh completed for the remaining previously flagged P1 entries: fresh single-tree audits now show `cachimbo`, `camibar`, `carambola`, `araza`, `cocobolo`, and `corozo` at 0 warnings without additional edits
+- [ ] Remaining P1 blockers narrowed to `manu` and `flamboyan`, where the live GBIF-linked audit signal conflicts with direct IUCN-style content already cited on-page and needs source-of-truth reconciliation before further content edits
+
 ### Phase 4 (Weeks 37–48) — Endorsement and Launch
 
 **Theme:** Prove it, ship it.
@@ -279,6 +328,13 @@ Realistic 12-month plan. Phases overlap intentionally; lanes don't.
 - L2/L3 Final factual audit pass; finalize Deep-250
 - L9 Pilot ecoregion classroom pack with one school
 - Soft launch, then public launch with announcement to: GBIF community, Costa Rican press, Anthropic blog (if appropriate), open-science community
+- [x] `TableOfContents` now supports a mobile sticky jump-nav variant on tree detail pages
+- [x] Tree detail pages now expose anchorable high-priority sections (`Quick facts`, `Safety`, `Distribution`, `Seasonality`, `Biodiversity`, `How to identify`) for mobile wayfinding and desktop TOC parity
+- [x] Secondary sections are now collapsed by default on mobile for tree detail follow-up content (`Uses`, `Indigenous Names`, related comparison guides, related trees) while remaining fully expanded on desktop
+- [x] "Quick facts" / "How to identify" / "Safety" are now elevated in tree-detail wayfinding; safety content is surfaced earlier in the page flow
+- [x] Compare page now includes a top-level guides vs interactive-tool switcher with anchored jump links to both sections
+- [x] Interactive compare tool now renders mobile-friendly per-tree cards while preserving the wider-screen comparison table
+- [x] Ambiguous common names are disambiguated in tree-directory list UI with family badges on duplicate common-name entries (e.g., the two `Alcornoque` records)
 
 **Phase 4 exit criteria:** Every v1.0 DoD item checked.
 
@@ -347,6 +403,14 @@ When picking this plan back up:
 3. Run `git log --oneline -10` for last-touched context.
 4. Run `npm run content:fact-audit -- --skip-external` for the current factual state.
 5. Mark lanes/items complete here as work lands; never duplicate state in a separate handoff doc.
+
+- [ ] P5: Resolve P2-medium citation gap items (~30+ trees)
+- [ ] P5: Define and enforce citation standard for high-risk sections
+- [ ] P8: Introduce shared route-shell primitives
+- [ ] P8: Consolidate remaining hardcoded string logic
+- [x] ~~P10: Draft indigenous knowledge governance policy~~ ✅
+- [x] ~~P9: Expand regression suite to cover all major route families~~ ✅
+- [x] P6: Improve compare page UX (guide/tool switching, card density)
 
 ---
 
