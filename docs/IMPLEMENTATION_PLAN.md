@@ -269,6 +269,7 @@ Realistic 12-month plan. Phases overlap intentionally; lanes don't.
 - L10 WCAG 2.2 audit + screen-reader-map narration
 
 **Phase 3 exit criteria:** Camera ID is the homepage verb. Offline tiles work in Corcovado. WCAG 2.2 AA verified.
+
 ## P5 — Factual Remediation & Citations 🔴 NOT DONE
 
 ### Remediation queue: 144 findings across 104 trees — 10 P1 entries now verified clean or remediated
@@ -402,6 +403,7 @@ When picking this plan back up:
 3. Run `git log --oneline -10` for last-touched context.
 4. Run `npm run content:fact-audit -- --skip-external` for the current factual state.
 5. Mark lanes/items complete here as work lands; never duplicate state in a separate handoff doc.
+
 - [ ] P5: Resolve P2-medium citation gap items (~30+ trees)
 - [ ] P5: Define and enforce citation standard for high-risk sections
 - [ ] P8: Introduce shared route-shell primitives
