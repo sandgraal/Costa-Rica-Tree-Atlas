@@ -637,6 +637,10 @@ export const OralHistory = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
+  // Ignore non-MDX files like the CLAUDE.md scoped agent guide that
+  // lives at content/CLAUDE.md. Contentlayer otherwise warns
+  // "Couldn't determine the document type" for them.
+  contentDirExclude: ["CLAUDE.md", "**/CLAUDE.md"],
   documentTypes: [Tree, GlossaryTerm, SpeciesComparison, OralHistory],
   disableImportAliasWarning: true,
   mdx: {
