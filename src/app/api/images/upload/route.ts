@@ -177,10 +177,10 @@ export async function POST(
     }
 
     // Read file buffer
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const rawBuffer = Buffer.from(await file.arrayBuffer());
 
     // Get image metadata and validate dimensions
-    const metadata = await sharp(buffer).metadata();
+    const metadata = await sharp(rawBuffer).metadata();
     if (!metadata.width || !metadata.height) {
       return NextResponse.json(
         { error: "Could not read image dimensions" },
@@ -197,7 +197,17 @@ export async function POST(
       );
     }
 
-    // Upload to Cloudinary (handles optimisation and CDN delivery)
+    // SECURITY: Strip ALL metadata (including EXIF GPS) before upload.
+    // Apply EXIF orientation first so the visual result is correct, then
+    // re-encode without metadata. This is critical for protected species:
+    // a user's smartphone may embed precise GPS coordinates that, if
+    // exposed via Cloudinary's stored original, could enable poaching.
+    // See docs/IMAGE_REVIEW_SYSTEM.md and the EXIF privacy section.
+    const buffer = await sharp(rawBuffer).rotate().toBuffer();
+
+    // Upload to Cloudinary (handles optimisation and CDN delivery).
+    // The buffer above is already metadata-free; Cloudinary upload is
+    // also configured with strip_profile as defence in depth.
     const uploadResult = await uploadImage(buffer, {
       treeSlug,
       imageType,
