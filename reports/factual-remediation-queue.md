@@ -1,32 +1,20 @@
 # Factual Accuracy Remediation Queue
 
-Generated: 2026-05-16T06:00:33.828Z
-Source audit: 2026-05-16T05:59:19.904Z
+Generated: 2026-05-16T14:43:07.046Z
+Source audit: 2026-05-16T14:40:48.832Z
 
 ## Summary
 
 - Trees audited: 175
 - External checks: 175
-- Total findings: 13
-- Trees with findings: 13
+- Total findings: 1
+- Trees with findings: 1
 
 ## Top Priorities
 
-| Priority | Slug            | Score | Errors | Warnings | Citation Gaps | IUCN Drift | Family Drift | Top Issues           |
-| -------- | --------------- | ----: | -----: | -------: | ------------: | ---------: | -----------: | -------------------- |
-| P1-high  | fruta-de-pan    |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | jobo            |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | madero-negro    |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | mango           |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | maranon         |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | mastate         |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | papaya          |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | tempisque       |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | yellow-oleander |    65 |      0 |        1 |             0 |          1 |            0 | iucn_status_mismatch |
-| P1-high  | laurel          |    55 |      0 |        1 |             0 |          0 |            1 | gbif_family_mismatch |
-| P1-high  | laurel-negro    |    55 |      0 |        1 |             0 |          0 |            1 | gbif_family_mismatch |
-| P1-high  | muneco          |    55 |      0 |        1 |             0 |          0 |            1 | gbif_family_mismatch |
-| P3-low   | matapalo        |    20 |      0 |        0 |             0 |          0 |            0 | gbif_no_match        |
+| Priority | Slug     | Score | Errors | Warnings | Citation Gaps | IUCN Drift | Family Drift | Top Issues    |
+| -------- | -------- | ----: | -----: | -------: | ------------: | ---------: | -----------: | ------------- |
+| P3-low   | matapalo |    20 |      0 |        0 |             0 |          0 |            0 | gbif_no_match |
 
 ## Recommended Triage Workflow
 
