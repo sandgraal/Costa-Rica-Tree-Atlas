@@ -122,12 +122,7 @@ function extractCanonical(gbifData) {
   };
 }
 
-const FIELDS_TO_BACKFILL = [
-  "nameAuthority",
-  "gbifTaxonKey",
-  "iucnScope",
-  "citesAppendix",
-];
+const FIELDS_TO_BACKFILL = ["nameAuthority", "gbifTaxonKey", "iucnScope"];
 
 /**
  * Parse the frontmatter section of an MDX file into:
@@ -286,12 +281,25 @@ async function main() {
       continue;
     }
 
-    // Build the backfill payload — only fields that GBIF gave us.
+    // Build the backfill payload — only fields that GBIF gave us, plus
+    // defensible defaults.
+    //
+    // NOTE: We do NOT default `citesAppendix` here. The schema treats
+    // "none" as an affirmative "not CITES-listed" claim, but GBIF does
+    // not surface CITES status, so a blind default would misclassify
+    // known Appendix-II species (Swietenia macrophylla, all Cedrela,
+    // Dalbergia, Guaiacum, etc.). Manual remediation sets CITES values
+    // explicitly; the field stays absent on species we haven't checked.
+    //
+    // `iucnScope: "global"` is a different case — it's metadata about
+    // which assessment we're citing, not a claim about the species
+    // itself. Manual remediation can override to "regional" where
+    // appropriate (e.g., when SINAC's national status differs from
+    // IUCN's global one).
     const additions = {
       nameAuthority: canonical.nameAuthority,
       gbifTaxonKey: canonical.gbifTaxonKey,
       iucnScope: "global",
-      citesAppendix: "none",
     };
 
     const enNew = applyBackfill(enParsed, additions);
