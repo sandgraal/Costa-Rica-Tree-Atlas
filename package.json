@@ -105,6 +105,7 @@
     "qrcode": "^1.5.4",
     "react": "19.2.6",
     "react-dom": "19.2.6",
+    "@types/google.maps": "^3.64.1",
     "sharp": "^0.34.5",
     "zod": "^4.4.3",
     "zustand": "^5.0.13"
@@ -116,7 +117,6 @@
     "@tanstack/react-query-devtools": "^5.100.10",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/google.maps": "^3.64.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25",
     "@types/qrcode": "^1.5.5",

@@ -29,6 +29,17 @@ const eslintConfig = defineConfig([
       security,
       "no-secrets": noSecrets,
     },
+    // Pin the React version so eslint-plugin-react skips its automatic
+    // version-detection code path, which crashes under ESLint 10 because
+    // the plugin's version.js still uses the removed
+    // `context.getFilename()` API. Without this, every .ts/.tsx lint
+    // run throws TypeError before any rules execute.
+    // Track upstream fix: https://github.com/jsx-eslint/eslint-plugin-react
+    settings: {
+      react: {
+        version: "19.0",
+      },
+    },
   },
   // Custom rule overrides
   {
