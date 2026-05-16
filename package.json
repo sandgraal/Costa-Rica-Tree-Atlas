@@ -58,7 +58,10 @@
     "content:fact-audit:verbose": "node scripts/audit-factual-accuracy.mjs --verbose",
     "content:fact-audit:json": "node scripts/audit-factual-accuracy.mjs --json",
     "content:fact-queue": "node scripts/generate-factual-remediation-queue.mjs",
-    "content:fact-queue:top100": "node scripts/generate-factual-remediation-queue.mjs --top=100"
+    "content:fact-queue:top100": "node scripts/generate-factual-remediation-queue.mjs --top=100",
+    "content:backfill-ids": "node scripts/backfill-canonical-ids.mjs",
+    "content:backfill-ids:dry": "node scripts/backfill-canonical-ids.mjs --verbose",
+    "content:backfill-ids:write": "node scripts/backfill-canonical-ids.mjs --write --verbose"
   },
   "browserslist": [
     "defaults and supports es6-module"
