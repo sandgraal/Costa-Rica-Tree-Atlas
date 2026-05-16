@@ -1,9 +1,32 @@
 {
-  "generatedAt": "2026-05-16T14:34:48.229Z",
+  "generatedAt": "2026-05-16T14:43:07.045Z",
   "input": "reports/factual-audit.full.json",
   "counts": {
-    "treesWithFindings": 0,
-    "totalFindings": 0
+    "treesWithFindings": 1,
+    "totalFindings": 1
   },
-  "queue": []
+  "queue": [
+    {
+      "slug": "matapalo",
+      "score": 20,
+      "findings": [
+        {
+          "type": "gbif_no_match",
+          "severity": "info",
+          "slug": "matapalo",
+          "scientificName": "Ficus spp.",
+          "_score": 20
+        }
+      ],
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "citationGaps": 0,
+        "iucnMismatches": 0,
+        "familyMismatches": 0
+      },
+      "priority": "P3-low",
+      "topIssues": ["gbif_no_match"]
+    }
+  ]
 }

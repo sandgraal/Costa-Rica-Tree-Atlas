@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-05-16T14:34:25.011Z",
+  "generatedAt": "2026-05-16T14:40:48.832Z",
   "mode": {
     "singleTree": null,
-    "maxApi": 60,
+    "maxApi": 200,
     "skipExternal": false,
     "dryRun": false
   },
@@ -16,13 +16,20 @@
   },
   "summary": {
     "treesAudited": 175,
-    "externalTreesChecked": 60,
+    "externalTreesChecked": 175,
     "errors": 0,
     "warnings": 0
   },
   "findings": {
     "localeParity": [],
-    "externalDrift": [],
+    "externalDrift": [
+      {
+        "type": "gbif_no_match",
+        "severity": "info",
+        "slug": "matapalo",
+        "scientificName": "Ficus spp."
+      }
+    ],
     "citationCoverage": [],
     "schemaFlags": []
   }

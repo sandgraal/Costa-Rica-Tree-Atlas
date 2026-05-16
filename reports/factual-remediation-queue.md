@@ -1,19 +1,20 @@
 # Factual Accuracy Remediation Queue
 
-Generated: 2026-05-16T14:34:48.230Z
-Source audit: 2026-05-16T14:34:25.011Z
+Generated: 2026-05-16T14:43:07.046Z
+Source audit: 2026-05-16T14:40:48.832Z
 
 ## Summary
 
 - Trees audited: 175
-- External checks: 60
-- Total findings: 0
-- Trees with findings: 0
+- External checks: 175
+- Total findings: 1
+- Trees with findings: 1
 
 ## Top Priorities
 
-| Priority | Slug | Score | Errors | Warnings | Citation Gaps | IUCN Drift | Family Drift | Top Issues |
-| -------- | ---- | ----: | -----: | -------: | ------------: | ---------: | -----------: | ---------- |
+| Priority | Slug     | Score | Errors | Warnings | Citation Gaps | IUCN Drift | Family Drift | Top Issues    |
+| -------- | -------- | ----: | -----: | -------: | ------------: | ---------: | -----------: | ------------- |
+| P3-low   | matapalo |    20 |      0 |        0 |             0 |          0 |            0 | gbif_no_match |
 
 ## Recommended Triage Workflow
 
