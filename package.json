@@ -61,7 +61,9 @@
     "content:fact-queue:top100": "node scripts/generate-factual-remediation-queue.mjs --top=100",
     "content:backfill-ids": "node scripts/backfill-canonical-ids.mjs",
     "content:backfill-ids:dry": "node scripts/backfill-canonical-ids.mjs --verbose",
-    "content:backfill-ids:write": "node scripts/backfill-canonical-ids.mjs --write --verbose"
+    "content:backfill-ids:write": "node scripts/backfill-canonical-ids.mjs --write --verbose",
+    "content:export-dwca": "node scripts/export-dwca.mjs",
+    "content:export-dwca:zip": "node scripts/export-dwca.mjs --zip"
   },
   "browserslist": [
     "defaults and supports es6-module"
