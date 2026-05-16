@@ -38,7 +38,7 @@ interface GoogleMapsProviderProps {
 }
 
 // Declare initGoogleMaps callback hook on the Window interface so the
-// google maps API loader script can find it.
+// Google Maps API loader script can find it.
 declare global {
   interface Window {
     initGoogleMaps?: () => void;
