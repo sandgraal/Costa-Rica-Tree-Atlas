@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 "use client";
 
 import {
@@ -9,7 +10,12 @@ import {
   ReactNode,
 } from "react";
 
-type GoogleMapsType = typeof globalThis.google;
+// `google` is declared as a global namespace by @types/google.maps. We
+// reference the global namespace directly via `typeof google` rather than
+// `typeof globalThis.google` — the latter trips Next.js's strict
+// type-check at build time ("type 'typeof globalThis' has no index
+// signature"), even though tsc --noEmit accepts it locally.
+type GoogleMapsType = typeof google;
 
 interface GoogleMapsContextType {
   isLoaded: boolean;
@@ -31,7 +37,8 @@ interface GoogleMapsProviderProps {
   children: ReactNode;
 }
 
-// Declare google on window
+// Declare initGoogleMaps callback hook on the Window interface so the
+// Google Maps API loader script can find it.
 declare global {
   interface Window {
     initGoogleMaps?: () => void;
@@ -46,8 +53,8 @@ export function GoogleMapsProvider({ children }: GoogleMapsProviderProps) {
   );
 
   const initMaps = useCallback(() => {
-    if (typeof globalThis.google !== "undefined") {
-      setGoogleInstance(globalThis.google);
+    if (typeof google !== "undefined") {
+      setGoogleInstance(google);
       setIsLoaded(true);
     }
   }, []);
@@ -61,8 +68,8 @@ export function GoogleMapsProvider({ children }: GoogleMapsProviderProps) {
     }
 
     // Check if already loaded
-    if (typeof globalThis.google !== "undefined") {
-      setGoogleInstance(globalThis.google);
+    if (typeof google !== "undefined") {
+      setGoogleInstance(google);
       setIsLoaded(true);
       return;
     }
