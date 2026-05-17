@@ -118,8 +118,8 @@ Each lane has a status, a one-sentence "why now," and concrete deliverables. Lan
 - [ ] **Public contributor onboarding** — `CONTRIBUTING.md` rewrite (currently called "Development Notes"); add `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1); add `SECURITY.md` security disclosure; add `security.txt` at `.well-known/security.txt`.
 - [ ] **Darwin Core Archive export** — `scripts/export-dwca.mjs` (NEW) — produces a DwC-A zip of all species records with required Darwin Core terms (scientificName, taxonRank, vernacularName, taxonRemarks, kingdom/phylum/class/order/family, references, license).
 - [ ] **Zenodo deposit + DOI** — first stable corpus dump → Zenodo, claim DOI, configure auto-deposit on tagged releases.
-- [ ] **`cite-as` metadata** — every species page exposes `<meta name="citation_doi">` + visible "Cite this page" block in both locales with APA, MLA, and BibTeX examples.
-- [ ] **JSON-LD Taxon + Dataset markup** on species pages and corpus root.
+- [x] **`cite-as` metadata** — every species page exposes citation\_\* `<meta>` tags + visible "Cite this page" block in both locales with APA, MLA, and BibTeX examples (2026-05-17). `citation_doi` is gated on a real Zenodo mint; placeholder DOI in [`src/lib/citation/index.ts`](../src/lib/citation/index.ts) until the deposit lands. Component: [`src/components/CitePage.tsx`](../src/components/CitePage.tsx).
+- [x] **JSON-LD Taxon + Dataset markup** on species pages (2026-05-17). Taxon block was already emitted via the Article wrapper; Dataset block added alongside.
 - [ ] **`schema:FAQPage` JSON-LD** on safety pages (toxicity → answers).
 
 ### L5 — Indigenous Knowledge & Language 🟡 EXPANDING

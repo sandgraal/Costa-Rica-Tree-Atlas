@@ -200,6 +200,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     "map",
     "admin",
     "mdx",
+    "cite",
   ] as const;
 
   type ClientNamespace = (typeof CLIENT_NAMESPACES)[number];

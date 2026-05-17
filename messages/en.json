@@ -1851,6 +1851,18 @@
     "regionValue": "Region: {value}",
     "familyValue": "Family: {value}"
   },
+  "cite": {
+    "heading": "Cite this page",
+    "intro": "This page is part of {dataset}, a citeable bilingual species corpus. Pick the format you need:",
+    "doiPending": "A persistent DOI will be added once the first Darwin Core Archive deposit is published to Zenodo.",
+    "formatAPA": "APA",
+    "formatMLA": "MLA",
+    "formatBibTeX": "BibTeX",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyAriaLabel": "Copy {format} citation to clipboard",
+    "license": "Licensed under"
+  },
   "fieldTrip": {
     "metaTitle": "Field Trip Mode - Costa Rica Tree Atlas",
     "metaDescription": "Offline checklist for Costa Rican tree field trips. Identify and record species during educational expeditions.",

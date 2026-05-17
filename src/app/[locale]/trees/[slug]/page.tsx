@@ -29,6 +29,8 @@ import { getAlternateLocale, getOpenGraphLocale } from "@/lib/i18n";
 import { resolveImageSource } from "@/lib/image/image-resolver";
 import { validateJsonLd, sanitizeJsonLd } from "@/lib/validation/json-ld";
 import { getConservationLabel } from "@/lib/i18n/translations";
+import { citationMetaTags, datasetJsonLd } from "@/lib/citation";
+import { CitePage } from "@/components/CitePage";
 import type {
   Locale,
   ConservationCategory,
@@ -101,6 +103,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     (t) => t.locale === otherLocale && t.slug === slug
   );
 
+  // Citation metadata for Google Scholar / Zotero / Crossref pickup.
+  // The DOI tag is only emitted when a real Zenodo DOI has been minted
+  // (see DATASET_DOI in src/lib/citation).
+  const citationMeta = citationMetaTags(
+    {
+      title: tree.title,
+      scientificName: tree.scientificName,
+      slug: tree.slug,
+      nameAuthority: tree.nameAuthority,
+      updatedAt: tree.updatedAt,
+      publishedAt: tree.publishedAt,
+    },
+    locale as Locale
+  );
+
   return {
     title: tree.title,
     description: tree.description,
@@ -126,6 +143,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         }),
       },
     },
+    other: citationMeta,
   };
 }
 
@@ -312,6 +330,11 @@ export default async function TreePage({ params }: Props) {
       <TrackView slug={tree.slug} />
       <SafeJsonLd data={validatedStructuredData} />
       <SafeJsonLd data={validatedBreadcrumbData} />
+      {/* Dataset JSON-LD — declares this page as part of the citeable
+          corpus so AI overviews and search engines recognize the
+          dataset-level identifier (DOI when minted). */}
+      <SafeJsonLd data={datasetJsonLd(locale)} />
+
       <article className="py-12 px-4 tree-detail">
         <div className="container mx-auto max-w-7xl">
           {/* Breadcrumbs */}
@@ -569,6 +592,19 @@ export default async function TreePage({ params }: Props) {
 
               {/* Safety Disclaimer */}
               <SafetyDisclaimer />
+
+              {/* Cite this page (CC BY 4.0) */}
+              <CitePage
+                tree={{
+                  title: tree.title,
+                  scientificName: tree.scientificName,
+                  slug: tree.slug,
+                  nameAuthority: tree.nameAuthority,
+                  updatedAt: tree.updatedAt,
+                  publishedAt: tree.publishedAt,
+                }}
+                locale={locale}
+              />
 
               {/* Community Rating */}
               <TreeRating slug={tree.slug} />
