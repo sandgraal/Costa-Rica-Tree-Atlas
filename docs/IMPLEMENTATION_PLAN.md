@@ -138,8 +138,10 @@ Each lane has a status, a one-sentence "why now," and concrete deliverables. Lan
 
 **Why now:** P2 closed interface parity; v5.0 named P12 for content parity; v6.0 owns it as a first-class lane because the audit shows ES pages running 30–60% the length of EN, missing whole sections.
 
-- [ ] **Backfill missing sections** on the 26 short ES pages (audit: 2026-03-22). Sections most often absent: Taxonomy, Geographic Distribution, Habitat, Botanical Description, Applications, Cultural, Conservation.
-- [ ] **Bring average ES line count to ≥ 95% of EN per tree**.
+- [x] **Backfill missing sections** on the historical 26 short ES pages (audit: 2026-03-22). State as of 2026-05-17: only **6 trees** remain under 600 lines total (`sota`, `copal`, `cedro-macho`, `canelo`, `guacimo-molenillo`, `pochote-de-agua`), and all six are short in **both** locales with EN/ES parity — i.e., they're stubs that need bilingual depth work, not ES-only gaps.
+- [x] **Phase 1 exit criterion: no ES tree below 60% of EN line count.** Achieved 2026-05-17: 0 trees below 60%, only 1 tree below 80% (`canelo` at 83% after the L6 first-pass expansion).
+- [ ] **Bring average ES line count to ≥ 95% of EN per tree** (Phase 2 target). Current state: median ES/EN ratio ≈ 99%; one outlier (canelo) at 83%.
+- [ ] **Encyclopedic depth for the 6 remaining stub trees** in both locales (target: 600+ lines per locale, all 8 standard sections present).
 - [ ] **CI regression gate** — fail if any ES tree drops below 80% of EN line count on a PR.
 - [ ] **Spanish copyedit pass** by a Costa Rican Spanish reviewer (paid) on the top 20 most-trafficked pages.
 - [ ] **Common-name dialectology** — note when a species' common name differs between Guanacaste, the Caribbean coast, the Central Valley, and the South. The schema's `indigenousNames` model can extend to regional Spanish names.
