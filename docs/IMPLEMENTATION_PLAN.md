@@ -72,10 +72,10 @@ Each lane has a status, a one-sentence "why now," and concrete deliverables. Lan
 
 **Why now:** Without an identity decision, every other lane drifts toward "generic plant site translated to Spanish." Identity has to land before content depth scales.
 
-- [ ] Voice & tone document committed at `docs/VOICE_AND_TONE.md` — Costa Rican Spanish as the home register; English as parity, not master. Tico idioms used judiciously, vos/usted conventions, no Castilian.
+- [x] Voice & tone document committed at [`docs/VOICE_AND_TONE.md`](VOICE_AND_TONE.md) — Costa Rican Spanish as the home register; English as parity, not master. Tico idioms used judiciously, vos/usted conventions, no Castilian. (2026-05-15)
 - [ ] Homepage rewrite (ES first, EN parity) — narrative anchor: place, pride, plant.
 - [ ] National pride hooks where they belong (not pasted on top): linkage to Pago por Servicios Ambientales for relevant species; SINAC protected-area context on distribution pages; 1996 Forestry Law mentioned where germane.
-- [ ] Visual identity audit and consolidation — color tokens, type stack, photographic guidelines, illustration style. Output: `docs/BRAND.md` + Tailwind theme polish.
+- [x] Visual identity audit and consolidation — color tokens, type stack, photographic guidelines, illustration style. Output: [`docs/BRAND.md`](BRAND.md) (2026-05-16). Tailwind theme polish remains a follow-up — the doc and globals.css tokens are now source-of-truth synchronized.
 - [ ] ES-first review pass on the top 20 highest-traffic pages.
 - [ ] Costa Rica-specific homepage hero per ecoregion ("hoy en Guanacaste," seasonal blooming).
 
