@@ -3,6 +3,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { allTrees } from "contentlayer/generated";
 import { SafetyPageClient } from "./SafetyPageClient";
 import { SafeJsonLd } from "@/components/SafeJsonLd";
+import { SITE_BASE_URL } from "@/lib/citation";
 import { buildSafetyFaqJsonLd } from "@/lib/seo/safety-faq";
 import type { Locale } from "@/types";
 
@@ -42,7 +43,7 @@ export default async function SafetyPage({ params }: SafetyPageProps) {
     "@type": "WebPage",
     name: t("structuredDataName"),
     description: t("structuredDataDescription"),
-    url: `https://costaricatreeatlas.com/${locale}/safety`,
+    url: `${SITE_BASE_URL}/${locale}/safety`,
     mainEntity: {
       "@type": "MedicalWebPage",
       name: t("structuredDataMainEntityName"),

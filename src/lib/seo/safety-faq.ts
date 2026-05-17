@@ -40,9 +40,11 @@ export interface SafetyFaqInput {
 }
 
 /**
- * Render a list of imperative steps into a single answer string with a
- * locale-appropriate numbering. The numbered form helps AI overviews
- * preserve order when summarizing.
+ * Render a list of imperative steps into a single numbered answer
+ * string. The numbering uses Western Arabic digits (1., 2., 3., …),
+ * which read correctly in both EN and ES — neither locale needs
+ * special enumeration markers here. The numbered form helps AI
+ * overviews preserve order when summarizing.
  */
 function joinSteps(steps: string[]): string {
   return steps.map((step, idx) => `${idx + 1}. ${step}`).join(" ");
@@ -60,7 +62,7 @@ export function buildSafetyFaqJsonLd(
 ): Record<string, unknown> {
   const { locale, ingestion, skinContact, eyeContact, emergency } = input;
 
-  const pairs: Array<{ question: string; answer: string }> = [
+  const pairs: SafetyFaqPair[] = [
     { question: ingestion.question, answer: joinSteps(ingestion.steps) },
     { question: skinContact.question, answer: joinSteps(skinContact.steps) },
     { question: eyeContact.question, answer: joinSteps(eyeContact.steps) },
