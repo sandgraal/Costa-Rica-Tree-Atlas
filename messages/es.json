@@ -1847,6 +1847,18 @@
     "regionValue": "Región: {value}",
     "familyValue": "Familia: {value}"
   },
+  "cite": {
+    "heading": "Cita esta página",
+    "intro": "Esta página forma parte de {dataset}, un corpus bilingüe de especies citeable. Elige el formato que necesitas:",
+    "doiPending": "Se agregará un DOI persistente cuando se publique en Zenodo el primer depósito de Darwin Core Archive.",
+    "formatAPA": "APA",
+    "formatMLA": "MLA",
+    "formatBibTeX": "BibTeX",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "copyAriaLabel": "Copiar cita en formato {format} al portapapeles",
+    "license": "Bajo licencia"
+  },
   "fieldTrip": {
     "metaTitle": "Modo Excursión - Atlas de Árboles de Costa Rica",
     "metaDescription": "Lista de verificación offline para excursiones de campo. Identifica y registra árboles de Costa Rica durante salidas educativas.",
