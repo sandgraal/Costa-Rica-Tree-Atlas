@@ -1,6 +1,6 @@
 ## Image Quality Audit Report
 
-**Run Date:** 2026-03-22 03:52:11 UTC
+**Run Date:** 2026-05-17 04:27:53 UTC
 
 ### Featured Images
 
@@ -336,7 +336,7 @@ sips (macOS): ❌
 ⚠️ manchineel: limited diversity (2 categories)
 ⚠️ mangle-blanco: limited diversity (2 categories)
 ✅ mangle-botoncillo: 5 images OK
-⚠️ mangle-negro: limited diversity (2 categories)
+❌ mangle-negro: 1/5 broken
 ✅ mangle-pinuela: 5 images OK
 ✅ mangle-rojo: 5 images OK
 ⚠️ mango: limited diversity (2 categories)
@@ -404,8 +404,8 @@ sips (macOS): ❌
 ==================================================
 ✅ Valid galleries: 70
 ⚠️ Low quality: 0
-⚠️ Low diversity: 102
-❌ Broken images: 2
+⚠️ Low diversity: 101
+❌ Broken images: 3
 📭 No gallery: 1
 
 💡 Run 'npm run images:refresh-gallery' to fix 104 galleries
