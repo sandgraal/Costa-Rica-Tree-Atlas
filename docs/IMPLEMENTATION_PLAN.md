@@ -1,28 +1,42 @@
-# Costa Rica Tree Atlas — Master Implementation Plan v6.0
+# Costa Rica Tree Atlas — Master Implementation Plan v7.0
 
-**Last Updated:** 2026-05-15
+**Last Updated:** 2026-05-18
 **North Star:** _The bilingual tree atlas Costa Rica is proud of, that the world can cite._
 **Cadence:** Plan-first, then long autonomous runs. Stops only at decision points or destructive actions.
-**Prior versions:** v5.0 (2026-05-15, Authority-first pivot) and earlier — see git history.
+**Prior versions:** v6.0 (2026-05-15, expert-panel pivot), v5.0 (Authority-first pivot), earlier — see git history.
 
 ---
 
-## Why v6.0 exists
+## Why v7.0 exists
 
-v5.0 set the right thesis (Authority-Atlas first), but it was still a punch list. v6.0 names the **product**, names the **audience**, names the **team of experts whose standards we're meeting**, and lays out a concrete 12-month path to a v1.0 launch that any of those experts could endorse.
+Three days after v6.0 landed, the load-bearing lanes have shipped. The factual audit went from **23 P1-high IUCN mismatches to 0 errors**. Open licensing, EXIF GPS strip, Dataset JSON-LD, FAQPage JSON-LD, Darwin Core Archive export script, security.txt, MFA, CONTRIBUTING/CODE_OF_CONDUCT/SECURITY — all in. v6.0's Phase 1 is essentially complete.
 
-The change from v5.0:
+v7.0 records what shipped, declares **Phase 2 (Coverage + Open Dataset)** as the active phase, and resets the 12-month path to v1.0 from current ground truth. The headline change vs v6.0: this is no longer an authority-data project — it's a **coverage, indigenous-partnership, and field-tool project** now, with one big SEO/AI-overview lane (HowTo) and an L7 polish pass to apply Claude Code 2026 best practices to a repo that is now run heavily by AI agents.
 
-- **Identity is Costa Rica first.** Spanish-first defaults; Tico voice; indigenous languages on the near horizon. English is full parity but not the home seat.
-- **Coverage is a curated 250, then expansion.** No more pretending 175 of 2,000 is a moat. We choose the right 250 across all eight major ecoregions, go encyclopedic, then grow.
-- **Open by default.** Code → MIT; species dataset → CC-BY 4.0; indigenous-knowledge content stays under governance regardless of license. This unlocks DOI citation and AI-overview pickup.
-- **AI-agent repo hardening is a first-class lane.** This codebase will be operated heavily by AI agents. We're going to give the agent everything it needs to do excellent work.
+The v6.0 "P5 — Factual Remediation" section is sunset: the queue is empty, and the historical record is in git.
+
+---
+
+## What shipped between v6.0 (2026-05-15) and v7.0 (2026-05-18)
+
+| PR                                                                  | Lane   | Headline                                                 |
+| ------------------------------------------------------------------- | ------ | -------------------------------------------------------- |
+| [#747](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/747) | L2     | Backfill canonical taxonomic IDs on 150 species          |
+| [#748](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/748) | L2     | Close remaining 12 P1-high IUCN/family drift findings    |
+| [#749](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/749) | L4     | Darwin Core Archive export script                        |
+| [#750](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/750) | L1     | BRAND.md (visual identity, naming, posture)              |
+| [#752](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/752) | L6     | canelo body↔frontmatter VU→LC + expand ES depth          |
+| [#753](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/753) | L4/L12 | "Cite this page" + Dataset JSON-LD on species pages      |
+| [#754](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/754) | L10    | Align security audit with the production dependency gate |
+| [#755](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/755) | L12    | `schema:FAQPage` JSON-LD on safety pages                 |
+
+Plus dependency hygiene PRs and weekly image optimization. Total touch surface: factual audit clean, governance complete, structured data near-complete, ES depth essentially at parity, TypeScript at 0 errors.
 
 ---
 
 ## The Expert Panel — Who Reviews What
 
-Each expert is a standard we hold ourselves to, not a personal endorsement. We design as if they'd audit.
+Each expert is a standard we hold ourselves to. We design as if they'd audit.
 
 | Lane                                   | Standard-bearer voice                                                                                                                                       | What they want to see                                                                                                               |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -38,7 +52,7 @@ Each expert is a standard we hold ourselves to, not a personal endorsement. We d
 | **Open science & dataset stewardship** | GBIF; Zenodo; FAIR data principles                                                                                                                          | Darwin Core Archive; DOI; versioned dataset; citation guide; cite-as on every page                                                  |
 | **Security & privacy**                 | OWASP; Costa Rica Ley 8968; GDPR                                                                                                                            | EXIF GPS strip on uploads (poaching risk); CSP; data-handling policy; admin 2FA; security.txt                                       |
 | **Performance & UX craft**             | web.dev / Core Web Vitals team; design systems community                                                                                                    | LCP/CLS/INP on mid-tier mobile; camera-entry verb-noun; design-token discipline                                                     |
-| **AI-agent ergonomics**                | Anthropic Claude Code best practices (2026)                                                                                                                 | CLAUDE.md hierarchy; .claude/ skills + subagents; MCP servers; hooks; permissions; the agent should feel like a competent teammate  |
+| **AI-agent ergonomics**                | Anthropic Claude Code 2026 best practices                                                                                                                   | CLAUDE.md hierarchy; skill auto-invoke; subagent least-privilege; MCP for live data; hook-based content invariants; memory seeding  |
 | **Software craft & maintainability**   | Senior engineers across Vercel / Next.js / open-source flora projects                                                                                       | Typed throughout; tests guard behavior not implementation; CI gates content + code                                                  |
 
 ---
@@ -50,17 +64,19 @@ A Costa Rican grandmother in Pérez Zeledón finds her favorite _matapalo_ tree 
 **Concretely, v1.0 means all of these are true:**
 
 - [ ] **250 species at encyclopedic depth** across all 8 major Costa Rican ecoregions, each with: full taxonomy + canonical IDs, sourced ethnobotany, ≥5 gallery images, indigenous names where they exist, distribution polygon, ID features, ecological role, IUCN + CITES + SINAC status.
-- [ ] **Zero open factual-audit findings** in the high-risk bands (IUCN mismatches, family mismatches, schema errors). Citation-gap findings reduced to <20 trees total, each annotated with rationale.
-- [ ] **Spanish content depth ≥ 95% of English** by line count per tree, on average. No tree missing entire sections in either locale.
+- [x] **Zero open factual-audit findings in the high-risk bands** (IUCN mismatches, family mismatches, schema errors). Citation-gap findings reduced to <20 trees total. ✅ As of 2026-05-18: 0 errors, 1 warning across 175 trees.
+- [x] **Spanish content depth ≥ 95% of EN by line count per tree, on average.** ✅ As of 2026-05-18: median ≈99%, lowest 84% (canelo). One outlier remains.
 - [ ] **Indigenous-language coverage** — pronunciations by native speakers for at least 6 ceremonially significant trees, in Bribrí + Cabécar + 1 additional language. Local Contexts TK/BC labels on every applicable page.
-- [ ] **Darwin Core Archive of the species corpus** published to Zenodo with a DOI; cite-as block on every species page; CC-BY 4.0 license.
-- [ ] **Codebase under MIT license**, with contributor's guide, code of conduct, and security.txt.
+- [ ] **Darwin Core Archive of the species corpus** published to Zenodo with a DOI; cite-as block on every species page (visible block ✅); CC-BY 4.0 license ✅.
+- [x] **Codebase under MIT license**, with contributor's guide, code of conduct, and security.txt. ✅ All in.
 - [ ] **At least one named institutional endorsement** (SINAC, OTS, INBio archives, MEP, or a Costa Rican university). Public letter of support or partnership notice.
 - [ ] **Camera-first identification flow** working: capture → Pl@ntNet API → top-3 candidates → species pages. GPS "near me" listing GBIF occurrences within user-set radius.
 - [ ] **Offline-capable PWA** with map tile packs for ≥5 high-traffic protected areas.
 - [ ] **WCAG 2.2 AA verified** by automated + manual audit. Screen-reader narration of distribution maps; high-contrast mode; reduced-motion respect.
-- [ ] **AI-agent repo hardening complete**: root + scoped CLAUDE.md files, .claude/ skills and subagents, MCP server configs, hook gates, permissions tuned for unattended runs.
+- [ ] **AI-agent repo hardening complete**: root + scoped CLAUDE.md ✅; .claude/ skills + subagents ✅; MCP server configs ✅; hook gates ☐; permissions tuned for unattended runs ☐; auto-memory seeded ☐.
 - [ ] **One unbroken page-load story**: LCP ≤ 2.5s on mid-tier Android, INP ≤ 200ms, no CLS regression.
+- [ ] **Pre-launch security review**: full WCAG audit + penetration test pass + privacy notice published (Ley 8968 + GDPR).
+- [ ] **First institutional citation**: someone outside the project cites our DOI in a paper, monograph, or dataset metadata.
 
 ---
 
@@ -68,296 +84,260 @@ A Costa Rican grandmother in Pérez Zeledón finds her favorite _matapalo_ tree 
 
 Each lane has a status, a one-sentence "why now," and concrete deliverables. Lanes are not strictly sequential — many run in parallel through the phased roadmap below.
 
-### L1 — Identity & Voice (Costa Rica first) 🔴 NEW
+### L1 — Identity & Voice (Costa Rica first) 🟡 PARTIAL
 
-**Why now:** Without an identity decision, every other lane drifts toward "generic plant site translated to Spanish." Identity has to land before content depth scales.
+**Why now:** Without an identity decision, every other lane drifts toward "generic plant site translated to Spanish." Foundation docs landed (BRAND.md, VOICE_AND_TONE.md); visible production polish is next.
 
-- [x] Voice & tone document committed at [`docs/VOICE_AND_TONE.md`](VOICE_AND_TONE.md) — Costa Rican Spanish as the home register; English as parity, not master. Tico idioms used judiciously, vos/usted conventions, no Castilian. (2026-05-15)
+- [x] Voice & tone document at [`docs/VOICE_AND_TONE.md`](VOICE_AND_TONE.md) — Costa Rican Spanish as the home register (2026-05-15)
+- [x] Visual identity audit and consolidation at [`docs/BRAND.md`](BRAND.md) (2026-05-16). Tailwind theme polish remains a follow-up — the doc and globals.css tokens are source-of-truth synchronized.
 - [ ] Homepage rewrite (ES first, EN parity) — narrative anchor: place, pride, plant.
 - [ ] National pride hooks where they belong (not pasted on top): linkage to Pago por Servicios Ambientales for relevant species; SINAC protected-area context on distribution pages; 1996 Forestry Law mentioned where germane.
-- [x] Visual identity audit and consolidation — color tokens, type stack, photographic guidelines, illustration style. Output: [`docs/BRAND.md`](BRAND.md) (2026-05-16). Tailwind theme polish remains a follow-up — the doc and globals.css tokens are now source-of-truth synchronized.
 - [ ] ES-first review pass on the top 20 highest-traffic pages.
 - [ ] Costa Rica-specific homepage hero per ecoregion ("hoy en Guanacaste," seasonal blooming).
 
-### L2 — Authority Data 🔴 IN PROGRESS
+### L2 — Authority Data 🟢 EFFECTIVELY DONE
 
-**Why now:** This is the load-bearing lane. The Atlas cannot be cited until the data is unimpeachable. v5.0 already started; v6.0 continues with the new canonical-ID schema in place.
+**Why now:** Was the load-bearing lane in v6.0. As of 2026-05-18, the factual audit reports 0 errors and 1 warning across 175 trees. Remaining items are polish and live-API integration.
 
 - [x] Schema extension landed (`contentlayer.config.ts`) with POWO/WFO/IPNI/GBIF/IUCN/CITES/SINAC fields (2026-05-15)
-- [x] First batch P1-high IUCN remediation: cocobolo (CR), cachimbo (LC), flamboyan (LC + 2020 reassessment context), all in both locales (2026-05-15)
-- [ ] **Resolve remaining 9 P1-high IUCN mismatches with citation gaps**: `manu`, `camibar`, `eucalipto`, `palma-de-escoba`, `corozo`, `flor-de-itabo`, `papayillo` (carambola + araza already done in v4.6)
-- [ ] **Resolve 14 P1-high IUCN-only mismatches**: `canelo`, `cortez-blanco`, `cristobalito`, `fruta-dorada`, `granadillo`, `guayacan-real`, `jacaranda`, `lechoso`, `olla-de-mono`, `pochote`, `sangrillo`, `sota`, `sura`, `tirra`
-- [ ] **Resolve ~14 additional LC↔NE drift cases** (almendro, cacao, cana-agria, coco, cortez-negro, cristobal, fruta-de-pan, jobo, madero-negro, mango, maranon, mastate, papaya, tempisque, yellow-oleander) — many are agriculture species where NE is reasonable; verify and standardize
-- [x] **Backfill canonical external IDs for the 175 existing species** via `scripts/backfill-canonical-ids.mjs` — initial pass complete (2026-05-16): 150 species backfilled with `gbifTaxonKey`, `nameAuthority`, `iucnScope: global`, `citesAppendix: none`; 24 already complete from PRs #736/737/739/740; 1 low-confidence (`matapalo`, ambiguous Ficus common name) flagged for manual taxonomic disambiguation. Follow-up: extend script to query POWO API for `powoId`/`ipniId` and live IUCN API for `iucnAssessmentId`/`iucnCriteria` once `IUCN_TOKEN` is configured. New species (Deep-250 expansion) will be processed by the same script.
-- [ ] **Citation-gap remediation** — close all P2-medium citation gaps in high-risk sections (~30 trees with 2+ findings each). Target: ≥2 independent sources per high-risk section.
-- [ ] **Visible citation footnotes** — ship `<CitationFootnote>` MDX component; convert inline parenthetical citations to numbered references with anchors.
-- [ ] **CITES Appendix backfill** — flag every species with CITES status (cocobolo II, granadillo II, others); add `citesAppendix` frontmatter.
-- [ ] **SINAC national status backfill** — research Decreto 25700-MINAE listings; add `sinacNationalStatus` for nationally listed species.
-- [ ] **Live IUCN API integration** — replace GBIF's stale IUCN cache with live IUCN Red List API queries. Requires API token (see Inputs Needed).
+- [x] All P1-high IUCN mismatches closed (#748, 2026-05-16)
+- [x] Canonical external ID backfill on 175 species via [`scripts/backfill-canonical-ids.mjs`](../scripts/backfill-canonical-ids.mjs) (2026-05-16): `gbifTaxonKey`, `nameAuthority`, `iucnScope: global`, `citesAppendix: none` defaults applied; `matapalo` flagged for manual disambiguation
+- [x] CITES Appendix backfill — blind default dropped; 4 known App II species corrected (2026-05-16)
+- [x] Citation-gap remediation — citation coverage findings down to 1 across the corpus (2026-05-18)
+- [ ] **`<CitationFootnote>` MDX component** — ship visible numbered references with anchors; convert inline parenthetical citations to footnotes
+- [ ] **Live IUCN API integration** — replace GBIF's stale IUCN cache with live IUCN Red List API queries. Requires `IUCN_TOKEN` (see Inputs Needed)
+- [ ] **SINAC national status backfill** — research Decreto 25700-MINAE listings; add `sinacNationalStatus` for nationally listed species
+- [ ] **POWO/IPNI live lookup** in `scripts/backfill-canonical-ids.mjs` — extend to query POWO API for `powoId`/`ipniId`
 
-### L3 — Coverage: Deep 250 🔴 NEW
+### L3 — Coverage: Deep 250 🔴 ACTIVE
 
-**Why now:** 175 species of ~2,000 is ~8% coverage. Trying to push for comprehensive flora is multi-year; the right v1.0 is curated and deep across all ecoregions.
+**Why now:** 175 species of ~2,000 is ~8% coverage. The right v1.0 is curated and deep across all ecoregions, not comprehensive. This is the headline content lane for the next quarter.
 
 - [ ] **Ecoregion taxonomy doc** at `docs/ECOREGIONS.md` — the 8 we cover: (1) Tropical dry forest (Guanacaste), (2) Tropical moist forest (Caribbean lowlands), (3) Tropical moist forest (Central Pacific), (4) Premontane wet forest (Tilarán/Talamanca cordilleras), (5) Montane oak forest, (6) Cloud forest (Monteverde, Talamanca), (7) Mangrove (both coasts), (8) Riparian + urban/heritage trees.
-- [ ] **Curate the 75 additional species** — ~9-10 per ecoregion, weighted toward: ceremonially important; ecologically keystone; endemic or near-endemic; on national crests/currency/postage; species that the existing 175 omit (mangroves are under-covered, paramo is missing entirely).
+- [ ] **Curate the 75 additional species** — ~9–10 per ecoregion, weighted toward: ceremonially important; ecologically keystone; endemic or near-endemic; on national crests/currency/postage; species that the existing 175 omit (mangroves are under-covered, paramo is missing entirely).
 - [ ] **Ecoregion landing pages** (8 pages × 2 locales) at `/ecoregions/{slug}` — each with: introduction, characteristic trees, conservation context, photography, "visit it" pointers to protected areas.
-- [ ] **Species page tiers** — formalize in `docs/CONTENT_STANDARDIZATION_GUIDE.md`:
+- [ ] **Species page tiers** — formalize in [`docs/CONTENT_STANDARDIZATION_GUIDE.md`](CONTENT_STANDARDIZATION_GUIDE.md):
   - **Tier 1 (Encyclopedic)**: Target for all Deep-250. ≥600 EN/≥500 ES lines, ≥5 gallery, ≥3 citations per high-risk section, distribution polygon, ID features, indigenous names where applicable.
   - **Tier 2 (Standard)**: For future expansion. ≥300 lines, ≥3 gallery, ≥1 citation per claim.
   - **Tier 3 (Stub)**: Permitted only with explicit "Stub" badge in UI; sets expectations.
 - [ ] **Gallery curation** — every Tier 1 species has ≥5 high-quality images covering: full tree, leaf detail, bark detail, flower (in season), fruit/seed.
 - [ ] **Distribution polygons** — convert string-list province distribution to GeoJSON polygons (use SINAC ASP overlays + GBIF occurrence convex hulls).
 
-### L4 — Open Citizenship: Licensing, Dataset, DOI 🔴 NEW
+### L4 — Open Citizenship: Licensing, Dataset, DOI 🟢 NEARLY DONE
 
-**Why now:** AI overviews and serious researchers cite Kew, GBIF, and Wikipedia. They will not cite a proprietary, undownloadable site. Open licensing is the bridge from "neat project" to "primary source."
+**Why now:** AI overviews and serious researchers cite Kew, GBIF, and Wikipedia. They will not cite a proprietary, undownloadable site. Open posture is shipped; the Zenodo deposit closes the loop.
 
-- [ ] **License migration** — `LICENSE` → MIT for code; new `LICENSE-DATA` → CC-BY 4.0 for species dataset; existing `LICENSE-CONTENT.md` → CC-BY 4.0 for narrative content; indigenous-knowledge content stays under governance terms regardless (Local Contexts TK/BC labels).
-- [ ] **README + USAGE-POLICY rewrite** — reflect open posture; explain what is and isn't open.
-- [ ] **Public contributor onboarding** — `CONTRIBUTING.md` rewrite (currently called "Development Notes"); add `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1); add `SECURITY.md` security disclosure; add `security.txt` at `.well-known/security.txt`.
-- [ ] **Darwin Core Archive export** — `scripts/export-dwca.mjs` (NEW) — produces a DwC-A zip of all species records with required Darwin Core terms (scientificName, taxonRank, vernacularName, taxonRemarks, kingdom/phylum/class/order/family, references, license).
-- [ ] **Zenodo deposit + DOI** — first stable corpus dump → Zenodo, claim DOI, configure auto-deposit on tagged releases.
-- [x] **`cite-as` metadata** — every species page exposes citation\_\* `<meta>` tags + visible "Cite this page" block in both locales with APA, MLA, and BibTeX examples (2026-05-17). `citation_doi` is gated on a real Zenodo mint; placeholder DOI in [`src/lib/citation/index.ts`](../src/lib/citation/index.ts) until the deposit lands. Component: [`src/components/CitePage.tsx`](../src/components/CitePage.tsx).
-- [x] **JSON-LD Taxon + Dataset markup** on species pages (2026-05-17). Taxon block was already emitted via the Article wrapper; Dataset block added alongside.
-- [x] **`schema:FAQPage` JSON-LD** on safety pages (2026-05-17). Four Q/A pairs (ingestion, skin contact, eye contact, emergency contacts) emitted from existing localized first-aid copy via [`src/lib/seo/safety-faq.ts`](../src/lib/seo/safety-faq.ts); rendered alongside the existing `MedicalWebPage` block on `/[locale]/safety`. Question copy lives under `safety.page.faq*` keys in both locales.
+- [x] **License migration** — `LICENSE` (MIT) ✅; `LICENSE-DATA.md` (CC-BY 4.0 for species dataset) ✅; `LICENSE-CONTENT.md` (CC-BY 4.0 for narrative content) ✅; indigenous-knowledge content stays under governance terms regardless
+- [x] **CONTRIBUTING.md** + **CODE_OF_CONDUCT.md** (Contributor Covenant) + **SECURITY.md** + `public/.well-known/security.txt` (2026-05-17)
+- [x] **Darwin Core Archive export** — [`scripts/export-dwca.mjs`](../scripts/export-dwca.mjs) (#749, 2026-05-17)
+- [x] **`cite-as` metadata** — every species page exposes `citation_*` `<meta>` tags + visible "Cite this page" block in both locales (APA / MLA / BibTeX). Component: [`src/components/CitePage.tsx`](../src/components/CitePage.tsx). DOI gated on real Zenodo mint via placeholder in [`src/lib/citation/index.ts`](../src/lib/citation/index.ts).
+- [x] **JSON-LD Dataset markup** on species pages (#753, 2026-05-17)
+- [x] **JSON-LD FAQPage markup** on safety pages (#755, 2026-05-18) — four Q/A pairs (ingestion, skin contact, eye contact, emergency). Helper: [`src/lib/seo/safety-faq.ts`](../src/lib/seo/safety-faq.ts).
+- [ ] **Zenodo deposit + first DOI** — one-shot manual step. Requires Zenodo account (see Inputs Needed). On mint, replace `DATASET_DOI` placeholder in `src/lib/citation/index.ts` (one-line change; entire UI + JSON-LD picks it up).
+- [ ] **Auto-deposit on tagged releases** — GitHub Actions → Zenodo on `v*` tags.
+- [ ] **`schema:HowTo` JSON-LD** on identification flows.
+- [ ] **README + USAGE-POLICY rewrite** — reflect the open posture; explain what is and isn't open.
 
-### L5 — Indigenous Knowledge & Language 🟡 EXPANDING
+### L5 — Indigenous Knowledge & Language 🟡 GOVERNANCE READY, RELATIONSHIPS PENDING
 
-**Why now:** P10 wrote excellent policy; v6.0 builds relationships. This is the lane with the slowest clock and the most consequential ethics. Failure mode is extraction; the goal is partnership.
+**Why now:** v6.0 codified governance; v7.0 builds relationships. This is the lane with the slowest clock and the most consequential ethics. Failure mode is extraction; the goal is partnership.
 
+- [x] **Governance policy** at [`docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md`](INDIGENOUS_KNOWLEDGE_GOVERNANCE.md)
 - [ ] **Identify and reach out** to 2–3 partner communities (Bribrí and Cabécar are the most-spoken; Maleku and Boruca have rich tree-knowledge traditions). Honoraria budget required.
-- [ ] **Local Contexts TK/BC labels** wired into the species page UI — when an indigenous name or use is shown, the relevant label is shown with it. Labels: TK Notice, TK Attribution, BC Provenance, etc.
+- [ ] **Local Contexts TK/BC labels** wired into the species page UI — when an indigenous name or use is shown, the relevant label is shown with it.
 - [ ] **Pronunciation recordings** by native speakers (not TTS) for at least 6 ceremonially significant trees per language, expanding from there. Audio files in the PWA.
 - [ ] **Indigenous-language tree-name display** — schema already supports `indigenousNames`; UI exists; backfill content for the Deep-250 where speakers and sources permit.
 - [ ] **FPIC documentation** — every indigenous content addition has a signed (or recorded) consent record stored privately, with the language and scope of consent explicit.
 - [ ] **Refusal as a valid answer** — when a community asks us to remove or not publish, we honor it permanently and document the request without naming the requester.
-- [ ] **Benefit-sharing policy** in `docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md` — % of any future donation/grant flows that returns to partner communities; on-site contributor credit; printed copies of relevant species sheets returned to communities.
+- [ ] **Benefit-sharing policy detail** in [`docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md`](INDIGENOUS_KNOWLEDGE_GOVERNANCE.md) — % of any future donation/grant flows returning to partner communities; on-site contributor credit; printed copies of relevant species sheets returned to communities.
 
-### L6 — ES Content Depth Parity 🔴 NEW
+### L6 — ES Content Depth Parity 🟢 PHASE 1 DONE, PHASE 2 NEARLY MET
 
-**Why now:** P2 closed interface parity; v5.0 named P12 for content parity; v6.0 owns it as a first-class lane because the audit shows ES pages running 30–60% the length of EN, missing whole sections.
+**Why now:** Audit showed the lane essentially done. Remaining work: 6 stub trees and a CI regression gate to prevent backsliding.
 
-- [x] **Backfill missing sections** on the historical 26 short ES pages (audit: 2026-03-22). State as of 2026-05-17: only **6 trees** remain under 600 lines total (`sota`, `copal`, `cedro-macho`, `canelo`, `guacimo-molenillo`, `pochote-de-agua`), and all six are short in **both** locales with EN/ES parity — i.e., they're stubs that need bilingual depth work, not ES-only gaps.
-- [x] **Phase 1 exit criterion: no ES tree below 60% of EN line count.** Achieved 2026-05-17: 0 trees below 60%, only 1 tree below 80% (`canelo` at 83% after the L6 first-pass expansion).
-- [ ] **Bring average ES line count to ≥ 95% of EN per tree** (Phase 2 target). Current state: median ES/EN ratio ≈ 99%; one outlier (canelo) at 83%.
-- [ ] **Encyclopedic depth for the 6 remaining stub trees** in both locales (target: 600+ lines per locale, all 8 standard sections present).
+- [x] **Backfill missing sections on the historical short ES pages** (audit: 2026-03-22). State as of 2026-05-18: only 6 trees remain under 600 lines, all six are short in **both** locales (parity preserved).
+- [x] **Phase 1 exit criterion: no ES tree below 60% of EN line count.** Achieved 2026-05-17.
+- [x] **Phase 2 target: average ES line count ≥95% of EN.** Median ≈99% as of 2026-05-18. One outlier (`canelo` at 84%) — flagged.
+- [ ] **Encyclopedic depth for the 6 remaining stub trees** in both locales (target: 600+ lines per locale, all 8 standard sections present): `sota`, `copal`, `cedro-macho`, `canelo`, `guacimo-molenillo`, `pochote-de-agua`.
 - [ ] **CI regression gate** — fail if any ES tree drops below 80% of EN line count on a PR.
 - [ ] **Spanish copyedit pass** by a Costa Rican Spanish reviewer (paid) on the top 20 most-trafficked pages.
 - [ ] **Common-name dialectology** — note when a species' common name differs between Guanacaste, the Caribbean coast, the Central Valley, and the South. The schema's `indigenousNames` model can extend to regional Spanish names.
 
-### L7 — AI-Agent Repo Hardening 🔴 NEW
+### L7 — AI-Agent Repo Hardening 🟡 STRONG FOUNDATION, MODERN POLISH NEXT
 
-**Why now:** This codebase is operated heavily by AI agents. Giving the agent the best possible context multiplies every other lane.
+**Why now:** This codebase is operated heavily by AI agents. v6.0 built the foundation (CLAUDE.md hierarchy, skills, subagents, MCP). v7.0 applies the 2026 Claude Code best-practices polish so unattended runs are safe, fast, and self-correcting.
 
-- [ ] **Root `CLAUDE.md`** — high-signal agent boot doc (≤200 lines). Project mission; tech stack; conventions; how to run; what to read first; what NEVER to do.
-- [ ] **Scoped CLAUDE.md files** where conventions diverge:
-  - `content/CLAUDE.md` — frontmatter schema, citation conventions, ES/EN parity rules, indigenous-knowledge content rules
-  - `scripts/CLAUDE.md` — script conventions (ESM, argparse style, dry-run flag, JSON output flag)
-  - `src/components/CLAUDE.md` — component patterns, accessibility expectations, i18n hooks
-  - `tests/CLAUDE.md` — what each test family guards; how to add a new regression
-- [ ] **`.claude/skills/` directory** with project-specific skills:
-  - `add-species` — guided species addition (frontmatter → MDX template → image fetch → gallery → tests)
-  - `audit-iucn` — runs factual audit and presents remediation queue
-  - `remediate-tree` — guided single-tree remediation walk-through (frontmatter, visible copy in both locales, citations, tests)
-  - `propose-image` — guided image proposal with attribution check
-  - `update-ecoregion` — ecoregion landing-page update walk-through
-- [ ] **`.claude/agents/` subagents** for specialized roles:
-  - `iucn-verifier` — agent that hits IUCN/POWO APIs and validates frontmatter against external truth
-  - `content-validator` — runs against CONTENT_PR_ACCEPTANCE_CRITERIA before suggesting commit
-  - `spanish-copyeditor` — Costa Rican Spanish review pass on a specific MDX file
-- [ ] **MCP server configuration** at `.mcp.json` for: GBIF Species API, IUCN Red List API (token-gated), POWO API, iNaturalist API. Optional: Cloudinary (already used) and Algolia/Meilisearch (once L11 ships).
-- [ ] **`.claude/hooks/`** for gates:
-  - Pre-tool-call hook on Write/Edit to MDX: validate frontmatter shape; warn on missing canonical IDs.
-  - Pre-commit hook (already exists via husky): keep it; consider adding citation-completeness check for the touched files.
-- [ ] **`.claude/settings.json`** with permissions tuned for unattended runs — allow read/edit/test commands, disallow destructive git ops, require confirmation for `npm install` or large refactors.
-- [ ] **Rationalize agent docs** — `AGENTS.md` becomes a thin pointer to `CLAUDE.md`; `.github/copilot-instructions.md` stays for Copilot but cross-references CLAUDE.md as canonical; `.github/instructions/*.instructions.md` files keep their file-pattern scoping but each gets a "see also scoped CLAUDE.md" line.
+**Already shipped:**
 
-### L8 — Field-Tool Foundations 🔴 PHASE-2 PREP
+- [x] Root [`CLAUDE.md`](../CLAUDE.md) (~250 lines, within signal budget)
+- [x] Scoped guides: [`content/CLAUDE.md`](../content/CLAUDE.md), [`scripts/CLAUDE.md`](../scripts/CLAUDE.md), [`src/components/CLAUDE.md`](../src/components/CLAUDE.md), [`tests/CLAUDE.md`](../tests/CLAUDE.md)
+- [x] `.claude/skills/` — `add-species`, `audit-iucn`, `backfill-canonical-ids`, `export-dwca`, `remediate-tree`
+- [x] `.claude/agents/` subagents — `content-validator`, `iucn-verifier`, `spanish-copyeditor` (Sonnet)
+- [x] `.mcp.json` — `gbif` (anon), `iucn` (env-gated on `IUCN_TOKEN`), `powo` (anon), `inaturalist` (anon)
+- [x] `.claude/settings.json` — explicit allow/deny; deny on force-push and direct pushes to main
 
-**Why now:** Authority alone is a reading product. Field-tool is what turns "yet another flora site" into "the Costa Rica tree app." Foundations now; full Phase 2 later.
+**Claude-2026 polish (concrete, actionable):**
 
-- [ ] **Real image ID via Pl@ntNet API** — wrap on `/api/identify`, surface top-3 candidates with confidence scores. Free tier exists; document the rate budget.
+- [ ] **Add `.claude/hooks/`** — pre-tool-call hook on MDX Write/Edit that validates frontmatter shape and warns on missing canonical IDs. Hook script at `.claude/hooks/pre-tool-mdx-write.sh`.
+- [ ] **Tighten subagent allowlists**:
+  - `content-validator` from `All tools` → `Read, Grep, Glob, Bash(npx vitest run *)`
+  - `iucn-verifier` from `All tools` → `Read, Bash, WebFetch`
+- [ ] **Add `src/app/CLAUDE.md`** — route conventions (i18n hooks, `generateMetadata` shape, JSON-LD emission pattern, locale-prefixed routing).
+- [ ] **Add `src/lib/CLAUDE.md`** — library conventions (citation, seo, security, image, ratelimit).
+- [ ] **Add new skills**:
+  - `ship-pr` — branch + commit (with `--author="…@users.noreply.github.com"`) + push + open PR + post-merge confirmation. Solves the recurring repo-local-git-config drift this session exposed.
+  - `triage-pr` — verify checks, identify required-vs-failed, surface merge blockers (BLOCKED vs UNSTABLE distinction).
+  - `pr-monitor` — `gh pr checks --watch`, post-resolve threads via gh api graphql.
+- [ ] **Seed Claude's per-project auto-memory** (the per-project directory under `~/.claude/projects/<encoded-project-path>/memory/`; see Claude Code docs) with the recurring lessons surfaced during recent maintenance work:
+  - `feedback_git_author_email.md` — confirm the worktree's `git config user.email` resolves to a GitHub account before committing; otherwise pass `--author` explicitly. Worktree-local `.git/config` can drift to an email Vercel can't resolve, blocking preview deploys.
+  - `project_vercel_preview_quirk.md` — Vercel Preview check fails systemically on every PR (separate from build correctness); merge with it red; tracked separately.
+  - `feedback_ruleset_codeql_pairing.md` — adding a `code_scanning` ruleset rule requires the CodeQL workflow not be gated `event_name != 'pull_request'`, or merges block silently.
+- [ ] **Expand `.claude/settings.json` allowlist** for repeated friction points: `gh api repos/*/pulls/*/comments/*/replies`, `gh api repos/*/rulesets/*`, `gh api graphql`.
+- [ ] **Add `.claude/skills/README.md` index** — human-readable summary of available skills (auto-invoke uses frontmatter; humans benefit from an index).
+- [ ] **Update root [`CLAUDE.md`](../CLAUDE.md)**: remove the stale "tolerated pre-existing manifest.ts errors" caveat (type-check is clean as of 2026-05-18); reference the new skills; reference the L4-shipped LICENSE files.
+- [ ] **Rationalize `AGENTS.md`** → thin pointer to `CLAUDE.md` (currently 3K of overlap).
+- [ ] **Standardize skill descriptions** for auto-invoke — uniform trigger-phrase form so the dispatcher routes consistently.
+
+### L8 — Field-Tool Foundations 🔴 NOT STARTED
+
+**Why now:** Authority alone is a reading product. Field-tool is what turns "yet another flora site" into "the Costa Rica tree app." The `/identify` route is currently disabled and uses Google Vision; needs a Pl@ntNet rewrite.
+
+- [ ] **Real image ID via Pl@ntNet API** — replace disabled Google Vision in [`src/app/api/identify/route.ts`](../src/app/api/identify/route.ts) (`FEATURE_ENABLED=false`). Surface top-3 candidates with confidence scores. Free tier exists; document the rate budget.
 - [ ] **GPS "trees near you"** — GBIF occurrence query within user-set radius. Permission flow with clear copy ("we use your location only to find nearby observations").
 - [ ] **Offline map tile pack** — Service Worker delta for 5 high-traffic protected areas (Corcovado, Manuel Antonio, Monteverde, Tortuguero, Arenal). Document tile attribution.
 - [ ] **iNaturalist round-trip** — "Log an observation" flow via iNat OAuth; user submits under their own identity; we don't claim ownership of their observations.
 - [ ] **Camera entry point on homepage** — first-class "scan" verb-noun; existing favorites/compare don't compete with it for the cold-start user.
-- [ ] **AR identification** — REMOVED from public commitments until we have an engineering scope. Pl@ntNet API → AR overlay can be a Phase 3+ enhancement, not a v1.0 promise.
+- [ ] **AR identification** — REMOVED from public commitments until we have an engineering scope.
 
-### L9 — Education Seeds 🔴 PHASE-3 PREP
+### L9 — Education Seeds 🟡 SCAFFOLD PRESENT
 
-**Why now:** Education adoption requires trust (L2) + engagement (L8). Don't pitch MEP partnerships before v1.0 lands. But seed the structure now so Phase 3 doesn't start from zero.
+**Why now:** Education adoption requires trust (L2 ✅) + engagement (L8 ☐). Routes are scaffolded; content depth and partnerships are next.
 
+- Routes present: `/education/{classroom,field-trip,map-game,tree-journal,printables,certificate}`
 - [ ] **MEP curriculum mapping** — research and document the Ciencias 3°–9° standards relevant to Costa Rican flora; map existing lessons to standards.
-- [ ] **Printable classroom packs** per ecoregion — field-guide PDFs already exist for favorites; create curated ecoregion packs.
+- [ ] **Printable classroom packs per ecoregion** — field-guide PDFs already exist for favorites; create curated ecoregion packs.
 - [ ] **Teacher dashboard scaffolding** — non-functional spec at `docs/EDUCATION_PLATFORM.md`; defines what a teacher dashboard would do (class roster, progress, assessments).
-- [ ] **SCORM/xAPI export** — research-only this phase; decision deferred to Phase 3.
-- [ ] **Honest certificate framing** — change the language around the existing "certificate" to "completion badge" until we partner with an accrediting body; don't oversell.
+- [ ] **Honest "completion badge" framing** — change "certificate" language to "completion badge" until we partner with an accrediting body.
+- SCORM/xAPI export — decision deferred.
 
-### L10 — Trust & Safety 🟡 PARTIAL
+### L10 — Trust & Safety 🟢 CRITICAL ITEMS DONE, A11Y NEXT
 
-**Why now:** Foundations are strong (Dependabot, CodeQL, TruffleHog, ESLint security). The middle is soft, and one of the gaps (EXIF GPS strip) is actively dangerous for protected species.
+**Why now:** The P0 (EXIF GPS strip) shipped; admin MFA shipped; security.txt shipped. The remaining work is accessibility depth and privacy notices.
 
-- [ ] **EXIF GPS strip on photo upload** — confirm or implement at both storage and presentation layers. **Treat as P0 if not present.** Audit `src/app/api/.../image` routes.
+- [x] **EXIF GPS strip on photo upload** — live in [`src/app/api/images/upload/route.ts`](../src/app/api/images/upload/route.ts)
+- [x] **Admin MFA** — `src/app/api/auth/mfa/{setup,verify,disable}/route.ts`
+- [x] **security.txt** at `public/.well-known/security.txt`
+- [x] **Husky pre-commit + commit-msg** hooks active
+- [ ] **CSP nonce strategy** — `middleware.ts` has commented-out nonce discussion; needs a decision (nonce vs hash vs disable for SSG paths).
 - [ ] **Costa Rica Ley 8968 + GDPR privacy notice** — ES + EN privacy pages with explicit purpose limitation and user rights.
-- [ ] **CSP nonce strategy** — verify in `middleware.ts`; add if absent.
-- [ ] **Admin 2FA** — Prisma user model has admin role; add 2FA via TOTP for admin accounts.
 - [ ] **Audit log retention policy** — documented retention window for `AdminAuditLog` table.
-- [ ] **security.txt** at `.well-known/security.txt` once L4 license migration lands.
 - [ ] **WCAG 2.2 audit** — go beyond AA on 2.1; address new SCs (focus appearance, target size minimum, dragging movements, consistent help).
 - [ ] **Screen-reader narration of distribution maps** — non-visual equivalent for live GBIF data.
 - [ ] **Reduced-motion audit** — every animation respects `prefers-reduced-motion`.
 - [ ] **High-contrast mode** — distinct from dark mode; AAA-validated tokens on the contrast-critical path.
+- [ ] **Address 3 moderate `npm audit` vulnerabilities** — [PR #757](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/757) (49 prod dep bumps) likely closes most.
 
-### L11 — Performance & Search at Scale 🟡 PARTIAL
+### L11 — Performance & Search at Scale 🔴 NOT STARTED
 
-**Why now:** Lighthouse 90 mobile is good, not great. Search is fine at 175 species; it breaks at 1,000+.
+**Why now:** Search is fine at 175 species; it breaks at 1,000+. Lighthouse CI hasn't fired since 2026-03-01 — needs investigation before we add more performance work.
 
-- [ ] **Tree-detail render perf on mid-tier mobile** — profile and optimize (P6 carryover).
+- [ ] **Investigate Lighthouse CI silence** — `.github/workflows/lighthouse-ci.yml` last ran 2026-03-01. Likely path-trigger too narrow. Restore as PR gate on the templates where regressions break trust (tree-detail, compare, map).
+- [ ] **Tree-detail render perf on mid-tier mobile** — profile and optimize.
 - [ ] **Search index migration** — stand up Meilisearch or Typesense; move species + glossary + comparison search off client-side bundle. Filters by family + IUCN + ecoregion + elevation + month — facet engine.
 - [ ] **The power-query**: "find me all medicinal LC-status trees flowering in May at >1500m elevation." Today, impossible. After L11, easy.
-- [ ] **Lazy / defer secondary modules** — P7 carryover.
+- [ ] **Lazy / defer secondary modules**.
 - [ ] **Visual regression** for the templates where a regression breaks trust: tree-detail, compare, map. Skip homepage/glossary/education until v1.0.
 
-### L12 — SEO / GEO & Discoverability 🟡 PARTIAL
+### L12 — SEO / GEO & Discoverability 🟢 STRONG, ONE TYPE LEFT
 
-**Why now:** Lighthouse SEO 100 is the floor. Getting picked up by AI overviews and ranking for "what tree is this Costa Rica" is the ceiling.
+**Why now:** Most JSON-LD types shipped. `schema:HowTo` and AI-overview readiness close the lane.
 
-- [ ] **Structured data audit** — confirm/add: `schema:Taxon`, `schema:Dataset`, `schema:FAQPage` on safety pages, `schema:HowTo` on identification flows, `schema:BreadcrumbList` everywhere.
-- [ ] **AI-overview readiness** — Q&A pattern on safety pages; clean answer-first formatting on identification questions; dataset DOI exposed so AI cites us.
+- [x] `schema:Taxon` on species pages (Article wrapper)
+- [x] `schema:Dataset` on species pages (#753)
+- [x] `schema:Article` on species pages
+- [x] `schema:BreadcrumbList` site-wide
+- [x] `schema:FAQPage` on safety pages (#755)
+- [x] `schema:MedicalWebPage` on safety pages
+- [x] `schema:WebPage`, `schema:CollectionPage`, `schema:Course`, `schema:DefinedTerm`, `schema:ItemList` where applicable
+- [ ] `schema:HowTo` on identification flows (`/[locale]/identify`, `/[locale]/diagnose`)
+- [ ] **AI-overview readiness pass** — Q&A pattern audit on safety and ID pages; clean answer-first formatting; dataset DOI exposed so AI cites us.
 - [ ] **Internal linking authority distribution** — audit which pages currently absorb vs. distribute link authority; rebalance toward Deep-250 anchors.
-- [ ] **Sitemap freshness signal** — confirm `<lastmod>` reflects real content updates not deploy timestamps.
-- [ ] **`hreflang` already strong** — keep it that way as new pages ship.
+- [ ] **Sitemap freshness signal** — confirm `<lastmod>` reflects real content updates, not deploy timestamps.
+- [x] **`hreflang` already strong** — keep it that way as new pages ship.
 
 ---
 
 ## Phased Roadmap
 
-Realistic 12-month plan. Phases overlap intentionally; lanes don't.
+Realistic 12-month plan starting from current ground truth. Phases overlap intentionally; lanes don't.
 
-### Phase 1 (Weeks 1–12) — Foundation
+### Phase 1 (DONE, retroactively logged) — Foundation
 
-**Theme:** Make the codebase agent-ready and start the data work.
+v6.0's Phase 1 completed 2026-05-18, in three days. Closed: L2 authority data, L4 open licensing, L10 P0 (EXIF GPS strip), L12 cite-as + Dataset + FAQPage JSON-LD, baseline L7 (root + scoped CLAUDE.md, skills, subagents, MCP).
 
-- L7 AI-agent repo hardening (CLAUDE.md hierarchy, .claude/ skills + subagents, MCP config, hooks)
-- L2 Authority data — close remaining 9 P1-high IUCN+citation, 14 P1-high IUCN-only
-- L4 License migration to MIT + CC-BY 4.0 + CONTRIBUTING + CODE_OF_CONDUCT + security.txt
-- L10 Trust & Safety priority items: **EXIF GPS strip (P0)**, privacy notice, CSP
-- L1 Voice & tone doc + brand audit
-- L6 ES depth: address the 26 short trees
+### Phase 2 (Weeks 1–12, starts 2026-05-18) — Coverage and Open Dataset
 
-**Phase 1 exit criteria:** All 23 P1-high trees resolved. Repo MIT. CLAUDE.md + .claude/ scaffold complete. EXIF GPS confirmed. No tree shorter than 60% EN line count.
+**Theme:** The dataset becomes citable. Coverage breaks past 175.
 
-### Phase 2 (Weeks 13–24) — Coverage and Open
-
-**Theme:** Deep-250 lands; the dataset becomes citable.
-
-- L3 Coverage — pick the 75 additional species; build out ecoregion landing pages
-- L4 Open dataset — DwC-A export, Zenodo deposit, DOI, cite-as on every species page
-- L2 Authority data — backfill all canonical IDs (POWO/WFO/GBIF/IUCN); citation-gap remediation
+- L3 Coverage — `docs/ECOREGIONS.md`; curate the 75 additional species; build out ecoregion landing pages
+- L4 Open dataset — Zenodo deposit, DOI mint, cite-as DOI swap; `schema:HowTo`; README/USAGE-POLICY rewrite
 - L5 Indigenous knowledge — open 2 community partnership conversations; first pronunciation recordings (~6 trees, Bribrí or Cabécar)
-- L11 Search at scale — Meilisearch/Typesense migration
+- L7 Claude-2026 polish — hooks, subagent allowlist tightening, src/app/CLAUDE.md, src/lib/CLAUDE.md, memory seeding, new skills (`ship-pr`, `triage-pr`, `pr-monitor`)
+- L10 WCAG 2.2 audit + reduced-motion + high-contrast + privacy notice
+- L11 Lighthouse CI restoration
 
-**Phase 2 exit criteria:** 250 species at Tier 1. Dataset has DOI. 6+ indigenous-language pronunciations live. Power-query works.
+**Phase 2 exit criteria:** Zenodo DOI live and swapped into UI. DwC-A downloads cleanly and validates against Darwin Core schema. ≥220 species at Tier 1. ≥6 indigenous-language pronunciations live with TK/BC labels.
 
-### Phase 3 (Weeks 25–36) — Field & Education
+### Phase 3 (Weeks 13–24) — Field & Education
 
 **Theme:** Verbs, not nouns.
 
-- L8 Field-tool — Pl@ntNet integration, GPS "near me," offline tiles, iNaturalist round-trip
-- L9 Education seeds — MEP curriculum mapping; ecoregion classroom packs
-- L1 Costa Rica identity — homepage and pride hooks shipped in production
+- L8 Field-tool — Pl@ntNet integration; GPS "near me"; offline tiles; iNaturalist round-trip; camera entry on homepage
+- L9 Education seeds — MEP curriculum mapping; ecoregion classroom packs; honest completion-badge framing
+- L1 Costa Rica identity in production — homepage rewrite; ecoregion hero variants; national pride hooks
 - L5 Indigenous knowledge — expand to 2 additional languages; refine FPIC documentation
-- L10 WCAG 2.2 audit + screen-reader-map narration
 
-**Phase 3 exit criteria:** Camera ID is the homepage verb. Offline tiles work in Corcovado. WCAG 2.2 AA verified.
+**Phase 3 exit criteria:** Camera ID is the homepage verb-noun on Android 11+ / iOS 16+. Offline tiles work in Corcovado. WCAG 2.2 AA report attached.
 
-## P5 — Factual Remediation & Citations 🔴 NOT DONE
+### Phase 4 (Weeks 25–36) — Search & SEO Polish
 
-### Remediation queue: 144 findings across 104 trees — 10 P1 entries now verified clean or remediated
+**Theme:** Scale and discoverability.
 
-**P1-high items (IUCN status mismatches):**
+- L11 Meilisearch/Typesense; power-query; visual regression on critical templates
+- L12 `schema:HowTo`; AI-overview readiness; internal linking authority rebalance; sitemap freshness signal
+- L9 Teacher dashboard scaffolding; pilot ecoregion pack with one school
 
-- [x] `cachimbo` — fresh single-tree audit now returns 0 warnings
-- [ ] `manu` — IUCN mismatch + family mismatch + citation gap
-- [x] `camibar` — fresh single-tree audit now returns 0 warnings
-- [x] `carambola` — fresh single-tree audit now returns 0 warnings
-- [x] `eucalipto` — IUCN mismatch + citation gap
-- [ ] `flamboyan` — IUCN mismatch + citation gap
-- [x] `palma-de-escoba` — IUCN mismatch + citation gap
-- [x] `araza` — fresh single-tree audit now returns 0 warnings
-- [x] `cocobolo` — fresh single-tree audit now returns 0 warnings
-- [x] `corozo` — fresh single-tree audit now returns 0 warnings
-- [x] `flor-de-itabo` — IUCN mismatch + citation gap
-- [x] `papayillo` — IUCN mismatch + citation gap
+**Phase 4 exit criteria:** Power-query returns in <200ms. AI-overview prompts return cited answers. One school pilot has used a classroom pack.
 
-**P2-medium items (citation gaps in high-risk sections):**
-
-- [ ] `cornizuelo` — 4 citation gaps (highest weighted score: 210)
-- [ ] `comenegro` — 3 citation gaps
-- [ ] `pochote-de-agua` — 3 citation gaps
-- [ ] `ciprecillo` — 2 citation gaps
-- [ ] `llama-del-bosque` — 2 citation gaps
-- [ ] `balsamo` — 2 citation gaps
-- [ ] `ira-rosa` — 2 citation gaps
-- [ ] `mayo` — 2 citation gaps
-- [ ] `copal` — 2 citation gaps
-- [ ] `copey` — 2 citation gaps
-- [ ] `mamon` — 2 citation gaps
-- [ ] - ~70 more trees with 1–2 findings each
-
-### Process gaps
-
-- [x] Source hierarchy for factual corrections adopted: IUCN → POWO → Tropicos → Manual de Plantas de Costa Rica → SINAC → peer-reviewed papers
-- [x] Citation standard for high-risk sections (uses, cultural, medicinal, safety, conservation): 2 independent sources required
-- [x] Remediation queue priority fixed: resolve the 12 P1-high IUCN mismatch trees before medium-risk citation-gap batches
-- [x] PR acceptance criteria for content work formalized in `docs/CONTENT_PR_ACCEPTANCE_CRITERIA.md`
-- [x] IUCN status labels localized and regression-covered for all supported categories in `tests/conservation-status-i18n.test.tsx`
-- [x] P1-high remediation started: `carambola` visible conservation copy now matches audited `DD` status in both locales; latest citation-gap count should be re-audited before decrementing queue totals
-- [x] Second remediation slice landed: `araza` visible conservation copy now matches existing `NE` frontmatter in both locales; latest mismatch/citation totals still require re-audit before queue counts change
-- [x] Third remediation slice landed: `eucalipto` now matches the audited `VU` status in both locales, and a fresh single-tree factual audit returns 0 warnings for both IUCN drift and citation coverage
-- [x] Fourth remediation slice landed: `flor-de-itabo` now matches the audited `DD` status and `papayillo` now matches the audited `NE` status in both locales; fresh single-tree factual audits return 0 warnings for both pages
-- [x] Fifth remediation slice landed: `palma-de-escoba` now matches the audited `NE` status in both locales, and a fresh single-tree factual audit returns 0 warnings for both IUCN drift and citation coverage
-- [x] Queue refresh completed for the remaining previously flagged P1 entries: fresh single-tree audits now show `cachimbo`, `camibar`, `carambola`, `araza`, `cocobolo`, and `corozo` at 0 warnings without additional edits
-- [ ] Remaining P1 blockers narrowed to `manu` and `flamboyan`, where the live GBIF-linked audit signal conflicts with direct IUCN-style content already cited on-page and needs source-of-truth reconciliation before further content edits
-
-### Phase 4 (Weeks 37–48) — Endorsement and Launch
+### Phase 5 (Weeks 37–48) — Endorsement and Launch
 
 **Theme:** Prove it, ship it.
 
 - L5 Lock partnership letter from at least one of: SINAC, OTS, INBio archives, MEP, UCR/UNA
-- L12 SEO / GEO polish; AI-overview testing
 - L2/L3 Final factual audit pass; finalize Deep-250
-- L9 Pilot ecoregion classroom pack with one school
-- Soft launch, then public launch with announcement to: GBIF community, Costa Rican press, Anthropic blog (if appropriate), open-science community
-- [x] `TableOfContents` now supports a mobile sticky jump-nav variant on tree detail pages
-- [x] Tree detail pages now expose anchorable high-priority sections (`Quick facts`, `Safety`, `Distribution`, `Seasonality`, `Biodiversity`, `How to identify`) for mobile wayfinding and desktop TOC parity
-- [x] Secondary sections are now collapsed by default on mobile for tree detail follow-up content (`Uses`, `Indigenous Names`, related comparison guides, related trees) while remaining fully expanded on desktop
-- [x] "Quick facts" / "How to identify" / "Safety" are now elevated in tree-detail wayfinding; safety content is surfaced earlier in the page flow
-- [x] Compare page now includes a top-level guides vs interactive-tool switcher with anchored jump links to both sections
-- [x] Interactive compare tool now renders mobile-friendly per-tree cards while preserving the wider-screen comparison table
-- [x] Ambiguous common names are disambiguated in tree-directory list UI with family badges on duplicate common-name entries (e.g., the two `Alcornoque` records)
+- L9 Pilot classroom pack with one school
+- Soft launch → public launch with announcement to: GBIF community, Costa Rican press, Anthropic blog (if appropriate), open-science community
 
-**Phase 4 exit criteria:** Every v1.0 DoD item checked.
+**Phase 5 exit criteria:** Every v1.0 DoD item checked.
 
 ---
 
 ## Inputs Needed From You
 
-Most lanes are unblocked. A few benefit from inputs only you can provide. Provide what's easy; flag what's not feasible and we'll plan around it.
+Most lanes are unblocked. A few benefit from inputs only you can provide.
 
-| #   | Input                                                                                                                                                                                                                                                                                            | Why                                                                                                                   | Urgency   |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | --------- |
-| 1   | **IUCN Red List API token** (apply at iucnredlist.org/api/v3/token — free for non-commercial)                                                                                                                                                                                                    | Replaces GBIF's stale IUCN cache with live truth; eliminates a class of false positives in the audit                  | Phase 1   |
-| 2   | **Pl@ntNet API key** (free tier exists at my.plantnet.org)                                                                                                                                                                                                                                       | Camera-first ID via real ML                                                                                           | Phase 3   |
-| 3   | **Authoritative reference library** — do you have PDF/digital access to: _Manual de Plantas de Costa Rica_ (W. Burger et al., MBG/INBio), _Trees of Tropical America_ (T. Pennington), Allen's _Rainforest of Costa Rica_?                                                                       | These are the canonical secondary sources for Costa Rica flora; citation hierarchy gets meaningfully better with them | Phase 1–2 |
-| 4   | **Indigenous community contacts**, even informal (a friend of a friend in Talamanca counts)                                                                                                                                                                                                      | L5 is partnership-paced. Cold outreach takes 2–3× longer than warm                                                    | Phase 2   |
-| 5   | **Budget posture** for: paid translation review (~$500–2,000), Pl@ntNet commercial tier if free runs out (~$50/mo), indigenous community honoraria (varies, plan $500–2,000 per partner per pronunciation session), professional photography licensing if iNat CC-licensed isn't enough (varies) | Determines what we can plan vs. defer                                                                                 | Phase 1   |
-| 6   | **Hosting / infra confirmation** — staying on Vercel? Costa Rica edge presence? Any data-sovereignty constraints from Ley 8968?                                                                                                                                                                  | Affects L10 plan                                                                                                      | Phase 1   |
-| 7   | **Confirm license migration** is OK now — code MIT, dataset CC-BY 4.0, content CC-BY 4.0, indigenous knowledge under governance terms regardless                                                                                                                                                 | L4 starts on Phase 1; without this, lane stalls                                                                       | Phase 1   |
-| 8   | **Endorsement targets** — which institutions are highest priority? SINAC vs. OTS vs. UCR vs. MEP? Any existing relationships?                                                                                                                                                                    | Drives L5 partnership focus                                                                                           | Phase 4   |
+| #   | Input                                                                                                                                                                                                                                                                      | Why                                                                                                                  | Urgency   |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------- |
+| 1   | **IUCN Red List API token** (apply at iucnredlist.org/api/v3/token — free for non-commercial). Drop in `.env.local` as `IUCN_TOKEN`.                                                                                                                                       | Replaces GBIF's stale IUCN cache with live truth; unlocks `iucn-verifier` agent against the live API.                | Phase 2   |
+| 2   | **Zenodo account + deposit confirmation**.                                                                                                                                                                                                                                 | Required to mint the first DOI; one-shot manual step; on completion, swap `DATASET_DOI` placeholder in citation lib. | Phase 2   |
+| 3   | **Pl@ntNet API key** (free tier exists at my.plantnet.org).                                                                                                                                                                                                                | Camera-first ID via real ML.                                                                                         | Phase 3   |
+| 4   | **Authoritative reference library** — PDF/digital access to: _Manual de Plantas de Costa Rica_ (Burger et al., MBG/INBio), _Trees of Tropical America_ (Pennington), Allen's _Rainforest of Costa Rica_.                                                                   | Canonical secondary sources for Costa Rica flora; citation hierarchy gets meaningfully better.                       | Phase 2–3 |
+| 5   | **Indigenous community contacts**, even informal (a friend of a friend in Talamanca counts).                                                                                                                                                                               | L5 is partnership-paced. Cold outreach takes 2–3× longer than warm.                                                  | Phase 2   |
+| 6   | **Budget posture** for: paid translation review (~$500–2,000), Pl@ntNet commercial tier if free runs out (~$50/mo), indigenous community honoraria (varies, plan $500–2,000 per partner per session), professional photography licensing if iNat CC-licensed isn't enough. | Determines what we can plan vs. defer.                                                                               | Phase 2   |
+| 7   | **Hosting / infra confirmation** — staying on Vercel? Costa Rica edge presence? Any data-sovereignty constraints from Ley 8968?                                                                                                                                            | Affects L10 plan and the ongoing Vercel Preview reliability investigation.                                           | Phase 2   |
+| 8   | **Endorsement targets** — which institutions are highest priority? SINAC vs. OTS vs. UCR vs. MEP? Any existing relationships?                                                                                                                                              | Drives L5 partnership focus.                                                                                         | Phase 5   |
 
-If any of these are dealbreakers ("no, we cannot get an IUCN token") tell me and we plan around. If any are easy now ("here, IUCN_TOKEN=…"), drop them in `.env.local` and the audit will pick them up.
+License migration is **CONFIRMED and shipped** (was Input #7 in v6.0).
 
 ---
 
@@ -366,13 +346,15 @@ If any of these are dealbreakers ("no, we cannot get an IUCN token") tell me and
 | Risk                                                                                                                                     | Mitigation                                                                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Indigenous content harm** — extracting or misrepresenting traditional knowledge                                                        | L5 governance is mature in policy; partnership-pacing is the real guard. Default to "publish nothing without explicit consent." Refusal is a valid answer.                        |
-| **License migration regret** — once code is MIT and dataset is CC-BY, it's effectively irreversible                                      | One-time decision. Confirm explicitly (Input #7). Indigenous content stays gated regardless of license.                                                                           |
-| **Endorsement-blocking factual error** — a credentialed reviewer finds an IUCN mismatch or unsourced ethnobotanical claim and walks away | L2 is the answer. We do not court endorsements until P5 + L2 are green.                                                                                                           |
+| **Endorsement-blocking factual error** — a credentialed reviewer finds an IUCN mismatch or unsourced ethnobotanical claim and walks away | L2 is clean as of 2026-05-18. Maintain the factual audit as a CI gate (already in place).                                                                                         |
 | **Tico voice that doesn't land** — outsider-flavored Spanish                                                                             | L6 paid Costa Rican copyeditor; voice doc reviewed by a native speaker before adoption.                                                                                           |
-| **AI-agent generates plausible but wrong botanical claims**                                                                              | Citation-required gate on high-risk sections; `<CitationFootnote>` is a hard requirement, not optional. `iucn-verifier` subagent catches IUCN drift before commit.                |
-| **Scope creep on Deep-250** — turn into Deep-500                                                                                         | Curate explicitly; lock the list at end of Phase 1; resist additions in Phase 2.                                                                                                  |
+| **AI-agent generates plausible but wrong botanical claims**                                                                              | Citation-required gate on high-risk sections; `<CitationFootnote>` is a hard requirement (in progress). `iucn-verifier` subagent catches IUCN drift before commit.                |
+| **Scope creep on Deep-250** — turn into Deep-500                                                                                         | Curate explicitly; lock the list at end of Phase 2; resist additions in Phase 3.                                                                                                  |
 | **Field-tool feature creep** — AR, ML training, etc.                                                                                     | AR is removed from public commitments. Pl@ntNet API only; offline tiles only for 5 named parks. No proprietary ML in v1.0.                                                        |
-| **Maintainer burnout** — one person + AI agents                                                                                          | This plan presumes you stay primary. AI agents do drafting and audits; humans do partnerships, voice, and indigenous relationships. We accept slower velocity over wrong content. |
+| **Vercel Preview check is systemically red** — every PR shows it red regardless of code health                                           | Known infra issue; treat as non-required check until the spawned diagnostic task resolves. Don't gate merges on it. Production deploys to main remain green.                      |
+| **Repeated git author-email pitfall in worktrees**                                                                                       | Repo-local `.git/config` drifts to an email Vercel can't resolve. Mitigation: `ship-pr` skill enforces `--author`; auto-memory seeded; possibly one-time `git config` correction. |
+| **Auto-merge interacts poorly with new rulesets**                                                                                        | New `code_scanning` ruleset paired with a CodeQL workflow gated `event_name != 'pull_request'` silently blocked merge of #755. Memory entry seeded; ruleset-audit checklist owed. |
+| **Maintainer burnout** — one person + AI agents                                                                                          | AI agents do drafting and audits; humans do partnerships, voice, and indigenous relationships. We accept slower velocity over wrong content.                                      |
 
 ---
 
@@ -380,10 +362,11 @@ If any of these are dealbreakers ("no, we cannot get an IUCN token") tell me and
 
 Verification is woven into every lane. Headline gates:
 
-1. **Phase 1 exit**: `npm run build && npm run test:run && npm run content:fact-audit` clean. `.claude/` complete. EXIF GPS strip verified live. 23 P1-high trees resolved.
-2. **Phase 2 exit**: Zenodo DOI live. DwC-A downloads cleanly and validates against Darwin Core schema. 250 species at Tier 1 per audit. Power-query (multi-facet) returns in <200ms.
-3. **Phase 3 exit**: Camera-first homepage flow works on Android 11+ and iOS 16+. WCAG 2.2 AA report attached. Offline tile pack downloads and renders.
-4. **Phase 4 exit (v1.0)**: All DoD items checked. Endorsement letter posted. Launch announcement live.
+1. **Phase 1 exit (DONE 2026-05-18)**: `npm run build && npm run test:run && npm run content:fact-audit` clean. `.claude/` substantially complete. EXIF GPS strip verified live. All 23 P1-high trees resolved.
+2. **Phase 2 exit**: Zenodo DOI live and swapped in `src/lib/citation/index.ts`. DwC-A downloads cleanly and validates against Darwin Core schema. ≥220 species at Tier 1. `.claude/hooks/` present and gating. Subagent allowlists tightened.
+3. **Phase 3 exit**: Camera-first homepage flow works on Android 11+ and iOS 16+. WCAG 2.2 AA report attached. Offline tile pack downloads and renders in Corcovado.
+4. **Phase 4 exit**: Power-query (multi-facet) returns in <200ms. `schema:HowTo` shipped on identification flows. Visual regression baseline established.
+5. **Phase 5 exit (v1.0)**: All DoD items checked. Endorsement letter posted. Launch announcement live.
 
 **Launch-day proof points (visible to the user):**
 
@@ -400,20 +383,19 @@ Verification is woven into every lane. Headline gates:
 
 When picking this plan back up:
 
-1. Read [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md) (this file) — single source of truth.
-2. Skim [CLAUDE.md](CLAUDE.md) at the repo root once it exists (Phase 1, L7).
+1. Read [docs/IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (this file) — single source of truth.
+2. Skim [CLAUDE.md](../CLAUDE.md) at the repo root for project conventions.
 3. Run `git log --oneline -10` for last-touched context.
 4. Run `npm run content:fact-audit -- --skip-external` for the current factual state.
 5. Mark lanes/items complete here as work lands; never duplicate state in a separate handoff doc.
 
-- [ ] P5: Resolve P2-medium citation gap items (~30+ trees)
-- [ ] P5: Define and enforce citation standard for high-risk sections
-- [ ] P8: Introduce shared route-shell primitives
-- [ ] P8: Consolidate remaining hardcoded string logic
-- [x] ~~P10: Draft indigenous knowledge governance policy~~ ✅
-- [x] ~~P9: Expand regression suite to cover all major route families~~ ✅
-- [x] P6: Improve compare page UX (guide/tool switching, card density)
+**Worktree-specific gotchas (memory-worthy):**
+
+- **Git author email** — before committing in a worktree, confirm `git config user.name` and `git config user.email` resolve to a GitHub account (e.g., your personal email or your GitHub `users.noreply.github.com` address). Worktree-local `.git/config` can drift; pass `--author="Name <email>"` explicitly if it has. Vercel rejects preview deploys for commit author emails it can't resolve to a GitHub user.
+- **Vercel Preview check** — expected to be red on every PR until the systemic fix lands. Treat as non-required. Don't waste time inspecting individual failures unless the build duration is non-zero.
+- **Repo rulesets** — when adding a new `code_scanning` rule, verify the corresponding workflow actually runs on PRs (the `code_scanning` × CodeQL `event_name != 'pull_request'` pairing silently blocks merges).
+- **Type-check is clean** — the historical "tolerated manifest.ts errors" note in `CLAUDE.md` is stale. `npm run type-check` returns 0 errors as of 2026-05-18.
 
 ---
 
-_v6.0 supersedes v5.0. North star: Costa Rica first, world welcome. v1.0 ships in 12 months._
+_v7.0 supersedes v6.0. North star: Costa Rica first, world welcome. v1.0 ships in 12 months._
