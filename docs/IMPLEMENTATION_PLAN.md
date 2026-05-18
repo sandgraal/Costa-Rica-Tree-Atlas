@@ -188,10 +188,10 @@ Each lane has a status, a one-sentence "why now," and concrete deliverables. Lan
   - `ship-pr` — branch + commit (with `--author="…@users.noreply.github.com"`) + push + open PR + post-merge confirmation. Solves the recurring repo-local-git-config drift this session exposed.
   - `triage-pr` — verify checks, identify required-vs-failed, surface merge blockers (BLOCKED vs UNSTABLE distinction).
   - `pr-monitor` — `gh pr checks --watch`, post-resolve threads via gh api graphql.
-- [ ] **Seed auto-memory** at `~/.claude/projects/-Users-christopherennis-Websites-Costa-Rica-Tree-Atlas/memory/`:
-  - `feedback_git_author_email.md` — always pass `--author=Christopher Ennis <92229510+sandgraal@users.noreply.github.com>` when committing in this repo (the local `.git/config` drifts; Vercel rejects unrecognized authors).
+- [ ] **Seed Claude's per-project auto-memory** (the per-project directory under `~/.claude/projects/<encoded-project-path>/memory/`; see Claude Code docs) with the recurring lessons surfaced during recent maintenance work:
+  - `feedback_git_author_email.md` — confirm the worktree's `git config user.email` resolves to a GitHub account before committing; otherwise pass `--author` explicitly. Worktree-local `.git/config` can drift to an email Vercel can't resolve, blocking preview deploys.
   - `project_vercel_preview_quirk.md` — Vercel Preview check fails systemically on every PR (separate from build correctness); merge with it red; tracked separately.
-  - `feedback_ruleset_codeql_pairing.md` — adding a `code_scanning` rule requires CodeQL workflow not gated to `event_name != 'pull_request'`, or merges block silently.
+  - `feedback_ruleset_codeql_pairing.md` — adding a `code_scanning` ruleset rule requires the CodeQL workflow not be gated `event_name != 'pull_request'`, or merges block silently.
 - [ ] **Expand `.claude/settings.json` allowlist** for repeated friction points: `gh api repos/*/pulls/*/comments/*/replies`, `gh api repos/*/rulesets/*`, `gh api graphql`.
 - [ ] **Add `.claude/skills/README.md` index** — human-readable summary of available skills (auto-invoke uses frontmatter; humans benefit from an index).
 - [ ] **Update root [`CLAUDE.md`](../CLAUDE.md)**: remove the stale "tolerated pre-existing manifest.ts errors" caveat (type-check is clean as of 2026-05-18); reference the new skills; reference the L4-shipped LICENSE files.
@@ -391,7 +391,7 @@ When picking this plan back up:
 
 **Worktree-specific gotchas (memory-worthy):**
 
-- **Git author email** — before committing in a worktree, confirm `git config user.email` is `92229510+sandgraal@users.noreply.github.com`. Otherwise pass `--author="Christopher Ennis <92229510+sandgraal@users.noreply.github.com>"` explicitly. Vercel rejects preview deploys for unrecognized emails.
+- **Git author email** — before committing in a worktree, confirm `git config user.name` and `git config user.email` resolve to a GitHub account (e.g., your personal email or your GitHub `users.noreply.github.com` address). Worktree-local `.git/config` can drift; pass `--author="Name <email>"` explicitly if it has. Vercel rejects preview deploys for commit author emails it can't resolve to a GitHub user.
 - **Vercel Preview check** — expected to be red on every PR until the systemic fix lands. Treat as non-required. Don't waste time inspecting individual failures unless the build duration is non-zero.
 - **Repo rulesets** — when adding a new `code_scanning` rule, verify the corresponding workflow actually runs on PRs (the `code_scanning` × CodeQL `event_name != 'pull_request'` pairing silently blocks merges).
 - **Type-check is clean** — the historical "tolerated manifest.ts errors" note in `CLAUDE.md` is stale. `npm run type-check` returns 0 errors as of 2026-05-18.
