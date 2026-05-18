@@ -120,7 +120,7 @@ Each lane has a status, a one-sentence "why now," and concrete deliverables. Lan
 - [ ] **Zenodo deposit + DOI** — first stable corpus dump → Zenodo, claim DOI, configure auto-deposit on tagged releases.
 - [x] **`cite-as` metadata** — every species page exposes citation\_\* `<meta>` tags + visible "Cite this page" block in both locales with APA, MLA, and BibTeX examples (2026-05-17). `citation_doi` is gated on a real Zenodo mint; placeholder DOI in [`src/lib/citation/index.ts`](../src/lib/citation/index.ts) until the deposit lands. Component: [`src/components/CitePage.tsx`](../src/components/CitePage.tsx).
 - [x] **JSON-LD Taxon + Dataset markup** on species pages (2026-05-17). Taxon block was already emitted via the Article wrapper; Dataset block added alongside.
-- [ ] **`schema:FAQPage` JSON-LD** on safety pages (toxicity → answers).
+- [x] **`schema:FAQPage` JSON-LD** on safety pages (2026-05-17). Four Q/A pairs (ingestion, skin contact, eye contact, emergency contacts) emitted from existing localized first-aid copy via [`src/lib/seo/safety-faq.ts`](../src/lib/seo/safety-faq.ts); rendered alongside the existing `MedicalWebPage` block on `/[locale]/safety`. Question copy lives under `safety.page.faq*` keys in both locales.
 
 ### L5 — Indigenous Knowledge & Language 🟡 EXPANDING
 

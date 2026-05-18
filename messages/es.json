@@ -995,7 +995,12 @@
       "structuredDataName": "Guía de Seguridad de Árboles",
       "structuredDataDescription": "Información completa sobre la seguridad de los árboles de Costa Rica.",
       "structuredDataMainEntityName": "Toxicidad y Primeros Auxilios de Árboles",
-      "structuredDataMainEntityDescription": "Niveles de toxicidad, riesgos de contacto con la piel y contactos de emergencia para árboles de Costa Rica."
+      "structuredDataMainEntityDescription": "Niveles de toxicidad, riesgos de contacto con la piel y contactos de emergencia para árboles de Costa Rica.",
+      "faqIngestionQuestion": "¿Qué hacer si alguien ingiere parte de un árbol o planta de Costa Rica?",
+      "faqSkinContactQuestion": "¿Qué hacer si la savia o el material vegetal entra en contacto con la piel?",
+      "faqEyeContactQuestion": "¿Qué hacer si la savia o el material vegetal entra en los ojos?",
+      "faqEmergencyQuestion": "¿A quién llamar en Costa Rica ante una emergencia por envenenamiento con plantas?",
+      "faqEmergencyAnswer": "Llame al Centro Nacional de Control de Intoxicaciones al 2223-1028 (disponible 24/7) para orientación ante envenenamiento por plantas. Para policía, bomberos o ambulancia, marque 911. Asistencia médica del Instituto Nacional de Seguros (INS): 800-8000-911. Tenga la planta o la parte de la planta lista para su identificación."
     }
   },
   "conservation": {

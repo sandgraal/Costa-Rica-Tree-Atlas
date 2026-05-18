@@ -999,7 +999,12 @@
       "structuredDataName": "Tree Safety Guide",
       "structuredDataDescription": "Complete safety information about Costa Rican trees.",
       "structuredDataMainEntityName": "Tree Toxicity and First Aid",
-      "structuredDataMainEntityDescription": "Toxicity levels, skin contact risks, and emergency contacts for Costa Rican trees."
+      "structuredDataMainEntityDescription": "Toxicity levels, skin contact risks, and emergency contacts for Costa Rican trees.",
+      "faqIngestionQuestion": "What should I do if someone swallows part of a Costa Rican tree or plant?",
+      "faqSkinContactQuestion": "What should I do if tree sap or plant material contacts the skin?",
+      "faqEyeContactQuestion": "What should I do if tree sap or plant material enters the eyes?",
+      "faqEmergencyQuestion": "Who do I call in Costa Rica for a plant-poisoning emergency?",
+      "faqEmergencyAnswer": "Call the National Poison Control Center at 2223-1028 (available 24/7) for plant-poisoning guidance. For police, fire, or ambulance, dial 911. National Insurance Institute (INS) medical assistance: 800-8000-911. Have the plant or plant part ready for identification."
     }
   },
   "conservation": {
