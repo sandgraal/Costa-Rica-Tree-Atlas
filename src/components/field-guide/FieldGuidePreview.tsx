@@ -60,7 +60,7 @@ export function FieldGuidePreview({
             <p>
               {t("generated")} {t("site")}
             </p>
-            <p className="mt-1">costaricatreeatlas.com</p>
+            <p className="mt-1">costaricatreeatlas.org</p>
             <p className="mt-1">{new Date().toLocaleDateString(dateLocale)}</p>
           </div>
         </div>
@@ -158,11 +158,11 @@ export function FieldGuidePreview({
               <div className="text-xs text-gray-600">
                 <p className="font-semibold">{t("learnMore")}:</p>
                 <p>
-                  costaricatreeatlas.com/{locale}/trees/{tree.slug}
+                  costaricatreeatlas.org/{locale}/trees/{tree.slug}
                 </p>
               </div>
               <QRCodeGenerator
-                url={`https://costaricatreeatlas.com/${locale}/trees/${tree.slug}`}
+                url={`https://costaricatreeatlas.org/${locale}/trees/${tree.slug}`}
                 size={80}
               />
             </div>
@@ -174,7 +174,7 @@ export function FieldGuidePreview({
           <p className="font-semibold text-green-700 dark:text-green-500">
             {t("site")}
           </p>
-          <p className="mt-1">costaricatreeatlas.com</p>
+          <p className="mt-1">costaricatreeatlas.org</p>
           <p className="mt-2 text-xs">
             {t("generated")} {new Date().toLocaleDateString(dateLocale)}
           </p>

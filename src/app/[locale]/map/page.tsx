@@ -107,7 +107,7 @@ export default async function MapPage({ params }: MapPageProps) {
     "@type": "WebApplication",
     name: t("structuredName"),
     description: t("structuredDescription"),
-    url: `https://costaricatreeatlas.com/${locale}/map`,
+    url: `https://costaricatreeatlas.org/${locale}/map`,
     applicationCategory: "EducationalApplication",
     operatingSystem: "All",
     offers: {
@@ -118,7 +118,7 @@ export default async function MapPage({ params }: MapPageProps) {
     provider: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
-      url: "https://costaricatreeatlas.com",
+      url: "https://costaricatreeatlas.org",
     },
   };
 

@@ -42,7 +42,7 @@ export default async function IdentifyPage({ params }: IdentifyPageProps) {
     "@type": "WebApplication",
     name: t("structuredName"),
     description: t("structuredDescription"),
-    url: `https://costaricatreeatlas.com/${locale}/identify`,
+    url: `https://costaricatreeatlas.org/${locale}/identify`,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "All",
     offers: {
@@ -53,7 +53,7 @@ export default async function IdentifyPage({ params }: IdentifyPageProps) {
     provider: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
-      url: "https://costaricatreeatlas.com",
+      url: "https://costaricatreeatlas.org",
     },
   };
 

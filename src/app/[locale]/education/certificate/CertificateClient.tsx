@@ -275,7 +275,7 @@ function CertificateContent() {
 
           {/* Footer */}
           <div className="text-center text-gray-400 text-xs">
-            costaricatreeatlas.com
+            costaricatreeatlas.org
           </div>
         </div>
       </div>

@@ -98,24 +98,24 @@ export default async function HomePage({ params }: Props) {
     "@type": "WebSite",
     name: "Costa Rica Tree Atlas",
     alternateName: "Atlas de Árboles de Costa Rica",
-    url: "https://costaricatreeatlas.com",
+    url: "https://costaricatreeatlas.org",
     description: t("structuredDescription"),
     inLanguage: locale,
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `https://costaricatreeatlas.com/${locale}/trees?search={search_term_string}`,
+        urlTemplate: `https://costaricatreeatlas.org/${locale}/trees?search={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
     publisher: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
-      url: "https://costaricatreeatlas.com",
+      url: "https://costaricatreeatlas.org",
       logo: {
         "@type": "ImageObject",
-        url: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+        url: "https://costaricatreeatlas.org/images/cr-tree-atlas-logo.png",
       },
     },
   };
@@ -125,8 +125,8 @@ export default async function HomePage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Costa Rica Tree Atlas",
-    url: "https://costaricatreeatlas.com",
-    logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+    url: "https://costaricatreeatlas.org",
+    logo: "https://costaricatreeatlas.org/images/cr-tree-atlas-logo.png",
     description: t("orgDescription"),
     knowsAbout: [
       "Costa Rica trees",

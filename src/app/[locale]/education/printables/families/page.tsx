@@ -210,7 +210,7 @@ export default async function FamiliesPage({ params }: Props) {
               <span>
                 {familyData.length} {t("families")}
               </span>
-              <span>costaricatreeatlas.com</span>
+              <span>costaricatreeatlas.org</span>
             </div>
           </div>
         </div>

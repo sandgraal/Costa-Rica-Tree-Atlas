@@ -146,7 +146,7 @@ export default async function ChecklistPage({ params }: Props) {
               <span>
                 {t("totalSpecies")}: _____ / {trees.length}
               </span>
-              <span>costaricatreeatlas.com</span>
+              <span>costaricatreeatlas.org</span>
             </div>
           </div>
         </div>

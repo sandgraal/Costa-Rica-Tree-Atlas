@@ -88,7 +88,7 @@ export default async function TreesPage({ params }: Props) {
         "@type": "Thing",
         name: tree.title,
         description: tree.description,
-        url: `https://costaricatreeatlas.com/${locale}/trees/${tree.slug}`,
+        url: `https://costaricatreeatlas.org/${locale}/trees/${tree.slug}`,
       },
     })),
   };

@@ -664,7 +664,7 @@ The current implementation compares plaintext passwords directly (not storing ha
 
 - **CSRF Protection** - Origin validation for state-changing operations (POST, PUT, DELETE requests)
   - Validates `Origin` and `Referer` headers against allowed origins
-  - Default allowed origins: `https://costaricatreeatlas.com`, `https://www.costaricatreeatlas.com`
+  - Default allowed origins: `https://costaricatreeatlas.org`, `https://www.costaricatreeatlas.org`
   - Additional origins configurable via `ALLOWED_ORIGINS` environment variable
   - Development mode allows configurable localhost origins via `DEV_ALLOWED_ORIGINS` (defaults to `localhost:3000`, `127.0.0.1:3000`, `localhost:3001`)
   - Returns 403 Forbidden for requests from unauthorized origins
@@ -681,7 +681,7 @@ To add additional allowed origins for CSRF protection:
 
 ```bash
 # Production origins (in .env.local or deployment environment)
-ALLOWED_ORIGINS=https://costaricatreeatlas.org,https://app.costaricatreeatlas.com
+ALLOWED_ORIGINS=https://costaricatreeatlas.org,https://app.costaricatreeatlas.org
 
 # Development origins (optional, in .env.local)
 # Defaults: http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001
@@ -851,7 +851,7 @@ Check CSP headers on different routes:
 **For regular pages (strict CSP):**
 
 ```bash
-curl -I https://costaricatreeatlas.com/en | grep -i content-security-policy
+curl -I https://costaricatreeatlas.org/en | grep -i content-security-policy
 ```
 
 Should show:
@@ -864,7 +864,7 @@ Should show:
 **For marketing pages (relaxed CSP):**
 
 ```bash
-curl -I https://costaricatreeatlas.com/en/marketing/landing | grep -i content-security-policy
+curl -I https://costaricatreeatlas.org/en/marketing/landing | grep -i content-security-policy
 ```
 
 Should show:

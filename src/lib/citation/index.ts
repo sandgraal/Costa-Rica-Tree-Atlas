@@ -43,7 +43,7 @@ export const DATASET_LICENSE_URL =
   "https://creativecommons.org/licenses/by/4.0/";
 export const DATASET_LICENSE_LABEL = "CC BY 4.0";
 
-export const SITE_BASE_URL = "https://costaricatreeatlas.com";
+export const SITE_BASE_URL = "https://costaricatreeatlas.org";
 
 interface TreeForCitation {
   title: string;

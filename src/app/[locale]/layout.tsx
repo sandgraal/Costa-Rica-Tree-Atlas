@@ -83,7 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   return {
-    metadataBase: new URL("https://costaricatreeatlas.com"),
+    metadataBase: new URL("https://costaricatreeatlas.org"),
     title: {
       default: t.siteTitle,
       template: `%s | ${t.siteTitle}`,
@@ -240,8 +240,8 @@ export default async function LocaleLayout({ children, params }: Props) {
             "@graph": [
               {
                 "@type": "WebSite",
-                "@id": "https://costaricatreeatlas.com/#website",
-                url: "https://costaricatreeatlas.com",
+                "@id": "https://costaricatreeatlas.org/#website",
+                url: "https://costaricatreeatlas.org",
                 name: getLocalizedText(WEBSITE_NAME, locale),
                 description: getLocalizedText(WEBSITE_DESCRIPTION, locale),
                 inLanguage: getDateLocale(locale),
@@ -249,19 +249,19 @@ export default async function LocaleLayout({ children, params }: Props) {
                   "@type": "SearchAction",
                   target: {
                     "@type": "EntryPoint",
-                    urlTemplate: `https://costaricatreeatlas.com/${locale}/trees?search={search_term_string}`,
+                    urlTemplate: `https://costaricatreeatlas.org/${locale}/trees?search={search_term_string}`,
                   },
                   "query-input": "required name=search_term_string",
                 },
               },
               {
                 "@type": "Organization",
-                "@id": "https://costaricatreeatlas.com/#organization",
+                "@id": "https://costaricatreeatlas.org/#organization",
                 name: "Costa Rica Tree Atlas",
-                url: "https://costaricatreeatlas.com",
+                url: "https://costaricatreeatlas.org",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+                  url: "https://costaricatreeatlas.org/images/cr-tree-atlas-logo.png",
                 },
                 sameAs: ["https://github.com/sandgraal/Costa-Rica-Tree-Atlas"],
               },

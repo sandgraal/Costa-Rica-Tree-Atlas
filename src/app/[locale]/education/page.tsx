@@ -40,7 +40,7 @@ export default async function EducationPage({ params }: Props) {
     "@type": "WebPage",
     name: t("metaTitle"),
     description: t("structuredDescription"),
-    url: `https://costaricatreeatlas.com/${locale}/education`,
+    url: `https://costaricatreeatlas.org/${locale}/education`,
     mainEntity: {
       "@type": "Course",
       name: t("courseName"),
@@ -48,7 +48,7 @@ export default async function EducationPage({ params }: Props) {
       provider: {
         "@type": "Organization",
         name: "Costa Rica Tree Atlas",
-        url: "https://costaricatreeatlas.com",
+        url: "https://costaricatreeatlas.org",
       },
       isAccessibleForFree: true,
       audience: {

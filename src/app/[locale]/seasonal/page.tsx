@@ -166,7 +166,7 @@ export default async function SeasonalPage({
             "@type": "Thing",
             name: tree.title,
             description: t("treeFlowering", { treeName: tree.title }),
-            url: `https://costaricatreeatlas.com/${locale}/trees/${tree.slug}`,
+            url: `https://costaricatreeatlas.org/${locale}/trees/${tree.slug}`,
           },
         })),
         ...eventItems.map((event, index) => ({

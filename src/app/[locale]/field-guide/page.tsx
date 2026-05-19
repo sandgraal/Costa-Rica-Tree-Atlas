@@ -72,7 +72,7 @@ export default async function FieldGuidePage({ params }: Props) {
     "@type": "WebPage",
     name: t("structuredName"),
     description: t("structuredDescription"),
-    url: `https://costaricatreeatlas.com/${locale}/field-guide`,
+    url: `https://costaricatreeatlas.org/${locale}/field-guide`,
   };
 
   return (
