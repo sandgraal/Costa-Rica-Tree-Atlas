@@ -9,9 +9,9 @@
     },
     "iucn": {
       "type": "http",
-      "url": "https://apiv3.iucnredlist.org/api/v3",
-      "description": "IUCN Red List API v3. Requires IUCN_TOKEN env var. Used by iucn-verifier subagent to validate conservation status.",
-      "documentation": "https://apiv3.iucnredlist.org/api/v3/docs",
+      "url": "https://api.iucnredlist.org/api/v4",
+      "description": "IUCN Red List API v4. Requires IUCN_TOKEN env var. Used by iucn-verifier subagent to validate conservation status.",
+      "documentation": "https://api.iucnredlist.org/api-docs/index.html",
       "env": {
         "IUCN_TOKEN": "${IUCN_TOKEN}"
       },
