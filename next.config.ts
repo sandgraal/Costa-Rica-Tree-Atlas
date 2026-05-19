@@ -62,6 +62,16 @@ const nextConfig: NextConfig = {
   // Compress responses
   compress: true,
 
+  // Redirect costaricatreeatlas.cr → costaricatreeatlas.org (preserves path)
+  redirects: async () => [
+    {
+      source: "/:path*",
+      has: [{ type: "host", value: "costaricatreeatlas.cr" }],
+      destination: "https://costaricatreeatlas.org/:path*",
+      permanent: true,
+    },
+  ],
+
   // Security headers (CSP now set in middleware with per-request nonces)
   headers: async () => [
     {
