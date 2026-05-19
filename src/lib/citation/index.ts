@@ -23,7 +23,7 @@ import type { Locale } from "@/types/tree";
  * resolvable record. Citation UI still renders, but the BibTeX `doi`
  * field is omitted when the placeholder is detected.
  */
-export const DATASET_DOI = "10.5281/zenodo.PENDING";
+export const DATASET_DOI = "10.5281/zenodo.20279670";
 
 export function hasMintedDOI(doi: string): boolean {
   return /^10\.5281\/zenodo\.\d+$/.test(doi);
