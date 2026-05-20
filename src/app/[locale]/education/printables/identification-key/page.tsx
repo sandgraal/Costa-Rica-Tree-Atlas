@@ -388,7 +388,7 @@ export default async function IdentificationKeyPage({ params }: Props) {
               <span>
                 {trees.length} {t("species")}
               </span>
-              <span>costaricatreeatlas.com</span>
+              <span>costaricatreeatlas.org</span>
             </div>
           </div>
         </div>

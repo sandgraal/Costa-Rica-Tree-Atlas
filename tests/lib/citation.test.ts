@@ -44,7 +44,7 @@ describe("citation library", () => {
       expect(out).toContain("Cocobolo (Dalbergia retusa Hemsl.)");
       expect(out).toContain("(2026)");
       expect(out).toContain("Costa Rica Tree Atlas — Species Corpus");
-      expect(out).toContain("https://costaricatreeatlas.com/en/trees/cocobolo");
+      expect(out).toContain("https://costaricatreeatlas.org/en/trees/cocobolo");
     });
 
     it("emits APA in Spanish with the ES dataset title and URL", () => {
@@ -52,7 +52,7 @@ describe("citation library", () => {
       expect(out).toContain(
         "Atlas de Árboles de Costa Rica — Corpus de Especies"
       );
-      expect(out).toContain("https://costaricatreeatlas.com/es/trees/cocobolo");
+      expect(out).toContain("https://costaricatreeatlas.org/es/trees/cocobolo");
     });
   });
 

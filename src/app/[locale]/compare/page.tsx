@@ -88,7 +88,7 @@ export default async function ComparePage({ params }: { params: Params }) {
     "@type": "CollectionPage",
     name: t("structuredName"),
     description: t("structuredDescription", { count: comparisons.length }),
-    url: `https://costaricatreeatlas.com/${locale}/compare`,
+    url: `https://costaricatreeatlas.org/${locale}/compare`,
     numberOfItems: comparisons.length,
     inLanguage: locale,
   };

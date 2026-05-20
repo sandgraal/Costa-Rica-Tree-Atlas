@@ -65,13 +65,13 @@ describe("buildSafetyFaqJsonLd", () => {
 
   it("emits the correct locale-scoped URL and inLanguage for ES", () => {
     const ld = buildSafetyFaqJsonLd(sampleInput("es"));
-    expect(ld.url).toBe("https://costaricatreeatlas.com/es/safety");
+    expect(ld.url).toBe("https://costaricatreeatlas.org/es/safety");
     expect(ld.inLanguage).toBe("es");
   });
 
   it("emits the correct locale-scoped URL and inLanguage for EN", () => {
     const ld = buildSafetyFaqJsonLd(sampleInput("en"));
-    expect(ld.url).toBe("https://costaricatreeatlas.com/en/safety");
+    expect(ld.url).toBe("https://costaricatreeatlas.org/en/safety");
     expect(ld.inLanguage).toBe("en");
   });
 

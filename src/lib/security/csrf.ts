@@ -1,8 +1,8 @@
 import { NextRequest } from "next/server";
 
 const DEFAULT_ALLOWED_ORIGINS = [
-  "https://costaricatreeatlas.com",
-  "https://www.costaricatreeatlas.com",
+  "https://costaricatreeatlas.org",
+  "https://www.costaricatreeatlas.org",
 ];
 
 // Cache allowed origins to avoid recomputing on every request

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-/* eslint-disable security/detect-object-injection -- identify scoring uses normalized labels against static characteristic maps and bounded tree fields. */
 import { allTrees } from "contentlayer/generated";
 import { rateLimit } from "@/lib/ratelimit";
 import { validateOrigin } from "@/lib/security/csrf";
@@ -9,145 +8,74 @@ import { normalizeLocale } from "@/lib/i18n";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Feature flag - set to false to disable the API entirely
-const FEATURE_ENABLED = false;
+// Flip to true once PLANTNET_API_KEY is set in .env.local and Vercel env vars.
+const FEATURE_ENABLED = !!process.env.PLANTNET_API_KEY;
 
-const MAX_LABELS = 12;
+const PLANTNET_API_URL = "https://my-api.plantnet.org/v2/identify/all";
+const MAX_RESULTS = 3;
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+const VALID_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-interface VisionLabel {
-  description: string;
+interface PlantNetSpecies {
+  scientificNameWithoutAuthor: string;
+  scientificName: string;
+  commonNames: string[];
+  family: { scientificNameWithoutAuthor: string };
+}
+
+interface PlantNetResult {
   score: number;
+  species: PlantNetSpecies;
 }
 
-interface VisionApiResponse {
-  responses?: Array<{
-    labelAnnotations?: VisionLabel[];
-  }>;
+interface PlantNetResponse {
+  results?: PlantNetResult[];
+  remainingIdentificationRequests?: number;
 }
 
-const normalizeText = (value: string) =>
-  value
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+export interface IdentifyCandidate {
+  scientificName: string;
+  commonName: string | null;
+  family: string;
+  score: number;
+  // Matched atlas tree, if we have it
+  atlasSlug: string | null;
+  atlasTitle: string | null;
+  atlasUrl: string | null;
+}
 
-const tokenize = (value: string) =>
-  normalizeText(value)
-    .split(" ")
-    .map((token) => token.trim())
-    .filter(Boolean);
+interface AtlasTree {
+  locale: string;
+  scientificName: string;
+  slug: string;
+  title: string;
+  url: string;
+}
 
-// Map common Vision API labels to tree characteristics for better matching
-const labelToCharacteristics: Record<string, string[]> = {
-  // Tree structure labels
-  tree: ["tree", "native"],
-  plant: ["tree", "native"],
-  vegetation: ["tree", "native"],
-  trunk: ["tree", "timber"],
-  bark: ["tree", "timber"],
-  branch: ["tree"],
-  wood: ["timber"],
-  lumber: ["timber"],
-  // Leaf characteristics
-  leaf: ["evergreen", "deciduous"],
-  leaves: ["evergreen", "deciduous"],
-  foliage: ["evergreen", "deciduous"],
-  green: ["evergreen"],
-  // Flower labels
-  flower: ["flowering", "ornamental"],
-  flowers: ["flowering", "ornamental"],
-  blossom: ["flowering", "ornamental"],
-  bloom: ["flowering", "ornamental"],
-  petal: ["flowering"],
-  pink: ["flowering"],
-  yellow: ["flowering"],
-  white: ["flowering"],
-  purple: ["flowering"],
-  // Fruit labels
-  fruit: ["fruit-bearing", "wildlife-food"],
-  fruits: ["fruit-bearing", "wildlife-food"],
-  seed: ["fruit-bearing"],
-  seeds: ["fruit-bearing"],
-  pod: ["fruit-bearing", "fabaceae"],
-  nut: ["fruit-bearing"],
-  berry: ["fruit-bearing", "wildlife-food"],
-  // Environment labels
-  forest: ["rainforest", "cloud-forest", "dry-forest"],
-  jungle: ["rainforest"],
-  rainforest: ["rainforest"],
-  woodland: ["native"],
-  nature: ["native"],
-  tropical: ["rainforest", "native"],
-  // Tree families and types
-  palm: ["palm", "arecaceae"],
-  conifer: ["evergreen", "cupressaceae"],
-  deciduous: ["deciduous"],
-  evergreen: ["evergreen"],
-  broadleaf: ["deciduous"],
-  // Common tree names that might appear
-  oak: ["fagaceae"],
-  fig: ["moraceae", "ficus"],
-  cedar: ["timber", "cedro"],
-  mahogany: ["timber", "meliaceae", "caoba"],
-  kapok: ["ceiba", "malvaceae"],
-  // Other useful labels
-  shade: ["shade-tree"],
-  canopy: ["shade-tree", "rainforest"],
-  buttress: ["rainforest", "ceiba"],
-  roots: ["native"],
-  wildlife: ["wildlife-food"],
-  bird: ["wildlife-food"],
-  animal: ["wildlife-food"],
-  medicine: ["medicinal"],
-  medicinal: ["medicinal"],
-};
+// Match a Pl@ntNet scientific name against the atlas tree DB.
+// Tries exact match first, then genus-level match as fallback.
+function matchAtlasTree(scientificNameRaw: string, locale: string) {
+  const name = scientificNameRaw.toLowerCase().trim();
+  const genus = name.split(" ")[0];
+  const trees = (allTrees as AtlasTree[]).filter((t) => t.locale === locale);
 
-const scoreLabelAgainstTree = (
-  label: VisionLabel,
-  treeText: string,
-  treeTokens: Set<string>
-) => {
-  const normalizedLabel = normalizeText(label.description);
-  if (!normalizedLabel) {
-    return 0;
-  }
+  const exact = trees.find((t) => t.scientificName.toLowerCase() === name);
+  if (exact) return { slug: exact.slug, title: exact.title, url: exact.url };
 
-  const labelTokens = tokenize(label.description);
-  const labelText = normalizedLabel;
+  const genusMatch = trees.find((t) =>
+    t.scientificName.toLowerCase().startsWith(genus + " ")
+  );
+  if (genusMatch)
+    return {
+      slug: genusMatch.slug,
+      title: genusMatch.title,
+      url: genusMatch.url,
+    };
 
-  let score = 0;
-
-  // Direct match in tree text (highest weight)
-  if (treeText.includes(labelText)) {
-    score += label.score * 1.5;
-  }
-
-  // Token overlap match
-  const overlapCount = labelTokens.filter((token) =>
-    treeTokens.has(token)
-  ).length;
-  if (overlapCount > 0) {
-    const overlapRatio = overlapCount / labelTokens.length;
-    score += label.score * overlapRatio * 0.9;
-  }
-
-  // Check mapped characteristics
-  const lowerLabel = label.description.toLowerCase();
-  const mappedChars = labelToCharacteristics[lowerLabel] || [];
-  for (const char of mappedChars) {
-    if (treeTokens.has(char)) {
-      score += label.score * 0.3;
-    }
-  }
-
-  return score;
-};
+  return null;
+}
 
 export async function POST(request: NextRequest) {
-  // Validate origin for CSRF protection
   const originValidation = validateOrigin(request);
   if (!originValidation.valid) {
     return NextResponse.json(
@@ -159,7 +87,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Check if feature is enabled
   if (!FEATURE_ENABLED) {
     return NextResponse.json(
       {
@@ -171,19 +98,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Apply rate limiting
   const rateLimitResult = await rateLimit(request, "identify");
   if ("response" in rateLimitResult) {
-    return rateLimitResult.response; // Rate limit exceeded
-  }
-
-  const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY;
-
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Missing vision API key" },
-      { status: 500 }
-    );
+    return rateLimitResult.response;
   }
 
   let formData: FormData;
@@ -201,8 +118,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing image file" }, { status: 400 });
   }
 
-  // Validate file size (max 10MB)
-  const MAX_FILE_SIZE = 10 * 1024 * 1024;
   if (file.size > MAX_FILE_SIZE) {
     return NextResponse.json(
       { error: "File too large. Maximum size is 10MB." },
@@ -210,57 +125,45 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Validate file type
-  const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-  if (!validTypes.includes(file.type)) {
+  if (!VALID_TYPES.includes(file.type)) {
     return NextResponse.json(
       {
-        error:
-          "Invalid file type. Please upload an image (JPEG, PNG, WebP, or GIF).",
+        error: "Invalid file type. Please upload a JPEG, PNG, or WebP image.",
       },
       { status: 400 }
     );
   }
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const encodedImage = buffer.toString("base64");
+  // Forward the image to Pl@ntNet.
+  // "organs=auto" lets Pl@ntNet decide what part of the plant it sees.
+  const upstream = new FormData();
+  upstream.append("images", file, file.name);
+  upstream.append("organs", "auto");
 
-  let data: VisionApiResponse;
+  const apiKey = process.env.PLANTNET_API_KEY!;
+  const plantNetUrl = `${PLANTNET_API_URL}?api-key=${apiKey}&lang=${locale}&include-related-images=false&no-reject=false`;
+
+  let data: PlantNetResponse;
   try {
-    const visionResponse = await fetch(
-      `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          requests: [
-            {
-              image: { content: encodedImage },
-              features: [{ type: "LABEL_DETECTION", maxResults: MAX_LABELS }],
-            },
-          ],
-        }),
-      }
-    );
+    const res = await fetch(plantNetUrl, { method: "POST", body: upstream });
 
-    if (!visionResponse.ok) {
-      const errorText = await visionResponse
-        .text()
-        .catch(() => "Unknown error");
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
       captureApiError(
-        new Error(`Vision API HTTP ${visionResponse.status}: ${errorText}`),
+        new Error(`Pl@ntNet API HTTP ${res.status}: ${errorText}`),
         "/api/identify",
         "POST"
       );
       return NextResponse.json(
-        { error: "Vision API request failed", code: "VISION_API_HTTP_ERROR" },
+        {
+          error: "Plant identification service request failed.",
+          code: "PLANTNET_API_HTTP_ERROR",
+        },
         { status: 502 }
       );
     }
 
-    data = await visionResponse.json();
+    data = await res.json();
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unknown network error";
@@ -271,55 +174,34 @@ export async function POST(request: NextRequest) {
     );
     return NextResponse.json(
       {
-        error: "Failed to connect to Vision API",
-        code: "VISION_API_NETWORK_ERROR",
+        error: "Failed to connect to plant identification service.",
+        code: "PLANTNET_NETWORK_ERROR",
         details: message,
       },
       { status: 502 }
     );
   }
 
-  const labels: VisionLabel[] =
-    data.responses?.[0]?.labelAnnotations?.map((label: VisionLabel) => ({
-      description: label.description,
-      score: label.score,
-    })) ?? [];
-
-  const matchingTrees = allTrees.filter((tree) => tree.locale === locale);
-  const matches = matchingTrees
-    .map((tree) => {
-      // Build comprehensive searchable text from all relevant tree fields
-      const searchableFields = [
-        tree.title,
-        tree.scientificName,
-        tree.slug,
-        tree.family,
-        tree.description,
-        ...(tree.tags || []),
-        ...(tree.uses || []),
-        tree.nativeRegion || "",
-      ];
-      const treeText = normalizeText(searchableFields.join(" "));
-      const treeTokens = new Set(tokenize(treeText));
-
-      const score = labels.reduce((total, label) => {
-        return total + scoreLabelAgainstTree(label, treeText, treeTokens);
-      }, 0);
-
+  const candidates: IdentifyCandidate[] = (data.results ?? [])
+    .slice(0, MAX_RESULTS)
+    .map((r) => {
+      const atlas = matchAtlasTree(
+        r.species.scientificNameWithoutAuthor,
+        locale
+      );
       return {
-        title: tree.title,
-        scientificName: tree.scientificName,
-        slug: tree.slug,
-        score,
-        url: tree.url,
+        scientificName: r.species.scientificName,
+        commonName: r.species.commonNames?.[0] ?? null,
+        family: r.species.family.scientificNameWithoutAuthor,
+        score: Math.round(r.score * 100),
+        atlasSlug: atlas?.slug ?? null,
+        atlasTitle: atlas?.title ?? null,
+        atlasUrl: atlas?.url ?? null,
       };
-    })
-    .filter((match) => match.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 5);
+    });
 
   return NextResponse.json({
-    labels: labels.sort((a, b) => b.score - a.score).slice(0, MAX_LABELS),
-    matches,
+    candidates,
+    remainingRequests: data.remainingIdentificationRequests ?? null,
   });
 }

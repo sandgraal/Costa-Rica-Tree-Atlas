@@ -16,7 +16,7 @@ export function APIDocumentation({ locale }: APIDocumentationProps) {
   const baseUrl =
     typeof window !== "undefined"
       ? `${window.location.protocol}//${window.location.host}`
-      : "https://costaricatreeatlas.com";
+      : "https://costaricatreeatlas.org";
 
   return (
     <div className="space-y-12">

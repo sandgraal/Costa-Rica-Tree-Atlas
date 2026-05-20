@@ -182,7 +182,7 @@ export default async function Image({ params }: Props) {
               color: "rgba(255, 255, 255, 0.7)",
             }}
           >
-            costaricatreeatlas.com
+            costaricatreeatlas.org
           </div>
         </div>
       </div>

@@ -40,12 +40,12 @@ export default async function AboutPage({ params }: Props) {
     "@type": "AboutPage",
     name: t("structuredName"),
     description: t("structuredDescription"),
-    url: `https://costaricatreeatlas.com/${locale}/about`,
+    url: `https://costaricatreeatlas.org/${locale}/about`,
     mainEntity: {
       "@type": "Organization",
       name: "Costa Rica Tree Atlas",
-      url: "https://costaricatreeatlas.com",
-      logo: "https://costaricatreeatlas.com/images/cr-tree-atlas-logo.png",
+      url: "https://costaricatreeatlas.org",
+      logo: "https://costaricatreeatlas.org/images/cr-tree-atlas-logo.png",
       description: t("structuredOrgDescription"),
     },
   };

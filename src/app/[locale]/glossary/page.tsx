@@ -67,13 +67,13 @@ export default async function GlossaryPage({
     "@type": "DefinedTermSet",
     name: t("structuredName"),
     description: t("structuredDescription", { count: terms.length }),
-    url: `https://costaricatreeatlas.com/${locale}/glossary`,
+    url: `https://costaricatreeatlas.org/${locale}/glossary`,
     inLanguage: locale,
     hasDefinedTerm: terms.slice(0, 50).map((term) => ({
       "@type": "DefinedTerm",
       name: term.term,
       description: term.simpleDefinition,
-      url: `https://costaricatreeatlas.com/${locale}/glossary/${term.slug}`,
+      url: `https://costaricatreeatlas.org/${locale}/glossary/${term.slug}`,
     })),
   };
 

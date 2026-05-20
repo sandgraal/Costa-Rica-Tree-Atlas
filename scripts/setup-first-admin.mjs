@@ -34,7 +34,7 @@ function createId() {
 async function setupFirstAdmin() {
   console.log("\n🔐 Setting up first admin user for Costa Rica Tree Atlas\n");
 
-  const email = "admin@costaricatreeatlas.com";
+  const email = "admin@costaricatreeatlas.org";
   const name = "Admin";
   const password = "admin123"; // Change this after first login!
 

@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 const { GET } = await import("@/app/api/v1/openapi.json/route");
 
 function createRequest(headers: Record<string, string> = {}): NextRequest {
-  return new NextRequest("https://costaricatreeatlas.com/api/v1/openapi.json", {
+  return new NextRequest("https://costaricatreeatlas.org/api/v1/openapi.json", {
     headers,
   });
 }

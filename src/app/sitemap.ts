@@ -5,7 +5,7 @@ import {
   allSpeciesComparisons,
 } from "contentlayer/generated";
 
-const BASE_URL = "https://costaricatreeatlas.com";
+const BASE_URL = "https://costaricatreeatlas.org";
 const locales = ["en", "es"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

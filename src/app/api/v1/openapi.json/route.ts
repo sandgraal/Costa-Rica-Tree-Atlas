@@ -20,16 +20,16 @@ const SPEC = {
       "Private REST API for approved internal or partner integrations to access Costa Rica tree species data, species comparisons, and botanical glossary terms.",
     license: {
       name: "Private Internal Terms",
-      url: "https://costaricatreeatlas.com/usage-policy",
+      url: "https://costaricatreeatlas.org/usage-policy",
     },
     contact: {
       name: "Costa Rica Tree Atlas",
-      url: "https://costaricatreeatlas.com",
+      url: "https://costaricatreeatlas.org",
     },
   },
   servers: [
     {
-      url: "https://costaricatreeatlas.com/api/v1",
+      url: "https://costaricatreeatlas.org/api/v1",
       description: "Production",
     },
   ],

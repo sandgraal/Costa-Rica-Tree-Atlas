@@ -200,7 +200,7 @@ export function ExportFavoritesButton({
           )
           .join("")}
         <div class="footer">
-          <p>${labels.generated} costaricatreeatlas.com • ${new Date().toLocaleDateString(getDateLocale(locale))}</p>
+          <p>${labels.generated} costaricatreeatlas.org • ${new Date().toLocaleDateString(getDateLocale(locale))}</p>
         </div>
       </body>
       </html>

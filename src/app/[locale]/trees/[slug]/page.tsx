@@ -171,7 +171,7 @@ export default async function TreePage({ params }: Props) {
     (tr) => tr.locale === otherLocale && tr.slug === slug
   );
 
-  const baseUrl = "https://costaricatreeatlas.com";
+  const baseUrl = "https://costaricatreeatlas.org";
   const pageUrl = `${baseUrl}/${locale}/trees/${slug}`;
   const secondaryToggleLabels = {
     expand: tocT("showSection"),

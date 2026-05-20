@@ -19,8 +19,10 @@ the current IUCN status with provenance.
 
 In order of authority:
 
-1. **IUCN Red List API** (`https://apiv3.iucnredlist.org/api/v3/species/<name>?token=<IUCN_TOKEN>`)
-   — if `IUCN_TOKEN` is configured in `.env.local`. This is the canonical
+1. **IUCN Red List API v4** (`https://api.iucnredlist.org/api/v4/taxa/scientific_name/<name>`)
+   — if `IUCN_TOKEN` is configured in `.env.local`. Pass the token as
+   `Authorization: Bearer <IUCN_TOKEN>` (not a query parameter — v3 query-param
+   auth was removed when v3 was retired on 2025-03-27). This is the canonical
    source.
 2. **iucnredlist.org species page** — fetch the public URL for a recent
    assessment when the API isn't available.

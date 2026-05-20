@@ -3,7 +3,7 @@
 ## project_summary
 
 - Costa Rica Tree Atlas is a bilingual Next.js 16 app for Costa Rican tree content and education resources.
-- Canonical domain references in app code and metadata point to `https://costaricatreeatlas.com`.
+- Canonical domain references in app code and metadata point to `https://costaricatreeatlas.org`.
 - Repository appears to have previously lived at `github.com/sandgraal/Costa-Rica-Tree-Atlas` (referenced in docs/badges), but that URL currently returns 404.
 
 ## dependency_graph (high-level)
