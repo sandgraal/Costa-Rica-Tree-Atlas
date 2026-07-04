@@ -131,9 +131,11 @@ International Oak Society and WFO disagree on which name is primary. Pick
 one and cite the synonymy explicitly rather than silently choosing**).
 Also verified: a second native conifer (_Podocarpus oleifolius_ — flag a
 common-name collision risk with the already-documented _P. costaricensis_,
-both loosely called "ciprecillo"), plus _Magnolia poasana_ (IUCN Near
-Threatened) and _Drimys granadensis_ (one of the most primitive living
-angiosperm lineages, spanning both cordilleras per 80 CR observations).
+both loosely called "ciprecillo") and _Drimys granadensis_ (one of the
+most primitive living angiosperm lineages, spanning both cordilleras per
+80 CR observations). Note: _Magnolia poasana_ was proposed by the initial
+research pass but is already documented in the atlas (`magnolia`) — caught
+during a duplicate cross-check; see `MISSING_SPECIES_LIST.md`.
 
 **Páramo — recommend treating as a distinct 9th category**, based on
 direct evidence rather than assumption: _Hypericum irazuense_ (382 CR
