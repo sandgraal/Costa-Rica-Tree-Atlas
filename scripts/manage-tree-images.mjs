@@ -109,6 +109,52 @@ const FEATURED_DETAIL_PATTERNS = [
   /semilla/,
 ];
 
+// iNaturalist license_code values that permit reuse on the site (with
+// attribution). A missing/null license_code means "all rights reserved" —
+// iNaturalist's default for photos the uploader hasn't explicitly licensed —
+// and must NEVER be treated as usable.
+const OPEN_LICENSE_CODES = new Set([
+  "cc0",
+  "pd",
+  "cc-by",
+  "cc-by-sa",
+  "cc-by-nc",
+  "cc-by-nc-sa",
+  "cc-by-nc-nd",
+]);
+
+// Human-readable labels for the license badge shown in the gallery. Only
+// consulted for codes that already passed hasOpenLicense(), so a code
+// outside OPEN_LICENSE_CODES is dropped entirely by formatLicenseLabel
+// (returns null) rather than ever reaching the fallback below. The
+// upper-cased fallback exists solely so this map staying in sync with
+// OPEN_LICENSE_CODES is a display nicety, not a correctness requirement.
+const LICENSE_LABELS = {
+  cc0: "CC0",
+  pd: "Public Domain",
+  "cc-by": "CC BY",
+  "cc-by-sa": "CC BY-SA",
+  "cc-by-nc": "CC BY-NC",
+  "cc-by-nc-sa": "CC BY-NC-SA",
+  "cc-by-nc-nd": "CC BY-NC-ND",
+};
+
+// True only for a recognized, explicitly open license_code. Anything else
+// (null, undefined, empty string, or an unrecognized code) is treated as
+// not safely reusable — fail closed, not open.
+function hasOpenLicense(licenseCode) {
+  return (
+    typeof licenseCode === "string" &&
+    OPEN_LICENSE_CODES.has(licenseCode.toLowerCase())
+  );
+}
+
+function formatLicenseLabel(licenseCode) {
+  if (!hasOpenLicense(licenseCode)) return null;
+  const key = licenseCode.toLowerCase();
+  return LICENSE_LABELS[key] || licenseCode.toUpperCase();
+}
+
 // Parse arguments
 const args = process.argv.slice(2);
 const command = args.find((a) => !a.startsWith("--")) || "audit";
@@ -457,6 +503,16 @@ function extractPhotos(observations, photos, seen) {
 
       seen.add(photo.id);
 
+      // Never make an all-rights-reserved (or unrecognized-license) photo a
+      // candidate at all — filtering here, not just at display time, means
+      // a copyrighted photo can never end up selected as the featured image.
+      if (!hasOpenLicense(photo.license_code)) {
+        log.verbose(
+          `Skipping photo ${photo.id}: license_code "${photo.license_code}" is not an open license`
+        );
+        continue;
+      }
+
       const largeUrl = buildInatPhotoUrl(photo.url, "large");
       const originalUrl = buildInatPhotoUrl(photo.url, "original");
 
@@ -466,6 +522,7 @@ function extractPhotos(observations, photos, seen) {
         largeUrl,
         downloadUrl: originalUrl,
         attribution: photo.attribution || "iNaturalist user",
+        licenseCode: photo.license_code,
         observationId: obs.id,
         votes: obs.faves_count || 0,
         place: obs.place_guess || "",
@@ -828,6 +885,16 @@ function categorizePhotos(observations, categories, seen) {
 
       seen.add(photo.id);
 
+      // Never make an all-rights-reserved (or unrecognized-license) photo a
+      // candidate at all — filtering here, not just at display time, means
+      // a copyrighted photo can never end up selected for the gallery.
+      if (!hasOpenLicense(photo.license_code)) {
+        log.verbose(
+          `Skipping gallery photo ${photo.id}: license_code "${photo.license_code}" is not an open license`
+        );
+        continue;
+      }
+
       const mediumUrl = buildInatPhotoUrl(photo.url, "medium");
       const largeUrl = buildInatPhotoUrl(photo.url, "large");
       const originalUrl = buildInatPhotoUrl(photo.url, "original");
@@ -838,6 +905,7 @@ function categorizePhotos(observations, categories, seen) {
         downloadUrl: originalUrl,
         largeUrl,
         attribution: photo.attribution || "iNaturalist user",
+        licenseCode: photo.license_code,
         observationId: obs.id,
         votes: obs.faves_count || 0,
         place: obs.place_guess || "",
@@ -947,8 +1015,27 @@ async function updateMdxGallery(filePath, treeName, newImages, scientificName) {
       return { updated: false, reason: "no_gallery_section" };
     }
 
+    // Hard validation: never write a license badge for a photo that isn't
+    // openly licensed, even if it slipped past upstream filtering. Fail
+    // closed by dropping the image rather than mislabeling it.
+    const licensedImages = [];
+    for (const img of newImages) {
+      const licenseLabel = formatLicenseLabel(img.licenseCode);
+      if (!licenseLabel) {
+        log.warn(
+          `${treeName}: dropping photo ${img.id} from gallery — license_code "${img.licenseCode}" is not an open license and cannot be attributed as reusable`
+        );
+        continue;
+      }
+      licensedImages.push({ ...img, licenseLabel });
+    }
+
+    if (licensedImages.length === 0) {
+      return { updated: false, reason: "no_openly_licensed_photos" };
+    }
+
     // Generate new ImageCard components
-    const imageCards = newImages
+    const imageCards = licensedImages
       .map((img, idx) => {
         const title = img.category
           ? `${img.category.replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase())}`
@@ -959,7 +1046,7 @@ async function updateMdxGallery(filePath, treeName, newImages, scientificName) {
     alt="${scientificName} - ${title}"
     title="${title}"
     credit="${img.attribution}"
-    license="CC BY-NC"
+    license="${img.licenseLabel}"
     sourceUrl="https://www.inaturalist.org/observations/${img.observationId}"
   />`;
       })
@@ -974,7 +1061,7 @@ async function updateMdxGallery(filePath, treeName, newImages, scientificName) {
     );
 
     await fs.writeFile(filePath, updatedContent, "utf8");
-    return { updated: true, imagesCount: newImages.length };
+    return { updated: true, imagesCount: licensedImages.length };
   } catch (err) {
     return { updated: false, reason: err.message };
   }
@@ -1445,6 +1532,7 @@ async function downloadImages() {
       // Update attributions
       attributions[treeName] = {
         attribution: result.photo.attribution,
+        license: formatLicenseLabel(result.photo.licenseCode),
         source: `https://www.inaturalist.org/observations/${result.photo.observationId}`,
         downloadedAt: new Date().toISOString(),
         votes: result.photo.votes ?? 0,
@@ -1592,6 +1680,7 @@ async function refreshImages() {
 
       attributions[treeName] = {
         attribution: downloadResult.photo.attribution,
+        license: formatLicenseLabel(downloadResult.photo.licenseCode),
         source: `https://www.inaturalist.org/observations/${downloadResult.photo.observationId}`,
         downloadedAt: new Date().toISOString(),
         votes: downloadResult.photo.votes ?? 0,
@@ -1888,6 +1977,7 @@ async function refreshGalleryImages() {
         photos: newPhotos.map((p) => ({
           id: p.id,
           attribution: p.attribution,
+          license: formatLicenseLabel(p.licenseCode),
           observationId: p.observationId,
           category: p.category,
         })),
