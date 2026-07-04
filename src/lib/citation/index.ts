@@ -4,10 +4,16 @@
  *
  * Citation helpers for the species pages and Darwin Core Archive.
  *
- * The DOI below is a PLACEHOLDER until the first Zenodo deposit lands —
- * the script that builds the deposit lives at
- * scripts/export-dwca.mjs. Replace the constant in one place when the
- * real DOI is minted; the entire UI + JSON-LD picks it up.
+ * The DOI below is a REAL, minted Zenodo deposit (published 2026-05-19,
+ * tagged 1.0.0-draft): "Costa Rica Tree Atlas — Species Corpus," CC BY
+ * 4.0. The deposit archive is built by scripts/export-dwca.mjs.
+ *
+ * The corpus has grown since that deposit (175+ species and counting).
+ * When a meaningful content milestone lands (e.g. Deep-250), re-run the
+ * export and push a new Zenodo version under the same concept DOI —
+ * see Master Plan lane L4 ("auto-deposit on tagged releases", still
+ * open). Swap DATASET_DOI here only if the concept DOI itself changes;
+ * versioned deposits keep the same DOI.
  *
  * Master Plan v6.0 lane L12 — SEO / GEO / Citation.
  */
@@ -15,13 +21,9 @@
 import type { Locale } from "@/types/tree";
 
 /**
- * Placeholder DOI. When Zenodo issues the first stable deposit, swap
- * this constant for the real `10.5281/zenodo.<id>` and tag a release.
- *
- * The placeholder format is intentionally invalid so that downstream
- * tools (Crossref, AI overviews) treat it as "no DOI yet" rather than a
- * resolvable record. Citation UI still renders, but the BibTeX `doi`
- * field is omitted when the placeholder is detected.
+ * The corpus's Zenodo DOI. `hasMintedDOI()` below gates whether this
+ * renders in citation UI/metadata — kept as a guard for local dev or a
+ * future re-mint, even though the current value is already real.
  */
 export const DATASET_DOI = "10.5281/zenodo.20279670";
 

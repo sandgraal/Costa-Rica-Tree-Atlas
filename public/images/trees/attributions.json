@@ -6943,5 +6943,93 @@
       ],
       "updatedAt": "2026-02-26T23:12:48.603Z"
     }
+  },
+  "roble-de-altura": {
+    "attribution": "(c) Rob Foster, some rights reserved (CC BY)",
+    "source": "https://www.inaturalist.org/observations/260636325",
+    "downloadedAt": "2026-07-04T11:29:38.165Z",
+    "votes": 1,
+    "photoId": 468096834,
+    "gallery": {
+      "photos": [
+        {
+          "id": 468096834,
+          "attribution": "(c) Rob Foster, some rights reserved (CC BY)",
+          "observationId": 260636325,
+          "category": "whole_tree"
+        },
+        {
+          "id": 468096751,
+          "attribution": "(c) Rob Foster, some rights reserved (CC BY)",
+          "observationId": 260636325,
+          "category": "bark"
+        },
+        {
+          "id": 182190910,
+          "attribution": "(c) Trevor Van Loon, some rights reserved (CC BY)",
+          "observationId": 108236075,
+          "category": "bark"
+        },
+        {
+          "id": 583014735,
+          "attribution": "(c) kiorone, some rights reserved (CC BY-NC)",
+          "observationId": 322296891,
+          "category": "leaves"
+        },
+        {
+          "id": 583014740,
+          "attribution": "(c) kiorone, some rights reserved (CC BY-NC)",
+          "observationId": 322296891,
+          "category": "fruit"
+        },
+        {
+          "id": 31601274,
+          "attribution": "(c) Nate Hartley, some rights reserved (CC BY-NC)",
+          "observationId": 20473335,
+          "category": "fruit"
+        }
+      ],
+      "updatedAt": "2026-07-04T11:29:38.165Z"
+    }
+  },
+  "chicalaba": {
+    "attribution": "(c) mattiexoxo, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/376435418",
+    "downloadedAt": "2026-07-04T05:48:00.000Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 636764296,
+          "attribution": "(c) wild_aliss, some rights reserved (CC BY)",
+          "observationId": 349094563,
+          "category": "leaves"
+        },
+        {
+          "id": 623442533,
+          "attribution": "(c) aandmg, some rights reserved (CC BY-NC)",
+          "observationId": 342361795,
+          "category": "leaves"
+        },
+        {
+          "id": 481871351,
+          "attribution": "(c) Joey Santore, some rights reserved (CC BY-NC)",
+          "observationId": 268100718,
+          "category": "fruit"
+        },
+        {
+          "id": 623442728,
+          "attribution": "(c) aandmg, some rights reserved (CC BY-NC)",
+          "observationId": 342361795,
+          "category": "fruit"
+        },
+        {
+          "id": 688269813,
+          "attribution": "(c) mattiexoxo, some rights reserved (CC BY-NC)",
+          "observationId": 376435418,
+          "category": "fruit"
+        }
+      ],
+      "updatedAt": "2026-07-04T05:48:00.000Z"
+    }
   }
 }

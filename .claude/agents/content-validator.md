@@ -7,6 +7,7 @@ description: |
   in high-risk sections, EN/ES depth divergence, stripped image
   attribution, accidentally edited indigenous content. Use this agent
   as the final pre-commit check on any content change.
+tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
 
