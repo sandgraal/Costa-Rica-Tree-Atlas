@@ -491,35 +491,40 @@
         {
           "id": 127934223,
           "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "license": "CC BY-NC",
           "observationId": 78192835,
           "category": "whole_tree"
         },
         {
           "id": 127934235,
           "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "license": "CC BY-NC",
           "observationId": 78192835,
           "category": "leaves"
         },
         {
           "id": 339569499,
           "attribution": "(c) Octavio Rivera Hernández, some rights reserved (CC BY-NC)",
+          "license": "CC BY-NC",
           "observationId": 193310319,
           "category": "whole_tree"
         },
         {
           "id": 127934246,
           "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "license": "CC BY-NC",
           "observationId": 78192835,
           "category": "leaves"
         },
         {
-          "id": 342617772,
-          "attribution": "(c) Guillaume Léotard, some rights reserved (CC BY-NC)",
-          "observationId": 194850867,
+          "id": 46022763,
+          "attribution": "(c) Martin Reith, some rights reserved (CC BY-NC)",
+          "license": "CC BY-NC",
+          "observationId": 29490177,
           "category": "whole_tree"
         }
       ],
-      "updatedAt": "2026-02-26T23:09:19.029Z"
+      "updatedAt": "2026-07-04T11:59:38.965Z"
     }
   },
   "balsa": {
