@@ -123,9 +123,12 @@ const OPEN_LICENSE_CODES = new Set([
   "cc-by-nc-nd",
 ]);
 
-// Human-readable labels for the license badge shown in the gallery. Falls
-// back to the raw code (upper-cased) for any license iNaturalist adds later
-// that isn't in this map, so display never silently drops the real value.
+// Human-readable labels for the license badge shown in the gallery. Only
+// consulted for codes that already passed hasOpenLicense(), so a code
+// outside OPEN_LICENSE_CODES is dropped entirely by formatLicenseLabel
+// (returns null) rather than ever reaching the fallback below. The
+// upper-cased fallback exists solely so this map staying in sync with
+// OPEN_LICENSE_CODES is a display nicety, not a correctness requirement.
 const LICENSE_LABELS = {
   cc0: "CC0",
   pd: "Public Domain",
