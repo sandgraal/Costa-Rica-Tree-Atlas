@@ -145,4 +145,19 @@ mentioned here in passing prose, not as a heading.
 `;
     expect(checkSections(content).missingSections).toContain("Conservation");
   });
+
+  it("treats Growing and Cultivation as one combined recommended section, not two", () => {
+    // A single Spanish "Cultivo" heading (or the canonical "Growing X /
+    // Cultivation" heading) must not be double-counted as satisfying two
+    // separate recommended sections.
+    const spanish = checkSections("## Cultivo\n").missingRecommended;
+    expect(spanish).not.toContain("Growing");
+    expect(spanish).not.toContain("Cultivation");
+    expect(spanish).not.toContain("Growing / Cultivation");
+
+    const missingEntirely = checkSections("## Taxonomy\n").missingRecommended;
+    expect(missingEntirely).toContain("Growing / Cultivation");
+    expect(missingEntirely).not.toContain("Growing");
+    expect(missingEntirely).not.toContain("Cultivation");
+  });
 });

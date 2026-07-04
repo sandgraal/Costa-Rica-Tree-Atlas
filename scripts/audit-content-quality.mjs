@@ -74,10 +74,16 @@ const REQUIRED_SECTIONS = [
   { label: "Conservation", keywords: ["conservation", "conservacion"] },
 ];
 
-// Optional but recommended sections (same locale-tolerant matching)
+// Optional but recommended sections (same locale-tolerant matching).
+// "Growing" and "Cultivation" are one combined entry, not two: the canonical
+// heading is "## Growing [Tree Name] / Cultivation" (and Spanish pages use a
+// single "## Cultivo"), so keeping them separate let one heading silently
+// satisfy both, double-counting a single section as two.
 const RECOMMENDED_SECTIONS = [
-  { label: "Growing", keywords: ["growing", "cultivo"] },
-  { label: "Cultivation", keywords: ["cultivation", "cultivo"] },
+  {
+    label: "Growing / Cultivation",
+    keywords: ["growing", "cultivation", "cultivo"],
+  },
   { label: "Where to See", keywords: ["where to see", "donde ver"] },
   {
     label: "External Resources",
