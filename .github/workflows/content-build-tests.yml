@@ -52,6 +52,12 @@ jobs:
       - name: Run route-level regression tests
         run: npm run test:run -- tests/route-regression.test.ts
 
+      - name: Run factual accuracy audit (local checks)
+        run: npm run content:fact-audit -- --skip-external
+
+      - name: Check ES depth parity (80% floor)
+        run: npm run content:es-parity-check
+
       - name: Type check
         run: npm run type-check
 
@@ -79,5 +85,7 @@ jobs:
           echo "- ✅ MDX component tests passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Tree MDX component registry validation passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Route-level regression tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Factual accuracy audit passed (local checks)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ ES depth parity check passed (80% floor)" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Type checking passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Next.js build succeeded" >> $GITHUB_STEP_SUMMARY

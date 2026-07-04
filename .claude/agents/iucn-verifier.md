@@ -6,6 +6,7 @@ description: |
   current status, assessment year, criteria, and a confidence level.
   Use this agent when remediating an iucn_status_mismatch finding or
   before changing a species's conservationStatus.
+tools: Read, Bash, WebFetch
 model: sonnet
 ---
 

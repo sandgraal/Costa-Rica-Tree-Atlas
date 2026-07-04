@@ -75,18 +75,40 @@
     ]
   },
   "model": "claude-opus-4-7",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-tool-mdx-write.sh"
+          }
+        ]
+      }
+    ]
+  },
   "notes": [
-    "Permissions are tuned for Phase 1 of the Master Implementation Plan v6.0.",
-    "The 'allow' list covers everyday read/edit/test operations and standard",
-    "git/PR flows. The 'ask' list gates dependency changes, merges, and",
-    "destructive image scripts. The 'deny' list blocks anything that could",
-    "destroy work or bypass PR review — including direct pushes to main or",
-    "master, which the CLAUDE.md workflow forbids.",
+    "Permissions were tuned for Phase 1 of the Master Implementation Plan;",
+    "as of Phase 2 (v7.x) they still hold. The 'allow' list covers everyday",
+    "read/edit/test operations and standard git/PR flows. The 'ask' list",
+    "gates dependency changes, merges, and destructive image scripts. The",
+    "'deny' list blocks anything that could destroy work or bypass PR",
+    "review — including direct pushes to main or master, which the",
+    "CLAUDE.md workflow forbids.",
     "",
     "If you need a permission that isn't here, ask the user — don't bypass.",
     "",
     "Indigenous-content rule: there is no permission for autonomous edits",
     "to indigenous-knowledge content. That gate lives in the content review",
-    "process and the content-validator subagent, not in this settings file."
+    "process and the content-validator subagent, not in this settings file.",
+    "",
+    "Hooks: pre-tool-mdx-write.sh is advisory-only (warns via",
+    "additionalContext, never blocks) and only fires on Write calls to",
+    "content/trees/**/*.mdx — it checks for canonical taxonomic/",
+    "conservation fields the fact-audit pipeline depends on. It does not",
+    "cover Edit calls (see the script's header comment for why). Tighten",
+    "to blocking only after it's been observed for a while — see Master",
+    "Plan lane L7."
   ]
 }
