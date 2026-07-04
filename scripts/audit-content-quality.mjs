@@ -20,6 +20,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 // Configuration
 const ROOT_DIR = process.cwd();
@@ -37,25 +38,52 @@ const LINE_THRESHOLD = thresholdArg
   ? parseInt(thresholdArg.split("=")[1], 10)
   : 600;
 
-// Required sections per CONTENT_STANDARDIZATION_GUIDE.md
+// Gallery headings across the atlas are emoji-prefixed and bilingual, e.g.
+// "## 📸 Photo Gallery" (EN) and "## 📸 Galería de Fotos" / "## Galería
+// fotográfica" (ES). Matched as a normalized substring, not a heading prefix.
+const GALLERY_KEYWORDS = ["gallery", "galeria"];
+
+// Required sections per CONTENT_STANDARDIZATION_GUIDE.md. Real tree pages mix
+// English and Spanish headings and use accepted synonyms (the guide itself
+// specs "Physical/Botanical Description" and "Uses/Applications"), so each
+// label maps to the normalized (lowercase, diacritic-stripped) substrings
+// that satisfy it in either language, matched anywhere in a "## " heading
+// line rather than anchored to the start of it.
 const REQUIRED_SECTIONS = [
-  "Photo Gallery",
-  "Taxonomy",
-  "Geographic Distribution",
-  "Habitat",
-  "Botanical Description",
-  "Applications",
-  "Cultural",
-  "Conservation",
+  { label: "Photo Gallery", keywords: GALLERY_KEYWORDS },
+  { label: "Taxonomy", keywords: ["taxonom"] },
+  {
+    label: "Geographic Distribution",
+    keywords: ["distribution", "distribucion"],
+  },
+  { label: "Habitat", keywords: ["habitat"] },
+  {
+    label: "Botanical Description",
+    keywords: [
+      "botanical description",
+      "physical description",
+      "descripcion fisica",
+      "descripcion botanica",
+    ],
+  },
+  {
+    label: "Applications",
+    keywords: ["application", "aplicacion", "uses", "usos"],
+  },
+  { label: "Cultural", keywords: ["cultural"] },
+  { label: "Conservation", keywords: ["conservation", "conservacion"] },
 ];
 
-// Optional but recommended sections
+// Optional but recommended sections (same locale-tolerant matching)
 const RECOMMENDED_SECTIONS = [
-  "Growing",
-  "Cultivation",
-  "Where to See",
-  "External Resources",
-  "References",
+  { label: "Growing", keywords: ["growing", "cultivo"] },
+  { label: "Cultivation", keywords: ["cultivation", "cultivo"] },
+  { label: "Where to See", keywords: ["where to see", "donde ver"] },
+  {
+    label: "External Resources",
+    keywords: ["external resources", "recursos externos"],
+  },
+  { label: "References", keywords: ["references", "referencias"] },
 ];
 
 // Audit results
@@ -132,27 +160,51 @@ async function parseMDX(filePath) {
   };
 }
 
+const DIACRITIC_MARKS = new RegExp("[\\u0300-\\u036f]", "g");
+
+/**
+ * Strip diacritics and lowercase so EN/ES heading spellings compare equal
+ * (e.g. "Hábitat" and "Habitat", "Distribución" and "Distribucion").
+ */
+function normalizeHeadingText(text) {
+  return text.normalize("NFD").replace(DIACRITIC_MARKS, "").toLowerCase();
+}
+
+/**
+ * Extract "## " heading lines with their character offsets so callers can
+ * both test heading text and slice the content between two headings.
+ */
+function getHeadings(content) {
+  const headingRegex = /^##[ \t]+(.*)$/gm;
+  const headings = [];
+  let match;
+  while ((match = headingRegex.exec(content)) !== null) {
+    headings.push({
+      text: normalizeHeadingText(match[1]),
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+  }
+  return headings;
+}
+
 /**
  * Check for missing sections in content
  */
 function checkSections(content) {
-  const missingSections = [];
-  const missingRecommended = [];
+  const headings = getHeadings(content);
+  const isPresent = (keywords) =>
+    headings.some((heading) =>
+      keywords.some((keyword) => heading.text.includes(keyword))
+    );
 
-  for (const section of REQUIRED_SECTIONS) {
-    // Check for section heading (## Section Name)
-    const regex = new RegExp(`##\\s+${section}`, "i");
-    if (!regex.test(content)) {
-      missingSections.push(section);
-    }
-  }
+  const missingSections = REQUIRED_SECTIONS.filter(
+    (section) => !isPresent(section.keywords)
+  ).map((section) => section.label);
 
-  for (const section of RECOMMENDED_SECTIONS) {
-    const regex = new RegExp(`##\\s+${section}`, "i");
-    if (!regex.test(content)) {
-      missingRecommended.push(section);
-    }
-  }
+  const missingRecommended = RECOMMENDED_SECTIONS.filter(
+    (section) => !isPresent(section.keywords)
+  ).map((section) => section.label);
 
   return { missingSections, missingRecommended };
 }
@@ -162,10 +214,18 @@ function checkSections(content) {
  */
 function countGalleryImages(content) {
   // Look for gallery section and count ImageCard components
-  const galleryMatch = content.match(/##\s+Gallery\s+([\s\S]*?)(?=##\s+|$)/i);
-  if (!galleryMatch) return 0;
+  const headings = getHeadings(content);
+  const galleryIndex = headings.findIndex((heading) =>
+    GALLERY_KEYWORDS.some((keyword) => heading.text.includes(keyword))
+  );
+  if (galleryIndex === -1) return 0;
 
-  const galleryContent = galleryMatch[1];
+  const start = headings[galleryIndex].end;
+  const end =
+    galleryIndex + 1 < headings.length
+      ? headings[galleryIndex + 1].start
+      : content.length;
+  const galleryContent = content.slice(start, end);
   const imageCards = galleryContent.match(/<ImageCard/g);
   return imageCards ? imageCards.length : 0;
 }
@@ -493,4 +553,18 @@ async function main() {
   process.exit(hasIssues ? 1 : 0);
 }
 
-main();
+// Only run as a CLI entry point — importing this module (e.g. from tests)
+// must not trigger a live content-directory scan or process.exit().
+const isMainModule = process.argv[1] === fileURLToPath(import.meta.url);
+if (isMainModule) {
+  main();
+}
+
+export {
+  normalizeHeadingText,
+  getHeadings,
+  checkSections,
+  countGalleryImages,
+  REQUIRED_SECTIONS,
+  RECOMMENDED_SECTIONS,
+};
