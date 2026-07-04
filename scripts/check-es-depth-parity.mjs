@@ -39,6 +39,12 @@ const treeArg = args.find((arg) => arg.startsWith("--tree="));
 const singleTree = treeArg ? treeArg.split("=")[1] : null;
 const minRatioArg = args.find((arg) => arg.startsWith("--min-ratio="));
 const MIN_RATIO = minRatioArg ? Number(minRatioArg.split("=")[1]) : 80;
+if (!Number.isFinite(MIN_RATIO) || MIN_RATIO <= 0 || MIN_RATIO > 100) {
+  console.error(
+    `❌ Invalid --min-ratio value: "${minRatioArg?.split("=")[1]}". Must be a finite number in (0, 100].`
+  );
+  process.exit(2);
+}
 
 const HELP_TEXT = `\
 ES Depth-Parity Gate\n\
