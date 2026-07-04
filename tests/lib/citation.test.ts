@@ -25,10 +25,10 @@ const SAMPLE_TREE = {
 };
 
 describe("citation library", () => {
-  describe("DATASET_DOI placeholder", () => {
-    it("ships as a placeholder (not a real Zenodo DOI)", () => {
-      expect(DATASET_DOI).toContain("PENDING");
-      expect(hasMintedDOI(DATASET_DOI)).toBe(false);
+  describe("DATASET_DOI", () => {
+    it("ships as a real, minted Zenodo DOI (live since 2026-05-19)", () => {
+      expect(DATASET_DOI).not.toContain("PENDING");
+      expect(hasMintedDOI(DATASET_DOI)).toBe(true);
     });
 
     it("hasMintedDOI accepts a real Zenodo pattern", () => {
@@ -75,9 +75,9 @@ describe("citation library", () => {
       expect(out).toContain("note         = {Licensed under CC BY 4.0.}");
     });
 
-    it("omits the doi field while DATASET_DOI is a placeholder", () => {
+    it("includes the doi field now that DATASET_DOI is minted", () => {
       const out = formatBibTeX(SAMPLE_TREE, "en");
-      expect(out).not.toMatch(/^\s+doi\s+=/m);
+      expect(out).toMatch(/^\s+doi\s+=\s+\{10\.5281\/zenodo\.\d+\},/m);
     });
   });
 
@@ -91,9 +91,9 @@ describe("citation library", () => {
       expect(tags.citation_public_url).toContain("/en/trees/cocobolo");
     });
 
-    it("omits citation_doi while DATASET_DOI is a placeholder", () => {
+    it("includes citation_doi now that DATASET_DOI is minted", () => {
       const tags = citationMetaTags(SAMPLE_TREE, "en");
-      expect(tags.citation_doi).toBeUndefined();
+      expect(tags.citation_doi).toBe(DATASET_DOI);
     });
   });
 
@@ -106,9 +106,9 @@ describe("citation library", () => {
       expect(ld.inLanguage).toEqual(["en", "es"]);
     });
 
-    it("omits the identifier (DOI) field while DATASET_DOI is a placeholder", () => {
+    it("includes the identifier (DOI) field now that DATASET_DOI is minted", () => {
       const ld = datasetJsonLd("en");
-      expect(ld.identifier).toBeUndefined();
+      expect(ld.identifier).toBe(`https://doi.org/${DATASET_DOI}`);
     });
 
     it("varies title and description by locale", () => {

@@ -171,8 +171,10 @@ their patterns; the scoped CLAUDE.md files are the canonical agent guides.
 ## Trust-but-verify expectations
 
 - **Always run the relevant tests** before claiming completion.
-  `npm run type-check` may surface pre-existing manifest.ts errors that are
-  not your concern — note them and move on rather than getting stuck.
+  `npm run type-check` returns 0 errors as of 2026-07-04 — treat any
+  failure as real. (Run `npm run contentlayer` first in a fresh checkout;
+  without it, `tsc` can't resolve `contentlayer/generated` and reports
+  unrelated false errors.)
 - **The factual audit is the truth** about IUCN drift, not your training
   memory. Always run `npm run content:fact-audit` rather than asserting
   status from memory.
