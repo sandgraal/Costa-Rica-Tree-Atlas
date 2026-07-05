@@ -1,6 +1,6 @@
 ## Image Quality Audit Report
 
-**Run Date:** 2026-05-17 04:27:53 UTC
+**Run Date:** 2026-07-05 04:26:39 UTC
 
 ### Featured Images
 
@@ -59,6 +59,8 @@ sips (macOS): ❌
 ✅ cenizaro: local (513KB)
 ✅ cerillo: local (220KB)
 ✅ chancho-blanco: local (208KB)
+✅ chicalaba: local (159KB)
+✅ chilillo: local (316KB)
 ✅ chirraca: local (167KB)
 ✅ ciprecillo: local (596KB)
 ✅ cipres: local (460KB)
@@ -165,12 +167,15 @@ sips (macOS): ❌
 ✅ pitahaya: local (511KB)
 ✅ pochote-de-agua: local (57KB)
 ✅ pochote: local (102KB)
+✅ podocarpus-oleifolius: local (275KB)
 ✅ pomarrosa: local (320KB)
 ✅ poro: local (149KB)
 ✅ quebracho: local (212KB)
 ✅ quina: local (293KB)
 ✅ quizarra: local (200KB)
 ✅ rambutan: local (450KB)
+✅ roble-corrugata: local (400KB)
+✅ roble-de-altura: local (137KB)
 ✅ roble-de-sabana: local (171KB)
 ✅ roble-encino: local (141KB)
 ✅ ron-ron: local (357KB)
@@ -195,7 +200,7 @@ sips (macOS): ❌
 ==================================================
 📊 AUDIT SUMMARY
 ==================================================
-✅ Valid local images: 175
+✅ Valid local images: 180
 📡 External URLs: 0
 ⚠️ Placeholders: 0
 ⚠️ Low resolution: 0
@@ -205,8 +210,8 @@ sips (macOS): ❌
 ==================================================
 📈 QUALITY METRICS
 ==================================================
-Total trees: 175
-Image health: 100% (175/175)
+Total trees: 180
+Image health: 100% (180/180)
 Average image size: 255KB
 
 ### Gallery Images
@@ -266,6 +271,8 @@ sips (macOS): ❌
 ✅ cenizaro: 5 images OK
 ✅ cerillo: 5 images OK
 ✅ chancho-blanco: 5 images OK
+⚠️ chicalaba: limited diversity (2 categories)
+✅ chilillo: 6 images OK
 ⚠️ chirraca: limited diversity (2 categories)
 ✅ ciprecillo: 5 images OK
 ⚠️ cipres: limited diversity (2 categories)
@@ -372,12 +379,15 @@ sips (macOS): ❌
 ⚠️ pitahaya: limited diversity (2 categories)
 ⚠️ pochote-de-agua: limited diversity (2 categories)
 ⚠️ pochote: limited diversity (2 categories)
+✅ podocarpus-oleifolius: 6 images OK
 ⚠️ pomarrosa: limited diversity (2 categories)
 ⚠️ poro: limited diversity (2 categories)
 ⚠️ quebracho: limited diversity (2 categories)
 ⚠️ quina: limited diversity (2 categories)
 ⚠️ quizarra: limited diversity (2 categories)
 ✅ rambutan: 5 images OK
+✅ roble-corrugata: 6 images OK
+⚠️ roble-de-altura: limited diversity (2 categories)
 ✅ roble-de-sabana: 5 images OK
 ✅ roble-encino: 5 images OK
 ⚠️ ron-ron: limited diversity (2 categories)
@@ -402,22 +412,22 @@ sips (macOS): ❌
 ==================================================
 📊 GALLERY AUDIT SUMMARY
 ==================================================
-✅ Valid galleries: 70
+✅ Valid galleries: 73
 ⚠️ Low quality: 0
-⚠️ Low diversity: 101
+⚠️ Low diversity: 103
 ❌ Broken images: 3
 📭 No gallery: 1
 
-💡 Run 'npm run images:refresh-gallery' to fix 104 galleries
+💡 Run 'npm run images:refresh-gallery' to fix 106 galleries
 
 ### Quality Metrics
 
 - **Broken/Missing Images:** 3
 - **Placeholder Images:** 0
 - **Undersized Images:** 0
-- **Total Tree Images:** 170
+- **Total Tree Images:** 175
 - **Optimized Images:** 8
-- **Pending Optimization:** 162
+- **Pending Optimization:** 167
 
 **Status:** ⚠️ Issues detected - proposals will be generated for admin review
 
@@ -440,7 +450,7 @@ Output: public/images/trees/optimized
 Mode: Optimize new/changed only
 ==================================================
 
-Found 170 image(s) to process
+Found 175 image(s) to process
 
 ▶ Optimizing: acacia-mangium
 Original: 1200x1600 (394.97 KB)
@@ -952,6 +962,18 @@ Total variants: 9 files (1017.52 KB combined)
 Best JPG: 208.41 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/chancho-blanco/metadata.json
 
+▶ Optimizing: chicalaba
+Original: 768x1024 (159.39 KB)
+WEBP 400w: 400x533 28.52 KB ✓
+AVIF 400w: 400x533 40.56 KB ✓
+JPG 400w: 400x533 36.94 KB ✓
+WEBP 768w: 768x1024 79.66 KB
+AVIF 768w: 768x1024 113.85 KB
+JPG 768w: 768x1024 114.87 KB
+Total variants: 6 files (414.4 KB combined)
+Best JPG: 114.87 KB (27.9% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/chicalaba/metadata.json
+
 ▶ Optimizing: chilamate
 Original: 1200x1594 (193.43 KB)
 WEBP 400w: 400x531 27.5 KB ✓
@@ -966,6 +988,18 @@ JPG 1200w: 1200x1594 193.82 KB ✓
 Total variants: 9 files (805.72 KB combined)
 Best JPG: 193.82 KB (-0.2% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/chilamate/metadata.json
+
+▶ Optimizing: chilillo
+Original: 768x1024 (315.73 KB)
+WEBP 400w: 400x533 58.68 KB ⚠ (target: 50 KB)
+AVIF 400w: 400x533 90.26 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 59.1 KB ⚠ (target: 50 KB)
+WEBP 768w: 768x1024 203.83 KB
+AVIF 768w: 768x1024 263.11 KB
+JPG 768w: 768x1024 211.26 KB
+Total variants: 6 files (886.23 KB combined)
+Best JPG: 211.26 KB (33.1% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/chilillo/metadata.json
 
 ▶ Optimizing: chirraca
 Original: 1200x1163 (166.78 KB)
@@ -2536,6 +2570,21 @@ Total variants: 9 files (489.35 KB combined)
 Best JPG: 101.36 KB (0.5% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/pochote/metadata.json
 
+▶ Optimizing: podocarpus-oleifolius
+Original: 1024x768 (275.03 KB)
+WEBP 400w: 400x300 41.68 KB ✓
+AVIF 400w: 400x300 65.64 KB ⚠ (target: 50 KB)
+JPG 400w: 400x300 39.78 KB ✓
+WEBP 800w: 800x600 150.96 KB ⚠ (target: 150 KB)
+AVIF 800w: 800x600 223.51 KB ⚠ (target: 150 KB)
+JPG 800w: 800x600 148.84 KB ✓
+WEBP 1024w: 1024x768 238.81 KB
+AVIF 1024w: 1024x768 269.41 KB
+JPG 1024w: 1024x768 244.65 KB
+Total variants: 9 files (1.39 MB combined)
+Best JPG: 244.65 KB (11.0% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/podocarpus-oleifolius/metadata.json
+
 ▶ Optimizing: pomarrosa
 Original: 1200x1600 (319.91 KB)
 WEBP 400w: 400x533 45.24 KB ✓
@@ -2610,6 +2659,27 @@ JPG 1200w: 1200x1594 450.38 KB ⚠ (target: 300 KB)
 Total variants: 9 files (2.11 MB combined)
 Best JPG: 450.38 KB (-0.1% smaller than original)
 ✓ Metadata saved to public/images/trees/optimized/rambutan/metadata.json
+
+▶ Optimizing: roble-corrugata
+Original: 768x1024 (399.95 KB)
+WEBP 400w: 400x533 43.86 KB ✓
+AVIF 400w: 400x533 66.33 KB ⚠ (target: 50 KB)
+JPG 400w: 400x533 47.65 KB ✓
+WEBP 768w: 768x1024 136.67 KB
+AVIF 768w: 768x1024 212.48 KB
+JPG 768w: 768x1024 155.44 KB
+Total variants: 6 files (662.43 KB combined)
+Best JPG: 155.44 KB (61.1% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/roble-corrugata/metadata.json
+
+▶ Optimizing: roble-de-altura
+Original: 375x500 (136.63 KB)
+WEBP 375w: 375x500 64.88 KB
+AVIF 375w: 375x500 89.49 KB
+JPG 375w: 375x500 60.79 KB
+Total variants: 3 files (215.16 KB combined)
+Best JPG: 60.79 KB (55.5% smaller than original)
+✓ Metadata saved to public/images/trees/optimized/roble-de-altura/metadata.json
 
 ▶ Optimizing: roble-de-sabana
 Original: 1200x900 (170.68 KB)
@@ -2896,21 +2966,21 @@ Best JPG: 298.96 KB (-0.3% smaller than original)
 ==================================================
 📊 Optimization Summary
 ==================================================
-Total images: 170
-Optimized: 164
+Total images: 175
+Optimized: 169
 Skipped: 6
 Errors: 0
-Variants generated: 1461
+Variants generated: 1491
 
-Original images total: 41.52 MB
-All variants total: 187.72 MB
+Original images total: 42.77 MB
+All variants total: 191.24 MB
 
 Note: Each image generates 3 formats × 5 sizes
 Modern formats (WebP/AVIF) typically save 25-50% vs JPEG
 
 ✅ Image optimization complete!
 
-✅ Total optimized: 171 trees
+✅ Total optimized: 176 trees
 
 ### Files Modified
 
