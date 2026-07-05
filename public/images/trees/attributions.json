@@ -7031,5 +7031,145 @@
       ],
       "updatedAt": "2026-07-04T05:48:00.000Z"
     }
+  },
+  "roble-corrugata": {
+    "attribution": "(c) timendez, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/57253338",
+    "downloadedAt": "2026-07-04T21:31:00.000Z",
+    "votes": 0,
+    "photoId": 91308231,
+    "gallery": {
+      "photos": [
+        {
+          "id": 91308231,
+          "attribution": "(c) timendez, some rights reserved (CC BY-NC)",
+          "observationId": 57253338,
+          "category": "whole_tree"
+        },
+        {
+          "id": 675557364,
+          "attribution": "(c) Josue Jimenez, some rights reserved (CC BY-NC)",
+          "observationId": 369820145,
+          "category": "bark"
+        },
+        {
+          "id": 479370869,
+          "attribution": "(c) ariel_delgado, some rights reserved (CC BY-NC)",
+          "observationId": 266793573,
+          "category": "leaves"
+        },
+        {
+          "id": 464031536,
+          "attribution": "(c) Leonardo Álvarez-Alcázar, some rights reserved (CC BY-NC)",
+          "observationId": 258610798,
+          "category": "leaves"
+        },
+        {
+          "id": 91308442,
+          "attribution": "(c) timendez, some rights reserved (CC BY-NC)",
+          "observationId": 57253338,
+          "category": "fruit"
+        },
+        {
+          "id": 675558508,
+          "attribution": "(c) Josue Jimenez, some rights reserved (CC BY-NC)",
+          "observationId": 369820145,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2026-07-04T21:31:00.000Z"
+    }
+  },
+  "chilillo": {
+    "attribution": "(c) odenwaelder, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/254977796",
+    "downloadedAt": "2026-07-04T21:38:00.000Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 456838424,
+          "attribution": "(c) odenwaelder, some rights reserved (CC BY-NC)",
+          "observationId": 254977796,
+          "category": "whole_tree"
+        },
+        {
+          "id": 170630332,
+          "attribution": "(c) Jake Rehage, some rights reserved (CC BY)",
+          "observationId": 102110675,
+          "category": "flowers"
+        },
+        {
+          "id": 477196727,
+          "attribution": "(c) Cy Stavros, some rights reserved (CC BY)",
+          "observationId": 265649084,
+          "category": "flowers"
+        },
+        {
+          "id": 537405145,
+          "attribution": "(c) harrii, some rights reserved (CC BY)",
+          "observationId": 298352782,
+          "category": "leaves"
+        },
+        {
+          "id": 275041345,
+          "attribution": "(c) Mark Richman, some rights reserved (CC BY)",
+          "observationId": 159196909,
+          "category": "leaves"
+        },
+        {
+          "id": 90386367,
+          "attribution": "(c) Jake Rehage, no rights reserved (CC0)",
+          "observationId": 56707380,
+          "category": "flowers"
+        }
+      ],
+      "updatedAt": "2026-07-04T21:38:00.000Z"
+    }
+  },
+  "podocarpus-oleifolius": {
+    "attribution": "(c) Dirk Mezger, some rights reserved (CC BY-NC)",
+    "source": "https://www.inaturalist.org/observations/200259346",
+    "downloadedAt": "2026-07-04T21:38:00.000Z",
+    "gallery": {
+      "photos": [
+        {
+          "id": 353287958,
+          "attribution": "(c) Dirk Mezger, some rights reserved (CC BY-NC)",
+          "observationId": 200259346,
+          "category": "whole_tree"
+        },
+        {
+          "id": 353287720,
+          "attribution": "(c) Dirk Mezger, some rights reserved (CC BY-NC)",
+          "observationId": 200259346,
+          "category": "bark"
+        },
+        {
+          "id": 534677572,
+          "attribution": "(c) Joey Santore, some rights reserved (CC BY-NC)",
+          "observationId": 296912848,
+          "category": "leaves"
+        },
+        {
+          "id": 534677780,
+          "attribution": "(c) Joey Santore, some rights reserved (CC BY-NC)",
+          "observationId": 296912848,
+          "category": "fruit"
+        },
+        {
+          "id": 632279929,
+          "attribution": "(c) Caminos Amigables con Felinos-Panthera, some rights reserved (CC BY-NC)",
+          "observationId": 346830039,
+          "category": "leaves"
+        },
+        {
+          "id": 388408711,
+          "attribution": "(c) Markov Bram Baltodano Rodríguez, some rights reserved (CC BY-NC)",
+          "observationId": 219439716,
+          "category": "leaves"
+        }
+      ],
+      "updatedAt": "2026-07-04T21:38:00.000Z"
+    }
   }
 }
