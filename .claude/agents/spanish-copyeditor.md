@@ -5,6 +5,7 @@ description: |
   grammar, and idiomatic naturalness. Flags Castilian forms, awkward
   literal translations from English, and missed opportunities for Tico
   voice. Use on any ES content change before commit.
+tools: Read, Grep, Glob
 model: sonnet
 ---
 

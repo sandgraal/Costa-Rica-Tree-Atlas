@@ -1,0 +1,63 @@
+name: Weekly Factual Accuracy Audit
+
+on:
+  schedule:
+    # Run every Monday at 4 AM UTC (ahead of the Monday 9 AM security scan)
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fact-audit-external:
+    name: Full factual audit (incl. GBIF/IUCN drift)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
+
+      - name: Run full factual audit (with external checks)
+        id: audit
+        env:
+          IUCN_TOKEN: ${{ secrets.IUCN_TOKEN }}
+        run: |
+          mkdir -p reports
+          npm run content:fact-audit -- --write=reports/fact-audit-latest.json > reports/fact-audit-latest.log 2>&1 || echo "AUDIT_FAILED=1" >> "$GITHUB_ENV"
+          cat reports/fact-audit-latest.log
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Weekly Factual Accuracy Audit" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f reports/fact-audit-latest.log ]; then
+            grep -E "^(Errors|Warnings|Trees audited|External checks):" reports/fact-audit-latest.log \
+              | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY \
+              || echo "- Could not extract summary lines — see job log." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- No log file produced — see job log." >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This run includes live GBIF/IUCN drift checks (unlike the PR-time" >> $GITHUB_STEP_SUMMARY
+          echo "check, which runs with \`--skip-external\` to avoid flaky network" >> $GITHUB_STEP_SUMMARY
+          echo "calls blocking merges). A red run here means content has drifted" >> $GITHUB_STEP_SUMMARY
+          echo "from external authorities since the last PR-time check passed." >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fact-audit-report
+          path: reports/fact-audit-latest.json
+          retention-days: 90
+
+      - name: Fail run if new errors found
+        if: env.AUDIT_FAILED == '1'
+        run: |
+          echo "Factual audit reported errors — see step summary and artifact."
+          exit 1
