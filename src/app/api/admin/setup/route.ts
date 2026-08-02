@@ -21,7 +21,7 @@ import { hash } from "argon2";
 import prisma from "@/lib/prisma";
 import { captureApiError } from "@/lib/error-tracking";
 import { rateLimit } from "@/lib/ratelimit";
-import { secureCompare } from "@/lib/auth/secure-compare";
+import { secureCompareOrFalse } from "@/lib/auth/secure-compare";
 import { z } from "zod";
 
 const setupSchema = z.object({
@@ -59,8 +59,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Non-throwing variant: an over-length header must be a 403, not a 500.
     const providedToken = request.headers.get("x-setup-token") ?? "";
-    if (!(await secureCompare(providedToken, setupToken))) {
+    if (!(await secureCompareOrFalse(providedToken, setupToken))) {
       return NextResponse.json(
         { error: "Forbidden", message: "Invalid or missing setup token." },
         { status: 403 }

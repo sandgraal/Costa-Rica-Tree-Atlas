@@ -57,3 +57,24 @@ describe("isAuthenticatedWorkflowRequest", () => {
     ).resolves.toBe(false);
   });
 });
+
+describe("secureCompareOrFalse", () => {
+  it("returns false instead of throwing on over-length input", async () => {
+    const { secureCompareOrFalse, secureCompare } =
+      await import("@/lib/auth/secure-compare");
+    const huge = "a".repeat(20_000);
+
+    // The primitive still throws — that HashDoS guard is deliberate.
+    await expect(secureCompare(huge, "secret")).rejects.toThrow();
+
+    // The wrapper used at every request boundary must not.
+    await expect(secureCompareOrFalse(huge, "secret")).resolves.toBe(false);
+    await expect(secureCompareOrFalse("secret", huge)).resolves.toBe(false);
+  });
+
+  it("still matches and rejects normal input correctly", async () => {
+    const { secureCompareOrFalse } = await import("@/lib/auth/secure-compare");
+    await expect(secureCompareOrFalse("abc", "abc")).resolves.toBe(true);
+    await expect(secureCompareOrFalse("abc", "abd")).resolves.toBe(false);
+  });
+});

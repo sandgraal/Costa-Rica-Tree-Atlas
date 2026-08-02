@@ -12,7 +12,7 @@
  * authenticate as a workflow.
  */
 
-import { secureCompare } from "./secure-compare";
+import { secureCompareOrFalse } from "./secure-compare";
 
 /**
  * Returns true only when the request carries the configured workflow token.
@@ -30,10 +30,7 @@ export async function isAuthenticatedWorkflowRequest(
     return false;
   }
 
-  try {
-    return await secureCompare(authHeader, `Bearer ${token}`);
-  } catch {
-    // secureCompare throws on absurdly long input (HashDoS guard).
-    return false;
-  }
+  // Non-throwing: an absurdly long Authorization header is a non-match, not a
+  // thrown HashDoS guard escaping into the route handler.
+  return secureCompareOrFalse(authHeader, `Bearer ${token}`);
 }

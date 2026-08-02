@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { secureCompare } from "@/lib/auth/secure-compare";
+import { secureCompareOrFalse } from "@/lib/auth/secure-compare";
 
 function getRequestIp(request: NextRequest): string {
   return (
@@ -49,8 +49,12 @@ export async function requireApiV1Access(
 
   // Constant-time: a plain `===` leaks the shared prefix length through timing,
   // which is exactly what an attacker needs to recover the key byte by byte.
+  // Non-throwing variant so an over-length header is a non-match, not a 500.
   const providedApiKey = request.headers.get("X-API-Key")?.trim() ?? "";
-  if (expectedApiKey && (await secureCompare(providedApiKey, expectedApiKey))) {
+  if (
+    expectedApiKey &&
+    (await secureCompareOrFalse(providedApiKey, expectedApiKey))
+  ) {
     return null;
   }
 

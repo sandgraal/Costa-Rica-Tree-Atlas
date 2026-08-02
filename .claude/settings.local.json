@@ -7,7 +7,9 @@
       "Bash(echo \"security:audit exit: $?\")",
       "Bash(npm ls *)",
       "Bash(npm audit *)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(git checkout *)",
+      "Bash(echo \"eslint exit: $?\")"
     ]
   }
 }

@@ -38,8 +38,13 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/setup-node
 
-      - name: Run npm audit (production, high severity)
-        run: npm audit --omit=dev --audit-level=high
+      # Uses the wrapper, not bare `npm audit`. The wrapper fails on any
+      # unaccepted high/critical production advisory and carries a short, dated,
+      # justified exception list — see scripts/audit-production-deps.mjs. A bare
+      # `npm audit --audit-level=high` exits 1 on advisories with no available
+      # fix, which left this gate permanently red.
+      - name: Run production dependency audit
+        run: npm run security:audit
 
   # Secret Scanning - Detect committed secrets
   secret-scan:

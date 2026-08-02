@@ -16,7 +16,7 @@ import { verify } from "argon2";
 import prisma from "@/lib/prisma";
 import { decryptTotpSecret } from "@/lib/auth/mfa-crypto";
 import { verifyBackupCode } from "@/lib/auth/backup-codes";
-import { secureCompare } from "@/lib/auth/secure-compare";
+import { secureCompareOrFalse } from "@/lib/auth/secure-compare";
 import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
 import { headerSourceFromRecord } from "@/lib/auth/rate-limit";
 import { AUTH_CONFIG } from "@/lib/auth/constants";
@@ -70,9 +70,11 @@ export const authOptions: NextAuthOptions = {
         ) {
           // Compare both fields in constant time, and always evaluate both, so
           // neither a matching email nor a shared password prefix is timeable.
+          // Non-throwing variant: an over-length email or password must be a
+          // clean credential rejection, not an unhandled NextAuth 500.
           const [emailMatches, passwordMatches] = await Promise.all([
-            secureCompare(credentials.email, fallbackEmail),
-            secureCompare(credentials.password, fallbackPassword),
+            secureCompareOrFalse(credentials.email, fallbackEmail),
+            secureCompareOrFalse(credentials.password, fallbackPassword),
           ]);
 
           if (emailMatches && passwordMatches) {
