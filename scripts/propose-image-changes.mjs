@@ -37,9 +37,12 @@ const MIN_IMAGE_SIZE = 20_000; // 20KB minimum for valid images
 const API_BASE_URL =
   process.env.API_BASE_URL ||
   "http://localhost:3000/api/admin/images/proposals";
-const WORKFLOW_TOKEN =
-  process.env.WORKFLOW_TOKEN ||
-  `Bearer workflow-${process.env.GITHUB_RUN_ID || "local"}`;
+// Must match IMAGE_PROPOSALS_WORKFLOW_TOKEN on the server. There is no fallback:
+// the previous `Bearer workflow-${GITHUB_RUN_ID}` default was accepted by the
+// server purely on its prefix, which made the endpoint publicly writable.
+const WORKFLOW_TOKEN = process.env.WORKFLOW_TOKEN
+  ? `Bearer ${process.env.WORKFLOW_TOKEN.replace(/^Bearer /, "")}`
+  : null;
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -289,6 +292,13 @@ async function createProposal(proposalData) {
       `[DRY RUN] Would propose ${proposalData.imageType}: ${proposalData.reason}`
     );
     return { dryRun: true };
+  }
+
+  if (!WORKFLOW_TOKEN) {
+    throw new Error(
+      "WORKFLOW_TOKEN is not set. Set it to the value of the server's " +
+        "IMAGE_PROPOSALS_WORKFLOW_TOKEN, or run with --dry-run."
+    );
   }
 
   const body = JSON.stringify(proposalData);

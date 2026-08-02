@@ -10,8 +10,9 @@
  *
  * Security features:
  * - Argon2id password hashing
+ * - Requires SETUP_TOKEN to be configured and presented
  * - Self-disables after first user created
- * - Rate limited
+ * - Rate limited (5 attempts / 15 min per IP)
  * - Audit logging
  */
 
@@ -19,6 +20,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { hash } from "argon2";
 import prisma from "@/lib/prisma";
 import { captureApiError } from "@/lib/error-tracking";
+import { rateLimit } from "@/lib/ratelimit";
+import { secureCompare } from "@/lib/auth/secure-compare";
 import { z } from "zod";
 
 const setupSchema = z.object({
@@ -38,6 +41,32 @@ const setupSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // The docblock has always claimed this endpoint was rate limited. It was not.
+    const rateLimitResult = await rateLimit(request, "admin");
+    if ("response" in rateLimitResult) return rateLimitResult.response;
+
+    // "No users exist yet" is not an authorization check. Point this app at a
+    // fresh or restored database and the admin account becomes claimable by
+    // whoever reaches it first, so require an out-of-band secret as well.
+    const setupToken = process.env.SETUP_TOKEN;
+    if (!setupToken) {
+      return NextResponse.json(
+        {
+          error: "Setup is disabled",
+          message: "SETUP_TOKEN is not configured on this deployment.",
+        },
+        { status: 403 }
+      );
+    }
+
+    const providedToken = request.headers.get("x-setup-token") ?? "";
+    if (!(await secureCompare(providedToken, setupToken))) {
+      return NextResponse.json(
+        { error: "Forbidden", message: "Invalid or missing setup token." },
+        { status: 403 }
+      );
+    }
+
     // Check if any users already exist (self-disable mechanism)
     const userCount = await prisma.user.count();
     if (userCount > 0) {

@@ -20,7 +20,10 @@ import { existsSync, createWriteStream } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import https from "node:https";
-import http from "node:http";
+import {
+  assertAllowedImageUrl,
+  BlockedUrlError,
+} from "@/lib/security/outbound-url";
 import { pipeline } from "node:stream/promises";
 import { Transform } from "node:stream";
 import { validateSlug } from "@/lib/validation/slug";
@@ -71,10 +74,12 @@ async function downloadImage(
   destPath: string,
   maxRedirects = 5
 ): Promise<{ size: number; contentType: string }> {
-  return new Promise((resolve, reject) => {
-    const protocol = url.startsWith("https") ? https : http;
+  // SSRF guard. Re-checked on every redirect hop below, because an allowlisted
+  // host can still 302 to an internal address.
+  assertAllowedImageUrl(url);
 
-    const request = protocol.get(url, { timeout: 30000 }, (response) => {
+  return new Promise((resolve, reject) => {
+    const request = https.get(url, { timeout: 30000 }, (response) => {
       // Handle redirects (301, 302, 303, 307, 308)
       if (
         response.statusCode &&
@@ -349,15 +354,24 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         localImagePath
       );
     } catch (downloadError) {
-      console.error("Failed to download proposed image:", downloadError);
+      captureApiError(
+        downloadError,
+        "/api/admin/images/proposals/[id]/apply",
+        "POST"
+      );
+
+      // A blocked URL is the caller's fault and safe to name — it tells an admin
+      // exactly why the proposal was rejected. Any other failure is upstream
+      // detail (internal hostnames, socket errors) and stays server-side.
+      if (downloadError instanceof BlockedUrlError) {
+        return NextResponse.json(
+          { error: "Image URL rejected", details: downloadError.message },
+          { status: 400 }
+        );
+      }
+
       return NextResponse.json(
-        {
-          error: "Failed to download proposed image",
-          details:
-            downloadError instanceof Error
-              ? downloadError.message
-              : "Unknown error",
-        },
+        { error: "Failed to download proposed image" },
         { status: 502 }
       );
     }
@@ -511,12 +525,10 @@ async function updateTreeFrontmatter(
       await fs.writeFile(mdxPath, updatedContent, "utf-8");
       updated = true;
     } catch (err) {
-      captureApiError(
-        err,
-        "/api/admin/images/proposals/[id]/apply",
-        "POST",
-        { treeSlug, contentDir }
-      );
+      captureApiError(err, "/api/admin/images/proposals/[id]/apply", "POST", {
+        treeSlug,
+        contentDir,
+      });
     }
   }
 

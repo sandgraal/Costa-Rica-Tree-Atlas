@@ -49,15 +49,26 @@ vi.mock("@/app/api/auth/[...nextauth]/route", () => ({
   authOptions: {},
 }));
 
-// Mock sharp
-vi.mock("sharp", () => ({
-  default: vi.fn(() => ({
-    metadata: vi.fn(async () => ({
-      width: 1920,
-      height: 1080,
-      format: "jpeg",
+// Mock sharp.
+//
+// The route does `sharp(raw).rotate().toBuffer()` to strip EXIF (including GPS)
+// before upload, then `sharp(stripped).metadata()` to validate the dimensions
+// that Cloudinary will actually receive. The mock must support BOTH chains —
+// when it only implemented `metadata()`, every upload threw and 9 tests in this
+// file failed with a 500.
+function createSharpInstance(
+  metadata = { width: 1920, height: 1080, format: "jpeg" }
+) {
+  return {
+    rotate: vi.fn(() => ({
+      toBuffer: vi.fn(async () => Buffer.from("stripped-image-bytes")),
     })),
-  })),
+    metadata: vi.fn(async () => metadata),
+  };
+}
+
+vi.mock("sharp", () => ({
+  default: vi.fn(() => createSharpInstance()),
 }));
 
 // Mock cloudinary
@@ -350,13 +361,14 @@ describe("POST /api/images/upload", () => {
     const sharp = (await import("sharp")).default as unknown as ReturnType<
       typeof vi.fn
     >;
-    sharp.mockReturnValueOnce({
-      metadata: vi.fn(async () => ({
-        width: 400,
-        height: 300,
-        format: "jpeg",
-      })),
-    });
+    // The route calls sharp() twice: once to strip EXIF, once to measure the
+    // stripped buffer. The dimension check reads the SECOND call, so that is
+    // the one that must report an undersized image.
+    sharp
+      .mockReturnValueOnce(createSharpInstance())
+      .mockReturnValueOnce(
+        createSharpInstance({ width: 400, height: 300, format: "jpeg" })
+      );
 
     const req = createUploadRequest({
       file: mockFile(),

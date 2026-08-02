@@ -16,7 +16,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("rejects unauthenticated requests", async () => {
-    const res = GET(createRequest());
+    const res = await GET(createRequest());
     const body = await res.json();
 
     expect(res.status).toBe(401);
@@ -24,7 +24,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("returns a valid OpenAPI 3.1 spec for authorized requests", async () => {
-    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
+    const res = await GET(createRequest({ "X-API-Key": "test-private-key" }));
     const body = await res.json();
 
     expect(res.status).toBe(200);
@@ -35,7 +35,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("documents all v1 endpoints", async () => {
-    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
+    const res = await GET(createRequest({ "X-API-Key": "test-private-key" }));
     const body = await res.json();
 
     const paths = Object.keys(body.paths);
@@ -49,7 +49,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("includes component schemas", async () => {
-    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
+    const res = await GET(createRequest({ "X-API-Key": "test-private-key" }));
     const body = await res.json();
 
     const schemas = Object.keys(body.components.schemas);
@@ -61,7 +61,7 @@ describe("GET /api/v1/openapi.json", () => {
   });
 
   it("includes cache header", async () => {
-    const res = GET(createRequest({ "X-API-Key": "test-private-key" }));
+    const res = await GET(createRequest({ "X-API-Key": "test-private-key" }));
     expect(res.headers.get("Cache-Control")).toContain("max-age");
   });
 });

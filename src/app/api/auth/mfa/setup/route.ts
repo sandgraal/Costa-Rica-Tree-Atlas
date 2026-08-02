@@ -19,10 +19,17 @@ import { hash } from "argon2";
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { captureApiError } from "@/lib/error-tracking";
+import { rateLimit } from "@/lib/ratelimit";
 import { encryptTotpSecret, generateBackupCodes } from "@/lib/auth/mfa-crypto";
 
 export async function POST(request: NextRequest) {
   try {
+    // 0. Throttle before touching credentials. A 6-digit TOTP with unlimited
+    // guesses is not a second factor, and the password re-check on /disable is
+    // a password oracle without this.
+    const rateLimitResult = await rateLimit(request, "admin");
+    if ("response" in rateLimitResult) return rateLimitResult.response;
+
     // 1. Check authentication
     const session = await getServerSession(authOptions);
 
