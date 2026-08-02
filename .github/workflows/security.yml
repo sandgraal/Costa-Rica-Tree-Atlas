@@ -78,11 +78,31 @@ jobs:
   codeql:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
-    # The analysis itself succeeds (SARIF is generated and exported) but the
-    # upload step fails until a maintainer enables Code Scanning in repository
-    # Settings → Code security → Code scanning. Once that is done this flag
-    # can be removed and the job will pass end-to-end automatically.
-    continue-on-error: true
+    #
+    # ⚠️ Results are NOT in the Security tab. See "Restoring upload" below.
+    #
+    # The analysis runs and passes; only the SARIF *upload* is rejected, because
+    # Code Scanning is not enabled for this repository:
+    #
+    #   "Code scanning is not enabled for this repository.
+    #    Please enable code scanning in the repository settings."
+    #
+    # `continue-on-error: true` was tried at the job level and does not solve
+    # this: it flips the workflow RUN to success while the JOB and the PR CHECK
+    # both still report failure (verified on run 30768107667). So it does not
+    # unblock a required status check, and it does mask genuine CodeQL failures
+    # — autobuild breaking, a malformed config, a query error — which is the
+    # opposite of what this job is for.
+    #
+    # Instead we skip the upload entirely and publish the SARIF as a build
+    # artifact. Real analysis failures still fail the job, so the check stays
+    # honest; it simply no longer depends on a repository setting.
+    #
+    # Restoring upload (do this — the artifact is a stopgap, not a destination):
+    #   1. Settings → Code security → Code scanning → enable.
+    #   2. Set `upload: always` below and delete the `output:` line.
+    #   3. Delete the "Upload SARIF as artifact" step.
+    # Findings then appear in the Security tab and become reviewable in-PR.
     permissions:
       actions: read
       contents: read
@@ -105,6 +125,16 @@ jobs:
         uses: github/codeql-action/analyze@v4.37.3
         with:
           category: "/language:javascript"
+          output: sarif-results
+          upload: never
+
+      - name: Upload SARIF as artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: codeql-sarif
+          path: sarif-results
+          retention-days: 30
 
   # ESLint Security - Check for security anti-patterns
   eslint-security:
