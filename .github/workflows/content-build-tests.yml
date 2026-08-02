@@ -1,18 +1,19 @@
 name: Content & Build Tests
 
 on:
+  # No `paths:` filter.
+  #
+  # This is the merge gate — it runs the test suite, the fact audit, ES parity,
+  # type-check and the build. It used to be filtered to content/src/messages/i18n,
+  # which meant a Dependabot PR touching only package.json and package-lock.json
+  # never fired it. Consequence: the gate last ran on main in FEBRUARY, and a
+  # dependency bump (jsdom -> an undici needing Node 22.10) silently broke the
+  # entire suite on main without any check going red.
+  #
+  # A gate that skips exactly the changes most likely to break the build is not
+  # a gate. This job is fast enough to run on everything.
   pull_request:
     branches: [main]
-    paths:
-      - "content/**/*.mdx"
-      - "src/components/mdx/**"
-      - "contentlayer.config.ts"
-      - "src/**/*.tsx"
-      - "src/**/*.ts"
-      - "messages/**"
-      - "i18n/**"
-      - ".github/workflows/content-build-tests.yml"
-      - ".github/actions/setup-node/**"
 
   workflow_dispatch:
 concurrency:

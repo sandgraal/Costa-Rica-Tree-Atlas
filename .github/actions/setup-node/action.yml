@@ -1,11 +1,18 @@
 name: "Setup Node.js Environment"
-description: "Shared setup: Node 20, npm ci, optional Prisma generate"
+description: "Shared setup: Node 22, npm ci, optional Prisma generate"
 
 inputs:
   node-version:
+    # Node 22, not 20.
+    #
+    # jsdom 30 declares `^22.22.2 || ^24.15.0 || >=26.0.0` and pulls undici 8
+    # (`>=22.19.0`), which calls `worker_threads.markAsUncloneable` — an API
+    # that does not exist in any Node 20.x. On Node 20 every vitest worker
+    # failed to start with "webidl.util.markAsUncloneable is not a function"
+    # and the suite reported "no tests" while exiting 1.
     description: "Node.js version to use"
     required: false
-    default: "20"
+    default: "22"
   prisma:
     description: "Generate Prisma client (true/false)"
     required: false
