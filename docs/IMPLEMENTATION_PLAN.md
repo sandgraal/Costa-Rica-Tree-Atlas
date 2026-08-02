@@ -1,6 +1,6 @@
 # Costa Rica Tree Atlas — Master Implementation Plan v7.0
 
-**Last Updated:** 2026-07-04 (Phase 2 progress: L2 fact-audit closed the CI gap it was missing, L3 ecoregion doc + backlog rebuilt, L6 ES-parity CI gate shipped, L7 hooks + subagent tightening shipped — see each lane for detail. No version bump; this is routine in-phase progress, not a pivot.)
+**Last Updated:** 2026-08-02 (hardening pass: production error visibility restored, auth bypass + SSRF + unmetered-endpoint fixes, camelCase/snake_case schema convergence, fabricated iNaturalist statistics removed, CI gates made real, docs re-derived from the repo. No version bump — corrective work, not a pivot.)
 **North Star:** _The bilingual tree atlas Costa Rica is proud of, that the world can cite._
 **Cadence:** Plan-first, then long autonomous runs. Stops only at decision points or destructive actions.
 **Prior versions:** v6.0 (2026-05-15, expert-panel pivot), v5.0 (Authority-first pivot), earlier — see git history.
@@ -111,10 +111,10 @@ Bilingual documents: **360** species files across EN + ES.
 | L7          | AI-Agent Repo Hardening 🟡 STRONG FOUNDATION, MODERN POLISH NEXT           |      9 |      17 |     53% |
 | L8          | Field-Tool Foundations 🔴 NOT STARTED                                      |      1 |       6 |     17% |
 | L9          | Education Seeds 🟡 SCAFFOLD PRESENT                                        |      0 |       4 |      0% |
-| L10         | Trust & Safety 🟢 CRITICAL ITEMS DONE, A11Y NEXT                           |      4 |      12 |     33% |
+| L10         | Trust & Safety 🟢 CRITICAL ITEMS DONE, A11Y NEXT                           |      7 |      15 |     47% |
 | L11         | Performance & Search at Scale 🔴 NOT STARTED                               |      0 |       6 |      0% |
 | L12         | SEO / GEO & Discoverability 🟢 STRONG, ONE TYPE LEFT                       |      8 |      12 |     67% |
-| **Overall** |                                                                            | **43** | **103** | **42%** |
+| **Overall** |                                                                            | **46** | **106** | **43%** |
 
 <!-- AUTO-METRICS:END -->
 
@@ -268,14 +268,17 @@ Each lane has a status, a one-sentence "why now," and concrete deliverables. Lan
 - [x] **Admin MFA** — `src/app/api/auth/mfa/{setup,verify,disable}/route.ts`
 - [x] **security.txt** at `public/.well-known/security.txt`
 - [x] **Husky pre-commit + commit-msg** hooks active
-- [ ] **CSP nonce strategy** — `middleware.ts` has commented-out nonce discussion; needs a decision (nonce vs hash vs disable for SSG paths).
+- [ ] **CSP nonce strategy** — needs a decision (nonce vs hash vs disable for SSG paths). Note: comments in `middleware.ts` and `next.config.ts` claimed per-request nonces were already in use; they were not, and those comments have been corrected.
 - [ ] **Costa Rica Ley 8968 + GDPR privacy notice** — ES + EN privacy pages with explicit purpose limitation and user rights.
 - [ ] **Audit log retention policy** — documented retention window for `AdminAuditLog` table.
 - [ ] **WCAG 2.2 audit** — go beyond AA on 2.1; address new SCs (focus appearance, target size minimum, dragging movements, consistent help).
 - [ ] **Screen-reader narration of distribution maps** — non-visual equivalent for live GBIF data.
 - [ ] **Reduced-motion audit** — every animation respects `prefers-reduced-motion`.
 - [ ] **High-contrast mode** — distinct from dark mode; AAA-validated tokens on the contrast-critical path.
-- [ ] **Address 3 moderate `npm audit` vulnerabilities** — [PR #757](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/pull/757) (49 prod dep bumps) likely closes most.
+- [x] **Production dependency audit is green** (2026-08-02) — `npm run security:audit` was failing with 4 high/critical prod advisories. Patched next 16.2.12, next-auth 4.24.15, overrode postcss 8.5.25 and sharp. The two remaining (`@opentelemetry/{sdk-trace-node,propagator-jaeger}`, transitive via contentlayer2) cannot be fixed without breaking `contentlayer2 build` — verified — so the gate moved to [`scripts/audit-production-deps.mjs`](../scripts/audit-production-deps.mjs), which fails on anything unaccepted and carries a dated, justified exception list. Review by 2026-11-01.
+- [x] **Production error visibility** (2026-08-02) — `removeConsole: true` stripped every `console.error`, and `src/instrumentation.ts` registered no adapter, so nothing was reported in production at all. Adapter registered; `removeConsole` now excludes error/warn.
+- [x] **Auth hardening** (2026-08-02) — closed a `Bearer workflow-` prefix auth bypass on the image-proposal endpoint, gated the MFA-bypassing `ADMIN_FALLBACK_*` path out of production, wired the already-written (and entirely unimported) rate limiters into admin login / MFA / setup, added an SSRF allowlist to proposal-apply, and made rate limiting fail closed.
+- [ ] **CSP `unsafe-inline` removal** — `src/lib/security/csp.ts:61` still carries `'unsafe-inline'` in `script-src` and a `https:` wildcard in `img-src`.
 
 ### L11 — Performance & Search at Scale 🔴 NOT STARTED
 
