@@ -442,6 +442,21 @@ export const useStore = create<StoreState>()(
 
           // Mark as hydrated - this must be the last operation
           state._hydrated = true;
+        } else {
+          // No state: localStorage was empty, or held JSON that failed to
+          // parse (the error branch above just cleared it).
+          //
+          // `_hydrated` used to be set ONLY inside `if (state)`, so a user with
+          // one corrupted entry stayed `_hydrated: false` forever. Components
+          // gate their rendering on this flag (see its doc comment), which
+          // meant favorites and recently-viewed silently never appeared, with
+          // no recovery short of clearing site data by hand.
+          //
+          // Deferred to a microtask because this callback can run during the
+          // `create()` call itself, before `useStore` is assigned.
+          queueMicrotask(() => {
+            useStore.setState({ _hydrated: true });
+          });
         }
       },
       partialize: (state) => ({

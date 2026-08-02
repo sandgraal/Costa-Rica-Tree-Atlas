@@ -1,198 +1,122 @@
-import { describe, it, expect, beforeEach, vi, beforeAll } from "vitest";
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { STORE_KEY } from "../index";
 
-// Mock localStorage for Node environment
-const localStorageMock = (() => {
-  let store = new Map<string, string>();
+/**
+ * Tests the REAL store.
+ *
+ * The previous version of this file never imported `@/lib/store`. Each of its
+ * four tests built a fresh inline zustand store with its own three-line
+ * `onRehydrateStorage` and its own `partialize`, then asserted against those.
+ * So "should validate persisted data on rehydration" validated the test's own
+ * `if (!Array.isArray(...)) state.favorites = []` — not the ~145-line
+ * production validator in src/lib/store/index.ts, which handles heightRange,
+ * useCategory, family, conservationStatus, tags, distribution, scalar→array
+ * migration, theme sync, and sort validation.
+ *
+ * The entire production rehydration path could have been deleted and every one
+ * of those tests would still have passed. The store is consumed by 12 files and
+ * had, in effect, zero coverage.
+ */
 
-  return {
-    getItem: (key: string) => store.get(key) ?? null,
-    setItem: (key: string, value: string) => {
-      store.set(key, value.toString());
-    },
-    removeItem: (key: string) => {
-      store.delete(key);
-    },
-    clear: () => {
-      store = new Map<string, string>();
-    },
-  };
-})();
+function seedStorage(value: unknown) {
+  localStorage.setItem(STORE_KEY, JSON.stringify({ state: value, version: 0 }));
+}
 
-beforeAll(() => {
-  global.localStorage = localStorageMock as Storage;
-});
+/**
+ * Import the store fresh so `persist` rehydrates from whatever we just seeded.
+ * zustand hydrates at module-evaluation time, so the reset must come first.
+ */
+async function loadStore() {
+  vi.resetModules();
+  const mod = await import("../index");
+  return mod.useStore;
+}
 
-describe("Store Hydration", () => {
+describe("store rehydration (real store)", () => {
   beforeEach(() => {
-    // Clear localStorage before each test
     localStorage.clear();
     vi.clearAllMocks();
   });
 
-  it("should initialize _hydrated as false", () => {
-    interface TestStore {
-      _hydrated: boolean;
-      favorites: string[];
-    }
-
-    const useTestStore = create<TestStore>()(
-      persist(
-        (_set) => ({
-          _hydrated: false,
-          favorites: [],
-        }),
-        {
-          name: "test-store",
-          storage: createJSONStorage(() => localStorage),
-          onRehydrateStorage: () => (state) => {
-            if (state) {
-              state._hydrated = true;
-            }
-          },
-          partialize: (state) => ({
-            favorites: state.favorites,
-          }),
-        }
-      )
-    );
-
-    const state = useTestStore.getState();
-    // After initialization but before hydration completes, _hydrated could be either
-    // false (if hydration hasn't started) or true (if it completed synchronously)
-    expect(typeof state._hydrated).toBe("boolean");
+  afterEach(() => {
+    localStorage.clear();
   });
 
-  it("should set _hydrated to true after rehydration", async () => {
-    interface TestStore {
-      _hydrated: boolean;
-      favorites: string[];
-    }
+  it("marks itself hydrated and does not persist the _hydrated flag", async () => {
+    const useStore = await loadStore();
+    expect(useStore.getState()._hydrated).toBe(true);
 
-    // Pre-populate localStorage
-    localStorage.setItem(
-      "test-store-2",
-      JSON.stringify({ state: { favorites: ["test"] } })
-    );
+    useStore.getState().addFavorite("ceiba");
 
-    const useTestStore = create<TestStore>()(
-      persist(
-        (_set) => ({
-          _hydrated: false,
-          favorites: [],
-        }),
-        {
-          name: "test-store-2",
-          storage: createJSONStorage(() => localStorage),
-          onRehydrateStorage: () => (state) => {
-            if (state) {
-              state._hydrated = true;
-            }
-          },
-          partialize: (state) => ({
-            favorites: state.favorites,
-          }),
-        }
-      )
-    );
-
-    // Wait for hydration to complete
-    await new Promise((resolve) => setTimeout(resolve, 10));
-
-    const state = useTestStore.getState();
-    expect(state._hydrated).toBe(true);
-    expect(state.favorites).toEqual(["test"]);
+    const persisted = JSON.parse(localStorage.getItem(STORE_KEY) as string);
+    expect(persisted.state.favorites).toContain("ceiba");
+    expect(persisted.state).not.toHaveProperty("_hydrated");
   });
 
-  it("should validate persisted data on rehydration", async () => {
-    interface TestStore {
-      _hydrated: boolean;
-      favorites: string[];
-    }
-
-    // Pre-populate localStorage with invalid data
-    localStorage.setItem(
-      "test-store-3",
-      JSON.stringify({ state: { favorites: "not-an-array" } })
-    );
-
-    const useTestStore = create<TestStore>()(
-      persist(
-        (_set) => ({
-          _hydrated: false,
-          favorites: [],
-        }),
-        {
-          name: "test-store-3",
-          storage: createJSONStorage(() => localStorage),
-          onRehydrateStorage: () => (state) => {
-            if (state) {
-              // Validate and fix data
-              if (!Array.isArray(state.favorites)) {
-                state.favorites = [];
-              }
-              state._hydrated = true;
-            }
-          },
-          partialize: (state) => ({
-            favorites: state.favorites,
-          }),
-        }
-      )
-    );
-
-    // Wait for hydration to complete
-    await new Promise((resolve) => setTimeout(resolve, 10));
-
-    const state = useTestStore.getState();
-    expect(state._hydrated).toBe(true);
-    expect(Array.isArray(state.favorites)).toBe(true);
-    expect(state.favorites).toEqual([]);
+  it("repairs a non-array favorites list", async () => {
+    seedStorage({ favorites: "not-an-array", recentlyViewed: [] });
+    const useStore = await loadStore();
+    expect(useStore.getState().favorites).toEqual([]);
   });
 
-  it("should not persist _hydrated flag", () => {
-    interface TestStore {
-      _hydrated: boolean;
-      favorites: string[];
-      addFavorite: (slug: string) => void;
-    }
+  it("repairs a non-array recentlyViewed list", async () => {
+    seedStorage({ favorites: [], recentlyViewed: { nope: true } });
+    const useStore = await loadStore();
+    expect(useStore.getState().recentlyViewed).toEqual([]);
+  });
 
-    const useTestStore = create<TestStore>()(
-      persist(
-        (set) => ({
-          _hydrated: false,
-          favorites: [],
-          addFavorite: (slug) =>
-            set((state) => ({
-              favorites: [...state.favorites, slug],
-            })),
-        }),
-        {
-          name: "test-store-5",
-          storage: createJSONStorage(() => localStorage),
-          onRehydrateStorage: () => (state) => {
-            if (state) {
-              state._hydrated = true;
-            }
-          },
-          partialize: (state) => ({
-            favorites: state.favorites,
-            // Explicitly exclude _hydrated
-          }),
-        }
-      )
-    );
+  it("falls back to the system theme when the persisted theme is invalid", async () => {
+    seedStorage({ favorites: [], recentlyViewed: [], theme: "chartreuse" });
+    const useStore = await loadStore();
+    expect(useStore.getState().theme).toBe("system");
+  });
 
-    // Add a favorite and trigger persistence
-    useTestStore.getState().addFavorite("test-tree");
+  it("nulls a savedSearchFilter that is not a plain object", async () => {
+    seedStorage({
+      favorites: [],
+      recentlyViewed: [],
+      savedSearchFilter: ["not", "an", "object"],
+    });
+    const useStore = await loadStore();
+    expect(useStore.getState().savedSearchFilter).toBeNull();
+  });
 
-    // Check localStorage
-    const stored = localStorage.getItem("test-store-5");
-    expect(stored).toBeTruthy();
-    const parsed = JSON.parse(stored!);
-    expect(parsed.state).toBeDefined();
-    expect(parsed.state.favorites).toEqual(["test-tree"]);
-    expect(parsed.state._hydrated).toBeUndefined();
+  it("drops invalid heightRange entries", async () => {
+    seedStorage({
+      favorites: [],
+      recentlyViewed: [],
+      savedSearchFilter: { heightRange: ["large", "definitely-not-a-range"] },
+    });
+    const useStore = await loadStore();
+
+    const filter = useStore.getState().savedSearchFilter;
+    expect(filter?.heightRange).toEqual(["large"]);
+  });
+
+  it("migrates a legacy scalar heightRange to an array", async () => {
+    // Older builds persisted a single string here. This migration is one of the
+    // behaviours the old fake-store tests could not have exercised at all.
+    seedStorage({
+      favorites: [],
+      recentlyViewed: [],
+      savedSearchFilter: { heightRange: "large" },
+    });
+    const useStore = await loadStore();
+
+    const filter = useStore.getState().savedSearchFilter;
+    expect(Array.isArray(filter?.heightRange)).toBe(true);
+    expect(filter?.heightRange).toEqual(["large"]);
+  });
+
+  it("survives corrupted JSON without throwing", async () => {
+    localStorage.setItem(STORE_KEY, "{ this is not json");
+    const useStore = await loadStore();
+
+    expect(useStore.getState().favorites).toEqual([]);
+
+    // Resolved on a microtask: with no parsable state there is no object for
+    // onRehydrateStorage to mutate, so the flag is set through the store API.
+    await Promise.resolve();
+    expect(useStore.getState()._hydrated).toBe(true);
   });
 });

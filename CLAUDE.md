@@ -51,8 +51,16 @@ PR descriptions are the handoff mechanism.
 - **DB:** Prisma + Neon serverless Postgres (users, contributions,
   ImageProposals, audit logs)
 - **State:** Zustand for client state
-- **Images:** Sharp + Cloudinary for user uploads; iNaturalist-sourced
-  static images for the canonical species set
+- **Images:** Sharp + Cloudinary for user uploads. Species imagery is split:
+  the **featured** image per species is a local file under
+  `public/images/trees/`, while the ~1,780 **gallery** images are hotlinked
+  from iNaturalist (`inaturalist-open-data.s3.amazonaws.com`,
+  `static.inaturalist.org`) and served through the Next image optimizer, which
+  caches them at the edge for a year (`minimumCacheTTL` in `next.config.ts`).
+  They are NOT stored in this repo — this line previously said "static images
+  for the canonical species set", which described something that has never
+  existed. Practical consequences: link rot is a real failure mode, and
+  offline use does not cover galleries.
 - **Rate limiting:** Upstash Redis on public API endpoints
 - **Tests:** Vitest (58 test files: 49 in `tests/`, the rest colocated in `src/`); Playwright is not in use
 - **CI:** `.github/workflows/` — content-build-tests (the merge gate: full

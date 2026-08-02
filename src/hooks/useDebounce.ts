@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 /**
  * Debounces a value - returns the value after it stops changing for `delay` ms
@@ -41,26 +41,44 @@ export function useDebounce<T>(value: T, delay: number = 300): T {
 }
 
 /**
- * Alternative: Returns a debounced callback function
- * Use when you want to debounce a function call, not a value
+ * Alternative: Returns a debounced callback function.
+ * Use when you want to debounce a function call, not a value.
+ *
+ * Three defects fixed here, all invisible because nothing imported this and
+ * nothing tested it:
+ *  - the pending timer lived in `useState`, so every invocation queued an
+ *    extra render purely to store a timer id;
+ *  - the returned function was rebuilt on every render, so passing it to a
+ *    memoized child or an effect dependency array defeated the memoization;
+ *  - the timer was never cleared on unmount, so a pending callback could fire
+ *    against a torn-down component.
  */
 export function useDebouncedCallback<T extends (...args: never[]) => unknown>(
   callback: T,
   delay: number = 300
 ): (...args: Parameters<T>) => void {
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  return (...args: Parameters<T>) => {
-    // Clear existing timeout
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
+  // Keep the latest callback without changing the debounced function's
+  // identity, so callers can safely depend on it.
+  const callbackRef = useRef(callback);
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
 
-    // Set new timeout
-    const newTimeoutId = setTimeout(() => {
-      callback(...args);
-    }, delay);
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
-    setTimeoutId(newTimeoutId);
-  };
+  return useCallback(
+    (...args: Parameters<T>) => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        callbackRef.current(...args);
+      }, delay);
+    },
+    [delay]
+  );
 }
