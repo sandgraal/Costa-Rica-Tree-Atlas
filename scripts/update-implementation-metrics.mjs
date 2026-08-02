@@ -190,7 +190,25 @@ const updated =
   plan.slice(endIndex + END_MARKER.length);
 
 if (CHECK_ONLY) {
-  if (updated !== plan) {
+  // Compare CONTENT, not formatting. Prettier runs on this file via lint-staged
+  // and pads markdown table cells to align the pipes; this script emits them
+  // unpadded. A raw string compare therefore reported "stale" on a file whose
+  // numbers were identical, which would have made the CI gate cry wolf on every
+  // run — the same way its predecessor cried "success" on every run.
+  const normalize = (text) =>
+    text
+      .split("\n")
+      .map((line) =>
+        line
+          .replace(/\s+/g, " ")
+          // Prettier also pads the separator row: `| --- |` becomes
+          // `| ------------- |`. Collapse any run of dashes to one token.
+          .replace(/-{2,}/g, "---")
+          .trimEnd()
+      )
+      .join("\n");
+
+  if (normalize(updated) !== normalize(plan)) {
     console.error(
       "❌ Implementation-plan metrics are stale. Run:\n" +
         "   node scripts/update-implementation-metrics.mjs"
