@@ -48,6 +48,9 @@ const KeyboardShortcuts = dynamic(() =>
 const PWARegister = dynamic(() =>
   import("@/components/PWARegister").then((m) => ({ default: m.PWARegister }))
 );
+const ThemeSync = dynamic(() =>
+  import("@/components/providers").then((m) => ({ default: m.ThemeSync }))
+);
 const Analytics = dynamic(() =>
   import("@/components/Analytics").then((m) => ({ default: m.Analytics }))
 );
@@ -315,6 +318,14 @@ export default async function LocaleLayout({ children, params }: Props) {
             <ScrollToTop />
             <KeyboardShortcuts />
             <PWARegister />
+            {/*
+              ThemeSync is the only `prefers-color-scheme` CHANGE listener in the
+              app — the two other matchMedia call sites (theme-script.ts,
+              lib/store) are one-shot reads at load. It existed but was mounted
+              nowhere, so `theme: "system"` resolved once on page load and never
+              followed the OS switching between light and dark.
+            */}
+            <ThemeSync />
             {/* Privacy-respecting analytics - configure via env vars */}
             <Analytics
               plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}

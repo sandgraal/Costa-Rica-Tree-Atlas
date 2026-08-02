@@ -42,7 +42,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "noJsBanner": "This site works best with JavaScript enabled. Navigation and core content remain available.",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "oralHistories": "Oral Histories"
   },
   "home": {
     "title": "Discover Costa Rica's Trees",
@@ -125,7 +126,10 @@
     "exploreByProvince": "Explore by Province",
     "featuredTrees": "Featured trees:",
     "collections": "Collections:",
-    "noTreesMatch": "No trees match this collection currently."
+    "noTreesMatch": "No trees match this collection currently.",
+    "errorMissingApiKey": "The map service is not configured.",
+    "errorLoadFailed": "The map service could not be reached.",
+    "errorTimeout": "The map took too long to load."
   },
   "trees": {
     "title": "Tree Directory",
@@ -220,7 +224,8 @@
     "noSavedFilters": "No saved filters",
     "structuredDataName": "Costa Rica Tree Directory",
     "structuredDataDescription": "A comprehensive collection of native Costa Rican trees",
-    "viewAllPhotos": "{count, plural, =1 {View 1 photo →} other {View all {count} photos →}}"
+    "viewAllPhotos": "{count, plural, =1 {View 1 photo →} other {View all {count} photos →}}",
+    "clearSearch": "Clear search"
   },
   "footer": {
     "description": "A privately maintained project dedicated to documenting the trees of Costa Rica.",
@@ -1454,7 +1459,9 @@
     "close": "close",
     "topResults": "Top results",
     "viewAllResults": "View all {count} results",
-    "suggestionsFooter": "Press Enter to select, Escape to close"
+    "suggestionsFooter": "Press Enter to select, Escape to close",
+    "loadError": "Search is unavailable right now.",
+    "retry": "Try again"
   },
   "admin": {
     "nav": {
@@ -2415,7 +2422,8 @@
     "ariaImageFallbackLabel": "Image",
     "ariaViewFirstImage": "View first image",
     "ariaViewSecondImage": "View second image",
-    "ariaLoadingImage": "Loading image"
+    "ariaLoadingImage": "Loading image",
+    "ariaGoToImage": "Go to image {index} of {total}"
   },
   "biodiversity": {
     "title": "Biodiversity Data",

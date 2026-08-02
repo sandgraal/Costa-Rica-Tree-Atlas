@@ -10,6 +10,7 @@ export const ROUTES = {
   fieldGuide: "/field-guide",
   education: "/education",
   glossary: "/glossary",
+  oralHistories: "/oral-histories",
   safety: "/safety",
   quiz: "/quiz",
   diagnose: "/diagnose",
@@ -56,6 +57,10 @@ export const NAV_GROUP_ITEMS = [
     links: [
       { href: ROUTES.education, tKey: "education" },
       { href: ROUTES.glossary, tKey: "glossary" },
+      // /oral-histories serves four real MDX documents but appeared in no nav,
+      // no sitemap and no inbound link anywhere in src/ — reachable only by
+      // typing the URL.
+      { href: ROUTES.oralHistories, tKey: "oralHistories" },
       { href: ROUTES.safety, tKey: "safety" },
       { href: ROUTES.quiz, tKey: "quiz" },
       { href: ROUTES.diagnose, tKey: "diagnose" },

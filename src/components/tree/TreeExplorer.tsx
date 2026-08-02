@@ -596,6 +596,7 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
     title: t("title"),
     subtitle: t("subtitle"),
     searchPlaceholder: t("searchByNamePlaceholder"),
+    clearSearch: t("clearSearch"),
     gridView: t("viewGrid"),
     alphabeticalView: t("viewAlphabetical"),
     filters: t("filters"),
@@ -702,10 +703,14 @@ export function TreeExplorer({ trees }: TreeExplorerProps) {
           <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           {searchQuery && (
             <button
+              type="button"
               onClick={handleClearSearch}
+              // Icon-only control with no text, no title and no aria-label:
+              // screen readers announced it as just "button".
+              aria-label={labels.clearSearch}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             >
-              <XIcon className="w-5 h-5" />
+              <XIcon className="w-5 h-5" aria-hidden="true" />
             </button>
           )}
 

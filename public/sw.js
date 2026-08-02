@@ -1,11 +1,16 @@
 // Service Worker for Costa Rica Tree Atlas
 // Provides offline support for field use
 
-const STATIC_CACHE = "cr-tree-atlas-static-v3";
-const DYNAMIC_CACHE = "cr-tree-atlas-dynamic-v3";
+const STATIC_CACHE = "cr-tree-atlas-static-v4";
+const DYNAMIC_CACHE = "cr-tree-atlas-dynamic-v4";
 
-// Static assets to cache on install
-// Note: Don't cache "/" as it redirects to locale paths
+// Static assets to cache on install.
+// Note: Don't cache "/" as it redirects to locale paths.
+//
+// The 808 KB /images/cr-tree-atlas-logo.png was deliberately removed from this
+// list: pre-caching it on install cost every first-time visitor most of a
+// megabyte before they had asked for anything. It still caches on demand via
+// the fetch handler below.
 const STATIC_ASSETS = [
   "/en",
   "/es",
@@ -17,16 +22,30 @@ const STATIC_ASSETS = [
   "/es/compare",
   "/en/manifest.webmanifest",
   "/es/manifest.webmanifest",
-  "/images/cr-tree-atlas-logo.png",
 ];
 
-// Install event - cache static assets
+// Install event - cache static assets.
+//
+// Each asset is cached individually. `cache.addAll()` is atomic: a single 404
+// among these URLs rejects the whole promise, `waitUntil` fails, and the worker
+// never installs — silently, with no offline support and nothing in the UI to
+// say so. One unreachable URL should cost that one URL, not the entire feature.
 self.addEventListener("install", (event) => {
   console.log("[SW] Installing service worker...");
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
-      console.log("[SW] Pre-caching static assets");
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(STATIC_CACHE).then(async (cache) => {
+      const results = await Promise.allSettled(
+        STATIC_ASSETS.map((asset) => cache.add(asset))
+      );
+
+      results.forEach((result, index) => {
+        if (result.status === "rejected") {
+          console.warn(
+            `[SW] Skipped pre-caching ${STATIC_ASSETS[index]}:`,
+            result.reason
+          );
+        }
+      });
     })
   );
   // Activate immediately

@@ -17,9 +17,18 @@ import {
 // signature"), even though tsc --noEmit accepts it locally.
 type GoogleMapsType = typeof google;
 
+/**
+ * Why a code rather than a message: `loadError` was a raw English string
+ * ("Maps API key not configured" / "Failed to load Google Maps") rendered
+ * directly beneath a localized label in InteractiveMap, so Spanish users saw
+ * "Error al cargar el mapa" followed by English. The provider reports what
+ * happened; the consumer decides how to say it.
+ */
+export type GoogleMapsLoadError = "missingApiKey" | "loadFailed" | "timeout";
+
 interface GoogleMapsContextType {
   isLoaded: boolean;
-  loadError: string | null;
+  loadError: GoogleMapsLoadError | null;
   google: GoogleMapsType | null;
 }
 
@@ -45,43 +54,70 @@ declare global {
   }
 }
 
+/** Give up waiting for the Maps namespace after this long. */
+const LOAD_TIMEOUT_MS = 15_000;
+
 export function GoogleMapsProvider({ children }: GoogleMapsProviderProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<GoogleMapsLoadError | null>(null);
   const [googleInstance, setGoogleInstance] = useState<GoogleMapsType | null>(
     null
   );
 
   const initMaps = useCallback(() => {
-    if (typeof google !== "undefined") {
+    // `window.google` can exist before `google.maps` is populated, so check the
+    // namespace we actually use rather than just the global.
+    if (typeof google !== "undefined" && google.maps) {
       setGoogleInstance(google);
       setIsLoaded(true);
+      return true;
     }
+    return false;
   }, []);
 
   useEffect(() => {
     const apiKey = process.env.NEXT_PUBLIC_MAPS_API_KEY;
 
     if (!apiKey) {
-      setLoadError("Maps API key not configured");
+      setLoadError("missingApiKey");
       return;
     }
 
-    // Check if already loaded
-    if (typeof google !== "undefined") {
-      setGoogleInstance(google);
-      setIsLoaded(true);
-      return;
-    }
+    // Already loaded (e.g. a second provider mounted on the same page).
+    if (initMaps()) return;
 
-    // Check if script is already in document
+    // A script tag already exists.
+    //
+    // Previously this attached a `load` listener and returned. If the script had
+    // ALREADY finished loading, `load` never fires again: `isLoaded` stayed
+    // false, `loadError` stayed null, and InteractiveMap rendered its loading
+    // pulse forever with nothing to indicate anything was wrong. We now poll
+    // briefly for the namespace and give up with an explicit timeout.
     const existingScript = document.querySelector(
       'script[src*="maps.googleapis.com"]'
     );
+
+    let pollId: ReturnType<typeof setInterval> | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const stopWaiting = () => {
+      if (pollId !== undefined) clearInterval(pollId);
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
+
+    const waitForNamespace = () => {
+      pollId = setInterval(() => {
+        if (initMaps()) stopWaiting();
+      }, 100);
+      timeoutId = setTimeout(() => {
+        stopWaiting();
+        if (!initMaps()) setLoadError("timeout");
+      }, LOAD_TIMEOUT_MS);
+    };
+
     if (existingScript) {
-      // Wait for it to load
-      existingScript.addEventListener("load", initMaps);
-      return;
+      waitForNamespace();
+      return stopWaiting;
     }
 
     // Set up callback
@@ -93,12 +129,15 @@ export function GoogleMapsProvider({ children }: GoogleMapsProviderProps) {
     script.async = true;
     script.defer = true;
     script.onerror = () => {
-      setLoadError("Failed to load Google Maps");
+      stopWaiting();
+      setLoadError("loadFailed");
     };
 
     document.head.appendChild(script);
+    waitForNamespace();
 
     return () => {
+      stopWaiting();
       delete window.initGoogleMaps;
     };
   }, [initMaps]);

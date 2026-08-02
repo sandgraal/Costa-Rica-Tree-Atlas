@@ -195,14 +195,25 @@ export function InteractiveMap({
   }, [userLocation]);
 
   if (loadError) {
+    // `loadError` is a code, not a message. It used to be a raw English string
+    // from the provider, printed directly under this localized heading.
+    const detailKey = {
+      missingApiKey: "errorMissingApiKey",
+      loadFailed: "errorLoadFailed",
+      timeout: "errorTimeout",
+    }[loadError];
+
     return (
       <div
         className={`flex items-center justify-center bg-muted rounded-xl ${className}`}
+        role="alert"
       >
         <div className="text-center p-8">
-          <span className="text-4xl mb-4 block">🗺️</span>
+          <span className="text-4xl mb-4 block" aria-hidden="true">
+            🗺️
+          </span>
           <p className="text-muted-foreground">{t("errorLoading")}</p>
-          <p className="text-sm text-muted-foreground mt-2">{loadError}</p>
+          <p className="text-sm text-muted-foreground mt-2">{t(detailKey)}</p>
         </div>
       </div>
     );
@@ -231,6 +242,9 @@ export function InteractiveMap({
           onClick={flyToUser}
           className="absolute bottom-4 right-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow"
           title={t("goToMyLocation")}
+          // Icon-only control: `title` alone is not a reliable accessible name.
+          // PronunciationButton sets both; this one set only title.
+          aria-label={t("goToMyLocation")}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

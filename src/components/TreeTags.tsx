@@ -205,39 +205,47 @@ export function TreeTag({
 }: TreeTagProps) {
   const tagDef = TAG_DEFINITIONS[tag as TagName];
 
-  if (!tagDef) {
-    // Fallback for unknown tags
+  // Interactive tags used to be a `<span role="button" tabIndex={0}>` with an
+  // onClick and NO onKeyDown: focusable, announced as a button, and completely
+  // inert to Enter/Space. The unknown-tag fallback below had onClick with
+  // neither role nor tabIndex, so the same control had two different (both
+  // wrong) accessibility treatments in one file.
+  //
+  // A real <button> gets keyboard activation, focus handling and the correct
+  // role from the platform, so there is nothing left to reimplement.
+  const shared = `inline-flex items-center gap-1 rounded-full font-medium
+      ${onClick ? "cursor-pointer hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1" : ""}
+      ${selected ? "ring-2 ring-primary ring-offset-1" : ""}`;
+
+  const sizing = size === "sm" ? "text-xs px-1.5 py-0.5" : "text-xs px-2 py-1";
+
+  const content = tagDef ? (
+    <>
+      <span aria-hidden="true">{tagDef.icon}</span>
+      <span>{tag}</span>
+    </>
+  ) : (
+    tag
+  );
+
+  const palette =
+    tagDef?.color ??
+    "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
+
+  if (onClick) {
     return (
-      <span
-        className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium
-          bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300
-          ${onClick ? "cursor-pointer hover:opacity-80" : ""}
-          ${selected ? "ring-2 ring-primary ring-offset-1" : ""}
-          ${size === "sm" ? "text-xs px-1.5 py-0.5" : ""}
-        `}
+      <button
+        type="button"
         onClick={onClick}
+        aria-pressed={selected}
+        className={`${shared} ${palette} ${sizing}`}
       >
-        {tag}
-      </span>
+        {content}
+      </button>
     );
   }
 
-  return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-full font-medium
-        ${tagDef.color}
-        ${onClick ? "cursor-pointer hover:opacity-80 transition-opacity" : ""}
-        ${selected ? "ring-2 ring-primary ring-offset-1" : ""}
-        ${size === "sm" ? "text-xs px-1.5 py-0.5" : "text-xs px-2 py-1"}
-      `}
-      onClick={onClick}
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-    >
-      <span>{tagDef.icon}</span>
-      <span>{tag}</span>
-    </span>
-  );
+  return <span className={`${shared} ${palette} ${sizing}`}>{content}</span>;
 }
 
 interface TreeTagsProps {

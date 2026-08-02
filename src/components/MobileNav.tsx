@@ -6,6 +6,7 @@ import { Link } from "@i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import { TOP_NAV_ITEMS, NAV_GROUP_ITEMS, ROUTES } from "@/lib/nav-config";
+import { openQuickSearch } from "./QuickSearch";
 
 interface NavGroup {
   label: string;
@@ -89,6 +90,18 @@ export function MobileNav() {
     setIsOpen(false);
   }, [pathname]);
 
+  // Escape closes the overlay, matching the other modals in the app.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
+
   const topLinks = TOP_NAV_ITEMS.map((item) => ({
     href: item.href,
     label: t(item.tKey),
@@ -146,9 +159,22 @@ export function MobileNav() {
         )}
       </button>
 
-      {/* Mobile Menu Overlay */}
+      {/*
+        Mobile Menu Overlay.
+
+        Given dialog semantics to match the three sibling modals that already
+        have them (ImageGallery, SideBySideImages, KeyboardShortcuts). Without
+        role/aria-modal, assistive tech announced this full-screen overlay as an
+        ordinary region, and without an Escape handler a keyboard user had no
+        way to dismiss it.
+      */}
       {isOpen && (
-        <div className="fixed inset-x-0 top-0 bottom-0 z-[60] bg-background/95 backdrop-blur-md pt-[5rem]">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("openMenu")}
+          className="fixed inset-x-0 top-0 bottom-0 z-[60] bg-background/95 backdrop-blur-md pt-[5rem]"
+        >
           <nav className="flex flex-col h-full px-6 pb-6 overflow-y-auto">
             {/* Top-level Links */}
             <ul className="space-y-1">
@@ -196,18 +222,18 @@ export function MobileNav() {
                 <button
                   onClick={() => {
                     setIsOpen(false);
-                    // Trigger the global search modal
-                    window.dispatchEvent(
-                      new KeyboardEvent("keydown", {
-                        key: "k",
-                        metaKey: true,
-                        bubbles: true,
-                      })
-                    );
+                    // Was: window.dispatchEvent(new KeyboardEvent("keydown",
+                    // { key: "k", metaKey: true, bubbles: true })). QuickSearch
+                    // listens on `document`, and an event dispatched directly on
+                    // `window` never propagates there — so this button silently
+                    // did nothing on every mobile device.
+                    openQuickSearch();
                   }}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted text-foreground w-full text-left"
                 >
-                  <span className="text-xl">🔍</span>
+                  <span className="text-xl" aria-hidden="true">
+                    🔍
+                  </span>
                   {t("searchTrees")}
                 </button>
                 <Link

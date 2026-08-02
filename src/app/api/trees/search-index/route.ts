@@ -1,10 +1,17 @@
 /**
- * Lightweight search index API for QuickSearch component.
+ * Lightweight search index API, all locales in one payload.
  * Returns only the fields needed for search — avoids shipping the entire
  * contentlayer bundle (30 MB uncompressed) to the client.
+ *
+ * Prefer `/api/trees/search-index/{locale}` for single-locale consumers: it is
+ * roughly half the size. This route previously advertised a `?locale=` filter
+ * that could never work — `force-static` means `searchParams` are unavailable
+ * at render time, so the filter branch was unreachable and every caller got the
+ * full multi-locale payload regardless. The dead branch has been removed rather
+ * than left to imply a capability that does not exist.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { allTrees } from "contentlayer/generated";
 import { routing } from "@i18n/routing";
 
@@ -23,40 +30,7 @@ interface SearchIndexEntry {
   conservationStatus?: string;
 }
 
-function isSupportedLocale(
-  value: string
-): value is (typeof routing.locales)[number] {
-  return (routing.locales as readonly string[]).includes(value);
-}
-
-export function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const requestedLocale = searchParams.get("locale");
-
-  if (requestedLocale && isSupportedLocale(requestedLocale)) {
-    const localeIndex = allTrees
-      .filter((t) => t.locale === requestedLocale)
-      .map((t) => ({
-        slug: t.slug,
-        title: t.title,
-        scientificName: t.scientificName,
-        family: t.family,
-        description: t.description,
-        uses: t.uses,
-        tags: t.tags,
-        nativeRegion: t.nativeRegion,
-        distribution: t.distribution,
-        conservationStatus: t.conservationStatus,
-      }));
-
-    return NextResponse.json(localeIndex, {
-      headers: {
-        "Cache-Control":
-          "public, s-maxage=86400, stale-while-revalidate=604800",
-      },
-    });
-  }
-
+export function GET() {
   const index = Object.fromEntries(
     routing.locales.map((locale) => [
       locale,
