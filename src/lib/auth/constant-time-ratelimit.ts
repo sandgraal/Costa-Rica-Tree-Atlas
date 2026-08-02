@@ -1,5 +1,4 @@
-import { checkAuthRateLimit } from "./rate-limit";
-import { NextRequest } from "next/server";
+import { checkAuthRateLimit, type HeaderSource } from "./rate-limit";
 
 /**
  * Minimum duration for rate limit checks in milliseconds
@@ -19,7 +18,7 @@ const MIN_DURATION_MS = parseInt(
  * Always returns the same structure regardless of result to prevent timing attacks
  */
 export async function constantTimeRateLimitCheck(
-  request: NextRequest
+  request: HeaderSource
 ): Promise<{
   allowed: boolean;
   retryAfter: number;

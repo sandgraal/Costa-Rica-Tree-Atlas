@@ -10,6 +10,7 @@ import type { ConservationCategory, Locale } from "@/types/tree";
 import { useDebounce } from "@/hooks/useDebounce";
 import { getSearchSessionId } from "@/lib/analytics/search-session";
 import { getLocaleSearchIndex } from "@/lib/query-contracts";
+import { captureException } from "@/lib/error-tracking";
 
 // ---------------------------------------------------------------------------
 // Lightweight search analytics — fire-and-forget, never blocks UI
@@ -71,8 +72,18 @@ interface TreeSearchResult {
 }
 
 type SearchIndexResponse =
-  | TreeSearchResult[]
-  | Record<string, TreeSearchResult[]>;
+  TreeSearchResult[] | Record<string, TreeSearchResult[]>;
+
+/**
+ * Event any component can dispatch on `window` to open the search palette.
+ * Use {@link openQuickSearch} rather than dispatching by hand.
+ */
+export const QUICK_SEARCH_OPEN_EVENT = "crta:quick-search:open";
+
+/** Open the global search palette from anywhere on the page. */
+export function openQuickSearch(): void {
+  window.dispatchEvent(new CustomEvent(QUICK_SEARCH_OPEN_EVENT));
+}
 
 export function QuickSearch() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,6 +92,13 @@ export function QuickSearch() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [allTrees, setAllTrees] = useState<TreeSearchResult[]>([]);
   const [isLoadingTrees, setIsLoadingTrees] = useState(true);
+  // Distinguishes "the index failed to load" from "this query matched nothing".
+  // Without it, a failed fetch left allTrees empty and every query rendered
+  // "No trees found" — the site's primary search confidently reporting that the
+  // atlas is empty. The only handling was a console.error, which the production
+  // build stripped.
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [reloadToken, setReloadToken] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLUListElement>(null);
@@ -91,23 +109,39 @@ export function QuickSearch() {
   // Debounce search query - only search after user stops typing
   const debouncedQuery = useDebounce(query, 300);
 
-  // Load lightweight search index from API (avoids shipping full contentlayer bundle to client)
+  // Load lightweight search index from API (avoids shipping full contentlayer bundle to client).
+  // Uses the per-locale route: the `?locale=` query on the sibling route was
+  // never honoured (force-static routes cannot read searchParams), so this used
+  // to download both locales on every page load.
   useEffect(() => {
+    let cancelled = false;
+
     const loadTrees = async () => {
       setIsLoadingTrees(true);
+      setLoadFailed(false);
       try {
-        const res = await fetch(`/api/trees/search-index?locale=${locale}`);
-        if (!res.ok) throw new Error("Failed to fetch search index");
+        const res = await fetch(
+          `/api/trees/search-index/${encodeURIComponent(locale)}`
+        );
+        if (!res.ok) throw new Error(`Search index responded ${res.status}`);
         const payload = (await res.json()) as SearchIndexResponse;
+        if (cancelled) return;
         setAllTrees(getLocaleSearchIndex(payload, locale));
       } catch (error) {
-        console.error("Failed to load trees:", error);
+        if (cancelled) return;
+        setLoadFailed(true);
+        setAllTrees([]);
+        captureException(error, { tags: { area: "quick-search" } });
       } finally {
-        setIsLoadingTrees(false);
+        if (!cancelled) setIsLoadingTrees(false);
       }
     };
+
     void loadTrees();
-  }, [locale]);
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, reloadToken]);
 
   // Comprehensive search function with fuzzy matching
   const searchTrees = (
@@ -198,13 +232,22 @@ export function QuickSearch() {
     trackSearch(debouncedQuery, locale, filtered.length);
   }, [debouncedQuery, allTrees, locale]);
 
-  // Handle keyboard shortcut (Cmd/Ctrl + K)
+  // Handle keyboard shortcut (Cmd/Ctrl + K) and the programmatic open event.
+  //
+  // MobileNav's "Search Trees" button used to open the palette by dispatching a
+  // synthetic Cmd+K KeyboardEvent on `window`. Events dispatched directly on
+  // `window` never reach `document` listeners, so the button did nothing at all.
+  // A dedicated event both sides agree on replaces that guesswork.
   useEffect(() => {
+    const open = () => {
+      setIsOpen(true);
+      setTimeout(() => inputRef.current?.focus(), 0);
+    };
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        setIsOpen(true);
-        setTimeout(() => inputRef.current?.focus(), 0);
+        open();
       }
       if (e.key === "Escape") {
         setIsOpen(false);
@@ -213,8 +256,10 @@ export function QuickSearch() {
     };
 
     document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(QUICK_SEARCH_OPEN_EVENT, open);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener(QUICK_SEARCH_OPEN_EVENT, open);
     };
   }, []);
 
@@ -264,8 +309,7 @@ export function QuickSearch() {
     const list = resultsRef.current;
     if (!list) return;
     const selectedItem = list.children[selectedIndex] as
-      | HTMLElement
-      | undefined;
+      HTMLElement | undefined;
     selectedItem?.scrollIntoView({ block: "nearest" });
   }, [selectedIndex]);
 
@@ -334,6 +378,22 @@ export function QuickSearch() {
                       />
                     ))}
                   </div>
+                </div>
+              ) : loadFailed ? (
+                <div
+                  role="alert"
+                  className="p-6 text-center text-sm text-muted-foreground"
+                >
+                  <p className="mb-3">{t("loadError")}</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setReloadToken((token) => token + 1);
+                    }}
+                    className="px-3 py-2 rounded-lg border border-border text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {t("retry")}
+                  </button>
                 </div>
               ) : results.length > 0 ? (
                 <ul

@@ -1,12 +1,10 @@
 # Costa Rica Tree Atlas
 
-A bilingual (English/Spanish) web application and private reference project documenting the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
+A bilingual (English/Spanish) web application documenting the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
 
-A bilingual (English/Spanish) web application showcasing the magnificent trees of Costa Rica. Built with Next.js 16, TypeScript, and modern web technologies.
-
-[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
 [![Security Checks](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/workflows/Security%20Checks/badge.svg)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/actions)
 [![Dependabot](https://img.shields.io/badge/Dependabot-enabled-success)](https://github.com/sandgraal/Costa-Rica-Tree-Atlas/security/dependabot)
@@ -16,7 +14,7 @@ A bilingual (English/Spanish) web application showcasing the magnificent trees o
 ### Bilingual Content
 
 - Full English and Spanish support with locale-based routing
-- **175 tree species** with comprehensive bilingual profiles (350 documents)
+- **180 tree species** with comprehensive bilingual profiles (360 documents)
 - MDX content system for rich tree profiles with React components
 
 ### Education Tools
@@ -116,15 +114,17 @@ Comprehensive documentation is available in the **[docs/](docs/)** directory:
 - **[Documentation Index](docs/README.md)** - Complete guide to all documentation
 - **[Development Notes](CONTRIBUTING.md)** - Setup notes for project owner/collaborators
 - **[Content Standards](docs/CONTENT_STANDARDIZATION_GUIDE.md)** - Tree profile standards
-- **[Project Roadmap](docs/improvement-roadmap.md)** - Feature status and roadmap
+- **[Implementation Plan](docs/IMPLEMENTATION_PLAN.md)** - Phased roadmap, lane status, and v1.0 definition of done
 - **[AI Agent Instructions](AGENTS.md)** - Coding conventions and patterns
 
 ## Contributing
 
-This repository is maintained as a private project.
+Contributions are welcome — see **[CONTRIBUTING.md](CONTRIBUTING.md)** for local
+setup, branch conventions, and the content acceptance criteria, and
+**[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** for community expectations.
 
-Public contributions and external pull requests are currently closed.
-If you're an approved collaborator, use **[Development Notes](CONTRIBUTING.md)** for local setup and workflow details.
+Content changes touching indigenous knowledge follow a separate review process;
+see **[docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md](docs/INDIGENOUS_KNOWLEDGE_GOVERNANCE.md)**.
 
 ### Automated Quality Assurance
 
@@ -135,7 +135,7 @@ The project includes automated weekly image quality monitoring that:
 - Generates quality metrics and health reports
 - Creates PRs for manual review before merging
 
-See **[Image Quality Monitoring](docs/IMAGE_QUALITY_MONITORING.md)** for details on our automated maintenance system.
+See **[Image Quality Monitoring](docs/IMAGE_REVIEW_SYSTEM.md)** for details on our automated maintenance system.
 
 ### Image Optimization
 
@@ -178,7 +178,7 @@ npm run images:check           # Check for orphaned images
 npm run images:cleanup         # Clean up obsolete images
 ```
 
-See **[Image Optimization Guide](docs/IMAGE_OPTIMIZATION.md)** for complete documentation and **[Image Audit Report](docs/IMAGE_AUDIT.md)** for current status.
+See **[Image Optimization Guide](docs/IMAGE_OPTIMIZATION.md)** for complete documentation and **[Image Audit Report](docs/IMAGE_REVIEW_SYSTEM.md)** for current status.
 
 ### Security & Code Quality
 
@@ -208,11 +208,20 @@ These instructions help AI agents understand our architecture, maintain consiste
 
 ## Rights & Usage
 
-This project and its contents are private and maintained by the owner.
+The atlas is open. Three licenses apply to three different things:
 
-Unless explicitly permitted in writing by the owner, all rights are reserved and public reuse, redistribution, or derivative publication is not authorized.
+| What                                                  | License   | File                                     |
+| ----------------------------------------------------- | --------- | ---------------------------------------- |
+| Application code                                      | MIT       | [LICENSE](LICENSE)                       |
+| Written content (species profiles, glossary, guides)  | CC BY 4.0 | [LICENSE-CONTENT.md](LICENSE-CONTENT.md) |
+| Structured dataset (Darwin Core Archive, frontmatter) | CC BY 4.0 | [LICENSE-DATA.md](LICENSE-DATA.md)       |
 
-For internal guidance, see [USAGE-POLICY.md](USAGE-POLICY.md).
+**Photographs are the exception.** Gallery images are sourced from iNaturalist
+and are mostly **CC BY-NC**; each carries its own `credit` and `license` props.
+Commercial reuse of photographs requires separate licensing from the
+photographer. Do not assume the code or content license covers them.
+
+See [USAGE-POLICY.md](USAGE-POLICY.md) for the full policy.
 
 ## Acknowledgments
 

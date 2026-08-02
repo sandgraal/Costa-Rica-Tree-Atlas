@@ -16,6 +16,11 @@ import { verify } from "argon2";
 import prisma from "@/lib/prisma";
 import { decryptTotpSecret } from "@/lib/auth/mfa-crypto";
 import { verifyBackupCode } from "@/lib/auth/backup-codes";
+import { secureCompareOrFalse } from "@/lib/auth/secure-compare";
+import { constantTimeRateLimitCheck } from "@/lib/auth/constant-time-ratelimit";
+import { headerSourceFromRecord } from "@/lib/auth/rate-limit";
+import { AUTH_CONFIG } from "@/lib/auth/constants";
+import { captureException } from "@/lib/error-tracking";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -31,27 +36,58 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
         totpCode: { label: "2FA Code (if enabled)", type: "text" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and password required");
         }
 
-        // Fallback credentials: allows login when DB is unavailable.
-        // Set ADMIN_FALLBACK_EMAIL and ADMIN_FALLBACK_PASSWORD in env vars.
+        // Brute-force protection: 5 attempts per 15 minutes per client IP.
+        // Runs before any credential comparison so a rate-limited attacker
+        // learns nothing about whether the account exists. The check is
+        // constant-time so its own outcome is not observable through timing.
+        const rateLimit = await constantTimeRateLimitCheck(
+          headerSourceFromRecord(req?.headers as Record<string, string>)
+        );
+        if (!rateLimit.allowed) {
+          throw new Error(
+            `Too many attempts. Try again in ${rateLimit.retryAfter}s.`
+          );
+        }
+
+        // Break-glass credentials for when the database is unreachable.
+        //
+        // Deliberately disabled in production: it bypasses MFA and the user
+        // table entirely, so in production it would be a second, weaker front
+        // door to the admin surface. Recovering a locked-out production admin
+        // is a database operation, not a login flow.
         const fallbackEmail = process.env.ADMIN_FALLBACK_EMAIL;
         const fallbackPassword = process.env.ADMIN_FALLBACK_PASSWORD;
 
         if (
+          process.env.NODE_ENV !== "production" &&
           fallbackEmail &&
-          fallbackPassword &&
-          credentials.email === fallbackEmail &&
-          credentials.password === fallbackPassword
+          fallbackPassword
         ) {
-          return {
-            id: "fallback-admin",
-            email: fallbackEmail,
-            name: "Admin (fallback)",
-          };
+          // Compare both fields in constant time, and always evaluate both, so
+          // neither a matching email nor a shared password prefix is timeable.
+          // Non-throwing variant: an over-length email or password must be a
+          // clean credential rejection, not an unhandled NextAuth 500.
+          const [emailMatches, passwordMatches] = await Promise.all([
+            secureCompareOrFalse(credentials.email, fallbackEmail),
+            secureCompareOrFalse(credentials.password, fallbackPassword),
+          ]);
+
+          if (emailMatches && passwordMatches) {
+            console.warn(
+              "[auth] Break-glass fallback credentials used. This path is " +
+                "disabled in production."
+            );
+            return {
+              id: "fallback-admin",
+              email: fallbackEmail,
+              name: "Admin (fallback)",
+            };
+          }
         }
 
         try {
@@ -130,8 +166,18 @@ export const authOptions: NextAuthOptions = {
                 });
                 mfaValid = result.valid;
               } catch (error) {
-                console.error("[NextAuth] TOTP verification error:", error);
-                mfaValid = false;
+                // A decryption failure is a server misconfiguration (usually a
+                // missing or rotated MFA_ENCRYPTION_KEY), not a wrong code.
+                // Treating it as a wrong code silently downgrades every account
+                // to backup-codes-only with no operator signal, so fail loudly.
+                captureException(
+                  error instanceof Error ? error : new Error(String(error)),
+                  {
+                    tags: { area: "auth", step: "totp_verify" },
+                    level: "error",
+                  }
+                );
+                throw new Error("MFA configuration error");
               }
             }
 
@@ -189,7 +235,10 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 7 * 24 * 60 * 60, // 7 days
+    // Single source of truth: src/lib/auth/constants.ts. This previously read
+    // `7 * 24 * 60 * 60` while AUTH_CONFIG.SESSION_DURATION declared 24h and was
+    // imported by nothing — the constant documented an intent the app ignored.
+    maxAge: AUTH_CONFIG.SESSION_DURATION,
   },
   cookies: {
     sessionToken: {

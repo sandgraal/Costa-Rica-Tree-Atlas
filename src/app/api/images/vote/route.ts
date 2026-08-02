@@ -13,6 +13,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { captureApiError } from "@/lib/error-tracking";
 import { createHash } from "crypto";
 import prisma from "@/lib/prisma";
+import { tableIsQueryable } from "@/lib/db/table-check";
 import {
   type ImageType,
   type ImageFlagReason,
@@ -40,18 +41,10 @@ function hashIp(ip: string | null): string | null {
   return createHash("sha256").update(ip).digest("hex").substring(0, 64);
 }
 
-// Check if tables exist
+// Shared probe: distinguishes "table missing" from "query failed".
+// See src/lib/db/table-check.ts.
 async function checkTablesExist(): Promise<boolean> {
-  try {
-    await (
-      prisma as unknown as {
-        $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
-      }
-    ).$queryRaw`SELECT 1 FROM image_votes LIMIT 1`;
-    return true;
-  } catch {
-    return false;
-  }
+  return tableIsQueryable("image_votes");
 }
 
 // Rate limit check (100 votes per hour per session)

@@ -57,6 +57,29 @@ export async function secureCompare(a: string, b: string): Promise<boolean> {
 }
 
 /**
+ * Non-throwing {@link secureCompare}: an over-length input is a non-match.
+ *
+ * Prefer this at every request-handling boundary. `secureCompare` throws when
+ * either input exceeds MAX_INPUT_LENGTH (a deliberate HashDoS guard), which is
+ * the right behaviour for the primitive but the wrong behaviour for a gate: an
+ * attacker sending a 20 KB `X-API-Key`, password, or setup-token header would
+ * turn an authorization failure into an unhandled 500. That is both a denial of
+ * service and an oracle — a 500 distinguishes "too long" from "wrong".
+ *
+ * Callers that genuinely want the throw can still use `secureCompare` directly.
+ */
+export async function secureCompareOrFalse(
+  a: string,
+  b: string
+): Promise<boolean> {
+  try {
+    return await secureCompare(a, b);
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Hash a string using SHA-256 (Web Crypto API)
  *
  * ⚠️ WARNING: NOT suitable for password storage!

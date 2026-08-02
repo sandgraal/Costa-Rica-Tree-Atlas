@@ -80,9 +80,9 @@ dist/dwca/
   description.tsv       ← EN + ES short descriptions linked by taxonID
 ```
 
-For the current corpus (175 species):
+For the current corpus (180 species):
 
-- `taxon.tsv` — 175 rows
+- `taxon.tsv` — 180 rows
 - `vernacularname.tsv` — ~200 rows (some ES titles equal EN; deduped)
 - `description.tsv` — ~350 rows (EN + ES per taxon)
 
@@ -137,7 +137,7 @@ field-cardinality, and EML schema compliance.
 npm run content:export-dwca
 ls -1 dist/dwca/                         # 5 files
 head -2 dist/dwca/taxon.tsv              # spot-check header + row 1
-wc -l dist/dwca/taxon.tsv                # 176 (header + 175 species)
+wc -l dist/dwca/taxon.tsv                # 181 (header + 180 species)
 xmllint --noout dist/dwca/meta.xml       # XML well-formed (requires libxml2)
 xmllint --noout dist/dwca/eml.xml
 ```

@@ -474,8 +474,8 @@ If issues occur during migration:
 ## Related Documentation
 
 - [AUTH_IMPLEMENTATION_GUIDELINES.md](./AUTH_IMPLEMENTATION_GUIDELINES.md) - Proactive guidance
-- [SECURITY.md](../SECURITY.md) - Security measures
-- [SECURITY_SETUP.md](./SECURITY_SETUP.md) - Security scanning
+- [SECURITY.md](../../../SECURITY.md) - Security measures
+- [SECURITY_SETUP.md](../../SECURITY_SETUP.md) - Security scanning
 
 ## Support
 

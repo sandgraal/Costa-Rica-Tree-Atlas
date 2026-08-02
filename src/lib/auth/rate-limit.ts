@@ -1,7 +1,33 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { RATE_LIMITS } from "@/lib/ratelimit/config";
-import { NextRequest } from "next/server";
+
+/**
+ * Minimal structural type for anything we can read request headers from.
+ *
+ * `NextRequest` satisfies this directly. NextAuth's `authorize(credentials, req)`
+ * hands us a plain header record instead, so it uses `headerSourceFromRecord()`
+ * below — that is why this is not typed as `NextRequest`.
+ */
+export interface HeaderSource {
+  headers: { get(name: string): string | null };
+}
+
+/**
+ * Adapt NextAuth's plain header record to a {@link HeaderSource}.
+ * Header names are lowercased, matching the Fetch `Headers` contract.
+ */
+export function headerSourceFromRecord(
+  headers: Record<string, string> | undefined
+): HeaderSource {
+  const lookup = new Map(
+    Object.entries(headers ?? {}).map(([key, value]) => [
+      key.toLowerCase(),
+      value,
+    ])
+  );
+  return { headers: { get: (name) => lookup.get(name.toLowerCase()) ?? null } };
+}
 
 // Use Upstash Redis for persistent rate limiting
 const redis =
@@ -94,7 +120,7 @@ function normalizeIP(ip: string): string {
  * - All IPs are validated to prevent injection attacks
  * - IPv6 addresses are normalized to /48 or /64 subnets based on carrier type
  */
-function getTrustedClientIP(request: NextRequest): string {
+function getTrustedClientIP(request: HeaderSource): string {
   // Vercel sets x-real-ip with the actual client IP (trusted)
   const realIP = request.headers.get("x-real-ip");
   if (realIP && isValidIP(realIP)) {
@@ -146,15 +172,28 @@ export const authRateLimit = redis
 const localAttempts = new Map<string, { count: number; resetAt: number }>();
 
 /**
+ * Clear the in-memory attempt counters.
+ *
+ * For tests only. Requests without IP headers all share the `admin:unknown`
+ * bucket (deliberate — unknown clients get the strictest limit), which means a
+ * test file exercising more than five login attempts would otherwise throttle
+ * itself. Resetting is preferable to disabling the limiter under NODE_ENV=test,
+ * which would leave the brute-force guard untested.
+ */
+export function __resetAuthRateLimitForTests(): void {
+  localAttempts.clear();
+}
+
+/**
  * Check if the authentication attempt is within rate limits
  * Uses Upstash Redis in production, falls back to in-memory storage in development
  *
- * @param request - The Next.js request object (used to derive IP address)
+ * @param request - Anything exposing request headers (used to derive IP address)
  * @returns Object with success status, remaining attempts, and reset timestamp
  *
  * Rate limit: 5 attempts per 15 minutes per IP address
  */
-export async function checkAuthRateLimit(request: NextRequest): Promise<{
+export async function checkAuthRateLimit(request: HeaderSource): Promise<{
   success: boolean;
   remaining: number;
   reset: number;

@@ -37,7 +37,7 @@ All accepted contributions are governed by [LICENSE](LICENSE) and
 
 ### Prerequisites
 
-- Node.js 18.17 or later
+- Node.js 22.22.2 or later (required by jsdom 30 / undici 8 in the test suite)
 - npm, yarn, or pnpm
 - Git
 - A code editor (VS Code recommended)

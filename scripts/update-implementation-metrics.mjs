@@ -1,137 +1,231 @@
 #!/usr/bin/env node
 
 /**
- * Auto-update metrics in IMPLEMENTATION_PLAN.md
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  *
- * This script:
- * - Counts completed checkboxes in the implementation plan
- * - Counts content files (species, comparison guides, glossary)
- * - Calculates completion percentages per priority track
- * - Updates the metrics dashboard section
+ * Auto-update the metrics dashboard in docs/IMPLEMENTATION_PLAN.md.
  *
- * Triggered by GitHub workflow when IMPLEMENTATION_PLAN.md changes
+ * Counts content files and per-lane checkbox completion, then rewrites the
+ * dashboard block between the AUTO-METRICS markers.
+ *
+ * ---------------------------------------------------------------------------
+ * Why this file was rewritten
+ * ---------------------------------------------------------------------------
+ * The previous version matched two things that do not exist in the plan:
+ *
+ *   /### Priority (\d+):/          the plan uses `### L1 — …` … `### L12 — …`
+ *   /## 📊 Current Status Dashboard.*?---/s   no such heading
+ *
+ * Both were renamed in the v6 -> v7 plan rewrite. Every count therefore came
+ * out 0/0, the dashboard replace was a no-op, `git diff --quiet` reported no
+ * change, and no PR was ever opened — while the script printed
+ * "✅ Metrics dashboard updated successfully!" and exited 0.
+ *
+ * The automation built to prevent count drift ran green for months while
+ * fourteen documents drifted from 175 species to 180.
+ *
+ * It also hardcoded a "Technical Health" block (Lighthouse 48/100, "Auth
+ * Status: ❌ Broken", "109/128 optimized") that was never measured by anything
+ * and directly contradicted docs/README.md. Invented metrics are worse than
+ * absent ones, so that block is gone.
+ *
+ * This version fails loudly instead: a missing marker or an unparsable plan is
+ * a non-zero exit, not a cheerful no-op.
+ *
+ * Usage:
+ *   node scripts/update-implementation-metrics.mjs
+ *   node scripts/update-implementation-metrics.mjs --check    (CI: no writes)
  */
 
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { readdirSync } from "fs";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-
 const PLAN_PATH = join(ROOT, "docs", "IMPLEMENTATION_PLAN.md");
 
-// Read implementation plan
-const planContent = readFileSync(PLAN_PATH, "utf-8");
+const CHECK_ONLY = process.argv.includes("--check");
 
-// Count checkboxes by priority
-function countCheckboxes(priority) {
-  const priorityRegex = new RegExp(
-    `### Priority ${priority}:.*?(?=### Priority \\d+:|## |$)`,
-    "gs"
+const START_MARKER = "<!-- AUTO-METRICS:START -->";
+const END_MARKER = "<!-- AUTO-METRICS:END -->";
+
+function fail(message) {
+  console.error(`❌ ${message}`);
+  process.exit(1);
+}
+
+const plan = readFileSync(PLAN_PATH, "utf-8");
+
+// ---------------------------------------------------------------------------
+// Content counts
+// ---------------------------------------------------------------------------
+
+function countMdx(...segments) {
+  const dir = join(ROOT, ...segments);
+  return readdirSync(dir).filter((f) => f.endsWith(".mdx")).length;
+}
+
+const content = {
+  species: countMdx("content", "trees", "en"),
+  speciesEs: countMdx("content", "trees", "es"),
+  comparisons: countMdx("content", "comparisons", "en"),
+  glossary: countMdx("content", "glossary", "en"),
+  oralHistories: countMdx("content", "oral-histories", "en"),
+};
+
+if (content.species !== content.speciesEs) {
+  fail(
+    `EN/ES species files are out of sync: ${content.species} EN vs ` +
+      `${content.speciesEs} ES. Every species must exist in both locales.`
   );
-  const prioritySection = planContent.match(priorityRegex)?.[0] || "";
-
-  const completed = (prioritySection.match(/- \[x\]/gi) || []).length;
-  const total = (prioritySection.match(/- \[ \]|  - \[x\]/gi) || []).length;
-
-  return {
-    completed,
-    total,
-    percentage: total ? Math.round((completed / total) * 100) : 0,
-  };
 }
 
-// Count content files
-function countContent() {
-  const treesPath = join(ROOT, "content", "trees", "en");
-  const comparisonsPath = join(ROOT, "content", "comparisons", "en");
-  const glossaryPath = join(ROOT, "content", "glossary", "en");
+// ---------------------------------------------------------------------------
+// Lane checkbox completion
+// ---------------------------------------------------------------------------
 
-  const treeCount = readdirSync(treesPath).filter((f) =>
-    f.endsWith(".mdx")
-  ).length;
-  const comparisonCount = readdirSync(comparisonsPath).filter((f) =>
-    f.endsWith(".mdx")
-  ).length;
-  const glossaryCount = readdirSync(glossaryPath).filter((f) =>
-    f.endsWith(".mdx")
-  ).length;
+/**
+ * Lanes are `### L<n> — <title> <status emoji>` and run until the next `###`
+ * or `##` heading.
+ */
+function countLanes(planText) {
+  const laneHeading = /^### (L\d+) — (.+)$/gm;
+  const lanes = [];
+  const matches = [...planText.matchAll(laneHeading)];
 
-  return {
-    trees: treeCount,
-    comparisons: comparisonCount,
-    glossary: glossaryCount,
-  };
+  matches.forEach((match, index) => {
+    const start = match.index + match[0].length;
+    const end =
+      index + 1 < matches.length ? matches[index + 1].index : planText.length;
+    const body = planText.slice(start, end);
+
+    const done = (body.match(/^\s*- \[x\]/gim) || []).length;
+    const open = (body.match(/^\s*- \[ \]/gm) || []).length;
+    const total = done + open;
+
+    lanes.push({
+      id: match[1],
+      title: match[2].trim(),
+      done,
+      total,
+      percentage: total ? Math.round((done / total) * 100) : 0,
+    });
+  });
+
+  return lanes;
 }
 
-// Calculate metrics
-const content = countContent();
-const priority0 = countCheckboxes(0);
-const priority1 = countCheckboxes(1);
-const priority2 = countCheckboxes(2);
-const priority3 = countCheckboxes(3);
+const lanes = countLanes(plan);
 
-// Calculate overall progress
-const totalCompleted =
-  priority0.completed +
-  priority1.completed +
-  priority2.completed +
-  priority3.completed;
-const totalTasks =
-  priority0.total + priority1.total + priority2.total + priority3.total;
-const overallPercentage = totalTasks
-  ? Math.round((totalCompleted / totalTasks) * 100)
-  : 0;
+if (lanes.length === 0) {
+  fail(
+    "No `### L<n> — …` lane headings found in docs/IMPLEMENTATION_PLAN.md. " +
+      "Either the plan structure changed again or this script is stale — " +
+      "which is exactly the failure mode that let the species count drift " +
+      "unnoticed. Fix the parser rather than letting it report zeros."
+  );
+}
 
-// Build new metrics dashboard
-const newDashboard = `## 📊 Current Status Dashboard
+const totalDone = lanes.reduce((sum, lane) => sum + lane.done, 0);
+const totalTasks = lanes.reduce((sum, lane) => sum + lane.total, 0);
+const overall = totalTasks ? Math.round((totalDone / totalTasks) * 100) : 0;
 
-**Last Auto-Updated:** ${new Date().toISOString().split("T")[0]}
+// ---------------------------------------------------------------------------
+// Render
+// ---------------------------------------------------------------------------
 
-### Content Coverage
-- **Species**: ${content.trees}/175 (${Math.round((content.trees / 175) * 100)}%) - Target: 175+ documented species
-- **Comparison Guides**: ${content.comparisons}/20 (${Math.round((content.comparisons / 20) * 100)}%) - Target: 20 guides
-- **Glossary Terms**: ${content.glossary}/150 (${Math.round((content.glossary / 150) * 100)}%) - Target: 150+ terms
-- **Care Guidance**: 60/128 (47%) - Target: 100/128 (78%)
+// Targets come from the v1.0 Definition of Done at the top of the plan.
+const TARGETS = { species: 250, comparisons: 20, glossary: 150 };
 
-### Implementation Progress
-- **Overall**: ${totalCompleted}/${totalTasks} tasks (${overallPercentage}%)
-- **Priority 0 (Blockers)**: ${priority0.completed}/${priority0.total} (${priority0.percentage}%)
-- **Priority 1 (Content)**: ${priority1.completed}/${priority1.total} (${priority1.percentage}%)
-- **Priority 2 (Performance)**: ${priority2.completed}/${priority2.total} (${priority2.percentage}%)
-- **Priority 3 (Quick Wins)**: ${priority3.completed}/${priority3.total} (${priority3.percentage}%)
+const pct = (n, target) => `${Math.round((n / target) * 100)}%`;
 
-### Technical Health
-- **Lighthouse Score**: 48/100 → Target: 90/100
-- **LCP (Largest Contentful Paint)**: 6.0s → Target: <2.5s
-- **TBT (Total Blocking Time)**: 440ms → Target: <200ms
-- **Auth Status**: ❌ Broken (MFA incomplete, session strategy conflict)
-- **Safety Integration**: 🟡 60% (components exist, filtering pending)
-- **Image Status**: 109/128 optimized (85%), 66 galleries need refresh
+const dashboard = [
+  START_MARKER,
+  "",
+  "## 📊 Current Status Dashboard",
+  "",
+  `**Last auto-updated:** ${new Date().toISOString().split("T")[0]}`,
+  "_Generated by `scripts/update-implementation-metrics.mjs`. Do not hand-edit._",
+  "",
+  "### Content coverage",
+  "",
+  "| Corpus | Count | Target | Progress |",
+  "| --- | ---: | ---: | ---: |",
+  `| Species (per locale) | ${content.species} | ${TARGETS.species} | ${pct(content.species, TARGETS.species)} |`,
+  `| Comparison guides | ${content.comparisons} | ${TARGETS.comparisons} | ${pct(content.comparisons, TARGETS.comparisons)} |`,
+  `| Glossary terms | ${content.glossary} | ${TARGETS.glossary} | ${pct(content.glossary, TARGETS.glossary)} |`,
+  `| Oral histories | ${content.oralHistories} | — | — |`,
+  "",
+  `Bilingual documents: **${content.species * 2}** species files across EN + ES.`,
+  "",
+  "### Lane progress",
+  "",
+  "| Lane | Title | Done | Total | % |",
+  "| --- | --- | ---: | ---: | ---: |",
+  ...lanes.map(
+    (lane) =>
+      `| ${lane.id} | ${lane.title} | ${lane.done} | ${lane.total} | ${lane.percentage}% |`
+  ),
+  `| **Overall** | | **${totalDone}** | **${totalTasks}** | **${overall}%** |`,
+  "",
+  END_MARKER,
+].join("\n");
 
-### Priority Status Legend
-- ✅ **Complete** - All tasks done, validated
-- 🟡 **In Progress** - Active work ongoing
-- 📋 **Ready** - No blockers, can start anytime
-- ⏸️ **Blocked** - Waiting on dependencies
-- ⚠️ **Attention Needed** - Issues or delays
+const startIndex = plan.indexOf(START_MARKER);
+const endIndex = plan.indexOf(END_MARKER);
 
----`;
+if (startIndex === -1 || endIndex === -1) {
+  fail(
+    `Could not find the ${START_MARKER} / ${END_MARKER} markers in ` +
+      "docs/IMPLEMENTATION_PLAN.md. Add them where the dashboard belongs. " +
+      "(The previous script silently did nothing in this situation.)"
+  );
+}
 
-// Replace dashboard section in plan
-const dashboardRegex = /## 📊 Current Status Dashboard.*?---/gs;
-const updatedPlan = planContent.replace(dashboardRegex, newDashboard);
+const updated =
+  plan.slice(0, startIndex) +
+  dashboard +
+  plan.slice(endIndex + END_MARKER.length);
 
-// Write updated plan
-writeFileSync(PLAN_PATH, updatedPlan, "utf-8");
+if (CHECK_ONLY) {
+  // Compare CONTENT, not formatting. Prettier runs on this file via lint-staged
+  // and pads markdown table cells to align the pipes; this script emits them
+  // unpadded. A raw string compare therefore reported "stale" on a file whose
+  // numbers were identical, which would have made the CI gate cry wolf on every
+  // run — the same way its predecessor cried "success" on every run.
+  const normalize = (text) =>
+    text
+      .split("\n")
+      .map((line) =>
+        line
+          .replace(/\s+/g, " ")
+          // Prettier also pads the separator row: `| --- |` becomes
+          // `| ------------- |`. Collapse any run of dashes to one token.
+          .replace(/-{2,}/g, "---")
+          .trimEnd()
+      )
+      .join("\n");
 
-console.log("✅ Metrics dashboard updated successfully!");
+  if (normalize(updated) !== normalize(plan)) {
+    console.error(
+      "❌ Implementation-plan metrics are stale. Run:\n" +
+        "   node scripts/update-implementation-metrics.mjs"
+    );
+    process.exit(1);
+  }
+  console.log("✅ Implementation-plan metrics are up to date.");
+  process.exit(0);
+}
+
+writeFileSync(PLAN_PATH, updated, "utf-8");
+
+console.log("✅ Metrics dashboard updated.");
 console.log(
-  `   Overall progress: ${overallPercentage}% (${totalCompleted}/${totalTasks} tasks)`
+  `   Content: ${content.species} species (${content.species * 2} bilingual docs), ` +
+    `${content.comparisons} comparison guides, ${content.glossary} glossary terms`
 );
 console.log(
-  `   Content: ${content.trees} species, ${content.comparisons} guides, ${content.glossary} glossary terms`
+  `   Lanes: ${lanes.length} parsed, ${totalDone}/${totalTasks} tasks (${overall}%)`
 );

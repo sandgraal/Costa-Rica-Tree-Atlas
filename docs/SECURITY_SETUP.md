@@ -149,7 +149,7 @@ The application uses PostgreSQL with NextAuth.js for secure authentication.
 - ⚠️ Session persistence broken
 - ⚠️ Middleware authentication unreliable
 
-See [AUTH_MIGRATION_GUIDE.md](./AUTH_MIGRATION_GUIDE.md) for migration details (may be outdated).
+See [AUTH_MIGRATION_GUIDE.md](./archive/implementation-details/AUTH_MIGRATION_GUIDE.md) for migration details (may be outdated).
 
 #### Prerequisites
 

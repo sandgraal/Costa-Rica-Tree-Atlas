@@ -1,21 +1,25 @@
 /**
- * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: LicenseRef-Proprietary
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  *
  * This file is part of Costa Rica Tree Atlas.
  * See LICENSE file in the project root for full license information.
  */
 
 /**
- * Middleware for authentication, internationalization, and security headers
- * @verified 2026-01-09 - All authentication paths complete and functional
+ * Middleware for authentication, internationalization, and security headers.
+ *
+ * Scope note: `/api/**` is deliberately NOT handled here (see the early return
+ * below and the `matcher` at the bottom). API authentication is enforced
+ * per-route via `getServerSession`, and API responses do not receive the CSP or
+ * frame headers set here.
  */
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getSessionFromRequest } from "@/lib/auth/session";
-import { buildCSP, buildMDXCSP, buildRelaxedCSP } from "@/lib/security/csp";
+import { buildCSP, buildMDXCSP } from "@/lib/security/csp";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -39,12 +43,6 @@ function isAdminRoute(pathname: string): boolean {
     (locale) =>
       pathname === `/${locale}/admin` ||
       pathname.startsWith(`/${locale}/admin/`)
-  );
-}
-
-function isMarketingRoute(pathname: string): boolean {
-  return SUPPORTED_LOCALES.some((locale) =>
-    pathname.startsWith(`/${locale}/marketing/`)
   );
 }
 
@@ -128,16 +126,18 @@ export default async function middleware(request: NextRequest) {
   // Add security headers with appropriate CSP based on route
   let csp: string;
 
-  // Determine which CSP policy to use based on route
+  // Determine which CSP policy to use based on route.
+  //
+  // A `/{locale}/marketing/**` branch used to sit here, serving buildRelaxedCSP()
+  // (which permits Google Tag Manager). No such route has ever existed in
+  // src/app, so the branch was dead — and it was a footgun: adding a marketing
+  // route later would have silently inherited a weakened CSP. If those pages
+  // arrive, re-add the branch deliberately alongside them.
   const isTreeDetailPage = isLocalizedDetailRoute(pathname, "trees");
   const isGlossaryDetailPage = isLocalizedDetailRoute(pathname, "glossary");
-  const isMarketingPage = isMarketingRoute(pathname);
   const isMDXPage = isTreeDetailPage || isGlossaryDetailPage;
 
-  if (isMarketingPage) {
-    // Marketing pages: Relaxed CSP for Google Tag Manager
-    csp = buildRelaxedCSP();
-  } else if (isMDXPage) {
+  if (isMDXPage) {
     // Tree and glossary detail pages: MDX-specific CSP (currently identical
     // to standard CSP since server-side rendering removed unsafe-eval need,
     // but kept separate for future route-based policy flexibility)

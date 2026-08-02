@@ -5,7 +5,7 @@
 
 ## Quick Reference
 
-- **Current Species Count:** 175 documented (350 bilingual documents)
+- **Current Species Count:** 180 documented (360 bilingual documents)
 - **Last Major Update:** 2026-02-12 (5 species added: Zorrillo, Contra, Achotillo, Guarumbo Hembra, Bambu Gigante)
 - **Previous Major Update:** 2026-02-12 (2 species added: Quina, Cedro Dulce)
 - **Previous Major Update:** 2026-02-10 (1 species added: Granadillo)
@@ -193,7 +193,7 @@ Every species page should follow the standard structure from [CONTENT_STANDARDIZ
 - Named: `featured.jpg`, `01.jpg`, `02.jpg`, `03.jpg`, `04.jpg`
 - Optimize: `npm run images:optimize`
 - See [IMAGE_OPTIMIZATION.md](./IMAGE_OPTIMIZATION.md) for guidelines
-- See [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md) for sourcing
+- See [IMAGE_RESOURCES.md](./IMAGE_REVIEW_SYSTEM.md) for sourcing
 
 **Image Quality Standards:**
 
@@ -376,7 +376,7 @@ Follow the standard content creation process:
 
 **📸 Image Collection:**
 
-- [ ] Minimum 5 high-quality images (see [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md))
+- [ ] Minimum 5 high-quality images (see [IMAGE_RESOURCES.md](./IMAGE_REVIEW_SYSTEM.md))
   - [ ] 1 featured image (full tree or distinctive feature)
   - [ ] 4 gallery images (bark, leaves, flowers, fruit)
 - [ ] Proper attribution/licensing documented
@@ -437,7 +437,7 @@ touch content/trees/es/new-species.mdx
 
 ### 3. Image Management
 
-- Source high-quality images (see [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md))
+- Source high-quality images (see [IMAGE_RESOURCES.md](./IMAGE_REVIEW_SYSTEM.md))
 - Place in `public/images/trees/[slug]/`
 - Run image optimization: `npm run images:optimize`
 - Verify images display correctly
@@ -732,8 +732,8 @@ updatedAt: 2026-01-19
 - [CONTENT_STANDARDIZATION_GUIDE.md](./CONTENT_STANDARDIZATION_GUIDE.md) - Content structure guide
 - [CONTENT_PR_ACCEPTANCE_CRITERIA.md](./CONTENT_PR_ACCEPTANCE_CRITERIA.md) - Merge checklist for content work
 - [INDIGENOUS_KNOWLEDGE_GOVERNANCE.md](./INDIGENOUS_KNOWLEDGE_GOVERNANCE.md) - Indigenous knowledge review and consent-sensitive handling rules
-- [IMAGE_RESOURCES.md](./IMAGE_RESOURCES.md) - Image sourcing guidelines
-- [improvement-roadmap.md](./improvement-roadmap.md) - Overall project status
+- [IMAGE_RESOURCES.md](./IMAGE_REVIEW_SYSTEM.md) - Image sourcing guidelines
+- [improvement-roadmap.md](./IMPLEMENTATION_PLAN.md) - Overall project status
 - [CONTRIBUTING.md](../CONTRIBUTING.md) - General contribution guide
 
 ---

@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2024-present sandgraal
- * SPDX-License-Identifier: LicenseRef-Proprietary
+ * Copyright (c) 2024-present Costa Rica Tree Atlas contributors
+ * SPDX-License-Identifier: MIT
  *
  * This file is part of Costa Rica Tree Atlas.
  * See LICENSE file in the project root for full license information.
@@ -72,7 +72,9 @@ const nextConfig: NextConfig = {
     },
   ],
 
-  // Security headers (CSP now set in middleware with per-request nonces)
+  // Security headers. CSP itself is set per-request in middleware.ts.
+  // (These headers previously claimed "per-request nonces" — buildCSP() has
+  // never generated a nonce; see the note in src/lib/security/csp.ts.)
   headers: async () => [
     {
       source: "/:path*",
@@ -212,12 +214,11 @@ const nextConfig: NextConfig = {
   // Experimental optimizations
   experimental: {
     // Optimize package imports for smaller bundles
+    // Only list actual dependencies. `lucide-react`, `react-markdown` and
+    // `remark-gfm` were listed here and are not in package.json — no-op config.
     optimizePackageImports: [
       "date-fns",
       "contentlayer2",
-      "lucide-react",
-      "react-markdown",
-      "remark-gfm",
       "fuse.js",
       "zustand",
       "@tanstack/react-query",
@@ -232,8 +233,18 @@ const nextConfig: NextConfig = {
 
   // Production optimizations
   compiler: {
-    // Remove console.* in production
-    removeConsole: process.env.NODE_ENV === "production",
+    // Strip console noise in production, but KEEP error and warn.
+    //
+    // This was `removeConsole: true`, which removes every console.* call —
+    // including the 77 console.error sites in src/, every fallback path in
+    // src/lib/error-tracking.ts, and the operational warnings for "rate
+    // limiting unconfigured" and "Prisma unavailable". Since no error-tracking
+    // adapter was ever registered (see src/instrumentation.ts), production had
+    // no error visibility whatsoever.
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error", "warn"] }
+        : false,
   },
 
   // Webpack optimizations for better code splitting

@@ -17,11 +17,20 @@ let proposalRows: Array<{
   file_size: number | null;
 }> = [];
 
+/**
+ * Postgres raises 42P01 (undefined_table) for a missing relation. The probe in
+ * src/lib/db/table-check.ts keys on that code so a genuinely missing migration
+ * can be told apart from a query that failed for some other reason.
+ */
+function undefinedTableError(): Error {
+  return Object.assign(new Error("relation does not exist"), { code: "42P01" });
+}
+
 const queryRawMock = vi.fn(async (strings: TemplateStringsArray) => {
   const sql = strings.join(" ");
 
   if (sql.includes("SELECT 1 FROM image_proposals LIMIT 1")) {
-    if (!tablesExist) throw new Error("missing table");
+    if (!tablesExist) throw undefinedTableError();
     return [{ ok: 1 }];
   }
 
@@ -54,6 +63,9 @@ vi.mock("@/app/api/auth/[...nextauth]/route", () => ({
 
 vi.mock("@/lib/error-tracking", () => ({
   captureApiError: vi.fn(),
+  // Used by src/lib/db/table-check.ts to report non-"missing table"
+  // query failures. Omitting it made the probe throw instead of report.
+  captureException: vi.fn(),
 }));
 
 const { POST } =

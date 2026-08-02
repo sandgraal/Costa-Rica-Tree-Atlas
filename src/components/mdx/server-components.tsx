@@ -10,8 +10,16 @@ function asArray<T>(value: T[] | undefined | null): T[] {
   return Array.isArray(value) ? value : [];
 }
 
-// Translation helper for legacy MDX components
-// These translations are loaded from messages/{locale}.json
+// Translation helper for legacy MDX components.
+//
+// NOTE: these are NOT loaded from messages/{locale}.json — this comment used to
+// claim they were. What follows is a hand-maintained EN/ES dictionary that
+// shadows keys which also exist in messages/ (conservation.*, safety.*, iucn.*),
+// so the two can drift silently and nothing in CI compares them.
+//
+// It lives here because these components render outside the next-intl provider
+// (server MDX). Prefer `t()` in anything that can reach the provider; when you
+// must add here, add BOTH locales in the same change.
 const translations = {
   en: {
     safety: {
@@ -62,6 +70,7 @@ const translations = {
       geographicDistribution: "Geographic Distribution",
       elevation: "Elevation",
       compareInteractive: "Compare in interactive tool",
+      property: "Property",
     },
     care: {
       plantingInstructions: "Planting Instructions",
@@ -119,6 +128,7 @@ const translations = {
       careCalendar: "Calendario de Cuidados",
       month: "Mes",
       tasks: "Tareas",
+      property: "Propiedad",
       geographicDistribution: "Distribución Geográfica",
       elevation: "Elevación",
       compareInteractive: "Comparar en herramienta interactiva",
@@ -506,8 +516,34 @@ interface ComparisonRowProps {
   cedar: string;
 }
 
-export function ComparisonTable({ rows }: { rows?: ComparisonRowProps[] }) {
+/**
+ * Timber comparison table (Pilón vs. two reference timbers).
+ *
+ * The column headers were hardcoded to `Property` / `Pilón` / `Teak` / `Cedar`
+ * with no locale handling, so Spanish pages such as content/trees/es/guanacaste.mdx
+ * rendered English headers above Spanish data. Headers are now overridable and
+ * the defaults are localized.
+ */
+export function ComparisonTable({
+  rows,
+  locale = "en",
+  pilonLabel = "Pilón",
+  teakLabel,
+  cedarLabel,
+}: {
+  rows?: ComparisonRowProps[];
+  locale?: Locale;
+  pilonLabel?: string;
+  teakLabel?: string;
+  cedarLabel?: string;
+}) {
   const safeRows = asArray(rows);
+  const normalizedLocale = normalizeLocale(locale);
+  // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales.
+  const t = translations[normalizedLocale].mdx;
+  const isSpanish = normalizedLocale === "es";
+  const teak = teakLabel ?? (isSpanish ? "Teca" : "Teak");
+  const cedar = cedarLabel ?? (isSpanish ? "Cedro" : "Cedar");
 
   return (
     <div className="overflow-x-auto my-6 not-prose">
@@ -515,14 +551,14 @@ export function ComparisonTable({ rows }: { rows?: ComparisonRowProps[] }) {
         <thead>
           <tr className="bg-primary text-white">
             <th className="p-3 text-left font-semibold rounded-tl-lg">
-              Property
+              {t.property}
             </th>
             <th className="p-3 text-center font-semibold bg-primary-dark">
-              Pilón
+              {pilonLabel}
             </th>
-            <th className="p-3 text-center font-semibold">Teak</th>
+            <th className="p-3 text-center font-semibold">{teak}</th>
             <th className="p-3 text-center font-semibold rounded-tr-lg">
-              Cedar
+              {cedar}
             </th>
           </tr>
         </thead>
@@ -725,20 +761,31 @@ export function Timeline({ items }: { items?: TimelineItemProps[] }) {
   );
 }
 
-// Distribution Map Placeholder Component
-interface DistributionMapProps {
+/**
+ * Distribution summary for MDX: a chip list of the regions a species occurs in.
+ *
+ * Named `DistributionSummary`, not `DistributionMap`: the real map lives at
+ * `src/components/geo/DistributionMap.tsx` and is what the species page renders.
+ * Two different components sharing one name meant MDX authors reaching for a map
+ * silently got this instead. The MDX registry still exposes it under the
+ * `DistributionMap` tag because ~110 content files use that name.
+ *
+ * (Its old comment called it a "Placeholder"; it is not — it renders real
+ * frontmatter-derived data. It is simply not a map.)
+ */
+interface DistributionSummaryProps {
   distribution?: string[];
   countries?: string[];
   elevation?: string;
   locale?: string;
 }
 
-export function DistributionMap({
+export function DistributionSummary({
   distribution,
   countries,
   elevation,
   locale = "en",
-}: DistributionMapProps) {
+}: DistributionSummaryProps) {
   const items = distribution || countries || [];
   const normalizedLocale = normalizeLocale(locale);
   // eslint-disable-next-line security/detect-object-injection -- `normalizedLocale` is constrained to the supported locales above.
@@ -861,13 +908,20 @@ export function Accordion({ children }: { children: React.ReactNode }) {
 interface INaturalistEmbedProps {
   taxonId: string;
   taxonName: string;
+  /**
+   * Real observation count, when the author has one. Omit it and the stats
+   * block is not rendered at all — see the note in the component body.
+   */
   observationCount?: number;
+  observerCount?: number;
   locale?: Locale;
 }
 
 export function INaturalistEmbed({
   taxonId,
+  taxonName,
   observationCount,
+  observerCount,
   locale = "en",
 }: INaturalistEmbedProps) {
   const normalizedLocale = normalizeLocale(locale);
@@ -890,24 +944,53 @@ export function INaturalistEmbed({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-card rounded-lg p-3 text-center">
-          <p className="text-2xl font-bold text-[#74AC00]">
-            {observationCount || "290+"}
-          </p>
-          <p className="text-xs text-muted-foreground">{t.observations}</p>
-        </div>
-        <div className="bg-card rounded-lg p-3 text-center">
-          <p className="text-2xl font-bold text-[#74AC00]">186</p>
-          <p className="text-xs text-muted-foreground">{t.observers}</p>
-        </div>
-      </div>
+      {/*
+        Stats render ONLY from real values passed by the caller.
 
+        This block used to display `{observationCount || "290+"}` observations
+        and a hardcoded literal `186` observers — on every species page using
+        this component, regardless of species. Invented figures presented as
+        live iNaturalist data are exactly the kind of claim this atlas exists
+        to be trusted on, so an absent number now renders nothing rather than
+        a plausible one. Pass real counts, or link out and let iNaturalist
+        show its own.
+      */}
+      {(observationCount !== undefined || observerCount !== undefined) && (
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          {observationCount !== undefined && (
+            <div className="bg-card rounded-lg p-3 text-center">
+              <p className="text-2xl font-bold text-[#74AC00]">
+                {observationCount.toLocaleString(normalizedLocale)}
+              </p>
+              <p className="text-xs text-muted-foreground">{t.observations}</p>
+            </div>
+          )}
+          {observerCount !== undefined && (
+            <div className="bg-card rounded-lg p-3 text-center">
+              <p className="text-2xl font-bold text-[#74AC00]">
+                {observerCount.toLocaleString(normalizedLocale)}
+              </p>
+              <p className="text-xs text-muted-foreground">{t.observers}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/*
+        `taxonName` was declared required on the props, passed by content files,
+        and then never destructured — silently discarded. It belongs here: a
+        screen-reader user meeting three links called "View species page",
+        "Browse photos" and "Costa Rica only" on a page with several of these
+        embeds has no way to tell which species each refers to. Composing the
+        existing localized label with the taxon name gives each link a unique
+        accessible name without adding translation keys.
+      */}
       <div className="flex flex-wrap gap-2">
         <a
           href={`https://www.inaturalist.org/taxa/${taxonId}`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`${t.viewSpeciesPage} — ${taxonName}`}
           className="inline-flex items-center gap-2 px-3 py-2 bg-[#74AC00] text-white rounded-lg text-sm font-medium hover:bg-[#5a8a00] transition-colors"
         >
           {t.viewSpeciesPage}
@@ -916,6 +999,7 @@ export function INaturalistEmbed({
           href={`https://www.inaturalist.org/observations?taxon_id=${taxonId}`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`${t.browsePhotos} — ${taxonName}`}
           className="inline-flex items-center gap-2 px-3 py-2 bg-card border border-[#74AC00]/30 text-foreground rounded-lg text-sm font-medium hover:border-[#74AC00] transition-colors"
         >
           {t.browsePhotos}
@@ -924,6 +1008,7 @@ export function INaturalistEmbed({
           href={`https://www.inaturalist.org/observations?taxon_id=${taxonId}&place_id=6924`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`${t.costaRicaOnly} — ${taxonName}`}
           className="inline-flex items-center gap-2 px-3 py-2 bg-card border border-[#74AC00]/30 text-foreground rounded-lg text-sm font-medium hover:border-[#74AC00] transition-colors"
         >
           {t.costaRicaOnly}
@@ -2178,7 +2263,8 @@ export const mdxServerComponents = {
   StatBar,
   StatsGroup,
   Timeline,
-  DistributionMap,
+  // MDX tag `<DistributionMap>` -> the summary chip list (see above).
+  DistributionMap: DistributionSummary,
   QuickRef,
   ExternalLink,
   ExternalLinksGrid,

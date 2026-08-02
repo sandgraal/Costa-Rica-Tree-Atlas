@@ -38,8 +38,13 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/setup-node
 
-      - name: Run npm audit (production, high severity)
-        run: npm audit --omit=dev --audit-level=high
+      # Uses the wrapper, not bare `npm audit`. The wrapper fails on any
+      # unaccepted high/critical production advisory and carries a short, dated,
+      # justified exception list — see scripts/audit-production-deps.mjs. A bare
+      # `npm audit --audit-level=high` exits 1 on advisories with no available
+      # fix, which left this gate permanently red.
+      - name: Run production dependency audit
+        run: npm run security:audit
 
   # Secret Scanning - Detect committed secrets
   secret-scan:
@@ -52,7 +57,7 @@ jobs:
           fetch-depth: 0
 
       - name: TruffleHog Secret Scan
-        uses: trufflesecurity/trufflehog@main
+        uses: trufflesecurity/trufflehog@v3.90.10
         with:
           path: ./
           base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || '' }}
@@ -60,14 +65,44 @@ jobs:
           extra_args: --only-verified
 
   # ──────────────────────────────────────────────
-  # HEAVY JOBS — schedule + manual only (skip PRs)
+  # ANALYSIS JOBS
+  #
+  # These were gated `if: github.event_name != 'pull_request'`, i.e. they ran on
+  # schedule and manual dispatch only. docs/IMPLEMENTATION_PLAN.md's own risk
+  # table records that this pairing — a required status check that never runs on
+  # PRs — silently blocked the merge of #755. A security check that cannot see a
+  # pull request is not a gate; it is a report you read after the fact.
   # ──────────────────────────────────────────────
 
   # CodeQL Analysis - Static Application Security Testing (SAST)
   codeql:
     name: CodeQL Analysis
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    #
+    # ⚠️ Results are NOT in the Security tab. See "Restoring upload" below.
+    #
+    # The analysis runs and passes; only the SARIF *upload* is rejected, because
+    # Code Scanning is not enabled for this repository:
+    #
+    #   "Code scanning is not enabled for this repository.
+    #    Please enable code scanning in the repository settings."
+    #
+    # `continue-on-error: true` was tried at the job level and does not solve
+    # this: it flips the workflow RUN to success while the JOB and the PR CHECK
+    # both still report failure (verified on run 30768107667). So it does not
+    # unblock a required status check, and it does mask genuine CodeQL failures
+    # — autobuild breaking, a malformed config, a query error — which is the
+    # opposite of what this job is for.
+    #
+    # Instead we skip the upload entirely and publish the SARIF as a build
+    # artifact. Real analysis failures still fail the job, so the check stays
+    # honest; it simply no longer depends on a repository setting.
+    #
+    # Restoring upload (do this — the artifact is a stopgap, not a destination):
+    #   1. Settings → Code security → Code scanning → enable.
+    #   2. Set `upload: always` below and delete the `output:` line.
+    #   3. Delete the "Upload SARIF as artifact" step.
+    # Findings then appear in the Security tab and become reviewable in-PR.
     permissions:
       actions: read
       contents: read
@@ -90,11 +125,20 @@ jobs:
         uses: github/codeql-action/analyze@v4.37.3
         with:
           category: "/language:javascript"
+          output: sarif-results
+          upload: never
+
+      - name: Upload SARIF as artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: codeql-sarif
+          path: sarif-results
+          retention-days: 30
 
   # ESLint Security - Check for security anti-patterns
   eslint-security:
     name: ESLint Security Rules
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -108,7 +152,6 @@ jobs:
   # License Compliance - Check dependency licenses
   license-check:
     name: License Compliance
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

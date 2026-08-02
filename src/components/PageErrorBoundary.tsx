@@ -3,6 +3,7 @@
 import { useRouter } from "@i18n/navigation";
 import { useTranslations } from "next-intl";
 import { ErrorBoundary } from "./ErrorBoundary";
+import { captureException } from "@/lib/error-tracking";
 import type { ReactNode } from "react";
 
 interface PageErrorBoundaryProps {
@@ -72,8 +73,14 @@ export function PageErrorBoundary({ children }: PageErrorBoundaryProps) {
           console.error("Page error:", error, errorInfo);
         }
 
-        // TODO: Send to error tracking
-        // trackError('page_error', { error, errorInfo });
+        // Both sibling boundaries (ComponentErrorBoundary, ImageErrorBoundary)
+        // already report here; this one carried a `// TODO: Send to error
+        // tracking` instead, so whole-page crashes were the one class of error
+        // that reported nowhere.
+        captureException(error, {
+          tags: { boundary: "PageErrorBoundary" },
+          extra: { componentStack: errorInfo?.componentStack ?? undefined },
+        });
       }}
     >
       {children}

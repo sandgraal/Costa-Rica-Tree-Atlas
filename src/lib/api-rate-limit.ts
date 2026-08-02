@@ -39,16 +39,34 @@ function cleanupExpired(): void {
 // Public helpers
 // ---------------------------------------------------------------------------
 
-/** Derive a stable client identifier from the request. */
+/**
+ * Derive a stable client identifier from the request.
+ *
+ * Deliberately keyed on IP only. The previous implementation returned
+ * `key:${X-API-Key}` — a value the caller chooses — so sending a fresh random
+ * key on every request allocated a fresh bucket and the limit never applied.
+ * Access control for these routes is `requireApiV1Access`, which runs first;
+ * this function's only job is to produce a bucket the caller cannot pick.
+ *
+ * `x-real-ip` is preferred because Vercel sets it and it cannot be spoofed by
+ * the client. `x-forwarded-for` is client-appendable, so we read the LAST
+ * entry — the one written by the closest trusted proxy — rather than the first.
+ */
 export function getClientId(request: NextRequest): string {
-  const apiKey = request.headers.get("X-API-Key");
-  if (apiKey) return `key:${apiKey}`;
+  const realIp = request.headers.get("x-real-ip")?.trim();
+  if (realIp) return `ip:${realIp}`;
 
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "anonymous";
-  return `ip:${ip}`;
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    const hops = forwarded
+      .split(",")
+      .map((hop) => hop.trim())
+      .filter(Boolean);
+    const nearest = hops.at(-1);
+    if (nearest) return `ip:${nearest}`;
+  }
+
+  return "ip:anonymous";
 }
 
 export interface RateLimitResult {

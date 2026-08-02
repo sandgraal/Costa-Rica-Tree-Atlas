@@ -42,16 +42,15 @@ Implementation and infrastructure documentation:
 Roadmap and testing documentation:
 
 - **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** - ⭐ Master plan: 6 priority tracks, all future work consolidated (updated 2026-03-01)
-- **[TESTING_RESULTS.md](./TESTING_RESULTS.md)** - v1.0 external testing verification results (accessibility, performance, screen readers)
 
 ## 📈 Current State (March 2026)
 
 ### Content Metrics
 
-- ✅ **175 species** documented with bilingual content (EN+ES)
-- ✅ **100% safety coverage** - All 175 trees have complete 13-field safety data
+- ✅ **180 species** documented with bilingual content (EN+ES)
+- ✅ **100% safety coverage** - All 180 trees have complete 13-field safety data
 - ✅ **150 glossary terms** with inline tooltips
-- ✅ **175 species** with comprehensive care & cultivation guidance
+- ✅ **180 species** with comprehensive care & cultivation guidance
 - ✅ **20 comparison guides** (100% of 20 target)
 
 ### Technical Achievement
@@ -67,7 +66,7 @@ Roadmap and testing documentation:
 
 - 🚀 **v1.1 Production** - Core site complete, community features shipped
 - 🔄 **Remaining Work** - Render-blocking CSS, search analytics, offline enhancements
-- ✅ **Content Complete** - 175/175 species documented
+- 🟡 **Coverage** - 180 of the 250-species Deep-250 target documented
 
 ## 📦 Archive
 
@@ -77,7 +76,7 @@ Historical documentation moved to `docs/archive/`:
 - **Completed checklists**: NEXT_STEPS.md, NEXT_AGENT_PERFORMANCE.md
 - **One-time reports**: Audits, reviews, implementation summaries
 - **Over-documentation**: Technical details now represented by actual code
-- **[Archive README](./archive/README.md)** - Complete archive index
+- **[archive/](./archive/)** - Superseded documents, kept for history
 
 ## 🤖 For AI Agents
 

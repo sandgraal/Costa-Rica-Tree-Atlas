@@ -37,6 +37,30 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/setup-node
 
+      # Remote gallery images are hotlinked from iNaturalist and stored nowhere
+      # in this repo, so an upstream 404 becomes a silent gap on a species page.
+      # `npm run images:validate` only covers LOCAL references. Rotates through
+      # the corpus week by week via the run-number offset.
+      - name: Check gallery link rot (rotating sample)
+        continue-on-error: true
+        run: |
+          OFFSET=$(( (${{ github.run_number }} * 150) % 900 ))
+          node scripts/check-gallery-link-rot.mjs --sample=150 --offset=$OFFSET \
+            2>&1 | tee link-rot-report.txt
+
+      - name: Surface link-rot results
+        if: always()
+        run: |
+          if [ -f link-rot-report.txt ]; then
+            {
+              echo "## Gallery link rot"
+              echo ""
+              echo '```'
+              cat link-rot-report.txt
+              echo '```'
+            } >> $GITHUB_STEP_SUMMARY
+          fi
+
       # Note: Sharp (image optimization) is included in dependencies
       # ImageMagick removed - not used by our scripts
 

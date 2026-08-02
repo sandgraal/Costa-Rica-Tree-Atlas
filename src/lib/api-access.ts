@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { secureCompareOrFalse } from "@/lib/auth/secure-compare";
 
 function getRequestIp(request: NextRequest): string {
   return (
@@ -25,7 +26,9 @@ function parseAllowlist(raw: string | undefined): Set<string> {
  * 1) request includes matching X-API-Key header, or
  * 2) request IP is listed in API_V1_ALLOWLIST.
  */
-export function requireApiV1Access(request: NextRequest): NextResponse | null {
+export async function requireApiV1Access(
+  request: NextRequest
+): Promise<NextResponse | null> {
   const expectedApiKey = process.env.API_V1_KEY?.trim();
   const allowlist = parseAllowlist(process.env.API_V1_ALLOWLIST);
 
@@ -44,8 +47,14 @@ export function requireApiV1Access(request: NextRequest): NextResponse | null {
     );
   }
 
-  const providedApiKey = request.headers.get("X-API-Key")?.trim();
-  if (expectedApiKey && providedApiKey === expectedApiKey) {
+  // Constant-time: a plain `===` leaks the shared prefix length through timing,
+  // which is exactly what an attacker needs to recover the key byte by byte.
+  // Non-throwing variant so an over-length header is a non-match, not a 500.
+  const providedApiKey = request.headers.get("X-API-Key")?.trim() ?? "";
+  if (
+    expectedApiKey &&
+    (await secureCompareOrFalse(providedApiKey, expectedApiKey))
+  ) {
     return null;
   }
 

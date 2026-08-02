@@ -50,7 +50,7 @@ Fixes #
 
 ### General
 
-- [ ] I have read the [Contributing Guidelines](CONTRIBUTING.md)
+- [ ] I have read the [Contributing Guidelines](../CONTRIBUTING.md)
 - [ ] My code follows the project's style guidelines
 - [ ] I have performed a self-review of my own code
 - [ ] My changes generate no new warnings or errors

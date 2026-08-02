@@ -9,7 +9,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireApiV1Access } from "@/lib/api-access";
 
-export const dynamic = "force-static";
+// Must be dynamic: `requireApiV1Access` reads the X-API-Key header and the
+// client IP, neither of which exists during static rendering. Under
+// `force-static` the access gate could not be evaluated per request.
+export const dynamic = "force-dynamic";
 
 const SPEC = {
   openapi: "3.1.0",
@@ -681,8 +684,8 @@ const SPEC = {
   ],
 };
 
-export function GET(request: NextRequest) {
-  const accessDenied = requireApiV1Access(request);
+export async function GET(request: NextRequest) {
+  const accessDenied = await requireApiV1Access(request);
   if (accessDenied) return accessDenied;
 
   return NextResponse.json(SPEC, {

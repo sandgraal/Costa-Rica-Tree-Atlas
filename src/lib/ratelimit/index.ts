@@ -4,11 +4,32 @@ import { RATE_LIMITS } from "./config";
 import { isTrustedProxy } from "./trusted-proxies";
 import { CircuitBreaker, InMemoryRateLimiter } from "./circuit-breaker";
 
-// Type for API rate limits (excludes 'admin' which is handled separately)
-type ApiRateLimitType = Exclude<keyof typeof RATE_LIMITS, "admin">;
+// Every configured limit is reachable through `rateLimit()`. "admin" used to be
+// excluded here on the theory it was "handled separately" — it was handled
+// nowhere, leaving admin setup and MFA verification unthrottled.
+type ApiRateLimitType = keyof typeof RATE_LIMITS;
 
-// Initialize Redis client
-const redis = process.env.UPSTASH_REDIS_REST_URL ? Redis.fromEnv() : null;
+// Initialize Redis client.
+//
+// Both vars are required: `Redis.fromEnv()` throws when the token is missing,
+// and because this runs at module load that throw would take down every route
+// importing this file. Testing only the URL (as this previously did) turns a
+// half-configured environment into a total outage.
+const redis =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? Redis.fromEnv()
+    : null;
+
+// Warn once at module load rather than on every request — `console.warn` on the
+// hot path was both noisy and, until the `removeConsole` fix, stripped from
+// production builds entirely.
+if (!redis && process.env.NODE_ENV === "production") {
+  console.warn(
+    "[ratelimit] Upstash Redis is not configured (UPSTASH_REDIS_REST_URL / " +
+      "UPSTASH_REDIS_REST_TOKEN). Falling back to per-instance in-memory " +
+      "limits — limits will NOT be shared across serverless instances."
+  );
+}
 
 // Initialize circuit breaker and fallback limiter
 const circuitBreaker = new CircuitBreaker();
@@ -246,6 +267,8 @@ function getRateLimitConfig(type: ApiRateLimitType) {
       return RATE_LIMITS.random;
     case "search":
       return RATE_LIMITS.search;
+    case "admin":
+      return RATE_LIMITS.admin;
     case "default":
     default:
       return RATE_LIMITS.default;
@@ -296,42 +319,40 @@ export async function rateLimit(
   request: NextRequest,
   type: ApiRateLimitType = "default"
 ): Promise<{ response: NextResponse } | { headers: Record<string, string> }> {
-  // Skip rate limiting in development
-  if (process.env.NODE_ENV === "development" && !redis) {
+  // Outside production, an unconfigured Redis means "no limiting" so local dev
+  // and the test suite are not throttled. In production it must NOT mean
+  // "allow everything" — that turned the paid Pl@ntNet `identify` endpoint into
+  // an unmetered proxy for anyone who found it.
+  if (process.env.NODE_ENV !== "production" && !redis) {
     return { headers: {} }; // Allow request with no headers
-  }
-
-  // If Redis is not configured in production, log warning and allow
-  if (!redis) {
-    console.warn(
-      "⚠️  Rate limiting disabled: UPSTASH_REDIS_REST_URL not configured"
-    );
-    return { headers: {} };
   }
 
   const identifier = getTrustedClientIP(request);
   const config = getRateLimitConfig(type);
   const windowSeconds = parseWindow(config.window);
 
-  // Use circuit breaker with fallback
-  // redis is guaranteed to be non-null here due to check at line 265
-  const result = await circuitBreaker.execute(
-    async () =>
-      atomicRateLimit(redis!, identifier, config.requests, windowSeconds),
-    () => {
-      // Fallback to in-memory rate limiting
-      const fallback = memoryLimiter.check(
-        identifier,
-        config.requests,
-        windowSeconds * 1000
-      );
-      return {
-        success: fallback.success,
-        count: config.requests - fallback.remaining,
-        reset: fallback.reset,
-      };
-    }
-  );
+  const applyInMemoryFallback = () => {
+    const fallback = memoryLimiter.check(
+      identifier,
+      config.requests,
+      windowSeconds * 1000
+    );
+    return {
+      success: fallback.success,
+      count: config.requests - fallback.remaining,
+      reset: fallback.reset,
+    };
+  };
+
+  // Without Redis, enforce per-instance limits rather than none at all.
+  // Weaker than a shared limit, but bounded.
+  const result = redis
+    ? await circuitBreaker.execute(
+        async () =>
+          atomicRateLimit(redis, identifier, config.requests, windowSeconds),
+        applyInMemoryFallback
+      )
+    : applyInMemoryFallback();
 
   const headers: Record<string, string> = {
     "X-RateLimit-Limit": config.requests.toString(),

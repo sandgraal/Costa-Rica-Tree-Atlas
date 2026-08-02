@@ -14,6 +14,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import sharp from "sharp";
 import prisma from "@/lib/prisma";
+import { tableIsQueryable } from "@/lib/db/table-check";
 import { captureApiError } from "@/lib/error-tracking";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { type ImageType, IMAGE_TYPES } from "@/types/image-review";
@@ -28,18 +29,10 @@ import {
 const MIN_WIDTH = 800;
 const MIN_HEIGHT = 600;
 
-// Check if image tables exist
+// Shared probe: distinguishes "table missing" from "query failed".
+// See src/lib/db/table-check.ts.
 async function checkTablesExist(): Promise<boolean> {
-  try {
-    await (
-      prisma as unknown as {
-        $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
-      }
-    ).$queryRaw`SELECT 1 FROM image_proposals LIMIT 1`;
-    return true;
-  } catch {
-    return false;
-  }
+  return tableIsQueryable("image_proposals");
 }
 
 // Rate limit check (5 uploads per hour per user)
@@ -56,10 +49,10 @@ async function checkRateLimit(userId: string): Promise<boolean> {
   ).$queryRaw`
     SELECT COUNT(*) as count
     FROM image_proposals ip
-    INNER JOIN image_audits ia ON ia."proposalId" = ip.id
-    WHERE ia."actorId" = ${userId}
+    INNER JOIN image_audits ia ON ia."proposal_id" = ip.id
+    WHERE ia."actor_id" = ${userId}
       AND ip.source = 'USER_UPLOAD'
-      AND ip."createdAt" > ${oneHourAgo}
+      AND ip."created_at" > ${oneHourAgo}
   `;
 
   return Number(counts[0]?.count ?? 0) < 5;
@@ -251,12 +244,12 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_proposals (
-        id, "treeSlug", "imageType",
-        "proposedUrl", "proposedSource", "proposedAlt",
-        "qualityScore", resolution, "fileSize",
+        id, "tree_slug", "image_type",
+        "proposed_url", "proposed_source", "proposed_alt",
+        "quality_score", resolution, "file_size",
         source, reason,
-        status, upvotes, downvotes, "flagCount",
-        "createdAt", "updatedAt"
+        status, upvotes, downvotes, "flag_count",
+        "created_at", "updated_at"
       ) VALUES (
         ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         ${imageUrl}, ${attributionText}, ${`${imageType} image of ${treeSlug}`},
@@ -278,8 +271,8 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_audits (
-        id, "proposalId", "treeSlug", "imageType",
-        action, "actorId", notes, "createdAt"
+        id, "proposal_id", "tree_slug", "image_type",
+        action, "actor_id", notes, "created_at"
       ) VALUES (
         ${auditId}, ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         'PROPOSAL_CREATED'::"ImageAuditAction", ${userId},

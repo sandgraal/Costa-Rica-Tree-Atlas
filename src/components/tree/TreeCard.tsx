@@ -74,6 +74,9 @@ export function TreeCard({
           }}
           className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm hover:scale-110 transition-transform"
           aria-label={favoriteAriaLabel}
+          // Matches FavoriteButton, which already exposes toggle state.
+          // Without this the control announced no on/off state at all.
+          aria-pressed={isFavorite}
           title={favoriteAriaLabel}
         >
           <HeartIcon filled={isFavorite} />

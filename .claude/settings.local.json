@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm pkg *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('@types/google.maps' in d\\)\")",
+      "Bash(python3 -)",
+      "Bash(echo \"security:audit exit: $?\")",
+      "Bash(npm ls *)",
+      "Bash(npm audit *)",
+      "Bash(python3 -c ' *)",
+      "Bash(git checkout *)",
+      "Bash(echo \"eslint exit: $?\")"
+    ]
+  }
+}

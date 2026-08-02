@@ -11,17 +11,26 @@ let sessionUser: { id: string; name: string } | null = {
   name: "Test User",
 };
 
+/**
+ * Postgres raises 42P01 (undefined_table) for a missing relation. The probe in
+ * src/lib/db/table-check.ts keys on that code so a genuinely missing migration
+ * can be told apart from a query that failed for some other reason.
+ */
+function undefinedTableError(): Error {
+  return Object.assign(new Error("relation does not exist"), { code: "42P01" });
+}
+
 const queryRawMock = vi.fn(async (strings: TemplateStringsArray) => {
   const sql = strings.join(" ");
 
   // checkTablesExist
   if (sql.includes("SELECT 1 FROM image_proposals LIMIT 1")) {
-    if (!tablesExist) throw new Error("Table not found");
+    if (!tablesExist) throw undefinedTableError();
     return [{ ok: 1 }];
   }
 
   // checkRateLimit
-  if (sql.includes("SELECT COUNT(*) as count") && sql.includes("actorId")) {
+  if (sql.includes("SELECT COUNT(*) as count") && sql.includes("actor_id")) {
     return [{ count: rateLimitOk ? BigInt(0) : BigInt(5) }];
   }
 
@@ -49,15 +58,26 @@ vi.mock("@/app/api/auth/[...nextauth]/route", () => ({
   authOptions: {},
 }));
 
-// Mock sharp
-vi.mock("sharp", () => ({
-  default: vi.fn(() => ({
-    metadata: vi.fn(async () => ({
-      width: 1920,
-      height: 1080,
-      format: "jpeg",
+// Mock sharp.
+//
+// The route does `sharp(raw).rotate().toBuffer()` to strip EXIF (including GPS)
+// before upload, then `sharp(stripped).metadata()` to validate the dimensions
+// that Cloudinary will actually receive. The mock must support BOTH chains —
+// when it only implemented `metadata()`, every upload threw and 9 tests in this
+// file failed with a 500.
+function createSharpInstance(
+  metadata = { width: 1920, height: 1080, format: "jpeg" }
+) {
+  return {
+    rotate: vi.fn(() => ({
+      toBuffer: vi.fn(async () => Buffer.from("stripped-image-bytes")),
     })),
-  })),
+    metadata: vi.fn(async () => metadata),
+  };
+}
+
+vi.mock("sharp", () => ({
+  default: vi.fn(() => createSharpInstance()),
 }));
 
 // Mock cloudinary
@@ -77,6 +97,9 @@ vi.mock("@/lib/cloudinary", () => ({
 
 vi.mock("@/lib/error-tracking", () => ({
   captureApiError: vi.fn(),
+  // Used by src/lib/db/table-check.ts to report non-"missing table"
+  // query failures. Omitting it made the probe throw instead of report.
+  captureException: vi.fn(),
 }));
 
 const { GET, POST } = await import("@/app/api/images/upload/route");
@@ -350,13 +373,14 @@ describe("POST /api/images/upload", () => {
     const sharp = (await import("sharp")).default as unknown as ReturnType<
       typeof vi.fn
     >;
-    sharp.mockReturnValueOnce({
-      metadata: vi.fn(async () => ({
-        width: 400,
-        height: 300,
-        format: "jpeg",
-      })),
-    });
+    // The route calls sharp() twice: once to strip EXIF, once to measure the
+    // stripped buffer. The dimension check reads the SECOND call, so that is
+    // the one that must report an undersized image.
+    sharp
+      .mockReturnValueOnce(createSharpInstance())
+      .mockReturnValueOnce(
+        createSharpInstance({ width: 400, height: 300, format: "jpeg" })
+      );
 
     const req = createUploadRequest({
       file: mockFile(),

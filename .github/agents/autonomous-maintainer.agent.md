@@ -30,10 +30,14 @@ Do not use this agent for:
 
 Before making changes, gather context in this order:
 
-1. Recent git history and active PR context, if available
-2. `docs/IMPLEMENTATION_PLAN.md`
-3. `docs/README.md`
-4. `.github/copilot-instructions.md`
+1. `CLAUDE.md` — the canonical agent guide. `AGENTS.md` designates it as
+   authoritative, and where any other document conflicts with it, it wins.
+   (This step was previously absent entirely, and the order below started at
+   `docs/README.md`, the stalest document in the repo.)
+2. Recent git history and active PR context, if available
+3. `docs/IMPLEMENTATION_PLAN.md` — status, lanes, and priorities
+4. The scoped `CLAUDE.md` for the directory you are working in
+   (`content/`, `scripts/`, `src/components/`, `tests/`)
 5. Relevant files under `.github/instructions/`
 6. Task-specific docs under `docs/`
 7. The code itself

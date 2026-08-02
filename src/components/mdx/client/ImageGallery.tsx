@@ -24,29 +24,33 @@ export function ImageGallery({ children }: ImageGalleryProps) {
 
   // Build a stable, filtered array of valid React elements (excludes
   // whitespace/text nodes that MDX may inject between components).
-  const validChildren = React.Children.toArray(children).filter(
-    React.isValidElement
-  ) as React.ReactElement<ImageCardProps>[];
+  const validChildren = React.useMemo(
+    () =>
+      React.Children.toArray(children).filter(
+        React.isValidElement
+      ) as React.ReactElement<ImageCardProps>[],
+    [children]
+  );
 
-  // Extract image data from valid children
-  const images: Array<{
-    src: string;
-    alt: string;
-    title?: string;
-    credit?: string;
-    license?: string;
-  }> = [];
-  validChildren.forEach((child) => {
-    if (child.props.src) {
-      images.push({
-        src: child.props.src,
-        alt: child.props.alt || "",
-        title: child.props.title,
-        credit: child.props.credit,
-        license: child.props.license,
-      });
-    }
-  });
+  // Extract image data from valid children.
+  //
+  // Derived functionally rather than by pushing into an array declared in
+  // render: the mutable version defeated the React Compiler, which reported
+  // "existing memoization could not be preserved" on the useCallbacks below
+  // (4 lint errors) because it could not prove `images` was stable.
+  const images = React.useMemo(
+    () =>
+      validChildren
+        .filter((child) => Boolean(child.props.src))
+        .map((child) => ({
+          src: child.props.src,
+          alt: child.props.alt || "",
+          title: child.props.title,
+          credit: child.props.credit,
+          license: child.props.license,
+        })),
+    [validChildren]
+  );
 
   const openLightbox = (index: number) => {
     setLightbox({ isOpen: true, currentIndex: index });

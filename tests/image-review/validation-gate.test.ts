@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 interface ProposalRecord {
@@ -334,14 +334,24 @@ vi.mock("@/app/api/auth/[...nextauth]/route", () => ({
   authOptions: {},
 }));
 
+// Workflow requests authenticate with this shared secret. The server used to
+// accept any `Bearer workflow-*` header on prefix alone, so this value is now
+// load-bearing: without it the POSTs below must be rejected.
+const WORKFLOW_TOKEN = "test-workflow-token";
+
 describe("Priority 0.3 validation gate - proposal workflow", () => {
   beforeEach(() => {
     state.proposals = [];
     state.audits = [];
     queryRawMock.mockClear();
     executeRawMock.mockClear();
+    process.env.IMAGE_PROPOSALS_WORKFLOW_TOKEN = WORKFLOW_TOKEN;
     // Initially return null to ensure workflow requests don't require a session
     getServerSessionMock.mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    delete process.env.IMAGE_PROPOSALS_WORKFLOW_TOKEN;
   });
 
   it("creates 10 proposals, lists them, exposes comparison payload, and records review audit", async () => {
@@ -357,7 +367,7 @@ describe("Priority 0.3 validation gate - proposal workflow", () => {
           method: "POST",
           headers: {
             "content-type": "application/json",
-            authorization: "Bearer workflow-test",
+            authorization: `Bearer ${WORKFLOW_TOKEN}`,
           },
           body: JSON.stringify({
             treeSlug: `species-${i}`,

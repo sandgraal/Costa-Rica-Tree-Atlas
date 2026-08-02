@@ -69,7 +69,7 @@ Each run prints a summary:
 ```
 🌲 Canonical ID Backfill — DRY RUN
 
-Total species scanned:       175
+Total species scanned:       180
 Already complete (skipped):  24
 GBIF queries:                151
 GBIF failures:               0

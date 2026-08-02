@@ -21,7 +21,7 @@ interface RouteParams {
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const accessDenied = requireApiV1Access(request);
+  const accessDenied = await requireApiV1Access(request);
   if (accessDenied) return accessDenied;
   const clientId = getClientId(request);
   const rateLimit = checkRateLimit(clientId);

@@ -158,6 +158,13 @@ export async function ServerMDXContent({
         ...props,
         locale: resolvedLocale,
       }),
+    ComparisonTable: (
+      props: React.ComponentProps<typeof mdxServerComponents.ComparisonTable>
+    ) =>
+      mdxServerComponents.ComparisonTable({
+        ...props,
+        locale: resolvedLocale,
+      }),
     INaturalistEmbed: (
       props: React.ComponentProps<typeof mdxServerComponents.INaturalistEmbed>
     ) =>

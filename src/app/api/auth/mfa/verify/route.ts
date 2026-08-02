@@ -19,6 +19,7 @@ import { verify } from "argon2";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 import { captureApiError } from "@/lib/error-tracking";
+import { rateLimit } from "@/lib/ratelimit";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { decryptTotpSecret } from "@/lib/auth/mfa-crypto";
 
@@ -28,6 +29,12 @@ const verifySchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // 0. Throttle before touching credentials. A 6-digit TOTP with unlimited
+    // guesses is not a second factor, and the password re-check on /disable is
+    // a password oracle without this.
+    const rateLimitResult = await rateLimit(request, "admin");
+    if ("response" in rateLimitResult) return rateLimitResult.response;
+
     // 1. Check authentication
     const session = await getServerSession(authOptions);
 

@@ -13,19 +13,12 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { captureApiError } from "@/lib/error-tracking";
 import prisma from "@/lib/prisma";
+import { tableIsQueryable } from "@/lib/db/table-check";
 
-// Check if image_votes table exists
+// Shared probe: distinguishes "table missing" from "query failed".
+// See src/lib/db/table-check.ts.
 async function checkTablesExist(): Promise<boolean> {
-  try {
-    await (
-      prisma as unknown as {
-        $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
-      }
-    ).$queryRaw`SELECT 1 FROM image_votes LIMIT 1`;
-    return true;
-  } catch {
-    return false;
-  }
+  return tableIsQueryable("image_votes");
 }
 
 /**

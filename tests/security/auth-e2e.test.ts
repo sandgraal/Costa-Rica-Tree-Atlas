@@ -209,9 +209,15 @@ async function createMockUser(
 // ──────────────────────────────────────────────────────────────────
 
 describe("E2E Authentication Flows", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.clearAllMocks();
     process.env.NEXTAUTH_SECRET = "test-secret-key-for-jwt-verification";
+    // Login attempts are rate limited (5 / 15 min). Mock requests carry no IP
+    // headers, so they all share the `admin:unknown` bucket and would otherwise
+    // throttle each other across cases in this file.
+    const { __resetAuthRateLimitForTests } =
+      await import("@/lib/auth/rate-limit");
+    __resetAuthRateLimitForTests();
   });
 
   afterEach(() => {
@@ -1328,10 +1334,12 @@ describe("E2E Authentication Flows", () => {
       expect(authOptions.session?.strategy).toBe("jwt");
     });
 
-    it("should set session max age to 7 days", async () => {
+    it("should set session max age from AUTH_CONFIG (24 hours)", async () => {
       const { authOptions } =
         await import("@/app/api/auth/[...nextauth]/route");
-      expect(authOptions.session?.maxAge).toBe(7 * 24 * 60 * 60);
+      const { AUTH_CONFIG } = await import("@/lib/auth/constants");
+      expect(authOptions.session?.maxAge).toBe(AUTH_CONFIG.SESSION_DURATION);
+      expect(AUTH_CONFIG.SESSION_DURATION).toBe(24 * 60 * 60);
     });
 
     it("should configure correct cookie names for dev and prod", async () => {
@@ -1448,10 +1456,13 @@ describe("E2E Authentication Flows", () => {
     it("should enforce rate limits per IP address", async () => {
       const rateLimitModule = await import("@/lib/auth/rate-limit");
       const { AUTH_CONFIG } = await import("@/lib/auth/constants");
+      const { RATE_LIMITS } = await import("@/lib/ratelimit/config");
 
-      // Verify constants are defined
-      expect(AUTH_CONFIG.MAX_LOGIN_ATTEMPTS).toBe(5);
-      expect(AUTH_CONFIG.LOCKOUT_DURATION).toBe(15 * 60 * 1000); // 15 min
+      // The brute-force policy lives in RATE_LIMITS.admin — that is what
+      // checkAuthRateLimit actually enforces. AUTH_CONFIG previously duplicated
+      // it as MAX_LOGIN_ATTEMPTS/LOCKOUT_DURATION, which nothing read.
+      expect(RATE_LIMITS.admin.requests).toBe(5);
+      expect(RATE_LIMITS.admin.window).toBe("15 m");
       expect(AUTH_CONFIG.SESSION_DURATION).toBe(24 * 60 * 60); // 24 hours
 
       // Test that the rate limiter decrements remaining attempts
@@ -1462,9 +1473,7 @@ describe("E2E Authentication Flows", () => {
 
       const result = await rateLimitModule.checkAuthRateLimit(mockRequest);
       expect(result.success).toBe(true);
-      expect(result.remaining).toBeLessThanOrEqual(
-        AUTH_CONFIG.MAX_LOGIN_ATTEMPTS
-      );
+      expect(result.remaining).toBeLessThanOrEqual(RATE_LIMITS.admin.requests);
       expect(result.reset).toBeGreaterThan(Date.now());
     });
   });

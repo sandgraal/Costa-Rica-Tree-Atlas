@@ -74,7 +74,14 @@ export function ImageLightbox({
   }
 
   return (
+    // This is the shared, barrel-exported lightbox, and it was the one missing
+    // dialog semantics — the two MDX-local copies (ImageGallery,
+    // SideBySideImages) already set role/aria-modal/aria-label. Assistive tech
+    // announced this full-screen overlay as a plain region.
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={t("ariaCloseLightbox")}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
       onClick={onClose}
     >
@@ -174,12 +181,22 @@ export function ImageLightbox({
         {images.length > 1 && images.length <= 10 && (
           <div className="mt-4 flex gap-2 overflow-x-auto max-w-full px-4 pb-2">
             {images.map((image, index) => (
+              // Thumbnails had no accessible name of their own and relied on
+              // the nested image's alt — which is the same text for every
+              // thumbnail in a gallery, so a screen reader announced N
+              // identical buttons. The alt is now empty (the image is
+              // decorative here) and the button carries a positional label.
               <button
                 key={index}
                 onClick={() => {
                   setIsLoading(true);
                   setCurrentIndex(index);
                 }}
+                aria-label={t("ariaGoToImage", {
+                  index: index + 1,
+                  total: images.length,
+                })}
+                aria-current={index === currentIndex ? "true" : undefined}
                 className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
                   index === currentIndex
                     ? "border-white scale-110"
@@ -188,7 +205,7 @@ export function ImageLightbox({
               >
                 <SafeImage
                   src={image.src}
-                  alt={image.alt}
+                  alt=""
                   width={64}
                   height={64}
                   className="w-full h-full object-cover"

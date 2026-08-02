@@ -13,10 +13,12 @@ Python script. Major categories:
 - **Image management:** `manage-tree-images.mjs`, `optimize-images.mjs`,
   `validate-image-references.mjs`, `cleanup-tree-images.mjs`,
   `propose-image-changes.mjs`, `process-image-votes.mjs`
-- **Content migrations / fixes:** `normalize-enum-values.mjs`,
+- **Content migrations / fixes (one-off, already applied — kept for
+  reference, not part of any routine workflow):** `normalize-enum-values.mjs`,
   `fix-glossary-references.mjs`, `fix-tree-distributions.mjs`,
   `add-seasonal-data.mjs`, `add-tree-tags.mjs`, `add-external-links.mjs`,
-  `add-gallery-sections.mjs`, `add-comparison-guides.mjs`
+  `add-gallery-sections.mjs`
+  (`add-comparison-guides.mjs` was listed here and has never existed.)
 - **Operational:** `generate-secrets.mjs`, `create-admin-user.mjs`,
   `setup-first-admin.mjs`, `reset-admin-password.mjs`,
   `update-implementation-metrics.mjs`, `vercel-ignore-build.sh`
@@ -83,8 +85,10 @@ Copy `audit-content-quality.mjs`. Migration? Copy `normalize-enum-values.mjs`.
 Image manipulation? Copy `manage-tree-images.mjs`.
 
 After writing, add an npm script to `package.json` if it's meant to be run
-regularly, and document it in the README's "Scripts Reference" section if
-externally relevant.
+regularly, and document it in the "Scripts Reference" section of
+[`.github/copilot-instructions.md`](../.github/copilot-instructions.md).
+(This used to say "the README's Scripts Reference section"; the README has no
+such section — that inventory lives in copilot-instructions.md.)
 
 ## Verification
 

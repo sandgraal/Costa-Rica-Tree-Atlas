@@ -66,7 +66,7 @@ function transformGlossaryTerm(
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
-  const accessDenied = requireApiV1Access(request);
+  const accessDenied = await requireApiV1Access(request);
   if (accessDenied) return accessDenied;
 
   const clientId = getClientId(request);

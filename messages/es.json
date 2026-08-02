@@ -42,7 +42,8 @@
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "noJsBanner": "Este sitio funciona mejor con JavaScript habilitado. La navegación y el contenido principal siguen disponibles.",
-    "backToTop": "Volver arriba"
+    "backToTop": "Volver arriba",
+    "oralHistories": "Historias Orales"
   },
   "home": {
     "title": "Descubre los Árboles de Costa Rica",
@@ -125,7 +126,10 @@
     "exploreByProvince": "Explorar por Provincia",
     "featuredTrees": "Árboles destacados:",
     "collections": "Colecciones:",
-    "noTreesMatch": "No hay árboles que coincidan con esta colección actualmente."
+    "noTreesMatch": "No hay árboles que coincidan con esta colección actualmente.",
+    "errorMissingApiKey": "El servicio de mapas no está configurado.",
+    "errorLoadFailed": "No se pudo conectar con el servicio de mapas.",
+    "errorTimeout": "El mapa tardó demasiado en cargar."
   },
   "trees": {
     "title": "Directorio de Árboles",
@@ -220,7 +224,8 @@
     "noSavedFilters": "No hay filtros guardados",
     "structuredDataName": "Directorio de Árboles de Costa Rica",
     "structuredDataDescription": "Una colección completa de árboles nativos de Costa Rica",
-    "viewAllPhotos": "{count, plural, =1 {Ver 1 foto →} other {Ver todas las {count} fotos →}}"
+    "viewAllPhotos": "{count, plural, =1 {Ver 1 foto →} other {Ver todas las {count} fotos →}}",
+    "clearSearch": "Borrar búsqueda"
   },
   "footer": {
     "description": "Un proyecto mantenido de forma privada dedicado a documentar los árboles de Costa Rica.",
@@ -1450,7 +1455,9 @@
     "close": "cerrar",
     "topResults": "Mejores resultados",
     "viewAllResults": "Ver los {count} resultados",
-    "suggestionsFooter": "Presiona Enter para seleccionar, Escape para cerrar"
+    "suggestionsFooter": "Presiona Enter para seleccionar, Escape para cerrar",
+    "loadError": "La búsqueda no está disponible en este momento.",
+    "retry": "Reintentar"
   },
   "admin": {
     "nav": {
@@ -2411,7 +2418,8 @@
     "ariaImageFallbackLabel": "Imagen",
     "ariaViewFirstImage": "Ver primera imagen",
     "ariaViewSecondImage": "Ver segunda imagen",
-    "ariaLoadingImage": "Cargando imagen"
+    "ariaLoadingImage": "Cargando imagen",
+    "ariaGoToImage": "Ir a la imagen {index} de {total}"
   },
   "biodiversity": {
     "title": "Datos de Biodiversidad",

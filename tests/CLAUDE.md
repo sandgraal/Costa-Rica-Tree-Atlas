@@ -1,6 +1,6 @@
 # tests/ — Agent Guide
 
-Vitest test suite (~47 files). Read the root [CLAUDE.md](../CLAUDE.md) first.
+Vitest test suite (58 files: 49 here, the rest colocated in `src/`). Read the root [CLAUDE.md](../CLAUDE.md) first.
 
 ## What each test family guards
 

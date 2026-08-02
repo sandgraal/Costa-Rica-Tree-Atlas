@@ -82,11 +82,15 @@ first.
 ## Verification
 
 ```bash
-npm run type-check    # TypeScript (note pre-existing manifest.ts errors)
+npm run type-check    # TypeScript — must be 0 errors; treat any failure as real
 npm run lint          # ESLint
 npx vitest run tests/route-regression.test.ts tests/i18n-parity.test.ts
 ```
 
-All locale-ternary and ARIA-label regression guards are in
-`route-regression.test.ts`. If you accidentally introduce hardcoded
-English, the test catches it before merge.
+Locale-ternary and ARIA-label regression guards live in
+`route-regression.test.ts`.
+
+**Know the limit of that guard:** it matches `aria-label="literal"` and
+locale ternaries. It does NOT see hardcoded JSX text content or hardcoded
+`alt` attributes — those pass CI today. Do not treat a green run as proof
+you have no hardcoded strings.

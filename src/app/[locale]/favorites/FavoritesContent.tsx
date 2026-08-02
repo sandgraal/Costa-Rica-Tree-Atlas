@@ -191,14 +191,20 @@ export function FavoritesContent({ locale, trees }: FavoritesContentProps) {
 
                 {/* Compare Toggle */}
                 {selectedForCompare.length === 0 ? (
+                  // Rendered only when nothing is selected, and its handler was
+                  // `setSelectedForCompare([])` — setting an empty array to an
+                  // empty array. Clicking it did nothing, and the branch could
+                  // never flip itself. It is an affordance, not an action, so it
+                  // is now honestly disabled with the hint as its label.
                   <button
-                    onClick={() => {
-                      setSelectedForCompare([]);
-                    }}
-                    className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                    className="inline-flex items-center gap-2 text-sm px-4 py-2 bg-primary/10 text-primary rounded-lg opacity-60 cursor-not-allowed"
                     title={t("selectToCompare")}
+                    aria-label={`${t("compare")} — ${t("selectToCompare")}`}
                   >
-                    <CompareIcon className="w-4 h-4" />
+                    <CompareIcon className="w-4 h-4" aria-hidden="true" />
                     {t("compare")}
                   </button>
                 ) : (
