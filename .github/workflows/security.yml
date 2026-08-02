@@ -78,6 +78,11 @@ jobs:
   codeql:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
+    # The analysis itself succeeds (SARIF is generated and exported) but the
+    # upload step fails until a maintainer enables Code Scanning in repository
+    # Settings → Code security → Code scanning. Once that is done this flag
+    # can be removed and the job will pass end-to-end automatically.
+    continue-on-error: true
     permissions:
       actions: read
       contents: read
