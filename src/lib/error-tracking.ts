@@ -11,14 +11,14 @@
 
 type ErrorSeverity = "fatal" | "error" | "warning" | "info";
 
-type ErrorTrackingScope = {
+export type ErrorTrackingScope = {
   setLevel: (level: ErrorSeverity) => void;
   setTag: (key: string, value: string) => void;
   setExtra: (key: string, value: unknown) => void;
   setUser: (user: { id?: string; email?: string }) => void;
 };
 
-type ErrorTrackingAdapter = {
+export type ErrorTrackingAdapter = {
   withScope: (callback: (scope: ErrorTrackingScope) => void) => void;
   captureException: (error: Error) => void;
   captureMessage: (message: string) => void;
@@ -41,6 +41,85 @@ const errorTrackingGlobal = globalThis as typeof globalThis & {
  */
 function getErrorTrackingAdapter(): ErrorTrackingAdapter | null {
   return errorTrackingGlobal.__CRTA_ERROR_TRACKING_ADAPTER__ ?? null;
+}
+
+/**
+ * Register an error-tracking adapter.
+ *
+ * Until this existed, `__CRTA_ERROR_TRACKING_ADAPTER__` was read but never
+ * written anywhere in the repo — the adapter seam was decorative.
+ */
+export function registerErrorTrackingAdapter(
+  adapter: ErrorTrackingAdapter
+): void {
+  errorTrackingGlobal.__CRTA_ERROR_TRACKING_ADAPTER__ = adapter;
+}
+
+/**
+ * Install the default adapter: one structured JSON line per captured event on
+ * stderr, tagged so it can be filtered out of a platform log stream.
+ *
+ * Called from `src/instrumentation.ts` at server start. Idempotent — a second
+ * call is a no-op, so a real provider registered later is not clobbered.
+ */
+export function installConsoleErrorTracking(): void {
+  if (getErrorTrackingAdapter()) return;
+
+  let pending: {
+    level?: ErrorSeverity;
+    tags: Record<string, string>;
+    extra: Record<string, unknown>;
+    user?: { id?: string; email?: string };
+  } | null = null;
+
+  const emit = (kind: "exception" | "message", payload: string) => {
+    console.error(
+      JSON.stringify({
+        source: "crta.error-tracking",
+        kind,
+        payload,
+        level: pending?.level ?? "error",
+        ...(pending && Object.keys(pending.tags).length > 0
+          ? { tags: pending.tags }
+          : {}),
+        ...(pending && Object.keys(pending.extra).length > 0
+          ? { extra: pending.extra }
+          : {}),
+        ...(pending?.user ? { user: pending.user } : {}),
+        timestamp: new Date().toISOString(),
+      })
+    );
+  };
+
+  registerErrorTrackingAdapter({
+    withScope(callback) {
+      pending = { tags: {}, extra: {} };
+      try {
+        callback({
+          setLevel: (level) => {
+            if (pending) pending.level = level;
+          },
+          setTag: (key, value) => {
+            if (pending) pending.tags[key] = value;
+          },
+          setExtra: (key, value) => {
+            if (pending) pending.extra[key] = value;
+          },
+          setUser: (user) => {
+            if (pending) pending.user = user;
+          },
+        });
+      } finally {
+        pending = null;
+      }
+    },
+    captureException(error) {
+      emit("exception", `${error.name}: ${error.message}`);
+    },
+    captureMessage(message) {
+      emit("message", message);
+    },
+  });
 }
 
 /**

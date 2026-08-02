@@ -1,27 +1,42 @@
 import { describe, it, expect } from "vitest";
 import { validateScientificName } from "../scientific-name";
 
+/**
+ * Upper bound for a single validation call.
+ *
+ * Several cases here asserted `< 1ms`, which flakes: one cold call includes JIT
+ * warm-up and can be interrupted by GC (observed at 1.24ms on an idle laptop).
+ * A sub-millisecond wall-clock assertion measures the machine, not the code.
+ *
+ * What this suite actually guards is the absence of catastrophic backtracking,
+ * which shows up as seconds — not fractions of a millisecond. 50ms is far below
+ * any real ReDoS and far above scheduler noise. The statistically stable
+ * measurement is the 10,000-iteration benchmark at the bottom, which keeps its
+ * tight per-call average.
+ */
+const MAX_SINGLE_CALL_MS = 50;
+
 describe("ReDoS Prevention", () => {
-  it("should validate in <1ms even with max-length input", () => {
+  it("should validate max-length input without backtracking", () => {
     const longName = "Q" + "uercus".repeat(33); // ~200 chars
 
     const start = performance.now();
     const result = validateScientificName(longName);
     const duration = performance.now() - start;
 
-    expect(duration).toBeLessThan(1);
+    expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
     // Single long word starting with uppercase is structurally valid Latin text
     expect(result.valid).toBe(true);
   });
 
-  it("should reject zero-width character spam instantly", () => {
+  it("should reject zero-width character spam without backtracking", () => {
     const attack = "Quercus" + "\u200B".repeat(1000);
 
     const start = performance.now();
     const result = validateScientificName(attack);
     const duration = performance.now() - start;
 
-    expect(duration).toBeLessThan(1);
+    expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
     expect(result.valid).toBe(false);
   });
 
@@ -40,8 +55,8 @@ describe("ReDoS Prevention", () => {
 
     // Both should normalize to same result
     expect(result1.sanitized).toBe(result2.sanitized);
-    expect(duration1).toBeLessThan(5);
-    expect(duration2).toBeLessThan(5);
+    expect(duration1).toBeLessThan(MAX_SINGLE_CALL_MS);
+    expect(duration2).toBeLessThan(MAX_SINGLE_CALL_MS);
   });
 
   it("should detect homograph attacks quickly", () => {
@@ -54,7 +69,7 @@ describe("ReDoS Prevention", () => {
 
     expect(result.valid).toBe(false);
     expect(result.error).toContain("Mixed scripts");
-    expect(duration).toBeLessThan(5);
+    expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
   });
 
   it("should detect emoji injection quickly", () => {
@@ -66,7 +81,7 @@ describe("ReDoS Prevention", () => {
 
     expect(result.valid).toBe(false);
     expect(result.error).toContain("Emoji");
-    expect(duration).toBeLessThan(5);
+    expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
   });
 
   it("should handle repeated pattern attacks efficiently", () => {
@@ -78,7 +93,7 @@ describe("ReDoS Prevention", () => {
     const duration = performance.now() - start;
 
     expect(result.valid).toBe(false);
-    expect(duration).toBeLessThan(1); // Should fail on length check instantly
+    expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS); // fails the length check immediately
   });
 
   it("should process valid names very quickly", () => {
@@ -96,7 +111,7 @@ describe("ReDoS Prevention", () => {
       const duration = performance.now() - start;
 
       expect(result.valid).toBe(true);
-      expect(duration).toBeLessThan(5);
+      expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
     });
   });
 
@@ -110,7 +125,7 @@ describe("ReDoS Prevention", () => {
     validateScientificName(worstCase);
     const duration = performance.now() - start;
 
-    expect(duration).toBeLessThan(5);
+    expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
   });
 
   it("should detect control character attacks quickly", () => {
@@ -127,7 +142,7 @@ describe("ReDoS Prevention", () => {
       const duration = performance.now() - start;
 
       expect(result.valid).toBe(false);
-      expect(duration).toBeLessThan(5);
+      expect(duration).toBeLessThan(MAX_SINGLE_CALL_MS);
     });
   });
 

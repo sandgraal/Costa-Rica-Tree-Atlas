@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
+import { tableIsQueryable } from "@/lib/db/table-check";
 import { captureApiError } from "@/lib/error-tracking";
 import { existsSync, createWriteStream } from "node:fs";
 import fs from "node:fs/promises";
@@ -204,17 +205,10 @@ function getImageFilename(treeSlug: string, imageType: string): string {
 /**
  * Check if tables exist in the database
  */
+// Shared probe: distinguishes "table missing" from "query failed".
+// See src/lib/db/table-check.ts.
 async function checkTablesExist(): Promise<boolean> {
-  try {
-    await (
-      prisma as unknown as {
-        $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
-      }
-    ).$queryRaw`SELECT 1 FROM image_proposals LIMIT 1`;
-    return true;
-  } catch {
-    return false;
-  }
+  return tableIsQueryable("image_proposals");
 }
 
 /**

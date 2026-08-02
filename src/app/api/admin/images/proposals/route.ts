@@ -15,6 +15,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { isAuthenticatedWorkflowRequest } from "@/lib/auth/workflow-auth";
 import prisma from "@/lib/prisma";
+import { tableIsQueryable } from "@/lib/db/table-check";
 import { captureApiError } from "@/lib/error-tracking";
 import {
   type ImageProposalStatus,
@@ -24,19 +25,10 @@ import {
   IMAGE_PROPOSAL_SOURCES,
 } from "@/types/image-review";
 
-// Check if image review tables exist
+// Shared probe: distinguishes "table missing" from "query failed".
+// See src/lib/db/table-check.ts.
 async function checkTablesExist(): Promise<boolean> {
-  try {
-    // Try to query the table - will fail if it doesn't exist
-    await (
-      prisma as unknown as {
-        $queryRaw: (query: TemplateStringsArray) => Promise<unknown>;
-      }
-    ).$queryRaw`SELECT 1 FROM image_proposals LIMIT 1`;
-    return true;
-  } catch {
-    return false;
-  }
+  return tableIsQueryable("image_proposals");
 }
 
 /**
