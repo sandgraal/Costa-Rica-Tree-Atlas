@@ -35,6 +35,9 @@ jobs:
       - name: Run metrics update script
         run: node scripts/update-implementation-metrics.mjs
 
+      - name: Format updated file
+        run: npx prettier --write docs/IMPLEMENTATION_PLAN.md
+
       - name: Check for changes
         id: check_changes
         run: |
