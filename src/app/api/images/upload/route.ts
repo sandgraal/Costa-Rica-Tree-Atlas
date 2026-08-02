@@ -49,10 +49,10 @@ async function checkRateLimit(userId: string): Promise<boolean> {
   ).$queryRaw`
     SELECT COUNT(*) as count
     FROM image_proposals ip
-    INNER JOIN image_audits ia ON ia."proposalId" = ip.id
-    WHERE ia."actorId" = ${userId}
+    INNER JOIN image_audits ia ON ia."proposal_id" = ip.id
+    WHERE ia."actor_id" = ${userId}
       AND ip.source = 'USER_UPLOAD'
-      AND ip."createdAt" > ${oneHourAgo}
+      AND ip."created_at" > ${oneHourAgo}
   `;
 
   return Number(counts[0]?.count ?? 0) < 5;
@@ -244,12 +244,12 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_proposals (
-        id, "treeSlug", "imageType",
-        "proposedUrl", "proposedSource", "proposedAlt",
-        "qualityScore", resolution, "fileSize",
+        id, "tree_slug", "image_type",
+        "proposed_url", "proposed_source", "proposed_alt",
+        "quality_score", resolution, "file_size",
         source, reason,
-        status, upvotes, downvotes, "flagCount",
-        "createdAt", "updatedAt"
+        status, upvotes, downvotes, "flag_count",
+        "created_at", "updated_at"
       ) VALUES (
         ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         ${imageUrl}, ${attributionText}, ${`${imageType} image of ${treeSlug}`},
@@ -271,8 +271,8 @@ export async function POST(
       }
     ).$executeRaw`
       INSERT INTO image_audits (
-        id, "proposalId", "treeSlug", "imageType",
-        action, "actorId", notes, "createdAt"
+        id, "proposal_id", "tree_slug", "image_type",
+        action, "actor_id", notes, "created_at"
       ) VALUES (
         ${auditId}, ${proposalId}, ${treeSlug}, ${imageType}::"ImageType",
         'PROPOSAL_CREATED'::"ImageAuditAction", ${userId},

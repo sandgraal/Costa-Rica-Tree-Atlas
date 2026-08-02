@@ -147,42 +147,42 @@ enum ImageType {
 // Image proposal for review
 model ImageProposal {
   id        String    @id @default(cuid())
-  treeSlug  String    @db.VarChar(100)
-  imageType ImageType
+  treeSlug  String    @db.VarChar(100) @map("tree_slug")
+  imageType ImageType @map("image_type")
 
   // Current image details
-  currentUrl    String? @db.Text
-  currentSource String? @db.VarChar(255)
-  currentAlt    String? @db.Text
+  currentUrl    String? @db.Text @map("current_url")
+  currentSource String? @db.VarChar(255) @map("current_source")
+  currentAlt    String? @db.Text @map("current_alt")
 
   // Proposed image details
-  proposedUrl    String  @db.Text
-  proposedSource String? @db.VarChar(255)
-  proposedAlt    String? @db.Text
+  proposedUrl    String  @db.Text @map("proposed_url")
+  proposedSource String? @db.VarChar(255) @map("proposed_source")
+  proposedAlt    String? @db.Text @map("proposed_alt")
 
   // Quality metrics
-  qualityScore Float? // 0-100 quality score
+  qualityScore Float? @map("quality_score") // 0-100 quality score
   resolution   String? @db.VarChar(20) // e.g., "1920x1080"
-  fileSize     Int? // bytes
+  fileSize     Int? @map("file_size") // bytes
 
   // Workflow/source info
   source        ImageProposalSource
   reason        String?             @db.Text // Why this change is proposed
-  workflowRunId String?             @db.VarChar(100) // GitHub Actions run ID
+  workflowRunId String?             @db.VarChar(100) @map("workflow_run_id") // GitHub Actions run ID
 
   // Status and review
   status      ImageProposalStatus @default(PENDING)
-  reviewedBy  String? // User ID who reviewed
-  reviewedAt  DateTime?
-  reviewNotes String?             @db.Text
+  reviewedBy  String? @map("reviewed_by") // User ID who reviewed
+  reviewedAt  DateTime? @map("reviewed_at")
+  reviewNotes String?             @db.Text @map("review_notes")
 
   // Voting aggregates (denormalized for performance)
   upvotes   Int @default(0)
   downvotes Int @default(0)
-  flagCount Int @default(0)
+  flagCount Int @default(0) @map("flag_count")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
   votes        ImageVote[]
@@ -209,22 +209,22 @@ enum ImageFlagReason {
 // User votes and flags on images
 model ImageVote {
   id         String    @id @default(cuid())
-  proposalId String? // Vote on a proposal
-  treeSlug   String    @db.VarChar(100) // Can vote on existing images too
-  imageType  ImageType
+  proposalId String? @map("proposal_id") // Vote on a proposal
+  treeSlug   String    @db.VarChar(100) @map("tree_slug") // Can vote on existing images too
+  imageType  ImageType @map("image_type")
 
   // Vote type
-  isUpvote   Boolean? // true=upvote, false=downvote, null=flag only
-  isFlag     Boolean          @default(false)
-  flagReason ImageFlagReason?
-  flagNotes  String?          @db.Text
+  isUpvote   Boolean? @map("is_upvote") // true=upvote, false=downvote, null=flag only
+  isFlag     Boolean          @default(false) @map("is_flag")
+  flagReason ImageFlagReason? @map("flag_reason")
+  flagNotes  String?          @db.Text @map("flag_notes")
 
   // Voter info (anonymous but trackable)
-  sessionId String  @db.VarChar(64) // Anonymous session hash
-  ipHash    String? @db.VarChar(64) // Hashed IP for rate limiting
-  userId    String? // If logged in (optional)
+  sessionId String  @db.VarChar(64) @map("session_id") // Anonymous session hash
+  ipHash    String? @db.VarChar(64) @map("ip_hash") // Hashed IP for rate limiting
+  userId    String? @map("user_id") // If logged in (optional)
 
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   // Relations
   proposal ImageProposal? @relation(fields: [proposalId], references: [id], onDelete: Cascade)
@@ -254,23 +254,23 @@ enum ImageAuditAction {
 // Audit log for all image-related changes
 model ImageAudit {
   id         String     @id @default(cuid())
-  proposalId String?
-  treeSlug   String     @db.VarChar(100)
-  imageType  ImageType?
+  proposalId String? @map("proposal_id")
+  treeSlug   String     @db.VarChar(100) @map("tree_slug")
+  imageType  ImageType? @map("image_type")
 
   action ImageAuditAction
 
   // Who performed the action
-  actorId      String? // User ID if authenticated
-  actorSession String? @db.VarChar(64) // Session ID if anonymous
-  ipAddress    String? @db.VarChar(45)
+  actorId      String? @map("actor_id") // User ID if authenticated
+  actorSession String? @db.VarChar(64) @map("actor_session") // Session ID if anonymous
+  ipAddress    String? @db.VarChar(45) @map("ip_address")
 
   // What changed
-  previousValue String? @db.Text // JSON of previous state
-  newValue      String? @db.Text // JSON of new state
+  previousValue String? @db.Text @map("previous_value") // JSON of previous state
+  newValue      String? @db.Text @map("new_value") // JSON of new state
   notes         String? @db.Text
 
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   // Relations
   proposal ImageProposal? @relation(fields: [proposalId], references: [id], onDelete: SetNull)
@@ -321,8 +321,8 @@ model Contribution {
   // For NEW_SPECIES: proposed tree details
   // For CORRECTION: target tree and field
   // For LOCAL_KNOWLEDGE: target tree and knowledge type
-  treeSlug    String? @db.VarChar(100) // null for new species
-  targetField String? @db.VarChar(100) // e.g., "description", "uses", "distribution"
+  treeSlug    String? @db.VarChar(100) @map("tree_slug") // null for new species
+  targetField String? @db.VarChar(100) @map("target_field") // e.g., "description", "uses", "distribution"
 
   // Contribution content
   title       String  @db.VarChar(255)
@@ -330,18 +330,18 @@ model Contribution {
   evidence    String? @db.Text // Sources, references, personal experience
 
   // For NEW_SPECIES type
-  scientificName String? @db.VarChar(255)
-  commonNameEn   String? @db.VarChar(255)
-  commonNameEs   String? @db.VarChar(255)
+  scientificName String? @db.VarChar(255) @map("scientific_name")
+  commonNameEn   String? @db.VarChar(255) @map("common_name_en")
+  commonNameEs   String? @db.VarChar(255) @map("common_name_es")
   family         String? @db.VarChar(100)
-  proposedImages String[] // URLs or file paths
+  proposedImages String[] @map("proposed_images") // URLs or file paths
 
   // Contributor info (can be anonymous)
-  contributorName  String? @db.VarChar(255)
-  contributorEmail String? @db.VarChar(255)
-  sessionId        String  @db.VarChar(64) // Anonymous session hash
-  ipHash           String? @db.VarChar(64) // Hashed IP for rate limiting
-  userId           String? // If logged in
+  contributorName  String? @db.VarChar(255) @map("contributor_name")
+  contributorEmail String? @db.VarChar(255) @map("contributor_email")
+  sessionId        String  @db.VarChar(64) @map("session_id") // Anonymous session hash
+  ipHash           String? @db.VarChar(64) @map("ip_hash") // Hashed IP for rate limiting
+  userId           String? @map("user_id") // If logged in
 
   // Location context (for LOCAL_KNOWLEDGE region or NEW_SPECIES location)
   region String? @db.VarChar(255)
@@ -349,15 +349,15 @@ model Contribution {
   // Review workflow
   status       ContributionStatus   @default(PENDING)
   priority     ContributionPriority @default(MEDIUM)
-  reviewedBy   String? // Admin/moderator user ID
-  reviewedAt   DateTime?
-  reviewNotes  String?              @db.Text
-  resolvedPrId String?              @db.VarChar(100) // GitHub PR that implemented this
+  reviewedBy   String? @map("reviewed_by") // Admin/moderator user ID
+  reviewedAt   DateTime? @map("reviewed_at")
+  reviewNotes  String?              @db.Text @map("review_notes")
+  resolvedPrId String?              @db.VarChar(100) @map("resolved_pr_id") // GitHub PR that implemented this
 
   // Metadata
   locale    String   @default("en") @db.VarChar(5)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([type])
   @@index([status])
@@ -376,17 +376,17 @@ model Contribution {
 // Community tree rating — one rating per session per tree
 model TreeRating {
   id        String @id @default(cuid())
-  treeSlug  String @db.VarChar(100) // Tree being rated
+  treeSlug  String @db.VarChar(100) @map("tree_slug") // Tree being rated
   rating    Int // 1-5 star rating
 
   // Rater identity (anonymous or authenticated)
-  sessionId String  @db.VarChar(64) // Anonymous session hash
-  ipHash    String? @db.VarChar(64) // Hashed IP for abuse prevention
-  userId    String? // If logged in
+  sessionId String  @db.VarChar(64) @map("session_id") // Anonymous session hash
+  ipHash    String? @db.VarChar(64) @map("ip_hash") // Hashed IP for abuse prevention
+  userId    String? @map("user_id") // If logged in
 
   // Metadata
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([treeSlug, sessionId]) // One rating per session per tree
   @@index([treeSlug])
@@ -403,12 +403,12 @@ model TreeRating {
 model SearchQuery {
   id             String   @id @default(cuid())
   query          String   @db.VarChar(500) // The search text entered
-  normalizedQuery String  @db.VarChar(500) // Lowercased, trimmed for aggregation
+  normalizedQuery String  @db.VarChar(500) @map("normalized_query") // Lowercased, trimmed for aggregation
   locale         String   @db.VarChar(5)   // "en" or "es"
-  resultsCount   Int                       // Number of results returned
-  selectedResult String?  @db.VarChar(255) // Slug of the tree the user clicked
-  sessionId      String   @db.VarChar(64)  // Anonymous session hash
-  createdAt      DateTime @default(now())
+  resultsCount   Int @map("results_count") // Number of results returned
+  selectedResult String?  @db.VarChar(255) @map("selected_result") // Slug of the tree the user clicked
+  sessionId      String   @db.VarChar(64) @map("session_id") // Anonymous session hash
+  createdAt      DateTime @default(now()) @map("created_at")
 
   @@index([normalizedQuery])
   @@index([locale])
@@ -434,26 +434,26 @@ enum TrustLevel {
 // Contributor profile — aggregated stats and earned badges
 model ContributorProfile {
   id        String @id @default(cuid())
-  sessionId String @unique @db.VarChar(64) // Links to contribution_session cookie
+  sessionId String @unique @db.VarChar(64) @map("session_id") // Links to contribution_session cookie
 
   // Optional display info
-  displayName String? @db.VarChar(255)
+  displayName String? @db.VarChar(255) @map("display_name")
 
   // Contribution stats (denormalized for performance)
-  totalContributions    Int @default(0)
-  approvedContributions Int @default(0)
-  rejectedContributions Int @default(0)
-  totalRatings          Int @default(0)
-  totalPhotos           Int @default(0)
+  totalContributions    Int @default(0) @map("total_contributions")
+  approvedContributions Int @default(0) @map("approved_contributions")
+  rejectedContributions Int @default(0) @map("rejected_contributions")
+  totalRatings          Int @default(0) @map("total_ratings")
+  totalPhotos           Int @default(0) @map("total_photos")
 
   // Reputation
-  reputationScore Int        @default(0)
-  trustLevel      TrustLevel @default(NEW)
+  reputationScore Int        @default(0) @map("reputation_score")
+  trustLevel      TrustLevel @default(NEW) @map("trust_level")
   badges          String[]   @default([]) // Array of earned badge IDs
 
   // Metadata
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([trustLevel])
   @@index([reputationScore])

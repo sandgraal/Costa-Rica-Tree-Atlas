@@ -15,7 +15,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { isAuthenticatedWorkflowRequest } from "@/lib/auth/workflow-auth";
 import prisma from "@/lib/prisma";
-import { tableIsQueryable } from "@/lib/db/table-check";
+import { tableIsQueryable, sqlTemplate } from "@/lib/db/table-check";
 import { captureApiError } from "@/lib/error-tracking";
 import {
   type ImageProposalStatus,
@@ -65,14 +65,27 @@ export async function GET(request: NextRequest) {
       parseInt(searchParams.get("limit") || "20", 10),
       100
     );
-    const sortBy = searchParams.get("sortBy") || "createdAt";
-    const sortOrder = searchParams.get("sortOrder") === "asc" ? "asc" : "desc";
-
-    // Build where clause
-    const where: Record<string, unknown> = {};
-    if (status) where.status = status;
-    if (treeSlug) where.treeSlug = treeSlug;
-    if (source) where.source = source;
+    // Sort column and direction are resolved through fixed allowlists and
+    // composed OUTSIDE the tagged template.
+    //
+    // This clause used to be interpolated INSIDE the $queryRaw template:
+    //   ORDER BY ${sortBy === "createdAt" ? "created_at" : sortBy} ${...}
+    // A tagged template binds every `${}` as a query parameter, so Postgres
+    // received `ORDER BY $4 $5` and rejected it as a syntax error. This endpoint
+    // returned 500 on every single request. (Not an injection — parameter
+    // binding is exactly why it could not work.)
+    const SORT_COLUMNS: Record<string, string> = {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+      qualityScore: "quality_score",
+      status: "status",
+      treeSlug: "tree_slug",
+    };
+    const sortColumn =
+      SORT_COLUMNS[searchParams.get("sortBy") ?? "createdAt"] ?? "created_at";
+    const sortDirection =
+      searchParams.get("sortOrder") === "asc" ? "ASC" : "DESC";
+    const orderBy = `ORDER BY ${sortColumn} ${sortDirection}`;
 
     // Use raw query since Prisma client may not have types yet
     const proposals = await (
@@ -82,8 +95,10 @@ export async function GET(request: NextRequest) {
           ...args: unknown[]
         ) => Promise<unknown[]>;
       }
-    ).$queryRaw`
-      SELECT 
+    ).$queryRaw(
+      sqlTemplate(
+        `
+      SELECT
         id, tree_slug as "treeSlug", image_type as "imageType",
         current_url as "currentUrl", current_source as "currentSource", current_alt as "currentAlt",
         proposed_url as "proposedUrl", proposed_source as "proposedSource", proposed_alt as "proposedAlt",
@@ -93,13 +108,31 @@ export async function GET(request: NextRequest) {
         upvotes, downvotes, flag_count as "flagCount",
         created_at as "createdAt", updated_at as "updatedAt"
       FROM image_proposals
-      WHERE (${status}::text IS NULL OR status = ${status})
-        AND (${treeSlug}::text IS NULL OR tree_slug = ${treeSlug})
-        AND (${source}::text IS NULL OR source = ${source})
-      ORDER BY ${sortBy === "createdAt" ? "created_at" : sortBy} ${sortOrder === "asc" ? "ASC" : "DESC"}
-      LIMIT ${limit}
-      OFFSET ${(page - 1) * limit}
-    `;
+      WHERE (`,
+        `::text IS NULL OR status = `,
+        `)
+        AND (`,
+        `::text IS NULL OR tree_slug = `,
+        `)
+        AND (`,
+        `::text IS NULL OR source = `,
+        `)
+      ${orderBy}
+      LIMIT `,
+        `
+      OFFSET `,
+        `
+    `
+      ),
+      status,
+      status,
+      treeSlug,
+      treeSlug,
+      source,
+      source,
+      limit,
+      (page - 1) * limit
+    );
 
     const countResult = await (
       prisma as unknown as {

@@ -34,10 +34,19 @@ function errorCode(error: unknown): string | undefined {
   return typeof code === "string" ? code : undefined;
 }
 
-/** Build a single-chunk TemplateStringsArray so we can keep using $queryRaw. */
-function sqlTemplate(sql: string): TemplateStringsArray {
-  return Object.assign([sql], {
-    raw: [sql],
+/**
+ * Build a TemplateStringsArray from literal SQL chunks.
+ *
+ * `$queryRaw` is a tagged template: every `${}` is bound as a query PARAMETER,
+ * so identifiers and clause keywords cannot be interpolated that way. Passing a
+ * hand-built strings array lets a caller place allowlisted SQL (an ORDER BY
+ * column, say) in the static portion while user values still bind normally.
+ *
+ * Every chunk must be trusted, literal SQL. Never build one from user input.
+ */
+export function sqlTemplate(...chunks: string[]): TemplateStringsArray {
+  return Object.assign([...chunks], {
+    raw: [...chunks],
   }) as unknown as TemplateStringsArray;
 }
 
