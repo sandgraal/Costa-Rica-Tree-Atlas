@@ -98,3 +98,44 @@ describe("i18n Translation Parity", () => {
     expect(allEmpty).toEqual([]);
   });
 });
+
+/**
+ * Literal dotted keys are unresolvable at runtime.
+ *
+ * next-intl resolves `t("seasonal.monthShort.january")` by walking the object
+ * path: `seasonal` -> `monthShort` -> `january`. A key literally NAMED
+ * "monthShort.january" is never found by that walk, so the call throws
+ * MISSING_MESSAGE even though the translation is sitting right there.
+ *
+ * This shipped: every Spanish month in `seasonal` was stored flat, and
+ * /es/seasonal threw 13 MISSING_MESSAGE errors per render in production.
+ *
+ * The parity test above could not catch it — it flattens nested objects to
+ * dotted paths for comparison, which makes a literal "monthShort.january" key
+ * and a nested { monthShort: { january } } look identical. Hence this separate
+ * structural check.
+ */
+describe("message key structure", () => {
+  const locales = ["en", "es"] as const;
+
+  function findDottedKeys(
+    node: unknown,
+    trail: string[] = [],
+    found: string[] = []
+  ): string[] {
+    if (typeof node !== "object" || node === null) return found;
+    for (const [key, value] of Object.entries(node)) {
+      if (key.includes(".")) found.push([...trail, key].join(" > "));
+      findDottedKeys(value, [...trail, key], found);
+    }
+    return found;
+  }
+
+  it.each(locales)(
+    "%s.json has no literal dotted keys (next-intl cannot resolve them)",
+    (locale) => {
+      const messages = locale === "en" ? en : es;
+      expect(findDottedKeys(messages)).toEqual([]);
+    }
+  );
+});
