@@ -175,5 +175,5 @@ Potential improvements for the CSP module:
 
 ## Related Documentation
 
-- [SECURITY.md](../../SECURITY.md) - Complete security documentation
-- [CSP Report API](../../src/app/api/csp-report/route.ts) - Violation reporting endpoint
+- [SECURITY.md](../../../SECURITY.md) - Complete security documentation
+- [CSP Report API](../../app/api/csp-report/route.ts) - Violation reporting endpoint

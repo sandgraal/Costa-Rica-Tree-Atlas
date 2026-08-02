@@ -37,7 +37,7 @@ All accepted contributions are governed by [LICENSE](LICENSE) and
 
 ### Prerequisites
 
-- Node.js 18.17 or later
+- Node.js 20.19 or later
 - npm, yarn, or pnpm
 - Git
 - A code editor (VS Code recommended)

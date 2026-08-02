@@ -2,13 +2,29 @@
 
 ## Overview
 
-The Costa Rica Tree Atlas uses a Sentry-ready error tracking module (`src/lib/error-tracking.ts`) that gracefully degrades to structured console logging when Sentry is not configured. All API routes use `captureApiError()` for centralized error reporting.
+The Costa Rica Tree Atlas uses a provider-agnostic error tracking module
+(`src/lib/error-tracking.ts`). All API routes and error boundaries report
+through `captureApiError()` / `captureException()`.
+
+By default `src/instrumentation.ts` installs a **structured console adapter**:
+one JSON line per event on stderr, tagged `crta.error-tracking`, which is
+greppable in the Vercel log stream. Sentry replaces that adapter; it is not a
+prerequisite for having error visibility.
+
+> **Historical note.** This document previously described
+> `src/instrumentation.ts → Sentry.init`. That was never true: `register()` was
+> an empty function, no adapter was ever registered, and
+> `next.config.ts` set `removeConsole: true` in production — which stripped the
+> console fallback as well. Production reported nothing at all. Both are fixed;
+> `removeConsole` now excludes `error` and `warn`.
 
 ## Architecture
 
 ```
-src/lib/error-tracking.ts    → Core module (captureException, captureMessage, captureApiError)
-src/instrumentation.ts       → Next.js server initialization (Sentry.init)
+src/lib/error-tracking.ts    → Core module (captureException, captureMessage,
+                               captureApiError, registerErrorTrackingAdapter)
+src/instrumentation.ts       → Next.js server init; installs the default
+                               console adapter (swap for Sentry.init here)
 src/components/*ErrorBoundary → Client-side error boundaries → captureException
 src/app/api/**               → API routes → captureApiError
 ```

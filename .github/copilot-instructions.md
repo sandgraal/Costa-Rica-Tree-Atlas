@@ -37,10 +37,11 @@ Do NOT maintain a separate handoff document. Git history and PR descriptions are
 
 ### Required Branch Naming Convention
 
-- Feature: `feature/description` (e.g., `feature/add-comparison-guides`)
-- Fix: `fix/description` (e.g., `fix/broken-link`)
-- Content: `content/description` (e.g., `content/new-species`)
-- Docs: `docs/description` (e.g., `docs/update-readme`)
+See the canonical list in [`CLAUDE.md`](../CLAUDE.md) ("Hard rules" #1).
+
+This section used to carry its own list that overlapped but did not match —
+it included `content/` and omitted `claude/`, so the two documents each
+described a prefix the other rejected.
 
 ### Example Workflow
 

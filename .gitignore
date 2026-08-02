@@ -63,3 +63,20 @@ next-env.d.ts
 # Agent session state (local, not for sharing)
 .claude/sessions/
 .claude/logs/
+
+# Generated audit/report artifacts.
+#
+# These were tracked: lighthouse-report.json (920 KB) and
+# lighthouse-report-mobile.json (891 KB) were manual drops last touched
+# 2026-03-01; audit-report.md (107 KB) is written by
+# .github/workflows/weekly-image-quality.yml and was committed by
+# create-pull-request sweeping the working tree; audit-content-report.md
+# reported 133 trees when the corpus had 180. ~1.9 MB of stale output that read
+# as current.
+#
+# reports/ stays TRACKED on purpose — scripts/CLAUDE.md rule 3 relies on state
+# files there for idempotent checkpointing.
+/lighthouse-report.json
+/lighthouse-report-mobile.json
+/audit-report.md
+/audit-content-report.md

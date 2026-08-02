@@ -245,9 +245,9 @@ When implementing authentication features, ensure:
 
 ## Related Documentation
 
-- [SECURITY.md](../SECURITY.md) - Comprehensive security measures
-- [SECURITY_SETUP.md](./SECURITY_SETUP.md) - Security scanning setup
-- [i18n Instructions](../.github/instructions/i18n.instructions.md) - Internationalization patterns
+- [SECURITY.md](../../../SECURITY.md) - Comprehensive security measures
+- [SECURITY_SETUP.md](../../SECURITY_SETUP.md) - Security scanning setup
+- [i18n Instructions](../../../.github/instructions/i18n.instructions.md) - Internationalization patterns
 
 ## References
 

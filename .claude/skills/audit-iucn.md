@@ -22,7 +22,7 @@ Use when iterating quickly or when offline.
 ## Full audit (with external checks)
 
 ```bash
-node scripts/audit-factual-accuracy.mjs --max-api=175 --write=reports/factual-audit.full.json
+node scripts/audit-factual-accuracy.mjs --max-api=200 --write=reports/factual-audit.full.json
 node scripts/generate-factual-remediation-queue.mjs
 ```
 
@@ -99,7 +99,7 @@ Always document the rationale in the commit message.
 Re-run the audit:
 
 ```bash
-node scripts/audit-factual-accuracy.mjs --max-api=175 --write=reports/factual-audit.full.json
+node scripts/audit-factual-accuracy.mjs --max-api=200 --write=reports/factual-audit.full.json
 node scripts/generate-factual-remediation-queue.mjs
 ```
 

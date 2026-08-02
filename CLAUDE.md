@@ -47,17 +47,19 @@ PR descriptions are the handoff mechanism.
 - **Content:** Contentlayer2 over MDX in `content/` (trees / glossary /
   comparisons / oral-histories)
 - **i18n:** `next-intl`, locale-prefixed routes under `src/app/[locale]/`,
-  1,979 translation keys mirrored EN/ES in `messages/`
+  2,149 translation keys mirrored EN/ES in `messages/`
 - **DB:** Prisma + Neon serverless Postgres (users, contributions,
   ImageProposals, audit logs)
 - **State:** Zustand for client state
 - **Images:** Sharp + Cloudinary for user uploads; iNaturalist-sourced
   static images for the canonical species set
 - **Rate limiting:** Upstash Redis on public API endpoints
-- **Tests:** Vitest (47+ test files); Playwright is not in use
-- **CI:** `.github/workflows/` — content-build-tests, lighthouse-ci,
-  security (CodeQL + Dependabot + TruffleHog), validate-images,
-  weekly-image-quality
+- **Tests:** Vitest (58 test files: 49 in `tests/`, the rest colocated in `src/`); Playwright is not in use
+- **CI:** `.github/workflows/` — content-build-tests (the merge gate: full
+  Vitest suite, fact audit, ES parity, type-check, build), security (CodeQL +
+  ESLint-security + TruffleHog + license check), validate-images,
+  weekly-image-quality, content-fact-audit-weekly, update-metrics,
+  lighthouse-ci (manual dispatch only, by design), close_stale_prs
 - **Deployment:** Vercel
 
 ---
@@ -95,8 +97,9 @@ PR descriptions are the handoff mechanism.
 ## Hard rules — never do these
 
 1. **Never push directly to main.** Always feature branch → PR → review → merge.
-   Branch naming: `feature/...`, `fix/...`, `docs/...`, `claude/...` (for
-   AI-driven branches).
+   Branch naming (this list is canonical — other guides point here rather
+   than restating it): `feature/...`, `fix/...`, `content/...`, `docs/...`,
+   `chore/...`, `claude/...` (AI-driven branches).
 2. **Never commit secrets.** `.env.local` is gitignored; never echo tokens
    in shell output that lands in commits.
 3. **Never delete content without backup.** Tree MDX files are load-bearing;
@@ -139,7 +142,8 @@ documented SOPs you can invoke for repetitive operations:
 - `audit-iucn` — run the factual audit and present the remediation queue
 - `remediate-tree` — guided single-tree remediation (frontmatter,
   visible copy in both locales, citations, tests)
-- `propose-image` — guided image proposal with attribution check
+- `backfill-canonical-ids` — populate POWO/WFO/IPNI/GBIF identifiers
+- `export-dwca` — build the Darwin Core Archive from the corpus
 
 Subagents live in [.claude/agents/](.claude/agents/):
 

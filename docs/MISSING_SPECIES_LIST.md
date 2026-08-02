@@ -1,7 +1,7 @@
 # Missing Species — Expansion List
 
 **Last Updated:** 2026-07-04
-**Current Species Count:** 175 documented, target 250 (Deep-250, see
+**Current Species Count:** 180 documented, target 250 (Deep-250, see
 [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) lane L3)
 **This rebuild:** ~68 unique, individually-verified candidates across the 8
 ecoregions defined in [`ECOREGIONS.md`](ECOREGIONS.md), plus a proposed 9th

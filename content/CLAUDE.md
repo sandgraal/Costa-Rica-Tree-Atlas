@@ -5,7 +5,7 @@ first for the project-level rules.
 
 ## What lives here
 
-- `trees/en/` and `trees/es/` — 175 mirrored MDX files per locale (one per
+- `trees/en/` and `trees/es/` — 180 mirrored MDX files per locale (one per
   species). Schema in [../contentlayer.config.ts](../contentlayer.config.ts).
 - `glossary/en/` and `glossary/es/` — 150 mirrored terms per locale.
 - `comparisons/en/` and `comparisons/es/` — 20 mirrored species-comparison

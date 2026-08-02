@@ -52,7 +52,7 @@ jobs:
           fetch-depth: 0
 
       - name: TruffleHog Secret Scan
-        uses: trufflesecurity/trufflehog@main
+        uses: trufflesecurity/trufflehog@v3.90.10
         with:
           path: ./
           base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || '' }}
@@ -60,13 +60,18 @@ jobs:
           extra_args: --only-verified
 
   # ──────────────────────────────────────────────
-  # HEAVY JOBS — schedule + manual only (skip PRs)
+  # ANALYSIS JOBS
+  #
+  # These were gated `if: github.event_name != 'pull_request'`, i.e. they ran on
+  # schedule and manual dispatch only. docs/IMPLEMENTATION_PLAN.md's own risk
+  # table records that this pairing — a required status check that never runs on
+  # PRs — silently blocked the merge of #755. A security check that cannot see a
+  # pull request is not a gate; it is a report you read after the fact.
   # ──────────────────────────────────────────────
 
   # CodeQL Analysis - Static Application Security Testing (SAST)
   codeql:
     name: CodeQL Analysis
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -94,7 +99,6 @@ jobs:
   # ESLint Security - Check for security anti-patterns
   eslint-security:
     name: ESLint Security Rules
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -108,7 +112,6 @@ jobs:
   # License Compliance - Check dependency licenses
   license-check:
     name: License Compliance
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

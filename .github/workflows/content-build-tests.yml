@@ -40,23 +40,30 @@ jobs:
         run: npm run contentlayer
         continue-on-error: false
 
-      - name: Run content validation tests
-        run: npm run test:run -- tests/content-validation.test.ts
-
-      - name: Run MDX component tests
-        run: npm run test:run -- tests/mdx-components.test.tsx
-
-      - name: Validate tree MDX component registry
-        run: npm run test:run -- tests/tree-mdx-component-registry.test.ts
-
-      - name: Run route-level regression tests
-        run: npm run test:run -- tests/route-regression.test.ts
+      # Runs the WHOLE suite, not four named files.
+      #
+      # This step used to invoke exactly four test files by name. Everything
+      # else — all of tests/security/ (including the EXIF GPS strip guard that
+      # protects protected-species locations from poaching disclosure), all of
+      # tests/api/, tests/lib/, tests/theme/ and i18n-parity — never ran on a
+      # pull request, despite tests/CLAUDE.md stating "Tests run in
+      # content-build-tests.yml on every PR". Two test files were in fact
+      # failing on main under that arrangement.
+      - name: Run test suite
+        run: npm run test:run
 
       - name: Run factual accuracy audit (local checks)
         run: npm run content:fact-audit -- --skip-external
 
       - name: Check ES depth parity (80% floor)
         run: npm run content:es-parity-check
+
+      # Fails the PR when the plan's dashboard no longer matches the corpus.
+      # The scheduled update-metrics workflow silently no-op'd for months while
+      # every doc drifted from 175 species to 180; a gate on the PR is what
+      # actually catches that.
+      - name: Check implementation-plan metrics are current
+        run: node scripts/update-implementation-metrics.mjs --check
 
       - name: Type check
         run: npm run type-check

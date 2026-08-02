@@ -1,19 +1,19 @@
 # Safety Information System
 
 **Last Updated:** 2026-02-12  
-**Status:** ✅ Complete - All 154 species have comprehensive safety data (EN+ES)  
+**Status:** ✅ Complete - All 180 species have comprehensive safety data (EN+ES)  
 **Implementation:** Schema complete, components exist, integration verification recommended
 
 ## Overview
 
 The Costa Rica Tree Atlas includes a comprehensive safety information system to prevent harm to users, children, pets, and property. This system addresses a critical gap in tree documentation by providing detailed warnings about toxic, hazardous, and dangerous tree species.
 
-**Current Coverage:** All 154 species in the atlas have toxicity fields in their frontmatter (100% coverage). Safety data is researched and documented in both English and Spanish.
+**Current Coverage:** All 180 species in the atlas have toxicity fields in their frontmatter (100% coverage). Safety data is researched and documented in both English and Spanish.
 
 **Implementation Status:**
 
 - ✅ Schema defined in `contentlayer.config.ts` (100% complete)
-- ✅ All safety fields added to all 154 tree MDX files (100% coverage)
+- ✅ All safety fields added to all 180 tree MDX files per locale (100% coverage)
 - ✅ Safety components created (`SafetyCard`, `SafetyBadge`, `SafetyWarning`, `SafetyIcon`, `SafetyDisclaimer`)
 - ✅ Translations in `messages/en.json` and `messages/es.json`
 - ⚠️ Component integration status: Components imported in tree detail page but usage in rendering needs verification
@@ -195,7 +195,7 @@ When adding safety information, use authoritative sources:
 ## Completed Enhancements
 
 ✅ **Critical Species Documentation**: Manchineel (_Hippomane mancinella_) and Yellow Oleander (_Thevetia peruviana_) now documented
-✅ **All 154 species** have safety frontmatter fields
+✅ **All 180 species** have safety frontmatter fields
 ✅ **Safety components** created and ready for integration
 
 ## Future Enhancements
@@ -252,7 +252,7 @@ Planned improvements include:
 
 **Content:**
 
-- ✅ **All 154 tree MDX files** in `content/trees/en/` and `content/trees/es/` have `toxicityLevel` field
+- ✅ **All 180 tree MDX files per locale** in `content/trees/en/` and `content/trees/es/` have `toxicityLevel` field
 - ✅ **100% coverage** - Every species has safety assessment
 
 ### Build & Deployment

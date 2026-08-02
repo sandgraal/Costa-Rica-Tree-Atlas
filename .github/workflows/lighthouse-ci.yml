@@ -51,8 +51,25 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const results = ${{ steps.lighthouse.outputs.manifest }};
-            const links = ${{ steps.lighthouse.outputs.links }};
+            // Interpolated as JSON STRINGS, then parsed.
+            //
+            // These were spliced straight into the JS source:
+            //   const results = ${{ steps.lighthouse.outputs.manifest }};
+            // When the Lighthouse step fails or is skipped the output is empty,
+            // producing `const results = ;` — a SyntaxError. Because this step
+            // is `if: always()`, it ran precisely in the failure case it broke
+            // on, replacing the real error with a confusing script crash.
+            const parseOutput = (raw) => {
+              if (!raw) return null;
+              try {
+                return JSON.parse(raw);
+              } catch {
+                return null;
+              }
+            };
+
+            const results = parseOutput(${{ toJSON(steps.lighthouse.outputs.manifest) }});
+            const links = parseOutput(${{ toJSON(steps.lighthouse.outputs.links) }});
 
             if (!results || results.length === 0) {
               core.summary.addRaw('No Lighthouse results found.');

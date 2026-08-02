@@ -13,7 +13,7 @@ Each ecoregion section has three parts:
    of established Costa Rican biogeography (Holdridge life-zone system,
    which originated in Costa Rica and is the standard reference).
 2. **Current coverage** — an _approximate_ count of how many of the current
-   175 species touch this ecoregion, computed from the `distribution`
+   180 species touch this ecoregion, computed from the `distribution`
    (province list) and `elevation` frontmatter fields already in each
    tree's MDX. **This is a heuristic, not a rigorous classification** — a
    species tagged `puntarenas` could be a Central Pacific lowland tree or
@@ -33,7 +33,7 @@ Each ecoregion section has three parts:
 (roughly December–April), Holdridge Tropical Dry Forest life zone.
 Deciduous canopy in dry season is the defining visual signature.
 
-**Current coverage:** 104 of 175 species (59%) list `guanacaste` in their
+**Current coverage:** 105 of 180 species (58%) list `guanacaste` in their
 `distribution` field — but most of these are broad-range species that also
 occur elsewhere, not dry-forest specialists. This is the weakest signal in
 the dataset; a real dry-forest-endemic count would be much smaller.
@@ -61,11 +61,11 @@ for full verification notes per candidate.
 year-round rainfall with no pronounced dry season, Holdridge Tropical Wet
 Forest / Premontane Wet Forest transition.
 
-**Current coverage:** 97 of 175 species (55%) list `limon` and/or reach no
+**Current coverage:** 156 of 180 species (87%) list `limon` and/or reach no
 higher than ~1200m — again a broad heuristic, not a precise count of
 Caribbean-lowland specialists.
 
-**Curation priority: MEDIUM.** Well-represented among the existing 175
+**Curation priority: MEDIUM.** Well-represented among the existing 180
 (this is historically the best-studied region), but see the
 research-agent findings folded into `MISSING_SPECIES_LIST.md` for specific
 gap candidates once that research completes.
@@ -76,7 +76,7 @@ gap candidates once that research completes.
 Quepos/Manuel Antonio, extending toward the Osa Peninsula's wetter
 transition), Holdridge Tropical Moist/Wet Forest.
 
-**Current coverage:** 117 of 175 species (67%) list `puntarenas` and/or
+**Current coverage:** 171 of 180 species (95%) list `puntarenas` and/or
 reach no higher than ~1200m — the highest raw touch-count of any region,
 but `puntarenas` is Costa Rica's largest and most ecologically varied
 province (it spans dry-forest-adjacent zones near the Nicoya Gulf all the
@@ -92,7 +92,7 @@ the research pass's specific candidates, not this province-level count.
 Talamanca mountain ranges — the transition zone between lowland forest and
 true cloud/montane forest.
 
-**Current coverage:** 155 of 175 species (89%) have an elevation range
+**Current coverage:** 150 of 180 species (83%) have an elevation range
 overlapping 700–1500m. This is the _least_ useful count in this document —
 almost every species with a broad elevation tolerance touches this band by
 definition, since it sits in the middle of Costa Rica's elevation range.
@@ -108,12 +108,17 @@ the priority can be assessed with confidence).
 on the Talamanca and Central Volcanic ranges — Costa Rica's coolest,
 mossiest forest type, home to the resplendent quetzal's preferred habitat.
 
-**Current coverage: ZERO species with a minimum elevation ≥2000m.** Only
-one Fagaceae (oak family) species exists in the current 175 at all:
-`roble-encino` (1500–3500m range — it touches this zone but isn't an
-exclusive highland specialist). 23 species have elevation ranges that
-_reach_ 2000m+ at their upper bound (e.g., `arrayan`, `cipres`, `lorito`,
-`quina`), but none are documented as highland specialists.
+**Current coverage: 1 species with a minimum elevation ≥2000m** —
+`roble-de-altura`. 4 Fagaceae (oak family) species are
+now documented: `chicalaba`, `roble-corrugata`, `roble-de-altura`, `roble-encino`.
+A further 25 species have elevation ranges that _reach_ 2000m+ at their
+upper bound without being highland specialists.
+
+> Superseded note: this section previously read "ZERO species with a minimum
+> elevation ≥2000m … only one Fagaceae species exists in the current 175".
+> That was true when written; the montane-oak curation batch has since landed
+> (`chicalaba`, `roble-corrugata`, `roble-de-altura`). The gap is
+> narrowing, not closed.
 
 **Curation priority: CRITICAL — the most under-covered ecoregion in the
 current corpus, confirmed by hard data, not just the plan's prior
@@ -156,7 +161,7 @@ here rather than deciding unilaterally.
 extremely high epiphyte load. Costa Rica's most internationally
 recognized forest type (Monteverde Cloud Forest Reserve).
 
-**Current coverage:** 86 of 175 species (49%) have an elevation range
+**Current coverage:** 84 of 180 species (47%) have an elevation range
 overlapping 1200–2000m.
 
 **Curation priority: MEDIUM-HIGH.** Better represented than montane oak
