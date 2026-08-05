@@ -17,15 +17,27 @@
   --primary-light: #4f8b66;
   --primary-dark: #1f4a35;
 
-  /* Secondary - Earth Brown */
-  --secondary: #9b6a3c;
+  /* Secondary - Earth Brown. Serves two roles, and darkening helps both:
+     - as text (`text-secondary` badges/labels): #906036 clears WCAG AA
+       (4.88:1) on the cream background, where the prior #9b6a3c reached
+       only 4.23:1;
+     - as a solid fill (`bg-secondary` — e.g. buttons in PageErrorBoundary
+       and CertificateClient, the `bg-secondary/90` TreeCard badge), always
+       paired with white `text-secondary-foreground` text, so the darker
+       fill only raises that contrast (white-on-secondary 4.65:1 -> 5.37:1).
+     Contrast-positive in both roles; no surface regresses. */
+  --secondary: #906036;
   --secondary-light: #c18758;
   --secondary-dark: #6f4524;
 
-  /* Accent - Tropical Gold */
+  /* Accent - Tropical Gold.
+     --accent-dark is the light-mode text token (`text-accent-dark`, paired
+     with `dark:text-accent`) for Uses pills, callout headings, and stat
+     labels. #8a6412 clears AA (4.88:1) on cream; the prior #b7831e was only
+     3.04:1. Text-only token — safe to darken. */
   --accent: #e1b447;
   --accent-light: #f2d07b;
-  --accent-dark: #b7831e;
+  --accent-dark: #8a6412;
 
   /* Neutral tones */
   --muted: #eef1e6;

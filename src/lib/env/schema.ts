@@ -20,6 +20,8 @@ const serverSchema = z.object({
 
   // Database
   DATABASE_URL: z.string().url().optional(),
+  // Session-mode connection, used only by `prisma migrate`.
+  DIRECT_URL: z.string().url().optional(),
 
   // NextAuth
   NEXTAUTH_SECRET: z.string().min(32).optional(),
