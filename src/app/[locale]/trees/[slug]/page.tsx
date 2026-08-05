@@ -493,8 +493,7 @@ export default async function TreePage({ params }: Props) {
               <IndigenousNames
                 names={
                   (tree as Record<string, unknown>).indigenousNames as
-                    | IndigenousName[]
-                    | undefined
+                    IndigenousName[] | undefined
                 }
               />
 
@@ -794,7 +793,7 @@ function RelatedTrees({
                     />
                   )}
                   {tree.family === currentTree.family && (
-                    <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-primary/80 text-white text-xs rounded">
+                    <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-primary text-white text-xs rounded shadow-sm">
                       {labels.sameFamily}
                     </div>
                   )}

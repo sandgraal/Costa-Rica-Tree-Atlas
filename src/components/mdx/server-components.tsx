@@ -959,7 +959,7 @@ export function INaturalistEmbed({
         <div className="grid grid-cols-2 gap-4 mb-4">
           {observationCount !== undefined && (
             <div className="bg-card rounded-lg p-3 text-center">
-              <p className="text-2xl font-bold text-[#74AC00]">
+              <p className="text-2xl font-bold text-[#4e7300] dark:text-[#8fc44a]">
                 {observationCount.toLocaleString(normalizedLocale)}
               </p>
               <p className="text-xs text-muted-foreground">{t.observations}</p>
@@ -967,7 +967,7 @@ export function INaturalistEmbed({
           )}
           {observerCount !== undefined && (
             <div className="bg-card rounded-lg p-3 text-center">
-              <p className="text-2xl font-bold text-[#74AC00]">
+              <p className="text-2xl font-bold text-[#4e7300] dark:text-[#8fc44a]">
                 {observerCount.toLocaleString(normalizedLocale)}
               </p>
               <p className="text-xs text-muted-foreground">{t.observers}</p>
@@ -991,7 +991,7 @@ export function INaturalistEmbed({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${t.viewSpeciesPage} — ${taxonName}`}
-          className="inline-flex items-center gap-2 px-3 py-2 bg-[#74AC00] text-white rounded-lg text-sm font-medium hover:bg-[#5a8a00] transition-colors"
+          className="inline-flex items-center gap-2 px-3 py-2 bg-[#4e7300] text-white rounded-lg text-sm font-medium hover:bg-[#3f5f00] transition-colors"
         >
           {t.viewSpeciesPage}
         </a>
