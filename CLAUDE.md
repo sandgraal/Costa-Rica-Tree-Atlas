@@ -13,7 +13,7 @@ point back here.
 
 This is a bilingual (Spanish-first, English-parity) atlas of Costa Rican
 trees, built as a Next.js 16 + TypeScript + Tailwind 4 application with
-Contentlayer-managed MDX content and a Prisma + Neon Postgres backing
+Contentlayer-managed MDX content and a Prisma + Supabase Postgres backing
 store for users, contributions, and admin workflows. The product is in the
 **Authority Atlas** phase per [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md):
 we are closing factual integrity, growing to 250 species at encyclopedic
@@ -48,8 +48,11 @@ PR descriptions are the handoff mechanism.
   comparisons / oral-histories)
 - **i18n:** `next-intl`, locale-prefixed routes under `src/app/[locale]/`,
   2,149 translation keys mirrored EN/ES in `messages/`
-- **DB:** Prisma + Neon serverless Postgres (users, contributions,
-  ImageProposals, audit logs)
+- **DB:** Prisma + **Supabase** Postgres (users, contributions, ImageProposals,
+  audit logs). Two connection strings: `DATABASE_URL` (transaction pooler, port 6543) for the app, `DIRECT_URL` (session, 5432) for `prisma migrate`. Columns
+  are snake_case and enforced by `tests/schema-drift.test.ts`. The Supabase Data
+  API (PostgREST/pg_graphql) is deliberately locked down — see
+  [docs/DATABASE.md](docs/DATABASE.md).
 - **State:** Zustand for client state
 - **Images:** Sharp + Cloudinary for user uploads. Species imagery is split:
   the **featured** image per species is a local file under

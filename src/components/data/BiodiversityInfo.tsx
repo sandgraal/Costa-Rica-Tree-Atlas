@@ -319,6 +319,27 @@ function ConservationStatus({
 // Conservation Scale Component
 // ============================================================================
 
+/**
+ * Choose black or white label text for a solid background color, picking
+ * whichever gives higher WCAG contrast. Replaces a hardcoded category list
+ * that gave white text to the EN orange (#FC7F3F), a legible-failing 2.55:1.
+ */
+function bestTextColor(hex: string): "#000000" | "#ffffff" {
+  const c = hex.replace("#", "");
+  if (c.length < 6) return "#000000";
+  const channel = (v: number) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  };
+  const r = channel(parseInt(c.slice(0, 2), 16));
+  const g = channel(parseInt(c.slice(2, 4), 16));
+  const b = channel(parseInt(c.slice(4, 6), 16));
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  const contrastWhite = 1.05 / (L + 0.05);
+  const contrastBlack = (L + 0.05) / 0.05;
+  return contrastWhite >= contrastBlack ? "#ffffff" : "#000000";
+}
+
 function ConservationScale({
   currentCategory,
   locale,
@@ -352,8 +373,7 @@ function ConservationScale({
             }`}
             style={{
               backgroundColor: def.color,
-              color:
-                cat === "VU" || cat === "NT" || cat === "LC" ? "#000" : "#fff",
+              color: bestTextColor(def.color),
             }}
             title={getConservationLabel(cat, locale)}
           >
@@ -409,13 +429,18 @@ function ExternalLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full transition-colors"
+      className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full transition-colors text-foreground"
       style={{
+        // Subtle brand-tinted background (dynamic per source); the label uses
+        // the foreground token so it stays AA-readable in both themes, since
+        // the raw brand greens (#74ac00 / #4e9a06) only reach ~2.4:1 as text
+        // on the light muted surface. Brand identity lives in the colored icon.
         backgroundColor: `${color}1a`,
-        color: color,
       }}
     >
-      {icon}
+      <span className="inline-flex" style={{ color }}>
+        {icon}
+      </span>
       {label}
       <ExternalLinkIcon className="h-3 w-3" />
     </a>
