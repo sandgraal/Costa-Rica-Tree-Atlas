@@ -7,23 +7,24 @@
 
 import { hash } from "argon2";
 import { PrismaClient } from "@prisma/client";
-import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { randomBytes } from "crypto";
 import * as readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";
 import { loadEnv } from "./lib/env.mjs";
 
 const env = { ...loadEnv(), ...process.env };
-const connectionString =
-  env.NEON_DATABASE_URL_UNPOOLED ?? env.NEON_DATABASE_URL ?? env.DATABASE_URL;
+// Admin scripts run interactively, not in a serverless function, so prefer the
+// direct (session-mode) connection when one is configured.
+const connectionString = env.DIRECT_URL ?? env.DATABASE_URL;
 if (!connectionString) {
   console.error(
-    "No database URL found in environment or .env files. Set NEON_DATABASE_URL or DATABASE_URL."
+    "No database URL found in environment or .env files. Set DATABASE_URL (and optionally DIRECT_URL)."
   );
   process.exit(1);
 }
 
-const adapter = new PrismaNeon({ connectionString });
+const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 const rl = readline.createInterface({ input, output });
 

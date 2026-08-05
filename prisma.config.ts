@@ -11,8 +11,10 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    // Use the unpooled (direct) connection for migrations.
-    // Falls back to DATABASE_URL for local/non-Neon environments.
-    url: process.env.NEON_DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL,
+    // Migrations need a SESSION-mode connection, so they use DIRECT_URL
+    // (Supabase port 5432) rather than the transaction-mode pooler on 6543
+    // that the app runs against. Advisory locks and DDL do not survive a
+    // transaction pooler.
+    url: process.env.DIRECT_URL ?? process.env.DATABASE_URL,
   },
 });
