@@ -17,15 +17,23 @@
   --primary-light: #4f8b66;
   --primary-dark: #1f4a35;
 
-  /* Secondary - Earth Brown */
-  --secondary: #9b6a3c;
+  /* Secondary - Earth Brown.
+     --secondary doubles as a text color (`text-secondary` badges/labels);
+     #906036 clears WCAG AA (4.88:1) on the cream background, where the prior
+     #9b6a3c only reached 4.23:1. Used only as text and faint /10 tints in
+     light mode — never a solid fill — so darkening is contrast-only. */
+  --secondary: #906036;
   --secondary-light: #c18758;
   --secondary-dark: #6f4524;
 
-  /* Accent - Tropical Gold */
+  /* Accent - Tropical Gold.
+     --accent-dark is the light-mode text token (`text-accent-dark`, paired
+     with `dark:text-accent`) for Uses pills, callout headings, and stat
+     labels. #8a6412 clears AA (4.88:1) on cream; the prior #b7831e was only
+     3.04:1. Text-only token — safe to darken. */
   --accent: #e1b447;
   --accent-light: #f2d07b;
-  --accent-dark: #b7831e;
+  --accent-dark: #8a6412;
 
   /* Neutral tones */
   --muted: #eef1e6;
