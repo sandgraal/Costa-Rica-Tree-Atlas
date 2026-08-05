@@ -8,7 +8,7 @@ Some dependencies are:
 
 - **Only available at runtime** (e.g., Prisma Client requires a database URL)
 - **Heavy and should be lazy-loaded** (e.g., Fuse.js, html2canvas)
-- **Environment-specific** (e.g., `@prisma/adapter-neon` for serverless, TOTP for MFA)
+- **Environment-specific** (e.g., `@prisma/adapter-pg` for Postgres, TOTP for MFA)
 
 Importing these statically would cause build failures or unnecessary bundle bloat.
 
@@ -24,7 +24,7 @@ let prisma: any;
 
 try {
   const { PrismaClient } = require("@prisma/client");
-  const { PrismaNeon } = require("@prisma/adapter-neon");
+  const { PrismaPg } = require("@prisma/adapter-pg");
   // ... configure and create client
   prisma = new PrismaClient({ adapter });
 } catch (error) {
