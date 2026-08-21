@@ -16,7 +16,7 @@
     "postcss": "8.5.25",
     "uuid": "11.1.1",
     "sharp": "$sharp",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "scripts": {
     "dev": "next dev",
@@ -119,14 +119,14 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.1",
+    "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.0.1",
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.101.4",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
-    "@types/google.maps": "^3.65.3",
+    "@types/google.maps": "^3.65.5",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26",
     "@types/pg": "^8.21.0",
@@ -135,20 +135,20 @@
     "@types/react-dom": "^19",
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/ui": "^4.1.10",
-    "eslint": "^10.8.0",
-    "eslint-config-next": "16.2.12",
+    "eslint": "^10.8.1",
+    "eslint-config-next": "16.3.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-no-secrets": "^2.3.3",
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-security": "^4.0.1",
     "husky": "^9.1.7",
-    "jsdom": "^30.0.0",
-    "lint-staged": "^17.2.0",
+    "jsdom": "^30.0.1",
+    "lint-staged": "^17.3.0",
     "prettier": "^3.9.6",
-    "prisma": "^7.9.0",
+    "prisma": "^7.9.1",
     "tailwindcss": "^4",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vitest": "^4.1.10"
   }
 }
