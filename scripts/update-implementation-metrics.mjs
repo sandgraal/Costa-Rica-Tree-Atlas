@@ -195,9 +195,14 @@ if (CHECK_ONLY) {
   // unpadded. A raw string compare therefore reported "stale" on a file whose
   // numbers were identical, which would have made the CI gate cry wolf on every
   // run — the same way its predecessor cried "success" on every run.
+  //
+  // The "Last auto-updated" date is excluded too. It is stamped with today's
+  // date, so comparing it made the check fail on every day after the dashboard
+  // was regenerated, even when every number still matched.
   const normalize = (text) =>
     text
       .split("\n")
+      .filter((line) => !line.startsWith("**Last auto-updated:**"))
       .map((line) =>
         line
           .replace(/\s+/g, " ")

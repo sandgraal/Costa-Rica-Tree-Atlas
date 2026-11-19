@@ -148,6 +148,10 @@ export default function GlobalError({
               </button>
               <button
                 onClick={() => {
+                  // Full reload on purpose: global-error replaces the root
+                  // layout after a crash, so the client router may be the
+                  // thing that failed. A hard navigation rebuilds the app.
+                  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
                   window.location.href = homeHref;
                 }}
                 style={{

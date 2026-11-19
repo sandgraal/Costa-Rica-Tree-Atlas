@@ -29,6 +29,16 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
+// Mock serverEnv so mfa-crypto can load without a real MFA_ENCRYPTION_KEY.
+// vi.mock is hoisted to the top of the file regardless of where it is written;
+// it used to sit inside the "MFA Crypto Utilities" test, which hid that it
+// applies to every test here. Vitest 5 rejects the nested form.
+vi.mock("@/lib/env/schema", () => ({
+  serverEnv: {
+    MFA_ENCRYPTION_KEY: "0".repeat(64),
+  },
+}));
+
 // Import after mocking
 import prisma from "@/lib/prisma";
 import { hashBackupCodes } from "@/lib/auth/backup-codes";
@@ -371,15 +381,7 @@ describe("Authentication System", () => {
 
   describe("MFA Crypto Utilities", () => {
     it("should encrypt and decrypt TOTP secret", async () => {
-      // This test requires MFA_ENCRYPTION_KEY environment variable
-      // In a real test environment, this would be mocked or set
-      // Mock the serverEnv
-      vi.mock("@/lib/env/schema", () => ({
-        serverEnv: {
-          MFA_ENCRYPTION_KEY: "0".repeat(64),
-        },
-      }));
-
+      // serverEnv (MFA_ENCRYPTION_KEY) is mocked at module top level.
       // The actual encrypt/decrypt would need the env var set
       // This is a structural test to ensure the module loads
       const mfaCrypto = await import("@/lib/auth/mfa-crypto");

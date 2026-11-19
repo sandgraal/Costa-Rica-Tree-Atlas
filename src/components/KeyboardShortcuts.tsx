@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { validateSlug } from "@/lib/validation";
 
 export function KeyboardShortcuts() {
   const [isOpen, setIsOpen] = useState(false);
   const locale = useLocale();
+  const router = useRouter();
   const t = useTranslations("keyboardShortcuts");
 
   const shortcuts = {
@@ -48,15 +50,15 @@ export function KeyboardShortcuts() {
         switch (e.key.toLowerCase()) {
           case "h":
             e.preventDefault();
-            window.location.href = `/${locale}`;
+            router.push(`/${locale}`);
             break;
           case "t":
             e.preventDefault();
-            window.location.href = `/${locale}/trees`;
+            router.push(`/${locale}/trees`);
             break;
           case "f":
             e.preventDefault();
-            window.location.href = `/${locale}/favorites`;
+            router.push(`/${locale}/favorites`);
             break;
           case "r":
             e.preventDefault();
@@ -68,17 +70,17 @@ export function KeyboardShortcuts() {
                   // Validate slug before redirecting
                   const validation = validateSlug(data.slug);
                   if (validation.valid) {
-                    window.location.href = `/${locale}/trees/${validation.sanitized}`;
+                    router.push(`/${locale}/trees/${validation.sanitized}`);
                   } else {
                     // If slug validation fails, log error and fallback to trees page
                     console.warn("Invalid slug from API:", data.slug);
-                    window.location.href = `/${locale}/trees`;
+                    router.push(`/${locale}/trees`);
                   }
                 }
               })
               .catch(() => {
                 // Fallback to trees page if API fails
-                window.location.href = `/${locale}/trees`;
+                router.push(`/${locale}/trees`);
               });
             break;
           case "d":
@@ -89,7 +91,7 @@ export function KeyboardShortcuts() {
         }
       }
     },
-    [isOpen, locale]
+    [isOpen, locale, router]
   );
 
   useEffect(() => {

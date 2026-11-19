@@ -11,15 +11,7 @@ interface ConservationPageProps {
 }
 
 type ConservationStatus =
-  | "EX"
-  | "EW"
-  | "CR"
-  | "EN"
-  | "VU"
-  | "NT"
-  | "LC"
-  | "DD"
-  | "NE";
+  "EX" | "EW" | "CR" | "EN" | "VU" | "NT" | "LC" | "DD" | "NE";
 
 const STATUS_COLORS: Record<ConservationStatus, string> = {
   EX: "bg-black text-white",
@@ -257,7 +249,6 @@ export default async function ConservationPage({
                       const localizedLabel = isKnownStatus
                         ? statusLabels[status as ConservationStatus]?.[locale]
                         : undefined;
-                      const fallbackLabel = t("unknownStatus");
 
                       return (
                         <span

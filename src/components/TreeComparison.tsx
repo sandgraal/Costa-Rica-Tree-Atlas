@@ -37,20 +37,15 @@ interface TreeComparisonProps {
   };
 }
 
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 function formatTranslationTemplate(
   template: string,
   replacements: Record<string, string | number>
 ) {
+  // Literal placeholder match: no RegExp built from input, and the function
+  // form keeps `$&`-style sequences in a value from being interpreted.
   return Object.entries(replacements).reduce(
     (formatted, [key, value]) =>
-      formatted.replace(
-        new RegExp(`\\{${escapeRegExp(key)}\\}`, "g"),
-        String(value)
-      ),
+      formatted.replaceAll(`{${key}}`, () => String(value)),
     template
   );
 }
