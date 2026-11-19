@@ -54,7 +54,10 @@ export default function AdminLoginPage() {
         }
         setLoading(false);
       } else if (result?.ok) {
-        // Success - redirect using Next.js router for proper navigation
+        // Full reload on purpose: the session cookie was just set, and a hard
+        // navigation makes the proxy and next-auth's client session state
+        // read it fresh instead of reusing pre-login state.
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
         window.location.href = `/${getLocale()}/admin/images`;
       } else {
         setError(t("loginFailed"));
