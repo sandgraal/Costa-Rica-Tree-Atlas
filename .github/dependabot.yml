@@ -31,6 +31,13 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "react"
         update-types: ["version-update:semver-major"]
+      # typescript-eslint (via eslint-config-next) declares
+      # typescript ">=4.8.4 <6.1.0" and refuses to load against TS 7, which
+      # crashes `eslint .` and the ESLint Security Rules job. Dependabot bumped
+      # the 6.0.3 pin to 7.0.2 twice (#817, then the September dev group).
+      # Lift this when typescript-eslint ships TS 7 support (typescript-eslint#10940).
+      - dependency-name: "typescript"
+        versions: [">=6.1.0"]
 
   # Enable updates for GitHub Actions
   - package-ecosystem: "github-actions"

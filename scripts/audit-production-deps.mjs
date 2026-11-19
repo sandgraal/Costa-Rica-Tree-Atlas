@@ -31,21 +31,21 @@ import { execFileSync } from "node:child_process";
  */
 const ACCEPTED = [
   {
-    name: "@opentelemetry/sdk-trace-node",
+    name: "zod",
+    // Scope: ONLY the zod 3.x copy nested under contentlayer. The app's own
+    // zod (node_modules/zod, used to validate request input) is NOT covered —
+    // an advisory there still fails the gate.
+    paths: ["node_modules/@contentlayer2/source-files/node_modules/zod"],
     reason:
-      "Transitive via contentlayer2 -> @contentlayer2/utils -> " +
-      "@effect-ts/otel-sdk-trace-node. Contentlayer's tracing runs only during " +
-      "`contentlayer2 build`, which turns MDX into .contentlayer/ at build " +
-      "time; it is never on a request path. Forcing >=2.8.0 was tried and " +
-      "breaks the build (ERR_MODULE_NOT_FOUND — the 2.x API is incompatible " +
-      "with @effect-ts/otel-sdk-trace-node), and contentlayer2 has published " +
-      "no compatible release.",
-    reviewBy: "2026-11-01",
-  },
-  {
-    name: "@opentelemetry/propagator-jaeger",
-    reason: "Same dependency chain and same reasoning as sdk-trace-node above.",
-    reviewBy: "2026-11-01",
+      "GHSA-mrhx-c7xc-m3w5 (memory exhaustion when validating an oversized " +
+      "array from an attacker). The flagged copy is zod 3.25.x pinned by " +
+      "@contentlayer2/source-files, which only validates frontmatter of MDX " +
+      "files committed to this repo, during `contentlayer2 build`. No " +
+      "untrusted input reaches it and it is not on a request path. There is " +
+      "no patched 3.x release, and forcing zod 4 breaks contentlayer " +
+      "(it calls the single-argument z.record() removed in v4). " +
+      "contentlayer2 0.5.8 is the latest release.",
+    reviewBy: "2027-02-19",
   },
 ];
 
@@ -75,19 +75,53 @@ const blocking = [];
 const waived = [];
 const expired = [];
 
+const SEVERITY_RANK = { info: 0, low: 1, moderate: 2, high: 3, critical: 4 };
+
+/**
+ * Severity of the advisories filed against this package itself.
+ *
+ * npm audit also lists every package that merely depends on a vulnerable one
+ * (its `via` entries are package-name strings). Those are not separate
+ * findings: the root package is always present in the report and is evaluated
+ * on its own. Counting the dependents too meant one nested advisory surfaced as
+ * five "blocking" packages, and a scoped exception could never clear them.
+ */
+function ownSeverity(vuln) {
+  let worst = null;
+  for (const via of vuln.via ?? []) {
+    if (typeof via === "string") continue;
+    if (worst === null || SEVERITY_RANK[via.severity] > SEVERITY_RANK[worst]) {
+      worst = via.severity;
+    }
+  }
+  return worst;
+}
+
+function exceptionCovers(exception, vuln) {
+  if (!exception) return false;
+  if (!exception.paths) return true;
+  const allowed = new Set(exception.paths);
+  return (vuln.nodes ?? []).every((node) => allowed.has(node));
+}
+
+const flagged = new Set();
+
 for (const [name, vuln] of Object.entries(vulnerabilities)) {
-  if (!BLOCKING.has(vuln.severity)) continue;
+  const severity = ownSeverity(vuln);
+  if (!severity || !BLOCKING.has(severity)) continue;
+  flagged.add(name);
 
   const exception = accepted.get(name);
-  if (!exception) {
-    blocking.push({ name, severity: vuln.severity });
+  if (!exceptionCovers(exception, vuln)) {
+    const where = (vuln.nodes ?? []).join(", ");
+    blocking.push({ name, severity, where });
     continue;
   }
 
   if (exception.reviewBy < today) {
-    expired.push({ name, severity: vuln.severity, ...exception });
+    expired.push({ name, severity, ...exception });
   } else {
-    waived.push({ name, severity: vuln.severity, ...exception });
+    waived.push({ name, severity, ...exception });
   }
 }
 
@@ -113,15 +147,14 @@ for (const entry of expired) {
 for (const entry of blocking) {
   console.error(
     `❌ ${entry.severity} advisory in production dependency "${entry.name}" ` +
-      `with no accepted exception.`
+      `with no accepted exception (${entry.where}).`
   );
 }
 
 // Stale exceptions are also worth flagging — an entry for a package that is no
 // longer vulnerable is dead weight that makes the list less trustworthy.
 for (const entry of ACCEPTED) {
-  const vuln = vulnerabilities[entry.name];
-  if (!vuln || !BLOCKING.has(vuln.severity)) {
+  if (!flagged.has(entry.name)) {
     console.log(
       `🧹 stale exception: ${entry.name} is no longer flagged — remove it ` +
         `from scripts/audit-production-deps.mjs.`
